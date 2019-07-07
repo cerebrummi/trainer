@@ -1,0 +1,1071 @@
+package vokabeltrainer.panels;
+
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.border.TitledBorder;
+import javax.swing.text.JTextComponent;
+
+import de.copepod.tonion.TotemLayout;
+import de.copepod.tonion.TrainLayout;
+import vokabeltrainer.BackgroundPanelTiled;
+import vokabeltrainer.Command;
+import vokabeltrainer.KeyboardHebrew;
+import vokabeltrainer.Settings;
+import vokabeltrainer.TextImage;
+import vokabeltrainer.common.Common;
+import vokabeltrainer.common.Data;
+import vokabeltrainer.common.Main;
+import vokabeltrainer.common.SaveExpressions;
+import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.panels.dialogs.EmptyNotification;
+import vokabeltrainer.panels.dialogs.TrashCanDialog;
+import vokabeltrainer.panels.list.StringList;
+import vokabeltrainer.panels.list.StringListSelectionModel;
+import vokabeltrainer.table.ExpressionTable;
+import vokabeltrainer.table.ExpressionTableModel;
+import vokabeltrainer.table.list.editor.ExpressionEditor;
+import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.ExpressionKind;
+import vokabeltrainer.types.Language;
+import vokabeltrainer.types.SearchType;
+
+public class DictionaryPanel extends BackgroundPanelTiled
+{
+   enum Caller
+   {
+      CHAPTER_TAB(
+            0),
+      SEARCH_TAB(
+            1),
+      KIND_TAB(
+            2),
+      NEW_TAB(
+            3),
+      SELECTED_TAB(
+            4);
+
+      private int index;
+      private static Caller tabShowing;
+
+      Caller(int index)
+      {
+         this.index = index;
+      }
+
+      int getIndex()
+      {
+         return index;
+      }
+   }
+
+   private static final long serialVersionUID = 9130321171813967337L;
+
+   private ButtonGroup languageGroup;
+   private ButtonGroup searchTypeGroup;
+   private ButtonGroup searchTypeGroupHebrew;
+   private ButtonGroup searchTypeGroupGerman;
+   private List<JRadioButton> radioButtons;
+   private ExpressionTable table;
+   private JPanel tablePanel;
+   private JButton saveButton;
+   private JButton newWordButton;
+   private JButton copyAllSelectedButton;
+   private JButton copyInTableSelectedButton;
+   private JButton copyTableButton;
+   private JButton selectAllInTableButton;
+   private JButton clearInTableSelectedButton;
+   private JButton clearAllSelectedButton;
+   private JButton deleteAllSelectedButton;
+   private JButton deleteInTableSelectedButton;
+   private JButton wasteBinButton;
+   private JButton shredderButton;
+   private JTabbedPane tabbedPane;
+   private StringList chapterList;
+   private JPanel chapterPanel;
+   private JPanel swapPanel;
+   private CardLayout cardLayout;
+   private JTextField searchPhraseHebrew;
+   private JTextField searchPhraseGerman;
+   private JButton hebrewSearchButton;
+   private JButton germanSearchButton;
+   private JButton tableInfoButton;
+
+   private JPanel horizontalLanguagePanel;
+
+   public DictionaryPanel()
+   {
+      setLayout(new TrainLayout(this, 15));
+
+      JPanel vertical = new JPanel();
+      vertical.setLayout(new TotemLayout(vertical, 15));
+      vertical.setOpaque(false);
+
+      horizontalLanguagePanel = new JPanel();
+      horizontalLanguagePanel
+            .setLayout(new TrainLayout(horizontalLanguagePanel, 15));
+      horizontalLanguagePanel.setOpaque(false);
+      horizontalLanguagePanel
+            .setBorder(BorderFactory.createEmptyBorder(15, 15, 0, 15));
+      languageGroup = new ButtonGroup();
+      initLanguageButtonGroup(languageGroup);
+      Enumeration<AbstractButton> enumeration1 = languageGroup.getElements();
+      while (enumeration1.hasMoreElements())
+      {
+         AbstractButton button = enumeration1.nextElement();
+         button.addActionListener(event -> {
+            cardLayout.show(swapPanel, button.getActionCommand());
+            decideOnTable(button.getActionCommand());
+         });
+         horizontalLanguagePanel.add(button);
+      }
+      JPanel filler = new JPanel();
+      filler.setOpaque(false);
+      filler.setMinimumSize(new Dimension(50, 15));
+      filler.setMaximumSize(new Dimension(100, 30));
+      horizontalLanguagePanel.add(filler);
+      tableInfoButton = new JButton(
+            new ImageIcon(ApplicationImages.getInfoButtonIcon()));
+      tableInfoButton.setBackground(new Color(0, 0, 0, 0));
+      tableInfoButton.setMinimumSize(new Dimension(14, 32));
+      tableInfoButton.setMaximumSize(new Dimension(14, 32));
+      tableInfoButton.setMargin(new Insets(0, 0, 0, 0));
+      horizontalLanguagePanel.add(tableInfoButton);
+
+      tabbedPane = new JTabbedPane();
+      tabbedPane.setOpaque(false);
+      tabbedPane.setFont(Main.getGermanFont(16F));
+      tabbedPane.addTab("Lektionen", initChaptersTab());
+      tabbedPane.addTab("Suche", initSearchTab());
+      tabbedPane.addTab("Wortarten", initExpressionKindsTab());
+      tabbedPane.addTab("Neue", initNewWordsTab());
+      tabbedPane.addTab("Auswahl", initSelectedTab());
+
+      vertical.add(horizontalLanguagePanel);
+      vertical.add(tabbedPane);
+
+      tablePanel = new JPanel(new BorderLayout());
+      tablePanel.setMinimumSize(new Dimension(420, 507));
+      tablePanel.setMaximumSize(new Dimension(513, 507));
+      tablePanel.setOpaque(false);
+
+      add(vertical);
+      add(tablePanel);
+      add(initServicePanel());
+
+      Caller.tabShowing = Caller.CHAPTER_TAB;
+      loadChapters();
+
+      initController();
+   }
+
+   private Component initSearchTab()
+   {
+      JPanel vertical1 = new JPanel();
+      vertical1.setLayout(new TotemLayout(vertical1));
+      vertical1.setOpaque(false);
+
+      JPanel germanSearch = new JPanel();
+      germanSearch.setLayout(new TotemLayout(germanSearch, 5));
+      germanSearch.setBackground(Color.WHITE);
+      searchPhraseGerman = new JTextField();
+      searchPhraseGerman
+            .setBorder(new TitledBorder("Wort auf Deutsch eingeben"));
+      germanSearch.add(searchPhraseGerman);
+      searchPhraseGerman.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 70));
+      searchPhraseGerman.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 70));
+
+      JPanel filler = new JPanel();
+      filler.setOpaque(false);
+      filler.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 100));
+      filler.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 270));
+      germanSearch.add(filler);
+
+      searchTypeGroupGerman = new ButtonGroup();
+      germanSearch.add(initSearchRadioButtonPanel(searchTypeGroupGerman));
+
+      germanSearchButton = new JButton("Suche starten");
+      germanSearchButton.setFont(Settings.getButtonFont());
+      germanSearchButton.setIcon(new ImageIcon(ApplicationImages.getSearch()));
+      JPanel wrapper = new JPanel(new FlowLayout());
+      wrapper.setOpaque(false);
+      wrapper.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
+      wrapper.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 50));
+      wrapper.add(germanSearchButton);
+      germanSearch.add(wrapper);
+
+      JPanel hebrewSearch = new JPanel();
+      hebrewSearch.setLayout(new TotemLayout(hebrewSearch, 5));
+      hebrewSearch.setBackground(Color.WHITE);
+      searchPhraseHebrew = new JTextField();
+      searchPhraseHebrew
+            .setBorder(new TitledBorder("Wort auf Hebräisch eingeben"));
+
+      KeyboardHebrew keyboard = new KeyboardHebrew(searchPhraseHebrew,
+            new ArrayList<JTextComponent>(),70);
+ 
+      hebrewSearch.add(keyboard);
+
+      JPanel filler2 = new JPanel();
+      filler2.setOpaque(false);
+      filler2.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 5));
+      filler2.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 14));
+      hebrewSearch.add(filler2);
+
+      searchTypeGroupHebrew = new ButtonGroup();
+      hebrewSearch.add(initSearchRadioButtonPanel(searchTypeGroupHebrew));
+
+      hebrewSearchButton = new JButton("Suche starten");
+      hebrewSearchButton.setFont(Settings.getButtonFont());
+      hebrewSearchButton.setIcon(new ImageIcon(ApplicationImages.getSearch()));
+      JPanel wrapper1 = new JPanel(new FlowLayout());
+      wrapper1.setOpaque(false);
+      wrapper1.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
+      wrapper1.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 50));
+      wrapper1.add(hebrewSearchButton);
+      hebrewSearch.add(wrapper1);
+
+      cardLayout = new CardLayout();
+      swapPanel = new JPanel(cardLayout);
+      swapPanel.setOpaque(false);
+      swapPanel.setPreferredSize(new Dimension(Settings.getKeyboardWidth(), 420));
+      swapPanel.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 420));
+      swapPanel.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 420));
+      swapPanel.add(Language.GERMAN.name(), germanSearch);
+      swapPanel.add(Language.HEBREW.name(), hebrewSearch);
+
+      vertical1.add(swapPanel);
+
+      return vertical1;
+   }
+
+   private JPanel initSearchRadioButtonPanel(ButtonGroup group)
+   {
+      JPanel vertical = new JPanel();
+      vertical.setLayout(new TotemLayout(vertical, 5));
+      vertical.setOpaque(false);
+
+      for (SearchType type : SearchType.values())
+      {
+         JRadioButton radioButton = new JRadioButton(type.toString());
+         radioButton.setActionCommand(type.name());
+         if (SearchType.WORDSTART.equals(type))
+         {
+            radioButton.setSelected(true);
+         }
+         radioButton.setFont(Settings.getButtonFont());
+         JPanel wrapper = new JPanel(new FlowLayout());
+         wrapper.setOpaque(false);
+         wrapper.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 25));
+         wrapper.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 25));
+         wrapper.add(radioButton);
+         vertical.add(wrapper);
+         group.add(radioButton);
+      }
+
+      return vertical;
+   }
+
+   private Component initSelectedTab()
+   {
+      JPanel vertical1 = new JPanel();
+      vertical1.setOpaque(false);
+      return vertical1;
+   }
+
+   private Component initNewWordsTab()
+   {
+      JPanel vertical1 = new JPanel();
+      vertical1.setOpaque(false);
+      return vertical1;
+   }
+
+   private JPanel initChaptersTab()
+   {
+      chapterPanel = new JPanel();
+      chapterPanel.setLayout(new TotemLayout(chapterPanel));
+      chapterPanel.setOpaque(false);
+      return chapterPanel;
+   }
+
+   private JPanel initExpressionKindsTab()
+   {
+      JPanel vertical1 = new JPanel();
+      vertical1.setOpaque(false);
+      vertical1.setLayout(new TotemLayout(vertical1, 15));
+
+      radioButtons = new ArrayList<>();
+      initRadioButtonPanel(vertical1);
+
+      return vertical1;
+   }
+
+   private Component initServicePanel()
+   {
+      JPanel vertical = new JPanel();
+      vertical.setOpaque(false);
+      vertical.setLayout(new TotemLayout(vertical));
+
+      Font buttonFont = Main.getGermanFont(16F);
+
+      copyAllSelectedButton = new JButton("Gesamtauswahl kopieren");
+      copyAllSelectedButton.setFont(buttonFont);
+      copyAllSelectedButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
+
+      copyInTableSelectedButton = new JButton("Tabellenauswahl kopieren");
+      copyInTableSelectedButton.setFont(buttonFont);
+      copyInTableSelectedButton
+            .setIcon(new ImageIcon(ApplicationImages.getCopy()));
+
+      copyTableButton = new JButton("Tabelle kopieren");
+      copyTableButton.setFont(buttonFont);
+      copyTableButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
+
+      selectAllInTableButton = new JButton("Tabelle auswählen");
+      selectAllInTableButton.setFont(buttonFont);
+      selectAllInTableButton
+            .setIcon(new ImageIcon(ApplicationImages.getSelect()));
+
+      clearAllSelectedButton = new JButton("Gesamtauswahl aufheben");
+      clearAllSelectedButton.setFont(buttonFont);
+      clearAllSelectedButton
+            .setIcon(new ImageIcon(ApplicationImages.getClear()));
+
+      clearInTableSelectedButton = new JButton("Tabellenauswahl aufheben");
+      clearInTableSelectedButton.setFont(buttonFont);
+      clearInTableSelectedButton
+            .setIcon(new ImageIcon(ApplicationImages.getClear()));
+
+      newWordButton = new JButton("neues Wort");
+      newWordButton.setFont(buttonFont);
+      newWordButton.setMinimumSize(new Dimension(200, 40));
+      newWordButton.setMaximumSize(new Dimension(400, 40));
+      newWordButton.setIcon(new ImageIcon(ApplicationImages.getNewWord()));
+
+      saveButton = new JButton("Änderungen speichern");
+      saveButton.setFont(buttonFont);
+      saveButton.setMinimumSize(new Dimension(200, 40));
+      saveButton.setMaximumSize(new Dimension(400, 40));
+      saveButton.setIcon(new ImageIcon(ApplicationImages.getSaveWord()));
+
+      deleteInTableSelectedButton = new JButton("Tabellenauswahl löschen");
+      deleteInTableSelectedButton.setFont(buttonFont);
+      deleteInTableSelectedButton
+            .setIcon(new ImageIcon(ApplicationImages.getDeleteWord()));
+
+      deleteAllSelectedButton = new JButton("Gesamtauswahl löschen");
+      deleteAllSelectedButton.setFont(buttonFont);
+      deleteAllSelectedButton
+            .setIcon(new ImageIcon(ApplicationImages.getDeleteWord()));
+
+      JPanel copyPanel = new JPanel();
+      copyPanel.setLayout(new TotemLayout(copyPanel, 10));
+      copyPanel.setBackground(Settings.getLightBlue());
+      copyPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
+            new Color(215, 231, 247)));
+      copyPanel.add(copyInTableSelectedButton);
+      copyPanel.add(copyTableButton);
+      copyPanel.add(copyAllSelectedButton);
+
+      JPanel clearPanel = new JPanel();
+      clearPanel.setLayout(new TotemLayout(clearPanel, 10));
+      clearPanel.setBackground(Color.WHITE);
+      clearPanel.setBorder(
+            BorderFactory.createMatteBorder(5, 3, 5, 3, Color.WHITE));
+      clearPanel.add(selectAllInTableButton);
+      clearPanel.add(clearInTableSelectedButton);
+      clearPanel.add(clearAllSelectedButton);
+
+      JPanel newPanel = new JPanel();
+      newPanel.setLayout(new TotemLayout(newPanel, 10));
+      newPanel.setBackground(Settings.getGreen());
+      newPanel.setBorder(
+            BorderFactory.createMatteBorder(5, 3, 5, 3, Settings.getGreen()));
+      newPanel.add(newWordButton);
+
+      JPanel deletePanel = new JPanel();
+      deletePanel.setLayout(new TotemLayout(deletePanel, 10));
+      deletePanel.setBackground(new Color(169, 136, 103));
+      deletePanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
+            new Color(169, 136, 103)));
+      deletePanel.add(deleteInTableSelectedButton);
+      deletePanel.add(deleteAllSelectedButton);
+
+      JPanel savePanel = new JPanel();
+      savePanel.setLayout(new TotemLayout(savePanel, 10));
+      savePanel.setBackground(Color.ORANGE);
+      savePanel.setBorder(
+            BorderFactory.createMatteBorder(5, 3, 5, 3, Color.ORANGE));
+      savePanel.add(saveButton);
+
+      JPanel trashPanel = new JPanel(new BorderLayout());
+      trashPanel.setOpaque(false);
+      JPanel trashIconPanel = new JPanel(new FlowLayout());
+      trashIconPanel.setOpaque(false);
+
+      wasteBinButton = new JButton(
+            new ImageIcon(ApplicationImages.getTrashcan()));
+      shredderButton = new JButton(
+            new ImageIcon(ApplicationImages.getShredder()));
+      trashIconPanel.add(wasteBinButton);
+      trashIconPanel.add(shredderButton);
+
+      trashPanel.add(trashIconPanel);
+
+      vertical.add(copyPanel);
+      vertical.add(clearPanel);
+      vertical.add(newPanel);
+      vertical.add(deletePanel);
+      vertical.add(savePanel);
+      vertical.add(trashPanel);
+      return vertical;
+   }
+
+   private void initController()
+   {
+      saveButton.addActionListener(event -> {
+         SwingUtilities.invokeLater(new Runnable()
+         {
+            @Override
+            public void run()
+            {
+               if (new SaveExpressions().save())
+               {
+                  if (Caller.CHAPTER_TAB.equals(Caller.tabShowing))
+                  {
+                     loadChapters();
+                  }
+
+                  decideOnTable(Command.SAVE.name());
+               }
+
+            }
+         });
+
+      });
+
+      tabbedPane.addChangeListener(event -> {
+         if (tabbedPane.getSelectedIndex() == Caller.KIND_TAB.getIndex())
+         {
+            Caller.tabShowing = Caller.KIND_TAB;
+            clearTable();
+            this.tablePanel.validate();
+            this.tablePanel.repaint();
+         }
+         else if (tabbedPane.getSelectedIndex() == Caller.CHAPTER_TAB
+               .getIndex())
+         {
+            Caller.tabShowing = Caller.CHAPTER_TAB;
+            this.searchTypeGroup.clearSelection();
+            clearTable();
+            this.tablePanel.validate();
+            this.tablePanel.repaint();
+            loadChapters();
+         }
+         else if (tabbedPane.getSelectedIndex() == Caller.NEW_TAB.getIndex())
+         {
+            Caller.tabShowing = Caller.NEW_TAB;
+            this.searchTypeGroup.clearSelection();
+            clearTable();
+            decideOnTable(Command.NEW_TAB.name());
+         }
+         else if (tabbedPane.getSelectedIndex() == Caller.SELECTED_TAB
+               .getIndex())
+         {
+            Caller.tabShowing = Caller.SELECTED_TAB;
+            this.searchTypeGroup.clearSelection();
+            clearTable();
+            decideOnTable(Command.SELECTED_TAB.name());
+         }
+         else if (tabbedPane.getSelectedIndex() == Caller.SEARCH_TAB.getIndex())
+         {
+            Caller.tabShowing = Caller.SEARCH_TAB;
+            this.searchTypeGroup.clearSelection();
+            clearTable();
+            this.tablePanel.validate();
+            this.tablePanel.repaint();
+         }
+      });
+
+      newWordButton.addActionListener(event -> {
+         ExpressionEditor editor = new ExpressionEditor();
+         editor.setExpression(new Expression(true));
+         editor.setLocationRelativeTo(null);
+         editor.setVisible(true);
+         if (editor.isSave())
+         {
+            Expression expression = editor.getExpression();
+            Data.putExpressionInNewMap(expression.getUuid(), expression);
+            tabbedPane.setSelectedIndex(Caller.NEW_TAB.getIndex());
+            decideOnTable(Command.NEW.name());
+         }
+      });
+
+      copyAllSelectedButton.addActionListener(event -> {
+         StringSelection stringSelection = new StringSelection(
+               Data.getAllSelectedExpressionsAsString(Language.valueOf(
+                     languageGroup.getSelection().getActionCommand())));
+         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+         clipboard.setContents(stringSelection, null);
+      });
+
+      copyTableButton.addActionListener(event -> {
+         if (table != null)
+         {
+            StringSelection stringSelection = new StringSelection(
+                  table.getTableDataToString());
+            Clipboard clipboard = Toolkit.getDefaultToolkit()
+                  .getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+         }
+      });
+
+      copyInTableSelectedButton.addActionListener(event -> {
+         if (table != null)
+         {
+            StringSelection stringSelection = new StringSelection(
+                  table.getSelectedTableDataToString());
+            Clipboard clipboard = Toolkit.getDefaultToolkit()
+                  .getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+         }
+      });
+
+      clearInTableSelectedButton.addActionListener(event -> {
+         if (table != null)
+         {
+            table.clearTableDataSelection();
+            this.decideOnTable(Command.CLEAR.name());
+
+         }
+      });
+
+      clearAllSelectedButton.addActionListener(event -> {
+         Data.clearAllSelectedExpressions();
+         if (table != null)
+         {
+            this.decideOnTable(Command.CLEAR.name());
+         }
+      });
+
+      deleteAllSelectedButton.addActionListener(event -> {
+
+         List<Expression> list = Data.getAllSelectedExpressions();
+
+         if (list.isEmpty())
+         {
+            nothingWasSelectedForDeletion(2);
+            return;
+         }
+         if (askForDeletionConfirmation(list.size()) == 0)
+         {
+            Data.deleteExpressions(list);
+         }
+         if (Caller.CHAPTER_TAB.equals(Caller.tabShowing))
+         {
+            loadChapters();
+         }
+         decideOnTable(Command.DELETE.name());
+      });
+
+      deleteInTableSelectedButton.addActionListener(event -> {
+         if (table != null)
+         {
+            List<Expression> list = table.getSelectedExpressions();
+            if (list.isEmpty())
+            {
+               nothingWasSelectedForDeletion(2);
+               return;
+            }
+            if (askForDeletionConfirmation(list.size()) == 0)
+            {
+               Data.deleteExpressions(list);
+            }
+            if (Caller.CHAPTER_TAB.equals(Caller.tabShowing))
+            {
+               loadChapters();
+            }
+            decideOnTable(Command.DELETE.name());
+         }
+         else
+         {
+            nothingWasSelectedForDeletion(2);
+         }
+      });
+
+      wasteBinButton.addActionListener(event -> {
+         TrashCanDialog dialog = new TrashCanDialog(Language
+               .valueOf(languageGroup.getSelection().getActionCommand()));
+         dialog.setLocationRelativeTo(null);
+         dialog.setVisible(true);
+         if (dialog.isRestore())
+         {
+            tabbedPane.setSelectedIndex(Caller.NEW_TAB.getIndex());
+            decideOnTable(Command.NEW.name());
+         }
+      });
+
+      selectAllInTableButton.addActionListener(event -> {
+         if (table != null)
+         {
+            table.selectAllExpressions();
+            decideOnTable(Command.SELECT_ALL.name());
+         }
+      });
+
+      shredderButton.addActionListener(event -> {
+         if (askForShredderConfirmation() == 0)
+         {
+            Data.shredderDeletedExpressions();
+         }
+      });
+
+      hebrewSearchButton.addActionListener(event -> {
+         clearTable();
+         decideOnTable(Command.SEARCH_HEBREW.name());
+      });
+
+      germanSearchButton.addActionListener(event -> {
+         clearTable();
+         decideOnTable(Command.SEARCH_GERMAN.name());
+      });
+
+      tableInfoButton.addActionListener(event -> {
+         JOptionPane.showMessageDialog(horizontalLanguagePanel, "",
+               "Cerebrummi©", JOptionPane.INFORMATION_MESSAGE,
+               new ImageIcon(TextImage.make("Tabelle",
+                     "einmal klicken markiert einen Eintrag",
+                     "zweimal klicken wählt einen Eintrag aus",
+                     "Enter drücken öffnet den markierten Eintrag")));
+      });
+
+      tableInfoButton.addMouseListener(new MouseListener()
+      {
+
+         @Override
+         public void mouseClicked(MouseEvent e)
+         {
+
+         }
+
+         @Override
+         public void mousePressed(MouseEvent e)
+         {
+
+         }
+
+         @Override
+         public void mouseReleased(MouseEvent e)
+         {
+
+         }
+
+         @Override
+         public void mouseEntered(MouseEvent e)
+         {
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+         }
+
+         @Override
+         public void mouseExited(MouseEvent e)
+         {
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+         }
+
+      });
+   }
+
+   private int askForShredderConfirmation()
+   {
+      return JOptionPane.showConfirmDialog(Common.getjFrame(),
+            "Wollen Sie wirklich den Papierkorb leeren?", "Frage",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+   }
+
+   private int askForDeletionConfirmation(int number)
+   {
+      String message;
+      if (number == 1)
+      {
+         message = "Wollen Sie wirklich einen Eintrag löschen?";
+      }
+      else
+      {
+         message = "Wollen Sie wirklich " + number + " Einträge löschen?";
+      }
+
+      return JOptionPane.showConfirmDialog(Common.getjFrame(), message, "Frage",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+   }
+
+   private void nothingWasSelectedForDeletion(int number)
+   {
+      String message;
+      if (number == 1)
+      {
+         message = "Es wurde kein Eintrag\nzum Löschen ausgewählt.";
+      }
+      else
+      {
+         message = "Es wurden keine Einträge\nzum Löschen ausgewählt.";
+      }
+
+      JOptionPane.showMessageDialog(Common.getjFrame(), message, "Nachricht",
+            JOptionPane.CLOSED_OPTION);
+
+   }
+
+   private void loadChapters()
+   {
+      chapterPanel.removeAll();
+      StringListSelectionModel listSelectionModel = new StringListSelectionModel();
+      listSelectionModel.addListSelectionListener(event -> {
+         decideOnTable(chapterList.getSelectedValue());
+      });
+      chapterList = new StringList(listSelectionModel);
+      chapterList.setListData(Data.getChapterArray());
+      chapterList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
+
+      JScrollPane scroller = new JScrollPane(chapterList);
+      scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 500));
+      scroller.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 500));
+      scroller.setBorder(BorderFactory.createEmptyBorder());
+
+      chapterPanel.add(scroller, BorderLayout.CENTER);
+      chapterPanel.validate();
+      chapterPanel.repaint();
+   }
+
+   private void decideOnTable(String actionCommand)
+   {
+      ExpressionTableModel tableModel = null;
+
+      switch (Caller.tabShowing)
+      {
+
+      case KIND_TAB:
+         if (Command.SEARCH_GERMAN.name().equals(actionCommand)
+               || Command.SEARCH_HEBREW.name().equals(actionCommand)
+               || Command.SELECTED_TAB.name().equals(actionCommand)
+               || Command.NEW_TAB.name().equals(actionCommand)
+               || Command.NEW.name().equals(actionCommand))
+         {
+            throw new IllegalStateException(
+                  "DictoraryPanel: decideOnTable, KIND_TAB " + actionCommand);
+         }
+         if (Language.GERMAN.name().equals(actionCommand)
+               || Language.HEBREW.name().equals(actionCommand)
+               || Command.DELETE.name().equals(actionCommand)
+               || Command.CLEAR.name().equals(actionCommand)
+               || Command.SELECT_ALL.name().equals(actionCommand)
+               || Command.SAVE.name().equals(actionCommand))
+         {
+            if (searchTypeGroup.getSelection() == null)
+            {
+               clearTable();
+               tablePanel.validate();
+               tablePanel.repaint();
+               return;
+            }
+         }
+         // chapter: not on kind tab
+         // ExpressionKind
+         clearTable();
+         tableModel = Data.findTranslations(
+               Language
+                     .valueOf(languageGroup.getSelection().getActionCommand()),
+               null,
+               ExpressionKind.valueOf(
+                     searchTypeGroup.getSelection().getActionCommand()),
+               null, null, null);
+         break;
+
+      case CHAPTER_TAB:
+         if (Command.SEARCH_GERMAN.name().equals(actionCommand)
+               || Command.SEARCH_HEBREW.name().equals(actionCommand)
+               || Command.SELECTED_TAB.name().equals(actionCommand)
+               || Command.NEW_TAB.name().equals(actionCommand)
+               || Command.NEW.name().equals(actionCommand))
+         {
+            throw new IllegalStateException(
+                  "DictoraryPanel: decideOnTable, CHAPTER_TAB "
+                        + actionCommand);
+         }
+
+         if (Language.GERMAN.name().equals(actionCommand)
+               || Language.HEBREW.name().equals(actionCommand)
+               || Command.DELETE.name().equals(actionCommand)
+               || Command.CLEAR.name().equals(actionCommand)
+               || Command.SELECT_ALL.name().equals(actionCommand)
+               || Command.SAVE.name().equals(actionCommand))
+         {
+            clearTable();
+            if (chapterList.getSelectedIndex() == -1)
+            {
+               tablePanel.validate();
+               tablePanel.repaint();
+               return;
+            }
+         }
+         // chapter
+         // ExpressionKind: not on chapter tab
+         clearTable();
+         tableModel = Data.findTranslations(
+               Language
+                     .valueOf(languageGroup.getSelection().getActionCommand()),
+               null, null, null, chapterList.getSelectedValue(), null);
+
+         break;
+
+      case NEW_TAB:
+         if (Command.SEARCH_GERMAN.name().equals(actionCommand)
+               || Command.SEARCH_HEBREW.name().equals(actionCommand)
+               || Command.SELECTED_TAB.name().equals(actionCommand))
+         {
+            throw new IllegalStateException(
+                  "DictoraryPanel: decideOnTable, NEW_TAB " + actionCommand);
+         }
+         if (Command.SAVE.name().equals(actionCommand))
+         {
+            clearTable();
+            tablePanel.validate();
+            tablePanel.repaint();
+            return;
+         }
+         if (Language.GERMAN.name().equals(actionCommand)
+               || Language.HEBREW.name().equals(actionCommand)
+               || Command.DELETE.name().equals(actionCommand)
+               || Command.NEW.name().equals(actionCommand)
+               || Command.CLEAR.name().equals(actionCommand)
+               || Command.SELECT_ALL.name().equals(actionCommand)
+               || Command.NEW_TAB.name().equals(actionCommand))
+         {
+            clearTable();
+            tableModel = Data.findTranslationsNewWords(Language
+                  .valueOf(languageGroup.getSelection().getActionCommand()));
+         }
+         // chapter: not on new tab
+         // ExpressionKind: not on new tab
+         break;
+
+      case SELECTED_TAB:
+         if (Command.SEARCH_GERMAN.name().equals(actionCommand)
+               || Command.SEARCH_HEBREW.name().equals(actionCommand)
+               || Command.NEW_TAB.name().equals(actionCommand)
+               || Command.NEW.name().equals(actionCommand))
+         {
+            throw new IllegalStateException(
+                  "DictoraryPanel: decideOnTable, SELECTED_TAB "
+                        + actionCommand);
+         }
+         if (Command.SELECT_ALL.name().equals(actionCommand))
+         {
+            return;
+         }
+         if (Command.DELETE.name().equals(actionCommand)
+               || Command.CLEAR.name().equals(actionCommand)
+               || Command.SAVE.name().equals(actionCommand))
+         {
+            clearTable();
+            tablePanel.validate();
+            tablePanel.repaint();
+            return;
+         }
+         if (Language.GERMAN.name().equals(actionCommand)
+               || Language.HEBREW.name().equals(actionCommand)
+               || Command.SELECTED_TAB.name().equals(actionCommand))
+         {
+            clearTable();
+            tableModel = Data.findTranslations(
+                  Language.valueOf(
+                        languageGroup.getSelection().getActionCommand()),
+                  null, null, null, null, Command.ALL_SELECTED);
+         }
+         break;
+
+      case SEARCH_TAB:
+         if (Command.SELECTED_TAB.name().equals(actionCommand)
+               || Command.NEW_TAB.name().equals(actionCommand)
+               || Command.NEW.name().equals(actionCommand))
+         {
+            throw new IllegalStateException(
+                  "DictoraryPanel: decideOnTable, KIND_TAB " + actionCommand);
+         }
+         if (Language.GERMAN.name().equals(actionCommand)
+               || Language.HEBREW.name().equals(actionCommand)
+               || Command.DELETE.name().equals(actionCommand)
+               || Command.CLEAR.name().equals(actionCommand)
+               || Command.SELECT_ALL.name().equals(actionCommand)
+               || Command.SAVE.name().equals(actionCommand))
+         {
+            clearTable();
+            tablePanel.validate();
+            tablePanel.repaint();
+            return;
+         }
+         if (Command.SEARCH_GERMAN.name().equals(actionCommand))
+         {
+            clearTable();
+            tableModel = Data.findTranslations(
+                  Language.valueOf(
+                        languageGroup.getSelection().getActionCommand()),
+                  searchPhraseGerman.getText().trim(), null,
+                  SearchType.valueOf(searchTypeGroupGerman.getSelection()
+                        .getActionCommand()),
+                  null, null);
+         }
+         if (Command.SEARCH_HEBREW.name().equals(actionCommand))
+         {
+            clearTable();
+            tableModel = Data.findTranslations(
+                  Language.valueOf(
+                        languageGroup.getSelection().getActionCommand()),
+                  searchPhraseHebrew.getText().trim(), null,
+                  SearchType.valueOf(searchTypeGroupHebrew.getSelection()
+                        .getActionCommand()),
+                  null, null);
+         }
+         // chapter: not on search tab
+         // ExpressionKind: not on search tab
+      }
+
+      if (tableModel.getRowCount() == 0)
+      {
+         EmptyNotification.display();
+         tablePanel.validate();
+         tablePanel.repaint();
+         return;
+      }
+
+      doShowTable(tableModel);
+   }
+
+   private void clearTable()
+   {
+      stopTableEditing();
+      tablePanel.removeAll();
+   }
+
+   private void stopTableEditing()
+   {
+      if (table != null && table.isEditing())
+      {
+         table.getCellEditor().stopCellEditing();
+      }
+   }
+
+   private void doShowTable(ExpressionTableModel tableModel)
+   {
+      table = new ExpressionTable(tableModel,
+            Language.valueOf(languageGroup.getSelection().getActionCommand()),
+            true);
+      JScrollPane scrollPane = new JScrollPane(table);
+      scrollPane.setOpaque(false);
+      scrollPane.getViewport().setOpaque(false);
+      scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
+
+      tablePanel.add(scrollPane, BorderLayout.CENTER);
+      tablePanel.validate();
+      tablePanel.repaint();
+   }
+
+   private void initRadioButtonPanel(JPanel vertical1)
+   {
+      searchTypeGroup = new ButtonGroup();
+
+      initSearchButtonGroup(searchTypeGroup);
+
+      JPanel horizontal = new JPanel();
+      horizontal.setLayout(new TrainLayout(horizontal, 15));
+      horizontal.setBackground(Color.WHITE);
+      horizontal.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+      JPanel vertical2 = new JPanel();
+      vertical2.setLayout(new TotemLayout(vertical2, 15));
+      vertical2.setOpaque(false);
+
+      JPanel vertical3 = new JPanel();
+      vertical3.setLayout(new TotemLayout(vertical3, 15));
+      vertical3.setOpaque(false);
+
+      int counter = 0;
+      Enumeration<AbstractButton> enumeration = searchTypeGroup.getElements();
+      while (enumeration.hasMoreElements())
+      {
+         AbstractButton button = enumeration.nextElement();
+         if (counter < 8)
+         {
+            vertical2.add(button);
+            counter++;
+         }
+         else
+         {
+            vertical3.add(button);
+         }
+      }
+
+      horizontal.add(vertical2);
+      horizontal.add(vertical3);
+
+      vertical1.add(horizontal);
+   }
+
+   private void initSearchButtonGroup(ButtonGroup searchTypeGroup)
+   {
+      Font font = Main.getGermanFont(16F);
+      for (ExpressionKind kind : ExpressionKind.getValues())
+      {
+         JRadioButton radioButton = new JRadioButton(kind.toString());
+         radioButton.setActionCommand(kind.name());
+         radioButton.addActionListener(event -> {
+            decideOnTable(kind.name());
+         });
+         radioButton.setFont(font);
+         searchTypeGroup.add(radioButton);
+         radioButtons.add(radioButton);
+      }
+   }
+
+   private void initLanguageButtonGroup(ButtonGroup languageTypeGroup)
+   {
+      Font font = Main.getGermanFont(20F);
+      JRadioButton german = new JRadioButton("Deutsch");
+      german.setActionCommand(Language.GERMAN.name());
+      german.setFont(font);
+      german.setSelected(true);
+      languageTypeGroup.add(german);
+
+      JRadioButton hebrew = new JRadioButton("Hebräisch");
+      hebrew.setActionCommand(Language.HEBREW.name());
+      hebrew.setFont(font);
+      languageTypeGroup.add(hebrew);
+   }
+
+}

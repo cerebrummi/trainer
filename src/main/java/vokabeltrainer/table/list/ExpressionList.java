@@ -1,0 +1,32 @@
+package vokabeltrainer.table.list;
+
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JList;
+import javax.swing.KeyStroke;
+
+import vokabeltrainer.types.Language;
+
+public class ExpressionList extends JList<String>
+{
+
+   private static final long serialVersionUID = -8585511215166225268L;
+
+   public ExpressionList(Language language)
+   {
+      setSelectionModel(new ExpressionListSelectionModel());
+      setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
+      setVisibleRowCount(9);
+      this.setFixedCellHeight(25);
+      getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false),
+            new Object());
+      getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false),
+            new Object());
+      getActionMap().get("clearSelection").setEnabled(true);
+
+      setCellRenderer(new ExpressionListCellRenderer(language));
+   }
+
+}
