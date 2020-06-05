@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
@@ -180,8 +181,27 @@ public class ExpressionEditor extends JDialog
       newSearchwordGerman.setDocument(new GermanDocument(false));
 
       searchwordsJListGerman = new JList<>();
+      searchwordsJListGerman.setCellRenderer(new ListCellRenderer<String>()
+      {
+         @Override
+         public Component getListCellRendererComponent(
+               JList<? extends String> list, String value, int index,
+               boolean isSelected, boolean cellHasFocus)
+         {
+            FocusTextField listComponent = new FocusTextField(value);
+            listComponent.setFont(Main.getGermanFont(16F));
+            if(isSelected)
+            {
+               listComponent.setBackground(Color.WHITE);
+            }
+            else
+            {
+               listComponent.setBackground(Settings.getBackgroundGold());
+            }
+            return listComponent;
+         }
+      });
       searchwordsJListGerman.setFocusable(false);
-      searchwordsJListGerman.setFont(Main.getGermanFont(16F));
       searchwordsJListGerman
             .setBorder(makeBorderBlank(this.searchwordJListGermanTitle));
       searchwordsJListGerman.setBackground(new Color(223, 210, 198));
@@ -210,13 +230,33 @@ public class ExpressionEditor extends JDialog
       this.components.add(newSearchwordHebrew);
 
       searchwordsJListHebrew = new JList<>();
+      searchwordsJListHebrew.setCellRenderer(new ListCellRenderer<String>()
+      {
+         @Override
+         public Component getListCellRendererComponent(
+               JList<? extends String> list, String value, int index,
+               boolean isSelected, boolean cellHasFocus)
+         {
+            FocusTextField listComponent = new FocusTextField(value);
+            listComponent.setFont(hebrewfont);
+            listComponent
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            if(isSelected)
+            {
+               listComponent.setBackground(Color.WHITE);
+            }
+            else
+            {
+               listComponent.setBackground(Settings.getBackgroundGold());
+            }
+            return listComponent;
+         }
+      });
+      searchwordsJListHebrew.setFocusable(false);
       searchwordsJListHebrew.setFixedCellHeight(50);
       searchwordsJListHebrew
             .setBorder(makeBorderBlank(this.searchwordsJListHebrewTitle));
-      searchwordsJListHebrew.setFont(hebrewfont);
-      searchwordsJListHebrew.setBackground(new Color(223, 210, 198));
-      searchwordsJListHebrew
-            .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+      searchwordsJListHebrew.setBackground(Settings.getBackgroundGold());
       searchwordsJListHebrew
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       searchwordsJListHebrew
@@ -229,7 +269,7 @@ public class ExpressionEditor extends JDialog
       deleteSearchwordButtonHebrew
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 40));
 
-      saveButton = new JButton("speichern");
+      saveButton = new JButton("anwenden");
       saveButton.setFont(Main.getGermanFont(16F));
       saveButton.setMinimumSize(new Dimension(120, 40));
       saveButton.setMaximumSize(new Dimension(160, 40));

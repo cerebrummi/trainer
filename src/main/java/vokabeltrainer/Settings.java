@@ -144,6 +144,11 @@ public class Settings
    {
       return new Color(228, 213, 197);
    }
+   
+   public static Color getBackgroundGold()
+   {
+      return new Color(223, 210, 198);
+   }
 
    public static Color getVeryLightGold()
    {

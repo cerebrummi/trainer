@@ -63,7 +63,8 @@ public enum GermanLetter
    z(" 007a"),
    ue(" 00fc"),
    ae(" 00e4"),
-   oe(" 00f6");
+   oe(" 00f6"),
+   sz(" 00DF");
    
    private String code;
    
@@ -82,7 +83,8 @@ public enum GermanLetter
       joiner.add(" 003F"); // ?
       joiner.add(" 0021"); // !
       joiner.add(" 002E"); // .
-      joiner.add(" 0020"); //space
+      joiner.add(" 0020"); // space
+      joiner.add(" 0027"); // '
       joiner.add(" 0028"); // (
       joiner.add(" 0029"); // )
       if(withComma)
