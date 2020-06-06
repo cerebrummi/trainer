@@ -1,3 +1,5 @@
+/target/
+pom.properties
 .metadata
 bin/
 tmp/

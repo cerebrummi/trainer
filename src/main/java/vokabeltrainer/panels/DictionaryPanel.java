@@ -781,11 +781,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
                   "DictoraryPanel: decideOnTable, KIND_TAB " + actionCommand);
          }
          if (Language.GERMAN.name().equals(actionCommand)
-               || Language.HEBREW.name().equals(actionCommand)
-               || Command.DELETE.name().equals(actionCommand)
-               || Command.CLEAR.name().equals(actionCommand)
-               || Command.SELECT_ALL.name().equals(actionCommand)
-               || Command.SAVE.name().equals(actionCommand))
+               || Language.HEBREW.name().equals(actionCommand))
          {
             if (searchTypeGroup.getSelection() == null)
             {
@@ -916,14 +912,10 @@ public class DictionaryPanel extends BackgroundPanelTiled
                || Command.NEW.name().equals(actionCommand))
          {
             throw new IllegalStateException(
-                  "DictoraryPanel: decideOnTable, KIND_TAB " + actionCommand);
+                  "DictoraryPanel: decideOnTable, SEARCH_TAB " + actionCommand);
          }
          if (Language.GERMAN.name().equals(actionCommand)
-               || Language.HEBREW.name().equals(actionCommand)
-               || Command.DELETE.name().equals(actionCommand)
-               || Command.CLEAR.name().equals(actionCommand)
-               || Command.SELECT_ALL.name().equals(actionCommand)
-               || Command.SAVE.name().equals(actionCommand))
+               || Language.HEBREW.name().equals(actionCommand))
          {
             clearTable();
             tablePanel.validate();
@@ -951,6 +943,34 @@ public class DictionaryPanel extends BackgroundPanelTiled
                   SearchType.valueOf(searchTypeGroupHebrew.getSelection()
                         .getActionCommand()),
                   null, null);
+         }
+         if(Command.DELETE.name().equals(actionCommand)
+               || Command.CLEAR.name().equals(actionCommand)
+               || Command.SELECT_ALL.name().equals(actionCommand)
+               || Command.SAVE.name().equals(actionCommand))
+         {
+            if(Language.GERMAN.name().equals(languageGroup.getSelection().getActionCommand()))
+            {
+               clearTable();
+               tableModel = Data.findTranslations(
+                     Language.valueOf(
+                           languageGroup.getSelection().getActionCommand()),
+                     searchPhraseGerman.getText().trim(), null,
+                     SearchType.valueOf(searchTypeGroupGerman.getSelection()
+                           .getActionCommand()),
+                     null, null);
+            }
+            else // Language.HEBREW
+            {
+               clearTable();
+               tableModel = Data.findTranslations(
+                     Language.valueOf(
+                           languageGroup.getSelection().getActionCommand()),
+                     searchPhraseHebrew.getText().trim(), null,
+                     SearchType.valueOf(searchTypeGroupHebrew.getSelection()
+                           .getActionCommand()),
+                     null, null);
+            }
          }
          // chapter: not on search tab
          // ExpressionKind: not on search tab
