@@ -161,7 +161,6 @@ public class KeyboardHebrew extends JPanel
    private Component makeSpaceButton()
    {
       DataButton jButton = new DataButton("\u0020", "\u0020");
-      jButton.setFont(Main.getHebrewKeyboardFont());
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE + 10));
       jButton.setMaximumSize(new Dimension(4 * BUTTON_SIZE, BUTTON_SIZE + 10));
       jButton.addMouseListener(new KeyboardListener(this));
@@ -172,7 +171,6 @@ public class KeyboardHebrew extends JPanel
    {
       DataButton jButton = new DataButton("<html><span style=\"font-family: serif;font-size: 26px;\">" + unicode + "</span></html>",
             unicode);
-//      jButton.setFont(Main.getHebrewKeyboardFont());
       jButton.setToolTipText(tooltip);
       jButton.setMargin(new Insets(0, -5, 3, -5));
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
