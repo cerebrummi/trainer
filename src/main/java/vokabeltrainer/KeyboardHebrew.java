@@ -54,102 +54,87 @@ public class KeyboardHebrew extends JPanel
       row1.setLayout(new TrainLayout(row1, 8));
 
       row1.add(makeButton(HebrewLetter.CHET.getUnicode(),
-            HebrewLetter.CHET.getTranscript(),
-            HebrewLetter.CHET.getHtmlcode()));
+            HebrewLetter.CHET.getTranscript()));
       row1.add(makeButton(HebrewLetter.SSAIN.getUnicode(),
-            HebrewLetter.SSAIN.getTranscript(),
-            HebrewLetter.SSAIN.getHtmlcode()));
+            HebrewLetter.SSAIN.getTranscript()));
       row1.add(makeButton(HebrewLetter.WAW.getUnicode(),
-            HebrewLetter.WAW.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.WAW.getTranscript()));
       row1.add(makeButton(HebrewLetter.HAEI.getUnicode(),
-            HebrewLetter.HAEI.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.HAEI.getTranscript()));
       row1.add(makeButton(HebrewLetter.DALET.getUnicode(),
-            HebrewLetter.DALET.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.DALET.getTranscript()));
       row1.add(makeButton(HebrewLetter.GIMEL.getUnicode(),
-            HebrewLetter.GIMEL.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.GIMEL.getTranscript()));
       row1.add(makeButton(HebrewLetter.WET.getUnicode(),
-            HebrewLetter.WET.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.WET.getTranscript()));
       row1.add(makeButton(HebrewLetter.BET.getUnicode(),
-            HebrewLetter.BET.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.BET.getTranscript()));
       row1.add(makeButton(HebrewLetter.ALEF.getUnicode(),
-            HebrewLetter.ALEF.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.ALEF.getTranscript()));
 
       JPanel row2 = new JPanel();
       row2.setOpaque(false);
       row2.setLayout(new TrainLayout(row2, 8));
 
       row2.add(makeButton(HebrewLetter.NUN.getUnicode(),
-            HebrewLetter.NUN.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.NUN.getTranscript()));
       row2.add(makeButton(HebrewLetter.MEMSSOFIT.getUnicode(),
-            HebrewLetter.MEMSSOFIT.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.MEMSSOFIT.getTranscript()));
       row2.add(makeButton(HebrewLetter.MEM.getUnicode(),
-            HebrewLetter.MEM.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.MEM.getTranscript()));
       row2.add(makeButton(HebrewLetter.LAMED.getUnicode(),
-            HebrewLetter.LAMED.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.LAMED.getTranscript()));
       row2.add(makeButton(HebrewLetter.CHAFSSOFIT.getUnicode(),
-            HebrewLetter.CHAFSSOFIT.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.CHAFSSOFIT.getTranscript()));
       row2.add(makeButton(HebrewLetter.CHAF.getUnicode(),
-            HebrewLetter.CHAF.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.CHAF.getTranscript()));
       row2.add(makeButton(HebrewLetter.KAF.getUnicode(),
-            HebrewLetter.KAF.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.KAF.getTranscript()));
       row2.add(makeButton(HebrewLetter.JOD.getUnicode(),
-            HebrewLetter.JOD.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.JOD.getTranscript()));
       row2.add(makeButton(HebrewLetter.TET.getUnicode(),
-            HebrewLetter.TET.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.TET.getTranscript()));
 
       JPanel row3 = new JPanel();
       row3.setOpaque(false);
       row3.setLayout(new TrainLayout(row3, 8));
 
       row3.add(makeButton(HebrewLetter.KUF.getUnicode(),
-            HebrewLetter.KUF.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.KUF.getTranscript()));
       row3.add(makeButton(HebrewLetter.ZADISSOFIT.getUnicode(),
-            HebrewLetter.ZADISSOFIT.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.ZADISSOFIT.getTranscript()));
       row3.add(makeButton(HebrewLetter.ZADI.getUnicode(),
-            HebrewLetter.ZADI.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.ZADI.getTranscript()));
       row3.add(makeButton(HebrewLetter.FAEISSOFIT.getUnicode(),
-            HebrewLetter.FAEISSOFIT.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.FAEISSOFIT.getTranscript()));
       row3.add(makeButton(HebrewLetter.FAEI.getUnicode(),
-            HebrewLetter.FAEI.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.FAEI.getTranscript()));
       row3.add(makeButton(HebrewLetter.PAEI.getUnicode(),
-            HebrewLetter.PAEI.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.PAEI.getTranscript()));
       row3.add(makeButton(HebrewLetter.AIN.getUnicode(),
-            HebrewLetter.AIN.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.AIN.getTranscript()));
       row3.add(makeButton(HebrewLetter.SSAMECH.getUnicode(),
-            HebrewLetter.SSAMECH.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.SSAMECH.getTranscript()));
       row3.add(makeButton(HebrewLetter.NUNSSOFIT.getUnicode(),
-            HebrewLetter.NUNSSOFIT.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.NUNSSOFIT.getTranscript()));
 
       JPanel row4 = new JPanel();
       row4.setOpaque(false);
       row4.setLayout(new TrainLayout(row4, 8));
 
       row4.add(makeButton(HebrewLetter.GERSCHAYIM.getUnicode(),
-            HebrewLetter.GERSCHAYIM.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.GERSCHAYIM.getTranscript()));
       row4.add(makeButton(HebrewLetter.GERESCH.getUnicode(),
-            HebrewLetter.GERESCH.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.GERESCH.getTranscript()));
       row4.add(makeButton(HebrewLetter.TAW.getUnicode(),
-            HebrewLetter.TAW.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.TAW.getTranscript()));
       row4.add(makeSpaceButton());
       row4.add(makeButton(HebrewLetter.SSIN.getUnicode(),
-            HebrewLetter.SSIN.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.SSIN.getTranscript()));
       row4.add(makeButton(HebrewLetter.SCHIN.getUnicode(),
-            HebrewLetter.SCHIN.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.SCHIN.getTranscript()));
       row4.add(makeButton(HebrewLetter.RESCH.getUnicode(),
-            HebrewLetter.RESCH.getTranscript(),
-            HebrewLetter.WAW.getHtmlcode()));
+            HebrewLetter.RESCH.getTranscript()));
 
       keyboard.add(row1);
       keyboard.add(row2);
@@ -167,7 +152,7 @@ public class KeyboardHebrew extends JPanel
       return jButton;
    }
 
-   private Component makeButton(String unicode, String tooltip, String htmlcode)
+   private Component makeButton(String unicode, String tooltip)
    {
       DataButton jButton = new DataButton("<html><span style=\"font-family: serif;font-size: 26px;\">" + unicode + "</span></html>",
             unicode);

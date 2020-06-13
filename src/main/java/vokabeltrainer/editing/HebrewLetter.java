@@ -13,263 +13,226 @@ public enum HebrewLetter
          "Ameise",
          " 05E2",
          "ain",
-         18,
-         "&#1506;"),
+         18),
    ALEF(
          "\u05D0",
          "Apfel",
          " 05D0",
          "alef",
-         18,
-         "&#1488;"),
+         18),
    CHET(
          "\u05D7",
          "China",
          " 05D7",
          "chet",
-         17,
-         "&#1499;"),
+         17),
    DALET(
          "\u05D3",
          "Domino",
          " 05D3",
          "dalet",
-         17,
-         "&#1491;"),
+         17),
    GIMEL(
          "\u05D2",
          "Gans",
          " 05D2",
          "gimel",
-         10,
-         "&#1490;"),
+         10),
    GERESCH(
          "\u05F3",
          "geresch",
          " 05F3",
          "geresch",
-         9,
-         "\u05F3"),
+         9),
    GERSCHAYIM(
          "\u05F4",
          "gerschayim",
          " 05F4",
          "gerschayim",
-         14,
-         "\u05F4"),
+         14),
    HAEI(
          "\u05D4",
          "Haus",
          " 05D4",
          "häi",
-         17,
-         "&#1492;"),
+         17),
    JOD(
          "\u05D9",
          "Igel",
          " 05D9",
          "jod",
-         10,
-         "&#1497;"),
+         10),
    KUF(
          "\u05E7",
          "Kuh",
          " 05E7",
          "kuf",
-         17,
-         "&#1511;"),
+         17),
    LAMED(
          "\u05DC",
          "Laterne",
          " 05DC",
          "lamed",
-         17,
-         "&#1500;"),
+         17),
    RESCH(
          "\u05E8",
          "Rad",
          " 05E8",
          "resch",
-         17,
-         "&#1512; "),
+         17),
    SSIN(
          "\uFb2B",
          "Sandalen",
          " Fb2B",
          "ssin",
-         18,
-         "&#64299;"),
+         18),
    SSAIN(
          "\u05D6",
          "Sand",
          " 05D6",
          "ssain",
-         8,
-         "&#1494;"),
+         8),
    SCHIN(
          "\u05E9",
          "Schaukel",
          " 05E9",
          "schin",
-         18,
-         "&#64298;"),
+         18),
    SSAMECH(
          "\u05E1",
          "Sonne",
          " 05E1",
          "ssamech",
-         17,
-         "&#1505;"),
+         17),
    SPACE(
          "\u0020",
          "space",
          " 0020",
          "space",
-         10,
-         "\u05EA"),
+         10),
    TAW(
          "\u05EA",
          "Tannen",
          " 05EA",
          "taw",
-         17,
-         "&#1514;"),
+         17),
    TET(
          "\u05D8",
          "Tanz",
          " 05D8",
          "tet",
-         17,
-         "&#1496;"),
+         17),
    WET(
          "\u05D1",
          "Wein",
          " 05D1",
          "wet",
-         16,
-         "&#1489;"),
+         16),
    WAW(
          "\u05D5",
          "Welle",
          " 05D5",
          "waw",
-         8,
-         "&#1493;"),
+         8),
    ZADI(
          "\u05E6",
          "Zitrone",
          " 05E6",
          "zadi",
-         18,
-         "&#1510;"),
+         18),
    ZADISSOFIT(
          "\u05E5",
          "Zitrone",
          " 05E5",
          "zadissofit",
-         18,
-         "&#1509;"),
+         18),
    CHAF(
          "\u05DB",
          "Chemie",
          " 05DB",
          "chaf",
-         17,
-         "&#1499; "),
+         17),
    CHAFSSOFIT(
          "\u05DA",
          "Chemie",
          " 05DA",
          "chafssofit",
-         17,
-         "&#1498;"),
+         17),
    FAEI(
          "\u05E4",
          "Feder",
          " 05E4",
          "fäi",
-         17,
-         "&#1508;"),
+         17),
    FAEISSOFIT(
          "\u05E3",
          "Feder",
          " 05E3",
          "fäissofit",
-         17,
-         "&#1507;"),
+         17),
    MEM(
          "\u05DE",
          "Maus",
          " 05DE",
          "mem",
-         17,
-         "&#1502; "),
+         17),
    MEMSSOFIT(
          "\u05DD",
          "Maus",
          " 05DD",
          "memssofit",
-         16,
-         "&#1501;"),
+         16),
    NUN(
          "\u05E0",
          "Nonne",
          " 05E0",
          "nun",
-         9,
-         "&#1504;"),
+         9),
    NUNSSOFIT(
          "\u05DF",
          "Nonne",
          " 05DF",
          "nunssofit",
-         9,
-         "&#1503;"),
+         9),
    BET(
          "\u05D1\u05BC",
          "Bett",
          " 05D1 05BC",
          "bet",
-         16,
-         "&#64305;"),
+         16),
    KAF(
          "\u05DB\u05BC",
          "Kuchen",
          " 05DB 05BC",
          "kaf",
-         17,
-         "&#64315;"),
+         17),
    PAEI(
          "\u05E4\u05BC",
          "Post",
          " 05E4 05BC",
          "päi",
-         17,
-         "&#64324;"),
+         17),
    QUESTIONMARK(
          "\u003F",
          "Frage",
          " 003F",
          "?",
-         17,
-         "?");
+         17);
 
    private String unicode;
    private String german;
    private String code;
    private String transcript;
    private int pixelWidth;
-   private String htmlcode;
 
    HebrewLetter(String unicode, String german, String code, String transcript,
-         int pixelWidth, String htmlcode)
+         int pixelWidth)
    {
       this.unicode = unicode;
       this.german = german;
       this.code = code;
       this.transcript = transcript;
       this.pixelWidth = pixelWidth;
-      this.htmlcode = htmlcode;
    }
 
    public static String getLetterUnicode(HebrewLetter nameHebrew)
@@ -312,11 +275,6 @@ public enum HebrewLetter
    public int getPixelWidth()
    {
       return pixelWidth;
-   }
-
-   public String getHtmlcode()
-   {
-      return htmlcode;
    }
 
    public static String getPatternString(boolean withComma)
