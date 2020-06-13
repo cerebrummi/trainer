@@ -1,5 +1,7 @@
 package vokabeltrainer;
 
+import java.awt.ComponentOrientation;
+
 import javax.swing.JButton;
 
 public class DataButton extends JButton
@@ -12,6 +14,7 @@ public class DataButton extends JButton
    {
       super(caption);
       this.data = data;
+      this.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
    }
 
    public String getData()

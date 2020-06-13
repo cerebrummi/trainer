@@ -49,14 +49,14 @@ public enum HebrewLetter
          " 05F3",
          "geresch",
          9,
-         ""),
+         "\u05F3"),
    GERSCHAYIM(
          "\u05F4",
          "gerschayim",
          " 05F4",
          "gerschayim",
          14,
-         ""),
+         "\u05F4"),
    HAEI(
          "\u05D4",
          "Haus",
