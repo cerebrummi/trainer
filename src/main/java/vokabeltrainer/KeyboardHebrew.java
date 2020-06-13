@@ -3,7 +3,6 @@ package vokabeltrainer;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -22,14 +21,13 @@ public class KeyboardHebrew extends JPanel
 {
    private static final long serialVersionUID = 2289311868636133544L;
 
-   private final Font FONT = Main.getHebrewFont(30F);
    private final int BUTTON_SIZE = 42;
    private List<JTextComponent> components;
 
    public KeyboardHebrew(JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight)
    {
-      textfield.setFont(Main.getHebrewFont(30F));
+      textfield.setFont(Main.getHebrewFont(29F));
       textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       textfield.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
       textfield.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
@@ -53,11 +51,11 @@ public class KeyboardHebrew extends JPanel
       row1.setLayout(new TrainLayout(row1, 8));
 
       row1.add(makeButton(HebrewLetter.CHET.getUnicode(),
-            HebrewLetter.CHET.getTranscript()));
+            HebrewLetter.CHET.getTranscript(), HebrewLetter.CHET.getHtmlcode()));
       row1.add(makeButton(HebrewLetter.SSAIN.getUnicode(),
-            HebrewLetter.SSAIN.getTranscript()));
+            HebrewLetter.SSAIN.getTranscript(), HebrewLetter.SSAIN.getHtmlcode()));
       row1.add(makeButton(HebrewLetter.WAW.getUnicode(),
-            HebrewLetter.WAW.getTranscript()));
+            HebrewLetter.WAW.getTranscript(), HebrewLetter.WAW.getHtmlcode()));
       row1.add(makeButton(HebrewLetter.HAEI.getUnicode(),
             HebrewLetter.HAEI.getTranscript()));
       row1.add(makeButton(HebrewLetter.DALET.getUnicode(),
@@ -121,8 +119,8 @@ public class KeyboardHebrew extends JPanel
       row4.setOpaque(false);
       row4.setLayout(new TrainLayout(row4, 8));
 
-      row4.add(makeButton(HebrewLetter.GERSCHAIM.getUnicode(),
-            HebrewLetter.GERSCHAIM.getTranscript()));
+      row4.add(makeButton(HebrewLetter.GERSCHAYIM.getUnicode(),
+            HebrewLetter.GERSCHAYIM.getTranscript()));
       row4.add(makeButton(HebrewLetter.GERESCH.getUnicode(),
             HebrewLetter.GERESCH.getTranscript()));
       row4.add(makeButton(HebrewLetter.TAW.getUnicode(),
@@ -145,17 +143,17 @@ public class KeyboardHebrew extends JPanel
    private Component makeSpaceButton()
    {
       DataButton jButton = new DataButton("\u0020", "\u0020");
-      jButton.setFont(FONT);
+      jButton.setFont(Main.getHebrewKeyboardFont());
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE+2, BUTTON_SIZE + 10));
       jButton.setMaximumSize(new Dimension(4 * BUTTON_SIZE, BUTTON_SIZE + 10));
       jButton.addMouseListener(new KeyboardListener(this));
       return jButton;
    }
 
-   private Component makeButton(String caption, String tooltip)
+   private Component makeButton(String caption, String tooltip, String htmlcode)
    {
       DataButton jButton = new DataButton("<html>"+caption+"</html>", caption);
-      jButton.setFont(FONT);
+      jButton.setFont(Main.getHebrewKeyboardFont());
       jButton.setToolTipText(tooltip);
       jButton.setMargin(new Insets(0, -5, 3, -5));
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE+2, BUTTON_SIZE));
@@ -167,7 +165,7 @@ public class KeyboardHebrew extends JPanel
       buttonCaption.add(jButton);
       JLabel captionLabel = new JLabel(tooltip);
       
-      captionLabel.setFont(Main.getGermanFont(9F));
+      captionLabel.setFont(Main.getGermanFont(8F));
       captionLabel.setMinimumSize(new Dimension(BUTTON_SIZE+2, 10));
       captionLabel.setMaximumSize(new Dimension(BUTTON_SIZE+2, 10));
 

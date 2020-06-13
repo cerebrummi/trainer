@@ -18,5 +18,4 @@ public class DataButton extends JButton
    {
       return data;
    }
-
 }

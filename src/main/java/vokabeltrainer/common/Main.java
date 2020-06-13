@@ -34,6 +34,7 @@ public final class Main
    private static Font germanFont;
    private static Font germanBoldFont;
    private static Font hebrewFont;
+   private static Font hebrewKeyboardFont;
    private static Font germanSmallFont;
 
    public static void main(String[] args)
@@ -153,6 +154,8 @@ public final class Main
       {
          hebrewFont = germanFont;
       }
+      
+         hebrewKeyboardFont = new Font("Verdana", Font.PLAIN, 30);
 
       Data.initDataBase();
 
@@ -327,4 +330,8 @@ public final class Main
       return headerFont.deriveFont(size);
    }
 
+   public static Font getHebrewKeyboardFont()
+   {
+      return hebrewKeyboardFont;
+   }
 }
