@@ -678,15 +678,15 @@ public class DictionaryPanel extends BackgroundPanelTiled
       hebrewSearchButton.addActionListener(event -> {
          clearTable();
          // decideOnTable(Command.SEARCH_HEBREW.name()); TODO
-         status.push(Status.SEARCH_WHICH);
-         this.decideOnTableInteraction(Action.SEARCH_HEBREW);
+         status.push(Status.SEARCH_WHICH_HEBREW);
+         this.decideOnTableInteraction(Action.SEARCH_WHICH_HEBREW);
       });
 
       germanSearchButton.addActionListener(event -> {
          clearTable();
          // decideOnTable(Command.SEARCH_GERMAN.name()); TODO
-         status.push(Status.SEARCH_WHICH);
-         this.decideOnTableInteraction(Action.SEARCH_GERMAN);
+         status.push(Status.SEARCH_WHICH_GERMAN);
+         this.decideOnTableInteraction(Action.SEARCH_WHICH_GERMAN);
       });
 
       tableInfoButton.addActionListener(event -> {
@@ -801,6 +801,14 @@ public class DictionaryPanel extends BackgroundPanelTiled
    {
       ExpressionTableModel tableModel = null;
 
+      if(Interaction.getCommand(
+            new Interaction(action, status.peekLast())) == null)
+      {
+         System.out.println("Action: "+action.name());
+         System.out.println("Status: "+status.peekLast().name());
+         return;
+      }
+      
       switch (Interaction.getCommand(
             new Interaction(action, status.pollLast())))
       {
@@ -828,7 +836,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
                      .getActionCommand().replace("EXPRESSIONKIND_WHICH_", "")),
                null, null, null);
          break;
-      case TABLE_NEW:
+      case TABLE_NEW_EXPRESSIONS:
          clearTable();
          tableModel = Data.findTranslationsNewWords(Language
                .valueOf(languageGroup.getSelection().getActionCommand()));
@@ -853,13 +861,12 @@ public class DictionaryPanel extends BackgroundPanelTiled
                      searchTypeGroupHebrew.getSelection().getActionCommand()),
                null, null);
          break;
-      case TABLE_SELECTED:
+      case TABLE_SELECTED_EXPRESSIONS:
          clearTable();
          tableModel = Data.findTranslations(
                Language
                      .valueOf(languageGroup.getSelection().getActionCommand()),
                null, null, null, null, Command.ALL_SELECTED);
-         break;
       }
 
       if (tableModel.getRowCount() == 0)
