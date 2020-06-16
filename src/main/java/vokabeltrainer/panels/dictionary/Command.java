@@ -1,0 +1,13 @@
+package vokabeltrainer.panels.dictionary;
+
+public enum Command
+{
+   NOTHING,
+   NO_TABLE,
+   TABLE_CHAPTER_WHICH,
+   TABLE_EXPRESSIONKIND_WHICH,
+   TABLE_SEARCH_WHICH_GERMAN,
+   TABLE_SEARCH_WHICH_HEBREW,
+   TABLE_NEW,
+   TABLE_SELECTED
+}

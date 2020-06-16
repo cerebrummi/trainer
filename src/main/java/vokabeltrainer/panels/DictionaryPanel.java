@@ -14,6 +14,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -47,6 +48,9 @@ import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.dialogs.EmptyNotification;
 import vokabeltrainer.panels.dialogs.TrashCanDialog;
+import vokabeltrainer.panels.dictionary.Action;
+import vokabeltrainer.panels.dictionary.Interaction;
+import vokabeltrainer.panels.dictionary.Status;
 import vokabeltrainer.panels.list.StringList;
 import vokabeltrainer.panels.list.StringListSelectionModel;
 import vokabeltrainer.table.ExpressionTable;
@@ -61,16 +65,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
 {
    enum Caller
    {
-      CHAPTER_TAB(
-            0),
-      SEARCH_TAB(
-            1),
-      KIND_TAB(
-            2),
-      NEW_TAB(
-            3),
-      SELECTED_TAB(
-            4);
+      CHAPTER_TAB(0), SEARCH_TAB(1), KIND_TAB(2), NEW_TAB(3), SELECTED_TAB(4);
 
       private int index;
       private static Caller tabShowing;
@@ -88,8 +83,10 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
    private static final long serialVersionUID = 9130321171813967337L;
 
+   private ArrayDeque<Status> status = new ArrayDeque<>();
+   
    private ButtonGroup languageGroup;
-   private ButtonGroup searchTypeGroup;
+   private ButtonGroup searchExpressionKindGroup;
    private ButtonGroup searchTypeGroupHebrew;
    private ButtonGroup searchTypeGroupGerman;
    private List<JRadioButton> radioButtons;
@@ -117,7 +114,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
    private JButton hebrewSearchButton;
    private JButton germanSearchButton;
    private JButton tableInfoButton;
-
    private JPanel horizontalLanguagePanel;
 
    public DictionaryPanel()
@@ -142,7 +138,10 @@ public class DictionaryPanel extends BackgroundPanelTiled
          AbstractButton button = enumeration1.nextElement();
          button.addActionListener(event -> {
             cardLayout.show(swapPanel, button.getActionCommand());
-            decideOnTable(button.getActionCommand());
+            // decideOnTable(button.getActionCommand());TODO
+            status.push(status.getLast());
+            this.decideOnTableInteraction(
+                  Action.valueOf(button.getActionCommand()));
          });
          horizontalLanguagePanel.add(button);
       }
@@ -184,6 +183,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
       loadChapters();
 
       initController();
+      
+      status.push(Status.OPENED_PAGE);
    }
 
    private Component initSearchTab()
@@ -199,8 +200,10 @@ public class DictionaryPanel extends BackgroundPanelTiled
       searchPhraseGerman
             .setBorder(new TitledBorder("Wort auf Deutsch eingeben"));
       germanSearch.add(searchPhraseGerman);
-      searchPhraseGerman.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 70));
-      searchPhraseGerman.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 70));
+      searchPhraseGerman
+            .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 70));
+      searchPhraseGerman
+            .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 70));
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
@@ -229,8 +232,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
             .setBorder(new TitledBorder("Wort auf Hebräisch eingeben"));
 
       KeyboardHebrew keyboard = new KeyboardHebrew(searchPhraseHebrew,
-            new ArrayList<JTextComponent>(),70);
- 
+            new ArrayList<JTextComponent>(), 70);
+
       hebrewSearch.add(keyboard);
 
       JPanel filler2 = new JPanel();
@@ -255,7 +258,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
       cardLayout = new CardLayout();
       swapPanel = new JPanel(cardLayout);
       swapPanel.setOpaque(false);
-      swapPanel.setPreferredSize(new Dimension(Settings.getKeyboardWidth(), 420));
+      swapPanel
+            .setPreferredSize(new Dimension(Settings.getKeyboardWidth(), 420));
       swapPanel.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 420));
       swapPanel.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 420));
       swapPanel.add(Language.GERMAN.name(), germanSearch);
@@ -462,8 +466,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
                   {
                      loadChapters();
                   }
-
-                  decideOnTable(Command.SAVE.name());
+//                  decideOnTable(Command.SAVE.name()); TODO
+                  status.push(status.getLast());
+                  decideOnTableInteraction(Action.SAVE);
                }
 
             }
@@ -475,42 +480,52 @@ public class DictionaryPanel extends BackgroundPanelTiled
          if (tabbedPane.getSelectedIndex() == Caller.KIND_TAB.getIndex())
          {
             Caller.tabShowing = Caller.KIND_TAB;
-            clearTable();
-            this.tablePanel.validate();
-            this.tablePanel.repaint();
+//            clearTable();
+//            this.tablePanel.validate();
+//            this.tablePanel.repaint(); TODO
+            status.push(Status.TAB_EXPRESSIONKIND);
+            this.decideOnTableInteraction(Action.TAB_EXPRESSIONKIND);
          }
          else if (tabbedPane.getSelectedIndex() == Caller.CHAPTER_TAB
                .getIndex())
          {
             Caller.tabShowing = Caller.CHAPTER_TAB;
-            this.searchTypeGroup.clearSelection();
-            clearTable();
-            this.tablePanel.validate();
-            this.tablePanel.repaint();
+            this.searchExpressionKindGroup.clearSelection();
+//            clearTable();
+//            this.tablePanel.validate();
+//            this.tablePanel.repaint(); TODO
+            status.push(Status.TAB_CHAPTER);
+            this.decideOnTableInteraction(Action.TAB_CHAPTER);
             loadChapters();
          }
          else if (tabbedPane.getSelectedIndex() == Caller.NEW_TAB.getIndex())
          {
             Caller.tabShowing = Caller.NEW_TAB;
-            this.searchTypeGroup.clearSelection();
-            clearTable();
-            decideOnTable(Command.NEW_TAB.name());
+            this.searchExpressionKindGroup.clearSelection();
+//            clearTable();
+//            decideOnTable(Command.NEW_TAB.name()); TODO
+            status.push(Status.TAB_NEW_EXPRESSIONS);
+            this.decideOnTableInteraction(Action.TAB_NEW_EXPRESSIONS);
          }
          else if (tabbedPane.getSelectedIndex() == Caller.SELECTED_TAB
                .getIndex())
          {
             Caller.tabShowing = Caller.SELECTED_TAB;
-            this.searchTypeGroup.clearSelection();
-            clearTable();
-            decideOnTable(Command.SELECTED_TAB.name());
+            this.searchExpressionKindGroup.clearSelection();
+//            clearTable();
+//            decideOnTable(Command.SELECTED_TAB.name()); TODO
+            status.push(Status.TAB_SELECTED_EXPRESSIONS);
+            this.decideOnTableInteraction(Action.TAB_SELECTED_EXPRESSIONS);
          }
          else if (tabbedPane.getSelectedIndex() == Caller.SEARCH_TAB.getIndex())
          {
             Caller.tabShowing = Caller.SEARCH_TAB;
-            this.searchTypeGroup.clearSelection();
-            clearTable();
-            this.tablePanel.validate();
-            this.tablePanel.repaint();
+            this.searchExpressionKindGroup.clearSelection();
+//            clearTable();
+//            this.tablePanel.validate();
+//            this.tablePanel.repaint(); TODO
+            status.push(Status.TAB_SEARCH);
+            this.decideOnTableInteraction(Action.TAB_SEARCH);
          }
       });
 
@@ -524,7 +539,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
             Expression expression = editor.getExpression();
             Data.putExpressionInNewMap(expression.getUuid(), expression);
             tabbedPane.setSelectedIndex(Caller.NEW_TAB.getIndex());
-            decideOnTable(Command.NEW.name());
+            // decideOnTable(Command.NEW.name()); TODO 
+            status.push(status.getLast());
+            this.decideOnTableInteraction(Action.NEW_EXPRESSION);
          }
       });
 
@@ -562,8 +579,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
          if (table != null)
          {
             table.clearTableDataSelection();
-            this.decideOnTable(Command.CLEAR.name());
-
+            // this.decideOnTable(Command.CLEAR.name()); TODO
+            status.push(status.getLast());
+            this.decideOnTableInteraction(Action.UNSELECT_TABLE);
          }
       });
 
@@ -571,7 +589,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
          Data.clearAllSelectedExpressions();
          if (table != null)
          {
-            this.decideOnTable(Command.CLEAR.name());
+            // this.decideOnTable(Command.CLEAR.name()); TODO
+            status.push(status.getLast());
+            this.decideOnTableInteraction(Action.UNSELECT_ALL);
          }
       });
 
@@ -592,7 +612,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
          {
             loadChapters();
          }
-         decideOnTable(Command.DELETE.name());
+         // decideOnTable(Command.DELETE.name()); TODO
+         status.push(status.getLast());
+         this.decideOnTableInteraction(Action.DELETE_ALL_SELECTED);
       });
 
       deleteInTableSelectedButton.addActionListener(event -> {
@@ -612,7 +634,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
             {
                loadChapters();
             }
-            decideOnTable(Command.DELETE.name());
+            // decideOnTable(Command.DELETE.name()); TODO
+            status.push(status.getLast());
+            this.decideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
          }
          else
          {
@@ -628,7 +652,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
          if (dialog.isRestore())
          {
             tabbedPane.setSelectedIndex(Caller.NEW_TAB.getIndex());
-            decideOnTable(Command.NEW.name());
+            // decideOnTable(Command.NEW.name()); TODO
+            status.push(status.getLast());
+            this.decideOnTableInteraction(Action.NEW_EXPRESSION);
          }
       });
 
@@ -636,7 +662,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
          if (table != null)
          {
             table.selectAllExpressions();
-            decideOnTable(Command.SELECT_ALL.name());
+            // decideOnTable(Command.SELECT_ALL.name()); TODO
+            status.push(status.getLast());
+            this.decideOnTableInteraction(Action.SELECT_TABLE);
          }
       });
 
@@ -649,12 +677,16 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       hebrewSearchButton.addActionListener(event -> {
          clearTable();
-         decideOnTable(Command.SEARCH_HEBREW.name());
+         // decideOnTable(Command.SEARCH_HEBREW.name()); TODO
+         status.push(Status.SEARCH_WHICH);
+         this.decideOnTableInteraction(Action.SEARCH_HEBREW);
       });
 
       germanSearchButton.addActionListener(event -> {
          clearTable();
-         decideOnTable(Command.SEARCH_GERMAN.name());
+         // decideOnTable(Command.SEARCH_GERMAN.name()); TODO
+         status.push(Status.SEARCH_WHICH);
+         this.decideOnTableInteraction(Action.SEARCH_GERMAN);
       });
 
       tableInfoButton.addActionListener(event -> {
@@ -747,7 +779,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
       chapterPanel.removeAll();
       StringListSelectionModel listSelectionModel = new StringListSelectionModel();
       listSelectionModel.addListSelectionListener(event -> {
-         decideOnTable(chapterList.getSelectedValue());
+//         decideOnTable(chapterList.getSelectedValue()); TODO
+         status.push(Status.CHAPTER_WHICH);
+         this.decideOnTableInteraction(Action.CHAPTER_WHICH);
       });
       chapterList = new StringList(listSelectionModel);
       chapterList.setListData(Data.getChapterArray());
@@ -763,217 +797,69 @@ public class DictionaryPanel extends BackgroundPanelTiled
       chapterPanel.repaint();
    }
 
-   private void decideOnTable(String actionCommand)
+   private void decideOnTableInteraction(Action action)
    {
       ExpressionTableModel tableModel = null;
 
-      switch (Caller.tabShowing)
+      switch (Interaction.getCommand(
+            new Interaction(action, status.pollLast())))
       {
-
-      case KIND_TAB:
-         if (Command.SEARCH_GERMAN.name().equals(actionCommand)
-               || Command.SEARCH_HEBREW.name().equals(actionCommand)
-               || Command.SELECTED_TAB.name().equals(actionCommand)
-               || Command.NEW_TAB.name().equals(actionCommand)
-               || Command.NEW.name().equals(actionCommand))
-         {
-            throw new IllegalStateException(
-                  "DictoraryPanel: decideOnTable, KIND_TAB " + actionCommand);
-         }
-         if (Language.GERMAN.name().equals(actionCommand)
-               || Language.HEBREW.name().equals(actionCommand))
-         {
-            if (searchTypeGroup.getSelection() == null)
-            {
-               clearTable();
-               tablePanel.validate();
-               tablePanel.repaint();
-               return;
-            }
-         }
-         // chapter: not on kind tab
-         // ExpressionKind
+      case NOTHING:
+         return;
+      case NO_TABLE:
          clearTable();
-         tableModel = Data.findTranslations(
-               Language
-                     .valueOf(languageGroup.getSelection().getActionCommand()),
-               null,
-               ExpressionKind.valueOf(
-                     searchTypeGroup.getSelection().getActionCommand()),
-               null, null, null);
-         break;
-
-      case CHAPTER_TAB:
-         if (Command.SEARCH_GERMAN.name().equals(actionCommand)
-               || Command.SEARCH_HEBREW.name().equals(actionCommand)
-               || Command.SELECTED_TAB.name().equals(actionCommand)
-               || Command.NEW_TAB.name().equals(actionCommand)
-               || Command.NEW.name().equals(actionCommand))
-         {
-            throw new IllegalStateException(
-                  "DictoraryPanel: decideOnTable, CHAPTER_TAB "
-                        + actionCommand);
-         }
-
-         if (Language.GERMAN.name().equals(actionCommand)
-               || Language.HEBREW.name().equals(actionCommand)
-               || Command.DELETE.name().equals(actionCommand)
-               || Command.CLEAR.name().equals(actionCommand)
-               || Command.SELECT_ALL.name().equals(actionCommand)
-               || Command.SAVE.name().equals(actionCommand))
-         {
-            clearTable();
-            if (chapterList.getSelectedIndex() == -1)
-            {
-               tablePanel.validate();
-               tablePanel.repaint();
-               return;
-            }
-         }
-         // chapter
-         // ExpressionKind: not on chapter tab
+         tablePanel.validate();
+         tablePanel.repaint();
+         return;
+      case TABLE_CHAPTER_WHICH:
          clearTable();
          tableModel = Data.findTranslations(
                Language
                      .valueOf(languageGroup.getSelection().getActionCommand()),
                null, null, null, chapterList.getSelectedValue(), null);
-
          break;
-
-      case NEW_TAB:
-         if (Command.SEARCH_GERMAN.name().equals(actionCommand)
-               || Command.SEARCH_HEBREW.name().equals(actionCommand)
-               || Command.SELECTED_TAB.name().equals(actionCommand))
-         {
-            throw new IllegalStateException(
-                  "DictoraryPanel: decideOnTable, NEW_TAB " + actionCommand);
-         }
-         if (Command.SAVE.name().equals(actionCommand))
-         {
-            clearTable();
-            tablePanel.validate();
-            tablePanel.repaint();
-            return;
-         }
-         if (Language.GERMAN.name().equals(actionCommand)
-               || Language.HEBREW.name().equals(actionCommand)
-               || Command.DELETE.name().equals(actionCommand)
-               || Command.NEW.name().equals(actionCommand)
-               || Command.CLEAR.name().equals(actionCommand)
-               || Command.SELECT_ALL.name().equals(actionCommand)
-               || Command.NEW_TAB.name().equals(actionCommand))
-         {
-            clearTable();
-            tableModel = Data.findTranslationsNewWords(Language
-                  .valueOf(languageGroup.getSelection().getActionCommand()));
-         }
-         // chapter: not on new tab
-         // ExpressionKind: not on new tab
+      case TABLE_EXPRESSIONKIND_WHICH:
+         clearTable();
+         tableModel = Data.findTranslations(
+               Language
+                     .valueOf(languageGroup.getSelection().getActionCommand()),
+               null,
+               ExpressionKind.valueOf(searchExpressionKindGroup.getSelection()
+                     .getActionCommand().replace("EXPRESSIONKIND_WHICH_", "")),
+               null, null, null);
          break;
-
-      case SELECTED_TAB:
-         if (Command.SEARCH_GERMAN.name().equals(actionCommand)
-               || Command.SEARCH_HEBREW.name().equals(actionCommand)
-               || Command.NEW_TAB.name().equals(actionCommand)
-               || Command.NEW.name().equals(actionCommand))
-         {
-            throw new IllegalStateException(
-                  "DictoraryPanel: decideOnTable, SELECTED_TAB "
-                        + actionCommand);
-         }
-         if (Command.SELECT_ALL.name().equals(actionCommand))
-         {
-            return;
-         }
-         if (Command.DELETE.name().equals(actionCommand)
-               || Command.CLEAR.name().equals(actionCommand)
-               || Command.SAVE.name().equals(actionCommand))
-         {
-            clearTable();
-            tablePanel.validate();
-            tablePanel.repaint();
-            return;
-         }
-         if (Language.GERMAN.name().equals(actionCommand)
-               || Language.HEBREW.name().equals(actionCommand)
-               || Command.SELECTED_TAB.name().equals(actionCommand))
-         {
-            clearTable();
-            tableModel = Data.findTranslations(
-                  Language.valueOf(
-                        languageGroup.getSelection().getActionCommand()),
-                  null, null, null, null, Command.ALL_SELECTED);
-         }
+      case TABLE_NEW:
+         clearTable();
+         tableModel = Data.findTranslationsNewWords(Language
+               .valueOf(languageGroup.getSelection().getActionCommand()));
          break;
-
-      case SEARCH_TAB:
-         if (Command.SELECTED_TAB.name().equals(actionCommand)
-               || Command.NEW_TAB.name().equals(actionCommand)
-               || Command.NEW.name().equals(actionCommand))
-         {
-            throw new IllegalStateException(
-                  "DictoraryPanel: decideOnTable, SEARCH_TAB " + actionCommand);
-         }
-         if (Language.GERMAN.name().equals(actionCommand)
-               || Language.HEBREW.name().equals(actionCommand))
-         {
-            clearTable();
-            tablePanel.validate();
-            tablePanel.repaint();
-            return;
-         }
-         if (Command.SEARCH_GERMAN.name().equals(actionCommand))
-         {
-            clearTable();
-            tableModel = Data.findTranslations(
-                  Language.valueOf(
-                        languageGroup.getSelection().getActionCommand()),
-                  searchPhraseGerman.getText().trim(), null,
-                  SearchType.valueOf(searchTypeGroupGerman.getSelection()
-                        .getActionCommand()),
-                  null, null);
-         }
-         if (Command.SEARCH_HEBREW.name().equals(actionCommand))
-         {
-            clearTable();
-            tableModel = Data.findTranslations(
-                  Language.valueOf(
-                        languageGroup.getSelection().getActionCommand()),
-                  searchPhraseHebrew.getText().trim(), null,
-                  SearchType.valueOf(searchTypeGroupHebrew.getSelection()
-                        .getActionCommand()),
-                  null, null);
-         }
-         if(Command.DELETE.name().equals(actionCommand)
-               || Command.CLEAR.name().equals(actionCommand)
-               || Command.SELECT_ALL.name().equals(actionCommand)
-               || Command.SAVE.name().equals(actionCommand))
-         {
-            if(Language.GERMAN.name().equals(languageGroup.getSelection().getActionCommand()))
-            {
-               clearTable();
-               tableModel = Data.findTranslations(
-                     Language.valueOf(
-                           languageGroup.getSelection().getActionCommand()),
-                     searchPhraseGerman.getText().trim(), null,
-                     SearchType.valueOf(searchTypeGroupGerman.getSelection()
-                           .getActionCommand()),
-                     null, null);
-            }
-            else // Language.HEBREW
-            {
-               clearTable();
-               tableModel = Data.findTranslations(
-                     Language.valueOf(
-                           languageGroup.getSelection().getActionCommand()),
-                     searchPhraseHebrew.getText().trim(), null,
-                     SearchType.valueOf(searchTypeGroupHebrew.getSelection()
-                           .getActionCommand()),
-                     null, null);
-            }
-         }
-         // chapter: not on search tab
-         // ExpressionKind: not on search tab
+      case TABLE_SEARCH_WHICH_GERMAN:
+         clearTable();
+         tableModel = Data.findTranslations(
+               Language
+                     .valueOf(languageGroup.getSelection().getActionCommand()),
+               searchPhraseGerman.getText().trim(), null,
+               SearchType.valueOf(
+                     searchTypeGroupGerman.getSelection().getActionCommand()),
+               null, null);
+         break;
+      case TABLE_SEARCH_WHICH_HEBREW:
+         clearTable();
+         tableModel = Data.findTranslations(
+               Language
+                     .valueOf(languageGroup.getSelection().getActionCommand()),
+               searchPhraseHebrew.getText().trim(), null,
+               SearchType.valueOf(
+                     searchTypeGroupHebrew.getSelection().getActionCommand()),
+               null, null);
+         break;
+      case TABLE_SELECTED:
+         clearTable();
+         tableModel = Data.findTranslations(
+               Language
+                     .valueOf(languageGroup.getSelection().getActionCommand()),
+               null, null, null, null, Command.ALL_SELECTED);
+         break;
       }
 
       if (tableModel.getRowCount() == 0)
@@ -1018,9 +904,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
    private void initRadioButtonPanel(JPanel vertical1)
    {
-      searchTypeGroup = new ButtonGroup();
+      searchExpressionKindGroup = new ButtonGroup();
 
-      initSearchButtonGroup(searchTypeGroup);
+      initRadioButtonGroup(searchExpressionKindGroup);
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
@@ -1036,7 +922,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
       vertical3.setOpaque(false);
 
       int counter = 0;
-      Enumeration<AbstractButton> enumeration = searchTypeGroup.getElements();
+      Enumeration<AbstractButton> enumeration = searchExpressionKindGroup
+            .getElements();
       while (enumeration.hasMoreElements())
       {
          AbstractButton button = enumeration.nextElement();
@@ -1057,7 +944,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
       vertical1.add(horizontal);
    }
 
-   private void initSearchButtonGroup(ButtonGroup searchTypeGroup)
+   private void initRadioButtonGroup(ButtonGroup searchExpressionKindGroup)
    {
       Font font = Main.getGermanFont(16F);
       for (ExpressionKind kind : ExpressionKind.getValues())
@@ -1065,10 +952,13 @@ public class DictionaryPanel extends BackgroundPanelTiled
          JRadioButton radioButton = new JRadioButton(kind.toString());
          radioButton.setActionCommand(kind.name());
          radioButton.addActionListener(event -> {
-            decideOnTable(kind.name());
+            // decideOnTable(kind.name()); TODO
+            status.push(Status.EXPRESSIONKIND_WHICH);
+            this.decideOnTableInteraction(
+                  Action.EXPRESSIONKIND_WHICH);
          });
          radioButton.setFont(font);
-         searchTypeGroup.add(radioButton);
+         searchExpressionKindGroup.add(radioButton);
          radioButtons.add(radioButton);
       }
    }
@@ -1077,13 +967,13 @@ public class DictionaryPanel extends BackgroundPanelTiled
    {
       Font font = Main.getGermanFont(20F);
       JRadioButton german = new JRadioButton("Deutsch");
-      german.setActionCommand(Language.GERMAN.name());
+      german.setActionCommand(Action.GERMAN.name());
       german.setFont(font);
       german.setSelected(true);
       languageTypeGroup.add(german);
 
       JRadioButton hebrew = new JRadioButton("Hebräisch");
-      hebrew.setActionCommand(Language.HEBREW.name());
+      hebrew.setActionCommand(Action.HEBREW.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
    }

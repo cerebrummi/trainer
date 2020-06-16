@@ -1,0 +1,15 @@
+package vokabeltrainer.panels.dictionary;
+
+public enum Status
+{
+   OPENED_PAGE,
+   TAB_CHAPTER,
+   TAB_EXPRESSIONKIND,
+   TAB_SEARCH,
+   TAB_NEW_EXPRESSIONS,
+   TAB_SELECTED_EXPRESSIONS,
+   CHAPTER_WHICH,
+   EXPRESSIONKIND_WHICH,
+   SEARCH_WHICH,
+   NEW_EXPRESSION
+}
