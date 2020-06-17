@@ -29,8 +29,6 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
-import de.copepod.tonion.TotemLayout;
-import de.copepod.tonion.TrainLayout;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.InfoTextField;
@@ -42,6 +40,8 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
+import vokabeltrainer.tonionlayout.TotemLayout;
+import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Binjan;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;

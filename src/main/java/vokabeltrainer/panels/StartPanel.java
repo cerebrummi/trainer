@@ -11,9 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import de.copepod.tonion.TrainLayout;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class StartPanel extends JPanel
 {

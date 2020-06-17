@@ -10,9 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import de.copepod.tonion.TrainLayout;
 import vokabeltrainer.LetterFeedbackImage;
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;
 
 public class HebrewAnswerWordPanel extends JPanel

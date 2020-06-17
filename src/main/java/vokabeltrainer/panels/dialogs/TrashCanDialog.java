@@ -19,8 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
-import de.copepod.tonion.TotemLayout;
-import de.copepod.tonion.TrainLayout;
 import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TrashCanBackgroundPanel;
@@ -30,6 +28,8 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
+import vokabeltrainer.tonionlayout.TotemLayout;
+import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 

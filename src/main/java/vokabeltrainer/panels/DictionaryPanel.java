@@ -34,8 +34,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
-import de.copepod.tonion.TotemLayout;
-import de.copepod.tonion.TrainLayout;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Command;
 import vokabeltrainer.KeyboardHebrew;
@@ -56,6 +54,9 @@ import vokabeltrainer.panels.list.StringListSelectionModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.ExpressionEditor;
+import vokabeltrainer.tonionlayout.TotemLayout;
+import vokabeltrainer.tonionlayout.TrainLayout;
+import vokabeltrainer.tonionlayout.TrainLayoutTest;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
@@ -126,7 +127,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       horizontalLanguagePanel = new JPanel();
       horizontalLanguagePanel
-            .setLayout(new TrainLayout(horizontalLanguagePanel, 15));
+            .setLayout(new TrainLayoutTest(horizontalLanguagePanel, 15, "HorizontalLanguagePanel"));
       horizontalLanguagePanel.setOpaque(false);
       horizontalLanguagePanel
             .setBorder(BorderFactory.createEmptyBorder(15, 15, 0, 15));

@@ -12,10 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import de.copepod.tonion.TotemLayout;
-import de.copepod.tonion.TrainLayout;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.tonionlayout.TotemLayout;
+import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class KeyboardHebrew extends JPanel
 {

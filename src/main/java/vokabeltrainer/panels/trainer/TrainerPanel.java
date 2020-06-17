@@ -25,8 +25,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.text.JTextComponent;
 
-import de.copepod.tonion.TotemLayout;
-import de.copepod.tonion.TrainLayout;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Command;
@@ -42,6 +40,8 @@ import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
 import vokabeltrainer.panels.letterpicture.LetterPictureWordPanel;
+import vokabeltrainer.tonionlayout.TotemLayout;
+import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 

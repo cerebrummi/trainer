@@ -30,8 +30,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
-import de.copepod.tonion.TotemLayout;
-import de.copepod.tonion.TrainLayout;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Command;
 import vokabeltrainer.KeyboardHebrew;
@@ -47,6 +45,8 @@ import vokabeltrainer.panels.list.StringList;
 import vokabeltrainer.panels.list.StringListSelectionModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
+import vokabeltrainer.tonionlayout.TotemLayout;
+import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
