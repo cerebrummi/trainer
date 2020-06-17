@@ -184,8 +184,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       initController();
             status.push(Status.OPENED_PAGE);
-            
-//      System.out.println(((TrainLayout)horizontalLanguagePanel.getLayout()).toString());
    }
 
    private Component initSearchTab()
