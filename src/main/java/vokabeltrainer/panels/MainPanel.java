@@ -64,6 +64,7 @@ public class MainPanel extends JPanel
       toolBar.setBackground(Settings.getLightGold());
       toolBar.setRollover(true);
       toolBar.setFloatable(false);
+      toolBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
       startButton = new JButton("Start");
       vocabularyCardsButton = new JButton("Vokabelkarten");
