@@ -26,7 +26,9 @@ public class Interaction
       interactions.put(new Interaction(Action.GERMAN, Status.TAB_SEARCH), Command.NO_TABLE);
       interactions.put(new Interaction(Action.HEBREW, Status.TAB_SEARCH), Command.NO_TABLE);
       interactions.put(new Interaction(Action.GERMAN, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_GERMAN);
+      interactions.put(new Interaction(Action.GERMAN, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_GERMAN);
       interactions.put(new Interaction(Action.HEBREW, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_HEBREW);
+      interactions.put(new Interaction(Action.HEBREW, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_HEBREW);
       
       interactions.put(new Interaction(Action.GERMAN, Status.TAB_NEW_EXPRESSIONS), Command.TABLE_NEW_EXPRESSIONS);
       interactions.put(new Interaction(Action.HEBREW, Status.TAB_NEW_EXPRESSIONS), Command.TABLE_NEW_EXPRESSIONS);
@@ -82,11 +84,22 @@ public class Interaction
       interactions.put(new Interaction(Action.TAB_SELECTED_EXPRESSIONS, Status.TAB_NEW_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
       
       interactions.put(new Interaction(Action.CHAPTER_WHICH, Status.TAB_CHAPTER), Command.TABLE_CHAPTER_WHICH);
+      interactions.put(new Interaction(Action.CHAPTER_WHICH, Status.OPENED_PAGE), Command.TABLE_CHAPTER_WHICH);
+      interactions.put(new Interaction(Action.CHAPTER_WHICH, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       
       interactions.put(new Interaction(Action.EXPRESSIONKIND_WHICH, Status.TAB_EXPRESSIONKIND), Command.TABLE_EXPRESSIONKIND_WHICH);
       
       interactions.put(new Interaction(Action.SEARCH_WHICH_GERMAN, Status.TAB_SEARCH), Command.TABLE_SEARCH_WHICH_GERMAN);
+      interactions.put(new Interaction(Action.SEARCH_WHICH_GERMAN, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_GERMAN);
+      interactions.put(new Interaction(Action.SEARCH_WHICH_GERMAN, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_GERMAN);
+      
       interactions.put(new Interaction(Action.SEARCH_WHICH_HEBREW, Status.TAB_SEARCH), Command.TABLE_SEARCH_WHICH_HEBREW);
+      interactions.put(new Interaction(Action.SEARCH_WHICH_HEBREW, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_HEBREW);
+      interactions.put(new Interaction(Action.SEARCH_WHICH_HEBREW, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_HEBREW);
+      
+      
+      
+      
    }
    
    public static Command getCommand(Interaction interaction)

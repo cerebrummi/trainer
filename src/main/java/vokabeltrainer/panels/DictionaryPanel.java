@@ -148,12 +148,12 @@ public class DictionaryPanel extends BackgroundPanelTiled
       JPanel filler = new JPanel();
       filler.setOpaque(false);
       filler.setMinimumSize(new Dimension(50, 15));
-      filler.setMaximumSize(new Dimension(100, 30));
+      filler.setMaximumSize(new Dimension(200, 32));
       horizontalLanguagePanel.add(filler);
       tableInfoButton = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
       tableInfoButton.setBackground(new Color(0, 0, 0, 0));
-      tableInfoButton.setMinimumSize(new Dimension(14, 32));
+      tableInfoButton.setMinimumSize(new Dimension(14, 26));
       tableInfoButton.setMaximumSize(new Dimension(14, 32));
       tableInfoButton.setMargin(new Insets(0, 0, 0, 0));
       horizontalLanguagePanel.add(tableInfoButton);
@@ -183,8 +183,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
       loadChapters();
 
       initController();
-      
-      status.push(Status.OPENED_PAGE);
+            status.push(Status.OPENED_PAGE);
+            
+//      System.out.println(((TrainLayout)horizontalLanguagePanel.getLayout()).toString());
    }
 
    private Component initSearchTab()
@@ -779,17 +780,20 @@ public class DictionaryPanel extends BackgroundPanelTiled
       chapterPanel.removeAll();
       StringListSelectionModel listSelectionModel = new StringListSelectionModel();
       listSelectionModel.addListSelectionListener(event -> {
-//         decideOnTable(chapterList.getSelectedValue()); TODO
-         status.push(Status.CHAPTER_WHICH);
-         this.decideOnTableInteraction(Action.CHAPTER_WHICH);
+         if(!event.getValueIsAdjusting())
+         {
+//          decideOnTable(chapterList.getSelectedValue()); TODO
+            status.push(Status.CHAPTER_WHICH);
+            this.decideOnTableInteraction(Action.CHAPTER_WHICH);
+         }
       });
       chapterList = new StringList(listSelectionModel);
       chapterList.setListData(Data.getChapterArray());
       chapterList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
 
       JScrollPane scroller = new JScrollPane(chapterList);
-      scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 500));
-      scroller.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 500));
+      scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
+      scroller.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 400));
       scroller.setBorder(BorderFactory.createEmptyBorder());
 
       chapterPanel.add(scroller, BorderLayout.CENTER);
@@ -978,11 +982,15 @@ public class DictionaryPanel extends BackgroundPanelTiled
       german.setFont(font);
       german.setSelected(true);
       languageTypeGroup.add(german);
+      german.setMinimumSize(new Dimension(100,26));
+      german.setMaximumSize(new Dimension(205,32));
 
       JRadioButton hebrew = new JRadioButton("Hebräisch");
       hebrew.setActionCommand(Action.HEBREW.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
+      hebrew.setMinimumSize(new Dimension(100,26));
+      hebrew.setMaximumSize(new Dimension(205,32));
    }
 
 }
