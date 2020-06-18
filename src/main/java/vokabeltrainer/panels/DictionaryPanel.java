@@ -139,7 +139,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          AbstractButton button = enumeration1.nextElement();
          button.addActionListener(event -> {
             cardLayout.show(swapPanel, button.getActionCommand());
-            // decideOnTable(button.getActionCommand());TODO
             status.push(status.getLast());
             this.decideOnTableInteraction(
                   Action.valueOf(button.getActionCommand()));
@@ -466,7 +465,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
                   {
                      loadChapters();
                   }
-//                  decideOnTable(Command.SAVE.name()); TODO
                   status.push(status.getLast());
                   decideOnTableInteraction(Action.SAVE);
                }
@@ -480,9 +478,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          if (tabbedPane.getSelectedIndex() == Caller.KIND_TAB.getIndex())
          {
             Caller.tabShowing = Caller.KIND_TAB;
-//            clearTable();
-//            this.tablePanel.validate();
-//            this.tablePanel.repaint(); TODO
             status.push(Status.TAB_EXPRESSIONKIND);
             this.decideOnTableInteraction(Action.TAB_EXPRESSIONKIND);
          }
@@ -491,9 +486,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          {
             Caller.tabShowing = Caller.CHAPTER_TAB;
             this.searchExpressionKindGroup.clearSelection();
-//            clearTable();
-//            this.tablePanel.validate();
-//            this.tablePanel.repaint(); TODO
             status.push(Status.TAB_CHAPTER);
             this.decideOnTableInteraction(Action.TAB_CHAPTER);
             loadChapters();
@@ -502,8 +494,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          {
             Caller.tabShowing = Caller.NEW_TAB;
             this.searchExpressionKindGroup.clearSelection();
-//            clearTable();
-//            decideOnTable(Command.NEW_TAB.name()); TODO
             status.push(Status.TAB_NEW_EXPRESSIONS);
             this.decideOnTableInteraction(Action.TAB_NEW_EXPRESSIONS);
          }
@@ -512,8 +502,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          {
             Caller.tabShowing = Caller.SELECTED_TAB;
             this.searchExpressionKindGroup.clearSelection();
-//            clearTable();
-//            decideOnTable(Command.SELECTED_TAB.name()); TODO
             status.push(Status.TAB_SELECTED_EXPRESSIONS);
             this.decideOnTableInteraction(Action.TAB_SELECTED_EXPRESSIONS);
          }
@@ -521,9 +509,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          {
             Caller.tabShowing = Caller.SEARCH_TAB;
             this.searchExpressionKindGroup.clearSelection();
-//            clearTable();
-//            this.tablePanel.validate();
-//            this.tablePanel.repaint(); TODO
             status.push(Status.TAB_SEARCH);
             this.decideOnTableInteraction(Action.TAB_SEARCH);
          }
@@ -539,7 +524,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
             Expression expression = editor.getExpression();
             Data.putExpressionInNewMap(expression.getUuid(), expression);
             tabbedPane.setSelectedIndex(Caller.NEW_TAB.getIndex());
-            // decideOnTable(Command.NEW.name()); TODO 
             status.push(status.getLast());
             this.decideOnTableInteraction(Action.NEW_EXPRESSION);
          }
@@ -579,7 +563,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          if (table != null)
          {
             table.clearTableDataSelection();
-            // this.decideOnTable(Command.CLEAR.name()); TODO
             status.push(status.getLast());
             this.decideOnTableInteraction(Action.UNSELECT_TABLE);
          }
@@ -589,7 +572,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          Data.clearAllSelectedExpressions();
          if (table != null)
          {
-            // this.decideOnTable(Command.CLEAR.name()); TODO
             status.push(status.getLast());
             this.decideOnTableInteraction(Action.UNSELECT_ALL);
          }
@@ -612,7 +594,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          {
             loadChapters();
          }
-         // decideOnTable(Command.DELETE.name()); TODO
          status.push(status.getLast());
          this.decideOnTableInteraction(Action.DELETE_ALL_SELECTED);
       });
@@ -634,7 +615,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
             {
                loadChapters();
             }
-            // decideOnTable(Command.DELETE.name()); TODO
             status.push(status.getLast());
             this.decideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
          }
@@ -652,7 +632,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          if (dialog.isRestore())
          {
             tabbedPane.setSelectedIndex(Caller.NEW_TAB.getIndex());
-            // decideOnTable(Command.NEW.name()); TODO
             status.push(status.getLast());
             this.decideOnTableInteraction(Action.NEW_EXPRESSION);
          }
@@ -662,7 +641,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          if (table != null)
          {
             table.selectAllExpressions();
-            // decideOnTable(Command.SELECT_ALL.name()); TODO
             status.push(status.getLast());
             this.decideOnTableInteraction(Action.SELECT_TABLE);
          }
@@ -677,14 +655,12 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       hebrewSearchButton.addActionListener(event -> {
          clearTable();
-         // decideOnTable(Command.SEARCH_HEBREW.name()); TODO
          status.push(Status.SEARCH_WHICH_HEBREW);
          this.decideOnTableInteraction(Action.SEARCH_WHICH_HEBREW);
       });
 
       germanSearchButton.addActionListener(event -> {
          clearTable();
-         // decideOnTable(Command.SEARCH_GERMAN.name()); TODO
          status.push(Status.SEARCH_WHICH_GERMAN);
          this.decideOnTableInteraction(Action.SEARCH_WHICH_GERMAN);
       });
@@ -781,7 +757,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
       listSelectionModel.addListSelectionListener(event -> {
          if(!event.getValueIsAdjusting())
          {
-//          decideOnTable(chapterList.getSelectedValue()); TODO
             status.push(Status.CHAPTER_WHICH);
             this.decideOnTableInteraction(Action.CHAPTER_WHICH);
          }
@@ -962,7 +937,6 @@ public class DictionaryPanel extends BackgroundPanelTiled
          JRadioButton radioButton = new JRadioButton(kind.toString());
          radioButton.setActionCommand(kind.name());
          radioButton.addActionListener(event -> {
-            // decideOnTable(kind.name()); TODO
             status.push(Status.EXPRESSIONKIND_WHICH);
             this.decideOnTableInteraction(
                   Action.EXPRESSIONKIND_WHICH);
