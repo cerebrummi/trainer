@@ -56,7 +56,6 @@ import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.ExpressionEditor;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.tonionlayout.TrainLayoutTest;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
@@ -127,7 +126,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       horizontalLanguagePanel = new JPanel();
       horizontalLanguagePanel
-            .setLayout(new TrainLayoutTest(horizontalLanguagePanel, 15, "HorizontalLanguagePanel"));
+            .setLayout(new TrainLayout(horizontalLanguagePanel, 15));
       horizontalLanguagePanel.setOpaque(false);
       horizontalLanguagePanel
             .setBorder(BorderFactory.createEmptyBorder(15, 15, 0, 15));
@@ -172,7 +171,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       tablePanel = new JPanel(new BorderLayout());
       tablePanel.setMinimumSize(new Dimension(420, 507));
-      tablePanel.setMaximumSize(new Dimension(513, 507));
+      tablePanel.setMaximumSize(new Dimension(513, 600));
       tablePanel.setOpaque(false);
 
       add(vertical);
@@ -183,7 +182,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
       loadChapters();
 
       initController();
-            status.push(Status.OPENED_PAGE);
+      
+      status.push(Status.OPENED_PAGE);
    }
 
    private Component initSearchTab()
@@ -202,12 +202,12 @@ public class DictionaryPanel extends BackgroundPanelTiled
       searchPhraseGerman
             .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 70));
       searchPhraseGerman
-            .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 70));
+            .setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 70));
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
       filler.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 100));
-      filler.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 270));
+      filler.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 270));
       germanSearch.add(filler);
 
       searchTypeGroupGerman = new ButtonGroup();
@@ -219,7 +219,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
       JPanel wrapper = new JPanel(new FlowLayout());
       wrapper.setOpaque(false);
       wrapper.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
-      wrapper.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 50));
+      wrapper.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 50));
       wrapper.add(germanSearchButton);
       germanSearch.add(wrapper);
 
@@ -238,7 +238,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
       JPanel filler2 = new JPanel();
       filler2.setOpaque(false);
       filler2.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 5));
-      filler2.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 14));
+      filler2.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 14));
       hebrewSearch.add(filler2);
 
       searchTypeGroupHebrew = new ButtonGroup();
@@ -250,17 +250,17 @@ public class DictionaryPanel extends BackgroundPanelTiled
       JPanel wrapper1 = new JPanel(new FlowLayout());
       wrapper1.setOpaque(false);
       wrapper1.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
-      wrapper1.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 50));
+      wrapper1.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 50));
       wrapper1.add(hebrewSearchButton);
       hebrewSearch.add(wrapper1);
 
       cardLayout = new CardLayout();
       swapPanel = new JPanel(cardLayout);
       swapPanel.setOpaque(false);
-      swapPanel
-            .setPreferredSize(new Dimension(Settings.getKeyboardWidth(), 420));
       swapPanel.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 420));
-      swapPanel.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 420));
+      swapPanel.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 420));
+      germanSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
+      hebrewSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
       swapPanel.add(Language.GERMAN.name(), germanSearch);
       swapPanel.add(Language.HEBREW.name(), hebrewSearch);
 
@@ -397,14 +397,14 @@ public class DictionaryPanel extends BackgroundPanelTiled
       copyPanel.add(copyTableButton);
       copyPanel.add(copyAllSelectedButton);
 
-      JPanel clearPanel = new JPanel();
-      clearPanel.setLayout(new TotemLayout(clearPanel, 10));
-      clearPanel.setBackground(Color.WHITE);
-      clearPanel.setBorder(
+      JPanel selectUnselectPanel = new JPanel();
+      selectUnselectPanel.setLayout(new TotemLayout(selectUnselectPanel, 10));
+      selectUnselectPanel.setBackground(Color.WHITE);
+      selectUnselectPanel.setBorder(
             BorderFactory.createMatteBorder(5, 3, 5, 3, Color.WHITE));
-      clearPanel.add(selectAllInTableButton);
-      clearPanel.add(clearInTableSelectedButton);
-      clearPanel.add(clearAllSelectedButton);
+      selectUnselectPanel.add(selectAllInTableButton);
+      selectUnselectPanel.add(clearInTableSelectedButton);
+      selectUnselectPanel.add(clearAllSelectedButton);
 
       JPanel newPanel = new JPanel();
       newPanel.setLayout(new TotemLayout(newPanel, 10));
@@ -430,6 +430,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       JPanel trashPanel = new JPanel(new BorderLayout());
       trashPanel.setOpaque(false);
+      trashPanel.setMinimumSize(new Dimension(300, 100));
+      trashPanel.setMaximumSize(new Dimension(350, 120));
+      
       JPanel trashIconPanel = new JPanel(new FlowLayout());
       trashIconPanel.setOpaque(false);
 
@@ -442,9 +445,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       trashPanel.add(trashIconPanel);
 
-      vertical.add(copyPanel);
-      vertical.add(clearPanel);
       vertical.add(newPanel);
+      vertical.add(selectUnselectPanel);
+      vertical.add(copyPanel);
       vertical.add(deletePanel);
       vertical.add(savePanel);
       vertical.add(trashPanel);
@@ -767,10 +770,10 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       JScrollPane scroller = new JScrollPane(chapterList);
       scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
-      scroller.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 400));
+      scroller.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 400));
       scroller.setBorder(BorderFactory.createEmptyBorder());
 
-      chapterPanel.add(scroller, BorderLayout.CENTER);
+      chapterPanel.add(scroller);
       chapterPanel.validate();
       chapterPanel.repaint();
    }

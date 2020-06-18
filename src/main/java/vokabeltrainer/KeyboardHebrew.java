@@ -154,7 +154,7 @@ public class KeyboardHebrew extends JPanel
 
    private Component makeButton(String unicode, String tooltip)
    {
-      DataButton jButton = new DataButton("<html><span style=\"font-family: serif;font-size: 26px;\">" + unicode + "</span></html>",
+      DataButton jButton = new DataButton("<html><span>" + unicode + "</span></html>",
             unicode);
       jButton.setToolTipText(tooltip);
       jButton.setMargin(new Insets(0, -5, 3, -5));
