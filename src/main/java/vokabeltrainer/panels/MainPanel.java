@@ -72,7 +72,7 @@ public class MainPanel extends JPanel
       statisticsButton = new JButton("Statistik");
       settingsButton = new JButton("Einstellungen");
       aboveButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
-      letterPicturesButton = new JButton("Buchstabenbilder");
+      letterPicturesButton = new JButton("Alefbet - Alfabet");
 
       startButton.setFont(Settings.getToolBarButtonFont());
       vocabularyCardsButton.setFont(Settings.getToolBarButtonFont());

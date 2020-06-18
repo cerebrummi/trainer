@@ -8,6 +8,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -30,6 +31,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
@@ -340,51 +342,101 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       copyAllSelectedButton = new JButton("Gesamtauswahl kopieren");
       copyAllSelectedButton.setFont(buttonFont);
+      copyAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
+      copyAllSelectedButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      copyAllSelectedButton.setBorderPainted(false);
+      copyAllSelectedButton.setContentAreaFilled(false);
+      copyAllSelectedButton.setFocusPainted(false);
       copyAllSelectedButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
 
       copyInTableSelectedButton = new JButton("Tabellenauswahl kopieren");
       copyInTableSelectedButton.setFont(buttonFont);
+      copyInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
+      copyInTableSelectedButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      copyInTableSelectedButton.setBorderPainted(false);
+      copyInTableSelectedButton.setContentAreaFilled(false);
+      copyInTableSelectedButton.setFocusPainted(false);
       copyInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getCopy()));
 
       copyTableButton = new JButton("Tabelle kopieren");
       copyTableButton.setFont(buttonFont);
+      copyTableButton.setHorizontalAlignment(SwingConstants.LEFT);
+      copyTableButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      copyTableButton.setBorderPainted(false);
+      copyTableButton.setContentAreaFilled(false);
+      copyTableButton.setFocusPainted(false);
       copyTableButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
 
       selectAllInTableButton = new JButton("Tabelle auswählen");
       selectAllInTableButton.setFont(buttonFont);
+      selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
+      selectAllInTableButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      selectAllInTableButton.setBorderPainted(false);
+      selectAllInTableButton.setContentAreaFilled(false);
+      selectAllInTableButton.setFocusPainted(false);
       selectAllInTableButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
 
       clearAllSelectedButton = new JButton("Gesamtauswahl aufheben");
       clearAllSelectedButton.setFont(buttonFont);
+      clearAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
+      clearAllSelectedButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      clearAllSelectedButton.setBorderPainted(false);
+      clearAllSelectedButton.setContentAreaFilled(false);
+      clearAllSelectedButton.setFocusPainted(false);
       clearAllSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
 
       clearInTableSelectedButton = new JButton("Tabellenauswahl aufheben");
       clearInTableSelectedButton.setFont(buttonFont);
+      clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
+      clearInTableSelectedButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      clearInTableSelectedButton.setBorderPainted(false);
+      clearInTableSelectedButton.setContentAreaFilled(false);
+      clearInTableSelectedButton.setFocusPainted(false);
       clearInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
 
       newWordButton = new JButton("neues Wort");
       newWordButton.setFont(buttonFont);
+      newWordButton.setHorizontalAlignment(SwingConstants.LEFT);
       newWordButton.setMinimumSize(new Dimension(200, 40));
       newWordButton.setMaximumSize(new Dimension(400, 40));
+      newWordButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      newWordButton.setBorderPainted(false);
+      newWordButton.setContentAreaFilled(false);
+      newWordButton.setFocusPainted(false);
       newWordButton.setIcon(new ImageIcon(ApplicationImages.getNewWord()));
 
       saveButton = new JButton("Änderungen speichern");
       saveButton.setFont(buttonFont);
+      saveButton.setHorizontalAlignment(SwingConstants.LEFT);
       saveButton.setMinimumSize(new Dimension(200, 40));
       saveButton.setMaximumSize(new Dimension(400, 40));
+      saveButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      saveButton.setBorderPainted(false);
+      saveButton.setContentAreaFilled(false);
+      saveButton.setFocusPainted(false);
       saveButton.setIcon(new ImageIcon(ApplicationImages.getSaveWord()));
 
       deleteInTableSelectedButton = new JButton("Tabellenauswahl löschen");
       deleteInTableSelectedButton.setFont(buttonFont);
+      deleteInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
+      deleteInTableSelectedButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      deleteInTableSelectedButton.setBorderPainted(false);
+      deleteInTableSelectedButton.setContentAreaFilled(false);
+      deleteInTableSelectedButton.setFocusPainted(false);
       deleteInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getDeleteWord()));
 
       deleteAllSelectedButton = new JButton("Gesamtauswahl löschen");
       deleteAllSelectedButton.setFont(buttonFont);
+      deleteAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
+      deleteAllSelectedButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      deleteAllSelectedButton.setBorderPainted(false);
+      deleteAllSelectedButton.setContentAreaFilled(false);
+      deleteAllSelectedButton.setFocusPainted(false);
       deleteAllSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getDeleteWord()));
 
@@ -433,13 +485,23 @@ public class DictionaryPanel extends BackgroundPanelTiled
       trashPanel.setMinimumSize(new Dimension(300, 100));
       trashPanel.setMaximumSize(new Dimension(350, 120));
       
-      JPanel trashIconPanel = new JPanel(new FlowLayout());
+      JPanel trashIconPanel = new JPanel(new GridLayout(1,2));
       trashIconPanel.setOpaque(false);
 
       wasteBinButton = new JButton(
             new ImageIcon(ApplicationImages.getTrashcan()));
+      wasteBinButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      wasteBinButton.setBorderPainted(false);
+      wasteBinButton.setContentAreaFilled(false);
+      wasteBinButton.setFocusPainted(false);
+      
       shredderButton = new JButton(
             new ImageIcon(ApplicationImages.getShredder()));
+      shredderButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
+      shredderButton.setBorderPainted(false);
+      shredderButton.setContentAreaFilled(false);
+      shredderButton.setFocusPainted(false);
+      
       trashIconPanel.add(wasteBinButton);
       trashIconPanel.add(shredderButton);
 
