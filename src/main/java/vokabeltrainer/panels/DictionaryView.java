@@ -120,7 +120,7 @@ public class DictionaryView extends BackgroundPanelTiled
          AbstractButton button = enumeration1.nextElement();
          button.addActionListener(event -> {
             cardLayout.show(swapPanel, button.getActionCommand());
-            Status.push(Status.pop());
+            Status.push(Status.peek());
             this.decideOnTableInteraction(
                   Action.valueOf(button.getActionCommand()));
          });
