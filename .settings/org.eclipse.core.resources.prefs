@@ -1,9 +1,0 @@
-eclipse.preferences.version=1
-encoding//src/main/java/vokabeltrainer/InfoTextField.java=UTF-8
-encoding//src/main/java/vokabeltrainer/common/Main.java=UTF-8
-encoding//src/main/java/vokabeltrainer/panels/DictionaryPanel.java=UTF-8
-encoding//src/main/java/vokabeltrainer/panels/LetterPicturesPanel.java=UTF-8
-encoding//src/main/java/vokabeltrainer/panels/StartPanel.java=UTF-8
-encoding//src/main/java/vokabeltrainer/panels/StatisticsPanel.java=UTF-8
-encoding//src/main/java/vokabeltrainer/table/list/editor/ExpressionEditor.java=UTF-8
-encoding//src/main/java/vokabeltrainer/types/ExpressionKind.java=UTF-8

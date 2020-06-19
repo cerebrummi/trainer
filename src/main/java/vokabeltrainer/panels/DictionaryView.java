@@ -10,12 +10,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -32,8 +28,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
@@ -45,18 +39,19 @@ import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.dialogs.EmptyNotification;
 import vokabeltrainer.panels.dialogs.TrashCanDialog;
 import vokabeltrainer.panels.dictionary.Action;
+import vokabeltrainer.panels.dictionary.Caller;
+import vokabeltrainer.panels.dictionary.DictionaryObserver;
+import vokabeltrainer.panels.dictionary.DictionaryConnector;
 import vokabeltrainer.panels.dictionary.Interaction;
 import vokabeltrainer.panels.dictionary.Status;
 import vokabeltrainer.panels.list.StringList;
 import vokabeltrainer.panels.list.StringListSelectionModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
-import vokabeltrainer.table.list.editor.ExpressionEditor;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;
@@ -64,32 +59,13 @@ import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.SearchType;
 
-public class DictionaryPanel extends BackgroundPanelTiled
+public class DictionaryView extends BackgroundPanelTiled
+      implements DictionaryConnector
 {
-   enum Caller
-   {
-      CHAPTER_TAB(0), SEARCH_TAB(1), KIND_TAB(2), NEW_TAB(3), SELECTED_TAB(4);
-
-      private int index;
-      private static Caller tabShowing;
-
-      Caller(int index)
-      {
-         this.index = index;
-      }
-
-      int getIndex()
-      {
-         return index;
-      }
-   }
-
    private static final long serialVersionUID = 9130321171813967337L;
 
-   private ArrayDeque<Status> status = new ArrayDeque<>();
-   
    private ButtonGroup languageGroup;
-   private ButtonGroup searchExpressionKindGroup;
+   private ButtonGroup expressionKind;
    private ButtonGroup searchTypeGroupHebrew;
    private ButtonGroup searchTypeGroupGerman;
    private List<JRadioButton> radioButtons;
@@ -119,8 +95,11 @@ public class DictionaryPanel extends BackgroundPanelTiled
    private JButton tableInfoButton;
    private JPanel horizontalLanguagePanel;
 
-   public DictionaryPanel()
+   private DictionaryObserver observer;
+
+   public DictionaryView(DictionaryObserver observer)
    {
+      this.observer = observer;
       setLayout(new TrainLayout(this, 15));
 
       JPanel vertical = new JPanel();
@@ -141,7 +120,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
          AbstractButton button = enumeration1.nextElement();
          button.addActionListener(event -> {
             cardLayout.show(swapPanel, button.getActionCommand());
-            status.push(status.getLast());
+            Status.push(Status.pop());
             this.decideOnTableInteraction(
                   Action.valueOf(button.getActionCommand()));
          });
@@ -181,12 +160,10 @@ public class DictionaryPanel extends BackgroundPanelTiled
       add(tablePanel);
       add(initServicePanel());
 
-      Caller.tabShowing = Caller.CHAPTER_TAB;
+      Caller.setTabShowing(Caller.CHAPTER_TAB);
       loadChapters();
 
       initController();
-      
-      status.push(Status.OPENED_PAGE);
    }
 
    private Component initSearchTab()
@@ -204,13 +181,14 @@ public class DictionaryPanel extends BackgroundPanelTiled
       germanSearch.add(searchPhraseGerman);
       searchPhraseGerman
             .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 70));
-      searchPhraseGerman
-            .setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 70));
+      searchPhraseGerman.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() + 50, 70));
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
       filler.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 100));
-      filler.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 270));
+      filler.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() + 50, 270));
       germanSearch.add(filler);
 
       searchTypeGroupGerman = new ButtonGroup();
@@ -222,7 +200,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
       JPanel wrapper = new JPanel(new FlowLayout());
       wrapper.setOpaque(false);
       wrapper.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
-      wrapper.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 50));
+      wrapper.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() + 50, 50));
       wrapper.add(germanSearchButton);
       germanSearch.add(wrapper);
 
@@ -241,7 +220,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
       JPanel filler2 = new JPanel();
       filler2.setOpaque(false);
       filler2.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 5));
-      filler2.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 14));
+      filler2.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() + 50, 14));
       hebrewSearch.add(filler2);
 
       searchTypeGroupHebrew = new ButtonGroup();
@@ -253,7 +233,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
       JPanel wrapper1 = new JPanel(new FlowLayout());
       wrapper1.setOpaque(false);
       wrapper1.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
-      wrapper1.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 50));
+      wrapper1.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() + 50, 50));
       wrapper1.add(hebrewSearchButton);
       hebrewSearch.add(wrapper1);
 
@@ -261,7 +242,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
       swapPanel = new JPanel(cardLayout);
       swapPanel.setOpaque(false);
       swapPanel.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 420));
-      swapPanel.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 420));
+      swapPanel.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() + 50, 420));
       germanSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
       hebrewSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
       swapPanel.add(Language.GERMAN.name(), germanSearch);
@@ -397,7 +379,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       deleteAllSelectedButton = new JButton("Gesamtauswahl löschen");
       deleteAllSelectedButton.setFont(buttonFont);
-      deleteAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT); 
+      deleteAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteAllSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getDeleteWord()));
 
@@ -445,8 +427,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
       trashPanel.setOpaque(false);
       trashPanel.setMinimumSize(new Dimension(300, 100));
       trashPanel.setMaximumSize(new Dimension(350, 120));
-      
-      JPanel trashIconPanel = new JPanel(new GridLayout(1,2));
+
+      JPanel trashIconPanel = new JPanel(new GridLayout(1, 2));
       trashIconPanel.setOpaque(false);
 
       wasteBinButton = new JButton(
@@ -455,14 +437,14 @@ public class DictionaryPanel extends BackgroundPanelTiled
       wasteBinButton.setBorderPainted(false);
       wasteBinButton.setContentAreaFilled(false);
       wasteBinButton.setFocusPainted(false);
-      
+
       shredderButton = new JButton(
             new ImageIcon(ApplicationImages.getShredder()));
       shredderButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
       shredderButton.setBorderPainted(false);
       shredderButton.setContentAreaFilled(false);
       shredderButton.setFocusPainted(false);
-      
+
       trashIconPanel.add(wasteBinButton);
       trashIconPanel.add(shredderButton);
 
@@ -479,174 +461,53 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
    private void initController()
    {
-      saveButton.addActionListener(event -> {
-         SwingUtilities.invokeLater(new Runnable()
-         {
-            @Override
-            public void run()
-            {
-               if (new SaveExpressions().save())
-               {
-                  if (Caller.CHAPTER_TAB.equals(Caller.tabShowing))
-                  {
-                     loadChapters();
-                  }
-                  status.push(status.getLast());
-                  decideOnTableInteraction(Action.SAVE);
-               }
+      saveButton.addActionListener(event -> observer.save());
 
-            }
-         });
+      tabbedPane.addChangeListener(
+            event -> observer.tabbedPaneChanged(tabbedPane.getSelectedIndex()));
 
-      });
+      newWordButton.addActionListener(event -> observer.newExpression());
 
-      tabbedPane.addChangeListener(event -> {
-         if (tabbedPane.getSelectedIndex() == Caller.KIND_TAB.getIndex())
-         {
-            Caller.tabShowing = Caller.KIND_TAB;
-            status.push(Status.TAB_EXPRESSIONKIND);
-            this.decideOnTableInteraction(Action.TAB_EXPRESSIONKIND);
-         }
-         else if (tabbedPane.getSelectedIndex() == Caller.CHAPTER_TAB
-               .getIndex())
-         {
-            Caller.tabShowing = Caller.CHAPTER_TAB;
-            this.searchExpressionKindGroup.clearSelection();
-            status.push(Status.TAB_CHAPTER);
-            this.decideOnTableInteraction(Action.TAB_CHAPTER);
-            loadChapters();
-         }
-         else if (tabbedPane.getSelectedIndex() == Caller.NEW_TAB.getIndex())
-         {
-            Caller.tabShowing = Caller.NEW_TAB;
-            this.searchExpressionKindGroup.clearSelection();
-            status.push(Status.TAB_NEW_EXPRESSIONS);
-            this.decideOnTableInteraction(Action.TAB_NEW_EXPRESSIONS);
-         }
-         else if (tabbedPane.getSelectedIndex() == Caller.SELECTED_TAB
-               .getIndex())
-         {
-            Caller.tabShowing = Caller.SELECTED_TAB;
-            this.searchExpressionKindGroup.clearSelection();
-            status.push(Status.TAB_SELECTED_EXPRESSIONS);
-            this.decideOnTableInteraction(Action.TAB_SELECTED_EXPRESSIONS);
-         }
-         else if (tabbedPane.getSelectedIndex() == Caller.SEARCH_TAB.getIndex())
-         {
-            Caller.tabShowing = Caller.SEARCH_TAB;
-            this.searchExpressionKindGroup.clearSelection();
-            status.push(Status.TAB_SEARCH);
-            this.decideOnTableInteraction(Action.TAB_SEARCH);
-         }
-      });
+      copyAllSelectedButton
+            .addActionListener(event -> observer.copyAllSelectedExpressions());
 
-      newWordButton.addActionListener(event -> {
-         ExpressionEditor editor = new ExpressionEditor();
-         editor.setExpression(new Expression(true));
-         editor.setLocationRelativeTo(null);
-         editor.setVisible(true);
-         if (editor.isSave())
-         {
-            Expression expression = editor.getExpression();
-            Data.putExpressionInNewMap(expression.getUuid(), expression);
-            tabbedPane.setSelectedIndex(Caller.NEW_TAB.getIndex());
-            status.push(status.getLast());
-            this.decideOnTableInteraction(Action.NEW_EXPRESSION);
-         }
-      });
+      copyTableButton
+            .addActionListener(event -> observer.copyExpressionsOfTable());
 
-      copyAllSelectedButton.addActionListener(event -> {
-         StringSelection stringSelection = new StringSelection(
-               Data.getAllSelectedExpressionsAsString(Language.valueOf(
-                     languageGroup.getSelection().getActionCommand())));
-         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-         clipboard.setContents(stringSelection, null);
-      });
+      copyInTableSelectedButton.addActionListener(
+            event -> observer.copyInTableSelectedExpressions());
 
-      copyTableButton.addActionListener(event -> {
-         if (table != null)
-         {
-            StringSelection stringSelection = new StringSelection(
-                  table.getTableDataToString());
-            Clipboard clipboard = Toolkit.getDefaultToolkit()
-                  .getSystemClipboard();
-            clipboard.setContents(stringSelection, null);
-         }
-      });
+      clearInTableSelectedButton
+            .addActionListener(event -> observer.unselectTableExpressions());
 
-      copyInTableSelectedButton.addActionListener(event -> {
-         if (table != null)
-         {
-            StringSelection stringSelection = new StringSelection(
-                  table.getSelectedTableDataToString());
-            Clipboard clipboard = Toolkit.getDefaultToolkit()
-                  .getSystemClipboard();
-            clipboard.setContents(stringSelection, null);
-         }
-      });
+      clearAllSelectedButton
+            .addActionListener(event -> observer.unselectAllExpressions());
 
-      clearInTableSelectedButton.addActionListener(event -> {
-         if (table != null)
-         {
-            table.clearTableDataSelection();
-            status.push(status.getLast());
-            this.decideOnTableInteraction(Action.UNSELECT_TABLE);
-         }
-      });
+      deleteAllSelectedButton.addActionListener(event -> observer.deleteAllSelectedExpressions());
 
-      clearAllSelectedButton.addActionListener(event -> {
-         Data.clearAllSelectedExpressions();
-         if (table != null)
-         {
-            status.push(status.getLast());
-            this.decideOnTableInteraction(Action.UNSELECT_ALL);
-         }
-      });
-
-      deleteAllSelectedButton.addActionListener(event -> {
-
-         List<Expression> list = Data.getAllSelectedExpressions();
-
-         if (list.isEmpty())
-         {
-            nothingWasSelectedForDeletion(2);
-            return;
-         }
-         if (askForDeletionConfirmation(list.size()) == 0)
-         {
-            Data.deleteExpressions(list);
-         }
-         if (Caller.CHAPTER_TAB.equals(Caller.tabShowing))
-         {
-            loadChapters();
-         }
-         status.push(status.getLast());
-         this.decideOnTableInteraction(Action.DELETE_ALL_SELECTED);
-      });
-
-      deleteInTableSelectedButton.addActionListener(event -> {
+      deleteInTableSelectedButton.addActionListener(event -> {//TODO
          if (table != null)
          {
             List<Expression> list = table.getSelectedExpressions();
             if (list.isEmpty())
             {
-               nothingWasSelectedForDeletion(2);
+               notifyNothingWasSelectedForDeletion(2);
                return;
             }
             if (askForDeletionConfirmation(list.size()) == 0)
             {
                Data.deleteExpressions(list);
             }
-            if (Caller.CHAPTER_TAB.equals(Caller.tabShowing))
+            if (Caller.CHAPTER_TAB.equals(Caller.getTabShowing()))
             {
                loadChapters();
             }
-            status.push(status.getLast());
+            Status.push(Status.pop());
             this.decideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
          }
          else
          {
-            nothingWasSelectedForDeletion(2);
+            notifyNothingWasSelectedForDeletion(2);
          }
       });
 
@@ -658,7 +519,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
          if (dialog.isRestore())
          {
             tabbedPane.setSelectedIndex(Caller.NEW_TAB.getIndex());
-            status.push(status.getLast());
+            Status.push(Status.pop());
             this.decideOnTableInteraction(Action.NEW_EXPRESSION);
          }
       });
@@ -667,7 +528,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
          if (table != null)
          {
             table.selectAllExpressions();
-            status.push(status.getLast());
+            Status.push(Status.pop());
             this.decideOnTableInteraction(Action.SELECT_TABLE);
          }
       });
@@ -681,13 +542,13 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       hebrewSearchButton.addActionListener(event -> {
          clearTable();
-         status.push(Status.SEARCH_WHICH_HEBREW);
+         Status.push(Status.SEARCH_WHICH_HEBREW);
          this.decideOnTableInteraction(Action.SEARCH_WHICH_HEBREW);
       });
 
       germanSearchButton.addActionListener(event -> {
          clearTable();
-         status.push(Status.SEARCH_WHICH_GERMAN);
+         Status.push(Status.SEARCH_WHICH_GERMAN);
          this.decideOnTableInteraction(Action.SEARCH_WHICH_GERMAN);
       });
 
@@ -743,7 +604,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
    }
 
-   private int askForDeletionConfirmation(int number)
+   public int askForDeletionConfirmation(int number)
    {
       String message;
       if (number == 1)
@@ -759,7 +620,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
    }
 
-   private void nothingWasSelectedForDeletion(int number)
+   public void notifyNothingWasSelectedForDeletion(int number)
    {
       String message;
       if (number == 1)
@@ -776,14 +637,14 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
    }
 
-   private void loadChapters()
+   public void loadChapters()
    {
       chapterPanel.removeAll();
       StringListSelectionModel listSelectionModel = new StringListSelectionModel();
       listSelectionModel.addListSelectionListener(event -> {
-         if(!event.getValueIsAdjusting())
+         if (!event.getValueIsAdjusting())
          {
-            status.push(Status.CHAPTER_WHICH);
+            Status.push(Status.CHAPTER_WHICH);
             this.decideOnTableInteraction(Action.CHAPTER_WHICH);
          }
       });
@@ -793,7 +654,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
       JScrollPane scroller = new JScrollPane(chapterList);
       scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
-      scroller.setMaximumSize(new Dimension(Settings.getKeyboardWidth()+50, 400));
+      scroller.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() + 50, 400));
       scroller.setBorder(BorderFactory.createEmptyBorder());
 
       chapterPanel.add(scroller);
@@ -801,20 +663,19 @@ public class DictionaryPanel extends BackgroundPanelTiled
       chapterPanel.repaint();
    }
 
-   private void decideOnTableInteraction(Action action)
+   public void decideOnTableInteraction(Action action)
    {
       ExpressionTableModel tableModel = null;
 
-      if(Interaction.getCommand(
-            new Interaction(action, status.peekLast())) == null)
+      if (Interaction
+            .getCommand(new Interaction(action, Status.peek())) == null)
       {
-         System.out.println("Action: "+action.name());
-         System.out.println("Status: "+status.peekLast().name());
+         System.out.println("Action: " + action.name());
+         System.out.println("Status: " + Status.peek().name());
          return;
       }
-      
-      switch (Interaction.getCommand(
-            new Interaction(action, status.pollLast())))
+
+      switch (Interaction.getCommand(new Interaction(action, Status.pop())))
       {
       case NOTHING:
          return;
@@ -836,7 +697,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
                Language
                      .valueOf(languageGroup.getSelection().getActionCommand()),
                null,
-               ExpressionKind.valueOf(searchExpressionKindGroup.getSelection()
+               ExpressionKind.valueOf(expressionKind.getSelection()
                      .getActionCommand().replace("EXPRESSIONKIND_WHICH_", "")),
                null, null, null);
          break;
@@ -915,9 +776,9 @@ public class DictionaryPanel extends BackgroundPanelTiled
 
    private void initRadioButtonPanel(JPanel vertical1)
    {
-      searchExpressionKindGroup = new ButtonGroup();
+      expressionKind = new ButtonGroup();
 
-      initRadioButtonGroup(searchExpressionKindGroup);
+      initRadioButtonGroup(expressionKind);
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
@@ -933,8 +794,7 @@ public class DictionaryPanel extends BackgroundPanelTiled
       vertical3.setOpaque(false);
 
       int counter = 0;
-      Enumeration<AbstractButton> enumeration = searchExpressionKindGroup
-            .getElements();
+      Enumeration<AbstractButton> enumeration = expressionKind.getElements();
       while (enumeration.hasMoreElements())
       {
          AbstractButton button = enumeration.nextElement();
@@ -963,9 +823,8 @@ public class DictionaryPanel extends BackgroundPanelTiled
          JRadioButton radioButton = new JRadioButton(kind.toString());
          radioButton.setActionCommand(kind.name());
          radioButton.addActionListener(event -> {
-            status.push(Status.EXPRESSIONKIND_WHICH);
-            this.decideOnTableInteraction(
-                  Action.EXPRESSIONKIND_WHICH);
+            Status.push(Status.EXPRESSIONKIND_WHICH);
+            this.decideOnTableInteraction(Action.EXPRESSIONKIND_WHICH);
          });
          radioButton.setFont(font);
          searchExpressionKindGroup.add(radioButton);
@@ -981,15 +840,56 @@ public class DictionaryPanel extends BackgroundPanelTiled
       german.setFont(font);
       german.setSelected(true);
       languageTypeGroup.add(german);
-      german.setMinimumSize(new Dimension(100,26));
-      german.setMaximumSize(new Dimension(205,32));
+      german.setMinimumSize(new Dimension(100, 26));
+      german.setMaximumSize(new Dimension(205, 32));
 
       JRadioButton hebrew = new JRadioButton("Hebräisch");
       hebrew.setActionCommand(Action.HEBREW.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
-      hebrew.setMinimumSize(new Dimension(100,26));
-      hebrew.setMaximumSize(new Dimension(205,32));
+      hebrew.setMinimumSize(new Dimension(100, 26));
+      hebrew.setMaximumSize(new Dimension(205, 32));
    }
 
+   @Override
+   public void unselectExpressionKind()
+   {
+      expressionKind.clearSelection();
+   }
+
+   @Override
+   public void selectTab(Caller caller)
+   {
+      tabbedPane.setSelectedIndex(caller.getIndex());
+   }
+
+   @Override
+   public Language getSelectedLanguage()
+   {
+      return Language.valueOf(languageGroup.getSelection().getActionCommand());
+   }
+
+   @Override
+   public boolean isTableNotNull()
+   {
+      return table != null;
+   }
+
+   @Override
+   public String getTableDataToString()
+   {
+      return table.getTableDataToString();
+   }
+
+   @Override
+   public String getSelectedTableDataToString()
+   {
+      return table.getSelectedTableDataToString();
+   }
+
+   @Override
+   public void clearTableDataSelection()
+   {
+      table.clearTableDataSelection();
+   }
 }

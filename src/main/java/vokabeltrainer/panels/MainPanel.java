@@ -13,6 +13,7 @@ import javax.swing.JToolBar;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
+import vokabeltrainer.panels.dictionary.DictionaryController;
 import vokabeltrainer.panels.trainer.TrainerPanel;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingDialog;
 import vokabeltrainer.types.Expression;
@@ -30,7 +31,7 @@ public class MainPanel extends JPanel
    private JButton aboveButton;
    private JButton letterPicturesButton;
    private JPanel activeComponent;
-   private DictionaryPanel dictionaryPanel;
+   private DictionaryView dictionaryPanel;
    private StatisticsPanel statisticsPanel;
    private StartPanel startPanel;
    private SettingsPanel settingsPanel;
@@ -51,7 +52,7 @@ public class MainPanel extends JPanel
       add(initToolBar(), BorderLayout.PAGE_START);
       
       startPanel = new StartPanel();
-      dictionaryPanel = new DictionaryPanel();
+      dictionaryPanel = new DictionaryController().getDictionaryPanel();
       letterPicturesPanel = new LetterPicturesPanel();
       statisticsPanel = new StatisticsPanel();
       settingsPanel = new SettingsPanel();
@@ -224,7 +225,7 @@ public class MainPanel extends JPanel
       return letterPicturesButton;
    }
 
-   public DictionaryPanel getDictionaryPanel()
+   public DictionaryView getDictionaryPanel()
    {
       return dictionaryPanel;
    }

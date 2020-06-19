@@ -1,5 +1,7 @@
 package vokabeltrainer.panels.dictionary;
 
+import java.util.ArrayDeque;
+
 public enum Status
 {
    OPENED_PAGE,
@@ -11,5 +13,22 @@ public enum Status
    CHAPTER_WHICH,
    EXPRESSIONKIND_WHICH,
    SEARCH_WHICH_GERMAN,
-   SEARCH_WHICH_HEBREW
+   SEARCH_WHICH_HEBREW;
+   
+   private static ArrayDeque<Status> status = new ArrayDeque<>();
+   
+   public static void push(Status status)
+   {
+      Status.status.push(status);
+   }
+   
+   public static Status pop()
+   {
+      return Status.status.pollLast();
+   }
+   
+   public static Status peek()
+   {
+      return Status.status.peekLast();
+   }
 }
