@@ -44,8 +44,8 @@ import vokabeltrainer.panels.dialogs.EmptyNotification;
 import vokabeltrainer.panels.dialogs.TrashCanDialog;
 import vokabeltrainer.panels.dictionary.Action;
 import vokabeltrainer.panels.dictionary.Caller;
-import vokabeltrainer.panels.dictionary.DictionaryObserver;
-import vokabeltrainer.panels.dictionary.DictionaryConnector;
+import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
+import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.dictionary.Interaction;
 import vokabeltrainer.panels.dictionary.Status;
 import vokabeltrainer.panels.list.StringList;
@@ -60,7 +60,7 @@ import vokabeltrainer.types.Language;
 import vokabeltrainer.types.SearchType;
 
 public class DictionaryView extends BackgroundPanelTiled
-      implements DictionaryConnector
+      implements DictionaryViewConnector
 {
    private static final long serialVersionUID = 9130321171813967337L;
 
@@ -95,9 +95,9 @@ public class DictionaryView extends BackgroundPanelTiled
    private JButton tableInfoButton;
    private JPanel horizontalLanguagePanel;
 
-   private DictionaryObserver observer;
+   private DictionaryControllerConnector observer;
 
-   public DictionaryView(DictionaryObserver observer)
+   public DictionaryView(DictionaryControllerConnector observer)
    {
       this.observer = observer;
       setLayout(new TrainLayout(this, 15));
@@ -483,9 +483,10 @@ public class DictionaryView extends BackgroundPanelTiled
       clearAllSelectedButton
             .addActionListener(event -> observer.unselectAllExpressions());
 
-      deleteAllSelectedButton.addActionListener(event -> observer.deleteAllSelectedExpressions());
+      deleteAllSelectedButton.addActionListener(
+            event -> observer.deleteAllSelectedExpressions());
 
-      deleteInTableSelectedButton.addActionListener(event -> {//TODO
+      deleteInTableSelectedButton.addActionListener(event -> {// TODO
          if (table != null)
          {
             List<Expression> list = table.getSelectedExpressions();
@@ -502,7 +503,7 @@ public class DictionaryView extends BackgroundPanelTiled
             {
                loadChapters();
             }
-            Status.push(Status.pop());
+            Status.push(Status.peek());
             this.decideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
          }
          else
@@ -519,7 +520,7 @@ public class DictionaryView extends BackgroundPanelTiled
          if (dialog.isRestore())
          {
             tabbedPane.setSelectedIndex(Caller.NEW_TAB.getIndex());
-            Status.push(Status.pop());
+            Status.push(Status.peek());
             this.decideOnTableInteraction(Action.NEW_EXPRESSION);
          }
       });
@@ -528,7 +529,7 @@ public class DictionaryView extends BackgroundPanelTiled
          if (table != null)
          {
             table.selectAllExpressions();
-            Status.push(Status.pop());
+            Status.push(Status.peek());
             this.decideOnTableInteraction(Action.SELECT_TABLE);
          }
       });

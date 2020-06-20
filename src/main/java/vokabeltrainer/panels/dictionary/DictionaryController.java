@@ -13,7 +13,7 @@ import vokabeltrainer.panels.DictionaryView;
 import vokabeltrainer.table.list.editor.ExpressionEditor;
 import vokabeltrainer.types.Expression;
 
-public class DictionaryController implements DictionaryObserver
+public class DictionaryController implements DictionaryControllerConnector
 {
    private DictionaryView dictionaryView;
 
@@ -37,7 +37,7 @@ public class DictionaryController implements DictionaryObserver
                {
                   dictionaryView.loadChapters();
                }
-               Status.push(Status.pop());
+               Status.push(Status.peek());
                dictionaryView.decideOnTableInteraction(Action.SAVE);
             }
 
@@ -104,7 +104,7 @@ public class DictionaryController implements DictionaryObserver
          Expression expression = editor.getExpression();
          Data.putExpressionInNewMap(expression.getUuid(), expression);
          dictionaryView.selectTab(Caller.NEW_TAB);
-         Status.push(Status.pop());
+         Status.push(Status.peek());
          dictionaryView.decideOnTableInteraction(Action.NEW_EXPRESSION);
       }
    }
@@ -149,7 +149,7 @@ public class DictionaryController implements DictionaryObserver
       if (dictionaryView.isTableNotNull())
       {
          dictionaryView.clearTableDataSelection();
-         Status.push(Status.pop());
+         Status.push(Status.peek());
          dictionaryView.decideOnTableInteraction(Action.UNSELECT_TABLE);
       }
    }
@@ -160,7 +160,7 @@ public class DictionaryController implements DictionaryObserver
       Data.clearAllSelectedExpressions();
       if (dictionaryView.isTableNotNull())
       {
-         Status.push(Status.pop());
+         Status.push(Status.peek());
          dictionaryView.decideOnTableInteraction(Action.UNSELECT_ALL);
       }
    }
@@ -183,7 +183,7 @@ public class DictionaryController implements DictionaryObserver
       {
          dictionaryView.loadChapters();
       }
-      Status.push(Status.pop());
+      Status.push(Status.peek());
       dictionaryView.decideOnTableInteraction(Action.DELETE_ALL_SELECTED);
    }
 

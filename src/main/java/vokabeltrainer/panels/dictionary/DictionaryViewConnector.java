@@ -2,7 +2,7 @@ package vokabeltrainer.panels.dictionary;
 
 import vokabeltrainer.types.Language;
 
-public interface DictionaryConnector
+public interface DictionaryViewConnector
 {
    public void loadChapters();
    public void decideOnTableInteraction(Action action);

@@ -1,6 +1,6 @@
 package vokabeltrainer.panels.dictionary;
 
-public interface DictionaryObserver
+public interface DictionaryControllerConnector
 {
    public void save();
    public void tabbedPaneChanged(int selectedIndex);
