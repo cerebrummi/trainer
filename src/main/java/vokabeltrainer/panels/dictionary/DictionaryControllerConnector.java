@@ -10,5 +10,8 @@ public interface DictionaryControllerConnector
    public void copyInTableSelectedExpressions();
    public void unselectTableExpressions();
    public void unselectAllExpressions();
+   public void selectTableExpressions();
    public void deleteAllSelectedExpressions();
+   public void deleteInTableSelectedExpressions();
+   public void putSelectedExpressionsIntoWasteBin();
 }

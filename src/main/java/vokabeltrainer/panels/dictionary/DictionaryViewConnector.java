@@ -1,5 +1,8 @@
 package vokabeltrainer.panels.dictionary;
 
+import java.util.List;
+
+import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
 public interface DictionaryViewConnector
@@ -15,5 +18,6 @@ public interface DictionaryViewConnector
    public void clearTableDataSelection();
    public void notifyNothingWasSelectedForDeletion(int singularPlural);
    public int askForDeletionConfirmation(int numberOfExpressionsToBeDeleted);
-
+   public List<Expression> getInTableSelectedExpressions();
+   public void selectTableData();
 }

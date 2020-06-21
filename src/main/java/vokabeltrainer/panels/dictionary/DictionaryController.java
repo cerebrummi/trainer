@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.DictionaryView;
+import vokabeltrainer.panels.dialogs.TrashCanDialog;
 import vokabeltrainer.table.list.editor.ExpressionEditor;
 import vokabeltrainer.types.Expression;
 
@@ -185,6 +186,59 @@ public class DictionaryController implements DictionaryControllerConnector
       }
       Status.push(Status.peek());
       dictionaryView.decideOnTableInteraction(Action.DELETE_ALL_SELECTED);
+   }
+
+   @Override
+   public void deleteInTableSelectedExpressions()
+   {
+      if (dictionaryView.isTableNotNull())
+      {
+         List<Expression> list = dictionaryView.getInTableSelectedExpressions();
+         if (list.isEmpty())
+         {
+            dictionaryView.notifyNothingWasSelectedForDeletion(2);
+            return;
+         }
+         if (dictionaryView.askForDeletionConfirmation(list.size()) == 0)
+         {
+            Data.deleteExpressions(list);
+         }
+         if (Caller.CHAPTER_TAB.equals(Caller.getTabShowing()))
+         {
+            dictionaryView.loadChapters();
+         }
+         Status.push(Status.peek());
+         dictionaryView.decideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
+      }
+      else
+      {
+         dictionaryView.notifyNothingWasSelectedForDeletion(2);
+      }
+   }
+
+   @Override
+   public void putSelectedExpressionsIntoWasteBin()
+   {
+      TrashCanDialog dialog = new TrashCanDialog(dictionaryView.getSelectedLanguage());
+      dialog.setLocationRelativeTo(null);
+      dialog.setVisible(true);
+      if (dialog.isRestore())
+      {
+         dictionaryView.selectTab(Caller.NEW_TAB);
+         Status.push(Status.peek());
+         dictionaryView.decideOnTableInteraction(Action.NEW_EXPRESSION);
+      }
+   }
+
+   @Override
+   public void selectTableExpressions()
+   {
+      if (dictionaryView.isTableNotNull())
+      {
+         dictionaryView.selectTableData();
+         Status.push(Status.peek());
+         dictionaryView.decideOnTableInteraction(Action.SELECT_TABLE);
+      }
    }
 
 }
