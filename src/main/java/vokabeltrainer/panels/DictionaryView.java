@@ -41,7 +41,6 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.dialogs.EmptyNotification;
-import vokabeltrainer.panels.dialogs.TrashCanDialog;
 import vokabeltrainer.panels.dictionary.Action;
 import vokabeltrainer.panels.dictionary.Caller;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
@@ -95,11 +94,11 @@ public class DictionaryView extends BackgroundPanelTiled
    private JButton tableInfoButton;
    private JPanel horizontalLanguagePanel;
 
-   private DictionaryControllerConnector observer;
+   private DictionaryControllerConnector connector;
 
    public DictionaryView(DictionaryControllerConnector observer)
    {
-      this.observer = observer;
+      this.connector = observer;
       setLayout(new TrainLayout(this, 15));
 
       JPanel vertical = new JPanel();
@@ -461,78 +460,36 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private void initController()
    {
-      saveButton.addActionListener(event -> observer.save());
+      saveButton.addActionListener(event -> connector.save());
 
       tabbedPane.addChangeListener(
-            event -> observer.tabbedPaneChanged(tabbedPane.getSelectedIndex()));
+            event -> connector.tabbedPaneChanged(tabbedPane.getSelectedIndex()));
 
-      newWordButton.addActionListener(event -> observer.newExpression());
+      newWordButton.addActionListener(event -> connector.newExpression());
 
       copyAllSelectedButton
-            .addActionListener(event -> observer.copyAllSelectedExpressions());
+            .addActionListener(event -> connector.copyAllSelectedExpressions());
 
       copyTableButton
-            .addActionListener(event -> observer.copyExpressionsOfTable());
+            .addActionListener(event -> connector.copyExpressionsOfTable());
 
       copyInTableSelectedButton.addActionListener(
-            event -> observer.copyInTableSelectedExpressions());
+            event -> connector.copyInTableSelectedExpressions());
 
       clearInTableSelectedButton
-            .addActionListener(event -> observer.unselectTableExpressions());
+            .addActionListener(event -> connector.unselectTableExpressions());
 
       clearAllSelectedButton
-            .addActionListener(event -> observer.unselectAllExpressions());
+            .addActionListener(event -> connector.unselectAllExpressions());
 
       deleteAllSelectedButton.addActionListener(
-            event -> observer.deleteAllSelectedExpressions());
+            event -> connector.deleteAllSelectedExpressions());
 
-      deleteInTableSelectedButton.addActionListener(event -> {// TODO
-         if (table != null)
-         {
-            List<Expression> list = table.getSelectedExpressions();
-            if (list.isEmpty())
-            {
-               notifyNothingWasSelectedForDeletion(2);
-               return;
-            }
-            if (askForDeletionConfirmation(list.size()) == 0)
-            {
-               Data.deleteExpressions(list);
-            }
-            if (Caller.CHAPTER_TAB.equals(Caller.getTabShowing()))
-            {
-               loadChapters();
-            }
-            Status.push(Status.peek());
-            this.decideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
-         }
-         else
-         {
-            notifyNothingWasSelectedForDeletion(2);
-         }
-      });
+      deleteInTableSelectedButton.addActionListener(event -> connector.deleteInTableSelectedExpressions());
 
-      wasteBinButton.addActionListener(event -> {
-         TrashCanDialog dialog = new TrashCanDialog(Language
-               .valueOf(languageGroup.getSelection().getActionCommand()));
-         dialog.setLocationRelativeTo(null);
-         dialog.setVisible(true);
-         if (dialog.isRestore())
-         {
-            tabbedPane.setSelectedIndex(Caller.NEW_TAB.getIndex());
-            Status.push(Status.peek());
-            this.decideOnTableInteraction(Action.NEW_EXPRESSION);
-         }
-      });
+      wasteBinButton.addActionListener(event -> connector.putSelectedExpressionsIntoWasteBin());
 
-      selectAllInTableButton.addActionListener(event -> {
-         if (table != null)
-         {
-            table.selectAllExpressions();
-            Status.push(Status.peek());
-            this.decideOnTableInteraction(Action.SELECT_TABLE);
-         }
-      });
+      selectAllInTableButton.addActionListener(event -> connector.selectTableExpressions());
 
       shredderButton.addActionListener(event -> {
          if (askForShredderConfirmation() == 0)
@@ -769,6 +726,7 @@ public class DictionaryView extends BackgroundPanelTiled
       scrollPane.setOpaque(false);
       scrollPane.getViewport().setOpaque(false);
       scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
+      scrollPane.getVerticalScrollBar().setUnitIncrement(30);
 
       tablePanel.add(scrollPane, BorderLayout.CENTER);
       tablePanel.validate();
@@ -892,5 +850,17 @@ public class DictionaryView extends BackgroundPanelTiled
    public void clearTableDataSelection()
    {
       table.clearTableDataSelection();
+   }
+
+   @Override
+   public List<Expression> getInTableSelectedExpressions()
+   {
+      return table.getSelectedExpressions();
+   }
+
+   @Override
+   public void selectTableData()
+   {
+      table.selectAllExpressions();
    }
 }
