@@ -607,6 +607,7 @@ public class DictionaryView extends BackgroundPanelTiled
    {
       stopTableEditing();
       tablePanel.removeAll();
+      table = null;
    }
 
    private void stopTableEditing()
