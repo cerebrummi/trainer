@@ -23,31 +23,6 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class LetterPicturesPanel extends BackgroundPanelTiled
 {
-   enum Caller
-   {
-      CHAPTER_TAB(
-            0),
-      SEARCH_TAB(
-            1),
-      KIND_TAB(
-            2),
-      NEW_TAB(
-            3),
-      SELECTED_TAB(
-            4);
-
-      private int index;
-      Caller(int index)
-      {
-         this.index = index;
-      }
-
-      int getIndex()
-      {
-         return index;
-      }
-   }
-
    private static final long serialVersionUID = 9130321171813967337L;
 
    private LetterPictureWordPanel wordPanel;
