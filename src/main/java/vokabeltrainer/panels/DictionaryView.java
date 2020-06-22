@@ -66,7 +66,6 @@ public class DictionaryView extends BackgroundPanelTiled
    private List<JRadioButton> radioButtons;
    private ExpressionTable table;
    private JPanel tablePanel;
-   private JButton saveButton;
    private JButton newWordButton;
    private JButton copyAllSelectedButton;
    private JButton copyInTableSelectedButton;
@@ -135,7 +134,6 @@ public class DictionaryView extends BackgroundPanelTiled
       tabbedPane.addTab("Lektionen", initChaptersTab());
       tabbedPane.addTab("Suche", initSearchTab());
       tabbedPane.addTab("Wortarten", initExpressionKindsTab());
-      tabbedPane.addTab("Neue", initNewWordsTab());
       tabbedPane.addTab("Auswahl", initSelectedTab());
 
       vertical.add(horizontalLanguagePanel);
@@ -278,13 +276,6 @@ public class DictionaryView extends BackgroundPanelTiled
       return vertical1;
    }
 
-   private Component initNewWordsTab()
-   {
-      JPanel vertical1 = new JPanel();
-      vertical1.setOpaque(false);
-      return vertical1;
-   }
-
    private JPanel initChaptersTab()
    {
       chapterPanel = new JPanel();
@@ -354,13 +345,6 @@ public class DictionaryView extends BackgroundPanelTiled
       newWordButton.setMaximumSize(new Dimension(400, 40));
       newWordButton.setIcon(new ImageIcon(ApplicationImages.getNewWord()));
 
-      saveButton = new JButton("Änderungen speichern");
-      saveButton.setFont(buttonFont);
-      saveButton.setHorizontalAlignment(SwingConstants.LEFT);
-      saveButton.setMinimumSize(new Dimension(200, 40));
-      saveButton.setMaximumSize(new Dimension(400, 40));
-      saveButton.setIcon(new ImageIcon(ApplicationImages.getSaveWord()));
-
       deleteInTableSelectedButton = new JButton("Tabellenauswahl löschen");
       deleteInTableSelectedButton.setFont(buttonFont);
       deleteInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -406,13 +390,6 @@ public class DictionaryView extends BackgroundPanelTiled
       deletePanel.add(deleteInTableSelectedButton);
       deletePanel.add(deleteAllSelectedButton);
 
-      JPanel savePanel = new JPanel();
-      savePanel.setLayout(new TotemLayout(savePanel, 10));
-      savePanel.setBackground(Color.ORANGE);
-      savePanel.setBorder(
-            BorderFactory.createMatteBorder(5, 3, 5, 3, Color.ORANGE));
-      savePanel.add(saveButton);
-
       JPanel trashPanel = new JPanel(new BorderLayout());
       trashPanel.setOpaque(false);
       trashPanel.setMinimumSize(new Dimension(300, 100));
@@ -444,15 +421,12 @@ public class DictionaryView extends BackgroundPanelTiled
       vertical.add(selectUnselectPanel);
       vertical.add(copyPanel);
       vertical.add(deletePanel);
-      vertical.add(savePanel);
       vertical.add(trashPanel);
       return vertical;
    }
 
    private void initController()
    {
-      saveButton.addActionListener(event -> connector.save());
-
       tabbedPane.addChangeListener(
             event -> connector.tabbedPaneChanged(tabbedPane.getSelectedIndex()));
 
@@ -478,7 +452,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
       deleteInTableSelectedButton.addActionListener(event -> connector.deleteInTableSelectedExpressions());
 
-      wasteBinButton.addActionListener(event -> connector.putSelectedExpressionsIntoWasteBin());
+      wasteBinButton.addActionListener(event -> connector.openTrashCanDialog());
 
       selectAllInTableButton.addActionListener(event -> connector.selectTableExpressions());
 
@@ -580,7 +554,7 @@ public class DictionaryView extends BackgroundPanelTiled
       listSelectionModel.addListSelectionListener(event -> {
          if (!event.getValueIsAdjusting())
          {
-            connector.displayChapterWhich();
+            connector.displayChapterWhich(getSelectedChapter());
          }
       });
       chapterList = new StringList(listSelectionModel);
@@ -812,5 +786,11 @@ public class DictionaryView extends BackgroundPanelTiled
    public void switchSearchLanguagePanel(String actionCommand)
    {
       cardLayout.show(swapPanel, actionCommand);
+   }
+
+   @Override
+   public void selectChapter(String currentChapter)
+   {
+      chapterList.setSelectedValue(currentChapter, true);
    }
 }

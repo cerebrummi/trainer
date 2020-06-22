@@ -20,6 +20,9 @@ import vokabeltrainer.types.Expression;
 public class DictionaryController implements DictionaryControllerConnector
 {
    private DictionaryView dictionaryView;
+   private String currentChapter;
+   private String currentSearchTermGerman;
+   private String currentSearchTermHebrew;
 
    public DictionaryController()
    {
@@ -44,10 +47,8 @@ public class DictionaryController implements DictionaryControllerConnector
                Status.push(Status.peek());
                decideOnTableInteraction(Action.SAVE);
             }
-
          }
       });
-
    }
 
    @Override
@@ -66,13 +67,6 @@ public class DictionaryController implements DictionaryControllerConnector
          Status.push(Status.TAB_CHAPTER);
          decideOnTableInteraction(Action.TAB_CHAPTER);
          dictionaryView.loadChapters();
-      }
-      else if (selectedIndex == Tabulator.NEW_TAB.getIndex())
-      {
-         Tabulator.setTabShowing(Tabulator.NEW_TAB);
-         dictionaryView.unselectExpressionKind();
-         Status.push(Status.TAB_NEW_EXPRESSIONS);
-         decideOnTableInteraction(Action.TAB_NEW_EXPRESSIONS);
       }
       else if (selectedIndex == Tabulator.SELECTED_TAB.getIndex())
       {
@@ -106,9 +100,9 @@ public class DictionaryController implements DictionaryControllerConnector
       {
          Expression expression = editor.getExpression();
          Data.putExpressionInNewMap(expression.getUuid(), expression);
-         dictionaryView.selectTab(Tabulator.NEW_TAB);
          Status.push(Status.peek());
          decideOnTableInteraction(Action.NEW_EXPRESSION);
+         save();
       }
    }
 
@@ -188,6 +182,7 @@ public class DictionaryController implements DictionaryControllerConnector
       }
       Status.push(Status.peek());
       decideOnTableInteraction(Action.DELETE_ALL_SELECTED);
+      save();
    }
 
    @Override
@@ -211,6 +206,7 @@ public class DictionaryController implements DictionaryControllerConnector
          }
          Status.push(Status.peek());
          decideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
+         save();
       }
       else
       {
@@ -219,16 +215,17 @@ public class DictionaryController implements DictionaryControllerConnector
    }
 
    @Override
-   public void putSelectedExpressionsIntoWasteBin()
+   public void openTrashCanDialog()
    {
-      TrashCanDialog dialog = new TrashCanDialog(this, dictionaryView.getSelectedLanguage());
+      TrashCanDialog dialog = new TrashCanDialog(this,
+            dictionaryView.getSelectedLanguage());
       dialog.setLocationRelativeTo(null);
       dialog.setVisible(true);
       if (dialog.isRestore())
       {
-         dictionaryView.selectTab(Tabulator.NEW_TAB);
          Status.push(Status.peek());
          decideOnTableInteraction(Action.NEW_EXPRESSION);
+         save();
       }
    }
 
@@ -249,6 +246,7 @@ public class DictionaryController implements DictionaryControllerConnector
       if (dictionaryView.askForShredderConfirmation() == 0)
       {
          Data.shredderDeletedExpressions();
+         save();
       }
    }
 
@@ -266,18 +264,18 @@ public class DictionaryController implements DictionaryControllerConnector
       Status.push(Status.SEARCH_WHICH_GERMAN);
       decideOnTableInteraction(Action.SEARCH_WHICH_GERMAN);
    }
-   
+
    public void decideOnTableInteraction(Action action)
    {
       ExpressionTableModel tableModel = null;
 
-//      if (Interaction
-//            .getCommand(new Interaction(action, Status.peek())) == null)
-//      {
-//         System.out.println("Action: " + action.name());
-//         System.out.println("Status: " + Status.peek().name());
-//         return;
-//      }
+      // if (Interaction
+      // .getCommand(new Interaction(action, Status.peek())) == null)
+      // {
+       System.out.println("Action: " + action.name());
+       System.out.println("Status: " + Status.peek().name());
+      // return;
+      // }
 
       switch (Interaction.getCommand(new Interaction(action, Status.pop())))
       {
@@ -286,45 +284,47 @@ public class DictionaryController implements DictionaryControllerConnector
       case NO_TABLE:
          dictionaryView.displayNoTable();
          return;
+      case RESTORE_WHICH_CHAPTER:
+         dictionaryView.selectChapter(currentChapter);
+         return;
+      case RESTORE_WHICH_EXPRESSIONKIND:
+         return;
+      case RESTORE_WHICH_SEARCH_GERMAN:
+         return;
+      case RESTORE_WHICH_SEARCH_HEBREW:
+         return;
       case TABLE_CHAPTER_WHICH:
          dictionaryView.clearTable();
          tableModel = Data.findTranslations(
-               dictionaryView.getSelectedLanguage(),
-               null, null, null, dictionaryView.getSelectedChapter(), null);
+               dictionaryView.getSelectedLanguage(), null, null, null,
+               this.currentChapter, null);
+         dictionaryView.selectChapter(currentChapter);
          break;
       case TABLE_EXPRESSIONKIND_WHICH:
          dictionaryView.clearTable();
          tableModel = Data.findTranslations(
-               dictionaryView.getSelectedLanguage(),
-               null,
-               dictionaryView.getSelectedExpressionKind(),
-               null, null, null);
-         break;
-      case TABLE_NEW_EXPRESSIONS:
-         dictionaryView.clearTable();
-         tableModel = Data.findTranslationsNewWords(dictionaryView.getSelectedLanguage());
+               dictionaryView.getSelectedLanguage(), null,
+               dictionaryView.getSelectedExpressionKind(), null, null, null);
          break;
       case TABLE_SEARCH_WHICH_GERMAN:
          dictionaryView.clearTable();
          tableModel = Data.findTranslations(
                dictionaryView.getSelectedLanguage(),
                dictionaryView.getSearchPhraseGerman(), null,
-               dictionaryView.getSelectedSearchTypeGerman(),
-               null, null);
+               dictionaryView.getSelectedSearchTypeGerman(), null, null);
          break;
       case TABLE_SEARCH_WHICH_HEBREW:
          dictionaryView.clearTable();
          tableModel = Data.findTranslations(
                dictionaryView.getSelectedLanguage(),
                dictionaryView.getSearchPhraseHebrew(), null,
-               dictionaryView.getSelectedSearchTypeHebrew(),
-               null, null);
+               dictionaryView.getSelectedSearchTypeHebrew(), null, null);
          break;
       case TABLE_SELECTED_EXPRESSIONS:
          dictionaryView.clearTable();
          tableModel = Data.findTranslations(
-               dictionaryView.getSelectedLanguage(),
-               null, null, null, null, Command.ALL_SELECTED);
+               dictionaryView.getSelectedLanguage(), null, null, null, null,
+               Command.ALL_SELECTED);
       }
 
       if (tableModel.getRowCount() == 0)
@@ -342,13 +342,13 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       dictionaryView.switchSearchLanguagePanel(actionCommand);
       Status.push(Status.peek());
-      decideOnTableInteraction(
-            Action.valueOf(actionCommand));
+      decideOnTableInteraction(Action.valueOf(actionCommand));
    }
 
    @Override
-   public void displayChapterWhich()
+   public void displayChapterWhich(String chapter)
    {
+      this.currentChapter = chapter;
       Status.push(Status.CHAPTER_WHICH);
       decideOnTableInteraction(Action.CHAPTER_WHICH);
    }

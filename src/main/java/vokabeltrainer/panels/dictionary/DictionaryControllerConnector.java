@@ -13,12 +13,12 @@ public interface DictionaryControllerConnector
    public void selectTableExpressions();
    public void deleteAllSelectedExpressions();
    public void deleteInTableSelectedExpressions();
-   public void putSelectedExpressionsIntoWasteBin();
+   public void openTrashCanDialog();
    public void shredderDeletedExpressions();
    public void searchHebrew();
    public void searchGerman();
    public void decideOnTableInteraction(Action action);
    public void switchLanguage(String actionCommand);
-   public void displayChapterWhich();
+   public void displayChapterWhich(String chapter);
    public void displayExpressionKindWhich();
 }

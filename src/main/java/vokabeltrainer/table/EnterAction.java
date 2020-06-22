@@ -4,17 +4,20 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.table.list.editor.ExpressionEditor;
 import vokabeltrainer.types.Expression;
 
 public class EnterAction extends AbstractAction
 {
-   ExpressionTable table;
-   ExpressionEditor editor;
+   private ExpressionTable table;
+   private ExpressionEditor editor;
+   private DictionaryControllerConnector connector;
 
-   public EnterAction(ExpressionTable table)
+   public EnterAction(ExpressionTable table, DictionaryControllerConnector connector)
    {
       this.table = table;
+      this.connector = connector;
       editor = new ExpressionEditor();
    }
 
@@ -34,6 +37,7 @@ public class EnterAction extends AbstractAction
             table.setValueAt(editor.getExpression(), selectedRow, 0);
             ((ExpressionTableModel) table.getModel())
                   .fireTableCellUpdated(selectedRow, 0);
+            connector.save();
          }
       }
    }

@@ -30,4 +30,5 @@ public interface DictionaryViewConnector
    public String getSearchPhraseGerman();
    public String getSearchPhraseHebrew();
    public void switchSearchLanguagePanel(String actionCommand);
+   public void selectChapter(String currentChapter);
 }

@@ -635,10 +635,10 @@ public final class Data
          else
          {
             System.out.println(
-                  "Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
+                  "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
                         + "Language = " + language + ", kind = " + kind
                         + ", search = " + search + "\n" + "chapter = " + chapter
-                        + "command = " + command);
+                        + ", command = " + command);
          }
 
          return new ExpressionTableModel(
