@@ -10,6 +10,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -82,8 +84,8 @@ public class DictionaryView extends BackgroundPanelTiled
    private JPanel chapterPanel;
    private JPanel swapPanel;
    private CardLayout cardLayout;
-   private JTextField searchPhraseHebrew;
    private JTextField searchPhraseGerman;
+   private JTextField searchPhraseHebrew;
    private JButton hebrewSearchButton;
    private JButton germanSearchButton;
    private JButton tableInfoButton;
@@ -112,7 +114,8 @@ public class DictionaryView extends BackgroundPanelTiled
       while (enumeration1.hasMoreElements())
       {
          AbstractButton button = enumeration1.nextElement();
-         button.addActionListener(event -> this.connector.switchLanguage(button.getActionCommand()));
+         button.addActionListener(event -> this.connector
+               .switchLanguage(button.getActionCommand()));
          horizontalLanguagePanel.add(button);
       }
       JPanel filler = new JPanel();
@@ -427,8 +430,8 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private void initController()
    {
-      tabbedPane.addChangeListener(
-            event -> connector.tabbedPaneChanged(tabbedPane.getSelectedIndex()));
+      tabbedPane.addChangeListener(event -> connector
+            .tabbedPaneChanged(tabbedPane.getSelectedIndex()));
 
       newWordButton.addActionListener(event -> connector.newExpression());
 
@@ -450,25 +453,53 @@ public class DictionaryView extends BackgroundPanelTiled
       deleteAllSelectedButton.addActionListener(
             event -> connector.deleteAllSelectedExpressions());
 
-      deleteInTableSelectedButton.addActionListener(event -> connector.deleteInTableSelectedExpressions());
+      deleteInTableSelectedButton.addActionListener(
+            event -> connector.deleteInTableSelectedExpressions());
 
       wasteBinButton.addActionListener(event -> connector.openTrashCanDialog());
 
-      selectAllInTableButton.addActionListener(event -> connector.selectTableExpressions());
+      selectAllInTableButton
+            .addActionListener(event -> connector.selectTableExpressions());
 
-      shredderButton.addActionListener(event -> connector.shredderDeletedExpressions());
+      shredderButton
+            .addActionListener(event -> connector.shredderDeletedExpressions());
 
       hebrewSearchButton.addActionListener(event -> connector.searchHebrew());
 
       germanSearchButton.addActionListener(event -> connector.searchGerman());
+
+      searchPhraseGerman.addKeyListener(new KeyAdapter()
+      {
+         @Override
+         public void keyPressed(KeyEvent e)
+         {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER)
+            {
+               connector.searchGerman();
+            }
+         }
+      });
+      
+      searchPhraseHebrew.addKeyListener(new KeyAdapter()
+      {
+         @Override
+         public void keyPressed(KeyEvent e)
+         {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER)
+            {
+               connector.searchHebrew();
+            }
+         }
+      });
 
       tableInfoButton.addActionListener(event -> {
          JOptionPane.showMessageDialog(horizontalLanguagePanel, "",
                "Cerebrummi©", JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make("Tabelle",
                      "einmal klicken markiert einen Eintrag",
-                     "zweimal klicken wählt einen Eintrag aus",
-                     "Enter drücken öffnet den markierten Eintrag")));
+                     "Enter drücken öffnet den markierten Eintrag",
+                     "zweimal klicken wählt einen Eintrag aus (Stecknadel)"
+                     )));
       });
 
       tableInfoButton.addMouseListener(new MouseListener()
@@ -588,9 +619,8 @@ public class DictionaryView extends BackgroundPanelTiled
 
    public void doShowTable(ExpressionTableModel tableModel)
    {
-      table = new ExpressionTable(tableModel,
-            this.getSelectedLanguage(), connector,
-            true);
+      table = new ExpressionTable(tableModel, this.getSelectedLanguage(),
+            connector, true);
       JScrollPane scrollPane = new JScrollPane(table);
       scrollPane.setOpaque(false);
       scrollPane.getViewport().setOpaque(false);
@@ -600,7 +630,7 @@ public class DictionaryView extends BackgroundPanelTiled
       tablePanel.add(scrollPane, BorderLayout.CENTER);
       tableValidateRepaint();
    }
-   
+
    @Override
    public void tableValidateRepaint()
    {
@@ -656,7 +686,8 @@ public class DictionaryView extends BackgroundPanelTiled
       {
          JRadioButton radioButton = new JRadioButton(kind.toString());
          radioButton.setActionCommand(kind.name());
-         radioButton.addActionListener(event -> connector.displayExpressionKindWhich());
+         radioButton.addActionListener(
+               event -> connector.displayExpressionKindWhich());
          radioButton.setFont(font);
          searchExpressionKindGroup.add(radioButton);
          radioButtons.add(radioButton);
@@ -735,7 +766,7 @@ public class DictionaryView extends BackgroundPanelTiled
    {
       table.selectAllExpressions();
    }
-   
+
    @Override
    public void displayNoTable()
    {
@@ -759,15 +790,15 @@ public class DictionaryView extends BackgroundPanelTiled
    @Override
    public SearchType getSelectedSearchTypeGerman()
    {
-      return SearchType.valueOf(
-            searchTypeGroupGerman.getSelection().getActionCommand());
+      return SearchType
+            .valueOf(searchTypeGroupGerman.getSelection().getActionCommand());
    }
 
    @Override
    public SearchType getSelectedSearchTypeHebrew()
    {
-      return SearchType.valueOf(
-            searchTypeGroupHebrew.getSelection().getActionCommand());
+      return SearchType
+            .valueOf(searchTypeGroupHebrew.getSelection().getActionCommand());
    }
 
    @Override

@@ -21,8 +21,6 @@ public class DictionaryController implements DictionaryControllerConnector
 {
    private DictionaryView dictionaryView;
    private String currentChapter;
-   private String currentSearchTermGerman;
-   private String currentSearchTermHebrew;
 
    public DictionaryController()
    {
@@ -254,6 +252,7 @@ public class DictionaryController implements DictionaryControllerConnector
    public void searchHebrew()
    {
       dictionaryView.clearTable();
+      Status.push(Status.SEARCH_WHICH_HEBREW);
       decideOnTableInteraction(Action.SEARCH_WHICH_HEBREW);
    }
 
@@ -276,7 +275,7 @@ public class DictionaryController implements DictionaryControllerConnector
        System.out.println("Status: " + Status.peek().name());
       // return;
       // }
-
+       
       switch (Interaction.getCommand(new Interaction(action, Status.pop())))
       {
       case NOTHING:
@@ -288,10 +287,13 @@ public class DictionaryController implements DictionaryControllerConnector
          dictionaryView.selectChapter(currentChapter);
          return;
       case RESTORE_WHICH_EXPRESSIONKIND:
+         // nothing
          return;
       case RESTORE_WHICH_SEARCH_GERMAN:
+         this.searchGerman();
          return;
       case RESTORE_WHICH_SEARCH_HEBREW:
+         this.searchHebrew();
          return;
       case TABLE_CHAPTER_WHICH:
          dictionaryView.clearTable();
