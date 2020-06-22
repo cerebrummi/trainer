@@ -11,6 +11,8 @@ import java.util.StringJoiner;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+
+import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
@@ -20,7 +22,7 @@ public class ExpressionTable extends JTable
    private Language language;
    private ExpressionTableModel model;
 
-   public ExpressionTable(ExpressionTableModel dm, Language language,
+   public ExpressionTable(ExpressionTableModel dm, Language language, DictionaryControllerConnector connector,
          boolean editable)
    {
       super(dm, new ExpressionColumnModel(language, editable));

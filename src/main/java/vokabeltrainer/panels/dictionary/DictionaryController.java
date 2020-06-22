@@ -221,7 +221,7 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void putSelectedExpressionsIntoWasteBin()
    {
-      TrashCanDialog dialog = new TrashCanDialog(dictionaryView.getSelectedLanguage());
+      TrashCanDialog dialog = new TrashCanDialog(this, dictionaryView.getSelectedLanguage());
       dialog.setLocationRelativeTo(null);
       dialog.setVisible(true);
       if (dialog.isRestore())

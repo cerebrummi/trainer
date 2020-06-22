@@ -25,6 +25,7 @@ import vokabeltrainer.TrashCanBackgroundPanel;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
@@ -46,11 +47,13 @@ public class TrashCanDialog extends JDialog
    private JButton selectAllInTableButton;
    private JButton clearInTableSelectedButton;
    private boolean restore;
+   private DictionaryControllerConnector connector;
 
-   public TrashCanDialog(Language initialLanguage)
+   public TrashCanDialog(DictionaryControllerConnector connector, Language initialLanguage)
    {
       super(Common.getjFrame(), "Papierkorb",
             Dialog.ModalityType.APPLICATION_MODAL);
+      this.connector = connector;
       this.initialLanguage = initialLanguage;
       restore = false;
       setSize(1000, 620);
@@ -179,6 +182,7 @@ public class TrashCanDialog extends JDialog
    {
       table = new ExpressionTable(tableModel,
             Language.valueOf(languageGroup.getSelection().getActionCommand()),
+            connector,
             false);
       JScrollPane scrollPane = new JScrollPane(table);
       scrollPane.setOpaque(false);
