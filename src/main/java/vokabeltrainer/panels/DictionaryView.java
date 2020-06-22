@@ -92,9 +92,9 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private DictionaryControllerConnector connector;
 
-   public DictionaryView(DictionaryControllerConnector observer)
+   public DictionaryView(DictionaryControllerConnector connector)
    {
-      this.connector = observer;
+      this.connector = connector;
       setLayout(new TrainLayout(this, 15));
 
       JPanel vertical = new JPanel();
@@ -113,7 +113,7 @@ public class DictionaryView extends BackgroundPanelTiled
       while (enumeration1.hasMoreElements())
       {
          AbstractButton button = enumeration1.nextElement();
-         button.addActionListener(event -> connector.switchLanguage(button.getActionCommand()));
+         button.addActionListener(event -> this.connector.switchLanguage(button.getActionCommand()));
          horizontalLanguagePanel.add(button);
       }
       JPanel filler = new JPanel();
@@ -615,7 +615,7 @@ public class DictionaryView extends BackgroundPanelTiled
    public void doShowTable(ExpressionTableModel tableModel)
    {
       table = new ExpressionTable(tableModel,
-            Language.valueOf(languageGroup.getSelection().getActionCommand()),
+            this.getSelectedLanguage(), connector,
             true);
       JScrollPane scrollPane = new JScrollPane(table);
       scrollPane.setOpaque(false);
