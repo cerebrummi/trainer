@@ -1,13 +1,13 @@
 package vokabeltrainer.panels.dictionary;
 
-public enum Caller
+public enum Tabulator
 {
    CHAPTER_TAB(0), SEARCH_TAB(1), KIND_TAB(2), NEW_TAB(3), SELECTED_TAB(4);
 
    private int index;
-   private static Caller tabShowing;
+   private static Tabulator tabShowing;
 
-   Caller(int index)
+   Tabulator(int index)
    {
       this.index = index;
    }
@@ -17,13 +17,13 @@ public enum Caller
       return index;
    }
 
-   public static Caller getTabShowing()
+   public static Tabulator getTabShowing()
    {
       return tabShowing;
    }
 
-   public static void setTabShowing(Caller tabShowing)
+   public static void setTabShowing(Tabulator tabShowing)
    {
-      Caller.tabShowing = tabShowing;
+      Tabulator.tabShowing = tabShowing;
    }
 }

@@ -11,7 +11,7 @@ public interface DictionaryViewConnector
 {
    public void loadChapters();
    public void unselectExpressionKind();
-   public void selectTab(Caller caller);
+   public void selectTab(Tabulator caller);
    public Language getSelectedLanguage();
    public boolean isTableNotNull();
    public String getTableDataToString();

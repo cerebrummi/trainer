@@ -40,7 +40,7 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.dictionary.Action;
-import vokabeltrainer.panels.dictionary.Caller;
+import vokabeltrainer.panels.dictionary.Tabulator;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.list.StringList;
@@ -150,7 +150,7 @@ public class DictionaryView extends BackgroundPanelTiled
       add(tablePanel);
       add(initServicePanel());
 
-      Caller.setTabShowing(Caller.CHAPTER_TAB);
+      Tabulator.setTabShowing(Tabulator.CHAPTER_TAB);
       loadChapters();
 
       initController();
@@ -715,9 +715,9 @@ public class DictionaryView extends BackgroundPanelTiled
    }
 
    @Override
-   public void selectTab(Caller caller)
+   public void selectTab(Tabulator tabulator)
    {
-      tabbedPane.setSelectedIndex(caller.getIndex());
+      tabbedPane.setSelectedIndex(tabulator.getIndex());
    }
 
    @Override

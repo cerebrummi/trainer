@@ -37,7 +37,7 @@ public class DictionaryController implements DictionaryControllerConnector
          {
             if (new SaveExpressions().save())
             {
-               if (Caller.CHAPTER_TAB.equals(Caller.getTabShowing()))
+               if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
                {
                   dictionaryView.loadChapters();
                }
@@ -53,37 +53,37 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void tabbedPaneChanged(int selectedIndex)
    {
-      if (selectedIndex == Caller.KIND_TAB.getIndex())
+      if (selectedIndex == Tabulator.KIND_TAB.getIndex())
       {
-         Caller.setTabShowing(Caller.KIND_TAB);
+         Tabulator.setTabShowing(Tabulator.KIND_TAB);
          Status.push(Status.TAB_EXPRESSIONKIND);
          decideOnTableInteraction(Action.TAB_EXPRESSIONKIND);
       }
-      else if (selectedIndex == Caller.CHAPTER_TAB.getIndex())
+      else if (selectedIndex == Tabulator.CHAPTER_TAB.getIndex())
       {
-         Caller.setTabShowing(Caller.CHAPTER_TAB);
+         Tabulator.setTabShowing(Tabulator.CHAPTER_TAB);
          dictionaryView.unselectExpressionKind();
          Status.push(Status.TAB_CHAPTER);
          decideOnTableInteraction(Action.TAB_CHAPTER);
          dictionaryView.loadChapters();
       }
-      else if (selectedIndex == Caller.NEW_TAB.getIndex())
+      else if (selectedIndex == Tabulator.NEW_TAB.getIndex())
       {
-         Caller.setTabShowing(Caller.NEW_TAB);
+         Tabulator.setTabShowing(Tabulator.NEW_TAB);
          dictionaryView.unselectExpressionKind();
          Status.push(Status.TAB_NEW_EXPRESSIONS);
          decideOnTableInteraction(Action.TAB_NEW_EXPRESSIONS);
       }
-      else if (selectedIndex == Caller.SELECTED_TAB.getIndex())
+      else if (selectedIndex == Tabulator.SELECTED_TAB.getIndex())
       {
-         Caller.setTabShowing(Caller.SELECTED_TAB);
+         Tabulator.setTabShowing(Tabulator.SELECTED_TAB);
          dictionaryView.unselectExpressionKind();
          Status.push(Status.TAB_SELECTED_EXPRESSIONS);
          decideOnTableInteraction(Action.TAB_SELECTED_EXPRESSIONS);
       }
-      else if (selectedIndex == Caller.SEARCH_TAB.getIndex())
+      else if (selectedIndex == Tabulator.SEARCH_TAB.getIndex())
       {
-         Caller.setTabShowing(Caller.SEARCH_TAB);
+         Tabulator.setTabShowing(Tabulator.SEARCH_TAB);
          dictionaryView.unselectExpressionKind();
          Status.push(Status.TAB_SEARCH);
          decideOnTableInteraction(Action.TAB_SEARCH);
@@ -106,7 +106,7 @@ public class DictionaryController implements DictionaryControllerConnector
       {
          Expression expression = editor.getExpression();
          Data.putExpressionInNewMap(expression.getUuid(), expression);
-         dictionaryView.selectTab(Caller.NEW_TAB);
+         dictionaryView.selectTab(Tabulator.NEW_TAB);
          Status.push(Status.peek());
          decideOnTableInteraction(Action.NEW_EXPRESSION);
       }
@@ -182,7 +182,7 @@ public class DictionaryController implements DictionaryControllerConnector
       {
          Data.deleteExpressions(list);
       }
-      if (Caller.CHAPTER_TAB.equals(Caller.getTabShowing()))
+      if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
       {
          dictionaryView.loadChapters();
       }
@@ -205,7 +205,7 @@ public class DictionaryController implements DictionaryControllerConnector
          {
             Data.deleteExpressions(list);
          }
-         if (Caller.CHAPTER_TAB.equals(Caller.getTabShowing()))
+         if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
          {
             dictionaryView.loadChapters();
          }
@@ -226,7 +226,7 @@ public class DictionaryController implements DictionaryControllerConnector
       dialog.setVisible(true);
       if (dialog.isRestore())
       {
-         dictionaryView.selectTab(Caller.NEW_TAB);
+         dictionaryView.selectTab(Tabulator.NEW_TAB);
          Status.push(Status.peek());
          decideOnTableInteraction(Action.NEW_EXPRESSION);
       }
