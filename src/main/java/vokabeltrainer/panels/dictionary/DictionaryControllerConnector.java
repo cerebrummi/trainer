@@ -14,4 +14,11 @@ public interface DictionaryControllerConnector
    public void deleteAllSelectedExpressions();
    public void deleteInTableSelectedExpressions();
    public void putSelectedExpressionsIntoWasteBin();
+   public void shredderDeletedExpressions();
+   public void searchHebrew();
+   public void searchGerman();
+   public void decideOnTableInteraction(Action action);
+   public void switchLanguage(String actionCommand);
+   public void displayChapterWhich();
+   public void displayExpressionKindWhich();
 }

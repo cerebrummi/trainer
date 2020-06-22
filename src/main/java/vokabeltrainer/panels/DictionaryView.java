@@ -32,7 +32,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.Command;
 import vokabeltrainer.KeyboardHebrew;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
@@ -40,13 +39,10 @@ import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.panels.dialogs.EmptyNotification;
 import vokabeltrainer.panels.dictionary.Action;
 import vokabeltrainer.panels.dictionary.Caller;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
-import vokabeltrainer.panels.dictionary.Interaction;
-import vokabeltrainer.panels.dictionary.Status;
 import vokabeltrainer.panels.list.StringList;
 import vokabeltrainer.panels.list.StringListSelectionModel;
 import vokabeltrainer.table.ExpressionTable;
@@ -117,12 +113,7 @@ public class DictionaryView extends BackgroundPanelTiled
       while (enumeration1.hasMoreElements())
       {
          AbstractButton button = enumeration1.nextElement();
-         button.addActionListener(event -> {
-            cardLayout.show(swapPanel, button.getActionCommand());
-            Status.push(Status.peek());
-            this.decideOnTableInteraction(
-                  Action.valueOf(button.getActionCommand()));
-         });
+         button.addActionListener(event -> connector.switchLanguage(button.getActionCommand()));
          horizontalLanguagePanel.add(button);
       }
       JPanel filler = new JPanel();
@@ -491,24 +482,11 @@ public class DictionaryView extends BackgroundPanelTiled
 
       selectAllInTableButton.addActionListener(event -> connector.selectTableExpressions());
 
-      shredderButton.addActionListener(event -> {
-         if (askForShredderConfirmation() == 0)
-         {
-            Data.shredderDeletedExpressions();
-         }
-      });
+      shredderButton.addActionListener(event -> connector.shredderDeletedExpressions());
 
-      hebrewSearchButton.addActionListener(event -> {
-         clearTable();
-         Status.push(Status.SEARCH_WHICH_HEBREW);
-         this.decideOnTableInteraction(Action.SEARCH_WHICH_HEBREW);
-      });
+      hebrewSearchButton.addActionListener(event -> connector.searchHebrew());
 
-      germanSearchButton.addActionListener(event -> {
-         clearTable();
-         Status.push(Status.SEARCH_WHICH_GERMAN);
-         this.decideOnTableInteraction(Action.SEARCH_WHICH_GERMAN);
-      });
+      germanSearchButton.addActionListener(event -> connector.searchGerman());
 
       tableInfoButton.addActionListener(event -> {
          JOptionPane.showMessageDialog(horizontalLanguagePanel, "",
@@ -555,7 +533,7 @@ public class DictionaryView extends BackgroundPanelTiled
       });
    }
 
-   private int askForShredderConfirmation()
+   public int askForShredderConfirmation()
    {
       return JOptionPane.showConfirmDialog(Common.getjFrame(),
             "Wollen Sie wirklich den Papierkorb leeren?", "Frage",
@@ -602,8 +580,7 @@ public class DictionaryView extends BackgroundPanelTiled
       listSelectionModel.addListSelectionListener(event -> {
          if (!event.getValueIsAdjusting())
          {
-            Status.push(Status.CHAPTER_WHICH);
-            this.decideOnTableInteraction(Action.CHAPTER_WHICH);
+            connector.displayChapterWhich();
          }
       });
       chapterList = new StringList(listSelectionModel);
@@ -621,89 +598,7 @@ public class DictionaryView extends BackgroundPanelTiled
       chapterPanel.repaint();
    }
 
-   public void decideOnTableInteraction(Action action)
-   {
-      ExpressionTableModel tableModel = null;
-
-      if (Interaction
-            .getCommand(new Interaction(action, Status.peek())) == null)
-      {
-         System.out.println("Action: " + action.name());
-         System.out.println("Status: " + Status.peek().name());
-         return;
-      }
-
-      switch (Interaction.getCommand(new Interaction(action, Status.pop())))
-      {
-      case NOTHING:
-         return;
-      case NO_TABLE:
-         clearTable();
-         tablePanel.validate();
-         tablePanel.repaint();
-         return;
-      case TABLE_CHAPTER_WHICH:
-         clearTable();
-         tableModel = Data.findTranslations(
-               Language
-                     .valueOf(languageGroup.getSelection().getActionCommand()),
-               null, null, null, chapterList.getSelectedValue(), null);
-         break;
-      case TABLE_EXPRESSIONKIND_WHICH:
-         clearTable();
-         tableModel = Data.findTranslations(
-               Language
-                     .valueOf(languageGroup.getSelection().getActionCommand()),
-               null,
-               ExpressionKind.valueOf(expressionKind.getSelection()
-                     .getActionCommand().replace("EXPRESSIONKIND_WHICH_", "")),
-               null, null, null);
-         break;
-      case TABLE_NEW_EXPRESSIONS:
-         clearTable();
-         tableModel = Data.findTranslationsNewWords(Language
-               .valueOf(languageGroup.getSelection().getActionCommand()));
-         break;
-      case TABLE_SEARCH_WHICH_GERMAN:
-         clearTable();
-         tableModel = Data.findTranslations(
-               Language
-                     .valueOf(languageGroup.getSelection().getActionCommand()),
-               searchPhraseGerman.getText().trim(), null,
-               SearchType.valueOf(
-                     searchTypeGroupGerman.getSelection().getActionCommand()),
-               null, null);
-         break;
-      case TABLE_SEARCH_WHICH_HEBREW:
-         clearTable();
-         tableModel = Data.findTranslations(
-               Language
-                     .valueOf(languageGroup.getSelection().getActionCommand()),
-               searchPhraseHebrew.getText().trim(), null,
-               SearchType.valueOf(
-                     searchTypeGroupHebrew.getSelection().getActionCommand()),
-               null, null);
-         break;
-      case TABLE_SELECTED_EXPRESSIONS:
-         clearTable();
-         tableModel = Data.findTranslations(
-               Language
-                     .valueOf(languageGroup.getSelection().getActionCommand()),
-               null, null, null, null, Command.ALL_SELECTED);
-      }
-
-      if (tableModel.getRowCount() == 0)
-      {
-         EmptyNotification.display();
-         tablePanel.validate();
-         tablePanel.repaint();
-         return;
-      }
-
-      doShowTable(tableModel);
-   }
-
-   private void clearTable()
+   public void clearTable()
    {
       stopTableEditing();
       tablePanel.removeAll();
@@ -717,7 +612,7 @@ public class DictionaryView extends BackgroundPanelTiled
       }
    }
 
-   private void doShowTable(ExpressionTableModel tableModel)
+   public void doShowTable(ExpressionTableModel tableModel)
    {
       table = new ExpressionTable(tableModel,
             Language.valueOf(languageGroup.getSelection().getActionCommand()),
@@ -729,6 +624,12 @@ public class DictionaryView extends BackgroundPanelTiled
       scrollPane.getVerticalScrollBar().setUnitIncrement(30);
 
       tablePanel.add(scrollPane, BorderLayout.CENTER);
+      tableValidateRepaint();
+   }
+   
+   @Override
+   public void tableValidateRepaint()
+   {
       tablePanel.validate();
       tablePanel.repaint();
    }
@@ -781,10 +682,7 @@ public class DictionaryView extends BackgroundPanelTiled
       {
          JRadioButton radioButton = new JRadioButton(kind.toString());
          radioButton.setActionCommand(kind.name());
-         radioButton.addActionListener(event -> {
-            Status.push(Status.EXPRESSIONKIND_WHICH);
-            this.decideOnTableInteraction(Action.EXPRESSIONKIND_WHICH);
-         });
+         radioButton.addActionListener(event -> connector.displayExpressionKindWhich());
          radioButton.setFont(font);
          searchExpressionKindGroup.add(radioButton);
          radioButtons.add(radioButton);
@@ -862,5 +760,57 @@ public class DictionaryView extends BackgroundPanelTiled
    public void selectTableData()
    {
       table.selectAllExpressions();
+   }
+   
+   @Override
+   public void displayNoTable()
+   {
+      clearTable();
+      tableValidateRepaint();
+   }
+
+   @Override
+   public String getSelectedChapter()
+   {
+      return chapterList.getSelectedValue();
+   }
+
+   @Override
+   public ExpressionKind getSelectedExpressionKind()
+   {
+      return ExpressionKind.valueOf(expressionKind.getSelection()
+            .getActionCommand().replace("EXPRESSIONKIND_WHICH_", ""));
+   }
+
+   @Override
+   public SearchType getSelectedSearchTypeGerman()
+   {
+      return SearchType.valueOf(
+            searchTypeGroupGerman.getSelection().getActionCommand());
+   }
+
+   @Override
+   public SearchType getSelectedSearchTypeHebrew()
+   {
+      return SearchType.valueOf(
+            searchTypeGroupHebrew.getSelection().getActionCommand());
+   }
+
+   @Override
+   public String getSearchPhraseGerman()
+   {
+      return searchPhraseGerman.getText().trim();
+   }
+
+   @Override
+   public String getSearchPhraseHebrew()
+   {
+      return searchPhraseHebrew.getText().trim();
+   }
+
+   @Override
+   public void switchSearchLanguagePanel(String actionCommand)
+   {
+      cardLayout.show(swapPanel, actionCommand);
    }
 }

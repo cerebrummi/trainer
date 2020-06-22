@@ -3,12 +3,13 @@ package vokabeltrainer.panels.dictionary;
 import java.util.List;
 
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
+import vokabeltrainer.types.SearchType;
 
 public interface DictionaryViewConnector
 {
    public void loadChapters();
-   public void decideOnTableInteraction(Action action);
    public void unselectExpressionKind();
    public void selectTab(Caller caller);
    public Language getSelectedLanguage();
@@ -20,4 +21,13 @@ public interface DictionaryViewConnector
    public int askForDeletionConfirmation(int numberOfExpressionsToBeDeleted);
    public List<Expression> getInTableSelectedExpressions();
    public void selectTableData();
+   public void displayNoTable();
+   public String getSelectedChapter();
+   public ExpressionKind getSelectedExpressionKind();
+   public SearchType getSelectedSearchTypeGerman();
+   public SearchType getSelectedSearchTypeHebrew();
+   public void tableValidateRepaint();
+   public String getSearchPhraseGerman();
+   public String getSearchPhraseHebrew();
+   public void switchSearchLanguagePanel(String actionCommand);
 }
