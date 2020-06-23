@@ -21,7 +21,7 @@ public class Settings
    private final static Font secondaryToolbarButtonFont = Main
          .getHeaderFont(18F);
    
-   private static boolean additionalInfo = true;
+   private static boolean additionalInfo = false;
    private static boolean transcription = false;
 
    private Settings()

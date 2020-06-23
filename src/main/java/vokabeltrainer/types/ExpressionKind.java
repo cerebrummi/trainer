@@ -16,61 +16,49 @@ public enum ExpressionKind
          "Wortart unbekannt",
          ""),
    ADJEKTIV(
-         "Eigenschaftswort",
-         "Adjektiv",
-         "jung, freundlich, weiblich, wichtig, groß"),
+         "Adjektiv / Eigenschaftswort",
+         "Adjektiv / Eigenschaftswort",
+         "klein, groß, jung, freundlich, weiblich, wichtig"),
    ADVERB(
-         "Umstandswort",
-         "Adverb",
-         "noch, schon, genug, meistens, jetzt, hier, dort"),
-   ARTIKEL(
-         "Artikel",
-         "Artikel",
-         "ein, eine, der, die, das"),
+         "Adverb / Umstandswort",
+         "Adverb / Umstandswort",
+         "stark, klar, schnell, gut, automatisch, vorsichtig, fein"),
    BEGRIFF(
          "Redewendung",
          "Redewendung",
          "Guten Tag!, Wie geht es?"),
-   EIGENNAME(
-         "Eigenname",
-         "Nomen Proprium",
-         "Italien, Hamburg, Israel"),
    FRAGE(
          "Fragewort",
          "Fragewort",
          "wann, wo, warum, wie, wieso, weshalb"),
    INTERJEKTION(
-         "Ausrufewort",
-         "Interjekt",
+         "Interjekt / Ausrufewort",
+         "Interjekt / Ausrufewort",
          "hurra, hm, ah, oh, autsch"),
-   KONJUNKTION(
-         "Bindewort",
-         "Konjunktion",
-         "aber, und, oder, denn, weil, obwohl, seit, nachdem"),
    NUMERAL(
-         "Zahlwort",
-         "Numeral",
+         "Numeral / Zahlwort",
+         "Numeral / Zahlwort",
          "eins, zwei, drei, vier, fünf, hundert"),
    PARTIKEL(
-         "Partikel",
-         "Partikel",
-         "auch, sehr, ziemlich, sogar, eben, gerade"),
-   PRAEPOSITION(
-         "Verhältniswort",
-         "Präposition",
-         "durch, um, gegen, mit, bei, von, ab, in, und"),
+         "Partikel / Vorsilbe",
+         "Partikel / Vorsilbe",
+         "und, in, in dem, in der"),
    PRONOM(
-         "Fürwort",
-         "Pronom",
-         "er, ich, diese, man, eine, welches, meine, jemand, sich"),
+         "Pronom / Fürwort",
+         "Pronom / Fürwort",
+         "er, ich, du, sie, diese, man, eine, welches, meine, jemand, sich"),
    SUBSTANTIV(
-         "Hauptwort",
-         "Substantiv",
+         "Substantiv / Hauptwort",
+         "Substantiv / Hauptwort",
          "Frau, Haus, Hammer, Küche, Beruf, Lampe"),
    VERB(
-         "Tätigkeitswort",
-         "Verb",
-         "laufen, gehen, schwimmen, essen, trinken");
+         "Verb / Tätigkeitswort",
+         "Verb / Tätigkeitswort",
+         "schreiben, laufen, gehen, schwimmen, essen, trinken"),
+   KONSTRUKT(
+         "Constructus / zusammengesetzt",
+         "Constructus / zusammengesetzt",
+         "Haus des Buches, in einem Büro");
 
    private String germanName;
    private String latinName;

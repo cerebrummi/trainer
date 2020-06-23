@@ -131,32 +131,26 @@ public class StatisticsPanel extends BackgroundPanelTiled
          return String.valueOf(Data.getAdjektivMapSize());
       case ADVERB:
          return String.valueOf(Data.getAdverbMapSize());
-      case ARTIKEL:
-         return String.valueOf(Data.getArtikelMapSize());
       case BEGRIFF:
          return String.valueOf(Data.getBegriffMapSize());
       case FRAGE:
          return String.valueOf(Data.getFrageMapSize());
       case INTERJEKTION:
          return String.valueOf(Data.getInterjektionMapSize());
-      case KONJUNKTION:
-         return String.valueOf(Data.getKonjuktionMapSize());
       case NUMERAL:
          return String.valueOf(Data.getNumeralMapSize());
-      case PRAEPOSITION:
-         return String.valueOf(Data.getPraepositionMapSize());
       case PRONOM:
          return String.valueOf(Data.getPronomMapSize());
       case UNKOWN:
          return String.valueOf(Data.getUnkownMapSize());
       case VERB:
          return String.valueOf(Data.getVerbMapSize());
-      case EIGENNAME:
-         return String.valueOf(Data.getEigennameMapSize());
       case PARTIKEL:
          return String.valueOf(Data.getPartikelMapSize());
       case SUBSTANTIV:
          return String.valueOf(Data.getSubstantivMapSize());
+      case KONSTRUKT:
+         return String.valueOf(Data.getConstructusMapSize());
       }
       return "Wert";
    }

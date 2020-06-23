@@ -134,11 +134,6 @@ public final class Data
       return getDataBaseAtomic().getInterjektionMap().size();
    }
 
-   public static int getKonjuktionMapSize()
-   {
-      return getDataBaseAtomic().getKonjunktionMap().size();
-   }
-
    public static int getNomenMapSize()
    {
       return getDataBaseAtomic().getNomenMap().size();
@@ -147,11 +142,6 @@ public final class Data
    public static int getNumeralMapSize()
    {
       return getDataBaseAtomic().getNumeralMap().size();
-   }
-
-   public static int getPraepositionMapSize()
-   {
-      return getDataBaseAtomic().getPraepositionMap().size();
    }
 
    public static int getPronomMapSize()
@@ -167,6 +157,11 @@ public final class Data
    public static int getVerbMapSize()
    {
       return getDataBaseAtomic().getVerbMap().size();
+   }
+   
+   public static int getConstructusMapSize()
+   {
+      return getDataBaseAtomic().getConstructusMap().size();
    }
 
    public static int getDeletedMapSize()
@@ -184,11 +179,6 @@ public final class Data
       return getDataBaseAtomic().getBegriffMap().size();
    }
 
-   public static int getArtikelMapSize()
-   {
-      return getDataBaseAtomic().getArtikelMap().size();
-   }
-
    public static int getAdjektivMapSize()
    {
       return getDataBaseAtomic().getAdjektivMap().size();
@@ -197,11 +187,6 @@ public final class Data
    public static int getAdverbMapSize()
    {
       return getDataBaseAtomic().getAdverbMap().size();
-   }
-
-   public static int getEigennameMapSize()
-   {
-      return getDataBaseAtomic().getEigennameMap().size();
    }
 
    public static int getPartikelMapSize()
@@ -340,30 +325,24 @@ public final class Data
             "ADJEKTIV.txt");
       private final ConcurrentMap<UUID, Expression> adverbMap = readFile(
             "ADVERB.txt");
-      private final ConcurrentMap<UUID, Expression> artikelMap = readFile(
-            "ARTIKEL.txt");
       private final ConcurrentMap<UUID, Expression> begriffMap = readFile(
             "BEGRIFF.txt");
-      private final ConcurrentMap<UUID, Expression> eigennameMap = readFile(
-            "EIGENNAME.txt");
       private final ConcurrentMap<UUID, Expression> frageMap = readFile(
             "FRAGE.txt");
       private final ConcurrentMap<UUID, Expression> interjektionMap = readFile(
             "INTERJEKTION.txt");
-      private final ConcurrentMap<UUID, Expression> konjunktionMap = readFile(
-            "KONJUNKTION.txt");
       private final ConcurrentMap<UUID, Expression> numeralMap = readFile(
             "NUMERAL.txt");
       private final ConcurrentMap<UUID, Expression> partikelMap = readFile(
             "PARTIKEL.txt");
-      private final ConcurrentMap<UUID, Expression> praepositionMap = readFile(
-            "PRAEPOSITION.txt");
       private final ConcurrentMap<UUID, Expression> pronomMap = readFile(
             "PRONOM.txt");
       private final ConcurrentMap<UUID, Expression> substantivMap = readFile(
             "SUBSTANTIV.txt");
       private final ConcurrentMap<UUID, Expression> verbMap = readFile(
             "VERB.txt");
+      private final ConcurrentMap<UUID, Expression> constructusMap = readFile(
+            "KONSTRUKT.txt");
 
       DataBase()
       {
@@ -773,24 +752,18 @@ public final class Data
             return numeralMap.values();
          case ADVERB:
             return adverbMap.values();
-         case ARTIKEL:
-            return artikelMap.values();
          case INTERJEKTION:
             return interjektionMap.values();
-         case KONJUNKTION:
-            return konjunktionMap.values();
-         case PRAEPOSITION:
-            return praepositionMap.values();
          case PRONOM:
             return pronomMap.values();
-         case EIGENNAME:
-            return eigennameMap.values();
          case PARTIKEL:
             return partikelMap.values();
          case SUBSTANTIV:
             return substantivMap.values();
+         case KONSTRUKT:
+            return constructusMap.values();
          }
-         throw new IllegalArgumentException("das gibt es nicht");
+         throw new IllegalArgumentException("Data: Wortarten: das gibt es nicht");
       }
 
       private boolean equalsGermanSearchWord(String text, Expression expression)
@@ -967,20 +940,17 @@ public final class Data
             alleMap.remove(expression.getUuid(), expression);
             adjektivMap.remove(expression.getUuid(), expression);
             adverbMap.remove(expression.getUuid(), expression);
-            artikelMap.remove(expression.getUuid(), expression);
             begriffMap.remove(expression.getUuid(), expression);
-            eigennameMap.remove(expression.getUuid(), expression);
             frageMap.remove(expression.getUuid(), expression);
             interjektionMap.remove(expression.getUuid(), expression);
-            konjunktionMap.remove(expression.getUuid(), expression);
             newMap.remove(expression.getUuid(), expression);
             numeralMap.remove(expression.getUuid(), expression);
             partikelMap.remove(expression.getUuid(), expression);
-            praepositionMap.remove(expression.getUuid(), expression);
             pronomMap.remove(expression.getUuid(), expression);
             substantivMap.remove(expression.getUuid(), expression);
             unkownMap.remove(expression.getUuid(), expression);
             verbMap.remove(expression.getUuid(), expression);
+            constructusMap.remove(expression.getUuid(), expression);
          }
 
          reloadChapterSet();
@@ -1222,11 +1192,6 @@ public final class Data
          return adverbMap;
       }
 
-      private ConcurrentMap<UUID, Expression> getArtikelMap()
-      {
-         return artikelMap;
-      }
-
       private ConcurrentMap<UUID, Expression> getBegriffMap()
       {
          return begriffMap;
@@ -1242,11 +1207,6 @@ public final class Data
          return interjektionMap;
       }
 
-      private ConcurrentMap<UUID, Expression> getKonjunktionMap()
-      {
-         return konjunktionMap;
-      }
-
       private ConcurrentMap<UUID, Expression> getNomenMap()
       {
          return substantivMap;
@@ -1255,11 +1215,6 @@ public final class Data
       private ConcurrentMap<UUID, Expression> getNumeralMap()
       {
          return numeralMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getPraepositionMap()
-      {
-         return praepositionMap;
       }
 
       private ConcurrentMap<UUID, Expression> getPronomMap()
@@ -1277,11 +1232,6 @@ public final class Data
          return verbMap;
       }
 
-      private ConcurrentMap<UUID, Expression> getEigennameMap()
-      {
-         return eigennameMap;
-      }
-
       private ConcurrentMap<UUID, Expression> getPartikelMap()
       {
          return partikelMap;
@@ -1290,6 +1240,11 @@ public final class Data
       private ConcurrentMap<UUID, Expression> getSubstantivMap()
       {
          return substantivMap;
+      }
+      
+      private ConcurrentMap<UUID, Expression> getConstructusMap()
+      {
+         return constructusMap;
       }
    }
 
