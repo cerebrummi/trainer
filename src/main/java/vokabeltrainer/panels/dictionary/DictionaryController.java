@@ -215,8 +215,8 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void openTrashCanDialog()
    {
-      TrashCanDialog dialog = new TrashCanDialog(this,
-            dictionaryView.getSelectedLanguage());
+      TrashCanDialog dialog = new TrashCanController(this,
+            dictionaryView.getSelectedLanguage()).getTrashCanDialog();
       dialog.setLocationRelativeTo(null);
       dialog.setVisible(true);
       if (dialog.isRestore())
