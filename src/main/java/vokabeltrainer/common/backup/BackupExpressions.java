@@ -23,8 +23,6 @@ public class BackupExpressions
       backupErrorMessage.setEmptyValue("");
 
       File customDir = new File(Settings.getExpressionPath());
-      
-      makeNewBackup(customDir, makeUniqueDirectoryName());
 
       if (findNumberofBackups(customDir) >= Settings.getNumberOfBackups())
       {
@@ -53,6 +51,8 @@ public class BackupExpressions
             break;
          }
       }
+      
+      makeNewBackup(customDir, makeUniqueDirectoryName());
 
       return backupErrorMessage.toString();
    }

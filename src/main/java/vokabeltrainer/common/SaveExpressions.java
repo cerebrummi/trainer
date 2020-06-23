@@ -58,14 +58,17 @@ public final class SaveExpressions
                }
             }
 
-            String backupErrorMessage = new BackupExpressions().makeBackupNow();
-            if (!backupErrorMessage.isEmpty() && JOptionPane.showConfirmDialog(
-                  Common.getjFrame(),
-                  "Es gab einen Fehler beim Backup.\nWollen Sie trotzdem speichern?\n"
-                        + backupErrorMessage,
-                  "Fehlermeldung", JOptionPane.WARNING_MESSAGE) == 1)
+            if(customDir.list().length > 1)
             {
-               return false;
+               String backupErrorMessage = new BackupExpressions().makeBackupNow();
+               if (!backupErrorMessage.isEmpty() && JOptionPane.showConfirmDialog(
+                     Common.getjFrame(),
+                     "Es gab einen Fehler beim Backup.\nWollen Sie trotzdem speichern?\n"
+                           + backupErrorMessage,
+                     "Fehlermeldung", JOptionPane.WARNING_MESSAGE) == 1)
+               {
+                  return false;
+               }
             }
 
             for (ExpressionKind kind : ExpressionKind.values())
