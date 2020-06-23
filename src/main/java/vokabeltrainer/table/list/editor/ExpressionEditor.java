@@ -83,6 +83,7 @@ public class ExpressionEditor extends JDialog
    private String hebrewInLatinTitle = "Lautschrift";
    private String searchwordJListGermanTitle = "Deutsche Suchwörter";
    private String searchwordsJListHebrewTitle = "Hebräische Suchwörter";
+   private String chapterTitle = "Lektion";
    private JComboBox<String> chapter;
    private JButton infoExpressionKindButton;
 
@@ -288,7 +289,7 @@ public class ExpressionEditor extends JDialog
 
       chapter = new JComboBox<String>();
       chapter.setMaximumRowCount(20);
-      chapter.setBorder(new TitledBorder("Lektion"));
+      chapter.setBorder(new TitledBorder(this.chapterTitle));
       chapter.setOpaque(false);
       chapter.setBackground(new Color(0, 0, 0, 0));
       chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
@@ -368,6 +369,7 @@ public class ExpressionEditor extends JDialog
 
    private void resetAllBorders()
    {
+      chapter.setBorder(makeBorderBlank(this.chapterTitle));
       german.setBorder(makeBorderBlank(this.germanTitle));
       hebrewInLatin.setBorder(makeBorderBlank(this.hebrewInLatinTitle));
       hebrew.setBlankBorder();
@@ -515,6 +517,11 @@ public class ExpressionEditor extends JDialog
    private boolean testForCompletness()
    {
       boolean result = true;
+      if (chapter.getSelectedItem() == null)
+      {
+         chapter.setBorder(makeBorderRed(this.chapterTitle));
+         result = false;
+      }
       if (german.getText().isEmpty())
       {
          german.setBorder(makeBorderRed(this.germanTitle));
