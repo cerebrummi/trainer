@@ -48,7 +48,7 @@ import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Gender;
 import vokabeltrainer.types.Numerus;
 
-public class ExpressionEditorDialog extends JDialog
+public class ExpressionEditorDialog extends JDialog implements ExpressionEditorDialogConnector
 {
    private static final int WIDTH_INFO_PANEL = 250;
 
@@ -86,11 +86,14 @@ public class ExpressionEditorDialog extends JDialog
    private String chapterTitle = "Lektion";
    private JComboBox<String> chapter;
    private JButton infoExpressionKindButton;
+   
+   private ExpressionEditorControllerConnector connector;
 
-   public ExpressionEditorDialog()
+   public ExpressionEditorDialog(ExpressionEditorControllerConnector connector)
    {
       super(Common.getjFrame(), "Cerebrummi©",
             Dialog.ModalityType.APPLICATION_MODAL);
+      this.connector = connector;
       save = false;
       setSize(1036, 680);
       layout = new BackgroundPanelTiled();
@@ -379,7 +382,7 @@ public class ExpressionEditorDialog extends JDialog
             .setBorder(makeBorderBlank(this.searchwordsJListHebrewTitle));
    }
 
-   private void initController()
+   private void initController() // TODO
    {
       infoExpressionKindButton.addActionListener(event -> {
          JOptionPane.showMessageDialog(this, "",

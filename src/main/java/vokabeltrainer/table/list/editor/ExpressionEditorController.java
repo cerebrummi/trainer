@@ -1,12 +1,12 @@
 package vokabeltrainer.table.list.editor;
 
-public class ExpressionEditorController
+public class ExpressionEditorController implements ExpressionEditorControllerConnector
 {
    private ExpressionEditorDialog expressionEditorDialog;
    
    public ExpressionEditorController()
    {
-     this.expressionEditorDialog = new ExpressionEditorDialog();
+     this.expressionEditorDialog = new ExpressionEditorDialog(this);
    }
 
    public ExpressionEditorDialog getExpressionEditorDialog()
