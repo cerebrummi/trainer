@@ -3,7 +3,6 @@ package vokabeltrainer.panels.dictionary;
 import java.util.List;
 
 import vokabeltrainer.common.Data;
-import vokabeltrainer.panels.dialogs.TrashCanDialog;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;

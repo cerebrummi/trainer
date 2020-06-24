@@ -4,7 +4,7 @@ public interface DictionaryControllerConnector
 {
    public void save();
    public void tabbedPaneChanged(int selectedIndex);
-   public void newExpression();
+   public void openNewExpressionDialog();
    public void copyAllSelectedExpressions();
    public void copyExpressionsOfTable();
    public void copyInTableSelectedExpressions();

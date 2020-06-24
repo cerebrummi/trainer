@@ -1,4 +1,4 @@
-package vokabeltrainer.panels.dialogs;
+package vokabeltrainer.panels.dictionary;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,8 +21,7 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.TrashCanBackgroundPanel;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.panels.dictionary.TrashCanControllerConnector;
-import vokabeltrainer.panels.dictionary.TrashCanDialogConnector;
+import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;

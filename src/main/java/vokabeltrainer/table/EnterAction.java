@@ -5,20 +5,20 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
-import vokabeltrainer.table.list.editor.ExpressionEditor;
+import vokabeltrainer.table.list.editor.ExpressionEditorDialog;
 import vokabeltrainer.types.Expression;
 
 public class EnterAction extends AbstractAction
 {
    private ExpressionTable table;
-   private ExpressionEditor editor;
+   private ExpressionEditorDialog editor;
    private DictionaryControllerConnector connector;
 
    public EnterAction(ExpressionTable table, DictionaryControllerConnector connector)
    {
       this.table = table;
       this.connector = connector;
-      editor = new ExpressionEditor();
+      editor = new ExpressionEditorDialog();
    }
 
    private static final long serialVersionUID = 719272853628204094L;

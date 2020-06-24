@@ -433,7 +433,7 @@ public class DictionaryView extends BackgroundPanelTiled
       tabbedPane.addChangeListener(event -> connector
             .tabbedPaneChanged(tabbedPane.getSelectedIndex()));
 
-      newWordButton.addActionListener(event -> connector.newExpression());
+      newWordButton.addActionListener(event -> connector.openNewExpressionDialog());
 
       copyAllSelectedButton
             .addActionListener(event -> connector.copyAllSelectedExpressions());

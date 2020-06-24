@@ -11,10 +11,10 @@ import vokabeltrainer.Command;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.DictionaryView;
-import vokabeltrainer.panels.dialogs.EmptyNotification;
-import vokabeltrainer.panels.dialogs.TrashCanDialog;
+import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.table.ExpressionTableModel;
-import vokabeltrainer.table.list.editor.ExpressionEditor;
+import vokabeltrainer.table.list.editor.ExpressionEditorController;
+import vokabeltrainer.table.list.editor.ExpressionEditorDialog;
 import vokabeltrainer.types.Expression;
 
 public class DictionaryController implements DictionaryControllerConnector
@@ -88,9 +88,10 @@ public class DictionaryController implements DictionaryControllerConnector
    }
 
    @Override
-   public void newExpression()
+   public void openNewExpressionDialog()
    {
-      ExpressionEditor editor = new ExpressionEditor();
+      ExpressionEditorDialog editor = new ExpressionEditorController()
+            .getExpressionEditorDialog();
       editor.setExpression(new Expression(true));
       editor.setLocationRelativeTo(null);
       editor.setVisible(true);
@@ -267,7 +268,7 @@ public class DictionaryController implements DictionaryControllerConnector
    public void decideOnTableInteraction(Action action)
    {
       ExpressionTableModel tableModel = null;
-       
+
       switch (Interaction.getCommand(new Interaction(action, Status.pop())))
       {
       case NOTHING:

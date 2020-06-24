@@ -1,21 +1,21 @@
-package vokabeltrainer.panels.dialogs;
+package vokabeltrainer.panels.notifications;
 
 import javax.swing.JDialog;
 import javax.swing.Timer;
 
 import vokabeltrainer.common.Common;
 
-public class EmptyNotification
+public class OkayExpressionsSavedNotification
 {
 
-   private EmptyNotification()
+   private OkayExpressionsSavedNotification()
    {
-
+      
    }
-
+   
    public static void display()
    {
-      JDialog dialog = new EmptyDialog();
+      JDialog dialog = new OkayExpressionsSavedDialog();
       dialog.setLocationRelativeTo(Common.getjFrame());
       dialog.setVisible(true);
 
@@ -23,4 +23,5 @@ public class EmptyNotification
          dialog.setVisible(false);
       }).start();
    }
+
 }

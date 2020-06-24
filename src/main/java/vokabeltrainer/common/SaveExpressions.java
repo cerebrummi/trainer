@@ -12,14 +12,11 @@ import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.prefs.Preferences;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
-import javax.swing.Timer;
-
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.backup.BackupExpressions;
-import vokabeltrainer.panels.dialogs.OkaySaveExpressionsDialog;
+import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 
@@ -84,12 +81,7 @@ public final class SaveExpressions
             Data.initDataBase();
             progress = 100;
             bar.setProgress(progress);
-            JDialog dialog = new OkaySaveExpressionsDialog();
-            dialog.setLocationRelativeTo(Common.getjFrame());
-            dialog.setVisible(true);
-            new Timer(1000, event -> {
-               dialog.setVisible(false);
-            }).start();
+            OkayExpressionsSavedNotification.display();
             return true;
          }
          catch (Exception e)
