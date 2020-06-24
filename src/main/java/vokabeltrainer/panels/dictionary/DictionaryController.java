@@ -267,14 +267,6 @@ public class DictionaryController implements DictionaryControllerConnector
    public void decideOnTableInteraction(Action action)
    {
       ExpressionTableModel tableModel = null;
-
-      // if (Interaction
-      // .getCommand(new Interaction(action, Status.peek())) == null)
-      // {
-       System.out.println("Action: " + action.name());
-       System.out.println("Status: " + Status.peek().name());
-      // return;
-      // }
        
       switch (Interaction.getCommand(new Interaction(action, Status.pop())))
       {

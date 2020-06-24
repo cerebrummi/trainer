@@ -1,6 +1,11 @@
 package vokabeltrainer.panels.dictionary;
 
+import java.util.List;
+
+import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.dialogs.TrashCanDialog;
+import vokabeltrainer.table.ExpressionTableModel;
+import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
 public class TrashCanController implements TrashCanControllerConnector
@@ -12,7 +17,9 @@ public class TrashCanController implements TrashCanControllerConnector
          Language initialLanguage)
    {
       this.connector = connector;
-      this.trashCanDialog = new TrashCanDialog(this, initialLanguage);
+      trashCanDialog = new TrashCanDialog(this, initialLanguage);
+      trashCanDialog.doShowTable(loadTableModel(initialLanguage));
+      trashCanDialog.pack();
    }
 
    @Override
@@ -24,5 +31,60 @@ public class TrashCanController implements TrashCanControllerConnector
    public TrashCanDialog getTrashCanDialog()
    {
       return trashCanDialog;
+   }
+
+   @Override
+   public ExpressionTableModel loadTableModel(Language language)
+   {
+      return Data.findTranslationsDeletedWords(language);
+   }
+
+   @Override
+   public void restoreSelectedExpressions(List<Expression> selectedExpressions)
+   {
+      if (!selectedExpressions.isEmpty())
+      {
+         trashCanDialog.setRestore(true);
+         Data.restoreExpressions(selectedExpressions);
+         trashCanDialog.clearTable();
+         trashCanDialog.doShowTable(
+               loadTableModel(trashCanDialog.getSelectedLanguage()));
+         trashCanDialog.tableValidateRepaint();
+      }
+   }
+
+   @Override
+   public void selectAllExpressionsInTable()
+   {
+      if (trashCanDialog.isTableNotNull())
+      {
+         trashCanDialog.selectAllExpressionsInTable();
+         trashCanDialog.clearTable();
+         trashCanDialog.doShowTable(
+               loadTableModel(trashCanDialog.getSelectedLanguage()));
+         trashCanDialog.tableValidateRepaint();
+      }
+   }
+
+   @Override
+   public void unselectAllExpressionsInTable()
+   {
+      if (trashCanDialog.isTableNotNull())
+      {
+         trashCanDialog.unselectAllExpressionsInTable();
+         trashCanDialog.clearTable();
+         trashCanDialog.doShowTable(
+               loadTableModel(trashCanDialog.getSelectedLanguage()));
+         trashCanDialog.tableValidateRepaint();
+      }
+   }
+
+   @Override
+   public void switchLanguage()
+   {
+      trashCanDialog.clearTable();
+      trashCanDialog
+            .doShowTable(loadTableModel(trashCanDialog.getSelectedLanguage()));
+      trashCanDialog.tableValidateRepaint();
    }
 }

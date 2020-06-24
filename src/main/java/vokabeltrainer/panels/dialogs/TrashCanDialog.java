@@ -7,8 +7,6 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Enumeration;
-import java.util.List;
-
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -19,22 +17,20 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TrashCanBackgroundPanel;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.dictionary.TrashCanControllerConnector;
+import vokabeltrainer.panels.dictionary.TrashCanDialogConnector;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
-public class TrashCanDialog extends JDialog
+public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
 {
    private static final long serialVersionUID = 5581839704958393075L;
 
@@ -49,7 +45,8 @@ public class TrashCanDialog extends JDialog
    private boolean restore;
    private TrashCanControllerConnector connector;
 
-   public TrashCanDialog(TrashCanControllerConnector connector, Language initialLanguage)
+   public TrashCanDialog(TrashCanControllerConnector connector,
+         Language initialLanguage)
    {
       super(Common.getjFrame(), "Papierkorb",
             Dialog.ModalityType.APPLICATION_MODAL);
@@ -68,8 +65,6 @@ public class TrashCanDialog extends JDialog
 
       initGui();
       initController();
-      decideOnTable(Command.INITIAL.name());
-      pack();
    }
 
    private void initGui()
@@ -100,8 +95,7 @@ public class TrashCanDialog extends JDialog
       while (enumeration1.hasMoreElements())
       {
          AbstractButton button = enumeration1.nextElement();
-         button.addActionListener(
-               event -> decideOnTable(button.getActionCommand()));
+         button.addActionListener(event -> connector.switchLanguage());
          horizontal1.add(button);
       }
 
@@ -126,74 +120,46 @@ public class TrashCanDialog extends JDialog
       return vertical;
    }
 
-   private void initController()// TODO
+   private void initController()
    {
       this.restoreButton.addActionListener(event -> {
-         if (table != null)
+         if(isTableNotNull())
          {
-            List<Expression> list = table.getSelectedExpressions();
-            if (!list.isEmpty())
-            {
-               restore = true;
-               Data.restoreExpressions(list);
-               decideOnTable(Command.RESTORE.name());
-            }
+            connector.restoreSelectedExpressions(table.getSelectedExpressions());
          }
       });
 
       this.selectAllInTableButton.addActionListener(event -> {
-         if (table != null)
-         {
-            table.selectAllExpressions();
-            decideOnTable(Command.SELECT_ALL.name());
-         }
+         connector.selectAllExpressionsInTable();
       });
 
       clearInTableSelectedButton.addActionListener(event -> {
-         if (table != null)
-         {
-            table.clearTableDataSelection();
-            decideOnTable(Command.CLEAR.name());
-
-         }
+         connector.unselectAllExpressionsInTable();
       });
    }
 
-   private void decideOnTable(String actionCommand)
+   public void doShowTable(ExpressionTableModel tableModel)
    {
-      clearTable();
-
-      ExpressionTableModel tableModel = null;
-
-      tableModel = Data.findTranslationsDeletedWords(
-            Language.valueOf(languageGroup.getSelection().getActionCommand()));
-
       if (tableModel.getRowCount() == 0)
       {
          EmptyNotification.display();
-         tablePanel.validate();
-         tablePanel.repaint();
-         return;
       }
-      doShowTable(tableModel);
+      else
+      {
+         table = new ExpressionTable(tableModel,
+               Language
+                     .valueOf(languageGroup.getSelection().getActionCommand()),
+               connector.getDictionaryControllerConnector(), false);
+         JScrollPane scrollPane = new JScrollPane(table);
+         scrollPane.setOpaque(false);
+         scrollPane.getViewport().setOpaque(false);
+         scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
+         tablePanel.add(scrollPane);
+      }
+      this.tableValidateRepaint();
    }
 
-   private void doShowTable(ExpressionTableModel tableModel)
-   {
-      table = new ExpressionTable(tableModel,
-            Language.valueOf(languageGroup.getSelection().getActionCommand()),
-            connector.getDictionaryControllerConnector(),
-            false);
-      JScrollPane scrollPane = new JScrollPane(table);
-      scrollPane.setOpaque(false);
-      scrollPane.getViewport().setOpaque(false);
-      scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
-      tablePanel.add(scrollPane);
-      tablePanel.validate();
-      tablePanel.repaint();
-   }
-
-   private void clearTable()
+   public void clearTable()
    {
       stopTableEditing();
       tablePanel.removeAll();
@@ -231,9 +197,47 @@ public class TrashCanDialog extends JDialog
       }
    }
 
+   @Override
    public boolean isRestore()
    {
       return restore;
+   }
+
+   @Override
+   public void tableValidateRepaint()
+   {
+      tablePanel.validate();
+      tablePanel.repaint();
+   }
+
+   @Override
+   public Language getSelectedLanguage()
+   {
+      return Language.valueOf(languageGroup.getSelection().getActionCommand());
+   }
+
+   @Override
+   public boolean isTableNotNull()
+   {
+      return table != null;
+   }
+
+   @Override
+   public void setRestore(boolean restore)
+   {
+      this.restore = restore;
+   }
+
+   @Override
+   public void selectAllExpressionsInTable()
+   {
+      table.selectAllExpressions();
+   }
+
+   @Override
+   public void unselectAllExpressionsInTable()
+   {
+      table.clearTableDataSelection();
    }
 
 }
