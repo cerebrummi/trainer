@@ -28,7 +28,7 @@ public class ExpressionTable extends JTable
       super(dm, new ExpressionColumnModel(language, editable));
       this.model = dm;
       this.language = language;
-      setRowHeight(225);
+      setRowHeight(Settings.dictionaryTableRowHeight());
       putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
       setShowHorizontalLines(false);
       this.setRowSelectionAllowed(true);

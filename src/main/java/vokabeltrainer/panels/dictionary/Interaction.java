@@ -127,10 +127,10 @@ public class Interaction
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.TAB_EXPRESSIONKIND), Command.NOTHING);
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.TAB_SEARCH), Command.NOTHING);
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.TAB_SELECTED_EXPRESSIONS), Command.NOTHING);
-      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.CHAPTER_WHICH), Command.RESTORE_WHICH_CHAPTER);
-      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.EXPRESSIONKIND_WHICH), Command.RESTORE_WHICH_EXPRESSIONKIND);
-      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.SEARCH_WHICH_GERMAN), Command.RESTORE_WHICH_SEARCH_GERMAN);
-      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.SEARCH_WHICH_HEBREW), Command.RESTORE_WHICH_SEARCH_HEBREW);
+      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.CHAPTER_WHICH), Command.NOTHING);
+      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.EXPRESSIONKIND_WHICH), Command.NOTHING);
+      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.SEARCH_WHICH_GERMAN), Command.NOTHING);
+      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.SEARCH_WHICH_HEBREW), Command.NOTHING);
       
       interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.TAB_CHAPTER), Command.NOTHING);
