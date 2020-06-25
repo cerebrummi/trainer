@@ -48,7 +48,8 @@ import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Gender;
 import vokabeltrainer.types.Numerus;
 
-public class ExpressionEditorDialog extends JDialog implements ExpressionEditorDialogConnector
+public class ExpressionEditorDialog extends JDialog
+      implements ExpressionEditorDialogConnector
 {
    private static final int WIDTH_INFO_PANEL = 250;
 
@@ -86,7 +87,8 @@ public class ExpressionEditorDialog extends JDialog implements ExpressionEditorD
    private String chapterTitle = "Lektion";
    private JComboBox<String> chapter;
    private JButton infoExpressionKindButton;
-   
+
+   @SuppressWarnings("unused")
    private ExpressionEditorControllerConnector connector;
 
    public ExpressionEditorDialog(ExpressionEditorControllerConnector connector)
@@ -97,8 +99,8 @@ public class ExpressionEditorDialog extends JDialog implements ExpressionEditorD
       save = false;
       setSize(1036, 680);
       layout = new BackgroundPanelTiled();
-      layout.setBorder(BorderFactory.createLineBorder(Settings.getGreen(),
-            15, false));
+      layout.setBorder(
+            BorderFactory.createLineBorder(Settings.getGreen(), 15, false));
       layout.setLayout(new TrainLayout(layout, 15));
       getContentPane().add(layout);
 
@@ -194,7 +196,7 @@ public class ExpressionEditorDialog extends JDialog implements ExpressionEditorD
          {
             FocusTextField listComponent = new FocusTextField(value);
             listComponent.setFont(Main.getGermanFont(16F));
-            if(isSelected)
+            if (isSelected)
             {
                listComponent.setBackground(Color.WHITE);
             }
@@ -245,7 +247,7 @@ public class ExpressionEditorDialog extends JDialog implements ExpressionEditorD
             listComponent.setFont(hebrewfont);
             listComponent
                   .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-            if(isSelected)
+            if (isSelected)
             {
                listComponent.setBackground(Color.WHITE);
             }
@@ -288,7 +290,7 @@ public class ExpressionEditorDialog extends JDialog implements ExpressionEditorD
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
-      keyboard = new KeyboardHebrew(hebrew, components,70);
+      keyboard = new KeyboardHebrew(hebrew, components, 70);
 
       chapter = new JComboBox<String>();
       chapter.setMaximumRowCount(20);
@@ -385,11 +387,11 @@ public class ExpressionEditorDialog extends JDialog implements ExpressionEditorD
    private void initController() // TODO
    {
       infoExpressionKindButton.addActionListener(event -> {
-         JOptionPane.showMessageDialog(this, "",
-               "Cerebrummi©", JOptionPane.INFORMATION_MESSAGE,
+         JOptionPane.showMessageDialog(this, "", "Cerebrummi©",
+               JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(ExpressionKind.getExplanations())));
       });
-      
+
       infoExpressionKindButton.addMouseListener(new MouseListener()
       {
 
@@ -447,8 +449,7 @@ public class ExpressionEditorDialog extends JDialog implements ExpressionEditorD
       });
 
       newSearchwordGerman.addActionListener(event -> {
-         String add = newSearchwordGerman.getText().toLowerCase()
-               .replaceAll(",", "");
+         String add = newSearchwordGerman.getText().replaceAll(",", "");
          if (!add.isEmpty())
          {
             searchwordsSetGerman.add(add);
@@ -558,7 +559,8 @@ public class ExpressionEditorDialog extends JDialog implements ExpressionEditorD
    private void saveExpression()
    {
       expression.setGerman(cleanTextWithoutComma(german.getText()));
-      expression.setHebrewInLatin(cleanTextWithoutComma(hebrewInLatin.getText()));
+      expression
+            .setHebrewInLatin(cleanTextWithoutComma(hebrewInLatin.getText()));
       expression.setHebrew(cleanTextWithoutComma(hebrew.getText()));
       expression.setGenderHebrew((Gender) genderHebrew.getSelectedItem());
       expression.setNumerusHebrew((Numerus) numerusHebrew.getSelectedItem());
@@ -576,14 +578,15 @@ public class ExpressionEditorDialog extends JDialog implements ExpressionEditorD
          wordsHebrew.add(cleanText(word));
       }
       expression.setSearchwordsHebrew(wordsHebrew);
-      expression.setChapter(cleanTextWithoutComma((String) chapter.getSelectedItem()));
+      expression.setChapter(
+            cleanTextWithoutComma((String) chapter.getSelectedItem()));
    }
 
    private String cleanText(String text)
    {
       return text.replaceAll("\t", "").replaceAll("\n", "").replaceAll(",", "");
    }
-   
+
    private String cleanTextWithoutComma(String text)
    {
       return text.replaceAll("\t", "").replaceAll("\n", "");

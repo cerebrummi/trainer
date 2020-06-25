@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
+import vokabeltrainer.table.list.editor.ExpressionEditorController;
 import vokabeltrainer.table.list.editor.ExpressionEditorDialog;
 import vokabeltrainer.types.Expression;
 
@@ -18,7 +19,8 @@ public class EnterAction extends AbstractAction
    {
       this.table = table;
       this.connector = connector;
-      editor = new ExpressionEditorDialog();
+      editor = new ExpressionEditorController()
+            .getExpressionEditorDialog();
    }
 
    private static final long serialVersionUID = 719272853628204094L;
