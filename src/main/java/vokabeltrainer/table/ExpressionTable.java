@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 
+import vokabeltrainer.Settings;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;

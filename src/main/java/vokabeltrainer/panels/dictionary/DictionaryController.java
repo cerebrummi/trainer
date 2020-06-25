@@ -293,7 +293,9 @@ public class DictionaryController implements DictionaryControllerConnector
          tableModel = Data.findTranslations(
                dictionaryView.getSelectedLanguage(), null, null, null,
                this.currentChapter, null);
+         dictionaryView.removeChapterListSelectionListener();
          dictionaryView.selectChapter(currentChapter);
+         dictionaryView.addChapterListSelectionListener();
          break;
       case TABLE_EXPRESSIONKIND_WHICH:
          dictionaryView.clearTable();

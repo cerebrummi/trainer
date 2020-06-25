@@ -31,6 +31,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.BackgroundPanelTiled;
@@ -93,6 +95,10 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private DictionaryControllerConnector connector;
 
+   private StringListSelectionModel listSelectionModel;
+
+   private ListSelectionListener listSelectionListener;
+
    public DictionaryView(DictionaryControllerConnector connector)
    {
       this.connector = connector;
@@ -152,6 +158,21 @@ public class DictionaryView extends BackgroundPanelTiled
       add(initServicePanel());
 
       Tabulator.setTabShowing(Tabulator.CHAPTER_TAB);
+      
+      listSelectionListener = new ListSelectionListener()
+            {
+
+               @Override
+               public void valueChanged(ListSelectionEvent event)
+               {
+                  if (!event.getValueIsAdjusting())
+                  {
+                     connector.displayChapterWhich(getSelectedChapter());
+                  }
+               }
+         
+            };
+      
       loadChapters();
 
       initController();
@@ -581,13 +602,8 @@ public class DictionaryView extends BackgroundPanelTiled
    public void loadChapters()
    {
       chapterPanel.removeAll();
-      StringListSelectionModel listSelectionModel = new StringListSelectionModel();
-      listSelectionModel.addListSelectionListener(event -> {
-         if (!event.getValueIsAdjusting())
-         {
-            connector.displayChapterWhich(getSelectedChapter());
-         }
-      });
+      listSelectionModel = new StringListSelectionModel();
+      addChapterListSelectionListener();
       chapterList = new StringList(listSelectionModel);
       chapterList.setListData(Data.getChapterArray());
       chapterList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
@@ -601,6 +617,16 @@ public class DictionaryView extends BackgroundPanelTiled
       chapterPanel.add(scroller);
       chapterPanel.validate();
       chapterPanel.repaint();
+   }
+
+   public void addChapterListSelectionListener()
+   {
+      listSelectionModel.addListSelectionListener(listSelectionListener);
+   }
+   
+   public void removeChapterListSelectionListener()
+   {
+      listSelectionModel.removeListSelectionListener(listSelectionListener);
    }
 
    public void clearTable()
