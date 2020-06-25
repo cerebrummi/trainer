@@ -99,6 +99,8 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private ListSelectionListener listSelectionListener;
 
+   private JScrollPane tableScroller;
+
    public DictionaryView(DictionaryControllerConnector connector)
    {
       this.connector = connector;
@@ -648,13 +650,13 @@ public class DictionaryView extends BackgroundPanelTiled
    {
       table = new ExpressionTable(tableModel, this.getSelectedLanguage(),
             connector, true);
-      JScrollPane scrollPane = new JScrollPane(table);
-      scrollPane.setOpaque(false);
-      scrollPane.getViewport().setOpaque(false);
-      scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
-      scrollPane.getVerticalScrollBar().setUnitIncrement(30);
+      tableScroller = new JScrollPane(table);
+      tableScroller.setOpaque(false);
+      tableScroller.getViewport().setOpaque(false);
+      tableScroller.setViewportBorder(BorderFactory.createEmptyBorder());
+      tableScroller.getVerticalScrollBar().setUnitIncrement(30);
 
-      tablePanel.add(scrollPane, BorderLayout.CENTER);
+      tablePanel.add(tableScroller, BorderLayout.CENTER);
       tableValidateRepaint();
    }
 
@@ -850,5 +852,15 @@ public class DictionaryView extends BackgroundPanelTiled
    public void selectChapter(String currentChapter)
    {
       chapterList.setSelectedValue(currentChapter, true);
+   }
+
+   public JScrollPane getTableScroller()
+   {
+      return tableScroller;
+   }
+
+   public ExpressionTable getTable()
+   {
+      return table;
    }
 }

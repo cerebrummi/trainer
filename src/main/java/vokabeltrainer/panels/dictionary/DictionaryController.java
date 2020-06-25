@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import vokabeltrainer.Command;
+import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.DictionaryView;
@@ -90,6 +91,11 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void openNewExpressionDialog()
    {
+      int selectedRow = -1;
+      if (dictionaryView.isTableNotNull())
+      {
+         selectedRow = dictionaryView.getTable().getSelectedRow();
+      }
       ExpressionEditorDialog editor = new ExpressionEditorController()
             .getExpressionEditorDialog();
       editor.setExpression(new Expression(true));
@@ -102,6 +108,24 @@ public class DictionaryController implements DictionaryControllerConnector
          Status.push(Status.peek());
          decideOnTableInteraction(Action.NEW_EXPRESSION);
          save();
+         if (dictionaryView.isTableNotNull())
+         {
+            final int selectedRowNow = selectedRow;
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               public void run()
+               {
+                  dictionaryView.getTableScroller().getVerticalScrollBar()
+                        .setMaximum(Settings.dictionaryTableRowHeight()
+                              * dictionaryView.getTable().getRowCount());
+                  dictionaryView.getTableScroller().getVerticalScrollBar()
+                        .setValue(Settings.dictionaryTableRowHeight()
+                              * selectedRowNow);
+                  dictionaryView.getTable().changeSelection(selectedRowNow, 0,
+                        false, false);
+               }
+            });
+         }
       }
    }
 
