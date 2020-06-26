@@ -6,6 +6,7 @@ import javax.swing.AbstractAction;
 import javax.swing.SwingUtilities;
 
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.table.list.editor.ExpressionEditorController;
 import vokabeltrainer.table.list.editor.ExpressionEditorDialog;
@@ -31,6 +32,7 @@ public class EnterAction extends AbstractAction
    public void actionPerformed(ActionEvent e)
    {
       int selectedRow = table.getSelectedRow();
+      int scrollHeight = connector.getDictionaryPanel().getTableScroller().getVerticalScrollBar().getValue();
       if (selectedRow >= 0)
       {
          editor.setExpression((Expression) table.getValueAt(selectedRow, 0));
@@ -38,9 +40,10 @@ public class EnterAction extends AbstractAction
          editor.setVisible(true);
          if (editor.isSave())
          {
-            table.setValueAt(editor.getExpression(), selectedRow, 0);
-            ((ExpressionTableModel) table.getModel())
-                  .fireTableCellUpdated(selectedRow, 0);
+            if(editor.isKindChanged())
+            {
+               Data.changeKindofExpression(editor.getOldKind(), editor.getExpression());
+            }
             connector.save();
          }
          SwingUtilities.invokeLater(new Runnable()
@@ -52,8 +55,7 @@ public class EnterAction extends AbstractAction
                      .setMaximum(Settings.dictionaryTableRowHeight() * connector
                            .getDictionaryPanel().getTable().getRowCount());
                connector.getDictionaryPanel().getTableScroller()
-                     .getVerticalScrollBar().setValue(
-                           Settings.dictionaryTableRowHeight() * selectedRow);
+                     .getVerticalScrollBar().setValue(scrollHeight);
                connector.getDictionaryPanel().getTable().changeSelection(selectedRow, 0, false, false);
                connector.getDictionaryPanel().getTable().grabFocus();
             }

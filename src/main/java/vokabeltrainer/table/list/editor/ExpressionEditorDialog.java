@@ -76,6 +76,7 @@ public class ExpressionEditorDialog extends JDialog
    private JButton deleteSearchwordButtonGerman;
    private JButton deleteSearchwordButtonHebrew;
    private boolean save;
+   private ExpressionKind oldKind;
    private JButton saveButton;
    private JButton restoreButton;
    private JButton cancelButton;
@@ -595,6 +596,7 @@ public class ExpressionEditorDialog extends JDialog
    public void setExpression(Expression expression)
    {
       this.save = false;
+      this.oldKind = expression.getKind();
       this.expression = expression;
       this.german.setText(expression.getGerman());
       this.hebrewInLatin.setText(expression.getHebrewInLatin());
@@ -662,5 +664,15 @@ public class ExpressionEditorDialog extends JDialog
    public void setSave(boolean save)
    {
       this.save = save;
+   }
+   
+   public boolean isKindChanged()
+   {
+      return this.oldKind != this.expression.getKind();
+   }
+
+   public ExpressionKind getOldKind()
+   {
+      return oldKind;
    }
 }

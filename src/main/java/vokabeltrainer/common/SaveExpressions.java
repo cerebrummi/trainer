@@ -78,7 +78,6 @@ public final class SaveExpressions
                   .node(Settings.getNode());
             preferences.putInt(Settings.getExpressionNode(), counter);
             saveDeletedExpressions();
-            Data.initDataBase(); // TODO make this superfluous
             progress = 100;
             bar.setProgress(progress);
             OkayExpressionsSavedNotification.display();
