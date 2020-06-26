@@ -291,6 +291,13 @@ public final class Data
             .findOldExpressionsToBeTested(languageDirection);
    }
 
+   public static void changeKindofExpression(ExpressionKind oldKind, // TODO einbauen
+         Expression newKind)
+   {
+      getDataBaseAtomic()
+            .changeKindofExpressionInDataStrukture(oldKind, newKind);
+   }
+
    // #########################################################
    // #########################################################
    // #########################################################
@@ -765,8 +772,7 @@ public final class Data
          case KONSTRUKT:
             return constructusMap.values();
          }
-         throw new IllegalArgumentException(
-               "Data: Wortarten: das gibt es nicht");
+         throw new IllegalArgumentException("Data: Wortart fehlt: " + kind);
       }
 
       private boolean equalsGermanSearchWord(String text, Expression expression)
@@ -1249,6 +1255,95 @@ public final class Data
       {
          return constructusMap;
       }
-   }
 
+      public void changeKindofExpressionInDataStrukture(
+            ExpressionKind oldKind, Expression newKind)
+      {
+         switch (oldKind)
+         {
+         case ADJEKTIV:
+            adjektivMap.remove(newKind.getUuid());
+            break;
+         case ADVERB:
+            adverbMap.remove(newKind.getUuid());
+            break;
+         case BEGRIFF:
+            begriffMap.remove(newKind.getUuid());
+            break;
+         case FRAGE:
+            frageMap.remove(newKind.getUuid());
+            break;
+         case INTERJEKTION:
+            interjektionMap.remove(newKind.getUuid());
+            break;
+         case KONSTRUKT:
+            constructusMap.remove(newKind.getUuid());
+            break;
+         case NUMERAL:
+            numeralMap.remove(newKind.getUuid());
+            break;
+         case PARTIKEL:
+            partikelMap.remove(newKind.getUuid());
+            break;
+         case PRONOM:
+            pronomMap.remove(newKind.getUuid());
+            break;
+         case SUBSTANTIV:
+            substantivMap.remove(newKind.getUuid());
+            break;
+         case UNKOWN:
+            unkownMap.remove(newKind.getUuid());
+            break;
+         case VERB:
+            verbMap.remove(newKind.getUuid());
+            break;
+         default:
+            throw new IllegalArgumentException(
+                  "Data: Wortart fehlt: " + oldKind);
+         }
+
+         switch (newKind.getKind())
+         {
+         case ADJEKTIV:
+            adjektivMap.put(newKind.getUuid(), newKind);
+            break;
+         case ADVERB:
+            adverbMap.put(newKind.getUuid(), newKind);
+            break;
+         case BEGRIFF:
+            begriffMap.put(newKind.getUuid(), newKind);
+            break;
+         case FRAGE:
+            frageMap.put(newKind.getUuid(), newKind);
+            break;
+         case INTERJEKTION:
+            interjektionMap.put(newKind.getUuid(), newKind);
+            break;
+         case KONSTRUKT:
+            constructusMap.put(newKind.getUuid(), newKind);
+            break;
+         case NUMERAL:
+            numeralMap.put(newKind.getUuid(), newKind);
+            break;
+         case PARTIKEL:
+            partikelMap.put(newKind.getUuid(), newKind);
+            break;
+         case PRONOM:
+            pronomMap.put(newKind.getUuid(), newKind);
+            break;
+         case SUBSTANTIV:
+            substantivMap.put(newKind.getUuid(), newKind);
+            break;
+         case UNKOWN:
+            unkownMap.put(newKind.getUuid(), newKind);
+            break;
+         case VERB:
+            verbMap.put(newKind.getUuid(), newKind);
+            break;
+         default:
+            throw new IllegalArgumentException(
+                  "Data: Wortart fehlt: " + newKind.getKind());
+         }
+      }
+   }
 }
