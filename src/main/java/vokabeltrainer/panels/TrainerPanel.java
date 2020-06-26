@@ -1,4 +1,4 @@
-package vokabeltrainer.panels.trainer;
+package vokabeltrainer.panels;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -40,6 +40,11 @@ import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
 import vokabeltrainer.panels.letterpicture.LetterPictureWordPanel;
+import vokabeltrainer.panels.trainer.HebrewAnswerWordPanel;
+import vokabeltrainer.panels.trainer.ImagePanelBlue;
+import vokabeltrainer.panels.trainer.ImagePanelError;
+import vokabeltrainer.panels.trainer.ImagePanelGreen;
+import vokabeltrainer.panels.trainer.ImagePanelStart;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;

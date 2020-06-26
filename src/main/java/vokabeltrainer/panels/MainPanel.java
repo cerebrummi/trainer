@@ -14,7 +14,6 @@ import javax.swing.JToolBar;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.dictionary.DictionaryController;
-import vokabeltrainer.panels.trainer.TrainerPanel;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingDialog;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
