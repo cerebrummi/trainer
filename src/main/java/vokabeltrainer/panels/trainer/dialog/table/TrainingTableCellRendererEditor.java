@@ -24,7 +24,7 @@ public class TrainingTableCellRendererEditor
 {
    private JTable table;
    private JLabel field;
-   private JLabel totalWords;
+   private JLabel toBeRepeatedWords;
    private JLabel notStudiedWords;
    private JSpinner amountOfNewWordsSpinner;
    private JButton amountOfNewWordsButton;
@@ -43,8 +43,8 @@ public class TrainingTableCellRendererEditor
       Font font = Main.getGermanFont(20F);
       field = new JLabel();
       field.setFont(font);
-      totalWords = new JLabel();
-      totalWords.setFont(font);
+      toBeRepeatedWords = new JLabel();
+      toBeRepeatedWords.setFont(font);
       notStudiedWords = new JLabel();
       notStudiedWords.setFont(font);
       amountOfNewWordsSpinner = new JSpinner();
@@ -168,9 +168,9 @@ public class TrainingTableCellRendererEditor
 
       if (column == 1)
       {
-         totalWords.setText(
-               String.valueOf(renderedTrainingCellRow.getTotalWords()));
-         return totalWords;
+         toBeRepeatedWords.setText(
+               String.valueOf(renderedTrainingCellRow.getToBeRepeatedWords()));
+         return toBeRepeatedWords;
       }
 
       if (column == 2) // Wörter gesamt
@@ -180,7 +180,7 @@ public class TrainingTableCellRendererEditor
          return notStudiedWords;
       }
 
-      if (column == 3 && renderedTrainingCellRow.getTotalWords() == 0) // ungelernte Wörter
+      if (column == 3 && renderedTrainingCellRow.getToBeRepeatedWords() == 0) // ungelernte Wörter
       {
          fieldEmpty.setText("");
          return fieldEmpty;
@@ -198,7 +198,7 @@ public class TrainingTableCellRendererEditor
       }
       
       
-      if (column == 4 &&  renderedTrainingCellRow.getTotalWords() == 0) // leer, fertig
+      if (column == 4 &&  renderedTrainingCellRow.getToBeRepeatedWords() == 0) // leer, fertig
       {
          return fieldNotStarted;
       }

@@ -291,7 +291,7 @@ public final class Data
             .findOldExpressionsToBeTested(languageDirection);
    }
 
-   public static void changeKindofExpression(ExpressionKind oldKind, // TODO einbauen
+   public static void changeKindofExpression(ExpressionKind oldKind,
          Expression newKind)
    {
       getDataBaseAtomic()
@@ -1003,6 +1003,7 @@ public final class Data
             Command fieldOfTraining)
       {
          TrainingTableRow[][] data = null;
+         Set<Expression> oldToBeTested = findOldExpressionsToBeTested(languageDirection);
          switch (fieldOfTraining)
          {
          case AREA_ALL:
@@ -1011,7 +1012,7 @@ public final class Data
             TrainingTableRow row = new TrainingTableRow();
             row.setFieldOfTraining(fieldOfTraining);
             row.setField("Alle Wörter");
-            row.setTotalWords(listAll.size());
+            row.setToBeRepeatedWords(oldToBeTested.size());
             row.setExpressionList(
                   findNotStudiedWords(languageDirection, listAll));
             row.setNotStudiedWords(row.getExpressionList().size());
@@ -1029,7 +1030,7 @@ public final class Data
                chapterRow.setFieldOfTraining(fieldOfTraining);
                chapterRow.setChapter(chapter);
                chapterRow.setField(chapter);
-               chapterRow.setTotalWords(listChapter.size());
+               chapterRow.setToBeRepeatedWords(findOldToBeTestedPerChapter(chapter, oldToBeTested));
                chapterRow.setExpressionList(
                      findNotStudiedWords(languageDirection, listChapter));
                chapterRow
@@ -1053,7 +1054,7 @@ public final class Data
                kindRow.setFieldOfTraining(fieldOfTraining);
                kindRow.setKind(kind);
                kindRow.setField(kind.toString());
-               kindRow.setTotalWords(listKind.size());
+               kindRow.setToBeRepeatedWords(findOldToBeTestedPerKind(kind, oldToBeTested));
                kindRow.setExpressionList(
                      findNotStudiedWords(languageDirection, listKind));
                kindRow.setNotStudiedWords(kindRow.getExpressionList().size());
@@ -1072,7 +1073,7 @@ public final class Data
             TrainingTableRow selectedRow = new TrainingTableRow();
             selectedRow.setFieldOfTraining(fieldOfTraining);
             selectedRow.setField("Ausgewählte Wörter");
-            selectedRow.setTotalWords(listSelected.size());
+            selectedRow.setToBeRepeatedWords(oldToBeTested.size());
             selectedRow.setExpressionList(
                   findNotStudiedWords(languageDirection, listSelected));
             selectedRow
@@ -1178,6 +1179,33 @@ public final class Data
             }
          }
 
+         return result;
+      }
+      
+      private int findOldToBeTestedPerChapter(String chapter, Set<Expression> allOldToBeTestedExpressions)
+      {
+         int result = 0;
+         for(Expression e : allOldToBeTestedExpressions)
+         {
+            if(chapter.equals(e.getChapter()))
+            {
+               result++;
+            }
+         }
+         return result;
+      }
+      
+      private int findOldToBeTestedPerKind(ExpressionKind kind,
+            Set<Expression> allOldToBeTested)
+      {
+         int result = 0;
+         for(Expression e : allOldToBeTested)
+         {
+            if(kind == e.getKind())
+            {
+               result++;
+            }
+         }
          return result;
       }
 

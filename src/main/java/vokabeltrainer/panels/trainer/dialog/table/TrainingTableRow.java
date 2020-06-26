@@ -9,7 +9,7 @@ import vokabeltrainer.types.ExpressionKind;
 public class TrainingTableRow
 {
    private String field;
-   private int totalWords;
+   private int toBeRepeatedWords;
    private int notStudiedWords;
    private int amountOfNewWords;
    private boolean fieldDone;
@@ -17,16 +17,6 @@ public class TrainingTableRow
    private String chapter;
    private ExpressionKind kind;
    private List<Expression> expressionList;
-
-   @Override
-   public String toString()
-   {
-      return "TrainingTableRow [field=" + field + ", totalWords=" + totalWords
-            + ", notStudiedWords=" + notStudiedWords + ", amountOfNewWords="
-            + amountOfNewWords + ", fieldDone=" + fieldDone
-            + ", fieldOfTraining=" + fieldOfTraining + ", chapter=" + chapter
-            + ", kind=" + kind + ", expressionList=" + expressionList + "]";
-   }
 
    public String getField()
    {
@@ -38,14 +28,14 @@ public class TrainingTableRow
       this.field = field;
    }
 
-   public int getTotalWords()
+   public int getToBeRepeatedWords()
    {
-      return totalWords;
+      return toBeRepeatedWords;
    }
 
-   public void setTotalWords(int totalWords)
+   public void setToBeRepeatedWords(int totalWords)
    {
-      this.totalWords = totalWords;
+      this.toBeRepeatedWords = totalWords;
    }
 
    public int getNotStudiedWords()

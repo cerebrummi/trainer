@@ -17,13 +17,14 @@ public class TrainingTableColumnModel extends DefaultTableColumnModel
       column.setHeaderValue("Bereich");
       column.setCellRenderer(rendererEditor);
       column.setCellEditor(rendererEditor);
-      column.setPreferredWidth(400);
+      column.setPreferredWidth(300);
       addColumn(column);
 
       TableColumn column1 = new TableColumn();
-      column1.setHeaderValue("Wörter gesamt");
+      column1.setHeaderValue("Wörter wiederholen");
       column1.setCellRenderer(rendererEditor);
       column1.setCellEditor(rendererEditor);
+      column1.setPreferredWidth(150);
       addColumn(column1);
 
       TableColumn column2 = new TableColumn();
