@@ -22,7 +22,7 @@ public class AmountTab extends BackgroundPanelTiled
 {
    private static final long serialVersionUID = -5609291190819549709L;
 
-   public AmountTab(StartTrainingDialog dialog)
+   public AmountTab(StartTrainingView dialog)
    {
       setLayout(new BorderLayout());
 

@@ -29,11 +29,11 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
    private JButton nextButton;
    private JButton cancelButton;
 
-   public FieldOfTrainingTab(StartTrainingDialog dialog)
+   public FieldOfTrainingTab(StartTrainingView dialog)
    {
       setLayout(new BorderLayout());
 
-      JLabel question = new JLabel("Woher sollen die neuen Vokabeln stammen?");
+      JLabel question = new JLabel("Woher sollen neue Vokabeln stammen?");
       question.setFont(Settings.getButtonFont());
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -93,99 +93,55 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
       add(buttonWrapper, BorderLayout.SOUTH);
 
       chapterButton.addActionListener(event -> {
-         if (dialog.getFieldOfTraining() == null)
-         {
-            dialog.setFieldOfTraining(Command.AREA_CHAPTER);
-         }
-         else if (dialog.getFieldOfTraining().equals(Command.AREA_CHAPTER))
-         {
-            // do nothing
-         }
-         else
-         {
-            dialog.setFieldOfTraining(Command.AREA_CHAPTER);
-            if (dialog.getTabbedPane().getTabCount() == 4)
-            {
-               dialog.getTabbedPane().remove(3);
-            }
-         }
+         dialog.setFieldOfTraining(Command.AREA_CHAPTER);
+         removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });
 
       expressionKindButton.addActionListener(event -> {
-         if (dialog.getFieldOfTraining() == null)
-         {
-            dialog.setFieldOfTraining(Command.AREA_EXPRESSION_KIND);
-         }
-         else if (dialog.getFieldOfTraining()
-               .equals(Command.AREA_EXPRESSION_KIND))
-         {
-            // do nothing
-         }
-         else
-         {
-            dialog.setFieldOfTraining(Command.AREA_EXPRESSION_KIND);
-            if (dialog.getTabbedPane().getTabCount() == 4)
-            {
-               dialog.getTabbedPane().remove(3);
-            }
-         }
+         dialog.setFieldOfTraining(Command.AREA_EXPRESSION_KIND);
+         removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });
 
       selectedButton.addActionListener(event -> {
-         if (dialog.getFieldOfTraining() == null)
-         {
-            dialog.setFieldOfTraining(Command.AREA_SELECTED);
-         }
-         else if (dialog.getFieldOfTraining().equals(Command.AREA_SELECTED))
-         {
-            // do nothing
-         }
-         else
-         {
-            dialog.setFieldOfTraining(Command.AREA_SELECTED);
-            if (dialog.getTabbedPane().getTabCount() == 4)
-            {
-               dialog.getTabbedPane().remove(3);
-            }
-         }
+         dialog.setFieldOfTraining(Command.AREA_SELECTED);
+         removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });
 
       allButton.addActionListener(event -> {
-         if (dialog.getFieldOfTraining() == null)
-         {
-            dialog.setFieldOfTraining(Command.AREA_ALL);
-         }
-         else if (dialog.getFieldOfTraining().equals(Command.AREA_ALL))
-         {
-            // do nothing
-         }
-         else
-         {
-            dialog.setFieldOfTraining(Command.AREA_ALL);
-            if (dialog.getTabbedPane().getTabCount() == 4)
-            {
-               dialog.getTabbedPane().remove(3);
-            }
-         }
+         dialog.setFieldOfTraining(Command.AREA_ALL);
+         removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });
 
       nextButton.addActionListener(event -> {
 
-         if (dialog.getTabbedPane().getTabCount() == 3)
+         if (dialog.getTabbedPane().getTabCount() == 1)
          {
-            dialog.getTabbedPane().addTab("WIEVIELE",
+            dialog.getTabbedPane().addTab("RICHTUNG",
                   new ImageIcon(ApplicationImages.getArrow()),
-                  new AmountTab(dialog));
+                  new DirectionTab(dialog));
          }
-         dialog.getTabbedPane().setSelectedIndex(3);
+         dialog.getTabbedPane().setSelectedIndex(1);
       });
       
       cancelButton.addActionListener(event -> {
          dialog.cancelTrainingStart();
       });
+   }
+
+   private void removeTabsToTheRight(StartTrainingView dialog)
+   {
+      if (dialog.getTabbedPane().getTabCount() == 2)
+      {
+         dialog.getTabbedPane().remove(1);
+      }
+      else if (dialog.getTabbedPane().getTabCount() == 3)
+      {
+         dialog.getTabbedPane().remove(2);
+         dialog.getTabbedPane().remove(1);
+      }
    }
 }

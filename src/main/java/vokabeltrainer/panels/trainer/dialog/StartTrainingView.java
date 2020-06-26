@@ -18,17 +18,15 @@ import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
-public class StartTrainingDialog extends JDialog
+public class StartTrainingView extends JDialog
 {
    private static final long serialVersionUID = -2204963503225031512L;
 
    private JPanel layout;
    private JTabbedPane tabbedPane;
-   private Boolean newWords;
    private Language languageDirection;
    private Command fieldOfTraining;
    private List<Expression> newExpressions;
@@ -36,14 +34,14 @@ public class StartTrainingDialog extends JDialog
    private Set<Expression> oldExpressionsHToD;
    private Set<Expression> oldExpressionsDToH;
 
-   public StartTrainingDialog()
+   public StartTrainingView(StartTrainingControllerConnector connector)
    {
       super(Common.getjFrame(), "Cerebrummi©",
             Dialog.ModalityType.APPLICATION_MODAL);
 
       training = false;
-      oldExpressionsDToH = Data.findOldExpressionsToBeTested(Language.GERMAN);
-      oldExpressionsHToD = Data.findOldExpressionsToBeTested(Language.HEBREW);
+      oldExpressionsDToH = connector.getOldExpressionsDToH();
+      oldExpressionsHToD = connector.getOldExpressionsHToD();
 
       setSize(982, 480);
       layout = new JPanel();
@@ -56,8 +54,8 @@ public class StartTrainingDialog extends JDialog
       tabbedPane.setFont(Settings.getToolBarButtonFont());
       layout.add(tabbedPane, BorderLayout.CENTER);
 
-      tabbedPane.addTab("NEU", new ImageIcon(ApplicationImages.getArrow()),
-            new NewWordsTab(this));
+      tabbedPane.addTab("GEBIET", new ImageIcon(ApplicationImages.getArrow()),
+            new FieldOfTrainingTab(this));
    }
 
    public void initTraining()
@@ -72,7 +70,7 @@ public class StartTrainingDialog extends JDialog
       this.setVisible(false);
    }
 
-   public void showNowWordsForTraining()
+   public void showNoWordsForTraining()
    {
       training = false;
       this.setVisible(false);
@@ -82,16 +80,6 @@ public class StartTrainingDialog extends JDialog
             new ImageIcon(TextImage.make("Keine Worte zum Üben ausgewählt.",
                   "Bitte neue Worte auswählen,",
                   "um das Training zu starten.")));
-   }
-
-   public Boolean getNewWords()
-   {
-      return newWords;
-   }
-
-   public void setNewWords(Boolean newWords)
-   {
-      this.newWords = newWords;
    }
 
    public Language getLanguageDirection()

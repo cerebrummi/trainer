@@ -3,8 +3,6 @@ package vokabeltrainer.panels.trainer.dialog;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.util.Collections;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -31,7 +29,7 @@ public class DirectionTab extends BackgroundPanelTiled
    private JButton nextButton;
    private JButton cancelButton;
 
-   public DirectionTab(StartTrainingDialog dialog)
+   public DirectionTab(StartTrainingView dialog)
    {
 
       setLayout(new BorderLayout());
@@ -94,52 +92,23 @@ public class DirectionTab extends BackgroundPanelTiled
       add(buttonWrapper, BorderLayout.SOUTH);
 
       germanToHebrewButton.addActionListener(event -> {
-         if (dialog.getTabbedPane().getTabCount() == 4
-               && !Language.GERMAN.equals(dialog.getLanguageDirection()))
-         {
-            dialog.getTabbedPane().remove(3);
-         }
+         removeTabsToTheRight(dialog);
          dialog.setLanguageDirection(Language.GERMAN);
          nextButton.setEnabled(true);
       });
 
       hebrewToGermanButton.addActionListener(event -> {
-         if (dialog.getTabbedPane().getTabCount() == 4
-               && !Language.HEBREW.equals(dialog.getLanguageDirection()))
-         {
-            dialog.getTabbedPane().remove(3);
-         }
+         removeTabsToTheRight(dialog);
          dialog.setLanguageDirection(Language.HEBREW);
          nextButton.setEnabled(true);
       });
 
       nextButton.addActionListener(event -> {
-         if (Language.GERMAN.equals(dialog.getLanguageDirection())
-               && !dialog.getNewWords()
-               && dialog.getOldExpressionsDToH().isEmpty())
-         {
-            dialog.showNowWordsForTraining();
-            return;
-         }
-         if (Language.HEBREW.equals(dialog.getLanguageDirection())
-               && !dialog.getNewWords()
-               && dialog.getOldExpressionsHToD().isEmpty())
-         {
-            dialog.showNowWordsForTraining();
-            return;
-         }
-
-         if (dialog.getNewWords() == false)
-         {
-            dialog.setNewExpressions(Collections.emptyList());
-            dialog.initTraining();
-            return;
-         }
          if (dialog.getTabbedPane().getTabCount() == 2)
          {
-            dialog.getTabbedPane().addTab("GEBIET",
+            dialog.getTabbedPane().addTab("WIEVIELE",
                   new ImageIcon(ApplicationImages.getArrow()),
-                  new FieldOfTrainingTab(dialog));
+                  new AmountTab(dialog));
          }
          dialog.getTabbedPane().setSelectedIndex(2);
       });
@@ -147,5 +116,13 @@ public class DirectionTab extends BackgroundPanelTiled
       cancelButton.addActionListener(event -> {
          dialog.cancelTrainingStart();
       });
+   }
+
+   private void removeTabsToTheRight(StartTrainingView dialog)
+   {
+      if (dialog.getTabbedPane().getTabCount() == 3)
+      {
+         dialog.getTabbedPane().remove(2);
+      }
    }
 }

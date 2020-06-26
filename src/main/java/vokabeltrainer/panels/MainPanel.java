@@ -14,7 +14,8 @@ import javax.swing.JToolBar;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.dictionary.DictionaryController;
-import vokabeltrainer.panels.trainer.dialog.StartTrainingDialog;
+import vokabeltrainer.panels.trainer.dialog.StartTrainingController;
+import vokabeltrainer.panels.trainer.dialog.StartTrainingView;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
@@ -49,7 +50,7 @@ public class MainPanel extends JPanel
       setLayout(new BorderLayout());
       setBorder(BorderFactory.createEmptyBorder());
       add(initToolBar(), BorderLayout.PAGE_START);
-      
+
       startPanel = new StartPanel();
       dictionaryPanel = new DictionaryController().getDictionaryPanel();
       letterPicturesPanel = new LetterPicturesPanel();
@@ -110,11 +111,12 @@ public class MainPanel extends JPanel
       });
 
       vocabularyCardsButton.addActionListener(event -> {
-         StartTrainingDialog dialog = new StartTrainingDialog();
+         StartTrainingView dialog = new StartTrainingController()
+               .getStartTrainingView();
          dialog.setLocationRelativeTo(null);
          dialog.setVisible(true);
 
-         if(dialog.isTraining())
+         if (dialog.isTraining())
          {
             if (activeComponent != null)
             {
@@ -122,7 +124,7 @@ public class MainPanel extends JPanel
             }
 
             Set<Expression> oldExpressions;
-            if(Language.GERMAN.equals(dialog.getLanguageDirection()))
+            if (Language.GERMAN.equals(dialog.getLanguageDirection()))
             {
                oldExpressions = dialog.getOldExpressionsDToH();
             }
@@ -130,10 +132,11 @@ public class MainPanel extends JPanel
             {
                oldExpressions = dialog.getOldExpressionsHToD();
             }
-            
-            TrainerPanel trainerPanel  = new TrainerPanel();
-            trainerPanel.init(dialog.getNewWords(), dialog.getLanguageDirection(),
-                  dialog.getFieldOfTraining(), dialog.getNewExpressions(), oldExpressions);
+
+            TrainerPanel trainerPanel = new TrainerPanel();
+            trainerPanel.init(dialog.getLanguageDirection(),
+                  dialog.getFieldOfTraining(), dialog.getNewExpressions(),
+                  oldExpressions);
             activeComponent = trainerPanel;
             add(activeComponent, BorderLayout.CENTER);
             validate();

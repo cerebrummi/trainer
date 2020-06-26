@@ -102,7 +102,7 @@ public class TrainerPanel extends BackgroundPanelTiled
       initController();
    }
 
-   public void init(Boolean newWords, Language languageDirection,
+   public void init(Language languageDirection,
          Command fieldOfTraining, List<Expression> newExpressions,
          Set<Expression> oldExpressions)
    {
