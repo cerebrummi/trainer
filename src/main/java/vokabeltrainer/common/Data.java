@@ -104,16 +104,19 @@ public final class Data
       return database;
    }
 
+   // for saving expressions only, therefore NOT public
    static Collection<Expression> getAlleMapValues()
    {
       return database.getAlleMap().values();
    }
 
+   // for saving expressions only, therefore NOT public
    static Collection<Expression> getNewMapValues()
    {
       return database.getNewMap().values();
    }
 
+   // for saving expressions only, therefore NOT public
    static Collection<Expression> getDeletedMapValues()
    {
       return database.getDeletedMap().values();
@@ -158,7 +161,7 @@ public final class Data
    {
       return getDataBaseAtomic().getVerbMap().size();
    }
-   
+
    public static int getConstructusMapSize()
    {
       return getDataBaseAtomic().getConstructusMap().size();
@@ -362,7 +365,7 @@ public final class Data
             {
                readTrainingFile(german, Language.GERMAN);
             }
-            
+
             if (hebrew.exists())
             {
                readTrainingFile(hebrew, Language.HEBREW);
@@ -401,24 +404,23 @@ public final class Data
                String[] items = row.split("\t");
                UUID uuid = UUID.fromString(items[0]);
                String[] date = items[1].split("\\.");
-               LocalDate nextDate = LocalDate.of(
-                     Integer.valueOf(date[2]),
-                     Integer.valueOf(date[1]),
-                     Integer.valueOf(date[0]));
+               LocalDate nextDate = LocalDate.of(Integer.valueOf(date[2]),
+                     Integer.valueOf(date[1]), Integer.valueOf(date[0]));
                Repetition repetition = Repetition.valueOf(items[2]);
                int trys = Integer.valueOf(items[3]);
-               if(trys==0)
+               if (trys == 0)
                {
                   trys = 1;
                }
                TrainingStatus trainingstatus = new TrainingStatus(repetition,
                      trys, nextDate);
                Expression expression = alleMap.get(uuid);
-               if(expression != null && Language.GERMAN == languageDirection)
+               if (expression != null && Language.GERMAN == languageDirection)
                {
                   expression.setTrainingStatusDToH(trainingstatus);
                }
-               else if(expression != null && Language.HEBREW == languageDirection)
+               else if (expression != null
+                     && Language.HEBREW == languageDirection)
                {
                   expression.setTrainingStatusHToD(trainingstatus);
                }
@@ -513,7 +515,7 @@ public final class Data
                {
                   String[] items = row.split("\t");
 
-                  Expression expression = new Expression();
+                  Expression expression = new Expression(false);
                   int i = 0;
 
                   expression.setUuid(UUID.fromString(items[i]));
@@ -763,7 +765,8 @@ public final class Data
          case KONSTRUKT:
             return constructusMap.values();
          }
-         throw new IllegalArgumentException("Data: Wortarten: das gibt es nicht");
+         throw new IllegalArgumentException(
+               "Data: Wortarten: das gibt es nicht");
       }
 
       private boolean equalsGermanSearchWord(String text, Expression expression)
@@ -1241,7 +1244,7 @@ public final class Data
       {
          return substantivMap;
       }
-      
+
       private ConcurrentMap<UUID, Expression> getConstructusMap()
       {
          return constructusMap;
