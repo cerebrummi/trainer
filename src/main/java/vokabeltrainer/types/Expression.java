@@ -23,11 +23,6 @@ public class Expression
    private String chapter;
    private boolean selected;
 
-   public Expression()
-   {
-
-   }
-
    public Expression(boolean preset)
    {
       if (preset)
