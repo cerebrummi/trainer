@@ -1,15 +1,10 @@
 package vokabeltrainer.panels.trainer;
 
 import java.util.List;
-import java.util.Set;
-
 import vokabeltrainer.Command;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.TrainerView;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
-import vokabeltrainer.types.Repetition;
-import vokabeltrainer.types.TrainingStatus;
 
 public class TrainerController implements TrainerControllerConnector
 {

@@ -281,7 +281,7 @@ public final class Main
          public void run()
          {
             JFrame window = new JFrame();
-            window.setResizable(false);
+            window.setResizable(true);
             window.setIconImage(
                   new ImageIcon(Settings.class.getResource("Cerebrummi.png"))
                         .getImage());

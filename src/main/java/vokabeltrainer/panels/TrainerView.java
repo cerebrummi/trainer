@@ -115,16 +115,6 @@ public class TrainerView extends BackgroundPanelTiled
 
       newWordsToLearn = connector.getNewExpressions().size();
       oldWordsToRepeat = connector.getOldExpressions().size();
-      System.out.println("=================TrainerView=NEW=================");
-      for(Expression e: connector.getNewExpressions())
-      {
-         System.out.println(e.getExpressionPrintLine());
-      }
-      System.out.println("=================TrainerView=OLD=================");
-      for(Expression e: connector.getOldExpressions())
-      {
-         System.out.println(e.getExpressionPrintLine());
-      }
       allExpressions.addAll(connector.getOldExpressions());
       allExpressions.addAll(connector.getNewExpressions());
       expressionsToBeTested = new ArrayList<>(allExpressions.size());

@@ -65,18 +65,6 @@ public class StartTrainingView extends JDialog
       this.setVisible(false);
    }
 
-   public void showNoWordsForTraining()
-   {
-      training = false;
-      this.setVisible(false);
-      
-      JOptionPane.showMessageDialog(Common.getjFrame(), "", "Cerebrummi©",
-            JOptionPane.PLAIN_MESSAGE,
-            new ImageIcon(TextImage.make("Keine Worte zum Üben ausgewählt.",
-                  "Bitte neue Worte auswählen,",
-                  "um das Training zu starten.")));
-   }
-
    public Language getLanguageDirection()
    {
       return languageDirection;

@@ -1117,16 +1117,6 @@ public final class Data
             selectedRow.setToBeRepeatedWords(oldToBeTested.size());
             selectedRow.setExpressionListNewWords(
                   findNotStudiedWords(languageDirection, listSelected));
-            System.out.println("=================Data=NEW=================");
-            for(Expression e: selectedRow.getExpressionListNewWords())
-            {
-               System.out.println(e.getExpressionPrintLine());
-            }
-            System.out.println("=================Data=OLD=================");
-            for(Expression e: oldToBeTested)
-            {
-               System.out.println(e.getExpressionPrintLine());
-            }
             selectedRow
                   .setNotStudiedWords(selectedRow.getExpressionListNewWords().size());
             selectedRow.setAmountOfNewWords(0);

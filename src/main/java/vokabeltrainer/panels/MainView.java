@@ -6,11 +6,14 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
+import vokabeltrainer.TextImage;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.dictionary.DictionaryController;
 import vokabeltrainer.panels.trainer.TrainerController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingController;
@@ -113,8 +116,15 @@ public class MainView extends JPanel
          dialog.setLocationRelativeTo(null);
          dialog.setVisible(true);
 
+         
          if (dialog.isTraining())
          {
+            if(dialog.getNewExpressions().isEmpty() && dialog.getOldExpressions().isEmpty())
+            {
+               this.showNoWordsForTraining();
+               return;
+            }
+            
             if (activeComponent != null)
             {
                remove(activeComponent);
@@ -177,6 +187,15 @@ public class MainView extends JPanel
       add(activeComponent, BorderLayout.CENTER);
       validate();
       repaint();
+   }
+   
+   private void showNoWordsForTraining()
+   {
+      JOptionPane.showMessageDialog(Common.getjFrame(), "", "Cerebrummi©",
+            JOptionPane.PLAIN_MESSAGE,
+            new ImageIcon(TextImage.make("Keine Worte zum Üben ausgewählt.",
+                  "Bitte neue Worte auswählen,",
+                  "um das Training zu starten.")));
    }
 
    public JButton getVocabularyCardsButton()
