@@ -121,6 +121,12 @@ public final class Data
    {
       return database.getDeletedMap().values();
    }
+   
+   // for saving expressions only, therefore NOT public
+   static void integrateNewExpressions()
+   {
+      database.integrateNewExpressions();
+   }
 
    public static int getAlleMapSize()
    {
@@ -284,18 +290,11 @@ public final class Data
       return getDataBaseAtomic().findExpressionsChapter(chapter);
    }
 
-   public static Set<Expression> findOldExpressionsToBeTested(
-         Language languageDirection)
-   {
-      return getDataBaseAtomic()
-            .findOldExpressionsToBeTested(languageDirection);
-   }
-
    public static void changeKindofExpression(ExpressionKind oldKind,
          Expression newKind)
    {
-      getDataBaseAtomic()
-            .changeKindofExpressionInDataStrukture(oldKind, newKind);
+      getDataBaseAtomic().changeKindofExpressionInDataStrukture(oldKind,
+            newKind);
    }
 
    // #########################################################
@@ -415,7 +414,7 @@ public final class Data
                      Integer.valueOf(date[1]), Integer.valueOf(date[0]));
                Repetition repetition = Repetition.valueOf(items[2]);
                int trys = Integer.valueOf(items[3]);
-               if (trys == 0)
+               if (trys < 1)
                {
                   trys = 1;
                }
@@ -912,10 +911,6 @@ public final class Data
             expression.setSelected(false);
          }
 
-         for (Expression expression : newMap.values())
-         {
-            expression.setSelected(false);
-         }
       }
 
       private List<Expression> findAllSelectedExpressionsList()
@@ -930,13 +925,6 @@ public final class Data
             }
          }
 
-         for (Expression expression : newMap.values())
-         {
-            if (expression.isSelected())
-            {
-               list.add(expression);
-            }
-         }
          return list;
       }
 
@@ -963,6 +951,54 @@ public final class Data
          }
 
          reloadChapterSet();
+      }
+      
+      private void integrateNewExpressions()
+      {
+         for(Expression expression: newMap.values())
+         {
+            alleMap.put(expression.getUuid(), expression);
+            switch(expression.getKind())
+            {
+            case ADJEKTIV:
+               adjektivMap.put(expression.getUuid(), expression);
+               break;
+            case ADVERB:
+               adverbMap.put(expression.getUuid(), expression);
+               break;
+            case BEGRIFF:
+               begriffMap.put(expression.getUuid(), expression);
+               break;
+            case FRAGE:
+               frageMap.put(expression.getUuid(), expression);
+               break;
+            case INTERJEKTION:
+               interjektionMap.put(expression.getUuid(), expression);
+               break;
+            case KONSTRUKT:
+               constructusMap.put(expression.getUuid(), expression);
+               break;
+            case NUMERAL:
+               numeralMap.put(expression.getUuid(), expression);
+               break;
+            case PARTIKEL:
+               partikelMap.put(expression.getUuid(), expression);
+               break;
+            case PRONOM:
+               pronomMap.put(expression.getUuid(), expression);
+               break;
+            case SUBSTANTIV:
+               substantivMap.put(expression.getUuid(), expression);
+               break;
+            case UNKOWN:
+               unkownMap.put(expression.getUuid(), expression);
+               break;
+            case VERB:
+               verbMap.put(expression.getUuid(), expression);
+               break;
+            }
+         }
+         newMap.clear();
       }
 
       private void restoreExpressions(List<Expression> list)
@@ -1003,7 +1039,9 @@ public final class Data
             Command fieldOfTraining)
       {
          TrainingTableRow[][] data = null;
-         Set<Expression> oldToBeTested = findOldExpressionsToBeTested(languageDirection);
+         Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
+               languageDirection, fieldOfTraining);
+
          switch (fieldOfTraining)
          {
          case AREA_ALL:
@@ -1013,9 +1051,9 @@ public final class Data
             row.setFieldOfTraining(fieldOfTraining);
             row.setField("Alle Wörter");
             row.setToBeRepeatedWords(oldToBeTested.size());
-            row.setExpressionList(
+            row.setExpressionListNewWords(
                   findNotStudiedWords(languageDirection, listAll));
-            row.setNotStudiedWords(row.getExpressionList().size());
+            row.setNotStudiedWords(row.getExpressionListNewWords().size());
             row.setAmountOfNewWords(0);
             row.setFieldDone(row.getNotStudiedWords() == 0);
             data[0][0] = row;
@@ -1030,11 +1068,12 @@ public final class Data
                chapterRow.setFieldOfTraining(fieldOfTraining);
                chapterRow.setChapter(chapter);
                chapterRow.setField(chapter);
-               chapterRow.setToBeRepeatedWords(findOldToBeTestedPerChapter(chapter, oldToBeTested));
-               chapterRow.setExpressionList(
+               chapterRow.setToBeRepeatedWords(
+                     findOldToBeTestedPerChapter(chapter, oldToBeTested));
+               chapterRow.setExpressionListNewWords(
                      findNotStudiedWords(languageDirection, listChapter));
                chapterRow
-                     .setNotStudiedWords(chapterRow.getExpressionList().size());
+                     .setNotStudiedWords(chapterRow.getExpressionListNewWords().size());
                chapterRow.setAmountOfNewWords(0);
                chapterRow.setFieldDone(chapterRow.getNotStudiedWords() == 0);
                unlearnedPerChapter.add(chapterRow);
@@ -1054,10 +1093,11 @@ public final class Data
                kindRow.setFieldOfTraining(fieldOfTraining);
                kindRow.setKind(kind);
                kindRow.setField(kind.toString());
-               kindRow.setToBeRepeatedWords(findOldToBeTestedPerKind(kind, oldToBeTested));
-               kindRow.setExpressionList(
+               kindRow.setToBeRepeatedWords(
+                     findOldToBeTestedPerKind(kind, oldToBeTested));
+               kindRow.setExpressionListNewWords(
                      findNotStudiedWords(languageDirection, listKind));
-               kindRow.setNotStudiedWords(kindRow.getExpressionList().size());
+               kindRow.setNotStudiedWords(kindRow.getExpressionListNewWords().size());
                kindRow.setAmountOfNewWords(0);
                kindRow.setFieldDone(kindRow.getNotStudiedWords() == 0);
                unlearnedPerKind.add(kindRow);
@@ -1073,11 +1113,22 @@ public final class Data
             TrainingTableRow selectedRow = new TrainingTableRow();
             selectedRow.setFieldOfTraining(fieldOfTraining);
             selectedRow.setField("Ausgewählte Wörter");
+            selectedRow.setExpressionListOldWords(oldToBeTested);
             selectedRow.setToBeRepeatedWords(oldToBeTested.size());
-            selectedRow.setExpressionList(
+            selectedRow.setExpressionListNewWords(
                   findNotStudiedWords(languageDirection, listSelected));
+            System.out.println("=================Data=NEW=================");
+            for(Expression e: selectedRow.getExpressionListNewWords())
+            {
+               System.out.println(e.getExpressionPrintLine());
+            }
+            System.out.println("=================Data=OLD=================");
+            for(Expression e: oldToBeTested)
+            {
+               System.out.println(e.getExpressionPrintLine());
+            }
             selectedRow
-                  .setNotStudiedWords(selectedRow.getExpressionList().size());
+                  .setNotStudiedWords(selectedRow.getExpressionListNewWords().size());
             selectedRow.setAmountOfNewWords(0);
             selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0);
             data = new TrainingTableRow[1][1];
@@ -1145,7 +1196,7 @@ public final class Data
       }
 
       public Set<Expression> findOldExpressionsToBeTested(
-            Language languageDirection)
+            Language languageDirection, Command fieldOfTraining)
       {
          Set<Expression> result = new HashSet<>();
          LocalDate now = LocalDate.now();
@@ -1155,53 +1206,76 @@ public final class Data
          case GERMAN:
             for (Expression expression : allExpressions)
             {
-               if (expression.getTrainingStatusDToH().isTrainingStarted()
-                     && (now.isEqual(
-                           expression.getTrainingStatusDToH().getNextDate())
-                           || now.isAfter(expression.getTrainingStatusDToH()
-                                 .getNextDate())))
+               if (Command.AREA_SELECTED == fieldOfTraining)
                {
-                  result.add(expression);
+                  if(expression.isSelected()
+                     && expression.getTrainingStatusDToH().isTrainingStarted())
+                  {
+                     result.add(expression);
+                  }
+               }
+               else
+               {
+                  if (expression.getTrainingStatusDToH().isTrainingStarted()
+                        && (now.isEqual(
+                              expression.getTrainingStatusDToH().getNextDate())
+                              || now.isAfter(expression.getTrainingStatusDToH()
+                                    .getNextDate())))
+                  {
+                     result.add(expression);
+                  }
                }
             }
             break;
          case HEBREW:
             for (Expression expression : allExpressions)
             {
-               if (expression.getTrainingStatusHToD().isTrainingStarted()
-                     && (now.isEqual(
-                           expression.getTrainingStatusHToD().getNextDate())
-                           || now.isAfter(expression.getTrainingStatusHToD()
-                                 .getNextDate())))
+               if (Command.AREA_SELECTED == fieldOfTraining)
                {
-                  result.add(expression);
+                  if(expression.isSelected()
+                     && expression.getTrainingStatusHToD().isTrainingStarted())
+                  {
+                     result.add(expression);
+                  }
+               }
+               else
+               {
+                  if (expression.getTrainingStatusHToD().isTrainingStarted()
+                        && (now.isEqual(
+                              expression.getTrainingStatusHToD().getNextDate())
+                              || now.isAfter(expression.getTrainingStatusHToD()
+                                    .getNextDate())))
+                  {
+                     result.add(expression);
+                  }
                }
             }
          }
 
          return result;
       }
-      
-      private int findOldToBeTestedPerChapter(String chapter, Set<Expression> allOldToBeTestedExpressions)
+
+      private int findOldToBeTestedPerChapter(String chapter,
+            Set<Expression> allOldToBeTestedExpressions)
       {
          int result = 0;
-         for(Expression e : allOldToBeTestedExpressions)
+         for (Expression e : allOldToBeTestedExpressions)
          {
-            if(chapter.equals(e.getChapter()))
+            if (chapter.equals(e.getChapter()))
             {
                result++;
             }
          }
          return result;
       }
-      
+
       private int findOldToBeTestedPerKind(ExpressionKind kind,
             Set<Expression> allOldToBeTested)
       {
          int result = 0;
-         for(Expression e : allOldToBeTested)
+         for (Expression e : allOldToBeTested)
          {
-            if(kind == e.getKind())
+            if (kind == e.getKind())
             {
                result++;
             }
@@ -1284,8 +1358,8 @@ public final class Data
          return constructusMap;
       }
 
-      public void changeKindofExpressionInDataStrukture(
-            ExpressionKind oldKind, Expression newKind)
+      public void changeKindofExpressionInDataStrukture(ExpressionKind oldKind,
+            Expression newKind)
       {
          switch (oldKind)
          {

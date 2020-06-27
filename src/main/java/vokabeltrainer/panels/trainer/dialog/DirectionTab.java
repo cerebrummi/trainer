@@ -16,7 +16,6 @@ import javax.swing.JRadioButton;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.types.Language;
 
 public class DirectionTab extends BackgroundPanelTiled
@@ -57,21 +56,10 @@ public class DirectionTab extends BackgroundPanelTiled
       hebrewToGermanButton.setFont(Settings.getToolBarButtonFont());
       directionGroup.add(hebrewToGermanButton);
 
-      JLabel oldWordsDToH = new JLabel();
-      oldWordsDToH.setText("Wiederholung Deutsch >>> Hebräisch: "
-            + dialog.getOldExpressionsDToH().size() + " Wörter");
-      oldWordsDToH.setFont(Main.getGermanFont(20F));
-
-      JLabel oldWordsHToD = new JLabel();
-      oldWordsHToD.setText("Wiederholung Hebräisch >>> Deutsch: "
-            + dialog.getOldExpressionsHToD().size() + " Wörter");
-      oldWordsHToD.setFont(Main.getGermanFont(20F));
-      
       vertical.add(germanToHebrewButton);
       vertical.add(hebrewToGermanButton);
       vertical.add(Box.createRigidArea(new Dimension(30, 30)));
-      vertical.add(oldWordsDToH);
-      vertical.add(oldWordsHToD);
+
       center.add(vertical);
 
       add(center, BorderLayout.CENTER);

@@ -38,40 +38,60 @@ public class TrainingTable extends JTable
    public List<Expression> findNewExpressions(Language languageDirection)
    {
       TrainingTableModel model = (TrainingTableModel) getModel();
-      
+
       Set<Expression> resultSet = new HashSet<>();
       for (TrainingTableRow[] row : model.getData())
       {
          if (row[0].getAmountOfNewWords() > 0)
          {
-            resultSet.addAll(findRandomWords(
-                  row[0].getExpressionList(),
+            resultSet.addAll(findRandomWords(row[0].getExpressionListNewWords(),
                   row[0].getAmountOfNewWords()));
          }
       }
       return initTrainingStatus(resultSet, languageDirection);
    }
 
+   public List<Expression> findOldToBeRepeatedExpressions()
+   {
+      TrainingTableModel model = (TrainingTableModel) getModel();
+
+      Set<Expression> resultSet = new HashSet<>();
+      for (TrainingTableRow[] row : model.getData())
+      {
+         resultSet.addAll(row[0].getExpressionListOldWords());
+      }
+      return new ArrayList<Expression>(resultSet);
+   }
+
    private List<Expression> initTrainingStatus(Set<Expression> resultSet,
          Language languageDirection)
    {
       List<Expression> list = new ArrayList<>(resultSet.size());
-      switch(languageDirection)
+      switch (languageDirection)
       {
       case GERMAN:
-         for(Expression expression: resultSet)
+         for (Expression expression : resultSet)
          {
-            expression.setTrainingStatusDToH(new TrainingStatus(Repetition.NOW));
+            if (!expression.getTrainingStatusDToH().isTrainingStarted())
+            {
+               expression
+                     .setTrainingStatusDToH(new TrainingStatus(Repetition.NOW));
+            }
+
             list.add(expression);
          }
          break;
       case HEBREW:
-         for(Expression expression: resultSet)
+         for (Expression expression : resultSet)
          {
-            expression.setTrainingStatusHToD(new TrainingStatus(Repetition.NOW));
+            if (!expression.getTrainingStatusHToD().isTrainingStarted())
+            {
+               expression
+                     .setTrainingStatusHToD(new TrainingStatus(Repetition.NOW));
+            }
             list.add(expression);
          }
-      
+
       }
       return list;
    }

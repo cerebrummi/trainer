@@ -2,8 +2,6 @@ package vokabeltrainer.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.util.Set;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -14,12 +12,11 @@ import javax.swing.JToolBar;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.dictionary.DictionaryController;
+import vokabeltrainer.panels.trainer.TrainerController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingView;
-import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
 
-public class MainPanel extends JPanel
+public class MainView extends JPanel
 {
    private static final long serialVersionUID = -8541715304466855004L;
 
@@ -37,7 +34,7 @@ public class MainPanel extends JPanel
    private SettingsPanel settingsPanel;
    private LetterPicturesPanel letterPicturesPanel;
 
-   public MainPanel()
+   public MainView()
    {
       initContent();
       initController();
@@ -123,20 +120,10 @@ public class MainPanel extends JPanel
                remove(activeComponent);
             }
 
-            Set<Expression> oldExpressions;
-            if (Language.GERMAN.equals(dialog.getLanguageDirection()))
-            {
-               oldExpressions = dialog.getOldExpressionsDToH();
-            }
-            else
-            {
-               oldExpressions = dialog.getOldExpressionsHToD();
-            }
+            TrainerView trainerPanel = new TrainerController(
+                  dialog.getLanguageDirection(), dialog.getFieldOfTraining(),
+                  dialog.getNewExpressions(), dialog.getOldExpressions()).getTrainerView();
 
-            TrainerPanel trainerPanel = new TrainerPanel();
-            trainerPanel.init(dialog.getLanguageDirection(),
-                  dialog.getFieldOfTraining(), dialog.getNewExpressions(),
-                  oldExpressions);
             activeComponent = trainerPanel;
             add(activeComponent, BorderLayout.CENTER);
             validate();

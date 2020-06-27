@@ -92,7 +92,7 @@ public class TrainingStatus
       case ONE_YEAR: repetition = Repetition.FOUR_MONTHS;
          break;
       case DONE:
-         break; 
+         break;
       }
       this.nextDate = now.plus(repetition.getPeriod());
    }

@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -45,12 +46,13 @@ import vokabeltrainer.panels.trainer.ImagePanelBlue;
 import vokabeltrainer.panels.trainer.ImagePanelError;
 import vokabeltrainer.panels.trainer.ImagePanelGreen;
 import vokabeltrainer.panels.trainer.ImagePanelStart;
+import vokabeltrainer.panels.trainer.TrainerControllerConnector;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
-public class TrainerPanel extends BackgroundPanelTiled
+public class TrainerView extends BackgroundPanelTiled
 {
    private static final long serialVersionUID = -6552073033311684589L;
 
@@ -89,11 +91,16 @@ public class TrainerPanel extends BackgroundPanelTiled
    private JButton stopTrainingButton;
    private int newWordsToLearn;
    private int oldWordsToRepeat;
+   private Set<Expression> allExpressions;
 
    private KeyboardHebrew keyboard;
 
-   public TrainerPanel()
+   private TrainerControllerConnector connector;
+
+   public TrainerView(TrainerControllerConnector connector)
    {
+      this.connector = connector;
+      allExpressions = new HashSet<>();
       setLayout(new TotemLayout(this));
       this.setBorder(BorderFactory.createEmptyBorder());
 
@@ -102,38 +109,45 @@ public class TrainerPanel extends BackgroundPanelTiled
       initController();
    }
 
-   public void init(Language languageDirection,
-         Command fieldOfTraining, List<Expression> newExpressions,
-         Set<Expression> oldExpressions)
+   public void init()
    {
-      this.languageDirection = languageDirection;
-      newWordsToLearn = newExpressions.size();
-      oldWordsToRepeat = oldExpressions.size();
-      oldExpressions.addAll(newExpressions);
-      expressionsToBeTested = new ArrayList<>(oldExpressions.size());
-      expressionsToBeTested.addAll(oldExpressions);
+      this.languageDirection = connector.getLanguageDirection();
+
+      newWordsToLearn = connector.getNewExpressions().size();
+      oldWordsToRepeat = connector.getOldExpressions().size();
+      System.out.println("=================TrainerView=NEW=================");
+      for(Expression e: connector.getNewExpressions())
+      {
+         System.out.println(e.getExpressionPrintLine());
+      }
+      System.out.println("=================TrainerView=OLD=================");
+      for(Expression e: connector.getOldExpressions())
+      {
+         System.out.println(e.getExpressionPrintLine());
+      }
+      allExpressions.addAll(connector.getOldExpressions());
+      allExpressions.addAll(connector.getNewExpressions());
+      expressionsToBeTested = new ArrayList<>(allExpressions.size());
+      expressionsToBeTested.addAll(allExpressions);
       wordsToDo.setText(String.valueOf(expressionsToBeTested.size()));
 
       Collections.shuffle(expressionsToBeTested);
 
       String fieldOfTrainingString = "";
-      if (fieldOfTraining == null)
-      {
-         // do nothing
-      }
-      else if (fieldOfTraining.equals(Command.AREA_ALL))
+      if (connector.getFieldOfTraining().equals(Command.AREA_ALL))
       {
          fieldOfTrainingString = "alle Wörter";
       }
-      else if (fieldOfTraining.equals(Command.AREA_CHAPTER))
+      else if (connector.getFieldOfTraining().equals(Command.AREA_CHAPTER))
       {
          fieldOfTrainingString = "Lektionen";
       }
-      else if (fieldOfTraining.equals(Command.AREA_EXPRESSION_KIND))
+      else if (connector.getFieldOfTraining()
+            .equals(Command.AREA_EXPRESSION_KIND))
       {
          fieldOfTrainingString = "Wortarten";
       }
-      else if (fieldOfTraining.equals(Command.AREA_SELECTED))
+      else if (connector.getFieldOfTraining().equals(Command.AREA_SELECTED))
       {
          fieldOfTrainingString = "ausgewählte Wörter";
       }
@@ -453,13 +467,14 @@ public class TrainerPanel extends BackgroundPanelTiled
          answerField.setDocument(new HebrewDocument(true));
          answerField
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-         
+
          this.setFocusCycleRoot(true);
-         FocusTraversalPolicy focusPolicy = new OneFocusTraversalPolicy(answerField);
+         FocusTraversalPolicy focusPolicy = new OneFocusTraversalPolicy(
+               answerField);
          this.setFocusTraversalPolicy(focusPolicy);
          focusPolicy.getDefaultComponent(null);
          answerField.requestFocusInWindow();
-         
+
          keyboard = new KeyboardHebrew(answerField,
                new ArrayList<JTextComponent>(), 80);
          answerPanel.add(keyboard);
@@ -546,132 +561,143 @@ public class TrainerPanel extends BackgroundPanelTiled
    private void initController()
    {
       sendButton.addActionListener(event -> {
-         sendButton.setEnabled(false);
-         boolean okay = false;
-         if (Language.GERMAN.equals(this.languageDirection))
+         try
          {
-            HebrewAnswerWordPanel answerPanel = new HebrewAnswerWordPanel(
-                  currentExpression, answerField.getText().trim());
-            okay = answerPanel.isOkay();
-            JScrollPane scrollPane = new JScrollPane(answerPanel);
-            scrollPane
-                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-            scrollPane.setBorder(BorderFactory.createEmptyBorder());
-            scrollPane.setPreferredSize(new Dimension(501, 86));
-            feedbackPanel.add(scrollPane);
-            wordPanel.displayWord(currentExpression.getHebrew());
-            if (okay)
+            sendButton.setEnabled(false);
+            boolean okay = false;
+            if (Language.GERMAN.equals(this.languageDirection))
             {
-               currentExpression.getTrainingStatusDToH().setTrys(
-                     currentExpression.getTrainingStatusDToH().getTrys() - 1);
-               if (currentExpression.getTrainingStatusDToH().getTrys() == 0)
-               {
-                  currentExpression.getTrainingStatusDToH().nextRepetition();
-               }
-            }
-            else
-            {
-               if (currentExpression.getTrainingStatusDToH().getTrys() < 4)
+               HebrewAnswerWordPanel answerPanel = new HebrewAnswerWordPanel(
+                     currentExpression, answerField.getText().trim());
+               okay = answerPanel.isOkay();
+               JScrollPane scrollPane = new JScrollPane(answerPanel);
+               scrollPane.setComponentOrientation(
+                     ComponentOrientation.RIGHT_TO_LEFT);
+               scrollPane.setBorder(BorderFactory.createEmptyBorder());
+               scrollPane.setPreferredSize(new Dimension(501, 86));
+               feedbackPanel.add(scrollPane);
+               wordPanel.displayWord(currentExpression.getHebrew());
+               if (okay)
                {
                   currentExpression.getTrainingStatusDToH().setTrys(
                         currentExpression.getTrainingStatusDToH().getTrys()
-                              + 1);
+                              - 1);
+                  if (currentExpression.getTrainingStatusDToH().getTrys() == 0)
+                  {
+                     currentExpression.getTrainingStatusDToH().nextRepetition();
+                  }
                }
                else
                {
-                  currentExpression.getTrainingStatusDToH()
-                        .previousRepetition();
+                  if (currentExpression.getTrainingStatusDToH().getTrys() < 4)
+                  {
+                     currentExpression.getTrainingStatusDToH().setTrys(
+                           currentExpression.getTrainingStatusDToH().getTrys()
+                                 + 1);
+                  }
+                  else
+                  {
+                     currentExpression.getTrainingStatusDToH()
+                           .previousRepetition();
+                  }
                }
+               reactToAnswer(okay);
             }
-            reactToAnswer(okay);
-         }
-         else
-         {
-            JPanel answerPanel1 = new JPanel();
-            answerPanel1.setLayout(new TotemLayout(answerPanel1, 5));
-            JLabel correctAnswer = new JLabel("Die richtige Antwort lautet:");
-            correctAnswer.setFont(Main.getGermanFont(16F));
-            correctAnswer.setMinimumSize(new Dimension(490, 30));
-            correctAnswer.setMaximumSize(new Dimension(510, 30));
-            JLabel correctAnswer2 = new JLabel(currentExpression.getGerman());
-            correctAnswer2.setFont(Main.getGermanFont(20F));
-            correctAnswer2.setMinimumSize(new Dimension(490, 30));
-            correctAnswer2.setMaximumSize(new Dimension(510, 30));
-            JLabel correctAnswer3 = new JLabel(
-                  currentExpression.getAdditionalInfoGerman());
-            correctAnswer3.setFont(Main.getGermanFont(16F));
-            correctAnswer3.setMinimumSize(new Dimension(490, 30));
-            correctAnswer3.setMaximumSize(new Dimension(510, 30));
+            else
+            {
+               JPanel answerPanel1 = new JPanel();
+               answerPanel1.setLayout(new TotemLayout(answerPanel1, 5));
+               JLabel correctAnswer = new JLabel(
+                     "Die richtige Antwort lautet:");
+               correctAnswer.setFont(Main.getGermanFont(16F));
+               correctAnswer.setMinimumSize(new Dimension(490, 30));
+               correctAnswer.setMaximumSize(new Dimension(510, 30));
+               JLabel correctAnswer2 = new JLabel(
+                     currentExpression.getGerman());
+               correctAnswer2.setFont(Main.getGermanFont(20F));
+               correctAnswer2.setMinimumSize(new Dimension(490, 30));
+               correctAnswer2.setMaximumSize(new Dimension(510, 30));
+               JLabel correctAnswer3 = new JLabel(
+                     currentExpression.getAdditionalInfoGerman());
+               correctAnswer3.setFont(Main.getGermanFont(16F));
+               correctAnswer3.setMinimumSize(new Dimension(490, 30));
+               correctAnswer3.setMaximumSize(new Dimension(510, 30));
 
-            answerPanel1.add(correctAnswer);
-            answerPanel1.add(correctAnswer2);
-            answerPanel1.add(correctAnswer3);
+               answerPanel1.add(correctAnswer);
+               answerPanel1.add(correctAnswer2);
+               answerPanel1.add(correctAnswer3);
 
-            JPanel answerPanel2 = new JPanel();
-            answerPanel2.setLayout(new GridLayout(1, 3));
-            answerPanel2.setMinimumSize(new Dimension(501, 100));
-            answerPanel2.setMaximumSize(new Dimension(501, 100));
-            answerOkay = new JButton(
-                  new ImageIcon(ApplicationImages.getAnswerOkay()));
-            answerOkay.addActionListener(event2 -> {
-               currentExpression.getTrainingStatusHToD().setTrys(
-                     currentExpression.getTrainingStatusHToD().getTrys() - 1);
-               if (currentExpression.getTrainingStatusHToD().getTrys() == 0)
-               {
-                  currentExpression.getTrainingStatusHToD().nextRepetition();
-               }
-               enableAnswerButtons(false);
-               reactToAnswer(true);
-            });
-            answerOkay.setMinimumSize(new Dimension(167, 100));
-            answerOkay.setMaximumSize(new Dimension(167, 100));
-            answerOkay.setPreferredSize(new Dimension(167, 100));
-            answerOkay.setSize(167, 105);
-
-            answerUndecided = new JButton(
-                  new ImageIcon(ApplicationImages.getAnswerUndecided()));
-            answerUndecided.addActionListener(event2 -> {
-               enableAnswerButtons(false);
-               reactToAnswer(null);
-            });
-            answerUndecided.setMinimumSize(new Dimension(167, 100));
-            answerUndecided.setMaximumSize(new Dimension(167, 100));
-            answerUndecided.setPreferredSize(new Dimension(167, 100));
-            answerUndecided.setSize(167, 105);
-
-            answerNotOkay = new JButton(
-                  new ImageIcon(ApplicationImages.getAnswerNotOkay()));
-            answerNotOkay.addActionListener(event2 -> {
-               if (currentExpression.getTrainingStatusHToD().getTrys() < 4)
-               {
+               JPanel answerPanel2 = new JPanel();
+               answerPanel2.setLayout(new GridLayout(1, 3));
+               answerPanel2.setMinimumSize(new Dimension(501, 100));
+               answerPanel2.setMaximumSize(new Dimension(501, 100));
+               answerOkay = new JButton(
+                     new ImageIcon(ApplicationImages.getAnswerOkay()));
+               answerOkay.addActionListener(event2 -> {
                   currentExpression.getTrainingStatusHToD().setTrys(
                         currentExpression.getTrainingStatusHToD().getTrys()
-                              + 1);
-               }
-               else
-               {
-                  currentExpression.getTrainingStatusHToD()
-                        .previousRepetition();
-               }
-               enableAnswerButtons(false);
-               reactToAnswer(false);
-            });
-            answerNotOkay.setMinimumSize(new Dimension(167, 100));
-            answerNotOkay.setMaximumSize(new Dimension(167, 100));
-            answerNotOkay.setPreferredSize(new Dimension(167, 100));
-            answerUndecided.setSize(167, 105);
+                              - 1);
+                  if (currentExpression.getTrainingStatusHToD().getTrys() == 0)
+                  {
+                     currentExpression.getTrainingStatusHToD().nextRepetition();
+                  }
+                  enableAnswerButtons(false);
+                  reactToAnswer(true);
+               });
+               answerOkay.setMinimumSize(new Dimension(167, 100));
+               answerOkay.setMaximumSize(new Dimension(167, 100));
+               answerOkay.setPreferredSize(new Dimension(167, 100));
+               answerOkay.setSize(167, 105);
 
-            answerPanel2.add(answerOkay);
-            answerPanel2.add(answerUndecided);
-            answerPanel2.add(answerNotOkay);
+               answerUndecided = new JButton(
+                     new ImageIcon(ApplicationImages.getAnswerUndecided()));
+               answerUndecided.addActionListener(event2 -> {
+                  enableAnswerButtons(false);
+                  reactToAnswer(null);
+               });
+               answerUndecided.setMinimumSize(new Dimension(167, 100));
+               answerUndecided.setMaximumSize(new Dimension(167, 100));
+               answerUndecided.setPreferredSize(new Dimension(167, 100));
+               answerUndecided.setSize(167, 105);
 
-            enableAnswerButtons(true);
+               answerNotOkay = new JButton(
+                     new ImageIcon(ApplicationImages.getAnswerNotOkay()));
+               answerNotOkay.addActionListener(event2 -> {
+                  if (currentExpression.getTrainingStatusHToD().getTrys() < 4)
+                  {
+                     currentExpression.getTrainingStatusHToD().setTrys(
+                           currentExpression.getTrainingStatusHToD().getTrys()
+                                 + 1);
+                  }
+                  else
+                  {
+                     currentExpression.getTrainingStatusHToD()
+                           .previousRepetition();
+                  }
+                  enableAnswerButtons(false);
+                  reactToAnswer(false);
+               });
+               answerNotOkay.setMinimumSize(new Dimension(167, 100));
+               answerNotOkay.setMaximumSize(new Dimension(167, 100));
+               answerNotOkay.setPreferredSize(new Dimension(167, 100));
+               answerUndecided.setSize(167, 105);
 
-            feedbackPanel.add(answerPanel1);
-            feedbackPanel.add(answerPanel2);
+               answerPanel2.add(answerOkay);
+               answerPanel2.add(answerUndecided);
+               answerPanel2.add(answerNotOkay);
+
+               enableAnswerButtons(true);
+
+               feedbackPanel.add(answerPanel1);
+               feedbackPanel.add(answerPanel2);
+            }
+            feedbackPanel.validate();
+            feedbackPanel.repaint();
          }
-         feedbackPanel.validate();
-         feedbackPanel.repaint();
+         catch (Exception e1)
+         {
+            e1.printStackTrace();
+         }
       });
 
       nextWordButton.addActionListener(event -> {
@@ -786,8 +812,9 @@ public class TrainerPanel extends BackgroundPanelTiled
       {
          JOptionPane.showMessageDialog(Common.getjFrame(), "",
                Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-               new ImageIcon(
-                     TextImage.make("Das Training wurde", "abgebrochen.")));
+               new ImageIcon(TextImage.make("Das Training wurde abgebrochen.",
+                     "Sie haben " + wordsRightNumber + " richtige",
+                     "Antworten gegeben.")));
       }
 
       saveTraining();

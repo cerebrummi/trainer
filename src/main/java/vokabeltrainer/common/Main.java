@@ -25,7 +25,6 @@ import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSpecialPanels;
 import vokabeltrainer.Settings;
 import vokabeltrainer.editing.HebrewLetter;
-import vokabeltrainer.panels.MainPanel;
 import vokabeltrainer.panels.letterpicture.LetterPictureButtonPanel;
 
 public final class Main
@@ -291,14 +290,12 @@ public final class Main
             window.setFont(germanFont.deriveFont(14F));
             ToolTipManager.sharedInstance().setDismissDelay(8000);
             ToolTipManager.sharedInstance().setInitialDelay(1000);
-            Common.setMainJPanel(new MainPanel());
+            Common.setMainJPanel(new MainController().getMainView());
             window.getContentPane().add(Common.getMainJPanel());
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             window.setSize(1280, 700);
             window.setLocationRelativeTo(null);
             window.setVisible(true);
-            
-            // TODO wenn window geschlossen und Training aktiv => soll gespeichert werden?
          }
       });
    }

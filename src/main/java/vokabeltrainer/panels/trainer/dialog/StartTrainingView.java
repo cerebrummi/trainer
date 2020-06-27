@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.util.List;
-import java.util.Set;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -30,9 +28,8 @@ public class StartTrainingView extends JDialog
    private Language languageDirection;
    private Command fieldOfTraining;
    private List<Expression> newExpressions;
+   private List<Expression> oldExpressions;
    private boolean training;
-   private Set<Expression> oldExpressionsHToD;
-   private Set<Expression> oldExpressionsDToH;
 
    public StartTrainingView(StartTrainingControllerConnector connector)
    {
@@ -40,8 +37,6 @@ public class StartTrainingView extends JDialog
             Dialog.ModalityType.APPLICATION_MODAL);
 
       training = false;
-      oldExpressionsDToH = connector.getOldExpressionsDToH();
-      oldExpressionsHToD = connector.getOldExpressionsHToD();
 
       setSize(982, 480);
       layout = new JPanel();
@@ -122,24 +117,14 @@ public class StartTrainingView extends JDialog
       return training;
    }
 
-   public Set<Expression> getOldExpressionsHToD()
+   public List<Expression> getOldExpressions()
    {
-      return oldExpressionsHToD;
+      return oldExpressions;
    }
 
-   public void setOldExpressionsHToD(Set<Expression> oldExpressionsHToD)
+   public void setOldExpressions(List<Expression> oldExpressions)
    {
-      this.oldExpressionsHToD = oldExpressionsHToD;
-   }
-
-   public Set<Expression> getOldExpressionsDToH()
-   {
-      return oldExpressionsDToH;
-   }
-
-   public void setOldExpressionsDToH(Set<Expression> oldExpressionsDToH)
-   {
-      this.oldExpressionsDToH = oldExpressionsDToH;
+      this.oldExpressions = oldExpressions;
    }
 
 }

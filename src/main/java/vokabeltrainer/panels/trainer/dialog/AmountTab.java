@@ -63,6 +63,7 @@ public class AmountTab extends BackgroundPanelTiled
       
       nextButton.addActionListener(event -> {
          dialog.setNewExpressions(table.findNewExpressions(dialog.getLanguageDirection()));
+         dialog.setOldExpressions(table.findOldToBeRepeatedExpressions());
          dialog.initTraining();
       });
       

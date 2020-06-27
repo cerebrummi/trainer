@@ -1,6 +1,7 @@
 package vokabeltrainer.panels.trainer.dialog.table;
 
 import java.util.List;
+import java.util.Set;
 
 import vokabeltrainer.Command;
 import vokabeltrainer.types.Expression;
@@ -16,7 +17,8 @@ public class TrainingTableRow
    private Command fieldOfTraining;
    private String chapter;
    private ExpressionKind kind;
-   private List<Expression> expressionList;
+   private List<Expression> expressionListNewWords;
+   private Set<Expression> expressionListOldWords;
 
    public String getField()
    {
@@ -98,13 +100,23 @@ public class TrainingTableRow
       this.kind = kind;
    }
 
-   public List<Expression> getExpressionList()
+   public List<Expression> getExpressionListNewWords()
    {
-      return expressionList;
+      return expressionListNewWords;
    }
 
-   public void setExpressionList(List<Expression> listSelected)
+   public void setExpressionListNewWords(List<Expression> listSelected)
    {
-      this.expressionList = listSelected;
+      this.expressionListNewWords = listSelected;
+   }
+
+   public Set<Expression> getExpressionListOldWords()
+   {
+      return expressionListOldWords;
+   }
+
+   public void setExpressionListOldWords(Set<Expression> expressionListOldWords)
+   {
+      this.expressionListOldWords = expressionListOldWords;
    }
 }
