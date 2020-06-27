@@ -132,11 +132,6 @@ public class TrainerView extends BackgroundPanelTiled
       {
          fieldOfTrainingString = "Lektionen";
       }
-      else if (connector.getFieldOfTraining()
-            .equals(Command.AREA_EXPRESSION_KIND))
-      {
-         fieldOfTrainingString = "Wortarten";
-      }
       else if (connector.getFieldOfTraining().equals(Command.AREA_SELECTED))
       {
          fieldOfTrainingString = "ausgewählte Wörter";

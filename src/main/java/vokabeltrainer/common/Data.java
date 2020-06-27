@@ -1050,6 +1050,7 @@ public final class Data
             TrainingTableRow row = new TrainingTableRow();
             row.setFieldOfTraining(fieldOfTraining);
             row.setField("Alle Wörter");
+            row.setExpressionListOldWords(oldToBeTested);
             row.setToBeRepeatedWords(oldToBeTested.size());
             row.setExpressionListNewWords(
                   findNotStudiedWords(languageDirection, listAll));
@@ -1068,6 +1069,7 @@ public final class Data
                chapterRow.setFieldOfTraining(fieldOfTraining);
                chapterRow.setChapter(chapter);
                chapterRow.setField(chapter);
+               chapterRow.setExpressionListOldWords(findExpressionListOldToBeTestedPerChapter(chapter, oldToBeTested));
                chapterRow.setToBeRepeatedWords(
                      findOldToBeTestedPerChapter(chapter, oldToBeTested));
                chapterRow.setExpressionListNewWords(
@@ -1082,30 +1084,6 @@ public final class Data
             for (int i = 0; i < unlearnedPerChapter.size(); i++)
             {
                data[i][0] = unlearnedPerChapter.get(i);
-            }
-            break;
-         case AREA_EXPRESSION_KIND:
-            List<TrainingTableRow> unlearnedPerKind = new ArrayList<>();
-            for (ExpressionKind kind : ExpressionKind.getValues())
-            {
-               Collection<Expression> listKind = this.findMapValues(kind);
-               TrainingTableRow kindRow = new TrainingTableRow();
-               kindRow.setFieldOfTraining(fieldOfTraining);
-               kindRow.setKind(kind);
-               kindRow.setField(kind.toString());
-               kindRow.setToBeRepeatedWords(
-                     findOldToBeTestedPerKind(kind, oldToBeTested));
-               kindRow.setExpressionListNewWords(
-                     findNotStudiedWords(languageDirection, listKind));
-               kindRow.setNotStudiedWords(kindRow.getExpressionListNewWords().size());
-               kindRow.setAmountOfNewWords(0);
-               kindRow.setFieldDone(kindRow.getNotStudiedWords() == 0);
-               unlearnedPerKind.add(kindRow);
-            }
-            data = new TrainingTableRow[unlearnedPerKind.size()][1];
-            for (int i = 0; i < unlearnedPerKind.size(); i++)
-            {
-               data[i][0] = unlearnedPerKind.get(i);
             }
             break;
          case AREA_SELECTED:
@@ -1133,33 +1111,6 @@ public final class Data
 
       private List<Expression> findNotStudiedWords(Language languageDirection,
             List<Expression> list)
-      {
-         List<Expression> result = new ArrayList<>();
-         switch (languageDirection)
-         {
-         case GERMAN:
-            for (Expression expression : list)
-            {
-               if (!expression.getTrainingStatusDToH().isTrainingStarted())
-               {
-                  result.add(expression);
-               }
-            }
-            break;
-         case HEBREW:
-            for (Expression expression : list)
-            {
-               if (!expression.getTrainingStatusHToD().isTrainingStarted())
-               {
-                  result.add(expression);
-               }
-            }
-         }
-         return result;
-      }
-
-      private List<Expression> findNotStudiedWords(Language languageDirection,
-            Collection<Expression> list)
       {
          List<Expression> result = new ArrayList<>();
          switch (languageDirection)
@@ -1259,15 +1210,15 @@ public final class Data
          return result;
       }
 
-      private int findOldToBeTestedPerKind(ExpressionKind kind,
-            Set<Expression> allOldToBeTested)
+      private Set<Expression> findExpressionListOldToBeTestedPerChapter(String chapter,
+            Set<Expression> allOldToBeTestedExpressions)
       {
-         int result = 0;
-         for (Expression e : allOldToBeTested)
+         Set<Expression> result = new HashSet<>();
+         for (Expression e : allOldToBeTestedExpressions)
          {
-            if (kind == e.getKind())
+            if (chapter.equals(e.getChapter()))
             {
-               result++;
+               result.add(e);
             }
          }
          return result;
