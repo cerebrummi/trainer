@@ -20,9 +20,6 @@ public class Settings
    private final static Font toolbarButtonFont = Main.getHeaderFont(26F);
    private final static Font secondaryToolbarButtonFont = Main
          .getHeaderFont(18F);
-   
-   private static boolean additionalInfo = false;
-   private static boolean transcription = false;
 
    private Settings()
    {
@@ -51,27 +48,6 @@ public class Settings
    public static LanguageSettings getLanguage()
    {
       return LanguageSettings.GERMAN;
-   }
-
-   public static boolean getAdditionalInfo()
-   {
-      return additionalInfo;
-   }
-
-   public static boolean getTranscription()
-   {
-      return transcription;
-   }
-   
-
-   public static void setAdditionalInfo(boolean additionalInfo)
-   {
-      Settings.additionalInfo = additionalInfo;
-   }
-
-   public static void setTranscription(boolean transcription)
-   {
-      Settings.transcription = transcription;
    }
 
    public static String getExpressionFolder()
