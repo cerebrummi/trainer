@@ -9,9 +9,6 @@ import java.awt.FocusTraversalPolicy;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -125,7 +122,7 @@ public class TrainerView extends BackgroundPanelTiled
       initQuestionPanel(languageDirection);
 
       connector.setNextTest();
-      
+
       this.questionPanel.validate();
       this.questionPanel.repaint();
    }
@@ -325,8 +322,8 @@ public class TrainerView extends BackgroundPanelTiled
       additionalInfoField = new JTextField();
       additionalInfoField.setFont(Main.getGermanFont(15F));
       additionalInfoField.setBackground(Settings.getTexturedBackgroundColor());
-      additionalInfoField.setBorder(BorderFactory.createTitledBorder(
-            "weitere Informationen"));
+      additionalInfoField.setBorder(
+            BorderFactory.createTitledBorder("weitere Informationen"));
       additionalInfoField
             .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 55));
       additionalInfoField
@@ -459,9 +456,7 @@ public class TrainerView extends BackgroundPanelTiled
 
    private void initController()
    {
-      sendButton.addActionListener(event -> 
-         connector.send()
-      );
+      sendButton.addActionListener(event -> connector.send());
 
       nextWordButton.addActionListener(event -> nextWord());
 
@@ -477,21 +472,13 @@ public class TrainerView extends BackgroundPanelTiled
          connector.setTranscription();
       });
    }
-   
+
    public void setHtoDanswerButtons()
    {
       answerOkay = new JButton(
             new ImageIcon(ApplicationImages.getAnswerOkay()));
       answerOkay.addActionListener(event2 -> {
-         connector.getCurrentExpression().getTrainingStatusHToD().setTrys(
-               connector.getCurrentExpression().getTrainingStatusHToD().getTrys()
-                     - 1);
-         if (connector.getCurrentExpression().getTrainingStatusHToD().getTrys() == 0)
-         {
-            connector.getCurrentExpression().getTrainingStatusHToD().nextRepetition();
-         }
-         enableHtoDAnswerButtons(false);
-         reactToAnswer(true);
+         connector.resultHtoDOkay();
       });
       answerOkay.setMinimumSize(new Dimension(167, 100));
       answerOkay.setMaximumSize(new Dimension(167, 100));
@@ -501,8 +488,7 @@ public class TrainerView extends BackgroundPanelTiled
       answerUndecided = new JButton(
             new ImageIcon(ApplicationImages.getAnswerUndecided()));
       answerUndecided.addActionListener(event2 -> {
-         enableHtoDAnswerButtons(false);
-         reactToAnswer(null);
+         connector.resultHtoDUndecided();
       });
       answerUndecided.setMinimumSize(new Dimension(167, 100));
       answerUndecided.setMaximumSize(new Dimension(167, 100));
@@ -512,39 +498,26 @@ public class TrainerView extends BackgroundPanelTiled
       answerNotOkay = new JButton(
             new ImageIcon(ApplicationImages.getAnswerNotOkay()));
       answerNotOkay.addActionListener(event2 -> {
-         if (connector.getCurrentExpression().getTrainingStatusHToD().getTrys() < 4)
-         {
-            connector.getCurrentExpression().getTrainingStatusHToD().setTrys(
-                  connector.getCurrentExpression().getTrainingStatusHToD().getTrys()
-                        + 1);
-         }
-         else
-         {
-            connector.getCurrentExpression().getTrainingStatusHToD()
-                  .previousRepetition();
-         }
-         enableHtoDAnswerButtons(false);
-         reactToAnswer(false);
+         connector.resultHtoDFalse();
       });
       answerNotOkay.setMinimumSize(new Dimension(167, 100));
       answerNotOkay.setMaximumSize(new Dimension(167, 100));
       answerNotOkay.setPreferredSize(new Dimension(167, 100));
       answerUndecided.setSize(167, 105);
    }
-   
+
    public void enableHtoDAnswerButtons(boolean b)
    {
       this.answerOkay.setEnabled(b);
       this.answerUndecided.setEnabled(b);
       this.answerNotOkay.setEnabled(b);
    }
-   
-   public void prepareHtoDFeedbackPanels()
+
+   public void prepareHtoDFeedbackPanel()
    {
       JPanel answerPanel1 = new JPanel();
       answerPanel1.setLayout(new TotemLayout(answerPanel1, 5));
-      JLabel correctAnswer = new JLabel(
-            "Die richtige Antwort lautet:");
+      JLabel correctAnswer = new JLabel("Die richtige Antwort lautet:");
       correctAnswer.setFont(Main.getGermanFont(16F));
       correctAnswer.setMinimumSize(new Dimension(490, 30));
       correctAnswer.setMaximumSize(new Dimension(510, 30));
@@ -567,15 +540,19 @@ public class TrainerView extends BackgroundPanelTiled
       answerPanel2.setLayout(new GridLayout(1, 3));
       answerPanel2.setMinimumSize(new Dimension(501, 100));
       answerPanel2.setMaximumSize(new Dimension(501, 100));
-      
+
       feedbackPanel.add(answerPanel1);
       feedbackPanel.add(answerPanel2);
-      
+
       answerPanel2.add(answerOkay);
       answerPanel2.add(answerUndecided);
       answerPanel2.add(answerNotOkay);
+
+      setHtoDanswerButtons();
+
+      enableHtoDAnswerButtons(true);
    }
-   
+
    public void nextWord()
    {
       nextWordButton.setEnabled(false);
@@ -592,41 +569,6 @@ public class TrainerView extends BackgroundPanelTiled
       connector.setNextTest();
       answerField.grabFocus();
       answerField.requestFocusInWindow();
-   }
-   
-   public void reactToAnswer(Boolean okay)
-   {
-      if (okay == null)
-      {
-         cardLayout.show(swapPanel, "BLUE");
-      }
-      else if (okay)
-      {
-         cardLayout.show(swapPanel, "GREEN");
-         connector.getExpressionsToBeTested().remove(0);
-         wordsRightNumber++;
-         wordsRight.setText(String.valueOf(wordsRightNumber));
-         wordsToDo.setText(String.valueOf(connector.getExpressionsToBeTested().size()));
-      }
-      else
-      {
-         cardLayout.show(swapPanel, "RED");
-         connector.getExpressionsToBeTested().add(connector.getCurrentExpression());
-         wordsWrongNumber++;
-         wordsWrong.setText(String.valueOf(wordsWrongNumber));
-         wordsToDo.setText(String.valueOf(connector.getExpressionsToBeTested().size()));
-      }
-
-      Collections.shuffle(connector.getExpressionsToBeTested(), new Random(System.nanoTime()));
-
-      if (!connector.getExpressionsToBeTested().isEmpty())
-      {
-         nextWordButton.setEnabled(true);
-      }
-      else
-      {
-         connector.stopTraining(true);
-      }
    }
 
    public JTextField getAdditionalInfoField()
@@ -688,23 +630,53 @@ public class TrainerView extends BackgroundPanelTiled
    {
       sendButton.setEnabled(false);
    }
-   
+
    public void enableSendButton()
    {
       sendButton.setEnabled(true);
    }
 
+   public CardLayout getCardLayout()
+   {
+      return cardLayout;
+   }
+
+   public JButton getNextWordButton()
+   {
+      return nextWordButton;
+   }
+
+   public void showResultBlue()
+   {
+      cardLayout.show(swapPanel, "BLUE");
+   }
+
+   public void showResultGreen()
+   {
+      cardLayout.show(swapPanel, "GREEN");
+      wordsRightNumber++;
+      wordsRight.setText(String.valueOf(wordsRightNumber));
+      wordsToDo.setText(
+            String.valueOf(connector.getExpressionsToBeTested().size()));
+   }
+
+   public void showResultRed()
+   {
+      cardLayout.show(swapPanel, "RED");
+      wordsWrongNumber++;
+      wordsWrong.setText(String.valueOf(wordsWrongNumber));
+      wordsToDo.setText(
+            String.valueOf(connector.getExpressionsToBeTested().size()));
+   }
+
    public void prepareDtoHFeedbackPanel(Result result)
    {
-      HebrewAnswerWordPanel answerPanel = new HebrewAnswerWordPanel(
-            result);
+      HebrewAnswerWordPanel answerPanel = new HebrewAnswerWordPanel(result);
       JScrollPane scrollPane = new JScrollPane(answerPanel);
-      scrollPane
-            .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+      scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       scrollPane.setBorder(BorderFactory.createEmptyBorder());
       scrollPane.setPreferredSize(new Dimension(501, 86));
       feedbackPanel.add(scrollPane);
-      wordPanel
-            .displayWord(result.getExpression().getHebrew());
+      wordPanel.displayWord(result.getExpression().getHebrew());
    }
 }

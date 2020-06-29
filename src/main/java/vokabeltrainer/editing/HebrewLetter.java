@@ -388,4 +388,9 @@ public enum HebrewLetter
       }
       return hebrewLetters;
    }
+
+   public static boolean isQuestionmark(HebrewLetter hebrewLetter)
+   {
+      return QUESTIONMARK == hebrewLetter;
+   }
 }

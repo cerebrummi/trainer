@@ -13,7 +13,7 @@ public class Resultfactory
    {
       Result result = new Result();
       result.setExpression(expression);
-      
+
       List<HebrewLetter> answerLetters = HebrewLetter.findHebrewLetters(answer);
       List<HebrewLetter> expressionLetters = HebrewLetter
             .findHebrewLetters(expression.getHebrew());
@@ -46,7 +46,18 @@ public class Resultfactory
          }
       }
 
-      if (expressionLetters.size() - answerLetters.size() > 0)
+      if (expressionLetters.size() - answerLetters.size() == 1)
+      {
+         if (!HebrewLetter.isQuestionmark(
+               expressionLetters.get(expressionLetters.size() - 1)))
+         {
+            result.setOkay(false);
+            result.getLetterFeedbackImages()
+                  .add(LetterFeedbackImage.make(HebrewLetter.SPACE, false));
+            result.addToWidth(HebrewLetter.SPACE.getPixelWidth());
+         }
+      }
+      else if (expressionLetters.size() - answerLetters.size() > 0)
       {
          result.setOkay(false);
          for (int i = answerLetters.size(); i < expressionLetters.size(); i++)
@@ -59,7 +70,8 @@ public class Resultfactory
 
       result.setAnswerLettersSize(answerLetters.size());
       result.setExpressionLettersSize(expressionLetters.size());
-      
+      result.reverseLetterFeedbackImage();
+
       return result;
    }
 

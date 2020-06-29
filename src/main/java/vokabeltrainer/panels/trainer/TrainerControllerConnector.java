@@ -21,4 +21,7 @@ public interface TrainerControllerConnector
    public Expression getCurrentExpression();
    public void removeFirstExpressionToBeTested();
    public List<Expression> getExpressionsToBeTested();
+   public void resultHtoDOkay();
+   public void resultHtoDUndecided();
+   public void resultHtoDFalse();
 }

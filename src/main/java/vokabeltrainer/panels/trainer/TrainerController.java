@@ -1,17 +1,14 @@
 package vokabeltrainer.panels.trainer;
 
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import vokabeltrainer.ApplicationImages;
@@ -174,13 +171,11 @@ public class TrainerController implements TrainerControllerConnector
                         .previousRepetition();
                }
             }
-            trainerView.reactToAnswer(result.isOkay());
+            reactToAnswer(result.isOkay());
          }
          else
          {
-            trainerView.prepareHtoDFeedbackPanels();
-            trainerView.setHtoDanswerButtons();
-            trainerView.enableHtoDAnswerButtons(true);
+            trainerView.prepareHtoDFeedbackPanel();
          }
          trainerView.getFeedbackPanel().validate();
          trainerView.getFeedbackPanel().repaint();
@@ -188,6 +183,71 @@ public class TrainerController implements TrainerControllerConnector
       catch (Exception e1)
       {
          e1.printStackTrace();
+      }
+   }
+
+   @Override
+   public void resultHtoDOkay()
+   {
+      currentExpression.getTrainingStatusHToD()
+            .setTrys(currentExpression.getTrainingStatusHToD().getTrys() - 1);
+      if (currentExpression.getTrainingStatusHToD().getTrys() == 0)
+      {
+         currentExpression.getTrainingStatusHToD().nextRepetition();
+      }
+      trainerView.enableHtoDAnswerButtons(false);
+      reactToAnswer(true);
+   }
+
+   @Override
+   public void resultHtoDUndecided()
+   {
+      trainerView.enableHtoDAnswerButtons(false);
+      reactToAnswer(null);
+   }
+
+   @Override
+   public void resultHtoDFalse()
+   {
+      if (currentExpression.getTrainingStatusHToD().getTrys() < 4)
+      {
+         currentExpression.getTrainingStatusHToD().setTrys(
+               currentExpression.getTrainingStatusHToD().getTrys() + 1);
+      }
+      else
+      {
+         currentExpression.getTrainingStatusHToD().previousRepetition();
+      }
+      trainerView.enableHtoDAnswerButtons(false);
+      reactToAnswer(false);
+   }
+
+   public void reactToAnswer(Boolean okay)
+   {
+      if (okay == null)
+      {
+         trainerView.showResultBlue();
+      }
+      else if (okay)
+      {
+         expressionsToBeTested.remove(0);
+         trainerView.showResultGreen();
+      }
+      else
+      {
+         expressionsToBeTested.add(currentExpression);
+         trainerView.showResultRed();
+      }
+
+      Collections.shuffle(expressionsToBeTested, new Random(System.nanoTime()));
+
+      if (!expressionsToBeTested.isEmpty())
+      {
+         trainerView.getNextWordButton().setEnabled(true);
+      }
+      else
+      {
+         stopTraining(true);
       }
    }
 
