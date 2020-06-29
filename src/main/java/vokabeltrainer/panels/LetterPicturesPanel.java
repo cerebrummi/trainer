@@ -7,17 +7,22 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.text.JTextComponent;
+
 import vokabeltrainer.BackgroundPanelTiled;
+import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.letterpicture.LetterPictureAlphabetPanel;
-import vokabeltrainer.panels.letterpicture.LetterPictureWordPanel;
+import vokabeltrainer.panels.letterpicture.LetterTextField;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -25,28 +30,42 @@ public class LetterPicturesPanel extends BackgroundPanelTiled
 {
    private static final long serialVersionUID = 9130321171813967337L;
 
-   private LetterPictureWordPanel wordPanel;
    private JButton pictureInfoButton;
    private JPanel letterPanel;
+   private LetterPictureAlphabetPanel letterPictureAlphabetPanel;
+   private JButton resultButton;
+   private JButton resetButton;
+   
    public LetterPicturesPanel()
    {
-      setLayout(new TotemLayout(this, 10));
-
-      JPanel horizontal0 = new JPanel();
-      horizontal0.setLayout(new TrainLayout(horizontal0, 15));
-      horizontal0.setOpaque(false);
-      horizontal0.add(initLetterPanel());
-
-      add(horizontal0);
-      add(initPictureWord());
+      setLayout(new TrainLayout(this, 165));
+      this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel();
+      
+      add(initLetterPanel());
+      add(letterPictureAlphabetPanel);
+      add(initButtons());
 
       initController();
    }
 
-   private Component initPictureWord()
+   private Component initButtons()
    {
-      wordPanel = new LetterPictureWordPanel();
-      return wordPanel;
+      JPanel vertical = new JPanel();
+      vertical.setLayout(new TotemLayout(vertical, 14));
+      
+      JPanel filler = new JPanel();
+      filler.setMinimumSize(new Dimension(200,1));
+      filler.setMaximumSize(new Dimension(200,1));
+      
+      resultButton = new JButton("auswerten");
+      resultButton.setFont(Settings.getButtonFont());
+      resetButton = new JButton("zurücksetzen");
+      resetButton.setFont(Settings.getButtonFont());
+      
+      vertical.add(filler);
+      vertical.add(resultButton);
+      vertical.add(resetButton);
+      return vertical;
    }
 
    private Component initLetterPanel()
@@ -55,13 +74,9 @@ public class LetterPicturesPanel extends BackgroundPanelTiled
       letterPanel.setLayout(new TotemLayout(letterPanel));
       letterPanel.setOpaque(false);
 
-      JPanel horizontal = new JPanel();
-      horizontal.setLayout(new TrainLayout(horizontal, 15));
-      horizontal.setOpaque(false);
-
-      JLabel title = new JLabel("Alphabet");
+      JLabel title = new JLabel(" Alefbet üben");
       title.setFont(Main.getGermanFont(24F));
-      horizontal.add(title);
+      letterPanel.add(title);
 
       pictureInfoButton = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
@@ -69,16 +84,35 @@ public class LetterPicturesPanel extends BackgroundPanelTiled
       pictureInfoButton.setMinimumSize(new Dimension(50, 50));
       pictureInfoButton.setMaximumSize(new Dimension(50, 50));
       pictureInfoButton.setMargin(new Insets(0, 0, 0, 0));
-      horizontal.add(pictureInfoButton);
-
-      letterPanel.add(horizontal);
-      letterPanel.add(new LetterPictureAlphabetPanel());
+      letterPanel.add(pictureInfoButton);
 
       return letterPanel;
    }
 
    private void initController()
    {
+      resultButton.addActionListener(event -> {
+        for(JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
+        {
+           if(((LetterTextField)jtc).isOkay())
+           {
+              jtc.setBackground(Settings.getGreen());
+           }
+           else
+           {
+              jtc.setBackground(Settings.getDarkGold());
+           }
+        }
+      });
+      
+      resetButton.addActionListener(event -> {
+        for(JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
+        {
+           jtc.setBackground(Settings.getLightYellow());
+           jtc.setText("");
+        }
+      });
+      
       pictureInfoButton.addActionListener(event -> {
          JOptionPane.showMessageDialog(letterPanel, "",
                "Cerebrummi©", JOptionPane.INFORMATION_MESSAGE,

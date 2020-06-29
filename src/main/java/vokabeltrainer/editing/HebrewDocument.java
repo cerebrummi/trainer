@@ -23,7 +23,7 @@ public class HebrewDocument extends PlainDocument
    public void insertString(int offset, String str, AttributeSet attr)
          throws BadLocationException
    { 
-      List<String> list = HebrewLetter.findLetters(str);
+      List<String> list = HebrewLetter.findLetterCodes(str);
       for (String letter : list)
       {
          if(!StringUtils.containsIgnoreCase(pattern, letter))

@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.HebrewLetter;
 
@@ -26,11 +27,13 @@ public class LetterPictureButtonPanel extends JPanel
    private JButton letterButton;
    private JButton germanButton;
    private JButton hebrewButton;
+   private JButton blankButton;
 
    private JPanel pictureCard;
    private JPanel letterCard;
    private JPanel germanCard;
    private JPanel hebrewCard;
+   private JPanel blankCard;
 
    private CardLayout layout;
 
@@ -52,11 +55,13 @@ public class LetterPictureButtonPanel extends JPanel
       initLetterCard();
       initHebrewCard();
       initGermanCard();
+      initBlankCard();
 
+      this.add(blankCard);
       this.add(pictureCard);
-      this.add(letterCard);
-      this.add(hebrewCard);
       this.add(germanCard);
+      this.add(hebrewCard);
+      this.add(letterCard);
 
       initController();
    }
@@ -76,6 +81,10 @@ public class LetterPictureButtonPanel extends JPanel
       });
 
       hebrewButton.addActionListener(event -> {
+         layout.next(this);
+      });
+      
+      blankButton.addActionListener(event -> {
          layout.next(this);
       });
 
@@ -164,6 +173,19 @@ public class LetterPictureButtonPanel extends JPanel
       pictureButton.setMargin(new Insets(0, 0, 0, 0));
       pictureButton.setOpaque(false);
       pictureCard.add(pictureButton, BorderLayout.CENTER);
+   }
+   
+   private void initBlankCard()
+   {
+      blankCard = new JPanel(new BorderLayout());
+      blankCard.setOpaque(false);
+      blankCard.setPreferredSize(new Dimension(50, 50));
+      blankButton = new JButton(new ImageIcon(ApplicationImages.getLetterEmpty()));
+      blankButton.setBorder(BorderFactory.createEmptyBorder());
+      blankButton.setMargin(new Insets(0, 0, 0, 0));
+      blankButton.setOpaque(false);
+      blankCard.add(blankButton, BorderLayout.CENTER);
+      
    }
 
    public void nextCard()

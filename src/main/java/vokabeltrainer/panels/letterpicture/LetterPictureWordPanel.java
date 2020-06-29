@@ -34,12 +34,12 @@ public class LetterPictureWordPanel extends JPanel
       JPanel displayPanel = new JPanel();
       displayPanel.setLayout(new TrainLayout(displayPanel));
 
-      List<String> hebrewLettersCode = HebrewLetter.findLetters(hebrewWord);
+      List<String> hebrewLettersCode = HebrewLetter.findLetterCodes(hebrewWord);
       Collections.reverse(hebrewLettersCode);
 
       for (String hebrewLetterCode : hebrewLettersCode)
       {
-         HebrewLetter hebrewLetter = HebrewLetter.getLetter(hebrewLetterCode);
+         HebrewLetter hebrewLetter = HebrewLetter.getLetterFromCode(hebrewLetterCode);
          if (hebrewLetter != null)
          {
             displayPanel.add(new LetterPictureButtonPanel(
@@ -55,7 +55,7 @@ public class LetterPictureWordPanel extends JPanel
 
       for (String hebrewLetterCode : hebrewLettersCode)
       {
-         HebrewLetter hebrewLetter = HebrewLetter.getLetter(hebrewLetterCode);
+         HebrewLetter hebrewLetter = HebrewLetter.getLetterFromCode(hebrewLetterCode);
          if (hebrewLetter != null)
          {
             LetterPictureButtonPanel panel = new LetterPictureButtonPanel(

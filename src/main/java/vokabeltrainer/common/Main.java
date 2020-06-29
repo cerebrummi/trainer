@@ -97,6 +97,10 @@ public final class Main
                ImageIO.read(Settings.class.getResourceAsStream("answer-undecided.png")));
          ApplicationImages.setReward(
                ImageIO.read(Settings.class.getResourceAsStream("baerlohnung.png")));
+         ApplicationImages.setLetterEmpty(
+               ImageIO.read(Settings.class.getResourceAsStream("letter_empty.png")));
+         ApplicationImages.setLetterNone(
+               ImageIO.read(Settings.class.getResourceAsStream("letter_none.png")));
       }
       catch (IOException e)
       {
@@ -293,7 +297,7 @@ public final class Main
             Common.setMainJPanel(new MainController().getMainView());
             window.getContentPane().add(Common.getMainJPanel());
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setSize(1280, 700);
+            window.setSize(1300, 720);
             window.setLocationRelativeTo(null);
             window.setVisible(true);
          }

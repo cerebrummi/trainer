@@ -240,7 +240,7 @@ public enum HebrewLetter
       return nameHebrew.getUnicode();
    }
 
-   public static HebrewLetter getLetter(String code)
+   public static HebrewLetter getLetterFromCode(String code)
    {
       for (HebrewLetter letter : HebrewLetter.values())
       {
@@ -293,9 +293,9 @@ public enum HebrewLetter
       return joiner.toString();
    }
 
-   public static List<String> findLetters(String hebrewWord)
+   public static List<String> findLetterCodes(String hebrewWord)
    {
-      List<String> letters = new ArrayList<>();
+      List<String> letterCodes = new ArrayList<>();
       for (int i = 0, c = 0; i < hebrewWord.length()
             && c < hebrewWord.length();)
       {
@@ -308,22 +308,24 @@ public enum HebrewLetter
                i++;
                c++;
                continue; // wrong spelling, dagesch and ssin dot can not be in
-                         // the beginning
+                         // the beginning of a word
             }
 
             if (code.equalsIgnoreCase(" 05BC")) // dagesch
             {
-               letters.set(i - 1, letters.get(i - 1) + code);
+               // i is the number of letterCodes, since no new letterCode is added i is not advanced
+               letterCodes.set(i - 1, letterCodes.get(i - 1) + code); // dagesch is added to letter before
                c++;
             }
             else if (code.equalsIgnoreCase(" 05c2")) // ssin dot
             {
-               letters.set(i - 1, " Fb2B");
+               // i is the number of letterCodes, since no new letterCode is added i is not advanced
+               letterCodes.set(i - 1, " Fb2B"); // letter before is a ssin
                c++;
             }
             else
             {
-               letters.add(code);
+               letterCodes.add(code);
                i++;
                c++;
             }
@@ -333,54 +335,16 @@ public enum HebrewLetter
             c++;
          }
       }
-      return letters;
+      return letterCodes;
    }
 
    public static List<HebrewLetter> findHebrewLetters(String hebrewWord)
    {
-      List<String> letters = new ArrayList<>();
-      for (int i = 0, c = 0; i < hebrewWord.length()
-            && c < hebrewWord.length();)
-      {
-         try
-         {
-            String code = String.format(" %04x", (int) hebrewWord.charAt(c));
-            if (i == 0 && (code.equalsIgnoreCase(" 05BC")
-                  || code.equalsIgnoreCase(" 05c2")))
-            {
-               i++;
-               c++;
-               continue; // wrong spelling, dagesch and ssin dot can not be in
-                         // the beginning
-            }
-
-            if (code.equalsIgnoreCase(" 05BC")) // dagesch
-            {
-               letters.set(i - 1, letters.get(i - 1) + code);
-               c++;
-            }
-            else if (code.equalsIgnoreCase(" 05c2")) // ssin dot
-            {
-               letters.set(i - 1, " Fb2B");
-               c++;
-            }
-            else
-            {
-               letters.add(code);
-               i++;
-               c++;
-            }
-         }
-         catch (Exception e)
-         {
-            c++;
-         }
-      }
-
+      List<String> letterCodes = HebrewLetter.findLetterCodes(hebrewWord);
       List<HebrewLetter> hebrewLetters = new ArrayList<>();
-      for (String letter : letters)
+      for (String code : letterCodes)
       {
-         HebrewLetter hebrewLetter = HebrewLetter.getLetter(letter);
+         HebrewLetter hebrewLetter = HebrewLetter.getLetterFromCode(code);
          if (hebrewLetter != null)
          {
             hebrewLetters.add(hebrewLetter);

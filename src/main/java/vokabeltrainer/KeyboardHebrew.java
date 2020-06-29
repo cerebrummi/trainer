@@ -27,13 +27,17 @@ public class KeyboardHebrew extends JPanel
    public KeyboardHebrew(JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight)
    {
-      textfield.setFont(Main.getHebrewFont(29F));
-      textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      textfield.setMinimumSize(
-            new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
-      textfield.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
-      arrayList.add(textfield);
+      if (textfield != null)
+      {
+         textfield.setFont(Main.getHebrewFont(29F));
+         textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         textfield.setMinimumSize(
+               new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+         textfield.setMaximumSize(
+               new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+         arrayList.add(textfield);
+      }
+
       this.components = arrayList;
 
       setLayout(new TotemLayout(this, 10));
@@ -41,9 +45,12 @@ public class KeyboardHebrew extends JPanel
       this.setPreferredSize(new Dimension(Settings.getKeyboardWidth(),
             textFieldHeight + 10 + 218));
 
-      add(textfield);
-      setFocusTraversalPolicy(new OneFocusTraversalPolicy(textfield));
-      textfield.grabFocus();
+      if (textfield != null)
+      {
+         add(textfield);
+         setFocusTraversalPolicy(new OneFocusTraversalPolicy(textfield));
+         textfield.grabFocus();
+      }
 
       JPanel keyboard = new JPanel();
       keyboard.setOpaque(false);
@@ -154,8 +161,8 @@ public class KeyboardHebrew extends JPanel
 
    private Component makeButton(String unicode, String tooltip)
    {
-      DataButton jButton = new DataButton("<html><span>" + unicode + "</span></html>",
-            unicode);
+      DataButton jButton = new DataButton(
+            "<html><span>" + unicode + "</span></html>", unicode);
       jButton.setToolTipText(tooltip);
       jButton.setMargin(new Insets(0, -5, 3, -5));
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));

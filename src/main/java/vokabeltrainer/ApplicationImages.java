@@ -47,6 +47,8 @@ public class ApplicationImages
    private static BufferedImage reward;
 
    private static Map<HebrewLetter, BufferedImage> letterPicturesMap;
+   private static BufferedImage letterEmpty;
+   private static BufferedImage letterNone;
 
    public static void setImage(BufferedImage image)
    {
@@ -431,6 +433,26 @@ public class ApplicationImages
    public static void setReward(BufferedImage reward)
    {
       ApplicationImages.reward = reward;
+   }
+
+   public static void setLetterEmpty(BufferedImage letterEmpty)
+   {
+      ApplicationImages.letterEmpty = letterEmpty;
+   }
+
+   public static void setLetterNone(BufferedImage letterNone)
+   {
+     ApplicationImages.letterNone= letterNone;
+   }
+
+   public static BufferedImage getLetterEmpty()
+   {
+      return letterEmpty;
+   }
+
+   public static BufferedImage getLetterNone()
+   {
+      return letterNone;
    }
 
    
