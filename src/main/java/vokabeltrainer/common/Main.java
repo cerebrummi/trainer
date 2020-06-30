@@ -99,8 +99,6 @@ public final class Main
                ImageIO.read(Settings.class.getResourceAsStream("baerlohnung.png")));
          ApplicationImages.setLetterEmpty(
                ImageIO.read(Settings.class.getResourceAsStream("letter_empty.png")));
-         ApplicationImages.setLetterNone(
-               ImageIO.read(Settings.class.getResourceAsStream("letter_none.png")));
       }
       catch (IOException e)
       {
