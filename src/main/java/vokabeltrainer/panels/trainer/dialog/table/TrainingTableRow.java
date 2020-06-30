@@ -19,6 +19,7 @@ public class TrainingTableRow
    private ExpressionKind kind;
    private List<Expression> expressionListNewWords;
    private Set<Expression> expressionListOldWords;
+   private boolean started;
 
    public String getField()
    {
@@ -118,5 +119,15 @@ public class TrainingTableRow
    public void setExpressionListOldWords(Set<Expression> expressionListOldWords)
    {
       this.expressionListOldWords = expressionListOldWords;
+   }
+
+   public boolean isStarted()
+   {
+      return started;
+   }
+
+   public void setStarted(boolean started)
+   {
+      this.started = started;
    }
 }

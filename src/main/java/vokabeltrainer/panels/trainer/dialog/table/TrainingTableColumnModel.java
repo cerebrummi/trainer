@@ -40,7 +40,7 @@ public class TrainingTableColumnModel extends DefaultTableColumnModel
       addColumn(column3);
 
       TableColumn column4 = new TableColumn();
-      column4.setHeaderValue("leer / fertig");
+      column4.setHeaderValue("");
       column4.setCellRenderer(rendererEditor);
       column4.setCellEditor(rendererEditor);
       column4.setPreferredWidth(50);

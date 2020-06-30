@@ -316,9 +316,9 @@ public final class Data
       private final static String DELETED_TXT = "DELETED.txt";
       private Set<String> chapterSet = new HashSet<>();
       private final String[][] COLUMNAMES = { { "erste" } };
-      private final String[][] TRAINING_COLUMNAMES = { { "Gebiet" },
-            { "Wörter gesamt" }, { "ungelernte Wörter" }, { "davon lernen" },
-            { "fertig gelernt" } };
+      private final String[][] TRAINING_COLUMNAMES = { { "" },
+            { "" }, { "" }, { "" },
+            { "" } };
 
       private final boolean directoryOkay = checkDirectory();
       private final ConcurrentMap<UUID, Expression> alleMap = new ConcurrentHashMap<>(
@@ -1056,7 +1056,8 @@ public final class Data
                   findNotStudiedWords(languageDirection, listAll));
             row.setNotStudiedWords(row.getExpressionListNewWords().size());
             row.setAmountOfNewWords(0);
-            row.setFieldDone(row.getNotStudiedWords() == 0);
+            row.setFieldDone(row.getNotStudiedWords() == 0 && row.getToBeRepeatedWords() == 0);
+            row.setStarted(row.getToBeRepeatedWords() > 0);
             data[0][0] = row;
             break;
          case AREA_CHAPTER:
@@ -1077,7 +1078,8 @@ public final class Data
                chapterRow
                      .setNotStudiedWords(chapterRow.getExpressionListNewWords().size());
                chapterRow.setAmountOfNewWords(0);
-               chapterRow.setFieldDone(chapterRow.getNotStudiedWords() == 0);
+               chapterRow.setFieldDone(chapterRow.getNotStudiedWords() == 0 && chapterRow.getToBeRepeatedWords() == 0);
+               chapterRow.setStarted(chapterRow.getToBeRepeatedWords() > 0);
                unlearnedPerChapter.add(chapterRow);
             }
             data = new TrainingTableRow[unlearnedPerChapter.size()][1];
@@ -1098,7 +1100,8 @@ public final class Data
             selectedRow
                   .setNotStudiedWords(selectedRow.getExpressionListNewWords().size());
             selectedRow.setAmountOfNewWords(0);
-            selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0);
+            selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0 && selectedRow.getToBeRepeatedWords() == 0);
+            selectedRow.setStarted(selectedRow.getToBeRepeatedWords() > 0);
             data = new TrainingTableRow[1][1];
             data[0][0] = selectedRow;
             break;

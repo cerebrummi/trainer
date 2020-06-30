@@ -49,6 +49,7 @@ public class ApplicationImages
    private static Map<HebrewLetter, BufferedImage> letterPicturesMap;
    private static BufferedImage letterEmpty;
    private static BufferedImage letterNone;
+   private static BufferedImage work;
 
    public static void setImage(BufferedImage image)
    {
@@ -96,7 +97,7 @@ public class ApplicationImages
       int pictureNumber = random.nextInt(greenImages.size());
       return greenImages.get(pictureNumber);
    }
-   
+
    public static BufferedImage getRandomBlueImage()
    {
       Random random = new Random();
@@ -442,7 +443,7 @@ public class ApplicationImages
 
    public static void setLetterNone(BufferedImage letterNone)
    {
-     ApplicationImages.letterNone= letterNone;
+      ApplicationImages.letterNone = letterNone;
    }
 
    public static BufferedImage getLetterEmpty()
@@ -455,6 +456,14 @@ public class ApplicationImages
       return letterNone;
    }
 
-   
+   public static void setWork(BufferedImage work)
+   {
+      ApplicationImages.work = work;
+   }
+
+   public static BufferedImage getWork()
+   {
+      return work;
+   }
 
 }

@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.text.ParseException;
 import java.util.EventObject;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.IntegerSpinnerEditor;
 import vokabeltrainer.editing.IntegerSpinnerModel;
@@ -29,12 +31,11 @@ public class TrainingTableCellRendererEditor
    private JSpinner amountOfNewWordsSpinner;
    private JButton amountOfNewWordsButton;
    private JLabel fieldDone;
-   private JLabel fieldEmpty;
+   private JLabel fieldWork;
    private JLabel fieldNotStarted;
    private TrainingTableRow trainingCellRow;
    private boolean editingStopped = true;
    private IntegerSpinnerModel spinnerNumberModel;
-
    private int row;
    private int column;
 
@@ -47,15 +48,14 @@ public class TrainingTableCellRendererEditor
       toBeRepeatedWords.setFont(font);
       notStudiedWords = new JLabel();
       notStudiedWords.setFont(font);
+
       amountOfNewWordsSpinner = new JSpinner();
       amountOfNewWordsSpinner.setFont(font);
-      
       spinnerNumberModel = new IntegerSpinnerModel();
       spinnerNumberModel.setMinimum(0);
       amountOfNewWordsSpinner.setModel(spinnerNumberModel);
-      amountOfNewWordsSpinner.setEditor(new IntegerSpinnerEditor(amountOfNewWordsSpinner));
-            
-
+      amountOfNewWordsSpinner
+            .setEditor(new IntegerSpinnerEditor(amountOfNewWordsSpinner));
       amountOfNewWordsSpinner.addChangeListener(event -> {
          trainingCellRow.setAmountOfNewWords(
                Integer.valueOf((String) amountOfNewWordsSpinner.getValue()));
@@ -65,14 +65,15 @@ public class TrainingTableCellRendererEditor
       });
       amountOfNewWordsButton = new JButton();
       amountOfNewWordsButton.setFont(font);
+      amountOfNewWordsButton.setBorder(BorderFactory.createEmptyBorder());
+      amountOfNewWordsButton.setBackground(Settings.getLightYellow());
       amountOfNewWordsButton.addActionListener(event -> {
          table.editCellAt(row, column);
       });
-      fieldDone = new JLabel();
-      fieldDone.setIcon(new ImageIcon(ApplicationImages.getDone()));
-      fieldEmpty = new JLabel();
-      fieldNotStarted = new JLabel();
-      fieldNotStarted.setIcon(new ImageIcon(ApplicationImages.getEmptyList()));
+
+      fieldDone = new JLabel(new ImageIcon(ApplicationImages.getDone()));
+      fieldWork = new JLabel(new ImageIcon(ApplicationImages.getWork()));
+      fieldNotStarted = new JLabel(new ImageIcon(ApplicationImages.getEmptyList()));
    }
 
    @Override
@@ -140,13 +141,13 @@ public class TrainingTableCellRendererEditor
 
       if (column == 3)
       {
-         
+
          spinnerNumberModel
                .setMaximum(((TrainingTableRow) value).getNotStudiedWords());
          amountOfNewWordsSpinner
                .setValue(String.valueOf(trainingCellRow.getAmountOfNewWords()));
          editingStopped = false;
-         if(((TrainingTableRow) value).getNotStudiedWords() > 0)
+         if (((TrainingTableRow) value).getNotStudiedWords() > 0)
          {
             return amountOfNewWordsSpinner;
          }
@@ -160,7 +161,7 @@ public class TrainingTableCellRendererEditor
    {
       TrainingTableRow renderedTrainingCellRow = (TrainingTableRow) value;
 
-      if (column == 0) // Bereich
+      if (column == 0)
       {
          field.setText(renderedTrainingCellRow.getField());
          return field;
@@ -173,45 +174,33 @@ public class TrainingTableCellRendererEditor
          return toBeRepeatedWords;
       }
 
-      if (column == 2) // Wörter gesamt
+      if (column == 2)
       {
          notStudiedWords.setText(
                String.valueOf(renderedTrainingCellRow.getNotStudiedWords()));
          return notStudiedWords;
       }
 
-      if (column == 3 && renderedTrainingCellRow.getToBeRepeatedWords() == 0) // ungelernte Wörter
-      {
-         fieldEmpty.setText("");
-         return fieldEmpty;
-      }
-      else if (column == 3 && renderedTrainingCellRow.isFieldDone())
-      {
-         fieldEmpty.setText("");
-         return fieldEmpty;
-      }
-      else if (column == 3)
+      if (column == 3)
       {
          amountOfNewWordsButton.setText(
                String.valueOf(renderedTrainingCellRow.getAmountOfNewWords()));
          return amountOfNewWordsButton;
       }
-      
-      
-      if (column == 4 &&  renderedTrainingCellRow.getToBeRepeatedWords() == 0) // leer, fertig
-      {
-         return fieldNotStarted;
-      }
-      else if (column == 4 &&  renderedTrainingCellRow.isFieldDone())
+
+      if (column == 4 && renderedTrainingCellRow.isFieldDone())
       {
          return fieldDone;
       }
+      else if (column == 4 && renderedTrainingCellRow.isStarted())
+      {
+         return fieldWork;
+      }
       else if (column == 4)
       {
-         fieldEmpty.setText("");
-         return fieldEmpty;
+         return fieldNotStarted;
       }
-         
+
       return null;
    }
 
