@@ -998,6 +998,7 @@ public final class Data
                break;
             }
          }
+         this.reloadChapterSet();
          newMap.clear();
       }
 

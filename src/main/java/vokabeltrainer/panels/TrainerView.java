@@ -1,19 +1,26 @@
 package vokabeltrainer.panels;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.FocusTraversalPolicy;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -26,6 +33,7 @@ import vokabeltrainer.InfoTextField;
 import vokabeltrainer.KeyboardHebrew;
 import vokabeltrainer.OneFocusTraversalPolicy;
 import vokabeltrainer.Settings;
+import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
@@ -81,6 +89,10 @@ public class TrainerView extends BackgroundPanelTiled
 
    private TrainerControllerConnector connector;
 
+   private JButton infoStopTrainingButton;
+
+   private JPanel infoStopTrainingPanel;
+
    public TrainerView(TrainerControllerConnector connector)
    {
       this.connector = connector;
@@ -125,6 +137,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       this.questionPanel.validate();
       this.questionPanel.repaint();
+      answerField.setRequestFocusEnabled(true);
    }
 
    private void initGui()
@@ -153,9 +166,9 @@ public class TrainerView extends BackgroundPanelTiled
    {
       Font labelFont = Main.getGermanBoldFont(15F);
 
-      JPanel vertical = new JPanel();
-      vertical.setLayout(new TotemLayout(vertical, 31));
-      vertical.setBackground(Settings.getGold());
+      JPanel verticalLeftPanel = new JPanel();
+      verticalLeftPanel.setLayout(new TotemLayout(verticalLeftPanel, 31));
+      verticalLeftPanel.setBackground(Settings.getGold());
 
       JPanel choices = new JPanel();
       choices.setLayout(new TrainLayout(choices, 15));
@@ -264,20 +277,33 @@ public class TrainerView extends BackgroundPanelTiled
 
       JPanel filler = new JPanel();
       filler.setBackground(Settings.getGold());
-      filler.setMinimumSize(new Dimension(150, 90));
-      filler.setMaximumSize(new Dimension(250, 150));
+      filler.setMinimumSize(new Dimension(150, 60));
+      filler.setMaximumSize(new Dimension(250, 120));
+
+      infoStopTrainingPanel = new JPanel(new BorderLayout());
+      infoStopTrainingPanel.setMinimumSize(new Dimension(150, 60));
+      infoStopTrainingPanel.setMinimumSize(new Dimension(250, 60));
+      infoStopTrainingPanel.setBackground(Settings.getGold());
+      infoStopTrainingButton = new JButton(
+            new ImageIcon(ApplicationImages.getInfoButtonIcon()));
+      infoStopTrainingButton.setBackground(new Color(0, 0, 0, 0));
+      infoStopTrainingButton.setMinimumSize(new Dimension(14, 26));
+      infoStopTrainingButton.setMaximumSize(new Dimension(14, 32));
+      infoStopTrainingButton.setMargin(new Insets(0, 0, 0, 0));
+      infoStopTrainingPanel.add(infoStopTrainingButton, BorderLayout.WEST);
 
       stopTrainingButton = new JButton("abbrechen");
       stopTrainingButton.setIcon(new ImageIcon(ApplicationImages.getStop()));
 
-      vertical.add(choices);
-      vertical.add(showOptions);
-      vertical.add(numbers);
-      vertical.add(nextWordButton);
-      vertical.add(filler);
-      vertical.add(stopTrainingButton);
+      verticalLeftPanel.add(choices);
+      verticalLeftPanel.add(showOptions);
+      verticalLeftPanel.add(numbers);
+      verticalLeftPanel.add(nextWordButton);
+      verticalLeftPanel.add(filler);
+      verticalLeftPanel.add(infoStopTrainingPanel);
+      verticalLeftPanel.add(stopTrainingButton);
 
-      return vertical;
+      return verticalLeftPanel;
    }
 
    private void initPictureWordPanel()
@@ -357,9 +383,8 @@ public class TrainerView extends BackgroundPanelTiled
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
          answerPanel
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 308));
-         answerField = new InfoTextField("Hier bitte die Lösung schreiben:",
-               "Bitte in das Textfeld klicken,",
-               "dann mit der hebräischen Tastatur", "die Antwort schreiben.");
+         answerField = new InfoTextField("Antwortfeld", "Antwortfeld:",
+               "Mit der hebräischen Tastatur", "bitte die Antwort schreiben.");
          answerField.setDocument(new HebrewDocument(true));
          answerField
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -382,8 +407,9 @@ public class TrainerView extends BackgroundPanelTiled
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 80));
          answerPanel
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 80));
-         answerField = new InfoTextField("Hier bitte die Lösung schreiben:",
-               "Bitte in das Textfeld klicken", "dann die Antwort schreiben.");
+         answerField = new InfoTextField("Antwortfeld", "Antwortfeld:",
+               "Sie können hier die Lösung schreiben",
+               "oder einfach laut nennen oder denken.");
          answerField.setDocument(new GermanDocument(true));
          answerField.setFont(Main.getGermanFont(20F));
          answerField
@@ -436,7 +462,14 @@ public class TrainerView extends BackgroundPanelTiled
       swapPanel.add("RED", imageFieldError);
       cardLayout.show(swapPanel, "START");
 
-      sendButton = new JButton("Antwort absenden");
+      if (Language.GERMAN.equals(languageDirection))
+      {
+         sendButton = new JButton("Antwort absenden");
+      }
+      else
+      {
+         sendButton = new JButton("Antwort anschauen");
+      }
       sendButton.setFont(Settings.getButtonFont());
       sendButton.setIcon(new ImageIcon(ApplicationImages.getSend()));
       sendButton.setMinimumSize(new Dimension(300, 40));
@@ -459,6 +492,48 @@ public class TrainerView extends BackgroundPanelTiled
       sendButton.addActionListener(event -> connector.send());
 
       nextWordButton.addActionListener(event -> nextWord());
+
+      infoStopTrainingButton.addActionListener(
+            event -> JOptionPane.showMessageDialog(infoStopTrainingPanel, "",
+                  "Cerebrummi©", JOptionPane.INFORMATION_MESSAGE,
+                  new ImageIcon(TextImage.make(
+                        "Wenn Sie auf abbrechen drücken,",
+                        "werden alle gelernten Antworten", "gespeichert."))));
+
+      infoStopTrainingButton.addMouseListener(new MouseListener()
+      {
+
+         @Override
+         public void mouseClicked(MouseEvent e)
+         {
+
+         }
+
+         @Override
+         public void mousePressed(MouseEvent e)
+         {
+
+         }
+
+         @Override
+         public void mouseReleased(MouseEvent e)
+         {
+
+         }
+
+         @Override
+         public void mouseEntered(MouseEvent e)
+         {
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+         }
+
+         @Override
+         public void mouseExited(MouseEvent e)
+         {
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+         }
+
+      });
 
       stopTrainingButton.addActionListener(event -> {
          connector.stopTraining(false);
@@ -544,11 +619,10 @@ public class TrainerView extends BackgroundPanelTiled
       feedbackPanel.add(answerPanel1);
       feedbackPanel.add(answerPanel2);
 
+      setHtoDanswerButtons();
       answerPanel2.add(answerOkay);
       answerPanel2.add(answerUndecided);
       answerPanel2.add(answerNotOkay);
-
-      setHtoDanswerButtons();
 
       enableHtoDAnswerButtons(true);
    }

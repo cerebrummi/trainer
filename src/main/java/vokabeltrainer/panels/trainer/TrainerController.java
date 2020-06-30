@@ -1,5 +1,6 @@
 package vokabeltrainer.panels.trainer;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -57,6 +58,15 @@ public class TrainerController implements TrainerControllerConnector
 
       Collections.shuffle(expressionsToBeTested);
       trainerView.init();
+      EventQueue.invokeLater(new Runnable()
+      {
+         @Override
+         public void run()
+         {
+            trainerView.getAnswerField().grabFocus();
+            trainerView.getAnswerField().requestFocus();// or inWindow
+         }
+      });
    }
 
    public TrainerView getTrainerView()
@@ -288,6 +298,20 @@ public class TrainerController implements TrainerControllerConnector
                         "Sie haben " + oldWordsToRepeat
                               + " bekannte Wörter bearbeitet.")));
          }
+      }
+      else if (trainerView.getWordsRight().getText().equals("0"))
+      {
+         JOptionPane.showMessageDialog(Common.getjFrame(), "",
+               Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+               new ImageIcon(
+                     TextImage.make("Das Training wurde abgebrochen.")));
+      }
+      else if (trainerView.getWordsRight().getText().equals("1"))
+      {
+         JOptionPane.showMessageDialog(Common.getjFrame(), "",
+               Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+               new ImageIcon(TextImage.make("Das Training wurde abgebrochen.",
+                     "Sie haben 1ne richtige", "Antwort gegeben.")));
       }
       else
       {
