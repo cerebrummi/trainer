@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import vokabeltrainer.common.Main;
@@ -20,6 +21,8 @@ public class Settings
    private final static Font toolbarButtonFont = Main.getHeaderFont(26F);
    private final static Font secondaryToolbarButtonFont = Main
          .getHeaderFont(18F);
+   
+   private static boolean soundOn = true;
 
    private Settings()
    {
@@ -179,5 +182,24 @@ public class Settings
    public static String getWindowTitle()
    {
       return "Cerebrummi©";
+   }
+
+   public static BufferedImage getSound()
+   {
+      if(soundOn)
+      {
+         return ApplicationImages.getSoundOn();
+      }
+      return ApplicationImages.getSoundOff();
+   }
+
+   public static boolean isSoundOn()
+   {
+      return soundOn;
+   }
+
+   public static void toggleSoundOnOff()
+   {
+      soundOn = !soundOn;
    }
 }

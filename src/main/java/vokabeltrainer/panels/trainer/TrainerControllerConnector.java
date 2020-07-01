@@ -24,4 +24,5 @@ public interface TrainerControllerConnector
    public void resultHtoDOkay();
    public void resultHtoDUndecided();
    public void resultHtoDFalse();
+   public void toggleSound();
 }

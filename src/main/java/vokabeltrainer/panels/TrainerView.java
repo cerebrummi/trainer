@@ -47,6 +47,7 @@ import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
+import vokabeltrainer.tonionlayout.TrainLayoutTest;
 import vokabeltrainer.types.Language;
 
 public class TrainerView extends BackgroundPanelTiled
@@ -84,6 +85,7 @@ public class TrainerView extends BackgroundPanelTiled
    private JButton answerUndecided;
    private JButton answerNotOkay;
    private JButton stopTrainingButton;
+   private JButton soundButton;
 
    private KeyboardHebrew keyboard;
 
@@ -275,21 +277,33 @@ public class TrainerView extends BackgroundPanelTiled
       nextWordButton.setIcon(new ImageIcon(ApplicationImages.getStart()));
       nextWordButton.setEnabled(false);
 
-      JPanel filler = new JPanel();
-      filler.setBackground(Settings.getGold());
-      filler.setMinimumSize(new Dimension(150, 60));
-      filler.setMaximumSize(new Dimension(250, 120));
+      JPanel horizontal = new JPanel();
+      horizontal.setLayout(new TrainLayout(horizontal));
+      
+      JPanel soundFiller = new JPanel(new FlowLayout());
+      soundFiller.setBackground(Settings.getGold());
+      soundFiller.setMinimumSize(new Dimension(60, 60));
+      soundFiller.setMaximumSize(new Dimension(280, 100));
+      soundButton = new JButton(new ImageIcon(Settings.getSound()));
+      soundButton.setBorder(BorderFactory.createEmptyBorder());
+      soundButton.setOpaque(false);
+      soundButton.setBackground(new Color(0,0,0,0));
+      
+      soundFiller.add(soundButton);
+      horizontal.add(soundFiller);
 
       infoStopTrainingPanel = new JPanel(new BorderLayout());
-      infoStopTrainingPanel.setMinimumSize(new Dimension(150, 60));
-      infoStopTrainingPanel.setMinimumSize(new Dimension(250, 60));
+      infoStopTrainingPanel.setMinimumSize(new Dimension(150, 40));
+      infoStopTrainingPanel.setMinimumSize(new Dimension(280, 40));
       infoStopTrainingPanel.setBackground(Settings.getGold());
+      
       infoStopTrainingButton = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
       infoStopTrainingButton.setBackground(new Color(0, 0, 0, 0));
       infoStopTrainingButton.setMinimumSize(new Dimension(14, 26));
       infoStopTrainingButton.setMaximumSize(new Dimension(14, 32));
       infoStopTrainingButton.setMargin(new Insets(0, 0, 0, 0));
+      
       infoStopTrainingPanel.add(infoStopTrainingButton, BorderLayout.WEST);
 
       stopTrainingButton = new JButton("abbrechen");
@@ -299,7 +313,7 @@ public class TrainerView extends BackgroundPanelTiled
       verticalLeftPanel.add(showOptions);
       verticalLeftPanel.add(numbers);
       verticalLeftPanel.add(nextWordButton);
-      verticalLeftPanel.add(filler);
+      verticalLeftPanel.add(horizontal);
       verticalLeftPanel.add(infoStopTrainingPanel);
       verticalLeftPanel.add(stopTrainingButton);
 
@@ -546,6 +560,8 @@ public class TrainerView extends BackgroundPanelTiled
       this.transcription.addActionListener(event -> {
          connector.setTranscription();
       });
+      
+      this.soundButton.addActionListener(event -> connector.toggleSound());
    }
 
    public void setHtoDanswerButtons()
@@ -718,6 +734,11 @@ public class TrainerView extends BackgroundPanelTiled
    public JButton getNextWordButton()
    {
       return nextWordButton;
+   }
+
+   public JButton getSoundButton()
+   {
+      return soundButton;
    }
 
    public void showResultBlue()

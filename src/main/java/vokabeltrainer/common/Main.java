@@ -29,6 +29,7 @@ import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.ApplicationSpecialPanels;
 import vokabeltrainer.Settings;
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.panels.letterpicture.Card;
 import vokabeltrainer.panels.letterpicture.LetterPictureButtonPanel;
 
 public final class Main
@@ -38,6 +39,8 @@ public final class Main
    private static Font germanBoldFont;
    private static Font hebrewFont;
    private static Font germanSmallFont;
+   
+   private static Card[] cards = {Card.BLANK, Card.PICTURE, Card.GERMAN, Card.HEBREW, Card.LETTER};
 
    public static void main(String[] args)
    {
@@ -93,14 +96,6 @@ public final class Main
                .read(Settings.class.getResourceAsStream("empty-list.png")));
          ApplicationImages.setTurn(
                ImageIO.read(Settings.class.getResourceAsStream("turn.png")));
-         ApplicationImages.setAnswerOkay(ImageIO
-               .read(Settings.class.getResourceAsStream("answer-okay.png")));
-         ApplicationImages.setAnswerNotOkay(ImageIO.read(
-               Settings.class.getResourceAsStream("answer-not-okay.png")));
-         ApplicationImages.setAnswerUndecided(ImageIO.read(
-               Settings.class.getResourceAsStream("answer-undecided.png")));
-         ApplicationImages.setReward(ImageIO
-               .read(Settings.class.getResourceAsStream("baerlohnung.png")));
          ApplicationImages.setLetterEmpty(ImageIO
                .read(Settings.class.getResourceAsStream("letter_empty.png")));
          ApplicationImages.setWork(
@@ -214,6 +209,7 @@ public final class Main
       String[] letterPicturesImages = directoryLetterPictures.list();
       Map<HebrewLetter, LetterPictureButtonPanel> letterPicturesPanelMap = new HashMap<>();
       Map<HebrewLetter, BufferedImage> letterPicturesMap = new HashMap<>();
+
       for (String letterPicture : letterPicturesImages)
       {
          try
@@ -224,7 +220,7 @@ public final class Main
                   .getResourceAsStream("buchstabenbilder/" + letterPicture));
             letterPicturesPanelMap.put(HebrewLetter.valueOf(names[1]),
                   new LetterPictureButtonPanel(picture, names[0],
-                        HebrewLetter.valueOf(names[1])));
+                        HebrewLetter.valueOf(names[1]), cards));
             letterPicturesMap.put(HebrewLetter.valueOf(names[1]), picture);
          }
          catch (IOException e)
@@ -236,7 +232,7 @@ public final class Main
             .setLetterPicturesPanelMap(letterPicturesPanelMap);
       ApplicationImages.setLetterPicturesMap(letterPicturesMap);
 
-      // images for training can be loaded later
+      // images and sounds for training can be loaded later
       SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>()
       {
          @Override
@@ -244,9 +240,20 @@ public final class Main
          {
             ApplicationImages.setStartImage(ImageIO
                   .read(Settings.class.getResourceAsStream("neutral.jpg")));
-
             ApplicationImages.setErrorImage(ImageIO
                   .read(Settings.class.getResourceAsStream("error.jpg")));
+            ApplicationImages.setAnswerOkay(ImageIO
+                  .read(Settings.class.getResourceAsStream("answer-okay.png")));
+            ApplicationImages.setAnswerNotOkay(ImageIO.read(
+                  Settings.class.getResourceAsStream("answer-not-okay.png")));
+            ApplicationImages.setAnswerUndecided(ImageIO.read(
+                  Settings.class.getResourceAsStream("answer-undecided.png")));
+            ApplicationImages.setReward(ImageIO
+                  .read(Settings.class.getResourceAsStream("baerlohnung.png")));
+            ApplicationImages.setSoundOn(ImageIO
+                  .read(Settings.class.getResourceAsStream("headphones-2104207.png")));
+            ApplicationImages.setSoundOff(ImageIO
+                  .read(Settings.class.getResourceAsStream("headphones-2104207-gray.png")));
 
             File directoryGreenImages = new File(
                   Settings.class.getResource("gruen").getFile());
@@ -283,6 +290,14 @@ public final class Main
                }
             }
             ApplicationImages.setBlueImages(blueImagesList);
+
+            ApplicationSound.setSplotchSound(AudioSystem.getAudioInputStream(
+                  Settings.class.getResourceAsStream("splotch-sound.wav")));
+            ApplicationSound.setClappingSound(AudioSystem.getAudioInputStream(
+                  Settings.class.getResourceAsStream("clapping-sound.wav")));
+            ApplicationSound.setWaveSound(AudioSystem.getAudioInputStream(
+                  Settings.class.getResourceAsStream("wave-sound.wav")));
+            
             return null;
          }
       };
@@ -307,12 +322,22 @@ public final class Main
             Common.setMainJPanel(new MainController().getMainView());
             window.getContentPane().add(Common.getMainJPanel());
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setSize(1300, 720);
+            window.setSize(1300, 735);
             window.setLocationRelativeTo(null);
             window.setVisible(true);
          }
       });
    }
+   
+   /*ClappingSound: Attribution License: Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use. 
+    * https://freesound.org/people/ebcrosby/sounds/339483/
+    * */
+   
+   /*WaveSound: Creative Commons 0 License.: No Copyright
+    The person who associated a work with this deed has dedicated the work to the public domain by waiving all of his or her rights to the work worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law.
+    You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. 
+    https://freesound.org/people/florianreichelt/sounds/450755/
+    */
 
    public static Font getGermanFont(float size)
    {

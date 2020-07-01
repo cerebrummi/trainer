@@ -38,7 +38,7 @@ public class LetterPictureButtonPanel extends JPanel
    private CardLayout layout;
 
    public LetterPictureButtonPanel(BufferedImage picture, String nameGerman,
-         HebrewLetter nameHebrew)
+         HebrewLetter nameHebrew, Card[] cards)
    {
       this.nameGerman = nameGerman;
       this.nameHebrew = nameHebrew;
@@ -57,11 +57,27 @@ public class LetterPictureButtonPanel extends JPanel
       initGermanCard();
       initBlankCard();
 
-      this.add(blankCard);
-      this.add(pictureCard);
-      this.add(germanCard);
-      this.add(hebrewCard);
-      this.add(letterCard);
+      for(Card card : cards)
+      {
+         switch(card)
+         {
+         case BLANK:
+            this.add(blankCard);
+            break;
+         case GERMAN:
+            this.add(germanCard);
+            break;
+         case HEBREW:
+            this.add(hebrewCard);
+            break;
+         case LETTER:
+            this.add(letterCard);
+            break;
+         case PICTURE:
+            this.add(pictureCard);
+            break;
+         }
+      }
 
       initController();
    }

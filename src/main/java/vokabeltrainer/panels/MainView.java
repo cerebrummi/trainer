@@ -73,7 +73,7 @@ public class MainView extends JPanel
       statisticsButton = new JButton("Statistik");
       settingsButton = new JButton("Einstellungen");
       aboveButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
-      letterPicturesButton = new JButton("Alefbet - Alfabet");
+      letterPicturesButton = new JButton("Alefbet");
 
       startButton.setFont(Settings.getToolBarButtonFont());
       vocabularyCardsButton.setFont(Settings.getToolBarButtonFont());

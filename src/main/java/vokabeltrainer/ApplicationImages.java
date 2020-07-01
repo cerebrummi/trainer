@@ -50,6 +50,8 @@ public class ApplicationImages
    private static BufferedImage letterEmpty;
    private static BufferedImage letterNone;
    private static BufferedImage work;
+   private static BufferedImage soundOn;
+   private static BufferedImage soundOff;
 
    public static void setImage(BufferedImage image)
    {
@@ -466,4 +468,23 @@ public class ApplicationImages
       return work;
    }
 
+   public static void setSoundOn(BufferedImage soundOn)
+   {
+      ApplicationImages.soundOn = soundOn;
+   }
+
+   public static BufferedImage getSoundOn()
+   {
+      return soundOn;
+   }
+
+   public static void setSoundOff(BufferedImage soundOff)
+   {
+      ApplicationImages.soundOff = soundOff;
+   }
+
+   public static BufferedImage getSoundOff()
+   {
+      return soundOff;
+   }
 }

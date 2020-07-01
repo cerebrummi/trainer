@@ -1,6 +1,7 @@
 package vokabeltrainer.panels.trainer;
 
 import java.awt.EventQueue;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -8,11 +9,16 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 
 import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
@@ -236,29 +242,125 @@ public class TrainerController implements TrainerControllerConnector
    {
       if (okay == null)
       {
-         trainerView.showResultBlue();
+         if (Settings.isSoundOn())
+         {
+            reactUndecidedWithSoundOn();
+         }
+         else
+         {
+            trainerView.showResultBlue();
+         }
       }
       else if (okay)
       {
+         if (Settings.isSoundOn())
+         {
+            reactOkayWithSoundOn();
+         }
+         else
+         {
+            trainerView.showResultGreen();
+         }
          expressionsToBeTested.remove(0);
-         trainerView.showResultGreen();
+
       }
       else
       {
+         if (Settings.isSoundOn())
+         {
+            reactFalseWithSoundOn();
+         }
+         else
+         {
+            trainerView.showResultRed();
+         }
          expressionsToBeTested.add(currentExpression);
-         trainerView.showResultRed();
       }
-
-      Collections.shuffle(expressionsToBeTested, new Random(System.nanoTime()));
 
       if (!expressionsToBeTested.isEmpty())
       {
+         Collections.shuffle(expressionsToBeTested,
+               new Random(System.nanoTime()));
          trainerView.getNextWordButton().setEnabled(true);
       }
       else
       {
          stopTraining(true);
       }
+   }
+
+   private void reactFalseWithSoundOn()
+   {
+      SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>()
+      {
+         @Override
+         protected Void doInBackground() throws Exception
+         {
+            try
+            {
+               Clip clip = AudioSystem.getClip();
+               clip.open(ApplicationSound.getSplotchSound());
+               clip.start();
+            }
+            catch (LineUnavailableException | IOException e)
+            {
+               // nothing
+            }
+            return null;
+         }
+      };
+      SwingWorker<Void, Void> worker2 = new SwingWorker<Void, Void>()
+      {
+         @Override
+         protected Void doInBackground() throws Exception
+         {
+            try
+            {
+               Thread.sleep(300);
+            }
+            catch (InterruptedException e)
+            {
+               // nothing
+            }
+            trainerView.showResultRed();
+            return null;
+         }
+      };
+      worker.execute();
+      worker2.execute();
+   }
+
+   private void reactOkayWithSoundOn()
+   {
+      try
+      {
+         Clip clip = AudioSystem.getClip();
+         clip.open(ApplicationSound.getClappingSound());
+         clip.start();
+      }
+      catch (LineUnavailableException | IOException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+
+      trainerView.showResultGreen();
+   }
+
+   private void reactUndecidedWithSoundOn()
+   {
+      try
+      {
+         Clip clip = AudioSystem.getClip();
+         clip.open(ApplicationSound.getWaveSound());
+         clip.start();
+      }
+      catch (LineUnavailableException | IOException e)
+      {
+         // nothing
+      }
+
+      trainerView.showResultBlue();
    }
 
    public void stopTraining(boolean finished)
@@ -272,7 +374,7 @@ public class TrainerController implements TrainerControllerConnector
             JOptionPane.showMessageDialog(Common.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(
-                        ApplicationImages.getReward(), "Bravo, sie haben diese",
+                        ApplicationImages.getReward(), "Wunderbar, sie haben diese",
                         "Trainingseinheit erfolgreich", "beendet.",
                         "Sie haben " + newWordsToLearn + " neue Wörter",
                         "und " + oldWordsToRepeat
@@ -283,7 +385,7 @@ public class TrainerController implements TrainerControllerConnector
             JOptionPane.showMessageDialog(Common.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(
-                        ApplicationImages.getReward(), "Bravo, sie haben diese",
+                        ApplicationImages.getReward(), "Wunderbar, sie haben diese",
                         "Trainingseinheit erfolgreich", "beendet.",
                         "Sie haben " + newWordsToLearn + " neue Wörter",
                         "bearbeitet.")));
@@ -293,7 +395,7 @@ public class TrainerController implements TrainerControllerConnector
             JOptionPane.showMessageDialog(Common.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(
-                        ApplicationImages.getReward(), "Bravo, sie haben diese",
+                        ApplicationImages.getReward(), "Wunderbar, sie haben diese",
                         "Trainingseinheit erfolgreich", "beendet.",
                         "Sie haben " + oldWordsToRepeat
                               + " bekannte Wörter bearbeitet.")));
@@ -382,6 +484,13 @@ public class TrainerController implements TrainerControllerConnector
    public List<Expression> getExpressionsToBeTested()
    {
       return expressionsToBeTested;
+   }
+
+   @Override
+   public void toggleSound()
+   {
+      Settings.toggleSoundOnOff();
+      trainerView.getSoundButton().setIcon(new ImageIcon(Settings.getSound()));
    }
 
 }

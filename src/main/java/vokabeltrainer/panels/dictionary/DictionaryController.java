@@ -10,8 +10,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-
 import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.Command;
 import vokabeltrainer.Settings;

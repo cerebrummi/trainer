@@ -14,6 +14,9 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 public class LetterPictureWordPanel extends JPanel
 {
    private static final long serialVersionUID = 4694738420843719008L;
+   
+   private Card[] cards = {Card.LETTER, Card.HEBREW};
+   private Card[] cards2 = {Card.PICTURE, Card.GERMAN};
 
    public LetterPictureWordPanel()
    {
@@ -44,7 +47,7 @@ public class LetterPictureWordPanel extends JPanel
          {
             displayPanel.add(new LetterPictureButtonPanel(
                   ApplicationImages.getLetterPicturesMap().get(hebrewLetter),
-                  hebrewLetter.getGerman(), hebrewLetter));
+                  hebrewLetter.getGerman(), hebrewLetter, cards));
          }
       }
 
@@ -60,8 +63,7 @@ public class LetterPictureWordPanel extends JPanel
          {
             LetterPictureButtonPanel panel = new LetterPictureButtonPanel(
                   ApplicationImages.getLetterPicturesMap().get(hebrewLetter),
-                  hebrewLetter.getGerman(), hebrewLetter);
-            panel.nextCard();
+                  hebrewLetter.getGerman(), hebrewLetter, cards2);
             displayPanel2.add(panel);
          }
       }
