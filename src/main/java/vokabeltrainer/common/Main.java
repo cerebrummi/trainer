@@ -12,9 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -22,6 +25,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.ApplicationSpecialPanels;
 import vokabeltrainer.Settings;
 import vokabeltrainer.editing.HebrewLetter;
@@ -89,20 +93,22 @@ public final class Main
                .read(Settings.class.getResourceAsStream("empty-list.png")));
          ApplicationImages.setTurn(
                ImageIO.read(Settings.class.getResourceAsStream("turn.png")));
-         ApplicationImages.setAnswerOkay(
-               ImageIO.read(Settings.class.getResourceAsStream("answer-okay.png")));
-         ApplicationImages.setAnswerNotOkay(
-               ImageIO.read(Settings.class.getResourceAsStream("answer-not-okay.png")));
-         ApplicationImages.setAnswerUndecided(
-               ImageIO.read(Settings.class.getResourceAsStream("answer-undecided.png")));
-         ApplicationImages.setReward(
-               ImageIO.read(Settings.class.getResourceAsStream("baerlohnung.png")));
-         ApplicationImages.setLetterEmpty(
-               ImageIO.read(Settings.class.getResourceAsStream("letter_empty.png")));
+         ApplicationImages.setAnswerOkay(ImageIO
+               .read(Settings.class.getResourceAsStream("answer-okay.png")));
+         ApplicationImages.setAnswerNotOkay(ImageIO.read(
+               Settings.class.getResourceAsStream("answer-not-okay.png")));
+         ApplicationImages.setAnswerUndecided(ImageIO.read(
+               Settings.class.getResourceAsStream("answer-undecided.png")));
+         ApplicationImages.setReward(ImageIO
+               .read(Settings.class.getResourceAsStream("baerlohnung.png")));
+         ApplicationImages.setLetterEmpty(ImageIO
+               .read(Settings.class.getResourceAsStream("letter_empty.png")));
          ApplicationImages.setWork(
                ImageIO.read(Settings.class.getResourceAsStream("work.png")));
+         ApplicationSound.setShredderSound(AudioSystem.getAudioInputStream(
+               Settings.class.getResourceAsStream("shredder-sound.wav")));
       }
-      catch (IOException e)
+      catch (IOException | UnsupportedAudioFileException e)
       {
          e.printStackTrace();
       }
@@ -116,7 +122,7 @@ public final class Main
       {
          germanFont = new Font("Verdana", Font.PLAIN, 16);
       }
-      
+
       try
       {
          germanSmallFont = Font.createFont(Font.TRUETYPE_FONT,
@@ -136,7 +142,7 @@ public final class Main
       {
          germanFont = new Font("Verdana", Font.BOLD, 16);
       }
-      
+
       try
       {
          headerFont = Font.createFont(Font.TRUETYPE_FONT,
@@ -203,42 +209,6 @@ public final class Main
 
       }
 
-      File directoryGreenImages = new File(
-            Settings.class.getResource("gruen").getFile());
-      String[] greenImages = directoryGreenImages.list();
-      List<BufferedImage> greenImagesList = new ArrayList<>();
-      for (String greenImage : greenImages)
-      {
-         try
-         {
-            greenImagesList.add(ImageIO.read(
-                  Settings.class.getResourceAsStream("gruen/" + greenImage)));
-         }
-         catch (IOException e)
-         {
-
-         }
-      }
-      ApplicationImages.setGreenImages(greenImagesList);
-      
-      File directoryBlueImages = new File(
-            Settings.class.getResource("blue").getFile());
-      String[] blueImages = directoryBlueImages.list();
-      List<BufferedImage> blueImagesList = new ArrayList<>();
-      for (String blueImage : blueImages)
-      {
-         try
-         {
-            blueImagesList.add(ImageIO.read(
-                  Settings.class.getResourceAsStream("blue/" + blueImage)));
-         }
-         catch (IOException e)
-         {
-
-         }
-      }
-      ApplicationImages.setBlueImages(blueImagesList);
-
       File directoryLetterPictures = new File(
             Settings.class.getResource("buchstabenbilder").getFile());
       String[] letterPicturesImages = directoryLetterPictures.list();
@@ -266,18 +236,58 @@ public final class Main
             .setLetterPicturesPanelMap(letterPicturesPanelMap);
       ApplicationImages.setLetterPicturesMap(letterPicturesMap);
 
-      try
+      // images for training can be loaded later
+      SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>()
       {
-         ApplicationImages.setStartImage(
-               ImageIO.read(Settings.class.getResourceAsStream("neutral.jpg")));
+         @Override
+         protected Void doInBackground() throws Exception
+         {
+            ApplicationImages.setStartImage(ImageIO
+                  .read(Settings.class.getResourceAsStream("neutral.jpg")));
 
-         ApplicationImages.setErrorImage(ImageIO.read(Settings.class
-               .getResourceAsStream("error.jpg")));
-      }
-      catch (IOException e)
-      {
+            ApplicationImages.setErrorImage(ImageIO
+                  .read(Settings.class.getResourceAsStream("error.jpg")));
 
-      }
+            File directoryGreenImages = new File(
+                  Settings.class.getResource("gruen").getFile());
+            String[] greenImages = directoryGreenImages.list();
+            List<BufferedImage> greenImagesList = new ArrayList<>();
+            for (String greenImage : greenImages)
+            {
+               try
+               {
+                  greenImagesList.add(ImageIO.read(Settings.class
+                        .getResourceAsStream("gruen/" + greenImage)));
+               }
+               catch (IOException e)
+               {
+
+               }
+            }
+            ApplicationImages.setGreenImages(greenImagesList);
+
+            File directoryBlueImages = new File(
+                  Settings.class.getResource("blue").getFile());
+            String[] blueImages = directoryBlueImages.list();
+            List<BufferedImage> blueImagesList = new ArrayList<>();
+            for (String blueImage : blueImages)
+            {
+               try
+               {
+                  blueImagesList.add(ImageIO.read(Settings.class
+                        .getResourceAsStream("blue/" + blueImage)));
+               }
+               catch (IOException e)
+               {
+
+               }
+            }
+            ApplicationImages.setBlueImages(blueImagesList);
+            return null;
+         }
+      };
+
+      worker.execute();
 
       SwingUtilities.invokeLater(new Runnable()
       {
@@ -285,7 +295,7 @@ public final class Main
          public void run()
          {
             JFrame window = new JFrame();
-            window.setResizable(true);
+            window.setResizable(false);
             window.setIconImage(
                   new ImageIcon(Settings.class.getResource("Cerebrummi.png"))
                         .getImage());
@@ -306,13 +316,13 @@ public final class Main
 
    public static Font getGermanFont(float size)
    {
-      if(size < 21)
+      if (size < 21)
       {
          return germanSmallFont.deriveFont(size);
       }
       return germanFont.deriveFont(size);
    }
-   
+
    public static Font getGermanBoldFont(float size)
    {
       return germanBoldFont.deriveFont(size);

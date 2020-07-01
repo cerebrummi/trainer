@@ -3,10 +3,16 @@ package vokabeltrainer.panels.dictionary;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.io.IOException;
 import java.util.List;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 
+import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
@@ -268,6 +274,17 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       if (dictionaryView.askForShredderConfirmation() == 0)
       {
+         try
+         {
+            Clip clip = AudioSystem.getClip();
+            clip.open(ApplicationSound.getShredderSound());
+            clip.start();
+         }
+         catch (LineUnavailableException | IOException e)
+         {
+            // nothing
+         }
+         
          Data.shredderDeletedExpressions();
          save();
       }

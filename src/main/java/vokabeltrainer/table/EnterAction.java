@@ -32,7 +32,8 @@ public class EnterAction extends AbstractAction
    public void actionPerformed(ActionEvent e)
    {
       int selectedRow = table.getSelectedRow();
-      int scrollHeight = connector.getDictionaryPanel().getTableScroller().getVerticalScrollBar().getValue();
+      int scrollHeight = connector.getDictionaryPanel().getTableScroller()
+            .getVerticalScrollBar().getValue();
       if (selectedRow >= 0)
       {
          editor.setExpression((Expression) table.getValueAt(selectedRow, 0));
@@ -40,9 +41,10 @@ public class EnterAction extends AbstractAction
          editor.setVisible(true);
          if (editor.isSave())
          {
-            if(editor.isKindChanged())
+            if (editor.isKindChanged())
             {
-               Data.changeKindofExpression(editor.getOldKind(), editor.getExpression());
+               Data.changeKindofExpression(editor.getOldKind(),
+                     editor.getExpression());
             }
             connector.save();
          }
@@ -50,14 +52,19 @@ public class EnterAction extends AbstractAction
          {
             public void run()
             {
-               connector.getDictionaryPanel().getTableScroller()
-                     .getVerticalScrollBar()
-                     .setMaximum(Settings.dictionaryTableRowHeight() * connector
-                           .getDictionaryPanel().getTable().getRowCount());
-               connector.getDictionaryPanel().getTableScroller()
-                     .getVerticalScrollBar().setValue(scrollHeight);
-               connector.getDictionaryPanel().getTable().changeSelection(selectedRow, 0, false, false);
-               connector.getDictionaryPanel().getTable().grabFocus();
+               if (connector.getDictionaryPanel().isTableNotNull())
+               {
+                  connector.getDictionaryPanel().getTableScroller()
+                        .getVerticalScrollBar()
+                        .setMaximum(Settings.dictionaryTableRowHeight()
+                              * connector.getDictionaryPanel().getTable()
+                                    .getRowCount());
+                  connector.getDictionaryPanel().getTableScroller()
+                        .getVerticalScrollBar().setValue(scrollHeight);
+                  connector.getDictionaryPanel().getTable()
+                        .changeSelection(selectedRow, 0, false, false);
+                  connector.getDictionaryPanel().getTable().grabFocus();
+               }
             }
          });
       }

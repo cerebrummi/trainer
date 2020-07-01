@@ -167,7 +167,7 @@ public class TrainerView extends BackgroundPanelTiled
       Font labelFont = Main.getGermanBoldFont(15F);
 
       JPanel verticalLeftPanel = new JPanel();
-      verticalLeftPanel.setLayout(new TotemLayout(verticalLeftPanel, 31));
+      verticalLeftPanel.setLayout(new TotemLayout(verticalLeftPanel, 15));
       verticalLeftPanel.setBackground(Settings.getGold());
 
       JPanel choices = new JPanel();
