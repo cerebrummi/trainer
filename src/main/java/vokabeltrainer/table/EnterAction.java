@@ -9,13 +9,13 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.table.list.editor.ExpressionEditorController;
-import vokabeltrainer.table.list.editor.ExpressionEditorDialog;
+import vokabeltrainer.table.list.editor.ExpressionEditorView;
 import vokabeltrainer.types.Expression;
 
 public class EnterAction extends AbstractAction
 {
    private ExpressionTable table;
-   private ExpressionEditorDialog editor;
+   private ExpressionEditorView editor;
    private DictionaryControllerConnector connector;
 
    public EnterAction(ExpressionTable table,

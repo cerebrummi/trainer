@@ -19,12 +19,12 @@ import vokabeltrainer.panels.DictionaryView;
 import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.ExpressionEditorController;
-import vokabeltrainer.table.list.editor.ExpressionEditorDialog;
+import vokabeltrainer.table.list.editor.ExpressionEditorView;
 import vokabeltrainer.types.Expression;
 
 public class DictionaryController implements DictionaryControllerConnector
 {
-   private DictionaryView dictionaryView;
+   private DictionaryViewConnector dictionaryView;
    private String currentChapter;
 
    public DictionaryController()
@@ -87,7 +87,7 @@ public class DictionaryController implements DictionaryControllerConnector
       }
    }
 
-   public DictionaryView getDictionaryPanel()
+   public DictionaryViewConnector getDictionaryPanel()
    {
       return dictionaryView;
    }
@@ -100,7 +100,7 @@ public class DictionaryController implements DictionaryControllerConnector
       {
          selectedRow = dictionaryView.getTable().getSelectedRow();
       }
-      ExpressionEditorDialog editor = new ExpressionEditorController()
+      ExpressionEditorView editor = new ExpressionEditorController()
             .getExpressionEditorDialog();
       editor.setExpression(new Expression(true));
       editor.setLocationRelativeTo(null);

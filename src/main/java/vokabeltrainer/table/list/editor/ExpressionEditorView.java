@@ -48,8 +48,8 @@ import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Gender;
 import vokabeltrainer.types.Numerus;
 
-public class ExpressionEditorDialog extends JDialog
-      implements ExpressionEditorDialogConnector
+public class ExpressionEditorView extends JDialog
+      implements ExpressionEditorViewConnector
 {
    private static final int WIDTH_INFO_PANEL = 250;
 
@@ -92,7 +92,7 @@ public class ExpressionEditorDialog extends JDialog
    @SuppressWarnings("unused")
    private ExpressionEditorControllerConnector connector;
 
-   public ExpressionEditorDialog(ExpressionEditorControllerConnector connector)
+   public ExpressionEditorView(ExpressionEditorControllerConnector connector)
    {
       super(Common.getjFrame(), "Cerebrummi©",
             Dialog.ModalityType.APPLICATION_MODAL);

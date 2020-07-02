@@ -42,7 +42,7 @@ public class Expression
    {
       for (int i = 0; i < searchwords.length; i++)
       {
-         this.searchwordsGerman.add(searchwords[i].trim().toLowerCase());
+         this.searchwordsGerman.add(searchwords[i].trim());
       }
    }
 
@@ -50,7 +50,7 @@ public class Expression
    {
       for (int i = 0; i < searchwords.length; i++)
       {
-         this.searchwordsHebrew.add(searchwords[i].trim().toLowerCase());
+         this.searchwordsHebrew.add(searchwords[i].trim());
       }
    }
 

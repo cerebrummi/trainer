@@ -2,6 +2,10 @@ package vokabeltrainer.panels.dictionary;
 
 import java.util.List;
 
+import javax.swing.JScrollPane;
+
+import vokabeltrainer.table.ExpressionTable;
+import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
@@ -31,4 +35,11 @@ public interface DictionaryViewConnector
    public String getSearchPhraseHebrew();
    public void switchSearchLanguagePanel(String actionCommand);
    public void selectChapter(String currentChapter);
+   public ExpressionTable getTable();
+   public JScrollPane getTableScroller();
+   public int askForShredderConfirmation();
+   public void clearTable();
+   public void removeChapterListSelectionListener();
+   public void addChapterListSelectionListener();
+   public void doShowTable(ExpressionTableModel tableModel);
 }

@@ -776,7 +776,7 @@ public final class Data
 
       private boolean equalsGermanSearchWord(String text, Expression expression)
       {
-         text = text.toLowerCase().trim();
+         text = text.trim();
          List<String> searchwords = expression.getSearchwordsGerman();
          for (String word : searchwords)
          {
@@ -790,7 +790,7 @@ public final class Data
 
       private boolean equalsHebrewSearchWord(String text, Expression expression)
       {
-         text = text.toLowerCase().trim();
+         text = text.trim();
          List<String> searchwords = expression.getSearchwordsHebrew();
          for (String word : searchwords)
          {
@@ -810,7 +810,7 @@ public final class Data
 
       private boolean equalsGermanWordStart(String text, Expression expression)
       {
-         text = text.toLowerCase().trim();
+         text = text.trim();
          return expression.getGerman().toLowerCase().startsWith(text);
       }
 

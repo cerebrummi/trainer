@@ -1,7 +1,5 @@
 package vokabeltrainer.panels.dictionary;
 
-import vokabeltrainer.panels.DictionaryView;
-
 public interface DictionaryControllerConnector
 {
    public void save();
@@ -23,5 +21,5 @@ public interface DictionaryControllerConnector
    public void switchLanguage(String actionCommand);
    public void displayChapterWhich(String chapter);
    public void displayExpressionKindWhich();
-   public DictionaryView getDictionaryPanel();
+   public DictionaryViewConnector getDictionaryPanel();
 }

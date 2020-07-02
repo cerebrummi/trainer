@@ -15,6 +15,7 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.dictionary.DictionaryController;
+import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingView;
@@ -31,7 +32,7 @@ public class MainView extends JPanel
    private JButton aboveButton;
    private JButton letterPicturesButton;
    private JPanel activeComponent;
-   private DictionaryView dictionaryPanel;
+   private DictionaryViewConnector dictionaryPanel;
    private StatisticsPanel statisticsPanel;
    private StartPanel startPanel;
    private SettingsPanel settingsPanel;
@@ -104,7 +105,7 @@ public class MainView extends JPanel
          {
             remove(activeComponent);
          }
-         activeComponent = dictionaryPanel;
+         activeComponent = (JPanel) dictionaryPanel;
          add(activeComponent, BorderLayout.CENTER);
          validate();
          repaint();
@@ -233,7 +234,7 @@ public class MainView extends JPanel
       return letterPicturesButton;
    }
 
-   public DictionaryView getDictionaryPanel()
+   public DictionaryViewConnector getDictionaryPanel()
    {
       return dictionaryPanel;
    }
