@@ -40,11 +40,6 @@ public class Result
    {
       return letterFeedbackImages;
    }
-   
-   public void reverseLetterFeedbackImage()
-   {
-      Collections.reverse(letterFeedbackImages);
-   }
 
    public int getWidth()
    {

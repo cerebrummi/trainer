@@ -1,7 +1,6 @@
 package vokabeltrainer.words;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +12,7 @@ public class WordMatching
    public static WordMatchingResult matchHebrew(String worddictionary,
          String wordtest)
    {
-      if (worddictionary.isBlank())
+      if (worddictionary.trim().isEmpty())
       {
          return null;
       }
@@ -50,38 +49,41 @@ public class WordMatching
          }
       }
 
-//      System.out.println(Arrays.deepToString(data));
+      // System.out.println(Arrays.deepToString(data));
 
       int rowMax = 0;
-      int rowMaxValue = 0;
+      int rowSameMaxValue = 0;
+      int rowDiffValueAtSameMax = 0;
       // compare words
       for (int row = 1; row < numberOfRows; row++)
       {
-         int rowValue = 0;
+         int rowSameValue = 0;
+         int rowDiffValue = 0;
          for (int col = 0; col < numberOfCols; col++)
          {
-            rowValue += evaluateSame(data[0][col], data[row][col]);
+            rowSameValue += evaluateSame(data[0][col], data[row][col]);
+            rowDiffValue += evaluateDifference(data[0][col], data[row][col]);
          }
-         if (rowValue > rowMaxValue)
+         if (rowSameValue > rowSameMaxValue)
          {
-            rowMaxValue = rowValue;
+            rowSameMaxValue = rowSameValue;
+            rowDiffValueAtSameMax = rowDiffValue;
             rowMax = row;
          }
       }
 
-      if (rowMaxValue == 0)
+      if (rowSameMaxValue == 0)
       {
          result.setCompletelyFalse(true);
-         return result;
       }
-
-      if (sizeDic == rowMaxValue)
+      else if (sizeDic == rowSameMaxValue && rowDiffValueAtSameMax == 0)
       {
          result.setOkay(true);
-         return result;
       }
-
-      result.setPartlyFalse(true);
+      else
+      {
+         result.setPartlyFalse(true);
+      }
 
       Collections.reverse(lettersDic);
 
@@ -100,37 +102,59 @@ public class WordMatching
 
       int deltaCol = findDeltaColumns(dataTest, sizeTest);
       result.setDeltaCol(deltaCol);
-//      if (deltaCol > 0) // moved to the left
-//      {
-//         cutOfUnnecessaryDataToTheRightFORleftShift(dataDic, dataTest,
-//               numberOfCols, sizeTest);
-//
-//         moveBeginningLettersOfdataTestToTheRightIfPossible(dataDic, dataTest,
-//               deltaCol);
-//
-//         moveEndingLettersOfdataTestToTheLeftIfPossible(dataDic, dataTest,
-//               deltaCol, sizeDic, sizeTest);
-//
-//         cutOfUnnecessaryDataToTheLeft(dataDic);
-//         cutOfUnnecessaryDataToTheLeft(dataTest);
-//
-//         lookForDoubleNullAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
-//      }
-//      else if (deltaCol < 0) // moved to the right
-//      {
-//         cutOfUnnecessaryDataToTheRightFORrightShift(dataDic, dataTest,
-//               numberOfCols, sizeTest, deltaCol);
+      if (deltaCol > 0) // moved to the left
+      {
+         cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
 
-//         moveEndingLettersOfdataTestToTheLeftIfPossible(dataDic, dataTest,
-//               deltaCol, sizeDic, sizeTest);
+         moveBeginningLettersOfdataTestToTheRightIfPossible(dataDic, dataTest,
+               deltaCol);
 
-//         cutOfUnnecessaryDataToTheLeft(dataDic);
-//         cutOfUnnecessaryDataToTheLeft(dataTest);
-//      }
+         moveEndingLettersOfdataTestToTheLeftIfPossible(dataDic, dataTest,
+               deltaCol, sizeDic, sizeTest);
+
+         lookForNullAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
+
+         cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
+      }
+      else if (deltaCol < 0) // moved to the right
+      {
+         cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
+
+         moveEndingLettersOfdataTestToTheLeftIfPossible(dataDic, dataTest,
+               deltaCol, sizeDic, sizeTest);
+
+         lookForNullAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
+
+         cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
+      }
+      else if (result.isPartlyFalse()) // not moved
+      {
+         cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
+
+         moveEndingLettersOfdataTestToTheLeftIfPossible(dataDic, dataTest,
+               deltaCol, sizeDic, sizeTest);
+
+         lookForNullAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
+
+         cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
+      }
+      else // either okay or completely false
+      {
+         cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
+         cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
+      }
 
       result.setDataDic(dataDic); // for testing purposes
       result.setDataTest(dataTest); // for testing purposes
 
+      transferToHebrewLetters(result, dataDic, dataTest);
+
+      return result;
+   }
+
+   private static void transferToHebrewLetters(WordMatchingResult result,
+         List<String> dataDic, List<String> dataTest)
+   {
       // transfer back into hebrew letter enums
       List<HebrewLetter> hebrewWordFromDictionary = new ArrayList<>();
       for (String letter : dataDic)
@@ -159,26 +183,6 @@ public class WordMatching
          }
       }
       result.setHebrewTest(hebrewWordFromTest);
-
-      return result;
-   }
-
-   private static void lookForDoubleNullAndMoveLettersToTheLeftIfPossible(
-         List<String> dataDic, List<String> dataTest)
-   {
-      for (int t1 = 0, t2 = 1; t1 < dataTest.size(); t1++, t2++)
-      {
-         if (dataTest.get(t1) == null && dataTest.get(t2) == null)
-         {
-            int index = readIndexOfNextLetterToTheRight(dataTest, t2);
-            if (index > 0
-                  && dataTest.get(index).equalsIgnoreCase(dataDic.get(t2)))
-            {
-               String letterToBeMoved = dataTest.remove(index);
-               dataTest.add(t2, letterToBeMoved);
-            }
-         }
-      }
    }
 
    private static int readIndexOfNextLetterToTheRight(List<String> dataTest,
@@ -214,20 +218,36 @@ public class WordMatching
       }
    }
 
-   private static void cutOfUnnecessaryDataToTheLeft(List<String> dataDic)
+   private static void cutOfUnnecessaryDataToTheLeft(List<String> dataDic, List<String> dataTest)
    {
       while (true)
       {
-         if (dataDic.get(0) == null)
+         if (dataDic.get(0) == null && dataTest.get(0) == null)
          {
             dataDic.remove(0);
+            dataTest.remove(0);
          }
          else
          {
             break;
          }
       }
-
+   }
+   
+   private static void cutOfUnnecessaryDataToTheRight(List<String> dataDic, List<String> dataTest)
+   {
+      while (true)
+      {
+         if (dataDic.get(dataDic.size()-1) == null && dataTest.get(dataTest.size()-1) == null)
+         {
+            dataDic.remove(dataDic.size()-1);
+            dataTest.remove(dataTest.size()-1);
+         }
+         else
+         {
+            break;
+         }
+      }
    }
 
    private static void moveBeginningLettersOfdataTestToTheRightIfPossible(
@@ -245,29 +265,6 @@ public class WordMatching
          {
             break;
          }
-      }
-   }
-
-   private static void cutOfUnnecessaryDataToTheRightFORleftShift(
-         List<String> dataDic, List<String> dataTest, int numberOfCol,
-         int sizeTest)
-   {
-      for (int i = numberOfCol - 1; i > numberOfCol - sizeTest - 1; i--)
-      {
-         dataDic.remove(i);
-         dataTest.remove(i);
-      }
-   }
-
-   private static void cutOfUnnecessaryDataToTheRightFORrightShift(
-         List<String> dataDic, List<String> dataTest, int numberOfCol,
-         int sizeTest, int deltaCol)
-   {
-      for (int i = numberOfCol - 1; i > numberOfCol - sizeTest - 1
-            + deltaCol; i--)
-      {
-         dataDic.remove(i);
-         dataTest.remove(i);
       }
    }
 
@@ -289,6 +286,24 @@ public class WordMatching
       return deltaTest - sizeTest;
    }
 
+   private static void lookForNullAndMoveLettersToTheLeftIfPossible(
+         List<String> dataDic, List<String> dataTest)
+   {
+      for (int t1 = 0; t1 < dataTest.size(); t1++)
+      {
+         if (dataTest.get(t1) == null && dataDic.get(t1) != null)
+         {
+            int index = readIndexOfNextLetterToTheRight(dataTest, t1);
+            if (index > 0 && WordMatching.evaluateSame(dataTest.get(index),
+                  dataDic.get(t1)) == 1)
+            {
+               String letterToBeMoved = dataTest.remove(index);
+               dataTest.add(t1, letterToBeMoved);
+            }
+         }
+      }
+   }
+
    private static int evaluateSame(String string, String string2)
    {
       if (string == null && string2 == null)
@@ -304,5 +319,22 @@ public class WordMatching
          return 1;
       }
       return 0;
+   }
+
+   private static int evaluateDifference(String string, String string2)
+   {
+      if (string == null && string2 == null)
+      {
+         return 0;
+      }
+      if (string == null || string2 == null)
+      {
+         return 1;
+      }
+      if (string.equalsIgnoreCase(string2))
+      {
+         return 0;
+      }
+      return 1;
    }
 }
