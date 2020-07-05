@@ -137,6 +137,9 @@ public class TrainerController implements TrainerControllerConnector
 
    public void setNextTest()
    {
+      trainerView.getWordPanel().removeAll();
+      trainerView.getWordPanel().validate();
+      trainerView.getWordPanel().repaint();
       currentExpression = expressionsToBeTested.get(0);
 
       switch (languageDirection)

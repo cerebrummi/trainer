@@ -47,7 +47,6 @@ import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.tonionlayout.TrainLayoutTest;
 import vokabeltrainer.types.Language;
 
 public class TrainerView extends BackgroundPanelTiled

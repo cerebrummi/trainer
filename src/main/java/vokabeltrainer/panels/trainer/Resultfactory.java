@@ -16,16 +16,18 @@ public class Resultfactory
       Result result = new Result();
       result.setExpression(expression);
 
-      WordMatchingResult wordMatchingResult = WordMatching.matchHebrew(answer, expression.getHebrew());
-      
-      List<HebrewLetter> answerLetters = wordMatchingResult.getHebrewDictionary();
-      List<HebrewLetter> expressionLetters = wordMatchingResult.getHebrewTest();
+      WordMatchingResult wordMatchingResult = WordMatching.matchHebrew(expression.getHebrew(), answer
+            );
+
+      List<HebrewLetter> answerLetters = wordMatchingResult.getHebrewTest();
+      List<HebrewLetter> expressionLetters = wordMatchingResult
+            .getHebrewDictionary();
       result.setOkay(wordMatchingResult.isOkay());
 
-      for (int i = 0; i < answerLetters.size()
-            && i < expressionLetters.size(); i++)
+      for (int i = 0; i < answerLetters.size(); i++)
       {
-         if (answerLetters.get(i).equals(expressionLetters.get(i)) || HebrewLetter.isQuestionmark(answerLetters.get(i)))
+         if (answerLetters.get(i).equals(expressionLetters.get(i))
+               || HebrewLetter.isQuestionmark(expressionLetters.get(i)))
          {
             result.getLetterFeedbackImages()
                   .add(LetterFeedbackImage.make(answerLetters.get(i), true));

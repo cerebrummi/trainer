@@ -4,10 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import vokabeltrainer.editing.HebrewLetter;
 
 public class TestWordMatching
 {
@@ -33,6 +36,9 @@ public class TestWordMatching
    String wordTest13 = "חברים"; // correct spelling test
    String wordTest14 = "בּקר טוב"; // wrong spelling
    String wordDic14 = "בּוקר טוב"; // correct spelling of 14
+   String wordTest15 = "נימות"; // wrong spelling
+   String wordDic15 = "נעימות"; // correct spelling
+   String wordTest15b = "נ ימות"; // corrected spelling
 
    String[] wordTest4Array = { "HAEI", "TET", "JOD", "SSAMECH", null, "WET",
          "JOD", "NUN", "WAW", null, "BET" };
@@ -86,6 +92,16 @@ public class TestWordMatching
          null, "BET" };
    List<String> wordTest14List = new LinkedList<String>(
          Arrays.asList(wordTest14Array));
+   
+   String[] wordTest15Array = { "TAW", "WAW", "MEM", "JOD",
+         null, "NUN" };
+   List<String> wordTest15List = new LinkedList<String>(
+         Arrays.asList(wordTest15Array));
+   
+   String[] wordTest15bArray = { "TAW", "WAW", "MEM", "JOD",
+         "SPACE", "NUN" };
+   List<String> wordTest15bList = new LinkedList<String>(
+         Arrays.asList(wordTest15bArray));
 
    @Test
    public void testMatchHebrew_Okay()
@@ -200,5 +216,34 @@ public class TestWordMatching
       System.out.println(wordTesting11);
       assertTrue(wordTest14List.equals(wordTesting11));
       assertTrue(result11.getDeltaCol() == 1);
+      
+      WordMatchingResult result12 = WordMatching.matchHebrew(wordDic15,
+            wordTest15);
+      List<String> wordTesting12 = result12.getDataTest();
+      System.out.println(result12.getDeltaCol());
+      System.out.println(wordTesting12);
+      assertTrue(wordTest15List.equals(wordTesting12));
+      assertTrue(result12.getDeltaCol() == 1);
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Result()
+   {
+      WordMatchingResult result = WordMatching.matchHebrew(wordDic15,
+            wordTest15);
+      assertFalse(result.getHebrewDictionary().equals(result.getHebrewTest()));
+      List<HebrewLetter> comparison = HebrewLetter.findHebrewLetters(wordTest15b);
+      Collections.reverse(comparison);
+      for(HebrewLetter letter : result.getHebrewTest())
+      {
+         System.out.println(letter.name());
+      }
+      System.out.println("----------");
+      for(HebrewLetter letter : comparison)
+      {
+         System.out.println(letter.name());
+      }
+
+      assertTrue(result.getHebrewTest().equals(comparison));
    }
 }
