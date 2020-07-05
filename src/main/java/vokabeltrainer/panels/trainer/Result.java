@@ -70,4 +70,9 @@ public class Result
    {
       this.expressionLettersSize = expressionLettersSize;
    }
+   
+   public void reverseLetterFeedbackImage()
+   {
+      Collections.reverse(letterFeedbackImages);
+   }
 }

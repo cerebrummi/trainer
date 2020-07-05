@@ -113,7 +113,17 @@ public class WordMatching
 
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
       }
-      else if (deltaCol < 0 || result.isPartlyFalse()) // moved to the right or not moved
+      else if (deltaCol < 0) // moved to the right
+      {  
+         cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
+         
+         moveBeginningLettersOfdataDicToTheRightIfPossible(dataDic, dataTest, deltaCol);
+
+         lookForNullAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
+
+         cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
+      }
+      else if (result.isPartlyFalse()) // not moved
       {
          cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
 
@@ -233,6 +243,25 @@ public class WordMatching
          }
       }
    }
+   
+
+   private static void moveBeginningLettersOfdataDicToTheRightIfPossible(
+         List<String> dataDic, List<String> dataTest, int deltaCol)
+   {
+      for (int t = dataTest.size() - 1, d = dataDic.size() -1 + deltaCol;; t--, d--)
+      {
+         if(WordMatching.evaluateSame(dataTest.get(t), dataDic.get(d)) == 1)
+         {
+            dataDic.remove(d);
+            dataDic.add(t, dataTest.get(t));
+         }
+         else
+         {
+            break;
+         }
+      }
+   }
+
 
    private static int findDeltaColumns(List<String> dataTest, int sizeTest)
    {

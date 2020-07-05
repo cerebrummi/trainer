@@ -1,5 +1,6 @@
 package vokabeltrainer.panels.trainer;
 
+import java.util.Collections;
 import java.util.List;
 
 import vokabeltrainer.LetterFeedbackImage;
@@ -22,6 +23,22 @@ public class Resultfactory
       List<HebrewLetter> answerLetters = wordMatchingResult.getHebrewTest();
       List<HebrewLetter> expressionLetters = wordMatchingResult
             .getHebrewDictionary();
+      
+      Collections.reverse(answerLetters);
+      Collections.reverse(expressionLetters);
+      
+      for(HebrewLetter letter : expressionLetters)
+      {
+         System.out.println(letter.name());
+      }
+      System.out.println("----------");
+      for(HebrewLetter letter : answerLetters)
+      {
+         System.out.println(letter.name());
+      }
+      System.out.println("----------");
+      System.out.println("----------");
+      
       result.setOkay(wordMatchingResult.isOkay());
 
       for (int i = 0; i < answerLetters.size(); i++)
@@ -42,6 +59,7 @@ public class Resultfactory
 
       result.setAnswerLettersSize(answerLetters.size());
       result.setExpressionLettersSize(expressionLetters.size());
+      result.reverseLetterFeedbackImage();
 
       return result;
    }
