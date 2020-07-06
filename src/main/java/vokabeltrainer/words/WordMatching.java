@@ -51,9 +51,11 @@ public class WordMatching
 
       // System.out.println(Arrays.deepToString(data));
 
-      int rowMax = 0;
+      int rowMax = 1;
       int rowSameMaxValue = 0;
       int rowDiffValueAtSameMax = 0;
+      int deltaColMin = Math.abs(-sizeTest);
+      int deltaColValue = Math.abs(-sizeTest);
       // compare words
       for (int row = 1; row < numberOfRows; row++)
       {
@@ -64,12 +66,15 @@ public class WordMatching
             rowSameValue += evaluateSame(data[0][col], data[row][col]);
             rowDiffValue += evaluateDifference(data[0][col], data[row][col]);
          }
-         if (rowSameValue > rowSameMaxValue)
+         if (Math.abs(deltaColValue) < Math.abs(deltaColMin)
+               && rowSameValue >= rowSameMaxValue)
          {
             rowSameMaxValue = rowSameValue;
             rowDiffValueAtSameMax = rowDiffValue;
             rowMax = row;
+            deltaColMin = Math.abs(deltaColValue);
          }
+         deltaColValue--;
       }
 
       if (rowSameMaxValue == 0)
@@ -114,10 +119,11 @@ public class WordMatching
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
       }
       else if (deltaCol < 0) // moved to the right
-      {  
+      {
          cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
-         
-         moveBeginningLettersOfdataDicToTheRightIfPossible(dataDic, dataTest, deltaCol);
+
+         moveBeginningLettersOfdataDicToTheRightIfPossible(dataDic, dataTest,
+               deltaCol);
 
          lookForNullAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
 
@@ -243,14 +249,14 @@ public class WordMatching
          }
       }
    }
-   
 
    private static void moveBeginningLettersOfdataDicToTheRightIfPossible(
          List<String> dataDic, List<String> dataTest, int deltaCol)
    {
-      for (int t = dataTest.size() - 1, d = dataDic.size() -1 + deltaCol;; t--, d--)
+      for (int t = dataTest.size() - 1, d = dataDic.size() - 1
+            + deltaCol;; t--, d--)
       {
-         if(WordMatching.evaluateSame(dataTest.get(t), dataDic.get(d)) == 1)
+         if (WordMatching.evaluateSame(dataTest.get(t), dataDic.get(d)) == 1)
          {
             dataDic.remove(d);
             dataDic.add(t, dataTest.get(t));
@@ -261,7 +267,6 @@ public class WordMatching
          }
       }
    }
-
 
    private static int findDeltaColumns(List<String> dataTest, int sizeTest)
    {
@@ -328,7 +333,7 @@ public class WordMatching
    {
       if (stringDic == null && stringTest == null)
       {
-         return 0;
+         return 1;
       }
       if (stringDic == null)
       {

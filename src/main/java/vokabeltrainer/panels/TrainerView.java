@@ -769,7 +769,7 @@ public class TrainerView extends BackgroundPanelTiled
       JScrollPane scrollPane = new JScrollPane(answerPanel);
       scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       scrollPane.setBorder(BorderFactory.createEmptyBorder());
-      scrollPane.setPreferredSize(new Dimension(501, 86));
+      scrollPane.setPreferredSize(new Dimension(501, 86+34));
       feedbackPanel.add(scrollPane);
       wordPanel.displayWord(result.getExpression().getHebrew());
    }

@@ -39,6 +39,14 @@ public class TestWordMatching
    String wordTest15 = "נימות"; // wrong spelling
    String wordDic15 = "נעימות"; // correct spelling
    String wordTest15b = "נ ימות"; // corrected spelling
+   String wordDic16 = "נעימות"; // correct spelling
+   String wordTest16b = "נא מ ת"; // corrected spelling
+   String wordTest16 = "נאמת"; // wrong spelling
+   
+   String wordTest17 = "מא נישמה"; // wrong spelling
+   String wordDic17 = "מה נשמע"; // correct spelling
+   String wordDic17b = "מה נ שמע"; // dic corrected spelling
+   String wordTest17b = "מא נישמה"; // test corrected spelling
 
    String[] wordTest4Array = { "HAEI", "TET", "JOD", "SSAMECH", null, "WET",
          "JOD", "NUN", "WAW", null, "BET" };
@@ -102,6 +110,20 @@ public class TestWordMatching
          "SPACE", "NUN" };
    List<String> wordTest15bList = new LinkedList<String>(
          Arrays.asList(wordTest15bArray));
+   
+   String[] wordTest16bArray = { "TAW", "SPACE", "MEM", "SPACE",
+         "ALEF", "NUN" };
+   List<String> wordTest16bList = new LinkedList<String>(
+         Arrays.asList(wordTest16bArray));
+   
+   String[] wordTest17bArray = {"HAEI","MEM", "SCHIN", "JOD", "NUN", "SPACE",
+         "ALEF", "MEM" };
+   List<String> wordTest17bList = new LinkedList<String>(
+         Arrays.asList(wordTest17bArray));
+   String[] wordDic17bArray = {"AIN","MEM", "SCHIN", "SPACE", "NUN", "SPACE",
+         "HAEI", "MEM" };
+   List<String> wordDic17bList = new LinkedList<String>(
+         Arrays.asList(wordDic17bArray));
 
    @Test
    public void testMatchHebrew_Okay()
@@ -147,103 +169,163 @@ public class TestWordMatching
    @Test
    public void testMatchHebrew_PartlyFalse_Alignment()
    {
-      WordMatchingResult result = WordMatching.matchHebrew(wordDic, wordTest4);
-      List<String> wordTesting = result.getDataTest();
-      System.out.println(wordTesting);
-      assertTrue(wordTest4List.equals(wordTesting));
-
-      WordMatchingResult result2 = WordMatching.matchHebrew(wordDic, wordTest5);
-      List<String> wordTesting2 = result2.getDataTest();
-      System.out.println(wordTesting2);
-      assertTrue(wordTest5List.equals(wordTesting2));
-
-      WordMatchingResult result3 = WordMatching.matchHebrew(wordDic, wordTest6);
-      List<String> wordTesting3 = result3.getDataTest();
-      System.out.println(wordTesting3);
-      assertTrue(wordTest6List.equals(wordTesting3));
-
-      WordMatchingResult result4 = WordMatching.matchHebrew(wordDic, wordTest7);
-      List<String> wordTesting4 = result4.getDataTest();
-      System.out.println(wordTesting4);
-      assertTrue(wordTest7List.equals(wordTesting4));
-
-      WordMatchingResult result5 = WordMatching.matchHebrew(wordDic, wordTest8);
-      List<String> wordTesting5 = result5.getDataTest();
-      System.out.println(wordTesting5);
-      assertTrue(wordTest8List.equals(wordTesting5));
-
-      WordMatchingResult result6 = WordMatching.matchHebrew(wordDic, wordTest9);
-      List<String> wordDicing6 = result6.getDataDic();
-      assertTrue(wordDic9List.equals(wordDicing6));
-      List<String> wordTesting6 = result6.getDataTest();
-      assertTrue(wordTest9List.equals(wordTesting6));
-      assertTrue(result6.getDeltaCol() == -2);
-
-      WordMatchingResult result7 = WordMatching.matchHebrew(wordDic,
-            wordTest10);
-      List<String> wordTesting7 = result7.getDataTest();
-      assertTrue(wordTest10List.equals(wordTesting7));
-      assertTrue(result7.getDeltaCol() == -2);
-
-      WordMatchingResult result8 = WordMatching.matchHebrew(wordDic11,
-            wordTest11);
-      List<String> wordTesting8 = result8.getDataTest();
-      System.out.println(result8.getDeltaCol());
-      System.out.println(wordTesting8);
-      assertTrue(wordTest11List.equals(wordTesting8));
-      assertTrue(result8.getDeltaCol() == 0);
-
-      WordMatchingResult result9 = WordMatching.matchHebrew(wordDic12,
-            wordTest12);
-      List<String> wordTesting9 = result9.getDataTest();
-      System.out.println(result9.getDeltaCol());
-      System.out.println(wordTesting9);
-      assertTrue(wordTest12List.equals(wordTesting9));
-      assertTrue(result9.getDeltaCol() == 0);
-
-      WordMatchingResult result10 = WordMatching.matchHebrew(wordTest13,
-            wordTest13);
-      List<String> wordTesting10 = result10.getDataTest();
-      System.out.println(result10.getDeltaCol());
-      System.out.println(wordTesting10);
-      assertTrue(wordTest13List.equals(wordTesting10));
-      assertTrue(result10.getDeltaCol() == 0);
-
-      WordMatchingResult result11 = WordMatching.matchHebrew(wordDic14,
-            wordTest14);
-      List<String> wordTesting11 = result11.getDataTest();
-      System.out.println(result11.getDeltaCol());
-      System.out.println(wordTesting11);
-      assertTrue(wordTest14List.equals(wordTesting11));
-      assertTrue(result11.getDeltaCol() == 1);
+//      WordMatchingResult result = WordMatching.matchHebrew(wordDic, wordTest4);
+//      List<String> wordTesting = result.getDataTest();
+//      System.out.println(wordTesting);
+//      assertTrue(wordTest4List.equals(wordTesting));
+//
+//      WordMatchingResult result2 = WordMatching.matchHebrew(wordDic, wordTest5);
+//      List<String> wordTesting2 = result2.getDataTest();
+//      System.out.println(wordTesting2);
+//      assertTrue(wordTest5List.equals(wordTesting2));
+//
+//      WordMatchingResult result3 = WordMatching.matchHebrew(wordDic, wordTest6);
+//      List<String> wordTesting3 = result3.getDataTest();
+//      System.out.println(wordTesting3);
+//      assertTrue(wordTest6List.equals(wordTesting3));
+//
+//      WordMatchingResult result4 = WordMatching.matchHebrew(wordDic, wordTest7);
+//      List<String> wordTesting4 = result4.getDataTest();
+//      System.out.println(wordTesting4);
+//      assertTrue(wordTest7List.equals(wordTesting4));
+//
+//      WordMatchingResult result5 = WordMatching.matchHebrew(wordDic, wordTest8);
+//      List<String> wordTesting5 = result5.getDataTest();
+//      System.out.println(wordTesting5);
+//      assertTrue(wordTest8List.equals(wordTesting5));
+//
+//      WordMatchingResult result6 = WordMatching.matchHebrew(wordDic, wordTest9);
+//      List<String> wordDicing6 = result6.getDataDic();
+//      assertTrue(wordDic9List.equals(wordDicing6));
+//      List<String> wordTesting6 = result6.getDataTest();
+//      assertTrue(wordTest9List.equals(wordTesting6));
+//      assertTrue(result6.getDeltaCol() == -2);
+//
+//      WordMatchingResult result7 = WordMatching.matchHebrew(wordDic,
+//            wordTest10);
+//      List<String> wordTesting7 = result7.getDataTest();
+//      assertTrue(wordTest10List.equals(wordTesting7));
+//      assertTrue(result7.getDeltaCol() == -2);
+//
+//      WordMatchingResult result8 = WordMatching.matchHebrew(wordDic11,
+//            wordTest11);
+//      List<String> wordTesting8 = result8.getDataTest();
+//      System.out.println(result8.getDeltaCol());
+//      System.out.println(wordTesting8);
+//      assertTrue(wordTest11List.equals(wordTesting8));
+//      assertTrue(result8.getDeltaCol() == 0);
+//
+//      WordMatchingResult result9 = WordMatching.matchHebrew(wordDic12,
+//            wordTest12);
+//      List<String> wordTesting9 = result9.getDataTest();
+//      System.out.println(result9.getDeltaCol());
+//      System.out.println(wordTesting9);
+//      assertTrue(wordTest12List.equals(wordTesting9));
+//      assertTrue(result9.getDeltaCol() == 0);
+//
+//      WordMatchingResult result10 = WordMatching.matchHebrew(wordTest13,
+//            wordTest13);
+//      List<String> wordTesting10 = result10.getDataTest();
+//      System.out.println(result10.getDeltaCol());
+//      System.out.println(wordTesting10);
+//      assertTrue(wordTest13List.equals(wordTesting10));
+//      assertTrue(result10.getDeltaCol() == 0);
+//
+//      WordMatchingResult result11 = WordMatching.matchHebrew(wordDic14,
+//            wordTest14);
+//      List<String> wordTesting11 = result11.getDataTest();
+//      System.out.println(result11.getDeltaCol());
+//      System.out.println(wordTesting11);
+//      assertTrue(wordTest14List.equals(wordTesting11));
+//      assertTrue(result11.getDeltaCol() == 1);
+//      
+//      WordMatchingResult result12 = WordMatching.matchHebrew(wordDic15,
+//            wordTest15);
+//      List<String> wordTesting12 = result12.getDataTest();
+//      System.out.println(result12.getDeltaCol());
+//      System.out.println(wordTesting12);
+//      assertTrue(wordTest15List.equals(wordTesting12));
+//      assertTrue(result12.getDeltaCol() == 1);
       
-      WordMatchingResult result12 = WordMatching.matchHebrew(wordDic15,
-            wordTest15);
-      List<String> wordTesting12 = result12.getDataTest();
-      System.out.println(result12.getDeltaCol());
-      System.out.println(wordTesting12);
-      assertTrue(wordTest15List.equals(wordTesting12));
-      assertTrue(result12.getDeltaCol() == 1);
+      WordMatchingResult result13 = WordMatching.matchHebrew(wordDic17,
+            wordTest17);
+      List<String> wordTesting13 = result13.getDataTest();
+      List<String> wordDicing13 = result13.getDataDic();
+      System.out.println(result13.getDeltaCol());
+      System.out.println(wordDicing13);
+      System.out.println(wordTesting13);
+      assertTrue(result13.getDeltaCol() == 0);
+      assertTrue(wordTest17bList.equals(wordTesting13));
+      assertTrue(wordDic17bList.equals(wordDicing13));
    }
    
    @Test
    public void testMatchHebrew_PartlyFalse_Result()
    {
-      WordMatchingResult result = WordMatching.matchHebrew(wordDic15,
-            wordTest15);
-      assertFalse(result.getHebrewDictionary().equals(result.getHebrewTest()));
-      List<HebrewLetter> comparison = HebrewLetter.findHebrewLetters(wordTest15b);
-      Collections.reverse(comparison);
-      for(HebrewLetter letter : result.getHebrewTest())
+//      WordMatchingResult result = WordMatching.matchHebrew(wordDic15,
+//            wordTest15);
+//      assertFalse(result.getHebrewDictionary().equals(result.getHebrewTest()));
+//      List<HebrewLetter> comparison = HebrewLetter.findHebrewLetters(wordTest15b);
+//      Collections.reverse(comparison);
+//      for(HebrewLetter letter : result.getHebrewTest())
+//      {
+//         System.out.println(letter.name());
+//      }
+//      System.out.println("----------");
+//      for(HebrewLetter letter : comparison)
+//      {
+//         System.out.println(letter.name());
+//      }
+//      assertTrue(result.getHebrewTest().equals(comparison));
+//      
+//      System.out.println("===========");
+//      
+//      WordMatchingResult result2 = WordMatching.matchHebrew(wordDic16,
+//            wordTest16);
+//      assertFalse(result2.getHebrewDictionary().equals(result2.getHebrewTest()));
+//      List<HebrewLetter> comparison2 = HebrewLetter.findHebrewLetters(wordTest16b);
+//      Collections.reverse(comparison2);
+//      for(HebrewLetter letter : result2.getHebrewTest())
+//      {
+//         System.out.println(letter.name());
+//      }
+//      System.out.println("----------");
+//      for(HebrewLetter letter : comparison2)
+//      {
+//         System.out.println(letter.name());
+//      }
+//      assertTrue(result2.getHebrewTest().equals(comparison2));
+      
+      System.out.println("===========");
+      
+      WordMatchingResult result3 = WordMatching.matchHebrew(wordDic17,
+            wordTest17);
+      assertFalse(result3.getHebrewDictionary().equals(result3.getHebrewTest()));
+      List<HebrewLetter> comparison3 = HebrewLetter.findHebrewLetters(wordDic17b);
+      List<HebrewLetter> comparison3b = HebrewLetter.findHebrewLetters(wordTest17b);
+      Collections.reverse(comparison3);
+      Collections.reverse(comparison3b);
+      System.out.println("-----should result Test-----");
+      for(HebrewLetter letter : comparison3b)
       {
          System.out.println(letter.name());
       }
-      System.out.println("----------");
-      for(HebrewLetter letter : comparison)
+      System.out.println("-----result Test-----");
+      for(HebrewLetter letter : result3.getHebrewTest())
+      {
+         System.out.println(letter.name());
+      }
+      System.out.println("-----should result Dic-----");
+      for(HebrewLetter letter : comparison3)
+      {
+         System.out.println(letter.name());
+      }
+      System.out.println("-----result Dic-----");
+      for(HebrewLetter letter : result3.getHebrewDictionary())
       {
          System.out.println(letter.name());
       }
 
-      assertTrue(result.getHebrewTest().equals(comparison));
+      assertTrue(result3.getHebrewTest().equals(comparison3));
    }
 }
