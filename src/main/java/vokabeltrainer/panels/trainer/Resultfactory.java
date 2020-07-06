@@ -31,15 +31,14 @@ public class Resultfactory
 
       for (int i = 0; i < answerLetters.size(); i++)
       {
-         if (answerLetters.get(i).equals(expressionLetters.get(i))
-               || HebrewLetter.isQuestionmark(expressionLetters.get(i)))
+         if (answerLetters.get(i).equals(expressionLetters.get(i)))
          {
-            result.getLetterFeedbackImages().add(LetterFeedbackImage.makeTest(
+            result.getLetterFeedbackImages().add(LetterFeedbackImage.make(
                   expressionLetters.get(i), answerLetters.get(i), true));
          }
          else
          {
-            result.getLetterFeedbackImages().add(LetterFeedbackImage.makeTest(
+            result.getLetterFeedbackImages().add(LetterFeedbackImage.make(
                   expressionLetters.get(i), answerLetters.get(i), false));
          }
          result.addToWidth(Math.max(expressionLetters.get(i).getPixelWidth(),

@@ -211,12 +211,6 @@ public enum HebrewLetter
          "Post",
          " 05E4 05BC",
          "päi",
-         17),
-   QUESTIONMARK(
-         "\u003F",
-         "Frage",
-         " 003F",
-         "?",
          17);
 
    private String unicode;
@@ -284,6 +278,7 @@ public enum HebrewLetter
       {
          joiner.add(letter.code);
       }
+      joiner.add(" 003F"); // ?
       joiner.add(" 0021"); // !
       joiner.add(" 002E"); // .
       if (withComma)
@@ -351,10 +346,5 @@ public enum HebrewLetter
          }
       }
       return hebrewLetters;
-   }
-
-   public static boolean isQuestionmark(HebrewLetter hebrewLetter)
-   {
-      return QUESTIONMARK == hebrewLetter;
    }
 }
