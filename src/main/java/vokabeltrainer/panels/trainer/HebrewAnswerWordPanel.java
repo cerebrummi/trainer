@@ -16,14 +16,14 @@ public class HebrewAnswerWordPanel extends JPanel
    {
       this.setPreferredSize(new Dimension(result.getWidth()
             + (Math.max(result.getAnswerLettersSize(), result.getExpressionLettersSize()) * 4),
-            64));
+            110));
       this.setLayout(new TrainLayout(this, 4));
 
       for (BufferedImage image : result.getLetterFeedbackImages())
       {
          JLabel label = new JLabel(new ImageIcon(image));
-         label.setMinimumSize(new Dimension(image.getWidth(), 64));
-         label.setMaximumSize(new Dimension(image.getWidth(), 64));
+         label.setMinimumSize(new Dimension(image.getWidth(), 110));
+         label.setMaximumSize(new Dimension(image.getWidth(), 110));
          this.add(label);
       }
    }

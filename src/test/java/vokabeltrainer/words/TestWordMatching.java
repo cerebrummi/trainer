@@ -52,6 +52,9 @@ public class TestWordMatching
    String wordTest18 = "בּוקרטוב"; // wrong spelling
    String wordDic18 = "בּוקר טוב"; // correct spelling
 
+   String wordTest19 = "בּמשׂראד"; // wrong spelling
+   String wordDic19 = "בּמשׂרד"; // correct spelling
+
    String[] wordTest4Array = { "HAEI", "TET", "JOD", "SSAMECH", "NEWSPACE",
          "WET", "JOD", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest4List = new LinkedList<String>(
@@ -132,6 +135,11 @@ public class TestWordMatching
          "KUF", "WAW", "BET" };
    List<String> wordTest18bList = new LinkedList<>(
          Arrays.asList(wordTest18bArray));
+   
+   String[] wordDic19bArray = { "DALET", "NEWSPACE", "RESCH",
+         "SSIN", "MEM", "BET" };
+   List<String> wordDic19bList = new LinkedList<>(
+         Arrays.asList(wordDic19bArray));
 
    @Test
    public void testMatchHebrew_Okay()
@@ -266,12 +274,20 @@ public class TestWordMatching
       assertTrue(result13.getDeltaCol() == 0);
       assertTrue(wordTest17bList.equals(wordTesting13));
       assertTrue(wordDic17bList.equals(wordDicing13));
-      
-      WordMatchingResult result14 = WordMatching.matchHebrew(wordDic18, wordTest18);
+
+      WordMatchingResult result14 = WordMatching.matchHebrew(wordDic18,
+            wordTest18);
       List<String> wordTesting18 = result14.getDataTest();
       System.out.println(wordTest18bList);
       System.out.println(wordTesting18);
       assertTrue(wordTest18bList.equals(wordTesting18));
+      
+      WordMatchingResult result15 = WordMatching.matchHebrew(wordDic19,
+            wordTest19);
+      List<String> wordDicing19 = result15.getDataDic();
+      System.out.println(wordDic19bList);
+      System.out.println(wordDicing19);
+      assertTrue(wordDic19bList.equals(wordDicing19));
    }
 
    @Test

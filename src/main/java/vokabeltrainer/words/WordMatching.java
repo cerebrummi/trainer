@@ -130,9 +130,10 @@ public class WordMatching
          moveBeginningLettersOfdataTestToTheRightIfPossible(dataDic, dataTest,
                deltaCol);
 
-         lookForNullAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
+         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
 
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
+         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
       }
       else if (deltaCol < 0) // moved to the right
       {
@@ -141,9 +142,10 @@ public class WordMatching
          moveBeginningLettersOfdataDicToTheRightIfPossible(dataDic, dataTest,
                deltaCol);
 
-         lookForNullAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
+         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
 
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
+         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
       }
       else if (result.isPartlyFalse()) // not moved
       {
@@ -152,12 +154,13 @@ public class WordMatching
          dataDic = lookForWrongLettersAndMoveDIClettersToTheLeftMaximizeSameness(
                dataDic, dataTest, sizeDic);
 
-         lookForNullAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
+         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
 
          dataTest = lookForWrongLettersAndMoveTESTlettersToTheRightMaximizeSameness(
                dataDic, dataTest, sizeTest);
 
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
+         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
       }
       else // not moved and either okay or completely false
       {
@@ -318,20 +321,20 @@ public class WordMatching
       return deltaTest - sizeTest;
    }
 
-   private static void lookForNullAndMoveLettersToTheLeftIfPossible(
-         List<String> dataDic, List<String> dataTest)
+   private static void lookForNewspaceAndMoveLettersToTheLeftIfPossible(
+         List<String> dataReference, List<String> dataToBeChanged)
    {
-      for (int i = 0; i < dataTest.size(); i++)
+      for (int i = 0; i < dataToBeChanged.size(); i++)
       {
-         if (dataTest.get(i).equalsIgnoreCase("NEWSPACE")
-               && !dataDic.get(i).equalsIgnoreCase("NEWSPACE"))
+         if (dataToBeChanged.get(i).equalsIgnoreCase("NEWSPACE")
+               && !dataReference.get(i).equalsIgnoreCase("NEWSPACE"))
          {
-            int index = readIndexOfNextLetterToTheRight(dataTest, i);
-            if (index > 0
-                  && evaluateSame(dataDic.get(i), dataTest.get(index)) == 1)
+            int index = readIndexOfNextLetterToTheRight(dataToBeChanged, i);
+            if (index > 0 && evaluateSame(dataReference.get(i),
+                  dataToBeChanged.get(index)) == 1)
             {
-               String letterToBeMoved = dataTest.remove(index);
-               dataTest.add(i, letterToBeMoved);
+               String letterToBeMoved = dataToBeChanged.remove(index);
+               dataToBeChanged.add(i, letterToBeMoved);
             }
          }
       }

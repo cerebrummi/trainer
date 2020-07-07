@@ -13,19 +13,18 @@ public class LetterFeedbackImage
 {
    public static BufferedImage make(HebrewLetter letterDic, HebrewLetter letterAnswer, boolean okay)
    {
-      int delta = 28;
-      BufferedImage finalImg = new BufferedImage(Math.max(letterDic.getPixelWidth(),letterAnswer.getPixelWidth()), 70+delta,
+      BufferedImage finalImg = new BufferedImage(Math.max(letterDic.getPixelWidth(),letterAnswer.getPixelWidth()), 100,
             BufferedImage.TYPE_INT_RGB);
       Graphics2D g2d = finalImg.createGraphics();
-      g2d.setColor(Settings.getTexturedBackgroundColor());
-      g2d.fillRect(0, 0, Math.max(letterDic.getPixelWidth(),letterAnswer.getPixelWidth()), 70+delta);
+      g2d.setColor(Settings.getTexturedBackgroundColorLight());
+      g2d.fillRect(0, 0, Math.max(letterDic.getPixelWidth(),letterAnswer.getPixelWidth()), 100);
       g2d.setColor(Settings.getDarkRed());
       if (!okay)
       {
          double midX = ((double) Math.max(letterDic.getPixelWidth(),letterAnswer.getPixelWidth())) / 2;
          int[] xPoints = { (int) midX, 0, Math.max(letterDic.getPixelWidth(),letterAnswer.getPixelWidth()),
                ((int) midX) + 1 };
-         int[] yPoints = { 24+delta, 16+delta, 16+delta, 24+delta };
+         int[] yPoints = { 24+30, 16+30, 16+30, 24+30 };
          g2d.fillPolygon(xPoints, yPoints, 4);
       }
       g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
@@ -48,9 +47,9 @@ public class LetterFeedbackImage
       FontMetrics fm = g2d.getFontMetrics();
       fm = g2d.getFontMetrics();
       g2d.setColor(Settings.getGreen());
-      g2d.drawString(letterDic.getUnicode(), 0, fm.getAscent()+10);
+      g2d.drawString(letterDic.getUnicode(), 0, fm.getAscent()+9);
       g2d.setColor(Color.BLACK);
-      g2d.drawString(letterAnswer.getUnicode(), 0, fm.getAscent() + 34+10);
+      g2d.drawString(letterAnswer.getUnicode(), 0, fm.getAscent() + 9+50);
       g2d.dispose();
       return finalImg;
    }

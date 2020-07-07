@@ -153,6 +153,11 @@ public class Settings
    {
       return new Color(225, 216, 211);
    }
+   
+   public static Color getTexturedBackgroundColorLight()
+   {
+      return new Color(230, 221, 217);
+   }
 
    public static Color getWhite()
    {
