@@ -110,6 +110,12 @@ public enum HebrewLetter
          " 0020",
          "space",
          10),
+   NEWSPACE(
+         "\u00A0",
+         "newspace",
+         " 00A0",
+         "space",
+         10),
    TAW(
          "\u05EA",
          "Tannen",

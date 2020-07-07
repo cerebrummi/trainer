@@ -140,6 +140,9 @@ public class WordMatching
 
          lookForNullAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
 
+         dataTest = lookForWrongLettersAndMoveTESTlettersToTheRightMaximizeSameness(
+               dataDic, dataTest, sizeTest);
+
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
       }
       else // not moved and either okay or completely false
@@ -169,7 +172,7 @@ public class WordMatching
          }
          else
          {
-            hebrewWordFromDictionary.add(HebrewLetter.SPACE);
+            hebrewWordFromDictionary.add(HebrewLetter.NEWSPACE);
          }
       }
       result.setHebrewDictionary(hebrewWordFromDictionary);
@@ -183,7 +186,7 @@ public class WordMatching
          }
          else
          {
-            hebrewWordFromTest.add(HebrewLetter.SPACE);
+            hebrewWordFromTest.add(HebrewLetter.NEWSPACE);
          }
       }
       result.setHebrewTest(hebrewWordFromTest);
@@ -217,25 +220,25 @@ public class WordMatching
             break;
          }
       }
-      
-      while(dataDic.size() > dataTest.size() && dataDic.get(0) == null)
+
+      while (dataDic.size() > dataTest.size() && dataDic.get(0) == null)
       {
          dataDic.remove(0);
       }
-      
-      while(dataTest.size() > dataDic.size() && dataTest.get(0) == null)
+
+      while (dataTest.size() > dataDic.size() && dataTest.get(0) == null)
       {
          dataTest.remove(0);
       }
-      
-      while(dataDic.size() < dataTest.size())
+
+      while (dataDic.size() < dataTest.size())
       {
-         dataDic.add(0, "SPACE");
+         dataDic.add(0, "NEWSPACE");
       }
-      
-      while(dataTest.size() < dataDic.size())
+
+      while (dataTest.size() < dataDic.size())
       {
-         dataTest.add(0, "SPACE");
+         dataTest.add(0, "NEWSPACE");
       }
    }
 
@@ -319,8 +322,8 @@ public class WordMatching
          if (dataTest.get(i) == null && dataDic.get(i) != null)
          {
             int index = readIndexOfNextLetterToTheRight(dataTest, i);
-            if (index > 0 && WordMatching.evaluateSame(dataDic.get(i),
-                  dataTest.get(index)) == 1)
+            if (index > 0
+                  && evaluateSame(dataDic.get(i), dataTest.get(index)) == 1)
             {
                String letterToBeMoved = dataTest.remove(index);
                dataTest.add(i, letterToBeMoved);
@@ -341,13 +344,13 @@ public class WordMatching
       {
          if (evaluateCandidate(dataTest.get(i), dataDic.get(i)))
          {
-            int match = findPossibleMatch(dataDic.get(i), i, dataTest);
+            int match = findPossibleMatchToTheLeft(dataDic.get(i), i, dataTest);
             if (match > 0)
             {
                List<String> dataDicClone = cloneList(dataDic);
                for (int k = 0; k < i - match; k++)
                {
-                  dataDicClone.add(i + 1, "SPACE");
+                  dataDicClone.add(i + 1, "NEWSPACE");
                }
                int sameness = calculateSameness(dataTest, dataDicClone);
                samenessMap.put(sameness, dataDicClone);
@@ -363,6 +366,28 @@ public class WordMatching
          }
       }
       return dataDic;
+   }
+
+   private static List<String> lookForWrongLettersAndMoveTESTlettersToTheRightMaximizeSameness(
+         List<String> dataDic, List<String> dataTest, int maxSameness)
+   {
+      Map<Integer, List<String>> samenessMap = new HashMap<>();
+      List<String> dataTestCloneOriginal = cloneList(dataTest);
+      samenessMap.put(calculateSameness(dataDic, dataTestCloneOriginal),
+            dataTestCloneOriginal);
+      
+      for (int i = dataTest.size() - 1; i >= 0; i--)
+      {
+         if (evaluateCandidate(dataDic.get(i), dataTest.get(i)))
+         {
+            int match = findPossibleMatchToTheRight(dataTest.get(i), i, dataDic);
+            // TODO
+         }
+      }
+         
+      // TODO
+      
+      return dataTest;
    }
 
    private static List<String> cloneList(List<String> dataDic)
@@ -387,7 +412,7 @@ public class WordMatching
       return sameness;
    }
 
-   private static int findPossibleMatch(String string, int i,
+   private static int findPossibleMatchToTheLeft(String string, int i,
          List<String> dataTest)
    {
       for (int j = i; j > dataTest.size() - findSizeOf(dataTest); j--)
@@ -398,6 +423,13 @@ public class WordMatching
          }
       }
       return -1;
+   }
+   
+   private static int findPossibleMatchToTheRight(String string, int i,
+         List<String> dataDic)
+   {
+      // TODO 
+      return 0;
    }
 
    private static int findSizeOf(List<String> dataTest)
@@ -427,6 +459,16 @@ public class WordMatching
       {
          return true;
       }
+      if (stringReference.equalsIgnoreCase("SPACE")
+            && stringToBeChanged.equalsIgnoreCase("NEWSPACE"))
+      {
+         return false;
+      }
+      if (stringReference.equalsIgnoreCase("NEWSPACE")
+            && stringToBeChanged.equalsIgnoreCase("SPACE"))
+      {
+         return false;
+      }
       if (stringReference.equalsIgnoreCase(stringToBeChanged))
       {
          return false;
@@ -444,6 +486,16 @@ public class WordMatching
       {
          return 0;
       }
+      if (stringDic.equalsIgnoreCase("SPACE")
+            && stringTest.equalsIgnoreCase("NEWSPACE"))
+      {
+         return 1;
+      }
+      if (stringDic.equalsIgnoreCase("NEWSPACE")
+            && stringTest.equalsIgnoreCase("SPACE"))
+      {
+         return 1;
+      }
       if (stringDic.equalsIgnoreCase(stringTest))
       {
          return 1;
@@ -460,6 +512,16 @@ public class WordMatching
       if (stringDic == null || stringTest == null)
       {
          return 1;
+      }
+      if (stringDic.equalsIgnoreCase("SPACE")
+            && stringTest.equalsIgnoreCase("NEWSPACE"))
+      {
+         return 0;
+      }
+      if (stringDic.equalsIgnoreCase("NEWSPACE")
+            && stringTest.equalsIgnoreCase("SPACE"))
+      {
+         return 0;
       }
       if (stringDic.equalsIgnoreCase(stringTest))
       {

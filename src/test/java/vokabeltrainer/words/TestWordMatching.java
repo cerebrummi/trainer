@@ -3,6 +3,7 @@ package vokabeltrainer.words;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -107,11 +108,11 @@ public class TestWordMatching
          Arrays.asList(wordTest15Array));
    
    String[] wordTest15bArray = { "TAW", "WAW", "MEM", "JOD",
-         "SPACE", "NUN" };
+         "NEWSPACE", "NUN" };
    List<String> wordTest15bList = new LinkedList<String>(
          Arrays.asList(wordTest15bArray));
    
-   String[] wordTest16bArray = { "TAW", "SPACE", "MEM", "SPACE",
+   String[] wordTest16bArray = { "TAW", "NEWSPACE", "MEM", "NEWSPACE",
          "ALEF", "NUN" };
    List<String> wordTest16bList = new LinkedList<String>(
          Arrays.asList(wordTest16bArray));
@@ -120,7 +121,7 @@ public class TestWordMatching
          "ALEF", "MEM" };
    List<String> wordTest17bList = new LinkedList<String>(
          Arrays.asList(wordTest17bArray));
-   String[] wordDic17bArray = {"AIN","MEM", "SCHIN", "SPACE", "NUN", "SPACE",
+   String[] wordDic17bArray = {"AIN","MEM", "SCHIN", "NEWSPACE", "NUN", "SPACE",
          "HAEI", "MEM" };
    List<String> wordDic17bList = new LinkedList<String>(
          Arrays.asList(wordDic17bArray));
@@ -265,8 +266,7 @@ public class TestWordMatching
       WordMatchingResult result = WordMatching.matchHebrew(wordDic15,
             wordTest15);
       assertFalse(result.getHebrewDictionary().equals(result.getHebrewTest()));
-      List<HebrewLetter> comparison = HebrewLetter.findHebrewLetters(wordTest15b);
-      Collections.reverse(comparison);
+      List<HebrewLetter> comparison = transferToHebrewLetters(wordTest15bList);
       for(HebrewLetter letter : result.getHebrewTest())
       {
          System.out.println(letter.name());
@@ -283,8 +283,7 @@ public class TestWordMatching
       WordMatchingResult result2 = WordMatching.matchHebrew(wordDic16,
             wordTest16);
       assertFalse(result2.getHebrewDictionary().equals(result2.getHebrewTest()));
-      List<HebrewLetter> comparison2 = HebrewLetter.findHebrewLetters(wordTest16b);
-      Collections.reverse(comparison2);
+      List<HebrewLetter> comparison2 = transferToHebrewLetters(wordTest16bList);
       for(HebrewLetter letter : result2.getHebrewTest())
       {
          System.out.println(letter.name());
@@ -301,9 +300,8 @@ public class TestWordMatching
       WordMatchingResult result3 = WordMatching.matchHebrew(wordDic17,
             wordTest17);
       assertFalse(result3.getHebrewDictionary().equals(result3.getHebrewTest()));
-      List<HebrewLetter> comparison3 = HebrewLetter.findHebrewLetters(wordDic17b);
+      List<HebrewLetter> comparison3 = transferToHebrewLetters(wordDic17bList);
       List<HebrewLetter> comparison3b = HebrewLetter.findHebrewLetters(wordTest17b);
-      Collections.reverse(comparison3);
       Collections.reverse(comparison3b);
       System.out.println("-----should result Test-----");
       for(HebrewLetter letter : comparison3b)
@@ -328,5 +326,23 @@ public class TestWordMatching
 
       assertTrue(result3.getHebrewTest().equals(comparison3b));
       assertTrue(result3.getHebrewDictionary().equals(comparison3));
+   }
+   
+   private List<HebrewLetter> transferToHebrewLetters(List<String> list)
+   {
+   // transfer back into hebrew letter enums
+      List<HebrewLetter> hebrewWord = new ArrayList<>();
+      for (String letter : list)
+      {
+         if (letter != null)
+         {
+            hebrewWord.add(HebrewLetter.valueOf(letter));
+         }
+         else
+         {
+            hebrewWord.add(HebrewLetter.NEWSPACE);
+         }
+      }
+      return hebrewWord;
    }
 }
