@@ -3,7 +3,6 @@ package vokabeltrainer.panels.trainer;
 import java.util.Collections;
 import java.util.List;
 
-import vokabeltrainer.LetterFeedbackImage;
 import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.words.WordMatching;
