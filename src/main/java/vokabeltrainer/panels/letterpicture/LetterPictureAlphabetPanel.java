@@ -20,6 +20,7 @@ import vokabeltrainer.KeyboardHebrewStandard;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.SingleLetterDocument;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -192,6 +193,7 @@ public class LetterPictureAlphabetPanel extends JPanel
          jtc.setMinimumSize(new Dimension(50, 40));
          jtc.setMaximumSize(new Dimension(50, 40));
          jtc.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         jtc.setDocument(new SingleLetterDocument());
       }
       KeyboardHebrewStandard keyboard = new KeyboardHebrewStandard(null,
             textFields, 15);

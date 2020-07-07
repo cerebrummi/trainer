@@ -8,7 +8,6 @@ import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,7 +25,7 @@ import vokabeltrainer.panels.letterpicture.LetterTextField;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
-public class LetterPicturesPanel extends BackgroundPanelTiled
+public class AlefbetPanel extends BackgroundPanelTiled
 {
    private static final long serialVersionUID = 9130321171813967337L;
 
@@ -36,7 +35,7 @@ public class LetterPicturesPanel extends BackgroundPanelTiled
    private JButton resultButton;
    private JButton resetButton;
    
-   public LetterPicturesPanel()
+   public AlefbetPanel()
    {
       setLayout(new TrainLayout(this, 165));
       this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel();
@@ -98,9 +97,13 @@ public class LetterPicturesPanel extends BackgroundPanelTiled
            {
               jtc.setBackground(Settings.getGreen());
            }
+           else if(jtc.getText().isBlank())
+           {
+              jtc.setBackground(Settings.getLightYellow());
+           }
            else
            {
-              jtc.setBackground(Settings.getDarkGold());
+              jtc.setBackground(Settings.getLightGrayGold());
            }
         }
       });

@@ -17,7 +17,7 @@ public class LetterFeedbackImage
       BufferedImage finalImg = new BufferedImage(Math.max(letterDic.getPixelWidth(),letterAnswer.getPixelWidth()), 100,
             BufferedImage.TYPE_INT_RGB);
       Graphics2D g2d = finalImg.createGraphics();
-      g2d.setColor(Settings.getTexturedBackgroundColorLight());
+      g2d.setColor(Settings.getTexturedBackgroundColor());
       g2d.fillRect(0, 0, Math.max(letterDic.getPixelWidth(),letterAnswer.getPixelWidth()), 100);
       g2d.setColor(Settings.getDarkRed());
       if (!okay)

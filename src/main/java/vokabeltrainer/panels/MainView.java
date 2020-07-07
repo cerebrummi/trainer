@@ -36,7 +36,7 @@ public class MainView extends JPanel
    private StatisticsPanel statisticsPanel;
    private StartPanel startPanel;
    private SettingsPanel settingsPanel;
-   private LetterPicturesPanel letterPicturesPanel;
+   private AlefbetPanel letterPicturesPanel;
 
    public MainView()
    {
@@ -54,7 +54,7 @@ public class MainView extends JPanel
 
       startPanel = new StartPanel();
       dictionaryPanel = new DictionaryController().getDictionaryPanel();
-      letterPicturesPanel = new LetterPicturesPanel();
+      letterPicturesPanel = new AlefbetPanel();
       statisticsPanel = new StatisticsPanel();
       settingsPanel = new SettingsPanel();
    }
