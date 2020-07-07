@@ -2,6 +2,8 @@ package vokabeltrainer;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 
@@ -15,11 +17,11 @@ public class ApplicationSound
    private static AudioFormat audioFormat = new AudioFormat(44100, 16, 2, true,
          false);
 
-   public static void setShredderSound(AudioInputStream audioInputStream)
+   public static void setShredderSound(InputStream in)
    {
       try
       {
-         shredderSound = audioInputStream.readAllBytes();
+         shredderSound = in.readAllBytes();
       }
       catch (IOException e)
       {
@@ -33,7 +35,7 @@ public class ApplicationSound
             audioFormat, shredderSound.length);
    }
 
-   public static void setSplotchSound(AudioInputStream audioInputStream)
+   public static void setSplotchSound(InputStream audioInputStream)
    {
       try
       {
@@ -51,7 +53,7 @@ public class ApplicationSound
             audioFormat, splotchSound.length);
    }
 
-   public static void setClappingSound(AudioInputStream audioInputStream)
+   public static void setClappingSound(InputStream audioInputStream)
    {
       try
       {
@@ -69,7 +71,7 @@ public class ApplicationSound
             audioFormat, clappingSound.length);
    }
 
-   public static void setWaveSound(AudioInputStream audioInputStream)
+   public static void setWaveSound(InputStream audioInputStream)
    {
       try
       {
