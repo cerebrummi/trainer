@@ -3,7 +3,6 @@ package vokabeltrainer.common;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
@@ -13,8 +12,13 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.Resources;
 import vokabeltrainer.Settings;
+import vokabeltrainer.resources.Blue;
+import vokabeltrainer.resources.Buchstabenbilder;
+import vokabeltrainer.resources.Fonts;
+import vokabeltrainer.resources.Gruen;
+import vokabeltrainer.resources.Images;
+import vokabeltrainer.resources.Sounds;
 
 public final class Main
 {
@@ -26,11 +30,61 @@ public final class Main
    {
       try
       {
-         Resources.read();
+         Fonts.read();
       }
       catch (Exception e1)
       {
-         System.out.println("Could not read resources.");
+         System.out.println("Could not read fonts.");
+         e1.printStackTrace();
+      }
+      
+      try
+      {
+         Images.read();
+      }
+      catch (Exception e1)
+      {
+         System.out.println("Could not read images.");
+         e1.printStackTrace();
+      }
+      
+      try
+      {
+         Buchstabenbilder.read();
+      }
+      catch (Exception e1)
+      {
+         System.out.println("Could not read buchstabenbilder.");
+         e1.printStackTrace();
+      }
+      
+      try
+      {
+         Blue.read();
+      }
+      catch (Exception e1)
+      {
+         System.out.println("Could not read blue.");
+         e1.printStackTrace();
+      }
+      
+      try
+      {
+         Gruen.read();
+      }
+      catch (Exception e1)
+      {
+         System.out.println("Could not read gruen.");
+         e1.printStackTrace();
+      }
+      
+      try
+      {
+         Sounds.read();
+      }
+      catch (Exception e1)
+      {
+         System.out.println("Could not read sounds.");
          e1.printStackTrace();
       }
 
@@ -106,6 +160,11 @@ public final class Main
    {
       return germanFont.deriveFont(size);
    }
+   
+   public static Font getHeaderFont(float size)
+   {
+      return germanFont.deriveFont(size);
+   }
 
    public static Font getGermanBoldFont(float size)
    {
@@ -115,11 +174,6 @@ public final class Main
    public static Font getHebrewFont(float size)
    {
       return hebrewFont.deriveFont(size);
-   }
-
-   public static Font getHeaderFont(float size)
-   {
-      return germanFont.deriveFont(size);
    }
 
    public static void setGermanFont(Font germanFont)
