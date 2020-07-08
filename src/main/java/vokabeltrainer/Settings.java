@@ -13,9 +13,7 @@ import vokabeltrainer.types.LanguageSettings;
 
 public class Settings
 {
-   private static Cursor infoCursor = Toolkit.getDefaultToolkit()
-         .createCustomCursor(ApplicationImages.getInfoCursor(), new Point(0, 0),
-               "infoCursor");
+
 
    private final static Font buttonFont = Main.getGermanFont(16F);
    private final static Font toolbarButtonFont = Main.getHeaderFont(26F);
@@ -167,11 +165,6 @@ public class Settings
    public static Color getLightYellow()
    {
       return new Color(255, 255, 235);
-   }
-
-   public static Cursor getInfoCursor()
-   {
-      return infoCursor;
    }
 
    public static int getKeyboardWidth()

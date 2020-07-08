@@ -38,8 +38,11 @@ public class ApplicationImages
    private static BufferedImage cancel;
    private static BufferedImage done;
    private static BufferedImage emptyList;
+   
    private static BufferedImage logo24;
    private static BufferedImage logo150;
+   private static BufferedImage logo;
+
    private static BufferedImage turn;
    private static BufferedImage answerOkay;
    private static BufferedImage answerNotOkay;
@@ -337,6 +340,16 @@ public class ApplicationImages
       ApplicationImages.emptyList = emptyList;
    }
 
+   public static BufferedImage getLogo()
+   {
+      return logo;
+   }
+
+   public static void setLogo(BufferedImage logo)
+   {
+      ApplicationImages.logo = logo;
+   }
+   
    public static BufferedImage getLogo24()
    {
       return logo24;

@@ -171,8 +171,9 @@ public class LetterPictureButtonPanel extends JPanel
          letterButton = new JButton("<html>"
                + HebrewLetter.getLetterUnicode(nameHebrew) + "</html>");
          letterButton.setFont(Main.getHebrewFont(30F));
+         letterButton.setBorder(BorderFactory.createEmptyBorder());
          letterButton.setContentAreaFilled(false);
-         letterButton.setMargin(new Insets(-15, 0, 0, 0));
+         letterButton.setMargin(new Insets(-10, 0, 0, 0));
          letterButton.setOpaque(false);
       }
 
