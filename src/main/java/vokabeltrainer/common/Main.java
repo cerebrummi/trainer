@@ -50,13 +50,13 @@ public final class Main
       
       try
       {
-         Buchstabenbilder.readZip();
+         Buchstabenbilder.readZip();  // when inside jar
       }
       catch (Exception e)
       {
          try
          {
-            Buchstabenbilder.read();
+            Buchstabenbilder.read(); // during development
          }
          catch (Exception e1)
          {
