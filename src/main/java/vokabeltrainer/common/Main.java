@@ -50,32 +50,53 @@ public final class Main
       
       try
       {
-         Buchstabenbilder.read();
+         Buchstabenbilder.readZip();
       }
-      catch (Exception e1)
+      catch (Exception e)
       {
-         System.out.println("Could not read buchstabenbilder.");
-         e1.printStackTrace();
-      }
-      
-      try
-      {
-         Blue.read();
-      }
-      catch (Exception e1)
-      {
-         System.out.println("Could not read blue.");
-         e1.printStackTrace();
+         try
+         {
+            Buchstabenbilder.read();
+         }
+         catch (Exception e1)
+         {
+            System.out.println("Could not read buchstabenbilder.");
+            e1.printStackTrace();
+         }
       }
       
       try
       {
-         Gruen.read();
+         Blue.readZip(); // when inside jar
       }
-      catch (Exception e1)
+      catch (Exception e)
       {
-         System.out.println("Could not read gruen.");
-         e1.printStackTrace();
+         try
+         {
+            Blue.read(); // during development
+         }
+         catch (Exception e1)
+         {
+            System.out.println("Could not read blue.");
+            e1.printStackTrace();
+         }
+      }
+      
+      try
+      {
+         Gruen.readZip(); // when inside jar
+      }
+      catch (Exception e)
+      {
+         try
+         {
+            Gruen.read(); // during development
+         }
+         catch (Exception e1)
+         {
+            System.out.println("Could not read gruen.");
+            e1.printStackTrace();
+         }
       }
       
       try

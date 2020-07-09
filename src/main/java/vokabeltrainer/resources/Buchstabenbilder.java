@@ -2,8 +2,14 @@ package vokabeltrainer.resources;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.security.CodeSource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
 
@@ -18,16 +24,16 @@ public class Buchstabenbilder
    private static final Card[] cards = { Card.BLANK, Card.PICTURE, Card.GERMAN,
          Card.HEBREW, Card.LETTER };
 
+   private static Map<HebrewLetter, BufferedImage> letterPicturesMap = new HashMap<>();
+   private static Map<HebrewLetter, LetterPictureButtonPanel> letterPicturesPanelMap = new HashMap<>();
+
    public static void read() throws Exception
    {
       File directoryLetterPictures = new File(
             Buchstabenbilder.class.getResource("buchstabenbilder").getFile());
       String[] letterPicturesImages = directoryLetterPictures.list();
-      Map<HebrewLetter, LetterPictureButtonPanel> letterPicturesPanelMap = new HashMap<>();
-      Map<HebrewLetter, BufferedImage> letterPicturesMap = new HashMap<>();
 
-      for (String letterPicture : java.util.Objects
-            .requireNonNull(letterPicturesImages))
+      for (String letterPicture : letterPicturesImages)
       {
          String[] names = letterPicture.substring(0, letterPicture.length() - 4)
                .split("-");
@@ -37,6 +43,45 @@ public class Buchstabenbilder
                new LetterPictureButtonPanel(picture, names[0],
                      HebrewLetter.valueOf(names[1]), cards));
          letterPicturesMap.put(HebrewLetter.valueOf(names[1]), picture);
+      }
+      ApplicationSpecialPanels
+            .setLetterPicturesPanelMap(letterPicturesPanelMap);
+      ApplicationImages.setLetterPicturesMap(letterPicturesMap);
+   }
+
+   public static void readZip() throws Exception
+   {
+      CodeSource src = Buchstabenbilder.class.getProtectionDomain()
+            .getCodeSource();
+      if (src != null)
+      {
+         URL jar = src.getLocation();
+         ZipFile zipFile = new ZipFile(jar.getFile());
+         ZipInputStream zip = new ZipInputStream(jar.openStream());
+         while (true)
+         {
+            ZipEntry ze = zip.getNextEntry();
+            if (ze == null)
+               break;
+            String name = ze.getName();
+
+            if (name.length() > 42 && name
+                  .startsWith("vokabeltrainer/resources/buchstabenbilder/"))
+            {
+               String[] names = name.substring(42)
+                     .substring(0, name.length() - 46).split("-");
+               BufferedImage picture = ImageIO.read(zipFile.getInputStream(ze));
+               letterPicturesPanelMap.put(HebrewLetter.valueOf(names[1]),
+                     new LetterPictureButtonPanel(picture, names[0],
+                           HebrewLetter.valueOf(names[1]), cards));
+               letterPicturesMap.put(HebrewLetter.valueOf(names[1]), picture);
+            }
+         }
+      }
+      else
+      {
+         throw new IOException(
+               "can not find code source for buchstabenbilder images");
       }
       ApplicationSpecialPanels
             .setLetterPicturesPanelMap(letterPicturesPanelMap);
