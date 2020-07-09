@@ -54,6 +54,10 @@ public class SettingsPanel extends BackgroundPanelTiled
       textPanel.add(new JLabel(""));
       textPanel.add(new JLabel("ClappingSound: Attribution License, https://freesound.org/people/ebcrosby/sounds/339483/"));
       textPanel.add(new JLabel("WaveSound: Creative Commons License, https://freesound.org/people/florianreichelt/sounds/450755/"));
+      textPanel.add(new JLabel(""));
+      textPanel.add(new JLabel("Alle Bilder sind von pixelbay.com"));
+      
+      
       /*
        * ClappingSound: Attribution License: Attribution — You must give
        * appropriate credit, provide a link to the license, and indicate if changes
@@ -63,7 +67,7 @@ public class SettingsPanel extends BackgroundPanelTiled
        */
 
       /*
-       * WaveSound: Creative Commons 0 License.: No Copyright The person who
+       * WaveSound: Creative Commons License.: No Copyright The person who
        * associated a work with this deed has dedicated the work to the public
        * domain by waiving all of his or her rights to the work worldwide under
        * copyright law, including all related and neighboring rights, to the extent
