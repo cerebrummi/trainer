@@ -811,7 +811,7 @@ public final class Data
       private boolean equalsGermanWordStart(String text, Expression expression)
       {
          text = text.trim();
-         return expression.getGerman().toLowerCase().startsWith(text);
+         return expression.getGerman().startsWith(text);
       }
 
       private Expression[][] convertToExpressionModelArray(
