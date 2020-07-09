@@ -28,8 +28,7 @@ public class MainView extends JPanel
    private JButton dictionaryButton;
    private JButton startButton;
    private JButton statisticsButton;
-   private JButton settingsButton;
-   private JButton aboveButton;
+   private JButton aboutButton;
    private JButton letterPicturesButton;
    private JPanel activeComponent;
    private DictionaryViewConnector dictionaryPanel;
@@ -72,15 +71,13 @@ public class MainView extends JPanel
       vocabularyCardsButton = new JButton("Vokabelkarten");
       dictionaryButton = new JButton("Wörterbuch");
       statisticsButton = new JButton("Statistik");
-      settingsButton = new JButton("Einstellungen");
-      aboveButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
+      aboutButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
       letterPicturesButton = new JButton("Alefbet");
 
       startButton.setFont(Settings.getToolBarButtonFont());
       vocabularyCardsButton.setFont(Settings.getToolBarButtonFont());
       dictionaryButton.setFont(Settings.getToolBarButtonFont());
       statisticsButton.setFont(Settings.getToolBarButtonFont());
-      settingsButton.setFont(Settings.getToolBarButtonFont());
       letterPicturesButton.setFont(Settings.getToolBarButtonFont());
 
       toolBar.add(startButton);
@@ -89,8 +86,7 @@ public class MainView extends JPanel
       toolBar.add(letterPicturesButton);
       toolBar.add(statisticsButton);
       toolBar.add(Box.createHorizontalGlue());
-      toolBar.add(settingsButton);
-      toolBar.add(aboveButton);
+      toolBar.add(aboutButton);
       return toolBar;
    }
 
@@ -165,7 +161,7 @@ public class MainView extends JPanel
          repaint();
       });
 
-      settingsButton.addActionListener(event -> {
+      aboutButton.addActionListener(event -> {
          if (activeComponent != null)
          {
             remove(activeComponent);
@@ -219,14 +215,9 @@ public class MainView extends JPanel
       return statisticsButton;
    }
 
-   public JButton getSettingsButton()
-   {
-      return settingsButton;
-   }
-
    public JButton getAboveButton()
    {
-      return aboveButton;
+      return aboutButton;
    }
 
    public JButton getLetterPicturesButton()

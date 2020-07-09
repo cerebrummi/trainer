@@ -167,24 +167,6 @@ public final class Main
       });
    }
 
-   /*
-    * ClappingSound: Attribution License: Attribution — You must give
-    * appropriate credit, provide a link to the license, and indicate if changes
-    * were made. You may do so in any reasonable manner, but not in any way that
-    * suggests the licensor endorses you or your use.
-    * https://freesound.org/people/ebcrosby/sounds/339483/
-    */
-
-   /*
-    * WaveSound: Creative Commons 0 License.: No Copyright The person who
-    * associated a work with this deed has dedicated the work to the public
-    * domain by waiving all of his or her rights to the work worldwide under
-    * copyright law, including all related and neighboring rights, to the extent
-    * allowed by law. You can copy, modify, distribute and perform the work,
-    * even for commercial purposes, all without asking permission.
-    * https://freesound.org/people/florianreichelt/sounds/450755/
-    */
-
    public static Font getGermanFont(float size)
    {
       return germanFont.deriveFont(size);

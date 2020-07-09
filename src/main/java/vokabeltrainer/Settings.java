@@ -1,10 +1,7 @@
 package vokabeltrainer;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -13,14 +10,13 @@ import vokabeltrainer.types.LanguageSettings;
 
 public class Settings
 {
-
-
    private final static Font buttonFont = Main.getGermanFont(16F);
    private final static Font toolbarButtonFont = Main.getHeaderFont(26F);
    private final static Font secondaryToolbarButtonFont = Main
          .getHeaderFont(18F);
    
    private static boolean soundOn = true;
+      
 
    private Settings()
    {
@@ -199,5 +195,10 @@ public class Settings
    public static void toggleSoundOnOff()
    {
       soundOn = !soundOn;
+   }
+
+   public static void setSoundOn(boolean soundOn)
+   {
+      Settings.soundOn = soundOn;
    }
 }
