@@ -34,33 +34,36 @@ public class AlefbetPanel extends BackgroundPanelTiled
    private LetterPictureAlphabetPanel letterPictureAlphabetPanel;
    private JButton resultButton;
    private JButton resetButton;
-   
+
    public AlefbetPanel()
    {
       setLayout(new TrainLayout(this, 165));
       this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel();
-      
+
       add(initLetterPanel());
       add(letterPictureAlphabetPanel);
       add(initButtons());
 
       initController();
+      this.setFocusTraversalPolicyProvider(true);
+      this.setFocusTraversalPolicy(
+            this.letterPictureAlphabetPanel.getFocusTraversalPolicy());
    }
 
    private Component initButtons()
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 14));
-      
+
       JPanel filler = new JPanel();
-      filler.setMinimumSize(new Dimension(200,1));
-      filler.setMaximumSize(new Dimension(200,1));
-      
+      filler.setMinimumSize(new Dimension(200, 1));
+      filler.setMaximumSize(new Dimension(200, 1));
+
       resultButton = new JButton("auswerten");
       resultButton.setFont(Settings.getButtonFont());
       resetButton = new JButton("zurücksetzen");
       resetButton.setFont(Settings.getButtonFont());
-      
+
       vertical.add(filler);
       vertical.add(resultButton);
       vertical.add(resetButton);
@@ -91,34 +94,34 @@ public class AlefbetPanel extends BackgroundPanelTiled
    private void initController()
    {
       resultButton.addActionListener(event -> {
-        for(JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
-        {
-           if(((LetterTextField)jtc).isOkay())
-           {
-              jtc.setBackground(Settings.getGreen());
-           }
-           else if(jtc.getText().isBlank())
-           {
-              jtc.setBackground(Settings.getLightYellow());
-           }
-           else
-           {
-              jtc.setBackground(Settings.getLightGrayGold());
-           }
-        }
+         for (JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
+         {
+            if (((LetterTextField) jtc).isOkay())
+            {
+               jtc.setBackground(Settings.getGreen());
+            }
+            else if (jtc.getText().isBlank())
+            {
+               jtc.setBackground(Settings.getLightYellow());
+            }
+            else
+            {
+               jtc.setBackground(Settings.getLightGrayGold());
+            }
+         }
       });
-      
+
       resetButton.addActionListener(event -> {
-        for(JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
-        {
-           jtc.setBackground(Settings.getLightYellow());
-           jtc.setText("");
-        }
+         for (JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
+         {
+            jtc.setBackground(Settings.getLightYellow());
+            jtc.setText("");
+         }
       });
-      
+
       pictureInfoButton.addActionListener(event -> {
-         JOptionPane.showMessageDialog(letterPanel, "",
-               "Cerebrummi©", JOptionPane.INFORMATION_MESSAGE,
+         JOptionPane.showMessageDialog(letterPanel, "", "Cerebrummi©",
+               JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make("Bilderbuchstaben",
                      "Alle Bilder kann man", "auch einzeln anklicken.")));
       });

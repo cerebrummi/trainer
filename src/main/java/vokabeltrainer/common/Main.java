@@ -26,7 +26,7 @@ public final class Main
    private static Font germanFont;
    private static Font germanBoldFont;
    private static Font hebrewFont;
-   private static String message = "Cerebrummi konnte nicht starten.\nFehler: ";
+   private static String message = "Cerebrummi© konnte nicht starten.\nFehler: ";
 
    public static void main(String[] args)
    {

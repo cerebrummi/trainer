@@ -4,13 +4,13 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
 
-public class ExpressionEditorFocusTraversalPolicy extends FocusTraversalPolicy
+public class CerebrummiFocusTraversalPolicy extends FocusTraversalPolicy
 {
 
    int focusNumber = 0;
    private Component[] focusList;
 
-   public ExpressionEditorFocusTraversalPolicy(Component[] focusList)
+   public CerebrummiFocusTraversalPolicy(Component[] focusList)
    {
       this.focusList = focusList;
    }

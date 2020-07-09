@@ -115,7 +115,7 @@ public class ExpressionEditorView extends JDialog
             newSearchwordGerman, newSearchwordHebrew, saveButton, restoreButton,
             cancelButton };
       this.setFocusTraversalPolicy(
-            new ExpressionEditorFocusTraversalPolicy(focusList));
+            new CerebrummiFocusTraversalPolicy(focusList));
    }
 
    private void initGuiFields()
@@ -385,7 +385,7 @@ public class ExpressionEditorView extends JDialog
             .setBorder(makeBorderBlank(this.searchwordsJListHebrewTitle));
    }
 
-   private void initController() // TODO
+   private void initController()
    {
       infoExpressionKindButton.addActionListener(event -> {
          JOptionPane.showMessageDialog(this, "", "Cerebrummi©",

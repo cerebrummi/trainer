@@ -1,9 +1,11 @@
 package vokabeltrainer.panels.letterpicture;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.FocusTraversalPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,7 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.editing.SingleLetterDocument;
+import vokabeltrainer.table.list.editor.CerebrummiFocusTraversalPolicy;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -92,6 +95,13 @@ public class LetterPictureAlphabetPanel extends JPanel
    private LetterTextField[] textFields4 = { taw, ssin, schin, resch };
 
    private List<JTextComponent> textFields;
+
+   Component[] focusList = { alef, bet, wet, gimel, dalet, haei, waw, ssain,
+         chet, tet, jod, kaf, chaf, chafssofit, lamed, mem, memssofit, nun,
+         nunssofit, ssamech, ain, paei, faei, faeissofit, zadi, zadissofit, kuf,
+         resch, schin, ssin, taw };
+
+   FocusTraversalPolicy focusTraversalPolicy;
 
    public LetterPictureAlphabetPanel()
    {
@@ -199,10 +209,18 @@ public class LetterPictureAlphabetPanel extends JPanel
             textFields, 15);
       keyboardPanel.add(keyboard, BorderLayout.CENTER);
       this.add(keyboardPanel);
+
+      this.focusTraversalPolicy = new CerebrummiFocusTraversalPolicy(focusList);
    }
 
    public List<JTextComponent> getTextFields()
    {
       return textFields;
+   }
+
+   @Override
+   public FocusTraversalPolicy getFocusTraversalPolicy()
+   {
+      return focusTraversalPolicy;
    }
 }
