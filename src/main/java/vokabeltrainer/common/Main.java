@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
@@ -25,6 +26,7 @@ public final class Main
    private static Font germanFont;
    private static Font germanBoldFont;
    private static Font hebrewFont;
+   private static String message = "Cerebrummi konnte nicht starten.\nFehler: ";
 
    public static void main(String[] args)
    {
@@ -34,8 +36,9 @@ public final class Main
       }
       catch (Exception e1)
       {
-         System.out.println("Could not read fonts.");
-         e1.printStackTrace();
+         JOptionPane.showMessageDialog(null, message+ "Schriften", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         return;
       }
       
       try
@@ -44,8 +47,9 @@ public final class Main
       }
       catch (Exception e1)
       {
-         System.out.println("Could not read images.");
-         e1.printStackTrace();
+         JOptionPane.showMessageDialog(null, message+ "Bilder", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         return;
       }
       
       try
@@ -60,8 +64,9 @@ public final class Main
          }
          catch (Exception e1)
          {
-            System.out.println("Could not read buchstabenbilder.");
-            e1.printStackTrace();
+            JOptionPane.showMessageDialog(null, message+ "Buchstabenbilder", "Nachricht",
+                  JOptionPane.CLOSED_OPTION);
+            return;
          }
       }
       
@@ -77,8 +82,9 @@ public final class Main
          }
          catch (Exception e1)
          {
-            System.out.println("Could not read blue.");
-            e1.printStackTrace();
+            JOptionPane.showMessageDialog(null, message+ "blaue Bilder", "Nachricht",
+                  JOptionPane.CLOSED_OPTION);
+            return;
          }
       }
       
@@ -94,8 +100,9 @@ public final class Main
          }
          catch (Exception e1)
          {
-            System.out.println("Could not read gruen.");
-            e1.printStackTrace();
+            JOptionPane.showMessageDialog(null, message+ "grüne Bilder", "Nachricht",
+                  JOptionPane.CLOSED_OPTION);
+            return;
          }
       }
       
@@ -105,8 +112,9 @@ public final class Main
       }
       catch (Exception e1)
       {
-         System.out.println("Could not read sounds.");
-         e1.printStackTrace();
+         JOptionPane.showMessageDialog(null, message+ "Geräusche", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         return;
       }
 
       Data.initDataBase();
