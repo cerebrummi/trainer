@@ -10,8 +10,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
-
 import javax.imageio.ImageIO;
 
 import vokabeltrainer.ApplicationImages;

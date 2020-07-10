@@ -6,11 +6,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
-
 import javax.imageio.ImageIO;
 
 import vokabeltrainer.ApplicationImages;
@@ -42,13 +41,12 @@ public class Blue
       {
          URL jar = src.getLocation();
          ZipFile zipFile = new ZipFile(jar.getFile());
-         ZipInputStream zip = new ZipInputStream(jar.openStream());
-         while (true)
+         Iterator<? extends ZipEntry> iterator = zipFile.entries().asIterator();
+         while (iterator.hasNext())
          {
-            ZipEntry ze = zip.getNextEntry();
-            if (ze == null)
-               break;
+            ZipEntry ze = iterator.next();
             String name = ze.getName();
+                  
             if (name.startsWith("vokabeltrainer/resources/blue/"))
             {
                blueImagesList.add(ImageIO.read(zipFile.getInputStream(ze)));
