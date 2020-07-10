@@ -191,8 +191,8 @@ public class MainView extends JPanel
       JOptionPane.showMessageDialog(Common.getjFrame(), "", "Cerebrummi©",
             JOptionPane.PLAIN_MESSAGE,
             new ImageIcon(TextImage.make("Keine Worte zum Üben ausgewählt.",
-                  "Bitte neue Worte auswählen,",
-                  "um das Training zu starten.")));
+                  "Bitte neue Worte durch Eingabe einer Anzahl",
+                  "auswählen, um dann das Training zu starten.")));
    }
 
    public JButton getVocabularyCardsButton()
