@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -57,12 +58,10 @@ public class Buchstabenbilder
       {
          URL jar = src.getLocation();
          ZipFile zipFile = new ZipFile(jar.getFile());
-         ZipInputStream zip = new ZipInputStream(jar.openStream());
-         while (true)
+         Iterator<? extends ZipEntry> iterator = zipFile.entries().asIterator();
+         while(iterator.hasNext())
          {
-            ZipEntry ze = zip.getNextEntry();
-            if (ze == null)
-               break;
+            ZipEntry ze = iterator.next();
             String name = ze.getName();
 
             if (name.length() > 42 && name

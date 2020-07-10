@@ -58,14 +58,14 @@ public final class Main
       }
       catch (Exception e)
       {
+         JOptionPane.showMessageDialog(null, message+ "Buchstabenbilder\n"+e, "Nachricht",
+               JOptionPane.CLOSED_OPTION);
          try
          {
             Buchstabenbilder.read(); // during development
          }
          catch (Exception e1)
          {
-            JOptionPane.showMessageDialog(null, message+ "Buchstabenbilder", "Nachricht",
-                  JOptionPane.CLOSED_OPTION);
             return;
          }
       }

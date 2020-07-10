@@ -31,22 +31,22 @@ public class LetterPictureAlphabetPanel extends JPanel
 {
    private static final long serialVersionUID = 2284393162989380186L;
 
-   private HebrewLetter[] keys1 = { HebrewLetter.CHET, HebrewLetter.SSAIN,
+   private final HebrewLetter[] keys1 = { HebrewLetter.CHET, HebrewLetter.SSAIN,
          HebrewLetter.WAW, HebrewLetter.HAEI, HebrewLetter.DALET,
          HebrewLetter.GIMEL, HebrewLetter.WET, HebrewLetter.BET,
          HebrewLetter.ALEF };
 
-   private HebrewLetter[] keys2 = { HebrewLetter.NUN, HebrewLetter.MEMSSOFIT,
+   private final HebrewLetter[] keys2 = { HebrewLetter.NUN, HebrewLetter.MEMSSOFIT,
          HebrewLetter.MEM, HebrewLetter.LAMED, HebrewLetter.CHAFSSOFIT,
          HebrewLetter.CHAF, HebrewLetter.KAF, HebrewLetter.JOD,
          HebrewLetter.TET };
 
-   private HebrewLetter[] keys3 = { HebrewLetter.KUF, HebrewLetter.ZADISSOFIT,
+   private final HebrewLetter[] keys3 = { HebrewLetter.KUF, HebrewLetter.ZADISSOFIT,
          HebrewLetter.ZADI, HebrewLetter.FAEISSOFIT, HebrewLetter.FAEI,
          HebrewLetter.PAEI, HebrewLetter.AIN, HebrewLetter.SSAMECH,
          HebrewLetter.NUNSSOFIT };
 
-   private HebrewLetter[] keys4 = { HebrewLetter.TAW, HebrewLetter.SSIN,
+   private final HebrewLetter[] keys4 = { HebrewLetter.TAW, HebrewLetter.SSIN,
          HebrewLetter.SCHIN, HebrewLetter.RESCH };
 
    private LetterTextField alef = new LetterTextField(HebrewLetter.ALEF);
