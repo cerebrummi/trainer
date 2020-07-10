@@ -14,21 +14,39 @@ public class WordMatching
    public static WordMatchingResult matchHebrew(String worddictionary,
          String wordtest)
    {
-      if (worddictionary.trim().isEmpty())
-      {
-         return null;
-      }
-
       WordMatchingResult result = new WordMatchingResult();
 
+      if (wordtest.trim().isEmpty())
+      {
+         result.setAnswerEmpty(true);
+         return result;
+      }
+      if (worddictionary.trim().isEmpty())
+      {
+         result.setDictionaryEmpty(true);
+         return result;
+      }
+
       List<HebrewLetter> lettersDic = HebrewLetter
-            .findHebrewLetters(worddictionary);
+            .findHebrewLetters(worddictionary.strip());
       Collections.reverse(lettersDic);
 
-      List<HebrewLetter> lettersTest = HebrewLetter.findHebrewLetters(wordtest);
+      List<HebrewLetter> lettersTest = HebrewLetter
+            .findHebrewLetters(wordtest.strip());
 
       int sizeDic = lettersDic.size();
       int sizeTest = lettersTest.size();
+      if (sizeTest == 0)
+      {
+         result.setAnswerEmpty(true);
+         return result;
+      }
+
+      if (sizeDic == 0)
+      {
+         result.setDictionaryEmpty(true);
+         return result;
+      }
       int numberOfCols = sizeDic + 2 * sizeTest;
       int numberOfRows = numberOfCols + 1 - sizeTest + 1;
 
@@ -162,7 +180,7 @@ public class WordMatching
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
          lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
       }
-      else // not moved and either okay or completely false
+      else // not moved and okay or completely false
       {
          cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);

@@ -160,12 +160,28 @@ public class TrainerController implements TrainerControllerConnector
    {
       try
       {
-         trainerView.disableSendButton();
-
          if (Language.GERMAN.equals(this.languageDirection))
          {
             Result result = Resultfactory.getResultDtoH(currentExpression,
                   trainerView.getAnswerField().getText().trim());
+            if (result.isAnswerEmpty())
+            {
+               JOptionPane.showMessageDialog(Common.getjFrame(), "",
+                     Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                     new ImageIcon(TextImage
+                           .make("Bitte schreiben Sie eine Antwort.")));
+               return;
+            }
+            else if (result.isDictionaryEmpty())
+            {
+               JOptionPane.showMessageDialog(Common.getjFrame(), "",
+                     Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                     new ImageIcon(TextImage.make(
+                           "Ihr Trainingswort enthält keine Buchstaben.",
+                           "Bitte löschen Sie diesen Ausdruck",
+                           "aus Kapitel " + currentExpression.getChapter())));
+               return;
+            }
             trainerView.prepareDtoHFeedbackPanel(result);
             if (result.isOkay())
             {
@@ -198,6 +214,7 @@ public class TrainerController implements TrainerControllerConnector
          }
          trainerView.getFeedbackPanel().validate();
          trainerView.getFeedbackPanel().repaint();
+         trainerView.disableSendButton();
       }
       catch (Exception e1)
       {
@@ -376,32 +393,35 @@ public class TrainerController implements TrainerControllerConnector
          {
             JOptionPane.showMessageDialog(Common.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                  new ImageIcon(TextImageWithPicture.make(
-                        ApplicationImages.getReward(), "Wunderbar, sie haben diese",
-                        "Trainingseinheit erfolgreich", "beendet.",
-                        "Sie haben " + newWordsToLearn + " neue Wörter",
-                        "und " + oldWordsToRepeat
-                              + " bekannte Wörter bearbeitet.")));
+                  new ImageIcon(
+                        TextImageWithPicture.make(ApplicationImages.getReward(),
+                              "Wunderbar, sie haben diese",
+                              "Trainingseinheit erfolgreich", "beendet.",
+                              "Sie haben " + newWordsToLearn + " neue Wörter",
+                              "und " + oldWordsToRepeat
+                                    + " bekannte Wörter bearbeitet.")));
          }
          else if (newWordsToLearn > 0 && oldWordsToRepeat == 0)
          {
             JOptionPane.showMessageDialog(Common.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                  new ImageIcon(TextImageWithPicture.make(
-                        ApplicationImages.getReward(), "Wunderbar, sie haben diese",
-                        "Trainingseinheit erfolgreich", "beendet.",
-                        "Sie haben " + newWordsToLearn + " neue Wörter",
-                        "bearbeitet.")));
+                  new ImageIcon(
+                        TextImageWithPicture.make(ApplicationImages.getReward(),
+                              "Wunderbar, sie haben diese",
+                              "Trainingseinheit erfolgreich", "beendet.",
+                              "Sie haben " + newWordsToLearn + " neue Wörter",
+                              "bearbeitet.")));
          }
          else if (newWordsToLearn == 0 && oldWordsToRepeat > 0)
          {
             JOptionPane.showMessageDialog(Common.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                  new ImageIcon(TextImageWithPicture.make(
-                        ApplicationImages.getReward(), "Wunderbar, sie haben diese",
-                        "Trainingseinheit erfolgreich", "beendet.",
-                        "Sie haben " + oldWordsToRepeat
-                              + " bekannte Wörter bearbeitet.")));
+                  new ImageIcon(
+                        TextImageWithPicture.make(ApplicationImages.getReward(),
+                              "Wunderbar, sie haben diese",
+                              "Trainingseinheit erfolgreich", "beendet.",
+                              "Sie haben " + oldWordsToRepeat
+                                    + " bekannte Wörter bearbeitet.")));
          }
       }
       else if (trainerView.getWordsRight().getText().equals("0"))

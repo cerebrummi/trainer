@@ -9,6 +9,8 @@ public class WordMatchingResult
    private boolean completelyFalse;
    private boolean partlyFalse;
    private boolean okay;
+   private boolean dictionaryEmpty;
+   private boolean answerEmpty;
    private int deltaCol;
    private List<HebrewLetter> hebrewDictionary;
    private List<HebrewLetter> hebrewTest;
@@ -95,8 +97,23 @@ public class WordMatchingResult
       this.dataTest = dataTest;
    }
 
-   
+   public boolean isDictionaryEmpty()
+   {
+      return dictionaryEmpty;
+   }
 
+   public void setDictionaryEmpty(boolean dictionaryEmpty)
+   {
+      this.dictionaryEmpty = dictionaryEmpty;
+   }
 
+   public boolean isAnswerEmpty()
+   {
+      return answerEmpty;
+   }
 
+   public void setAnswerEmpty(boolean answerEmpty)
+   {
+      this.answerEmpty = answerEmpty;
+   }
 }

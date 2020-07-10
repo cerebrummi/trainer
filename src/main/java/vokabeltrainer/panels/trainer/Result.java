@@ -10,6 +10,8 @@ import vokabeltrainer.types.Expression;
 public class Result
 {
    private boolean okay = true;
+   private boolean dictionaryEmpty;
+   private boolean answerEmpty;
    private List<BufferedImage> letterFeedbackImages = new ArrayList<>();
    private int width;
    private int answerLettersSize;
@@ -74,5 +76,25 @@ public class Result
    public void reverseLetterFeedbackImage()
    {
       Collections.reverse(letterFeedbackImages);
+   }
+
+   public boolean isDictionaryEmpty()
+   {
+      return dictionaryEmpty;
+   }
+
+   public void setDictionaryEmpty(boolean dictionaryEmpty)
+   {
+      this.dictionaryEmpty = dictionaryEmpty;
+   }
+
+   public boolean isAnswerEmpty()
+   {
+      return answerEmpty;
+   }
+
+   public void setAnswerEmpty(boolean answerEmpty)
+   {
+      this.answerEmpty = answerEmpty;
    }
 }

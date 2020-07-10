@@ -18,6 +18,17 @@ public class Resultfactory
 
       WordMatchingResult wordMatchingResult = WordMatching
             .matchHebrew(expression.getHebrew(), answer);
+      
+      if(wordMatchingResult.isAnswerEmpty())
+      {
+         result.setAnswerEmpty(true);
+         return result;
+      }
+      else if(wordMatchingResult.isDictionaryEmpty())
+      {
+         result.setDictionaryEmpty(true);
+         return result;
+      }
 
       List<HebrewLetter> answerLetters = wordMatchingResult.getHebrewTest();
       List<HebrewLetter> expressionLetters = wordMatchingResult

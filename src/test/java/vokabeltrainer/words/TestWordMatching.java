@@ -55,6 +55,15 @@ public class TestWordMatching
    String wordTest19 = "בּמשׂראד"; // wrong spelling
    String wordDic19 = "בּמשׂרד"; // correct spelling
 
+   String wordDic20 = "בּוקר טוב"; // correct spelling
+   String wordTest20 = "????????"; // empty
+   String wordTest20a = ""; // empty
+   
+   String wordDic21 = "?"; // empty
+   String wordDic21a = ""; // empty
+   String wordDic21b = "?????????"; // empty
+   String wordTest21 = "בּוקר טוב"; // not empty
+
    String[] wordTest4Array = { "HAEI", "TET", "JOD", "SSAMECH", "NEWSPACE",
          "WET", "JOD", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest4List = new LinkedList<String>(
@@ -135,9 +144,9 @@ public class TestWordMatching
          "KUF", "WAW", "BET" };
    List<String> wordTest18bList = new LinkedList<>(
          Arrays.asList(wordTest18bArray));
-   
-   String[] wordDic19bArray = { "DALET", "NEWSPACE", "RESCH",
-         "SSIN", "MEM", "BET" };
+
+   String[] wordDic19bArray = { "DALET", "NEWSPACE", "RESCH", "SSIN", "MEM",
+         "BET" };
    List<String> wordDic19bList = new LinkedList<>(
          Arrays.asList(wordDic19bArray));
 
@@ -157,6 +166,36 @@ public class TestWordMatching
       assertTrue(result.isCompletelyFalse());
       WordMatchingResult result2 = WordMatching.matchHebrew(wordDic, wordTest4);
       assertFalse(result2.isCompletelyFalse());
+   }
+   
+   @Test
+   public void testMatchHebrew_Empty()
+   {
+      WordMatchingResult result = WordMatching.matchHebrew(wordDic20, wordTest20);
+      assertTrue(result.isAnswerEmpty());
+      WordMatchingResult result1 = WordMatching.matchHebrew(wordDic20, wordTest20a);
+      assertTrue(result1.isAnswerEmpty());
+   }
+   
+   @Test
+   public void testMatchHebrew_Empty_Dic1()
+   {
+      WordMatchingResult result = WordMatching.matchHebrew(wordDic21, wordTest21);
+      assertTrue(result.isDictionaryEmpty());
+   }
+   
+   @Test
+   public void testMatchHebrew_Empty_Dic2()
+   {
+      WordMatchingResult result = WordMatching.matchHebrew(wordDic21a, wordTest21);
+      assertTrue(result.isDictionaryEmpty());
+   }
+   
+   @Test
+   public void testMatchHebrew_Empty_Dic3()
+   {
+      WordMatchingResult result = WordMatching.matchHebrew(wordDic21b, wordTest21);
+      assertTrue(result.isDictionaryEmpty());
    }
 
    @Test
@@ -281,7 +320,7 @@ public class TestWordMatching
       System.out.println(wordTest18bList);
       System.out.println(wordTesting18);
       assertTrue(wordTest18bList.equals(wordTesting18));
-      
+
       WordMatchingResult result15 = WordMatching.matchHebrew(wordDic19,
             wordTest19);
       List<String> wordDicing19 = result15.getDataDic();
