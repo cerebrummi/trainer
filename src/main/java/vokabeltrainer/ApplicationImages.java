@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import vokabeltrainer.editing.HebrewLetter;
 
 public class ApplicationImages
@@ -55,6 +57,8 @@ public class ApplicationImages
    private static BufferedImage work;
    private static BufferedImage soundOn;
    private static BufferedImage soundOff;
+   
+   private static String message = "Cerebrummi© konnte keine Bilder laden.\\nFehler: ";
 
    public static void setImage(BufferedImage image)
    {
@@ -73,6 +77,10 @@ public class ApplicationImages
 
    public static void setGreenImages(List<BufferedImage> greenImages)
    {
+      if(greenImages.isEmpty())
+      {
+        exitWithMessage("keine guenen Bilder");
+      }
       ApplicationImages.greenImages = greenImages;
    }
 
@@ -83,6 +91,10 @@ public class ApplicationImages
 
    public static void setTrashcan(BufferedImage trashcan)
    {
+      if(trashcan == null)
+      {
+         exitWithMessage("keine Trashcan");
+      }
       ApplicationImages.trashcan = trashcan;
    }
 
@@ -93,6 +105,10 @@ public class ApplicationImages
 
    public static void setShredder(BufferedImage shredder)
    {
+      if(shredder == null)
+      {
+         exitWithMessage("kein Shredder");
+      }
       ApplicationImages.shredder = shredder;
    }
 
@@ -112,6 +128,10 @@ public class ApplicationImages
 
    public static void setCopy(BufferedImage copy)
    {
+      if(copy == null)
+      {
+         exitWithMessage("kein Copy Icon");
+      }
       ApplicationImages.copy = copy;
    }
 
@@ -127,6 +147,10 @@ public class ApplicationImages
 
    public static void setClear(BufferedImage clear)
    {
+      if(clear == null)
+      {
+         exitWithMessage("kein Clear Icon");
+      }
       ApplicationImages.clear = clear;
    }
 
@@ -137,6 +161,10 @@ public class ApplicationImages
 
    public static void setSelect(BufferedImage selected)
    {
+      if(selected == null)
+      {
+         exitWithMessage("kein Selected Icon");
+      }
       ApplicationImages.select = selected;
    }
 
@@ -147,6 +175,10 @@ public class ApplicationImages
 
    public static void setNewWord(BufferedImage newWord)
    {
+      if(newWord == null)
+      {
+         exitWithMessage("kein NewWord Icon");
+      }
       ApplicationImages.newWord = newWord;
    }
 
@@ -157,6 +189,10 @@ public class ApplicationImages
 
    public static void setSaveWord(BufferedImage saveWord)
    {
+      if(saveWord == null)
+      {
+         exitWithMessage("kein SaveWord Icon");
+      }
       ApplicationImages.saveWord = saveWord;
    }
 
@@ -167,6 +203,10 @@ public class ApplicationImages
 
    public static void setDeleteWord(BufferedImage deleteWord)
    {
+      if(deleteWord == null)
+      {
+         exitWithMessage("kein deleteWord");
+      }
       ApplicationImages.deleteWord = deleteWord;
    }
 
@@ -177,6 +217,10 @@ public class ApplicationImages
 
    public static void setRestore(BufferedImage restore)
    {
+      if(restore == null)
+      {
+         exitWithMessage("kein Restore Icon");
+      }
       ApplicationImages.restore = restore;
    }
 
@@ -187,6 +231,10 @@ public class ApplicationImages
 
    public static void setSend(BufferedImage send)
    {
+      if(send == null)
+      {
+         exitWithMessage("kein Send Icon");
+      }
       ApplicationImages.send = send;
    }
 
@@ -197,6 +245,10 @@ public class ApplicationImages
 
    public static void setStart(BufferedImage start)
    {
+      if(start == null)
+      {
+         exitWithMessage("kein Start Icon");
+      }
       ApplicationImages.start = start;
    }
 
@@ -207,6 +259,10 @@ public class ApplicationImages
 
    public static void setStop(BufferedImage stop)
    {
+      if(stop == null)
+      {
+         exitWithMessage("kein Stop Icon");
+      }
       ApplicationImages.stop = stop;
    }
 
@@ -217,6 +273,10 @@ public class ApplicationImages
 
    public static void setSearch(BufferedImage search)
    {
+      if(search == null)
+      {
+         exitWithMessage("kein Search Icon");
+      }
       ApplicationImages.search = search;
    }
 
@@ -227,6 +287,10 @@ public class ApplicationImages
 
    public static void setOkaySave(BufferedImage okaySave)
    {
+      if(okaySave == null)
+      {
+         exitWithMessage("kein OkaySave Icon");
+      }
       ApplicationImages.okaySave = okaySave;
    }
 
@@ -237,6 +301,10 @@ public class ApplicationImages
 
    public static void setEmpty(BufferedImage empty)
    {
+      if(empty == null)
+      {
+         exitWithMessage("kein empty Icon");
+      }
       ApplicationImages.empty = empty;
    }
 
@@ -247,6 +315,10 @@ public class ApplicationImages
 
    public static void setInfoCursor(BufferedImage infoCursor)
    {
+      if(infoCursor == null)
+      {
+         exitWithMessage("kein InfoCursor");
+      }
       ApplicationImages.infoCursor = infoCursor;
    }
 
@@ -257,6 +329,10 @@ public class ApplicationImages
 
    public static void setInfoButtonIcon(BufferedImage infoButtonIcon)
    {
+      if(infoButtonIcon == null)
+      {
+         exitWithMessage("kein InfoButton Icon");
+      }
       ApplicationImages.infoButtonIcon = infoButtonIcon;
    }
 
@@ -267,6 +343,10 @@ public class ApplicationImages
 
    public static void setInfoIcon(BufferedImage infoIcon)
    {
+      if(infoIcon == null)
+      {
+         exitWithMessage("kein InfoIcon Icon");
+      }
       ApplicationImages.infoIcon = infoIcon;
    }
 
@@ -277,6 +357,10 @@ public class ApplicationImages
 
    public static void setTrashcanBackground(BufferedImage trashcanBackground)
    {
+      if(trashcanBackground == null)
+      {
+         exitWithMessage("kein Trashcan Hintergrund");
+      }
       ApplicationImages.trashcanBackground = trashcanBackground;
    }
 
@@ -287,6 +371,10 @@ public class ApplicationImages
 
    public static void setStartImage(BufferedImage startImage)
    {
+      if(startImage == null)
+      {
+         exitWithMessage("kein StartImage");
+      }
       ApplicationImages.startImage = startImage;
    }
 
@@ -297,6 +385,10 @@ public class ApplicationImages
 
    public static void setErrorImage(BufferedImage errorImage)
    {
+      if(errorImage == null)
+      {
+         exitWithMessage("kein errorImage");
+      }
       ApplicationImages.errorImage = errorImage;
    }
 
@@ -307,6 +399,10 @@ public class ApplicationImages
 
    public static void setTexturedBackground(BufferedImage texturedBackground)
    {
+      if(texturedBackground == null)
+      {
+         exitWithMessage("kein textured Hintergrund");
+      }
       ApplicationImages.texturedBackground = texturedBackground;
    }
 
@@ -317,6 +413,10 @@ public class ApplicationImages
 
    public static void setArrow(BufferedImage arrow)
    {
+      if(arrow == null)
+      {
+         exitWithMessage("kein Arrow Icon");
+      }
       ApplicationImages.arrow = arrow;
    }
 
@@ -327,6 +427,10 @@ public class ApplicationImages
 
    public static void setDone(BufferedImage done)
    {
+      if(done == null)
+      {
+         exitWithMessage("kein Done Icon");
+      }
       ApplicationImages.done = done;
    }
 
@@ -337,6 +441,10 @@ public class ApplicationImages
 
    public static void setEmptyList(BufferedImage emptyList)
    {
+      if(emptyList == null)
+      {
+         exitWithMessage("kein EmptyList Icon");
+      }
       ApplicationImages.emptyList = emptyList;
    }
 
@@ -347,6 +455,10 @@ public class ApplicationImages
 
    public static void setLogo(BufferedImage logo)
    {
+      if(logo == null)
+      {
+         exitWithMessage("kein Logo");
+      }
       ApplicationImages.logo = logo;
    }
    
@@ -357,6 +469,10 @@ public class ApplicationImages
 
    public static void setLogo24(BufferedImage logo24)
    {
+      if(logo24 == null)
+      {
+         exitWithMessage("kein Logo 24");
+      }
       ApplicationImages.logo24 = logo24;
    }
 
@@ -367,6 +483,10 @@ public class ApplicationImages
 
    public static void setLogo150(BufferedImage logo150)
    {
+      if(logo150 == null)
+      {
+         exitWithMessage("kein Logo 150");
+      }
       ApplicationImages.logo150 = logo150;
    }
 
@@ -378,6 +498,10 @@ public class ApplicationImages
    public static void setLetterPicturesMap(
          Map<HebrewLetter, BufferedImage> letterPicturesMap)
    {
+      if(letterPicturesMap.size() < 35)
+      {
+            exitWithMessage("Buchstabenbilder fehlen");
+      }
       ApplicationImages.letterPicturesMap = letterPicturesMap;
    }
 
@@ -388,6 +512,10 @@ public class ApplicationImages
 
    public static void setTurn(BufferedImage turn)
    {
+      if(turn == null)
+      {
+         exitWithMessage("kein Turn Icon");
+      }
       ApplicationImages.turn = turn;
    }
 
@@ -398,6 +526,10 @@ public class ApplicationImages
 
    public static void setAnswerOkay(BufferedImage answerOkay)
    {
+      if(answerOkay == null)
+      {
+         exitWithMessage("kein AnswerOkay Icon");
+      }
       ApplicationImages.answerOkay = answerOkay;
    }
 
@@ -408,6 +540,10 @@ public class ApplicationImages
 
    public static void setAnswerNotOkay(BufferedImage answerNotOkay)
    {
+      if(answerNotOkay == null)
+      {
+         exitWithMessage("kein AnswerNotOkay Icon");
+      }
       ApplicationImages.answerNotOkay = answerNotOkay;
    }
 
@@ -418,6 +554,10 @@ public class ApplicationImages
 
    public static void setAnswerUndecided(BufferedImage answerUndecided)
    {
+      if(answerUndecided == null)
+      {
+         exitWithMessage("kein AnswerUndecided Icon");
+      }
       ApplicationImages.answerUndecided = answerUndecided;
    }
 
@@ -428,6 +568,10 @@ public class ApplicationImages
 
    public static void setBlueImages(List<BufferedImage> blueImages)
    {
+      if(blueImages.isEmpty())
+      {
+         exitWithMessage("keine blauen Bilder");
+      }
       ApplicationImages.blueImages = blueImages;
    }
 
@@ -438,6 +582,10 @@ public class ApplicationImages
 
    public static void setCancel(BufferedImage cancel)
    {
+      if(cancel == null)
+      {
+         exitWithMessage("kein Cancel Icon");
+      }
       ApplicationImages.cancel = cancel;
    }
 
@@ -448,16 +596,28 @@ public class ApplicationImages
 
    public static void setReward(BufferedImage reward)
    {
+      if(reward == null)
+      {
+         exitWithMessage("kein Reward Icon");
+      }
       ApplicationImages.reward = reward;
    }
 
    public static void setLetterEmpty(BufferedImage letterEmpty)
    {
+      if(letterEmpty == null)
+      {
+         exitWithMessage("kein LetterEmpty Icon");
+      }
       ApplicationImages.letterEmpty = letterEmpty;
    }
 
    public static void setLetterNone(BufferedImage letterNone)
    {
+      if(letterNone == null)
+      {
+         exitWithMessage("kein LetterNone Icon");
+      }
       ApplicationImages.letterNone = letterNone;
    }
 
@@ -473,6 +633,10 @@ public class ApplicationImages
 
    public static void setWork(BufferedImage work)
    {
+      if(work == null)
+      {
+         exitWithMessage("kein Work Icon");
+      }
       ApplicationImages.work = work;
    }
 
@@ -483,6 +647,10 @@ public class ApplicationImages
 
    public static void setSoundOn(BufferedImage soundOn)
    {
+      if(soundOn == null)
+      {
+         exitWithMessage("kein SoundOn Icon");
+      }
       ApplicationImages.soundOn = soundOn;
    }
 
@@ -493,11 +661,22 @@ public class ApplicationImages
 
    public static void setSoundOff(BufferedImage soundOff)
    {
+      if(soundOff == null)
+      {
+         exitWithMessage("kein SoundOff Icon");
+      }
       ApplicationImages.soundOff = soundOff;
    }
 
    public static BufferedImage getSoundOff()
    {
       return soundOff;
+   }
+   
+   private static void exitWithMessage(String localMessage)
+   {
+      JOptionPane.showMessageDialog(null, message+ localMessage, "Nachricht",
+            JOptionPane.CLOSED_OPTION);
+      System.exit(1);
    }
 }

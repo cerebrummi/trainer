@@ -1,21 +1,23 @@
 package vokabeltrainer;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
+import javax.swing.JOptionPane;
 
 public class ApplicationSound
 {
-   private static byte[] shredderSound = { };
-   private static byte[] splotchSound = { };
-   private static byte[] clappingSound = { };
-   private static byte[] waveSound = { };
-   
+   private static byte[] shredderSound = {};
+   private static byte[] splotchSound = {};
+   private static byte[] clappingSound = {};
+   private static byte[] waveSound = {};
+
    private static AudioFormat audioFormat = new AudioFormat(44100, 16, 2, true,
          false);
+
+   private static String message = "Cerebrummi© konnte keine Geräusche laden.\\nFehler: ";
 
    public static void setShredderSound(InputStream in)
    {
@@ -23,9 +25,14 @@ public class ApplicationSound
       {
          shredderSound = in.readAllBytes();
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          // nothing
+      }
+
+      if (shredderSound.length == 0)
+      {
+         exitWithMessage("Shredder Geräusch fehlt.");
       }
    }
 
@@ -41,9 +48,14 @@ public class ApplicationSound
       {
          splotchSound = audioInputStream.readAllBytes();
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          // nothing
+      }
+
+      if (splotchSound.length == 0)
+      {
+         exitWithMessage("Splotch Geräusch fehlt.");
       }
    }
 
@@ -59,12 +71,17 @@ public class ApplicationSound
       {
          clappingSound = audioInputStream.readAllBytes();
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          // nothing
       }
+
+      if (clappingSound.length == 0)
+      {
+         exitWithMessage("Clapping Geräusch fehlt.");
+      }
    }
-   
+
    public static AudioInputStream getClappingSound()
    {
       return new AudioInputStream(new ByteArrayInputStream(clappingSound),
@@ -77,15 +94,27 @@ public class ApplicationSound
       {
          waveSound = audioInputStream.readAllBytes();
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          // nothing
       }
+
+      if (waveSound.length == 0)
+      {
+         exitWithMessage("Wave Geräusch fehlt.");
+      }
    }
-   
+
    public static AudioInputStream getWaveSound()
    {
       return new AudioInputStream(new ByteArrayInputStream(waveSound),
             audioFormat, waveSound.length);
+   }
+
+   private static void exitWithMessage(String localMessage)
+   {
+      JOptionPane.showMessageDialog(null, message + localMessage, "Nachricht",
+            JOptionPane.CLOSED_OPTION);
+      System.exit(1);
    }
 }

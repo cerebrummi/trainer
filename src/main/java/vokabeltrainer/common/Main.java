@@ -36,8 +36,6 @@ public final class Main
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null, message+ "Schriften", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
          return;
       }
       
@@ -47,8 +45,6 @@ public final class Main
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null, message+ "Bilder", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
          return;
       }
       
@@ -58,8 +54,6 @@ public final class Main
       }
       catch (Exception e)
       {
-         JOptionPane.showMessageDialog(null, message+ "Buchstabenbilder\n"+e, "Nachricht",
-               JOptionPane.CLOSED_OPTION);
          try
          {
             Buchstabenbilder.read(); // during development
@@ -82,8 +76,6 @@ public final class Main
          }
          catch (Exception e1)
          {
-            JOptionPane.showMessageDialog(null, message+ "blaue Bilder", "Nachricht",
-                  JOptionPane.CLOSED_OPTION);
             return;
          }
       }
@@ -100,8 +92,6 @@ public final class Main
          }
          catch (Exception e1)
          {
-            JOptionPane.showMessageDialog(null, message+ "grüne Bilder", "Nachricht",
-                  JOptionPane.CLOSED_OPTION);
             return;
          }
       }
@@ -112,8 +102,6 @@ public final class Main
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null, message+ "Geräusche", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
          return;
       }
 
