@@ -294,6 +294,21 @@ public enum HebrewLetter
       return joiner.toString();
    }
 
+   public static String getLetterPatternString()
+   {
+      StringJoiner joiner = new StringJoiner(",");
+      for (HebrewLetter letter : HebrewLetter.values())
+      {
+         if (letter != GERSCHAYIM && letter != GERESCH && letter != NEWSPACE
+               && letter != SPACE)
+         {
+            joiner.add(letter.code);
+            joiner.add(letter.code.toLowerCase());
+         }
+      }
+      return joiner.toString();
+   }
+
    public static List<String> findLetterCodes(String hebrewWord)
    {
       List<String> letterCodes = new ArrayList<>();
