@@ -38,6 +38,7 @@ public class Buchstabenbilder
                .split("-");
          BufferedImage picture = ImageIO.read(Buchstabenbilder.class
                .getResourceAsStream("buchstabenbilder/" + letterPicture));
+         
          letterPicturesPanelMap.put(HebrewLetter.valueOf(names[1]),
                new LetterPictureButtonPanel(picture, names[0],
                      HebrewLetter.valueOf(names[1]), cards));
@@ -68,6 +69,10 @@ public class Buchstabenbilder
                String[] names = name.substring(42)
                      .substring(0, name.length() - 46).split("-");
                BufferedImage picture = ImageIO.read(zipFile.getInputStream(ze));
+               if (picture == null)
+               {
+                  throw new IOException("could not read buchstabenbild");
+               }
                letterPicturesPanelMap.put(HebrewLetter.valueOf(names[1]),
                      new LetterPictureButtonPanel(picture, names[0],
                            HebrewLetter.valueOf(names[1]), cards));

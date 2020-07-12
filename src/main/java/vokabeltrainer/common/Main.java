@@ -26,7 +26,7 @@ public final class Main
    private static Font germanFont;
    private static Font germanBoldFont;
    private static Font hebrewFont;
-   private static String message = "Cerebrummi© konnte nicht starten.\nFehler: ";
+   private static String message = "Cerebrummi© bitte neu starten.\nFehler: ";
 
    public static void main(String[] args)
    {
@@ -36,7 +36,9 @@ public final class Main
       }
       catch (Exception e1)
       {
-         return;
+         JOptionPane.showMessageDialog(null, message+ "Schriftarten fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         System.exit(1);
       }
       
       try
@@ -45,7 +47,9 @@ public final class Main
       }
       catch (Exception e1)
       {
-         return;
+         JOptionPane.showMessageDialog(null, message+ "Bilder fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         System.exit(1);
       }
       
       try
@@ -54,14 +58,9 @@ public final class Main
       }
       catch (Exception e)
       {
-         try
-         {
-            Buchstabenbilder.read(); // during development
-         }
-         catch (Exception e1)
-         {
-            return;
-         }
+         JOptionPane.showMessageDialog(null, message+ "Buchstabenbilder fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         System.exit(1);
       }
       
       try
@@ -70,14 +69,9 @@ public final class Main
       }
       catch (Exception e)
       {
-         try
-         {
-            Blue.read(); // during development
-         }
-         catch (Exception e1)
-         {
-            return;
-         }
+         JOptionPane.showMessageDialog(null, message+ "Blaue Bilder fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         System.exit(1);
       }
       
       try
@@ -86,14 +80,9 @@ public final class Main
       }
       catch (Exception e)
       {
-         try
-         {
-            Gruen.read(); // during development
-         }
-         catch (Exception e1)
-         {
-            return;
-         }
+         JOptionPane.showMessageDialog(null, message+ "Grüne Bilder fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         System.exit(1);
       }
       
       try
@@ -102,7 +91,9 @@ public final class Main
       }
       catch (Exception e1)
       {
-         return;
+         JOptionPane.showMessageDialog(null, message+ "Geräusche fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         System.exit(1);
       }
 
       Data.initDataBase();

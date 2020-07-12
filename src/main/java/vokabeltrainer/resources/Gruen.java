@@ -34,7 +34,7 @@ public class Gruen
    
    public static void readZip() throws Exception
    {
-      CodeSource src = Blue.class.getProtectionDomain().getCodeSource();
+      CodeSource src = Gruen.class.getProtectionDomain().getCodeSource();
       if (src != null)
       {
          URL jar = src.getLocation();
@@ -47,13 +47,17 @@ public class Gruen
             
             if (name.startsWith("vokabeltrainer/resources/gruen/"))
             {
-               greenImagesList.add(ImageIO.read(zipFile.getInputStream(ze)));
+               BufferedImage image = ImageIO.read(zipFile.getInputStream(ze));
+               if(image != null)
+               {
+                  greenImagesList.add(image);
+               }
             }
          }
       }
       else
       {
-         throw new IOException("can not find code source for blue images");
+         throw new IOException("can not find code source for green images");
       }
       ApplicationImages.setGreenImages(greenImagesList);
    }

@@ -49,7 +49,11 @@ public class Blue
                   
             if (name.startsWith("vokabeltrainer/resources/blue/"))
             {
-               blueImagesList.add(ImageIO.read(zipFile.getInputStream(ze)));
+               BufferedImage image = ImageIO.read(zipFile.getInputStream(ze));
+               if (image != null)
+               {
+                  blueImagesList.add(image);
+               }
             }
          }
       }
