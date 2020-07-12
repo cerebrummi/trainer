@@ -1,7 +1,5 @@
 package vokabeltrainer.editing;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 public enum GermanLetter
