@@ -37,7 +37,7 @@ public class LetterPictureWordPanel extends JPanel
       JPanel displayPanel = new JPanel();
       displayPanel.setLayout(new TrainLayout(displayPanel));
 
-      List<String> hebrewLettersCode = HebrewLetter.findLetterCodes(hebrewWord);
+      List<String> hebrewLettersCode = HebrewLetter.findLetterCodesAll(hebrewWord);
       Collections.reverse(hebrewLettersCode);
 
       for (String hebrewLetterCode : hebrewLettersCode)

@@ -13,26 +13,81 @@ public class GermanDocument extends PlainDocument
 {
    private static final long serialVersionUID = 7089213677826493757L;
 
-   String pattern;
+   private String pattern;
 
    public GermanDocument(boolean withComma)
    {
-      pattern = GermanLetter.getPatternString(withComma);
-   }
-   
-   public void insertString(int offset, String str, AttributeSet attr)
-         throws BadLocationException
-   { 
-      List<String> list = GermanLetter.findLetters(str);
-      for (String letter : list)
+      if (withComma)
       {
-         if(!StringUtils.containsIgnoreCase(pattern, letter))
+         pattern = SignLetter.getPatternStringGermanWithComma();
+      }
+      else
+      {
+         pattern = SignLetter.getPatternStringGerman();
+      }
+   }
+
+   @Override
+   public void replace(int offset, int length, String text, AttributeSet attrs)
+         throws BadLocationException
+   {
+      if (getLength() + text.length() - length > 50)
+      {
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
+      
+      List<String> list = HebrewLetter.findLetterCodesAll(text);
+
+      for (int i = 0; i < list.size(); i++)
+      {
+         GermanLetter letter = GermanLetter.getLetterFromCode(list.get(i));
+         if (letter != null)
+         {
+            // okay
+         }
+         else if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+         {
+            // okay
+         }
+         else
          {
             Toolkit.getDefaultToolkit().beep();
             return;
          }
       }
-      
+      super.replace(offset, length, text, attrs);
+   }
+
+   @Override
+   public void insertString(int offset, String str, AttributeSet attr)
+         throws BadLocationException
+   {
+      if (getLength() + str.length() > 50)
+      {
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
+      List<String> list = HebrewLetter.findLetterCodesAll(str);
+
+      for (int i = 0; i < list.size(); i++)
+      {
+         GermanLetter letter = GermanLetter.getLetterFromCode(list.get(i));
+         if (letter != null)
+         {
+            // okay
+         }
+         else if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+         {
+            // okay
+         }
+         else
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
+      }
+
       super.insertString(offset, str, attr);
    }
 }

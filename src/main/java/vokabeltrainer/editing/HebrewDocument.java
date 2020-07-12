@@ -10,29 +10,82 @@ import org.apache.commons.lang3.StringUtils;
 
 public class HebrewDocument extends PlainDocument
 {
-   String pattern;
-
    private static final long serialVersionUID = -9186425449349376170L;
 
+   private String pattern;
    
    public HebrewDocument(boolean withComma)
    {
-      pattern = HebrewLetter.getPatternString(withComma);
+      if(withComma)
+      {
+         pattern = SignLetter.getPatternStringHebrewWithComma();
+      }
+      else
+      {
+         pattern = SignLetter.getPatternStringHebrew();
+      }
    }
    
-   public void insertString(int offset, String str, AttributeSet attr)
+   @Override
+   public void replace(int offset, int length, String text, AttributeSet attrs)
          throws BadLocationException
-   { 
-      List<String> list = HebrewLetter.findLetterCodes(str);
-      for (String letter : list)
+   {
+      if (getLength() + text.length() - length > 26)
       {
-         if(!StringUtils.containsIgnoreCase(pattern, letter))
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
+      
+      List<String> list = HebrewLetter.findLetterCodesAll(text);
+
+      for (int i = 0; i < list.size(); i++)
+      {
+         HebrewLetter letter = HebrewLetter.getLetterFromCode(list.get(i));
+         if (letter != null)
+         {
+            // okay
+         }
+         else if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+         {
+            // okay
+         }
+         else
          {
             Toolkit.getDefaultToolkit().beep();
             return;
          }
       }
-      
+      super.replace(offset, length, text, attrs);
+   }
+   
+   public void insertString(int offset, String str, AttributeSet attr)
+         throws BadLocationException
+   {
+      if (getLength() + str.length() > 26)
+      {
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
+      List<String> list = HebrewLetter.findLetterCodesAll(str);
+
+      for (int i = 0; i < list.size(); i++)
+      {
+         HebrewLetter letter = HebrewLetter.getLetterFromCode(list.get(i));
+         if (letter != null)
+         {
+            // okay
+         }
+         else if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+         {
+            // okay
+         }
+         else
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
+      }
+
       super.insertString(offset, str, attr);
    }
 }

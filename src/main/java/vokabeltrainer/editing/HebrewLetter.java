@@ -277,23 +277,6 @@ public enum HebrewLetter
       return pixelWidth;
    }
 
-   public static String getPatternString(boolean withComma)
-   {
-      StringJoiner joiner = new StringJoiner(",");
-      for (HebrewLetter letter : HebrewLetter.values())
-      {
-         joiner.add(letter.code);
-      }
-      joiner.add(" 003F"); // ?
-      joiner.add(" 0021"); // !
-      joiner.add(" 002E"); // .
-      if (withComma)
-      {
-         joiner.add(" 002C"); // ,
-      }
-      return joiner.toString();
-   }
-
    public static String getLetterPatternString()
    {
       StringJoiner joiner = new StringJoiner(",");
@@ -309,9 +292,13 @@ public enum HebrewLetter
       return joiner.toString();
    }
 
-   public static List<String> findLetterCodes(String hebrewWord)
+   public static List<String> findLetterCodesAll(String hebrewWord)
    {
       List<String> letterCodes = new ArrayList<>();
+      if(hebrewWord == null)
+      {
+         return letterCodes;
+      }
       for (int i = 0, c = 0; i < hebrewWord.length()
             && c < hebrewWord.length();)
       {
@@ -356,7 +343,7 @@ public enum HebrewLetter
 
    public static List<HebrewLetter> findHebrewLetters(String hebrewWord)
    {
-      List<String> letterCodes = HebrewLetter.findLetterCodes(hebrewWord);
+      List<String> letterCodes = HebrewLetter.findLetterCodesAll(hebrewWord);
       List<HebrewLetter> hebrewLetters = new ArrayList<>();
       for (String code : letterCodes)
       {

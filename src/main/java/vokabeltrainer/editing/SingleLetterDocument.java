@@ -1,8 +1,6 @@
 package vokabeltrainer.editing;
 
 import java.awt.Toolkit;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.text.AttributeSet;
@@ -23,24 +21,65 @@ public class SingleLetterDocument extends PlainDocument
    }
 
    @Override
-   public void insertString(int offset, String str, AttributeSet a)
+   public void replace(int offset, int length, String text, AttributeSet attrs)
          throws BadLocationException
    {
-      str = StringUtils.strip(str);
-      List<String> list = HebrewLetter.findLetterCodes(str);
-      if (list.size() > 1 && pattern.contains(list.get(1)))
-      {
-         super.insertString(0,
-               HebrewLetter.getLetterFromCode(list.get(1)).getUnicode(), a);
-      }
-      else if (list.size() == 1 && pattern.contains(list.get(0)))
-      {
-         super.insertString(0,
-               HebrewLetter.getLetterFromCode(list.get(0)).getUnicode(), a);
-      }
-      else
+      if (getLength() + text.length() - length > 1)
       {
          Toolkit.getDefaultToolkit().beep();
+         return;
       }
+      
+      List<String> list = HebrewLetter.findLetterCodesAll(text);
+
+      for (int i = 0; i < list.size(); i++)
+      {
+         HebrewLetter letter = HebrewLetter.getLetterFromCode(list.get(i));
+         if (letter != null)
+         {
+            // okay
+         }
+         else if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+         {
+            // okay
+         }
+         else
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
+      }
+      super.replace(offset, length, text, attrs);
+   }
+   
+   public void insertString(int offset, String str, AttributeSet attr)
+         throws BadLocationException
+   {
+      if (getLength() + str.length() > 1)
+      {
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
+      List<String> list = HebrewLetter.findLetterCodesAll(str);
+
+      for (int i = 0; i < list.size(); i++)
+      {
+         HebrewLetter letter = HebrewLetter.getLetterFromCode(list.get(i));
+         if (letter != null)
+         {
+            // okay
+         }
+         else if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+         {
+            // okay
+         }
+         else
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
+      }
+
+      super.insertString(offset, str, attr);
    }
 }
