@@ -14,6 +14,7 @@ import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.backup.BackupController;
 import vokabeltrainer.panels.dictionary.DictionaryController;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
@@ -30,12 +31,14 @@ public class MainView extends JPanel
    private JButton statisticsButton;
    private JButton aboutButton;
    private JButton letterPicturesButton;
+   private JButton backupButton;
    private JPanel activeComponent;
    private DictionaryViewConnector dictionaryPanel;
    private StatisticsPanel statisticsPanel;
    private StartPanel startPanel;
    private SettingsPanel settingsPanel;
    private AlefbetPanel letterPicturesPanel;
+   private BackupPanelView backupPanel;
 
    public MainView()
    {
@@ -56,6 +59,7 @@ public class MainView extends JPanel
       letterPicturesPanel = new AlefbetPanel();
       statisticsPanel = new StatisticsPanel();
       settingsPanel = new SettingsPanel();
+      backupPanel = new BackupController().getBackupPanel();
    }
 
    private Component initToolBar()
@@ -73,12 +77,14 @@ public class MainView extends JPanel
       statisticsButton = new JButton("Statistik");
       aboutButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
       letterPicturesButton = new JButton("Alefbet");
+      backupButton = new JButton("Sicherheitskopien");
 
       startButton.setFont(Settings.getToolBarButtonFont());
       vocabularyCardsButton.setFont(Settings.getToolBarButtonFont());
       dictionaryButton.setFont(Settings.getToolBarButtonFont());
       statisticsButton.setFont(Settings.getToolBarButtonFont());
       letterPicturesButton.setFont(Settings.getToolBarButtonFont());
+      backupButton.setFont(Settings.getToolBarButtonFont());
 
       toolBar.add(startButton);
       toolBar.add(dictionaryButton);
@@ -86,6 +92,7 @@ public class MainView extends JPanel
       toolBar.add(letterPicturesButton);
       toolBar.add(statisticsButton);
       toolBar.add(Box.createHorizontalGlue());
+      toolBar.add(backupButton);
       toolBar.add(aboutButton);
       return toolBar;
    }
@@ -156,6 +163,17 @@ public class MainView extends JPanel
          }
          activeComponent = statisticsPanel;
          statisticsPanel.setValues();
+         add(activeComponent, BorderLayout.CENTER);
+         validate();
+         repaint();
+      });
+      
+      backupButton.addActionListener(event -> {
+         if (activeComponent != null)
+         {
+            remove(activeComponent);
+         }
+         activeComponent = backupPanel;
          add(activeComponent, BorderLayout.CENTER);
          validate();
          repaint();
