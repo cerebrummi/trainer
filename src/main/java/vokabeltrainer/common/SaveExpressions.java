@@ -15,7 +15,6 @@ import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 import vokabeltrainer.Settings;
-import vokabeltrainer.common.backup.BackupExpressions;
 import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
@@ -49,21 +48,8 @@ public final class SaveExpressions
                catch (Exception e)
                {
                   JOptionPane.showMessageDialog(Common.getjFrame(),
-                        "Fehler beim Speichern.\nÄndern Sie den Ort zum Abspeichern in den Einstellungen.",
+                        "Fehler beim Speichern.",
                         "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
-                  return false;
-               }
-            }
-
-            if(customDir.list().length > 1)
-            {
-               String backupErrorMessage = new BackupExpressions().makeBackupNow();
-               if (!backupErrorMessage.isEmpty() && JOptionPane.showConfirmDialog(
-                     Common.getjFrame(),
-                     "Es gab einen Fehler beim Backup.\nWollen Sie trotzdem speichern?\n"
-                           + backupErrorMessage,
-                     "Fehlermeldung", JOptionPane.WARNING_MESSAGE) == 1)
-               {
                   return false;
                }
             }

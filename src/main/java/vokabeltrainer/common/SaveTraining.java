@@ -15,7 +15,6 @@ import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 import vokabeltrainer.Settings;
-import vokabeltrainer.common.backup.BackupTraining;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
@@ -49,20 +48,10 @@ public final class SaveTraining
                catch (Exception e)
                {
                   JOptionPane.showMessageDialog(Common.getjFrame(),
-                        "Fehler beim Speichern des Trainings.\nÄndern Sie den Ort zum Abspeichern in den Einstellungen.",
+                        "Fehler beim Speichern des Trainings.",
                         "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
                   return false;
                }
-            }
-
-            String backupErrorMessage = new BackupTraining().makeBackupNow();
-            if (!backupErrorMessage.isEmpty() && JOptionPane.showConfirmDialog(
-                  Common.getjFrame(),
-                  "Es gab einen Fehler beim Backup des Trainings.\nWollen Sie trotzdem speichern?\n"
-                        + backupErrorMessage,
-                  "Fehlermeldung", JOptionPane.WARNING_MESSAGE) == 1)
-            {
-               return false;
             }
   
             for(Language languageDirection : Language.values())
