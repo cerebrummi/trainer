@@ -46,7 +46,7 @@ public enum ExpressionKind
    PRONOM(
          "Pronom / Fürwort",
          "Pronom / Fürwort",
-         "er, ich, du, sie, diese, man, eine, welches, meine, jemand, sich"),
+         "er, ich, sich, sie, diese, man, eine, welches, meine, jemand"),
    SUBSTANTIV(
          "Substantiv / Hauptwort",
          "Substantiv / Hauptwort",
@@ -215,5 +215,10 @@ public enum ExpressionKind
       }
 
       return list;
+   }
+   
+   public static int getNumberOfValues()
+   {
+      return ExpressionKind.values().length;
    }
 }

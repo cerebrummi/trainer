@@ -35,6 +35,7 @@ import vokabeltrainer.InfoTextField;
 import vokabeltrainer.KeyboardHebrew;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
+import vokabeltrainer.WideComboBox;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
@@ -63,7 +64,7 @@ public class ExpressionEditorView extends JDialog
    private InfoTextField hebrew;
    private JComboBox<Gender> genderHebrew;
    private JComboBox<Numerus> numerusHebrew;
-   private JComboBox<ExpressionKind> kind;
+   private WideComboBox<ExpressionKind> kind;
    private JComboBox<Binjan> binjan;
    private InfoTextField newSearchwordGerman;
    private JList<String> searchwordsJListGerman;
@@ -165,7 +166,8 @@ public class ExpressionEditorView extends JDialog
       numerusHebrew.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
       numerusHebrew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
 
-      kind = new JComboBox<>(ExpressionKind.getModel());
+      kind = new WideComboBox<>(ExpressionKind.getModel());
+      kind.setMaximumRowCount(ExpressionKind.getNumberOfValues());
       kind.setBorder(new TitledBorder("Wortart"));
       kind.setFont(germanfont);
       kind.setEditable(false);
