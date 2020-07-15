@@ -16,6 +16,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import vokabeltrainer.Settings;
 import vokabeltrainer.TrashCanBackgroundPanel;
@@ -99,16 +100,19 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       }
 
       selectAllInTableButton = new JButton("Tabelle auswählen");
+      selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       selectAllInTableButton.setFont(Settings.getButtonFont());
       selectAllInTableButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
 
       clearInTableSelectedButton = new JButton("Tabellenauswahl aufheben");
+      clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearInTableSelectedButton.setFont(Settings.getButtonFont());
       clearInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
 
       restoreButton = new JButton("Auswahl wiederherstellen");
+      restoreButton.setHorizontalAlignment(SwingConstants.LEFT);
       restoreButton.setFont(Main.getGermanFont(16F));
       restoreButton.setIcon(new ImageIcon(ApplicationImages.getRestore()));
 

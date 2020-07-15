@@ -1,7 +1,9 @@
 package vokabeltrainer;
 
 import java.awt.ComponentOrientation;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import vokabeltrainer.common.Main;
@@ -12,6 +14,12 @@ public class DataButton extends JButton
    
    private String data;
 
+   public DataButton(BufferedImage caption, String data)
+   {
+      super(new ImageIcon(caption));
+      this.data = data;
+   }
+   
    public DataButton(String caption, String data)
    {
       super(caption);

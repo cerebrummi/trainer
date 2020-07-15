@@ -19,6 +19,7 @@ import vokabeltrainer.resources.Buchstabenbilder;
 import vokabeltrainer.resources.Fonts;
 import vokabeltrainer.resources.Gruen;
 import vokabeltrainer.resources.Images;
+import vokabeltrainer.resources.LetterIcons;
 import vokabeltrainer.resources.Sounds;
 
 public final class Main
@@ -59,6 +60,17 @@ public final class Main
       catch (Exception e)
       {
          JOptionPane.showMessageDialog(null, message+ "Buchstabenbilder fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         System.exit(1);
+      }
+      
+      try
+      {
+         LetterIcons.read();
+      }
+      catch (Exception e1)
+      {
+         JOptionPane.showMessageDialog(null, message+ "Buchstaben Icons fehlen", "Nachricht",
                JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }

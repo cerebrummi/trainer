@@ -58,6 +58,8 @@ public class ApplicationImages
    private static BufferedImage soundOn;
    private static BufferedImage soundOff;
    
+   private static Map<HebrewLetter, BufferedImage> letterIconsMap;
+   
    private static String message = "Cerebrummi© konnte keine Bilder laden.\\nFehler: ";
 
    public static void setImage(BufferedImage image)
@@ -503,6 +505,21 @@ public class ApplicationImages
             exitWithMessage("Buchstabenbilder fehlen");
       }
       ApplicationImages.letterPicturesMap = letterPicturesMap;
+   }
+
+   public static Map<HebrewLetter, BufferedImage> getLetterIconsMap()
+   {
+      return letterIconsMap;
+   }
+
+   public static void setLetterIconsMap(
+         Map<HebrewLetter, BufferedImage> letterIconsMap)
+   {
+      if(letterPicturesMap.size() < 33)
+      {
+            exitWithMessage("Buchstaben Icons fehlen");
+      }
+      ApplicationImages.letterIconsMap = letterIconsMap;
    }
 
    public static BufferedImage getTurn()
