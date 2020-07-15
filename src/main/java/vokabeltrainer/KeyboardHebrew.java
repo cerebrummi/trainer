@@ -3,9 +3,12 @@ package vokabeltrainer;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -23,6 +26,10 @@ public class KeyboardHebrew extends JPanel
 
    private final int BUTTON_SIZE = 42;
    private List<JTextComponent> components;
+
+   private int scaleX;
+
+   private int scaleY;
 
    public KeyboardHebrew(JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight)
@@ -60,6 +67,31 @@ public class KeyboardHebrew extends JPanel
       row1.setOpaque(false);
       row1.setLayout(new TrainLayout(row1, 8));
 
+      GraphicsConfiguration asdf = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+
+      AffineTransform asfd2 = asdf.getDefaultTransform();
+
+      if(asfd2.getScaleX() < 1.1)
+      {
+         scaleX = BUTTON_SIZE+2;
+         scaleY = BUTTON_SIZE;
+      }
+      else if(asfd2.getScaleX() < 1.35)
+      {
+         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.75);
+         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.75);
+      }
+      else if(asfd2.getScaleX() < 1.6)
+      {
+         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.65);
+         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.65);
+      }
+      else
+      {
+         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.6);
+         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.6);
+      }
+      
       row1.add(makeButton(HebrewLetter.CHET));
       row1.add(makeButton(HebrewLetter.SSAIN));
       row1.add(makeButton(HebrewLetter.WAW));
@@ -128,8 +160,8 @@ public class KeyboardHebrew extends JPanel
 
    private Component makeButton(HebrewLetter letter)
    {
-      DataButton jButton = new DataButton(
-            ApplicationImages.getLetterIconsMap().get(letter),
+      DataButton jButton = new DataButton(ApplicationImages.getLetterIconsMap()
+            .get(letter).getScaledInstance(scaleX, scaleY, java.awt.Image.SCALE_SMOOTH),
             letter.getUnicode());
       jButton.setToolTipText(letter.getTranscript());
       jButton.setMargin(new Insets(3, -5, 0, -5));
