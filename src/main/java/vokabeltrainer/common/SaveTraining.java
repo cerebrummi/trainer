@@ -22,7 +22,7 @@ import vokabeltrainer.types.Language;
 public final class SaveTraining
 {
    private int counter;
-   
+
    public boolean save()
    {
       ProgressMonitor bar = new ProgressMonitor(null,
@@ -48,19 +48,19 @@ public final class SaveTraining
                catch (Exception e)
                {
                   JOptionPane.showMessageDialog(Common.getjFrame(),
-                        "Fehler beim Speichern des Trainings.",
-                        "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+                        "Fehler beim Speichern des Trainings.", "Fehlermeldung",
+                        JOptionPane.ERROR_MESSAGE);
                   return false;
                }
             }
-  
-            for(Language languageDirection : Language.values())
+
+            for (Language languageDirection : Language.values())
             {
                save(languageDirection);
                progress += 100 / ExpressionKind.values().length;
                bar.setProgress(progress);
             }
-            
+
             Preferences preferences = Preferences.userRoot()
                   .node(Settings.getNode());
             preferences.putInt(Settings.getTrainingNode(), counter);
@@ -72,11 +72,10 @@ public final class SaveTraining
          catch (Exception e)
          {
             e.printStackTrace();
-            JOptionPane
-                  .showMessageDialog(Common.getjFrame(),
-                        "Es hat beim Speichern des Trainings einen Fehler gegeben.\n"
-                              + e.getMessage(),
-                        "Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(Common.getjFrame(),
+                  "Es hat beim Speichern des Trainings einen Fehler gegeben.\n"
+                        + e.getMessage(),
+                  "Fehler", JOptionPane.ERROR_MESSAGE);
          }
          finally
          {
@@ -88,15 +87,16 @@ public final class SaveTraining
 
    private void save(Language languageDirection) throws IOException
    {
-      File file = new File(
-            Settings.getTrainingPath() + File.separator + languageDirection.name() + ".txt");
+      File file = new File(Settings.getTrainingPath() + File.separator
+            + languageDirection.name() + ".txt");
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);
       StringJoiner joiner = new StringJoiner("\n");
       for (Expression expression : getAllValues())
       {
-         if(expression.getTrainingStatus(languageDirection).isTrainingStarted())
+         if (expression.getTrainingStatus(languageDirection)
+               .isTrainingStarted())
          {
             joiner.add(expression.getTrainingPrintLine(languageDirection));
             counter++;
@@ -105,13 +105,13 @@ public final class SaveTraining
       writer.write(joiner.toString());
       writer.flush();
       writer.close();
-      
+
    }
-   
+
    private Collection<Expression> getAllValues()
    {
       List<Expression> list = new ArrayList<>();
-      list.addAll( Data.getAlleMapValues());
+      list.addAll(Data.getAlleMapValues());
       list.addAll(Data.getNewMapValues());
       return list;
    }
