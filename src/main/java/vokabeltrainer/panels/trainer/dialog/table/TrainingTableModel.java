@@ -7,10 +7,13 @@ public class TrainingTableModel extends DefaultTableModel
    private static final long serialVersionUID = 6529124422960393777L;
 
    private TrainingTableRow[][] data;
+   private final static String[][] COLUMNNAMES = { { "" },
+         { "" }, { "" }, { "" },
+         { "" } };
 
-   public TrainingTableModel(TrainingTableRow[][] data, Object[] columnNames)
+   public TrainingTableModel(TrainingTableRow[][] data)
    {
-      super(data, columnNames);
+      super(data, COLUMNNAMES);
       this.data = data;
    }
 

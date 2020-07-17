@@ -284,6 +284,8 @@ public final class Data
       return getDataBaseAtomic().findTrainingModel(languageDirection,
             fieldOfTraining);
    }
+   
+   
 
    public static List<Expression> findExpressionssChapter(String chapter)
    {
@@ -316,9 +318,7 @@ public final class Data
       private final static String DELETED_TXT = "DELETED.txt";
       private Set<String> chapterSet = new HashSet<>();
       private final String[][] COLUMNAMES = { { "erste" } };
-      private final String[][] TRAINING_COLUMNAMES = { { "" },
-            { "" }, { "" }, { "" },
-            { "" } };
+      
 
       private final boolean directoryOkay = checkDirectory();
       private final ConcurrentMap<UUID, Expression> alleMap = new ConcurrentHashMap<>(
@@ -1110,7 +1110,7 @@ public final class Data
             break;
          }
 
-         return new TrainingTableModel(data, TRAINING_COLUMNAMES);
+         return new TrainingTableModel(data);
       }
 
       private List<Expression> findNotStudiedWords(Language languageDirection,
