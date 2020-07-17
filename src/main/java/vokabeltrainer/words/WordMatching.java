@@ -147,11 +147,6 @@ public class WordMatching
 
          moveBeginningLettersOfdataTestToTheRightIfPossible(dataDic, dataTest,
                deltaCol);
-
-         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
-
-         cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
-         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
       }
       else if (deltaCol < 0) // moved to the right
       {
@@ -159,16 +154,14 @@ public class WordMatching
 
          moveBeginningLettersOfdataDicToTheRightIfPossible(dataDic, dataTest,
                deltaCol);
-
-         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
-
-         cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
-         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
       }
-      else if (result.isPartlyFalse()) // not moved
+      else // not moved
       {
          cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
-
+      }
+      
+      if (result.isPartlyFalse())
+      {
          dataDic = lookForWrongLettersAndMoveDIClettersToTheLeftMaximizeSameness(
                dataDic, dataTest, sizeDic);
 
@@ -180,9 +173,8 @@ public class WordMatching
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
          lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
       }
-      else // not moved and okay or completely false
+      else
       {
-         cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
       }
 
