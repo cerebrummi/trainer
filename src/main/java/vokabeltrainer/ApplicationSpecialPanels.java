@@ -20,9 +20,9 @@ public class ApplicationSpecialPanels
    public static void setLetterPicturesPanelMap(
          Map<HebrewLetter, LetterPictureButtonPanel> letterPicturesPanelMap)
    {
-      if(letterPicturesPanelMap.isEmpty())
+      if(letterPicturesPanelMap.size() < 35)
       {
-         exitWithMessage("Buchstabenbilder Map fehlt.");
+         exitWithMessage("Es fehlen Buchstabenbilder.");
       }
       ApplicationSpecialPanels.letterPicturesPanelMap = letterPicturesPanelMap;
    }

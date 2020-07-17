@@ -14,9 +14,9 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 public class LetterPictureWordPanel extends JPanel
 {
    private static final long serialVersionUID = 4694738420843719008L;
-   
-   private Card[] cards = {Card.LETTER, Card.HEBREW};
-   private Card[] cards2 = {Card.PICTURE, Card.GERMAN};
+
+   private Card[] cards = { Card.LETTER, Card.HEBREW };
+   private Card[] cards2 = { Card.PICTURE, Card.GERMAN };
 
    public LetterPictureWordPanel()
    {
@@ -37,17 +37,19 @@ public class LetterPictureWordPanel extends JPanel
       JPanel displayPanel = new JPanel();
       displayPanel.setLayout(new TrainLayout(displayPanel));
 
-      List<String> hebrewLettersCode = HebrewLetter.findLetterCodesAll(hebrewWord);
+      List<String> hebrewLettersCode = HebrewLetter
+            .findLetterCodesAll(hebrewWord);
       Collections.reverse(hebrewLettersCode);
 
       for (String hebrewLetterCode : hebrewLettersCode)
       {
-         HebrewLetter hebrewLetter = HebrewLetter.getLetterFromCode(hebrewLetterCode);
+         HebrewLetter hebrewLetter = HebrewLetter
+               .getLetterFromCode(hebrewLetterCode);
          if (hebrewLetter != null)
          {
             displayPanel.add(new LetterPictureButtonPanel(
                   ApplicationImages.getLetterPicturesMap().get(hebrewLetter),
-                  hebrewLetter.getGerman(), hebrewLetter, cards));
+                  hebrewLetter, cards));
          }
       }
 
@@ -58,12 +60,13 @@ public class LetterPictureWordPanel extends JPanel
 
       for (String hebrewLetterCode : hebrewLettersCode)
       {
-         HebrewLetter hebrewLetter = HebrewLetter.getLetterFromCode(hebrewLetterCode);
+         HebrewLetter hebrewLetter = HebrewLetter
+               .getLetterFromCode(hebrewLetterCode);
          if (hebrewLetter != null)
          {
             LetterPictureButtonPanel panel = new LetterPictureButtonPanel(
                   ApplicationImages.getLetterPicturesMap().get(hebrewLetter),
-                  hebrewLetter.getGerman(), hebrewLetter, cards2);
+                  hebrewLetter, cards2);
             displayPanel2.add(panel);
          }
       }
@@ -76,7 +79,5 @@ public class LetterPictureWordPanel extends JPanel
       validate();
       repaint();
    }
-
-   
 
 }

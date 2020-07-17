@@ -1,15 +1,8 @@
 package vokabeltrainer.resources;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.security.CodeSource;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import javax.imageio.ImageIO;
 
 import vokabeltrainer.ApplicationImages;
@@ -20,47 +13,15 @@ public class Blue
 
    public static void read() throws Exception
    {
-      File directoryBlueImages = new File(
-            Blue.class.getResource("blue").getFile());
-      String[] blueImages = directoryBlueImages.list();
 
-      for (String blueImage : java.util.Objects.requireNonNull(blueImages))
+      for (int i = 0; i < 32; i++)
       {
 
-         blueImagesList.add(ImageIO
-               .read(Blue.class.getResourceAsStream("blue/" + blueImage)));
+         blueImagesList.add(ImageIO.read(
+               Blue.class.getResourceAsStream("blue/blue_" + i + ".jpg")));
 
       }
       ApplicationImages.setBlueImages(blueImagesList);
    }
 
-   public static void readZip() throws Exception
-   {
-      CodeSource src = Blue.class.getProtectionDomain().getCodeSource();
-      if (src != null)
-      {
-         URL jar = src.getLocation();
-         ZipFile zipFile = new ZipFile(jar.getFile());
-         Iterator<? extends ZipEntry> iterator = zipFile.entries().asIterator();
-         while (iterator.hasNext())
-         {
-            ZipEntry ze = iterator.next();
-            String name = ze.getName();
-                  
-            if (name.startsWith("vokabeltrainer/resources/blue/"))
-            {
-               BufferedImage image = ImageIO.read(zipFile.getInputStream(ze));
-               if (image != null)
-               {
-                  blueImagesList.add(image);
-               }
-            }
-         }
-      }
-      else
-      {
-         throw new IOException("can not find code source for blue images");
-      }
-      ApplicationImages.setBlueImages(blueImagesList);
-   }
 }

@@ -55,7 +55,7 @@ public final class Main
       
       try
       {
-         Buchstabenbilder.readZip();  // when inside jar
+         Buchstabenbilder.read();
       }
       catch (Exception e)
       {
@@ -77,7 +77,7 @@ public final class Main
       
       try
       {
-         Blue.readZip(); // when inside jar
+         Blue.read();
       }
       catch (Exception e)
       {
@@ -88,7 +88,7 @@ public final class Main
       
       try
       {
-         Gruen.readZip(); // when inside jar
+         Gruen.read(); 
       }
       catch (Exception e)
       {

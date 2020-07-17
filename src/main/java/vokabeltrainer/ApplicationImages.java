@@ -79,9 +79,9 @@ public class ApplicationImages
 
    public static void setGreenImages(List<BufferedImage> greenImages)
    {
-      if(greenImages.isEmpty())
+      if(greenImages.size() < 72)
       {
-        exitWithMessage("keine guenen Bilder");
+        exitWithMessage("Es fehlen grüne Bilder.");
       }
       ApplicationImages.greenImages = greenImages;
    }
@@ -117,15 +117,13 @@ public class ApplicationImages
    public static BufferedImage getRandomGreenImage()
    {
       Random random = new Random();
-      int pictureNumber = random.nextInt(greenImages.size());
-      return greenImages.get(pictureNumber);
+      return greenImages.get(random.nextInt(greenImages.size()));
    }
 
    public static BufferedImage getRandomBlueImage()
    {
       Random random = new Random();
-      int pictureNumber = random.nextInt(blueImages.size());
-      return blueImages.get(pictureNumber);
+      return blueImages.get(random.nextInt(blueImages.size()));
    }
 
    public static void setCopy(BufferedImage copy)
@@ -585,9 +583,9 @@ public class ApplicationImages
 
    public static void setBlueImages(List<BufferedImage> blueImages)
    {
-      if(blueImages.isEmpty())
+      if(blueImages.size() < 32)
       {
-         exitWithMessage("keine blauen Bilder");
+         exitWithMessage("Es fehlen blaue Bilder.");
       }
       ApplicationImages.blueImages = blueImages;
    }
