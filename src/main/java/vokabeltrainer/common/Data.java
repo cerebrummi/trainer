@@ -12,12 +12,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.Vector;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -31,6 +34,8 @@ import javax.swing.JOptionPane;
 import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
+import vokabeltrainer.panels.statistics.StatisticsTableModel;
+import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableRow;
 import vokabeltrainer.table.ExpressionTableModel;
@@ -121,7 +126,7 @@ public final class Data
    {
       return database.getDeletedMap().values();
    }
-   
+
    // for saving expressions only, therefore NOT public
    static void integrateNewExpressions()
    {
@@ -284,8 +289,11 @@ public final class Data
       return getDataBaseAtomic().findTrainingModel(languageDirection,
             fieldOfTraining);
    }
-   
-   
+
+   public static StatisticsTableModel<StatisticsTableRow> findStatisticsModel()
+   {
+      return getDataBaseAtomic().findStatisticsModel();
+   }
 
    public static List<Expression> findExpressionssChapter(String chapter)
    {
@@ -318,7 +326,6 @@ public final class Data
       private final static String DELETED_TXT = "DELETED.txt";
       private Set<String> chapterSet = new HashSet<>();
       private final String[][] COLUMNAMES = { { "erste" } };
-      
 
       private final boolean directoryOkay = checkDirectory();
       private final ConcurrentMap<UUID, Expression> alleMap = new ConcurrentHashMap<>(
@@ -952,13 +959,13 @@ public final class Data
 
          reloadChapterSet();
       }
-      
+
       private void integrateNewExpressions()
       {
-         for(Expression expression: newMap.values())
+         for (Expression expression : newMap.values())
          {
             alleMap.put(expression.getUuid(), expression);
-            switch(expression.getKind())
+            switch (expression.getKind())
             {
             case ADJEKTIV:
                adjektivMap.put(expression.getUuid(), expression);
@@ -1057,7 +1064,8 @@ public final class Data
                   findNotStudiedWords(languageDirection, listAll));
             row.setNotStudiedWords(row.getExpressionListNewWords().size());
             row.setAmountOfNewWords(0);
-            row.setFieldDone(row.getNotStudiedWords() == 0 && row.getToBeRepeatedWords() == 0);
+            row.setFieldDone(row.getNotStudiedWords() == 0
+                  && row.getToBeRepeatedWords() == 0);
             row.setStarted(row.getToBeRepeatedWords() > 0);
             data[0][0] = row;
             break;
@@ -1071,15 +1079,18 @@ public final class Data
                chapterRow.setFieldOfTraining(fieldOfTraining);
                chapterRow.setChapter(chapter);
                chapterRow.setField(chapter);
-               chapterRow.setExpressionListOldWords(findExpressionListOldToBeTestedPerChapter(chapter, oldToBeTested));
+               chapterRow.setExpressionListOldWords(
+                     findExpressionListOldToBeTestedPerChapter(chapter,
+                           oldToBeTested));
                chapterRow.setToBeRepeatedWords(
                      findOldToBeTestedPerChapter(chapter, oldToBeTested));
                chapterRow.setExpressionListNewWords(
                      findNotStudiedWords(languageDirection, listChapter));
-               chapterRow
-                     .setNotStudiedWords(chapterRow.getExpressionListNewWords().size());
+               chapterRow.setNotStudiedWords(
+                     chapterRow.getExpressionListNewWords().size());
                chapterRow.setAmountOfNewWords(0);
-               chapterRow.setFieldDone(chapterRow.getNotStudiedWords() == 0 && chapterRow.getToBeRepeatedWords() == 0);
+               chapterRow.setFieldDone(chapterRow.getNotStudiedWords() == 0
+                     && chapterRow.getToBeRepeatedWords() == 0);
                chapterRow.setStarted(chapterRow.getToBeRepeatedWords() > 0);
                unlearnedPerChapter.add(chapterRow);
             }
@@ -1098,10 +1109,11 @@ public final class Data
             selectedRow.setToBeRepeatedWords(oldToBeTested.size());
             selectedRow.setExpressionListNewWords(
                   findNotStudiedWords(languageDirection, listSelected));
-            selectedRow
-                  .setNotStudiedWords(selectedRow.getExpressionListNewWords().size());
+            selectedRow.setNotStudiedWords(
+                  selectedRow.getExpressionListNewWords().size());
             selectedRow.setAmountOfNewWords(0);
-            selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0 && selectedRow.getToBeRepeatedWords() == 0);
+            selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0
+                  && selectedRow.getToBeRepeatedWords() == 0);
             selectedRow.setStarted(selectedRow.getToBeRepeatedWords() > 0);
             data = new TrainingTableRow[1][1];
             data[0][0] = selectedRow;
@@ -1153,8 +1165,8 @@ public final class Data
             {
                if (Command.AREA_SELECTED == fieldOfTraining)
                {
-                  if(expression.isSelected()
-                     && expression.getTrainingStatusDToH().isTrainingStarted())
+                  if (expression.isSelected() && expression
+                        .getTrainingStatusDToH().isTrainingStarted())
                   {
                      result.add(expression);
                   }
@@ -1177,8 +1189,8 @@ public final class Data
             {
                if (Command.AREA_SELECTED == fieldOfTraining)
                {
-                  if(expression.isSelected()
-                     && expression.getTrainingStatusHToD().isTrainingStarted())
+                  if (expression.isSelected() && expression
+                        .getTrainingStatusHToD().isTrainingStarted())
                   {
                      result.add(expression);
                   }
@@ -1214,8 +1226,8 @@ public final class Data
          return result;
       }
 
-      private Set<Expression> findExpressionListOldToBeTestedPerChapter(String chapter,
-            Set<Expression> allOldToBeTestedExpressions)
+      private Set<Expression> findExpressionListOldToBeTestedPerChapter(
+            String chapter, Set<Expression> allOldToBeTestedExpressions)
       {
          Set<Expression> result = new HashSet<>();
          for (Expression e : allOldToBeTestedExpressions)
@@ -1391,6 +1403,67 @@ public final class Data
             throw new IllegalArgumentException(
                   "Data: Wortart fehlt: " + newKind.getKind());
          }
+      }
+
+      public StatisticsTableModel<StatisticsTableRow> findStatisticsModel()
+      {
+         Set<LocalDate> datesAll = new HashSet<>();
+         Map<LocalDate, List<List<Expression>>> dates = new HashMap<>();
+
+         alleMap.forEach((uuid, expression) -> {
+            Expression e = ((Expression) expression);
+
+            if (e.getTrainingStatusDToH().isTrainingStarted()
+                  && datesAll.add(e.getTrainingStatusDToH().getNextDate()))
+            {
+               List<Expression> oneWay = new ArrayList<>();
+               List<Expression> otherWay = new ArrayList<>();
+               List<List<Expression>> bothWays = new ArrayList<>();
+               bothWays.add(oneWay);
+               bothWays.add(otherWay);
+               dates.put(e.getTrainingStatusDToH().getNextDate(), bothWays);
+            }
+            if (e.getTrainingStatusHToD().isTrainingStarted()
+                  && datesAll.add(e.getTrainingStatusHToD().getNextDate()))
+            {
+               List<Expression> oneWay = new ArrayList<>();
+               List<Expression> otherWay = new ArrayList<>();
+               List<List<Expression>> bothWays = new ArrayList<>();
+               bothWays.add(oneWay);
+               bothWays.add(otherWay);
+               dates.put(e.getTrainingStatusHToD().getNextDate(), bothWays);
+            }
+
+            if (e.getTrainingStatusDToH().isTrainingStarted())
+            {
+               dates.get(e.getTrainingStatusDToH().getNextDate()).get(0).add(e);
+            }
+
+            if (e.getTrainingStatusHToD().isTrainingStarted())
+            {
+               dates.get(e.getTrainingStatusHToD().getNextDate()).get(1).add(e);
+            }
+
+         });
+
+         List<LocalDate> sortedDates = new LinkedList<>(datesAll);
+         sortedDates.sort((date1, date2) -> date1.compareTo(date2));
+
+         Vector<Vector<StatisticsTableRow>> data = new Vector<>();
+         StatisticsTableModel<StatisticsTableRow> model = new StatisticsTableModel<>(
+               data);
+
+         for (int i = 0; i < sortedDates.size(); i++)
+         {
+            StatisticsTableRow row = new StatisticsTableRow(i,
+                  sortedDates.get(i), dates.get(sortedDates.get(i)).get(0),
+                  dates.get(sortedDates.get(i)).get(1), model);
+            Vector<StatisticsTableRow> vector = new Vector<>();
+            vector.add(row);
+            data.add(vector);
+         }
+
+         return model;
       }
    }
 }
