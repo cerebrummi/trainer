@@ -1,23 +1,24 @@
 package vokabeltrainer.panels.statistics;
 
+import java.util.Vector;
+
 import javax.swing.table.DefaultTableModel;
 
-public class StatisticsTableModel extends DefaultTableModel
+public class StatisticsTableModel<V> extends DefaultTableModel
 {
    private static final long serialVersionUID = -2421475557884629587L;
 
-   private StatisticsTableRow[][] data;
-   private final static String[][] COLUMNNAMES = { { "" }, { "" }, { "" },
-         { "" } };
+   private Vector<Vector<StatisticsTableRow>> data;
 
-   public StatisticsTableModel(StatisticsTableRow[][] data)
+   public StatisticsTableModel(Vector<Vector<StatisticsTableRow>> data)
    {
-      super(data, COLUMNNAMES);
+      super(data, data.size());
       this.data = data;
    }
 
-   public StatisticsTableRow[][] getData()
+   public void deleteRow(int row)
    {
-      return data;
+      data.remove(row);
+      this.fireTableRowsDeleted(row, row);
    }
 }

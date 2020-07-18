@@ -3,11 +3,11 @@ package vokabeltrainer.panels.statistics;
 import java.awt.Color;
 import javax.swing.JTable;
 
-public class StatisticsTable extends JTable
+public class StatisticsTable<V> extends JTable
 {
    private static final long serialVersionUID = 1467979172740860765L;
 
-   public StatisticsTable(StatisticsTableModel model)
+   public StatisticsTable(StatisticsTableModel<V> model)
    {
       super(model, new StatisticsTableColumnModel());
 

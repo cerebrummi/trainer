@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.SaveTraining;
@@ -21,8 +20,8 @@ public class StatisticsTableRow
    private JButton takeOutButton;
    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("cc dd.MM.yyyy");
 
-   public StatisticsTableRow(LocalDate date, List<Expression> expressionsDtoH,
-         List<Expression> expressionsHtoD)
+   public StatisticsTableRow(int row, LocalDate date, List<Expression> expressionsDtoH,
+         List<Expression> expressionsHtoD, StatisticsTableModel<StatisticsTableRow> model)
    {
       this.date = date;
       this.expressionsDtoH = expressionsDtoH;
@@ -44,6 +43,7 @@ public class StatisticsTableRow
             }
             SaveTraining saveTraining = new SaveTraining();
             saveTraining.save();
+            model.deleteRow(row);
          }
       });
    }
