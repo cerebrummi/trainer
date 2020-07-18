@@ -1,24 +1,29 @@
 package vokabeltrainer.panels.statistics;
 
-import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
-public class StatisticsTable<V> extends JTable
+import vokabeltrainer.Settings;
+
+public class StatisticsTable extends JTable
 {
    private static final long serialVersionUID = 1467979172740860765L;
 
-   public StatisticsTable(StatisticsTableModel<V> model)
+   public StatisticsTable(StatisticsTableModel model)
    {
       super(model, new StatisticsTableColumnModel());
 
-      putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+      this.setShowVerticalLines(false);
       setOpaque(false);
       setRowHeight(50);
       setShowHorizontalLines(true);
-      setBackground(new Color(0, 0, 0, 0));
+      setBackground(Settings.getTransparent());
+      setBorder(BorderFactory.createLineBorder(Settings.getDarkGold()));
       this.setRowSelectionAllowed(false);
       this.setColumnSelectionAllowed(false);
       this.setCellSelectionEnabled(false);
+      this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
    }
 
  

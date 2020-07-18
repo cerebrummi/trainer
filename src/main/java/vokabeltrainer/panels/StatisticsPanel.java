@@ -12,10 +12,13 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.panels.statistics.StatisticsTable;
+import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.types.ExpressionKind;
 
 public class StatisticsPanel extends BackgroundPanelTiled
@@ -26,6 +29,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
    private List<JLabel> valueLabelList = new ArrayList<>();
 
    private JLabel valueAll;
+   private JPanel tablePanel;
 
    public StatisticsPanel()
    {
@@ -98,8 +102,11 @@ public class StatisticsPanel extends BackgroundPanelTiled
       counter++;
 
       center.add(centerPanel);
-      add(center, BorderLayout.CENTER);
 
+      tablePanel = new JPanel(new BorderLayout());
+
+      add(center, BorderLayout.WEST);
+      add(tablePanel, BorderLayout.CENTER);
    }
 
    public void setValues()
@@ -121,6 +128,11 @@ public class StatisticsPanel extends BackgroundPanelTiled
       }
 
       valueAll.setText(" " + String.valueOf(Data.getAlleMapSize()));
+
+      tablePanel.removeAll();
+      tablePanel.add(new JLabel("Trainings Übersicht"), BorderLayout.NORTH);
+      tablePanel.add(new JScrollPane(new StatisticsTable(Data.findStatisticsModel())),
+            BorderLayout.CENTER);
    }
 
    private String findValue(ExpressionKind kind)

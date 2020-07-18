@@ -290,7 +290,7 @@ public final class Data
             fieldOfTraining);
    }
 
-   public static StatisticsTableModel<StatisticsTableRow> findStatisticsModel()
+   public static StatisticsTableModel findStatisticsModel()
    {
       return getDataBaseAtomic().findStatisticsModel();
    }
@@ -1405,7 +1405,7 @@ public final class Data
          }
       }
 
-      public StatisticsTableModel<StatisticsTableRow> findStatisticsModel()
+      public StatisticsTableModel findStatisticsModel()
       {
          Set<LocalDate> datesAll = new HashSet<>();
          Map<LocalDate, List<List<Expression>>> dates = new HashMap<>();
@@ -1450,8 +1450,10 @@ public final class Data
          sortedDates.sort((date1, date2) -> date1.compareTo(date2));
 
          Vector<Vector<StatisticsTableRow>> data = new Vector<>();
-         StatisticsTableModel<StatisticsTableRow> model = new StatisticsTableModel<>(
-               data);
+         Vector<String> columnNames = new Vector<>();
+         columnNames.add("eins");
+         StatisticsTableModel model = new StatisticsTableModel(
+               data, columnNames);
 
          for (int i = 0; i < sortedDates.size(); i++)
          {
