@@ -23,8 +23,8 @@ public class ExpressionTable extends JTable
    private Language language;
    private ExpressionTableModel model;
 
-   public ExpressionTable(ExpressionTableModel dm, Language language, DictionaryControllerConnector connector,
-         boolean editable)
+   public ExpressionTable(ExpressionTableModel dm, Language language,
+         DictionaryControllerConnector connector, boolean editable)
    {
       super(dm, new ExpressionColumnModel(language, editable));
       this.model = dm;
@@ -37,35 +37,42 @@ public class ExpressionTable extends JTable
       this.setCellSelectionEnabled(true);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       this.setSurrendersFocusOnKeystroke(true);
-      
-      if(editable)
+
+      if (editable)
       {
          String editCommand = "edit";
          KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
-         getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(enter, editCommand);
+         getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(enter,
+               editCommand);
          getActionMap().put(editCommand, new EnterAction(this, connector));
       }
-      
+
       String selectCommand = "select";
       KeyStroke select = KeyStroke.getKeyStroke(KeyEvent.VK_A, 0);
-      getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(select, selectCommand);
+      getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(select,
+            selectCommand);
       getActionMap().put(selectCommand, new SelectAction(this));
-      
-      addMouseListener(new MouseAdapter() {
-         public void mousePressed(MouseEvent mouseEvent) {
-             JTable table =(JTable) mouseEvent.getSource();
-             Point point = mouseEvent.getPoint();
-             int row = table.rowAtPoint(point);
-             if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1 && row == table.getSelectedRow())
-             {
-                Expression expression = ((Expression)table.getValueAt(table.getSelectedRow(), 0));
-                
-                expression.setSelected(!expression.isSelected());
-                
-                ((ExpressionTableModel)table.getModel()).fireTableCellUpdated(table.getSelectedRow(), 0);
-             }
+
+      addMouseListener(new MouseAdapter()
+      {
+         public void mousePressed(MouseEvent mouseEvent)
+         {
+            JTable table = (JTable) mouseEvent.getSource();
+            Point point = mouseEvent.getPoint();
+            int row = table.rowAtPoint(point);
+            if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1
+                  && row == table.getSelectedRow())
+            {
+               Expression expression = ((Expression) table
+                     .getValueAt(table.getSelectedRow(), 0));
+
+               expression.setSelected(!expression.isSelected());
+
+               ((ExpressionTableModel) table.getModel())
+                     .fireTableCellUpdated(table.getSelectedRow(), 0);
+            }
          }
-     });
+      });
    }
 
    public String getTableDataToString()

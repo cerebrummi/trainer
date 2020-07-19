@@ -1,8 +1,6 @@
 package vokabeltrainer.panels.statistics;
 
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-
 import vokabeltrainer.Settings;
 
 public class StatisticsTable extends JTable
@@ -12,7 +10,6 @@ public class StatisticsTable extends JTable
    public StatisticsTable(StatisticsTableModel model)
    {
       super(model, new StatisticsTableColumnModel());
-
       this.setShowVerticalLines(false);
       setOpaque(false);
       setRowHeight(50);
@@ -21,9 +18,5 @@ public class StatisticsTable extends JTable
       this.setRowSelectionAllowed(false);
       this.setColumnSelectionAllowed(false);
       this.setCellSelectionEnabled(false);
-      this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
    }
-
- 
-
 }
