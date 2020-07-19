@@ -2,6 +2,7 @@ package vokabeltrainer.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -15,10 +16,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import vokabeltrainer.BackgroundPanelTiled;
+import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.statistics.StatisticsTable;
-import vokabeltrainer.panels.statistics.StatisticsTableRow;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.ExpressionKind;
 
 public class StatisticsPanel extends BackgroundPanelTiled
@@ -33,21 +36,21 @@ public class StatisticsPanel extends BackgroundPanelTiled
 
    public StatisticsPanel()
    {
-      setLayout(new BorderLayout());
+      setLayout(new BullsEyeLayout(this));
 
-      JPanel filler = new JPanel();
-      filler.setPreferredSize(new Dimension(500, 60));
-      filler.setOpaque(false);
-      add(filler, BorderLayout.NORTH);
-
-      JPanel center = new JPanel(new FlowLayout());
+      JPanel center = new JPanel();
+      center.setLayout(new TrainLayout(center, 30));
       center.setOpaque(false);
+
       JPanel centerPanel = new JPanel();
       List<ExpressionKind> list = ExpressionKind.getValues();
       centerPanel.setLayout(new GridBagLayout());
       GridBagConstraints constraints = new GridBagConstraints();
-      centerPanel.setOpaque(false);
-      centerPanel.setSize(500, (list.size() + 2) * 30);
+      centerPanel.setOpaque(true);
+      centerPanel.setBackground(Settings.getVeryLightGold());
+      int height = (list.size() + 2) * 30;
+      centerPanel.setMinimumSize(new Dimension(500, height));
+      centerPanel.setMaximumSize(new Dimension(500, height));
 
       JLabel title = new JLabel("Anzahl der Wortformen");
       title.setFont(Main.getGermanFont(30F));
@@ -75,6 +78,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
          value.setFont(Main.getGermanFont(20F));
          value.setSize(250, 30);
          value.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+         value.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          valueLabelList.add(value);
          constraints.gridx = 1;
          constraints.gridy = counter;
@@ -101,12 +105,17 @@ public class StatisticsPanel extends BackgroundPanelTiled
       centerPanel.add(valueAll, constraints);
       counter++;
 
-      center.add(centerPanel);
-
       tablePanel = new JPanel(new BorderLayout());
+      tablePanel.setMinimumSize(new Dimension(580, height));
+      tablePanel.setMaximumSize(new Dimension(580, height));
+      tablePanel.setOpaque(true);
+      tablePanel.setBackground(Settings.getVeryLightGold());
+      tablePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-      add(center, BorderLayout.WEST);
-      add(tablePanel, BorderLayout.CENTER);
+      center.add(centerPanel);
+      center.add(tablePanel);
+
+      add(center);
    }
 
    public void setValues()
@@ -130,9 +139,28 @@ public class StatisticsPanel extends BackgroundPanelTiled
       valueAll.setText(" " + String.valueOf(Data.getAlleMapSize()));
 
       tablePanel.removeAll();
-      tablePanel.add(new JLabel("Trainings Übersicht"), BorderLayout.NORTH);
-      tablePanel.add(new JScrollPane(new StatisticsTable(Data.findStatisticsModel())),
-            BorderLayout.CENTER);
+      
+      JPanel titlePanel = new JPanel(new FlowLayout());
+      titlePanel.setOpaque(false);
+      titlePanel.setBackground(Settings.getTransparent());
+      JLabel title = new JLabel("Trainings Übersicht");
+      title.setFont(Main.getGermanFont(30F));
+      title.setSize(250, 30);
+      titlePanel.add(title);
+      
+      tablePanel.add(titlePanel, BorderLayout.NORTH);
+      StatisticsTable table = new StatisticsTable(Data.findStatisticsModel());
+      table.setOpaque(true);
+      table.setBackground(Settings.getVeryLightGold());
+      
+      JScrollPane scroller = new JScrollPane(table);
+      scroller.setOpaque(false);
+      scroller.setBackground(Settings.getTransparent());
+      scroller.setBorder(BorderFactory.createEmptyBorder());
+      scroller.getViewport().setOpaque(false);
+      scroller.getViewport().setBackground(Settings.getTransparent());
+      scroller.setViewportBorder(BorderFactory.createEmptyBorder());
+      tablePanel.add(scroller, BorderLayout.CENTER);
    }
 
    private String findValue(ExpressionKind kind)

@@ -23,14 +23,14 @@ import javax.swing.JViewport;
  * <p>
  * Minimum and maximum sizes are taken into account.
  * <p>
- * <code>TrainLayout</code>and <code>TotemLayout</code> work together like
- * layers of an onion. They stack into each other and are called TOnionLayout.
- * TOnionLayout was developed to layout forms and datamasks. By using minimum
- * and maximum size the layout will resize to fit the available space. The
- * components inside TOnionLayout only have to fit together approximately, the
- * layout will align the components to look neatly by itself.
- * <code>TrainLayout</code> will give all components the same height and
- * optimize the width of each component.
+ * <code>TrainLayout</code>, <code>TotemLayout</code> and
+ * <code>BullsEyeLayout</code>   work together like layers of an onion. They stack
+ * into each other and are called TOnionLayout. TOnionLayout was developed to
+ * layout forms and datamasks. By using minimum and maximum size the layout will
+ * resize to fit the available space. The components inside TOnionLayout only
+ * have to fit together approximately, the layout will align the components to
+ * look neatly by itself. <code>TrainLayout</code> will give all components the
+ * same height and optimize the width of each component.
  * <p>
  * Even though TOnionLayout is done top-down each layer inquires about the
  * minimum and maximum sizes of all its components. To acquire a good
@@ -105,7 +105,7 @@ public class TrainLayout
    private Container self;
 
    /**
-    * Creates a train layout with a default horizontal gap.
+    * Creates a train layout with no horizontal gap.
     * 
     * @since private
     */
@@ -229,7 +229,8 @@ public class TrainLayout
              */
             if (comp instanceof Container && (((Container) comp)
                   .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout))
+                  || ((Container) comp).getLayout() instanceof TrainLayout
+                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -397,56 +398,59 @@ public class TrainLayout
          if (dimMin != null)
             return dimMin;
          int ncomponents = self.getComponentCount();
-         if (ncomponents > 0)
+         if (ncomponents == 0)
          {
-            Insets insets = self.getInsets();
-            int h = 0;
-            int w = 0;
-            for (int i = 0; i < ncomponents; i++)
-            {
-               Component comp = self.getComponent(i);
-               Dimension dmin;
-               /*
-                * In case Component is Container with Layout instance of
-                * TrainLayout or TotemLayout the dimensions derived by content -
-                * if any - should override given Dimensions. Only when there is
-                * no content the given Dimensions should be used.
-                */
-               if (comp instanceof Container && (((Container) comp)
-                     .getLayout() instanceof TotemLayout
-                     || ((Container) comp).getLayout() instanceof TrainLayout))
-               {
-                  Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                        .getLayout()).minimumLayoutSize((Container) comp);
-                  if (dminContent != null)
-                     dmin = dminContent;
-                  else
-                     dmin = comp.getMinimumSize();
-               }
-               else
-               {
-                  dmin = comp.getMinimumSize();
-               }
-               if (dmin != null)
-               {
-                  if (h < dmin.height)
-                     h = dmin.height; // minheight is maximized
-                  w += dmin.width;
-               }
-               else
-               {
-                  w += (self.getWidth() - (insets.left + insets.right))
-                        / ncomponents;
-               }
-            }
-
-            dimMin = new Dimension(
-                  insets.left + insets.right + w + (ncomponents - 1) * hgap,
-                  insets.top + insets.bottom + h);
-            return dimMin;
+            dimMin = null;
+            return null;
          }
-         dimMin = null;
-         return null;
+
+         Insets insets = self.getInsets();
+         int h = 0;
+         int w = 0;
+         for (int i = 0; i < ncomponents; i++)
+         {
+            Component comp = self.getComponent(i);
+            Dimension dmin;
+            /*
+             * In case Component is Container with Layout instance of
+             * TrainLayout or TotemLayout the dimensions derived by content - if
+             * any - should override given Dimensions. Only when there is no
+             * content the given Dimensions should be used.
+             */
+            if (comp instanceof Container && (((Container) comp)
+                  .getLayout() instanceof TotemLayout
+                  || ((Container) comp).getLayout() instanceof TrainLayout
+                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+            {
+               Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                     .getLayout()).minimumLayoutSize((Container) comp);
+               if (dminContent != null)
+                  dmin = dminContent;
+               else
+                  dmin = comp.getMinimumSize();
+            }
+            else
+            {
+               dmin = comp.getMinimumSize();
+            }
+            if (dmin != null)
+            {
+               if (h < dmin.height)
+                  h = dmin.height; // minheight is maximized
+               w += dmin.width;
+            }
+            else
+            {
+               w += (self.getWidth() - (insets.left + insets.right))
+                     / ncomponents;
+            }
+         }
+
+         dimMin = new Dimension(
+               insets.left + insets.right + w + (ncomponents - 1) * hgap,
+               insets.top + insets.bottom + h);
+         return dimMin;
+
       }
    }
 
@@ -478,55 +482,57 @@ public class TrainLayout
          if (dimMax != null)
             return dimMax;
          int ncomponents = self.getComponentCount();
-         if (ncomponents > 0)
+         if (ncomponents == 0)
          {
-            Insets insets = self.getInsets();
-            int h = Integer.MAX_VALUE;
-            int w = 0;
-            for (int i = 0; i < ncomponents; i++)
-            {
-               Component comp = self.getComponent(i);
-               Dimension dmax;
-               /*
-                * In case Component is Container with Layout instance of
-                * TrainLayout or TotemLayout the dimensions derived by content -
-                * if any - should override given Dimensions. Only when there is
-                * no content the given Dimensions should be used.
-                */
-               if (comp instanceof Container && (((Container) comp)
-                     .getLayout() instanceof TotemLayout
-                     || ((Container) comp).getLayout() instanceof TrainLayout))
-               {
-                  Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
-                        .getLayout()).maximumLayoutSize((Container) comp);
-                  if (dmaxContent != null)
-                     dmax = dmaxContent;
-                  else
-                     dmax = comp.getMaximumSize();
-               }
-               else
-               {
-                  dmax = comp.getMaximumSize();
-               }
-               if (dmax != null)
-               {
-                  if (h > dmax.height)
-                     h = dmax.height; // maxheight is minimized
-                  w += dmax.width;
-               }
-               else
-               {
-                  w += (self.getWidth() - (insets.left + insets.right))
-                        / ncomponents;
-               }
-            }
-            dimMax = new Dimension(
-                  insets.left + insets.right + w + (ncomponents - 1) * hgap,
-                  insets.top + insets.bottom + h);
-            return dimMax;
+            dimMax = null;
+            return null;
          }
-         dimMax = null;
-         return null;
+
+         Insets insets = self.getInsets();
+         int h = Integer.MAX_VALUE;
+         int w = 0;
+         for (int i = 0; i < ncomponents; i++)
+         {
+            Component comp = self.getComponent(i);
+            Dimension dmax;
+            /*
+             * In case Component is Container with Layout instance of
+             * TrainLayout or TotemLayout the dimensions derived by content - if
+             * any - should override given Dimensions. Only when there is no
+             * content the given Dimensions should be used.
+             */
+            if (comp instanceof Container && (((Container) comp)
+                  .getLayout() instanceof TotemLayout
+                  || ((Container) comp).getLayout() instanceof TrainLayout
+                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+            {
+               Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
+                     .getLayout()).maximumLayoutSize((Container) comp);
+               if (dmaxContent != null)
+                  dmax = dmaxContent;
+               else
+                  dmax = comp.getMaximumSize();
+            }
+            else
+            {
+               dmax = comp.getMaximumSize();
+            }
+            if (dmax != null)
+            {
+               if (h > dmax.height)
+                  h = dmax.height; // maxheight is minimized
+               w += dmax.width;
+            }
+            else
+            {
+               w += (self.getWidth() - (insets.left + insets.right))
+                     / ncomponents;
+            }
+         }
+         dimMax = new Dimension(
+               insets.left + insets.right + w + (ncomponents - 1) * hgap,
+               insets.top + insets.bottom + h);
+         return dimMax;
       }
    }
 
@@ -595,7 +601,8 @@ public class TrainLayout
              */
             if (comp instanceof Container && (((Container) comp)
                   .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout))
+                  || ((Container) comp).getLayout() instanceof TrainLayout
+                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -632,7 +639,6 @@ public class TrainLayout
             // MAXIMUM
             if (dmax != null)
             {
-
                if (dmax.height < hmax)
                   hmax = dmax.height; // maxheight is minimized
                wmax[i] = dmax.width;
@@ -745,7 +751,6 @@ public class TrainLayout
    {
       synchronized (self.getTreeLock())
       {
-         checkContainer(self);
          int ncomponents = self.getComponentCount();
          if (ncomponents == 0)
          {
@@ -761,11 +766,18 @@ public class TrainLayout
          int w = self.getWidth();
          if (self.getParent() instanceof JViewport)
          {
+            JViewport vp = (JViewport) self.getParent();
+            h = vp.getHeight() - (insets.top + insets.bottom);
+            w = vp.getWidth() - (insets.left + insets.right)
+                  - hgap * (ncomponents - 1);
             System.out.println(
                   "The parent of this layer is a JViewport (usually part of JScrollpane).");
          }
          else
          {
+            h = self.getHeight() - (insets.top + insets.bottom);
+            w = self.getWidth() - (insets.left + insets.right)
+                  - hgap * (ncomponents - 1);
             System.out.println("The parent of this layer is "
                   + (self.getParent() != null ? self.getParent().getClass()
                         : "no parent"));
@@ -788,7 +800,8 @@ public class TrainLayout
              */
             if (comp instanceof Container && (((Container) comp)
                   .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout))
+                  || ((Container) comp).getLayout() instanceof TrainLayout
+                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -948,7 +961,7 @@ public class TrainLayout
                   + "\nThe MaximumHeight was not set by the components."
                   + "\nThe height of the layout is set to = " + h);
          }
-         //
+
          // width
          int[] wfinal = new int[ncomponents];
          int wcompare = 0;

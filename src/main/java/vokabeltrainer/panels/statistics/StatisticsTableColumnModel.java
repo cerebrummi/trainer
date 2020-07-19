@@ -16,19 +16,19 @@ public class StatisticsTableColumnModel extends DefaultTableColumnModel
       TableColumn column = new TableColumn();
       column.setHeaderValue("Datum");
       column.setCellRenderer(renderer);
-      column.setPreferredWidth(100);
+      column.setPreferredWidth(250);
       addColumn(column);
       
       TableColumn column1 = new TableColumn();
       column1.setHeaderValue("Hebräisch >> Deutsch");
       column1.setCellRenderer(renderer);
-      column1.setPreferredWidth(50);
+      column1.setPreferredWidth(150);
       addColumn(column1);
       
       TableColumn column2 = new TableColumn();
       column2.setHeaderValue("Deutsch >> Hebräisch");
       column2.setCellRenderer(renderer);
-      column2.setPreferredWidth(50);
+      column2.setPreferredWidth(150);
       addColumn(column2);
    }
 
