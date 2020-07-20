@@ -54,12 +54,11 @@ import javax.swing.JViewport;
  * appear.
  * <p>
  * TOnionLayout corrects inconsistencies of minimum and maximum sizes with
- * maximum = minimum; Use <code>BullsEyeLayoutTest</code> to show inconsistencies
- * or method toString().
+ * maximum = minimum;
  *
  * @author Birke Heeren
  * @since private
- * @version BullsEyeLayout 3.0 (released 19. July 2020)
+ * @version BullsEyeLayout 3.0 (released 20. July 2020)
  */
 
 public class BullsEyeLayout
@@ -108,7 +107,7 @@ public class BullsEyeLayout
     * Determines the preferred size of the container argument using this
     * BullsEyeLayout.
     * <p>
-    * The preferred size is the maximum size of the component.
+    * The preferred size is the maximum size of the component .
     *
     * @param self
     *           the container in which to do the layout
@@ -151,7 +150,118 @@ public class BullsEyeLayout
             return this.minimumLayoutSize(self);
          }
          
-         return this.maximumLayoutSize(self);
+         Insets insets = self.getInsets();
+         int w;
+         int h;
+
+         h = self.getHeight() - (insets.top + insets.bottom);
+         w = self.getWidth() - (insets.left + insets.right);
+
+         int hmin = 0;
+         int hmax = Integer.MAX_VALUE;
+         int wmin = 0;
+         int wmax = Integer.MAX_VALUE;
+         Component comp = self.getComponent(0);
+         Dimension dmin;
+         Dimension dmax;
+         /*
+          * In case Component is Container with Layout instance of TrainLayout,
+          * TotemLayout or BullsEyeLayout the dimensions derived by content - if
+          * any - should override given Dimensions. Only when there is no
+          * content the given Dimensions should be used.
+          */
+         if (comp instanceof Container && (((Container) comp)
+               .getLayout() instanceof TotemLayout
+               || ((Container) comp).getLayout() instanceof TrainLayout
+               || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+         {
+            Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                  .getLayout()).minimumLayoutSize((Container) comp);
+            if (dminContent != null)
+               dmin = dminContent;
+            else
+               dmin = comp.getMinimumSize();
+            
+            Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
+                  .getLayout()).maximumLayoutSize((Container) comp);
+            if (dmaxContent != null)
+               dmax = dmaxContent;
+            else
+               dmax = comp.getMaximumSize();
+         }
+         else
+         {
+            dmin = comp.getMinimumSize();
+            dmax = comp.getMaximumSize();
+         }
+
+         // MINIMUM
+         if (dmin != null)
+         {
+            if (dmin.height > hmin)
+               hmin = dmin.height; // minheight is maximized
+            if (dmin.width > wmin)
+               wmin = dmin.width; // minwidth is maximized
+         }
+         else // minimum was not set on innermost layer
+         {
+            hmin = h;
+            wmin = w;
+         }
+
+         // MAXIMUM
+         if (dmax != null)
+         {
+            if (dmax.height < hmax)
+               hmax = dmax.height; // maxheight is minimized
+            if (dmax.width < wmax)
+               wmax = dmax.width; // maxwidth is minimized
+         }
+         else // maximum was not set on innermost layer
+         {
+            hmax = h;
+            wmax = w;
+         }
+
+         // height
+         if (hmin > hmax)
+         {
+            // error correction
+            hmax = hmin;
+         }
+
+         if (hmax != Integer.MAX_VALUE)
+         {
+            if (h <= hmin)
+               h = hmin;
+            else if (hmax < h)
+               h = hmax;
+            // else h = h;
+         }
+         else if (h < hmin)
+            h = hmin;
+         // else h = h;
+
+         // width
+         if (wmin > wmax)
+         {
+            // error correction
+            wmax = wmin;
+         }
+
+         if (wmax != Integer.MAX_VALUE)
+         {
+            if (w <= wmin)
+               w = wmin;
+            else if (wmax < w)
+               w = wmax;
+            // else w = w;
+         }
+         else if (w < wmin)
+            w = wmin;
+         // else w = w;
+
+         return new Dimension(w, h);
       }
    }
 
@@ -298,6 +408,7 @@ public class BullsEyeLayout
          {
             dmax = comp.getMaximumSize();
          }
+         
          if (dmax != null)
          {
             if (h < dmax.height)
@@ -433,8 +544,7 @@ public class BullsEyeLayout
          // height
          if (hmin > hmax)
          {
-            // error correction, to show error use BullsEyeLayoutTest or
-            // toString()
+            // error correction
             hmax = hmin;
          }
          
@@ -453,8 +563,7 @@ public class BullsEyeLayout
          // width
          if (wmin > wmax)
          {
-            // error correction, to show error use BullsEyeLayoutTest or
-            // toString()
+            // error correction
             wmax = wmin;
          }
          
@@ -477,333 +586,6 @@ public class BullsEyeLayout
 
          comp.setBounds(Math.max(x, deltaX), Math.max(y, deltaY), w, h);
       }
-   }
-
-   /**
-    * Returns the string representation of this BullsEyeLayout's values.
-    * 
-    * @return a string representation of this BullsEyeLayout
-    */
-   public String toString()
-   {
-      synchronized (self.getTreeLock())
-      {
-         int ncomponents = self.getComponentCount();
-         if (ncomponents > 1)
-         {
-            return "BullsEyeLayout can hold only one component, but has "
-                  + ncomponents + "components";
-         }
-         if (ncomponents == 0)
-         {
-            return "BullsEyeLayout has no components.\n"
-                  + "Layout MinimumSize = " + self.getMinimumSize()
-                  + " Layout MaximumSize = " + self.getMaximumSize()
-                  + "\nBullsEyeLayout toString() was called";
-         }
-         System.out.println("BullsEyeLayout has 1 component.");
-
-         Insets insets = self.getInsets();
-         int availableHeight;
-         int availableWidth;
-         if (self.getParent() instanceof JViewport)
-         {
-            JViewport vp = (JViewport) self.getParent();
-            availableHeight = vp.getHeight() - (insets.top + insets.bottom);
-            availableWidth = vp.getWidth() - (insets.left + insets.right);
-            System.out.println(
-                  "The parent of this layer is a JViewport (usually part of JScrollpane).");
-         }
-         else
-         {
-            System.out.println("The parent of this layer is "
-                  + (self.getParent() != null ? self.getParent().getClass()
-                        : "no parent"));
-            availableHeight = self.getHeight() - (insets.top + insets.bottom);
-            availableWidth = self.getWidth() - (insets.left + insets.right);
-         }
-
-         int h = availableHeight;
-         int w = availableWidth;
-         System.out.println("The available height is " + h);
-         System.out.println("The available width is " + w);
-         int hmin = 0;
-         int hmax = Integer.MAX_VALUE;
-         int wmin = 0;
-         int wmax = Integer.MAX_VALUE;
-
-         Component comp = self.getComponent(0);
-         Dimension dmin;
-         Dimension dmax;
-         /*
-          * In case Component is Container with Layout instance of TrainLayout
-          * or TotemLayout the dimensions derived by content - if any - should
-          * override given Dimensions. Only when there is no content the given
-          * Dimensions should be used.
-          */
-         if (comp instanceof Container && (((Container) comp)
-               .getLayout() instanceof TotemLayout
-               || ((Container) comp).getLayout() instanceof TrainLayout
-               || ((Container) comp).getLayout() instanceof BullsEyeLayout))
-         {
-            Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                  .getLayout()).minimumLayoutSize((Container) comp);
-            if (dminContent != null)
-            {
-               dmin = dminContent;
-               if (comp.getMinimumSize() != null
-                     && !dmin.equals(comp.getMinimumSize()))
-                  System.out.println("ATTENTION: In the component "
-                        + " the MinimumSize explicitly set was overridden"
-                        + "\non purpose because the component has got TOnionLayout and has got components."
-                        + "\nMinimumSize explicitly set = "
-                        + comp.getMinimumSize());
-            }
-            else
-               dmin = comp.getMinimumSize();
-
-            Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
-                  .getLayout()).maximumLayoutSize((Container) comp);
-            if (dmaxContent != null)
-            {
-               dmax = dmaxContent;
-               if (comp.getMaximumSize() != null
-                     && !dmax.equals(comp.getMaximumSize()))
-                  System.out.println("ATTENTION: In the component "
-                        + " the MaximumSize explicitly set was overridden"
-                        + "\non purpose because the component has got TOnionLayout and has got components."
-                        + "\nMaximumSize explicitly set = "
-                        + comp.getMaximumSize());
-            }
-            else
-               dmax = comp.getMaximumSize();
-         }
-         else
-         {
-            dmin = comp.getMinimumSize();
-            dmax = comp.getMaximumSize();
-         }
-
-         // MINIMUM
-         if (dmin != null)
-         {
-            if (dmin.height > hmin)
-               hmin = dmin.height; // minheight is maximized
-            if (dmin.width > wmin)
-               wmin = dmin.width; // minwidth is maximized
-            System.out.println("Component MinimumWidth = " + dmin.width
-                  + ", MinimumHeight = " + dmin.height);
-         }
-         else // minimum was not set on innermost layer
-         {
-            // w = w;
-            System.err
-                  .println("Component MinimumSize was not set! Estimation for "
-                        + " MinimumWidth = " + w);
-         }
-
-         // MAXIMUM
-         if (dmax != null)
-         {
-            if (dmax.height < hmax)
-               hmax = dmax.height; // maxheight is minimized
-            if (dmax.width < wmax)
-               wmax = dmax.width; // maxwidth is minimized
-            System.out.println("Component MaximumWidth = " + dmax.width
-                  + ", MaximumHeight = " + dmax.height);
-         }
-         else // maximum was not set on innermost layer
-         {
-            // w = w;
-            System.err
-                  .println("Component MaximumSize was not set! Estimation for "
-                        + " MaximumWidth = " + w);
-         }
-
-         // height
-         if (hmin > hmax)
-         {
-            System.err.println("ERROR in component height of this layout:"
-                  + "\nThe MinimumHeight required by component = " + hmin
-                  + "\nis larger than"
-                  + "\nthe MaximumHeight allowed by the component = " + hmax);
-            hmax = hmin; // error correction
-         }
-         else if (hmax != Integer.MAX_VALUE)
-         {
-            if (h <= hmin)
-            {
-               if (h < hmin && self.getParent() instanceof JViewport)
-               {
-                  System.out.println(
-                        "OKAY: JViewport (usually part of JScrollPane) should show vertical scrollbar"
-                              + "\nbecause the height available = " + h
-                              + "\nis smaller than the MinimumHeight required by the component = "
-                              + hmin);
-               }
-               else if (h < hmin)
-               {
-                  System.err.println("ERROR: The height available = " + h
-                        + "\nis smaller than the MinimumHeight required by the component = "
-                        + hmin
-                        + "\nTherefore part of the component will be hidden!");
-               }
-               h = hmin;
-               System.out.println("component height is OKAY:"
-                     + "\nThe MinimumHeight required by component = " + hmin
-                     + "\nis smaller or equal to"
-                     + "\nthe MaximumHeight allowed by the component = "
-                     + hmax);
-            }
-            else if (hmax < h)
-            {
-               h = hmax;
-               System.out.println("component height is OKAY:"
-                     + "\nThe MinimumHeight required by component = " + hmin
-                     + "\nis smaller or equal to"
-                     + "\nthe MaximumHeight allowed by the component = " + hmax
-                     + "\nThe height available = " + h
-                     + "\nThe height of the layout is set to = " + hmax);
-            }
-            else // h = h;
-            {
-               System.out.println("component height in this layout is OKAY:"
-                     + "\nThe MinimumHeight required by component = " + hmin
-                     + "\nis smaller or equal to"
-                     + "\nthe MaximumHeight allowed by the component = " + hmax
-                     + "The height available = " + h
-                     + "\nThe height of the layout is set to = " + h);
-            }
-         }
-         else if (h < hmin)
-         {
-            if (self.getParent() instanceof JViewport)
-            {
-               System.out.println(
-                     "OKAY: JViewport (usually part of JScrollPane) should show vertical scrollbar"
-                           + "\nbecause the height available = " + h
-                           + "\nis smaller than the MinimumHeight required by the component = "
-                           + hmin);
-            }
-            else
-            {
-               System.err.println("ERROR: The height available = " + h
-                     + "\nis smaller than the MinimumHeight required by the component = "
-                     + hmin
-                     + "Therefore part of the component will be hidden!");
-            }
-            h = hmin;
-            System.out.println("component height is OKAY:"
-                  + "\nThe MinimumHeight required by component = " + hmin
-                  + "\nThe MaximumHeight was not set by the component."
-                  + "\nThe height of the layout is set to = " + h);
-         }
-         else // h = h;
-         {
-            System.out.println("component height is OKAY:"
-                  + "\nThe MinimumHeight required by components = " + hmin
-                  + "\nThe MaximumHeight was not set by the component."
-                  + "\nThe height of the layout is set to = " + h);
-         }
-
-         // width
-         if (wmin > wmax)
-         {
-            System.err.println("ERROR in component width of this layout:"
-                  + "\nThe MinimumWidth required by component = " + wmin
-                  + "\nis larger than"
-                  + "\nthe MaximumWidth allowed by the component = " + wmax);
-            wmax = wmin; // error correction
-         }
-         else if (wmax != Integer.MAX_VALUE)
-         {
-            if (w <= wmin)
-            {
-               if (w < wmin && self.getParent() instanceof JViewport)
-               {
-                  System.out.println(
-                        "OKAY: JViewport (usually part of JScrollPane) should show horizontal scrollbar"
-                              + "\nbecause the width available = " + w
-                              + "\nis smaller than the MinimumWidth required by the component = "
-                              + wmin);
-               }
-               else if (w < wmin)
-               {
-                  System.err.println("ERROR: The width available = " + w
-                        + "\nis smaller than the MinimumWidth required by the component = "
-                        + wmin
-                        + "\nTherefore part of the component will be hidden!");
-               }
-               w = wmin;
-               System.out.println("component width is OKAY:"
-                     + "\nThe MinimumWidth required by component = " + wmin
-                     + "\nis smaller or equal to"
-                     + "\nthe MaximumWidth allowed by the components = "
-                     + wmax);
-            }
-            else if (wmax < w)
-            {
-               System.out.println("component width is OKAY:"
-                     + "\nThe MinimumWidth required by component = " + wmin
-                     + "\nis smaller or equal to"
-                     + "\nthe MaximumWidth allowed by the components = " + wmax
-                     + "\nThe width available = " + w
-                     + "\nThe width of the layout is set to = " + wmax);
-               w = wmax;
-            }
-            else // w = w;
-            {
-               System.out.println("component width in this layout is OKAY:"
-                     + "\nThe MinimumWidth required by component = " + wmin
-                     + "\nis smaller or equal to"
-                     + "\nthe MaximumWidth allowed by the component = " + wmax
-                     + "The width available = " + w
-                     + "\nThe width of the layout is set to = " + w);
-            }
-         }
-         else if (w < wmin)
-         {
-            if (self.getParent() instanceof JViewport)
-            {
-               System.out.println(
-                     "OKAY: JViewport (usually part of JScrollPane) should show horizontal scrollbar"
-                           + "\nbecause the width available = " + w
-                           + "\nis smaller than the MinimumWidth required by the component = "
-                           + wmin);
-            }
-            else
-            {
-               System.err.println("ERROR: The width available = " + w
-                     + "\nis smaller than the MinimumWidth required by the component = "
-                     + wmin
-                     + "Therefore part of the component will be hidden!");
-            }
-            w = wmin;
-            System.out.println("component widths are OKAY:"
-                  + "\nThe MinimumWidth required by component = " + wmin
-                  + "\nThe MaximumWidth was not set by the component."
-                  + "\nThe width of the layout is set to = " + w);
-         }
-         else // w = w;
-         {
-            System.out.println("component width is OKAY:"
-                  + "\nThe MinimumWidth required by component = " + wmin
-                  + "\nThe MaximumWidth was not set by the component."
-                  + "\nThe width of the layout is set to = " + w);
-         }
-
-         int x = insets.left;
-         int y = insets.top;
-         int deltaX = (availableWidth - w) / 2 + x;
-         int deltaY = (availableHeight - h) / 2 + y;
-
-         comp.setBounds(Math.max(x, deltaX), Math.max(y, deltaY), w, h);
-         System.out.println(
-               "Component is set to height = " + h + " and width = " + w);
-         System.out.println("Location is x = " + Math.max(x, deltaX)
-               + " and y = " + Math.max(y, deltaY));
-      }
-      return "\nBullsEyeLayout toString() was called";
    }
 
    /**

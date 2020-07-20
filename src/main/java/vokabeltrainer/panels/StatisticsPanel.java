@@ -27,9 +27,7 @@ import vokabeltrainer.panels.statistics.StatisticsTable;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
-import vokabeltrainer.tonionlayout.TotemLayoutTest;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.tonionlayout.TrainLayoutTest;
 import vokabeltrainer.types.ExpressionKind;
 
 public class StatisticsPanel extends BackgroundPanelTiled
