@@ -108,7 +108,7 @@ public class BullsEyeLayout
     * Determines the preferred size of the container argument using this
     * BullsEyeLayout.
     * <p>
-    * The preferred size is all size available
+    * The preferred size is the maximum size of the component.
     *
     * @param self
     *           the container in which to do the layout
@@ -145,123 +145,13 @@ public class BullsEyeLayout
                return self.getSize();
             }
          }
-
+  
          if (self.getParent() instanceof JViewport)
          {
             return this.minimumLayoutSize(self);
          }
-
-         Insets insets = self.getInsets();
-         int w;
-         int h;
-
-         h = self.getHeight() - (insets.top + insets.bottom);
-         w = self.getWidth() - (insets.left + insets.right);
-
-         int hmin = 0;
-         int hmax = Integer.MAX_VALUE;
-         int wmin = 0;
-         int wmax = Integer.MAX_VALUE;
-         Component comp = self.getComponent(0);
-         Dimension dmin;
-         Dimension dmax;
-         /*
-          * In case Component is Container with Layout instance of TrainLayout,
-          * TotemLayout or BullsEyeLayout the dimensions derived by content - if
-          * any - should override given Dimensions. Only when there is no
-          * content the given Dimensions should be used.
-          */
-         if (comp instanceof Container && (((Container) comp)
-               .getLayout() instanceof TotemLayout
-               || ((Container) comp).getLayout() instanceof TrainLayout
-               || ((Container) comp).getLayout() instanceof BullsEyeLayout))
-         {
-            Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                  .getLayout()).minimumLayoutSize((Container) comp);
-            if (dminContent != null)
-               dmin = dminContent;
-            else
-               dmin = comp.getMinimumSize();
-            Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
-                  .getLayout()).maximumLayoutSize((Container) comp);
-            if (dmaxContent != null)
-               dmax = dmaxContent;
-            else
-               dmax = comp.getMaximumSize();
-         }
-         else
-         {
-            dmin = comp.getMinimumSize();
-            dmax = comp.getMaximumSize();
-         }
-
-         // MINIMUM
-         if (dmin != null)
-         {
-            if (dmin.height > hmin)
-               hmin = dmin.height; // minheight is maximized
-            if (dmin.width > wmin)
-               wmin = dmin.width; // minwidth is maximized
-         }
-         else // minimum was not set on innermost layer
-         {
-            hmin = h;
-            wmin = w;
-         }
-
-         // MAXIMUM
-         if (dmax != null)
-         {
-            if (dmax.height < hmax)
-               hmax = dmax.height; // maxheight is minimized
-            if (dmax.width < wmax)
-               wmax = dmax.width; // maxwidth is minimized
-         }
-         else // maximum was not set on innermost layer
-         {
-            hmax = h;
-            wmax = w;
-         }
-
-         // height
-         if (hmin > hmax)
-         {
-            // error correction, to show error use BullsEyeLayoutTest or
-            // toString()
-            hmax = hmin;
-         }
-         else if (hmax != Integer.MAX_VALUE)
-         {
-            if (h <= hmin)
-               h = hmin;
-            else if (hmax < h)
-               h = hmax;
-            // else h = h;
-         }
-         else if (h < hmin)
-            h = hmin;
-         // else h = h;
-
-         // width
-         if (wmin > wmax)
-         {
-            // error correction, to show error use BullsEyeLayoutTest or
-            // toString()
-            wmax = wmin;
-         }
-         else if (wmax != Integer.MAX_VALUE)
-         {
-            if (w <= wmin)
-               w = wmin;
-            else if (wmax < w)
-               w = wmax;
-            // else w = w;
-         }
-         else if (w < wmin)
-            w = wmin;
-         // else w = w;
-
-         return new Dimension(w, h);
+         
+         return this.maximumLayoutSize(self);
       }
    }
 
@@ -384,7 +274,7 @@ public class BullsEyeLayout
          }
 
          Component comp = self.getComponent(0);
-         Dimension dmin;
+         Dimension dmax;
 
          /*
           * In case Component is Container with Layout instance of TrainLayout,
@@ -397,23 +287,23 @@ public class BullsEyeLayout
                || ((Container) comp).getLayout() instanceof TrainLayout
                || ((Container) comp).getLayout() instanceof BullsEyeLayout))
          {
-            Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                  .getLayout()).minimumLayoutSize((Container) comp);
-            if (dminContent != null)
-               dmin = dminContent;
+            Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
+                  .getLayout()).maximumLayoutSize((Container) comp);
+            if (dmaxContent != null)
+               dmax = dmaxContent;
             else
-               dmin = comp.getMinimumSize();
+               dmax = comp.getMaximumSize();
          }
          else
          {
-            dmin = comp.getMinimumSize();
+            dmax = comp.getMaximumSize();
          }
-         if (dmin != null)
+         if (dmax != null)
          {
-            if (h < dmin.height)
-               h = dmin.height; // minheight is maximized
-            if (w < dmin.width)
-               w = dmin.width; // minwidth is maximized
+            if (h < dmax.height)
+               h = dmax.height; // maxheight is maximized
+            if (w < dmax.width)
+               w = dmax.width; // maxwidth is maximized
          }
          else
          {
@@ -500,6 +390,7 @@ public class BullsEyeLayout
                dmin = dminContent;
             else
                dmin = comp.getMinimumSize();
+            
             Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
                   .getLayout()).maximumLayoutSize((Container) comp);
             if (dmaxContent != null)
@@ -546,7 +437,8 @@ public class BullsEyeLayout
             // toString()
             hmax = hmin;
          }
-         else if (hmax != Integer.MAX_VALUE)
+         
+         if (hmax != Integer.MAX_VALUE)
          {
             if (h <= hmin)
                h = hmin;
@@ -565,7 +457,8 @@ public class BullsEyeLayout
             // toString()
             wmax = wmin;
          }
-         else if (wmax != Integer.MAX_VALUE)
+         
+         if (wmax != Integer.MAX_VALUE)
          {
             if (w <= wmin)
                w = wmin;

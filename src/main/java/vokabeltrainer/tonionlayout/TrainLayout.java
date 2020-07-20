@@ -655,7 +655,8 @@ public class TrainLayout
             // error correction, to show error use TrainLayoutTest or toString()
             hmax = hmin;
          }
-         else if (hmax != Integer.MAX_VALUE)
+         
+         if (hmax != Integer.MAX_VALUE)
          {
             if (h <= hmin)
                h = hmin;
@@ -666,7 +667,7 @@ public class TrainLayout
          else if (h < hmin)
             h = hmin;
          // else h = h;
-         //
+         
          // width
          int[] wfinal = new int[ncomponents];
          int wcompare = 0;

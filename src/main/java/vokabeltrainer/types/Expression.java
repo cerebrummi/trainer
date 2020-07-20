@@ -328,18 +328,21 @@ public class Expression
 
    public String getTrainingPrintLine(Language languageDirection)
    {
-      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+      DateTimeFormatter dateTimeFormatter = DateTimeFormatter
+            .ofPattern("dd.MM.yyyy");
       StringJoiner joiner = new StringJoiner("\t");
       joiner.add(this.uuid.toString());
       if (Language.GERMAN.equals(languageDirection))
       {
-         joiner.add(this.trainingStatusDToH.getNextDate().format(dateTimeFormatter));
+         joiner.add(
+               this.trainingStatusDToH.getNextDate().format(dateTimeFormatter));
          joiner.add(this.trainingStatusDToH.getRepetition().name());
          joiner.add(String.valueOf(this.trainingStatusDToH.getTrys()));
       }
       else
       {
-         joiner.add(this.trainingStatusHToD.getNextDate().format(dateTimeFormatter));
+         joiner.add(
+               this.trainingStatusHToD.getNextDate().format(dateTimeFormatter));
          joiner.add(this.trainingStatusHToD.getRepetition().name());
          joiner.add(String.valueOf(this.trainingStatusHToD.getTrys()));
       }
@@ -353,5 +356,10 @@ public class Expression
          return this.getTrainingStatusDToH();
       }
       return this.getTrainingStatusHToD();
+   }
+
+   public String getWordGermanForStatistics()
+   {
+      return german + "  [" + chapter + "]  "+ this.getAdditionalInfoGerman();
    }
 }

@@ -6,6 +6,7 @@ import java.awt.Insets;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -77,28 +78,6 @@ public final class Main
       
       try
       {
-         Blue.read();
-      }
-      catch (Exception e)
-      {
-         JOptionPane.showMessageDialog(null, message+ "Blaue Bilder fehlen", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
-         System.exit(1);
-      }
-      
-      try
-      {
-         Gruen.read(); 
-      }
-      catch (Exception e)
-      {
-         JOptionPane.showMessageDialog(null, message+ "Grüne Bilder fehlen", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
-         System.exit(1);
-      }
-      
-      try
-      {
          Sounds.read();
       }
       catch (Exception e1)
@@ -156,6 +135,37 @@ public final class Main
          window.setLocationRelativeTo(null);
          window.setVisible(true);
       });
+      
+      new SwingWorker<Void, Void>(){
+
+         @Override
+         protected Void doInBackground() throws Exception
+         {
+            try
+            {
+               Blue.read();
+            }
+            catch (Exception e)
+            {
+               JOptionPane.showMessageDialog(null, message+ "Blaue Bilder fehlen", "Nachricht",
+                     JOptionPane.CLOSED_OPTION);
+               System.exit(1);
+            }
+            
+            try
+            {
+               Gruen.read(); 
+            }
+            catch (Exception e)
+            {
+               JOptionPane.showMessageDialog(null, message+ "Grüne Bilder fehlen", "Nachricht",
+                     JOptionPane.CLOSED_OPTION);
+               System.exit(1);
+            }
+            return null;
+         }
+         
+      }.execute();
    }
 
    public static Font getGermanFont(float size)

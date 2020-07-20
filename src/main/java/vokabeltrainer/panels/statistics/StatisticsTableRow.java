@@ -2,17 +2,25 @@ package vokabeltrainer.panels.statistics;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+
+import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.Language;
 
 public class StatisticsTableRow
 {
-   private List<Expression> expressionsDtoH;
-   private List<Expression> expressionsHtoD;
+   private List<String> germanDtoH;
+   private List<String> germanHtoD;
    private LocalDate date;
    private JButton takeOutButton;
    private DateTimeFormatter dateFormatter = DateTimeFormatter
@@ -26,8 +34,21 @@ public class StatisticsTableRow
    {
       this.row = row;
       this.date = date;
-      this.expressionsDtoH = expressionsDtoH;
-      this.expressionsHtoD = expressionsHtoD;
+      
+      Collections.sort(expressionsDtoH, new ExpressionComparator(Language.GERMAN));
+      germanDtoH = new ArrayList<>(expressionsDtoH.size());
+      for(Expression expression : expressionsDtoH)
+      {
+         germanDtoH.add(expression.getWordGermanForStatistics());
+      }
+      
+      Collections.sort(expressionsHtoD, new ExpressionComparator(Language.GERMAN));
+      germanHtoD = new ArrayList<>(expressionsHtoD.size());
+      for(Expression expression : expressionsHtoD)
+      {
+         germanHtoD.add(expression.getWordGermanForStatistics());
+      }
+      
       this.model = model;
       takeOutButton = new JButton("herausnehmen");
       takeOutButton.setFont(Settings.getButtonFont());
@@ -35,12 +56,12 @@ public class StatisticsTableRow
 
    public int getExpressionsDtoHSize()
    {
-      return expressionsDtoH.size();
+      return germanDtoH.size();
    }
 
    public int getExpressionsHtoDSize()
    {
-      return expressionsHtoD.size();
+      return germanHtoD.size();
    }
 
    public String getDate()
@@ -51,5 +72,29 @@ public class StatisticsTableRow
    public JButton getTakeOutButton()
    {
       return takeOutButton;
+   }
+
+   public JList<String> getJListHtoD()
+   {
+      DefaultListModel<String> listModel = new DefaultListModel<>();
+      for(String word : germanHtoD)
+      {
+         listModel.addElement(word);
+      }
+      JList<String> list = new JList<>(listModel);
+      list.setFont(Settings.getButtonFont());
+      return list;
+   }
+
+   public JList<String> getJListDtoH()
+   {
+      DefaultListModel<String> listModel = new DefaultListModel<>();
+      for(String word : germanDtoH)
+      {
+         listModel.addElement(word);
+      }
+      JList<String> list = new JList<>(listModel);
+      list.setFont(Settings.getButtonFont());
+      return list;
    }
 }

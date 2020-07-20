@@ -7,6 +7,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +17,19 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.statistics.StatisticsTable;
+import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.TotemLayout;
+import vokabeltrainer.tonionlayout.TotemLayoutTest;
 import vokabeltrainer.tonionlayout.TrainLayout;
+import vokabeltrainer.tonionlayout.TrainLayoutTest;
 import vokabeltrainer.types.ExpressionKind;
 
 public class StatisticsPanel extends BackgroundPanelTiled
@@ -33,13 +41,21 @@ public class StatisticsPanel extends BackgroundPanelTiled
 
    private JLabel valueAll;
    private JPanel tablePanel;
+   private JPanel wordPanel;
+
+   private int height;
 
    public StatisticsPanel()
    {
-      setLayout(new BullsEyeLayout(this));
+      setLayout(new BorderLayout());
+      this.setPreferredSize(new Dimension(990, 643));
+      this.setSize(990, 643);
 
+      JPanel eyePanel = new JPanel();
+      eyePanel.setLayout(new BullsEyeLayout(eyePanel));
+      
       JPanel center = new JPanel();
-      center.setLayout(new TrainLayout(center, 30));
+      center.setLayout(new TrainLayout(center, 15));
       center.setOpaque(false);
 
       JPanel centerPanel = new JPanel();
@@ -48,9 +64,9 @@ public class StatisticsPanel extends BackgroundPanelTiled
       GridBagConstraints constraints = new GridBagConstraints();
       centerPanel.setOpaque(true);
       centerPanel.setBackground(Settings.getVeryLightGold());
-      int height = (list.size() + 2) * 30;
-      centerPanel.setMinimumSize(new Dimension(500, height));
-      centerPanel.setMaximumSize(new Dimension(500, height));
+      height = ((list.size() + 2) * 30) + 100;
+      centerPanel.setMinimumSize(new Dimension(380, height));
+      centerPanel.setMaximumSize(new Dimension(380, height));
 
       JLabel title = new JLabel("Anzahl der Wortformen");
       title.setFont(Main.getGermanFont(30F));
@@ -105,17 +121,23 @@ public class StatisticsPanel extends BackgroundPanelTiled
       centerPanel.add(valueAll, constraints);
       counter++;
 
-      tablePanel = new JPanel(new BorderLayout());
-      tablePanel.setMinimumSize(new Dimension(580, height));
-      tablePanel.setMaximumSize(new Dimension(580, height));
+      tablePanel = new JPanel();
+      tablePanel.setLayout(new TotemLayout(tablePanel));
       tablePanel.setOpaque(true);
       tablePanel.setBackground(Settings.getVeryLightGold());
       tablePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
+      wordPanel = new JPanel(new BorderLayout());
+      wordPanel.setMinimumSize(new Dimension(580, 170));
+      wordPanel.setMaximumSize(new Dimension(580, 170));
+      wordPanel.setOpaque(true);
+      wordPanel.setBackground(Settings.getVeryLightGold());
+
       center.add(centerPanel);
       center.add(tablePanel);
 
-      add(center);
+      eyePanel.add(center);
+      add(eyePanel);
    }
 
    public void setValues()
@@ -139,19 +161,74 @@ public class StatisticsPanel extends BackgroundPanelTiled
       valueAll.setText(" " + String.valueOf(Data.getAlleMapSize()));
 
       tablePanel.removeAll();
-      
+
       JPanel titlePanel = new JPanel(new FlowLayout());
       titlePanel.setOpaque(false);
       titlePanel.setBackground(Settings.getTransparent());
+      titlePanel.setMinimumSize(new Dimension(580, 50));
+      titlePanel.setMaximumSize(new Dimension(580, 50));
+
       JLabel title = new JLabel("Trainings Übersicht");
       title.setFont(Main.getGermanFont(30F));
-      title.setSize(250, 30);
       titlePanel.add(title);
-      
-      tablePanel.add(titlePanel, BorderLayout.NORTH);
+
       StatisticsTable table = new StatisticsTable(Data.findStatisticsModel());
       table.setOpaque(true);
       table.setBackground(Settings.getVeryLightGold());
+
+      table.addMouseListener(new MouseAdapter()
+      {
+         public void mousePressed(MouseEvent mouseEvent)
+         {
+            JTable table = (JTable) mouseEvent.getSource();
+            Point point = mouseEvent.getPoint();
+            int row = table.rowAtPoint(point);
+            int column = table.columnAtPoint(point);
+            if (table.getSelectedRow() != -1 && row == table.getSelectedRow())
+            {
+               wordPanel.removeAll();
+
+               if (column == 1)
+               {
+                  StatisticsTableRow statisticsTableRow = ((StatisticsTableRow) table
+                        .getValueAt(table.getSelectedRow(), 1));
+                  JScrollPane scroller = new JScrollPane(
+                        statisticsTableRow.getJListHtoD());
+                  scroller.setOpaque(false);
+                  scroller.setBackground(Settings.getTransparent());
+                  scroller.setBorder(BorderFactory.createEmptyBorder());
+                  scroller.getViewport().setOpaque(false);
+                  scroller.getViewport()
+                        .setBackground(Settings.getTransparent());
+                  scroller.setViewportBorder(BorderFactory.createEmptyBorder());
+                  wordPanel.add(scroller, BorderLayout.CENTER);
+               }
+               else if (column == 2)
+               {
+                  StatisticsTableRow statisticsTableRow = ((StatisticsTableRow) table
+                        .getValueAt(table.getSelectedRow(), 2));
+                  JScrollPane scroller = new JScrollPane(
+                        statisticsTableRow.getJListDtoH());
+                  scroller.setOpaque(false);
+                  scroller.setBackground(Settings.getTransparent());
+                  scroller.setBorder(BorderFactory.createEmptyBorder());
+                  scroller.getViewport().setOpaque(false);
+                  scroller.getViewport()
+                        .setBackground(Settings.getTransparent());
+                  scroller.setViewportBorder(BorderFactory.createEmptyBorder());
+                  wordPanel.add(scroller, BorderLayout.CENTER);
+               }
+               wordPanel.validate();
+               wordPanel.repaint();
+            }
+         }
+      });
+
+      JPanel scrollerWrapper = new JPanel(new BorderLayout());
+      scrollerWrapper.setMinimumSize(new Dimension(580, height - 250));
+      scrollerWrapper.setMaximumSize(new Dimension(580, height - 250));
+      scrollerWrapper.setOpaque(true);
+      scrollerWrapper.setBackground(Settings.getVeryLightGold());
       
       JScrollPane scroller = new JScrollPane(table);
       scroller.setOpaque(false);
@@ -160,7 +237,11 @@ public class StatisticsPanel extends BackgroundPanelTiled
       scroller.getViewport().setOpaque(false);
       scroller.getViewport().setBackground(Settings.getTransparent());
       scroller.setViewportBorder(BorderFactory.createEmptyBorder());
-      tablePanel.add(scroller, BorderLayout.CENTER);
+      scrollerWrapper.add(scroller, BorderLayout.CENTER);
+
+      tablePanel.add(titlePanel);
+      tablePanel.add(scrollerWrapper);
+      tablePanel.add(wordPanel);
    }
 
    private String findValue(ExpressionKind kind)

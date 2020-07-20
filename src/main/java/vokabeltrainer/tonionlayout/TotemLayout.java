@@ -645,7 +645,8 @@ public class TotemLayout
             // error correction, to show error use TotemLayoutTest or toString()
             wmax = wmin;
          }
-         else if (wmax != Integer.MAX_VALUE)
+
+         if (wmax != Integer.MAX_VALUE)
          {
             if (w <= wmin)
                w = wmin;
@@ -656,7 +657,7 @@ public class TotemLayout
          else if (w < wmin)
             w = wmin;
          // else w = w;
-         //
+         
          // height
          int[] hfinal = new int[ncomponents];
          int hcompare = 0;
