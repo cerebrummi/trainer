@@ -9,7 +9,6 @@ import java.util.Locale;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JList;
 
 import vokabeltrainer.ExpressionComparator;
@@ -39,14 +38,14 @@ public class StatisticsTableRow
       germanDtoH = new ArrayList<>(expressionsDtoH.size());
       for(Expression expression : expressionsDtoH)
       {
-         germanDtoH.add(expression.getWordGermanForStatistics());
+         germanDtoH.add(expression.getWordGermanForStatistics(Language.GERMAN));
       }
       
       Collections.sort(expressionsHtoD, new ExpressionComparator(Language.GERMAN));
       germanHtoD = new ArrayList<>(expressionsHtoD.size());
       for(Expression expression : expressionsHtoD)
       {
-         germanHtoD.add(expression.getWordGermanForStatistics());
+         germanHtoD.add(expression.getWordGermanForStatistics(Language.HEBREW));
       }
       
       this.model = model;

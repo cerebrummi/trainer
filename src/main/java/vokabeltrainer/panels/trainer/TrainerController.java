@@ -2,9 +2,9 @@ package vokabeltrainer.panels.trainer;
 
 import java.awt.EventQueue;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -57,8 +57,23 @@ public class TrainerController implements TrainerControllerConnector
       oldWordsToRepeat = this.oldExpressions.size();
       allExpressions.addAll(this.oldExpressions);
       allExpressions.addAll(this.newExpressions);
-      expressionsToBeTested = new ArrayList<>(allExpressions.size());
+      expressionsToBeTested = new LinkedList<>();
       expressionsToBeTested.addAll(allExpressions);
+      if (languageDirection == Language.GERMAN) // DtoH
+      {
+         expressionsToBeTested.forEach(expression -> {
+            expression.getTrainingStatusDToH()
+                  .setTotalTrys(expression.getTrainingStatusDToH().getTrys());
+         });
+      }
+      else // HtoD
+      {
+         expressionsToBeTested.forEach(expression -> {
+            expression.getTrainingStatusHToD().setTotalTrys(
+                  expression.getTrainingStatusHToD().getTrys());
+         });
+      }
+
       trainerView.getWordsToDo()
             .setText(String.valueOf(expressionsToBeTested.size()));
 
@@ -160,7 +175,7 @@ public class TrainerController implements TrainerControllerConnector
    {
       try
       {
-         if (Language.GERMAN.equals(this.languageDirection))
+         if (Language.GERMAN.equals(this.languageDirection)) // DtoH
          {
             Result result = Resultfactory.getResultDtoH(currentExpression,
                   trainerView.getAnswerField().getText().trim());
@@ -190,15 +205,21 @@ public class TrainerController implements TrainerControllerConnector
                if (currentExpression.getTrainingStatusDToH().getTrys() == 0)
                {
                   currentExpression.getTrainingStatusDToH().nextRepetition();
+                  currentExpression.getTrainingStatusDToH().setTrys(1);
                }
+               expressionsToBeTested.remove(0);
             }
             else
             {
-               if (currentExpression.getTrainingStatusDToH().getTrys() < 4)
+               if (currentExpression.getTrainingStatusDToH().getTotalTrys() < 4)
                {
                   currentExpression.getTrainingStatusDToH().setTrys(
                         currentExpression.getTrainingStatusDToH().getTrys()
                               + 1);
+                  currentExpression.getTrainingStatusDToH().setTotalTrys(
+                        currentExpression.getTrainingStatusDToH().getTotalTrys()
+                              + 1);
+                  expressionsToBeTested.add(currentExpression);
                }
                else
                {
@@ -208,7 +229,7 @@ public class TrainerController implements TrainerControllerConnector
             }
             reactToAnswer(result.isOkay());
          }
-         else
+         else // HtoD
          {
             trainerView.prepareHtoDFeedbackPanel();
          }
@@ -230,8 +251,10 @@ public class TrainerController implements TrainerControllerConnector
       if (currentExpression.getTrainingStatusHToD().getTrys() == 0)
       {
          currentExpression.getTrainingStatusHToD().nextRepetition();
+         currentExpression.getTrainingStatusHToD().setTrys(1);
       }
       trainerView.enableHtoDAnswerButtons(false);
+      expressionsToBeTested.remove(0);
       reactToAnswer(true);
    }
 
@@ -245,10 +268,13 @@ public class TrainerController implements TrainerControllerConnector
    @Override
    public void resultHtoDFalse()
    {
-      if (currentExpression.getTrainingStatusHToD().getTrys() < 4)
+      if (currentExpression.getTrainingStatusHToD().getTotalTrys() < 4)
       {
          currentExpression.getTrainingStatusHToD().setTrys(
                currentExpression.getTrainingStatusHToD().getTrys() + 1);
+         currentExpression.getTrainingStatusHToD().setTotalTrys(
+               currentExpression.getTrainingStatusHToD().getTotalTrys() + 1);
+         expressionsToBeTested.add(currentExpression);
       }
       else
       {
@@ -281,8 +307,6 @@ public class TrainerController implements TrainerControllerConnector
          {
             trainerView.showResultGreen();
          }
-         expressionsToBeTested.remove(0);
-
       }
       else
       {
@@ -294,7 +318,6 @@ public class TrainerController implements TrainerControllerConnector
          {
             trainerView.showResultRed();
          }
-         expressionsToBeTested.add(currentExpression);
       }
 
       if (!expressionsToBeTested.isEmpty())
@@ -360,8 +383,7 @@ public class TrainerController implements TrainerControllerConnector
       }
       catch (LineUnavailableException | IOException e)
       {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
+         // nothing
       }
 
       trainerView.showResultGreen();

@@ -159,6 +159,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
       valueAll.setText(" " + String.valueOf(Data.getAlleMapSize()));
 
       tablePanel.removeAll();
+      wordPanel.removeAll();
 
       JPanel titlePanel = new JPanel(new FlowLayout());
       titlePanel.setOpaque(false);

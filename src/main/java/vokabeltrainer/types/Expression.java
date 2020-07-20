@@ -358,8 +358,38 @@ public class Expression
       return this.getTrainingStatusHToD();
    }
 
-   public String getWordGermanForStatistics()
+   public String getAdditionalInfoGermanForStatistics()
    {
-      return german + "  [" + chapter + "]  "+ this.getAdditionalInfoGerman();
+      StringJoiner joiner = new StringJoiner(", ");
+      if (!(numerusHebrew.equals(Numerus.UNKNOWN)
+            || numerusHebrew.equals(Numerus.NA)))
+      {
+         joiner.add(numerusHebrew.toString());
+      }
+      if (!(genderHebrew.equals(Gender.UNKOWN)
+            || genderHebrew.equals(Gender.NA)))
+      {
+         joiner.add(genderHebrew.toString());
+      }
+      ;
+      return joiner.toString();
+   }
+
+   public String getWordGermanForStatistics(Language language)
+   {
+      if (Language.GERMAN == language) // DtoH
+      {
+         return german + "   [" + this.getTrainingStatusDToH().getTrys()
+               + " mal " + this.getTrainingStatusDToH().getRepetition().getTranslation()
+               + "]  [" + chapter + "]   "
+               + this.getAdditionalInfoGermanForStatistics();
+      }
+      else // HtoD
+      {
+         return german + "   [" + this.getTrainingStatusHToD().getTrys()
+               + " mal " + this.getTrainingStatusHToD().getRepetition().getTranslation()
+               + "]  [" + chapter + "]   "
+               + this.getAdditionalInfoGermanForStatistics();
+      }
    }
 }

@@ -6,6 +6,7 @@ public class TrainingStatus
 {
    private Repetition repetition;
    private int trys;
+   private int totalTrys;
    private LocalDate nextDate;
    private boolean trainingStarted;
 
@@ -137,5 +138,13 @@ public class TrainingStatus
       this.trys = trys;
    }
 
+   public int getTotalTrys()
+   {
+      return totalTrys;
+   }
 
+   public void setTotalTrys(int totalTrys)
+   {
+      this.totalTrys = totalTrys;
+   }
 }
