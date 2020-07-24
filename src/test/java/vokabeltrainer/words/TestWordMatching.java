@@ -58,11 +58,14 @@ public class TestWordMatching
    String wordDic20 = "בּוקר טוב"; // correct spelling
    String wordTest20 = "????????"; // empty
    String wordTest20a = ""; // empty
-   
+
    String wordDic21 = "?"; // empty
    String wordDic21a = ""; // empty
    String wordDic21b = "?????????"; // empty
    String wordTest21 = "בּוקר טוב"; // not empty
+
+   String wordDic22 = "פּסיכולוג";
+   String wordTest22 = "פּסיכולוגית"; // two letters too much at the end
 
    String[] wordTest4Array = { "HAEI", "TET", "JOD", "SSAMECH", "NEWSPACE",
          "WET", "JOD", "NUN", "WAW", "NEWSPACE", "BET" };
@@ -150,6 +153,14 @@ public class TestWordMatching
    List<String> wordDic19bList = new LinkedList<>(
          Arrays.asList(wordDic19bArray));
 
+   String[] wordTest22Array = { "TAW", "JOD", "GIMEL", "WAW", "LAMED", "WAW",
+         "CHAF", "JOD", "SSAMECH", "PAEI" };
+   List<String> wordTest22List = new LinkedList<>(
+         Arrays.asList(wordTest22Array));
+   String[] wordDic22Array = {  "NEWSPACE", "NEWSPACE", "GIMEL", "WAW", "LAMED", "WAW",
+         "CHAF", "JOD", "SSAMECH", "PAEI" };
+   List<String> wordDic22List = new LinkedList<>(Arrays.asList(wordDic22Array));
+
    @Test
    public void testMatchHebrew_Okay()
    {
@@ -167,34 +178,39 @@ public class TestWordMatching
       WordMatchingResult result2 = WordMatching.matchHebrew(wordDic, wordTest4);
       assertFalse(result2.isCompletelyFalse());
    }
-   
+
    @Test
    public void testMatchHebrew_Empty()
    {
-      WordMatchingResult result = WordMatching.matchHebrew(wordDic20, wordTest20);
+      WordMatchingResult result = WordMatching.matchHebrew(wordDic20,
+            wordTest20);
       assertTrue(result.isAnswerEmpty());
-      WordMatchingResult result1 = WordMatching.matchHebrew(wordDic20, wordTest20a);
+      WordMatchingResult result1 = WordMatching.matchHebrew(wordDic20,
+            wordTest20a);
       assertTrue(result1.isAnswerEmpty());
    }
-   
+
    @Test
    public void testMatchHebrew_Empty_Dic1()
    {
-      WordMatchingResult result = WordMatching.matchHebrew(wordDic21, wordTest21);
+      WordMatchingResult result = WordMatching.matchHebrew(wordDic21,
+            wordTest21);
       assertTrue(result.isDictionaryEmpty());
    }
-   
+
    @Test
    public void testMatchHebrew_Empty_Dic2()
    {
-      WordMatchingResult result = WordMatching.matchHebrew(wordDic21a, wordTest21);
+      WordMatchingResult result = WordMatching.matchHebrew(wordDic21a,
+            wordTest21);
       assertTrue(result.isDictionaryEmpty());
    }
-   
+
    @Test
    public void testMatchHebrew_Empty_Dic3()
    {
-      WordMatchingResult result = WordMatching.matchHebrew(wordDic21b, wordTest21);
+      WordMatchingResult result = WordMatching.matchHebrew(wordDic21b,
+            wordTest21);
       assertTrue(result.isDictionaryEmpty());
    }
 
@@ -303,17 +319,6 @@ public class TestWordMatching
       assertTrue(wordTest15List.equals(wordTesting12));
       assertTrue(result12.getDeltaCol() == 1);
 
-      WordMatchingResult result13 = WordMatching.matchHebrew(wordDic17,
-            wordTest17);
-      List<String> wordTesting13 = result13.getDataTest();
-      List<String> wordDicing13 = result13.getDataDic();
-      System.out.println(result13.getDeltaCol());
-      System.out.println(wordDicing13);
-      System.out.println(wordTesting13);
-      assertTrue(result13.getDeltaCol() == 0);
-      assertTrue(wordTest17bList.equals(wordTesting13));
-      assertTrue(wordDic17bList.equals(wordDicing13));
-
       WordMatchingResult result14 = WordMatching.matchHebrew(wordDic18,
             wordTest18);
       List<String> wordTesting18 = result14.getDataTest();
@@ -398,6 +403,40 @@ public class TestWordMatching
 
       assertTrue(result3.getHebrewTest().equals(comparison3b));
       assertTrue(result3.getHebrewDictionary().equals(comparison3));
+   }
+
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment2()
+   {
+      WordMatchingResult result = WordMatching.matchHebrew(wordDic22,
+            wordTest22);
+      List<String> wordTesting = result.getDataTest();
+      List<String> wordDicing = result.getDataDic();
+      System.out.println("----------Alignment2-----------");
+      System.out.println(wordTest22List);
+      System.out.println(wordTesting);
+      System.out.println(wordDic22List);
+      System.out.println(wordDicing);
+      System.out.println("---------------------");
+      assertTrue(wordDic22List.equals(wordDicing));
+      assertTrue(wordTest22List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment3()
+   {
+      WordMatchingResult result13 = WordMatching.matchHebrew(wordDic17,
+            wordTest17);
+      List<String> wordTesting13 = result13.getDataTest();
+      List<String> wordDicing13 = result13.getDataDic();
+      System.out.println(result13.getDeltaCol());
+      System.out.println(wordDic17bList);
+      System.out.println(wordDicing13);
+      System.out.println(wordTest17bList);
+      System.out.println(wordTesting13);
+      assertTrue(result13.getDeltaCol() == 0);
+      assertTrue(wordTest17bList.equals(wordTesting13));
+      assertTrue(wordDic17bList.equals(wordDicing13));
    }
 
    private List<HebrewLetter> transferToHebrewLetters(List<String> list)

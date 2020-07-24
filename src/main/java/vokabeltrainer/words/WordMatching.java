@@ -162,6 +162,7 @@ public class WordMatching
       
       if (result.isPartlyFalse())
       {
+         cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
          dataDic = lookForWrongLettersAndMoveDIClettersToTheLeftMaximizeSameness(
                dataDic, dataTest, sizeDic);
 
@@ -351,11 +352,11 @@ public class WordMatching
    }
 
    private static List<String> lookForWrongLettersAndMoveDIClettersToTheLeftMaximizeSameness(
-         List<String> dataDic, List<String> dataTest, int maxSameness)
+           List<String> dataDic, List<String> dataTest, int maxSameness)
    {
       Map<Integer, List<String>> samenessMap = new HashMap<>();
       List<String> dataDicCloneOriginal = cloneList(dataDic);
-      samenessMap.put(calculateSameness(dataTest, dataDicCloneOriginal),
+      samenessMap.put(calculateSamenessPunish(dataTest, dataDicCloneOriginal),
             dataDicCloneOriginal);
 
       for (int i = 0; i < dataDic.size(); i++)
@@ -370,7 +371,7 @@ public class WordMatching
                {
                   dataDicClone.add(i + 1, "NEWSPACE");
                }
-               int sameness = calculateSameness(dataTest, dataDicClone);
+               int sameness = calculateSamenessPunish(dataTest, dataDicClone);
                samenessMap.put(sameness, dataDicClone);
             }
          }
@@ -391,7 +392,7 @@ public class WordMatching
    {
       Map<Integer, List<String>> samenessMap = new HashMap<>();
       List<String> dataTestCloneOriginal = cloneList(dataTest);
-      samenessMap.put(calculateSameness(dataDic, dataTestCloneOriginal),
+      samenessMap.put(calculateSamenessPunish(dataDic, dataTestCloneOriginal),
             dataTestCloneOriginal);
 
       for (int i = dataTest.size() - 1; i >= 0; i--)
@@ -407,7 +408,7 @@ public class WordMatching
                {
                   dataTestClone.add(i, "NEWSPACE");
                }
-               int sameness = calculateSameness(dataDic, dataTestClone);
+               int sameness = calculateSamenessPunish(dataDic, dataTestClone);
                samenessMap.put(sameness, dataTestClone);
             }
          }
@@ -434,14 +435,14 @@ public class WordMatching
       return duplicate;
    }
 
-   private static int calculateSameness(List<String> dataTest,
+   private static int calculateSamenessPunish(List<String> dataTest,
          List<String> dataDic)
    {
       int sameness = 0;
-      for (int t = dataTest.size() - 1, d = dataDic.size() - 1; t > 0
-            && d > 0; t--, d--)
+      for (int t = dataTest.size() - 1, d = dataDic.size() - 1; t >= 0
+            && d >= 0; t--, d--)
       {
-         sameness += evaluateSame(dataTest.get(t), dataDic.get(d));
+         sameness += evaluateSamePunish(dataTest.get(t), dataDic.get(d));
       }
       return sameness;
    }
@@ -515,6 +516,43 @@ public class WordMatching
          return false;
       }
       return true;
+   }
+   
+   private static int evaluateSamePunish(String stringDic, String stringTest)
+   {
+      if (stringDic == null && stringTest == null)
+      {
+         return 0;
+      }
+      if (stringDic == null || stringTest == null)
+      {
+         return 0;
+      }
+      if (stringDic.equalsIgnoreCase("NEWSPACE")
+            && stringTest.equalsIgnoreCase("NEWSPACE"))
+      {
+         return -1;
+      }
+      if (stringDic.equalsIgnoreCase("NEWSPACE")
+            || stringTest.equalsIgnoreCase("NEWSPACE"))
+      {
+         return 0;
+      }
+      if (stringDic.equalsIgnoreCase("SPACE")
+            && stringTest.equalsIgnoreCase("NEWSPACE"))
+      {
+         return 1;
+      }
+      if (stringDic.equalsIgnoreCase("NEWSPACE")
+            && stringTest.equalsIgnoreCase("SPACE"))
+      {
+         return 1;
+      }
+      if (stringDic.equalsIgnoreCase(stringTest))
+      {
+         return 1;
+      }
+      return 0;
    }
 
    private static int evaluateSame(String stringDic, String stringTest)
