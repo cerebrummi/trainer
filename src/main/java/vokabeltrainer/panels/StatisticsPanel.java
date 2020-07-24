@@ -126,8 +126,8 @@ public class StatisticsPanel extends BackgroundPanelTiled
       tablePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
       wordPanel = new JPanel(new BorderLayout());
-      wordPanel.setMinimumSize(new Dimension(580, 170));
-      wordPanel.setMaximumSize(new Dimension(580, 170));
+      wordPanel.setMinimumSize(new Dimension(580, 160));
+      wordPanel.setMaximumSize(new Dimension(580, 160));
       wordPanel.setOpaque(true);
       wordPanel.setBackground(Settings.getVeryLightGold());
 
@@ -224,8 +224,8 @@ public class StatisticsPanel extends BackgroundPanelTiled
       });
 
       JPanel scrollerWrapper = new JPanel(new BorderLayout());
-      scrollerWrapper.setMinimumSize(new Dimension(580, height - 250));
-      scrollerWrapper.setMaximumSize(new Dimension(580, height - 250));
+      scrollerWrapper.setMinimumSize(new Dimension(580, height - 240));
+      scrollerWrapper.setMaximumSize(new Dimension(580, height - 240));
       scrollerWrapper.setOpaque(true);
       scrollerWrapper.setBackground(Settings.getVeryLightGold());
       
