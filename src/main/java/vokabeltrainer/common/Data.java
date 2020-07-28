@@ -1414,6 +1414,7 @@ public final class Data
             Expression e = ((Expression) expression);
 
             if (e.getTrainingStatusDToH().isTrainingStarted()
+                  && !e.getTrainingStatusDToH().isTrainingDone()
                   && datesAll.add(e.getTrainingStatusDToH().getNextDate()))
             {
                List<Expression> oneWay = new ArrayList<>();
@@ -1424,6 +1425,7 @@ public final class Data
                dates.put(e.getTrainingStatusDToH().getNextDate(), bothWays);
             }
             if (e.getTrainingStatusHToD().isTrainingStarted()
+                  && !e.getTrainingStatusHToD().isTrainingDone()
                   && datesAll.add(e.getTrainingStatusHToD().getNextDate()))
             {
                List<Expression> oneWay = new ArrayList<>();
@@ -1434,12 +1436,14 @@ public final class Data
                dates.put(e.getTrainingStatusHToD().getNextDate(), bothWays);
             }
 
-            if (e.getTrainingStatusDToH().isTrainingStarted())
+            if (e.getTrainingStatusDToH().isTrainingStarted()
+                  && !e.getTrainingStatusDToH().isTrainingDone())
             {
                dates.get(e.getTrainingStatusDToH().getNextDate()).get(0).add(e);
             }
 
-            if (e.getTrainingStatusHToD().isTrainingStarted())
+            if (e.getTrainingStatusHToD().isTrainingStarted()
+                  && !e.getTrainingStatusHToD().isTrainingDone())
             {
                dates.get(e.getTrainingStatusHToD().getNextDate()).get(1).add(e);
             }
@@ -1452,8 +1456,8 @@ public final class Data
          Vector<Vector<StatisticsTableRow>> data = new Vector<>();
          Vector<String> columnNames = new Vector<>();
          columnNames.add("eins");
-         StatisticsTableModel model = new StatisticsTableModel(
-               data, columnNames);
+         StatisticsTableModel model = new StatisticsTableModel(data,
+               columnNames);
 
          for (int i = 0; i < sortedDates.size(); i++)
          {

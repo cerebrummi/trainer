@@ -98,6 +98,15 @@ public class TrainingStatus
       this.nextDate = now.plus(repetition.getPeriod());
    }
    
+   public boolean isTrainingDone()
+   {
+      if(Repetition.DONE == this.repetition)
+      {
+         return true;
+      }
+      return false;
+   }
+   
    public boolean isTrainingStarted()
    {
       return trainingStarted;
