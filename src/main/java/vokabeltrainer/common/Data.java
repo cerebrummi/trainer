@@ -1052,23 +1052,6 @@ public final class Data
 
          switch (fieldOfTraining)
          {
-         case AREA_ALL:
-            List<Expression> listAll = this.findAllExpressionsList();
-            data = new TrainingTableRow[1][1];
-            TrainingTableRow row = new TrainingTableRow();
-            row.setFieldOfTraining(fieldOfTraining);
-            row.setField("Alle Wörter");
-            row.setExpressionListOldWords(oldToBeTested);
-            row.setToBeRepeatedWords(oldToBeTested.size());
-            row.setExpressionListNewWords(
-                  findNotStudiedWords(languageDirection, listAll));
-            row.setNotStudiedWords(row.getExpressionListNewWords().size());
-            row.setAmountOfNewWords(0);
-            row.setFieldDone(row.getNotStudiedWords() == 0
-                  && row.getToBeRepeatedWords() == 0);
-            row.setStarted(row.getToBeRepeatedWords() > 0);
-            data[0][0] = row;
-            break;
          case AREA_CHAPTER:
             List<TrainingTableRow> unlearnedPerChapter = new ArrayList<>();
             for (String chapter : getChapterList())

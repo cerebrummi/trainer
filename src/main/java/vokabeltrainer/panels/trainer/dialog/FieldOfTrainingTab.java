@@ -23,7 +23,6 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
 
    private ButtonGroup areaGroup;
    private JRadioButton chapterButton;
-   private JRadioButton allButton;
    private JRadioButton selectedButton;
    private JButton nextButton;
    private JButton cancelButton;
@@ -52,11 +51,6 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
       chapterButton.setActionCommand(Command.AREA_CHAPTER.name());
       areaGroup.add(chapterButton);
 
-      allButton = new JRadioButton("Aus allen Wörtern.");
-      allButton.setFont(Settings.getToolBarButtonFont());
-      allButton.setActionCommand(Command.AREA_ALL.name());
-      areaGroup.add(allButton);
-
       selectedButton = new JRadioButton("Aus den ausgewählten Wörtern.");
       selectedButton.setFont(Settings.getToolBarButtonFont());
       selectedButton.setActionCommand(Command.AREA_SELECTED.name());
@@ -64,7 +58,6 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
 
       vertical.add(chapterButton);
       vertical.add(selectedButton);
-      vertical.add(allButton);
       center.add(vertical);
 
       add(center, BorderLayout.CENTER);
@@ -92,12 +85,6 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
 
       selectedButton.addActionListener(event -> {
          dialog.setFieldOfTraining(Command.AREA_SELECTED);
-         removeTabsToTheRight(dialog);
-         nextButton.setEnabled(true);
-      });
-
-      allButton.addActionListener(event -> {
-         dialog.setFieldOfTraining(Command.AREA_ALL);
          removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });

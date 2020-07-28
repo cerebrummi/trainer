@@ -110,11 +110,7 @@ public class TrainerView extends BackgroundPanelTiled
       this.languageDirection = connector.getLanguageDirection();
 
       String fieldOfTrainingString = "";
-      if (connector.getFieldOfTraining().equals(Command.AREA_ALL))
-      {
-         fieldOfTrainingString = "alle Wörter";
-      }
-      else if (connector.getFieldOfTraining().equals(Command.AREA_CHAPTER))
+      if (connector.getFieldOfTraining().equals(Command.AREA_CHAPTER))
       {
          fieldOfTrainingString = "Lektionen";
       }
