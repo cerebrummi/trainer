@@ -30,12 +30,14 @@ public class MainView extends JPanel
    private JButton statisticsButton;
    private JButton aboutButton;
    private JButton letterPicturesButton;
+   private JButton successButton;
    private JPanel activeComponent;
    private DictionaryViewConnector dictionaryPanel;
    private StatisticsPanel statisticsPanel;
    private StartPanel startPanel;
    private SettingsPanel settingsPanel;
    private AlefbetPanel letterPicturesPanel;
+   private SuccessPanel successPanel;
 
    public MainView()
    {
@@ -56,6 +58,7 @@ public class MainView extends JPanel
       letterPicturesPanel = new AlefbetPanel();
       statisticsPanel = new StatisticsPanel();
       settingsPanel = new SettingsPanel();
+      successPanel = new SuccessPanel();
    }
 
    private Component initToolBar()
@@ -73,18 +76,21 @@ public class MainView extends JPanel
       statisticsButton = new JButton("Statistik");
       aboutButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
       letterPicturesButton = new JButton("Alefbet");
+      successButton = new JButton("Erfolge");
 
       startButton.setFont(Settings.getToolBarButtonFont());
       vocabularyCardsButton.setFont(Settings.getToolBarButtonFont());
       dictionaryButton.setFont(Settings.getToolBarButtonFont());
       statisticsButton.setFont(Settings.getToolBarButtonFont());
       letterPicturesButton.setFont(Settings.getToolBarButtonFont());
+      successButton.setFont(Settings.getToolBarButtonFont());
 
       toolBar.add(startButton);
       toolBar.add(dictionaryButton);
       toolBar.add(vocabularyCardsButton);
       toolBar.add(letterPicturesButton);
       toolBar.add(statisticsButton);
+      toolBar.add(successButton);
       toolBar.add(Box.createHorizontalGlue());
       toolBar.add(aboutButton);
       return toolBar;
@@ -156,6 +162,18 @@ public class MainView extends JPanel
          }
          activeComponent = statisticsPanel;
          statisticsPanel.setValues();
+         add(activeComponent, BorderLayout.CENTER);
+         validate();
+         repaint();
+      });
+      
+      successButton.addActionListener(event -> {
+         if (activeComponent != null)
+         {
+            remove(activeComponent);
+         }
+         activeComponent = successPanel;
+         successPanel.reset();
          add(activeComponent, BorderLayout.CENTER);
          validate();
          repaint();

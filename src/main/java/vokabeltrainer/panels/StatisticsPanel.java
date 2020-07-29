@@ -135,7 +135,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
       center.add(tablePanel);
 
       eyePanel.add(center);
-      add(eyePanel);
+      add(eyePanel, BorderLayout.CENTER);
    }
 
    public void setValues()

@@ -1,5 +1,6 @@
 package vokabeltrainer;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -10,6 +11,16 @@ public class BackgroundPanelTiled extends JPanel
    private static final long serialVersionUID = 51778743171783453L;
 
    BufferedImage tileImage = ApplicationImages.getTexturedBackground();
+
+   public BackgroundPanelTiled()
+   {
+
+   }
+   
+   public BackgroundPanelTiled(BorderLayout borderLayout)
+   {
+      super(borderLayout);
+   }
 
    protected void paintComponent(Graphics g)
    {

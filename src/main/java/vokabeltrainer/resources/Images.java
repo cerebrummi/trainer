@@ -96,7 +96,8 @@ public class Images
       ApplicationImages.setRestore(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/restore.png")));
 
-      // "_2_images/robert-zunikoff-483401-unsplash.jpg":
+      ApplicationImages.setDreidel(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/robert-zunikoff-483401-unsplash.jpg")));
 
       ApplicationImages.setSaveWord(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/save.png")));

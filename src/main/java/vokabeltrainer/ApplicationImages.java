@@ -12,6 +12,7 @@ import vokabeltrainer.editing.HebrewLetter;
 public class ApplicationImages
 {
    private static BufferedImage image;
+   private static BufferedImage dreidel;
    private static List<BufferedImage> greenImages;
    private static List<BufferedImage> blueImages;
    private static BufferedImage trashcan;
@@ -693,5 +694,19 @@ public class ApplicationImages
       JOptionPane.showMessageDialog(null, message+ localMessage, "Nachricht",
             JOptionPane.CLOSED_OPTION);
       System.exit(1);
+   }
+
+   public static void setDreidel(BufferedImage dreidel)
+   {
+      if(dreidel == null)
+      {
+         exitWithMessage("kein Dreidel Bild");
+      }
+      ApplicationImages.dreidel = dreidel;
+   }
+
+   public static BufferedImage getDreidel()
+   {
+      return dreidel;
    }
 }

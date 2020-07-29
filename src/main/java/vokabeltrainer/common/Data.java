@@ -36,6 +36,7 @@ import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
+import vokabeltrainer.panels.success.table.SuccessTableModel;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableRow;
 import vokabeltrainer.table.ExpressionTableModel;
@@ -305,6 +306,11 @@ public final class Data
    {
       getDataBaseAtomic().changeKindofExpressionInDataStrukture(oldKind,
             newKind);
+   }
+   
+   public static SuccessTableModel findSuccessModel(Language direction, Repetition repetition)
+   {
+      return getDataBaseAtomic().findSuccessModel(direction, repetition);
    }
 
    // #########################################################
@@ -1453,6 +1459,13 @@ public final class Data
          }
 
          return model;
+      }
+      
+      public SuccessTableModel findSuccessModel(Language direction,
+            Repetition repetition)
+      {
+         // TODO Auto-generated method stub
+         return null;
       }
    }
 }
