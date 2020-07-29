@@ -1,10 +1,11 @@
 package vokabeltrainer.tonionlayout;
+
 /*
  * Copyright (c) 2020, Birke Heeren All rights reserved.
  * Use only at own risk.
  *
  * TOnion Project
- * Version 3.0: 19 July 2020
+ * Version 3.0: 20 July 2020
  */
 import java.awt.AWTError;
 import java.awt.Component;
@@ -25,18 +26,17 @@ import javax.swing.JViewport;
  * <code>TotemLayout</code>, <code>TrainLayout</code> and
  * <code>BullsEyeLayout</code> work together like layers of an onion. They stack
  * into each other and are called TOnionLayout. TOnionLayout was developed to
- * layout forms and datamasks. By using minimum and maximum size the layout will
- * resize to fit the available space. The components inside TOnionLayout only
- * have to fit together approximately, the layout will align the components to
- * look neatly by itself. <code>BullsEyeLayout</code> will give the component the
- * optimal width and height.
+ * layout forms and data masks. By using minimum and maximum size the layout
+ * will resize to fit the available space. The components inside TOnionLayout
+ * only have to fit together approximately, the layout will align the components
+ * to look neatly by itself. <code>BullsEyeLayout</code> will give the component
+ * the maximal possible width and height.
  * <p>
  * Even though TOnionLayout is done top-down each layer inquires about the
  * minimum and maximum sizes of all its components. To acquire a good
  * performance each layer caches the overall minimum and maximum size of its
  * components. Therefore BullsEyeLayout can not be shared. Adding or removing a
- * component invalidates the cache of the layout and all TOnionLayouts above
- * it.
+ * component invalidates the cache of the layout and all TOnionLayouts above it.
  * <p>
  * All first components inside a TOnionLayout must have a minimum and maximum
  * size set for the layout to function properly, otherwise minimum and maximum
@@ -50,7 +50,7 @@ import javax.swing.JViewport;
  * to the center component. The minimum and maximum sizes are set on the JPanel.
  * <p>
  * TOnionLayout can be placed inside a JScrollPane. If the window size is
- * deceased TOnionLayout will shrink to its minimum size before the scrollbars
+ * deceased TOnionLayout will shrink to its minimum size before the scroll bars
  * appear.
  * <p>
  * TOnionLayout corrects inconsistencies of minimum and maximum sizes with
@@ -94,20 +94,60 @@ public class BullsEyeLayout
    private Container self;
 
    /**
+    * This is a name for test mode.
+    */
+   private String testname;
+
+   /**
+    * This determines test mode or not.
+    */
+   private LayoutMode mode;
+
+   /**
     * Creates a BullsEyeLayout.
+    * 
+    * @param self
+    *           the container to be laid out
     */
    public BullsEyeLayout(Container self)
+   {
+      this(self, "none", LayoutMode.NOTEST);
+   }
+
+   /**
+    * Creates a BullsEyeLayout in test mode.
+    * <p>
+    * 
+    * @param self
+    *           the container to be laid out
+    * @param testname
+    *           the name of the object in test mode
+    */
+   public BullsEyeLayout(Container self, String testname)
+   {
+      this(self, testname, LayoutMode.TEST_BULLS_EYE);
+   }
+
+   /**
+    * private constructor
+    *<p>
+    *
+    * All <code>BullsEyeLayout</code> constructors defer to this one.
+    */
+   private BullsEyeLayout(Container self, String testname, LayoutMode mode)
    {
       this.dimMin = null;
       this.dimMax = null;
       this.self = self;
+      this.testname = testname;
+      this.mode = mode;
    }
 
    /**
     * Determines the preferred size of the container argument using this
     * BullsEyeLayout.
     * <p>
-    * The preferred size is the maximum size of the component .
+    * The preferred size is all size available.
     *
     * @param self
     *           the container in which to do the layout
@@ -144,12 +184,12 @@ public class BullsEyeLayout
                return self.getSize();
             }
          }
-  
+
          if (self.getParent() instanceof JViewport)
          {
             return this.minimumLayoutSize(self);
          }
-         
+
          Insets insets = self.getInsets();
          int w;
          int h;
@@ -181,7 +221,7 @@ public class BullsEyeLayout
                dmin = dminContent;
             else
                dmin = comp.getMinimumSize();
-            
+
             Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
                   .getLayout()).maximumLayoutSize((Container) comp);
             if (dmaxContent != null)
@@ -408,7 +448,7 @@ public class BullsEyeLayout
          {
             dmax = comp.getMaximumSize();
          }
-         
+
          if (dmax != null)
          {
             if (h < dmax.height)
@@ -501,7 +541,7 @@ public class BullsEyeLayout
                dmin = dminContent;
             else
                dmin = comp.getMinimumSize();
-            
+
             Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
                   .getLayout()).maximumLayoutSize((Container) comp);
             if (dmaxContent != null)
@@ -547,7 +587,7 @@ public class BullsEyeLayout
             // error correction
             hmax = hmin;
          }
-         
+
          if (hmax != Integer.MAX_VALUE)
          {
             if (h <= hmin)
@@ -566,7 +606,7 @@ public class BullsEyeLayout
             // error correction
             wmax = wmin;
          }
-         
+
          if (wmax != Integer.MAX_VALUE)
          {
             if (w <= wmin)
@@ -585,6 +625,23 @@ public class BullsEyeLayout
          int deltaY = (availableHeight - h) / 2 + y;
 
          comp.setBounds(Math.max(x, deltaX), Math.max(y, deltaY), w, h);
+
+         if (LayoutMode.TEST_BULLS_EYE == this.mode)
+         {
+            System.out.println("");
+            System.out.println(testname + " with BullsEyeLayout");
+            System.out.println("available width: " + availableWidth);
+            System.out.println("available height: " + availableHeight);
+            System.out.println("space left: " + Math.max(x, deltaX));
+            System.out.println("space top: " + Math.max(y, deltaY));
+            System.out.println("component width: " + w);
+            System.out.println("component height: " + h);
+            System.out.println("component min width: " + wmin);
+            System.out.println("component max width: " + wmax);
+            System.out.println("component min height: " + hmin);
+            System.out.println("component max height: " + hmax);
+            System.out.println("");
+         }
       }
    }
 
@@ -607,8 +664,8 @@ public class BullsEyeLayout
     * invalidates Layout, minimum and maximum sizes of content will be
     * recalculated
     *
-    * @param name
-    *           the name of the component
+    * @param constraints
+    *           the constraints
     * @param comp
     *           the component to be added
     */
@@ -675,7 +732,7 @@ public class BullsEyeLayout
       return 0;
    }
 
-   void checkContainer(Container self)
+   private void checkContainer(Container self)
    {
       if (this.self != self)
       {

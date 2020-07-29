@@ -1,10 +1,10 @@
 package vokabeltrainer.tonionlayout;
 /*
- * Copyright (c) 2014, Birke Heeren All rights reserved.
+ * Copyright (c) 2020, Birke Heeren All rights reserved.
  * Use only at own risk.
  *
  * TOnion Project
- * Version 2.0: 5 July 2014
+ * Version 3.0: 20 July 2020
  */
 
 import java.awt.AWTError;
@@ -24,9 +24,9 @@ import javax.swing.JViewport;
  * Minimum and maximum sizes are taken into account.
  * <p>
  * <code>TrainLayout</code>, <code>TotemLayout</code> and
- * <code>BullsEyeLayout</code>   work together like layers of an onion. They stack
+ * <code>BullsEyeLayout</code> work together like layers of an onion. They stack
  * into each other and are called TOnionLayout. TOnionLayout was developed to
- * layout forms and datamasks. By using minimum and maximum size the layout will
+ * layout forms and data masks. By using minimum and maximum size the layout will
  * resize to fit the available space. The components inside TOnionLayout only
  * have to fit together approximately, the layout will align the components to
  * look neatly by itself. <code>TrainLayout</code> will give all components the
@@ -51,7 +51,7 @@ import javax.swing.JViewport;
  * to the center component. The minimum and maximum sizes are set on the JPanel.
  * <p>
  * TOnionLayout can be placed inside a JScrollPane. If the window size is
- * deceased TOnionLayout will shrink to its minimum size before the scrollbars
+ * deceased TOnionLayout will shrink to its minimum size before the scroll bars
  * appear.
  * <p>
  * TOnionLayout corrects inconsistencies of minimum and maximum sizes with
@@ -59,7 +59,7 @@ import javax.swing.JViewport;
  *
  * @author Birke Heeren
  * @since private
- * @version TrainLayout 3.0 (released 20. July 2014)
+ * @version TrainLayout 3.0 (released 20. July 2020)
  */
 public class TrainLayout
       implements LayoutManager, LayoutManager2, java.io.Serializable
@@ -102,28 +102,84 @@ public class TrainLayout
     * This is the container TrainLayout is assigned to.
     */
    private Container self;
+   
+   /**
+    * This is a name for test mode.
+    */
+   private String testname;
+
+   /**
+    * This determines test mode or not.
+    */
+   private LayoutMode mode;
 
    /**
     * Creates a train layout with no horizontal gap.
+    * <p>
     * 
-    * @since private
+    * @param self
+    *           the container to be laid out
     */
    public TrainLayout(Container self)
    {
-      this(self, 0);
+      this(self, 0, "none", LayoutMode.NOTEST);
+   }
+   
+   /**
+    * Creates a train layout with no horizontal gap in test mode.
+    * <p>
+    * 
+    * @param self
+    *           the container to be laid out
+    * @param testname
+    *           the name of the object in test mode
+    */
+   public TrainLayout(Container self, String testname)
+   {
+      this(self, 0, testname, LayoutMode.TEST_TRAIN);
    }
 
    /**
     * Creates a train layout with the specified horizontal gap.
     * <p>
-    * All <code>TrainLayout</code> constructors defer to this one.
     * 
+    * @param self
+    *           the container to be laid out
     * @param hgap
     *           the horizontal gap
     * @exception IllegalArgumentException
     *               if the value of the horizontal gap is less than zero.
     */
    public TrainLayout(Container self, int hgap)
+   {
+      this(self, hgap, "none", LayoutMode.NOTEST);
+   }
+   
+   /**
+    * Creates a train layout with the specified horizontal gap in test mode.
+    * <p>
+    * 
+    * @param self
+    *           the container to be laid out
+    * @param hgap
+    *           the horizontal gap
+    * @param testname
+    *           the name of the object in test mode
+    * @exception IllegalArgumentException
+    *               if the value of the horizontal gap is less than zero.
+    */
+   public TrainLayout(Container self, int hgap, String testname)
+   {
+      this(self, hgap, testname, LayoutMode.TEST_TRAIN);
+   }
+   
+   /**
+    * private constructor  
+    * <p>
+    * 
+    * All <code>TrainLayout</code> constructors defer to this one.
+    */
+   private TrainLayout(Container self, int hgap, String testname, LayoutMode mode)
    {
       if (hgap < 0)
          throw new IllegalArgumentException(
@@ -132,6 +188,8 @@ public class TrainLayout
       this.dimMin = null;
       this.dimMax = null;
       this.self = self;
+      this.testname = testname;
+      this.mode = mode;
    }
 
    /**
@@ -569,21 +627,24 @@ public class TrainLayout
             return;
 
          Insets insets = self.getInsets();
-         int h;
-         int w;
+         int availableHeight;
+         int availableWidth;
          if (self.getParent() instanceof JViewport)
          {
             JViewport vp = (JViewport) self.getParent();
-            h = vp.getHeight() - (insets.top + insets.bottom);
-            w = vp.getWidth() - (insets.left + insets.right)
+            availableHeight = vp.getHeight() - (insets.top + insets.bottom);
+            availableWidth = vp.getWidth() - (insets.left + insets.right)
                   - hgap * (ncomponents - 1);
          }
          else
          {
-            h = self.getHeight() - (insets.top + insets.bottom);
-            w = self.getWidth() - (insets.left + insets.right)
+            availableHeight = self.getHeight() - (insets.top + insets.bottom);
+            availableWidth = self.getWidth() - (insets.left + insets.right)
                   - hgap * (ncomponents - 1);
          }
+         
+         int h = availableHeight;
+         int w = availableWidth;
          int hmin = 0;
          int hmax = Integer.MAX_VALUE;
          int wmintotal = 0;
@@ -741,6 +802,22 @@ public class TrainLayout
             comp.setBounds(x, insets.top, wfinal[i], h);
             x += wfinal[i] + hgap;
          }
+         
+         if (LayoutMode.TEST_TRAIN == this.mode)
+         {
+            System.out.println("");
+            System.out.println(testname + " with TrainLayout");
+            System.out.println("available width: " + availableWidth);
+            System.out.println("available height: " + availableHeight);
+            System.out.println("all components height: " + h);
+            System.out.println("all components min height: " + hmin);
+            System.out.println("all components max height: " + hmax);
+            for (int i = 0; i < ncomponents; i++)
+            {               
+               System.out.println("component["+i+"] width: "+ wfinal[i]);
+            }
+            System.out.println("");           
+         }        
       }
    }
 
@@ -763,8 +840,8 @@ public class TrainLayout
     * invalidates Layout, minimum and maximum sizes of content will be
     * recalculated
     *
-    * @param name
-    *           the name of the component
+    * @param constraints
+    *           the constraints
     * @param comp
     *           the component to be added
     */
@@ -830,7 +907,7 @@ public class TrainLayout
       return 0;
    }
 
-   void checkContainer(Container self)
+   private void checkContainer(Container self)
    {
       if (this.self != self)
       {

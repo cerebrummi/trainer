@@ -1,10 +1,10 @@
 package vokabeltrainer.tonionlayout;
 /*
- * Copyright (c) 2014, Birke Heeren All rights reserved.
+ * Copyright (c) 2020, Birke Heeren All rights reserved.
  * Use only at own risk.
  *
  * TOnion Project
- * Version 2.0: 5 July 2014
+ * Version 3.0: 20 July 2020
  */
 
 import java.awt.AWTError;
@@ -23,10 +23,10 @@ import javax.swing.JViewport;
  * <p>
  * Minimum and maximum sizes are taken into account.
  * <p>
- * <code>TotemLayout</code>, <code>TrainLayout</code>and
+ * <code>TotemLayout</code>, <code>TrainLayout</code> and
  * <code>BullsEyeLayout</code> work together like layers of an onion. They stack
  * into each other and are called TOnionLayout. TOnionLayout was developed to
- * layout forms and datamasks. By using minimum and maximum size the layout will
+ * layout forms and data masks. By using minimum and maximum size the layout will
  * resize to fit the available space. The components inside TOnionLayout only
  * have to fit together approximately, the layout will align the components to
  * look neatly by itself. <code>TotemLayout</code> will give all components the
@@ -51,7 +51,7 @@ import javax.swing.JViewport;
  * to the center component. The minimum and maximum sizes are set on the JPanel.
  * <p>
  * TOnionLayout can be placed inside a JScrollPane. If the window size is
- * deceased TOnionLayout will shrink to its minimum size before the scrollbars
+ * deceased TOnionLayout will shrink to its minimum size before the scroll bars
  * appear.
  * <p>
  * TOnionLayout corrects inconsistencies of minimum and maximum sizes with
@@ -102,28 +102,84 @@ public class TotemLayout
     * This is the container TotemLayout is assigned to.
     */
    private Container self;
+   
+   /**
+    * This is a name for test mode.
+    */
+   private String testname;
+
+   /**
+    * This determines test mode or not.
+    */
+   private LayoutMode mode;
 
    /**
     * Creates a totem layout with no vertical gap.
+    * <p>
     * 
-    * @since private
+    * @param self
+    *           the container to be laid out
     */
    public TotemLayout(Container self)
    {
-      this(self, 0);
+      this(self, 0,  "none", LayoutMode.NOTEST);
+   }
+   
+   /**
+    * Creates a totem layout with no vertical gap in test mode.
+    * <p>
+    * 
+    * @param self
+    *           the container to be laid out
+    * @param testname
+    *           the name of the object in test mode
+    */
+   public TotemLayout(Container self, String testname)
+   {
+      this(self, 0, testname , LayoutMode.TEST_TOTEM);
    }
 
    /**
-    * Creates a totem layout with the specified vertical gap.
+    * Creates a totem layout with the specified vertical gap.  
     * <p>
-    * All <code>TotemLayout</code> constructors defer to this one.
     * 
+    * @param self
+    *           the container to be laid out
     * @param vgap
     *           the vertical gap
     * @exception IllegalArgumentException
     *               if the value of the vertical gap is less than zero.
     */
    public TotemLayout(Container self, int vgap)
+   {
+      this(self, vgap, "none", LayoutMode.NOTEST);
+   }
+   
+   /**
+    * Creates a totem layout with the specified vertical gap in test mode.  
+    * <p>
+    * 
+    * @param self
+    *           the container to be laid out
+    * @param vgap
+    *           the vertical gap
+    * @param testname
+    *           the name of the object in test mode
+    * @exception IllegalArgumentException
+    *               if the value of the vertical gap is less than zero.
+    */
+   public TotemLayout(Container self, int vgap, String testname)
+   {
+      this(self, vgap, testname, LayoutMode.TEST_TOTEM);
+   }
+   
+   /**
+    * private constructor  
+    * <p>
+    * 
+    * All <code>TotemLayout</code> constructors defer to this one.
+    */
+   private TotemLayout(Container self, int vgap, String testname, LayoutMode mode)
    {
       if (vgap < 0)
          throw new IllegalArgumentException(
@@ -132,6 +188,8 @@ public class TotemLayout
       this.dimMin = null;
       this.dimMax = null;
       this.self = self;
+      this.testname = testname;
+      this.mode = mode;
    }
 
    /**
@@ -280,7 +338,7 @@ public class TotemLayout
             // error correction
             wmax = wmin;
          }
-         
+
          if (wmax != Integer.MAX_VALUE)
          {
             if (w <= wmin)
@@ -560,21 +618,24 @@ public class TotemLayout
             return;
 
          Insets insets = self.getInsets();
-         int w;
-         int h;
+         int availableHeight;
+         int availableWidth;
          if (self.getParent() instanceof JViewport)
          {
             JViewport vp = (JViewport) self.getParent();
-            w = vp.getWidth() - (insets.left + insets.right);
-            h = vp.getHeight() - (insets.top + insets.bottom)
+            availableWidth = vp.getWidth() - (insets.left + insets.right);
+            availableHeight = vp.getHeight() - (insets.top + insets.bottom)
                   - vgap * (ncomponents - 1);
          }
          else
          {
-            w = self.getWidth() - (insets.left + insets.right);
-            h = self.getHeight() - (insets.top + insets.bottom)
+            availableWidth = self.getWidth() - (insets.left + insets.right);
+            availableHeight = self.getHeight() - (insets.top + insets.bottom)
                   - vgap * (ncomponents - 1);
          }
+         
+         int h = availableHeight;
+         int w = availableWidth;
          int wmin = 0;
          int wmax = Integer.MAX_VALUE;
          int hmintotal = 0;
@@ -657,7 +718,7 @@ public class TotemLayout
          else if (w < wmin)
             w = wmin;
          // else w = w;
-         
+
          // height
          int[] hfinal = new int[ncomponents];
          int hcompare = 0;
@@ -729,6 +790,22 @@ public class TotemLayout
             comp.setBounds(insets.left, y, w, hfinal[i]);
             y += hfinal[i] + vgap;
          }
+         
+         if (LayoutMode.TEST_TOTEM == this.mode)
+         {
+            System.out.println("");
+            System.out.println(testname + " with TotemLayout");
+            System.out.println("available width: " + availableWidth);
+            System.out.println("available height: " + availableHeight);
+            System.out.println("all components width: " + w);
+            System.out.println("all components min width: " + wmin);
+            System.out.println("all components max width: " + wmax);
+            for (int i = 0; i < ncomponents; i++)
+            {               
+               System.out.println("component["+i+"] height: "+ hfinal[i]);
+            }
+            System.out.println("");           
+         }        
       }
    }
 
@@ -751,8 +828,8 @@ public class TotemLayout
     * invalidates Layout, minimum and maximum sizes of content will be
     * recalculated
     *
-    * @param name
-    *           the name of the component
+    * @param constraints
+    *           the constraints
     * @param comp
     *           the component to be added
     */
@@ -818,7 +895,7 @@ public class TotemLayout
       return 0;
    }
 
-   void checkContainer(Container self)
+   private void checkContainer(Container self)
    {
       if (this.self != self)
       {
