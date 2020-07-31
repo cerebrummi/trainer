@@ -67,6 +67,11 @@ public class StatisticsTableRow
    {
       return date.format(dateFormatter);
    }
+   
+   public LocalDate getLocalDate()
+   {
+      return date;
+   }
 
    public JButton getTakeOutButton()
    {

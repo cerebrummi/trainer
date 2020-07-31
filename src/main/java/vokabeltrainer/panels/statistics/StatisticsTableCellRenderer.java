@@ -2,10 +2,12 @@ package vokabeltrainer.panels.statistics;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.time.LocalDate;
 import java.util.EventObject;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -25,12 +27,15 @@ public class StatisticsTableCellRenderer
       Font font = Main.getGermanFont(20F);
       date = new JLabel();
       date.setFont(font);
+      date.setOpaque(true);
       expressionsDtoH = new JLabel();
       expressionsDtoH.setFont(font);
       expressionsDtoH.setOpaque(true);
+      expressionsDtoH.setHorizontalAlignment(SwingConstants.CENTER);
       expressionsHtoD = new JLabel();
       expressionsHtoD.setFont(font);
       expressionsHtoD.setOpaque(true);
+      expressionsHtoD.setHorizontalAlignment(SwingConstants.CENTER);
    }
 
    @Override
@@ -39,10 +44,23 @@ public class StatisticsTableCellRenderer
    {
       
       StatisticsTableRow renderedRow = (StatisticsTableRow) value;
+      LocalDate now = LocalDate.now();
 
       if (column == 0)
       {
          date.setText(renderedRow.getDate());
+         if(now.isBefore(renderedRow.getLocalDate()))
+         {
+            date.setBackground(Settings.getLightBlue());
+         }
+         else if(now.isAfter(renderedRow.getLocalDate()))
+         {
+            date.setBackground(Settings.getRose());
+         }
+         else
+         {
+            date.setBackground(Settings.getGreen());
+         }
          return date;
       }
 

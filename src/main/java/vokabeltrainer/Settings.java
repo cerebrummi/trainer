@@ -173,6 +173,11 @@ public class Settings
       return new Color(216, 0, 0);
    }
 
+   public static Color getRose()
+   {
+      return new Color(247, 215, 215);
+   }
+   
    public static String getWindowTitle()
    {
       return "Cerebrummi©";
