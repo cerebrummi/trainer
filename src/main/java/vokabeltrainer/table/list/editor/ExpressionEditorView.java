@@ -502,9 +502,9 @@ public class ExpressionEditorView extends JDialog
       });
 
       saveButton.addActionListener(event -> {
-         save = true;
          if (testForCompletness())
          {
+            save = true;
             saveExpression();
             this.dispose();
          }
