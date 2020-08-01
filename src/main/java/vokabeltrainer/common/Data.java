@@ -1464,7 +1464,16 @@ public final class Data
       public SuccessTableModel findSuccessModel(Language direction,
             Repetition repetition)
       {
-         // TODO Auto-generated method stub
+         SuccessTableModel model = new SuccessTableModel();
+         alleMap.forEach((uuid, expression) -> {
+            Expression e = ((Expression) expression);
+            
+            if(repetition == null)
+            {
+               
+            }
+            
+         });
          return null;
       }
    }

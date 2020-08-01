@@ -1,75 +1,90 @@
 package vokabeltrainer.panels.success.table;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.util.EventObject;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SwingWorker;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-public class SuccessTableCellRenderer implements TableCellRenderer, TableCellEditor
+import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.Settings;
+import vokabeltrainer.common.Main;
+import vokabeltrainer.common.SaveExpressions;
+import vokabeltrainer.tonionlayout.TrainLayout;
+import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.TrainingStatus;
+
+public class SuccessTableCellRenderer
+      implements TableCellRenderer, TableCellEditor
 {
+   private JCheckBox box;
+   private JLabel expressionGerman;
 
    public SuccessTableCellRenderer()
    {
-      // TODO Auto-generated constructor stub
+      Font font = Main.getGermanFont(20F);
+
+      box = new JCheckBox();
+      
+      expressionGerman = new JLabel();
+      expressionGerman.setFont(font);
    }
 
    @Override
    public Object getCellEditorValue()
    {
-      // TODO Auto-generated method stub
       return null;
    }
 
    @Override
    public boolean isCellEditable(EventObject anEvent)
    {
-      // TODO Auto-generated method stub
       return false;
    }
 
    @Override
    public boolean shouldSelectCell(EventObject anEvent)
    {
-      // TODO Auto-generated method stub
       return false;
    }
 
    @Override
    public boolean stopCellEditing()
    {
-      // TODO Auto-generated method stub
       return false;
    }
 
    @Override
    public void cancelCellEditing()
    {
-      // TODO Auto-generated method stub
-      
+
    }
 
    @Override
    public void addCellEditorListener(CellEditorListener l)
    {
-      // TODO Auto-generated method stub
-      
+
    }
 
    @Override
    public void removeCellEditorListener(CellEditorListener l)
    {
-      // TODO Auto-generated method stub
-      
+
    }
 
    @Override
    public Component getTableCellEditorComponent(JTable table, Object value,
          boolean isSelected, int row, int column)
    {
-      // TODO Auto-generated method stub
       return null;
    }
 
@@ -77,8 +92,16 @@ public class SuccessTableCellRenderer implements TableCellRenderer, TableCellEdi
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
    {
-      // TODO Auto-generated method stub
-      return null;
+      Expression expression = ((SuccessTableRow) value).getExpression();
+
+      if(column == 0)
+      {
+         box.setSelected(expression.isSelected());
+         return box;
+      }
+      
+      expressionGerman.setText(expression.getWordGermanForSuccess());
+      return expressionGerman;
    }
 
 }

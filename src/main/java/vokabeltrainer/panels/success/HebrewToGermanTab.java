@@ -50,7 +50,6 @@ public class HebrewToGermanTab extends BackgroundPanelTiled
       register.addTab("Vier Tage", initFourDays());
       register.addTab("Eine Woche", initOneWeek());
       register.addTab("Zwei Wochen", initTwoWeeks());
-      register.addTab("Vier Wochen", initFourWeeks());
       register.addTab("Einen Monat", initOneMonth());
       register.addTab("Zwei Monate", initTwoMonths());
       register.addTab("Vier Monate", initFourMonths());

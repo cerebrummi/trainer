@@ -380,16 +380,24 @@ public class Expression
       if (Language.GERMAN == language) // DtoH
       {
          return german + "   [" + this.getTrainingStatusDToH().getTrys()
-               + " mal " + this.getTrainingStatusDToH().getRepetition().getTranslation()
+               + " mal "
+               + this.getTrainingStatusDToH().getRepetition().getTranslation()
                + "]  [" + chapter + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }
       else // HtoD
       {
          return german + "   [" + this.getTrainingStatusHToD().getTrys()
-               + " mal " + this.getTrainingStatusHToD().getRepetition().getTranslation()
+               + " mal "
+               + this.getTrainingStatusHToD().getRepetition().getTranslation()
                + "]  [" + chapter + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }
+   }
+
+   public String getWordGermanForSuccess()
+   {
+      return "[" + chapter + "]  " + german + "; "
+            + this.getAdditionalInfoGerman();
    }
 }

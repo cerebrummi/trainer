@@ -1,11 +1,18 @@
 package vokabeltrainer.panels.success.table;
 
+import vokabeltrainer.types.Expression;
+
 public class SuccessTableRow
 {
+   private Expression expression;
 
-   public SuccessTableRow()
+   public SuccessTableRow(Expression expression)
    {
-      // TODO Auto-generated constructor stub
+      this.expression = expression;
    }
 
+   public Expression getExpression()
+   {
+      return expression;
+   }
 }
