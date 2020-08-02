@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import vokabeltrainer.BackgroundPanelTiled;
@@ -13,7 +14,7 @@ import vokabeltrainer.panels.success.table.SuccessTable;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
 
-public class GermanToHebrewTab extends BackgroundPanelTiled
+public class GermanToHebrewTab extends JPanel
 {
    private static final long serialVersionUID = 7350720885659255518L;
 
@@ -36,6 +37,8 @@ public class GermanToHebrewTab extends BackgroundPanelTiled
    public GermanToHebrewTab()
    {
       this.setLayout(new BorderLayout());
+      this.setOpaque(false);
+      this.setBackground(Settings.getTransparent());
    }
 
    public void loadBoxes()
@@ -45,171 +48,152 @@ public class GermanToHebrewTab extends BackgroundPanelTiled
       register = new JTabbedPane();
       register.setFont(Settings.getSecondaryToolBarButtonFont());
 
-      register.addTab("Start", initInfo());       // 0
-      register.addTab("Ungelernt", initNotStarted());   // 1
-      register.addTab("Jetzt", initNow());              // 2
-      register.addTab("Einen Tag", initOneDay());       // 3
-      register.addTab("Zwei Tage", initTwoDays());      // 4
-      register.addTab("Vier Tage", initFourDays());     // 5
-      register.addTab("Eine Woche", initOneWeek());     // 6
-      register.addTab("Zwei Wochen", initTwoWeeks());   // 7
-      register.addTab("Einen Monat", initOneMonth());   // 8
-      register.addTab("Zwei Monate", initTwoMonths());  // 9
+      register.addTab("Start", initInfo()); // 0
+      register.addTab("Ungelernt", initNotStarted()); // 1
+      register.addTab("Heute", initNow()); // 2
+      register.addTab("Einen Tag", initOneDay()); // 3
+      register.addTab("Zwei Tage", initTwoDays()); // 4
+      register.addTab("Vier Tage", initFourDays()); // 5
+      register.addTab("Eine Woche", initOneWeek()); // 6
+      register.addTab("Zwei Wochen", initTwoWeeks()); // 7
+      register.addTab("Einen Monat", initOneMonth()); // 8
+      register.addTab("Zwei Monate", initTwoMonths()); // 9
       register.addTab("Vier Monate", initFourMonths()); // 10
-      register.addTab("Ein Jahr", initOneYear());       // 11
-      register.addTab("fertig", initDone());            // 12
+      register.addTab("Ein Jahr", initOneYear()); // 11
+      register.addTab("fertig", initDone()); // 12
 
       this.add(register, BorderLayout.CENTER);
-      
+
       initController();
    }
 
    private Component initInfo()
    {
-      infoPanel = new JPanel();
+      infoPanel = new InformationTabDtoH();
       return infoPanel;
    }
-   
+
    private Component initNotStarted()
    {
-      notStartedPanel = new BackgroundPanelTiled();     
+      notStartedPanel = new BackgroundPanelTiled(new BorderLayout());
       return notStartedPanel;
    }
-   
+
    private Component initNow()
    {
-      nowPanel = new BackgroundPanelTiled();
+      nowPanel = new BackgroundPanelTiled(new BorderLayout());
       return nowPanel;
    }
-   
+
    private Component initOneDay()
    {
-      oneDayPanel = new BackgroundPanelTiled();
+      oneDayPanel = new BackgroundPanelTiled(new BorderLayout());
       return oneDayPanel;
    }
-   
+
    private Component initTwoDays()
    {
-      twoDaysPanel = new BackgroundPanelTiled();
+      twoDaysPanel = new BackgroundPanelTiled(new BorderLayout());
       return twoDaysPanel;
    }
-   
+
    private Component initFourDays()
    {
-      fourDaysPanel = new BackgroundPanelTiled();
+      fourDaysPanel = new BackgroundPanelTiled(new BorderLayout());
       return fourDaysPanel;
    }
-   
+
    private Component initOneWeek()
    {
-      oneWeekPanel = new BackgroundPanelTiled();
+      oneWeekPanel = new BackgroundPanelTiled(new BorderLayout());
       return oneWeekPanel;
    }
-   
+
    private Component initTwoWeeks()
    {
-      twoWeeksPanel = new BackgroundPanelTiled();
+      twoWeeksPanel = new BackgroundPanelTiled(new BorderLayout());
       return twoWeeksPanel;
    }
-   
+
    private Component initOneMonth()
    {
-      oneMonthPanel = new BackgroundPanelTiled();
+      oneMonthPanel = new BackgroundPanelTiled(new BorderLayout());
       return oneMonthPanel;
    }
-   
+
    private Component initTwoMonths()
    {
-      twoMonthsPanel = new BackgroundPanelTiled();
+      twoMonthsPanel = new BackgroundPanelTiled(new BorderLayout());
       return twoMonthsPanel;
    }
 
    private Component initFourMonths()
    {
-      fourMonthsPanel = new BackgroundPanelTiled();
+      fourMonthsPanel = new BackgroundPanelTiled(new BorderLayout());
       return fourMonthsPanel;
    }
-   
+
    private Component initOneYear()
    {
-      oneYearPanel = new BackgroundPanelTiled();
+      oneYearPanel = new BackgroundPanelTiled(new BorderLayout());
       return oneYearPanel;
    }
-   
+
    private Component initDone()
    {
       donePanel = new BackgroundPanelTiled(new BorderLayout());
       return donePanel;
    }
-   
+
    private void initController()
    {
       register.addChangeListener(event -> {
-         switch(register.getSelectedIndex())
+         switch (register.getSelectedIndex())
          {
          case 0:
             break;
          case 1:
             notStartedPanel.removeAll();
-            notStartedPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, null)));
+            SuccessTable table = new SuccessTable(Data.findSuccessModel(Language.GERMAN,
+                  null));
+            notStartedPanel.add(new JScrollPane(table), BorderLayout.CENTER);
             break;
          case 2:
-            nowPanel.removeAll();
-            nowPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.NOW)));
+            SuccessHelper.addContent(Repetition.NOW, nowPanel, Language.GERMAN);
             break;
          case 3:
-            oneDayPanel.removeAll();
-            oneDayPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.ONE_DAY)));
+            SuccessHelper.addContent(Repetition.ONE_DAY, oneDayPanel, Language.GERMAN);
             break;
          case 4:
-            twoDaysPanel.removeAll();
-            twoDaysPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.TWO_DAYS)));
+            SuccessHelper.addContent(Repetition.TWO_DAYS, twoDaysPanel, Language.GERMAN);
             break;
          case 5:
-            fourDaysPanel.removeAll();
-            fourDaysPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.FOUR_DAYS)));
+            SuccessHelper.addContent(Repetition.FOUR_DAYS, fourDaysPanel, Language.GERMAN);
             break;
          case 6:
-            oneWeekPanel.removeAll();
-            oneWeekPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.ONE_WEEK)));
+            SuccessHelper.addContent(Repetition.ONE_WEEK, oneWeekPanel, Language.GERMAN);
             break;
          case 7:
-            twoWeeksPanel.removeAll();
-            twoWeeksPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.TWO_WEEKS)));
+            SuccessHelper.addContent(Repetition.TWO_WEEKS, twoWeeksPanel, Language.GERMAN);
             break;
          case 8:
-            oneMonthPanel.removeAll();
-            oneMonthPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.ONE_MONTH)));
+            SuccessHelper.addContent(Repetition.ONE_MONTH, oneMonthPanel, Language.GERMAN);
             break;
          case 9:
-            twoMonthsPanel.removeAll();
-            twoMonthsPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.TWO_MONTHS)));
+            SuccessHelper.addContent(Repetition.TWO_MONTHS, twoMonthsPanel, Language.GERMAN);
             break;
          case 10:
-            fourMonthsPanel.removeAll();
-            fourMonthsPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.FOUR_MONTHS)));
+            SuccessHelper.addContent(Repetition.FOUR_MONTHS, fourMonthsPanel, Language.GERMAN);
             break;
          case 11:
-            oneYearPanel.removeAll();
-            oneYearPanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.ONE_YEAR)));
+            SuccessHelper.addContent(Repetition.ONE_YEAR, oneYearPanel, Language.GERMAN);
             break;
          case 12:
-            donePanel.removeAll();
-            donePanel.add(
-                  new SuccessTable(Data.findSuccessModel(Language.GERMAN, Repetition.DONE)));
+            SuccessHelper.addContent(Repetition.DONE, donePanel, Language.GERMAN);
             break;
          }
       });
    }
+
+   
 }

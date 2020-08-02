@@ -17,12 +17,14 @@ public class SuccessTableColumnModel extends DefaultTableColumnModel
       column.setHeaderValue("ausgewählt");
       column.setCellRenderer(renderer);
       column.setCellEditor(renderer);
+      column.setPreferredWidth(100);
       addColumn(column);
       
       TableColumn column1 = new TableColumn();
       column1.setHeaderValue("Wort");
       column1.setCellRenderer(renderer);
       column1.setCellEditor(renderer);
+      column1.setPreferredWidth(900);
       addColumn(column1);
    }
 }

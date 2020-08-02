@@ -183,6 +183,11 @@ public class Expression
    {
       this.chapter = chapter;
    }
+   
+   public String getChapterGermanComparison()
+   {
+      return chapter + " "+ german;
+   }
 
    public boolean isSelected()
    {
@@ -192,6 +197,11 @@ public class Expression
    public void setSelected(boolean selected)
    {
       this.selected = selected;
+   }
+   
+   public void toggleSelected()
+   {
+      this.selected = !this.selected;
    }
 
    public String[] toGermanArray()

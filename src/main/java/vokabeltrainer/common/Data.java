@@ -37,6 +37,8 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
+import vokabeltrainer.panels.success.table.SuccessTableRow;
+import vokabeltrainer.panels.success.table.SuccessTableRowComparator;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableRow;
 import vokabeltrainer.table.ExpressionTableModel;
@@ -307,10 +309,16 @@ public final class Data
       getDataBaseAtomic().changeKindofExpressionInDataStrukture(oldKind,
             newKind);
    }
-   
-   public static SuccessTableModel findSuccessModel(Language direction, Repetition repetition)
+
+   public static SuccessTableModel findSuccessModel(Language direction,
+         Repetition repetition)
    {
       return getDataBaseAtomic().findSuccessModel(direction, repetition);
+   }
+   
+   public static void unselectAllExpressions()
+   {
+      getDataBaseAtomic().unselectAllExpressions();
    }
 
    // #########################################################
@@ -1304,7 +1312,7 @@ public final class Data
          return constructusMap;
       }
 
-      public void changeKindofExpressionInDataStrukture(ExpressionKind oldKind,
+      private void changeKindofExpressionInDataStrukture(ExpressionKind oldKind,
             Expression newKind)
       {
          switch (oldKind)
@@ -1394,7 +1402,7 @@ public final class Data
          }
       }
 
-      public StatisticsTableModel findStatisticsModel()
+      private StatisticsTableModel findStatisticsModel()
       {
          Set<LocalDate> datesAll = new HashSet<>();
          Map<LocalDate, List<List<Expression>>> dates = new HashMap<>();
@@ -1460,21 +1468,40 @@ public final class Data
 
          return model;
       }
-      
-      public SuccessTableModel findSuccessModel(Language direction,
+
+      private SuccessTableModel findSuccessModel(Language direction,
             Repetition repetition)
       {
-         SuccessTableModel model = new SuccessTableModel();
+         Vector<Vector<SuccessTableRow>> data = new Vector<>();
+         Vector<String> columnNames = new Vector<>();
+         columnNames.add("eins"); 
+
          alleMap.forEach((uuid, expression) -> {
             Expression e = ((Expression) expression);
-            
-            if(repetition == null)
+
+            if (repetition == null
+                  && !e.getTrainingStatus(direction).isTrainingStarted())
             {
-               
+               Vector<SuccessTableRow> vector = new Vector<>();
+               vector.add(new SuccessTableRow(e));
+               data.add(vector);
             }
-            
+            else if(repetition == e.getTrainingStatus(direction).getRepetition())
+            {
+               Vector<SuccessTableRow> vector = new Vector<>();
+               vector.add(new SuccessTableRow(e));
+               data.add(vector);
+            }
          });
-         return null;
+         Collections.sort(data, new SuccessTableRowComparator());
+         return new SuccessTableModel(data, columnNames);
+      }
+      
+      private void unselectAllExpressions()
+      {
+         alleMap.forEach((uuid, expression) ->{
+            expression.setSelected(false);
+         });
       }
    }
 }

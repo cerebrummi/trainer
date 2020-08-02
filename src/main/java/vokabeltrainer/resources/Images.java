@@ -20,6 +20,9 @@ public class Images
 
       ApplicationImages.setArrow(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/arrow.png")));
+      
+      ApplicationImages.setBack(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/back.png")));
 
       ApplicationImages.setReward(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/baerlohnung.png")));
@@ -66,7 +69,8 @@ public class Images
       ApplicationImages.setSoundOff(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/headphones-2104207-gray.png")));
 
-      // "_2_images/hebrew-letters-2730159_1280.jpg":
+      ApplicationImages.setHebrewLetters(ImageIO.read(Images.class
+            .getResourceAsStream("_2_images/hebrew-letters-2730159_1280.jpg")));
 
       // "_2_images/icon.png":
 

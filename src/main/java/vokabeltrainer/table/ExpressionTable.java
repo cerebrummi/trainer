@@ -66,7 +66,7 @@ public class ExpressionTable extends JTable
                Expression expression = ((Expression) table
                      .getValueAt(table.getSelectedRow(), 0));
 
-               expression.setSelected(!expression.isSelected());
+               expression.toggleSelected();
 
                ((ExpressionTableModel) table.getModel())
                      .fireTableCellUpdated(table.getSelectedRow(), 0);

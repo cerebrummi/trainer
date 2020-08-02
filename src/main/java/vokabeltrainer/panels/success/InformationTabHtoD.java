@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -16,16 +15,16 @@ import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
-public class InformationTab extends JPanel
+public class InformationTabHtoD extends JPanel
 {
-   private static final long serialVersionUID = -700729868879651952L;
+   private static final long serialVersionUID = 8516410904944879380L;
 
-   public InformationTab()
+   public InformationTabHtoD()
    {
-      setLayout(new BorderLayout());
-      this.setOpaque(false);
-      this.setBackground(Settings.getTransparent());
-
+      this.setLayout(new BorderLayout());
+      setOpaque(false);
+      setBackground(Settings.getTransparent());
+      
       JPanel eyePanel = new JPanel();
       eyePanel.setOpaque(false);
       eyePanel.setBackground(Settings.getTransparent());
@@ -51,7 +50,7 @@ public class InformationTab extends JPanel
       boxWrapper.setOpaque(false);
       boxWrapper.setBackground(Settings.getTransparent());
       boxWrapper.setPreferredSize(new Dimension(400, 100));
-      JLabel box = new JLabel("<html>Karteikasten</html>");
+      JLabel box = new JLabel("<html>Hebräisch >> Deutsch</html>");
       box.setMinimumSize(new Dimension(355, 100));
       box.setMaximumSize(new Dimension(355, 100));
       box.setPreferredSize(new Dimension(355, 100));
@@ -78,7 +77,7 @@ public class InformationTab extends JPanel
       
       add(eyePanel, BorderLayout.CENTER);
    }
-
+   
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);
@@ -86,8 +85,7 @@ public class InformationTab extends JPanel
       {
          int x = this.getParent().getWidth() / 2 - 1280 / 2;
          int y = this.getParent().getHeight() / 2 - 853 / 2;
-         g.drawImage(ApplicationImages.getDreidel(), x, y, this);
+         g.drawImage(ApplicationImages.getHebrewLetters(), x, y, this);
       }
    }
-
 }

@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.success.GermanToHebrewTab;
 import vokabeltrainer.panels.success.HebrewToGermanTab;
 import vokabeltrainer.panels.success.InformationTab;
@@ -25,6 +27,8 @@ public class SuccessPanel extends BackgroundPanelTiled
 
       JPanel eyePanel = new JPanel();
       eyePanel.setLayout(new BullsEyeLayout(eyePanel));
+      eyePanel.setOpaque(false);
+      eyePanel.setBackground(Settings.getTransparent());
 
       germanHebrewRegister = new JTabbedPane();
       germanHebrewRegister.setFont(Settings.getSecondaryToolBarButtonFont());
@@ -52,10 +56,12 @@ public class SuccessPanel extends BackgroundPanelTiled
       germanHebrewRegister.addChangeListener(event -> {
          if (germanHebrewRegister.getSelectedIndex() == 1)
          {
+            Data.unselectAllExpressions();
             languageDtoHcard.loadBoxes();
          }
          else if (germanHebrewRegister.getSelectedIndex() == 2)
          {
+            Data.unselectAllExpressions();
             languageHtoDcard.loadBoxes();
          }
       });

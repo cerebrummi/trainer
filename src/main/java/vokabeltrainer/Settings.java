@@ -14,14 +14,13 @@ public class Settings
    private final static Font toolbarButtonFont = Main.getHeaderFont(26F);
    private final static Font secondaryToolbarButtonFont = Main
          .getHeaderFont(18F);
-   
+
    private static boolean soundOn = true;
-      
 
    private Settings()
    {
    }
-   
+
    public static int dictionaryTableRowHeight()
    {
       return 225;
@@ -54,7 +53,8 @@ public class Settings
 
    public static String getExpressionPath()
    {
-      return System.getProperty("user.home") + File.separator + getExpressionFolder();
+      return System.getProperty("user.home") + File.separator
+            + getExpressionFolder();
    }
 
    public static String getTrainingPath()
@@ -98,6 +98,11 @@ public class Settings
       return new Color(164, 190, 217);
    }
 
+   public static Color getShadyBlue()
+   {
+      return new Color(44, 51, 73);
+   }
+
    public static Color getGold()
    {
       return new Color(169, 136, 103);
@@ -122,7 +127,7 @@ public class Settings
    {
       return new Color(228, 213, 197);
    }
-   
+
    public static Color getBackgroundGold()
    {
       return new Color(223, 210, 198);
@@ -147,7 +152,7 @@ public class Settings
    {
       return new Color(225, 216, 211);
    }
-   
+
    public static Color getTexturedBackgroundColorLight()
    {
       return new Color(230, 221, 217);
@@ -177,7 +182,7 @@ public class Settings
    {
       return new Color(247, 215, 215);
    }
-   
+
    public static String getWindowTitle()
    {
       return "Cerebrummi©";
@@ -185,7 +190,7 @@ public class Settings
 
    public static BufferedImage getSound()
    {
-      if(soundOn)
+      if (soundOn)
       {
          return ApplicationImages.getSoundOn();
       }

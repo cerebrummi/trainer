@@ -13,6 +13,7 @@ public class ApplicationImages
 {
    private static BufferedImage image;
    private static BufferedImage dreidel;
+   private static BufferedImage hebrewLetters;
    private static List<BufferedImage> greenImages;
    private static List<BufferedImage> blueImages;
    private static BufferedImage trashcan;
@@ -59,9 +60,11 @@ public class ApplicationImages
    private static BufferedImage soundOn;
    private static BufferedImage soundOff;
    
+   private static BufferedImage back;
+   
    private static Map<HebrewLetter, BufferedImage> letterIconsMap;
    
-   private static String message = "Cerebrummi© konnte keine Bilder laden.\\nFehler: ";
+   private static String message = "Bitte neu starten.\\nCerebrummi© konnte keine Bilder laden.\\nFehler: ";
 
    public static void setImage(BufferedImage image)
    {
@@ -708,5 +711,33 @@ public class ApplicationImages
    public static BufferedImage getDreidel()
    {
       return dreidel;
+   }
+
+   public static BufferedImage getHebrewLetters()
+   {
+      return hebrewLetters;
+   }
+
+   public static void setHebrewLetters(BufferedImage hebrewLetters)
+   {
+      if(hebrewLetters == null)
+      {
+         exitWithMessage("kein Hebräische Buchstaben Bild");
+      }
+      ApplicationImages.hebrewLetters = hebrewLetters;
+   }
+
+   public static BufferedImage getBack()
+   {
+      return back;
+   }
+
+   public static void setBack(BufferedImage back)
+   {
+      if(back == null)
+      {
+         exitWithMessage("kein Zurück Icon");
+      }
+      ApplicationImages.back = back;
    }
 }

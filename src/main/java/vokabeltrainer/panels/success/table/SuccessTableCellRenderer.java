@@ -5,36 +5,30 @@ import java.awt.Font;
 import java.util.EventObject;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.SwingWorker;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.common.SaveExpressions;
-import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.TrainingStatus;
 
 public class SuccessTableCellRenderer
       implements TableCellRenderer, TableCellEditor
 {
-   private JCheckBox box;
+   private JLabel selected;
+   private JLabel empty;
    private JLabel expressionGerman;
 
    public SuccessTableCellRenderer()
    {
       Font font = Main.getGermanFont(20F);
 
-      box = new JCheckBox();
-      
+      selected = new JLabel(new ImageIcon(ApplicationImages.getSelect()));
+      empty = new JLabel();
+
       expressionGerman = new JLabel();
       expressionGerman.setFont(font);
    }
@@ -94,12 +88,18 @@ public class SuccessTableCellRenderer
    {
       Expression expression = ((SuccessTableRow) value).getExpression();
 
-      if(column == 0)
+      if (column == 0)
       {
-         box.setSelected(expression.isSelected());
-         return box;
+         if (expression.isSelected())
+         {
+            return selected;
+         }
+         else
+         {
+            return empty;
+         }
       }
-      
+
       expressionGerman.setText(expression.getWordGermanForSuccess());
       return expressionGerman;
    }
