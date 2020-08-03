@@ -1108,7 +1108,7 @@ public final class Data
                   findNotStudiedWords(languageDirection, listSelected));
             selectedRow.setNotStudiedWords(
                   selectedRow.getExpressionListNewWords().size());
-            selectedRow.setAmountOfNewWords(0);
+            selectedRow.setAmountOfNewWords(selectedRow.getNotStudiedWords());
             selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0
                   && selectedRow.getToBeRepeatedWords() == 0);
             selectedRow.setStarted(selectedRow.getToBeRepeatedWords() > 0);
