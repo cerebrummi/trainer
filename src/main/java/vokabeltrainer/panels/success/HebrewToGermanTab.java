@@ -50,7 +50,7 @@ public class HebrewToGermanTab extends JPanel
 
       register.addTab("Start", initInfo());             // 0
       register.addTab("Ungelernt", initNotStarted());   // 1
-      register.addTab("Jetzt", initNow());              // 2
+      register.addTab("Heute", initNow());              // 2
       register.addTab("Einen Tag", initOneDay());       // 3
       register.addTab("Zwei Tage", initTwoDays());      // 4
       register.addTab("Vier Tage", initFourDays());     // 5
