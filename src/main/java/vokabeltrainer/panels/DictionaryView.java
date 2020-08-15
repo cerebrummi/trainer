@@ -227,7 +227,7 @@ public class DictionaryView extends BackgroundPanelTiled
             .setBorder(new TitledBorder("Wort auf Hebräisch eingeben"));
 
       KeyboardHebrew keyboard = new KeyboardHebrew(searchPhraseHebrew,
-            new ArrayList<JTextComponent>(), 70);
+            new ArrayList<JTextComponent>(), 70, true);
 
       hebrewSearch.add(keyboard);
 

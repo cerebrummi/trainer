@@ -20,9 +20,9 @@ import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
-public class KeyboardHebrew extends JPanel
+public class KeyboardHebrewSimple extends JPanel
 {
-   private static final long serialVersionUID = 2289311868636133544L;
+   private static final long serialVersionUID = -7532952398298332087L;
 
    private final int BUTTON_SIZE = 42;
    private List<JTextComponent> components;
@@ -30,8 +30,8 @@ public class KeyboardHebrew extends JPanel
    private int scaleX;
    private int scaleY;
 
-   public KeyboardHebrew(JTextComponent textfield,
-         List<JTextComponent> arrayList, int textFieldHeight, boolean addTextField)
+   public KeyboardHebrewSimple(JTextComponent textfield,
+         List<JTextComponent> arrayList, int textFieldHeight)
    {
       GraphicsConfiguration asdf = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
 
@@ -76,11 +76,6 @@ public class KeyboardHebrew extends JPanel
       this.setPreferredSize(new Dimension(Settings.getKeyboardWidth(),
             textFieldHeight + 10 + 218));
 
-      if (textfield != null && addTextField)
-      {
-         add(textfield);
-      }
-      
       if (textfield != null)
       {
          setFocusTraversalPolicy(new OneFocusTraversalPolicy(textfield));
@@ -166,7 +161,6 @@ public class KeyboardHebrew extends JPanel
       DataButton jButton = new DataButton(ApplicationImages.getLetterIconsMap()
             .get(letter).getScaledInstance(scaleX, scaleY, java.awt.Image.SCALE_SMOOTH),
             letter.getUnicode());
-      jButton.setToolTipText(letter.getTranscript());
       jButton.setMargin(new Insets(3, -5, 0, -5));
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
       jButton.setMaximumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
@@ -175,7 +169,7 @@ public class KeyboardHebrew extends JPanel
       buttonCaption.setOpaque(false);
       buttonCaption.setLayout(new TotemLayout(buttonCaption));
       buttonCaption.add(jButton);
-      JLabel captionLabel = new JLabel(letter.getTranscript());
+      JLabel captionLabel = new JLabel(" ");
 
       captionLabel.setFont(Main.getGermanFont(8F));
       captionLabel.setMinimumSize(new Dimension(BUTTON_SIZE + 2, 10));
@@ -240,5 +234,4 @@ public class KeyboardHebrew extends JPanel
       }
 
    }
-
 }

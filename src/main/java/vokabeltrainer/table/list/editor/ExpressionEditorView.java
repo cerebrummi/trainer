@@ -293,7 +293,7 @@ public class ExpressionEditorView extends JDialog
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
-      keyboard = new KeyboardHebrew(hebrew, components, 70);
+      keyboard = new KeyboardHebrew(hebrew, components, 70, true);
 
       chapter = new JComboBox<String>();
       chapter.setMaximumRowCount(20);

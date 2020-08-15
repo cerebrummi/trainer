@@ -28,9 +28,9 @@ import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.Command;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.KeyboardHebrew;
+import vokabeltrainer.KeyboardHebrewSimple;
 import vokabeltrainer.OneFocusTraversalPolicy;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
@@ -65,8 +65,6 @@ public class TrainerView extends BackgroundPanelTiled
    private JTextField additionalInfoField;
    private JTextField transcriptionField;
    private InfoTextField answerField;
-   private JLabel newWordsLabel;
-   private JLabel oldWordsLabel;
    private JLabel languageDirectionLabel;
    private JCheckBox additionalInfo;
    private JCheckBox transcription;
@@ -87,7 +85,11 @@ public class TrainerView extends BackgroundPanelTiled
    private JButton soundButton;
 
    private KeyboardHebrew keyboard;
-
+   private KeyboardHebrewSimple simpleKeyboard;
+   private CardLayout keyboardCardLayout;
+   private JPanel keyboardSwapPanel;
+   private JCheckBox keyboardHints;
+   
    private TrainerControllerConnector connector;
 
    private JButton infoStopTrainingButton;
@@ -108,21 +110,6 @@ public class TrainerView extends BackgroundPanelTiled
    public void init()
    {
       this.languageDirection = connector.getLanguageDirection();
-
-      String fieldOfTrainingString = "";
-      if (connector.getFieldOfTraining().equals(Command.AREA_CHAPTER))
-      {
-         fieldOfTrainingString = "Lektionen";
-      }
-      else if (connector.getFieldOfTraining().equals(Command.AREA_SELECTED))
-      {
-         fieldOfTrainingString = "ausgewählte Wörter";
-      }
-
-      newWordsLabel.setText(
-            fieldOfTrainingString + (fieldOfTrainingString.isEmpty() ? "" : " ")
-                  + connector.getNewWordsToLearn());
-      oldWordsLabel.setText(String.valueOf(connector.getOldWordsToRepeat()));
 
       languageDirectionLabel.setText(
             languageDirection.equals(Language.GERMAN) ? "Deutsch >> Hebräisch"
@@ -180,36 +167,16 @@ public class TrainerView extends BackgroundPanelTiled
       choices.add(choicesLeft);
       choices.add(choicesRight);
 
-      JLabel label1 = new JLabel("NEU");
-      label1.setFont(labelFont);
-      label1.setBackground(Settings.getGold());
-      label1.setForeground(Color.WHITE);
-      choicesLeft.add(label1);
-      JLabel label2 = new JLabel("ALT");
-      label2.setFont(labelFont);
-      label2.setBackground(Settings.getGold());
-      label2.setForeground(Color.WHITE);
-      choicesLeft.add(label2);
       JLabel label3 = new JLabel("RICHTUNG");
       label3.setFont(labelFont);
       label3.setBackground(Settings.getGold());
       label3.setForeground(Color.WHITE);
       choicesLeft.add(label3);
 
-      newWordsLabel = new JLabel();
-      newWordsLabel.setFont(labelFont);
-      newWordsLabel.setBackground(Settings.getGold());
-      newWordsLabel.setForeground(Color.WHITE);
-      oldWordsLabel = new JLabel();
-      oldWordsLabel.setFont(labelFont);
-      oldWordsLabel.setBackground(Settings.getGold());
-      oldWordsLabel.setForeground(Color.WHITE);
       languageDirectionLabel = new JLabel();
       languageDirectionLabel.setFont(labelFont);
       languageDirectionLabel.setBackground(Settings.getGold());
       languageDirectionLabel.setForeground(Color.WHITE);
-      choicesRight.add(newWordsLabel);
-      choicesRight.add(oldWordsLabel);
       choicesRight.add(languageDirectionLabel);
 
       JPanel showOptions = new JPanel();
@@ -274,7 +241,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
-      
+
       JPanel soundFiller = new JPanel(new FlowLayout());
       soundFiller.setBackground(Settings.getGold());
       soundFiller.setMinimumSize(new Dimension(60, 60));
@@ -282,23 +249,28 @@ public class TrainerView extends BackgroundPanelTiled
       soundButton = new JButton(new ImageIcon(Settings.getSound()));
       soundButton.setBorder(BorderFactory.createEmptyBorder());
       soundButton.setOpaque(false);
-      soundButton.setBackground(new Color(0,0,0,0));
-      
+      soundButton.setBackground(new Color(0, 0, 0, 0));
+
       soundFiller.add(soundButton);
       horizontal.add(soundFiller);
+
+      keyboardHints = new JCheckBox("Tastatur Beschriftung");
+      keyboardHints.setFont(labelFont);
+      keyboardHints.setForeground(Color.WHITE);
+      keyboardHints.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
 
       infoStopTrainingPanel = new JPanel(new BorderLayout());
       infoStopTrainingPanel.setMinimumSize(new Dimension(150, 40));
       infoStopTrainingPanel.setMinimumSize(new Dimension(280, 40));
       infoStopTrainingPanel.setBackground(Settings.getGold());
-      
+
       infoStopTrainingButton = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
       infoStopTrainingButton.setBackground(new Color(0, 0, 0, 0));
       infoStopTrainingButton.setMinimumSize(new Dimension(14, 26));
       infoStopTrainingButton.setMaximumSize(new Dimension(14, 32));
       infoStopTrainingButton.setMargin(new Insets(0, 0, 0, 0));
-      
+
       infoStopTrainingPanel.add(infoStopTrainingButton, BorderLayout.WEST);
 
       stopTrainingButton = new JButton("abbrechen");
@@ -309,6 +281,7 @@ public class TrainerView extends BackgroundPanelTiled
       verticalLeftPanel.add(numbers);
       verticalLeftPanel.add(nextWordButton);
       verticalLeftPanel.add(horizontal);
+      verticalLeftPanel.add(keyboardHints);
       verticalLeftPanel.add(infoStopTrainingPanel);
       verticalLeftPanel.add(stopTrainingButton);
 
@@ -406,8 +379,18 @@ public class TrainerView extends BackgroundPanelTiled
          answerField.requestFocusInWindow();
 
          keyboard = new KeyboardHebrew(answerField,
+               new ArrayList<JTextComponent>(), 80, false);
+         simpleKeyboard = new KeyboardHebrewSimple(answerField,
                new ArrayList<JTextComponent>(), 80);
-         answerPanel.add(keyboard);
+
+         keyboardCardLayout = new CardLayout();
+         keyboardSwapPanel = new JPanel(this.keyboardCardLayout);
+         keyboardSwapPanel.add("HINTS", keyboard);
+         keyboardSwapPanel.add("BLANK", simpleKeyboard);
+         
+         answerPanel.add(answerField);
+         answerPanel.add(keyboardSwapPanel);
+         keyboardCardLayout.show(keyboardSwapPanel, "BLANK");
       }
       else
       {
@@ -555,8 +538,19 @@ public class TrainerView extends BackgroundPanelTiled
       this.transcription.addActionListener(event -> {
          connector.setTranscription();
       });
-      
+
       this.soundButton.addActionListener(event -> connector.toggleSound());
+
+      this.keyboardHints.addActionListener(event -> {
+         if (keyboardHints.isSelected())
+         {
+            keyboardCardLayout.show(keyboardSwapPanel, "HINTS");
+         }
+         else
+         {
+            keyboardCardLayout.show(keyboardSwapPanel, "BLANK");
+         }
+      });
    }
 
    public void setHtoDanswerButtons()
@@ -765,7 +759,7 @@ public class TrainerView extends BackgroundPanelTiled
       JScrollPane scrollPane = new JScrollPane(answerPanel);
       scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       scrollPane.setBorder(BorderFactory.createEmptyBorder());
-      scrollPane.setPreferredSize(new Dimension(501, 86+34));
+      scrollPane.setPreferredSize(new Dimension(501, 86 + 34));
       feedbackPanel.add(scrollPane);
       wordPanel.displayWord(result.getExpression().getHebrew());
    }
