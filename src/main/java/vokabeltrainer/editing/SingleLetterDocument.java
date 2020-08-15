@@ -24,7 +24,7 @@ public class SingleLetterDocument extends PlainDocument
    public void replace(int offset, int length, String text, AttributeSet attrs)
          throws BadLocationException
    {
-      List<String> list = HebrewLetter.findLetterCodesAll(text);
+      List<String> list = LetterHelper.findLetterCodes(text);
       
       if (getLength() + list.size() - length > 1)
       {
@@ -50,7 +50,7 @@ public class SingleLetterDocument extends PlainDocument
    public void insertString(int offset, String str, AttributeSet attr)
          throws BadLocationException
    {
-      List<String> list = HebrewLetter.findLetterCodesAll(str);
+      List<String> list = LetterHelper.findLetterCodes(str);
       
       if (getLength() + list.size() > 1)
       {

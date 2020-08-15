@@ -12,15 +12,16 @@ public enum SignLetter
    APOSTROPH(" 0027", "\u0027"),       // '
    BRAKET_OPEN(" 0028", "\u0028"),     // (
    BRAKET_CLOSE(" 0029", "\u0029"),    // )
-   COMMA(" 002c", "\u002c");           // ,
+   COMMA(" 002c", "\u002c"),           // ,
+   HYPHEN(" 002d","\u002d");           // -
    
    private String code;
    private String unicode;
    
    private static SignLetter[] germanSigns = {QUESTIONMARK, EXCLAMATIONMARK,
-         POINT, APOSTROPH, BRAKET_OPEN, BRAKET_CLOSE};
+         POINT, APOSTROPH, BRAKET_OPEN, BRAKET_CLOSE, HYPHEN};
    private static SignLetter[] germanSignsWithComma = {QUESTIONMARK, EXCLAMATIONMARK,
-         POINT, APOSTROPH, BRAKET_OPEN, BRAKET_CLOSE, COMMA};
+         POINT, APOSTROPH, BRAKET_OPEN, BRAKET_CLOSE, HYPHEN, COMMA};
    
    private static SignLetter[] hebrewSigns = { QUESTIONMARK, EXCLAMATIONMARK,
          POINT };

@@ -12,17 +12,17 @@ public class HebrewDocument extends PlainDocument
 {
    private static final long serialVersionUID = -9186425449349376170L;
 
-   private String pattern;
+   private String signPattern;
    
    public HebrewDocument(boolean withComma)
    {
       if(withComma)
       {
-         pattern = SignLetter.getPatternStringHebrewWithComma();
+         signPattern = SignLetter.getPatternStringHebrewWithComma();
       }
       else
       {
-         pattern = SignLetter.getPatternStringHebrew();
+         signPattern = SignLetter.getPatternStringHebrew();
       }
    }
    
@@ -30,7 +30,7 @@ public class HebrewDocument extends PlainDocument
    public void replace(int offset, int length, String text, AttributeSet attrs)
          throws BadLocationException
    {
-      List<String> list = HebrewLetter.findLetterCodesAll(text);
+      List<String> list = LetterHelper.findLetterCodes(text);
       
       if (getLength() + list.size() - length > 26)
       {
@@ -45,7 +45,7 @@ public class HebrewDocument extends PlainDocument
          {
             // okay
          }
-         else if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+         else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
          {
             // okay
          }
@@ -61,7 +61,7 @@ public class HebrewDocument extends PlainDocument
    public void insertString(int offset, String str, AttributeSet attr)
          throws BadLocationException
    {
-      List<String> list = HebrewLetter.findLetterCodesAll(str);
+      List<String> list = LetterHelper.findLetterCodes(str);
       
       if (getLength() + list.size() > 26)
       {
@@ -76,7 +76,7 @@ public class HebrewDocument extends PlainDocument
          {
             // okay
          }
-         else if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+         else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
          {
             // okay
          }

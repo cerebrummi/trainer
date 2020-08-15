@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -37,8 +38,8 @@ public class LetterPictureWordPanel extends JPanel
       JPanel displayPanel = new JPanel();
       displayPanel.setLayout(new TrainLayout(displayPanel));
 
-      List<String> hebrewLettersCode = HebrewLetter
-            .findLetterCodesAll(hebrewWord);
+      List<String> hebrewLettersCode = LetterHelper
+            .findLetterCodes(hebrewWord);
       Collections.reverse(hebrewLettersCode);
 
       for (String hebrewLetterCode : hebrewLettersCode)
