@@ -28,12 +28,36 @@ public class KeyboardHebrew extends JPanel
    private List<JTextComponent> components;
 
    private int scaleX;
-
    private int scaleY;
 
    public KeyboardHebrew(JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight)
    {
+      GraphicsConfiguration asdf = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+
+      AffineTransform asfd2 = asdf.getDefaultTransform();
+
+      if(asfd2.getScaleX() < 1.1)
+      {
+         scaleX = BUTTON_SIZE+2;
+         scaleY = BUTTON_SIZE;
+      }
+      else if(asfd2.getScaleX() < 1.35)
+      {
+         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.75);
+         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.75);
+      }
+      else if(asfd2.getScaleX() < 1.6)
+      {
+         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.65);
+         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.65);
+      }
+      else
+      {
+         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.6);
+         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.6);
+      }
+      
       if (textfield != null)
       {
          textfield.setFont(Main.getHebrewFont(29F));
@@ -66,32 +90,7 @@ public class KeyboardHebrew extends JPanel
       JPanel row1 = new JPanel();
       row1.setOpaque(false);
       row1.setLayout(new TrainLayout(row1, 8));
-
-      GraphicsConfiguration asdf = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-
-      AffineTransform asfd2 = asdf.getDefaultTransform();
-
-      if(asfd2.getScaleX() < 1.1)
-      {
-         scaleX = BUTTON_SIZE+2;
-         scaleY = BUTTON_SIZE;
-      }
-      else if(asfd2.getScaleX() < 1.35)
-      {
-         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.75);
-         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.75);
-      }
-      else if(asfd2.getScaleX() < 1.6)
-      {
-         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.65);
-         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.65);
-      }
-      else
-      {
-         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.6);
-         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.6);
-      }
-      
+     
       row1.add(makeButton(HebrewLetter.CHET));
       row1.add(makeButton(HebrewLetter.SSAIN));
       row1.add(makeButton(HebrewLetter.WAW));
@@ -154,7 +153,7 @@ public class KeyboardHebrew extends JPanel
       DataButton jButton = new DataButton("\u0020", "\u0020");
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE + 10));
       jButton.setMaximumSize(new Dimension(4 * BUTTON_SIZE, BUTTON_SIZE + 10));
-      jButton.addMouseListener(new KeyboardListener(this));
+      jButton.addMouseListener(new KeyboardListener());
       return jButton;
    }
 
@@ -180,19 +179,12 @@ public class KeyboardHebrew extends JPanel
 
       buttonCaption.add(captionLabel);
 
-      jButton.addMouseListener(new KeyboardListener(this));
+      jButton.addMouseListener(new KeyboardListener());
       return buttonCaption;
    }
 
    class KeyboardListener implements MouseListener
    {
-      KeyboardHebrew keyboard;
-      JTextComponent jTextArea;
-
-      KeyboardListener(KeyboardHebrew keyboard)
-      {
-         this.keyboard = keyboard;
-      }
 
       public void mouseClicked(MouseEvent e)
       {

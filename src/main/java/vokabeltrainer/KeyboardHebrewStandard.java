@@ -3,9 +3,12 @@ package vokabeltrainer;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -22,10 +25,38 @@ public class KeyboardHebrewStandard extends JPanel
 
    private final int BUTTON_SIZE = 42;
    private List<JTextComponent> components;
+   
+   private int scaleX;
+   private int scaleY;
 
    public KeyboardHebrewStandard(JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight)
    {
+      GraphicsConfiguration asdf = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+
+      AffineTransform asfd2 = asdf.getDefaultTransform();
+
+      if(asfd2.getScaleX() < 1.1)
+      {
+         scaleX = BUTTON_SIZE+2;
+         scaleY = BUTTON_SIZE;
+      }
+      else if(asfd2.getScaleX() < 1.35)
+      {
+         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.75);
+         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.75);
+      }
+      else if(asfd2.getScaleX() < 1.6)
+      {
+         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.65);
+         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.65);
+      }
+      else
+      {
+         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.6);
+         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.6);
+      }
+      
       if (textfield != null)
       {
          textfield.setFont(Main.getHebrewFont(29F));
@@ -62,16 +93,16 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller1.setMaximumSize(new Dimension(20,BUTTON_SIZE));
       row1.add(halfSizedFiller1);
       
-      row1.add(makeButton(HebrewLetter.SSIN.getUnicode()));
-      row1.add(makeButton(HebrewLetter.KUF.getUnicode()));
-      row1.add(makeButton(HebrewLetter.RESCH.getUnicode()));
-      row1.add(makeButton(HebrewLetter.ALEF.getUnicode()));
-      row1.add(makeButton(HebrewLetter.TET.getUnicode()));
-      row1.add(makeButton(HebrewLetter.WAW.getUnicode()));
-      row1.add(makeButton(HebrewLetter.NUNSSOFIT.getUnicode()));
-      row1.add(makeButton(HebrewLetter.MEMSSOFIT.getUnicode()));
-      row1.add(makeButton(HebrewLetter.FAEI.getUnicode()));
-      row1.add(makeButton(HebrewLetter.PAEI.getUnicode()));
+      row1.add(makeButton(HebrewLetter.SSIN));
+      row1.add(makeButton(HebrewLetter.KUF));
+      row1.add(makeButton(HebrewLetter.RESCH));
+      row1.add(makeButton(HebrewLetter.ALEF));
+      row1.add(makeButton(HebrewLetter.TET));
+      row1.add(makeButton(HebrewLetter.WAW));
+      row1.add(makeButton(HebrewLetter.NUNSSOFIT));
+      row1.add(makeButton(HebrewLetter.MEMSSOFIT));
+      row1.add(makeButton(HebrewLetter.FAEI));
+      row1.add(makeButton(HebrewLetter.PAEI));
 
       JPanel row2 = new JPanel();
       row2.setOpaque(false);
@@ -82,17 +113,17 @@ public class KeyboardHebrewStandard extends JPanel
       tinyFiller2.setMaximumSize(new Dimension(0,BUTTON_SIZE));
       row2.add(tinyFiller2);
    
-      row2.add(makeButton(HebrewLetter.SCHIN.getUnicode()));
-      row2.add(makeButton(HebrewLetter.DALET.getUnicode()));
-      row2.add(makeButton(HebrewLetter.GIMEL.getUnicode()));
-      row2.add(makeButton(HebrewLetter.CHAF.getUnicode()));
-      row2.add(makeButton(HebrewLetter.AIN.getUnicode()));
-      row2.add(makeButton(HebrewLetter.JOD.getUnicode()));
-      row2.add(makeButton(HebrewLetter.CHET.getUnicode()));
-      row2.add(makeButton(HebrewLetter.LAMED.getUnicode()));
-      row2.add(makeButton(HebrewLetter.CHAFSSOFIT.getUnicode()));
-      row2.add(makeButton(HebrewLetter.FAEISSOFIT.getUnicode()));
-      row2.add(makeButton(HebrewLetter.KAF.getUnicode()));
+      row2.add(makeButton(HebrewLetter.SCHIN));
+      row2.add(makeButton(HebrewLetter.DALET));
+      row2.add(makeButton(HebrewLetter.GIMEL));
+      row2.add(makeButton(HebrewLetter.CHAF));
+      row2.add(makeButton(HebrewLetter.AIN));
+      row2.add(makeButton(HebrewLetter.JOD));
+      row2.add(makeButton(HebrewLetter.CHET));
+      row2.add(makeButton(HebrewLetter.LAMED));
+      row2.add(makeButton(HebrewLetter.CHAFSSOFIT));
+      row2.add(makeButton(HebrewLetter.FAEISSOFIT));
+      row2.add(makeButton(HebrewLetter.KAF));
 
       JPanel row3 = new JPanel();
       row3.setOpaque(false);
@@ -103,16 +134,16 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller3.setMaximumSize(new Dimension(20,BUTTON_SIZE));
       row3.add(halfSizedFiller3);
       
-      row3.add(makeButton(HebrewLetter.SSAIN.getUnicode()));
-      row3.add(makeButton(HebrewLetter.SSAMECH.getUnicode()));
-      row3.add(makeButton(HebrewLetter.WET.getUnicode()));
-      row3.add(makeButton(HebrewLetter.HAEI.getUnicode()));
-      row3.add(makeButton(HebrewLetter.NUN.getUnicode()));
-      row3.add(makeButton(HebrewLetter.MEM.getUnicode()));
-      row3.add(makeButton(HebrewLetter.ZADI.getUnicode()));
-      row3.add(makeButton(HebrewLetter.TAW.getUnicode()));
-      row3.add(makeButton(HebrewLetter.ZADISSOFIT.getUnicode()));
-      row3.add(makeButton(HebrewLetter.BET.getUnicode()));
+      row3.add(makeButton(HebrewLetter.SSAIN));
+      row3.add(makeButton(HebrewLetter.SSAMECH));
+      row3.add(makeButton(HebrewLetter.WET));
+      row3.add(makeButton(HebrewLetter.HAEI));
+      row3.add(makeButton(HebrewLetter.NUN));
+      row3.add(makeButton(HebrewLetter.MEM));
+      row3.add(makeButton(HebrewLetter.ZADI));
+      row3.add(makeButton(HebrewLetter.TAW));
+      row3.add(makeButton(HebrewLetter.ZADISSOFIT));
+      row3.add(makeButton(HebrewLetter.BET));
 
       keyboard.add(row1);
       keyboard.add(row2);
@@ -120,11 +151,12 @@ public class KeyboardHebrewStandard extends JPanel
       add(keyboard);
    }
 
-   private Component makeButton(String unicode)
+   private Component makeButton(HebrewLetter letter)
    {
-      DataButton jButton = new DataButton(
-            "<html><span>" + unicode + "</span></html>", unicode);
-      jButton.setMargin(new Insets(0, -5, 3, -5));
+      DataButton jButton = new DataButton(ApplicationImages.getLetterIconsMap()
+            .get(letter).getScaledInstance(scaleX, scaleY, java.awt.Image.SCALE_SMOOTH),
+            letter.getUnicode());
+      jButton.setMargin(new Insets(3, -5, 0, -5));
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
       jButton.setMaximumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
 
@@ -133,19 +165,12 @@ public class KeyboardHebrewStandard extends JPanel
       buttonPanel.setLayout(new TotemLayout(buttonPanel));
       buttonPanel.add(jButton);
 
-      jButton.addMouseListener(new KeyboardListener(this));
+      jButton.addMouseListener(new KeyboardListener());
       return buttonPanel;
    }
 
    class KeyboardListener implements MouseListener
    {
-      KeyboardHebrewStandard keyboard;
-      JTextComponent jTextArea;
-
-      KeyboardListener(KeyboardHebrewStandard keyboard)
-      {
-         this.keyboard = keyboard;
-      }
 
       public void mouseClicked(MouseEvent e)
       {
