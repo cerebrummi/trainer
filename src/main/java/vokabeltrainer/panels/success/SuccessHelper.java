@@ -38,6 +38,8 @@ public class SuccessHelper
       SuccessTableModel model = Data.findSuccessModel(direction, repetition);
       SuccessTable table = new SuccessTable(model);
       JPanel buttonPanel = new JPanel();
+      buttonPanel.setBackground(Settings.getDarkGold());
+      buttonPanel.setOpaque(true);
       buttonPanel.setLayout(new TrainLayout(buttonPanel, 15));
       JButton selectAllButton = new JButton("alle auswählen");
       selectAllButton.setIcon(new ImageIcon(ApplicationImages.getSelect()));

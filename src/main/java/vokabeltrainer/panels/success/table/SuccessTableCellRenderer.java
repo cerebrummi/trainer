@@ -12,6 +12,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.types.Expression;
 
@@ -27,10 +28,17 @@ public class SuccessTableCellRenderer
       Font font = Main.getGermanFont(20F);
 
       selected = new JLabel(new ImageIcon(ApplicationImages.getSelect()));
+      selected.setBackground(Settings.getVeryLightGold());
+      selected.setOpaque(true);
+      
       empty = new JLabel();
+      empty.setBackground(Settings.getVeryLightGold());
+      empty.setOpaque(true);
 
       expressionGerman = new JLabel();
       expressionGerman.setFont(font);
+      expressionGerman.setBackground(Settings.getVeryLightGold());
+      expressionGerman.setOpaque(true);
    }
 
    @Override
