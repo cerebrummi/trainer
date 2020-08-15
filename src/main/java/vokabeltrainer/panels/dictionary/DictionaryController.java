@@ -102,7 +102,7 @@ public class DictionaryController implements DictionaryControllerConnector
       }
       ExpressionEditorView editor = new ExpressionEditorController()
             .getExpressionEditorDialog();
-      editor.setExpression(new Expression(true));
+      editor.setExpression(new Expression(true, false));
       editor.setLocationRelativeTo(null);
       editor.setVisible(true);
       if (editor.isSave())

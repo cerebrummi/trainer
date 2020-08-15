@@ -315,7 +315,7 @@ public final class Data
    {
       return getDataBaseAtomic().findSuccessModel(direction, repetition);
    }
-   
+
    public static void unselectAllExpressions()
    {
       getDataBaseAtomic().unselectAllExpressions();
@@ -348,34 +348,52 @@ public final class Data
             100);
 
       private final ConcurrentMap<UUID, Expression> deletedMap = readFile(
-            DELETED_TXT);
+            DELETED_TXT, null);
       private final ConcurrentMap<UUID, Expression> unkownMap = readFile(
-            "UNKOWN.txt");
+            "UNKOWN.txt", null);
       private final ConcurrentMap<UUID, Expression> adjektivMap = readFile(
-            "ADJEKTIV.txt");
+            "ADJEKTIV.txt", null);
       private final ConcurrentMap<UUID, Expression> adverbMap = readFile(
-            "ADVERB.txt");
+            "ADVERB.txt", null);
       private final ConcurrentMap<UUID, Expression> begriffMap = readFile(
-            "BEGRIFF.txt");
+            "BEGRIFF.txt", null);
       private final ConcurrentMap<UUID, Expression> frageMap = readFile(
-            "FRAGE.txt");
+            "FRAGE.txt", null);
       private final ConcurrentMap<UUID, Expression> interjektionMap = readFile(
-            "INTERJEKTION.txt");
+            "INTERJEKTION.txt", null);
       private final ConcurrentMap<UUID, Expression> numeralMap = readFile(
-            "NUMERAL.txt");
+            "NUMERAL.txt", null);
       private final ConcurrentMap<UUID, Expression> partikelMap = readFile(
-            "PARTIKEL.txt");
+            "PARTIKEL.txt", null);
       private final ConcurrentMap<UUID, Expression> pronomMap = readFile(
-            "PRONOM.txt");
+            "PRONOM.txt", null);
       private final ConcurrentMap<UUID, Expression> substantivMap = readFile(
-            "SUBSTANTIV.txt");
+            "SUBSTANTIV.txt", null);
       private final ConcurrentMap<UUID, Expression> verbMap = readFile(
-            "VERB.txt");
+            "VERB.txt", null);
       private final ConcurrentMap<UUID, Expression> constructusMap = readFile(
-            "KONSTRUKT.txt");
+            "KONSTRUKT.txt", null);
 
       DataBase()
       {
+         for (String database : Settings.getChosenDatabases())
+         {
+            readFile(database + File.separator + "ADJEKTIV.txt", adjektivMap);
+            readFile(database + File.separator + "ADVERB.txt", adverbMap);
+            readFile(database + File.separator + "BEGRIFF.txt", begriffMap);
+            readFile(database + File.separator + "FRAGE.txt", frageMap);
+            readFile(database + File.separator + "INTERJEKTION.txt",
+                  interjektionMap);
+            readFile(database + File.separator + "NUMERAL.txt", numeralMap);
+            readFile(database + File.separator + "PARTIKEL.txt", partikelMap);
+            readFile(database + File.separator + "PRONOM.txt", pronomMap);
+            readFile(database + File.separator + "SUBSTANTIV.txt",
+                  substantivMap);
+            readFile(database + File.separator + "VERB.txt", verbMap);
+            readFile(database + File.separator + "KONSTRUKT.txt",
+                  constructusMap);
+         }
+
          File customDir = new File(Settings.getTrainingPath());
          if (!customDir.exists())
          {
@@ -464,7 +482,7 @@ public final class Data
       {
          try
          {
-            File customDir = new File(Settings.getExpressionPath());
+            File customDir = new File(Settings.getExpressionPathFolder());
             if (!customDir.exists())
             {
                customDir.mkdirs();
@@ -474,9 +492,9 @@ public final class Data
          catch (Exception e)
          {
             JOptionPane.showMessageDialog(Common.getjFrame(),
-                  "Fehler beim Lesen.\n"
+                  "Fehler beim Lesen der selbsteingegebenen Vokabeln.\n"
                         + "Ändern Sie den Ort zum Abspeichern und\n"
-                        + "Lesen der Daten in den Einstellungen.",
+                        + "Lesen der Vokabeln in den Einstellungen.",
                   "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
             return false;
          }
@@ -495,19 +513,29 @@ public final class Data
          return numberOfVocabulary;
       }
 
-      private ConcurrentMap<UUID, Expression> readFile(String filename)
+      private ConcurrentMap<UUID, Expression> readFile(String filename,
+            ConcurrentMap<UUID, Expression> existingMap)
       {
-         if (!directoryOkay)
+         File file = null;
+         if(existingMap == null)
          {
-            return new ConcurrentHashMap<UUID, Expression>(100);
-         }
+            if (!directoryOkay)
+            {
+               return new ConcurrentHashMap<UUID, Expression>(100);
+            }
 
-         File file = new File(
-               Settings.getExpressionPath() + File.separator + filename);
-         if (!file.exists())
-         {
-            return new ConcurrentHashMap<UUID, Expression>(100);
+            file = new File(
+                  Settings.getExpressionPathFolder() + File.separator + filename);
+            if (!file.exists())
+            {
+               return new ConcurrentHashMap<UUID, Expression>(100);
+            }
          }
+         else
+         {
+            // TODO file object for databases
+         }
+         
          try (FileInputStream fis = new FileInputStream(file);
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
@@ -542,7 +570,15 @@ public final class Data
                {
                   String[] items = row.split("\t");
 
-                  Expression expression = new Expression(false);
+                  Expression expression;
+                  if (existingMap == null)
+                  {
+                     expression = new Expression(false, false);
+                  }
+                  else
+                  {
+                     expression = new Expression(false, true);
+                  }
                   int i = 0;
 
                   expression.setUuid(UUID.fromString(items[i]));
@@ -572,7 +608,15 @@ public final class Data
                   i++;
                   expression.setSearchwordsHebrew(items[i].split(","));
 
-                  map.put(expression.getUuid(), expression);
+                  if (existingMap == null)
+                  {
+                     map.put(expression.getUuid(), expression);
+                  }
+                  else
+                  {
+                     existingMap.put(expression.getUuid(), expression);
+                  }
+
                   if (!DELETED_TXT.equals(filename))
                   {
                      alleMap.put(expression.getUuid(), expression);
@@ -953,6 +997,10 @@ public final class Data
       {
          for (Expression expression : list)
          {
+            if (expression.isDoNotDelete())
+            {
+               continue;
+            }
             deletedMap.put(expression.getUuid(), expression);
 
             alleMap.remove(expression.getUuid(), expression);
@@ -1474,7 +1522,7 @@ public final class Data
       {
          Vector<Vector<SuccessTableRow>> data = new Vector<>();
          Vector<String> columnNames = new Vector<>();
-         columnNames.add("eins"); 
+         columnNames.add("eins");
 
          alleMap.forEach((uuid, expression) -> {
             Expression e = ((Expression) expression);
@@ -1486,7 +1534,8 @@ public final class Data
                vector.add(new SuccessTableRow(e));
                data.add(vector);
             }
-            else if(repetition == e.getTrainingStatus(direction).getRepetition())
+            else if (repetition == e.getTrainingStatus(direction)
+                  .getRepetition())
             {
                Vector<SuccessTableRow> vector = new Vector<>();
                vector.add(new SuccessTableRow(e));
@@ -1496,10 +1545,10 @@ public final class Data
          Collections.sort(data, new SuccessTableRowComparator());
          return new SuccessTableModel(data, columnNames);
       }
-      
+
       private void unselectAllExpressions()
       {
-         alleMap.forEach((uuid, expression) ->{
+         alleMap.forEach((uuid, expression) -> {
             expression.setSelected(false);
          });
       }

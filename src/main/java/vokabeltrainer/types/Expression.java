@@ -22,9 +22,11 @@ public class Expression
    private TrainingStatus trainingStatusHToD = new TrainingStatus();
    private String chapter;
    private boolean selected;
+   private boolean doNotDelete;
 
-   public Expression(boolean preset)
+   public Expression(boolean preset, boolean doNotDelete)
    {
+      this.doNotDelete = doNotDelete;
       if (preset)
       {
          uuid = UUID.randomUUID();
@@ -202,6 +204,11 @@ public class Expression
    public void toggleSelected()
    {
       this.selected = !this.selected;
+   }
+
+   public boolean isDoNotDelete()
+   {
+      return doNotDelete;
    }
 
    public String[] toGermanArray()

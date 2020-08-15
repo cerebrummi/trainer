@@ -38,7 +38,7 @@ public final class SaveExpressions
          try
          {
             counter = 0;
-            File customDir = new File(Settings.getExpressionPath());
+            File customDir = new File(Settings.getExpressionPathFolder());
             if (!customDir.exists())
             {
                try
@@ -89,7 +89,7 @@ public final class SaveExpressions
 
    private void saveDeletedExpressions() throws IOException
    {
-      File file = new File(Settings.getExpressionPath() + File.separator + "DELETED.txt");
+      File file = new File(Settings.getExpressionPathFolder() + File.separator + "DELETED.txt");
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);
@@ -106,7 +106,7 @@ public final class SaveExpressions
    private void save(ExpressionKind kind) throws IOException
    {
       File file = new File(
-            Settings.getExpressionPath() + File.separator + kind.name() + ".txt");
+            Settings.getExpressionPathFolder() + File.separator + kind.name() + ".txt");
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);

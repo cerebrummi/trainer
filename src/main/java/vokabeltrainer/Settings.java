@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.List;
 
 import vokabeltrainer.common.Main;
 import vokabeltrainer.types.LanguageSettings;
@@ -16,6 +17,8 @@ public class Settings
          .getHeaderFont(18F);
 
    private static boolean soundOn = true;
+   private static String chosenExpressionPath = null;
+   private static List<String> chosenDatabases;
 
    private Settings()
    {
@@ -46,15 +49,23 @@ public class Settings
       return LanguageSettings.GERMAN;
    }
 
-   public static String getExpressionFolder()
+   private static String getExpressionFolder()
    {
-      return "de.copepod.hebrewtrainer";
+      return "de.adaadama.hebrewtrainer";
    }
 
-   public static String getExpressionPath()
+   private static String getExpressionPath()
    {
-      return System.getProperty("user.home") + File.separator
-            + getExpressionFolder();
+      if(chosenExpressionPath == null)
+      {
+         return System.getProperty("user.home");
+      }
+      return chosenExpressionPath;
+   }
+   
+   public static String getExpressionPathFolder()
+   {
+      return getExpressionPath() + File.separator + getExpressionFolder();
    }
 
    public static String getTrainingPath()
@@ -67,9 +78,9 @@ public class Settings
       return "training";
    }
 
-   public static String getNode()
+   public static String getNode() // TODO Was macht das alles?
    {
-      return File.separator + "de" + File.separator + "copepod" + File.separator
+      return File.separator + "de" + File.separator + "adaadama" + File.separator
             + "hebrewtrainer";
    }
 
@@ -210,5 +221,25 @@ public class Settings
    public static void setSoundOn(boolean soundOn)
    {
       Settings.soundOn = soundOn;
+   }
+
+   public static String getChoosenExpressionPath()
+   {
+      return chosenExpressionPath;
+   }
+
+   public static void setChoosenExpressionPath(String choosenExpressionPath)
+   {
+      Settings.chosenExpressionPath = choosenExpressionPath;
+   }
+
+   public static List<String> getChosenDatabases()
+   {
+      return chosenDatabases;
+   }
+
+   public static void setChosenDatabases(List<String> chosenDatabases)
+   {
+      Settings.chosenDatabases = chosenDatabases;
    }
 }
