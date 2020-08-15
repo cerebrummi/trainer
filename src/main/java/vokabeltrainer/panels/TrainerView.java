@@ -89,7 +89,7 @@ public class TrainerView extends BackgroundPanelTiled
    private CardLayout keyboardCardLayout;
    private JPanel keyboardSwapPanel;
    private JCheckBox keyboardHints;
-   
+
    private TrainerControllerConnector connector;
 
    private JButton infoStopTrainingButton;
@@ -254,10 +254,13 @@ public class TrainerView extends BackgroundPanelTiled
       soundFiller.add(soundButton);
       horizontal.add(soundFiller);
 
-      keyboardHints = new JCheckBox("Tastatur Beschriftung");
-      keyboardHints.setFont(labelFont);
-      keyboardHints.setForeground(Color.WHITE);
-      keyboardHints.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
+      if (Language.GERMAN.equals(languageDirection))
+      {
+         keyboardHints = new JCheckBox("Tastatur Beschriftung");
+         keyboardHints.setFont(labelFont);
+         keyboardHints.setForeground(Color.WHITE);
+         keyboardHints.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
+      }
 
       infoStopTrainingPanel = new JPanel(new BorderLayout());
       infoStopTrainingPanel.setMinimumSize(new Dimension(150, 40));
@@ -281,7 +284,10 @@ public class TrainerView extends BackgroundPanelTiled
       verticalLeftPanel.add(numbers);
       verticalLeftPanel.add(nextWordButton);
       verticalLeftPanel.add(horizontal);
-      verticalLeftPanel.add(keyboardHints);
+      if (Language.GERMAN.equals(languageDirection))
+      {
+         verticalLeftPanel.add(keyboardHints);
+      }
       verticalLeftPanel.add(infoStopTrainingPanel);
       verticalLeftPanel.add(stopTrainingButton);
 
@@ -387,7 +393,7 @@ public class TrainerView extends BackgroundPanelTiled
          keyboardSwapPanel = new JPanel(this.keyboardCardLayout);
          keyboardSwapPanel.add("HINTS", keyboard);
          keyboardSwapPanel.add("BLANK", simpleKeyboard);
-         
+
          answerPanel.add(answerField);
          answerPanel.add(keyboardSwapPanel);
          keyboardCardLayout.show(keyboardSwapPanel, "BLANK");
@@ -541,16 +547,19 @@ public class TrainerView extends BackgroundPanelTiled
 
       this.soundButton.addActionListener(event -> connector.toggleSound());
 
-      this.keyboardHints.addActionListener(event -> {
-         if (keyboardHints.isSelected())
-         {
-            keyboardCardLayout.show(keyboardSwapPanel, "HINTS");
-         }
-         else
-         {
-            keyboardCardLayout.show(keyboardSwapPanel, "BLANK");
-         }
-      });
+      if (Language.GERMAN.equals(languageDirection))
+      {
+         this.keyboardHints.addActionListener(event -> {
+            if (keyboardHints.isSelected())
+            {
+               keyboardCardLayout.show(keyboardSwapPanel, "HINTS");
+            }
+            else
+            {
+               keyboardCardLayout.show(keyboardSwapPanel, "BLANK");
+            }
+         });
+      }
    }
 
    public void setHtoDanswerButtons()
