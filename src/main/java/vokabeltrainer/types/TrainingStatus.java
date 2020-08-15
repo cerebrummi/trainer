@@ -57,9 +57,7 @@ public class TrainingStatus
          break;
       case TWO_MONTHS: repetition = Repetition.FOUR_MONTHS;
          break;
-      case FOUR_MONTHS: repetition = Repetition.ONE_YEAR;
-         break;
-      case ONE_YEAR: repetition = Repetition.DONE;
+      case FOUR_MONTHS: repetition = Repetition.DONE;
          break;
       case DONE:
          break; 
@@ -89,8 +87,6 @@ public class TrainingStatus
       case TWO_MONTHS: repetition = Repetition.ONE_MONTH;
          break;
       case FOUR_MONTHS: repetition = Repetition.TWO_MONTHS;
-         break;
-      case ONE_YEAR: repetition = Repetition.FOUR_MONTHS;
          break;
       case DONE:
          break;

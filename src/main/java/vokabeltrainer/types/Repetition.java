@@ -22,8 +22,6 @@ public enum Repetition
          Period.ofMonths(2), "nach zwei Monaten"),
    FOUR_MONTHS(
          Period.ofMonths(4), "nach vier Monaten"),
-   ONE_YEAR(
-         Period.ofYears(1), "nach einem Jahr"),
    DONE(
          Period.ofYears(100), "fertig");
    

@@ -29,7 +29,6 @@ public class GermanToHebrewTab extends JPanel
    private JPanel oneMonthPanel;
    private JPanel twoMonthsPanel;
    private JPanel fourMonthsPanel;
-   private JPanel oneYearPanel;
    private JPanel donePanel;
 
    private JTabbedPane register;
@@ -59,7 +58,6 @@ public class GermanToHebrewTab extends JPanel
       register.addTab("Einen Monat", initOneMonth()); // 8
       register.addTab("Zwei Monate", initTwoMonths()); // 9
       register.addTab("Vier Monate", initFourMonths()); // 10
-      register.addTab("Ein Jahr", initOneYear()); // 11
       register.addTab("fertig", initDone()); // 12
 
       this.add(register, BorderLayout.CENTER);
@@ -133,12 +131,6 @@ public class GermanToHebrewTab extends JPanel
       return fourMonthsPanel;
    }
 
-   private Component initOneYear()
-   {
-      oneYearPanel = new BackgroundPanelTiled(new BorderLayout());
-      return oneYearPanel;
-   }
-
    private Component initDone()
    {
       donePanel = new BackgroundPanelTiled(new BorderLayout());
@@ -186,9 +178,6 @@ public class GermanToHebrewTab extends JPanel
             SuccessHelper.addContent(Repetition.FOUR_MONTHS, fourMonthsPanel, Language.GERMAN);
             break;
          case 11:
-            SuccessHelper.addContent(Repetition.ONE_YEAR, oneYearPanel, Language.GERMAN);
-            break;
-         case 12:
             SuccessHelper.addContent(Repetition.DONE, donePanel, Language.GERMAN);
             break;
          }
