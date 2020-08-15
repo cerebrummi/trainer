@@ -1,0 +1,5 @@
+2ee4f5ec-73bd-4805-a688-2708dc71c16b	Lektion 03	wohin?	lean?	לאן?	NA	NA	NA	FRAGE	wohin,wohin?	לאן?,לאן
+338d0cf9-2586-4d2e-a425-af06ca4192e0	Lektion 02	und Sie?  und du?	weat	ואת?	FEMALE	SINGULAR	NA	FRAGE	und sie?,und sie,und du,und du?	ואת,ואת?
+3bc9002a-b804-49af-b8bb-60dcab97ad48	Lektion 02	wo?	ejfo	איפה?	NA	NA	NA	FRAGE	wo?,wo	איפה?,איפה
+01282060-f4a0-425c-8f01-44c08e422fe3	Lektion 01	wer?	mi?	מי?	NA	NA	NA	FRAGE	wer	מי?
+7fd3efa6-6754-4176-8ed0-b912d657ba3f	Lektion 02	was?	ma?	מה?	NA	NA	NA	FRAGE	was	מה

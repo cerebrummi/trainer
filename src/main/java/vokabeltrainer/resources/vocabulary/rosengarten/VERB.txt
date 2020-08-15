@@ -1,0 +1,19 @@
+126ca273-9072-415f-b14f-dc8c9cb23242	Lektion 03	(sie) wohnen	garim	גרים	MALE	PLURAL	UNKOWN	VERB	sie wohnen,wohnen	גרים
+6ac94866-d47b-4899-98f2-f932ec12c7b1	Lektion 03	(sie) macht	ossah	עושׂה	FEMALE	SINGULAR	UNKOWN	VERB	macht,machen,sie macht	עושׂה
+788ca65a-00b8-48f3-8f0a-e41fb1316adc	Lektion 03	(sie) fliegen	tassot	טסות	FEMALE	PLURAL	UNKOWN	VERB	fliegen,sie fliegen	טסות
+c315a1e1-ec82-45e9-a5bd-b46faa3c76f8	Lektion 02	(sie) arbeitet	owädät	עובדת	FEMALE	SINGULAR	UNKOWN	VERB	arbeitet,arbeiten	עובדת
+cbf4d188-b1af-403d-9fe8-e359b82ae7e7	Lektion 03	(er) wohnt	gar	גר	MALE	SINGULAR	UNKOWN	VERB	wohnt,wohnen,er wohnt	גר
+a50b0739-c3fe-47f6-ba25-71b90a88ebba	Lektion 03	(sie) wohnen	garot	גרות	FEMALE	PLURAL	UNKOWN	VERB	sie wohnen,wohnen	גרות
+1c1e8315-3cd9-447c-b4c9-f48225477211	Lektion 03	(sie) fliegt	tassah	טסה	FEMALE	SINGULAR	UNKOWN	VERB	fliegen,sie fliegt,fliegt	טסה
+4fbdfb5a-4eb8-46b1-b28b-b339f56180f5	Lektion 04	(sie) sitzt	joschäwät	יושבת	FEMALE	SINGULAR	UNKOWN	VERB	sitzt,sitzen	יושבת
+15fd36d7-32f3-483d-bf64-ea0bf17d3d1b	Lektion 03	(sie) wohnt	garah	גרה	FEMALE	SINGULAR	UNKOWN	VERB	wohnt,wohnen,sie wohnt	גרה
+625d321e-f1d8-4cc1-9045-29d7c4698251	Lektion 03	hier ist, da ist	hinä	הינה	NA	NA	NA	VERB	hier ist,da ist,da,hier	הינה
+81f1665f-e117-41c8-bc77-1ba8bb7b78dc	Lektion 03	(sie) fliegen	tassim	טסים	MALE	PLURAL	UNKOWN	VERB	fliegen,sie fliegen	טסים
+533505fc-44df-4a1b-a42c-52e26b2efcf2	Lektion 01	das ist	sot	זאת	FEMALE	SINGULAR	NA	VERB	das,ist	זאת
+45d6e461-4350-4d13-887d-ab31addee451	Lektion 02	(er) arbeitet	owäd	עובד	MALE	SINGULAR	UNKOWN	VERB	arbeitet,arbeiten	עובד
+3728379f-b4ce-4760-854f-12f194f59b68	Lektion 03	(er) macht	ossäh	עושׂה	MALE	SINGULAR	UNKOWN	VERB	macht,machen,er macht	עושׂה
+dc520f4a-6ba1-47bb-b09b-d11fd31210c0	Lektion 04	(er) sitzt	joschäw	יושב	MALE	SINGULAR	UNKOWN	VERB	sitzt,sitzen	יושב
+cf13192e-ce6b-48ac-8529-f26e49ae4166	Lektion 03	(er) fliegt	tass	טס	MALE	SINGULAR	UNKOWN	VERB	fliegen,er fliegt,fliegt	טס
+9d436f3c-be3f-4634-bc1d-4e4b963c1dd1	Lektion 02	(er) lernt, studiert	lomäd	לומד	MALE	SINGULAR	UNKOWN	VERB	er lernt,lernen	לומד
+435a5e7d-6461-4e08-8273-2891eee38098	Lektion 02	(sie) lernt, studiert	lomädät	לומדת	FEMALE	SINGULAR	UNKOWN	VERB	sie lernt,lernen	לומדת
+c76190ad-49ec-4dd7-ac3d-b787776dd2d6	Lektion 01	das ist	sä	זה	MALE	SINGULAR	NA	VERB	das,ist	זה

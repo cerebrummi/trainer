@@ -1,0 +1,4 @@
+48190af4-5ede-4c8f-9d45-2a2e69a58227	Lektion 02	Wie geht's?	ma nischma?	מה נשמע?	NA	NA	NA	BEGRIFF	wie,geht's	מה,נשמע
+b7975bc4-47eb-4a6e-83a6-5910297de4a3	Lektion 02	Frieden (Begrüßungsformel)	schalom	שלום	NA	NA	NA	BEGRIFF	begrüßungsformel,begrüßung,frieden	שלום
+6f7304e1-a5e9-4382-97e3-130450388a1c	Lektion 03	Auf Wiedersehen!	lehitra'ot!	להיתראות!	NA	NA	NA	BEGRIFF	Auf Wiedersehen,Wiedersehen	להיתראות
+601186f6-1381-48b5-b4da-39d9ce821f13	Lektion 03	Guten Morgen!	bokär tow!	בּוקר טוב	NA	NA	NA	BEGRIFF	guten morgen,morgen,guten	טוב,בּוקר,בּוקר טוב
