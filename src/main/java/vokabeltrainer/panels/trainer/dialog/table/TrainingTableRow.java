@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import vokabeltrainer.Command;
+import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 
@@ -15,7 +16,7 @@ public class TrainingTableRow
    private int amountOfNewWords;
    private boolean fieldDone;
    private Command fieldOfTraining;
-   private String chapter;
+   private Chapter chapter;
    private ExpressionKind kind;
    private List<Expression> expressionListNewWords;
    private Set<Expression> expressionListOldWords;
@@ -81,12 +82,12 @@ public class TrainingTableRow
       this.fieldOfTraining = fieldOfTraining;
    }
 
-   public String getChapter()
+   public Chapter getChapter()
    {
       return chapter;
    }
 
-   public void setChapter(String chapter)
+   public void setChapter(Chapter chapter)
    {
       this.chapter = chapter;
    }

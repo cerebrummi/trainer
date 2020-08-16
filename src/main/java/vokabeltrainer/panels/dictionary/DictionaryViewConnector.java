@@ -6,6 +6,7 @@ import javax.swing.JScrollPane;
 
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
+import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
@@ -26,7 +27,7 @@ public interface DictionaryViewConnector
    public List<Expression> getInTableSelectedExpressions();
    public void selectTableData();
    public void displayNoTable();
-   public String getSelectedChapter();
+   public Chapter getSelectedChapter();
    public ExpressionKind getSelectedExpressionKind();
    public SearchType getSelectedSearchTypeGerman();
    public SearchType getSelectedSearchTypeHebrew();
@@ -34,7 +35,7 @@ public interface DictionaryViewConnector
    public String getSearchPhraseGerman();
    public String getSearchPhraseHebrew();
    public void switchSearchLanguagePanel(String actionCommand);
-   public void selectChapter(String currentChapter);
+   public void selectChapter(Chapter currentChapter);
    public ExpressionTable getTable();
    public JScrollPane getTableScroller();
    public int askForShredderConfirmation();

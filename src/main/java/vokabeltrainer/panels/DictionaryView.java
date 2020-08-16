@@ -47,12 +47,13 @@ import vokabeltrainer.panels.dictionary.Action;
 import vokabeltrainer.panels.dictionary.Tabulator;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
-import vokabeltrainer.panels.list.StringList;
-import vokabeltrainer.panels.list.StringListSelectionModel;
+import vokabeltrainer.panels.list.ChapterList;
+import vokabeltrainer.panels.list.ChapterListSelectionModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
+import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
@@ -82,7 +83,7 @@ public class DictionaryView extends BackgroundPanelTiled
    private JButton wasteBinButton;
    private JButton shredderButton;
    private JTabbedPane tabbedPane;
-   private StringList chapterList;
+   private ChapterList chapterList;
    private JPanel chapterPanel;
    private JPanel swapPanel;
    private CardLayout cardLayout;
@@ -95,7 +96,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private DictionaryControllerConnector connector;
 
-   private StringListSelectionModel listSelectionModel;
+   private ChapterListSelectionModel listSelectionModel;
 
    private ListSelectionListener listSelectionListener;
 
@@ -604,9 +605,9 @@ public class DictionaryView extends BackgroundPanelTiled
    public void loadChapters()
    {
       chapterPanel.removeAll();
-      listSelectionModel = new StringListSelectionModel();
+      listSelectionModel = new ChapterListSelectionModel();
       addChapterListSelectionListener();
-      chapterList = new StringList(listSelectionModel);
+      chapterList = new ChapterList(listSelectionModel);
       chapterList.setListData(Data.getChapterArray());
       chapterList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
 
@@ -804,7 +805,7 @@ public class DictionaryView extends BackgroundPanelTiled
    }
 
    @Override
-   public String getSelectedChapter()
+   public Chapter getSelectedChapter()
    {
       return chapterList.getSelectedValue();
    }
@@ -849,7 +850,7 @@ public class DictionaryView extends BackgroundPanelTiled
    }
 
    @Override
-   public void selectChapter(String currentChapter)
+   public void selectChapter(Chapter currentChapter)
    {
       chapterList.setSelectedValue(currentChapter, true);
    }

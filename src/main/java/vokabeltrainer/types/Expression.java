@@ -22,7 +22,7 @@ public class Expression
    private List<String> searchwordsHebrew = new ArrayList<>();
    private TrainingStatus trainingStatusDToH = new TrainingStatus();
    private TrainingStatus trainingStatusHToD = new TrainingStatus();
-   private String chapter;
+   private Chapter chapter;
    private boolean selected;
    private boolean doNotChange;
    private Database origin;
@@ -39,7 +39,7 @@ public class Expression
          numerusHebrew = Numerus.UNKNOWN;
          binjan = Binjan.UNKOWN;
          kind = ExpressionKind.UNKOWN;
-         chapter = "";
+         chapter = new Chapter();
       }
    }
 
@@ -179,12 +179,12 @@ public class Expression
       this.trainingStatusHToD = trainingStatusHToD;
    }
 
-   public String getChapter()
+   public Chapter getChapter()
    {
       return chapter;
    }
 
-   public void setChapter(String chapter)
+   public void setChapter(Chapter chapter)
    {
       this.chapter = chapter;
    }
@@ -244,7 +244,7 @@ public class Expression
       index++;
       result[index] = kind.toString();
       index++;
-      result[index] = chapter;
+      result[index] = chapter.getName();
       return result;
    }
 
@@ -268,7 +268,7 @@ public class Expression
       index++;
       result[index] = kind.toString();
       index++;
-      result[index] = chapter;
+      result[index] = chapter.getName();
       return result;
    }
 
@@ -298,7 +298,7 @@ public class Expression
    {
       StringJoiner joiner = new StringJoiner("\t");
       joiner.add(uuid.toString());
-      joiner.add(chapter);
+      joiner.add(chapter.getName());
       joiner.add(german);
       joiner.add(hebrewInLatin);
       joiner.add(hebrew);
@@ -325,7 +325,7 @@ public class Expression
    public String getCopyLines(Language language)
    {
       StringJoiner joiner = new StringJoiner("\n");
-      joiner.add(chapter);
+      joiner.add(chapter.getName());
       if (Language.GERMAN.equals(language))
       {
          joiner.add(german);

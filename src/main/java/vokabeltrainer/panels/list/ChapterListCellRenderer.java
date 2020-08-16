@@ -9,14 +9,15 @@ import javax.swing.JList;
 
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.types.Chapter;
 
-public class StringListCellRenderer extends DefaultListCellRenderer
+public class ChapterListCellRenderer extends DefaultListCellRenderer
 {
    private static final long serialVersionUID = 6061565751599958392L;
 
    private JLabel label;
 
-   public StringListCellRenderer()
+   public ChapterListCellRenderer()
    {
       label = new JLabel();
       label.setBackground(Settings.getLightGrayGold());
@@ -27,7 +28,7 @@ public class StringListCellRenderer extends DefaultListCellRenderer
    public Component getListCellRendererComponent(JList<? extends Object> list,
          Object value, int index, boolean isSelected, boolean cellHasFocus)
    {
-      label.setText((String) value);
+      label.setText(((Chapter) value).getName());
       label.setBorder(BorderFactory.createEmptyBorder());
       if(list.getSelectedIndex() == index)
       {        

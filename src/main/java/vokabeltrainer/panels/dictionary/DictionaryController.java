@@ -20,12 +20,13 @@ import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.ExpressionEditorController;
 import vokabeltrainer.table.list.editor.ExpressionEditorView;
+import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
 
 public class DictionaryController implements DictionaryControllerConnector
 {
    private DictionaryViewConnector dictionaryView;
-   private String currentChapter;
+   private Chapter currentChapter;
 
    public DictionaryController()
    {
@@ -382,7 +383,7 @@ public class DictionaryController implements DictionaryControllerConnector
    }
 
    @Override
-   public void displayChapterWhich(String chapter)
+   public void displayChapterWhich(Chapter chapter)
    {
       this.currentChapter = chapter;
       Status.push(Status.CHAPTER_WHICH);

@@ -45,6 +45,7 @@ import vokabeltrainer.panels.trainer.dialog.table.TrainingTableRow;
 import vokabeltrainer.resources.vocabulary.Vocabulary;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Binjan;
+import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Gender;
@@ -219,7 +220,7 @@ public final class Data
    }
 
    public static ExpressionTableModel findTranslations(Language language,
-         String text, ExpressionKind kind, SearchType search, String chapter,
+         String text, ExpressionKind kind, SearchType search, Chapter chapter,
          Command command)
    {
       return getDataBaseAtomic().findTranslations(language, text, kind, search,
@@ -273,7 +274,7 @@ public final class Data
       return getDataBaseAtomic().findAllSelectedExpressionsList();
    }
 
-   public static String[] getChapterArray()
+   public static Chapter[] getChapterArray()
    {
       return getDataBaseAtomic().getChapterArray();
    }
@@ -300,7 +301,7 @@ public final class Data
       return getDataBaseAtomic().findStatisticsModel();
    }
 
-   public static List<Expression> findExpressionssChapter(String chapter)
+   public static List<Expression> findExpressionssChapter(Chapter chapter)
    {
       return getDataBaseAtomic().findExpressionsChapter(chapter);
    }
@@ -340,7 +341,7 @@ public final class Data
    private static class DataBase
    {
       private final static String DELETED_TXT = "DELETED.txt";
-      private Set<String> chapterSet = new HashSet<>();
+      private Set<Chapter> chapterSet = new HashSet<>();
       private final String[][] COLUMNAMES = { { "erste" } };
 
       private final boolean directoryOkay = checkDirectory();
@@ -620,8 +621,9 @@ public final class Data
                expression.setUuid(UUID.fromString(items[i]));
                expression.setOrigin(origin);
                i++;
-               expression.setChapter(items[i]);
-               if (!expression.getChapter().isEmpty()
+               
+               expression.setChapter(new Chapter(items[i], origin));
+               if (!expression.getChapter().getName().isEmpty()
                      && !DELETED_TXT.equals(filename))
                {
                   chapterSet.add(expression.getChapter());
@@ -671,7 +673,7 @@ public final class Data
       // ############################################################
 
       private ExpressionTableModel findTranslations(Language language,
-            String text, ExpressionKind kind, SearchType search, String chapter,
+            String text, ExpressionKind kind, SearchType search, Chapter chapter,
             Command command)
       {
          Collection<Expression> expressions = null;
@@ -800,7 +802,7 @@ public final class Data
          return list;
       }
 
-      private List<Expression> findExpressionsChapterSorted(String chapter,
+      private List<Expression> findExpressionsChapterSorted(Chapter chapter,
             Language language)
       {
          List<Expression> list = findExpressionsChapter(chapter);
@@ -808,7 +810,7 @@ public final class Data
          return list;
       }
 
-      private List<Expression> findExpressionsChapter(String chapter)
+      private List<Expression> findExpressionsChapter(Chapter chapter)
       {
          List<Expression> list = new ArrayList<>();
          Collection<Expression> expressions = alleMap.values();
@@ -940,27 +942,55 @@ public final class Data
 
       private ComboBoxModel<String> getChapterComboBoxModel()
       {
-         return new DefaultComboBoxModel<String>(getChapterArray());
+         return new DefaultComboBoxModel<String>(getChapterArrayForEditor());
       }
 
-      private List<String> getChapterList()
+      private List<String> getChapterListForEditor()
       {
          List<String> chapterList = new ArrayList<>();
 
-         for (String chapter : chapterSet)
+         for (Chapter chapter : chapterSet)
          {
-            chapterList.add(chapter);
+            if(chapter.isSelf())
+            {
+               chapterList.add(chapter.getName());
+            }           
          }
          Collections.sort(chapterList);
          return chapterList;
       }
 
-      private String[] getChapterArray()
+      private String[] getChapterArrayForEditor()
       {
-         List<String> chapterList = getChapterList();
+         List<String> chapterList = getChapterListForEditor();
          String[] result = new String[chapterList.size()];
          int index = 0;
          for (String chapter : chapterList)
+         {
+            result[index] = chapter;
+            index++;
+         }
+         return result;
+      }
+      
+      private List<Chapter> getChapterList()
+      {
+         List<Chapter> chapterList = new ArrayList<>();
+
+         for (Chapter chapter : chapterSet)
+         {
+            chapterList.add(chapter);           
+         }
+         Collections.sort(chapterList);
+         return chapterList;
+      }
+
+      private Chapter[] getChapterArray()
+      {
+         List<Chapter> chapterList = getChapterList();
+         Chapter[] result = new Chapter[chapterList.size()];
+         int index = 0;
+         for (Chapter chapter : chapterList)
          {
             result[index] = chapter;
             index++;
@@ -1147,14 +1177,14 @@ public final class Data
          {
          case AREA_CHAPTER:
             List<TrainingTableRow> unlearnedPerChapter = new ArrayList<>();
-            for (String chapter : getChapterList())
+            for (Chapter chapter : getChapterList())
             {
                List<Expression> listChapter = this
                      .findExpressionsChapter(chapter);
                TrainingTableRow chapterRow = new TrainingTableRow();
                chapterRow.setFieldOfTraining(fieldOfTraining);
                chapterRow.setChapter(chapter);
-               chapterRow.setField(chapter);
+               chapterRow.setField(chapter.getName());
                chapterRow.setExpressionListOldWords(
                      findExpressionListOldToBeTestedPerChapter(chapter,
                            oldToBeTested));
@@ -1288,7 +1318,7 @@ public final class Data
          return result;
       }
 
-      private int findOldToBeTestedPerChapter(String chapter,
+      private int findOldToBeTestedPerChapter(Chapter chapter,
             Set<Expression> allOldToBeTestedExpressions)
       {
          int result = 0;
@@ -1303,7 +1333,7 @@ public final class Data
       }
 
       private Set<Expression> findExpressionListOldToBeTestedPerChapter(
-            String chapter, Set<Expression> allOldToBeTestedExpressions)
+            Chapter chapter, Set<Expression> allOldToBeTestedExpressions)
       {
          Set<Expression> result = new HashSet<>();
          for (Expression e : allOldToBeTestedExpressions)

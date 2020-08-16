@@ -31,6 +31,7 @@ import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
+import vokabeltrainer.Database;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.KeyboardHebrew;
 import vokabeltrainer.Settings;
@@ -44,6 +45,7 @@ import vokabeltrainer.editing.HebrewDocument;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Binjan;
+import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Gender;
@@ -581,8 +583,10 @@ public class ExpressionEditorView extends JDialog
          wordsHebrew.add(cleanText(word));
       }
       expression.setSearchwordsHebrew(wordsHebrew);
-      expression.setChapter(
-            cleanTextWithoutComma((String) chapter.getSelectedItem()));
+      Chapter selfChapter = new Chapter();
+      selfChapter.setOrigin(Database.SELF);
+      selfChapter.setName(cleanTextWithoutComma((String) chapter.getSelectedItem()));
+      expression.setChapter(selfChapter);
    }
 
    private String cleanText(String text)
@@ -622,13 +626,13 @@ public class ExpressionEditorView extends JDialog
       }
       this.searchwordsJListHebrew.setModel(getSearchwordsModelHebrew());
       this.chapter.setModel(Data.getChapterComboBoxModel());
-      if (expression.getChapter().isEmpty())
+      if (expression.getChapter().getName().isEmpty())
       {
          chapter.setSelectedIndex(chapter.getItemCount() - 1);
       }
       else
       {
-         this.chapter.setSelectedItem(expression.getChapter());
+         this.chapter.setSelectedItem(expression.getChapter().getName());
       }
       this.chapter.setEditable(true);
    }
