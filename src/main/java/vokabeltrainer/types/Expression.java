@@ -191,7 +191,7 @@ public class Expression
    
    public String getChapterGermanComparison()
    {
-      return chapter + " "+ german;
+      return chapter.getName() + " "+ german;
    }
 
    public boolean isSelected()
@@ -412,7 +412,7 @@ public class Expression
          return german + "   [" + this.getTrainingStatusDToH().getTrys()
                + " mal "
                + this.getTrainingStatusDToH().getRepetition().getTranslation()
-               + "]  [" + chapter + "]   "
+               + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }
       else // HtoD
@@ -420,14 +420,14 @@ public class Expression
          return german + "   [" + this.getTrainingStatusHToD().getTrys()
                + " mal "
                + this.getTrainingStatusHToD().getRepetition().getTranslation()
-               + "]  [" + chapter + "]   "
+               + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }
    }
 
    public String getWordGermanForSuccess()
    {
-      return "[" + chapter + "]  " + german + "; "
+      return "[" + chapter.getName() + "]  " + german + "; "
             + this.getAdditionalInfoGerman();
    }
 }
