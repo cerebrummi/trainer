@@ -3,6 +3,7 @@ package vokabeltrainer.common;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -32,6 +33,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 import vokabeltrainer.Command;
+import vokabeltrainer.Database;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
@@ -41,6 +43,7 @@ import vokabeltrainer.panels.success.table.SuccessTableRow;
 import vokabeltrainer.panels.success.table.SuccessTableRowComparator;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableRow;
+import vokabeltrainer.resources.vocabulary.Vocabulary;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Binjan;
 import vokabeltrainer.types.Expression;
@@ -376,21 +379,29 @@ public final class Data
 
       DataBase()
       {
-         for (String database : Settings.getChosenDatabases())
+         for (Database database : Settings.getChosenDatabases())
          {
-            readFile(database + File.separator + "ADJEKTIV.txt", adjektivMap);
-            readFile(database + File.separator + "ADVERB.txt", adverbMap);
-            readFile(database + File.separator + "BEGRIFF.txt", begriffMap);
-            readFile(database + File.separator + "FRAGE.txt", frageMap);
-            readFile(database + File.separator + "INTERJEKTION.txt",
+            readFile(database.getFolder() + File.separator + "ADJEKTIV.txt",
+                  adjektivMap);
+            readFile(database.getFolder() + File.separator + "ADVERB.txt",
+                  adverbMap);
+            readFile(database.getFolder() + File.separator + "BEGRIFF.txt",
+                  begriffMap);
+            readFile(database.getFolder() + File.separator + "FRAGE.txt",
+                  frageMap);
+            readFile(database.getFolder() + File.separator + "INTERJEKTION.txt",
                   interjektionMap);
-            readFile(database + File.separator + "NUMERAL.txt", numeralMap);
-            readFile(database + File.separator + "PARTIKEL.txt", partikelMap);
-            readFile(database + File.separator + "PRONOM.txt", pronomMap);
-            readFile(database + File.separator + "SUBSTANTIV.txt",
+            readFile(database.getFolder() + File.separator + "NUMERAL.txt",
+                  numeralMap);
+            readFile(database.getFolder() + File.separator + "PARTIKEL.txt",
+                  partikelMap);
+            readFile(database.getFolder() + File.separator + "PRONOM.txt",
+                  pronomMap);
+            readFile(database.getFolder() + File.separator + "SUBSTANTIV.txt",
                   substantivMap);
-            readFile(database + File.separator + "VERB.txt", verbMap);
-            readFile(database + File.separator + "KONSTRUKT.txt",
+            readFile(database.getFolder() + File.separator + "VERB.txt",
+                  verbMap);
+            readFile(database.getFolder() + File.separator + "KONSTRUKT.txt",
                   constructusMap);
          }
 
@@ -517,124 +528,144 @@ public final class Data
             ConcurrentMap<UUID, Expression> existingMap)
       {
          File file = null;
-         if(existingMap == null)
+         if (existingMap == null)
          {
             if (!directoryOkay)
             {
                return new ConcurrentHashMap<UUID, Expression>(100);
             }
 
-            file = new File(
-                  Settings.getExpressionPathFolder() + File.separator + filename);
+            file = new File(Settings.getExpressionPathFolder() + File.separator
+                  + filename);
             if (!file.exists())
             {
                return new ConcurrentHashMap<UUID, Expression>(100);
             }
+
+            try (FileInputStream fis = new FileInputStream(file);
+                  InputStreamReader isr = new InputStreamReader(fis,
+                        StandardCharsets.UTF_8);
+                  Reader reader = new BufferedReader(isr);)
+            {
+               return readData(filename, existingMap, reader);
+            }
+            catch (IOException e)
+            {
+               // nothing
+            }
          }
          else
          {
-            // TODO file object for databases
-         }
-         
-         try (FileInputStream fis = new FileInputStream(file);
-               InputStreamReader isr = new InputStreamReader(fis,
-                     StandardCharsets.UTF_8);
-               Reader reader = new BufferedReader(isr);)
-         {
-            StringBuffer buffer = new StringBuffer();
-            String input;
-            int ch;
-            while ((ch = reader.read()) > -1)
+            try (InputStreamReader isr = new InputStreamReader(
+                  Vocabulary.class.getResourceAsStream(filename),
+                  StandardCharsets.UTF_8);
+                  Reader reader = new BufferedReader(isr);)
             {
-               buffer.append((char) ch);
+               return readData(filename, existingMap, reader);
             }
-            reader.close();
-            input = buffer.toString().trim();
-
-            if (input.isEmpty())
+            catch (IOException e)
             {
-               return new ConcurrentHashMap<UUID, Expression>(100);
+               // nothing
             }
 
-            String[] rows = input.split("\n");
-
-            ConcurrentMap<UUID, Expression> map = new ConcurrentHashMap<>(
-                  rows.length + 100);
-            for (String row : rows)
-            {
-               if (row.isEmpty())
-               {
-                  continue;
-               }
-               try
-               {
-                  String[] items = row.split("\t");
-
-                  Expression expression;
-                  if (existingMap == null)
-                  {
-                     expression = new Expression(false, false);
-                  }
-                  else
-                  {
-                     expression = new Expression(false, true);
-                  }
-                  int i = 0;
-
-                  expression.setUuid(UUID.fromString(items[i]));
-                  i++;
-                  expression.setChapter(items[i]);
-                  if (!expression.getChapter().isEmpty()
-                        && !DELETED_TXT.equals(filename))
-                  {
-                     chapterSet.add(expression.getChapter());
-                  }
-                  i++;
-                  expression.setGerman(items[i]);
-                  i++;
-                  expression.setHebrewInLatin(items[i]);
-                  i++;
-                  expression.setHebrew(items[i]);
-                  i++;
-                  expression.setGenderHebrew(Gender.valueOf(items[i]));
-                  i++;
-                  expression.setNumerusHebrew(Numerus.valueOf(items[i]));
-                  i++;
-                  expression.setBinjan(Binjan.valueOf(items[i]));
-                  i++;
-                  expression.setKind(ExpressionKind.valueOf(items[i]));
-                  i++;
-                  expression.setSearchwordsGerman(items[i].split(","));
-                  i++;
-                  expression.setSearchwordsHebrew(items[i].split(","));
-
-                  if (existingMap == null)
-                  {
-                     map.put(expression.getUuid(), expression);
-                  }
-                  else
-                  {
-                     existingMap.put(expression.getUuid(), expression);
-                  }
-
-                  if (!DELETED_TXT.equals(filename))
-                  {
-                     alleMap.put(expression.getUuid(), expression);
-                  }
-               }
-               catch (Exception e2)
-               {
-                  e2.printStackTrace();
-               }
-
-            }
-            return map;
+            return null;
          }
-         catch (IOException e)
-         {
-            e.printStackTrace();
-         }
+
          return new ConcurrentHashMap<UUID, Expression>(100);
+      }
+
+      private ConcurrentMap<UUID, Expression> readData(String filename,
+            ConcurrentMap<UUID, Expression> existingMap, Reader reader)
+            throws IOException
+      {
+         StringBuffer buffer = new StringBuffer();
+         String input;
+         int ch;
+         while ((ch = reader.read()) > -1)
+         {
+            buffer.append((char) ch);
+         }
+         reader.close();
+         input = buffer.toString().trim();
+
+         if (input.isEmpty())
+         {
+            return new ConcurrentHashMap<UUID, Expression>(100);
+         }
+
+         String[] rows = input.split("\n");
+
+         ConcurrentMap<UUID, Expression> map = new ConcurrentHashMap<>(
+               rows.length + 100);
+         for (String row : rows)
+         {
+            if (row.isEmpty())
+            {
+               continue;
+            }
+            try
+            {
+               String[] items = row.split("\t");
+
+               Expression expression;
+               if (existingMap == null)
+               {
+                  expression = new Expression(false, false);
+               }
+               else
+               {
+                  expression = new Expression(false, true);
+               }
+               int i = 0;
+
+               expression.setUuid(UUID.fromString(items[i]));
+               i++;
+               expression.setChapter(items[i]);
+               if (!expression.getChapter().isEmpty()
+                     && !DELETED_TXT.equals(filename))
+               {
+                  chapterSet.add(expression.getChapter());
+               }
+               i++;
+               expression.setGerman(items[i]);
+               i++;
+               expression.setHebrewInLatin(items[i]);
+               i++;
+               expression.setHebrew(items[i]);
+               i++;
+               expression.setGenderHebrew(Gender.valueOf(items[i]));
+               i++;
+               expression.setNumerusHebrew(Numerus.valueOf(items[i]));
+               i++;
+               expression.setBinjan(Binjan.valueOf(items[i]));
+               i++;
+               expression.setKind(ExpressionKind.valueOf(items[i]));
+               i++;
+               expression.setSearchwordsGerman(items[i].split(","));
+               i++;
+               expression.setSearchwordsHebrew(items[i].split(","));
+
+               if (existingMap == null)
+               {
+                  map.put(expression.getUuid(), expression);
+               }
+               else
+               {
+                  existingMap.put(expression.getUuid(), expression);
+               }
+
+               if (!DELETED_TXT.equals(filename))
+               {
+                  alleMap.put(expression.getUuid(), expression);
+               }
+            }
+            catch (Exception e2)
+            {
+               e2.printStackTrace();
+            }
+
+         }
+         return map;
       }
 
       // ############################################################

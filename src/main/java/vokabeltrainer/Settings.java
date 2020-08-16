@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import vokabeltrainer.common.Main;
@@ -18,7 +20,8 @@ public class Settings
 
    private static boolean soundOn = true;
    private static String chosenExpressionPath = null;
-   private static List<String> chosenDatabases;
+   private static List<Database> chosenDatabases;
+   private static Database[] availableDatabases = {Database.ROSENGARTEN};
 
    private Settings()
    {
@@ -233,12 +236,12 @@ public class Settings
       Settings.chosenExpressionPath = choosenExpressionPath;
    }
 
-   public static List<String> getChosenDatabases()
+   public static List<Database> getChosenDatabases()
    {
-      return chosenDatabases;
+      return new ArrayList<Database>(Arrays.asList(availableDatabases));
    }
 
-   public static void setChosenDatabases(List<String> chosenDatabases)
+   public static void setChosenDatabases(List<Database> chosenDatabases)
    {
       Settings.chosenDatabases = chosenDatabases;
    }
