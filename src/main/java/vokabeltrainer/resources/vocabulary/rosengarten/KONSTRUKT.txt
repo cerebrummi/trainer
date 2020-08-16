@@ -1,6 +1,6 @@
-b001389e-f701-490e-919d-8e0c8f0818b4	Lektion 02	und auch	wegam	וגם	NA	NA	NA	KONSTRUKT	und auch,auch,und	ו,וגם,גם
-8f45ab27-bafb-431b-87cd-f75e6ca52cb1	Lektion 02	in der, an der Universität	bauniwärssita	בּאוניברסיטה	NA	NA	NA	KONSTRUKT	in der universität,an der universität,universität	בּאוניבסיטה
-b4fc6c97-e4ca-47cf-8b0c-cd5bc3a73fbb	Lektion 03	nach Mallorca	lemarjoka	למיורקה	NA	NA	NA	KONSTRUKT	nach mallorca,nach,mallorca	למיורקה,ל...
-794f03dd-869f-4fd5-ad84-3b4992fc5ebd	Lektion 02	in einem Büro	bemissrad	בּמשׂרד	NA	NA	NA	KONSTRUKT	einem büro,in,büro	בּמשׂרד,בּ
-6cf576e6-d545-4910-a1d8-18f96aa91a54	Lektion 03	nach Israel	leisraäl	לישׂראל	NA	NA	NA	KONSTRUKT	israel,nach,nach israel	לישׂראל,ישׂראל
-78206f66-8f1d-4761-8470-305fdfd5ef05	Lektion 02	in dem Büro	bamissrad	בּמשׂרד	NA	NA	NA	KONSTRUKT	büro,in dem	בּמשׂרד,בּ
+b001389e-f701-490e-919d-8e0c8f0818b4	Ivrit Schritt für Schritt - Lektion 02	und auch	wegam	וגם	NA	NA	NA	KONSTRUKT	und auch,auch,und	ו,וגם,גם
+8f45ab27-bafb-431b-87cd-f75e6ca52cb1	Ivrit Schritt für Schritt - Lektion 02	in der, an der Universität	bauniwärssita	בּאוניברסיטה	NA	NA	NA	KONSTRUKT	in der universität,an der universität,universität	בּאוניבסיטה
+b4fc6c97-e4ca-47cf-8b0c-cd5bc3a73fbb	Ivrit Schritt für Schritt - Lektion 03	nach Mallorca	lemarjoka	למיורקה	NA	NA	NA	KONSTRUKT	nach mallorca,nach,mallorca	למיורקה,ל...
+794f03dd-869f-4fd5-ad84-3b4992fc5ebd	Ivrit Schritt für Schritt - Lektion 02	in einem Büro	bemissrad	בּמשׂרד	NA	NA	NA	KONSTRUKT	einem büro,in,büro	בּמשׂרד,בּ
+6cf576e6-d545-4910-a1d8-18f96aa91a54	Ivrit Schritt für Schritt - Lektion 03	nach Israel	leisraäl	לישׂראל	NA	NA	NA	KONSTRUKT	israel,nach,nach israel	לישׂראל,ישׂראל
+78206f66-8f1d-4761-8470-305fdfd5ef05	Ivrit Schritt für Schritt - Lektion 02	in dem Büro	bamissrad	בּמשׂרד	NA	NA	NA	KONSTRUKT	büro,in dem	בּמשׂרד,בּ

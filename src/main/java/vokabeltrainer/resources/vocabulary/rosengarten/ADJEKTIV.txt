@@ -1,20 +1,20 @@
-09909c4b-2a80-421e-9e73-423572308929	Lektion 03	groß	gdola	גדולה	FEMALE	SINGULAR	NA	ADJEKTIV	groß,große	גדולה
-e30ca11d-2bcc-477a-958a-94c366756580	Lektion 03	schön	jafim	גדולים	MALE	PLURAL	NA	ADJEKTIV	schön	גדולים
-411bc80c-b495-420f-a295-7f6ca34e8b24	Lektion 03	gut	towim	טובים	MALE	PLURAL	NA	ADJEKTIV	gut	טובים
-7bce2c48-1fd8-4faf-a3ef-50c132eae22b	Lektion 03	groß	gdolim	גדולים	MALE	PLURAL	NA	ADJEKTIV	groß	גדולים
-aef94d9b-2614-47f5-a7a0-36916a85d317	Lektion 03	angenehm	na'im	נעים	MALE	SINGULAR	NA	ADJEKTIV	angenehm	נעים
-cfcef39e-6a2b-4e55-a74c-45d18c9ebe1f	Lektion 03	schön	jafä	יפה	MALE	SINGULAR	NA	ADJEKTIV	schön	יפה
-0cb4497c-272a-498a-a836-8cecb4db193a	Lektion 03	angenehm	ne'imot	נעימות	FEMALE	PLURAL	UNKOWN	ADJEKTIV	angenehm	נעימות
-bec10959-08dd-45b1-b30c-2782bfc1d5ee	Lektion 03	gut	tow	טוב	MALE	SINGULAR	NA	ADJEKTIV	gut	טוב
-b38b4029-93e8-47df-8397-6b0831d5a2a7	Lektion 03	klein	katan	קטן	MALE	SINGULAR	NA	ADJEKTIV	klein	קטן
-0fce8c55-f4de-4176-89c1-3da9a3dca90a	Lektion 03	groß	gdolot	גדולות	UNKOWN	UNKNOWN	UNKOWN	ADJEKTIV	groß	גדולות
-8036e660-06ab-46bd-a662-6f5225c20a25	Lektion 03	angenehm	ne'imim	נעימים	MALE	PLURAL	NA	ADJEKTIV	angenehm	נעימים
-8c2a75f8-8e52-4abc-8956-b5005621abe6	Lektion 02	schlecht, böse	ra	רע	NA	NA	NA	ADJEKTIV	böse,schlecht	רע
-26b06b5d-55e3-4e5c-b078-2a93ebe41392	Lektion 03	klein	ktanot	קטנות	FEMALE	PLURAL	NA	ADJEKTIV	kleinen,klein	קטנות
-9e8d6aca-ddbd-4e12-9c2c-02dce7a3c857	Lektion 03	gut	towot	טובות	FEMALE	PLURAL	NA	ADJEKTIV	gut	טובות
-ff98420b-6dca-47aa-9d09-d8e701c340d4	Lektion 03	angenehm	ne'ima	נעימה	FEMALE	SINGULAR	NA	ADJEKTIV	angenehm	נעימה
-7e693448-b1ef-428b-a711-a61fb23f9556	Lektion 03	klein	ktana	קטנה	FEMALE	SINGULAR	NA	ADJEKTIV	klein	קטנה
-f7cbfce2-02a0-49e6-b861-2009d9d65afd	Lektion 03	groß	gadol	גדול	MALE	SINGULAR	NA	ADJEKTIV	groß	גדול
-6c63bdd5-3894-49aa-a1b9-631da42843a2	Lektion 03	klein	ktanim	קטנים	MALE	PLURAL	NA	ADJEKTIV	kleinen,klein	קטנים
-6e2a978c-7af6-45b5-94d1-9fc779ba57e3	Lektion 03	schön	jafot	יפות	FEMALE	PLURAL	NA	ADJEKTIV	schön	יפות
-af652fe3-8e56-41ba-8842-145c0a5c8afb	Lektion 03	schön	jafa	יפה	FEMALE	SINGULAR	NA	ADJEKTIV	schön	יפה
+09909c4b-2a80-421e-9e73-423572308929	Ivrit Schritt für Schritt - Lektion 03	groß	gdola	גדולה	FEMALE	SINGULAR	NA	ADJEKTIV	groß,große	גדולה
+e30ca11d-2bcc-477a-958a-94c366756580	Ivrit Schritt für Schritt - Lektion 03	schön	jafim	גדולים	MALE	PLURAL	NA	ADJEKTIV	schön	גדולים
+411bc80c-b495-420f-a295-7f6ca34e8b24	Ivrit Schritt für Schritt - Lektion 03	gut	towim	טובים	MALE	PLURAL	NA	ADJEKTIV	gut	טובים
+7bce2c48-1fd8-4faf-a3ef-50c132eae22b	Ivrit Schritt für Schritt - Lektion 03	groß	gdolim	גדולים	MALE	PLURAL	NA	ADJEKTIV	groß	גדולים
+aef94d9b-2614-47f5-a7a0-36916a85d317	Ivrit Schritt für Schritt - Lektion 03	angenehm	na'im	נעים	MALE	SINGULAR	NA	ADJEKTIV	angenehm	נעים
+cfcef39e-6a2b-4e55-a74c-45d18c9ebe1f	Ivrit Schritt für Schritt - Lektion 03	schön	jafä	יפה	MALE	SINGULAR	NA	ADJEKTIV	schön	יפה
+0cb4497c-272a-498a-a836-8cecb4db193a	Ivrit Schritt für Schritt - Lektion 03	angenehm	ne'imot	נעימות	FEMALE	PLURAL	UNKOWN	ADJEKTIV	angenehm	נעימות
+bec10959-08dd-45b1-b30c-2782bfc1d5ee	Ivrit Schritt für Schritt - Lektion 03	gut	tow	טוב	MALE	SINGULAR	NA	ADJEKTIV	gut	טוב
+b38b4029-93e8-47df-8397-6b0831d5a2a7	Ivrit Schritt für Schritt - Lektion 03	klein	katan	קטן	MALE	SINGULAR	NA	ADJEKTIV	klein	קטן
+0fce8c55-f4de-4176-89c1-3da9a3dca90a	Ivrit Schritt für Schritt - Lektion 03	groß	gdolot	גדולות	UNKOWN	UNKNOWN	UNKOWN	ADJEKTIV	groß	גדולות
+8036e660-06ab-46bd-a662-6f5225c20a25	Ivrit Schritt für Schritt - Lektion 03	angenehm	ne'imim	נעימים	MALE	PLURAL	NA	ADJEKTIV	angenehm	נעימים
+8c2a75f8-8e52-4abc-8956-b5005621abe6	Ivrit Schritt für Schritt - Lektion 02	schlecht, böse	ra	רע	NA	NA	NA	ADJEKTIV	böse,schlecht	רע
+26b06b5d-55e3-4e5c-b078-2a93ebe41392	Ivrit Schritt für Schritt - Lektion 03	klein	ktanot	קטנות	FEMALE	PLURAL	NA	ADJEKTIV	kleinen,klein	קטנות
+9e8d6aca-ddbd-4e12-9c2c-02dce7a3c857	Ivrit Schritt für Schritt - Lektion 03	gut	towot	טובות	FEMALE	PLURAL	NA	ADJEKTIV	gut	טובות
+ff98420b-6dca-47aa-9d09-d8e701c340d4	Ivrit Schritt für Schritt - Lektion 03	angenehm	ne'ima	נעימה	FEMALE	SINGULAR	NA	ADJEKTIV	angenehm	נעימה
+7e693448-b1ef-428b-a711-a61fb23f9556	Ivrit Schritt für Schritt - Lektion 03	klein	ktana	קטנה	FEMALE	SINGULAR	NA	ADJEKTIV	klein	קטנה
+f7cbfce2-02a0-49e6-b861-2009d9d65afd	Ivrit Schritt für Schritt - Lektion 03	groß	gadol	גדול	MALE	SINGULAR	NA	ADJEKTIV	groß	גדול
+6c63bdd5-3894-49aa-a1b9-631da42843a2	Ivrit Schritt für Schritt - Lektion 03	klein	ktanim	קטנים	MALE	PLURAL	NA	ADJEKTIV	kleinen,klein	קטנים
+6e2a978c-7af6-45b5-94d1-9fc779ba57e3	Ivrit Schritt für Schritt - Lektion 03	schön	jafot	יפות	FEMALE	PLURAL	NA	ADJEKTIV	schön	יפות
+af652fe3-8e56-41ba-8842-145c0a5c8afb	Ivrit Schritt für Schritt - Lektion 03	schön	jafa	יפה	FEMALE	SINGULAR	NA	ADJEKTIV	schön	יפה

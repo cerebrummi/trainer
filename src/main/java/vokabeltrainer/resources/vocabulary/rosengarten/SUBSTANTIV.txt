@@ -1,46 +1,46 @@
-d8712887-0afd-49cc-acdf-394f3c0bea5b	Lektion 02	Dänisch	dänit	דנית	UNKOWN	NA	NA	SUBSTANTIV	dänisch	דנית
-8cb18b06-e271-4bb4-8de5-a078b5cde22a	Lektion 02	Arabisch	arawit	ערבית	UNKOWN	NA	NA	SUBSTANTIV	Arabisch	ערבית
-c0f4b468-c683-4b9e-bdff-9891fc3b4ec8	Lektion 02	Russisch	russit	רוסית	UNKOWN	NA	NA	SUBSTANTIV	russisch	רוסית
-db6f8547-a8ca-4f3a-88a8-d9822057f897	Lektion 02	Italienisch	italkit	איטלקית	UNKOWN	NA	NA	SUBSTANTIV	italienisch	איטלקית
-963a0921-4ef5-46c9-80e1-5dcff8efe0ad	Lektion 02	Universitäten	uniwässitaot	אוניברסיטאות	FEMALE	PLURAL	NA	SUBSTANTIV	universitäten	אוניברסיטאות
-2dac1e0e-7637-43bd-a494-49d5287d335a	Lektion 01	Architektin	architäktit	ארכיטקטית	FEMALE	SINGULAR	NA	SUBSTANTIV	Architektin	ארכיטקטית
-2860f9c7-c2da-4e41-ad5b-fe8f334185f0	Lektion 01	Psychologe	psicholog	פּסיכולוג	MALE	SINGULAR	NA	SUBSTANTIV	Psychologe	פּסיכולוג
-c157064e-d06b-4cdc-94de-d9ea86c09638	Lektion 03	Zimmer	chädär	חדר	MALE	SINGULAR	NA	SUBSTANTIV	zimmer	חדר
-c8d85ea5-28b6-4e2f-b06f-6b49ad363c9d	Lektion 03	Freund	chawär	חבר	MALE	SINGULAR	NA	SUBSTANTIV	freund	חבר
-e8bb8348-bf31-496e-8016-2c63f4b0ff04	Lektion 02	Büros	missradim	משׂרדים	MALE	PLURAL	NA	SUBSTANTIV	büros	משׂרדים
-e753979f-3cc4-40fc-b308-00094d6be0e9	Lektion 02	Deutsch	gärmanit	גרמנית	UNKOWN	NA	NA	SUBSTANTIV	deutsch	גרמנית
-4c7fdadc-1f8b-4b2a-bb4b-0b2a20c34cd8	Lektion 01	Physiker	fisikaj	פיסיקאי	MALE	SINGULAR	NA	SUBSTANTIV	Physiker	פיסיקאי
-bb630f07-51f0-4bc8-b374-d692be43177e	Lektion 02	Französisch	zarfatit	צרפתית	UNKOWN	NA	NA	SUBSTANTIV	französisch	צרפתית
-3e319b5a-59e5-45bf-ab10-d1f706f5a7ad	Lektion 04	Stühle	kiss'ot	כּיסאות	MALE	PLURAL	NA	SUBSTANTIV	Stühle	כּיסאות
-543d0db1-91a8-4ec9-85c6-27f0b7194354	Lektion 04	Stuhl	kissä	כּיסא	MALE	SINGULAR	NA	SUBSTANTIV	Stuhl	כּיסא
-58125135-a395-4c99-95fa-c205cedabfa8	Lektion 01	Physikerin	fisika'it	פיסיקאית	FEMALE	SINGULAR	NA	SUBSTANTIV	Physikerin	פיסיקאית
-efbc84c7-fa33-499a-95fa-2570e570b98e	Lektion 03	Familie	mischpacha	משפּחה	FEMALE	SINGULAR	NA	SUBSTANTIV	Familie	משפּחה
-94e6e395-b18f-4174-97e0-66b656da5cb0	Lektion 03	Hotels	melonot	מלונות	MALE	PLURAL	NA	SUBSTANTIV	hotels	מלונות
-b535f42c-737f-48c6-afaa-08eb00a14581	Lektion 01	Herr (Anrede)	adon	אדון	MALE	SINGULAR	NA	SUBSTANTIV	Herr,Anrede	אדון
-84b985fc-3781-40f2-9a95-624117e0e3c1	Lektion 01	Büroangestellte, (Schalter) beamte	pkida	פּקידה	FEMALE	SINGULAR	NA	SUBSTANTIV	Schalterbeamte,Büroangestellte,Beamte	פּקידה
-20084278-67ed-452b-9a01-0899445266b6	Lektion 01	Technikerin	tächna'it	טכנאית	FEMALE	SINGULAR	NA	SUBSTANTIV	Technikerin	טכנאית
-f6fac5d2-2e82-48bc-8116-54be109496f3	Lektion 03	Kibbuz	kibuz	קיבּוץ	UNKOWN	SINGULAR	NA	SUBSTANTIV	Kibbuz	קיבּוץ
-4a943289-e92c-4ad7-9ebc-071bf8daf87f	Lektion 03	Zimmer	chadarim	חדרים	MALE	PLURAL	NA	SUBSTANTIV	zimmer	חדרים
-b53149e3-d3d6-498f-8c53-4161482c617c	Lektion 04	Tisch	schulchan	שולחן	MALE	SINGULAR	NA	SUBSTANTIV	Tisch	שולחן
-3938e337-7766-466b-a48a-1a54de286319	Lektion 02	Büro	missrad	משׂרד	MALE	SINGULAR	NA	SUBSTANTIV	büro	משׂרד
-2f3a610a-72b4-462a-8e5d-0724301ba335	Lektion 03	Pension	pänssion	פּנסיון	UNKOWN	SINGULAR	NA	SUBSTANTIV	Pension	פּנסיון
-ac707c87-ce20-4f97-a750-a81610720b6d	Lektion 01	Büroangestellter, (Schalter) beamter	pakid	פּקיד	MALE	SINGULAR	NA	SUBSTANTIV	Schalterbeamter,Büroangestellter,Beamter	פּקיד
-d603eacc-8742-4729-8d80-2f883574c0f8	Lektion 02	Schwedisch	schwädit	שוודית	UNKOWN	NA	NA	SUBSTANTIV	schwedisch	שוודית
-fa7a13f7-55f2-4550-be05-a353c78b44d0	Lektion 03	Hotel	malon	מלון	MALE	SINGULAR	NA	SUBSTANTIV	hotel	מלון
-5766a9b6-b722-4dda-b4db-d71b1e04b6cf	Lektion 04	Klassen	kitot	כּיתות	FEMALE	PLURAL	NA	SUBSTANTIV	Klassen,Klasse	כּיתות
-54dc9b10-bc25-4061-b47a-86597f871b6e	Lektion 01	Student	studänt	סטודנט	MALE	SINGULAR	NA	SUBSTANTIV	Student	סטודנט
-d40b4974-ea94-43dd-9392-4d32af33f6e0	Lektion 04	Unterricht	schi'ur	שיעור	MALE	SINGULAR	NA	SUBSTANTIV	Unterricht	שיעור
-8cd13fd4-28c6-4a06-83ae-e0e7f0e2e524	Lektion 01	Psychologin	psichologit	פּסיכולוגית	FEMALE	SINGULAR	NA	SUBSTANTIV	Psychologin	פּסיכלוגית
-383f3794-ec49-4978-8f7b-5c62fd992b4b	Lektion 01	Studentin	studäntit	סטודנטית	FEMALE	SINGULAR	NA	SUBSTANTIV	Studentin	סטודנטית
-db378d23-32de-4dbb-bb54-cbbe045f5495	Lektion 02	Englisch	anglit	אנגלית	UNKOWN	NA	NA	SUBSTANTIV	englisch	אנגלית
-406049ea-99f6-4105-9eba-3017adb3e913	Lektion 02	Universität	uniwärssita	אוניברסיטה	FEMALE	SINGULAR	NA	SUBSTANTIV	universität	אוניברסיטה
-f63c1b38-15a5-4d0e-8e55-528611a7ef54	Lektion 01	Architekt	architäkt	ארכיטקט	MALE	SINGULAR	NA	SUBSTANTIV	Architekt	ארכיטקט
-f58738bd-2314-4cee-a72d-9cbbb1544996	Lektion 01	Frau (Anrede)	gwärät	גברת	FEMALE	SINGULAR	NA	SUBSTANTIV	Frau,Anrede	גברת
-deb20868-c239-4378-b528-de8c9d288ebc	Lektion 01	Techniker	tächnaj	טכנאי	MALE	SINGULAR	NA	SUBSTANTIV	Techniker	טכנאי
-52a32794-e2a9-4b65-995e-528c5c2e32b4	Lektion 04	Unterricht	schi'urim	שיעורים	MALE	PLURAL	NA	SUBSTANTIV	Unterricht	שיעורים
-93868529-45c3-4d1b-8481-edf8b5d14d1e	Lektion 03	Familien	mischpachot	משפּחות	FEMALE	PLURAL	NA	SUBSTANTIV	Familien,Familie	משפּחות
-fe98abb6-76f2-4e9e-8807-b609e57d43f0	Lektion 04	Klasse	kita	כּיתה	FEMALE	SINGULAR	NA	SUBSTANTIV	Klasse	כּיתה
-9c317d86-ea20-4680-ac59-23a53f0c0413	Lektion 03	Freunde	chawärim	חברים	MALE	PLURAL	NA	SUBSTANTIV	freunde	חברים
-0446fa3f-8431-45b4-ab5f-56c998a9f53d	Lektion 02	Japanisch	japanit	יפּנית	UNKOWN	NA	NA	SUBSTANTIV	japanisch	יפּנית
-b774341a-b918-47f5-9b44-9a65029d13c0	Lektion 02	Hebräisch	ivrit	עברית	UNKOWN	NA	NA	SUBSTANTIV	hebräisch	עברית
-af271583-c5dc-44d8-8c4a-9fb09394b003	Lektion 04	Tische	schulchanot	שולחנות	MALE	PLURAL	NA	SUBSTANTIV	Tisch,Tische	שולחנות
+d8712887-0afd-49cc-acdf-394f3c0bea5b	Ivrit Schritt für Schritt - Lektion 02	Dänisch	dänit	דנית	UNKOWN	NA	NA	SUBSTANTIV	dänisch	דנית
+8cb18b06-e271-4bb4-8de5-a078b5cde22a	Ivrit Schritt für Schritt - Lektion 02	Arabisch	arawit	ערבית	UNKOWN	NA	NA	SUBSTANTIV	Arabisch	ערבית
+c0f4b468-c683-4b9e-bdff-9891fc3b4ec8	Ivrit Schritt für Schritt - Lektion 02	Russisch	russit	רוסית	UNKOWN	NA	NA	SUBSTANTIV	russisch	רוסית
+db6f8547-a8ca-4f3a-88a8-d9822057f897	Ivrit Schritt für Schritt - Lektion 02	Italienisch	italkit	איטלקית	UNKOWN	NA	NA	SUBSTANTIV	italienisch	איטלקית
+963a0921-4ef5-46c9-80e1-5dcff8efe0ad	Ivrit Schritt für Schritt - Lektion 02	Universitäten	uniwässitaot	אוניברסיטאות	FEMALE	PLURAL	NA	SUBSTANTIV	universitäten	אוניברסיטאות
+2dac1e0e-7637-43bd-a494-49d5287d335a	Ivrit Schritt für Schritt - Lektion 01	Architektin	architäktit	ארכיטקטית	FEMALE	SINGULAR	NA	SUBSTANTIV	Architektin	ארכיטקטית
+2860f9c7-c2da-4e41-ad5b-fe8f334185f0	Ivrit Schritt für Schritt - Lektion 01	Psychologe	psicholog	פּסיכולוג	MALE	SINGULAR	NA	SUBSTANTIV	Psychologe	פּסיכולוג
+c157064e-d06b-4cdc-94de-d9ea86c09638	Ivrit Schritt für Schritt - Lektion 03	Zimmer	chädär	חדר	MALE	SINGULAR	NA	SUBSTANTIV	zimmer	חדר
+c8d85ea5-28b6-4e2f-b06f-6b49ad363c9d	Ivrit Schritt für Schritt - Lektion 03	Freund	chawär	חבר	MALE	SINGULAR	NA	SUBSTANTIV	freund	חבר
+e8bb8348-bf31-496e-8016-2c63f4b0ff04	Ivrit Schritt für Schritt - Lektion 02	Büros	missradim	משׂרדים	MALE	PLURAL	NA	SUBSTANTIV	büros	משׂרדים
+e753979f-3cc4-40fc-b308-00094d6be0e9	Ivrit Schritt für Schritt - Lektion 02	Deutsch	gärmanit	גרמנית	UNKOWN	NA	NA	SUBSTANTIV	deutsch	גרמנית
+4c7fdadc-1f8b-4b2a-bb4b-0b2a20c34cd8	Ivrit Schritt für Schritt - Lektion 01	Physiker	fisikaj	פיסיקאי	MALE	SINGULAR	NA	SUBSTANTIV	Physiker	פיסיקאי
+bb630f07-51f0-4bc8-b374-d692be43177e	Ivrit Schritt für Schritt - Lektion 02	Französisch	zarfatit	צרפתית	UNKOWN	NA	NA	SUBSTANTIV	französisch	צרפתית
+3e319b5a-59e5-45bf-ab10-d1f706f5a7ad	Ivrit Schritt für Schritt - Lektion 04	Stühle	kiss'ot	כּיסאות	MALE	PLURAL	NA	SUBSTANTIV	Stühle	כּיסאות
+543d0db1-91a8-4ec9-85c6-27f0b7194354	Ivrit Schritt für Schritt - Lektion 04	Stuhl	kissä	כּיסא	MALE	SINGULAR	NA	SUBSTANTIV	Stuhl	כּיסא
+58125135-a395-4c99-95fa-c205cedabfa8	Ivrit Schritt für Schritt - Lektion 01	Physikerin	fisika'it	פיסיקאית	FEMALE	SINGULAR	NA	SUBSTANTIV	Physikerin	פיסיקאית
+efbc84c7-fa33-499a-95fa-2570e570b98e	Ivrit Schritt für Schritt - Lektion 03	Familie	mischpacha	משפּחה	FEMALE	SINGULAR	NA	SUBSTANTIV	Familie	משפּחה
+94e6e395-b18f-4174-97e0-66b656da5cb0	Ivrit Schritt für Schritt - Lektion 03	Hotels	melonot	מלונות	MALE	PLURAL	NA	SUBSTANTIV	hotels	מלונות
+b535f42c-737f-48c6-afaa-08eb00a14581	Ivrit Schritt für Schritt - Lektion 01	Herr (Anrede)	adon	אדון	MALE	SINGULAR	NA	SUBSTANTIV	Herr,Anrede	אדון
+84b985fc-3781-40f2-9a95-624117e0e3c1	Ivrit Schritt für Schritt - Lektion 01	Büroangestellte, (Schalter) beamte	pkida	פּקידה	FEMALE	SINGULAR	NA	SUBSTANTIV	Schalterbeamte,Büroangestellte,Beamte	פּקידה
+20084278-67ed-452b-9a01-0899445266b6	Ivrit Schritt für Schritt - Lektion 01	Technikerin	tächna'it	טכנאית	FEMALE	SINGULAR	NA	SUBSTANTIV	Technikerin	טכנאית
+f6fac5d2-2e82-48bc-8116-54be109496f3	Ivrit Schritt für Schritt - Lektion 03	Kibbuz	kibuz	קיבּוץ	UNKOWN	SINGULAR	NA	SUBSTANTIV	Kibbuz	קיבּוץ
+4a943289-e92c-4ad7-9ebc-071bf8daf87f	Ivrit Schritt für Schritt - Lektion 03	Zimmer	chadarim	חדרים	MALE	PLURAL	NA	SUBSTANTIV	zimmer	חדרים
+b53149e3-d3d6-498f-8c53-4161482c617c	Ivrit Schritt für Schritt - Lektion 04	Tisch	schulchan	שולחן	MALE	SINGULAR	NA	SUBSTANTIV	Tisch	שולחן
+3938e337-7766-466b-a48a-1a54de286319	Ivrit Schritt für Schritt - Lektion 02	Büro	missrad	משׂרד	MALE	SINGULAR	NA	SUBSTANTIV	büro	משׂרד
+2f3a610a-72b4-462a-8e5d-0724301ba335	Ivrit Schritt für Schritt - Lektion 03	Pension	pänssion	פּנסיון	UNKOWN	SINGULAR	NA	SUBSTANTIV	Pension	פּנסיון
+ac707c87-ce20-4f97-a750-a81610720b6d	Ivrit Schritt für Schritt - Lektion 01	Büroangestellter, (Schalter) beamter	pakid	פּקיד	MALE	SINGULAR	NA	SUBSTANTIV	Schalterbeamter,Büroangestellter,Beamter	פּקיד
+d603eacc-8742-4729-8d80-2f883574c0f8	Ivrit Schritt für Schritt - Lektion 02	Schwedisch	schwädit	שוודית	UNKOWN	NA	NA	SUBSTANTIV	schwedisch	שוודית
+fa7a13f7-55f2-4550-be05-a353c78b44d0	Ivrit Schritt für Schritt - Lektion 03	Hotel	malon	מלון	MALE	SINGULAR	NA	SUBSTANTIV	hotel	מלון
+5766a9b6-b722-4dda-b4db-d71b1e04b6cf	Ivrit Schritt für Schritt - Lektion 04	Klassen	kitot	כּיתות	FEMALE	PLURAL	NA	SUBSTANTIV	Klassen,Klasse	כּיתות
+54dc9b10-bc25-4061-b47a-86597f871b6e	Ivrit Schritt für Schritt - Lektion 01	Student	studänt	סטודנט	MALE	SINGULAR	NA	SUBSTANTIV	Student	סטודנט
+d40b4974-ea94-43dd-9392-4d32af33f6e0	Ivrit Schritt für Schritt - Lektion 04	Unterricht	schi'ur	שיעור	MALE	SINGULAR	NA	SUBSTANTIV	Unterricht	שיעור
+8cd13fd4-28c6-4a06-83ae-e0e7f0e2e524	Ivrit Schritt für Schritt - Lektion 01	Psychologin	psichologit	פּסיכולוגית	FEMALE	SINGULAR	NA	SUBSTANTIV	Psychologin	פּסיכלוגית
+383f3794-ec49-4978-8f7b-5c62fd992b4b	Ivrit Schritt für Schritt - Lektion 01	Studentin	studäntit	סטודנטית	FEMALE	SINGULAR	NA	SUBSTANTIV	Studentin	סטודנטית
+db378d23-32de-4dbb-bb54-cbbe045f5495	Ivrit Schritt für Schritt - Lektion 02	Englisch	anglit	אנגלית	UNKOWN	NA	NA	SUBSTANTIV	englisch	אנגלית
+406049ea-99f6-4105-9eba-3017adb3e913	Ivrit Schritt für Schritt - Lektion 02	Universität	uniwärssita	אוניברסיטה	FEMALE	SINGULAR	NA	SUBSTANTIV	universität	אוניברסיטה
+f63c1b38-15a5-4d0e-8e55-528611a7ef54	Ivrit Schritt für Schritt - Lektion 01	Architekt	architäkt	ארכיטקט	MALE	SINGULAR	NA	SUBSTANTIV	Architekt	ארכיטקט
+f58738bd-2314-4cee-a72d-9cbbb1544996	Ivrit Schritt für Schritt - Lektion 01	Frau (Anrede)	gwärät	גברת	FEMALE	SINGULAR	NA	SUBSTANTIV	Frau,Anrede	גברת
+deb20868-c239-4378-b528-de8c9d288ebc	Ivrit Schritt für Schritt - Lektion 01	Techniker	tächnaj	טכנאי	MALE	SINGULAR	NA	SUBSTANTIV	Techniker	טכנאי
+52a32794-e2a9-4b65-995e-528c5c2e32b4	Ivrit Schritt für Schritt - Lektion 04	Unterricht	schi'urim	שיעורים	MALE	PLURAL	NA	SUBSTANTIV	Unterricht	שיעורים
+93868529-45c3-4d1b-8481-edf8b5d14d1e	Ivrit Schritt für Schritt - Lektion 03	Familien	mischpachot	משפּחות	FEMALE	PLURAL	NA	SUBSTANTIV	Familien,Familie	משפּחות
+fe98abb6-76f2-4e9e-8807-b609e57d43f0	Ivrit Schritt für Schritt - Lektion 04	Klasse	kita	כּיתה	FEMALE	SINGULAR	NA	SUBSTANTIV	Klasse	כּיתה
+9c317d86-ea20-4680-ac59-23a53f0c0413	Ivrit Schritt für Schritt - Lektion 03	Freunde	chawärim	חברים	MALE	PLURAL	NA	SUBSTANTIV	freunde	חברים
+0446fa3f-8431-45b4-ab5f-56c998a9f53d	Ivrit Schritt für Schritt - Lektion 02	Japanisch	japanit	יפּנית	UNKOWN	NA	NA	SUBSTANTIV	japanisch	יפּנית
+b774341a-b918-47f5-9b44-9a65029d13c0	Ivrit Schritt für Schritt - Lektion 02	Hebräisch	ivrit	עברית	UNKOWN	NA	NA	SUBSTANTIV	hebräisch	עברית
+af271583-c5dc-44d8-8c4a-9fb09394b003	Ivrit Schritt für Schritt - Lektion 04	Tische	schulchanot	שולחנות	MALE	PLURAL	NA	SUBSTANTIV	Tisch,Tische	שולחנות

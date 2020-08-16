@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 
+import vokabeltrainer.Database;
+
 public class Expression
 {
    private UUID uuid;
@@ -22,11 +24,12 @@ public class Expression
    private TrainingStatus trainingStatusHToD = new TrainingStatus();
    private String chapter;
    private boolean selected;
-   private boolean doNotDelete;
+   private boolean doNotChange;
+   private Database origin;
 
-   public Expression(boolean preset, boolean doNotDelete)
+   public Expression(boolean preset, boolean doNotChange)
    {
-      this.doNotDelete = doNotDelete;
+      this.doNotChange = doNotChange;
       if (preset)
       {
          uuid = UUID.randomUUID();
@@ -206,9 +209,19 @@ public class Expression
       this.selected = !this.selected;
    }
 
-   public boolean isDoNotDelete()
+   public boolean isDoNotChange()
    {
-      return doNotDelete;
+      return doNotChange;
+   }
+
+   public Database getOrigin()
+   {
+      return origin;
+   }
+
+   public void setOrigin(Database origin)
+   {
+      this.origin = origin;
    }
 
    public String[] toGermanArray()

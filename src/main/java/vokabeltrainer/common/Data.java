@@ -3,7 +3,6 @@ package vokabeltrainer.common;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -351,58 +350,58 @@ public final class Data
             100);
 
       private final ConcurrentMap<UUID, Expression> deletedMap = readFile(
-            DELETED_TXT, null);
+            DELETED_TXT, null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> unkownMap = readFile(
-            "UNKOWN.txt", null);
+            "UNKOWN.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> adjektivMap = readFile(
-            "ADJEKTIV.txt", null);
+            "ADJEKTIV.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> adverbMap = readFile(
-            "ADVERB.txt", null);
+            "ADVERB.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> begriffMap = readFile(
-            "BEGRIFF.txt", null);
+            "BEGRIFF.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> frageMap = readFile(
-            "FRAGE.txt", null);
+            "FRAGE.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> interjektionMap = readFile(
-            "INTERJEKTION.txt", null);
+            "INTERJEKTION.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> numeralMap = readFile(
-            "NUMERAL.txt", null);
+            "NUMERAL.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> partikelMap = readFile(
-            "PARTIKEL.txt", null);
+            "PARTIKEL.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> pronomMap = readFile(
-            "PRONOM.txt", null);
+            "PRONOM.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> substantivMap = readFile(
-            "SUBSTANTIV.txt", null);
+            "SUBSTANTIV.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> verbMap = readFile(
-            "VERB.txt", null);
+            "VERB.txt", null, Database.SELF);
       private final ConcurrentMap<UUID, Expression> constructusMap = readFile(
-            "KONSTRUKT.txt", null);
+            "KONSTRUKT.txt", null, Database.SELF);
 
       DataBase()
       {
          for (Database database : Settings.getChosenDatabases())
          {
             readFile(database.getFolder() + File.separator + "ADJEKTIV.txt",
-                  adjektivMap);
+                  adjektivMap, database);
             readFile(database.getFolder() + File.separator + "ADVERB.txt",
-                  adverbMap);
+                  adverbMap, database);
             readFile(database.getFolder() + File.separator + "BEGRIFF.txt",
-                  begriffMap);
+                  begriffMap, database);
             readFile(database.getFolder() + File.separator + "FRAGE.txt",
-                  frageMap);
+                  frageMap, database);
             readFile(database.getFolder() + File.separator + "INTERJEKTION.txt",
-                  interjektionMap);
+                  interjektionMap, database);
             readFile(database.getFolder() + File.separator + "NUMERAL.txt",
-                  numeralMap);
+                  numeralMap, database);
             readFile(database.getFolder() + File.separator + "PARTIKEL.txt",
-                  partikelMap);
+                  partikelMap, database);
             readFile(database.getFolder() + File.separator + "PRONOM.txt",
-                  pronomMap);
+                  pronomMap, database);
             readFile(database.getFolder() + File.separator + "SUBSTANTIV.txt",
-                  substantivMap);
+                  substantivMap, database);
             readFile(database.getFolder() + File.separator + "VERB.txt",
-                  verbMap);
+                  verbMap, database);
             readFile(database.getFolder() + File.separator + "KONSTRUKT.txt",
-                  constructusMap);
+                  constructusMap, database);
          }
 
          File customDir = new File(Settings.getTrainingPath());
@@ -525,7 +524,7 @@ public final class Data
       }
 
       private ConcurrentMap<UUID, Expression> readFile(String filename,
-            ConcurrentMap<UUID, Expression> existingMap)
+            ConcurrentMap<UUID, Expression> existingMap, Database origin)
       {
          File file = null;
          if (existingMap == null)
@@ -547,7 +546,7 @@ public final class Data
                         StandardCharsets.UTF_8);
                   Reader reader = new BufferedReader(isr);)
             {
-               return readData(filename, existingMap, reader);
+               return readData(filename, existingMap, reader, origin);
             }
             catch (IOException e)
             {
@@ -561,7 +560,7 @@ public final class Data
                   StandardCharsets.UTF_8);
                   Reader reader = new BufferedReader(isr);)
             {
-               return readData(filename, existingMap, reader);
+               return readData(filename, existingMap, reader, origin);
             }
             catch (IOException e)
             {
@@ -575,7 +574,7 @@ public final class Data
       }
 
       private ConcurrentMap<UUID, Expression> readData(String filename,
-            ConcurrentMap<UUID, Expression> existingMap, Reader reader)
+            ConcurrentMap<UUID, Expression> existingMap, Reader reader, Database origin)
             throws IOException
       {
          StringBuffer buffer = new StringBuffer();
@@ -619,6 +618,7 @@ public final class Data
                int i = 0;
 
                expression.setUuid(UUID.fromString(items[i]));
+               expression.setOrigin(origin);
                i++;
                expression.setChapter(items[i]);
                if (!expression.getChapter().isEmpty()
@@ -1028,7 +1028,7 @@ public final class Data
       {
          for (Expression expression : list)
          {
-            if (expression.isDoNotDelete())
+            if (expression.isDoNotChange())
             {
                continue;
             }

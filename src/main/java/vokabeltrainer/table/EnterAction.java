@@ -3,9 +3,15 @@ package vokabeltrainer.table;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
+import vokabeltrainer.TextImage;
+import vokabeltrainer.TextImageWithPicture;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.table.list.editor.ExpressionEditorController;
@@ -36,7 +42,19 @@ public class EnterAction extends AbstractAction
             .getVerticalScrollBar().getValue();
       if (selectedRow >= 0)
       {
-         editor.setExpression((Expression) table.getValueAt(selectedRow, 0));
+         Expression expression = (Expression) table.getValueAt(selectedRow, 0);
+         if(expression.isDoNotChange())
+         {
+            JOptionPane.showMessageDialog(Common.getjFrame(), "",
+                  Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                  new ImageIcon(
+                        TextImage.make(
+                              "Diese Vokabel aus der Sammlung",
+                              expression.getOrigin().getName(),
+                              "kann nicht bearbeitet werden.")));
+            return;
+         }
+         editor.setExpression(expression);
          editor.setLocationRelativeTo(null);
          editor.setVisible(true);
          if (editor.isSave())

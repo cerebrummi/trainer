@@ -72,7 +72,6 @@ public final class SaveExpressions
          }
          catch (Exception e)
          {
-            e.printStackTrace();
             JOptionPane
                   .showMessageDialog(Common.getjFrame(),
                         "Es hat beim Speichern einen Fehler gegeben.\n"
@@ -127,6 +126,10 @@ public final class SaveExpressions
 
       for (Expression expression : Data.getAlleMapValues())
       {
+         if(expression.isDoNotChange())
+         {
+            continue;
+         }
          if (expression.getKind().equals(kind))
          {
             list.add(expression);

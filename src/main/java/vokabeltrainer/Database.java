@@ -2,7 +2,8 @@ package vokabeltrainer;
 
 public enum Database
 {
-   ROSENGARTEN("rosengarten", "Ivrit Schritt für Schritt");
+   ROSENGARTEN("rosengarten", "Ivrit Schritt für Schritt"),
+   SELF("", "selbsteingegebene Vokabeln");
    
    private String folder;
    private String name;

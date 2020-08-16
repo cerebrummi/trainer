@@ -20,7 +20,7 @@ public class Settings
 
    private static boolean soundOn = true;
    private static String chosenExpressionPath = null;
-   private static List<Database> chosenDatabases;
+   private static List<Database> chosenDatabases; // TODO user can choose databases
    private static Database[] availableDatabases = {Database.ROSENGARTEN};
 
    private Settings()
@@ -81,7 +81,7 @@ public class Settings
       return "training";
    }
 
-   public static String getNode() // TODO Was macht das alles?
+   public static String getNode() // the node of preferences
    {
       return File.separator + "de" + File.separator + "adaadama" + File.separator
             + "hebrewtrainer";
