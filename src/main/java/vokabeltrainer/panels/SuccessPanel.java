@@ -8,18 +8,20 @@ import javax.swing.JTabbedPane;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
-import vokabeltrainer.panels.success.GermanToHebrewTab;
-import vokabeltrainer.panels.success.HebrewToGermanTab;
+import vokabeltrainer.panels.success.LanguageTab;
 import vokabeltrainer.panels.success.InformationTab;
+import vokabeltrainer.panels.success.InformationTabDtoH;
+import vokabeltrainer.panels.success.InformationTabHtoD;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.types.Language;
 
 public class SuccessPanel extends BackgroundPanelTiled
 {
    private static final long serialVersionUID = 8838302053896928354L;
    private JTabbedPane germanHebrewRegister;
    private JPanel infoCard;
-   private GermanToHebrewTab languageDtoHcard;
-   private HebrewToGermanTab languageHtoDcard;
+   private LanguageTab languageDtoHcard;
+   private LanguageTab languageHtoDcard;
 
    public SuccessPanel()
    {
@@ -37,13 +39,13 @@ public class SuccessPanel extends BackgroundPanelTiled
       germanHebrewRegister.setMaximumSize(new Dimension(1254, 613));
 
       infoCard = new InformationTab();
-      languageDtoHcard = new GermanToHebrewTab();
-      languageHtoDcard = new HebrewToGermanTab();
+      languageDtoHcard = new LanguageTab(new InformationTabDtoH(), Language.GERMAN);
+      languageHtoDcard = new LanguageTab(new InformationTabHtoD(), Language.HEBREW);
 
       germanHebrewRegister.addTab("Start", infoCard);
       germanHebrewRegister.addTab("Deutsch >> Hebräisch", languageDtoHcard);
       germanHebrewRegister.addTab("Hebräisch >> Deutsch", languageHtoDcard);
-
+      
       eyePanel.add(germanHebrewRegister);
 
       add(eyePanel, BorderLayout.CENTER);

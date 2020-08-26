@@ -1,6 +1,7 @@
 package vokabeltrainer.panels.success;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -17,6 +18,8 @@ import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.panels.success.table.SuccessTable;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
 import vokabeltrainer.panels.success.table.SuccessTableRow;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
@@ -30,6 +33,21 @@ public class SuccessHelper
    {
       // nothing
    }
+   
+   static JPanel makePanel(JPanel panel)
+   {
+      JPanel wrapper = new JPanel();
+      BullsEyeLayout wrapperLayout = new BullsEyeLayout(wrapper);
+      wrapper.setLayout(wrapperLayout);
+      wrapper.setBackground(Settings.getDarkGold());
+      wrapper.setOpaque(true);
+      TotemLayout totemLayout = new TotemLayout(panel);
+      panel.setLayout(totemLayout);
+      panel.setBackground(Settings.getDarkGold());
+      panel.setOpaque(true);
+      wrapper.add(panel);
+      return wrapper;
+   }
 
    static void addContent(Repetition repetition, JPanel panel,
          Language direction)
@@ -37,10 +55,39 @@ public class SuccessHelper
       panel.removeAll();
       SuccessTableModel model = Data.findSuccessModel(direction, repetition);
       SuccessTable table = new SuccessTable(model);
+      
+      JScrollPane scroller = new JScrollPane(table);
+      scroller.setMinimumSize(new Dimension(1017,468));
+      scroller.setMaximumSize(new Dimension(1017,468));
+      scroller.setBackground(Settings.getDarkGold());
+      scroller.setOpaque(true);
+      scroller.getViewport().setBackground(Settings.getLightBlue());
+      scroller.getViewport().setOpaque(true);
+      
+      JPanel tablePanel = new JPanel();
+      BullsEyeLayout tableLayout = new BullsEyeLayout(tablePanel);
+      tablePanel.setLayout(tableLayout);
+      tablePanel.setBackground(Settings.getDarkGold());
+      tablePanel.add(scroller);
+      
+      JPanel fillerPanel = new JPanel(new FlowLayout());
+      fillerPanel.setBackground(Settings.getDarkGold());
+      fillerPanel.setOpaque(true);
+      fillerPanel.setMinimumSize(new Dimension(1017,15));
+      fillerPanel.setMaximumSize(new Dimension(1017,15));
+      
+      JPanel buttonWrapperPanel = new JPanel();
+      BullsEyeLayout buttonWrapperLayout = new BullsEyeLayout(buttonWrapperPanel);
+      buttonWrapperPanel.setLayout(buttonWrapperLayout);
+      buttonWrapperPanel.setBackground(Settings.getDarkGold());
+      
       JPanel buttonPanel = new JPanel();
       buttonPanel.setBackground(Settings.getDarkGold());
       buttonPanel.setOpaque(true);
       buttonPanel.setLayout(new TrainLayout(buttonPanel, 15));
+      buttonPanel.setMinimumSize(new Dimension(935,40));
+      buttonPanel.setMaximumSize(new Dimension(935,40));
+      
       JButton selectAllButton = new JButton("alle auswählen");
       selectAllButton.setIcon(new ImageIcon(ApplicationImages.getSelect()));
       selectAllButton.setFont(Settings.getButtonFont());
@@ -99,7 +146,11 @@ public class SuccessHelper
       buttonPanel.add(selectAllButton);
       buttonPanel.add(unselectAllButton);
       buttonPanel.add(moveButton);
-      panel.add(new JScrollPane(table), BorderLayout.CENTER);
-      panel.add(buttonPanel, BorderLayout.SOUTH);
+      
+      buttonWrapperPanel.add(buttonPanel);
+      
+      panel.add(tablePanel);
+      panel.add(fillerPanel);
+      panel.add(buttonWrapperPanel);
    }
 }
