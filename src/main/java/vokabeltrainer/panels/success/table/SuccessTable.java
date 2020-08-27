@@ -8,6 +8,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Main;
 import vokabeltrainer.types.Expression;
 
 public class SuccessTable extends JTable
@@ -19,7 +20,7 @@ public class SuccessTable extends JTable
       super(model, new SuccessTableColumnModel());
       this.setShowVerticalLines(false);
       setOpaque(false);
-      setRowHeight(50);
+      setRowHeight(140);
       setShowHorizontalLines(true);
       setBackground(Settings.getTransparent());
       this.setRowSelectionAllowed(false);

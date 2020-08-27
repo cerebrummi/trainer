@@ -2,6 +2,7 @@ package vokabeltrainer.panels.success;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -11,6 +12,7 @@ import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.success.table.SuccessTable;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
 
@@ -145,9 +147,25 @@ public class LanguageTab extends JPanel
             break;
          case 1:
             notStartedPanel.removeAll();
+            JPanel wrapper = new JPanel();
+            BullsEyeLayout wrapperLayout = new BullsEyeLayout(wrapper);
+            wrapper.setLayout(wrapperLayout);
+            wrapper.setBackground(Settings.getDarkGold());
+            wrapper.setOpaque(true);         
+            
             SuccessTable table = new SuccessTable(
                   Data.findSuccessModel(languageDirection, null));
-            notStartedPanel.add(new JScrollPane(table), BorderLayout.CENTER);
+            JScrollPane scroller = new JScrollPane(table);
+            scroller.setMinimumSize(new Dimension(1017,508));
+            scroller.setMaximumSize(new Dimension(1017,508));
+            scroller.setBackground(Settings.getDarkGold());
+            scroller.setOpaque(true);
+            scroller.getViewport().setBackground(Settings.getLightBlue());
+            scroller.getViewport().setOpaque(true);
+            
+            wrapper.add(scroller);
+            
+            notStartedPanel.add(wrapper, BorderLayout.CENTER);
             break;
          case 2:
             SuccessHelper.addContent(Repetition.NOW, nowPanel,

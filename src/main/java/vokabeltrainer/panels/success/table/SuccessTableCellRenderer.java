@@ -1,7 +1,6 @@
 package vokabeltrainer.panels.success.table;
 
 import java.awt.Component;
-import java.awt.Font;
 import java.util.EventObject;
 
 import javax.swing.ImageIcon;
@@ -21,12 +20,10 @@ public class SuccessTableCellRenderer
 {
    private JLabel selected;
    private JLabel empty;
-   private JLabel expressionGerman;
+   private JLabel expression;
 
    public SuccessTableCellRenderer()
    {
-      Font font = Main.getGermanFont(20F);
-
       selected = new JLabel(new ImageIcon(ApplicationImages.getSelect()));
       selected.setBackground(Settings.getVeryLightGold());
       selected.setOpaque(true);
@@ -35,10 +32,10 @@ public class SuccessTableCellRenderer
       empty.setBackground(Settings.getVeryLightGold());
       empty.setOpaque(true);
 
-      expressionGerman = new JLabel();
-      expressionGerman.setFont(font);
-      expressionGerman.setBackground(Settings.getVeryLightGold());
-      expressionGerman.setOpaque(true);
+      expression = new JLabel();
+      expression.setFont(Main.getHebrewFont(18F));
+      expression.setBackground(Settings.getVeryLightGold());
+      expression.setOpaque(true);
    }
 
    @Override
@@ -108,8 +105,8 @@ public class SuccessTableCellRenderer
          }
       }
 
-      expressionGerman.setText(expression.getWordGermanForSuccess());
-      return expressionGerman;
+      this.expression.setText(expression.getWordGermanForSuccess());
+      return this.expression;
    }
 
 }

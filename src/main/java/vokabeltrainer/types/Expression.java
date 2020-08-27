@@ -427,7 +427,10 @@ public class Expression
 
    public String getWordGermanForSuccess()
    {
-      return "[" + chapter.getName() + "]  " + german + "; "
-            + this.getAdditionalInfoGerman();
+      return "<html><p>" + chapter.getName() + "</p><br>"
+            + "<p style=\"margin-top:5;\"><b>" + german + "</b></p><br>"
+            + "<p style=\"margin-top:5;\">" + hebrew + "</p><br>"
+            + "<p style=\"margin-top:5;\">" + this.getAdditionalInfoGerman()
+            + ", <i>" + hebrewInLatin + "</i></p></html>";
    }
 }
