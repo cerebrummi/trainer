@@ -4,22 +4,24 @@ public enum Binjan
 {
    UNKOWN(
          "Binjan unbekannt"),
-   NA(
-         "Binjan nicht anwendbar"),
    PAAL(
-         "Paal"),
+         "pa'al"),
+   PAAL_HOHL(
+         "pa'al hohl"),
+   PAAL_SCHWACH(
+         "pa'al schwach"),
    PIEL(
-         "Piel"),
+         "pi'el"),
    HIFIL(
-         "Hifil"),
+         "hif'il"),
    HITPAEL(
-         "Hitpael"),
+         "hitpa'el"),
    HUFAL(
-         "Hufal"),
+         "huf'al"),
    PUAL(
-         "Pual"),
+         "pu'al"),
    NIFAL(
-         "Nifal");
+         "nif'al");
 
    String name;
 
@@ -36,41 +38,12 @@ public enum Binjan
 
    public static Binjan fromString(String binjan)
    {
-      if (UNKOWN.name.equals(binjan))
+      for(Binjan b : Binjan.values())
       {
-         return UNKOWN;
-      }
-      if (NA.name.equals(binjan))
-      {
-         return NA;
-      }
-      if (PAAL.name.equals(binjan))
-      {
-         return PAAL;
-      }
-      if (PIEL.name.equals(binjan))
-      {
-         return PIEL;
-      }
-      if (HIFIL.name.equals(binjan))
-      {
-         return HIFIL;
-      }
-      if (HITPAEL.name.equals(binjan))
-      {
-         return HITPAEL;
-      }
-      if (HUFAL.name.equals(binjan))
-      {
-         return HUFAL;
-      }
-      if (PUAL.name.equals(binjan))
-      {
-         return PUAL;
-      }
-      if (NIFAL.name.equals(binjan))
-      {
-         return NIFAL;
+         if(b.name.equalsIgnoreCase(binjan))
+         {
+            return b;
+         }
       }
       return null;
    }

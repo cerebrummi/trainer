@@ -7,67 +7,102 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
-import vokabeltrainer.Settings;
-
 public enum ExpressionKind
 {
    UNKOWN(
          "Wortart unbekannt",
-         "Wortart unbekannt",
          ""),
    ADJEKTIV(
-         "Adjektiv / Eigenschaftswort",
-         "Adjektiv / Eigenschaftswort",
-         "klein, groß, jung, freundlich, weiblich, wichtig"),
+         "Adjektiv",
+         ""),
    ADVERB(
-         "Adverb / Umstandswort",
-         "Adverb / Umstandswort",
-         "stark, klar, schnell, gut, automatisch, vorsichtig, fein"),
-   BEGRIFF(
-         "Redewendung",
-         "Redewendung",
-         "Guten Tag!, Wie geht es?"),
-   FRAGE(
-         "Fragewort",
+         "Adverb",
+         ""),
+   ALTERSANGABE(
+         "Altersangabe",
+         ""),
+   AUSRUF(
+         "Ausruf",
+         "hurra, hm, ah, oh, autsch"),
+   BERUF(
+         "Beruf",
+         ""),
+   BINDEWORT(
+         "Bindewort",
+         ""),
+   DEMONSTRATIVPRONOM(
+         "Demonstrativpronom",
+         ""),
+   EIGENNAME(
+         "Eigenname",
+         ""),
+   FARBE(
+         "Farbe",
+         "rot, grün, gelb, blau"),
+   FRAGEWORT(
          "Fragewort",
          "wann, wo, warum, wie, wieso, weshalb"),
-   INTERJEKTION(
-         "Interjekt / Ausrufewort",
-         "Interjekt / Ausrufewort",
-         "hurra, hm, ah, oh, autsch"),
-   NUMERAL(
-         "Numeral / Zahlwort",
-         "Numeral / Zahlwort",
-         "eins, zwei, drei, vier, fünf, hundert"),
-   PARTIKEL(
-         "Partikel / Vorsilbe",
-         "Partikel / Vorsilbe",
-         "und, in, in dem, in der"),
    PRONOM(
-         "Pronom / Fürwort",
-         "Pronom / Fürwort",
-         "er, ich, sich, sie, diese, man, eine, welches, meine, jemand"),
+         "Fürwort/Pronom",
+         ""),
+   GLUECKWUNSCH(
+         "Glückwunsch/Gruß",
+         ""),
+   JAHRESZEIT(
+         "Jahreszeit",
+         ""),
+   MODALVERB(
+         "Modalverb",
+         "wollen, können, müssen"),
+   ORDNUNGSZAHL(
+         "Ordnungszahl",
+         "erste, zweiter, dritte, vierter"),
+   PARTIKEL(
+         "Partikel",
+         ""),
+   PERSONALPRAEFIX(
+         "Personalpräfix",
+         ""),
+   PERSONALPRONOM(
+         "Personalpronom",
+         ""),
+   PERSONALSUFFIX(
+         "Personalsuffix",
+         ""),
+   POSSESSIVPRONOM(
+         "Possessivpronom",
+         ""),
+   PRAEPOSITION(
+         "Präposition",
+         ""),
+   REDEWENDUNG(
+         "Redewendung",
+         ""),
    SUBSTANTIV(
-         "Substantiv / Hauptwort",
-         "Substantiv / Hauptwort",
-         "Frau, Haus, Hammer, Küche, Beruf, Lampe"),
-   VERB(
-         "Verb / Tätigkeitswort",
-         "Verb / Tätigkeitswort",
-         "schreiben, laufen, gehen, schwimmen, essen, trinken"),
+         "Substantiv",
+         "Frau, Mann, Haus, Hammer, Küche, Beruf, Lampe"),
    KONSTRUKT(
-         "Constructus / zusammengesetzt",
-         "Constructus / zusammengesetzt",
-         "Haus des Buches, in einem Büro");
+         "Konstrukt/ßmichut",
+         ""),
+   UHRZEIT(
+         "Uhrzeit",
+         ""),
+   VERB(
+         "Verb",
+         ""),
+   WOCHENTAG(
+         "Wochentag",
+         ""),
+   ZAHL(
+         "Zahl",
+         "eins, zwei, drei, vier, fünf, hundert");
 
-   private String germanName;
-   private String latinName;
+   private String name;
    private String explanation;
 
-   ExpressionKind(String germanName, String latinName, String explanation)
+   ExpressionKind(String germanName, String explanation)
    {
-      this.germanName = germanName;
-      this.latinName = latinName;
+      this.name = germanName;
       this.explanation = explanation;
    }
 
@@ -79,16 +114,8 @@ public enum ExpressionKind
       {
          if (!kind.equals(ExpressionKind.UNKOWN))
          {
-            if (Settings.getLanguage().equals(LanguageSettings.GERMAN))
-            {
-               explanations[counter] = kind.germanName + " >>> "
+               explanations[counter] = kind.name + " >> "
                      + kind.explanation;
-            }
-            else
-            {
-               explanations[counter] = kind.latinName + " >>> "
-                     + kind.explanation;
-            }
             counter++;
          }
       }
@@ -98,21 +125,12 @@ public enum ExpressionKind
    @Override
    public String toString()
    {
-      if (Settings.getLanguage().equals(LanguageSettings.GERMAN))
-      {
-         return germanName;
-      }
-      return latinName;
+      return name;
    }
 
    public static ExpressionKind fromString(String kind)
    {
       ExpressionKind result = fromGermanString(kind);
-      if (result != null)
-      {
-         return result;
-      }
-      result = fromLatinString(kind);
       if (result != null)
       {
          return result;
@@ -124,19 +142,7 @@ public enum ExpressionKind
    {
       for (ExpressionKind expressionKind : ExpressionKind.values())
       {
-         if (expressionKind.germanName.equals(kind))
-         {
-            return expressionKind;
-         }
-      }
-      return null;
-   }
-
-   private static ExpressionKind fromLatinString(String kind)
-   {
-      for (ExpressionKind expressionKind : ExpressionKind.values())
-      {
-         if (expressionKind.latinName.equals(kind))
+         if (expressionKind.name.equals(kind))
          {
             return expressionKind;
          }
@@ -165,54 +171,27 @@ public enum ExpressionKind
          list.add(kind);
       }
 
-      if (Settings.getLanguage().equals(LanguageSettings.GERMAN))
+      Collections.sort(list, new Comparator<ExpressionKind>()
       {
-         Collections.sort(list, new Comparator<ExpressionKind>()
+         @Override
+         public int compare(ExpressionKind o1, ExpressionKind o2)
          {
-            @Override
-            public int compare(ExpressionKind o1, ExpressionKind o2)
+            if (o1.equals(UNKOWN) && o2.equals(UNKOWN))
             {
-               if (o1.equals(UNKOWN) && o2.equals(UNKOWN))
-               {
-                  return 0;
-               }
-               if (o1.equals(UNKOWN))
-               {
-                  return -1;
-               }
-               if (o2.equals(UNKOWN))
-               {
-                  return 1;
-               }
-               return o1.germanName.compareTo(o2.germanName);
+               return 0;
             }
-
-         });
-      }
-      else
-      {
-         Collections.sort(list, new Comparator<ExpressionKind>()
-         {
-            @Override
-            public int compare(ExpressionKind o1, ExpressionKind o2)
+            if (o1.equals(UNKOWN))
             {
-               if (o1.equals(UNKOWN) && o2.equals(UNKOWN))
-               {
-                  return 0;
-               }
-               if (o1.equals(UNKOWN))
-               {
-                  return -1;
-               }
-               if (o2.equals(UNKOWN))
-               {
-                  return 1;
-               }
-               return o1.latinName.compareTo(o2.latinName);
+               return -1;
             }
+            if (o2.equals(UNKOWN))
+            {
+               return 1;
+            }
+            return o1.name.compareTo(o2.name);
+         }
 
-         });
-      }
+      });
 
       return list;
    }

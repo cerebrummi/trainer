@@ -31,7 +31,6 @@ import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.Database;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.KeyboardHebrew;
 import vokabeltrainer.Settings;
@@ -42,10 +41,12 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
+import vokabeltrainer.table.list.editor.dialog.ExtrasDialog;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Binjan;
 import vokabeltrainer.types.Chapter;
+import vokabeltrainer.types.Database;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Gender;
@@ -67,7 +68,6 @@ public class ExpressionEditorView extends JDialog
    private JComboBox<Gender> genderHebrew;
    private JComboBox<Numerus> numerusHebrew;
    private WideComboBox<ExpressionKind> kind;
-   private JComboBox<Binjan> binjan;
    private InfoTextField newSearchwordGerman;
    private JList<String> searchwordsJListGerman;
    private Set<String> searchwordsSetGerman;
@@ -91,6 +91,8 @@ public class ExpressionEditorView extends JDialog
    private String chapterTitle = "Lektion";
    private JComboBox<String> chapter;
    private JButton infoExpressionKindButton;
+   private JButton extrasButton;
+   private ExtrasDialog extrasDialog;
 
    @SuppressWarnings("unused")
    private ExpressionEditorControllerConnector connector;
@@ -169,20 +171,20 @@ public class ExpressionEditorView extends JDialog
       numerusHebrew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
 
       kind = new WideComboBox<>(ExpressionKind.getModel());
-      kind.setMaximumRowCount(ExpressionKind.getNumberOfValues());
+      kind.setMaximumRowCount(ExpressionKind.getNumberOfValues() / 2);
       kind.setBorder(new TitledBorder("Wortart"));
       kind.setFont(germanfont);
       kind.setEditable(false);
       kind.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 50, 50));
       kind.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 50, 50));
 
-      binjan = new JComboBox<>(Binjan.values());
-      binjan.setBorder(new TitledBorder("Binjan"));
-      binjan.setFont(germanfont);
-      binjan.setEditable(false);
-      binjan.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      binjan.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      binjan.setMaximumRowCount(9);
+      extrasButton = new JButton("weitere Angaben");
+      extrasButton.setFont(Settings.getButtonFont());
+      extrasButton.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      extrasButton.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      extrasButton.setEnabled(false);
+      
+      extrasDialog = new ExtrasDialog();
 
       newSearchwordGerman = new InfoTextField("Neues Suchwort Deutsch  ",
             "Bitte je ein Wort eingeben  ", "und dann ENTER drücken!  ");
@@ -344,7 +346,7 @@ public class ExpressionEditorView extends JDialog
       vertical.setOpaque(false);
       vertical.setLayout(new TotemLayout(vertical, 15));
       vertical.add(genderHebrew);
-      vertical.add(binjan);
+      vertical.add(numerusHebrew);
       vertical.add(newSearchwordGerman);
       JScrollPane scrollPane = new JScrollPane(searchwordsJListGerman);
       scrollPane.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 220));
@@ -359,14 +361,15 @@ public class ExpressionEditorView extends JDialog
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
       vertical.setLayout(new TotemLayout(vertical, 15));
-      vertical.add(numerusHebrew);
 
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);
       horizontal.setLayout(new TrainLayout(horizontal));
       horizontal.add(kind);
       horizontal.add(infoExpressionKindButton);
+
       vertical.add(horizontal);
+      vertical.add(extrasButton);
 
       vertical.add(newSearchwordHebrew);
       JScrollPane scrollPane = new JScrollPane(searchwordsJListHebrew);
@@ -521,6 +524,24 @@ public class ExpressionEditorView extends JDialog
          save = false;
          this.dispose();
       });
+
+      kind.addItemListener(event -> {
+         extrasDialog.setKind((ExpressionKind) kind.getSelectedItem());
+         if (ExpressionKind.VERB == kind.getSelectedItem()
+               || ExpressionKind.MODALVERB == kind.getSelectedItem())
+         {
+            extrasButton.setEnabled(true);
+         }
+         else
+         {
+            extrasButton.setEnabled(false);
+         }
+      });
+
+      extrasButton.addActionListener(event -> {
+         extrasDialog.setLocationRelativeTo(null);
+         extrasDialog.setVisible(true);
+      });
    }
 
    private boolean testForCompletness()
@@ -569,7 +590,7 @@ public class ExpressionEditorView extends JDialog
       expression.setHebrew(cleanTextWithoutComma(hebrew.getText()));
       expression.setGenderHebrew((Gender) genderHebrew.getSelectedItem());
       expression.setNumerusHebrew((Numerus) numerusHebrew.getSelectedItem());
-      expression.setBinjan((Binjan) binjan.getSelectedItem());
+      expression.setBinjan((Binjan) extrasDialog.getBinjan().getSelectedItem());
       expression.setKind((ExpressionKind) kind.getSelectedItem());
       List<String> wordsGerman = new ArrayList<>();
       for (String word : searchwordsSetGerman)
@@ -585,7 +606,8 @@ public class ExpressionEditorView extends JDialog
       expression.setSearchwordsHebrew(wordsHebrew);
       Chapter selfChapter = new Chapter();
       selfChapter.setOrigin(Database.SELF);
-      selfChapter.setName(cleanTextWithoutComma((String) chapter.getSelectedItem()));
+      selfChapter
+            .setName(cleanTextWithoutComma((String) chapter.getSelectedItem()));
       expression.setChapter(selfChapter);
    }
 
@@ -610,7 +632,7 @@ public class ExpressionEditorView extends JDialog
       this.genderHebrew.setSelectedItem(expression.getGenderHebrew());
       this.numerusHebrew.setSelectedItem(expression.getNumerusHebrew());
       this.kind.setSelectedItem(expression.getKind());
-      this.binjan.setSelectedItem(expression.getBinjan());
+      this.extrasDialog.getBinjan().setSelectedItem(expression.getBinjan());
 
       this.searchwordsSetGerman = new HashSet<>();
       for (String word : expression.getSearchwordsGerman())
@@ -671,7 +693,7 @@ public class ExpressionEditorView extends JDialog
    {
       this.save = save;
    }
-   
+
    public boolean isKindChanged()
    {
       return this.oldKind != this.expression.getKind();

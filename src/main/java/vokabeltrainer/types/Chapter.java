@@ -3,8 +3,6 @@ package vokabeltrainer.types;
 import java.text.Collator;
 import java.util.Locale;
 
-import vokabeltrainer.Database;
-
 public class Chapter implements Comparable<Chapter>
 {
    private String name = "";

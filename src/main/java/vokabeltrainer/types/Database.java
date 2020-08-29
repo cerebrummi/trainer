@@ -1,10 +1,11 @@
-package vokabeltrainer;
+package vokabeltrainer.types;
 
 public enum Database
 {
    ROSENGARTEN("rosengarten", "Ivrit Schritt für Schritt"),
+   BEKEF("bekef", "Ivrit bekef"),
    SELF("", "selbsteingegebene Vokabeln"),
-   UNKNOWN("","");
+   UNKNOWN("",""); // to initialize Chapter
    
    private String folder;
    private String name;

@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import vokabeltrainer.common.Main;
+import vokabeltrainer.types.Database;
 import vokabeltrainer.types.LanguageSettings;
 
 public class Settings
@@ -21,7 +22,7 @@ public class Settings
    private static boolean soundOn = true;
    private static String chosenExpressionPath = null;
    private static List<Database> chosenDatabases; // TODO user can choose databases
-   private static Database[] availableDatabases = {Database.ROSENGARTEN};
+   private static Database[] availableDatabases = {};
 
    private Settings()
    {

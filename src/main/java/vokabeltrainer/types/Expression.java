@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 
-import vokabeltrainer.Database;
-
 public class Expression
 {
    private UUID uuid;

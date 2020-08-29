@@ -1,5 +1,6 @@
 package vokabeltrainer.common;
 
+import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +33,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 import vokabeltrainer.Command;
-import vokabeltrainer.Database;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
@@ -46,6 +46,7 @@ import vokabeltrainer.resources.vocabulary.Vocabulary;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Binjan;
 import vokabeltrainer.types.Chapter;
+import vokabeltrainer.types.Database;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Gender;
@@ -149,74 +150,14 @@ public final class Data
       return getDataBaseAtomic().getNewMap().size();
    }
 
-   public static int getInterjektionMapSize()
-   {
-      return getDataBaseAtomic().getInterjektionMap().size();
-   }
-
-   public static int getNomenMapSize()
-   {
-      return getDataBaseAtomic().getNomenMap().size();
-   }
-
-   public static int getNumeralMapSize()
-   {
-      return getDataBaseAtomic().getNumeralMap().size();
-   }
-
-   public static int getPronomMapSize()
-   {
-      return getDataBaseAtomic().getPronomMap().size();
-   }
-
-   public static int getUnkownMapSize()
-   {
-      return getDataBaseAtomic().getUnkownMap().size();
-   }
-
-   public static int getVerbMapSize()
-   {
-      return getDataBaseAtomic().getVerbMap().size();
-   }
-
-   public static int getConstructusMapSize()
-   {
-      return getDataBaseAtomic().getConstructusMap().size();
-   }
-
    public static int getDeletedMapSize()
    {
       return getDataBaseAtomic().getDeletedMap().size();
    }
-
-   public static int getFrageMapSize()
+   
+   public static int getMapSize(ExpressionKind kind)
    {
-      return getDataBaseAtomic().getFrageMap().size();
-   }
-
-   public static int getBegriffMapSize()
-   {
-      return getDataBaseAtomic().getBegriffMap().size();
-   }
-
-   public static int getAdjektivMapSize()
-   {
-      return getDataBaseAtomic().getAdjektivMap().size();
-   }
-
-   public static int getAdverbMapSize()
-   {
-      return getDataBaseAtomic().getAdverbMap().size();
-   }
-
-   public static int getPartikelMapSize()
-   {
-      return getDataBaseAtomic().getPartikelMap().size();
-   }
-
-   public static int getSubstantivMapSize()
-   {
-      return getDataBaseAtomic().getSubstantivMap().size();
+      return getDataBaseAtomic().getExpressionMap(kind).size();
    }
 
    public static ExpressionTableModel findTranslations(Language language,
@@ -349,60 +290,26 @@ public final class Data
             findNumberOfAllVocabulary() + 100);
       private final ConcurrentMap<UUID, Expression> newMap = new ConcurrentHashMap<>(
             100);
-
       private final ConcurrentMap<UUID, Expression> deletedMap = readFile(
             DELETED_TXT, null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> unkownMap = readFile(
-            "UNKOWN.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> adjektivMap = readFile(
-            "ADJEKTIV.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> adverbMap = readFile(
-            "ADVERB.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> begriffMap = readFile(
-            "BEGRIFF.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> frageMap = readFile(
-            "FRAGE.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> interjektionMap = readFile(
-            "INTERJEKTION.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> numeralMap = readFile(
-            "NUMERAL.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> partikelMap = readFile(
-            "PARTIKEL.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> pronomMap = readFile(
-            "PRONOM.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> substantivMap = readFile(
-            "SUBSTANTIV.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> verbMap = readFile(
-            "VERB.txt", null, Database.SELF);
-      private final ConcurrentMap<UUID, Expression> constructusMap = readFile(
-            "KONSTRUKT.txt", null, Database.SELF);
+
+      private final Map<ExpressionKind, ConcurrentMap<UUID, Expression>> mapOfMaps = new ConcurrentHashMap<>();
 
       DataBase()
       {
+         for (ExpressionKind mapKind : ExpressionKind.values())
+         {
+            mapOfMaps.put(mapKind,
+                  readFile(mapKind.name() + ".txt", null, Database.SELF));
+         }
+         
          for (Database database : Settings.getChosenDatabases())
          {
-            readFile(database.getFolder() + File.separator + "ADJEKTIV.txt",
-                  adjektivMap, database);
-            readFile(database.getFolder() + File.separator + "ADVERB.txt",
-                  adverbMap, database);
-            readFile(database.getFolder() + File.separator + "BEGRIFF.txt",
-                  begriffMap, database);
-            readFile(database.getFolder() + File.separator + "FRAGE.txt",
-                  frageMap, database);
-            readFile(database.getFolder() + File.separator + "INTERJEKTION.txt",
-                  interjektionMap, database);
-            readFile(database.getFolder() + File.separator + "NUMERAL.txt",
-                  numeralMap, database);
-            readFile(database.getFolder() + File.separator + "PARTIKEL.txt",
-                  partikelMap, database);
-            readFile(database.getFolder() + File.separator + "PRONOM.txt",
-                  pronomMap, database);
-            readFile(database.getFolder() + File.separator + "SUBSTANTIV.txt",
-                  substantivMap, database);
-            readFile(database.getFolder() + File.separator + "VERB.txt",
-                  verbMap, database);
-            readFile(database.getFolder() + File.separator + "KONSTRUKT.txt",
-                  constructusMap, database);
+            for (ExpressionKind mapKind : ExpressionKind.values())
+            {
+               readFile(database.getFolder() + File.separator + mapKind.name()
+                     + ".txt", mapOfMaps.get(mapKind), database);
+            }
          }
 
          File customDir = new File(Settings.getTrainingPath());
@@ -575,8 +482,8 @@ public final class Data
       }
 
       private ConcurrentMap<UUID, Expression> readData(String filename,
-            ConcurrentMap<UUID, Expression> existingMap, Reader reader, Database origin)
-            throws IOException
+            ConcurrentMap<UUID, Expression> existingMap, Reader reader,
+            Database origin) throws IOException
       {
          StringBuffer buffer = new StringBuffer();
          String input;
@@ -621,7 +528,7 @@ public final class Data
                expression.setUuid(UUID.fromString(items[i]));
                expression.setOrigin(origin);
                i++;
-               
+
                expression.setChapter(new Chapter(items[i], origin));
                if (!expression.getChapter().getName().isEmpty()
                      && !DELETED_TXT.equals(filename))
@@ -673,8 +580,8 @@ public final class Data
       // ############################################################
 
       private ExpressionTableModel findTranslations(Language language,
-            String text, ExpressionKind kind, SearchType search, Chapter chapter,
-            Command command)
+            String text, ExpressionKind kind, SearchType search,
+            Chapter chapter, Command command)
       {
          Collection<Expression> expressions = null;
 
@@ -842,34 +749,7 @@ public final class Data
 
       private Collection<Expression> findMapValues(ExpressionKind kind)
       {
-         switch (kind)
-         {
-         case BEGRIFF:
-            return begriffMap.values();
-         case ADJEKTIV:
-            return adjektivMap.values();
-         case FRAGE:
-            return frageMap.values();
-         case UNKOWN:
-            return unkownMap.values();
-         case VERB:
-            return verbMap.values();
-         case NUMERAL:
-            return numeralMap.values();
-         case ADVERB:
-            return adverbMap.values();
-         case INTERJEKTION:
-            return interjektionMap.values();
-         case PRONOM:
-            return pronomMap.values();
-         case PARTIKEL:
-            return partikelMap.values();
-         case SUBSTANTIV:
-            return substantivMap.values();
-         case KONSTRUKT:
-            return constructusMap.values();
-         }
-         throw new IllegalArgumentException("Data: Wortart fehlt: " + kind);
+         return mapOfMaps.get(kind).values();
       }
 
       private boolean equalsGermanSearchWord(String text, Expression expression)
@@ -951,10 +831,10 @@ public final class Data
 
          for (Chapter chapter : chapterSet)
          {
-            if(chapter.isSelf())
+            if (chapter.isSelf())
             {
                chapterList.add(chapter.getName());
-            }           
+            }
          }
          Collections.sort(chapterList);
          return chapterList;
@@ -972,14 +852,14 @@ public final class Data
          }
          return result;
       }
-      
+
       private List<Chapter> getChapterList()
       {
          List<Chapter> chapterList = new ArrayList<>();
 
          for (Chapter chapter : chapterSet)
          {
-            chapterList.add(chapter);           
+            chapterList.add(chapter);
          }
          Collections.sort(chapterList);
          return chapterList;
@@ -1063,21 +943,13 @@ public final class Data
                continue;
             }
             deletedMap.put(expression.getUuid(), expression);
-
             alleMap.remove(expression.getUuid(), expression);
-            adjektivMap.remove(expression.getUuid(), expression);
-            adverbMap.remove(expression.getUuid(), expression);
-            begriffMap.remove(expression.getUuid(), expression);
-            frageMap.remove(expression.getUuid(), expression);
-            interjektionMap.remove(expression.getUuid(), expression);
             newMap.remove(expression.getUuid(), expression);
-            numeralMap.remove(expression.getUuid(), expression);
-            partikelMap.remove(expression.getUuid(), expression);
-            pronomMap.remove(expression.getUuid(), expression);
-            substantivMap.remove(expression.getUuid(), expression);
-            unkownMap.remove(expression.getUuid(), expression);
-            verbMap.remove(expression.getUuid(), expression);
-            constructusMap.remove(expression.getUuid(), expression);
+            
+            for(ConcurrentMap<UUID, Expression> map : mapOfMaps.values())
+            {
+               map.remove(expression.getUuid(), expression);
+            }
          }
 
          reloadChapterSet();
@@ -1088,45 +960,9 @@ public final class Data
          for (Expression expression : newMap.values())
          {
             alleMap.put(expression.getUuid(), expression);
-            switch (expression.getKind())
-            {
-            case ADJEKTIV:
-               adjektivMap.put(expression.getUuid(), expression);
-               break;
-            case ADVERB:
-               adverbMap.put(expression.getUuid(), expression);
-               break;
-            case BEGRIFF:
-               begriffMap.put(expression.getUuid(), expression);
-               break;
-            case FRAGE:
-               frageMap.put(expression.getUuid(), expression);
-               break;
-            case INTERJEKTION:
-               interjektionMap.put(expression.getUuid(), expression);
-               break;
-            case KONSTRUKT:
-               constructusMap.put(expression.getUuid(), expression);
-               break;
-            case NUMERAL:
-               numeralMap.put(expression.getUuid(), expression);
-               break;
-            case PARTIKEL:
-               partikelMap.put(expression.getUuid(), expression);
-               break;
-            case PRONOM:
-               pronomMap.put(expression.getUuid(), expression);
-               break;
-            case SUBSTANTIV:
-               substantivMap.put(expression.getUuid(), expression);
-               break;
-            case UNKOWN:
-               unkownMap.put(expression.getUuid(), expression);
-               break;
-            case VERB:
-               verbMap.put(expression.getUuid(), expression);
-               break;
-            }
+            
+            ConcurrentMap<UUID, Expression> map = mapOfMaps.get(expression.getKind());
+            map.put(expression.getUuid(), expression);
          }
          this.reloadChapterSet();
          newMap.clear();
@@ -1355,160 +1191,18 @@ public final class Data
       {
          return alleMap;
       }
-
-      private ConcurrentMap<UUID, Expression> getAdjektivMap()
+      
+      public ConcurrentMap<UUID, Expression> getExpressionMap(ExpressionKind kind)
       {
-         return adjektivMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getAdverbMap()
-      {
-         return adverbMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getBegriffMap()
-      {
-         return begriffMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getFrageMap()
-      {
-         return frageMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getInterjektionMap()
-      {
-         return interjektionMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getNomenMap()
-      {
-         return substantivMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getNumeralMap()
-      {
-         return numeralMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getPronomMap()
-      {
-         return pronomMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getUnkownMap()
-      {
-         return unkownMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getVerbMap()
-      {
-         return verbMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getPartikelMap()
-      {
-         return partikelMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getSubstantivMap()
-      {
-         return substantivMap;
-      }
-
-      private ConcurrentMap<UUID, Expression> getConstructusMap()
-      {
-         return constructusMap;
+         return mapOfMaps.get(kind);
       }
 
       private void changeKindofExpressionInDataStrukture(ExpressionKind oldKind,
-            Expression newKind)
+            Expression changedExpression)
       {
-         switch (oldKind)
-         {
-         case ADJEKTIV:
-            adjektivMap.remove(newKind.getUuid());
-            break;
-         case ADVERB:
-            adverbMap.remove(newKind.getUuid());
-            break;
-         case BEGRIFF:
-            begriffMap.remove(newKind.getUuid());
-            break;
-         case FRAGE:
-            frageMap.remove(newKind.getUuid());
-            break;
-         case INTERJEKTION:
-            interjektionMap.remove(newKind.getUuid());
-            break;
-         case KONSTRUKT:
-            constructusMap.remove(newKind.getUuid());
-            break;
-         case NUMERAL:
-            numeralMap.remove(newKind.getUuid());
-            break;
-         case PARTIKEL:
-            partikelMap.remove(newKind.getUuid());
-            break;
-         case PRONOM:
-            pronomMap.remove(newKind.getUuid());
-            break;
-         case SUBSTANTIV:
-            substantivMap.remove(newKind.getUuid());
-            break;
-         case UNKOWN:
-            unkownMap.remove(newKind.getUuid());
-            break;
-         case VERB:
-            verbMap.remove(newKind.getUuid());
-            break;
-         default:
-            throw new IllegalArgumentException(
-                  "Data: Wortart fehlt: " + oldKind);
-         }
-
-         switch (newKind.getKind())
-         {
-         case ADJEKTIV:
-            adjektivMap.put(newKind.getUuid(), newKind);
-            break;
-         case ADVERB:
-            adverbMap.put(newKind.getUuid(), newKind);
-            break;
-         case BEGRIFF:
-            begriffMap.put(newKind.getUuid(), newKind);
-            break;
-         case FRAGE:
-            frageMap.put(newKind.getUuid(), newKind);
-            break;
-         case INTERJEKTION:
-            interjektionMap.put(newKind.getUuid(), newKind);
-            break;
-         case KONSTRUKT:
-            constructusMap.put(newKind.getUuid(), newKind);
-            break;
-         case NUMERAL:
-            numeralMap.put(newKind.getUuid(), newKind);
-            break;
-         case PARTIKEL:
-            partikelMap.put(newKind.getUuid(), newKind);
-            break;
-         case PRONOM:
-            pronomMap.put(newKind.getUuid(), newKind);
-            break;
-         case SUBSTANTIV:
-            substantivMap.put(newKind.getUuid(), newKind);
-            break;
-         case UNKOWN:
-            unkownMap.put(newKind.getUuid(), newKind);
-            break;
-         case VERB:
-            verbMap.put(newKind.getUuid(), newKind);
-            break;
-         default:
-            throw new IllegalArgumentException(
-                  "Data: Wortart fehlt: " + newKind.getKind());
-         }
+         mapOfMaps.get(oldKind).remove(changedExpression.getUuid());
+         mapOfMaps.get(changedExpression.getKind())
+               .put(changedExpression.getUuid(), changedExpression);
       }
 
       private StatisticsTableModel findStatisticsModel()

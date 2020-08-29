@@ -161,21 +161,21 @@ public class DictionaryView extends BackgroundPanelTiled
       add(initServicePanel());
 
       Tabulator.setTabShowing(Tabulator.CHAPTER_TAB);
-      
-      listSelectionListener = new ListSelectionListener()
-            {
 
-               @Override
-               public void valueChanged(ListSelectionEvent event)
-               {
-                  if (!event.getValueIsAdjusting())
-                  {
-                     connector.displayChapterWhich(getSelectedChapter());
-                  }
-               }
-         
-            };
-      
+      listSelectionListener = new ListSelectionListener()
+      {
+
+         @Override
+         public void valueChanged(ListSelectionEvent event)
+         {
+            if (!event.getValueIsAdjusting())
+            {
+               connector.displayChapterWhich(getSelectedChapter());
+            }
+         }
+
+      };
+
       loadChapters();
 
       initController();
@@ -457,7 +457,8 @@ public class DictionaryView extends BackgroundPanelTiled
       tabbedPane.addChangeListener(event -> connector
             .tabbedPaneChanged(tabbedPane.getSelectedIndex()));
 
-      newWordButton.addActionListener(event -> connector.openNewExpressionDialog());
+      newWordButton
+            .addActionListener(event -> connector.openNewExpressionDialog());
 
       copyAllSelectedButton
             .addActionListener(event -> connector.copyAllSelectedExpressions());
@@ -503,7 +504,7 @@ public class DictionaryView extends BackgroundPanelTiled
             }
          }
       });
-      
+
       searchPhraseHebrew.addKeyListener(new KeyAdapter()
       {
          @Override
@@ -522,8 +523,7 @@ public class DictionaryView extends BackgroundPanelTiled
                new ImageIcon(TextImage.make("Tabelle",
                      "einmal klicken markiert einen Eintrag",
                      "Enter drücken öffnet den markierten Eintrag",
-                     "zweimal klicken wählt einen Eintrag aus (Stecknadel)"
-                     )));
+                     "zweimal klicken wählt einen Eintrag aus (Stecknadel)")));
       });
 
       tableInfoButton.addMouseListener(new MouseListener()
@@ -626,7 +626,7 @@ public class DictionaryView extends BackgroundPanelTiled
    {
       listSelectionModel.addListSelectionListener(listSelectionListener);
    }
-   
+
    public void removeChapterListSelectionListener()
    {
       listSelectionModel.removeListSelectionListener(listSelectionListener);
@@ -692,7 +692,7 @@ public class DictionaryView extends BackgroundPanelTiled
       while (enumeration.hasMoreElements())
       {
          AbstractButton button = enumeration.nextElement();
-         if (counter < 8)
+         if (counter < ExpressionKind.getNumberOfValues() / 2)
          {
             vertical2.add(button);
             counter++;
