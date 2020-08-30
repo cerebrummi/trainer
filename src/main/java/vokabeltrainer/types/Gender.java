@@ -12,9 +12,6 @@ public enum Gender
    MALE(
          "männlich",
          "maskulin"),
-   NEUTER(
-         "sächlich",
-         "neutrum"),
    UNKOWN(
          "Geschlecht unbekannt",
          "Geschlecht unbekannt"),
@@ -55,11 +52,6 @@ public enum Gender
             return MALE;
          }
 
-         if (NEUTER.germanName.equals(gender))
-         {
-            return NEUTER;
-         }
-
          if (UNKOWN.germanName.equals(gender))
          {
             return UNKOWN;
@@ -82,11 +74,6 @@ public enum Gender
             return MALE;
          }
 
-         if (NEUTER.latinName.equals(gender))
-         {
-            return NEUTER;
-         }
-
          if (UNKOWN.latinName.equals(gender))
          {
             return UNKOWN;
@@ -106,17 +93,6 @@ public enum Gender
       model.addElement(UNKOWN);
       model.addElement(FEMALE);
       model.addElement(MALE);
-      model.addElement(NA);
-      return model;
-   }
-
-   public static DefaultComboBoxModel<Gender> getGermanModel()
-   {
-      DefaultComboBoxModel<Gender> model = new DefaultComboBoxModel<>();
-      model.addElement(UNKOWN);
-      model.addElement(FEMALE);
-      model.addElement(MALE);
-      model.addElement(NEUTER);
       model.addElement(NA);
       return model;
    }

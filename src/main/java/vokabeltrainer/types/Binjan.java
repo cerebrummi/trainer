@@ -2,26 +2,29 @@ package vokabeltrainer.types;
 
 public enum Binjan
 {
-   UNKOWN(
-         "Binjan unbekannt"),
-   PAAL(
-         "pa'al"),
-   PAAL_HOHL(
-         "pa'al hohl"),
-   PAAL_SCHWACH(
-         "pa'al schwach"),
-   PIEL(
-         "pi'el"),
-   HIFIL(
-         "hif'il"),
-   HITPAEL(
-         "hitpa'el"),
-   HUFAL(
-         "huf'al"),
-   PUAL(
-         "pu'al"),
-   NIFAL(
-         "nif'al");
+   NA(
+         "Binjan nicht anwendbar"
+   ), UNKOWN(
+         "Binjan unbekannt"
+   ), PAAL(
+         "pa'al"
+   ), PAAL_HOHL(
+         "pa'al hohl"
+   ), PAAL_SCHWACH(
+         "pa'al schwach"
+   ), PIEL(
+         "pi'el"
+   ), HIFIL(
+         "hif'il"
+   ), HITPAEL(
+         "hitpa'el"
+   ), HUFAL(
+         "huf'al"
+   ), PUAL(
+         "pu'al"
+   ), NIFAL(
+         "nif'al"
+   );
 
    String name;
 
@@ -38,9 +41,9 @@ public enum Binjan
 
    public static Binjan fromString(String binjan)
    {
-      for(Binjan b : Binjan.values())
+      for (Binjan b : Binjan.values())
       {
-         if(b.name.equalsIgnoreCase(binjan))
+         if (b.name.equalsIgnoreCase(binjan))
          {
             return b;
          }

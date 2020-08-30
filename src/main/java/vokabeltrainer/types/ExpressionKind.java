@@ -87,6 +87,9 @@ public enum ExpressionKind
    UHRZEIT(
          "Uhrzeit",
          ""),
+   UMGANGSPRACHE(
+         "Umgangsprache",
+         ""),
    VERB(
          "Verb",
          ""),

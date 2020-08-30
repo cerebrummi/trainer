@@ -35,7 +35,7 @@ public class Expression
          hebrewInLatin = "";
          genderHebrew = Gender.UNKOWN;
          numerusHebrew = Numerus.UNKNOWN;
-         binjan = Binjan.UNKOWN;
+         binjan = Binjan.NA;
          kind = ExpressionKind.UNKOWN;
          chapter = new Chapter();
       }
