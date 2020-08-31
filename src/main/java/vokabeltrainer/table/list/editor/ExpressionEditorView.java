@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -21,14 +22,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
@@ -128,6 +135,9 @@ public class ExpressionEditorView extends JDialog
    private JPanel verticalAdverbPanel;
    private JPanel verticalAdjektivPanel;
    private JPanel verticalUnkownPanel;
+   private JTextPane extraInfo;
+
+   private JScrollPane extraInfoScroller;
 
    public ExpressionEditorView(ExpressionEditorControllerConnector connector)
    {
@@ -330,8 +340,6 @@ public class ExpressionEditorView extends JDialog
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
-      keyboard = new KeyboardHebrew(hebrew, components, 70, true);
-
       chapter = new JComboBox<String>();
       chapter.setMaximumRowCount(20);
       chapter.setBorder(new TitledBorder(this.chapterTitle));
@@ -342,8 +350,8 @@ public class ExpressionEditorView extends JDialog
 
       cardLayout = new CardLayout();
       swapPanel = new JPanel(cardLayout);
-      swapPanel.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 209));
-      swapPanel.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 209));
+      swapPanel.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
+      swapPanel.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       swapPanel.setBorder(BorderFactory.createEmptyBorder());
       swapPanel.add(ExpressionKind.UNKOWN.name(), initUnkownPanel());
       swapPanel.add(ExpressionKind.ADJEKTIV.name(), initAdjektivPanel());
@@ -386,6 +394,22 @@ public class ExpressionEditorView extends JDialog
       swapPanel.add(ExpressionKind.WOCHENTAG.name(), initWochentagPanel());
       swapPanel.add(ExpressionKind.ZAHL.name(), initZahlPanel());
       cardLayout.show(swapPanel, ExpressionKind.UNKOWN.name());
+      
+      extraInfo = new JTextPane();
+      extraInfo.setFont(Main.getHebrewFont(30));
+      extraInfo.setBorder(BorderFactory.createTitledBorder("Weitere Informationen"));
+      StyledDocument doc = extraInfo.getStyledDocument();
+      SimpleAttributeSet style = new SimpleAttributeSet();
+      StyleConstants.setForeground(style, Settings.getDarkGold());
+      StyleConstants.setFontSize(style, 20);
+      StyleConstants.setFontFamily(style, "Serif");
+      doc.setParagraphAttributes(0, doc.getLength(), style, true);
+      components.add(extraInfo);
+      extraInfoScroller = new JScrollPane(extraInfo);
+      extraInfoScroller.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
+      extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+      
+      keyboard = new KeyboardHebrew(hebrew, components, 70, true);
    }
 
    private Component initUmgangsSprachePanel()
@@ -772,6 +796,7 @@ public class ExpressionEditorView extends JDialog
       vertical.setLayout(new TotemLayout(vertical, 15));
 
       vertical.add(swapPanel);
+      vertical.add(extraInfoScroller);
 
       layout.add(vertical);
    }
@@ -922,6 +947,76 @@ public class ExpressionEditorView extends JDialog
       });
 
       kind.addItemListener(event -> {
+         
+         switch((ExpressionKind) this.kind.getSelectedItem())
+         {
+         case ADJEKTIV:
+            break;
+         case ADVERB:
+            break;
+         case ALTERSANGABE:
+            break;
+         case AUSRUF:
+            break;
+         case BERUF:
+            break;
+         case BINDEWORT:
+            break;
+         case DEMONSTRATIVPRONOM:
+            break;
+         case EIGENNAME:
+            break;
+         case FARBE:
+            break;
+         case FRAGEWORT:
+            break;
+         case GLUECKWUNSCH:
+            break;
+         case JAHRESZEIT:
+            break;
+         case KONSTRUKT:
+            break;
+         case MODALVERB:
+            this.verticalModalVerbPanel.add(binjan);
+            break;
+         case ORDNUNGSZAHL:
+            break;
+         case PARTIKEL:
+            break;
+         case PERSONALPRAEFIX:
+            break;
+         case PERSONALPRONOM:
+            break;
+         case PERSONALSUFFIX:
+            break;
+         case POSSESSIVPRONOM:
+            break;
+         case PRAEPOSITION:
+            break;
+         case PRONOM:
+            break;
+         case REDEWENDUNG:
+            break;
+         case SUBSTANTIV:
+            break;
+         case UHRZEIT:
+            break;
+         case UMGANGSPRACHE:
+            break;
+         case UNKOWN:
+            break;
+         case VERB:
+            this.verticalVerbPanel.add(binjan);
+            break;
+         case WOCHENTAG:
+            break;
+         case ZAHL:
+            break;
+         default:
+            break;
+         
+         }
+         
          this.cardLayout.show(swapPanel,
                ((ExpressionKind) this.kind.getSelectedItem()).name());
       });
