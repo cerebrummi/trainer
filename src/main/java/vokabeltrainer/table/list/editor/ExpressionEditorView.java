@@ -8,6 +8,7 @@ import java.awt.Cursor;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -18,11 +19,13 @@ import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,10 +46,12 @@ import vokabeltrainer.InfoTextField;
 import vokabeltrainer.KeyboardHebrew;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
+import vokabeltrainer.ThemeCompliantListCellRendererMustInput;
 import vokabeltrainer.WideComboBox;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -341,6 +346,7 @@ public class ExpressionEditorView extends JDialog
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
       chapter = new JComboBox<String>();
+      chapter.setEditable(true);
       chapter.setMaximumRowCount(20);
       chapter.setBorder(new TitledBorder(this.chapterTitle));
       chapter.setOpaque(false);
@@ -398,6 +404,7 @@ public class ExpressionEditorView extends JDialog
       extraInfo = new JTextPane();
       extraInfo.setFont(Main.getHebrewFont(30));
       extraInfo.setBorder(BorderFactory.createTitledBorder("Weitere Informationen"));
+      extraInfo.setDocument(new ExtraInformationDocument());
       StyledDocument doc = extraInfo.getStyledDocument();
       SimpleAttributeSet style = new SimpleAttributeSet();
       StyleConstants.setForeground(style, Settings.getDarkGold());
@@ -951,70 +958,99 @@ public class ExpressionEditorView extends JDialog
          switch((ExpressionKind) this.kind.getSelectedItem())
          {
          case ADJEKTIV:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case ADVERB:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case ALTERSANGABE:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case AUSRUF:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case BERUF:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case BINDEWORT:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case DEMONSTRATIVPRONOM:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case EIGENNAME:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case FARBE:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case FRAGEWORT:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case GLUECKWUNSCH:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case JAHRESZEIT:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case KONSTRUKT:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case MODALVERB:
+            binjan.setSelectedItem(Binjan.UNKOWN);
             this.verticalModalVerbPanel.add(binjan);
             break;
          case ORDNUNGSZAHL:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case PARTIKEL:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case PERSONALPRAEFIX:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case PERSONALPRONOM:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case PERSONALSUFFIX:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case POSSESSIVPRONOM:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case PRAEPOSITION:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case PRONOM:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case REDEWENDUNG:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case SUBSTANTIV:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case UHRZEIT:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case UMGANGSPRACHE:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case UNKOWN:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case VERB:
+            binjan.setSelectedItem(Binjan.UNKOWN);
             this.verticalVerbPanel.add(binjan);
             break;
          case WOCHENTAG:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          case ZAHL:
+            binjan.setSelectedItem(Binjan.NA);
             break;
          default:
             break;
-         
          }
          
          this.cardLayout.show(swapPanel,
@@ -1135,7 +1171,6 @@ public class ExpressionEditorView extends JDialog
       {
          this.chapter.setSelectedItem(expression.getChapter().getName());
       }
-      this.chapter.setEditable(true);
    }
 
    public Expression getExpression()

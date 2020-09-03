@@ -44,6 +44,12 @@ public class LetterHelper
                letterCodes.set(i - 1, " Fb2B"); // letter before is a ssin
                c++;
             }
+            else if (code.equalsIgnoreCase(" 0022")) // quotationmark
+            {
+               // i is the number of letterCodes, since no new letterCode is added i is not advanced
+               letterCodes.set(i - 1, letterCodes.get(i - 1) + code); // letter before is a backslash
+               c++;
+            }
             else
             {
                letterCodes.add(code);

@@ -13,7 +13,26 @@ public enum SignLetter
    BRAKET_OPEN(" 0028", "\u0028"),     // (
    BRAKET_CLOSE(" 0029", "\u0029"),    // )
    COMMA(" 002c", "\u002c"),           // ,
-   HYPHEN(" 002d","\u002d");           // -
+   HYPHEN(" 002d","\u002d"),           // -
+   QUOTATIONMARK(" 005c 0022","\u005c\u0022");    // "
+   // §
+   // $
+   // €
+   // %
+   // / 
+   // [
+   // ]
+   // {
+   // }
+   // = 
+   // \
+   // *
+   // +
+   // #
+   // ;
+   // :
+   // _
+   
    
    private String code;
    private String unicode;
@@ -27,6 +46,9 @@ public enum SignLetter
          POINT };
    private static SignLetter[] hebrewSignsWithComma = { QUESTIONMARK,
          EXCLAMATIONMARK, POINT, COMMA };
+   
+   private static SignLetter[] extraInformationSigns = {QUESTIONMARK, EXCLAMATIONMARK,
+         POINT, APOSTROPH, BRAKET_OPEN, BRAKET_CLOSE, HYPHEN, COMMA};
 
    SignLetter(String code, String unicode)
    {
@@ -68,6 +90,16 @@ public enum SignLetter
    {
       StringJoiner joiner = new StringJoiner(",");
       for (SignLetter letter : hebrewSignsWithComma)
+      {
+         joiner.add(letter.getCode());
+      }
+      return joiner.toString();
+   }
+   
+   public static String getPatternStringExtraInformation()
+   {
+      StringJoiner joiner = new StringJoiner(",");
+      for (SignLetter letter : extraInformationSigns)
       {
          joiner.add(letter.getCode());
       }

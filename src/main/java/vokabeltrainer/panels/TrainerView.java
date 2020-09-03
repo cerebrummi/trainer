@@ -99,7 +99,7 @@ public class TrainerView extends BackgroundPanelTiled
    public TrainerView(TrainerControllerConnector connector)
    {
       this.connector = connector;
-
+      this.languageDirection = connector.getLanguageDirection();
       setLayout(new TotemLayout(this));
       setBorder(BorderFactory.createEmptyBorder());
       setOpaque(false);
@@ -109,8 +109,6 @@ public class TrainerView extends BackgroundPanelTiled
 
    public void init()
    {
-      this.languageDirection = connector.getLanguageDirection();
-
       languageDirectionLabel.setText(
             languageDirection.equals(Language.GERMAN) ? "Deutsch >> Hebräisch"
                   : "Hebräisch >> Deutsch");
