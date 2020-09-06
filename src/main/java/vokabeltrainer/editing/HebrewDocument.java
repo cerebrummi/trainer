@@ -32,6 +32,12 @@ public class HebrewDocument extends PlainDocument
    {
       List<String> list = LetterHelper.findLetterCodes(text);
       
+      if(list == null || list.isEmpty())
+      {
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
+      
       if (getLength() + list.size() - length > 26)
       {
          Toolkit.getDefaultToolkit().beep();
@@ -62,6 +68,12 @@ public class HebrewDocument extends PlainDocument
          throws BadLocationException
    {
       List<String> list = LetterHelper.findLetterCodes(str);
+      
+      if(list == null || list.isEmpty())
+      {
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
       
       if (getLength() + list.size() > 26)
       {

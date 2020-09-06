@@ -1,59 +1,48 @@
 package vokabeltrainer.editing;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringJoiner;
 
 public enum NumberLetter
 {
-   ZERO(" 0030"),
-   ONE(" 0031"),
-   TWO(" 0032"),
-   THREE(" 0033"),
-   FOUR(" 0034"),
-   FIVE(" 0035"),
-   SIX(" 0036"),
-   SEVEN(" 0037"),
-   EIGHT(" 0038"),
-   NINE(" 0039");
+   ZERO(" 0030","\u0030"),
+   ONE(" 0031","\u0031"),
+   TWO(" 0032","\u0032"),
+   THREE(" 0033","\u0033"),
+   FOUR(" 0034","\u0034"),
+   FIVE(" 0035","\u0035"),
+   SIX(" 0036","\u0036"),
+   SEVEN(" 0037","\u0037"),
+   EIGHT(" 0038","\u0038"),
+   NINE(" 0039","\u0039");
    
    private String code;
+   private String unicode;
    
-   NumberLetter(String code)
+   NumberLetter(String code, String unicode)
    {
       this.code = code;
+      this.unicode = unicode;
    }
 
-
-   public static String getPatternString(boolean withComma)
+   public static String getPatternString()
    {
       StringJoiner joiner = new StringJoiner(",");
       for(NumberLetter letter : NumberLetter.values())
       {
          joiner.add(letter.code);
       }
-      if(withComma)
-      {
-         joiner.add(" 002C"); // .
-      }
       
       return joiner.toString();
    }
-   
-   public static List<String> findNumberLetters(String numberWord)
+
+   public String getCode()
    {
-      List<String> letters = new ArrayList<>();
-      for (int i = 0; i < numberWord.length(); i++)
-      {
-         try
-         {
-            letters.add(String.format(" %04x", (int) numberWord.charAt(i)));
-         }
-         catch (Exception e)
-         {
-            
-         }
-      }
-      return letters;
+      return code;
+   }
+
+
+   public String getUnicode()
+   {
+      return unicode;
    }
 }

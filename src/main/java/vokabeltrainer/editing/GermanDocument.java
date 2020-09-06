@@ -33,6 +33,12 @@ public class GermanDocument extends PlainDocument
    {
       List<String> list = LetterHelper.findLetterCodes(text);
       
+      if(list == null || list.isEmpty())
+      {
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
+      
       if (getLength() + list.size() - length > 50)
       {
          Toolkit.getDefaultToolkit().beep();
@@ -64,6 +70,12 @@ public class GermanDocument extends PlainDocument
          throws BadLocationException
    {
       List<String> list = LetterHelper.findLetterCodes(str);
+      
+      if(list == null || list.isEmpty())
+      {
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
       
       if (getLength() + list.size() > 50)
       {

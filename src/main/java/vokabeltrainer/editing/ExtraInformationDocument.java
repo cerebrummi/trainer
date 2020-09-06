@@ -16,7 +16,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
    
    public ExtraInformationDocument()
    {
-      signPattern = SignLetter.getPatternStringGermanWithComma();
+      signPattern = SignLetter.getPatternStringExtraInformation();
    }
 
    @Override
@@ -24,6 +24,12 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          throws BadLocationException
    {
       List<String> list = LetterHelper.findLetterCodes(text);
+      
+      if(list == null || list.isEmpty())
+      {
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
       
       if (getLength() + list.size() - length > 250)
       {
@@ -61,6 +67,12 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          throws BadLocationException
    {
       List<String> list = LetterHelper.findLetterCodes(str);
+      
+      if(list == null || list.isEmpty())
+      {
+         Toolkit.getDefaultToolkit().beep();
+         return;
+      }
       
       if (getLength() + list.size() > 250)
       {

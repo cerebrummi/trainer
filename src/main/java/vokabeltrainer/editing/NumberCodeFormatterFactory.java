@@ -50,7 +50,7 @@ public class NumberCodeFormatterFactory extends DefaultFormatterFactory
    class NumberCodeFormatter extends AbstractFormatter
    {
       private static final long serialVersionUID = 7933675034782342475L;
-      String pattern = NumberLetter.getPatternString(false);
+      String pattern = NumberLetter.getPatternString();
       
       @Override
       public Object stringToValue(String text) throws ParseException
@@ -96,7 +96,7 @@ public class NumberCodeFormatterFactory extends DefaultFormatterFactory
             {
                return text;
             }
-            List<String> list = NumberLetter.findNumberLetters(text);
+            List<String> list = LetterHelper.findLetterCodes(text);
             for (String letter : list)
             {
                if (!StringUtils.containsIgnoreCase(pattern, letter))
@@ -109,6 +109,5 @@ public class NumberCodeFormatterFactory extends DefaultFormatterFactory
          }
          return "";
       }
-
    }
 }
