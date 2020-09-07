@@ -6,84 +6,41 @@ import org.apache.commons.lang3.StringUtils;
 
 public enum SignLetter
 {
-   QUESTION_MARK(
-         " 003f", "\u003f"
-   ), // ?
-   EXCLAMATION_MARK(
-         " 0021", "\u0021"
-   ), // !
-   FULL_STOP(
-         " 002e", "\u002e"
-   ), // .
-   APOSTROPHE(
-         " 0027", "\u0027"
-   ), // '
-   LEFT_PARENTHESIS(
-         " 0028", "\u0028"
-   ), // (
-   RIGHT_PARENTHESIS(
-         " 0029", "\u0029"
-   ), // )
-   COMMA(
-         " 002c", "\u002c"
-   ), // ,
-   HYPHEN_MINUS(
-         " 002d", "\u002d"
-   ), // -
-   QUOTATION_MARK(
-         " 0022", "\u005c\u0022"
-   ), // "
-   SECTION_SIGN(
-         " 00A7", "\u00A7"
-   ), // §
-   DOLLAR_SIGN(
-         " 0024", "\u0024"
-   ), // $
-   EURO_SIGN(
-         " 20AC", "\u20AC"
-   ), // €
-   PERCENT_SIGN(
-         " 0025", "\u0025"
-   ), // %
-   SOLIDUS(
-         " 002F", "\u002F"
-   ), // /
-   LEFT_SQUARE_BRACKET(
-         " 005B", "\u005B"
-   ), // [
-   RIGHT_SQUARE_BRACKET(
-         " 005D", "\u005D"
-   ), // ]
-   LEFT_CURLY_BRACKET(
-         " 007B", "\u007B"
-   ), // {
-   RIGHT_CURLY_BRACKET(
-         " 007D", "\u007D"
-   ), // }
-   EQUALS_SIGN(
-         " 003D", "\u003D"
-   ), // =
-   REVERSE_SOLIDUS(
-         " 005C", "\\u005C"
-   ), // \
-   ASTERISK(
-         " 002A", "\u002A"
-   ), // *
-   PLUS_SIGN(
-         " 002B", "\u002B"
-   ), // +
-   NUMBER_SIGN(
-         " 0023", "\u0023"
-   ), // #
-   SEMICOLON(
-         " 003B", "\u003B"
-   ), // ;
-   COLON(
-         " 003A", "\u003A"
-   ), // :
-   LOW_LINE(
-         " 005F", "\u005F"
-   ); // _
+   QUESTION_MARK(" 003f", "\u003f"),            // ?
+   EXCLAMATION_MARK(" 0021", "\u0021"),         // !
+   FULL_STOP(" 002e", "\u002e"),                // .
+   APOSTROPHE(" 0027", "\u0027"),               // '
+   LEFT_PARENTHESIS(" 0028", "\u0028"),         // (
+   RIGHT_PARENTHESIS(" 0029", "\u0029"),        // )
+   COMMA(" 002c", "\u002c"),                    // ,
+   HYPHEN_MINUS(" 002d", "\u002d"),             // -
+   QUOTATION_MARK(" 0022", "\u005c\u0022"),     // "
+   SECTION_SIGN(" 00A7", "\u00A7"),             // §
+   DOLLAR_SIGN(" 0024", "\u0024"),              // $
+   EURO_SIGN(" 20AC", "\u20AC"),                // €
+   PERCENT_SIGN(" 0025", "\u0025"),             // %
+   SOLIDUS(" 002F", "\u002F"),                  // /
+   LEFT_SQUARE_BRACKET(" 005B", "\u005B"),      // [
+   RIGHT_SQUARE_BRACKET(" 005D", "\u005D"),     // ]
+   LEFT_CURLY_BRACKET(" 007B", "\u007B"),       // {
+   RIGHT_CURLY_BRACKET(" 007D", "\u007D"),      // }
+   EQUALS_SIGN(" 003D", "\u003D"),              // =
+   REVERSE_SOLIDUS(" 005C", "\\u005C"),         // \
+   ASTERISK(" 002A", "\u002A"),                 // *
+   PLUS_SIGN(" 002B", "\u002B"),                // +
+   NUMBER_SIGN(" 0023", "\u0023"),              // #
+   SEMICOLON(" 003B", "\u003B"),                // ;
+   COLON(" 003A", "\u003A"),                    // :
+   LOW_LINE(" 005F", "\u005F"),                 // _
+   DEGREE_SIGN(" 00B0", "\u00B0"),               // °
+   CIRCUMFLEX_ACCENT(" 005E", "\u005E"),         // ^
+   ACUTE_ACCENT(" 00B4", "\u00B4"),              // ´
+   GRAVE_ACCENT(" 0060", "\u0060"),              // `
+   COMMERCIAL_AT(" 0040", "\u0040"),             // @
+   MICRO_SIGN(" 00B5", "\u00B5"),                // µ
+   LESS_THAN_SIGN(" 003C", "\u003C"),            // <
+   GREATER_THAN_SIGN(" 003E", "\u003E"),         // >
+   VERTICAL_LINE(" 007C", "\u007C");             // |
 
    private String code;
    private String unicode;
@@ -106,7 +63,9 @@ public enum SignLetter
          DOLLAR_SIGN, EURO_SIGN, PERCENT_SIGN, SOLIDUS, LEFT_SQUARE_BRACKET,
          RIGHT_SQUARE_BRACKET, LEFT_CURLY_BRACKET, RIGHT_CURLY_BRACKET,
          EQUALS_SIGN, REVERSE_SOLIDUS, ASTERISK, PLUS_SIGN, NUMBER_SIGN,
-         SEMICOLON, COLON, LOW_LINE };
+         SEMICOLON, COLON, LOW_LINE, DEGREE_SIGN, CIRCUMFLEX_ACCENT,
+         ACUTE_ACCENT, GRAVE_ACCENT, COMMERCIAL_AT, MICRO_SIGN, LESS_THAN_SIGN,
+         GREATER_THAN_SIGN, VERTICAL_LINE };
 
    SignLetter(String code, String unicode)
    {
