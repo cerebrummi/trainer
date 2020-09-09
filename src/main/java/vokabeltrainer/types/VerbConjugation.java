@@ -2,13 +2,25 @@ package vokabeltrainer.types;
 
 public enum VerbConjugation
 {
-   NA,
-   UNKOWN,
-   INFINITIVE,
-   PAST,
-   PAST_PARTICIPLE,
-   PRESENT,
-   FUTURE,
-   IMPERARTIVE,
-   ACTION_NOUN; // Gerundium
+   NA("nicht anwendbar"),
+   UNKOWN("unbekannt"),
+   INFINITIVE("Infinitiv"),
+   PAST("Vergangenheit"),
+   PAST_PARTICIPLE("Vergangenheit-Partizip"),
+   PRESENT("Gegenwart"),
+   FUTURE("Zukunft"),
+   IMPERARTIVE("Befehlsform"),
+   ACTION_NOUN("Gerundium"); // Gerundium
+   
+   private String name;
+   
+   VerbConjugation(String name)
+   {
+      this.name = name;
+   }
+   
+   public String toString()
+   {
+      return name;
+   }
 }

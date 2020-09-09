@@ -56,6 +56,9 @@ import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Gender;
 import vokabeltrainer.types.Numerus;
+import vokabeltrainer.types.VerbConjugation;
+import vokabeltrainer.types.VerbStrength;
+import vokabeltrainer.types.VerbType;
 
 public class ExpressionEditorView extends JDialog
       implements ExpressionEditorViewConnector
@@ -97,6 +100,9 @@ public class ExpressionEditorView extends JDialog
    private JComboBox<String> chapter;
    private JButton infoExpressionKindButton;
    private JComboBox<Binjan> binjan;
+   private JComboBox<VerbConjugation> verbConjugation;
+   private JComboBox<VerbStrength> verbStrength;
+   private JComboBox<VerbType> verbType;
    private JPanel swapPanel;
    private CardLayout cardLayout;
 
@@ -118,7 +124,6 @@ public class ExpressionEditorView extends JDialog
    private JPanel verticalPersonalPraefixPanel;
    private JPanel verticalPartikelPanel;
    private JPanel verticalOrdnungszahlPanel;
-   private JPanel verticalModalVerbPanel;
    private JPanel verticalKontruktPanel;
    private JPanel verticalJahreszeitPanel;
    private JPanel verticalGlueckwunschPanel;
@@ -226,6 +231,30 @@ public class ExpressionEditorView extends JDialog
       binjan.setEditable(false);
       binjan.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
       binjan.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+
+      verbConjugation = new JComboBox<>(VerbConjugation.values());
+      verbConjugation.setMaximumRowCount(VerbConjugation.values().length);
+      verbConjugation.setBorder(new TitledBorder("Konjugation"));
+      verbConjugation.setFont(germanfont);
+      verbConjugation.setEditable(false);
+      verbConjugation.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      verbConjugation.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+
+      verbStrength = new JComboBox<>(VerbStrength.values());
+      verbStrength.setMaximumRowCount(VerbStrength.values().length);
+      verbStrength.setBorder(new TitledBorder("Stärke"));
+      verbStrength.setFont(germanfont);
+      verbStrength.setEditable(false);
+      verbStrength.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      verbStrength.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+
+      verbType = new JComboBox<>(VerbType.values());
+      verbType.setMaximumRowCount(VerbType.values().length);
+      verbType.setBorder(new TitledBorder("Typ"));
+      verbType.setFont(germanfont);
+      verbType.setEditable(false);
+      verbType.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      verbType.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
 
       newSearchwordGerman = new InfoTextField("Neues Suchwort Deutsch  ",
             "Bitte je ein Wort eingeben  ", "und dann ENTER drücken!  ");
@@ -369,7 +398,6 @@ public class ExpressionEditorView extends JDialog
             initGlueckwunschPanel());
       swapPanel.add(ExpressionKind.JAHRESZEIT.name(), initJahreszeitPanel());
       swapPanel.add(ExpressionKind.KONSTRUKT.name(), initKonstruktPanel());
-      swapPanel.add(ExpressionKind.MODALVERB.name(), initModalverbPanel());
       swapPanel.add(ExpressionKind.ORDNUNGSZAHL.name(),
             initOrdnungszahlPanel());
       swapPanel.add(ExpressionKind.PARTIKEL.name(), initPartikelPanel());
@@ -393,10 +421,11 @@ public class ExpressionEditorView extends JDialog
       swapPanel.add(ExpressionKind.WOCHENTAG.name(), initWochentagPanel());
       swapPanel.add(ExpressionKind.ZAHL.name(), initZahlPanel());
       cardLayout.show(swapPanel, ExpressionKind.UNKOWN.name());
-      
+
       extraInfo = new JTextPane();
       extraInfo.setFont(Main.getHebrewFont(30));
-      extraInfo.setBorder(BorderFactory.createTitledBorder("Weitere Informationen"));
+      extraInfo.setBorder(
+            BorderFactory.createTitledBorder("Weitere Informationen"));
       extraInfo.setDocument(new ExtraInformationDocument());
       StyledDocument doc = extraInfo.getStyledDocument();
       SimpleAttributeSet style = new SimpleAttributeSet();
@@ -408,7 +437,7 @@ public class ExpressionEditorView extends JDialog
       extraInfoScroller = new JScrollPane(extraInfo);
       extraInfoScroller.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
       extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
-      
+
       keyboard = new KeyboardHebrew(hebrew, components, 70, true);
    }
 
@@ -445,10 +474,14 @@ public class ExpressionEditorView extends JDialog
    private Component initVerbPanel()
    {
       verticalVerbPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalVerbPanel, 15);
+      TotemLayout layout = new TotemLayout(verticalVerbPanel);
       verticalVerbPanel.setLayout(layout);
       verticalVerbPanel.setOpaque(true);
       verticalVerbPanel.setBackground(Settings.getTransparent());
+      verticalVerbPanel.add(binjan);
+      verticalVerbPanel.add(verbConjugation);
+      verticalVerbPanel.add(verbStrength);
+      verticalVerbPanel.add(verbType);
       return verticalVerbPanel;
    }
 
@@ -561,16 +594,6 @@ public class ExpressionEditorView extends JDialog
       verticalOrdnungszahlPanel.setOpaque(true);
       verticalOrdnungszahlPanel.setBackground(Settings.getTransparent());
       return verticalOrdnungszahlPanel;
-   }
-
-   private Component initModalverbPanel()
-   {
-      verticalModalVerbPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalModalVerbPanel, 15);
-      verticalModalVerbPanel.setLayout(layout);
-      verticalModalVerbPanel.setOpaque(true);
-      verticalModalVerbPanel.setBackground(Settings.getTransparent());
-      return verticalModalVerbPanel;
    }
 
    private Component initKonstruktPanel()
@@ -706,7 +729,7 @@ public class ExpressionEditorView extends JDialog
    private Component initUnkownPanel()
    {
       verticalUnkownPanel = new JPanel();
-      TotemLayout layout  = new TotemLayout(verticalUnkownPanel, 15);
+      TotemLayout layout = new TotemLayout(verticalUnkownPanel, 15);
       verticalUnkownPanel.setLayout(layout);
       verticalUnkownPanel.setOpaque(true);
       verticalUnkownPanel.setBackground(Settings.getTransparent());
@@ -947,107 +970,195 @@ public class ExpressionEditorView extends JDialog
       });
 
       kind.addItemListener(event -> {
-         
-         switch((ExpressionKind) this.kind.getSelectedItem())
+         ExpressionKind choosen = (ExpressionKind) this.kind.getSelectedItem();
+         switch (choosen)
          {
          case ADJEKTIV:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case ADVERB:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case ALTERSANGABE:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case AUSRUF:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case BERUF:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case BINDEWORT:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case DEMONSTRATIVPRONOM:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case EIGENNAME:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case FARBE:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case FRAGEWORT:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case GLUECKWUNSCH:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case JAHRESZEIT:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case KONSTRUKT:
             binjan.setSelectedItem(Binjan.NA);
-            break;
-         case MODALVERB:
-            binjan.setSelectedItem(Binjan.UNKOWN);
-            this.verticalModalVerbPanel.add(binjan);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case ORDNUNGSZAHL:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case PARTIKEL:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case PERSONALPRAEFIX:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case PERSONALPRONOM:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case PERSONALSUFFIX:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case POSSESSIVPRONOM:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case PRAEPOSITION:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case PRONOM:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case REDEWENDUNG:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case SUBSTANTIV:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case UHRZEIT:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case UMGANGSPRACHE:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case UNKOWN:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
+         case MODALVERB:
          case VERB:
             binjan.setSelectedItem(Binjan.UNKOWN);
-            this.verticalVerbPanel.add(binjan);
+            verbConjugation.setSelectedItem(VerbConjugation.UNKOWN);
+            verbStrength.setSelectedItem(VerbStrength.UNKOWN);
+            verbType.setSelectedItem(VerbType.UNKOWN);
             break;
          case WOCHENTAG:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          case ZAHL:
             binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          default:
+            binjan.setSelectedItem(Binjan.NA);
+            verbConjugation.setSelectedItem(VerbConjugation.NA);
+            verbStrength.setSelectedItem(VerbStrength.NA);
+            verbType.setSelectedItem(VerbStrength.NA);
             break;
          }
-         
+
          this.cardLayout.show(swapPanel,
-               ((ExpressionKind) this.kind.getSelectedItem()).name());
+               choosen != ExpressionKind.MODALVERB ? choosen.name()
+                     : ExpressionKind.VERB.name());
       });
 
    }
