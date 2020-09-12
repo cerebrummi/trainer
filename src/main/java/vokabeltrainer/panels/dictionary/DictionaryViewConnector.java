@@ -8,9 +8,9 @@ import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.SearchType;
+import vokabeltrainer.types.grammatical.ExpressionKind;
 
 public interface DictionaryViewConnector
 {

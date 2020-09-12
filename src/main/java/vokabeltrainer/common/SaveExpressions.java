@@ -17,7 +17,7 @@ import javax.swing.ProgressMonitor;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.ExpressionKind;
+import vokabeltrainer.types.grammatical.ExpressionKind;
 
 public final class SaveExpressions
 {

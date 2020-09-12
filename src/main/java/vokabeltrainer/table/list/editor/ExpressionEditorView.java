@@ -49,16 +49,16 @@ import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.types.Binjan;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Database;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.ExpressionKind;
-import vokabeltrainer.types.Gender;
-import vokabeltrainer.types.Numerus;
-import vokabeltrainer.types.VerbConjugation;
-import vokabeltrainer.types.VerbStrength;
-import vokabeltrainer.types.VerbType;
+import vokabeltrainer.types.grammatical.Binjan;
+import vokabeltrainer.types.grammatical.ExpressionKind;
+import vokabeltrainer.types.grammatical.Gender;
+import vokabeltrainer.types.grammatical.Numerus;
+import vokabeltrainer.types.grammatical.VerbConjugation;
+import vokabeltrainer.types.grammatical.VerbStrength;
+import vokabeltrainer.types.grammatical.VerbType;
 
 public class ExpressionEditorView extends JDialog
       implements ExpressionEditorViewConnector
@@ -202,13 +202,13 @@ public class ExpressionEditorView extends JDialog
 
       genderHebrew = new JComboBox<>();
       genderHebrew.setBorder(new TitledBorder("Geschlecht Hebräisch"));
-      genderHebrew.setModel(Gender.getHebrewModel());
+      genderHebrew.setModel(Gender.getComboBoxModel());
       genderHebrew.setFont(germanfont);
       genderHebrew.setEditable(false);
       genderHebrew.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
       genderHebrew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
 
-      numerusHebrew = new JComboBox<>(Numerus.getModelHebrew());
+      numerusHebrew = new JComboBox<>(Numerus.getComboBoxModel());
       numerusHebrew.setFocusable(false);
       numerusHebrew.setBorder(new TitledBorder("Numerus Hebräisch"));
       numerusHebrew.setFont(germanfont);
@@ -216,7 +216,7 @@ public class ExpressionEditorView extends JDialog
       numerusHebrew.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
       numerusHebrew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
 
-      kind = new WideComboBox<>(ExpressionKind.getModel());
+      kind = new WideComboBox<>(ExpressionKind.getComboBoxModel());
       kind.setMaximumRowCount(ExpressionKind.getNumberOfValues() / 2);
       kind.setBorder(new TitledBorder("Wortart"));
       kind.setFont(germanfont);

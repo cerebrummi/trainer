@@ -55,9 +55,9 @@ import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.ExpressionKind;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.SearchType;
+import vokabeltrainer.types.grammatical.ExpressionKind;
 
 public class DictionaryView extends BackgroundPanelTiled
       implements DictionaryViewConnector

@@ -43,17 +43,17 @@ import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableRow;
 import vokabeltrainer.resources.vocabulary.Vocabulary;
 import vokabeltrainer.table.ExpressionTableModel;
-import vokabeltrainer.types.Binjan;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Database;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.ExpressionKind;
-import vokabeltrainer.types.Gender;
 import vokabeltrainer.types.Language;
-import vokabeltrainer.types.Numerus;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.TrainingStatus;
+import vokabeltrainer.types.grammatical.Binjan;
+import vokabeltrainer.types.grammatical.ExpressionKind;
+import vokabeltrainer.types.grammatical.Gender;
+import vokabeltrainer.types.grammatical.Numerus;
 
 // Maps und Sets werden nie herausgegeben!
 public final class Data

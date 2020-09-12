@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 
+import vokabeltrainer.types.grammatical.Binjan;
+import vokabeltrainer.types.grammatical.ExpressionKind;
+import vokabeltrainer.types.grammatical.Gender;
+import vokabeltrainer.types.grammatical.Numerus;
+
 public class Expression
 {
    private UUID uuid;

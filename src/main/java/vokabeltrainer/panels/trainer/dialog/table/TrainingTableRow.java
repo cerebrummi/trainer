@@ -6,7 +6,7 @@ import java.util.Set;
 import vokabeltrainer.Command;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.ExpressionKind;
+import vokabeltrainer.types.grammatical.ExpressionKind;
 
 public class TrainingTableRow
 {
