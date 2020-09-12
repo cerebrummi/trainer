@@ -24,50 +24,69 @@ public class SingleLetterDocument extends PlainDocument
    public void replace(int offset, int length, String text, AttributeSet attrs)
          throws BadLocationException
    {
-      List<String> list = LetterHelper.findLetterCodes(text);
-      
-      if (getLength() + list.size() - length > 1)
+      if (text != null && !text.isEmpty())
       {
-         Toolkit.getDefaultToolkit().beep();
-         return;
-      }
+         List<String> list = LetterHelper.findLetterCodes(text);
 
-      for (int i = 0; i < list.size(); i++)
-      {
-         if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
-         {
-            // okay
-         }
-         else
+         if (list == null || list.isEmpty())
          {
             Toolkit.getDefaultToolkit().beep();
             return;
          }
+
+         if (getLength() + list.size() - length > 1)
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
+
+         for (int i = 0; i < list.size(); i++)
+         {
+            if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+            {
+               // okay
+            }
+            else
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
+         }
       }
+
       super.replace(offset, length, text, attrs);
    }
-   
+
    public void insertString(int offset, String str, AttributeSet attr)
          throws BadLocationException
    {
-      List<String> list = LetterHelper.findLetterCodes(str);
-      
-      if (getLength() + list.size() > 1)
+      if (str != null && !str.isEmpty())
       {
-         Toolkit.getDefaultToolkit().beep();
-         return;
-      } 
+         List<String> list = LetterHelper.findLetterCodes(str);
 
-      for (int i = 0; i < list.size(); i++)
-      {
-         if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
-         {
-            // okay
-         }
-         else
+         if (list == null || list.isEmpty())
          {
             Toolkit.getDefaultToolkit().beep();
             return;
+         }
+
+         if (getLength() + list.size() > 1)
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
+
+         for (int i = 0; i < list.size(); i++)
+         {
+            if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+            {
+               // okay
+            }
+            else
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
          }
       }
 

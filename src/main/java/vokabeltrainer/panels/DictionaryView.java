@@ -712,7 +712,7 @@ public class DictionaryView extends BackgroundPanelTiled
    private void initRadioButtonGroup(ButtonGroup searchExpressionKindGroup)
    {
       Font font = Main.getGermanFont(16F);
-      for (ExpressionKind kind : ExpressionKind.getValues())
+      for (ExpressionKind kind : ExpressionKind.getValuesAsSortedList())
       {
          JRadioButton radioButton = new JRadioButton(kind.toString());
          radioButton.setActionCommand(kind.name());

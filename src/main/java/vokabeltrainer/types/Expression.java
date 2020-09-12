@@ -9,18 +9,19 @@ import java.util.UUID;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.ExpressionKind;
 import vokabeltrainer.types.grammatical.Gender;
+import vokabeltrainer.types.grammatical.GrammaticalEnum;
+import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
+import vokabeltrainer.types.grammatical.VerbConjugation;
+import vokabeltrainer.types.grammatical.VerbStrength;
+import vokabeltrainer.types.grammatical.VerbType;
 
 public class Expression
 {
    private UUID uuid;
    private String german;
-   private String hebrewInLatin;
    private String hebrew;
-   private Gender genderHebrew;
-   private Numerus numerusHebrew;
-   private Binjan binjan;
-   private ExpressionKind kind;
+   private String hebrewInLatin;
    private List<String> searchwordsGerman = new ArrayList<>();
    private List<String> searchwordsHebrew = new ArrayList<>();
    private TrainingStatus trainingStatusDToH = new TrainingStatus();
@@ -29,6 +30,17 @@ public class Expression
    private boolean selected;
    private boolean doNotChange;
    private Database origin;
+   // grammatical
+   private ExpressionKind kind;
+   private Gender gender;
+   private Numerus numerus;
+   private Binjan binjan;
+   private GrammaticalPerson grammaticalPerson;
+   private VerbConjugation verbConjugation;
+   private VerbStrength verbStrength;
+   private VerbType verbType;
+
+   private List<Enum<?>> grammaticalEnums = new ArrayList<>();
 
    public Expression(boolean preset, boolean doNotChange)
    {
@@ -38,12 +50,26 @@ public class Expression
          uuid = UUID.randomUUID();
          german = "";
          hebrewInLatin = "";
-         genderHebrew = Gender.UNKOWN;
-         numerusHebrew = Numerus.UNKNOWN;
-         binjan = Binjan.NA;
-         kind = ExpressionKind.UNKOWN;
          chapter = new Chapter();
       }
+      // always visible
+      gender = Gender.UNKOWN;
+      numerus = Numerus.UNKNOWN;
+      kind = ExpressionKind.UNKOWN;
+      // extra information
+      binjan = Binjan.NA;
+      grammaticalPerson = GrammaticalPerson.NA;
+      verbConjugation = VerbConjugation.NA;
+      verbStrength = VerbStrength.NA;
+      verbType = VerbType.NA;
+      grammaticalEnums.add(kind);
+      grammaticalEnums.add(gender);
+      grammaticalEnums.add(numerus);
+      grammaticalEnums.add(binjan);
+      grammaticalEnums.add(grammaticalPerson);
+      grammaticalEnums.add(verbConjugation);
+      grammaticalEnums.add(verbType);
+      grammaticalEnums.add(verbStrength);
    }
 
    public void setSearchwordsGerman(String[] searchwords)
@@ -102,24 +128,24 @@ public class Expression
       this.hebrew = hebrew;
    }
 
-   public Gender getGenderHebrew()
+   public Gender getGender()
    {
-      return genderHebrew;
+      return gender;
    }
 
-   public void setGenderHebrew(Gender genderHebrew)
+   public void setGender(Gender genderHebrew)
    {
-      this.genderHebrew = genderHebrew;
+      this.gender = genderHebrew;
    }
 
-   public Numerus getNumerusHebrew()
+   public Numerus getNumerus()
    {
-      return numerusHebrew;
+      return numerus;
    }
 
-   public void setNumerusHebrew(Numerus numerusHebrew)
+   public void setNumerus(Numerus numerusHebrew)
    {
-      this.numerusHebrew = numerusHebrew;
+      this.numerus = numerusHebrew;
    }
 
    public Binjan getBinjan()
@@ -140,6 +166,46 @@ public class Expression
    public void setKind(ExpressionKind kind)
    {
       this.kind = kind;
+   }
+
+   public GrammaticalPerson getGrammaticalPerson()
+   {
+      return grammaticalPerson;
+   }
+
+   public void setGrammaticalPerson(GrammaticalPerson grammaticalPerson)
+   {
+      this.grammaticalPerson = grammaticalPerson;
+   }
+
+   public VerbConjugation getVerbConjugation()
+   {
+      return verbConjugation;
+   }
+
+   public void setVerbConjugation(VerbConjugation verbConjugation)
+   {
+      this.verbConjugation = verbConjugation;
+   }
+
+   public VerbStrength getVerbStrength()
+   {
+      return verbStrength;
+   }
+
+   public void setVerbStrength(VerbStrength verbStrength)
+   {
+      this.verbStrength = verbStrength;
+   }
+
+   public VerbType getVerbType()
+   {
+      return verbType;
+   }
+
+   public void setVerbType(VerbType verbType)
+   {
+      this.verbType = verbType;
    }
 
    public List<String> getSearchwordsGerman()
@@ -191,10 +257,10 @@ public class Expression
    {
       this.chapter = chapter;
    }
-   
+
    public String getChapterGermanComparison()
    {
-      return chapter.getName() + " "+ german;
+      return chapter.getName() + " " + german;
    }
 
    public boolean isSelected()
@@ -206,7 +272,7 @@ public class Expression
    {
       this.selected = selected;
    }
-   
+
    public void toggleSelected()
    {
       this.selected = !this.selected;
@@ -227,7 +293,7 @@ public class Expression
       this.origin = origin;
    }
 
-   public String[] toGermanArray()
+   public String[] toGermanArrayForTableEntry()
    {
       int index = 0;
       String[] result = new String[9];
@@ -239,15 +305,15 @@ public class Expression
       index++;
       result[index] = hebrew;
       index++;
-      result[index] = "Hebräisch: " + genderHebrew.toString();
+      result[index] = gender.toDescription();
       index++;
-      result[index] = "Hebräisch: " + numerusHebrew.toString();
+      result[index] = numerus.toDescription();
       index++;
-      result[index] = binjan.toString();
+      result[index] = binjan.toDescription();
       index++;
-      result[index] = kind.toString();
+      result[index] = kind.toDescription();
       index++;
-      result[index] = chapter.getName();
+      result[index] = "Kapitel: " + chapter.getName();
       return result;
    }
 
@@ -263,30 +329,28 @@ public class Expression
       index++;
       result[index] = german;
       index++;
-      result[index] = "Hebräisch: " + genderHebrew.toString();
+      result[index] = gender.toDescription();
       index++;
-      result[index] = "Hebräisch: " + numerusHebrew.toString();
+      result[index] = numerus.toDescription();
       index++;
-      result[index] = binjan.toString();
+      result[index] = binjan.toDescription();
       index++;
-      result[index] = kind.toString();
+      result[index] = kind.toDescription();
       index++;
-      result[index] = chapter.getName();
+      result[index] = "Kapitel: " + chapter.getName();
       return result;
    }
 
    public String getAdditionalInfoGerman()
    {
       StringJoiner joiner = new StringJoiner(", ");
-      if (!(numerusHebrew.equals(Numerus.UNKNOWN)
-            || numerusHebrew.equals(Numerus.NA)))
+      if (!(numerus.equals(Numerus.UNKNOWN) || numerus.equals(Numerus.NA)))
       {
-         joiner.add(numerusHebrew.toString());
+         joiner.add(numerus.toString());
       }
-      if (!(genderHebrew.equals(Gender.UNKOWN)
-            || genderHebrew.equals(Gender.NA)))
+      if (!(gender.equals(Gender.UNKOWN) || gender.equals(Gender.NA)))
       {
-         joiner.add(genderHebrew.toString());
+         joiner.add(gender.toString());
       }
       joiner.add(kind.toString());
       return joiner.toString();
@@ -297,6 +361,21 @@ public class Expression
       return kind.toString();
    }
 
+   public List<Enum<?>> getGrammaticalEnums()
+   {
+      return grammaticalEnums;
+   }
+   
+   private String addGrammaticalEnumsForPrint(String tag)
+   {
+      StringJoiner joiner = new StringJoiner(tag);
+      for(Enum<?> e : this.grammaticalEnums)
+      {
+         joiner.add(e.name());
+      }
+      return joiner.toString();
+   }
+   
    public String getExpressionPrintLine()
    {
       StringJoiner joiner = new StringJoiner("\t");
@@ -305,10 +384,7 @@ public class Expression
       joiner.add(german);
       joiner.add(hebrewInLatin);
       joiner.add(hebrew);
-      joiner.add(genderHebrew.name());
-      joiner.add(numerusHebrew.name());
-      joiner.add(binjan.name());
-      joiner.add(kind.name());
+      joiner.add(addGrammaticalEnumsForPrint("\t"));
       StringJoiner searchJoinerGerman = new StringJoiner(",");
       for (String word : searchwordsGerman)
       {
@@ -341,9 +417,7 @@ public class Expression
          joiner.add(hebrewInLatin);
          joiner.add(german);
       }
-      joiner.add("Hebräisch: " + genderHebrew.toString());
-      joiner.add("Hebräisch: " + numerusHebrew.toString());
-      joiner.add(kind.toString());
+      joiner.add(addGrammaticalEnumsForCopy("\n"));
       StringJoiner searchJoinerGerman = new StringJoiner(",");
       for (String word : searchwordsGerman)
       {
@@ -356,6 +430,16 @@ public class Expression
          searchJoinerHebrew.add(word);
       }
       joiner.add("Suchworte Hebräisch: " + searchJoinerHebrew.toString());
+      return joiner.toString();
+   }
+   
+   private String addGrammaticalEnumsForCopy(String tag)
+   {
+      StringJoiner joiner = new StringJoiner(tag);
+      for(Enum<?> e : this.grammaticalEnums)
+      {
+         joiner.add(((GrammaticalEnum)e).toDescription());
+      }
       return joiner.toString();
    }
 
@@ -394,15 +478,13 @@ public class Expression
    public String getAdditionalInfoGermanForStatistics()
    {
       StringJoiner joiner = new StringJoiner(", ");
-      if (!(numerusHebrew.equals(Numerus.UNKNOWN)
-            || numerusHebrew.equals(Numerus.NA)))
+      if (!(numerus.equals(Numerus.UNKNOWN) || numerus.equals(Numerus.NA)))
       {
-         joiner.add(numerusHebrew.toString());
+         joiner.add(numerus.toString());
       }
-      if (!(genderHebrew.equals(Gender.UNKOWN)
-            || genderHebrew.equals(Gender.NA)))
+      if (!(gender.equals(Gender.UNKOWN) || gender.equals(Gender.NA)))
       {
-         joiner.add(genderHebrew.toString());
+         joiner.add(gender.toString());
       }
       ;
       return joiner.toString();

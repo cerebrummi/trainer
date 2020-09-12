@@ -13,10 +13,10 @@ public class HebrewDocument extends PlainDocument
    private static final long serialVersionUID = -9186425449349376170L;
 
    private String signPattern;
-   
+
    public HebrewDocument(boolean withComma)
    {
-      if(withComma)
+      if (withComma)
       {
          signPattern = SignLetter.getPatternStringHebrewWithComma();
       }
@@ -25,80 +25,85 @@ public class HebrewDocument extends PlainDocument
          signPattern = SignLetter.getPatternStringHebrew();
       }
    }
-   
+
    @Override
    public void replace(int offset, int length, String text, AttributeSet attrs)
          throws BadLocationException
    {
-      List<String> list = LetterHelper.findLetterCodes(text);
-      
-      if(list == null || list.isEmpty())
+      if (text != null && !text.isEmpty())
       {
-         Toolkit.getDefaultToolkit().beep();
-         return;
-      }
-      
-      if (getLength() + list.size() - length > 26)
-      {
-         Toolkit.getDefaultToolkit().beep();
-         return;
-      }
+         List<String> list = LetterHelper.findLetterCodes(text);
 
-      for (int i = 0; i < list.size(); i++)
-      {
-         HebrewLetter letter = HebrewLetter.getLetterFromCode(list.get(i));
-         if (letter != null)
-         {
-            // okay
-         }
-         else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
-         {
-            // okay
-         }
-         else
+         if (list == null || list.isEmpty())
          {
             Toolkit.getDefaultToolkit().beep();
             return;
+         }
+
+         if (getLength() + list.size() - length > 26)
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
+
+         for (int i = 0; i < list.size(); i++)
+         {
+            HebrewLetter letter = HebrewLetter.getLetterFromCode(list.get(i));
+            if (letter != null)
+            {
+               // okay
+            }
+            else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
+            {
+               // okay
+            }
+            else
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
          }
       }
       super.replace(offset, length, text, attrs);
    }
-   
+
    public void insertString(int offset, String str, AttributeSet attr)
          throws BadLocationException
    {
-      List<String> list = LetterHelper.findLetterCodes(str);
-      
-      if(list == null || list.isEmpty())
+      if (str != null && !str.isEmpty())
       {
-         Toolkit.getDefaultToolkit().beep();
-         return;
-      }
-      
-      if (getLength() + list.size() > 26)
-      {
-         Toolkit.getDefaultToolkit().beep();
-         return;
-      }
+         List<String> list = LetterHelper.findLetterCodes(str);
 
-      for (int i = 0; i < list.size(); i++)
-      {
-         HebrewLetter letter = HebrewLetter.getLetterFromCode(list.get(i));
-         if (letter != null)
-         {
-            // okay
-         }
-         else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
-         {
-            // okay
-         }
-         else
+         if (list == null || list.isEmpty())
          {
             Toolkit.getDefaultToolkit().beep();
             return;
          }
-      }
 
+         if (getLength() + list.size() > 26)
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
+
+         for (int i = 0; i < list.size(); i++)
+         {
+            HebrewLetter letter = HebrewLetter.getLetterFromCode(list.get(i));
+            if (letter != null)
+            {
+               // okay
+            }
+            else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
+            {
+               // okay
+            }
+            else
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
+         }
+      }
       super.insertString(offset, str, attr);
    }
 }

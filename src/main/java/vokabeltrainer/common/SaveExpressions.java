@@ -72,6 +72,7 @@ public final class SaveExpressions
          }
          catch (Exception e)
          {
+            e.printStackTrace();
             JOptionPane
                   .showMessageDialog(Common.getjFrame(),
                         "Es hat beim Speichern einen Fehler gegeben.\n"

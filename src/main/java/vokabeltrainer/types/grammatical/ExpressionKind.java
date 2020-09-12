@@ -5,67 +5,97 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public enum ExpressionKind
+public enum ExpressionKind implements GrammaticalEnum
 {
-   UNKOWN("unbekannt",
+   UNKOWN(
+         "unbekannt",
          ""),
-   ADJEKTIV("Adjektiv",
+   ADJEKTIV(
+         "Adjektiv",
          ""),
-   ADVERB("Adverb",
+   ADVERB(
+         "Adverb",
          ""),
-   ALTERSANGABE("Altersangabe",
+   ALTERSANGABE(
+         "Altersangabe",
          ""),
-   AUSRUF("Ausruf",
+   AUSRUF(
+         "Ausruf",
          "hurra, hm, ah, oh, autsch"),
-   BERUF("Beruf",
+   BERUF(
+         "Beruf",
          ""),
-   BINDEWORT("Bindewort",
+   BINDEWORT(
+         "Bindewort",
          ""),
-   DEMONSTRATIVPRONOM("Demonstrativpronom",
+   DEMONSTRATIVPRONOM(
+         "Demonstrativpronom",
          ""),
-   EIGENNAME("Eigenname",
-         ""),
-   FARBE("Farbe",
+   EIGENNAME(
+         "Eigenname",
+         "Russland, Paris, Berlin"),
+   FARBE(
+         "Farbe",
          "rot, grün, gelb, blau"),
-   FRAGEWORT("Fragewort",
+   FRAGEWORT(
+         "Fragewort",
          "wann, wo, warum, wie, wieso, weshalb"),
-   PRONOM("Fürwort/Pronom",
+   PRONOM(
+         "Fürwort/Pronom",
          ""),
-   GLUECKWUNSCH("Glückwunsch/Gruß",
+   GLUECKWUNSCH(
+         "Glückwunsch/Gruß",
          ""),
-   JAHRESZEIT("Jahreszeit",
+   JAHRESZEIT(
+         "Jahreszeit",
          ""),
-   MODALVERB("Modalverb",
+   MODALVERB(
+         "Modalverb",
          "wollen, können, müssen"),
-   ORDNUNGSZAHL("Ordnungszahl",
+   ORDNUNGSZAHL(
+         "Ordnungszahl",
          "erste, zweiter, dritte, vierter"),
-   PARTIKEL("Partikel",
+   PARTIKEL(
+         "Partikel",
          ""),
-   PERSONALPRAEFIX("Personalpräfix",
+   PERSONALPRAEFIX(
+         "Personalpräfix",
          ""),
-   PERSONALPRONOM("Personalpronom",
+   PERSONALPRONOM(
+         "Personalpronom",
          ""),
-   PERSONALSUFFIX("Personalsuffix",
+   PERSONALSUFFIX(
+         "Personalsuffix",
          ""),
-   POSSESSIVPRONOM("Possessivpronom",
+   POSSESSIVPRONOM(
+         "Possessivpronom",
          ""),
-   PRAEPOSITION("Präposition",
+   PRAEPOSITION(
+         "Präposition",
          ""),
-   REDEWENDUNG("Redewendung",
+   REDEWENDUNG(
+         "Redewendung",
          ""),
-   SUBSTANTIV("Substantiv",
+   SUBSTANTIV(
+         "Substantiv",
          "Frau, Mann, Haus, Hammer, Küche, Beruf, Lampe"),
-   KONSTRUKT("Konstrukt/ßmichut",
+   KONSTRUKT(
+         "Konstrukt/ßmichut",
          ""),
-   UHRZEIT("Uhrzeit",
+   UHRZEIT(
+         "Uhrzeit",
          ""),
-   UMGANGSPRACHE("Umgangsprache",
+   UMGANGSPRACHE(
+         "Umgangsprache",
          ""),
-   VERB("Verb",
+   VERB(
+         "Verb",
          ""),
-   WOCHENTAG("Wochentag",
+   WOCHENTAG(
+         "Wochentag",
          ""),
-   ZAHL("Zahl",
+   ZAHL(
+         "Zahl",
          "eins, zwei, drei, vier, fünf, hundert");
 
    private String description;
@@ -79,14 +109,14 @@ public enum ExpressionKind
 
    public static String[] getExplanations()
    {
-      String[] explanations = new String[ExpressionKind.getValues().size() - 1];
+      String[] explanations = new String[ExpressionKind.getValuesAsSortedList()
+            .size() - 1];
       int counter = 0;
-      for (ExpressionKind kind : getValues())
+      for (ExpressionKind kind : getValuesAsSortedList())
       {
          if (!kind.equals(ExpressionKind.UNKOWN))
          {
-               explanations[counter] = kind.description + " >> "
-                     + kind.explanation;
+            explanations[counter] = kind.description + ": " + kind.explanation;
             counter++;
          }
       }
@@ -99,7 +129,48 @@ public enum ExpressionKind
       return description;
    }
 
-   public static List<ExpressionKind> getValues()
+   public String toDescription()
+   {
+      switch (this)
+      {
+      case ADJEKTIV:
+      case ADVERB:
+      case ALTERSANGABE:
+      case AUSRUF:
+      case BERUF:
+      case BINDEWORT:
+      case DEMONSTRATIVPRONOM:
+      case EIGENNAME:
+      case FARBE:
+      case FRAGEWORT:
+      case GLUECKWUNSCH:
+      case JAHRESZEIT:
+      case KONSTRUKT:
+      case MODALVERB:
+      case ORDNUNGSZAHL:
+      case PARTIKEL:
+      case PERSONALPRAEFIX:
+      case PERSONALPRONOM:
+      case PERSONALSUFFIX:
+      case POSSESSIVPRONOM:
+      case PRAEPOSITION:
+      case PRONOM:
+      case REDEWENDUNG:
+      case SUBSTANTIV:
+      case UHRZEIT:
+      case UMGANGSPRACHE:
+      case VERB:
+      case WOCHENTAG:
+      case ZAHL:
+         return description;
+      case UNKOWN:
+         return "Wortart " + description;
+      default:
+         return "";
+      }
+   }
+
+   public static List<ExpressionKind> getValuesAsSortedList()
    {
       List<ExpressionKind> list = Arrays.asList(ExpressionKind.values());
 
@@ -127,9 +198,15 @@ public enum ExpressionKind
 
       return list;
    }
-   
+
    public static int getNumberOfValues()
    {
       return ExpressionKind.values().length;
+   }
+
+   @Override
+   public Enum<?> fromEnumName(String name)
+   {
+      return ExpressionKind.valueOf(name);
    }
 }

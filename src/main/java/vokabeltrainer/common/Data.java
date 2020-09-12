@@ -50,10 +50,8 @@ import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.TrainingStatus;
-import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.ExpressionKind;
-import vokabeltrainer.types.grammatical.Gender;
-import vokabeltrainer.types.grammatical.Numerus;
+import vokabeltrainer.types.grammatical.GrammaticalEnum;
 
 // Maps und Sets werden nie herausgegeben!
 public final class Data
@@ -153,7 +151,7 @@ public final class Data
    {
       return getDataBaseAtomic().getDeletedMap().size();
    }
-   
+
    public static int getMapSize(ExpressionKind kind)
    {
       return getDataBaseAtomic().getExpressionMap(kind).size();
@@ -301,7 +299,7 @@ public final class Data
             mapOfMaps.put(mapKind,
                   readFile(mapKind.name() + ".txt", null, Database.SELF));
          }
-         
+
          for (Database database : Settings.getChosenDatabases())
          {
             for (ExpressionKind mapKind : ExpressionKind.values())
@@ -540,14 +538,17 @@ public final class Data
                expression.setHebrewInLatin(items[i]);
                i++;
                expression.setHebrew(items[i]);
-               i++;
-               expression.setGenderHebrew(Gender.valueOf(items[i]));
-               i++;
-               expression.setNumerusHebrew(Numerus.valueOf(items[i]));
-               i++;
-               expression.setBinjan(Binjan.valueOf(items[i]));
-               i++;
-               expression.setKind(ExpressionKind.valueOf(items[i]));
+
+               List<Enum<?>> grammaticalEnums = expression
+                     .getGrammaticalEnums();
+               for (int e = 0; e < grammaticalEnums.size(); e++)
+               {
+                  i++;
+                  grammaticalEnums.set(e,
+                        ((GrammaticalEnum) grammaticalEnums.get(e))
+                              .fromEnumName(items[i]));
+               }
+
                i++;
                expression.setSearchwordsGerman(items[i].split(","));
                i++;
@@ -944,8 +945,8 @@ public final class Data
             deletedMap.put(expression.getUuid(), expression);
             alleMap.remove(expression.getUuid(), expression);
             newMap.remove(expression.getUuid(), expression);
-            
-            for(ConcurrentMap<UUID, Expression> map : mapOfMaps.values())
+
+            for (ConcurrentMap<UUID, Expression> map : mapOfMaps.values())
             {
                map.remove(expression.getUuid(), expression);
             }
@@ -959,8 +960,9 @@ public final class Data
          for (Expression expression : newMap.values())
          {
             alleMap.put(expression.getUuid(), expression);
-            
-            ConcurrentMap<UUID, Expression> map = mapOfMaps.get(expression.getKind());
+
+            ConcurrentMap<UUID, Expression> map = mapOfMaps
+                  .get(expression.getKind());
             map.put(expression.getUuid(), expression);
          }
          this.reloadChapterSet();
@@ -1190,8 +1192,9 @@ public final class Data
       {
          return alleMap;
       }
-      
-      public ConcurrentMap<UUID, Expression> getExpressionMap(ExpressionKind kind)
+
+      public ConcurrentMap<UUID, Expression> getExpressionMap(
+            ExpressionKind kind)
       {
          return mapOfMaps.get(kind);
       }

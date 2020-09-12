@@ -57,7 +57,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
       center.setOpaque(false);
 
       JPanel centerPanel = new JPanel();
-      List<ExpressionKind> list = ExpressionKind.getValues();
+      List<ExpressionKind> list = ExpressionKind.getValuesAsSortedList();
       centerPanel.setLayout(new GridBagLayout());
       GridBagConstraints constraints = new GridBagConstraints();
       centerPanel.setOpaque(true);
@@ -140,7 +140,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
 
    public void setValues()
    {
-      List<ExpressionKind> kindList = ExpressionKind.getValues();
+      List<ExpressionKind> kindList = ExpressionKind.getValuesAsSortedList();
 
       int counter = 0;
       for (JLabel labelLabel : labelLabelList)

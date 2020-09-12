@@ -31,35 +31,38 @@ public class GermanDocument extends PlainDocument
    public void replace(int offset, int length, String text, AttributeSet attrs)
          throws BadLocationException
    {
-      List<String> list = LetterHelper.findLetterCodes(text);
-      
-      if(list == null || list.isEmpty())
+      if (text != null && !text.isEmpty())
       {
-         Toolkit.getDefaultToolkit().beep();
-         return;
-      }
-      
-      if (getLength() + list.size() - length > 50)
-      {
-         Toolkit.getDefaultToolkit().beep();
-         return;
-      }
+         List<String> list = LetterHelper.findLetterCodes(text);
 
-      for (int i = 0; i < list.size(); i++)
-      {
-         GermanLetter letter = GermanLetter.getLetterFromCode(list.get(i));
-         if (letter != null)
-         {
-            // okay
-         }
-         else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
-         {
-            // okay
-         }
-         else
+         if (list == null || list.isEmpty())
          {
             Toolkit.getDefaultToolkit().beep();
             return;
+         }
+
+         if (getLength() + list.size() - length > 50)
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
+
+         for (int i = 0; i < list.size(); i++)
+         {
+            GermanLetter letter = GermanLetter.getLetterFromCode(list.get(i));
+            if (letter != null)
+            {
+               // okay
+            }
+            else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
+            {
+               // okay
+            }
+            else
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
          }
       }
       super.replace(offset, length, text, attrs);
@@ -69,38 +72,40 @@ public class GermanDocument extends PlainDocument
    public void insertString(int offset, String str, AttributeSet attr)
          throws BadLocationException
    {
-      List<String> list = LetterHelper.findLetterCodes(str);
-      
-      if(list == null || list.isEmpty())
+      if (str != null && !str.isEmpty())
       {
-         Toolkit.getDefaultToolkit().beep();
-         return;
-      }
-      
-      if (getLength() + list.size() > 50)
-      {
-         Toolkit.getDefaultToolkit().beep();
-         return;
-      }
+         List<String> list = LetterHelper.findLetterCodes(str);
 
-      for (int i = 0; i < list.size(); i++)
-      {
-         GermanLetter letter = GermanLetter.getLetterFromCode(list.get(i));
-         if (letter != null)
-         {
-            // okay
-         }
-         else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
-         {
-            // okay
-         }
-         else
+         if (list == null || list.isEmpty())
          {
             Toolkit.getDefaultToolkit().beep();
             return;
          }
-      }
 
+         if (getLength() + list.size() > 50)
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
+
+         for (int i = 0; i < list.size(); i++)
+         {
+            GermanLetter letter = GermanLetter.getLetterFromCode(list.get(i));
+            if (letter != null)
+            {
+               // okay
+            }
+            else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
+            {
+               // okay
+            }
+            else
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
+         }
+      }
       super.insertString(offset, str, attr);
    }
 }

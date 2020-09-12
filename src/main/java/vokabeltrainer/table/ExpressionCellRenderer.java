@@ -43,7 +43,7 @@ public class ExpressionCellRenderer
       Expression expression = (Expression) value;
       if (Language.GERMAN.equals(language))
       {
-         list.setListData(expression.toGermanArray());
+         list.setListData(expression.toGermanArrayForTableEntry());
       }
       else
       {

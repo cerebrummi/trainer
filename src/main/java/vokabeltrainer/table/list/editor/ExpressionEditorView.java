@@ -991,10 +991,9 @@ public class ExpressionEditorView extends JDialog
          {
          case ADJEKTIV:
             // panels
-            verticalAdjektivPanel.add(grammaticalPerson);
             // selections self
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.UNKOWN);
             // selections other
+            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
             binjan.setSelectedItem(Binjan.NA);
             verbConjugation.setSelectedItem(VerbConjugation.NA);
             verbStrength.setSelectedItem(VerbStrength.NA);
@@ -1002,10 +1001,9 @@ public class ExpressionEditorView extends JDialog
             break;
          case ADVERB:
             // panels
-            verticalAdverbPanel.add(grammaticalPerson);
             // selections self
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.UNKOWN);
             // selections other
+            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
             binjan.setSelectedItem(Binjan.NA);
             verbConjugation.setSelectedItem(VerbConjugation.NA);
             verbStrength.setSelectedItem(VerbStrength.NA);
@@ -1053,10 +1051,9 @@ public class ExpressionEditorView extends JDialog
             break;
          case DEMONSTRATIVPRONOM:
             // panels
-            verticalDemonstrativPronomPanel.add(grammaticalPerson);
             // selections self
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.UNKOWN);
             // selections other
+            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
             binjan.setSelectedItem(Binjan.NA);
             verbConjugation.setSelectedItem(VerbConjugation.NA);
             verbStrength.setSelectedItem(VerbStrength.NA);
@@ -1175,10 +1172,9 @@ public class ExpressionEditorView extends JDialog
             break;
          case POSSESSIVPRONOM:
             // panels
-            verticalPossessivPronomPanel.add(grammaticalPerson);
             // selections self
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.UNKOWN);
             // selections other
+            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
             binjan.setSelectedItem(Binjan.NA);
             verbConjugation.setSelectedItem(VerbConjugation.NA);
             verbStrength.setSelectedItem(VerbStrength.NA);
@@ -1196,10 +1192,9 @@ public class ExpressionEditorView extends JDialog
             break;
          case PRONOM:
             // panels
-            verticalPronomPanel.add(grammaticalPerson);
             // selections self
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.UNKOWN);
             // selections other
+            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
             binjan.setSelectedItem(Binjan.NA);
             verbConjugation.setSelectedItem(VerbConjugation.NA);
             verbStrength.setSelectedItem(VerbStrength.NA);
@@ -1354,8 +1349,8 @@ public class ExpressionEditorView extends JDialog
       expression
             .setHebrewInLatin(cleanTextWithoutComma(hebrewInLatin.getText()));
       expression.setHebrew(cleanTextWithoutComma(hebrew.getText()));
-      expression.setGenderHebrew((Gender) genderHebrew.getSelectedItem());
-      expression.setNumerusHebrew((Numerus) numerusHebrew.getSelectedItem());
+      expression.setGender((Gender) genderHebrew.getSelectedItem());
+      expression.setNumerus((Numerus) numerusHebrew.getSelectedItem());
       expression.setBinjan((Binjan) binjan.getSelectedItem());
       expression.setKind((ExpressionKind) kind.getSelectedItem());
       List<String> wordsGerman = new ArrayList<>();
@@ -1395,8 +1390,8 @@ public class ExpressionEditorView extends JDialog
       this.german.setText(expression.getGerman());
       this.hebrewInLatin.setText(expression.getHebrewInLatin());
       this.hebrew.setText(expression.getHebrew());
-      this.genderHebrew.setSelectedItem(expression.getGenderHebrew());
-      this.numerusHebrew.setSelectedItem(expression.getNumerusHebrew());
+      this.genderHebrew.setSelectedItem(expression.getGender());
+      this.numerusHebrew.setSelectedItem(expression.getNumerus());
       this.kind.setSelectedItem(expression.getKind());
       this.binjan.setSelectedItem(expression.getBinjan());
 
