@@ -5,11 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
-
 public enum ExpressionKind
 {
-   UNKOWN("Wortart unbekannt",
+   UNKOWN("unbekannt",
          ""),
    ADJEKTIV("Adjektiv",
          ""),
@@ -99,13 +97,6 @@ public enum ExpressionKind
    public String toString()
    {
       return description;
-   }
-
-   public static DefaultComboBoxModel<ExpressionKind> getComboBoxModel()
-   {
-      DefaultComboBoxModel<ExpressionKind> model = new DefaultComboBoxModel<>();
-      model.addAll(Arrays.asList(ExpressionKind.values()));
-      return model;
    }
 
    public static List<ExpressionKind> getValues()

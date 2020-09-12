@@ -1,16 +1,12 @@
 package vokabeltrainer.types.grammatical;
 
-import java.util.Arrays;
-
-import javax.swing.DefaultComboBoxModel;
-
 public enum VerbType
 {
-   UNKOWN("Verbtyp unbekannt"),
+   UNKOWN("unbekannt"),
    REGULAR("regulär"),
    IRREGULAR("irregulär"),
    AUXILIARY("Hilfsverb"),
-   NA("Verbtyp nicht anwendbar");
+   NA("nicht anwendbar");
    
    private String description;
    
@@ -22,12 +18,5 @@ public enum VerbType
    public String toString()
    {
       return description;
-   }
-   
-   public static DefaultComboBoxModel<VerbType> getComboBoxModel()
-   {
-      DefaultComboBoxModel<VerbType> model = new DefaultComboBoxModel<>();
-      model.addAll(Arrays.asList(VerbType.values()));
-      return model;
    }
 }

@@ -1,15 +1,12 @@
 package vokabeltrainer.types.grammatical;
 
-import java.util.Arrays;
-import javax.swing.DefaultComboBoxModel;
-
 public enum Gender
 {
-   UNKOWN("Geschlecht unbekannt"),
+   UNKOWN("unbekannt"),
    FEMALE("weiblich"),
    MALE("männlich"),
    BOTH("weiblich und männlich"),
-   NA("Geschlecht nicht anwendbar");
+   NA("nicht anwendbar");
 
    private String description;
 
@@ -22,12 +19,5 @@ public enum Gender
    public String toString()
    {
       return description;
-   }
-
-   public static DefaultComboBoxModel<Gender> getComboBoxModel()
-   {
-      DefaultComboBoxModel<Gender> model = new DefaultComboBoxModel<>();
-      model.addAll(Arrays.asList(Gender.values()));
-      return model;
    }
 }

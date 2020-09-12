@@ -1,15 +1,11 @@
 package vokabeltrainer.types.grammatical;
 
-import java.util.Arrays;
-
-import javax.swing.DefaultComboBoxModel;
-
 public enum VerbStrength
 {
-   UNKOWN("Verbstärke unbekannt"),
+   UNKOWN("unbekannt"),
    WEAK("schwach"),
    STRONG("stark"),
-   NA("Verbstärke nicht anwendbar");
+   NA("nicht anwendbar");
    
    private String description;
    
@@ -21,12 +17,5 @@ public enum VerbStrength
    public String toString()
    {
       return description;
-   }
-   
-   public static DefaultComboBoxModel<VerbStrength> getComboBoxModel()
-   {
-      DefaultComboBoxModel<VerbStrength> model = new DefaultComboBoxModel<>();
-      model.addAll(Arrays.asList(VerbStrength.values()));
-      return model;
    }
 }
