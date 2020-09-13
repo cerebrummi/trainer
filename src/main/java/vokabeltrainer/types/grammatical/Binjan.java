@@ -2,7 +2,7 @@ package vokabeltrainer.types.grammatical;
 
 public enum Binjan implements GrammaticalEnum
 {
-   UNKOWN(
+   BINJAN_UNKNOWN(
          "unbekannt"),
    PAAL(
          "pa'al"),
@@ -22,7 +22,7 @@ public enum Binjan implements GrammaticalEnum
          "pu'al"),
    NIFAL(
          "nif'al"),
-   NA(
+   BINJAN_NA(
          "nicht anwendbar");
 
    String description;
@@ -52,9 +52,9 @@ public enum Binjan implements GrammaticalEnum
       case PIEL:
       case PUAL:
          return description;
-      case UNKOWN:
+      case BINJAN_UNKNOWN:
          return "Binjan " + description;
-      case NA:
+      case BINJAN_NA:
       default:
          return "";
       }

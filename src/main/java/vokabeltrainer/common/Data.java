@@ -527,11 +527,7 @@ public final class Data
                i++;
 
                expression.setChapter(new Chapter(items[i], origin));
-               if (!expression.getChapter().getName().isEmpty()
-                     && !DELETED_TXT.equals(filename))
-               {
-                  chapterSet.add(expression.getChapter());
-               }
+               
                i++;
                expression.setGerman(items[i]);
                i++;
@@ -539,16 +535,12 @@ public final class Data
                i++;
                expression.setHebrew(items[i]);
 
-               List<Enum<?>> grammaticalEnums = expression
-                     .getGrammaticalEnums();
-               for (int e = 0; e < grammaticalEnums.size(); e++)
+               for (Class<? extends GrammaticalEnum> clazz : expression.getSortedGrammaticalEnumKeys())
                {
                   i++;
-                  grammaticalEnums.set(e,
-                        ((GrammaticalEnum) grammaticalEnums.get(e))
-                              .fromEnumName(items[i]));
+                  expression.setGrammaticalEnum(clazz, items[i]);
                }
-
+               
                i++;
                expression.setSearchwordsGerman(items[i].split(","));
                i++;
@@ -566,6 +558,12 @@ public final class Data
                if (!DELETED_TXT.equals(filename))
                {
                   alleMap.put(expression.getUuid(), expression);
+               }
+               
+               if (!expression.getChapter().getName().isEmpty()
+                     && !DELETED_TXT.equals(filename))
+               {
+                  chapterSet.add(expression.getChapter());
                }
             }
             catch (Exception e2)
@@ -738,7 +736,7 @@ public final class Data
          Collection<Expression> expressions = findMapValues(kind);
          for (Expression expression : expressions)
          {
-            if (expression.getKind().equals(kind))
+            if (expression.getGrammaticalEnum(ExpressionKind.class).equals(kind))
             {
                list.add(expression);
             }
@@ -962,7 +960,7 @@ public final class Data
             alleMap.put(expression.getUuid(), expression);
 
             ConcurrentMap<UUID, Expression> map = mapOfMaps
-                  .get(expression.getKind());
+                  .get(expression.getGrammaticalEnum(ExpressionKind.class));
             map.put(expression.getUuid(), expression);
          }
          this.reloadChapterSet();
@@ -1203,7 +1201,7 @@ public final class Data
             Expression changedExpression)
       {
          mapOfMaps.get(oldKind).remove(changedExpression.getUuid());
-         mapOfMaps.get(changedExpression.getKind())
+         mapOfMaps.get(changedExpression.getGrammaticalEnum(ExpressionKind.class))
                .put(changedExpression.getUuid(), changedExpression);
       }
 

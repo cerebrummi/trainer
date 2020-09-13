@@ -2,7 +2,11 @@ package vokabeltrainer.types;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringJoiner;
 import java.util.UUID;
 
@@ -30,17 +34,7 @@ public class Expression
    private boolean selected;
    private boolean doNotChange;
    private Database origin;
-   // grammatical
-   private ExpressionKind kind;
-   private Gender gender;
-   private Numerus numerus;
-   private Binjan binjan;
-   private GrammaticalPerson grammaticalPerson;
-   private VerbConjugation verbConjugation;
-   private VerbStrength verbStrength;
-   private VerbType verbType;
-
-   private List<Enum<?>> grammaticalEnums = new ArrayList<>();
+   private Map<Class<? extends GrammaticalEnum>, Enum<? extends GrammaticalEnum>> grammaticalEnumMap = new HashMap<>();
 
    public Expression(boolean preset, boolean doNotChange)
    {
@@ -52,24 +46,45 @@ public class Expression
          hebrewInLatin = "";
          chapter = new Chapter();
       }
-      // always visible
-      gender = Gender.UNKOWN;
-      numerus = Numerus.UNKNOWN;
-      kind = ExpressionKind.UNKOWN;
-      // extra information
-      binjan = Binjan.NA;
-      grammaticalPerson = GrammaticalPerson.NA;
-      verbConjugation = VerbConjugation.NA;
-      verbStrength = VerbStrength.NA;
-      verbType = VerbType.NA;
-      grammaticalEnums.add(kind);
-      grammaticalEnums.add(gender);
-      grammaticalEnums.add(numerus);
-      grammaticalEnums.add(binjan);
-      grammaticalEnums.add(grammaticalPerson);
-      grammaticalEnums.add(verbConjugation);
-      grammaticalEnums.add(verbType);
-      grammaticalEnums.add(verbStrength);
+      fillGrammaticalEnumMap();
+   }
+
+   private void fillGrammaticalEnumMap()
+   {
+      // always visible in GUI
+      grammaticalEnumMap.put(Gender.class, Gender.GENDER_UNKNOWN);
+      grammaticalEnumMap.put(Numerus.class, Numerus.NUMERUS_UNKNOWN);
+      grammaticalEnumMap.put(ExpressionKind.class,
+            ExpressionKind.EXPRESSIONKIND_UNKNOWN);
+      // extra info in GUI
+      grammaticalEnumMap.put(Binjan.class, Binjan.BINJAN_NA);
+      grammaticalEnumMap.put(GrammaticalPerson.class,
+            GrammaticalPerson.GRAMMATICALPERSON_NA);
+      grammaticalEnumMap.put(VerbConjugation.class,
+            VerbConjugation.VERBCONJUGATION_NA);
+      grammaticalEnumMap.put(VerbStrength.class, VerbStrength.VERBSTENGTH_NA);
+      grammaticalEnumMap.put(VerbType.class, VerbType.VERBTYPE_NA);
+   }
+
+   @SuppressWarnings("unchecked")
+   public void setGrammaticalEnum(Class<? extends GrammaticalEnum> clazz,
+         String value)
+   {
+      GrammaticalEnum e = (GrammaticalEnum) grammaticalEnumMap.get(clazz);
+      grammaticalEnumMap.put(clazz,
+            (Enum<? extends GrammaticalEnum>) e.fromEnumName(value));
+   }
+
+   @SuppressWarnings("unchecked")
+   public void setGrammaticalEnum(Enum<? extends GrammaticalEnum> e)
+   {
+      grammaticalEnumMap.put((Class<? extends GrammaticalEnum>) e.getClass(),
+            e);
+   }
+
+   public Enum<?> getGrammaticalEnum(Class<? extends GrammaticalEnum> clazz)
+   {
+      return grammaticalEnumMap.get(clazz);
    }
 
    public void setSearchwordsGerman(String[] searchwords)
@@ -126,86 +141,6 @@ public class Expression
    public void setHebrew(String hebrew)
    {
       this.hebrew = hebrew;
-   }
-
-   public Gender getGender()
-   {
-      return gender;
-   }
-
-   public void setGender(Gender genderHebrew)
-   {
-      this.gender = genderHebrew;
-   }
-
-   public Numerus getNumerus()
-   {
-      return numerus;
-   }
-
-   public void setNumerus(Numerus numerusHebrew)
-   {
-      this.numerus = numerusHebrew;
-   }
-
-   public Binjan getBinjan()
-   {
-      return binjan;
-   }
-
-   public void setBinjan(Binjan binjan)
-   {
-      this.binjan = binjan;
-   }
-
-   public ExpressionKind getKind()
-   {
-      return kind;
-   }
-
-   public void setKind(ExpressionKind kind)
-   {
-      this.kind = kind;
-   }
-
-   public GrammaticalPerson getGrammaticalPerson()
-   {
-      return grammaticalPerson;
-   }
-
-   public void setGrammaticalPerson(GrammaticalPerson grammaticalPerson)
-   {
-      this.grammaticalPerson = grammaticalPerson;
-   }
-
-   public VerbConjugation getVerbConjugation()
-   {
-      return verbConjugation;
-   }
-
-   public void setVerbConjugation(VerbConjugation verbConjugation)
-   {
-      this.verbConjugation = verbConjugation;
-   }
-
-   public VerbStrength getVerbStrength()
-   {
-      return verbStrength;
-   }
-
-   public void setVerbStrength(VerbStrength verbStrength)
-   {
-      this.verbStrength = verbStrength;
-   }
-
-   public VerbType getVerbType()
-   {
-      return verbType;
-   }
-
-   public void setVerbType(VerbType verbType)
-   {
-      this.verbType = verbType;
    }
 
    public List<String> getSearchwordsGerman()
@@ -293,6 +228,26 @@ public class Expression
       this.origin = origin;
    }
 
+   public List<Class<? extends GrammaticalEnum>> getSortedGrammaticalEnumKeys()
+   {
+      List<Class<? extends GrammaticalEnum>> keyList = new ArrayList<>();
+      keyList.addAll(grammaticalEnumMap.keySet());
+      Collections.sort(keyList,
+            new Comparator<Class<? extends GrammaticalEnum>>()
+            {
+
+               @Override
+               public int compare(Class<? extends GrammaticalEnum> o1,
+                     Class<? extends GrammaticalEnum> o2)
+               {
+                  return String.valueOf(o1)
+                        .compareToIgnoreCase(String.valueOf(o2));
+               }
+
+            });
+      return keyList;
+   }
+
    public String[] toGermanArrayForTableEntry()
    {
       int index = 0;
@@ -305,13 +260,17 @@ public class Expression
       index++;
       result[index] = hebrew;
       index++;
-      result[index] = gender.toDescription();
+      result[index] = ((Gender) grammaticalEnumMap.get(Gender.class))
+            .toDescription();
       index++;
-      result[index] = numerus.toDescription();
+      result[index] = ((Numerus) grammaticalEnumMap.get(Numerus.class))
+            .toDescription();
       index++;
-      result[index] = binjan.toDescription();
+      result[index] = ((Binjan) grammaticalEnumMap.get(Binjan.class))
+            .toDescription();
       index++;
-      result[index] = kind.toDescription();
+      result[index] = ((ExpressionKind) grammaticalEnumMap
+            .get(ExpressionKind.class)).toDescription();
       index++;
       result[index] = "Kapitel: " + chapter.getName();
       return result;
@@ -329,13 +288,17 @@ public class Expression
       index++;
       result[index] = german;
       index++;
-      result[index] = gender.toDescription();
+      result[index] = ((Gender) grammaticalEnumMap.get(Gender.class))
+            .toDescription();
       index++;
-      result[index] = numerus.toDescription();
+      result[index] = ((Numerus) grammaticalEnumMap.get(Numerus.class))
+            .toDescription();
       index++;
-      result[index] = binjan.toDescription();
+      result[index] = ((Binjan) grammaticalEnumMap.get(Binjan.class))
+            .toDescription();
       index++;
-      result[index] = kind.toDescription();
+      result[index] = ((ExpressionKind) grammaticalEnumMap
+            .get(ExpressionKind.class)).toDescription();
       index++;
       result[index] = "Kapitel: " + chapter.getName();
       return result;
@@ -344,38 +307,35 @@ public class Expression
    public String getAdditionalInfoGerman()
    {
       StringJoiner joiner = new StringJoiner(", ");
-      if (!(numerus.equals(Numerus.UNKNOWN) || numerus.equals(Numerus.NA)))
+      if (!((Numerus) grammaticalEnumMap.get(Numerus.class)).toInfo().isEmpty())
       {
-         joiner.add(numerus.toString());
+         joiner.add(((Numerus) grammaticalEnumMap.get(Numerus.class)).toInfo());
       }
-      if (!(gender.equals(Gender.UNKOWN) || gender.equals(Gender.NA)))
+      if (!((Gender) grammaticalEnumMap.get(Gender.class)).toInfo().isEmpty())
       {
-         joiner.add(gender.toString());
+         joiner.add(((Gender) grammaticalEnumMap.get(Gender.class)).toInfo());
       }
-      joiner.add(kind.toString());
+      joiner.add(((ExpressionKind) grammaticalEnumMap.get(ExpressionKind.class))
+            .toDescription());
       return joiner.toString();
    }
 
    public String getAdditionalInfoHebrew()
    {
-      return kind.toString();
+      return ((ExpressionKind) grammaticalEnumMap.get(ExpressionKind.class))
+            .toDescription();
    }
 
-   public List<Enum<?>> getGrammaticalEnums()
-   {
-      return grammaticalEnums;
-   }
-   
    private String addGrammaticalEnumsForPrint(String tag)
    {
       StringJoiner joiner = new StringJoiner(tag);
-      for(Enum<?> e : this.grammaticalEnums)
+      for (Class<? extends GrammaticalEnum> clazz : getSortedGrammaticalEnumKeys())
       {
-         joiner.add(e.name());
+         joiner.add(grammaticalEnumMap.get(clazz).name());
       }
       return joiner.toString();
    }
-   
+
    public String getExpressionPrintLine()
    {
       StringJoiner joiner = new StringJoiner("\t");
@@ -432,13 +392,13 @@ public class Expression
       joiner.add("Suchworte Hebräisch: " + searchJoinerHebrew.toString());
       return joiner.toString();
    }
-   
+
    private String addGrammaticalEnumsForCopy(String tag)
    {
       StringJoiner joiner = new StringJoiner(tag);
-      for(Enum<?> e : this.grammaticalEnums)
+      for (Enum<?> e : grammaticalEnumMap.values())
       {
-         joiner.add(((GrammaticalEnum)e).toDescription());
+         joiner.add(((GrammaticalEnum) e).toDescription());
       }
       return joiner.toString();
    }
@@ -478,15 +438,16 @@ public class Expression
    public String getAdditionalInfoGermanForStatistics()
    {
       StringJoiner joiner = new StringJoiner(", ");
-      if (!(numerus.equals(Numerus.UNKNOWN) || numerus.equals(Numerus.NA)))
+      if (!((Numerus) grammaticalEnumMap.get(Numerus.class)).toInfo().isEmpty())
       {
-         joiner.add(numerus.toString());
+         joiner.add(((Numerus) grammaticalEnumMap.get(Numerus.class)).toInfo());
       }
-      if (!(gender.equals(Gender.UNKOWN) || gender.equals(Gender.NA)))
+      if (!((Gender) grammaticalEnumMap.get(Gender.class)).toInfo().isEmpty())
       {
-         joiner.add(gender.toString());
+         joiner.add(((Gender) grammaticalEnumMap.get(Gender.class)).toInfo());
       }
-      ;
+      joiner.add(((ExpressionKind) grammaticalEnumMap.get(ExpressionKind.class))
+            .toDescription());
       return joiner.toString();
    }
 

@@ -2,7 +2,7 @@ package vokabeltrainer.types.grammatical;
 
 public enum GrammaticalPerson implements GrammaticalEnum
 {
-   UNKOWN(
+   GRAMMATICALPERSON_UNKNOWN(
          "unbekannt"),
    ERSTE_PERSON(
          "1. Person"),
@@ -10,7 +10,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
          "2. Person"),
    DRITTE_PERSON(
          "3. Person"),
-   NA(
+   GRAMMATICALPERSON_NA(
          "nicht anwendbar");
 
    private String description;
@@ -34,9 +34,9 @@ public enum GrammaticalPerson implements GrammaticalEnum
       case ZWEITE_PERSON:
       case ERSTE_PERSON:
          return description;
-      case UNKOWN:
+      case GRAMMATICALPERSON_UNKNOWN:
          return "Grammatische-Person " + description;
-      case NA:
+      case GRAMMATICALPERSON_NA:
       default:
          return "";
       }

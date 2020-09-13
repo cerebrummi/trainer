@@ -7,7 +7,7 @@ import java.util.List;
 
 public enum ExpressionKind implements GrammaticalEnum
 {
-   UNKOWN(
+   EXPRESSIONKIND_UNKNOWN(
          "unbekannt",
          ""),
    ADJEKTIV(
@@ -114,7 +114,7 @@ public enum ExpressionKind implements GrammaticalEnum
       int counter = 0;
       for (ExpressionKind kind : getValuesAsSortedList())
       {
-         if (!kind.equals(ExpressionKind.UNKOWN))
+         if (!kind.equals(ExpressionKind.EXPRESSIONKIND_UNKNOWN))
          {
             explanations[counter] = kind.description + ": " + kind.explanation;
             counter++;
@@ -163,7 +163,7 @@ public enum ExpressionKind implements GrammaticalEnum
       case WOCHENTAG:
       case ZAHL:
          return description;
-      case UNKOWN:
+      case EXPRESSIONKIND_UNKNOWN:
          return "Wortart " + description;
       default:
          return "";
@@ -179,15 +179,15 @@ public enum ExpressionKind implements GrammaticalEnum
          @Override
          public int compare(ExpressionKind o1, ExpressionKind o2)
          {
-            if (o1.equals(UNKOWN) && o2.equals(UNKOWN))
+            if (o1.equals(EXPRESSIONKIND_UNKNOWN) && o2.equals(EXPRESSIONKIND_UNKNOWN))
             {
                return 0;
             }
-            if (o1.equals(UNKOWN))
+            if (o1.equals(EXPRESSIONKIND_UNKNOWN))
             {
                return -1;
             }
-            if (o2.equals(UNKOWN))
+            if (o2.equals(EXPRESSIONKIND_UNKNOWN))
             {
                return 1;
             }

@@ -2,13 +2,13 @@ package vokabeltrainer.types.grammatical;
 
 public enum VerbStrength implements GrammaticalEnum
 {
-   UNKOWN(
+   VERBSTENGTH_UNKNOWN(
          "unbekannt"),
    WEAK(
          "schwach"),
    STRONG(
          "stark"),
-   NA(
+   VERBSTENGTH_NA(
          "nicht anwendbar");
 
    private String description;
@@ -31,9 +31,9 @@ public enum VerbStrength implements GrammaticalEnum
       case STRONG:
       case WEAK:
          return description;
-      case UNKOWN:
+      case VERBSTENGTH_UNKNOWN:
          return "Verbstärke " + description;
-      case NA:
+      case VERBSTENGTH_NA:
       default:
          return "";
       }

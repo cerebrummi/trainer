@@ -73,8 +73,8 @@ public class ExpressionEditorView extends JDialog
    private JTextField german;
    private JTextField hebrewInLatin;
    private InfoTextField hebrew;
-   private WideComboBox<Gender> genderHebrew;
-   private WideComboBox<Numerus> numerusHebrew;
+   private WideComboBox<Gender> gender;
+   private WideComboBox<Numerus> numerus;
    private WideComboBox<ExpressionKind> kind;
    private InfoTextField newSearchwordGerman;
    private JList<String> searchwordsJListGerman;
@@ -202,20 +202,20 @@ public class ExpressionEditorView extends JDialog
       hebrew.setBlankBorder();
       hebrew.setDocument(new HebrewDocument(true));
 
-      genderHebrew = new WideComboBox<>(Gender.values());
-      genderHebrew.setBorder(new TitledBorder("Geschlecht"));
-      genderHebrew.setFont(germanfont);
-      genderHebrew.setEditable(false);
-      genderHebrew.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      genderHebrew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      gender = new WideComboBox<>(Gender.values());
+      gender.setBorder(new TitledBorder("Geschlecht"));
+      gender.setFont(germanfont);
+      gender.setEditable(false);
+      gender.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      gender.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
 
-      numerusHebrew = new WideComboBox<>(Numerus.values());
-      numerusHebrew.setFocusable(false);
-      numerusHebrew.setBorder(new TitledBorder("Numerus"));
-      numerusHebrew.setFont(germanfont);
-      numerusHebrew.setEditable(false);
-      numerusHebrew.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      numerusHebrew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      numerus = new WideComboBox<>(Numerus.values());
+      numerus.setFocusable(false);
+      numerus.setBorder(new TitledBorder("Numerus"));
+      numerus.setFont(germanfont);
+      numerus.setEditable(false);
+      numerus.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      numerus.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
 
       kind = new WideComboBox<>(ExpressionKind.values());
       kind.setMaximumRowCount(ExpressionKind.getNumberOfValues() / 2);
@@ -256,7 +256,7 @@ public class ExpressionEditorView extends JDialog
       verbType.setEditable(false);
       verbType.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
       verbType.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      
+
       grammaticalPerson = new WideComboBox<>(GrammaticalPerson.values());
       grammaticalPerson.setMaximumRowCount(GrammaticalPerson.values().length);
       grammaticalPerson.setBorder(new TitledBorder("Person"));
@@ -390,7 +390,8 @@ public class ExpressionEditorView extends JDialog
       swapPanel.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       swapPanel.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       swapPanel.setBorder(BorderFactory.createEmptyBorder());
-      swapPanel.add(ExpressionKind.UNKOWN.name(), initUnkownPanel());
+      swapPanel.add(ExpressionKind.EXPRESSIONKIND_UNKNOWN.name(),
+            initUnkownPanel());
       swapPanel.add(ExpressionKind.ADJEKTIV.name(), initAdjektivPanel());
       swapPanel.add(ExpressionKind.ADVERB.name(), initAdverbPanel());
       swapPanel.add(ExpressionKind.ALTERSANGABE.name(),
@@ -430,7 +431,7 @@ public class ExpressionEditorView extends JDialog
       swapPanel.add(ExpressionKind.VERB.name(), initVerbPanel());
       swapPanel.add(ExpressionKind.WOCHENTAG.name(), initWochentagPanel());
       swapPanel.add(ExpressionKind.ZAHL.name(), initZahlPanel());
-      cardLayout.show(swapPanel, ExpressionKind.UNKOWN.name());
+      cardLayout.show(swapPanel, ExpressionKind.EXPRESSIONKIND_UNKNOWN.name());
 
       extraInfo = new JTextPane();
       extraInfo.setFont(Main.getHebrewFont(30));
@@ -456,7 +457,7 @@ public class ExpressionEditorView extends JDialog
       verticalUmgangssprachePanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalUmgangssprachePanel, 15);
       verticalUmgangssprachePanel.setLayout(layout);
-      verticalUmgangssprachePanel.setOpaque(true);
+      verticalUmgangssprachePanel.setOpaque(false);
       verticalUmgangssprachePanel.setBackground(Settings.getTransparent());
       return verticalUmgangssprachePanel;
    }
@@ -466,7 +467,7 @@ public class ExpressionEditorView extends JDialog
       verticalZahlPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalZahlPanel, 15);
       verticalZahlPanel.setLayout(layout);
-      verticalZahlPanel.setOpaque(true);
+      verticalZahlPanel.setOpaque(false);
       verticalZahlPanel.setBackground(Settings.getTransparent());
       return verticalZahlPanel;
    }
@@ -476,7 +477,7 @@ public class ExpressionEditorView extends JDialog
       verticalWochentagPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalWochentagPanel, 15);
       verticalWochentagPanel.setLayout(layout);
-      verticalWochentagPanel.setOpaque(true);
+      verticalWochentagPanel.setOpaque(false);
       verticalWochentagPanel.setBackground(Settings.getTransparent());
       return verticalWochentagPanel;
    }
@@ -486,17 +487,17 @@ public class ExpressionEditorView extends JDialog
       verticalVerbPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalVerbPanel);
       verticalVerbPanel.setLayout(layout);
-      verticalVerbPanel.setOpaque(true);
+      verticalVerbPanel.setOpaque(false);
       verticalVerbPanel.setBackground(Settings.getTransparent());
       return verticalVerbPanel;
    }
-   
+
    private Component initModalVerbPanel()
    {
       verticalModalVerbPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalModalVerbPanel);
       verticalModalVerbPanel.setLayout(layout);
-      verticalModalVerbPanel.setOpaque(true);
+      verticalModalVerbPanel.setOpaque(false);
       verticalModalVerbPanel.setBackground(Settings.getTransparent());
       return verticalModalVerbPanel;
    }
@@ -506,7 +507,7 @@ public class ExpressionEditorView extends JDialog
       verticalUhrzeitPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalUhrzeitPanel, 15);
       verticalUhrzeitPanel.setLayout(layout);
-      verticalUhrzeitPanel.setOpaque(true);
+      verticalUhrzeitPanel.setOpaque(false);
       verticalUhrzeitPanel.setBackground(Settings.getTransparent());
       return verticalUhrzeitPanel;
    }
@@ -516,7 +517,7 @@ public class ExpressionEditorView extends JDialog
       verticalSubstantivPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalSubstantivPanel, 15);
       verticalSubstantivPanel.setLayout(layout);
-      verticalSubstantivPanel.setOpaque(true);
+      verticalSubstantivPanel.setOpaque(false);
       verticalSubstantivPanel.setBackground(Settings.getTransparent());
       return verticalSubstantivPanel;
    }
@@ -526,7 +527,7 @@ public class ExpressionEditorView extends JDialog
       verticalRedewendungPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalRedewendungPanel, 15);
       verticalRedewendungPanel.setLayout(layout);
-      verticalRedewendungPanel.setOpaque(true);
+      verticalRedewendungPanel.setOpaque(false);
       verticalRedewendungPanel.setBackground(Settings.getTransparent());
       return verticalRedewendungPanel;
    }
@@ -536,7 +537,7 @@ public class ExpressionEditorView extends JDialog
       verticalPronomPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalPronomPanel, 15);
       verticalPronomPanel.setLayout(layout);
-      verticalPronomPanel.setOpaque(true);
+      verticalPronomPanel.setOpaque(false);
       verticalPronomPanel.setBackground(Settings.getTransparent());
       return verticalPronomPanel;
    }
@@ -546,7 +547,7 @@ public class ExpressionEditorView extends JDialog
       verticalPraepositionPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalPraepositionPanel, 15);
       verticalPraepositionPanel.setLayout(layout);
-      verticalPraepositionPanel.setOpaque(true);
+      verticalPraepositionPanel.setOpaque(false);
       verticalPraepositionPanel.setBackground(Settings.getTransparent());
       return verticalPraepositionPanel;
    }
@@ -556,7 +557,7 @@ public class ExpressionEditorView extends JDialog
       verticalPossessivPronomPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalPossessivPronomPanel, 15);
       verticalPossessivPronomPanel.setLayout(layout);
-      verticalPossessivPronomPanel.setOpaque(true);
+      verticalPossessivPronomPanel.setOpaque(false);
       verticalPossessivPronomPanel.setBackground(Settings.getTransparent());
       return verticalPossessivPronomPanel;
    }
@@ -566,7 +567,7 @@ public class ExpressionEditorView extends JDialog
       verticalPersonalSuffixPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalPersonalSuffixPanel, 15);
       verticalPersonalSuffixPanel.setLayout(layout);
-      verticalPersonalSuffixPanel.setOpaque(true);
+      verticalPersonalSuffixPanel.setOpaque(false);
       verticalPersonalSuffixPanel.setBackground(Settings.getTransparent());
       return verticalPersonalSuffixPanel;
    }
@@ -576,7 +577,7 @@ public class ExpressionEditorView extends JDialog
       verticalPersonalPronomPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalPersonalPronomPanel, 15);
       verticalPersonalPronomPanel.setLayout(layout);
-      verticalPersonalPronomPanel.setOpaque(true);
+      verticalPersonalPronomPanel.setOpaque(false);
       verticalPersonalPronomPanel.setBackground(Settings.getTransparent());
       return verticalPersonalPronomPanel;
    }
@@ -586,7 +587,7 @@ public class ExpressionEditorView extends JDialog
       verticalPersonalPraefixPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalPersonalPraefixPanel, 15);
       verticalPersonalPraefixPanel.setLayout(layout);
-      verticalPersonalPraefixPanel.setOpaque(true);
+      verticalPersonalPraefixPanel.setOpaque(false);
       verticalPersonalPraefixPanel.setBackground(Settings.getTransparent());
 
       return verticalPersonalPraefixPanel;
@@ -597,7 +598,7 @@ public class ExpressionEditorView extends JDialog
       verticalPartikelPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalPartikelPanel, 15);
       verticalPartikelPanel.setLayout(layout);
-      verticalPartikelPanel.setOpaque(true);
+      verticalPartikelPanel.setOpaque(false);
       verticalPartikelPanel.setBackground(Settings.getTransparent());
       return verticalPartikelPanel;
    }
@@ -607,7 +608,7 @@ public class ExpressionEditorView extends JDialog
       verticalOrdnungszahlPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalOrdnungszahlPanel, 15);
       verticalOrdnungszahlPanel.setLayout(layout);
-      verticalOrdnungszahlPanel.setOpaque(true);
+      verticalOrdnungszahlPanel.setOpaque(false);
       verticalOrdnungszahlPanel.setBackground(Settings.getTransparent());
       return verticalOrdnungszahlPanel;
    }
@@ -617,7 +618,7 @@ public class ExpressionEditorView extends JDialog
       verticalKontruktPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalKontruktPanel, 15);
       verticalKontruktPanel.setLayout(layout);
-      verticalKontruktPanel.setOpaque(true);
+      verticalKontruktPanel.setOpaque(false);
       verticalKontruktPanel.setBackground(Settings.getTransparent());
       return verticalKontruktPanel;
    }
@@ -627,7 +628,7 @@ public class ExpressionEditorView extends JDialog
       verticalJahreszeitPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalJahreszeitPanel, 15);
       verticalJahreszeitPanel.setLayout(layout);
-      verticalJahreszeitPanel.setOpaque(true);
+      verticalJahreszeitPanel.setOpaque(false);
       verticalJahreszeitPanel.setBackground(Settings.getTransparent());
       return verticalJahreszeitPanel;
    }
@@ -637,7 +638,7 @@ public class ExpressionEditorView extends JDialog
       verticalGlueckwunschPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalGlueckwunschPanel, 15);
       verticalGlueckwunschPanel.setLayout(layout);
-      verticalGlueckwunschPanel.setOpaque(true);
+      verticalGlueckwunschPanel.setOpaque(false);
       verticalGlueckwunschPanel.setBackground(Settings.getTransparent());
       return verticalGlueckwunschPanel;
    }
@@ -647,7 +648,7 @@ public class ExpressionEditorView extends JDialog
       verticalFragewortPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalFragewortPanel, 15);
       verticalFragewortPanel.setLayout(layout);
-      verticalFragewortPanel.setOpaque(true);
+      verticalFragewortPanel.setOpaque(false);
       verticalFragewortPanel.setBackground(Settings.getTransparent());
       return verticalFragewortPanel;
    }
@@ -657,7 +658,7 @@ public class ExpressionEditorView extends JDialog
       verticalFarbePanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalFarbePanel, 15);
       verticalFarbePanel.setLayout(layout);
-      verticalFarbePanel.setOpaque(true);
+      verticalFarbePanel.setOpaque(false);
       verticalFarbePanel.setBackground(Settings.getTransparent());
       return verticalFarbePanel;
    }
@@ -667,7 +668,7 @@ public class ExpressionEditorView extends JDialog
       verticalEigennamePanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalEigennamePanel, 15);
       verticalEigennamePanel.setLayout(layout);
-      verticalEigennamePanel.setOpaque(true);
+      verticalEigennamePanel.setOpaque(false);
       verticalEigennamePanel.setBackground(Settings.getTransparent());
       return verticalEigennamePanel;
    }
@@ -677,7 +678,7 @@ public class ExpressionEditorView extends JDialog
       verticalDemonstrativPronomPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalDemonstrativPronomPanel, 15);
       verticalDemonstrativPronomPanel.setLayout(layout);
-      verticalDemonstrativPronomPanel.setOpaque(true);
+      verticalDemonstrativPronomPanel.setOpaque(false);
       verticalDemonstrativPronomPanel.setBackground(Settings.getTransparent());
       return verticalDemonstrativPronomPanel;
    }
@@ -687,7 +688,7 @@ public class ExpressionEditorView extends JDialog
       verticalBindewortPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalBindewortPanel, 15);
       verticalBindewortPanel.setLayout(layout);
-      verticalBindewortPanel.setOpaque(true);
+      verticalBindewortPanel.setOpaque(false);
       verticalBindewortPanel.setBackground(Settings.getTransparent());
       return verticalBindewortPanel;
    }
@@ -697,7 +698,7 @@ public class ExpressionEditorView extends JDialog
       verticalBerufPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalBerufPanel, 15);
       verticalBerufPanel.setLayout(layout);
-      verticalBerufPanel.setOpaque(true);
+      verticalBerufPanel.setOpaque(false);
       verticalBerufPanel.setBackground(Settings.getTransparent());
       return verticalBerufPanel;
    }
@@ -707,7 +708,7 @@ public class ExpressionEditorView extends JDialog
       verticalAufrufPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalAufrufPanel, 15);
       verticalAufrufPanel.setLayout(layout);
-      verticalAufrufPanel.setOpaque(true);
+      verticalAufrufPanel.setOpaque(false);
       verticalAufrufPanel.setBackground(Settings.getTransparent());
       return verticalAufrufPanel;
    }
@@ -717,7 +718,7 @@ public class ExpressionEditorView extends JDialog
       verticalAltersangabePanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalAltersangabePanel, 15);
       verticalAltersangabePanel.setLayout(layout);
-      verticalAltersangabePanel.setOpaque(true);
+      verticalAltersangabePanel.setOpaque(false);
       verticalAltersangabePanel.setBackground(Settings.getTransparent());
       return verticalAltersangabePanel;
    }
@@ -727,7 +728,7 @@ public class ExpressionEditorView extends JDialog
       verticalAdverbPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalAdverbPanel, 15);
       verticalAdverbPanel.setLayout(layout);
-      verticalAdverbPanel.setOpaque(true);
+      verticalAdverbPanel.setOpaque(false);
       verticalAdverbPanel.setBackground(Settings.getTransparent());
       return verticalAdverbPanel;
    }
@@ -737,7 +738,7 @@ public class ExpressionEditorView extends JDialog
       verticalAdjektivPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalAdjektivPanel, 15);
       verticalAdjektivPanel.setLayout(layout);
-      verticalAdjektivPanel.setOpaque(true);
+      verticalAdjektivPanel.setOpaque(false);
       verticalAdjektivPanel.setBackground(Settings.getTransparent());
       return verticalAdjektivPanel;
    }
@@ -747,7 +748,7 @@ public class ExpressionEditorView extends JDialog
       verticalUnkownPanel = new JPanel();
       TotemLayout layout = new TotemLayout(verticalUnkownPanel, 15);
       verticalUnkownPanel.setLayout(layout);
-      verticalUnkownPanel.setOpaque(true);
+      verticalUnkownPanel.setOpaque(false);
       verticalUnkownPanel.setBackground(Settings.getTransparent());
       return verticalUnkownPanel;
    }
@@ -789,8 +790,8 @@ public class ExpressionEditorView extends JDialog
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
       vertical.setLayout(new TotemLayout(vertical, 15));
-      vertical.add(genderHebrew);
-      vertical.add(numerusHebrew);
+      vertical.add(gender);
+      vertical.add(numerus);
       vertical.add(newSearchwordGerman);
       JScrollPane scrollPane = new JScrollPane(searchwordsJListGerman);
       scrollPane.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 220));
@@ -993,261 +994,287 @@ public class ExpressionEditorView extends JDialog
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case ADVERB:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case ALTERSANGABE:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case AUSRUF:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case BERUF:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case BINDEWORT:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case DEMONSTRATIVPRONOM:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case EIGENNAME:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case FARBE:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case FRAGEWORT:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case GLUECKWUNSCH:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case JAHRESZEIT:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case KONSTRUKT:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case ORDNUNGSZAHL:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case PARTIKEL:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case PERSONALPRAEFIX:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case PERSONALPRONOM:
             // panels
             verticalPersonalPronomPanel.add(grammaticalPerson);
             // selections self
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.UNKOWN);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_UNKNOWN);
             // selections other
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case PERSONALSUFFIX:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case POSSESSIVPRONOM:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case PRAEPOSITION:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case PRONOM:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case REDEWENDUNG:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case SUBSTANTIV:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case UHRZEIT:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case UMGANGSPRACHE:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
-         case UNKOWN:
+         case EXPRESSIONKIND_UNKNOWN:
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case MODALVERB:
             // panels
@@ -1256,12 +1283,14 @@ public class ExpressionEditorView extends JDialog
             verticalModalVerbPanel.add(verbStrength);
             verticalModalVerbPanel.add(verbType);
             // selections self
-            binjan.setSelectedItem(Binjan.UNKOWN);
-            verbConjugation.setSelectedItem(VerbConjugation.UNKOWN);
-            verbStrength.setSelectedItem(VerbStrength.UNKOWN);
-            verbType.setSelectedItem(VerbType.UNKOWN);
+            binjan.setSelectedItem(Binjan.BINJAN_UNKNOWN);
+            verbConjugation
+                  .setSelectedItem(VerbConjugation.VERBCONJUGATION_UNKNOWN);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_UNKNOWN);
+            verbType.setSelectedItem(VerbType.VERBTYPE_UNKNOWN);
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
             break;
          case VERB:
             // panels
@@ -1270,34 +1299,38 @@ public class ExpressionEditorView extends JDialog
             verticalVerbPanel.add(verbStrength);
             verticalVerbPanel.add(verbType);
             // selections self
-            binjan.setSelectedItem(Binjan.UNKOWN);
-            verbConjugation.setSelectedItem(VerbConjugation.UNKOWN);
-            verbStrength.setSelectedItem(VerbStrength.UNKOWN);
-            verbType.setSelectedItem(VerbType.UNKOWN);
+            binjan.setSelectedItem(Binjan.BINJAN_UNKNOWN);
+            verbConjugation
+                  .setSelectedItem(VerbConjugation.VERBCONJUGATION_UNKNOWN);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_UNKNOWN);
+            verbType.setSelectedItem(VerbType.VERBTYPE_UNKNOWN);
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
             break;
          case WOCHENTAG:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
          case ZAHL:
             // panels
             // selections self
             // selections other
-            grammaticalPerson.setSelectedItem(GrammaticalPerson.NA);
-            binjan.setSelectedItem(Binjan.NA);
-            verbConjugation.setSelectedItem(VerbConjugation.NA);
-            verbStrength.setSelectedItem(VerbStrength.NA);
-            verbType.setSelectedItem(VerbStrength.NA);
+            grammaticalPerson
+                  .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+            binjan.setSelectedItem(Binjan.BINJAN_NA);
+            verbConjugation.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+            verbStrength.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
+            verbType.setSelectedItem(VerbStrength.VERBSTENGTH_NA);
             break;
-            default:
+         default:
          }
 
          this.cardLayout.show(swapPanel, choosen.name());
@@ -1349,10 +1382,19 @@ public class ExpressionEditorView extends JDialog
       expression
             .setHebrewInLatin(cleanTextWithoutComma(hebrewInLatin.getText()));
       expression.setHebrew(cleanTextWithoutComma(hebrew.getText()));
-      expression.setGender((Gender) genderHebrew.getSelectedItem());
-      expression.setNumerus((Numerus) numerusHebrew.getSelectedItem());
-      expression.setBinjan((Binjan) binjan.getSelectedItem());
-      expression.setKind((ExpressionKind) kind.getSelectedItem());
+
+      expression.setGrammaticalEnum((Gender) gender.getSelectedItem());
+      expression.setGrammaticalEnum((Numerus) numerus.getSelectedItem());
+      expression.setGrammaticalEnum((ExpressionKind) kind.getSelectedItem());
+      expression.setGrammaticalEnum((Binjan) binjan.getSelectedItem());
+      expression
+            .setGrammaticalEnum((VerbStrength) verbStrength.getSelectedItem());
+      expression.setGrammaticalEnum(
+            (VerbConjugation) verbConjugation.getSelectedItem());
+      expression.setGrammaticalEnum((VerbType) verbType.getSelectedItem());
+      expression.setGrammaticalEnum(
+            (GrammaticalPerson) grammaticalPerson.getSelectedItem());
+
       List<String> wordsGerman = new ArrayList<>();
       for (String word : searchwordsSetGerman)
       {
@@ -1385,15 +1427,27 @@ public class ExpressionEditorView extends JDialog
    public void setExpression(Expression expression)
    {
       this.save = false;
-      this.oldKind = expression.getKind();
+      this.oldKind = (ExpressionKind) expression
+            .getGrammaticalEnum(ExpressionKind.class);
       this.expression = expression;
       this.german.setText(expression.getGerman());
       this.hebrewInLatin.setText(expression.getHebrewInLatin());
       this.hebrew.setText(expression.getHebrew());
-      this.genderHebrew.setSelectedItem(expression.getGender());
-      this.numerusHebrew.setSelectedItem(expression.getNumerus());
-      this.kind.setSelectedItem(expression.getKind());
-      this.binjan.setSelectedItem(expression.getBinjan());
+
+      this.gender.setSelectedItem(expression.getGrammaticalEnum(Gender.class));
+      this.numerus
+            .setSelectedItem(expression.getGrammaticalEnum(Numerus.class));
+      this.kind.setSelectedItem(
+            expression.getGrammaticalEnum(ExpressionKind.class));
+      this.binjan.setSelectedItem(expression.getGrammaticalEnum(Binjan.class));
+      this.verbConjugation.setSelectedItem(
+            expression.getGrammaticalEnum(VerbConjugation.class));
+      this.verbStrength
+            .setSelectedItem(expression.getGrammaticalEnum(VerbStrength.class));
+      this.verbType
+            .setSelectedItem(expression.getGrammaticalEnum(VerbType.class));
+      this.grammaticalPerson.setSelectedItem(
+            expression.getGrammaticalEnum(GrammaticalPerson.class));
 
       this.searchwordsSetGerman = new HashSet<>();
       for (String word : expression.getSearchwordsGerman())
@@ -1456,7 +1510,8 @@ public class ExpressionEditorView extends JDialog
 
    public boolean isKindChanged()
    {
-      return this.oldKind != this.expression.getKind();
+      return this.oldKind != this.expression
+            .getGrammaticalEnum(ExpressionKind.class);
    }
 
    public ExpressionKind getOldKind()

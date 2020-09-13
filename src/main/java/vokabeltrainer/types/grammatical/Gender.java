@@ -2,15 +2,15 @@ package vokabeltrainer.types.grammatical;
 
 public enum Gender implements GrammaticalEnum
 {
-   UNKOWN(
+   GENDER_UNKNOWN(
          "unbekannt"),
    FEMALE(
          "weiblich"),
    MALE(
          "männlich"),
-   BOTH(
+   BOTH_FEMALE_MALE(
          "weiblich und männlich"),
-   NA(
+   GENDER_NA(
          "nicht anwendbar");
 
    private String description;
@@ -30,13 +30,28 @@ public enum Gender implements GrammaticalEnum
    {
       switch (this)
       {
-      case BOTH:
+      case BOTH_FEMALE_MALE:
       case FEMALE:
       case MALE:
          return description;
-      case UNKOWN:
+      case GENDER_UNKNOWN:
          return "Geschlecht " + description;
-      case NA:
+      case GENDER_NA:
+      default:
+         return "";
+      }
+   }
+   
+   public String toInfo()
+   {
+      switch (this)
+      {
+      case BOTH_FEMALE_MALE:
+      case FEMALE:
+      case MALE:
+         return description;
+      case GENDER_UNKNOWN:
+      case GENDER_NA:
       default:
          return "";
       }

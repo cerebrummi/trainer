@@ -2,7 +2,7 @@ package vokabeltrainer.types.grammatical;
 
 public enum Numerus implements GrammaticalEnum
 {
-   UNKNOWN(
+   NUMERUS_UNKNOWN(
          "unbekannt"),
    SINGULAR(
          "Singular"),
@@ -10,7 +10,7 @@ public enum Numerus implements GrammaticalEnum
          "Dual"),
    PLURAL(
          "Plural"),
-   NA(
+   NUMERUS_NA(
          "nicht anwendbar");
 
    private String description;
@@ -34,9 +34,24 @@ public enum Numerus implements GrammaticalEnum
       case PLURAL:
       case SINGULAR:
          return description;
-      case UNKNOWN:
+      case NUMERUS_UNKNOWN:
          return "Numerus " + description;
-      case NA:
+      case NUMERUS_NA:
+      default:
+         return "";
+      }
+   }
+   
+   public String toInfo()
+   {
+      switch (this)
+      {
+      case DUAL:
+      case PLURAL:
+      case SINGULAR:
+         return description;
+      case NUMERUS_UNKNOWN:
+      case NUMERUS_NA:
       default:
          return "";
       }

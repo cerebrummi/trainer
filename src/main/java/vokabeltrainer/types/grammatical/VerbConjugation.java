@@ -2,7 +2,7 @@ package vokabeltrainer.types.grammatical;
 
 public enum VerbConjugation implements GrammaticalEnum
 {
-   UNKOWN(
+   VERBCONJUGATION_UNKNOWN(
          "unbekannt"),
    INFINITIVE(
          "Infinitiv"),
@@ -18,7 +18,7 @@ public enum VerbConjugation implements GrammaticalEnum
          "Befehlsform"),
    ACTION_NOUN(
          "Gerundium"),
-   NA(
+   VERBCONJUGATION_NA(
          "nicht anwendbar");
 
    private String description;
@@ -46,9 +46,9 @@ public enum VerbConjugation implements GrammaticalEnum
       case PAST_PARTICIPLE:
       case PRESENT:
          return description;
-      case UNKOWN:
+      case VERBCONJUGATION_UNKNOWN:
          return "Verbconjugation " + description;
-      case NA:
+      case VERBCONJUGATION_NA:
       default:
          return "";
       }

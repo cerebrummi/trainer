@@ -2,7 +2,7 @@ package vokabeltrainer.types.grammatical;
 
 public enum VerbType implements GrammaticalEnum
 {
-   UNKOWN(
+   VERBTYPE_UNKNOWN(
          "unbekannt"),
    REGULAR(
          "regulär"),
@@ -10,7 +10,7 @@ public enum VerbType implements GrammaticalEnum
          "irregulär"),
    AUXILIARY(
          "Hilfsverb"),
-   NA(
+   VERBTYPE_NA(
          "nicht anwendbar");
 
    private String description;
@@ -34,9 +34,9 @@ public enum VerbType implements GrammaticalEnum
       case IRREGULAR:
       case REGULAR:
          return description;
-      case UNKOWN:
+      case VERBTYPE_UNKNOWN:
          return "Verbtyp " + description;
-      case NA:
+      case VERBTYPE_NA:
       default:
          return "";
       }
