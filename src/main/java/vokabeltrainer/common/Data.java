@@ -247,7 +247,7 @@ public final class Data
    public static void changeKindofExpression(ExpressionKind oldKind,
          Expression newKind)
    {
-      getDataBaseAtomic().changeKindofExpressionInDataStrukture(oldKind,
+      getDataBaseAtomic().changeKindofExpressionInDataStructure(oldKind,
             newKind);
    }
 
@@ -534,11 +534,13 @@ public final class Data
                expression.setHebrewInLatin(items[i]);
                i++;
                expression.setHebrew(items[i]);
-
-               for (Class<? extends GrammaticalEnum> clazz : expression.getSortedGrammaticalEnumKeys())
+               i++;
+               expression.setExpressionKind(ExpressionKind.valueOf(items[i]));
+               
+               for (Class<? extends GrammaticalEnum> clazz : expression.getDefinition().getSortedGrammaticalEnumKeys())
                {
                   i++;
-                  expression.setGrammaticalEnum(clazz, items[i]);
+                  expression.getDefinition().setGrammaticalEnum(clazz, items[i]);
                }
                
                i++;
@@ -608,7 +610,7 @@ public final class Data
                && chapter == null && command == null)
          {
             return new ExpressionTableModel(convertToExpressionModelArray(
-                  findExpressionsKind(kind, language)), COLUMNAMES);
+                  findSortedExpressionsKind(kind, language)), COLUMNAMES);
          }
          else if (text != null && kind == null && search != null
                && chapter == null && command == null)
@@ -729,18 +731,10 @@ public final class Data
          return list;
       }
 
-      private List<Expression> findExpressionsKind(ExpressionKind kind,
+      private List<Expression> findSortedExpressionsKind(ExpressionKind kind,
             Language language)
       {
-         List<Expression> list = new ArrayList<>();
-         Collection<Expression> expressions = findMapValues(kind);
-         for (Expression expression : expressions)
-         {
-            if (expression.getGrammaticalEnum(ExpressionKind.class).equals(kind))
-            {
-               list.add(expression);
-            }
-         }
+         List<Expression> list = new ArrayList<>(findMapValues(kind));
          Collections.sort(list, new ExpressionComparator(language));
          return list;
       }
@@ -960,7 +954,7 @@ public final class Data
             alleMap.put(expression.getUuid(), expression);
 
             ConcurrentMap<UUID, Expression> map = mapOfMaps
-                  .get(expression.getGrammaticalEnum(ExpressionKind.class));
+                  .get(expression.getExpressionKind());
             map.put(expression.getUuid(), expression);
          }
          this.reloadChapterSet();
@@ -1197,11 +1191,11 @@ public final class Data
          return mapOfMaps.get(kind);
       }
 
-      private void changeKindofExpressionInDataStrukture(ExpressionKind oldKind,
+      private void changeKindofExpressionInDataStructure(ExpressionKind oldKind,
             Expression changedExpression)
       {
          mapOfMaps.get(oldKind).remove(changedExpression.getUuid());
-         mapOfMaps.get(changedExpression.getGrammaticalEnum(ExpressionKind.class))
+         mapOfMaps.get(changedExpression.getExpressionKind())
                .put(changedExpression.getUuid(), changedExpression);
       }
 
