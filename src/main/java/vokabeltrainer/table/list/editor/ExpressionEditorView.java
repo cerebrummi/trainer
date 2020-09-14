@@ -1,6 +1,5 @@
 package vokabeltrainer.table.list.editor;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
@@ -12,7 +11,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,10 +24,10 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListCellRenderer;
-import javax.swing.ListModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.SimpleAttributeSet;
@@ -57,7 +55,6 @@ import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.ExpressionKind;
 import vokabeltrainer.types.grammatical.Gender;
-import vokabeltrainer.types.grammatical.GrammaticalEnum;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
 import vokabeltrainer.types.grammatical.VerbConjugation;
@@ -115,42 +112,11 @@ public class ExpressionEditorView extends JDialog
    private WideComboBox<VerbStrength> verbStrength;
    private WideComboBox<VerbType> verbType;
    private WideComboBox<GrammaticalPerson> grammaticalPerson;
-   private JPanel swapPanel;
-   private CardLayout cardLayout;
+   private JTabbedPane tabPanel;
 
    @SuppressWarnings("unused")
    private ExpressionEditorControllerConnector connector;
 
-   private JPanel verticalUmgangssprachePanel;
-   private JPanel verticalZahlPanel;
-   private JPanel verticalUhrzeitPanel;
-   private JPanel verticalWochentagPanel;
-   private JPanel verticalVerbPanel;
-   private JPanel verticalSubstantivPanel;
-   private JPanel verticalRedewendungPanel;
-   private JPanel verticalPronomPanel;
-   private JPanel verticalPraepositionPanel;
-   private JPanel verticalPossessivPronomPanel;
-   private JPanel verticalPersonalSuffixPanel;
-   private JPanel verticalPersonalPronomPanel;
-   private JPanel verticalPersonalPraefixPanel;
-   private JPanel verticalPartikelPanel;
-   private JPanel verticalOrdnungszahlPanel;
-   private JPanel verticalModalVerbPanel;
-   private JPanel verticalKontruktPanel;
-   private JPanel verticalJahreszeitPanel;
-   private JPanel verticalGlueckwunschPanel;
-   private JPanel verticalFragewortPanel;
-   private JPanel verticalFarbePanel;
-   private JPanel verticalEigennamePanel;
-   private JPanel verticalDemonstrativPronomPanel;
-   private JPanel verticalBindewortPanel;
-   private JPanel verticalBerufPanel;
-   private JPanel verticalAufrufPanel;
-   private JPanel verticalAltersangabePanel;
-   private JPanel verticalAdverbPanel;
-   private JPanel verticalAdjektivPanel;
-   private JPanel verticalUnkownPanel;
    private JTextPane extraInfo;
 
    private JScrollPane extraInfoScroller;
@@ -430,53 +396,10 @@ public class ExpressionEditorView extends JDialog
       chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       chapter.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
 
-      cardLayout = new CardLayout();
-      swapPanel = new JPanel(cardLayout);
-      swapPanel.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-      swapPanel.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-      swapPanel.setBorder(BorderFactory.createEmptyBorder());
-      swapPanel.add(ExpressionKind.EXPRESSIONKIND_UNKNOWN.name(),
-            initUnkownPanel());
-      swapPanel.add(ExpressionKind.ADJEKTIV.name(), initAdjektivPanel());
-      swapPanel.add(ExpressionKind.ADVERB.name(), initAdverbPanel());
-      swapPanel.add(ExpressionKind.ALTERSANGABE.name(),
-            initAltersangabePanel());
-      swapPanel.add(ExpressionKind.AUSRUF.name(), initAufrufPanel());
-      swapPanel.add(ExpressionKind.BERUF.name(), initBerufPanel());
-      swapPanel.add(ExpressionKind.BINDEWORT.name(), initBindewortPanel());
-      swapPanel.add(ExpressionKind.DEMONSTRATIVPRONOM.name(),
-            initDemonstrativPronomPanel());
-      swapPanel.add(ExpressionKind.EIGENNAME.name(), initEigennamePanel());
-      swapPanel.add(ExpressionKind.FARBE.name(), initFarbePanel());
-      swapPanel.add(ExpressionKind.FRAGEWORT.name(), initFragewortPanel());
-      swapPanel.add(ExpressionKind.GLUECKWUNSCH.name(),
-            initGlueckwunschPanel());
-      swapPanel.add(ExpressionKind.JAHRESZEIT.name(), initJahreszeitPanel());
-      swapPanel.add(ExpressionKind.KONSTRUKT.name(), initKonstruktPanel());
-      swapPanel.add(ExpressionKind.MODALVERB.name(), initModalVerbPanel());
-      swapPanel.add(ExpressionKind.ORDNUNGSZAHL.name(),
-            initOrdnungszahlPanel());
-      swapPanel.add(ExpressionKind.PARTIKEL.name(), initPartikelPanel());
-      swapPanel.add(ExpressionKind.PERSONALPRAEFIX.name(),
-            initPersonalPraefixPanel());
-      swapPanel.add(ExpressionKind.PERSONALPRONOM.name(),
-            initPersonalPronomPanel());
-      swapPanel.add(ExpressionKind.PERSONALSUFFIX.name(),
-            initPersonalSuffixPanel());
-      swapPanel.add(ExpressionKind.POSSESSIVPRONOM.name(),
-            initPossessivPronomPanel());
-      swapPanel.add(ExpressionKind.PRAEPOSITION.name(),
-            initPraepositionPanel());
-      swapPanel.add(ExpressionKind.PRONOM.name(), initPronomPanel());
-      swapPanel.add(ExpressionKind.REDEWENDUNG.name(), initRedewendungPanel());
-      swapPanel.add(ExpressionKind.SUBSTANTIV.name(), initSubstantivPanel());
-      swapPanel.add(ExpressionKind.UHRZEIT.name(), initUhrzeitPanel());
-      swapPanel.add(ExpressionKind.UMGANGSPRACHE.name(),
-            initUmgangsSprachePanel());
-      swapPanel.add(ExpressionKind.VERB.name(), initVerbPanel());
-      swapPanel.add(ExpressionKind.WOCHENTAG.name(), initWochentagPanel());
-      swapPanel.add(ExpressionKind.ZAHL.name(), initZahlPanel());
-      cardLayout.show(swapPanel, ExpressionKind.EXPRESSIONKIND_UNKNOWN.name());
+      tabPanel = new JTabbedPane();
+      tabPanel.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
+      tabPanel.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 200));
+      tabPanel.setBorder(BorderFactory.createEmptyBorder());
 
       extraInfo = new JTextPane();
       extraInfo.setFont(Main.getHebrewFont(30));
@@ -495,307 +418,6 @@ public class ExpressionEditorView extends JDialog
       extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
 
       keyboard = new KeyboardHebrew(hebrew, components, 70, true);
-   }
-
-   private Component initUmgangsSprachePanel()
-   {
-      verticalUmgangssprachePanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalUmgangssprachePanel, 15);
-      verticalUmgangssprachePanel.setLayout(layout);
-      verticalUmgangssprachePanel.setOpaque(false);
-      verticalUmgangssprachePanel.setBackground(Settings.getTransparent());
-      return verticalUmgangssprachePanel;
-   }
-
-   private Component initZahlPanel()
-   {
-      verticalZahlPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalZahlPanel, 15);
-      verticalZahlPanel.setLayout(layout);
-      verticalZahlPanel.setOpaque(false);
-      verticalZahlPanel.setBackground(Settings.getTransparent());
-      return verticalZahlPanel;
-   }
-
-   private Component initWochentagPanel()
-   {
-      verticalWochentagPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalWochentagPanel, 15);
-      verticalWochentagPanel.setLayout(layout);
-      verticalWochentagPanel.setOpaque(false);
-      verticalWochentagPanel.setBackground(Settings.getTransparent());
-      return verticalWochentagPanel;
-   }
-
-   private Component initVerbPanel()
-   {
-      verticalVerbPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalVerbPanel);
-      verticalVerbPanel.setLayout(layout);
-      verticalVerbPanel.setOpaque(false);
-      verticalVerbPanel.setBackground(Settings.getTransparent());
-      return verticalVerbPanel;
-   }
-
-   private Component initModalVerbPanel()
-   {
-      verticalModalVerbPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalModalVerbPanel);
-      verticalModalVerbPanel.setLayout(layout);
-      verticalModalVerbPanel.setOpaque(false);
-      verticalModalVerbPanel.setBackground(Settings.getTransparent());
-      return verticalModalVerbPanel;
-   }
-
-   private Component initUhrzeitPanel()
-   {
-      verticalUhrzeitPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalUhrzeitPanel, 15);
-      verticalUhrzeitPanel.setLayout(layout);
-      verticalUhrzeitPanel.setOpaque(false);
-      verticalUhrzeitPanel.setBackground(Settings.getTransparent());
-      return verticalUhrzeitPanel;
-   }
-
-   private Component initSubstantivPanel()
-   {
-      verticalSubstantivPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalSubstantivPanel, 15);
-      verticalSubstantivPanel.setLayout(layout);
-      verticalSubstantivPanel.setOpaque(false);
-      verticalSubstantivPanel.setBackground(Settings.getTransparent());
-      return verticalSubstantivPanel;
-   }
-
-   private Component initRedewendungPanel()
-   {
-      verticalRedewendungPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalRedewendungPanel, 15);
-      verticalRedewendungPanel.setLayout(layout);
-      verticalRedewendungPanel.setOpaque(false);
-      verticalRedewendungPanel.setBackground(Settings.getTransparent());
-      return verticalRedewendungPanel;
-   }
-
-   private Component initPronomPanel()
-   {
-      verticalPronomPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalPronomPanel, 15);
-      verticalPronomPanel.setLayout(layout);
-      verticalPronomPanel.setOpaque(false);
-      verticalPronomPanel.setBackground(Settings.getTransparent());
-      return verticalPronomPanel;
-   }
-
-   private Component initPraepositionPanel()
-   {
-      verticalPraepositionPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalPraepositionPanel, 15);
-      verticalPraepositionPanel.setLayout(layout);
-      verticalPraepositionPanel.setOpaque(false);
-      verticalPraepositionPanel.setBackground(Settings.getTransparent());
-      return verticalPraepositionPanel;
-   }
-
-   private Component initPossessivPronomPanel()
-   {
-      verticalPossessivPronomPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalPossessivPronomPanel, 15);
-      verticalPossessivPronomPanel.setLayout(layout);
-      verticalPossessivPronomPanel.setOpaque(false);
-      verticalPossessivPronomPanel.setBackground(Settings.getTransparent());
-      return verticalPossessivPronomPanel;
-   }
-
-   private Component initPersonalSuffixPanel()
-   {
-      verticalPersonalSuffixPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalPersonalSuffixPanel, 15);
-      verticalPersonalSuffixPanel.setLayout(layout);
-      verticalPersonalSuffixPanel.setOpaque(false);
-      verticalPersonalSuffixPanel.setBackground(Settings.getTransparent());
-      return verticalPersonalSuffixPanel;
-   }
-
-   private Component initPersonalPronomPanel()
-   {
-      verticalPersonalPronomPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalPersonalPronomPanel, 15);
-      verticalPersonalPronomPanel.setLayout(layout);
-      verticalPersonalPronomPanel.setOpaque(false);
-      verticalPersonalPronomPanel.setBackground(Settings.getTransparent());
-      return verticalPersonalPronomPanel;
-   }
-
-   private Component initPersonalPraefixPanel()
-   {
-      verticalPersonalPraefixPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalPersonalPraefixPanel, 15);
-      verticalPersonalPraefixPanel.setLayout(layout);
-      verticalPersonalPraefixPanel.setOpaque(false);
-      verticalPersonalPraefixPanel.setBackground(Settings.getTransparent());
-
-      return verticalPersonalPraefixPanel;
-   }
-
-   private Component initPartikelPanel()
-   {
-      verticalPartikelPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalPartikelPanel, 15);
-      verticalPartikelPanel.setLayout(layout);
-      verticalPartikelPanel.setOpaque(false);
-      verticalPartikelPanel.setBackground(Settings.getTransparent());
-      return verticalPartikelPanel;
-   }
-
-   private Component initOrdnungszahlPanel()
-   {
-      verticalOrdnungszahlPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalOrdnungszahlPanel, 15);
-      verticalOrdnungszahlPanel.setLayout(layout);
-      verticalOrdnungszahlPanel.setOpaque(false);
-      verticalOrdnungszahlPanel.setBackground(Settings.getTransparent());
-      return verticalOrdnungszahlPanel;
-   }
-
-   private Component initKonstruktPanel()
-   {
-      verticalKontruktPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalKontruktPanel, 15);
-      verticalKontruktPanel.setLayout(layout);
-      verticalKontruktPanel.setOpaque(false);
-      verticalKontruktPanel.setBackground(Settings.getTransparent());
-      return verticalKontruktPanel;
-   }
-
-   private Component initJahreszeitPanel()
-   {
-      verticalJahreszeitPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalJahreszeitPanel, 15);
-      verticalJahreszeitPanel.setLayout(layout);
-      verticalJahreszeitPanel.setOpaque(false);
-      verticalJahreszeitPanel.setBackground(Settings.getTransparent());
-      return verticalJahreszeitPanel;
-   }
-
-   private Component initGlueckwunschPanel()
-   {
-      verticalGlueckwunschPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalGlueckwunschPanel, 15);
-      verticalGlueckwunschPanel.setLayout(layout);
-      verticalGlueckwunschPanel.setOpaque(false);
-      verticalGlueckwunschPanel.setBackground(Settings.getTransparent());
-      return verticalGlueckwunschPanel;
-   }
-
-   private Component initFragewortPanel()
-   {
-      verticalFragewortPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalFragewortPanel, 15);
-      verticalFragewortPanel.setLayout(layout);
-      verticalFragewortPanel.setOpaque(false);
-      verticalFragewortPanel.setBackground(Settings.getTransparent());
-      return verticalFragewortPanel;
-   }
-
-   private Component initFarbePanel()
-   {
-      verticalFarbePanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalFarbePanel, 15);
-      verticalFarbePanel.setLayout(layout);
-      verticalFarbePanel.setOpaque(false);
-      verticalFarbePanel.setBackground(Settings.getTransparent());
-      return verticalFarbePanel;
-   }
-
-   private Component initEigennamePanel()
-   {
-      verticalEigennamePanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalEigennamePanel, 15);
-      verticalEigennamePanel.setLayout(layout);
-      verticalEigennamePanel.setOpaque(false);
-      verticalEigennamePanel.setBackground(Settings.getTransparent());
-      return verticalEigennamePanel;
-   }
-
-   private Component initDemonstrativPronomPanel()
-   {
-      verticalDemonstrativPronomPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalDemonstrativPronomPanel, 15);
-      verticalDemonstrativPronomPanel.setLayout(layout);
-      verticalDemonstrativPronomPanel.setOpaque(false);
-      verticalDemonstrativPronomPanel.setBackground(Settings.getTransparent());
-      return verticalDemonstrativPronomPanel;
-   }
-
-   private Component initBindewortPanel()
-   {
-      verticalBindewortPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalBindewortPanel, 15);
-      verticalBindewortPanel.setLayout(layout);
-      verticalBindewortPanel.setOpaque(false);
-      verticalBindewortPanel.setBackground(Settings.getTransparent());
-      return verticalBindewortPanel;
-   }
-
-   private Component initBerufPanel()
-   {
-      verticalBerufPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalBerufPanel, 15);
-      verticalBerufPanel.setLayout(layout);
-      verticalBerufPanel.setOpaque(false);
-      verticalBerufPanel.setBackground(Settings.getTransparent());
-      return verticalBerufPanel;
-   }
-
-   private Component initAufrufPanel()
-   {
-      verticalAufrufPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalAufrufPanel, 15);
-      verticalAufrufPanel.setLayout(layout);
-      verticalAufrufPanel.setOpaque(false);
-      verticalAufrufPanel.setBackground(Settings.getTransparent());
-      return verticalAufrufPanel;
-   }
-
-   private Component initAltersangabePanel()
-   {
-      verticalAltersangabePanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalAltersangabePanel, 15);
-      verticalAltersangabePanel.setLayout(layout);
-      verticalAltersangabePanel.setOpaque(false);
-      verticalAltersangabePanel.setBackground(Settings.getTransparent());
-      return verticalAltersangabePanel;
-   }
-
-   private Component initAdverbPanel()
-   {
-      verticalAdverbPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalAdverbPanel, 15);
-      verticalAdverbPanel.setLayout(layout);
-      verticalAdverbPanel.setOpaque(false);
-      verticalAdverbPanel.setBackground(Settings.getTransparent());
-      return verticalAdverbPanel;
-   }
-
-   private Component initAdjektivPanel()
-   {
-      verticalAdjektivPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalAdjektivPanel, 15);
-      verticalAdjektivPanel.setLayout(layout);
-      verticalAdjektivPanel.setOpaque(false);
-      verticalAdjektivPanel.setBackground(Settings.getTransparent());
-      return verticalAdjektivPanel;
-   }
-
-   private Component initUnkownPanel()
-   {
-      verticalUnkownPanel = new JPanel();
-      TotemLayout layout = new TotemLayout(verticalUnkownPanel, 15);
-      verticalUnkownPanel.setLayout(layout);
-      verticalUnkownPanel.setOpaque(false);
-      verticalUnkownPanel.setBackground(Settings.getTransparent());
-      return verticalUnkownPanel;
    }
 
    private TitledBorder makeBorderBlank(String title)
@@ -870,13 +492,11 @@ public class ExpressionEditorView extends JDialog
       horizontal.add(expressionKindComboBox);
       horizontal.add(infoExpressionKindButton);
 
-      JPanel filler = new JPanel();
-      filler.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      filler.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-
       vertical.add(horizontal);
-      vertical.add(filler);
-
+      vertical.add(new JScrollPane(expressionKindJList));
+      vertical.add(deleteExpressionKindButton);
+      vertical.add(extraInfoScroller);
+      
       layout.add(vertical);
    }
 
@@ -886,8 +506,7 @@ public class ExpressionEditorView extends JDialog
       vertical.setOpaque(false);
       vertical.setLayout(new TotemLayout(vertical, 15));
 
-      vertical.add(swapPanel);
-      vertical.add(extraInfoScroller);
+      vertical.add(tabPanel);    
 
       layout.add(vertical);
    }
@@ -1040,8 +659,11 @@ public class ExpressionEditorView extends JDialog
       expressionKindComboBox.addItemListener(event -> {
          ExpressionKind choosen = (ExpressionKind) this.expressionKindComboBox
                .getSelectedItem();
-
-         this.cardLayout.show(swapPanel, choosen.name());
+         
+         if(expressionKindSet.add(choosen))
+         {
+            expressionKindJList.add(new AntiFocusExpressionKindField(choosen));
+         }
       });
 
    }
@@ -1166,7 +788,7 @@ public class ExpressionEditorView extends JDialog
 
       this.expressionKindSet = new HashSet<>();
       expressionKindSet = new HashSet<>();
-      expressionKindSet.addAll(Arrays.asList(ExpressionKind.values()));
+      expressionKindSet.add(expression.getExpressionKind());
       this.expressionKindJList.setModel(getExpressionKindModel());
 
       this.chapter.setModel(Data.getChapterComboBoxModel());
