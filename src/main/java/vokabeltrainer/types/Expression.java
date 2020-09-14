@@ -6,12 +6,10 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 
-import vokabeltrainer.types.grammatical.Binjan;
+import vokabeltrainer.json.JSON;
+import vokabeltrainer.json.JSONObject;
 import vokabeltrainer.types.grammatical.ExpressionKind;
-import vokabeltrainer.types.grammatical.Gender;
-import vokabeltrainer.types.grammatical.GrammaticalEnum;
-import vokabeltrainer.types.grammatical.Numerus;
-import vokabeltrainer.types.grammatical.expressionkind.Definition;
+import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 
 public class Expression
 {
@@ -27,8 +25,7 @@ public class Expression
    private boolean selected;
    private boolean doNotChange;
    private Database origin;
-   private ExpressionKind expressionKind;
-   private Definition definition;
+   private Definitions definitions;
 
    public Expression(boolean preset, boolean doNotChange)
    {
@@ -39,8 +36,7 @@ public class Expression
          german = "";
          hebrewInLatin = "";
          chapter = new Chapter();
-         expressionKind = ExpressionKind.EXPRESSIONKIND_UNKNOWN;
-         definition = new Definition(expressionKind);
+         definitions = new Definitions();
       }
    }
 
@@ -185,19 +181,19 @@ public class Expression
       this.origin = origin;
    }
 
-   public ExpressionKind getExpressionKind()
+   public Definitions getDefinitions()
    {
-      return expressionKind;
+      return definitions;
    }
 
-   public void setExpressionKind(ExpressionKind expressionKind)
+   public void setDefinitions(Definitions definitions)
    {
-      this.expressionKind = expressionKind;
+      this.definitions = definitions;
    }
 
-   public Definition getDefinition()
+   public boolean addExpressionKind(ExpressionKind expressionKind)
    {
-      return definition;
+      return definitions.addExpressionKind(expressionKind);
    }
 
    public String[] toGermanArrayForTableEntry()
@@ -212,16 +208,13 @@ public class Expression
       index++;
       result[index] = hebrew;
       index++;
-      result[index] = ((Gender) definition.getGrammaticalEnum(Gender.class))
-            .toDescription();
+      result[index] = definitions.getGenderDescriptions();
       index++;
-      result[index] = ((Numerus) definition.getGrammaticalEnum(Numerus.class))
-            .toDescription();
+      result[index] = definitions.getNumerusDescriptions();
       index++;
-      result[index] = ((Binjan) definition.getGrammaticalEnum(Binjan.class))
-            .toDescription();
+      result[index] = definitions.getBinjanDescriptions();
       index++;
-      result[index] = expressionKind.toDescription();
+      result[index] = definitions.getExpressionKindDescriptions();
       index++;
       result[index] = "Kapitel: " + chapter.getName();
       return result;
@@ -239,16 +232,13 @@ public class Expression
       index++;
       result[index] = german;
       index++;
-      result[index] = ((Gender) definition.getGrammaticalEnum(Gender.class))
-            .toDescription();
+      result[index] = definitions.getGenderDescriptions();
       index++;
-      result[index] = ((Numerus) definition.getGrammaticalEnum(Numerus.class))
-            .toDescription();
+      result[index] = definitions.getNumerusDescriptions();
       index++;
-      result[index] = ((Binjan) definition.getGrammaticalEnum(Binjan.class))
-            .toDescription();
+      result[index] = definitions.getBinjanDescriptions();
       index++;
-      result[index] = expressionKind.toDescription();
+      result[index] = definitions.getExpressionKindDescriptions();
       index++;
       result[index] = "Kapitel: " + chapter.getName();
       return result;
@@ -257,62 +247,42 @@ public class Expression
    public String getAdditionalInfoGerman()
    {
       StringJoiner joiner = new StringJoiner(", ");
-      if (!((Numerus) definition.getGrammaticalEnum(Numerus.class)).toInfo()
-            .isEmpty())
+      if (!definitions.getNumerusInfos().isEmpty())
       {
-         joiner.add(((Numerus) definition.getGrammaticalEnum(Numerus.class))
-               .toInfo());
+         joiner.add(definitions.getNumerusInfos());
       }
-      if (!((Gender) definition.getGrammaticalEnum(Gender.class)).toInfo()
-            .isEmpty())
+      if (!definitions.getGenderInfos().isEmpty())
       {
-         joiner.add(
-               ((Gender) definition.getGrammaticalEnum(Gender.class)).toInfo());
+         joiner.add(definitions.getGenderInfos());
       }
-      joiner.add(expressionKind.toDescription());
+      joiner.add(definitions.getExpressionKindDescriptions());
       return joiner.toString();
    }
 
    public String getAdditionalInfoHebrew()
    {
-      return expressionKind.toDescription();
-   }
-
-   private String addGrammaticalEnumsForPrint(String tag)
-   {
-      StringJoiner joiner = new StringJoiner(tag);
-      for (Class<? extends GrammaticalEnum> clazz : definition
-            .getSortedGrammaticalEnumKeys())
-      {
-         joiner.add(definition.getGrammaticalEnum(clazz).name());
-      }
-      return joiner.toString();
+      return definitions.getExpressionKindDescriptions();
    }
 
    public String getExpressionPrintLine()
    {
-      StringJoiner joiner = new StringJoiner("\t");
-      joiner.add(uuid.toString());
-      joiner.add(chapter.getName());
-      joiner.add(german);
-      joiner.add(hebrewInLatin);
-      joiner.add(hebrew);
-      joiner.add(expressionKind.name());
-      joiner.add(addGrammaticalEnumsForPrint("\t"));
-      StringJoiner searchJoinerGerman = new StringJoiner(",");
-      for (String word : searchwordsGerman)
-      {
-         searchJoinerGerman.add(word);
-      }
-      joiner.add(searchJoinerGerman.toString());
-
-      StringJoiner searchJoinerHebrew = new StringJoiner(",");
-      for (String word : searchwordsHebrew)
-      {
-         searchJoinerHebrew.add(word);
-      }
-      joiner.add(searchJoinerHebrew.toString());
-      return joiner.toString();
+      JSONObject jsonObj = new JSONObject();
+      jsonObj.addJSON(
+            JSON.createObjectBuilder()
+            .add("uuid", uuid.toString())
+            .add("chapter", chapter.getName())
+            .add("german", german)
+            .add("hebrewInLatin",
+                  hebrewInLatin
+                 )
+            .add(hebrew, hebrew)
+            .add("definitions", definitions.getJSONObject().getJSON()
+                  
+                )
+            .add("searchwordsGerman", JSON.createArrayBuilder("searchwordGerman", searchwordsGerman).build())
+            .add("searchwordsHebrew", JSON.createArrayBuilder("searchwordHebrew", searchwordsHebrew).build())
+            .build());
+      return jsonObj.getJSON();
    }
 
    public String getCopyLines(Language language)
@@ -331,7 +301,7 @@ public class Expression
          joiner.add(hebrewInLatin);
          joiner.add(german);
       }
-      joiner.add(addGrammaticalEnumsForCopy("\n"));
+      joiner.add(definitions.addGrammaticalEnumsForCopy("\n"));
       StringJoiner searchJoinerGerman = new StringJoiner(",");
       for (String word : searchwordsGerman)
       {
@@ -344,16 +314,6 @@ public class Expression
          searchJoinerHebrew.add(word);
       }
       joiner.add("Suchworte Hebräisch: " + searchJoinerHebrew.toString());
-      return joiner.toString();
-   }
-
-   private String addGrammaticalEnumsForCopy(String tag)
-   {
-      StringJoiner joiner = new StringJoiner(tag);
-      for (GrammaticalEnum e : definition.getGrammaticalEnumValues())
-      {
-         joiner.add(e.toDescription());
-      }
       return joiner.toString();
    }
 
@@ -392,19 +352,15 @@ public class Expression
    public String getAdditionalInfoGermanForStatistics()
    {
       StringJoiner joiner = new StringJoiner(", ");
-      if (!((Numerus) definition.getGrammaticalEnum(Numerus.class)).toInfo()
-            .isEmpty())
+      if (!definitions.getNumerusInfos().isEmpty())
       {
-         joiner.add(((Numerus) definition.getGrammaticalEnum(Numerus.class))
-               .toInfo());
+         joiner.add(definitions.getNumerusInfos());
       }
-      if (!((Gender) definition.getGrammaticalEnum(Gender.class)).toInfo()
-            .isEmpty())
+      if (!definitions.getGenderInfos().isEmpty())
       {
-         joiner.add(
-               ((Gender) definition.getGrammaticalEnum(Gender.class)).toInfo());
+         joiner.add(definitions.getGenderInfos());
       }
-      joiner.add(expressionKind.toDescription());
+      joiner.add(definitions.getExpressionKindDescriptions());
       return joiner.toString();
    }
 

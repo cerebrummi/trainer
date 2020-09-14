@@ -9,6 +9,9 @@ import java.util.Locale;
 
 public enum ExpressionKind
 {
+   NOTHING(
+         "bitte wählen",
+         ""),
    EXPRESSIONKIND_UNKNOWN(
          "unbekannt",
          ""),
@@ -175,13 +178,15 @@ public enum ExpressionKind
    public static List<ExpressionKind> getValuesAsSortedList()
    {
       List<ExpressionKind> list = Arrays.asList(ExpressionKind.values());
+      list.remove(0);
 
       Collections.sort(list, new Comparator<ExpressionKind>()
       {
          @Override
          public int compare(ExpressionKind o1, ExpressionKind o2)
          {
-            if (o1.equals(EXPRESSIONKIND_UNKNOWN) && o2.equals(EXPRESSIONKIND_UNKNOWN))
+            if (o1.equals(EXPRESSIONKIND_UNKNOWN)
+                  && o2.equals(EXPRESSIONKIND_UNKNOWN))
             {
                return 0;
             }
@@ -193,7 +198,7 @@ public enum ExpressionKind
             {
                return 1;
             }
-            
+
             Collator coll = Collator.getInstance(Locale.GERMAN);
             coll.setStrength(Collator.PRIMARY);
             return coll.compare(o1.description, o2.description);

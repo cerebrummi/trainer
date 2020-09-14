@@ -10,7 +10,6 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,6 +59,7 @@ import vokabeltrainer.types.grammatical.Numerus;
 import vokabeltrainer.types.grammatical.VerbConjugation;
 import vokabeltrainer.types.grammatical.VerbStrength;
 import vokabeltrainer.types.grammatical.VerbType;
+import vokabeltrainer.types.grammatical.expressionkind.DefinitionTab;
 
 public class ExpressionEditorView extends JDialog
       implements ExpressionEditorViewConnector
@@ -71,7 +71,6 @@ public class ExpressionEditorView extends JDialog
    private static final long serialVersionUID = 5853498340870217732L;
 
    private Expression expression;
-   private ExpressionKind oldKind;
    private JTextField german;
    private JTextField hebrewInLatin;
    private InfoTextField hebrew;
@@ -340,6 +339,8 @@ public class ExpressionEditorView extends JDialog
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 50, 50));
       expressionKindComboBox
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 50, 50));
+      this.expressionKindComboBox
+      .setSelectedItem(ExpressionKind.NOTHING);
 
       expressionKindJList = new JList<>();
       expressionKindJList.setCellRenderer(new ListCellRenderer<ExpressionKind>()
@@ -713,22 +714,7 @@ public class ExpressionEditorView extends JDialog
             .setHebrewInLatin(cleanTextWithoutComma(hebrewInLatin.getText()));
       expression.setHebrew(cleanTextWithoutComma(hebrew.getText()));
 
-      expression.getDefinition()
-            .setGrammaticalEnum((Gender) gender.getSelectedItem());
-      expression.getDefinition()
-            .setGrammaticalEnum((Numerus) numerus.getSelectedItem());
-      expression.setExpressionKind(
-            (ExpressionKind) expressionKindComboBox.getSelectedItem());
-      expression.getDefinition()
-            .setGrammaticalEnum((Binjan) binjan.getSelectedItem());
-      expression.getDefinition()
-            .setGrammaticalEnum((VerbStrength) verbStrength.getSelectedItem());
-      expression.getDefinition().setGrammaticalEnum(
-            (VerbConjugation) verbConjugation.getSelectedItem());
-      expression.getDefinition()
-            .setGrammaticalEnum((VerbType) verbType.getSelectedItem());
-      expression.getDefinition().setGrammaticalEnum(
-            (GrammaticalPerson) grammaticalPerson.getSelectedItem());
+      // TODO expression setDefinition
 
       List<String> wordsGerman = new ArrayList<>();
       for (String word : searchwordsSetGerman)
@@ -763,14 +749,14 @@ public class ExpressionEditorView extends JDialog
    {
       this.save = false;
       this.expression = expression;
-      this.oldKind = expression.getExpressionKind();
       this.german.setText(expression.getGerman());
       this.hebrewInLatin.setText(expression.getHebrewInLatin());
       this.hebrew.setText(expression.getHebrew());
 
-      this.expressionKindComboBox
-            .setSelectedItem(expression.getExpressionKind());
-      // TODO grammaticalEnums
+      for(DefinitionTab tab : expression.getDefinitions().getDefinitionTabs())
+      {
+         this.tabPanel.add(tab);
+      }
 
       this.searchwordsSetGerman = new HashSet<>();
       for (String word : expression.getSearchwordsGerman())
@@ -787,8 +773,7 @@ public class ExpressionEditorView extends JDialog
       this.searchwordsJListHebrew.setModel(getSearchwordsModelHebrew());
 
       this.expressionKindSet = new HashSet<>();
-      expressionKindSet = new HashSet<>();
-      expressionKindSet.add(expression.getExpressionKind());
+      expressionKindSet = expression.getDefinitions().getExpressionKindSet();
       this.expressionKindJList.setModel(getExpressionKindModel());
 
       this.chapter.setModel(Data.getChapterComboBoxModel());
@@ -846,15 +831,4 @@ public class ExpressionEditorView extends JDialog
    {
       this.save = save;
    }
-   
-   public boolean isKindChanged()
-   {
-      return this.oldKind != this.expression.getExpressionKind();
-   }
-
-   public ExpressionKind getOldKind()
-   {
-      return oldKind;
-   }
-
 }
