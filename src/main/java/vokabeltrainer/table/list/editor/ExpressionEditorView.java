@@ -1141,6 +1141,7 @@ public class ExpressionEditorView extends JDialog
    {
       this.save = false;
       this.expression = expression;
+      this.oldKind = expression.getExpressionKind();
       this.german.setText(expression.getGerman());
       this.hebrewInLatin.setText(expression.getHebrewInLatin());
       this.hebrew.setText(expression.getHebrew());
@@ -1223,4 +1224,15 @@ public class ExpressionEditorView extends JDialog
    {
       this.save = save;
    }
+   
+   public boolean isKindChanged()
+   {
+      return this.oldKind != this.expression.getExpressionKind();
+   }
+
+   public ExpressionKind getOldKind()
+   {
+      return oldKind;
+   }
+
 }
