@@ -43,7 +43,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
    }
    
    @Override
-   public Enum<?> fromEnumName(String name)
+   public GrammaticalPerson fromEnumName(String name)
    {
       return GrammaticalPerson.valueOf(name);
    }

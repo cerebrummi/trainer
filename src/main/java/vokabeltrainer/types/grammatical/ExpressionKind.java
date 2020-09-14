@@ -1,11 +1,13 @@
 package vokabeltrainer.types.grammatical;
 
+import java.text.Collator;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
-public enum ExpressionKind implements GrammaticalEnum
+public enum ExpressionKind
 {
    EXPRESSIONKIND_UNKNOWN(
          "unbekannt",
@@ -49,6 +51,9 @@ public enum ExpressionKind implements GrammaticalEnum
    JAHRESZEIT(
          "Jahreszeit",
          ""),
+   KONSTRUKT(
+         "Konstrukt/ssmichut",
+         ""),
    MODALVERB(
          "Modalverb",
          "wollen, können, müssen"),
@@ -79,9 +84,6 @@ public enum ExpressionKind implements GrammaticalEnum
    SUBSTANTIV(
          "Substantiv",
          "Frau, Mann, Haus, Hammer, Küche, Beruf, Lampe"),
-   KONSTRUKT(
-         "Konstrukt/ßmichut",
-         ""),
    UHRZEIT(
          "Uhrzeit",
          ""),
@@ -191,9 +193,11 @@ public enum ExpressionKind implements GrammaticalEnum
             {
                return 1;
             }
-            return o1.description.compareTo(o2.description);
+            
+            Collator coll = Collator.getInstance(Locale.GERMAN);
+            coll.setStrength(Collator.PRIMARY);
+            return coll.compare(o1.description, o2.description);
          }
-
       });
 
       return list;
@@ -202,11 +206,5 @@ public enum ExpressionKind implements GrammaticalEnum
    public static int getNumberOfValues()
    {
       return ExpressionKind.values().length;
-   }
-
-   @Override
-   public Enum<?> fromEnumName(String name)
-   {
-      return ExpressionKind.valueOf(name);
    }
 }

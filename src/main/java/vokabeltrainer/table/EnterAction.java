@@ -7,12 +7,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
-import vokabeltrainer.TextImageWithPicture;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.table.list.editor.ExpressionEditorController;
 import vokabeltrainer.table.list.editor.ExpressionEditorView;
@@ -66,6 +63,7 @@ public class EnterAction extends AbstractAction
             }
             connector.save();
          }
+         editor.dispose();
          SwingUtilities.invokeLater(new Runnable()
          {
             public void run()

@@ -1,0 +1,92 @@
+package vokabeltrainer.types.grammatical.expressionkind;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import vokabeltrainer.types.grammatical.ExpressionKind;
+import vokabeltrainer.types.grammatical.GrammaticalEnum;
+
+public class Definition
+{
+   private ExpressionKind expressionKind;
+   protected Map<Class<? extends GrammaticalEnum>, GrammaticalEnum> grammaticalEnumMap = new HashMap<>();
+
+   public Definition(ExpressionKind expressionKind)
+   {
+      this.expressionKind = expressionKind;
+      fillGrammaticalEnumMap();
+   }
+
+   private void fillGrammaticalEnumMap()
+   {
+      for (GrammaticalEnum ge : DefinitionHelper
+            .getDefinitionsNA(expressionKind))
+      {
+         grammaticalEnumMap.put(ge.getClass(), ge);
+      }
+
+      for (GrammaticalEnum ge : DefinitionHelper
+            .getDefinitionsUNKNOWN(expressionKind))
+      {
+         grammaticalEnumMap.put(ge.getClass(), ge);
+      }
+   }
+
+   public ExpressionKind getExpressionKind()
+   {
+      return expressionKind;
+   }
+
+   public void setExpressionKind(ExpressionKind expressionKind)
+   {
+      this.expressionKind = expressionKind;
+   }
+
+   public void setGrammaticalEnum(Class<? extends GrammaticalEnum> clazz,
+         String value)
+   {
+      GrammaticalEnum e = (GrammaticalEnum) grammaticalEnumMap.get(clazz);
+      grammaticalEnumMap.put(clazz, e.fromEnumName(value));
+   }
+
+   public void setGrammaticalEnum(GrammaticalEnum e)
+   {
+      grammaticalEnumMap.put(e.getClass(), e);
+   }
+
+   public GrammaticalEnum getGrammaticalEnum(
+         Class<? extends GrammaticalEnum> clazz)
+   {
+      return grammaticalEnumMap.get(clazz);
+   }
+   
+   public List<Class<? extends GrammaticalEnum>> getSortedGrammaticalEnumKeys()
+   {
+      List<Class<? extends GrammaticalEnum>> keyList = new ArrayList<>();
+      keyList.addAll(grammaticalEnumMap.keySet());
+      Collections.sort(keyList,
+            new Comparator<Class<? extends GrammaticalEnum>>()
+            {
+
+               @Override
+               public int compare(Class<? extends GrammaticalEnum> o1,
+                     Class<? extends GrammaticalEnum> o2)
+               {
+                  return String.valueOf(o1)
+                        .compareToIgnoreCase(String.valueOf(o2));
+               }
+
+            });
+      return keyList;
+   }
+
+   public Collection<GrammaticalEnum> getGrammaticalEnumValues()
+   {
+      return grammaticalEnumMap.values();
+   }
+}

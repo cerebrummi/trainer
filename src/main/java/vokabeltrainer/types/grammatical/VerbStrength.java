@@ -2,13 +2,13 @@ package vokabeltrainer.types.grammatical;
 
 public enum VerbStrength implements GrammaticalEnum
 {
-   VERBSTENGTH_UNKNOWN(
+   VERBSTRENGTH_UNKNOWN(
          "unbekannt"),
    WEAK(
          "schwach"),
    STRONG(
          "stark"),
-   VERBSTENGTH_NA(
+   VERBSTRENGTH_NA(
          "nicht anwendbar");
 
    private String description;
@@ -31,16 +31,16 @@ public enum VerbStrength implements GrammaticalEnum
       case STRONG:
       case WEAK:
          return description;
-      case VERBSTENGTH_UNKNOWN:
+      case VERBSTRENGTH_UNKNOWN:
          return "Verbstärke " + description;
-      case VERBSTENGTH_NA:
+      case VERBSTRENGTH_NA:
       default:
          return "";
       }
    }
    
    @Override
-   public Enum<?> fromEnumName(String name)
+   public VerbStrength fromEnumName(String name)
    {
       return VerbStrength.valueOf(name);
    }

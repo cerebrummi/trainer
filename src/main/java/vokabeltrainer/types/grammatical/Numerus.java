@@ -58,7 +58,7 @@ public enum Numerus implements GrammaticalEnum
    }
    
    @Override
-   public Enum<?> fromEnumName(String name)
+   public Numerus fromEnumName(String name)
    {
       return Numerus.valueOf(name);
    }

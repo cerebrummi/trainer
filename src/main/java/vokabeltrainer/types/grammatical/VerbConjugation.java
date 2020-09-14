@@ -55,7 +55,7 @@ public enum VerbConjugation implements GrammaticalEnum
    }
    
    @Override
-   public Enum<?> fromEnumName(String name)
+   public VerbConjugation fromEnumName(String name)
    {
       return VerbConjugation.valueOf(name);
    }

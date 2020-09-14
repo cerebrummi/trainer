@@ -6,13 +6,22 @@ import javax.swing.JTextField;
 
 import vokabeltrainer.Settings;
 
-public class FocusTextField extends JTextField
+public class AntiFocusTextField extends JTextField
 {
    private static final long serialVersionUID = -4364086687323301340L;
 
-   public FocusTextField(String value)
+   public AntiFocusTextField(String value)
    {
       super(value);
+      setFocusable(false);
+      setOpaque(true);
+      setBackground(Settings.getBackgroundGold());
+      setBorder(BorderFactory.createEmptyBorder());
+      setEnabled(true);
+   }
+   
+   public AntiFocusTextField()
+   {
       setFocusable(false);
       setOpaque(true);
       setBackground(Settings.getBackgroundGold());

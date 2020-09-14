@@ -131,7 +131,7 @@ public final class SaveExpressions
          {
             continue;
          }
-         if (expression.getGrammaticalEnum(ExpressionKind.class).equals(kind))
+         if (expression.getExpressionKind().equals(kind))
          {
             list.add(expression);
          }
@@ -139,7 +139,7 @@ public final class SaveExpressions
 
       for (Expression expression : Data.getNewMapValues())
       {
-         if (expression.getGrammaticalEnum(ExpressionKind.class).equals(kind))
+         if (expression.getExpressionKind().equals(kind))
          {
             list.add(expression);
          }

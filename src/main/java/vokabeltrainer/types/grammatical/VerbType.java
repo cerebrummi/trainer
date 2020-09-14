@@ -43,7 +43,7 @@ public enum VerbType implements GrammaticalEnum
    }
    
    @Override
-   public Enum<?> fromEnumName(String name)
+   public VerbType fromEnumName(String name)
    {
       return VerbType.valueOf(name);
    }

@@ -58,7 +58,7 @@ public enum Gender implements GrammaticalEnum
    }
    
    @Override
-   public Enum<?> fromEnumName(String name)
+   public Gender fromEnumName(String name)
    {
       return Gender.valueOf(name);
    }
