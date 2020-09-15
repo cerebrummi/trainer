@@ -59,4 +59,24 @@ public enum VerbConjugation implements GrammaticalEnum
    {
       return VerbConjugation.valueOf(name);
    }
+
+   @Override
+   public String toInfo()
+   {
+      switch (this)
+      {
+      case ACTION_NOUN:
+      case FUTURE:
+      case IMPERARTIVE:
+      case INFINITIVE:
+      case PAST:
+      case PAST_PARTICIPLE:
+      case PRESENT:
+         return description;
+      case VERBCONJUGATION_UNKNOWN:
+      case VERBCONJUGATION_NA:
+      default:
+         return "";
+      }
+   }
 }

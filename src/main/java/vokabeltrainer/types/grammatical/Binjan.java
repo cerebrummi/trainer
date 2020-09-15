@@ -65,4 +65,26 @@ public enum Binjan implements GrammaticalEnum
    {
       return Binjan.valueOf(name);  
    }
+
+   @Override
+   public String toInfo()
+   {
+      switch (this)
+      {
+      case HIFIL:
+      case HITPAEL:
+      case HUFAL:
+      case NIFAL:
+      case PAAL:
+      case PAAL_HOHL:
+      case PAAL_SCHWACH:
+      case PIEL:
+      case PUAL:
+         return description;
+      case BINJAN_UNKNOWN:
+      case BINJAN_NA:
+      default:
+         return "";
+      }
+   }
 }

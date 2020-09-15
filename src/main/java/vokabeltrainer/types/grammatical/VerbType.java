@@ -47,4 +47,20 @@ public enum VerbType implements GrammaticalEnum
    {
       return VerbType.valueOf(name);
    }
+
+   @Override
+   public String toInfo()
+   {
+      switch (this)
+      {
+      case AUXILIARY:
+      case IRREGULAR:
+      case REGULAR:
+         return description;
+      case VERBTYPE_UNKNOWN:
+      case VERBTYPE_NA:
+      default:
+         return "";
+      }
+   }
 }

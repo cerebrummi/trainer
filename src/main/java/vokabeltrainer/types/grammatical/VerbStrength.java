@@ -44,4 +44,19 @@ public enum VerbStrength implements GrammaticalEnum
    {
       return VerbStrength.valueOf(name);
    }
+
+   @Override
+   public String toInfo()
+   {
+      switch (this)
+      {
+      case STRONG:
+      case WEAK:
+         return description;
+      case VERBSTRENGTH_UNKNOWN:
+      case VERBSTRENGTH_NA:
+      default:
+         return "";
+      }
+   }
 }

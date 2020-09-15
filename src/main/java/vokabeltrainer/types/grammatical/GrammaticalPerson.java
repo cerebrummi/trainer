@@ -47,4 +47,20 @@ public enum GrammaticalPerson implements GrammaticalEnum
    {
       return GrammaticalPerson.valueOf(name);
    }
+
+   @Override
+   public String toInfo()
+   {
+      switch (this)
+      {
+      case DRITTE_PERSON:
+      case ZWEITE_PERSON:
+      case ERSTE_PERSON:
+         return description;
+      case GRAMMATICALPERSON_UNKNOWN:
+      case GRAMMATICALPERSON_NA:
+      default:
+         return "";
+      }
+   }
 }

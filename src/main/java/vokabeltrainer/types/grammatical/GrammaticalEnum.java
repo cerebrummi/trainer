@@ -4,5 +4,6 @@ public interface GrammaticalEnum
 {
    public String toDescription();
    public GrammaticalEnum fromEnumName(String name);
-   public CharSequence name();
+   public String name();
+   public String toInfo();
 }

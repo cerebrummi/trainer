@@ -1,6 +1,5 @@
 package vokabeltrainer.types.grammatical.expressionkind;
 
-import java.awt.Component;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -8,9 +7,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 
+import vokabeltrainer.json.JSON;
 import vokabeltrainer.json.JSONObject;
+import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.ExpressionKind;
+import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
+import vokabeltrainer.types.grammatical.Numerus;
 
 public class Definitions
 {
@@ -33,79 +36,111 @@ public class Definitions
       }     
       return false;
    }
+   
+   public void setGrammaticalEnum(ExpressionKind expressionKind, Class<? extends GrammaticalEnum> clazz,
+         String value)
+   {
+      definitions.get(expressionKind).setGrammaticalEnum(clazz, value);
+   }
+
+   public void setGrammaticalEnum(ExpressionKind expressionKind, GrammaticalEnum e)
+   {
+      definitions.get(expressionKind).setGrammaticalEnum(e);
+   }
+
+   public GrammaticalEnum getGrammaticalEnum(ExpressionKind expressionKind, 
+         Class<? extends GrammaticalEnum> clazz)
+   {
+      return definitions.get(expressionKind).grammaticalEnumMap.get(clazz);
+   }
 
    public String getGenderDescriptions()
    {
-      // TODO Auto-generated method stub
-      return null;
+      StringJoiner joiner = new StringJoiner(", ");
+      for(ExpressionKind kind : definitions.keySet())
+      {
+         joiner.add(definitions.get(kind).getGrammaticalEnum(Gender.class).toDescription());
+      }
+      return joiner.toString();
    }
 
    public String getNumerusDescriptions()
    {
-      // TODO Auto-generated method stub
-      return null;
+      StringJoiner joiner = new StringJoiner(", ");
+      for(ExpressionKind kind : definitions.keySet())
+      {
+         joiner.add(definitions.get(kind).getGrammaticalEnum(Numerus.class).toDescription());
+      }
+      return joiner.toString();
    }
 
    public String getBinjanDescriptions()
    {
-      // TODO Auto-generated method stub
-      return null;
+      StringJoiner joiner = new StringJoiner(", ");
+      for(ExpressionKind kind : definitions.keySet())
+      {
+         joiner.add(definitions.get(kind).getGrammaticalEnum(Binjan.class).toDescription());
+      }
+      return joiner.toString();
    }
 
    public String getExpressionKindDescriptions()
    {
-      // TODO Auto-generated method stub
-      return null;
+      StringJoiner joiner = new StringJoiner(", ");
+      for(ExpressionKind kind : definitions.keySet())
+      {
+         joiner.add(kind.toDescription());
+      }
+      return joiner.toString();
    }
 
    public String getNumerusInfos()
    {
-      // TODO Auto-generated method stub
-      return null;
+      StringJoiner joiner = new StringJoiner(", ");
+      for(ExpressionKind kind : definitions.keySet())
+      {
+         joiner.add(definitions.get(kind).getGrammaticalEnum(Numerus.class).toInfo());
+      }
+      return joiner.toString();
    }
 
    public String getGenderInfos()
    {
-      // TODO Auto-generated method stub
-      return null;
-   }
-   
-   public String addGrammaticalEnumsForPrint(String tag)
-   {
-      StringJoiner joiner = new StringJoiner(tag);
-      for (Class<? extends GrammaticalEnum> clazz : definition
-            .getSortedGrammaticalEnumKeys())
+      StringJoiner joiner = new StringJoiner(", ");
+      for(ExpressionKind kind : definitions.keySet())
       {
-         joiner.add(definition.getGrammaticalEnum(clazz).name());
+         joiner.add(definitions.get(kind).getGrammaticalEnum(Gender.class).toInfo());
       }
       return joiner.toString();
    }
 
    public JSONObject getJSONObject()
    {
-      // TODO Auto-generated method stub
-      return null;
+      JSONObject jsonObj = new JSONObject();
+      jsonObj.addJSON(
+            JSON.createArrayBuilder("definition", definitions.values())
+            .build());
+      return jsonObj;
    }
    
    public String addGrammaticalEnumsForCopy(String tag)
    {
       StringJoiner joiner = new StringJoiner(tag);
-      for (GrammaticalEnum e : definition.getGrammaticalEnumValues())
+      for (Definition definition : definitions.values())
       {
-         joiner.add(e.toDescription());
+         joiner.add(definition.addGrammaticalEnumsForCopy(tag));
       }
       return joiner.toString();
    }
 
    public List<DefinitionTab> getDefinitionTabs()
    {
-      // TODO Auto-generated method stub
+      // TODO TAbs
       return null;
    }
 
    public Set<ExpressionKind> getExpressionKindSet()
    {
-      // TODO Auto-generated method stub
-      return null;
+      return expressionKinds;
    }
 }

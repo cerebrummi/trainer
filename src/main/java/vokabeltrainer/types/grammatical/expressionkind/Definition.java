@@ -7,11 +7,17 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.StringJoiner;
 
+import vokabeltrainer.json.JSON;
+import vokabeltrainer.json.JSONObject;
+import vokabeltrainer.json.JSONObjectBuilder;
+import vokabeltrainer.json.JSONObjectProducer;
 import vokabeltrainer.types.grammatical.ExpressionKind;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
 
-public class Definition
+public class Definition extends JSONObjectProducer
 {
    private ExpressionKind expressionKind;
    protected Map<Class<? extends GrammaticalEnum>, GrammaticalEnum> grammaticalEnumMap = new HashMap<>();
@@ -64,7 +70,7 @@ public class Definition
    {
       return grammaticalEnumMap.get(clazz);
    }
-   
+
    public List<Class<? extends GrammaticalEnum>> getSortedGrammaticalEnumKeys()
    {
       List<Class<? extends GrammaticalEnum>> keyList = new ArrayList<>();
@@ -89,4 +95,35 @@ public class Definition
    {
       return grammaticalEnumMap.values();
    }
+   
+   public String addGrammaticalEnumsForCopy(String tag)
+   {
+      StringJoiner joiner = new StringJoiner(tag);
+      for (Entry<Class<? extends GrammaticalEnum>, GrammaticalEnum> entry : grammaticalEnumMap
+            .entrySet())
+      {
+         if(!entry.getValue().toInfo().isEmpty())
+         {
+            joiner.add(entry.getKey().getCanonicalName()+": "+entry.getValue().toInfo());
+         }       
+      }
+      return joiner.toString();
+   }
+
+   @Override
+   public JSONObject getJSONObject()
+   {
+      JSONObjectBuilder builder = JSON.createObjectBuilder();
+      for (Entry<Class<? extends GrammaticalEnum>, GrammaticalEnum> entry : grammaticalEnumMap
+            .entrySet())
+      {
+         builder.add(entry.getKey().getCanonicalName(),
+               entry.getValue().name());
+      }
+      JSONObject jsonObj = new JSONObject();
+      jsonObj.addJSON(builder.build());
+      return jsonObj;
+   }
+
+
 }

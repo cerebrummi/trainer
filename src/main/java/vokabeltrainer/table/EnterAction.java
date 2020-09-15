@@ -57,11 +57,6 @@ public class EnterAction extends AbstractAction
          editor.setVisible(true);
          if (editor.isSave())
          {
-            if (editor.isKindChanged())
-            {
-               Data.changeKindofExpression(editor.getOldKind(),
-                     editor.getExpression());
-            }
             connector.save();
          }
          editor.dispose();
