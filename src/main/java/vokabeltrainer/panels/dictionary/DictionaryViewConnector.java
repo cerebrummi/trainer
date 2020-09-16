@@ -10,7 +10,7 @@ import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.SearchType;
-import vokabeltrainer.types.grammatical.ExpressionKind;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public interface DictionaryViewConnector
 {

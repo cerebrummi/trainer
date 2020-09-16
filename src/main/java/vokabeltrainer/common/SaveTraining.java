@@ -17,7 +17,7 @@ import javax.swing.ProgressMonitor;
 import vokabeltrainer.Settings;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
-import vokabeltrainer.types.grammatical.ExpressionKind;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public final class SaveTraining
 {

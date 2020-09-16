@@ -14,10 +14,9 @@ import vokabeltrainer.json.JSON;
 import vokabeltrainer.json.JSONObject;
 import vokabeltrainer.json.JSONObjectBuilder;
 import vokabeltrainer.json.JSONObjectProducer;
-import vokabeltrainer.types.grammatical.ExpressionKind;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
 
-public class Definition extends JSONObjectProducer
+public class Definition implements JSONObjectProducer
 {
    private ExpressionKind expressionKind;
    protected Map<Class<? extends GrammaticalEnum>, GrammaticalEnum> grammaticalEnumMap = new HashMap<>();
@@ -117,9 +116,10 @@ public class Definition extends JSONObjectProducer
       for (Entry<Class<? extends GrammaticalEnum>, GrammaticalEnum> entry : grammaticalEnumMap
             .entrySet())
       {
-         builder.add(entry.getKey().getCanonicalName(),
+         builder.add(entry.getKey().getSimpleName(),
                entry.getValue().name());
       }
+      builder.add("expressionKind", expressionKind.name());
       JSONObject jsonObj = new JSONObject();
       jsonObj.addJSON(builder.build());
       return jsonObj;

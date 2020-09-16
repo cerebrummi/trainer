@@ -1,6 +1,6 @@
 package vokabeltrainer.json;
 
-public abstract class JSONObjectProducer
+public interface JSONObjectProducer
 {
-   public abstract JSONObject getJSONObject();
+   public JSONObject getJSONObject();
 }

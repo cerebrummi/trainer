@@ -17,7 +17,7 @@ import javax.swing.ProgressMonitor;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.grammatical.ExpressionKind;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public final class SaveExpressions
 {
@@ -54,10 +54,10 @@ public final class SaveExpressions
                }
             }
 
-            for (ExpressionKind kind : ExpressionKind.values())
+            for (LetterForSaving letter : LetterForSaving.values())
             {
-               save(kind);
-               progress += 100 / ExpressionKind.values().length;
+               save(letter);
+               progress += 100 / LetterForSaving.values().length;
                bar.setProgress(progress);
             }
             Preferences preferences = Preferences.userRoot()
@@ -103,15 +103,15 @@ public final class SaveExpressions
       writer.close();
    }
 
-   private void save(ExpressionKind kind) throws IOException
+   private void save(LetterForSaving letter) throws IOException
    {
       File file = new File(
-            Settings.getExpressionPathFolder() + File.separator + kind.name() + ".txt");
+            Settings.getExpressionPathFolder() + File.separator + letter.name() + ".txt");
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);
       StringJoiner joiner = new StringJoiner("\n");
-      for (Expression expression : getValues(kind))
+      for (Expression expression : getValues(letter))
       {
          joiner.add(expression.getExpressionPrintLine());
          counter++;
@@ -121,7 +121,7 @@ public final class SaveExpressions
       writer.close();
    }
 
-   private Collection<Expression> getValues(ExpressionKind kind)
+   private Collection<Expression> getValues(LetterForSaving letter)
    {
       List<Expression> list = new ArrayList<>();
 
@@ -131,7 +131,7 @@ public final class SaveExpressions
          {
             continue;
          }
-         if (expression.getExpressionKind().equals(kind))
+         if (expression.getLetterForSaving().equals(letter))
          {
             list.add(expression);
          }
@@ -139,7 +139,7 @@ public final class SaveExpressions
 
       for (Expression expression : Data.getNewMapValues())
       {
-         if (expression.getExpressionKind().equals(kind))
+         if (expression.getLetterForSaving().equals(letter))
          {
             list.add(expression);
          }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vokabeltrainer.types.grammatical.Binjan;
-import vokabeltrainer.types.grammatical.ExpressionKind;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;

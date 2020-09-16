@@ -18,10 +18,10 @@ public class JSONArrayBuilder
       }
    }
 
-   public JSONArrayBuilder(String key, Collection<? extends JSONObjectProducer> set)
+   public JSONArrayBuilder(String key, Collection<? extends JSONObjectProducer> collection)
    {
       json = new StringJoiner(",");
-      for (JSONObjectProducer producer : set)
+      for (JSONObjectProducer producer : collection)
       {
          json.add(new StringBuilder().append("{\"").append(key).append("\":\"")
                .append(producer.getJSONObject().getJSON()).append("\"}"));

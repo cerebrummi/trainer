@@ -34,6 +34,9 @@ import javax.swing.JOptionPane;
 import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
+import vokabeltrainer.json.JSON;
+import vokabeltrainer.json.JSONArray;
+import vokabeltrainer.json.JSONObject;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
@@ -50,8 +53,11 @@ import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.TrainingStatus;
-import vokabeltrainer.types.grammatical.ExpressionKind;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
+import vokabeltrainer.types.grammatical.GrammaticalEnumHelper;
+import vokabeltrainer.types.grammatical.expressionkind.Definition;
+import vokabeltrainer.types.grammatical.expressionkind.Definitions;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 // Maps und Sets werden nie herausgegeben!
 public final class Data
@@ -290,22 +296,22 @@ public final class Data
       private final ConcurrentMap<UUID, Expression> deletedMap = readFile(
             DELETED_TXT, null, Database.SELF);
 
-      private final Map<ExpressionKind, ConcurrentMap<UUID, Expression>> mapOfMaps = new ConcurrentHashMap<>();
+      private final Map<LetterForSaving, ConcurrentMap<UUID, Expression>> mapOfMaps = new ConcurrentHashMap<>();
 
       DataBase()
       {
-         for (ExpressionKind mapKind : ExpressionKind.values())
+         for (LetterForSaving letter : LetterForSaving.values())
          {
-            mapOfMaps.put(mapKind,
-                  readFile(mapKind.name() + ".txt", null, Database.SELF));
+            mapOfMaps.put(letter,
+                  readFile(letter.name() + ".txt", null, Database.SELF));
          }
 
          for (Database database : Settings.getChosenDatabases())
          {
-            for (ExpressionKind mapKind : ExpressionKind.values())
+            for (LetterForSaving letter : LetterForSaving.values())
             {
-               readFile(database.getFolder() + File.separator + mapKind.name()
-                     + ".txt", mapOfMaps.get(mapKind), database);
+               readFile(database.getFolder() + File.separator + letter.name()
+                     + ".txt", mapOfMaps.get(letter), database);
             }
          }
 
@@ -490,7 +496,7 @@ public final class Data
             buffer.append((char) ch);
          }
          reader.close();
-         input = buffer.toString().trim();
+         input = buffer.toString().strip();
 
          if (input.isEmpty())
          {
@@ -501,52 +507,46 @@ public final class Data
 
          ConcurrentMap<UUID, Expression> map = new ConcurrentHashMap<>(
                rows.length + 100);
+         boolean doNotChange = Database.SELF != origin;
          for (String row : rows)
          {
-            if (row.isEmpty())
+            if (row.strip().isEmpty())
             {
                continue;
             }
             try
             {
-               String[] items = row.split("\t");
-
-               Expression expression;
-               if (existingMap == null)
-               {
-                  expression = new Expression(false, false);
-               }
-               else
-               {
-                  expression = new Expression(false, true);
-               }
-               int i = 0;
-
-               expression.setUuid(UUID.fromString(items[i]));
-               expression.setOrigin(origin);
-               i++;
-
-               expression.setChapter(new Chapter(items[i], origin));
+               JSONObject obj = new JSONObject(row.strip());
+               Expression expression = new Expression(false, doNotChange);
+               expression.setUuid(UUID.fromString(obj.getAttribute("uuid")));
+               expression.setChapter(new Chapter(obj.getAttribute("chapter"), origin));
+               expression.setGerman(obj.getAttribute("german"));
+               expression.setHebrewInLatin(obj.getAttribute("hebrewInLatin"));
+               expression.setHebrew(obj.getAttribute("hebrew"));
                
-               i++;
-               expression.setGerman(items[i]);
-               i++;
-               expression.setHebrewInLatin(items[i]);
-               i++;
-               expression.setHebrew(items[i]);
-               i++;
-               expression.setExpressionKind(ExpressionKind.valueOf(items[i]));
-               
-               for (Class<? extends GrammaticalEnum> clazz : expression.getDefinition().getSortedGrammaticalEnumKeys())
+               JSONObject objDefinitions = new JSONObject(obj.getAttribute("definitions"));
+               List<String> definitionJSONList = new ArrayList<>();
+               new JSONArray().read(objDefinitions.getAttribute("definitions"), definitionJSONList);          
+               Map<ExpressionKind, Definition> definitionsMap = new HashMap<>();
+               for (String definitionJson : definitionJSONList)
                {
-                  i++;
-                  expression.getDefinition().setGrammaticalEnum(clazz, items[i]);
-               }
+                  JSONObject objDefinition = new JSONObject(definitionJson);
+                  Definition definition = new Definition(ExpressionKind.valueOf(objDefinition.getAttribute("expressionKind")));
+                  for(Class<? extends GrammaticalEnum> clazz : GrammaticalEnumHelper.getEnums())
+                  {
+                     definition.setGrammaticalEnum(clazz, objDefinition.getAttribute(clazz.getSimpleName()));
+                  }
+                  definitionsMap.put(definition.getExpressionKind(), definition);
+               }            
+               expression.setDefinitions(new Definitions(definitionsMap));
                
-               i++;
-               expression.setSearchwordsGerman(items[i].split(","));
-               i++;
-               expression.setSearchwordsHebrew(items[i].split(","));
+               List<String> searchwordsGerman = new ArrayList<>();
+               new JSONArray().read(obj.getAttribute("searchwordsGerman"), searchwordsGerman);
+               expression.setSearchwordsGerman(searchwordsGerman);
+               
+               List<String> searchwordsHebrew = new ArrayList<>();
+               new JSONArray().read(obj.getAttribute("searchwordsHebrew"), searchwordsHebrew);
+               expression.setSearchwordsHebrew(searchwordsHebrew);
 
                if (existingMap == null)
                {
@@ -954,7 +954,7 @@ public final class Data
             alleMap.put(expression.getUuid(), expression);
 
             ConcurrentMap<UUID, Expression> map = mapOfMaps
-                  .get(expression.getExpressionKind());
+                  .get(expression.getLetterForSaving());
             map.put(expression.getUuid(), expression);
          }
          this.reloadChapterSet();
@@ -1186,9 +1186,9 @@ public final class Data
       }
 
       public ConcurrentMap<UUID, Expression> getExpressionMap(
-            ExpressionKind kind)
+            LetterForSaving letter)
       {
-         return mapOfMaps.get(kind);
+         return mapOfMaps.get(letter);
       }
 
       private void changeKindofExpressionInDataStructure(ExpressionKind oldKind,

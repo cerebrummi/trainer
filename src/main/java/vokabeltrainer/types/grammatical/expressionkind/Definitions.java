@@ -9,16 +9,22 @@ import java.util.StringJoiner;
 
 import vokabeltrainer.json.JSON;
 import vokabeltrainer.json.JSONObject;
+import vokabeltrainer.json.JSONObjectProducer;
 import vokabeltrainer.types.grammatical.Binjan;
-import vokabeltrainer.types.grammatical.ExpressionKind;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
 import vokabeltrainer.types.grammatical.Numerus;
 
-public class Definitions
+public class Definitions implements JSONObjectProducer
 {
    private Set<ExpressionKind> expressionKinds = new HashSet<>();
    private Map<ExpressionKind, Definition> definitions = new HashMap<>();
+   
+   public Definitions(Map<ExpressionKind, Definition> definitions)
+   {
+      expressionKinds = definitions.keySet();
+      this.definitions = definitions;
+   }
    
    public Definitions()
    {
@@ -118,7 +124,8 @@ public class Definitions
    {
       JSONObject jsonObj = new JSONObject();
       jsonObj.addJSON(
-            JSON.createArrayBuilder("definition", definitions.values())
+            JSON.createObjectBuilder()
+           .add("definitions", JSON.createArrayBuilder("definition", definitions.values()).build())
             .build());
       return jsonObj;
    }

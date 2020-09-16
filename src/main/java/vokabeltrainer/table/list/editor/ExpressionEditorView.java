@@ -52,7 +52,6 @@ import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Database;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.grammatical.Binjan;
-import vokabeltrainer.types.grammatical.ExpressionKind;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
@@ -60,6 +59,7 @@ import vokabeltrainer.types.grammatical.VerbConjugation;
 import vokabeltrainer.types.grammatical.VerbStrength;
 import vokabeltrainer.types.grammatical.VerbType;
 import vokabeltrainer.types.grammatical.expressionkind.DefinitionTab;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class ExpressionEditorView extends JDialog
       implements ExpressionEditorViewConnector

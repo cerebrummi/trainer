@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 
+import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.json.JSON;
 import vokabeltrainer.json.JSONObject;
-import vokabeltrainer.types.grammatical.ExpressionKind;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class Expression
 {
@@ -26,6 +27,8 @@ public class Expression
    private boolean doNotChange;
    private Database origin;
    private Definitions definitions;
+   private LetterForSaving oldLetterForSaving;
+   private LetterForSaving letterForSaving;
 
    public Expression(boolean preset, boolean doNotChange)
    {
@@ -194,6 +197,26 @@ public class Expression
    public boolean addExpressionKind(ExpressionKind expressionKind)
    {
       return definitions.addExpressionKind(expressionKind);
+   }
+
+   public LetterForSaving getLetterForSaving()
+   {
+      return letterForSaving;
+   }
+
+   public void setLetterForSaving(LetterForSaving letterForSaving)
+   {
+      this.letterForSaving = letterForSaving;
+   }
+
+   public LetterForSaving getOldLetterForSaving()
+   {
+      return oldLetterForSaving;
+   }
+
+   public void setOldLetterForSaving(LetterForSaving oldLetterForSaving)
+   {
+      this.oldLetterForSaving = oldLetterForSaving;
    }
 
    public String[] toGermanArrayForTableEntry()

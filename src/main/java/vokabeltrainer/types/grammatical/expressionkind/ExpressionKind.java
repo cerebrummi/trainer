@@ -1,4 +1,4 @@
-package vokabeltrainer.types.grammatical;
+package vokabeltrainer.types.grammatical.expressionkind;
 
 import java.text.Collator;
 import java.util.Arrays;
@@ -7,7 +7,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-public enum ExpressionKind
+import vokabeltrainer.json.JSONObject;
+import vokabeltrainer.json.JSONObjectProducer;
+
+public enum ExpressionKind implements JSONObjectProducer
 {
    NOTHING(
          "bitte wählen",
@@ -211,5 +214,12 @@ public enum ExpressionKind
    public static int getNumberOfValues()
    {
       return ExpressionKind.values().length;
+   }
+
+   @Override
+   public JSONObject getJSONObject()
+   {
+      // TODO Auto-generated method stub
+      return null;
    }
 }

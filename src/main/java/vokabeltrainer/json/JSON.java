@@ -2,6 +2,9 @@ package vokabeltrainer.json;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class JSON
 {

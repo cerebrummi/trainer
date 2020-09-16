@@ -1,6 +1,6 @@
 package vokabeltrainer.table.list.editor;
 
-import vokabeltrainer.types.grammatical.ExpressionKind;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class AntiFocusExpressionKindField extends AntiFocusTextField
 {
