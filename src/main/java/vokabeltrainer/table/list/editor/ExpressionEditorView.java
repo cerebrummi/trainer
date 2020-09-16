@@ -23,7 +23,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListCellRenderer;
@@ -58,7 +57,6 @@ import vokabeltrainer.types.grammatical.Numerus;
 import vokabeltrainer.types.grammatical.VerbConjugation;
 import vokabeltrainer.types.grammatical.VerbStrength;
 import vokabeltrainer.types.grammatical.VerbType;
-import vokabeltrainer.types.grammatical.expressionkind.DefinitionTab;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class ExpressionEditorView extends JDialog
@@ -111,7 +109,6 @@ public class ExpressionEditorView extends JDialog
    private WideComboBox<VerbStrength> verbStrength;
    private WideComboBox<VerbType> verbType;
    private WideComboBox<GrammaticalPerson> grammaticalPerson;
-   private JTabbedPane tabPanel;
 
    @SuppressWarnings("unused")
    private ExpressionEditorControllerConnector connector;
@@ -397,11 +394,6 @@ public class ExpressionEditorView extends JDialog
       chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       chapter.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
 
-      tabPanel = new JTabbedPane();
-      tabPanel.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-      tabPanel.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-      tabPanel.setBorder(BorderFactory.createEmptyBorder());
-
       extraInfo = new JTextPane();
       extraInfo.setFont(Main.getHebrewFont(30));
       extraInfo.setBorder(
@@ -506,8 +498,8 @@ public class ExpressionEditorView extends JDialog
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
       vertical.setLayout(new TotemLayout(vertical, 15));
-
-      vertical.add(tabPanel);    
+      
+      // TODO
 
       layout.add(vertical);
    }
@@ -753,10 +745,7 @@ public class ExpressionEditorView extends JDialog
       this.hebrewInLatin.setText(expression.getHebrewInLatin());
       this.hebrew.setText(expression.getHebrew());
 
-      for(DefinitionTab tab : expression.getDefinitions().getDefinitionTabs())
-      {
-         this.tabPanel.add(tab);
-      }
+      // TODO
 
       this.searchwordsSetGerman = new HashSet<>();
       for (String word : expression.getSearchwordsGerman())

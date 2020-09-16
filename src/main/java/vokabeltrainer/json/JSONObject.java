@@ -16,11 +16,11 @@ public class JSONObject
    public JSONObject(String json)
    {
       json = json.substring(1, json.length() - 2);
-      String[] attributes = json.split(",");
+      String[] attributes = json.split(JSONTranslator.getCommaReplacement());
       for (String attribute : attributes)
       {
-         String key = attribute.split(":")[0];
-         String value = attribute.split(":")[1];
+         String key = attribute.split(JSONTranslator.getColonReplacement())[0];
+         String value = attribute.split(JSONTranslator.getColonReplacement())[1];
          attributeMap.put(key.substring(1, key.length() - 2),
                value.substring(1, value.length() - 2));
       }

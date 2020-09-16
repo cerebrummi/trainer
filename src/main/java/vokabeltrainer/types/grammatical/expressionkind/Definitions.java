@@ -2,7 +2,6 @@ package vokabeltrainer.types.grammatical.expressionkind;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -138,12 +137,6 @@ public class Definitions implements JSONObjectProducer
          joiner.add(definition.addGrammaticalEnumsForCopy(tag));
       }
       return joiner.toString();
-   }
-
-   public List<DefinitionTab> getDefinitionTabs()
-   {
-      // TODO TAbs
-      return null;
    }
 
    public Set<ExpressionKind> getExpressionKindSet()

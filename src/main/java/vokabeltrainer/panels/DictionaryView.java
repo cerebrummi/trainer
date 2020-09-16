@@ -65,10 +65,8 @@ public class DictionaryView extends BackgroundPanelTiled
    private static final long serialVersionUID = 9130321171813967337L;
 
    private ButtonGroup languageGroup;
-   private ButtonGroup expressionKind;
    private ButtonGroup searchTypeGroupHebrew;
    private ButtonGroup searchTypeGroupGerman;
-   private List<JRadioButton> radioButtons;
    private ExpressionTable table;
    private JPanel tablePanel;
    private JButton newWordButton;
@@ -316,9 +314,6 @@ public class DictionaryView extends BackgroundPanelTiled
       JPanel vertical1 = new JPanel();
       vertical1.setOpaque(false);
       vertical1.setLayout(new TotemLayout(vertical1, 15));
-
-      radioButtons = new ArrayList<>();
-      initRadioButtonPanel(vertical1);
 
       return vertical1;
    }
@@ -668,62 +663,6 @@ public class DictionaryView extends BackgroundPanelTiled
       tablePanel.repaint();
    }
 
-   private void initRadioButtonPanel(JPanel vertical1)
-   {
-      expressionKind = new ButtonGroup();
-
-      initRadioButtonGroup(expressionKind);
-
-      JPanel horizontal = new JPanel();
-      horizontal.setLayout(new TrainLayout(horizontal, 15));
-      horizontal.setBackground(Color.WHITE);
-      horizontal.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-
-      JPanel vertical2 = new JPanel();
-      vertical2.setLayout(new TotemLayout(vertical2, 15));
-      vertical2.setOpaque(false);
-
-      JPanel vertical3 = new JPanel();
-      vertical3.setLayout(new TotemLayout(vertical3, 15));
-      vertical3.setOpaque(false);
-
-      int counter = 0;
-      Enumeration<AbstractButton> enumeration = expressionKind.getElements();
-      while (enumeration.hasMoreElements())
-      {
-         AbstractButton button = enumeration.nextElement();
-         if (counter < ExpressionKind.getNumberOfValues() / 2)
-         {
-            vertical2.add(button);
-            counter++;
-         }
-         else
-         {
-            vertical3.add(button);
-         }
-      }
-
-      horizontal.add(vertical2);
-      horizontal.add(vertical3);
-
-      vertical1.add(horizontal);
-   }
-
-   private void initRadioButtonGroup(ButtonGroup searchExpressionKindGroup)
-   {
-      Font font = Main.getGermanFont(16F);
-      for (ExpressionKind kind : ExpressionKind.getValuesAsSortedList())
-      {
-         JRadioButton radioButton = new JRadioButton(kind.toString());
-         radioButton.setActionCommand(kind.name());
-         radioButton.addActionListener(
-               event -> connector.displayExpressionKindWhich());
-         radioButton.setFont(font);
-         searchExpressionKindGroup.add(radioButton);
-         radioButtons.add(radioButton);
-      }
-   }
-
    private void initLanguageButtonGroup(ButtonGroup languageTypeGroup)
    {
       Font font = Main.getGermanFont(20F);
@@ -746,7 +685,7 @@ public class DictionaryView extends BackgroundPanelTiled
    @Override
    public void unselectExpressionKind()
    {
-      expressionKind.clearSelection();
+      // TODO
    }
 
    @Override
@@ -813,8 +752,7 @@ public class DictionaryView extends BackgroundPanelTiled
    @Override
    public ExpressionKind getSelectedExpressionKind()
    {
-      return ExpressionKind.valueOf(expressionKind.getSelection()
-            .getActionCommand().replace("EXPRESSIONKIND_WHICH_", ""));
+      return ExpressionKind.EXPRESSIONKIND_UNKNOWN; // TODO
    }
 
    @Override
