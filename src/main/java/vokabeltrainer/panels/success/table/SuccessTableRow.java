@@ -11,7 +11,7 @@ public class SuccessTableRow
       this.expression = expression;
    }
 
-   public Expression getGrammaticalEnum()
+   public Expression getExpression()
    {
       return expression;
    }

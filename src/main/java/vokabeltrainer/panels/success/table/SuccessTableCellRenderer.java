@@ -91,7 +91,7 @@ public class SuccessTableCellRenderer
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
    {
-      Expression expression = ((SuccessTableRow) value).getGrammaticalEnum();
+      Expression expression = ((SuccessTableRow) value).getExpression();
 
       if (column == 0)
       {

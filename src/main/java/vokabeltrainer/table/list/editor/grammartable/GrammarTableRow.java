@@ -6,9 +6,9 @@ public class GrammarTableRow
 {
    private GrammaticalEnum grammaticalEnum;
 
-   public GrammarTableRow(GrammaticalEnum expression)
+   public GrammarTableRow(GrammaticalEnum grammaticalEnum)
    {
-      this.grammaticalEnum = expression;
+      this.grammaticalEnum = grammaticalEnum;
    }
 
    public GrammaticalEnum getGrammaticalEnum()

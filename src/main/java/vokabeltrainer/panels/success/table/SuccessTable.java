@@ -40,7 +40,7 @@ public class SuccessTable extends JTable
                SuccessTableRow tableRow = ((SuccessTableRow) table
                      .getValueAt(table.getSelectedRow(), 0));
                
-               Expression expression = tableRow.getGrammaticalEnum();
+               Expression expression = tableRow.getExpression();
 
                expression.toggleSelected();
 
