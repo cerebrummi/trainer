@@ -27,9 +27,7 @@ public class Definitions implements JSONObjectProducer
    
    public Definitions()
    {
-      expressionKinds.add(ExpressionKind.EXPRESSIONKIND_UNKNOWN);
-      definitions.put(ExpressionKind.EXPRESSIONKIND_UNKNOWN,
-            new Definition(ExpressionKind.EXPRESSIONKIND_UNKNOWN));
+      
    }
 
    public boolean addExpressionKind(ExpressionKind expressionKind)

@@ -33,10 +33,9 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             return;
          }
 
-         if (getLength() + list.size() - length > 250)
+         if (getLength() + list.size() - length > 600)
          {
-            Toolkit.getDefaultToolkit().beep();
-            return;
+            text = text.substring(0, 599);
          }
 
          for (int i = 0; i < list.size(); i++)
@@ -82,10 +81,9 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             return;
          }
 
-         if (getLength() + list.size() > 250)
+         if (getLength() + list.size() > 600)
          {
-            Toolkit.getDefaultToolkit().beep();
-            return;
+            str = str.substring(0, 599);
          }
 
          for (int i = 0; i < list.size(); i++)

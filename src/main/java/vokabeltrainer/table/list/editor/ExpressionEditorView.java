@@ -7,6 +7,7 @@ import java.awt.Cursor;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -14,8 +15,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,10 +26,13 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -45,6 +51,7 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
+import vokabeltrainer.table.EnterAction;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -52,6 +59,7 @@ import vokabeltrainer.types.Database;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
+import vokabeltrainer.types.grammatical.GrammaticalEnum;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
 import vokabeltrainer.types.grammatical.VerbConjugation;
@@ -72,8 +80,14 @@ public class ExpressionEditorView extends JDialog
    private JTextField german;
    private JTextField hebrewInLatin;
    private InfoTextField hebrew;
+   
    private WideComboBox<Gender> gender;
    private WideComboBox<Numerus> numerus;
+   private WideComboBox<Binjan> binjan;
+   private WideComboBox<VerbConjugation> verbConjugation;
+   private WideComboBox<VerbStrength> verbStrength;
+   private WideComboBox<VerbType> verbType;
+   private WideComboBox<GrammaticalPerson> grammaticalPerson;
 
    private InfoTextField newSearchwordGerman;
    private JList<String> searchwordsJListGerman;
@@ -84,11 +98,6 @@ public class ExpressionEditorView extends JDialog
    private JList<String> searchwordsJListHebrew;
    private Set<String> searchwordsSetHebrew;
    private JButton deleteSearchwordButtonHebrew;
-
-   private WideComboBox<ExpressionKind> expressionKindComboBox;
-   private JList<ExpressionKind> expressionKindJList;
-   private Set<ExpressionKind> expressionKindSet;
-   private JButton deleteExpressionKindButton;
 
    private KeyboardHebrew keyboard;
    private JPanel layout;
@@ -103,19 +112,14 @@ public class ExpressionEditorView extends JDialog
    private String searchwordsJListHebrewTitle = "Hebräische Suchwörter";
    private String chapterTitle = "Lektion";
    private WideComboBox<String> chapter;
-   private JButton infoExpressionKindButton;
-   private WideComboBox<Binjan> binjan;
-   private WideComboBox<VerbConjugation> verbConjugation;
-   private WideComboBox<VerbStrength> verbStrength;
-   private WideComboBox<VerbType> verbType;
-   private WideComboBox<GrammaticalPerson> grammaticalPerson;
-
+   private JTextPane extraInfo;
+   private JScrollPane extraInfoScroller;
+   private JButton extraInfoPasteButton;
+   private JButton extraInfoCutButton;
+   private JButton extraInfoCopyButton;
+   
    @SuppressWarnings("unused")
    private ExpressionEditorControllerConnector connector;
-
-   private JTextPane extraInfo;
-
-   private JScrollPane extraInfoScroller;
 
    public ExpressionEditorView(ExpressionEditorControllerConnector connector)
    {
@@ -148,12 +152,6 @@ public class ExpressionEditorView extends JDialog
    {
       Font germanfont = Main.getGermanFont(16F);
       Font hebrewfont = Main.getHebrewFont(30F);
-
-      infoExpressionKindButton = new JButton(
-            new ImageIcon(ApplicationImages.getInfoButtonIcon()));
-      infoExpressionKindButton.setBackground(new Color(0, 0, 0, 0));
-      infoExpressionKindButton.setMinimumSize(new Dimension(50, 50));
-      infoExpressionKindButton.setMaximumSize(new Dimension(50, 50));
 
       german = new JTextField();
       german.setBorder(makeBorderBlank(germanTitle));
@@ -326,50 +324,6 @@ public class ExpressionEditorView extends JDialog
       deleteSearchwordButtonGerman
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 40));
 
-      expressionKindComboBox = new WideComboBox<>(ExpressionKind.values());
-      expressionKindComboBox
-            .setMaximumRowCount(ExpressionKind.getNumberOfValues() / 2);
-      expressionKindComboBox.setBorder(new TitledBorder("Wortart"));
-      expressionKindComboBox.setFont(germanfont);
-      expressionKindComboBox.setEditable(false);
-      expressionKindComboBox
-            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 50, 50));
-      expressionKindComboBox
-            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 50, 50));
-      this.expressionKindComboBox
-      .setSelectedItem(ExpressionKind.NOTHING);
-
-      expressionKindJList = new JList<>();
-      expressionKindJList.setCellRenderer(new ListCellRenderer<ExpressionKind>()
-      {
-         @Override
-         public Component getListCellRendererComponent(
-               JList<? extends ExpressionKind> list, ExpressionKind value,
-               int index, boolean isSelected, boolean cellHasFocus)
-         {
-            AntiFocusExpressionKindField listComponent = new AntiFocusExpressionKindField(
-                  value);
-            listComponent.setFont(Main.getGermanFont(16F));
-            if (isSelected)
-            {
-               listComponent.setBackground(Color.WHITE);
-            }
-            else
-            {
-               listComponent.setBackground(Settings.getBackgroundGold());
-            }
-            return listComponent;
-         }
-      });
-
-      deleteExpressionKindButton = new JButton("lösche Wortart");
-      deleteExpressionKindButton.setFocusable(false);
-      deleteExpressionKindButton.setFont(Main.getGermanFont(16F));
-      deleteExpressionKindButton
-            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 40));
-      deleteExpressionKindButton
-            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 40));
-
       saveButton = new JButton("anwenden");
       saveButton.setFont(Main.getGermanFont(16F));
       saveButton.setMinimumSize(new Dimension(120, 40));
@@ -405,10 +359,21 @@ public class ExpressionEditorView extends JDialog
       StyleConstants.setFontSize(style, 20);
       StyleConstants.setFontFamily(style, "Serif");
       doc.setParagraphAttributes(0, doc.getLength(), style, true);
+      
       components.add(extraInfo);
       extraInfoScroller = new JScrollPane(extraInfo);
-      extraInfoScroller.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
-      extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+      extraInfoScroller.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+      extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 800));
+      
+      extraInfoPasteButton = new JButton(new DefaultEditorKit.PasteAction());
+      extraInfoPasteButton.setIcon(new ImageIcon());
+      extraInfoPasteButton.setText("paste");
+      extraInfoCutButton = new JButton(new DefaultEditorKit.CutAction());
+      extraInfoCutButton.setIcon(new ImageIcon());
+      extraInfoCutButton.setText("cut");
+      extraInfoCopyButton = new JButton(new DefaultEditorKit.CopyAction());
+      extraInfoCopyButton.setIcon(new ImageIcon());
+      extraInfoCopyButton.setText("copy");
 
       keyboard = new KeyboardHebrew(hebrew, components, 70, true);
    }
@@ -452,15 +417,12 @@ public class ExpressionEditorView extends JDialog
       vertical.setLayout(new TotemLayout(vertical, 15));
 
       JScrollPane scrollPane = new JScrollPane(searchwordsJListGerman);
-      scrollPane.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      scrollPane.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 200));
+      scrollPane.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
+      scrollPane.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
 
       JScrollPane scrollPane2 = new JScrollPane(searchwordsJListHebrew);
-      scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-
-      vertical.add(gender);
-      vertical.add(numerus);
+      scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
+      scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
 
       vertical.add(newSearchwordGerman);
       vertical.add(scrollPane);
@@ -477,18 +439,18 @@ public class ExpressionEditorView extends JDialog
    {
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
+      vertical.setBackground(Settings.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 15));
-
-      JPanel horizontal = new JPanel();
-      horizontal.setOpaque(false);
-      horizontal.setLayout(new TrainLayout(horizontal));
-      horizontal.add(expressionKindComboBox);
-      horizontal.add(infoExpressionKindButton);
-
-      vertical.add(horizontal);
-      vertical.add(new JScrollPane(expressionKindJList));
-      vertical.add(deleteExpressionKindButton);
-      vertical.add(extraInfoScroller);
+      
+      // TODO
+      JPanel filler = new JPanel();
+      filler.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+      filler.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 800));
+      
+     
+      
+      vertical.add(filler);
+      
       
       layout.add(vertical);
    }
@@ -497,10 +459,21 @@ public class ExpressionEditorView extends JDialog
    {
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
+      vertical.setBackground(Settings.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 15));
-      
-      // TODO
 
+      JPanel horizontal = new JPanel();
+      horizontal.setOpaque(false);
+      horizontal.setBackground(Settings.getTransparent());
+      horizontal.setLayout(new TrainLayout(horizontal, 15));
+      
+      horizontal.add(extraInfoCopyButton);
+      horizontal.add(extraInfoCutButton);
+      horizontal.add(extraInfoPasteButton);
+      
+      vertical.add(extraInfoScroller);
+      vertical.add(horizontal);
+      
       layout.add(vertical);
    }
 
@@ -518,47 +491,6 @@ public class ExpressionEditorView extends JDialog
 
    private void initController()
    {
-      infoExpressionKindButton.addActionListener(event -> {
-         JOptionPane.showMessageDialog(this, "", "Cerebrummi©",
-               JOptionPane.INFORMATION_MESSAGE,
-               new ImageIcon(TextImage.make(ExpressionKind.getExplanations())));
-      });
-
-      infoExpressionKindButton.addMouseListener(new MouseListener()
-      {
-
-         @Override
-         public void mouseClicked(MouseEvent e)
-         {
-
-         }
-
-         @Override
-         public void mousePressed(MouseEvent e)
-         {
-
-         }
-
-         @Override
-         public void mouseReleased(MouseEvent e)
-         {
-
-         }
-
-         @Override
-         public void mouseEntered(MouseEvent e)
-         {
-            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-         }
-
-         @Override
-         public void mouseExited(MouseEvent e)
-         {
-            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-         }
-
-      });
-
       german.addActionListener(event -> {
          if (!german.getText().isEmpty())
          {
@@ -640,23 +572,13 @@ public class ExpressionEditorView extends JDialog
       });
 
       restoreButton.addActionListener(event -> {
-         setExpression(expression);
+         setExpression(expression, false);
          resetAllBorders();
       });
 
       cancelButton.addActionListener(event -> {
          save = false;
          this.dispose();
-      });
-
-      expressionKindComboBox.addItemListener(event -> {
-         ExpressionKind choosen = (ExpressionKind) this.expressionKindComboBox
-               .getSelectedItem();
-         
-         if(expressionKindSet.add(choosen))
-         {
-            expressionKindJList.add(new AntiFocusExpressionKindField(choosen));
-         }
       });
 
    }
@@ -737,7 +659,7 @@ public class ExpressionEditorView extends JDialog
       return text.replaceAll("\t", "").replaceAll("\n", "");
    }
 
-   public void setExpression(Expression expression)
+   public void setExpression(Expression expression, boolean newExpression)
    {
       this.save = false;
       this.expression = expression;
@@ -745,7 +667,7 @@ public class ExpressionEditorView extends JDialog
       this.hebrewInLatin.setText(expression.getHebrewInLatin());
       this.hebrew.setText(expression.getHebrew());
 
-      // TODO
+      // TODO 
 
       this.searchwordsSetGerman = new HashSet<>();
       for (String word : expression.getSearchwordsGerman())
@@ -761,10 +683,6 @@ public class ExpressionEditorView extends JDialog
       }
       this.searchwordsJListHebrew.setModel(getSearchwordsModelHebrew());
 
-      this.expressionKindSet = new HashSet<>();
-      expressionKindSet = expression.getDefinitions().getExpressionKindSet();
-      this.expressionKindJList.setModel(getExpressionKindModel());
-
       this.chapter.setModel(Data.getChapterComboBoxModel());
       if (expression.getChapter().getName().isEmpty())
       {
@@ -774,16 +692,6 @@ public class ExpressionEditorView extends JDialog
       {
          this.chapter.setSelectedItem(expression.getChapter().getName());
       }
-   }
-
-   private DefaultComboBoxModel<ExpressionKind> getExpressionKindModel()
-   {
-      DefaultComboBoxModel<ExpressionKind> model = new DefaultComboBoxModel<>();
-      for (ExpressionKind kind : expressionKindSet)
-      {
-         model.addElement(kind);
-      }
-      return model;
    }
 
    private DefaultComboBoxModel<String> getSearchwordsModelGerman()

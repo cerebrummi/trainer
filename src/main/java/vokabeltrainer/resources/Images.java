@@ -113,6 +113,9 @@ public class Images
 
       ApplicationImages.setSelect(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/select.png")));
+      
+      ApplicationImages.setSelectDone(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/select-done.png")));
 
       ApplicationImages.setSend(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/send.png")));

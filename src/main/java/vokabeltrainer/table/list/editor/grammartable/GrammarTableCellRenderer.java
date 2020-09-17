@@ -1,9 +1,10 @@
-package vokabeltrainer.panels.success.table;
+package vokabeltrainer.table.list.editor.grammartable;
 
 import java.awt.Component;
 import java.util.EventObject;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
@@ -13,18 +14,17 @@ import javax.swing.table.TableCellRenderer;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.grammatical.GrammaticalEnum;
 
-public class SuccessTableCellRenderer
-      implements TableCellRenderer, TableCellEditor
+public class GrammarTableCellRenderer implements TableCellRenderer, TableCellEditor
 {
    private JLabel selected;
    private JLabel empty;
-   private JLabel expression;
+   private JComboBox<? extends GrammaticalEnum> grammaticalEnum;
 
-   public SuccessTableCellRenderer()
+   public GrammarTableCellRenderer()
    {
-      selected = new JLabel(new ImageIcon(ApplicationImages.getSelect()));
+      selected = new JLabel(new ImageIcon(ApplicationImages.getSelectDone()));
       selected.setBackground(Settings.getVeryLightGold());
       selected.setOpaque(true);
       
@@ -32,10 +32,10 @@ public class SuccessTableCellRenderer
       empty.setBackground(Settings.getVeryLightGold());
       empty.setOpaque(true);
 
-      expression = new JLabel();
-      expression.setFont(Main.getHebrewFont(18F));
-      expression.setBackground(Settings.getVeryLightGold());
-      expression.setOpaque(true);
+      grammaticalEnum = new JComboBox<>();
+      grammaticalEnum.setFont(Main.getHebrewFont(18F));
+      grammaticalEnum.setBackground(Settings.getVeryLightGold());
+      grammaticalEnum.setOpaque(true);
    }
 
    @Override
@@ -91,11 +91,11 @@ public class SuccessTableCellRenderer
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
    {
-      Expression expression = ((SuccessTableRow) value).getGrammaticalEnum();
+      GrammaticalEnum grammaticalEnum = ((GrammarTableRow) value).getGrammaticalEnum();
 
       if (column == 0)
       {
-         if (expression.isSelected())
+         if (grammaticalEnum.isSelected())
          {
             return selected;
          }
@@ -105,8 +105,7 @@ public class SuccessTableCellRenderer
          }
       }
 
-      this.expression.setText(expression.getWordGermanForSuccess());
-      return this.expression;
+      this.grammaticalEnum.setSelectedItem(grammaticalEnum.toString());
+      return this.grammaticalEnum;
    }
-
 }

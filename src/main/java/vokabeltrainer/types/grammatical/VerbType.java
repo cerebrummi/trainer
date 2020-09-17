@@ -14,6 +14,7 @@ public enum VerbType implements GrammaticalEnum
          "nicht anwendbar");
 
    private String description;
+   private boolean selected;
 
    VerbType(String description)
    {
@@ -62,5 +63,21 @@ public enum VerbType implements GrammaticalEnum
       default:
          return "";
       }
+   }
+
+   @Override
+   public void toggleSelected()
+   {
+      selected = !selected;  
+   }
+   
+   public boolean isSelected()
+   {
+      return selected;
+   }
+
+   public void setSelected(boolean selected)
+   {
+      this.selected = selected;
    }
 }

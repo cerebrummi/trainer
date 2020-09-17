@@ -14,6 +14,7 @@ public enum Numerus implements GrammaticalEnum
          "nicht anwendbar");
 
    private String description;
+   private boolean selected;
 
    Numerus(String description)
    {
@@ -61,5 +62,21 @@ public enum Numerus implements GrammaticalEnum
    public Numerus fromEnumName(String name)
    {
       return Numerus.valueOf(name);
+   }
+
+   @Override
+   public void toggleSelected()
+   {
+      selected = !selected;  
+   } 
+   
+   public boolean isSelected()
+   {
+      return selected;
+   }
+
+   public void setSelected(boolean selected)
+   {
+      this.selected = selected;
    }
 }

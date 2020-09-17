@@ -22,6 +22,7 @@ public enum VerbConjugation implements GrammaticalEnum
          "nicht anwendbar");
 
    private String description;
+   private boolean selected;
 
    VerbConjugation(String description)
    {
@@ -78,5 +79,21 @@ public enum VerbConjugation implements GrammaticalEnum
       default:
          return "";
       }
+   }
+
+   @Override
+   public void toggleSelected()
+   {
+      selected = !selected;  
+   }
+   
+   public boolean isSelected()
+   {
+      return selected;
+   }
+
+   public void setSelected(boolean selected)
+   {
+      this.selected = selected;
    }
 }

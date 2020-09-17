@@ -10,7 +10,6 @@ import javax.swing.SwingUtilities;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.table.list.editor.ExpressionEditorController;
 import vokabeltrainer.table.list.editor.ExpressionEditorView;
@@ -52,7 +51,7 @@ public class EnterAction extends AbstractAction
                               "kann nicht bearbeitet werden.")));
             return;
          }
-         editor.setExpression(expression);
+         editor.setExpression(expression, false);
          editor.setLocationRelativeTo(null);
          editor.setVisible(true);
          if (editor.isSave())

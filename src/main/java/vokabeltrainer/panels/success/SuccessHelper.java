@@ -95,7 +95,7 @@ public class SuccessHelper
 
          for (Vector<SuccessTableRow> row : model.getData())
          {
-            row.get(0).getExpression().setSelected(true);
+            row.get(0).getGrammaticalEnum().setSelected(true);
          }
          model.fireTableDataChanged();
 
@@ -107,7 +107,7 @@ public class SuccessHelper
 
          for (Vector<SuccessTableRow> row : model.getData())
          {
-            row.get(0).getExpression().setSelected(false);
+            row.get(0).getGrammaticalEnum().setSelected(false);
          }
          model.fireTableDataChanged();
 
@@ -120,7 +120,7 @@ public class SuccessHelper
          List<Vector<SuccessTableRow>> rows = new ArrayList<>();
          for (Vector<SuccessTableRow> row : model.getData())
          {
-            Expression expression = row.get(0).getExpression();
+            Expression expression = row.get(0).getGrammaticalEnum();
             if (expression.isSelected() && Language.GERMAN == direction)
             {
                expression.setTrainingStatusDToH(new TrainingStatus());

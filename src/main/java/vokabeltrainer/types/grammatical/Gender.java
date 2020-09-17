@@ -14,6 +14,7 @@ public enum Gender implements GrammaticalEnum
          "nicht anwendbar");
 
    private String description;
+   private boolean selected;
 
    Gender(String description)
    {
@@ -61,5 +62,21 @@ public enum Gender implements GrammaticalEnum
    public Gender fromEnumName(String name)
    {
       return Gender.valueOf(name);
+   }
+
+   @Override
+   public void toggleSelected()
+   {
+      selected = !selected;  
+   }
+   
+   public boolean isSelected()
+   {
+      return selected;
+   }
+
+   public void setSelected(boolean selected)
+   {
+      this.selected = selected;
    }
 }

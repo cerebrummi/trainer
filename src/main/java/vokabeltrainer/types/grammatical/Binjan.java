@@ -26,6 +26,7 @@ public enum Binjan implements GrammaticalEnum
          "nicht anwendbar");
 
    String description;
+   private boolean selected;
 
    Binjan(String description)
    {
@@ -86,5 +87,21 @@ public enum Binjan implements GrammaticalEnum
       default:
          return "";
       }
+   }
+
+   @Override
+   public void toggleSelected()
+   {
+      selected = !selected;  
+   }
+
+   public boolean isSelected()
+   {
+      return selected;
+   }
+
+   public void setSelected(boolean selected)
+   {
+      this.selected = selected;
    }
 }

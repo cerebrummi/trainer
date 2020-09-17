@@ -1,4 +1,4 @@
-package vokabeltrainer.panels.success.table;
+package vokabeltrainer.table.list.editor.grammartable;
 
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -8,23 +8,23 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.Settings;
-import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.grammatical.GrammaticalEnum;
 
-public class SuccessTable extends JTable
+public class GrammarTable extends JTable
 {
-   private static final long serialVersionUID = 853537882592595897L;
+   private static final long serialVersionUID = 5464715782737391017L;
 
-   public SuccessTable(SuccessTableModel model)
+   public GrammarTable(GrammarTableModel model, int totalWidth)
    {
-      super(model, new SuccessTableColumnModel());
+      super(model, new GrammarTableColumnModel(totalWidth));
       this.setShowVerticalLines(false);
-      setOpaque(false);
-      setRowHeight(140);
+      setOpaque(true);
+      setRowHeight(30);
       setShowHorizontalLines(true);
-      setBackground(Settings.getTransparent());
-      this.setRowSelectionAllowed(false);
-      this.setColumnSelectionAllowed(false);
-      this.setCellSelectionEnabled(false);
+      setBackground(Settings.getLightYellow());
+      this.setRowSelectionAllowed(true);
+      this.setColumnSelectionAllowed(true);
+      this.setCellSelectionEnabled(true);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       
       addMouseListener(new MouseAdapter()
@@ -35,20 +35,19 @@ public class SuccessTable extends JTable
             Point point = mouseEvent.getPoint();
             int row = table.rowAtPoint(point);
             if (mouseEvent.getClickCount() == 1 && table.getSelectedRow() != -1
-                  && row == table.getSelectedRow())
+                  && row == table.getSelectedRow() && table.getSelectedColumn() == 0)
             {
-               SuccessTableRow tableRow = ((SuccessTableRow) table
+               GrammarTableRow tableRow = ((GrammarTableRow) table
                      .getValueAt(table.getSelectedRow(), 0));
                
-               Expression expression = tableRow.getGrammaticalEnum();
+               GrammaticalEnum grammaticalEnum = tableRow.getGrammaticalEnum();
 
-               expression.toggleSelected();
+               grammaticalEnum.toggleSelected();
 
-               ((SuccessTableModel) table.getModel())
+               ((GrammarTableModel) table.getModel())
                      .fireTableCellUpdated(table.getSelectedRow(), 0);
             }
          }
       });
    }
-
 }

@@ -21,6 +21,7 @@ public class ApplicationImages
    private static BufferedImage copy;
    private static BufferedImage clear;
    private static BufferedImage select;
+   private static BufferedImage selectDone;
    private static BufferedImage newWord;
    private static BufferedImage saveWord;
    private static BufferedImage deleteWord;
@@ -739,5 +740,19 @@ public class ApplicationImages
          exitWithMessage("kein Zurück Icon");
       }
       ApplicationImages.back = back;
+   }
+
+   public static BufferedImage getSelectDone()
+   {
+      return selectDone;
+   }
+
+   public static void setSelectDone(BufferedImage selectDone)
+   {
+      if(selectDone == null)
+      {
+         exitWithMessage("kein Häckchen Icon");
+      }
+      ApplicationImages.selectDone = selectDone;
    }
 }
