@@ -15,6 +15,8 @@ public enum Numerus implements GrammaticalEnum
 
    private String description;
    private boolean selected;
+   private int sortNumber = 10;
+   private GrammaticalParentEnum parent = GrammaticalParentEnum.NUMERUS;
 
    Numerus(String description)
    {
@@ -78,5 +80,15 @@ public enum Numerus implements GrammaticalEnum
    public void setSelected(boolean selected)
    {
       this.selected = selected;
+   }
+
+   public int getSortNumber()
+   {
+      return sortNumber;
+   }
+
+   public GrammaticalParentEnum getParent()
+   {
+      return parent;
    }
 }

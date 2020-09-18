@@ -13,6 +13,8 @@ public enum VerbStrength implements GrammaticalEnum
 
    private String description;
    private boolean selected;
+   private int sortNumber = 60;
+   private GrammaticalParentEnum parent = GrammaticalParentEnum.VERB_STRENGTH;
 
    VerbStrength(String description)
    {
@@ -75,5 +77,15 @@ public enum VerbStrength implements GrammaticalEnum
    public void setSelected(boolean selected)
    {
       this.selected = selected;
+   }
+
+   public int getSortNumber()
+   {
+      return sortNumber;
+   }
+
+   public GrammaticalParentEnum getParent()
+   {
+      return parent;
    }
 }

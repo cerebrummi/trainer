@@ -23,6 +23,8 @@ public enum VerbConjugation implements GrammaticalEnum
 
    private String description;
    private boolean selected;
+   private int sortNumber = 50;
+   private GrammaticalParentEnum parent = GrammaticalParentEnum.VERB_CONJUGATION;
 
    VerbConjugation(String description)
    {
@@ -95,5 +97,15 @@ public enum VerbConjugation implements GrammaticalEnum
    public void setSelected(boolean selected)
    {
       this.selected = selected;
+   }
+
+   public int getSortNumber()
+   {
+      return sortNumber;
+   }
+
+   public GrammaticalParentEnum getParent()
+   {
+      return parent;
    }
 }

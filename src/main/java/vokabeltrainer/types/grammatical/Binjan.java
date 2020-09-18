@@ -25,8 +25,10 @@ public enum Binjan implements GrammaticalEnum
    BINJAN_NA(
          "nicht anwendbar");
 
-   String description;
+   private String description;
    private boolean selected;
+   private int sortNumber = 40;
+   private GrammaticalParentEnum parent = GrammaticalParentEnum.BINJAN;
 
    Binjan(String description)
    {
@@ -103,5 +105,15 @@ public enum Binjan implements GrammaticalEnum
    public void setSelected(boolean selected)
    {
       this.selected = selected;
+   }
+
+   public int getSortNumber()
+   {
+      return sortNumber;
+   }
+
+   public GrammaticalParentEnum getParent()
+   {
+      return parent;
    }
 }

@@ -13,10 +13,10 @@ public class StatisticsTable extends JTable
    {
       super(model, new StatisticsTableColumnModel());
       this.setShowVerticalLines(false);
-      setOpaque(false);
+      setOpaque(true);
       setRowHeight(50);
       setShowHorizontalLines(true);
-      setBackground(Settings.getTransparent());
+      setBackground(Settings.getDarkRed());
       this.setRowSelectionAllowed(true);
       this.setColumnSelectionAllowed(true);
       this.setCellSelectionEnabled(true);

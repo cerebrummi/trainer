@@ -12,9 +12,6 @@ import vokabeltrainer.json.JSONObjectProducer;
 
 public enum ExpressionKind implements JSONObjectProducer
 {
-   NOTHING(
-         "bitte wählen",
-         ""),
    EXPRESSIONKIND_UNKNOWN(
          "unbekannt",
          ""),
@@ -108,6 +105,7 @@ public enum ExpressionKind implements JSONObjectProducer
 
    private String description;
    private String explanation;
+   private boolean selected;
 
    ExpressionKind(String description, String explanation)
    {
@@ -219,7 +217,22 @@ public enum ExpressionKind implements JSONObjectProducer
    @Override
    public JSONObject getJSONObject()
    {
-      // TODO Auto-generated method stub
+      // TODO JSONObject
       return null;
+   }
+
+   public boolean isSelected()
+   {
+      return selected;
+   }
+
+   public void setSelected(boolean selected)
+   {
+      this.selected = selected;
+   }
+   
+   public void toggleSelected()
+   {
+      selected = !selected;
    }
 }

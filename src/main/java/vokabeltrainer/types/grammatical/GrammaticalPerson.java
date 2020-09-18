@@ -15,6 +15,8 @@ public enum GrammaticalPerson implements GrammaticalEnum
 
    private String description;
    private boolean selected;
+   private int sortNumber = 30;
+   private GrammaticalParentEnum parent = GrammaticalParentEnum.GRAMMATICAL_PERSON;
 
    GrammaticalPerson(String description)
    {
@@ -79,5 +81,15 @@ public enum GrammaticalPerson implements GrammaticalEnum
    public void setSelected(boolean selected)
    {
       this.selected = selected;
+   }
+
+   public int getSortNumber()
+   {
+      return sortNumber;
+   }
+
+   public GrammaticalParentEnum getParent()
+   {
+      return parent;
    }
 }

@@ -15,6 +15,8 @@ public enum VerbType implements GrammaticalEnum
 
    private String description;
    private boolean selected;
+   private int sortNumber = 70;
+   private GrammaticalParentEnum parent = GrammaticalParentEnum.VERB_TYPE;
 
    VerbType(String description)
    {
@@ -79,5 +81,15 @@ public enum VerbType implements GrammaticalEnum
    public void setSelected(boolean selected)
    {
       this.selected = selected;
+   }
+
+   public int getSortNumber()
+   {
+      return sortNumber;
+   }
+
+   public GrammaticalParentEnum getParent()
+   {
+      return parent;
    }
 }

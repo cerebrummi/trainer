@@ -55,8 +55,14 @@ public class StatisticsPanel extends BackgroundPanelTiled
       wordPanel.setMaximumSize(new Dimension(580, 160));
       wordPanel.setOpaque(true);
       wordPanel.setBackground(Settings.getVeryLightGold());
-
+      
+      JPanel filler = new JPanel();
+      filler.setBackground(Settings.getDarkGold());
+      filler.setMinimumSize(new Dimension(580, 600));
+      filler.setMaximumSize(new Dimension(580, 800));
+     
       center.add(tablePanel);
+      center.add(filler);
 
       eyePanel.add(center);
       add(eyePanel, BorderLayout.CENTER);
@@ -78,8 +84,6 @@ public class StatisticsPanel extends BackgroundPanelTiled
       titlePanel.add(title);
 
       StatisticsTable table = new StatisticsTable(Data.findStatisticsModel());
-      table.setOpaque(true);
-      table.setBackground(Settings.getVeryLightGold());
 
       table.addMouseListener(new MouseAdapter()
       {
@@ -136,12 +140,13 @@ public class StatisticsPanel extends BackgroundPanelTiled
       scrollerWrapper.setBackground(Settings.getVeryLightGold());
       
       JScrollPane scroller = new JScrollPane(table);
-      scroller.setOpaque(false);
-      scroller.setBackground(Settings.getTransparent());
-      scroller.setBorder(BorderFactory.createEmptyBorder());
-      scroller.getViewport().setOpaque(false);
-      scroller.getViewport().setBackground(Settings.getTransparent());
-      scroller.setViewportBorder(BorderFactory.createEmptyBorder());
+//      scroller.setOpaque(false);
+//      scroller.setBackground(Settings.getTransparent());
+//      scroller.setBorder(BorderFactory.createEmptyBorder());
+//      scroller.getViewport().setOpaque(false);
+//      scroller.getViewport().setBackground(Settings.getTransparent());
+//      scroller.setViewportBorder(BorderFactory.createEmptyBorder());
+      scroller.setBackground(Settings.getDarkRed());
       scrollerWrapper.add(scroller, BorderLayout.CENTER);
 
       tablePanel.add(titlePanel);

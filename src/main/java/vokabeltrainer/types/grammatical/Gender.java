@@ -15,6 +15,8 @@ public enum Gender implements GrammaticalEnum
 
    private String description;
    private boolean selected;
+   private int sortNumber = 20;
+   private GrammaticalParentEnum parent = GrammaticalParentEnum.GENDER;
 
    Gender(String description)
    {
@@ -78,5 +80,15 @@ public enum Gender implements GrammaticalEnum
    public void setSelected(boolean selected)
    {
       this.selected = selected;
+   }
+
+   public int getSortNumber()
+   {
+      return sortNumber;
+   }
+
+   public GrammaticalParentEnum getParent()
+   {
+      return parent;
    }
 }

@@ -1,19 +1,17 @@
-package vokabeltrainer.table.list.editor.grammartable;
+package vokabeltrainer.table.list.editor.expressionkindtable;
 
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
-
-public class GrammarTableColumnModel extends DefaultTableColumnModel
+public class ExpressionKindTableColumnModel extends DefaultTableColumnModel
 {
+   private static final long serialVersionUID = -2011627608532876165L;
 
-   private static final long serialVersionUID = -5977419104447912009L;
+   private ExpressionKindTableCellRenderer renderer;
    
-   private GrammarTableCellRenderer renderer;
-   
-   public GrammarTableColumnModel(int totalWidth)
+   public ExpressionKindTableColumnModel(int totalWidth)
    {
-      renderer = new GrammarTableCellRenderer();
+      renderer = new ExpressionKindTableCellRenderer();
       
       TableColumn column = new TableColumn();
       column.setHeaderValue("Wahl");
