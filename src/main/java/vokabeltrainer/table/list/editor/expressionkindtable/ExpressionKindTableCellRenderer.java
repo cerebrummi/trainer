@@ -33,7 +33,7 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
       empty.setOpaque(false);
 
       expressionKind = new JLabel();
-      expressionKind.setFont(Main.getGermanFont(12F));
+      expressionKind.setFont(Main.getGermanFont(14F));
       expressionKind.setBackground(Settings.getTransparent());
       expressionKind.setOpaque(false);
    }
@@ -92,7 +92,23 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
          boolean isSelected, boolean hasFocus, int row, int column)
    {
       ExpressionKind expressionKind = ((ExpressionKindTableRow) value).getExpressionKind();
-
+      
+      if(row == 0 && expressionKind.isSelected())
+      {
+         for (int i = 1; i < table.getRowCount(); i++)
+         {
+            ExpressionKindTableRow rowValue = (ExpressionKindTableRow) table.getValueAt(i, 1);
+            rowValue.getExpressionKind().setSelected(false);
+            table.setValueAt(rowValue, i, 1);
+         }
+      }
+      else if(row >  0 && expressionKind.isSelected())
+      {
+         ExpressionKindTableRow rowValue = (ExpressionKindTableRow) table.getValueAt(0, 1);
+         rowValue.getExpressionKind().setSelected(false);
+         table.setValueAt(rowValue, 0, 1);
+      }
+      
       if (column == 0)
       {
          if (expressionKind.isSelected())

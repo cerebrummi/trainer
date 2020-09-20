@@ -22,12 +22,12 @@ public class ExpressionKindTable extends JTable
       setOpaque(true);
       setRowHeight(30);
       setShowHorizontalLines(false);
-      setBackground(Settings.getLightBlue());
       this.setRowSelectionAllowed(true);
-      this.setColumnSelectionAllowed(true);
-      this.setCellSelectionEnabled(true);
+      this.setColumnSelectionAllowed(false);
+      this.setCellSelectionEnabled(false);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       this.setBorder(BorderFactory.createEmptyBorder());
+      this.setTableHeader(null);
       
       addMouseListener(new MouseAdapter()
       {
@@ -36,7 +36,7 @@ public class ExpressionKindTable extends JTable
             JTable table = (JTable) mouseEvent.getSource();
             Point point = mouseEvent.getPoint();
             int row = table.rowAtPoint(point);
-            if (mouseEvent.getClickCount() == 1 && table.getSelectedRow() != -1
+            if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1
                   && row == table.getSelectedRow())
             {
                ExpressionKindTableRow tableRow = ((ExpressionKindTableRow) table

@@ -319,48 +319,51 @@ public class ExpressionEditorView extends JDialog
 
       expressionKindTable = new ExpressionKindTable(ExpressionKind.getModel(),
             WIDTH_INFO_PANEL);
-      
+
       binjanBox = new WideComboBox<>(Binjan.values());
-      binjanBox.setFont(Main.getGermanFont(12F));
+      binjanBox.setFont(Main.getGermanFont(14F));
       binjanBox.setOpaque(false);
       binjanBox.setBorder(BorderFactory.createTitledBorder("Binjan"));
-      binjanBox.setBackground(new Color(0, 0, 0, 0));
+      binjanBox.setBackground(Color.WHITE);
 
       genderBox = new WideComboBox<>(Gender.values());
-      genderBox.setFont(Main.getGermanFont(12F));
+      genderBox.setFont(Main.getGermanFont(14F));
       genderBox.setOpaque(false);
       genderBox.setBorder(BorderFactory.createTitledBorder("Geschlecht"));
-      genderBox.setBackground(new Color(0, 0, 0, 0));
-      
+      genderBox.setBackground(Color.WHITE);
+
       grammaticalPersonBox = new WideComboBox<>(GrammaticalPerson.values());
-      grammaticalPersonBox.setFont(Main.getGermanFont(12F));
+      grammaticalPersonBox.setFont(Main.getGermanFont(14F));
       grammaticalPersonBox.setOpaque(false);
-      grammaticalPersonBox.setBorder(BorderFactory.createTitledBorder("Grammatische Person"));
-      grammaticalPersonBox.setBackground(new Color(0, 0, 0, 0));
-      
+      grammaticalPersonBox
+            .setBorder(BorderFactory.createTitledBorder("Grammatische Person"));
+      grammaticalPersonBox.setBackground(Color.WHITE);
+
       numerusBox = new WideComboBox<>(Numerus.values());
-      numerusBox.setFont(Main.getGermanFont(12F));
+      numerusBox.setFont(Main.getGermanFont(14F));
       numerusBox.setOpaque(false);
       numerusBox.setBorder(BorderFactory.createTitledBorder("Numerus"));
-      numerusBox.setBackground(new Color(0, 0, 0, 0));
-      
+      numerusBox.setBackground(Color.WHITE);
+
       verbConjugationBox = new WideComboBox<>(VerbConjugation.values());
-      verbConjugationBox.setFont(Main.getGermanFont(12F));
+      verbConjugationBox.setFont(Main.getGermanFont(14F));
       verbConjugationBox.setOpaque(false);
-      verbConjugationBox.setBorder(BorderFactory.createTitledBorder("Verb Konjugation"));
-      verbConjugationBox.setBackground(new Color(0, 0, 0, 0));
-      
+      verbConjugationBox
+            .setBorder(BorderFactory.createTitledBorder("Verb Konjugation"));
+      verbConjugationBox.setBackground(Color.WHITE);
+
       verbStrengthBox = new WideComboBox<>(VerbStrength.values());
-      verbStrengthBox.setFont(Main.getGermanFont(12F));
+      verbStrengthBox.setFont(Main.getGermanFont(14F));
       verbStrengthBox.setOpaque(false);
-      verbStrengthBox.setBorder(BorderFactory.createTitledBorder("Verb Stärke"));
-      verbStrengthBox.setBackground(new Color(0, 0, 0, 0));
-      
+      verbStrengthBox
+            .setBorder(BorderFactory.createTitledBorder("Verb Stärke"));
+      verbStrengthBox.setBackground(Color.WHITE);
+
       verbTypeBox = new WideComboBox<>(VerbType.values());
-      verbTypeBox.setFont(Main.getGermanFont(12F));
+      verbTypeBox.setFont(Main.getGermanFont(14F));
       verbTypeBox.setOpaque(false);
       verbTypeBox.setBorder(BorderFactory.createTitledBorder("Verb Typ"));
-      verbTypeBox.setBackground(new Color(0, 0, 0, 0));
+      verbTypeBox.setBackground(Color.WHITE);
 
       keyboard = new KeyboardHebrew(hebrew, components, 70, true);
    }
@@ -410,7 +413,7 @@ public class ExpressionEditorView extends JDialog
       JScrollPane scrollPane2 = new JScrollPane(searchwordsJListHebrew);
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
       scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
-      
+
       vertical.add(newSearchwordGerman);
       vertical.add(scrollPane);
       vertical.add(deleteSearchwordButtonGerman);
@@ -432,6 +435,9 @@ public class ExpressionEditorView extends JDialog
       JScrollPane scrollPane = new JScrollPane(expressionKindTable);
       scrollPane.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       scrollPane.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+      scrollPane.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(Settings.getLightGrayGold()),
+            "Wortart"));
 
       vertical.add(scrollPane);
       vertical.add(extraInfoScroller);
@@ -457,14 +463,15 @@ public class ExpressionEditorView extends JDialog
       definitionPanel.add(this.verbStrengthBox);
       definitionPanel.add(this.verbTypeBox);
       definitionPanel.setBorder(BorderFactory.createEmptyBorder());
-      definitionPanel.setBackground(Settings.getLightBlue());
-      
+      definitionPanel.setBackground(Settings.getTransparent());
+      definitionPanel.setOpaque(false);
+
       JScrollPane scrollPane2 = new JScrollPane(definitionPanel);
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 600));
       scrollPane2.setBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
-      
+
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);
       horizontal.setBackground(Settings.getTransparent());
