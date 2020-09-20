@@ -17,14 +17,14 @@ public class ExpressionKindTableColumnModel extends DefaultTableColumnModel
       column.setHeaderValue("Wahl");
       column.setCellRenderer(renderer);
       column.setCellEditor(renderer);
-      column.setPreferredWidth(37);
+      column.setPreferredWidth(43);
       addColumn(column);
       
       TableColumn column1 = new TableColumn();
       column1.setHeaderValue("Wortart");
       column1.setCellRenderer(renderer);
       column1.setCellEditor(renderer);
-      column1.setPreferredWidth(totalWidth-37);
+      column1.setPreferredWidth(totalWidth-43);
       addColumn(column1);
    }
 

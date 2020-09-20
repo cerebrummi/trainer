@@ -9,17 +9,28 @@ public interface GrammaticalEnum
    public void toggleSelected();
    public boolean isSelected();
    public void setSelected(boolean selected);
-   public int getSortNumber();
    public GrammaticalParentEnum getParent();
    
    public enum GrammaticalParentEnum
    {
-      BINJAN,
-      GENDER,
-      GRAMMATICAL_PERSON,
-      NUMERUS,
-      VERB_CONJUGATION,
-      VERB_STRENGTH,
-      VERB_TYPE;
+      GENDER(10),
+      NUMERUS(20),
+      GRAMMATICAL_PERSON(30),
+      BINJAN(40),
+      VERB_CONJUGATION(50),
+      VERB_STRENGTH(60),
+      VERB_TYPE(70);
+      
+      private int sortNumber;
+      
+      GrammaticalParentEnum(int sortNumber)
+      {
+         this.sortNumber = sortNumber;
+      }
+
+      public int getSortNumber()
+      {
+         return sortNumber;
+      }
    }
 }

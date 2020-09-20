@@ -2,6 +2,8 @@ package vokabeltrainer.types.grammatical;
 
 public enum GrammaticalPerson implements GrammaticalEnum
 {
+   PLEASE_CHOOSE(
+         "bitte wählen"),
    GRAMMATICALPERSON_UNKNOWN(
          "unbekannt"),
    ERSTE_PERSON(
@@ -15,7 +17,6 @@ public enum GrammaticalPerson implements GrammaticalEnum
 
    private String description;
    private boolean selected;
-   private int sortNumber = 30;
    private GrammaticalParentEnum parent = GrammaticalParentEnum.GRAMMATICAL_PERSON;
 
    GrammaticalPerson(String description)
@@ -73,21 +74,19 @@ public enum GrammaticalPerson implements GrammaticalEnum
       selected = !selected;  
    }
    
+   @Override
    public boolean isSelected()
    {
       return selected;
    }
 
+   @Override
    public void setSelected(boolean selected)
    {
       this.selected = selected;
    }
 
-   public int getSortNumber()
-   {
-      return sortNumber;
-   }
-
+   @Override
    public GrammaticalParentEnum getParent()
    {
       return parent;

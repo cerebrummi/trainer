@@ -4,29 +4,30 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.Settings;
-import vokabeltrainer.panels.success.table.SuccessTableModel;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class ExpressionKindTable extends JTable
 {
    private static final long serialVersionUID = 1518676670024526651L;
 
-   public ExpressionKindTable(SuccessTableModel model, int totalWidth)
+   public ExpressionKindTable(ExpressionKindTableModel model, int totalWidth)
    {
       super(model, new ExpressionKindTableColumnModel(totalWidth));
       this.setShowVerticalLines(false);
       setOpaque(true);
       setRowHeight(30);
-      setShowHorizontalLines(true);
-      setBackground(Settings.getLightYellow());
+      setShowHorizontalLines(false);
+      setBackground(Settings.getLightBlue());
       this.setRowSelectionAllowed(true);
       this.setColumnSelectionAllowed(true);
       this.setCellSelectionEnabled(true);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+      this.setBorder(BorderFactory.createEmptyBorder());
       
       addMouseListener(new MouseAdapter()
       {

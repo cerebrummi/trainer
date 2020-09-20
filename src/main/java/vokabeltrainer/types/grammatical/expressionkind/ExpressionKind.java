@@ -6,9 +6,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Vector;
 
 import vokabeltrainer.json.JSONObject;
 import vokabeltrainer.json.JSONObjectProducer;
+import vokabeltrainer.table.list.editor.expressionkindtable.ExpressionKindTableModel;
+import vokabeltrainer.table.list.editor.expressionkindtable.ExpressionKindTableRow;
 
 public enum ExpressionKind implements JSONObjectProducer
 {
@@ -234,5 +237,19 @@ public enum ExpressionKind implements JSONObjectProducer
    public void toggleSelected()
    {
       selected = !selected;
+   }
+   
+   public static ExpressionKindTableModel getModel()
+   {
+      Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
+      for(ExpressionKind kind : ExpressionKind.values())
+      {
+         Vector<ExpressionKindTableRow> row = new Vector<>();
+         row.add(new ExpressionKindTableRow(kind));
+         data.add(row);
+      }
+      Vector<String> columnNames = new Vector<>();
+      columnNames.add("eins");
+      return new ExpressionKindTableModel(data, columnNames);
    }
 }

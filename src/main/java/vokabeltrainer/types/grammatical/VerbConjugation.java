@@ -2,6 +2,8 @@ package vokabeltrainer.types.grammatical;
 
 public enum VerbConjugation implements GrammaticalEnum
 {
+   PLEASE_CHOOSE(
+         "bitte wählen"),
    VERBCONJUGATION_UNKNOWN(
          "unbekannt"),
    INFINITIVE(
@@ -23,7 +25,6 @@ public enum VerbConjugation implements GrammaticalEnum
 
    private String description;
    private boolean selected;
-   private int sortNumber = 50;
    private GrammaticalParentEnum parent = GrammaticalParentEnum.VERB_CONJUGATION;
 
    VerbConjugation(String description)
@@ -89,21 +90,19 @@ public enum VerbConjugation implements GrammaticalEnum
       selected = !selected;  
    }
    
+   @Override
    public boolean isSelected()
    {
       return selected;
    }
 
+   @Override
    public void setSelected(boolean selected)
    {
       this.selected = selected;
    }
 
-   public int getSortNumber()
-   {
-      return sortNumber;
-   }
-
+   @Override
    public GrammaticalParentEnum getParent()
    {
       return parent;

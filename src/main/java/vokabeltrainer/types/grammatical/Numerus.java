@@ -2,6 +2,8 @@ package vokabeltrainer.types.grammatical;
 
 public enum Numerus implements GrammaticalEnum
 {
+   PLEASE_CHOOSE(
+         "bitte wählen"),
    NUMERUS_UNKNOWN(
          "unbekannt"),
    SINGULAR(
@@ -15,7 +17,6 @@ public enum Numerus implements GrammaticalEnum
 
    private String description;
    private boolean selected;
-   private int sortNumber = 10;
    private GrammaticalParentEnum parent = GrammaticalParentEnum.NUMERUS;
 
    Numerus(String description)
@@ -72,21 +73,19 @@ public enum Numerus implements GrammaticalEnum
       selected = !selected;  
    } 
    
+   @Override
    public boolean isSelected()
    {
       return selected;
    }
 
+   @Override
    public void setSelected(boolean selected)
    {
       this.selected = selected;
    }
 
-   public int getSortNumber()
-   {
-      return sortNumber;
-   }
-
+   @Override
    public GrammaticalParentEnum getParent()
    {
       return parent;

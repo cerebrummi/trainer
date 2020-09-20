@@ -24,18 +24,18 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
 
    public ExpressionKindTableCellRenderer()
    {
-      selected = new JLabel(new ImageIcon(ApplicationImages.getSelect()));
-      selected.setBackground(Settings.getVeryLightGold());
-      selected.setOpaque(true);
+      selected = new JLabel(new ImageIcon(ApplicationImages.getSelectDone()));
+      selected.setBackground(Settings.getTransparent());
+      selected.setOpaque(false);
       
       empty = new JLabel();
-      empty.setBackground(Settings.getVeryLightGold());
-      empty.setOpaque(true);
+      empty.setBackground(Settings.getTransparent());
+      empty.setOpaque(false);
 
       expressionKind = new JLabel();
-      expressionKind.setFont(Main.getHebrewFont(18F));
-      expressionKind.setBackground(Settings.getVeryLightGold());
-      expressionKind.setOpaque(true);
+      expressionKind.setFont(Main.getGermanFont(12F));
+      expressionKind.setBackground(Settings.getTransparent());
+      expressionKind.setOpaque(false);
    }
 
    @Override

@@ -1,7 +1,11 @@
 package vokabeltrainer.types.grammatical;
 
-public enum Binjan implements GrammaticalEnum
+public enum Binjan
+      implements
+      GrammaticalEnum
 {
+   PLEASE_CHOOSE(
+         "bitte wählen"),
    BINJAN_UNKNOWN(
          "unbekannt"),
    PAAL(
@@ -27,7 +31,6 @@ public enum Binjan implements GrammaticalEnum
 
    private String description;
    private boolean selected;
-   private int sortNumber = 40;
    private GrammaticalParentEnum parent = GrammaticalParentEnum.BINJAN;
 
    Binjan(String description)
@@ -66,7 +69,7 @@ public enum Binjan implements GrammaticalEnum
    @Override
    public Binjan fromEnumName(String name)
    {
-      return Binjan.valueOf(name);  
+      return Binjan.valueOf(name);
    }
 
    @Override
@@ -94,24 +97,22 @@ public enum Binjan implements GrammaticalEnum
    @Override
    public void toggleSelected()
    {
-      selected = !selected;  
+      selected = !selected;
    }
 
+   @Override
    public boolean isSelected()
    {
       return selected;
    }
 
+   @Override
    public void setSelected(boolean selected)
    {
       this.selected = selected;
    }
 
-   public int getSortNumber()
-   {
-      return sortNumber;
-   }
-
+   @Override
    public GrammaticalParentEnum getParent()
    {
       return parent;
