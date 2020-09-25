@@ -1,4 +1,4 @@
-package vokabeltrainer.table.list.editor;
+ package vokabeltrainer.table.list.editor;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -15,7 +15,6 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -323,47 +322,48 @@ public class ExpressionEditorView extends JDialog
       binjanBox = new WideComboBox<>(Binjan.values());
       binjanBox.setFont(Main.getGermanFont(14F));
       binjanBox.setOpaque(false);
-      binjanBox.setBorder(BorderFactory.createTitledBorder("Binjan"));
+      binjanBox.setBorder(new TitledBorder("Binjan"));
       binjanBox.setBackground(Color.WHITE);
+      binjanBox.setEditable(true);
 
       genderBox = new WideComboBox<>(Gender.values());
       genderBox.setFont(Main.getGermanFont(14F));
       genderBox.setOpaque(false);
       genderBox.setBorder(BorderFactory.createTitledBorder("Geschlecht"));
-      genderBox.setBackground(Color.WHITE);
+      genderBox.setEditable(true);
 
       grammaticalPersonBox = new WideComboBox<>(GrammaticalPerson.values());
       grammaticalPersonBox.setFont(Main.getGermanFont(14F));
       grammaticalPersonBox.setOpaque(false);
       grammaticalPersonBox
             .setBorder(BorderFactory.createTitledBorder("Grammatische Person"));
-      grammaticalPersonBox.setBackground(Color.WHITE);
+      grammaticalPersonBox.setEditable(true);
 
       numerusBox = new WideComboBox<>(Numerus.values());
       numerusBox.setFont(Main.getGermanFont(14F));
       numerusBox.setOpaque(false);
       numerusBox.setBorder(BorderFactory.createTitledBorder("Numerus"));
-      numerusBox.setBackground(Color.WHITE);
+      numerusBox.setEditable(true);
 
       verbConjugationBox = new WideComboBox<>(VerbConjugation.values());
       verbConjugationBox.setFont(Main.getGermanFont(14F));
       verbConjugationBox.setOpaque(false);
       verbConjugationBox
             .setBorder(BorderFactory.createTitledBorder("Verb Konjugation"));
-      verbConjugationBox.setBackground(Color.WHITE);
+      verbConjugationBox.setEditable(true);
 
       verbStrengthBox = new WideComboBox<>(VerbStrength.values());
       verbStrengthBox.setFont(Main.getGermanFont(14F));
       verbStrengthBox.setOpaque(false);
       verbStrengthBox
             .setBorder(BorderFactory.createTitledBorder("Verb Stärke"));
-      verbStrengthBox.setBackground(Color.WHITE);
+      verbStrengthBox.setEditable(true);
 
       verbTypeBox = new WideComboBox<>(VerbType.values());
       verbTypeBox.setFont(Main.getGermanFont(14F));
       verbTypeBox.setOpaque(false);
       verbTypeBox.setBorder(BorderFactory.createTitledBorder("Verb Typ"));
-      verbTypeBox.setBackground(Color.WHITE);
+      verbTypeBox.setEditable(true);
 
       keyboard = new KeyboardHebrew(hebrew, components, 70, true);
    }
@@ -589,6 +589,43 @@ public class ExpressionEditorView extends JDialog
       cancelButton.addActionListener(event -> {
          save = false;
          this.dispose();
+      });
+
+      binjanBox.addActionListener(event -> {
+         binjanBox.setSelectedIndex(binjanBox.getSelectedIndex() == -1 ? 0
+               : binjanBox.getSelectedIndex());
+      });
+
+      genderBox.addActionListener(event -> {
+         genderBox.setSelectedIndex(genderBox.getSelectedIndex() == -1 ? 0
+               : genderBox.getSelectedIndex());
+      });
+      grammaticalPersonBox.addActionListener(event -> {
+         grammaticalPersonBox.setSelectedIndex(
+               grammaticalPersonBox.getSelectedIndex() == -1 ? 0
+                     : grammaticalPersonBox.getSelectedIndex());
+      });
+
+      numerusBox.addActionListener(event -> {
+         numerusBox.setSelectedIndex(numerusBox.getSelectedIndex() == -1 ? 0
+               : numerusBox.getSelectedIndex());
+      });
+
+      verbConjugationBox.addActionListener(event -> {
+         verbConjugationBox
+               .setSelectedIndex(verbConjugationBox.getSelectedIndex() == -1 ? 0
+                     : verbConjugationBox.getSelectedIndex());
+      });
+
+      verbStrengthBox.addActionListener(event -> {
+         verbStrengthBox
+               .setSelectedIndex(verbStrengthBox.getSelectedIndex() == -1 ? 0
+                     : verbStrengthBox.getSelectedIndex());
+      });
+
+      verbTypeBox.addActionListener(event -> {
+         verbTypeBox.setSelectedIndex(verbTypeBox.getSelectedIndex() == -1 ? 0
+               : verbTypeBox.getSelectedIndex());
       });
 
    }
