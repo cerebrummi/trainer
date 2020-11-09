@@ -47,6 +47,15 @@ public class Images
 
       ApplicationImages.setCopy(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/copy.png")));
+      
+      ApplicationImages.setCopy2(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/copy2.png")));
+      
+      ApplicationImages.setCut(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/cut.png")));
+      
+      ApplicationImages.setPaste(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/paste.png")));
 
       ApplicationImages.setDeleteWord(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/delete.png")));

@@ -15,6 +15,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -29,11 +30,11 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.KeyboardHebrew;
 import vokabeltrainer.Settings;
-import vokabeltrainer.WideComboBox;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
@@ -91,31 +92,31 @@ public class ExpressionEditorView extends JDialog
    private String searchwordJListGermanTitle = "Deutsche Suchwörter";
    private String searchwordsJListHebrewTitle = "Hebräische Suchwörter";
    private String chapterTitle = "Lektion";
-   private WideComboBox<String> chapter;
+   private JComboBox<String> chapter;
    private JTextPane extraInfo;
    private JScrollPane extraInfoScroller;
-   private JButton extraInfoPasteButton;
-   private JButton extraInfoCutButton;
-   private JButton extraInfoCopyButton;
+   private JButton pasteButton;
+   private JButton cutButton;
+   private JButton copyButton;
 
    private ExpressionKindTable expressionKindTable;
 
    @SuppressWarnings("unused")
    private ExpressionEditorControllerConnector connector;
 
-   private WideComboBox<Binjan> binjanBox;
+   private JPanel binjanBoxPanel;
 
-   private WideComboBox<Gender> genderBox;
+   private JPanel genderBoxPanel;
 
-   private WideComboBox<GrammaticalPerson> grammaticalPersonBox;
+   private JPanel grammaticalPersonBoxPanel;
 
-   private WideComboBox<Numerus> numerusBox;
+   private JPanel numerusBoxPanel;
 
-   private WideComboBox<VerbConjugation> verbConjugationBox;
+   private JPanel verbConjugationBoxPanel;
 
-   private WideComboBox<VerbStrength> verbStrengthBox;
+   private JPanel verbStrengthBoxPanel;
 
-   private WideComboBox<VerbType> verbTypeBox;
+   private JPanel verbTypeBoxPanel;
 
    public ExpressionEditorView(ExpressionEditorControllerConnector connector)
    {
@@ -280,7 +281,7 @@ public class ExpressionEditorView extends JDialog
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
-      chapter = new WideComboBox<String>();
+      chapter = new JComboBox<String>();
       chapter.setEditable(true);
       chapter.setMaximumRowCount(20);
       chapter.setBorder(new TitledBorder(this.chapterTitle));
@@ -306,64 +307,102 @@ public class ExpressionEditorView extends JDialog
       extraInfoScroller.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 300));
 
-      extraInfoPasteButton = new JButton(new DefaultEditorKit.PasteAction());
-      extraInfoPasteButton.setIcon(new ImageIcon());
-      extraInfoPasteButton.setText("paste");
-      extraInfoCutButton = new JButton(new DefaultEditorKit.CutAction());
-      extraInfoCutButton.setIcon(new ImageIcon());
-      extraInfoCutButton.setText("cut");
-      extraInfoCopyButton = new JButton(new DefaultEditorKit.CopyAction());
-      extraInfoCopyButton.setIcon(new ImageIcon());
-      extraInfoCopyButton.setText("copy");
+      pasteButton = new JButton(new DefaultEditorKit.PasteAction());
+      pasteButton.setIcon(new ImageIcon(ApplicationImages.getPaste()));
+      pasteButton.setText("");
+      cutButton = new JButton(new DefaultEditorKit.CutAction());
+      cutButton.setIcon(new ImageIcon(ApplicationImages.getCut()));
+      cutButton.setText("");
+      copyButton = new JButton(new DefaultEditorKit.CopyAction());
+      copyButton.setIcon(new ImageIcon(ApplicationImages.getCopy2()));
+      copyButton.setText("");
 
       expressionKindTable = new ExpressionKindTable(ExpressionKind.getModel(),
             WIDTH_INFO_PANEL);
 
-      binjanBox = new WideComboBox<>(Binjan.values());
+      JComboBox<Binjan> binjanBox = new JComboBox<>(Binjan.values());
       binjanBox.setFont(Main.getGermanFont(14F));
-      binjanBox.setOpaque(false);
-      binjanBox.setBorder(new TitledBorder("Binjan"));
-      binjanBox.setBackground(Color.WHITE);
-      binjanBox.setEditable(true);
+      binjanBox.setEditable(false);
+      binjanBox.setSize(WIDTH_INFO_PANEL, 30);
+      binjanBoxPanel = new JPanel();
+      TotemLayout binjanLayout = new TotemLayout(binjanBoxPanel);
+      binjanBoxPanel.setLayout(binjanLayout);
+      binjanBoxPanel.add(binjanBox);
+      binjanBoxPanel.setOpaque(false);
+      binjanBoxPanel.setBackground(Settings.getTransparent());
+      binjanBoxPanel.setBorder(new TitledBorder("Binjan"));
 
-      genderBox = new WideComboBox<>(Gender.values());
+      JComboBox<Gender>genderBox = new JComboBox<>(Gender.values());
       genderBox.setFont(Main.getGermanFont(14F));
-      genderBox.setOpaque(false);
-      genderBox.setBorder(BorderFactory.createTitledBorder("Geschlecht"));
-      genderBox.setEditable(true);
+      genderBox.setEditable(false);
+      genderBox.setSize(WIDTH_INFO_PANEL, 30);
+      genderBoxPanel = new JPanel();
+      TotemLayout genderLayout = new TotemLayout(genderBoxPanel);
+      genderBoxPanel.setLayout(genderLayout);
+      genderBoxPanel.add(genderBox);
+      genderBoxPanel.setOpaque(false);
+      genderBoxPanel.setBackground(Settings.getTransparent());
+      genderBoxPanel.setBorder(BorderFactory.createTitledBorder("Geschlecht"));
 
-      grammaticalPersonBox = new WideComboBox<>(GrammaticalPerson.values());
+      JComboBox<GrammaticalPerson> grammaticalPersonBox = new JComboBox<>(GrammaticalPerson.values());
       grammaticalPersonBox.setFont(Main.getGermanFont(14F));
-      grammaticalPersonBox.setOpaque(false);
-      grammaticalPersonBox
-            .setBorder(BorderFactory.createTitledBorder("Grammatische Person"));
-      grammaticalPersonBox.setEditable(true);
+      grammaticalPersonBox.setEditable(false);
+      grammaticalPersonBox.setSize(WIDTH_INFO_PANEL, 30);
+      grammaticalPersonBoxPanel = new JPanel();
+      TotemLayout grammaticalPersonLayout = new TotemLayout(grammaticalPersonBoxPanel);
+      grammaticalPersonBoxPanel.setLayout(grammaticalPersonLayout);
+      grammaticalPersonBoxPanel.add(grammaticalPersonBox);
+      grammaticalPersonBoxPanel.setOpaque(false);
+      grammaticalPersonBoxPanel.setBackground(Settings.getTransparent());
+      grammaticalPersonBoxPanel.setBorder(BorderFactory.createTitledBorder("Grammatische Person"));
 
-      numerusBox = new WideComboBox<>(Numerus.values());
+      JComboBox<Numerus> numerusBox = new JComboBox<>(Numerus.values());
       numerusBox.setFont(Main.getGermanFont(14F));
-      numerusBox.setOpaque(false);
-      numerusBox.setBorder(BorderFactory.createTitledBorder("Numerus"));
-      numerusBox.setEditable(true);
+      numerusBox.setEditable(false);
+      numerusBox.setSize(WIDTH_INFO_PANEL, 30);
+      numerusBoxPanel = new JPanel();
+      TotemLayout numerusLayout = new TotemLayout(numerusBoxPanel);
+      numerusBoxPanel.setLayout(numerusLayout);
+      numerusBoxPanel.add(numerusBox);
+      numerusBoxPanel.setOpaque(false);
+      numerusBoxPanel.setBackground(Settings.getTransparent());
+      numerusBoxPanel.setBorder(BorderFactory.createTitledBorder("Numerus"));
 
-      verbConjugationBox = new WideComboBox<>(VerbConjugation.values());
+      JComboBox<VerbConjugation> verbConjugationBox = new JComboBox<>(VerbConjugation.values());
       verbConjugationBox.setFont(Main.getGermanFont(14F));
-      verbConjugationBox.setOpaque(false);
-      verbConjugationBox
-            .setBorder(BorderFactory.createTitledBorder("Verb Konjugation"));
-      verbConjugationBox.setEditable(true);
+      verbConjugationBox.setEditable(false);
+      verbConjugationBox.setSize(WIDTH_INFO_PANEL, 30);
+      verbConjugationBoxPanel = new JPanel();
+      TotemLayout verbConjugationLayout = new TotemLayout(verbConjugationBoxPanel);
+      verbConjugationBoxPanel.setLayout(verbConjugationLayout);
+      verbConjugationBoxPanel.add(verbConjugationBox);
+      verbConjugationBoxPanel.setOpaque(false);
+      verbConjugationBoxPanel.setBackground(Settings.getTransparent());
+      verbConjugationBoxPanel.setBorder(BorderFactory.createTitledBorder("VerbConjugation"));
 
-      verbStrengthBox = new WideComboBox<>(VerbStrength.values());
+      JComboBox<VerbStrength> verbStrengthBox = new JComboBox<>(VerbStrength.values());
       verbStrengthBox.setFont(Main.getGermanFont(14F));
-      verbStrengthBox.setOpaque(false);
-      verbStrengthBox
-            .setBorder(BorderFactory.createTitledBorder("Verb Stärke"));
-      verbStrengthBox.setEditable(true);
+      verbStrengthBox.setEditable(false);
+      verbStrengthBox.setSize(WIDTH_INFO_PANEL, 30);
+      verbStrengthBoxPanel = new JPanel();
+      TotemLayout verbStrengthLayout = new TotemLayout(verbStrengthBoxPanel);
+      verbStrengthBoxPanel.setLayout(verbStrengthLayout);
+      verbStrengthBoxPanel.add(verbStrengthBox);
+      verbStrengthBoxPanel.setOpaque(false);
+      verbStrengthBoxPanel.setBackground(Settings.getTransparent());
+      verbStrengthBoxPanel.setBorder(BorderFactory.createTitledBorder("VerbStärke"));
 
-      verbTypeBox = new WideComboBox<>(VerbType.values());
+      JComboBox<VerbType>verbTypeBox = new JComboBox<>(VerbType.values());
       verbTypeBox.setFont(Main.getGermanFont(14F));
-      verbTypeBox.setOpaque(false);
-      verbTypeBox.setBorder(BorderFactory.createTitledBorder("Verb Typ"));
-      verbTypeBox.setEditable(true);
+      verbTypeBox.setEditable(false);
+      verbTypeBox.setSize(WIDTH_INFO_PANEL, 30);
+      verbTypeBoxPanel = new JPanel();
+      TotemLayout verbTypeBoxLayout = new TotemLayout(verbTypeBoxPanel);
+      verbTypeBoxPanel.setLayout(verbTypeBoxLayout);
+      verbTypeBoxPanel.add(verbTypeBox);
+      verbTypeBoxPanel.setOpaque(false);
+      verbTypeBoxPanel.setBackground(Settings.getTransparent());
+      verbTypeBoxPanel.setBorder(BorderFactory.createTitledBorder("Verb Typ"));
 
       keyboard = new KeyboardHebrew(hebrew, components, 70, true);
    }
@@ -437,10 +476,21 @@ public class ExpressionEditorView extends JDialog
       scrollPane.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
       scrollPane.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(Settings.getLightGrayGold()),
-            "Wortart"));
+            "Wortarten"));
 
+      
+      JPanel horizontal = new JPanel();
+      horizontal.setOpaque(false);
+      horizontal.setBackground(Settings.getTransparent());
+      horizontal.setLayout(new TrainLayout(horizontal, 15));
+
+      horizontal.add(copyButton);
+      horizontal.add(cutButton);
+      horizontal.add(pasteButton);
+      
       vertical.add(scrollPane);
       vertical.add(extraInfoScroller);
+      vertical.add(horizontal);
 
       layout.add(vertical);
    }
@@ -455,13 +505,13 @@ public class ExpressionEditorView extends JDialog
       JPanel definitionPanel = new JPanel();
       TotemLayout definitionLayout = new TotemLayout(definitionPanel, 5);
       definitionPanel.setLayout(definitionLayout);
-      definitionPanel.add(this.genderBox);
-      definitionPanel.add(this.numerusBox);
-      definitionPanel.add(this.grammaticalPersonBox);
-      definitionPanel.add(this.binjanBox);
-      definitionPanel.add(this.verbConjugationBox);
-      definitionPanel.add(this.verbStrengthBox);
-      definitionPanel.add(this.verbTypeBox);
+      definitionPanel.add(this.genderBoxPanel);
+      definitionPanel.add(this.numerusBoxPanel);
+      definitionPanel.add(this.grammaticalPersonBoxPanel);
+      definitionPanel.add(this.binjanBoxPanel);
+      definitionPanel.add(this.verbConjugationBoxPanel);
+      definitionPanel.add(this.verbStrengthBoxPanel);
+      definitionPanel.add(this.verbTypeBoxPanel);
       definitionPanel.setBorder(BorderFactory.createEmptyBorder());
       definitionPanel.setBackground(Settings.getTransparent());
       definitionPanel.setOpaque(false);
@@ -470,19 +520,9 @@ public class ExpressionEditorView extends JDialog
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 600));
       scrollPane2.setBorder(BorderFactory.createEmptyBorder());
-      scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
-
-      JPanel horizontal = new JPanel();
-      horizontal.setOpaque(false);
-      horizontal.setBackground(Settings.getTransparent());
-      horizontal.setLayout(new TrainLayout(horizontal, 15));
-
-      horizontal.add(extraInfoCopyButton);
-      horizontal.add(extraInfoCutButton);
-      horizontal.add(extraInfoPasteButton);
+      scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());    
 
       vertical.add(scrollPane2);
-      vertical.add(horizontal);
 
       layout.add(vertical);
    }
@@ -589,43 +629,6 @@ public class ExpressionEditorView extends JDialog
       cancelButton.addActionListener(event -> {
          save = false;
          this.dispose();
-      });
-
-      binjanBox.addActionListener(event -> {
-         binjanBox.setSelectedIndex(binjanBox.getSelectedIndex() == -1 ? 0
-               : binjanBox.getSelectedIndex());
-      });
-
-      genderBox.addActionListener(event -> {
-         genderBox.setSelectedIndex(genderBox.getSelectedIndex() == -1 ? 0
-               : genderBox.getSelectedIndex());
-      });
-      grammaticalPersonBox.addActionListener(event -> {
-         grammaticalPersonBox.setSelectedIndex(
-               grammaticalPersonBox.getSelectedIndex() == -1 ? 0
-                     : grammaticalPersonBox.getSelectedIndex());
-      });
-
-      numerusBox.addActionListener(event -> {
-         numerusBox.setSelectedIndex(numerusBox.getSelectedIndex() == -1 ? 0
-               : numerusBox.getSelectedIndex());
-      });
-
-      verbConjugationBox.addActionListener(event -> {
-         verbConjugationBox
-               .setSelectedIndex(verbConjugationBox.getSelectedIndex() == -1 ? 0
-                     : verbConjugationBox.getSelectedIndex());
-      });
-
-      verbStrengthBox.addActionListener(event -> {
-         verbStrengthBox
-               .setSelectedIndex(verbStrengthBox.getSelectedIndex() == -1 ? 0
-                     : verbStrengthBox.getSelectedIndex());
-      });
-
-      verbTypeBox.addActionListener(event -> {
-         verbTypeBox.setSelectedIndex(verbTypeBox.getSelectedIndex() == -1 ? 0
-               : verbTypeBox.getSelectedIndex());
       });
 
    }

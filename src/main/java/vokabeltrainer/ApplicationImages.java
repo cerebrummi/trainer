@@ -19,7 +19,10 @@ public class ApplicationImages
    private static BufferedImage trashcan;
    private static BufferedImage shredder;
    private static BufferedImage copy;
+   private static BufferedImage copy2;
    private static BufferedImage clear;
+   private static BufferedImage cut;
+   private static BufferedImage paste;
    private static BufferedImage select;
    private static BufferedImage selectDone;
    private static BufferedImage newWord;
@@ -754,5 +757,47 @@ public class ApplicationImages
          exitWithMessage("kein Häckchen Icon");
       }
       ApplicationImages.selectDone = selectDone;
+   }
+
+   public static void setCopy2(BufferedImage copy2)
+   {
+      if(copy2 == null)
+      {
+         exitWithMessage("kein Kopieren Nr.2 Icon");
+      }
+      ApplicationImages.copy2 = copy2;
+   }
+
+   public static void setCut(BufferedImage cut)
+   {
+      if(cut == null)
+      {
+         exitWithMessage("kein Ausschneiden Icon");
+      }
+      ApplicationImages.cut = cut;
+   }
+
+   public static void setPaste(BufferedImage paste)
+   {
+      if(paste == null)
+      {
+         exitWithMessage("kein Einfügen Icon");
+      }
+      ApplicationImages.paste = paste;
+   }
+
+   public static BufferedImage getCopy2()
+   {
+      return copy2;
+   }
+
+   public static BufferedImage getCut()
+   {
+      return cut;
+   }
+
+   public static BufferedImage getPaste()
+   {
+      return paste;
    }
 }
