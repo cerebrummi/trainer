@@ -8,7 +8,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import vokabeltrainer.Settings;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class ExpressionKindTable extends JTable
@@ -53,4 +52,10 @@ public class ExpressionKindTable extends JTable
       });
    }
 
+   @Override
+   public ExpressionKindTableModel getModel()
+   {
+      return (ExpressionKindTableModel) super.getModel();
+   }
+   
 }

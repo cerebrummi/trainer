@@ -120,6 +120,7 @@ public class Definition implements JSONObjectProducer
                entry.getValue().name());
       }
       builder.add("expressionKind", expressionKind.name());
+      
       JSONObject jsonObj = new JSONObject();
       jsonObj.addJSON(builder.build());
       return jsonObj;

@@ -6,14 +6,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.Vector;
 
-import vokabeltrainer.json.JSONObject;
-import vokabeltrainer.json.JSONObjectProducer;
 import vokabeltrainer.table.list.editor.expressionkindtable.ExpressionKindTableModel;
 import vokabeltrainer.table.list.editor.expressionkindtable.ExpressionKindTableRow;
 
-public enum ExpressionKind implements JSONObjectProducer
+public enum ExpressionKind
 {
    EXPRESSIONKIND_UNKNOWN(
          "unbekannt",
@@ -217,13 +216,6 @@ public enum ExpressionKind implements JSONObjectProducer
       return ExpressionKind.values().length;
    }
 
-   @Override
-   public JSONObject getJSONObject()
-   {
-      // TODO JSONObject
-      return null;
-   }
-
    public boolean isSelected()
    {
       return selected;
@@ -244,6 +236,24 @@ public enum ExpressionKind implements JSONObjectProducer
       Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
       for(ExpressionKind kind : ExpressionKind.values())
       {
+         Vector<ExpressionKindTableRow> row = new Vector<>();
+         row.add(new ExpressionKindTableRow(kind));
+         data.add(row);
+      }
+      Vector<String> columnNames = new Vector<>();
+      columnNames.add("eins");
+      return new ExpressionKindTableModel(data, columnNames);
+   }
+   
+   public static ExpressionKindTableModel getModel(Set<ExpressionKind> expressionKinds)
+   {   
+      Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
+      for(ExpressionKind kind : ExpressionKind.values())
+      {
+         if(expressionKinds.contains(kind))
+         {
+            kind.setSelected(true);
+         }
          Vector<ExpressionKindTableRow> row = new Vector<>();
          row.add(new ExpressionKindTableRow(kind));
          data.add(row);

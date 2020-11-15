@@ -27,7 +27,6 @@ public class Expression
    private boolean doNotChange;
    private Database origin;
    private Definitions definitions;
-   private LetterForSaving oldLetterForSaving;
    private LetterForSaving letterForSaving;
 
    public Expression(boolean preset, boolean doNotChange)
@@ -207,16 +206,6 @@ public class Expression
    public void setLetterForSaving(LetterForSaving letterForSaving)
    {
       this.letterForSaving = letterForSaving;
-   }
-
-   public LetterForSaving getOldLetterForSaving()
-   {
-      return oldLetterForSaving;
-   }
-
-   public void setOldLetterForSaving(LetterForSaving oldLetterForSaving)
-   {
-      this.oldLetterForSaving = oldLetterForSaving;
    }
 
    public String[] toGermanArrayForTableEntry()
