@@ -7,8 +7,6 @@ import java.util.StringJoiner;
 import java.util.UUID;
 
 import vokabeltrainer.common.LetterForSaving;
-import vokabeltrainer.json.JSON;
-import vokabeltrainer.json.JSONObject;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
@@ -278,23 +276,9 @@ public class Expression
 
    public String getExpressionPrintLine()
    {
-      JSONObject jsonObj = new JSONObject();
-      jsonObj.addJSON(
-            JSON.createObjectBuilder()
-            .add("uuid", uuid.toString())
-            .add("chapter", chapter.getName())
-            .add("german", german)
-            .add("hebrewInLatin",
-                  hebrewInLatin
-                 )
-            .add(hebrew, hebrew)
-            .add("definitions", definitions.getJSONObject().getJSON()
-                  
-                )
-            .add("searchwordsGerman", JSON.createArrayBuilder("searchwordGerman", searchwordsGerman).build())
-            .add("searchwordsHebrew", JSON.createArrayBuilder("searchwordHebrew", searchwordsHebrew).build())
-            .build());
-      return jsonObj.getJSON();
+      // TODO print line
+      
+      return "";
    }
 
    public String getCopyLines(Language language)

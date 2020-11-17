@@ -34,8 +34,6 @@ import javax.swing.JOptionPane;
 import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
-import vokabeltrainer.json.JSONArray;
-import vokabeltrainer.json.JSONObject;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
@@ -51,10 +49,6 @@ import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.TrainingStatus;
-import vokabeltrainer.types.grammatical.GrammaticalEnum;
-import vokabeltrainer.types.grammatical.GrammaticalEnumHelper;
-import vokabeltrainer.types.grammatical.expressionkind.Definition;
-import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 // Maps und Sets werden nie herausgegeben!
@@ -480,46 +474,9 @@ public final class Data
             }
             try
             {
-               JSONObject obj = new JSONObject(row.strip());
+
                Expression expression = new Expression(false, doNotChange);
-               expression.setUuid(UUID.fromString(obj.getAttribute("uuid")));
-               expression.setChapter(
-                     new Chapter(obj.getAttribute("chapter"), origin));
-               expression.setGerman(obj.getAttribute("german"));
-               expression.setHebrewInLatin(obj.getAttribute("hebrewInLatin"));
-               expression.setHebrew(obj.getAttribute("hebrew"));
-
-               JSONObject objDefinitions = new JSONObject(
-                     obj.getAttribute("definitions"));
-               List<String> definitionJSONList = new ArrayList<>();
-               new JSONArray().read(objDefinitions.getAttribute("definitions"),
-                     definitionJSONList);
-               Map<ExpressionKind, Definition> definitionsMap = new HashMap<>();
-               for (String definitionJson : definitionJSONList)
-               {
-                  JSONObject objDefinition = new JSONObject(definitionJson);
-                  Definition definition = new Definition(ExpressionKind
-                        .valueOf(objDefinition.getAttribute("expressionKind")));
-                  for (Class<? extends GrammaticalEnum> clazz : GrammaticalEnumHelper
-                        .getEnums())
-                  {
-                     definition.setGrammaticalEnum(clazz,
-                           objDefinition.getAttribute(clazz.getSimpleName()));
-                  }
-                  definitionsMap.put(definition.getExpressionKind(),
-                        definition);
-               }
-               expression.setDefinitions(new Definitions(definitionsMap));
-
-               List<String> searchwordsGerman = new ArrayList<>();
-               new JSONArray().read(obj.getAttribute("searchwordsGerman"),
-                     searchwordsGerman);
-               expression.setSearchwordsGerman(searchwordsGerman);
-
-               List<String> searchwordsHebrew = new ArrayList<>();
-               new JSONArray().read(obj.getAttribute("searchwordsHebrew"),
-                     searchwordsHebrew);
-               expression.setSearchwordsHebrew(searchwordsHebrew);
+               // TODO read csv file row
 
                if (!DELETED_TXT.equals(filename))
                {

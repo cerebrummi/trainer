@@ -17,7 +17,6 @@ import javax.swing.ProgressMonitor;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public final class SaveExpressions
 {
@@ -94,6 +93,7 @@ public final class SaveExpressions
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);
       StringJoiner joiner = new StringJoiner("\n");
+      // TODO add csv header line
       for (Expression expression : Data.getDeletedMapValues())
       {
          joiner.add(expression.getExpressionPrintLine());
@@ -111,6 +111,7 @@ public final class SaveExpressions
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);
       StringJoiner joiner = new StringJoiner("\n");
+      // TODO add csv header line
       for (Expression expression : getValues(letter))
       {
          joiner.add(expression.getExpressionPrintLine());

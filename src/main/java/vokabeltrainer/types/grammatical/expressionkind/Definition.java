@@ -10,13 +10,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringJoiner;
 
-import vokabeltrainer.json.JSON;
-import vokabeltrainer.json.JSONObject;
-import vokabeltrainer.json.JSONObjectBuilder;
-import vokabeltrainer.json.JSONObjectProducer;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
 
-public class Definition implements JSONObjectProducer
+public class Definition
 {
    private ExpressionKind expressionKind;
    protected Map<Class<? extends GrammaticalEnum>, GrammaticalEnum> grammaticalEnumMap = new HashMap<>();
@@ -108,23 +104,5 @@ public class Definition implements JSONObjectProducer
       }
       return joiner.toString();
    }
-
-   @Override
-   public JSONObject getJSONObject()
-   {
-      JSONObjectBuilder builder = JSON.createObjectBuilder();
-      for (Entry<Class<? extends GrammaticalEnum>, GrammaticalEnum> entry : grammaticalEnumMap
-            .entrySet())
-      {
-         builder.add(entry.getKey().getSimpleName(),
-               entry.getValue().name());
-      }
-      builder.add("expressionKind", expressionKind.name());
-      
-      JSONObject jsonObj = new JSONObject();
-      jsonObj.addJSON(builder.build());
-      return jsonObj;
-   }
-
 
 }

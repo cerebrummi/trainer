@@ -6,16 +6,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 
-import vokabeltrainer.json.JSON;
-import vokabeltrainer.json.JSONObject;
-import vokabeltrainer.json.JSONObjectBuilder;
-import vokabeltrainer.json.JSONObjectProducer;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
 import vokabeltrainer.types.grammatical.Numerus;
 
-public class Definitions implements JSONObjectProducer
+public class Definitions
 {
    private Set<ExpressionKind> expressionKinds = new HashSet<>();
    private Map<ExpressionKind, Definition> definitions = new HashMap<>();
@@ -122,17 +118,6 @@ public class Definitions implements JSONObjectProducer
                definitions.get(kind).getGrammaticalEnum(Gender.class).toInfo());
       }
       return joiner.toString();
-   }
-
-   public JSONObject getJSONObject()
-   {
-      JSONObjectBuilder builder = JSON.createObjectBuilder();
-      builder.add("definitions", JSON
-            .createArrayBuilder("definition", definitions.values()).build());
-
-      JSONObject jsonObj = new JSONObject();
-      jsonObj.addJSON(builder.build());
-      return jsonObj;
    }
 
    public String addGrammaticalEnumsForCopy(String tag)
