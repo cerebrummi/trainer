@@ -20,7 +20,7 @@ import vokabeltrainer.types.Expression;
 
 public final class SaveExpressions
 {
-   private static final String HEADER_CSV = "UUID\tGerman\tHebrew\tHebrew in Latin\tchapter\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tsearchwords German\tsearchwords Hebrew";
+   private static final String HEADER_CSV = "UUID\tchapter\tGerman\tHebrew\tHebrew in Latin\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tsearchwords German\tsearchwords Hebrew";
    private int counter;
 
    public boolean save()

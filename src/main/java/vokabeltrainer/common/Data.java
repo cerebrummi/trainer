@@ -479,6 +479,7 @@ public final class Data
          {
             if (counter == 0) // headerrow
             {
+               counter++;
                continue;
             }
             if (row.strip().isEmpty())
@@ -496,13 +497,13 @@ public final class Data
 
                expression.setUuid(UUID.fromString(entries[index]));
                index++;
+               expression.setChapter(new Chapter(entries[index], origin));
+               index++;
                expression.setGerman(entries[index]);
                index++;
                expression.setHebrew(entries[index]);
                index++;
                expression.setHebrewInLatin(entries[index]);
-               index++;
-               expression.setChapter(new Chapter(entries[index], origin));
                index++;
                
                Definitions definitions = new Definitions();
@@ -562,8 +563,8 @@ public final class Data
             catch (Exception e1)
             {
                // nothing broken expressions are not read
+               e1.printStackTrace();
             }
-            counter++;
          }
          return map;
       }

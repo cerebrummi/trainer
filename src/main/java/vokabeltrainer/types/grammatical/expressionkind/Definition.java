@@ -114,7 +114,7 @@ public class Definition
 
    public String getGrammaticalEnumsForSaving()
    {
-      StringJoiner joiner = new StringJoiner(",");
+      StringJoiner joiner = new StringJoiner("\t");
       joiner.add(grammaticalEnumMap.get(Gender.class).name());
       joiner.add(grammaticalEnumMap.get(Numerus.class).name());
       joiner.add(grammaticalEnumMap.get(GrammaticalPerson.class).name());
