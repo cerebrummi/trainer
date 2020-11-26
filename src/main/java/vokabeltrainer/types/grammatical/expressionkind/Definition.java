@@ -10,7 +10,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringJoiner;
 
+import vokabeltrainer.types.grammatical.Binjan;
+import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
+import vokabeltrainer.types.grammatical.GrammaticalPerson;
+import vokabeltrainer.types.grammatical.Numerus;
+import vokabeltrainer.types.grammatical.VerbConjugation;
+import vokabeltrainer.types.grammatical.VerbStrength;
+import vokabeltrainer.types.grammatical.VerbType;
 
 public class Definition
 {
@@ -102,6 +109,19 @@ public class Definition
             joiner.add(entry.getKey().getCanonicalName()+": "+entry.getValue().toInfo());
          }       
       }
+      return joiner.toString();
+   }
+
+   public String getGrammaticalEnumsForSaving()
+   {
+      StringJoiner joiner = new StringJoiner(",");
+      joiner.add(grammaticalEnumMap.get(Gender.class).name());
+      joiner.add(grammaticalEnumMap.get(Numerus.class).name());
+      joiner.add(grammaticalEnumMap.get(GrammaticalPerson.class).name());
+      joiner.add(grammaticalEnumMap.get(Binjan.class).name());
+      joiner.add(grammaticalEnumMap.get(VerbConjugation.class).name());
+      joiner.add(grammaticalEnumMap.get(VerbStrength.class).name());
+      joiner.add(grammaticalEnumMap.get(VerbType.class).name());
       return joiner.toString();
    }
 

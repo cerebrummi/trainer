@@ -274,11 +274,39 @@ public class Expression
       return definitions.getExpressionKindDescriptions();
    }
 
-   public String getExpressionPrintLine()
+   public String getExpressionPrintLineForSaving()
    {
-      // TODO print line
-      
-      return "";
+      StringJoiner joiner = new StringJoiner("\t");
+      joiner.add(uuid.toString());
+      joiner.add(chapter.getName());
+      joiner.add(german);
+      joiner.add(hebrew);
+      joiner.add(hebrewInLatin);
+      joiner.add(definitions.getExpressionKindsForSaving());
+      joiner.add(definitions.getGrammaticalEnumsForSaving());
+      joiner.add(getSearchWordsGermanForSaving());
+      joiner.add(getSearchWordsHebrewForSaving());
+      return joiner.toString();
+   }
+   
+   private String getSearchWordsGermanForSaving()
+   {
+      StringJoiner joiner = new StringJoiner(",");
+      for(String word : this.searchwordsGerman)
+      {
+         joiner.add(word);
+      }
+      return joiner.toString();
+   }
+   
+   private String getSearchWordsHebrewForSaving()
+   {
+      StringJoiner joiner = new StringJoiner(",");
+      for(String word : this.searchwordsHebrew)
+      {
+         joiner.add(word);
+      }
+      return joiner.toString();
    }
 
    public String getCopyLines(Language language)

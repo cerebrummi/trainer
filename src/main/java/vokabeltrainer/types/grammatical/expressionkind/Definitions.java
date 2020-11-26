@@ -98,6 +98,33 @@ public class Definitions
       return joiner.toString();
    }
 
+   public String getExpressionKindsForSaving()
+   {
+      StringJoiner joiner = new StringJoiner(",");
+      for (ExpressionKind kind : definitions.keySet())
+      {
+         joiner.add(kind.name());
+      }
+      return joiner.toString();
+   }
+
+   public String getGrammaticalEnumsForSaving()
+   {
+      int counter = 0;
+      Definition anyDefinition = new Definition(
+            ExpressionKind.EXPRESSIONKIND_UNKNOWN);
+      for (ExpressionKind kind : definitions.keySet())
+      {
+         if (counter > 0)
+         {
+            break;
+         }
+         anyDefinition = definitions.get(kind);
+         counter++;
+      }
+      return anyDefinition.getGrammaticalEnumsForSaving();
+   }
+
    public String getNumerusInfos()
    {
       StringJoiner joiner = new StringJoiner(", ");

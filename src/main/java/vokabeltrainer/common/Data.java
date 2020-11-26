@@ -49,6 +49,14 @@ import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.TrainingStatus;
+import vokabeltrainer.types.grammatical.Binjan;
+import vokabeltrainer.types.grammatical.Gender;
+import vokabeltrainer.types.grammatical.GrammaticalPerson;
+import vokabeltrainer.types.grammatical.Numerus;
+import vokabeltrainer.types.grammatical.VerbConjugation;
+import vokabeltrainer.types.grammatical.VerbStrength;
+import vokabeltrainer.types.grammatical.VerbType;
+import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 // Maps und Sets werden nie herausgegeben!
@@ -466,17 +474,75 @@ public final class Data
          ConcurrentMap<UUID, Expression> map = new ConcurrentHashMap<>(
                rows.length + 100);
          boolean doNotChange = Database.SELF != origin;
+         int counter = 0;
          for (String row : rows)
          {
+            if (counter == 0) // headerrow
+            {
+               continue;
+            }
             if (row.strip().isEmpty())
             {
                continue;
             }
+
             try
             {
 
                Expression expression = new Expression(false, doNotChange);
-               // TODO read csv file row
+               // read csv file row
+               int index = 0;
+               String[] entries = row.split("\t");
+
+               expression.setUuid(UUID.fromString(entries[index]));
+               index++;
+               expression.setGerman(entries[index]);
+               index++;
+               expression.setHebrew(entries[index]);
+               index++;
+               expression.setHebrewInLatin(entries[index]);
+               index++;
+               expression.setChapter(new Chapter(entries[index], origin));
+               index++;
+               
+               Definitions definitions = new Definitions();
+               List<ExpressionKind> kinds = new ArrayList<>(); 
+               String[] expressionKinds = entries[index].split(",");
+               for (String kind : expressionKinds)
+               {
+                  definitions.addExpressionKind(ExpressionKind.valueOf(kind));
+                  kinds.add(ExpressionKind.valueOf(kind));
+               }
+               index++;
+               Gender gender = Gender.valueOf(entries[index]);
+               index++;
+               Numerus numerus = Numerus.valueOf(entries[index]);
+               index++;
+               GrammaticalPerson person = GrammaticalPerson.valueOf(entries[index]);
+               index++;
+               Binjan binjan = Binjan.valueOf(entries[index]);
+               index++;
+               VerbConjugation conjugation = VerbConjugation.valueOf(entries[index]);
+               index++;
+               VerbStrength strength = VerbStrength.valueOf(entries[index]);
+               index++;
+               VerbType type = VerbType.valueOf(entries[index]);
+               index++;
+               for (ExpressionKind kind : kinds)
+               {
+                  definitions.setGrammaticalEnum(kind, gender);
+                  definitions.setGrammaticalEnum(kind, numerus);
+                  definitions.setGrammaticalEnum(kind, person);
+                  definitions.setGrammaticalEnum(kind, binjan);
+                  definitions.setGrammaticalEnum(kind, conjugation);
+                  definitions.setGrammaticalEnum(kind, strength);
+                  definitions.setGrammaticalEnum(kind, type);
+               }
+               expression.setDefinitions(definitions);
+               
+               expression.setSearchwordsGerman(entries[index].split(","));
+               index++;
+               expression.setSearchwordsHebrew(entries[index].split(","));
 
                if (!DELETED_TXT.equals(filename))
                {
@@ -493,11 +559,11 @@ public final class Data
                   chapterSet.add(expression.getChapter());
                }
             }
-            catch (Exception e2)
+            catch (Exception e1)
             {
-               e2.printStackTrace();
+               // nothing broken expressions are not read
             }
-
+            counter++;
          }
          return map;
       }
