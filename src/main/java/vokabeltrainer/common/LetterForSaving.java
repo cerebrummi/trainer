@@ -33,7 +33,8 @@ public enum LetterForSaving
    X,
    Y,
    Z,
-   OTHER;
+   OTHER,
+   DELETED;
    
    public static LetterForSaving getLetter(String word)
    {

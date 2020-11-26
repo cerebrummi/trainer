@@ -282,13 +282,13 @@ public final class Data
       private final ConcurrentMap<UUID, Expression> newMap = new ConcurrentHashMap<>(
             100);
       private final ConcurrentMap<UUID, Expression> deletedMap = readFile(
-            DELETED_TXT, Database.SELF);
+            DELETED_TXT, Database.SELF, LetterForSaving.DELETED);
 
       DataBase()
       {
          for (LetterForSaving letter : LetterForSaving.values())
          {
-            readFile(letter.name() + ".txt", Database.SELF);
+            readFile(letter.name() + ".csv", Database.SELF, letter);
          }
 
          for (Database database : Settings.getChosenDatabases())
@@ -296,7 +296,7 @@ public final class Data
             for (LetterForSaving letter : LetterForSaving.values())
             {
                readFile(database.getFolder() + File.separator + letter.name()
-                     + ".txt", database);
+                     + ".csv", database, letter);
             }
          }
 
@@ -420,7 +420,7 @@ public final class Data
       }
 
       private ConcurrentMap<UUID, Expression> readFile(String filename,
-            Database origin)
+            Database origin, LetterForSaving letter)
       {
          File file = null;
 
@@ -441,7 +441,7 @@ public final class Data
                      StandardCharsets.UTF_8);
                Reader reader = new BufferedReader(isr);)
          {
-            return readData(filename, reader, origin);
+            return readData(filename, reader, origin, letter);
          }
          catch (IOException e)
          {
@@ -452,7 +452,8 @@ public final class Data
       }
 
       private ConcurrentMap<UUID, Expression> readData(String filename,
-            Reader reader, Database origin) throws IOException
+            Reader reader, Database origin, LetterForSaving letter)
+            throws IOException
       {
          StringBuffer buffer = new StringBuffer();
          String input;
@@ -505,9 +506,9 @@ public final class Data
                index++;
                expression.setHebrewInLatin(entries[index]);
                index++;
-               
+
                Definitions definitions = new Definitions();
-               List<ExpressionKind> kinds = new ArrayList<>(); 
+               List<ExpressionKind> kinds = new ArrayList<>();
                String[] expressionKinds = entries[index].split(",");
                for (String kind : expressionKinds)
                {
@@ -519,16 +520,17 @@ public final class Data
                index++;
                Numerus numerus = Numerus.valueOf(entries[index]);
                index++;
-               GrammaticalPerson person = GrammaticalPerson.valueOf(entries[index]);
+               GrammaticalPerson person = GrammaticalPerson
+                     .valueOf(entries[index]);
                index++;
                Binjan binjan = Binjan.valueOf(entries[index]);
                index++;
-               VerbConjugation conjugation = VerbConjugation.valueOf(entries[index]);
+               VerbConjugation conjugation = VerbConjugation
+                     .valueOf(entries[index]);
                index++;
                VerbStrength strength = VerbStrength.valueOf(entries[index]);
                index++;
                VerbType type = VerbType.valueOf(entries[index]);
-               index++;
                for (ExpressionKind kind : kinds)
                {
                   definitions.setGrammaticalEnum(kind, gender);
@@ -540,10 +542,22 @@ public final class Data
                   definitions.setGrammaticalEnum(kind, type);
                }
                expression.setDefinitions(definitions);
-               
+               index++;
+               expression.setAdditionalInformation(entries[index]);
+               index++;
                expression.setSearchwordsGerman(entries[index].split(","));
                index++;
                expression.setSearchwordsHebrew(entries[index].split(","));
+
+               if (LetterForSaving.DELETED != letter)
+               {
+                  expression.setLetterForSaving(letter);
+               }
+               else
+               {
+                  expression.setLetterForSaving(
+                        LetterForSaving.getLetter(expression.getGerman()));
+               }
 
                if (!DELETED_TXT.equals(filename))
                {

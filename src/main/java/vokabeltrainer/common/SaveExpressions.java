@@ -20,7 +20,7 @@ import vokabeltrainer.types.Expression;
 
 public final class SaveExpressions
 {
-   private static final String HEADER_CSV = "UUID\tchapter\tGerman\tHebrew\tHebrew in Latin\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tsearchwords German\tsearchwords Hebrew";
+   private static final String HEADER_CSV = "UUID\tchapter\tGerman\tHebrew\tHebrew in Latin\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tzusätzliche Informationen\tsearchwords German\tsearchwords Hebrew";
    private int counter;
 
    public boolean save()
@@ -90,7 +90,7 @@ public final class SaveExpressions
    private void saveDeletedExpressions() throws IOException
    {
       File file = new File(Settings.getExpressionPathFolder() + File.separator
-            + "DELETED.txt");
+            + "DELETED.csv");
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);
@@ -108,7 +108,7 @@ public final class SaveExpressions
    private void save(LetterForSaving letter) throws IOException
    {
       File file = new File(Settings.getExpressionPathFolder() + File.separator
-            + letter.name() + ".txt");
+            + letter.name() + ".csv");
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);
@@ -136,6 +136,7 @@ public final class SaveExpressions
          }
          if (expression.getLetterForSaving().equals(letter))
          {
+            
             list.add(expression);
          }
       }

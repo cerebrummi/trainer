@@ -26,6 +26,7 @@ public class Expression
    private Database origin;
    private Definitions definitions;
    private LetterForSaving letterForSaving;
+   private String additionalInformation;
 
    public Expression(boolean preset, boolean doNotChange)
    {
@@ -206,6 +207,16 @@ public class Expression
       this.letterForSaving = letterForSaving;
    }
 
+   public String getAdditionalInformation()
+   {
+      return additionalInformation;
+   }
+
+   public void setAdditionalInformation(String additionalInformation)
+   {
+      this.additionalInformation = additionalInformation;
+   }
+
    public String[] toGermanArrayForTableEntry()
    {
       int index = 0;
@@ -284,6 +295,7 @@ public class Expression
       joiner.add(hebrewInLatin);
       joiner.add(definitions.getExpressionKindsForSaving());
       joiner.add(definitions.getGrammaticalEnumsForSaving());
+      joiner.add(additionalInformation);
       joiner.add(getSearchWordsGermanForSaving());
       joiner.add(getSearchWordsHebrewForSaving());
       return joiner.toString();

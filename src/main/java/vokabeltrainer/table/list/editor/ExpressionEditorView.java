@@ -706,7 +706,7 @@ public class ExpressionEditorView extends JDialog
       expression.setHebrew(cleanTextWithoutComma(hebrew.getText()));
 
       expression.setLetterForSaving(
-            LetterForSaving.getLetter(expression.getGerman()));
+            LetterForSaving.getLetter(cleanTextWithoutComma(expression.getGerman())));
 
       Definitions definitions = new Definitions();
       Vector<Vector<ExpressionKindTableRow>> vektorRows = expressionKindTable.getModel().getData();
@@ -751,16 +751,17 @@ public class ExpressionEditorView extends JDialog
       selfChapter
             .setName(cleanTextWithoutComma((String) chapter.getSelectedItem()));
       expression.setChapter(selfChapter);
+      expression.setAdditionalInformation(cleanTextWithoutComma(extraInfo.getText()));
    }
 
    private String cleanText(String text)
    {
-      return text.replaceAll("\t", "").replaceAll("\n", "").replaceAll(",", "");
+      return text.replaceAll("\t", "").replaceAll("\n", "").replaceAll(",", "").strip();
    }
 
    private String cleanTextWithoutComma(String text)
    {
-      return text.replaceAll("\t", "").replaceAll("\n", "");
+      return text.replaceAll("\t", "").replaceAll("\n", "").strip();
    }
 
    public void setExpression(Expression expression, boolean newExpression)
@@ -828,7 +829,10 @@ public class ExpressionEditorView extends JDialog
                definitions.getGrammaticalEnum(kind, VerbStrength.class));
          verbTypeBox.setSelectedItem(
                definitions.getGrammaticalEnum(kind, VerbType.class));
+         
+         extraInfo.setText(expression.getAdditionalInformation());
       }
+      
    }
 
    private DefaultComboBoxModel<String> getSearchwordsModelGerman()

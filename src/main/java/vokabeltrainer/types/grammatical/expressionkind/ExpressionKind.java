@@ -236,6 +236,7 @@ public enum ExpressionKind
       Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
       for(ExpressionKind kind : ExpressionKind.values())
       {
+         kind.setSelected(false);
          Vector<ExpressionKindTableRow> row = new Vector<>();
          row.add(new ExpressionKindTableRow(kind));
          data.add(row);
@@ -253,6 +254,10 @@ public enum ExpressionKind
          if(expressionKinds.contains(kind))
          {
             kind.setSelected(true);
+         }
+         else
+         {
+            kind.setSelected(false);
          }
          Vector<ExpressionKindTableRow> row = new Vector<>();
          row.add(new ExpressionKindTableRow(kind));
