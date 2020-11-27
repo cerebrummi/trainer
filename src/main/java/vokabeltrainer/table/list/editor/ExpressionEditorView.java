@@ -347,6 +347,7 @@ public class ExpressionEditorView extends JDialog
       binjanBox.setFont(Main.getGermanFont(14F));
       binjanBox.setEditable(false);
       binjanBox.setSize(WIDTH_INFO_PANEL, 30);
+      binjanBox.setMaximumRowCount(Binjan.values().length);
       binjanBoxPanel = new JPanel();
       TotemLayout binjanLayout = new TotemLayout(binjanBoxPanel);
       binjanBoxPanel.setLayout(binjanLayout);
@@ -359,6 +360,7 @@ public class ExpressionEditorView extends JDialog
       genderBox.setFont(Main.getGermanFont(14F));
       genderBox.setEditable(false);
       genderBox.setSize(WIDTH_INFO_PANEL, 30);
+      genderBox.setMaximumRowCount(Gender.values().length);
       genderBoxPanel = new JPanel();
       TotemLayout genderLayout = new TotemLayout(genderBoxPanel);
       genderBoxPanel.setLayout(genderLayout);
@@ -371,6 +373,7 @@ public class ExpressionEditorView extends JDialog
       grammaticalPersonBox.setFont(Main.getGermanFont(14F));
       grammaticalPersonBox.setEditable(false);
       grammaticalPersonBox.setSize(WIDTH_INFO_PANEL, 30);
+      grammaticalPersonBox.setMaximumRowCount(GrammaticalPerson.values().length);
       grammaticalPersonBoxPanel = new JPanel();
       TotemLayout grammaticalPersonLayout = new TotemLayout(
             grammaticalPersonBoxPanel);
@@ -385,6 +388,7 @@ public class ExpressionEditorView extends JDialog
       numerusBox.setFont(Main.getGermanFont(14F));
       numerusBox.setEditable(false);
       numerusBox.setSize(WIDTH_INFO_PANEL, 30);
+      numerusBox.setMaximumRowCount(Numerus.values().length);
       numerusBoxPanel = new JPanel();
       TotemLayout numerusLayout = new TotemLayout(numerusBoxPanel);
       numerusBoxPanel.setLayout(numerusLayout);
@@ -397,6 +401,7 @@ public class ExpressionEditorView extends JDialog
       verbConjugationBox.setFont(Main.getGermanFont(14F));
       verbConjugationBox.setEditable(false);
       verbConjugationBox.setSize(WIDTH_INFO_PANEL, 30);
+      verbConjugationBox.setMaximumRowCount(VerbConjugation.values().length);
       verbConjugationBoxPanel = new JPanel();
       TotemLayout verbConjugationLayout = new TotemLayout(
             verbConjugationBoxPanel);
@@ -411,6 +416,7 @@ public class ExpressionEditorView extends JDialog
       verbStrengthBox.setFont(Main.getGermanFont(14F));
       verbStrengthBox.setEditable(false);
       verbStrengthBox.setSize(WIDTH_INFO_PANEL, 30);
+      verbStrengthBox.setMaximumRowCount(VerbStrength.values().length);
       verbStrengthBoxPanel = new JPanel();
       TotemLayout verbStrengthLayout = new TotemLayout(verbStrengthBoxPanel);
       verbStrengthBoxPanel.setLayout(verbStrengthLayout);

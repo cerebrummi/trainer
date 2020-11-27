@@ -60,8 +60,12 @@ public class Definitions
       StringJoiner joiner = new StringJoiner(", ");
       for (ExpressionKind kind : definitions.keySet())
       {
-         joiner.add(definitions.get(kind).getGrammaticalEnum(Gender.class)
-               .toDescription());
+         if (!definitions.get(kind).getGrammaticalEnum(Gender.class)
+               .toDescription().isEmpty())
+         {
+            joiner.add(definitions.get(kind).getGrammaticalEnum(Gender.class)
+                  .toDescription());
+         }
       }
       return joiner.toString();
    }
@@ -71,8 +75,12 @@ public class Definitions
       StringJoiner joiner = new StringJoiner(", ");
       for (ExpressionKind kind : definitions.keySet())
       {
-         joiner.add(definitions.get(kind).getGrammaticalEnum(Numerus.class)
-               .toDescription());
+         if (!definitions.get(kind).getGrammaticalEnum(Numerus.class)
+               .toDescription().isEmpty())
+         {
+            joiner.add(definitions.get(kind).getGrammaticalEnum(Numerus.class)
+                  .toDescription());
+         }
       }
       return joiner.toString();
    }
@@ -82,8 +90,12 @@ public class Definitions
       StringJoiner joiner = new StringJoiner(", ");
       for (ExpressionKind kind : definitions.keySet())
       {
-         joiner.add(definitions.get(kind).getGrammaticalEnum(Binjan.class)
-               .toDescription());
+         if (!definitions.get(kind).getGrammaticalEnum(Binjan.class)
+               .toDescription().isEmpty())
+         {
+            joiner.add(definitions.get(kind).getGrammaticalEnum(Binjan.class)
+                  .toDescription());
+         }
       }
       return joiner.toString();
    }
@@ -93,7 +105,10 @@ public class Definitions
       StringJoiner joiner = new StringJoiner(", ");
       for (ExpressionKind kind : definitions.keySet())
       {
-         joiner.add(kind.toDescription());
+         if (!kind.toDescription().isEmpty())
+         {
+            joiner.add(kind.toDescription());
+         }
       }
       return joiner.toString();
    }
