@@ -1,4 +1,4 @@
-package vokabeltrainer.table.list.editor.expressionkindtable;
+package vokabeltrainer.table.list.editor.expressionkindtable.multiselect;
 
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -10,11 +10,11 @@ import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
-public class ExpressionKindTable extends JTable
+public class ExpressionKindTableMultiselect extends JTable
 {
    private static final long serialVersionUID = 1518676670024526651L;
 
-   public ExpressionKindTable(ExpressionKindTableModel model, int totalWidth)
+   public ExpressionKindTableMultiselect(ExpressionKindTableModel model, int totalWidth)
    {
       super(model, new ExpressionKindTableColumnModel(totalWidth));
       this.setShowVerticalLines(false);

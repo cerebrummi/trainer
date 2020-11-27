@@ -29,8 +29,6 @@ public class StatisticsPanel extends BackgroundPanelTiled
    private JPanel tablePanel;
    private JPanel wordPanel;
 
-   private int height;
-
    public StatisticsPanel()
    {
       setLayout(new BorderLayout());

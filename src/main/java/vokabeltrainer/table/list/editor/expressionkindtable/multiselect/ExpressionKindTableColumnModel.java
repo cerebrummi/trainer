@@ -1,4 +1,4 @@
-package vokabeltrainer.table.list.editor.expressionkindtable;
+package vokabeltrainer.table.list.editor.expressionkindtable.multiselect;
 
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
@@ -27,5 +27,4 @@ public class ExpressionKindTableColumnModel extends DefaultTableColumnModel
       column1.setPreferredWidth(totalWidth-43);
       addColumn(column1);
    }
-
 }

@@ -1,4 +1,4 @@
-package vokabeltrainer.table.list.editor.expressionkindtable;
+package vokabeltrainer.table.list.editor.expressionkindtable.multiselect;
 
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 

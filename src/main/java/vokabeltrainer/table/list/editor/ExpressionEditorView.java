@@ -43,8 +43,8 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
-import vokabeltrainer.table.list.editor.expressionkindtable.ExpressionKindTable;
-import vokabeltrainer.table.list.editor.expressionkindtable.ExpressionKindTableRow;
+import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableMultiselect;
+import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableRow;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -103,7 +103,7 @@ public class ExpressionEditorView extends JDialog
    private JButton cutButton;
    private JButton copyButton;
 
-   private ExpressionKindTable expressionKindTable;
+   private ExpressionKindTableMultiselect expressionKindTable;
 
    @SuppressWarnings("unused")
    private ExpressionEditorControllerConnector connector;
@@ -340,7 +340,7 @@ public class ExpressionEditorView extends JDialog
       copyButton.setText("");
       copyButton.setToolTipText("Kopieren");
 
-      expressionKindTable = new ExpressionKindTable(ExpressionKind.getModel(),
+      expressionKindTable = new ExpressionKindTableMultiselect(ExpressionKind.getModel(),
             WIDTH_INFO_PANEL);
 
       binjanBox = new JComboBox<>(Binjan.values());

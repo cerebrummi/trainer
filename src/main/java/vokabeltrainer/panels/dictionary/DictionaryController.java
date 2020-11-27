@@ -10,6 +10,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+
 import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
@@ -22,6 +24,7 @@ import vokabeltrainer.table.list.editor.ExpressionEditorController;
 import vokabeltrainer.table.list.editor.ExpressionEditorView;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class DictionaryController implements DictionaryControllerConnector
 {
@@ -283,7 +286,7 @@ public class DictionaryController implements DictionaryControllerConnector
          {
             // nothing
          }
-         
+
          Data.shredderDeletedExpressions();
          save();
       }
@@ -307,71 +310,90 @@ public class DictionaryController implements DictionaryControllerConnector
 
    public void decideOnTableInteraction(Action action)
    {
-      ExpressionTableModel tableModel = null;
-
-      switch (Interaction.getCommand(new Interaction(action, Status.pop())))
+      new SwingWorker<Void, Void>()
       {
-      case NOTHING:
-         return;
-      case NO_TABLE:
-         dictionaryView.displayNoTable();
-         return;
-      case RESTORE_WHICH_CHAPTER:
-         dictionaryView.selectChapter(currentChapter);
-         return;
-      case RESTORE_WHICH_EXPRESSIONKIND:
-         // nothing
-         return;
-      case RESTORE_WHICH_SEARCH_GERMAN:
-         this.searchGerman();
-         return;
-      case RESTORE_WHICH_SEARCH_HEBREW:
-         this.searchHebrew();
-         return;
-      case TABLE_CHAPTER_WHICH:
-         dictionaryView.clearTable();
-         tableModel = Data.findTranslations(
-               dictionaryView.getSelectedLanguage(), null, null, null,
-               this.currentChapter, null);
-         dictionaryView.removeChapterListSelectionListener();
-         dictionaryView.selectChapter(currentChapter);
-         dictionaryView.addChapterListSelectionListener();
-         break;
-      case TABLE_EXPRESSIONKIND_WHICH:
-         dictionaryView.clearTable();
-         tableModel = Data.findTranslations(
-               dictionaryView.getSelectedLanguage(), null,
-               dictionaryView.getSelectedExpressionKind(), null, null, null);
-         break;
-      case TABLE_SEARCH_WHICH_GERMAN:
-         dictionaryView.clearTable();
-         tableModel = Data.findTranslations(
-               dictionaryView.getSelectedLanguage(),
-               dictionaryView.getSearchPhraseGerman(), null,
-               dictionaryView.getSelectedSearchTypeGerman(), null, null);
-         break;
-      case TABLE_SEARCH_WHICH_HEBREW:
-         dictionaryView.clearTable();
-         tableModel = Data.findTranslations(
-               dictionaryView.getSelectedLanguage(),
-               dictionaryView.getSearchPhraseHebrew(), null,
-               dictionaryView.getSelectedSearchTypeHebrew(), null, null);
-         break;
-      case TABLE_SELECTED_EXPRESSIONS:
-         dictionaryView.clearTable();
-         tableModel = Data.findTranslations(
-               dictionaryView.getSelectedLanguage(), null, null, null, null,
-               Command.ALL_SELECTED);
-      }
+         @Override
+         protected Void doInBackground() throws Exception
+         {
+            ExpressionTableModel tableModel = null;
 
-      if (tableModel.getRowCount() == 0)
-      {
-         EmptyNotification.display();
-         dictionaryView.tableValidateRepaint();
-         return;
-      }
+            switch (Interaction
+                  .getCommand(new Interaction(action, Status.pop())))
+            {
+            case NOTHING:
+               break;
+            case NO_TABLE:
+               dictionaryView.displayNoTable();
+               break;
+            case RESTORE_WHICH_CHAPTER:
+               dictionaryView.selectChapter(currentChapter);
+               break;
+            case RESTORE_WHICH_EXPRESSIONKIND:
+               // nothing
+               break;
+            case RESTORE_WHICH_SEARCH_GERMAN:
+               searchGerman();
+               break;
+            case RESTORE_WHICH_SEARCH_HEBREW:
+               searchHebrew();
+               break;
+            case TABLE_CHAPTER_WHICH:
+               dictionaryView.clearTable();
+               tableModel = Data.findTranslations(
+                     dictionaryView.getSelectedLanguage(), null, null, null,
+                     currentChapter, null);
+               dictionaryView.removeChapterListSelectionListener();
+               dictionaryView.selectChapter(currentChapter);
+               dictionaryView.addChapterListSelectionListener();
+               break;
+            case TABLE_EXPRESSIONKIND_WHICH:
+               dictionaryView.clearTable();
+               ExpressionKind expressionKind = dictionaryView
+                     .getSelectedExpressionKind();
+               if (expressionKind != null)
+               {
+                  tableModel = Data.findTranslations(
+                        dictionaryView.getSelectedLanguage(), null,
+                        expressionKind, null, null, null);
+               }
+               break;
+            case TABLE_SEARCH_WHICH_GERMAN:
+               dictionaryView.clearTable();
+               tableModel = Data.findTranslations(
+                     dictionaryView.getSelectedLanguage(),
+                     dictionaryView.getSearchPhraseGerman(), null,
+                     dictionaryView.getSelectedSearchTypeGerman(), null, null);
+               break;
+            case TABLE_SEARCH_WHICH_HEBREW:
+               dictionaryView.clearTable();
+               tableModel = Data.findTranslations(
+                     dictionaryView.getSelectedLanguage(),
+                     dictionaryView.getSearchPhraseHebrew(), null,
+                     dictionaryView.getSelectedSearchTypeHebrew(), null, null);
+               break;
+            case TABLE_SELECTED_EXPRESSIONS:
+               dictionaryView.clearTable();
+               tableModel = Data.findTranslations(
+                     dictionaryView.getSelectedLanguage(), null, null, null,
+                     null, Command.ALL_SELECTED);
+            }
 
-      dictionaryView.doShowTable(tableModel);
+            if (tableModel == null)
+            {
+               // nothing
+            }
+            else if (tableModel.getRowCount() == 0)
+            {
+               EmptyNotification.display();
+               dictionaryView.tableValidateRepaint();
+            }
+            else
+            {
+               dictionaryView.doShowTable(tableModel);
+            }
+            return null;
+         }
+      }.execute();
    }
 
    @Override

@@ -1,4 +1,4 @@
-package vokabeltrainer.table.list.editor.expressionkindtable;
+package vokabeltrainer.table.list.editor.expressionkindtable.multiselect;
 
 import java.awt.Component;
 import java.util.EventObject;
@@ -22,7 +22,7 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
    private JLabel empty;
    private JLabel expressionKind;
 
-   public ExpressionKindTableCellRenderer()
+   public ExpressionKindTableCellRenderer() // multiple selection possible, except unknown selection row 0
    {
       selected = new JLabel(new ImageIcon(ApplicationImages.getSelectDone()));
       selected.setBackground(Settings.getTransparent());

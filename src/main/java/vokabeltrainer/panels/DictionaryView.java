@@ -17,6 +17,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -51,6 +52,9 @@ import vokabeltrainer.panels.list.ChapterList;
 import vokabeltrainer.panels.list.ChapterListSelectionModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
+import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableRow2;
+import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableSingleselect;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -99,6 +103,8 @@ public class DictionaryView extends BackgroundPanelTiled
    private ListSelectionListener listSelectionListener;
 
    private JScrollPane tableScroller;
+
+   private ExpressionKindTableSingleselect expressionKindTable;
 
    public DictionaryView(DictionaryControllerConnector connector)
    {
@@ -314,6 +320,23 @@ public class DictionaryView extends BackgroundPanelTiled
       JPanel vertical1 = new JPanel();
       vertical1.setOpaque(false);
       vertical1.setLayout(new TotemLayout(vertical1, 15));
+
+      expressionKindTable = new ExpressionKindTableSingleselect(
+            ExpressionKind.getModel2(), 300, connector);
+      JScrollPane scroller = new JScrollPane(expressionKindTable);
+      scroller.setMinimumSize(new Dimension(300, 470));
+      scroller.setMaximumSize(new Dimension(300, 470));
+
+      JPanel wrapperWrapper = new JPanel(new BorderLayout());
+
+      JPanel scrollerWrapper = new JPanel();
+      BullsEyeLayout scrollerWrapperLayout = new BullsEyeLayout(
+            scrollerWrapper);
+      scrollerWrapper.setLayout(scrollerWrapperLayout);
+
+      scrollerWrapper.add(scroller);
+      wrapperWrapper.add(scrollerWrapper);
+      vertical1.add(wrapperWrapper);
 
       return vertical1;
    }
@@ -553,7 +576,6 @@ public class DictionaryView extends BackgroundPanelTiled
          {
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
          }
-
       });
    }
 
@@ -685,7 +707,16 @@ public class DictionaryView extends BackgroundPanelTiled
    @Override
    public void unselectExpressionKind()
    {
-      // TODO
+      Vector<Vector<ExpressionKindTableRow2>> vektorRows = expressionKindTable
+            .getModel().getData();
+      for (Vector<ExpressionKindTableRow2> vektorRow : vektorRows)
+      {
+         ExpressionKind expressionKind = vektorRow.get(0).getExpressionKind();
+         if (expressionKind.isSelected())
+         {
+            expressionKind.setSelected(false);
+         }
+      }
    }
 
    @Override
@@ -752,7 +783,14 @@ public class DictionaryView extends BackgroundPanelTiled
    @Override
    public ExpressionKind getSelectedExpressionKind()
    {
-      return ExpressionKind.EXPRESSIONKIND_UNKNOWN; // TODO
+      if (expressionKindTable.getSelectedRow() > -1)
+      {
+         return ((ExpressionKindTableRow2) expressionKindTable
+               .getValueAt(expressionKindTable.getSelectedRow(), 0))
+                     .getExpressionKind();
+      }
+
+      return null;
    }
 
    @Override

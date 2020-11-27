@@ -9,8 +9,10 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
 
-import vokabeltrainer.table.list.editor.expressionkindtable.ExpressionKindTableModel;
-import vokabeltrainer.table.list.editor.expressionkindtable.ExpressionKindTableRow;
+import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableModel;
+import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableRow;
+import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableModel2;
+import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableRow2;
 
 public enum ExpressionKind
 {
@@ -231,7 +233,7 @@ public enum ExpressionKind
       selected = !selected;
    }
    
-   public static ExpressionKindTableModel getModel()
+   public static ExpressionKindTableModel getModel() // for Multiselect
    {
       Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
       for(ExpressionKind kind : ExpressionKind.values())
@@ -244,6 +246,21 @@ public enum ExpressionKind
       Vector<String> columnNames = new Vector<>();
       columnNames.add("eins");
       return new ExpressionKindTableModel(data, columnNames);
+   }
+   
+   public static ExpressionKindTableModel2 getModel2() // for Singleselect
+   {
+      Vector<Vector<ExpressionKindTableRow2>> data = new Vector<>();
+      for(ExpressionKind kind : ExpressionKind.values())
+      {
+         kind.setSelected(false);
+         Vector<ExpressionKindTableRow2> row = new Vector<>();
+         row.add(new ExpressionKindTableRow2(kind));
+         data.add(row);
+      }
+      Vector<String> columnNames = new Vector<>();
+      columnNames.add("eins");
+      return new ExpressionKindTableModel2(data, columnNames);
    }
    
    public static ExpressionKindTableModel getModel(Set<ExpressionKind> expressionKinds)
