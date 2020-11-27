@@ -145,8 +145,12 @@ public class Definitions
       StringJoiner joiner = new StringJoiner(", ");
       for (ExpressionKind kind : definitions.keySet())
       {
-         joiner.add(definitions.get(kind).getGrammaticalEnum(Numerus.class)
-               .toInfo());
+         if (!definitions.get(kind).getGrammaticalEnum(Numerus.class).toInfo()
+               .isEmpty())
+         {
+            joiner.add(definitions.get(kind).getGrammaticalEnum(Numerus.class)
+                  .toInfo());
+         }
       }
       return joiner.toString();
    }
@@ -156,8 +160,12 @@ public class Definitions
       StringJoiner joiner = new StringJoiner(", ");
       for (ExpressionKind kind : definitions.keySet())
       {
-         joiner.add(
-               definitions.get(kind).getGrammaticalEnum(Gender.class).toInfo());
+         if (!definitions.get(kind).getGrammaticalEnum(Gender.class).toInfo()
+               .isEmpty())
+         {
+            joiner.add(definitions.get(kind).getGrammaticalEnum(Gender.class)
+                  .toInfo());
+         }
       }
       return joiner.toString();
    }
