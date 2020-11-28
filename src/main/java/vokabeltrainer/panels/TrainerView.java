@@ -15,6 +15,8 @@ import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+
+import javax.sound.sampled.FloatControl;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
@@ -95,6 +98,8 @@ public class TrainerView extends BackgroundPanelTiled
    private JButton infoStopTrainingButton;
 
    private JPanel infoStopTrainingPanel;
+
+   private JSlider soundslider;
 
    public TrainerView(TrainerControllerConnector connector)
    {
@@ -244,6 +249,7 @@ public class TrainerView extends BackgroundPanelTiled
       soundFiller.setBackground(Settings.getGold());
       soundFiller.setMinimumSize(new Dimension(60, 60));
       soundFiller.setMaximumSize(new Dimension(280, 100));
+
       soundButton = new JButton(new ImageIcon(Settings.getSound()));
       soundButton.setBorder(BorderFactory.createEmptyBorder());
       soundButton.setOpaque(false);
@@ -251,6 +257,16 @@ public class TrainerView extends BackgroundPanelTiled
 
       soundFiller.add(soundButton);
       horizontal.add(soundFiller);
+
+      soundslider = new JSlider();
+      soundslider.setMinimum(-30);
+      soundslider.setMaximum(5);
+      soundslider.setValue((int)Settings.getVolume());
+      soundslider.setMajorTickSpacing(5);
+      soundslider.setMinorTickSpacing(1);
+      soundslider.setPaintTicks(true);
+      soundslider.setPaintLabels(true);
+      soundslider.setSnapToTicks(true);
 
       if (Language.GERMAN.equals(languageDirection))
       {
@@ -282,6 +298,7 @@ public class TrainerView extends BackgroundPanelTiled
       verticalLeftPanel.add(numbers);
       verticalLeftPanel.add(nextWordButton);
       verticalLeftPanel.add(horizontal);
+      verticalLeftPanel.add(soundslider);
       if (Language.GERMAN.equals(languageDirection))
       {
          verticalLeftPanel.add(keyboardHints);
@@ -558,6 +575,13 @@ public class TrainerView extends BackgroundPanelTiled
             }
          });
       }
+
+      soundslider.addChangeListener(event -> {
+         if(!soundslider.getValueIsAdjusting())
+         {
+            Settings.setVolume(soundslider.getValue());
+         }
+      });
    }
 
    public void setHtoDanswerButtons()

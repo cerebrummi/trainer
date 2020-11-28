@@ -11,6 +11,7 @@ import java.util.Set;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -334,43 +335,20 @@ public class TrainerController implements TrainerControllerConnector
 
    private void reactFalseWithSoundOn()
    {
-      SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>()
+      try
       {
-         @Override
-         protected Void doInBackground() throws Exception
-         {
-            try
-            {
-               Clip clip = AudioSystem.getClip();
-               clip.open(ApplicationSound.getSplotchSound());
-               clip.start();
-            }
-            catch (LineUnavailableException | IOException e)
-            {
-               // nothing
-            }
-            return null;
-         }
-      };
-      SwingWorker<Void, Void> worker2 = new SwingWorker<Void, Void>()
+         Clip clip = AudioSystem.getClip();
+         clip.open(ApplicationSound.getSplotchSound());
+         FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+         volume.setValue(Settings.getVolume());
+         clip.start();
+      }
+      catch (LineUnavailableException | IOException e)
       {
-         @Override
-         protected Void doInBackground() throws Exception
-         {
-            try
-            {
-               Thread.sleep(300);
-            }
-            catch (InterruptedException e)
-            {
-               // nothing
-            }
-            trainerView.showResultRed();
-            return null;
-         }
-      };
-      worker.execute();
-      worker2.execute();
+         // nothing
+      }
+      
+      trainerView.showResultRed();
    }
 
    private void reactOkayWithSoundOn()
@@ -379,6 +357,8 @@ public class TrainerController implements TrainerControllerConnector
       {
          Clip clip = AudioSystem.getClip();
          clip.open(ApplicationSound.getClappingSound());
+         FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+         volume.setValue(Settings.getVolume());
          clip.start();
       }
       catch (LineUnavailableException | IOException e)
@@ -395,6 +375,12 @@ public class TrainerController implements TrainerControllerConnector
       {
          Clip clip = AudioSystem.getClip();
          clip.open(ApplicationSound.getWaveSound());
+         FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+         System.out.println("undecided min "+volume.getMinimum());
+         System.out.println("undecided max "+volume.getMaximum());
+         System.out.println("undecided val1 "+volume.getValue());
+         volume.setValue(Settings.getVolume());
+         System.out.println("undecided val2 "+volume.getValue());
          clip.start();
       }
       catch (LineUnavailableException | IOException e)

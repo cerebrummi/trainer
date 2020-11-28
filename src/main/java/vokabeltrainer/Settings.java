@@ -23,6 +23,7 @@ public class Settings
    private static String chosenExpressionPath = null;
    private static List<Database> chosenDatabases; // TODO user can choose databases
    private static Database[] availableDatabases = {};
+   private static float volume = -15;
 
    private Settings()
    {
@@ -245,5 +246,15 @@ public class Settings
    public static void setChosenDatabases(List<Database> chosenDatabases)
    {
       Settings.chosenDatabases = chosenDatabases;
+   }
+
+   public static float getVolume()
+   {
+      return volume;
+   }
+
+   public static void setVolume(float volume)
+   {
+      Settings.volume = volume;
    }
 }
