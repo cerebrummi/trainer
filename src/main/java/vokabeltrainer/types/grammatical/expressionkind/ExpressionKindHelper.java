@@ -36,7 +36,9 @@ public class ExpressionKindHelper
          GrammaticalParentEnum.GENDER };
    public static GrammaticalParentEnum[] PARTIKEL_ENUMS = {};
    public static GrammaticalParentEnum[] PERSONALPRAEFIX_ENUMS = {};
-   public static GrammaticalParentEnum[] PERSONALPRONOM_ENUMS = {};
+   public static GrammaticalParentEnum[] PERSONALPRONOM_ENUMS = {
+         GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS,
+         GrammaticalParentEnum.GRAMMATICAL_PERSON };
    public static GrammaticalParentEnum[] PERSONALSUFFIX_ENUMS = {};
    public static GrammaticalParentEnum[] POSSESSIVPRONOM_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };

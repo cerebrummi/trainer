@@ -71,7 +71,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
       titlePanel.setMinimumSize(new Dimension(580, 50));
       titlePanel.setMaximumSize(new Dimension(580, 50));
 
-      JLabel title = new JLabel("Trainings Übersicht");
+      JLabel title = new JLabel("Trainingsübersicht");
       title.setFont(Main.getGermanFont(30F));
       titlePanel.add(title);
 

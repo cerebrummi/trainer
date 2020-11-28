@@ -272,13 +272,13 @@ public enum ExpressionKind
       return new ExpressionKindTableModel(data, columnNames);
    }
 
-   private Set<GrammaticalParentEnum> getSetOfGrammaticalEnums()
+   public Set<GrammaticalParentEnum> getSetOfGrammaticalEnums()
    {
       return new HashSet<GrammaticalParentEnum>(
             Arrays.asList(this.grammaticalEnums));
    }
 
-   public static Set<GrammaticalParentEnum> getSetOfGrammaticalEnums(
+   public static Set<GrammaticalParentEnum> getSetOfGrammaticalParentEnums(
          List<ExpressionKindTableRow> rows)
    {
       Set<GrammaticalParentEnum> grammaticalEnums = new HashSet<>();
@@ -287,6 +287,19 @@ public enum ExpressionKind
       {
          grammaticalEnums
                .addAll(row.getExpressionKind().getSetOfGrammaticalEnums());
+      }
+
+      return grammaticalEnums;
+   }
+
+   public static Set<GrammaticalParentEnum> getSetOfGrammaticalParentEnums(
+         Set<ExpressionKind> kinds)
+   {
+      Set<GrammaticalParentEnum> grammaticalEnums = new HashSet<>();
+
+      for (ExpressionKind kind : kinds)
+      {
+         grammaticalEnums.addAll(kind.getSetOfGrammaticalEnums());
       }
 
       return grammaticalEnums;

@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
 import vokabeltrainer.table.list.editor.ExpressionEditorViewConnector;
@@ -59,14 +60,14 @@ public class ExpressionKindTableMultiselect extends JTable
                   @Override
                   protected Void doInBackground() throws Exception
                   {
-                     if(row == 0)
+                     if (row == 0)
                      {
                         connector.showGrammaticalEnums(Collections.emptySet());
                      }
                      else
                      {
                         connector.showGrammaticalEnums(
-                              ExpressionKind.getSetOfGrammaticalEnums(
+                              ExpressionKind.getSetOfGrammaticalParentEnums(
                                     getModel().getSelectedRows()));
                      }
                      return null;
@@ -81,6 +82,26 @@ public class ExpressionKindTableMultiselect extends JTable
    public ExpressionKindTableModel getModel()
    {
       return (ExpressionKindTableModel) super.getModel();
+   }
+
+   public int getScrollValue()
+   {
+      for (int i = 0; i < this.getRowCount(); i++)
+      {
+         if (((ExpressionKindTableRow) getValueAt(i, 0)).getExpressionKind()
+               .isSelected())
+         {
+            return i * this.getRowHeight();
+         }
+      }
+
+      return 0;
+   }
+
+   public int getMaxScrollValue()
+   {
+      // TODO Auto-generated method stub
+      return this.getRowCount() * this.getRowHeight();
    }
 
 }

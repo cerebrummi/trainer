@@ -7,6 +7,7 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.SwingWorker;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
@@ -139,6 +141,8 @@ public class ExpressionEditorView extends JDialog
    private JComboBox<VerbType> verbTypeBox;
 
    private JPanel definitionPanel;
+
+   private JScrollPane scrollPaneExpressionTable;
 
    public ExpressionEditorView(ExpressionEditorControllerConnector connector)
    {
@@ -344,14 +348,14 @@ public class ExpressionEditorView extends JDialog
       copyButton.setText("");
       copyButton.setToolTipText("Kopieren");
 
-      expressionKindTable = new ExpressionKindTableMultiselect(ExpressionKind.getModel(),
-            WIDTH_INFO_PANEL, this);
+      expressionKindTable = new ExpressionKindTableMultiselect(
+            ExpressionKind.getModel(), WIDTH_INFO_PANEL, this);
 
       binjanBox = new JComboBox<>(Binjan.values());
       binjanBox.setFont(Main.getGermanFont(14F));
       binjanBox.setEditable(false);
-      binjanBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
-      binjanBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      binjanBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      binjanBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       binjanBox.setMaximumRowCount(Binjan.values().length);
       binjanBoxPanel = new JPanel();
       TotemLayout binjanLayout = new TotemLayout(binjanBoxPanel);
@@ -364,8 +368,8 @@ public class ExpressionEditorView extends JDialog
       genderBox = new JComboBox<>(Gender.values());
       genderBox.setFont(Main.getGermanFont(14F));
       genderBox.setEditable(false);
-      genderBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
-      genderBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      genderBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      genderBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       genderBox.setMaximumRowCount(Gender.values().length);
       genderBoxPanel = new JPanel();
       TotemLayout genderLayout = new TotemLayout(genderBoxPanel);
@@ -378,9 +382,12 @@ public class ExpressionEditorView extends JDialog
       grammaticalPersonBox = new JComboBox<>(GrammaticalPerson.values());
       grammaticalPersonBox.setFont(Main.getGermanFont(14F));
       grammaticalPersonBox.setEditable(false);
-      grammaticalPersonBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
-      grammaticalPersonBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
-      grammaticalPersonBox.setMaximumRowCount(GrammaticalPerson.values().length);
+      grammaticalPersonBox
+            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      grammaticalPersonBox
+            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      grammaticalPersonBox
+            .setMaximumRowCount(GrammaticalPerson.values().length);
       grammaticalPersonBoxPanel = new JPanel();
       TotemLayout grammaticalPersonLayout = new TotemLayout(
             grammaticalPersonBoxPanel);
@@ -394,8 +401,8 @@ public class ExpressionEditorView extends JDialog
       numerusBox = new JComboBox<>(Numerus.values());
       numerusBox.setFont(Main.getGermanFont(14F));
       numerusBox.setEditable(false);
-      numerusBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
-      numerusBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      numerusBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      numerusBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       numerusBox.setMaximumRowCount(Numerus.values().length);
       numerusBoxPanel = new JPanel();
       TotemLayout numerusLayout = new TotemLayout(numerusBoxPanel);
@@ -408,8 +415,10 @@ public class ExpressionEditorView extends JDialog
       verbConjugationBox = new JComboBox<>(VerbConjugation.values());
       verbConjugationBox.setFont(Main.getGermanFont(14F));
       verbConjugationBox.setEditable(false);
-      verbConjugationBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
-      verbConjugationBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      verbConjugationBox
+            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      verbConjugationBox
+            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       verbConjugationBox.setMaximumRowCount(VerbConjugation.values().length);
       verbConjugationBoxPanel = new JPanel();
       TotemLayout verbConjugationLayout = new TotemLayout(
@@ -424,8 +433,8 @@ public class ExpressionEditorView extends JDialog
       verbStrengthBox = new JComboBox<>(VerbStrength.values());
       verbStrengthBox.setFont(Main.getGermanFont(14F));
       verbStrengthBox.setEditable(false);
-      verbStrengthBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
-      verbStrengthBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      verbStrengthBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      verbStrengthBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       verbStrengthBox.setMaximumRowCount(VerbStrength.values().length);
       verbStrengthBoxPanel = new JPanel();
       TotemLayout verbStrengthLayout = new TotemLayout(verbStrengthBoxPanel);
@@ -439,8 +448,8 @@ public class ExpressionEditorView extends JDialog
       verbTypeBox = new JComboBox<>(VerbType.values());
       verbTypeBox.setFont(Main.getGermanFont(14F));
       verbTypeBox.setEditable(false);
-      verbTypeBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
-      verbTypeBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      verbTypeBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      verbTypeBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       verbTypeBoxPanel = new JPanel();
       TotemLayout verbTypeBoxLayout = new TotemLayout(verbTypeBoxPanel);
       verbTypeBoxPanel.setLayout(verbTypeBoxLayout);
@@ -516,10 +525,12 @@ public class ExpressionEditorView extends JDialog
       vertical.setBackground(Settings.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 15));
 
-      JScrollPane scrollPane = new JScrollPane(expressionKindTable);
-      scrollPane.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-      scrollPane.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
-      scrollPane.setBorder(BorderFactory.createTitledBorder(
+      scrollPaneExpressionTable = new JScrollPane(expressionKindTable);
+      scrollPaneExpressionTable
+            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
+      scrollPaneExpressionTable
+            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+      scrollPaneExpressionTable.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(Settings.getLightGrayGold()),
             "Wortarten"));
 
@@ -532,7 +543,7 @@ public class ExpressionEditorView extends JDialog
       horizontal.add(cutButton);
       horizontal.add(pasteButton);
 
-      vertical.add(scrollPane);
+      vertical.add(scrollPaneExpressionTable);
       vertical.add(extraInfoScroller);
       vertical.add(horizontal);
 
@@ -669,11 +680,12 @@ public class ExpressionEditorView extends JDialog
       });
 
    }
-   
-   public void showGrammaticalEnums(Set<GrammaticalParentEnum> grammaticalEnumsToShow)
+
+   public void showGrammaticalEnums(
+         Set<GrammaticalParentEnum> grammaticalEnumsToShow)
    {
       definitionPanel.removeAll();
-      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.GENDER))
+      if (grammaticalEnumsToShow.contains(GrammaticalParentEnum.GENDER))
       {
          definitionPanel.add(this.genderBoxPanel);
       }
@@ -681,7 +693,7 @@ public class ExpressionEditorView extends JDialog
       {
          this.genderBox.setSelectedItem(Gender.GENDER_NA);
       }
-      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.NUMERUS))
+      if (grammaticalEnumsToShow.contains(GrammaticalParentEnum.NUMERUS))
       {
          definitionPanel.add(this.numerusBoxPanel);
       }
@@ -689,15 +701,17 @@ public class ExpressionEditorView extends JDialog
       {
          this.numerusBox.setSelectedItem(Numerus.NUMERUS_NA);
       }
-      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.GRAMMATICAL_PERSON))
+      if (grammaticalEnumsToShow
+            .contains(GrammaticalParentEnum.GRAMMATICAL_PERSON))
       {
          definitionPanel.add(this.grammaticalPersonBoxPanel);
       }
       else
       {
-         this.grammaticalPersonBox.setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+         this.grammaticalPersonBox
+               .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
       }
-      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.BINJAN))
+      if (grammaticalEnumsToShow.contains(GrammaticalParentEnum.BINJAN))
       {
          definitionPanel.add(this.binjanBoxPanel);
       }
@@ -705,15 +719,17 @@ public class ExpressionEditorView extends JDialog
       {
          this.binjanBox.setSelectedItem(Binjan.BINJAN_NA);
       }
-      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.VERB_CONJUGATION))
+      if (grammaticalEnumsToShow
+            .contains(GrammaticalParentEnum.VERB_CONJUGATION))
       {
          definitionPanel.add(this.verbConjugationBoxPanel);
       }
       else
       {
-         this.verbConjugationBox.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+         this.verbConjugationBox
+               .setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
       }
-      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.VERB_STRENGTH))
+      if (grammaticalEnumsToShow.contains(GrammaticalParentEnum.VERB_STRENGTH))
       {
          definitionPanel.add(this.verbStrengthBoxPanel);
       }
@@ -721,7 +737,7 @@ public class ExpressionEditorView extends JDialog
       {
          verbStrengthBox.setSelectedItem(VerbStrength.VERBSTRENGTH_NA);
       }
-      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.VERB_TYPE))
+      if (grammaticalEnumsToShow.contains(GrammaticalParentEnum.VERB_TYPE))
       {
          definitionPanel.add(this.verbTypeBoxPanel);
       }
@@ -730,10 +746,10 @@ public class ExpressionEditorView extends JDialog
          verbTypeBox.setSelectedItem(VerbType.VERBTYPE_NA);
       }
       JPanel filler = new JPanel();
-      filler.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 0));
-      filler.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 700));
+      filler.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 0));
+      filler.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 700));
       definitionPanel.add(filler);
-      
+
       definitionPanel.validate();
       definitionPanel.repaint();
    }
@@ -783,11 +799,12 @@ public class ExpressionEditorView extends JDialog
             .setHebrewInLatin(cleanTextWithoutComma(hebrewInLatin.getText()));
       expression.setHebrew(cleanTextWithoutComma(hebrew.getText()));
 
-      expression.setLetterForSaving(
-            LetterForSaving.getLetter(cleanTextWithoutComma(expression.getGerman())));
+      expression.setLetterForSaving(LetterForSaving
+            .getLetter(cleanTextWithoutComma(expression.getGerman())));
 
       Definitions definitions = new Definitions();
-      Vector<Vector<ExpressionKindTableRow>> vektorRows = expressionKindTable.getModel().getData();
+      Vector<Vector<ExpressionKindTableRow>> vektorRows = expressionKindTable
+            .getModel().getData();
       for (Vector<ExpressionKindTableRow> vektorRow : vektorRows)
       {
          ExpressionKind expressionKind = vektorRow.get(0).getExpressionKind();
@@ -829,12 +846,14 @@ public class ExpressionEditorView extends JDialog
       selfChapter
             .setName(cleanTextWithoutComma((String) chapter.getSelectedItem()));
       expression.setChapter(selfChapter);
-      expression.setAdditionalInformation(cleanTextWithoutComma(extraInfo.getText()));
+      expression.setAdditionalInformation(
+            cleanTextWithoutComma(extraInfo.getText()));
    }
 
    private String cleanText(String text)
    {
-      return text.replaceAll("\t", "").replaceAll("\n", "").replaceAll(",", "").strip();
+      return text.replaceAll("\t", "").replaceAll("\n", "").replaceAll(",", "")
+            .strip();
    }
 
    private String cleanTextWithoutComma(String text)
@@ -846,7 +865,7 @@ public class ExpressionEditorView extends JDialog
    {
       this.save = false;
       this.expression = expression;
-      
+
       this.chapter.setModel(Data.getChapterComboBoxModel());
       if (expression.getChapter().getName().isEmpty())
       {
@@ -856,11 +875,11 @@ public class ExpressionEditorView extends JDialog
       {
          this.chapter.setSelectedItem(expression.getChapter().getName());
       }
-      
+
       this.german.setText(expression.getGerman());
       this.hebrewInLatin.setText(expression.getHebrewInLatin());
       this.hebrew.setText(expression.getHebrew());
-      
+
       this.searchwordsSetGerman = new HashSet<>();
       for (String word : expression.getSearchwordsGerman())
       {
@@ -874,8 +893,8 @@ public class ExpressionEditorView extends JDialog
          this.searchwordsSetHebrew.add(word);
       }
       this.searchwordsJListHebrew.setModel(getSearchwordsModelHebrew());
-      
-      if(newExpression)
+
+      if (newExpression)
       {
          expressionKindTable.setModel(ExpressionKind.getModel());
          binjanBox.setSelectedIndex(0);
@@ -907,10 +926,17 @@ public class ExpressionEditorView extends JDialog
                definitions.getGrammaticalEnum(kind, VerbStrength.class));
          verbTypeBox.setSelectedItem(
                definitions.getGrammaticalEnum(kind, VerbType.class));
-         
+
+         showGrammaticalEnums(
+               ExpressionKind.getSetOfGrammaticalParentEnums(kinds));
+
+         scrollPaneExpressionTable.getVerticalScrollBar().setMaximum(expressionKindTable.getMaxScrollValue());
+         scrollPaneExpressionTable.getVerticalScrollBar()
+               .setValue(expressionKindTable.getScrollValue());
+
          extraInfo.setText(expression.getAdditionalInformation());
       }
-      
+
    }
 
    private DefaultComboBoxModel<String> getSearchwordsModelGerman()

@@ -73,10 +73,10 @@ public class MainView extends JPanel
       startButton = new JButton("Start");
       vocabularyCardsButton = new JButton("Vokabelkarten");
       dictionaryButton = new JButton("Wörterbuch");
-      statisticsButton = new JButton("Statistik");
+      statisticsButton = new JButton("Trainingsübersicht");
       aboutButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
       letterPicturesButton = new JButton("Alefbet");
-      successButton = new JButton("Erfolge");
+      successButton = new JButton("Karteikasten");
 
       startButton.setFont(Settings.getToolBarButtonFont());
       vocabularyCardsButton.setFont(Settings.getToolBarButtonFont());
