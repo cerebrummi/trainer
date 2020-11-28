@@ -3,18 +3,24 @@ package vokabeltrainer.table.list.editor.expressionkindtable.multiselect;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collections;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingWorker;
 
+import vokabeltrainer.table.list.editor.ExpressionEditorViewConnector;
+import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class ExpressionKindTableMultiselect extends JTable
 {
    private static final long serialVersionUID = 1518676670024526651L;
 
-   public ExpressionKindTableMultiselect(ExpressionKindTableModel model, int totalWidth)
+   public ExpressionKindTableMultiselect(ExpressionKindTableModel model,
+         int totalWidth, ExpressionEditorViewConnector connector)
    {
       super(model, new ExpressionKindTableColumnModel(totalWidth));
       this.setShowVerticalLines(false);
@@ -27,7 +33,7 @@ public class ExpressionKindTableMultiselect extends JTable
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       this.setBorder(BorderFactory.createEmptyBorder());
       this.setTableHeader(null);
-      
+
       addMouseListener(new MouseAdapter()
       {
          public void mousePressed(MouseEvent mouseEvent)
@@ -40,13 +46,32 @@ public class ExpressionKindTableMultiselect extends JTable
             {
                ExpressionKindTableRow tableRow = ((ExpressionKindTableRow) table
                      .getValueAt(table.getSelectedRow(), 0));
-               
+
                ExpressionKind expressionKind = tableRow.getExpressionKind();
 
                expressionKind.toggleSelected();
 
                ((ExpressionKindTableModel) table.getModel())
                      .fireTableCellUpdated(table.getSelectedRow(), 0);
+
+               new SwingWorker<Void, Void>()
+               {
+                  @Override
+                  protected Void doInBackground() throws Exception
+                  {
+                     if(row == 0)
+                     {
+                        connector.showGrammaticalEnums(Collections.emptySet());
+                     }
+                     else
+                     {
+                        connector.showGrammaticalEnums(
+                              ExpressionKind.getSetOfGrammaticalEnums(
+                                    getModel().getSelectedRows()));
+                     }
+                     return null;
+                  }
+               }.execute();
             }
          }
       });
@@ -57,5 +82,5 @@ public class ExpressionKindTableMultiselect extends JTable
    {
       return (ExpressionKindTableModel) super.getModel();
    }
-   
+
 }

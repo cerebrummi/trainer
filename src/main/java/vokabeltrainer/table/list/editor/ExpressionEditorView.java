@@ -52,6 +52,8 @@ import vokabeltrainer.types.Database;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
+import vokabeltrainer.types.grammatical.GrammaticalEnum;
+import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
 import vokabeltrainer.types.grammatical.VerbConjugation;
@@ -135,6 +137,8 @@ public class ExpressionEditorView extends JDialog
    private JComboBox<VerbStrength> verbStrengthBox;
 
    private JComboBox<VerbType> verbTypeBox;
+
+   private JPanel definitionPanel;
 
    public ExpressionEditorView(ExpressionEditorControllerConnector connector)
    {
@@ -341,12 +345,13 @@ public class ExpressionEditorView extends JDialog
       copyButton.setToolTipText("Kopieren");
 
       expressionKindTable = new ExpressionKindTableMultiselect(ExpressionKind.getModel(),
-            WIDTH_INFO_PANEL);
+            WIDTH_INFO_PANEL, this);
 
       binjanBox = new JComboBox<>(Binjan.values());
       binjanBox.setFont(Main.getGermanFont(14F));
       binjanBox.setEditable(false);
-      binjanBox.setSize(WIDTH_INFO_PANEL, 30);
+      binjanBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      binjanBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
       binjanBox.setMaximumRowCount(Binjan.values().length);
       binjanBoxPanel = new JPanel();
       TotemLayout binjanLayout = new TotemLayout(binjanBoxPanel);
@@ -359,7 +364,8 @@ public class ExpressionEditorView extends JDialog
       genderBox = new JComboBox<>(Gender.values());
       genderBox.setFont(Main.getGermanFont(14F));
       genderBox.setEditable(false);
-      genderBox.setSize(WIDTH_INFO_PANEL, 30);
+      genderBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      genderBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
       genderBox.setMaximumRowCount(Gender.values().length);
       genderBoxPanel = new JPanel();
       TotemLayout genderLayout = new TotemLayout(genderBoxPanel);
@@ -372,7 +378,8 @@ public class ExpressionEditorView extends JDialog
       grammaticalPersonBox = new JComboBox<>(GrammaticalPerson.values());
       grammaticalPersonBox.setFont(Main.getGermanFont(14F));
       grammaticalPersonBox.setEditable(false);
-      grammaticalPersonBox.setSize(WIDTH_INFO_PANEL, 30);
+      grammaticalPersonBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      grammaticalPersonBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
       grammaticalPersonBox.setMaximumRowCount(GrammaticalPerson.values().length);
       grammaticalPersonBoxPanel = new JPanel();
       TotemLayout grammaticalPersonLayout = new TotemLayout(
@@ -387,7 +394,8 @@ public class ExpressionEditorView extends JDialog
       numerusBox = new JComboBox<>(Numerus.values());
       numerusBox.setFont(Main.getGermanFont(14F));
       numerusBox.setEditable(false);
-      numerusBox.setSize(WIDTH_INFO_PANEL, 30);
+      numerusBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      numerusBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
       numerusBox.setMaximumRowCount(Numerus.values().length);
       numerusBoxPanel = new JPanel();
       TotemLayout numerusLayout = new TotemLayout(numerusBoxPanel);
@@ -400,7 +408,8 @@ public class ExpressionEditorView extends JDialog
       verbConjugationBox = new JComboBox<>(VerbConjugation.values());
       verbConjugationBox.setFont(Main.getGermanFont(14F));
       verbConjugationBox.setEditable(false);
-      verbConjugationBox.setSize(WIDTH_INFO_PANEL, 30);
+      verbConjugationBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      verbConjugationBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
       verbConjugationBox.setMaximumRowCount(VerbConjugation.values().length);
       verbConjugationBoxPanel = new JPanel();
       TotemLayout verbConjugationLayout = new TotemLayout(
@@ -415,7 +424,8 @@ public class ExpressionEditorView extends JDialog
       verbStrengthBox = new JComboBox<>(VerbStrength.values());
       verbStrengthBox.setFont(Main.getGermanFont(14F));
       verbStrengthBox.setEditable(false);
-      verbStrengthBox.setSize(WIDTH_INFO_PANEL, 30);
+      verbStrengthBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      verbStrengthBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
       verbStrengthBox.setMaximumRowCount(VerbStrength.values().length);
       verbStrengthBoxPanel = new JPanel();
       TotemLayout verbStrengthLayout = new TotemLayout(verbStrengthBoxPanel);
@@ -429,7 +439,8 @@ public class ExpressionEditorView extends JDialog
       verbTypeBox = new JComboBox<>(VerbType.values());
       verbTypeBox.setFont(Main.getGermanFont(14F));
       verbTypeBox.setEditable(false);
-      verbTypeBox.setSize(WIDTH_INFO_PANEL, 30);
+      verbTypeBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
+      verbTypeBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 50));
       verbTypeBoxPanel = new JPanel();
       TotemLayout verbTypeBoxLayout = new TotemLayout(verbTypeBoxPanel);
       verbTypeBoxPanel.setLayout(verbTypeBoxLayout);
@@ -535,16 +546,9 @@ public class ExpressionEditorView extends JDialog
       vertical.setBackground(Settings.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 15));
 
-      JPanel definitionPanel = new JPanel();
+      definitionPanel = new JPanel();
       TotemLayout definitionLayout = new TotemLayout(definitionPanel, 5);
       definitionPanel.setLayout(definitionLayout);
-      definitionPanel.add(this.genderBoxPanel);
-      definitionPanel.add(this.numerusBoxPanel);
-      definitionPanel.add(this.grammaticalPersonBoxPanel);
-      definitionPanel.add(this.binjanBoxPanel);
-      definitionPanel.add(this.verbConjugationBoxPanel);
-      definitionPanel.add(this.verbStrengthBoxPanel);
-      definitionPanel.add(this.verbTypeBoxPanel);
       definitionPanel.setBorder(BorderFactory.createEmptyBorder());
       definitionPanel.setBackground(Settings.getTransparent());
       definitionPanel.setOpaque(false);
@@ -664,6 +668,74 @@ public class ExpressionEditorView extends JDialog
          this.dispose();
       });
 
+   }
+   
+   public void showGrammaticalEnums(Set<GrammaticalParentEnum> grammaticalEnumsToShow)
+   {
+      definitionPanel.removeAll();
+      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.GENDER))
+      {
+         definitionPanel.add(this.genderBoxPanel);
+      }
+      else
+      {
+         this.genderBox.setSelectedItem(Gender.GENDER_NA);
+      }
+      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.NUMERUS))
+      {
+         definitionPanel.add(this.numerusBoxPanel);
+      }
+      else
+      {
+         this.numerusBox.setSelectedItem(Numerus.NUMERUS_NA);
+      }
+      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.GRAMMATICAL_PERSON))
+      {
+         definitionPanel.add(this.grammaticalPersonBoxPanel);
+      }
+      else
+      {
+         this.grammaticalPersonBox.setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
+      }
+      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.BINJAN))
+      {
+         definitionPanel.add(this.binjanBoxPanel);
+      }
+      else
+      {
+         this.binjanBox.setSelectedItem(Binjan.BINJAN_NA);
+      }
+      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.VERB_CONJUGATION))
+      {
+         definitionPanel.add(this.verbConjugationBoxPanel);
+      }
+      else
+      {
+         this.verbConjugationBox.setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+      }
+      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.VERB_STRENGTH))
+      {
+         definitionPanel.add(this.verbStrengthBoxPanel);
+      }
+      else
+      {
+         verbStrengthBox.setSelectedItem(VerbStrength.VERBSTRENGTH_NA);
+      }
+      if(grammaticalEnumsToShow.contains(GrammaticalParentEnum.VERB_TYPE))
+      {
+         definitionPanel.add(this.verbTypeBoxPanel);
+      }
+      else
+      {
+         verbTypeBox.setSelectedItem(VerbType.VERBTYPE_NA);
+      }
+      JPanel filler = new JPanel();
+      filler.setMinimumSize(new Dimension(WIDTH_INFO_PANEL-10, 0));
+      filler.setMaximumSize(new Dimension(WIDTH_INFO_PANEL-10, 700));
+      definitionPanel.add(filler);
+      
+      definitionPanel.validate();
+      definitionPanel.repaint();
    }
 
    private boolean testForCompletness()

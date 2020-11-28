@@ -4,6 +4,7 @@ import java.text.Collator;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -13,124 +14,109 @@ import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.Expressi
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableRow;
 import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableModel2;
 import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableRow2;
+import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
 
 public enum ExpressionKind
 {
    EXPRESSIONKIND_UNKNOWN(
          "unbekannt",
-         ""),
+         ExpressionKindHelper.UNKNOWN_ENUMS),
    ADJEKTIV(
          "Adjektiv",
-         ""),
+         ExpressionKindHelper.ADJECTIVE_ENUMS),
    ADVERB(
          "Adverb",
-         ""),
+         ExpressionKindHelper.ADVERB_ENUMS),
    ALTERSANGABE(
          "Altersangabe",
-         ""),
+         ExpressionKindHelper.ALTERSANGABE_ENUMS),
    AUSRUF(
          "Ausruf",
-         "hurra, hm, ah, oh, autsch"),
+         ExpressionKindHelper.AUSRUF_ENUMS),
    BERUF(
          "Beruf",
-         ""),
+         ExpressionKindHelper.BERUF_ENUMS),
    BINDEWORT(
          "Bindewort",
-         ""),
+         ExpressionKindHelper.BINDEWORT_ENUMS),
    DEMONSTRATIVPRONOM(
          "Demonstrativpronom",
-         ""),
+         ExpressionKindHelper.DEMONSTRATIVPRONOM_ENUMS),
    EIGENNAME(
          "Eigenname",
-         "Russland, Paris, Berlin"),
+         ExpressionKindHelper.EIGENNAME_ENUMS),
    FARBE(
          "Farbe",
-         "rot, grün, gelb, blau"),
+         ExpressionKindHelper.FARBE_ENUMS),
    FRAGEWORT(
          "Fragewort",
-         "wann, wo, warum, wie, wieso, weshalb"),
+         ExpressionKindHelper.FRAGEWORT_ENUMS),
    PRONOM(
          "Fürwort/Pronom",
-         ""),
+         ExpressionKindHelper.PRONOM_ENUMS),
    GLUECKWUNSCH(
          "Glückwunsch/Gruß",
-         ""),
+         ExpressionKindHelper.GLUECKWUNSCH_ENUMS),
    JAHRESZEIT(
          "Jahreszeit",
-         ""),
+         ExpressionKindHelper.JAHRESZEIT_ENUMS),
    KONSTRUKT(
          "Konstrukt/ssmichut",
-         ""),
+         ExpressionKindHelper.KONSTRUKT_ENUMS),
    MODALVERB(
          "Modalverb",
-         "wollen, können, müssen"),
+         ExpressionKindHelper.MODALVERB_ENUMS),
    ORDNUNGSZAHL(
          "Ordnungszahl",
-         "erste, zweiter, dritte, vierter"),
+         ExpressionKindHelper.ORDNUNGSZAHL_ENUMS),
    PARTIKEL(
          "Partikel",
-         ""),
+         ExpressionKindHelper.PARTIKEL_ENUMS),
    PERSONALPRAEFIX(
          "Personalpräfix",
-         ""),
+         ExpressionKindHelper.PERSONALPRAEFIX_ENUMS),
    PERSONALPRONOM(
          "Personalpronom",
-         ""),
+         ExpressionKindHelper.PERSONALPRONOM_ENUMS),
    PERSONALSUFFIX(
          "Personalsuffix",
-         ""),
+         ExpressionKindHelper.PERSONALSUFFIX_ENUMS),
    POSSESSIVPRONOM(
          "Possessivpronom",
-         ""),
+         ExpressionKindHelper.POSSESSIVPRONOM_ENUMS),
    PRAEPOSITION(
          "Präposition",
-         ""),
+         ExpressionKindHelper.PRAEPOSITION_ENUMS),
    REDEWENDUNG(
          "Redewendung",
-         ""),
+         ExpressionKindHelper.REDEWENDUNG_ENUMS),
    SUBSTANTIV(
          "Substantiv",
-         "Frau, Mann, Haus, Hammer, Küche, Beruf, Lampe"),
+         ExpressionKindHelper.SUBSTANTIV_ENUMS),
    UHRZEIT(
          "Uhrzeit",
-         ""),
+         ExpressionKindHelper.UHRZEIT_ENUMS),
    UMGANGSPRACHE(
          "Umgangsprache",
-         ""),
+         ExpressionKindHelper.UMGANGSSPRACHE_ENUMS),
    VERB(
          "Verb",
-         ""),
+         ExpressionKindHelper.VERB_ENUMS),
    WOCHENTAG(
          "Wochentag",
-         ""),
+         ExpressionKindHelper.WOCHENTAG_ENUMS),
    ZAHL(
          "Zahl",
-         "eins, zwei, drei, vier, fünf, hundert");
+         ExpressionKindHelper.ZAHL_ENUMS);
 
    private String description;
-   private String explanation;
    private boolean selected;
+   private GrammaticalParentEnum[] grammaticalEnums;
 
-   ExpressionKind(String description, String explanation)
+   ExpressionKind(String description, GrammaticalParentEnum[] grammaticalEnums)
    {
       this.description = description;
-      this.explanation = explanation;
-   }
-
-   public static String[] getExplanations()
-   {
-      String[] explanations = new String[ExpressionKind.getValuesAsSortedList()
-            .size() - 1];
-      int counter = 0;
-      for (ExpressionKind kind : getValuesAsSortedList())
-      {
-         if (!kind.equals(ExpressionKind.EXPRESSIONKIND_UNKNOWN))
-         {
-            explanations[counter] = kind.description + ": " + kind.explanation;
-            counter++;
-         }
-      }
-      return explanations;
+      this.grammaticalEnums = grammaticalEnums;
    }
 
    @Override
@@ -227,16 +213,16 @@ public enum ExpressionKind
    {
       this.selected = selected;
    }
-   
+
    public void toggleSelected()
    {
       selected = !selected;
    }
-   
+
    public static ExpressionKindTableModel getModel() // for Multiselect
    {
       Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
-      for(ExpressionKind kind : ExpressionKind.values())
+      for (ExpressionKind kind : ExpressionKind.values())
       {
          kind.setSelected(false);
          Vector<ExpressionKindTableRow> row = new Vector<>();
@@ -247,11 +233,11 @@ public enum ExpressionKind
       columnNames.add("eins");
       return new ExpressionKindTableModel(data, columnNames);
    }
-   
+
    public static ExpressionKindTableModel2 getModel2() // for Singleselect
    {
       Vector<Vector<ExpressionKindTableRow2>> data = new Vector<>();
-      for(ExpressionKind kind : ExpressionKind.values())
+      for (ExpressionKind kind : ExpressionKind.values())
       {
          kind.setSelected(false);
          Vector<ExpressionKindTableRow2> row = new Vector<>();
@@ -262,13 +248,14 @@ public enum ExpressionKind
       columnNames.add("eins");
       return new ExpressionKindTableModel2(data, columnNames);
    }
-   
-   public static ExpressionKindTableModel getModel(Set<ExpressionKind> expressionKinds)
-   {   
+
+   public static ExpressionKindTableModel getModel(
+         Set<ExpressionKind> expressionKinds)
+   {
       Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
-      for(ExpressionKind kind : ExpressionKind.values())
+      for (ExpressionKind kind : ExpressionKind.values())
       {
-         if(expressionKinds.contains(kind))
+         if (expressionKinds.contains(kind))
          {
             kind.setSelected(true);
          }
@@ -283,5 +270,25 @@ public enum ExpressionKind
       Vector<String> columnNames = new Vector<>();
       columnNames.add("eins");
       return new ExpressionKindTableModel(data, columnNames);
+   }
+
+   private Set<GrammaticalParentEnum> getSetOfGrammaticalEnums()
+   {
+      return new HashSet<GrammaticalParentEnum>(
+            Arrays.asList(this.grammaticalEnums));
+   }
+
+   public static Set<GrammaticalParentEnum> getSetOfGrammaticalEnums(
+         List<ExpressionKindTableRow> rows)
+   {
+      Set<GrammaticalParentEnum> grammaticalEnums = new HashSet<>();
+
+      for (ExpressionKindTableRow row : rows)
+      {
+         grammaticalEnums
+               .addAll(row.getExpressionKind().getSetOfGrammaticalEnums());
+      }
+
+      return grammaticalEnums;
    }
 }
