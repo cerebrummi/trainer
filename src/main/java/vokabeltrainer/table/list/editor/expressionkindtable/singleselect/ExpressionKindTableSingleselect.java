@@ -5,12 +5,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
-import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableSingleselect extends JTable
 {
@@ -44,21 +45,20 @@ public class ExpressionKindTableSingleselect extends JTable
                ExpressionKindTableRow2 tableRow = ((ExpressionKindTableRow2) table
                      .getValueAt(table.getSelectedRow(), 0));
 
-               ExpressionKind expressionKind = tableRow.getExpressionKind();
+               ExpressionKindItem expressionKind = tableRow.getExpressionKind();
 
                expressionKind.toggleSelected();
                if (expressionKind.isSelected())
                {
                   for (int i = 0; i < table.getRowCount(); i++)
                   {
-                     ExpressionKind kind = ((ExpressionKindTableRow2) table.getValueAt(i, 0))
-                           .getExpressionKind();
-                     if (i != row
-                           && kind.isSelected())
+                     ExpressionKindItem kind = ((ExpressionKindTableRow2) table
+                           .getValueAt(i, 0)).getExpressionKind();
+                     if (i != row && kind.isSelected())
                      {
                         kind.toggleSelected();
                         ((ExpressionKindTableModel2) table.getModel())
-                        .fireTableCellUpdated(i, 0);
+                              .fireTableCellUpdated(i, 0);
                      }
                   }
                   connector.displayExpressionKindWhich();
@@ -77,4 +77,9 @@ public class ExpressionKindTableSingleselect extends JTable
       return (ExpressionKindTableModel2) super.getModel();
    }
 
+   @Override
+   public Class<?> getColumnClass(int column)
+   {
+      return JLabel.class;  
+   }
 }

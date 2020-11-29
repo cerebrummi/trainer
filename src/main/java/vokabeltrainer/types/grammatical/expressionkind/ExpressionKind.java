@@ -169,7 +169,6 @@ public enum ExpressionKind
    public static List<ExpressionKind> getValuesAsSortedList()
    {
       List<ExpressionKind> list = Arrays.asList(ExpressionKind.values());
-      list.remove(0);
 
       Collections.sort(list, new Comparator<ExpressionKind>()
       {
@@ -222,7 +221,7 @@ public enum ExpressionKind
    public static ExpressionKindTableModel getModel() // for Multiselect
    {
       Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
-      for (ExpressionKind kind : ExpressionKind.values())
+      for (ExpressionKindItem kind : ExpressionKindHelper.getAllExpressionKindItems())
       {
          kind.setSelected(false);
          Vector<ExpressionKindTableRow> row = new Vector<>();
@@ -237,7 +236,7 @@ public enum ExpressionKind
    public static ExpressionKindTableModel2 getModel2() // for Singleselect
    {
       Vector<Vector<ExpressionKindTableRow2>> data = new Vector<>();
-      for (ExpressionKind kind : ExpressionKind.values())
+      for (ExpressionKindItem kind : ExpressionKindHelper.getAllExpressionKindItems())
       {
          kind.setSelected(false);
          Vector<ExpressionKindTableRow2> row = new Vector<>();
@@ -252,19 +251,23 @@ public enum ExpressionKind
    public static ExpressionKindTableModel getModel(
          Set<ExpressionKind> expressionKinds)
    {
+      Set<ExpressionKindItem> expressionKindItems = new HashSet<>();
       Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
       for (ExpressionKind kind : ExpressionKind.values())
       {
+         ExpressionKindItem item = new ExpressionKindItem(kind);
          if (expressionKinds.contains(kind))
          {
-            kind.setSelected(true);
+            item.setSelected(true);
+            expressionKindItems.add(item);
          }
          else
          {
-            kind.setSelected(false);
+            item.setSelected(false);
+            expressionKindItems.add(item);
          }
          Vector<ExpressionKindTableRow> row = new Vector<>();
-         row.add(new ExpressionKindTableRow(kind));
+         row.add(new ExpressionKindTableRow(item));
          data.add(row);
       }
       Vector<String> columnNames = new Vector<>();
@@ -286,7 +289,7 @@ public enum ExpressionKind
       for (ExpressionKindTableRow row : rows)
       {
          grammaticalEnums
-               .addAll(row.getExpressionKind().getSetOfGrammaticalEnums());
+               .addAll(row.getExpressionKind().getKind().getSetOfGrammaticalEnums());
       }
 
       return grammaticalEnums;

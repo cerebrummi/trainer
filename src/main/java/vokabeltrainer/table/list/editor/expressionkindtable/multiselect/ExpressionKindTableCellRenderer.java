@@ -13,7 +13,7 @@ import javax.swing.table.TableCellRenderer;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableCellRenderer implements TableCellRenderer, TableCellEditor
 {
@@ -91,7 +91,7 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
    {
-      ExpressionKind expressionKind = ((ExpressionKindTableRow) value).getExpressionKind();
+      ExpressionKindItem expressionKind = ((ExpressionKindTableRow) value).getExpressionKind();
       
       if(row == 0 && expressionKind.isSelected())
       {
@@ -121,7 +121,7 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
          }
       }
 
-      this.expressionKind.setText(expressionKind.toString());
+      this.expressionKind.setText(expressionKind.getKind().toString());
       return this.expressionKind;
    }
 

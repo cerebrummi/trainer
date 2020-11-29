@@ -62,6 +62,7 @@ import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class DictionaryView extends BackgroundPanelTiled
       implements DictionaryViewConnector
@@ -711,7 +712,7 @@ public class DictionaryView extends BackgroundPanelTiled
             .getModel().getData();
       for (Vector<ExpressionKindTableRow2> vektorRow : vektorRows)
       {
-         ExpressionKind expressionKind = vektorRow.get(0).getExpressionKind();
+         ExpressionKindItem expressionKind = vektorRow.get(0).getExpressionKind();
          if (expressionKind.isSelected())
          {
             expressionKind.setSelected(false);
@@ -787,7 +788,7 @@ public class DictionaryView extends BackgroundPanelTiled
       {
          return ((ExpressionKindTableRow2) expressionKindTable
                .getValueAt(expressionKindTable.getSelectedRow(), 0))
-                     .getExpressionKind();
+                     .getExpressionKind().getKind();
       }
 
       return null;

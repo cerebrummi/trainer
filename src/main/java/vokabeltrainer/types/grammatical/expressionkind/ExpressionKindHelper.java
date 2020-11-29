@@ -1,5 +1,10 @@
 package vokabeltrainer.types.grammatical.expressionkind;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
 
 public class ExpressionKindHelper
@@ -57,4 +62,25 @@ public class ExpressionKindHelper
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
    public static GrammaticalParentEnum[] ZAHL_ENUMS = {
          GrammaticalParentEnum.GENDER };
+   
+   public static List<ExpressionKindItem> getAllExpressionKindItems()
+   {
+      List<ExpressionKindItem> itemlist = new ArrayList<>();
+      for(ExpressionKind kind : ExpressionKind.getValuesAsSortedList())
+      {
+         itemlist.add(new ExpressionKindItem(kind));
+      }
+      return itemlist;
+   }
+
+   public static Set<ExpressionKindItem> getExpressionKindItems(
+         Set<ExpressionKind> expressionKinds)
+   {
+      Set<ExpressionKindItem> itemset = new HashSet<>();
+      for(ExpressionKind kind : expressionKinds)
+      {
+         itemset.add(new ExpressionKindItem(kind));
+      }
+      return itemset;
+   }
 }

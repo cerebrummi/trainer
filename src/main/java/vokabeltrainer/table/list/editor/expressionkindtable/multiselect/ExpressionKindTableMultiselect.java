@@ -4,17 +4,15 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
-import java.util.Set;
-
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
 import vokabeltrainer.table.list.editor.ExpressionEditorViewConnector;
-import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableMultiselect extends JTable
 {
@@ -48,7 +46,7 @@ public class ExpressionKindTableMultiselect extends JTable
                ExpressionKindTableRow tableRow = ((ExpressionKindTableRow) table
                      .getValueAt(table.getSelectedRow(), 0));
 
-               ExpressionKind expressionKind = tableRow.getExpressionKind();
+               ExpressionKindItem expressionKind = tableRow.getExpressionKind();
 
                expressionKind.toggleSelected();
 
@@ -100,8 +98,12 @@ public class ExpressionKindTableMultiselect extends JTable
 
    public int getMaxScrollValue()
    {
-      // TODO Auto-generated method stub
       return this.getRowCount() * this.getRowHeight();
    }
 
+   @Override
+   public Class<?> getColumnClass(int column)
+   {
+      return JLabel.class;  
+   }
 }

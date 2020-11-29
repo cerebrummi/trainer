@@ -7,7 +7,6 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +24,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListCellRenderer;
-import javax.swing.SwingWorker;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
@@ -54,7 +52,6 @@ import vokabeltrainer.types.Database;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
-import vokabeltrainer.types.grammatical.GrammaticalEnum;
 import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
@@ -63,6 +60,7 @@ import vokabeltrainer.types.grammatical.VerbStrength;
 import vokabeltrainer.types.grammatical.VerbType;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionEditorView extends JDialog
       implements ExpressionEditorViewConnector
@@ -807,23 +805,23 @@ public class ExpressionEditorView extends JDialog
             .getModel().getData();
       for (Vector<ExpressionKindTableRow> vektorRow : vektorRows)
       {
-         ExpressionKind expressionKind = vektorRow.get(0).getExpressionKind();
+         ExpressionKindItem expressionKind = vektorRow.get(0).getExpressionKind();
          if (expressionKind.isSelected())
          {
-            definitions.addExpressionKind(expressionKind);
-            definitions.setGrammaticalEnum(expressionKind,
+            definitions.addExpressionKind(expressionKind.getKind());
+            definitions.setGrammaticalEnum(expressionKind.getKind(),
                   binjanBox.getItemAt(binjanBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind,
+            definitions.setGrammaticalEnum(expressionKind.getKind(),
                   genderBox.getItemAt(genderBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind, grammaticalPersonBox
+            definitions.setGrammaticalEnum(expressionKind.getKind(), grammaticalPersonBox
                   .getItemAt(grammaticalPersonBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind,
+            definitions.setGrammaticalEnum(expressionKind.getKind(),
                   numerusBox.getItemAt(numerusBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind, verbConjugationBox
+            definitions.setGrammaticalEnum(expressionKind.getKind(), verbConjugationBox
                   .getItemAt(verbConjugationBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind, verbStrengthBox
+            definitions.setGrammaticalEnum(expressionKind.getKind(), verbStrengthBox
                   .getItemAt(verbStrengthBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind,
+            definitions.setGrammaticalEnum(expressionKind.getKind(),
                   verbTypeBox.getItemAt(verbTypeBox.getSelectedIndex()));
          }
       }

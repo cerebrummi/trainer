@@ -1,17 +1,17 @@
 package vokabeltrainer.table.list.editor.expressionkindtable.multiselect;
 
-import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableRow
 {
-   private ExpressionKind expressionKind;
+   private ExpressionKindItem expressionKind;
 
-   public ExpressionKindTableRow(ExpressionKind expressionKind)
+   public ExpressionKindTableRow(ExpressionKindItem expressionKind)
    {
       this.expressionKind = expressionKind;
    }
 
-   public ExpressionKind getExpressionKind()
+   public ExpressionKindItem getExpressionKind()
    {
       return expressionKind;
    }
