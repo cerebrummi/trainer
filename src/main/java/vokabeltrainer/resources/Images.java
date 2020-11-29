@@ -82,7 +82,7 @@ public class Images
             .getResourceAsStream("_2_images/hebrew-letters-2730159_1280.jpg")));
 
       // "_2_images/icon.png":
-
+      
       ApplicationImages.setInfoButtonIcon(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/info-button-icon.png")));
 

@@ -31,9 +31,11 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
+import vokabeltrainer.CerebrummiNodes;
 import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
+import vokabeltrainer.cmd.DirectoryHelper;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
@@ -272,7 +274,7 @@ public final class Data
 
    private static class DataBase
    {
-      private final static String DELETED_TXT = "DELETED.txt";
+      private final static String DELETED_CSV = "DELETED.csv";
       private Set<Chapter> chapterSet = new HashSet<>();
       private final String[][] COLUMNAMES = { { "erste" } };
 
@@ -282,7 +284,7 @@ public final class Data
       private final ConcurrentMap<UUID, Expression> newMap = new ConcurrentHashMap<>(
             100);
       private final ConcurrentMap<UUID, Expression> deletedMap = readFile(
-            DELETED_TXT, Database.SELF, LetterForSaving.DELETED);
+            DELETED_CSV, Database.SELF, LetterForSaving.DELETED);
 
       DataBase()
       {
@@ -391,7 +393,14 @@ public final class Data
             File customDir = new File(Settings.getExpressionPathFolder());
             if (!customDir.exists())
             {
-               customDir.mkdirs();
+               if (!DirectoryHelper.makeExpressionDirectory(customDir))
+               {
+                  JOptionPane.showMessageDialog(Common.getjFrame(),
+                        "Es hat beim Lesen einen Fehler gegeben.\n"
+                              + "Wählen Sie unter Einstellungen einen anderen Speicherort.",
+                        "Fehler", JOptionPane.ERROR_MESSAGE);
+                  return false;
+               }
             }
             return true;
          }
@@ -409,9 +418,9 @@ public final class Data
       private int findNumberOfAllVocabulary()
       {
          Preferences preferences = Preferences.userRoot()
-               .node(Settings.getNode());
+               .node(CerebrummiNodes.getNode());
          int numberOfVocabulary = preferences
-               .getInt(Settings.getExpressionNode(), 0);
+               .getInt(CerebrummiNodes.getExpressionNode(), 0);
          if (numberOfVocabulary > 30000)
          {
             numberOfVocabulary = 30000;
@@ -559,7 +568,7 @@ public final class Data
                         LetterForSaving.getLetter(expression.getGerman()));
                }
 
-               if (!DELETED_TXT.equals(filename))
+               if (!DELETED_CSV.equals(filename))
                {
                   alleMap.put(expression.getUuid(), expression);
                }
@@ -569,7 +578,7 @@ public final class Data
                }
 
                if (!expression.getChapter().getName().isEmpty()
-                     && !DELETED_TXT.equals(filename))
+                     && !DELETED_CSV.equals(filename))
                {
                   chapterSet.add(expression.getChapter());
                }

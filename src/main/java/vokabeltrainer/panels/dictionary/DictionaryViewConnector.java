@@ -43,4 +43,5 @@ public interface DictionaryViewConnector
    public void removeChapterListSelectionListener();
    public void addChapterListSelectionListener();
    public void doShowTable(ExpressionTableModel tableModel);
+   public void setValues();
 }

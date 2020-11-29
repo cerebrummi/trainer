@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.CerebrummiPreferences;
 import vokabeltrainer.Settings;
 import vokabeltrainer.resources.Blue;
 import vokabeltrainer.resources.Buchstabenbilder;
@@ -87,6 +88,8 @@ public final class Main
          System.exit(1);
       }
 
+      CerebrummiPreferences.read();
+      
       Data.initDataBase();
 
       try
@@ -201,5 +204,10 @@ public final class Main
    public static void setHebrewFont(Font hebrewFont)
    {
       Main.hebrewFont = hebrewFont;
+   }
+
+   public static void initDatabase()
+   {
+      Data.initDataBase();
    }
 }

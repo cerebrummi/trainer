@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 import vokabeltrainer.common.Main;
 import vokabeltrainer.types.Database;
@@ -21,9 +22,12 @@ public class Settings
 
    private static boolean soundOn = true;
    private static String chosenExpressionPath = null;
-   private static List<Database> chosenDatabases; // TODO user can choose databases
+   private static float volume = -20;
+   
+   private static List<Database> chosenDatabases; // TODO user can choose
+                                                  // databases
    private static Database[] availableDatabases = {};
-   private static float volume = -15;
+
 
    private Settings()
    {
@@ -56,18 +60,18 @@ public class Settings
 
    private static String getExpressionFolder()
    {
-      return "de.adaadama.hebrewtrainer";
+      return "cerebrummi.hebrewtrainer";
    }
 
-   private static String getExpressionPath()
+   public static String getExpressionPath()
    {
-      if(chosenExpressionPath == null)
+      if (chosenExpressionPath == null)
       {
          return System.getProperty("user.home");
       }
       return chosenExpressionPath;
    }
-   
+
    public static String getExpressionPathFolder()
    {
       return getExpressionPath() + File.separator + getExpressionFolder();
@@ -80,28 +84,7 @@ public class Settings
 
    private static String getTrainingFolder()
    {
-      return "training";
-   }
-
-   public static String getNode() // the node of preferences
-   {
-      return File.separator + "de" + File.separator + "adaadama" + File.separator
-            + "hebrewtrainer";
-   }
-
-   public static String getExpressionNode()
-   {
-      return "vocabulary";
-   }
-
-   public static String getTrainingNode()
-   {
-      return "training";
-   }
-
-   public static int getNumberOfBackups()
-   {
-      return 5;
+      return getExpressionFolder() + ".training";
    }
 
    public static Color getLightBlue()
@@ -225,6 +208,9 @@ public class Settings
 
    public static void setSoundOn(boolean soundOn)
    {
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.putBoolean(CerebrummiNodes.getSoundNode(), soundOn);
       Settings.soundOn = soundOn;
    }
 
@@ -235,6 +221,10 @@ public class Settings
 
    public static void setChoosenExpressionPath(String choosenExpressionPath)
    {
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.put(CerebrummiNodes.getChoosenExpressionPathNode(), choosenExpressionPath);
+      
       Settings.chosenExpressionPath = choosenExpressionPath;
    }
 

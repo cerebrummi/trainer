@@ -14,9 +14,12 @@ import java.util.prefs.Preferences;
 
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
+
+import vokabeltrainer.CerebrummiNodes;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.cmd.DirectoryHelper;
 
 public final class SaveExpressions
 {
@@ -41,16 +44,12 @@ public final class SaveExpressions
             File customDir = new File(Settings.getExpressionPathFolder());
             if (!customDir.exists())
             {
-               try
-               {
-                  customDir.mkdirs();
-               }
-               catch (Exception e)
+               if (!DirectoryHelper.makeExpressionDirectory(customDir))
                {
                   JOptionPane.showMessageDialog(Common.getjFrame(),
-                        "Fehler beim Speichern.", "Fehlermeldung",
-                        JOptionPane.ERROR_MESSAGE);
-                  return false;
+                        "Es hat beim Speichern einen Fehler gegeben.\n"
+                              + "Wählen Sie unter Einstellungen einen anderen Speicherort.",
+                        "Fehler", JOptionPane.ERROR_MESSAGE);
                }
             }
 
@@ -61,8 +60,8 @@ public final class SaveExpressions
                bar.setProgress(progress);
             }
             Preferences preferences = Preferences.userRoot()
-                  .node(Settings.getNode());
-            preferences.putInt(Settings.getExpressionNode(), counter);
+                  .node(CerebrummiNodes.getNode());
+            preferences.putInt(CerebrummiNodes.getExpressionNode(), counter);
             saveDeletedExpressions();
             Data.integrateNewExpressions();
             progress = 100;
@@ -72,7 +71,6 @@ public final class SaveExpressions
          }
          catch (Exception e)
          {
-            e.printStackTrace();
             JOptionPane
                   .showMessageDialog(Common.getjFrame(),
                         "Es hat beim Speichern einen Fehler gegeben.\n"
@@ -136,7 +134,7 @@ public final class SaveExpressions
          }
          if (expression.getLetterForSaving().equals(letter))
          {
-            
+
             list.add(expression);
          }
       }

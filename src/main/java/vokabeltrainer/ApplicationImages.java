@@ -68,7 +68,7 @@ public class ApplicationImages
    
    private static Map<HebrewLetter, BufferedImage> letterIconsMap;
    
-   private static String message = "Bitte neu starten.\\nCerebrummi© konnte keine Bilder laden.\\nFehler: ";
+   private static String message = "Bitte neu starten.\nCerebrummi© konnte keine Bilder laden.\nFehler: ";
 
    public static void setImage(BufferedImage image)
    {

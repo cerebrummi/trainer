@@ -14,6 +14,8 @@ import java.util.prefs.Preferences;
 
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
+
+import vokabeltrainer.CerebrummiNodes;
 import vokabeltrainer.Settings;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
@@ -62,8 +64,8 @@ public final class SaveTraining
             }
 
             Preferences preferences = Preferences.userRoot()
-                  .node(Settings.getNode());
-            preferences.putInt(Settings.getTrainingNode(), counter);
+                  .node(CerebrummiNodes.getNode());
+            preferences.putInt(CerebrummiNodes.getTrainingNode(), counter);
 
             progress = 100;
             bar.setProgress(progress);

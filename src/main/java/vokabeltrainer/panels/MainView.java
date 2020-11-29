@@ -108,6 +108,7 @@ public class MainView extends JPanel
             remove(activeComponent);
          }
          activeComponent = (JPanel) dictionaryPanel;
+         dictionaryPanel.setValues();
          add(activeComponent, BorderLayout.CENTER);
          validate();
          repaint();
