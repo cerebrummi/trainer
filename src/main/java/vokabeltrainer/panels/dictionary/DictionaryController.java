@@ -40,10 +40,10 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void save()
    {
-      SwingUtilities.invokeLater(new Runnable()
+      new SwingWorker<Void, Void>()
       {
          @Override
-         public void run()
+         protected Void doInBackground() throws Exception
          {
             if (new SaveExpressions().save())
             {
@@ -54,8 +54,9 @@ public class DictionaryController implements DictionaryControllerConnector
                Status.push(Status.peek());
                decideOnTableInteraction(Action.SAVE);
             }
+            return null;
          }
-      });
+      }.execute();
    }
 
    @Override
@@ -99,11 +100,6 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void openNewExpressionDialog()
    {
-      int selectedRow = -1;
-      if (dictionaryView.isTableNotNull())
-      {
-         selectedRow = dictionaryView.getTable().getSelectedRow();
-      }
       ExpressionEditorView editor = new ExpressionEditorController()
             .getExpressionEditorDialog();
       editor.setExpression(new Expression(true, false), true);
@@ -116,24 +112,6 @@ public class DictionaryController implements DictionaryControllerConnector
          Status.push(Status.peek());
          decideOnTableInteraction(Action.NEW_EXPRESSION);
          save();
-         if (dictionaryView.isTableNotNull())
-         {
-            final int selectedRowNow = selectedRow;
-            SwingUtilities.invokeLater(new Runnable()
-            {
-               public void run()
-               {
-                  dictionaryView.getTableScroller().getVerticalScrollBar()
-                        .setMaximum(Settings.dictionaryTableRowHeight()
-                              * dictionaryView.getTable().getRowCount());
-                  dictionaryView.getTableScroller().getVerticalScrollBar()
-                        .setValue(Settings.dictionaryTableRowHeight()
-                              * selectedRowNow);
-                  dictionaryView.getTable().changeSelection(selectedRowNow, 0,
-                        false, false);
-               }
-            });
-         }
       }
    }
 

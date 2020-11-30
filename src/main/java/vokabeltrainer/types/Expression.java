@@ -1,5 +1,6 @@
 package vokabeltrainer.types;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class Expression
    private Definitions definitions;
    private LetterForSaving letterForSaving;
    private String additionalInformation;
+   private LocalDateTime lastModified;
 
    public Expression(boolean preset, boolean doNotChange)
    {
@@ -38,6 +40,7 @@ public class Expression
          hebrewInLatin = "";
          chapter = new Chapter();
          definitions = new Definitions();
+         lastModified = LocalDateTime.now();
       }
    }
 
@@ -215,6 +218,21 @@ public class Expression
    public void setAdditionalInformation(String additionalInformation)
    {
       this.additionalInformation = additionalInformation;
+   }
+
+   public LocalDateTime getLastModified()
+   {
+      return lastModified;
+   }
+
+   public void setLastModified(LocalDateTime lastModified)
+   {
+      this.lastModified = lastModified;
+   }
+   
+   public void toggleLastModified()
+   {
+      this.lastModified = LocalDateTime.now();
    }
 
    public String[] toGermanArrayForTableEntry()
