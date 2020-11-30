@@ -169,12 +169,6 @@ public final class Data
             chapter, command, sortForDate);
    }
 
-   public static ExpressionTableModel findTranslationsNewWords(
-         Language language)
-   {
-      return getDataBaseAtomic().findTranslationsNewWords(language);
-   }
-
    public static ExpressionTableModel findTranslationsDeletedWords(
          Language language)
    {
@@ -727,17 +721,6 @@ public final class Data
                convertToExpressionModelArray(
                      filterExpressions(text, language, search, expressions)),
                COLUMNAMES);
-      }
-
-      private ExpressionTableModel findTranslationsNewWords(Language language)
-      {
-         Collection<Expression> expressions = newMap.values();
-         Expression[] expressionArray = expressions
-               .toArray(new Expression[expressions.size()]);
-         Arrays.sort(expressionArray, new ExpressionComparator(language));
-
-         return new ExpressionTableModel(
-               convertToExpressionModelArray(expressionArray), COLUMNAMES);
       }
 
       private ExpressionTableModel findTranslationsDeletedWords(
