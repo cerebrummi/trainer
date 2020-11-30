@@ -24,5 +24,5 @@ public interface DictionaryControllerConnector
    public void displayChapterWhich(Chapter chapter);
    public void displayExpressionKindWhich();
    public DictionaryViewConnector getDictionaryPanel();
-   public void sortTableForDate();
+   public void sortTableForDateOrNot();
 }

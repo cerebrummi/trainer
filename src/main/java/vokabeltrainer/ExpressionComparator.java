@@ -30,7 +30,7 @@ public class ExpressionComparator implements Comparator<Expression>
    {
       if(sortForDate)
       {
-         return o1.getLastModified().compareTo(o2.getLastModified());
+         return o2.getLastModified().compareTo(o1.getLastModified());
       }
       else if (Language.GERMAN.equals(language))
       {

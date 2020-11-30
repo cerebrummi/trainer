@@ -586,10 +586,7 @@ public class DictionaryView extends BackgroundPanelTiled
       });
       
       sortForDateBox.addActionListener(event -> {
-         if(sortForDateBox.isSelected())
-         {
-            connector.sortTableForDate();
-         }
+         connector.sortTableForDateOrNot();
       });
    }
 

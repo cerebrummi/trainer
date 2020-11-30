@@ -288,11 +288,11 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       new SwingWorker<Void, Void>()
       {
+         private ExpressionTableModel tableModel = null;
+
          @Override
          protected Void doInBackground() throws Exception
          {
-            ExpressionTableModel tableModel = null;
-
             switch (Interaction
                   .getCommand(new Interaction(action, Status.pop())))
             {
@@ -358,6 +358,12 @@ public class DictionaryController implements DictionaryControllerConnector
                      dictionaryView.isSortForDate());
             }
 
+            return null;
+         }
+
+         @Override
+         protected void done()
+         {
             if (tableModel == null)
             {
                // nothing
@@ -371,7 +377,6 @@ public class DictionaryController implements DictionaryControllerConnector
             {
                dictionaryView.doShowTable(tableModel);
             }
-            return null;
          }
       }.execute();
    }
@@ -400,14 +405,13 @@ public class DictionaryController implements DictionaryControllerConnector
    }
 
    @Override
-   public void sortTableForDate()
+   public void sortTableForDateOrNot()
    {
       if (dictionaryView.isTableNotNull())
       {
          Status.push(Status.peek());
          decideOnTableInteraction(Action.SORT_FOR_DATE);
       }
-
    }
 
 }
