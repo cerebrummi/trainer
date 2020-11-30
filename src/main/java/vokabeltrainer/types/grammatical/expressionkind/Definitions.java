@@ -57,47 +57,37 @@ public class Definitions
 
    public String getGenderDescriptions()
    {
-      StringJoiner joiner = new StringJoiner(", ");
-      for (ExpressionKind kind : definitions.keySet())
-      {
-         if (!definitions.get(kind).getGrammaticalEnum(Gender.class)
-               .toDescription().isEmpty())
-         {
-            joiner.add(definitions.get(kind).getGrammaticalEnum(Gender.class)
-                  .toDescription());
-         }
-      }
-      return joiner.toString();
+      return grammaticalEnumToDescription(Gender.class).toString();
    }
 
    public String getNumerusDescriptions()
    {
-      StringJoiner joiner = new StringJoiner(", ");
-      for (ExpressionKind kind : definitions.keySet())
-      {
-         if (!definitions.get(kind).getGrammaticalEnum(Numerus.class)
-               .toDescription().isEmpty())
-         {
-            joiner.add(definitions.get(kind).getGrammaticalEnum(Numerus.class)
-                  .toDescription());
-         }
-      }
-      return joiner.toString();
+      return grammaticalEnumToDescription(Numerus.class).toString();
    }
 
    public String getBinjanDescriptions()
    {
-      StringJoiner joiner = new StringJoiner(", ");
+      return grammaticalEnumToDescription(Binjan.class).toString();
+   }
+
+   private StringJoiner grammaticalEnumToDescription(Class<? extends GrammaticalEnum> clazz)
+   {
+      Set<GrammaticalEnum> genders = new HashSet<>();
       for (ExpressionKind kind : definitions.keySet())
       {
-         if (!definitions.get(kind).getGrammaticalEnum(Binjan.class)
+         if (!definitions.get(kind).getGrammaticalEnum(clazz)
                .toDescription().isEmpty())
          {
-            joiner.add(definitions.get(kind).getGrammaticalEnum(Binjan.class)
-                  .toDescription());
+            genders.add(definitions.get(kind).getGrammaticalEnum(clazz));
          }
       }
-      return joiner.toString();
+      
+      StringJoiner joiner = new StringJoiner(", ");
+      for(GrammaticalEnum grammaticalenum : genders)
+      {
+         joiner.add(grammaticalenum.toDescription());
+      }
+      return joiner;
    }
 
    public String getExpressionKindDescriptions()
