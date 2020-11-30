@@ -60,7 +60,7 @@ public class Settings
 
    private static String getExpressionFolder()
    {
-      return "cerebrummi.hebrewtrainer";
+      return "cerebrummi-hebrewtrainer";
    }
 
    public static String getExpressionPath()
@@ -84,7 +84,7 @@ public class Settings
 
    private static String getTrainingFolder()
    {
-      return getExpressionFolder() + ".training";
+      return getExpressionFolder() + "-training";
    }
 
    public static Color getLightBlue()

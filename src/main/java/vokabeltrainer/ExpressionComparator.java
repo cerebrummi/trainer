@@ -10,17 +10,29 @@ import vokabeltrainer.types.Language;
 public class ExpressionComparator implements Comparator<Expression>
 {
 
-   Language language;
+   private Language language;
+   private boolean sortForDate;
 
+   public ExpressionComparator(Language language, boolean sortForDate)
+   {
+      this.language = language;
+      this.sortForDate = sortForDate;
+   }
+   
    public ExpressionComparator(Language language)
    {
       this.language = language;
+      this.sortForDate = false;
    }
 
    @Override
    public int compare(Expression o1, Expression o2)
    {
-      if (Language.GERMAN.equals(language))
+      if(sortForDate)
+      {
+         return o1.getLastModified().compareTo(o2.getLastModified());
+      }
+      else if (Language.GERMAN.equals(language))
       {
          Collator coll = Collator.getInstance(Locale.GERMAN);
          coll.setStrength(Collator.PRIMARY);

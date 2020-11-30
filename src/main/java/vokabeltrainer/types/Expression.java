@@ -316,6 +316,7 @@ public class Expression
       joiner.add(additionalInformation);
       joiner.add(getSearchWordsGermanForSaving());
       joiner.add(getSearchWordsHebrewForSaving());
+      joiner.add(lastModified.toString());
       return joiner.toString();
    }
    

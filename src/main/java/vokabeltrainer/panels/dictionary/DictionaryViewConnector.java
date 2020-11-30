@@ -44,4 +44,5 @@ public interface DictionaryViewConnector
    public void addChapterListSelectionListener();
    public void doShowTable(ExpressionTableModel tableModel);
    public void setValues();
+   public boolean isSortForDate();
 }

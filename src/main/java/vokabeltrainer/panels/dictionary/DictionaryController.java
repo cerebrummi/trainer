@@ -9,12 +9,10 @@ import java.util.List;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.Command;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.DictionaryView;
@@ -319,7 +317,7 @@ public class DictionaryController implements DictionaryControllerConnector
                dictionaryView.clearTable();
                tableModel = Data.findTranslations(
                      dictionaryView.getSelectedLanguage(), null, null, null,
-                     currentChapter, null);
+                     currentChapter, null, dictionaryView.isSortForDate());
                dictionaryView.removeChapterListSelectionListener();
                dictionaryView.selectChapter(currentChapter);
                dictionaryView.addChapterListSelectionListener();
@@ -332,7 +330,8 @@ public class DictionaryController implements DictionaryControllerConnector
                {
                   tableModel = Data.findTranslations(
                         dictionaryView.getSelectedLanguage(), null,
-                        expressionKind, null, null, null);
+                        expressionKind, null, null, null,
+                        dictionaryView.isSortForDate());
                }
                break;
             case TABLE_SEARCH_WHICH_GERMAN:
@@ -340,20 +339,23 @@ public class DictionaryController implements DictionaryControllerConnector
                tableModel = Data.findTranslations(
                      dictionaryView.getSelectedLanguage(),
                      dictionaryView.getSearchPhraseGerman(), null,
-                     dictionaryView.getSelectedSearchTypeGerman(), null, null);
+                     dictionaryView.getSelectedSearchTypeGerman(), null, null,
+                     dictionaryView.isSortForDate());
                break;
             case TABLE_SEARCH_WHICH_HEBREW:
                dictionaryView.clearTable();
                tableModel = Data.findTranslations(
                      dictionaryView.getSelectedLanguage(),
                      dictionaryView.getSearchPhraseHebrew(), null,
-                     dictionaryView.getSelectedSearchTypeHebrew(), null, null);
+                     dictionaryView.getSelectedSearchTypeHebrew(), null, null,
+                     dictionaryView.isSortForDate());
                break;
             case TABLE_SELECTED_EXPRESSIONS:
                dictionaryView.clearTable();
                tableModel = Data.findTranslations(
                      dictionaryView.getSelectedLanguage(), null, null, null,
-                     null, Command.ALL_SELECTED);
+                     null, Command.ALL_SELECTED,
+                     dictionaryView.isSortForDate());
             }
 
             if (tableModel == null)
@@ -395,6 +397,17 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       Status.push(Status.EXPRESSIONKIND_WHICH);
       decideOnTableInteraction(Action.EXPRESSIONKIND_WHICH);
+   }
+
+   @Override
+   public void sortTableForDate()
+   {
+      if (dictionaryView.isTableNotNull())
+      {
+         Status.push(Status.peek());
+         decideOnTableInteraction(Action.SORT_FOR_DATE);
+      }
+
    }
 
 }

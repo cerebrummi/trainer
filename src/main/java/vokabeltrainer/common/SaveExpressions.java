@@ -23,7 +23,7 @@ import vokabeltrainer.cmd.DirectoryHelper;
 
 public final class SaveExpressions
 {
-   private static final String HEADER_CSV = "UUID\tchapter\tGerman\tHebrew\tHebrew in Latin\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tzusätzliche Informationen\tsearchwords German\tsearchwords Hebrew";
+   private static final String HEADER_CSV = "UUID\tchapter\tGerman\tHebrew\tHebrew in Latin\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tzusätzliche Informationen\tsearchwords German\tsearchwords Hebrew\tletzte Änderung";
    private int counter;
 
    public boolean save()

@@ -24,6 +24,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -107,6 +108,8 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private ExpressionKindTableSingleselect expressionKindTable;
 
+   private JCheckBox sortForDateBox;
+
    public DictionaryView(DictionaryControllerConnector connector)
    {
       this.connector = connector;
@@ -134,9 +137,12 @@ public class DictionaryView extends BackgroundPanelTiled
       }
       JPanel filler = new JPanel();
       filler.setOpaque(false);
-      filler.setMinimumSize(new Dimension(50, 15));
-      filler.setMaximumSize(new Dimension(200, 32));
+      filler.setMinimumSize(new Dimension(20, 40));
+      filler.setMaximumSize(new Dimension(100, 40));
       horizontalLanguagePanel.add(filler);
+      sortForDateBox = new JCheckBox("nach Datum sortieren");
+      sortForDateBox.setFont(Main.getGermanFont(12F));
+      horizontalLanguagePanel.add(sortForDateBox);
       tableInfoButton = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
       tableInfoButton.setBackground(new Color(0, 0, 0, 0));
@@ -578,6 +584,13 @@ public class DictionaryView extends BackgroundPanelTiled
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
          }
       });
+      
+      sortForDateBox.addActionListener(event -> {
+         if(sortForDateBox.isSelected())
+         {
+            connector.sortTableForDate();
+         }
+      });
    }
 
    public int askForShredderConfirmation()
@@ -846,5 +859,11 @@ public class DictionaryView extends BackgroundPanelTiled
    public void setValues()
    {
       this.loadChapters();
+   }
+
+   @Override
+   public boolean isSortForDate()
+   {
+      return sortForDateBox.isSelected();
    }
 }

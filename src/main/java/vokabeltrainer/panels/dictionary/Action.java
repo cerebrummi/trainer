@@ -22,5 +22,6 @@ public enum Action
    DELETE_ALL_SELECTED,
    SAVE,
    WORK_WASTEBIN,
-   WORK_SHREDDER
+   WORK_SHREDDER, 
+   SORT_FOR_DATE
 }

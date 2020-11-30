@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -162,10 +163,10 @@ public final class Data
 
    public static ExpressionTableModel findTranslations(Language language,
          String text, ExpressionKind kind, SearchType search, Chapter chapter,
-         Command command)
+         Command command, boolean sortForDate)
    {
       return getDataBaseAtomic().findTranslations(language, text, kind, search,
-            chapter, command);
+            chapter, command, sortForDate);
    }
 
    public static ExpressionTableModel findTranslationsNewWords(
@@ -521,25 +522,87 @@ public final class Data
                String[] expressionKinds = entries[index].split(",");
                for (String kind : expressionKinds)
                {
-                  definitions.addExpressionKind(ExpressionKind.valueOf(kind));
-                  kinds.add(ExpressionKind.valueOf(kind));
+                  try
+                  {
+                     definitions
+                           .addExpressionKind(ExpressionKind.valueOf(kind));
+                     kinds.add(ExpressionKind.valueOf(kind));
+                  }
+                  catch (Exception e)
+                  {
+                     // nothing
+                  }
                }
                index++;
-               Gender gender = Gender.valueOf(entries[index]);
+               Gender gender = Gender.PLEASE_CHOOSE;
+               Numerus numerus = Numerus.PLEASE_CHOOSE;
+               GrammaticalPerson person = GrammaticalPerson.PLEASE_CHOOSE;
+               Binjan binjan = Binjan.PLEASE_CHOOSE;
+               VerbConjugation conjugation = VerbConjugation.PLEASE_CHOOSE;
+               VerbStrength strength = VerbStrength.PLEASE_CHOOSE;
+               VerbType type = VerbType.PLEASE_CHOOSE;
+               try
+               {
+                  gender = Gender.valueOf(entries[index]);
+               }
+               catch (Exception e)
+               {
+                  // nothing
+               }
                index++;
-               Numerus numerus = Numerus.valueOf(entries[index]);
+               try
+               {
+                  numerus = Numerus.valueOf(entries[index]);
+               }
+               catch (Exception e)
+               {
+                  // nothing
+               }
                index++;
-               GrammaticalPerson person = GrammaticalPerson
-                     .valueOf(entries[index]);
+               try
+               {
+                  person = GrammaticalPerson.valueOf(entries[index]);
+               }
+               catch (Exception e)
+               {
+                  // nothing
+               }
                index++;
-               Binjan binjan = Binjan.valueOf(entries[index]);
+               try
+               {
+                  binjan = Binjan.valueOf(entries[index]);
+               }
+               catch (Exception e)
+               {
+                  // nothing
+               }
                index++;
-               VerbConjugation conjugation = VerbConjugation
-                     .valueOf(entries[index]);
+               try
+               {
+                  conjugation = VerbConjugation.valueOf(entries[index]);
+               }
+               catch (Exception e)
+               {
+                  // nothing
+               }
                index++;
-               VerbStrength strength = VerbStrength.valueOf(entries[index]);
+               try
+               {
+                  strength = VerbStrength.valueOf(entries[index]);
+               }
+               catch (Exception e)
+               {
+                  // nothing
+               }
                index++;
-               VerbType type = VerbType.valueOf(entries[index]);
+               try
+               {
+                  type = VerbType.valueOf(entries[index]);
+               }
+               catch (Exception e)
+               {
+                  // nothing
+               }
                for (ExpressionKind kind : kinds)
                {
                   definitions.setGrammaticalEnum(kind, gender);
@@ -557,7 +620,16 @@ public final class Data
                expression.setSearchwordsGerman(entries[index].split(","));
                index++;
                expression.setSearchwordsHebrew(entries[index].split(","));
-
+               index++;
+               try
+               {
+                  expression
+                        .setLastModified(LocalDateTime.parse(entries[index]));
+               }
+               catch (Exception e)
+               {
+                  expression.toggleLastModified();
+               }
                if (LetterForSaving.DELETED != letter)
                {
                   expression.setLetterForSaving(letter);
@@ -596,7 +668,7 @@ public final class Data
 
       private ExpressionTableModel findTranslations(Language language,
             String text, ExpressionKind kind, SearchType search,
-            Chapter chapter, Command command)
+            Chapter chapter, Command command, boolean sortForDate)
       {
          Collection<Expression> expressions = null;
 
@@ -607,7 +679,7 @@ public final class Data
             {
                List<Expression> selectedExpressions = findAllSelectedExpressionsList();
                Collections.sort(selectedExpressions,
-                     new ExpressionComparator(language));
+                     new ExpressionComparator(language, sortForDate));
                return new ExpressionTableModel(
                      convertToExpressionModelArray(selectedExpressions),
                      COLUMNAMES);
@@ -618,7 +690,7 @@ public final class Data
          {
             return new ExpressionTableModel(
                   convertToExpressionModelArray(
-                        findExpressionsChapterSorted(chapter, language)),
+                        findExpressionsChapterSorted(chapter, language, sortForDate)),
                   COLUMNAMES);
          }
          else if (text == null && kind != null && search == null
@@ -626,7 +698,7 @@ public final class Data
          {
             return new ExpressionTableModel(
                   convertToExpressionModelArray(
-                        findSortedExpressionsOfKind(kind, language)),
+                        findSortedExpressionsOfKind(kind, language, sortForDate)),
                   COLUMNAMES);
          }
          else if (text != null && kind == null && search != null
@@ -647,7 +719,8 @@ public final class Data
                   "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
                         + "Language = " + language + ", kind = " + kind
                         + ", search = " + search + "\n" + "chapter = " + chapter
-                        + ", command = " + command);
+                        + ", command = " + command
+                        + ", sortForDate = " + sortForDate);
          }
 
          return new ExpressionTableModel(
@@ -727,10 +800,10 @@ public final class Data
       }
 
       private List<Expression> findExpressionsChapterSorted(Chapter chapter,
-            Language language)
+            Language language, boolean sortForDate)
       {
          List<Expression> list = findExpressionsChapter(chapter);
-         Collections.sort(list, new ExpressionComparator(language));
+         Collections.sort(list, new ExpressionComparator(language, sortForDate));
          return list;
       }
 
@@ -749,10 +822,10 @@ public final class Data
       }
 
       private List<Expression> findSortedExpressionsOfKind(ExpressionKind kind,
-            Language language)
+            Language language, boolean sortForDate)
       {
          List<Expression> list = findExpressionsOfKind(kind);
-         Collections.sort(list, new ExpressionComparator(language));
+         Collections.sort(list, new ExpressionComparator(language, sortForDate));
          return list;
       }
 
