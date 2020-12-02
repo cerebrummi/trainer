@@ -6,6 +6,8 @@ import java.awt.ComponentOrientation;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -141,6 +144,10 @@ public class ExpressionEditorView extends JDialog
    private JPanel definitionPanel;
 
    private JScrollPane scrollPaneExpressionTable;
+
+   private JLabel databaseNameLabel;
+
+   private JLabel lastModiefiedLabel;
 
    public ExpressionEditorView(ExpressionEditorControllerConnector connector)
    {
@@ -328,8 +335,8 @@ public class ExpressionEditorView extends JDialog
 
       components.add(extraInfo);
       extraInfoScroller = new JScrollPane(extraInfo);
-      extraInfoScroller.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-      extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 300));
+      extraInfoScroller.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
+      extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 240));
 
       pasteButton = new JButton(new DefaultEditorKit.PasteAction());
       pasteButton.setIcon(new ImageIcon(ApplicationImages.getPaste()));
@@ -532,6 +539,12 @@ public class ExpressionEditorView extends JDialog
             BorderFactory.createLineBorder(Settings.getLightGrayGold()),
             "Wortarten"));
 
+      databaseNameLabel = new JLabel();
+      databaseNameLabel.setFont(Settings.getButtonFont());
+
+      lastModiefiedLabel = new JLabel();
+      lastModiefiedLabel.setFont(Settings.getButtonFont());
+
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);
       horizontal.setBackground(Settings.getTransparent());
@@ -542,6 +555,8 @@ public class ExpressionEditorView extends JDialog
       horizontal.add(pasteButton);
 
       vertical.add(scrollPaneExpressionTable);
+      vertical.add(databaseNameLabel);
+      vertical.add(lastModiefiedLabel);
       vertical.add(extraInfoScroller);
       vertical.add(horizontal);
 
@@ -805,7 +820,8 @@ public class ExpressionEditorView extends JDialog
             .getModel().getData();
       for (Vector<ExpressionKindTableRow> vektorRow : vektorRows)
       {
-         ExpressionKindItem expressionKind = vektorRow.get(0).getExpressionKind();
+         ExpressionKindItem expressionKind = vektorRow.get(0)
+               .getExpressionKind();
          if (expressionKind.isSelected())
          {
             definitions.addExpressionKind(expressionKind.getKind());
@@ -813,14 +829,17 @@ public class ExpressionEditorView extends JDialog
                   binjanBox.getItemAt(binjanBox.getSelectedIndex()));
             definitions.setGrammaticalEnum(expressionKind.getKind(),
                   genderBox.getItemAt(genderBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind.getKind(), grammaticalPersonBox
-                  .getItemAt(grammaticalPersonBox.getSelectedIndex()));
+            definitions.setGrammaticalEnum(expressionKind.getKind(),
+                  grammaticalPersonBox
+                        .getItemAt(grammaticalPersonBox.getSelectedIndex()));
             definitions.setGrammaticalEnum(expressionKind.getKind(),
                   numerusBox.getItemAt(numerusBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind.getKind(), verbConjugationBox
-                  .getItemAt(verbConjugationBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind.getKind(), verbStrengthBox
-                  .getItemAt(verbStrengthBox.getSelectedIndex()));
+            definitions.setGrammaticalEnum(expressionKind.getKind(),
+                  verbConjugationBox
+                        .getItemAt(verbConjugationBox.getSelectedIndex()));
+            definitions.setGrammaticalEnum(expressionKind.getKind(),
+                  verbStrengthBox
+                        .getItemAt(verbStrengthBox.getSelectedIndex()));
             definitions.setGrammaticalEnum(expressionKind.getKind(),
                   verbTypeBox.getItemAt(verbTypeBox.getSelectedIndex()));
          }
@@ -846,6 +865,7 @@ public class ExpressionEditorView extends JDialog
       expression.setChapter(selfChapter);
       expression.setAdditionalInformation(
             cleanTextWithoutComma(extraInfo.getText()));
+      expression.setLastModified(LocalDateTime.now());
    }
 
    private String cleanText(String text)
@@ -928,13 +948,22 @@ public class ExpressionEditorView extends JDialog
          showGrammaticalEnums(
                ExpressionKind.getSetOfGrammaticalParentEnums(kinds));
 
-         scrollPaneExpressionTable.getVerticalScrollBar().setMaximum(expressionKindTable.getMaxScrollValue());
+         scrollPaneExpressionTable.getVerticalScrollBar()
+               .setMaximum(expressionKindTable.getMaxScrollValue());
          scrollPaneExpressionTable.getVerticalScrollBar()
                .setValue(expressionKindTable.getScrollValue());
 
          extraInfo.setText(expression.getAdditionalInformation());
       }
 
+      this.databaseNameLabel
+            .setText("Ursprung: " + expression.getChapter().getDatabaseName());
+
+      this.lastModiefiedLabel
+            .setText("vom "
+                  + expression.getLastModified()
+                        .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
+                  + " Uhr");
    }
 
    private DefaultComboBoxModel<String> getSearchwordsModelGerman()

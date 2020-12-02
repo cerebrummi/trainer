@@ -23,8 +23,22 @@ import vokabeltrainer.cmd.DirectoryHelper;
 
 public final class SaveExpressions
 {
-   private static final String HEADER_CSV = "UUID\tchapter\tGerman\tHebrew\tHebrew in Latin\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tzusätzliche Informationen\tsearchwords German\tsearchwords Hebrew\tletzte Änderung";
+   private static final String HEADER_CSV = "UUID\tUrsprung\tDatenbank\tchapter\tGerman\tHebrew\tHebrew in Latin\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tzusätzliche Informationen\tsearchwords German\tsearchwords Hebrew\tletzte Änderung";
    private int counter;
+   private String exportpath = "";
+   private boolean takeSelectedOnlyIntoAccount;
+   private boolean takeOriginIntoAccount;
+   private String origin;
+
+   public SaveExpressions()
+   {
+
+   }
+
+   public SaveExpressions(String exportpath)
+   {
+      this.exportpath = exportpath;
+   }
 
    public boolean save()
    {
@@ -87,8 +101,17 @@ public final class SaveExpressions
 
    private void saveDeletedExpressions() throws IOException
    {
-      File file = new File(Settings.getExpressionPathFolder() + File.separator
-            + "DELETED.csv");
+      File file;
+      if (exportpath.isEmpty())
+      {
+         file = new File(Settings.getExpressionPathFolder() + File.separator
+               + "DELETED.csv");
+      }
+      else
+      {
+         file = new File(exportpath + File.separator + "DELETED.csv");
+      }
+
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);
@@ -96,17 +119,45 @@ public final class SaveExpressions
       joiner.add(HEADER_CSV);
       for (Expression expression : Data.getDeletedMapValues())
       {
-         joiner.add(expression.getExpressionPrintLineForSaving());
+         if (isMarkedandMarked(expression) || isOriginandOrigin(expression)
+               || isAll())
+         {
+            joiner.add(expression.getExpressionPrintLineForSaving());
+         }
       }
       writer.write(joiner.toString());
       writer.flush();
       writer.close();
    }
 
+   private boolean isAll()
+   {
+      return !takeSelectedOnlyIntoAccount && !takeOriginIntoAccount;
+   }
+
+   private boolean isOriginandOrigin(Expression expression)
+   {
+      return takeOriginIntoAccount
+            && expression.getChapter().getDatabaseName().equals(origin);
+   }
+
+   private boolean isMarkedandMarked(Expression expression)
+   {
+      return takeSelectedOnlyIntoAccount && expression.isSelected();
+   }
+
    private void save(LetterForSaving letter) throws IOException
    {
-      File file = new File(Settings.getExpressionPathFolder() + File.separator
-            + letter.name() + ".csv");
+      File file;
+      if (exportpath.isEmpty())
+      {
+         file = new File(Settings.getExpressionPathFolder() + File.separator
+               + letter.name() + ".csv");
+      }
+      else
+      {
+         file = new File(exportpath + File.separator + letter.name() + ".csv");
+      }
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);
@@ -114,8 +165,12 @@ public final class SaveExpressions
       joiner.add(HEADER_CSV);
       for (Expression expression : getValues(letter))
       {
-         joiner.add(expression.getExpressionPrintLineForSaving());
-         counter++;
+         if (isMarkedandMarked(expression) || isOriginandOrigin(expression)
+               || isAll())
+         {
+            joiner.add(expression.getExpressionPrintLineForSaving());
+            counter++;
+         }
       }
       writer.write(joiner.toString());
       writer.flush();
@@ -148,5 +203,19 @@ public final class SaveExpressions
       }
 
       return list;
+   }
+
+   @SuppressWarnings("unused")
+   public void save(boolean b)
+   {
+      this.takeSelectedOnlyIntoAccount = true;
+      save();
+   }
+
+   public void save(String databaseChoosen)
+   {
+      this.takeOriginIntoAccount = true;
+      this.origin = databaseChoosen;
+      save();
    }
 }

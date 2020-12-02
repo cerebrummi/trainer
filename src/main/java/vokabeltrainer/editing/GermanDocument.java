@@ -14,6 +14,7 @@ public class GermanDocument extends PlainDocument
    private static final long serialVersionUID = 7089213677826493757L;
 
    private String signPattern;
+   private int size = 50;
 
    public GermanDocument(boolean withComma)
    {
@@ -25,6 +26,12 @@ public class GermanDocument extends PlainDocument
       {
          signPattern = SignLetter.getPatternStringGerman();
       }
+   }
+   
+   public GermanDocument(int size)
+   {
+      this.size = size;
+      signPattern = SignLetter.getPatternStringForFileNames();
    }
 
    @Override
@@ -41,7 +48,7 @@ public class GermanDocument extends PlainDocument
             return;
          }
 
-         if (getLength() + list.size() - length > 50)
+         if (getLength() + list.size() - length > size)
          {
             Toolkit.getDefaultToolkit().beep();
             return;
@@ -82,7 +89,7 @@ public class GermanDocument extends PlainDocument
             return;
          }
 
-         if (getLength() + list.size() > 50)
+         if (getLength() + list.size() > size)
          {
             Toolkit.getDefaultToolkit().beep();
             return;

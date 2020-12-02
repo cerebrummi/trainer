@@ -7,14 +7,28 @@ public class Chapter implements Comparable<Chapter>
 {
    private String name = "";
    private Database origin = Database.UNKNOWN;
+   private String databaseNameInCaseImported = "";
 
    public Chapter()
    {
 
    }
 
+   public Chapter(Database origin)
+   {
+      this.origin = origin;
+   }
+   
    public Chapter(String name, Database origin)
    {
+      this.name = name;
+      this.origin = origin;
+   }
+
+   public Chapter(String databaseNameInCaseImported, String name,
+         Database origin)
+   {
+      this.databaseNameInCaseImported = databaseNameInCaseImported;
       this.name = name;
       this.origin = origin;
    }
@@ -44,6 +58,29 @@ public class Chapter implements Comparable<Chapter>
       return origin == Database.SELF;
    }
 
+   public boolean isImported()
+   {
+      return origin == Database.IMPORTED;
+   }
+
+   public String getDatabaseName()
+   {
+      if (isImported())
+      {
+         return databaseNameInCaseImported;
+      }
+      return origin.getName();
+   }
+
+   public void setDatabaseName(String databaseNameInCaseImported) throws IllegalAccessException
+   {
+      if (isImported())
+      {
+         this.databaseNameInCaseImported = databaseNameInCaseImported;
+      }
+      throw new IllegalAccessException("diese Datenbank ist nicht importiert");
+   }
+
    @Override
    public int compareTo(Chapter o)
    {
@@ -62,7 +99,6 @@ public class Chapter implements Comparable<Chapter>
       final int prime = 31;
       int result = 1;
       result = prime * result + ((name == null) ? 0 : name.hashCode());
-      result = prime * result + ((origin == null) ? 0 : origin.hashCode());
       return result;
    }
 
@@ -82,8 +118,6 @@ public class Chapter implements Comparable<Chapter>
             return false;
       }
       else if (!name.equals(other.name))
-         return false;
-      if (origin != other.origin)
          return false;
       return true;
    }

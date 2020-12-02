@@ -66,6 +66,8 @@ public enum SignLetter
          SEMICOLON, COLON, LOW_LINE, DEGREE_SIGN, CIRCUMFLEX_ACCENT,
          ACUTE_ACCENT, GRAVE_ACCENT, COMMERCIAL_AT, MICRO_SIGN, LESS_THAN_SIGN,
          GREATER_THAN_SIGN, VERTICAL_LINE };
+   
+   private static SignLetter[] forFileNames = {HYPHEN_MINUS, LOW_LINE};
 
    SignLetter(String code, String unicode)
    {
@@ -122,6 +124,16 @@ public enum SignLetter
       }
       return joiner.toString();
    }
+   
+   public static String getPatternStringForFileNames()
+   {
+      StringJoiner joiner = new StringJoiner(",");
+      for (SignLetter letter : forFileNames)
+      {
+         joiner.add(letter.getCode());
+      }
+      return joiner.toString();
+   }
 
    public String getCode()
    {
@@ -144,5 +156,4 @@ public enum SignLetter
       }
       return null;
    }
-
 }

@@ -125,7 +125,7 @@ public final class Main
          window.setResizable(false);
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
-         window.setTitle("Cerebrummi© Ivrit/Hebräisch");
+         window.setTitle("Cerebrummi©/Ivrit Version 0.9 Dies ist eine kostenlose Testversion, die bis zum 31.12.2021 funktioniert.");
          window.setFont(germanFont.deriveFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
          ToolTipManager.sharedInstance().setInitialDelay(1000);

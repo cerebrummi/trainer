@@ -27,7 +27,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.prefs.Preferences;
-
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -138,6 +137,14 @@ public final class Data
    static Collection<Expression> getDeletedMapValues()
    {
       return database.getDeletedMap().values();
+   }
+
+   // for importing expressions only, therefore NOT public
+   static boolean importDatabase(String databasePath, String databaseName,
+         boolean overwriteDatabaseNames)
+   {
+      return database.importDatabase(databasePath, databaseName,
+            overwriteDatabaseNames);
    }
 
    // for saving expressions only, therefore NOT public
@@ -251,6 +258,11 @@ public final class Data
    public static void unselectAllExpressions()
    {
       getDataBaseAtomic().unselectAllExpressions();
+   }
+
+   public static String[] getAllDatabases()
+   {
+      return getDataBaseAtomic().getAllDatabases();
    }
 
    // #########################################################
@@ -423,6 +435,47 @@ public final class Data
          return numberOfVocabulary;
       }
 
+      private boolean importDatabase(String databasePath, String databaseName,
+            boolean overwriteDatabaseNames)
+      {
+         for (LetterForSaving letter : LetterForSaving.values())
+         {
+            readFile(databasePath, letter, databaseName,
+                  overwriteDatabaseNames);
+         }
+
+         return true;
+      }
+
+      // #########################################################
+      // ####################### import ########################
+      // #########################################################
+      private void readFile(String path, LetterForSaving letter,
+            String databaseName, boolean overwrite)
+      {
+         File file = new File(path + File.separator + letter.name() + ".csv");
+         if (!file.exists())
+         {
+            return;
+         }
+
+         try (FileInputStream fis = new FileInputStream(file);
+               InputStreamReader isr = new InputStreamReader(fis,
+                     StandardCharsets.UTF_8);
+               Reader reader = new BufferedReader(isr);)
+         {
+            readData(letter.name() + ".csv", reader, Database.IMPORTED, letter,
+                  overwrite, databaseName);
+         }
+         catch (IOException e)
+         {
+            // nothing
+         }
+      }
+
+      // #########################################################
+      // #########################################################
+      // #########################################################
       private ConcurrentMap<UUID, Expression> readFile(String filename,
             Database origin, LetterForSaving letter)
       {
@@ -445,7 +498,7 @@ public final class Data
                      StandardCharsets.UTF_8);
                Reader reader = new BufferedReader(isr);)
          {
-            return readData(filename, reader, origin, letter);
+            return readData(filename, reader, origin, letter, false, null);
          }
          catch (IOException e)
          {
@@ -455,9 +508,12 @@ public final class Data
          return new ConcurrentHashMap<UUID, Expression>(100);
       }
 
+      // #########################################################
+      // #########################################################
+      // #########################################################
       private ConcurrentMap<UUID, Expression> readData(String filename,
-            Reader reader, Database origin, LetterForSaving letter)
-            throws IOException
+            Reader reader, Database origin, LetterForSaving letter,
+            boolean overwrite, String databasename) throws IOException
       {
          StringBuffer buffer = new StringBuffer();
          String input;
@@ -478,7 +534,8 @@ public final class Data
 
          ConcurrentMap<UUID, Expression> map = new ConcurrentHashMap<>(
                rows.length + 100);
-         boolean doNotChange = Database.SELF != origin;
+         boolean doNotChange = Database.SELF != origin
+               && Database.IMPORTED != origin;
          int counter = 0;
          for (String row : rows)
          {
@@ -501,8 +558,45 @@ public final class Data
                String[] entries = row.split("\t");
 
                expression.setUuid(UUID.fromString(entries[index]));
+               if (alleMap.containsKey(expression.getUuid())
+                     || map.containsKey(expression.getUuid()))
+               {
+                  expression.setUuid(UUID.randomUUID());
+               }
                index++;
-               expression.setChapter(new Chapter(entries[index], origin));
+               Database database;
+               try
+               {
+                  database = Database.valueOf(entries[index]);
+               }
+               catch (Exception e2)
+               {
+                  database = Database.UNKNOWN;
+               }
+               index++;
+               if (databasename != null && overwrite)
+               {
+                  index++;
+                  expression.setChapter(
+                        new Chapter(databasename, entries[index], origin));
+               }
+               else if (Database.IMPORTED == database)
+               {
+                  String nameOfDatabase = entries[index];
+                  index++;
+                  expression.setChapter(
+                        new Chapter(nameOfDatabase, entries[index], database));
+               }
+               else if (Database.UNKNOWN == database)
+               {
+                  index++;
+                  expression.setChapter(new Chapter(entries[index], database));
+               }
+               else
+               {
+                  index++;
+                  expression.setChapter(new Chapter(entries[index], origin));
+               }
                index++;
                expression.setGerman(entries[index]);
                index++;
@@ -682,17 +776,15 @@ public final class Data
          else if (text == null && kind == null && search == null
                && chapter != null && command == null)
          {
-            return new ExpressionTableModel(
-                  convertToExpressionModelArray(
-                        findExpressionsChapterSorted(chapter, language, sortForDate)),
+            return new ExpressionTableModel(convertToExpressionModelArray(
+                  findExpressionsChapterSorted(chapter, language, sortForDate)),
                   COLUMNAMES);
          }
          else if (text == null && kind != null && search == null
                && chapter == null && command == null)
          {
-            return new ExpressionTableModel(
-                  convertToExpressionModelArray(
-                        findSortedExpressionsOfKind(kind, language, sortForDate)),
+            return new ExpressionTableModel(convertToExpressionModelArray(
+                  findSortedExpressionsOfKind(kind, language, sortForDate)),
                   COLUMNAMES);
          }
          else if (text != null && kind == null && search != null
@@ -713,8 +805,8 @@ public final class Data
                   "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
                         + "Language = " + language + ", kind = " + kind
                         + ", search = " + search + "\n" + "chapter = " + chapter
-                        + ", command = " + command
-                        + ", sortForDate = " + sortForDate);
+                        + ", command = " + command + ", sortForDate = "
+                        + sortForDate);
          }
 
          return new ExpressionTableModel(
@@ -786,7 +878,8 @@ public final class Data
             Language language, boolean sortForDate)
       {
          List<Expression> list = findExpressionsChapter(chapter);
-         Collections.sort(list, new ExpressionComparator(language, sortForDate));
+         Collections.sort(list,
+               new ExpressionComparator(language, sortForDate));
          return list;
       }
 
@@ -808,7 +901,8 @@ public final class Data
             Language language, boolean sortForDate)
       {
          List<Expression> list = findExpressionsOfKind(kind);
-         Collections.sort(list, new ExpressionComparator(language, sortForDate));
+         Collections.sort(list,
+               new ExpressionComparator(language, sortForDate));
          return list;
       }
 
@@ -1359,6 +1453,15 @@ public final class Data
          alleMap.forEach((uuid, expression) -> {
             expression.setSelected(false);
          });
+      }
+
+      private String[] getAllDatabases()
+      { 
+          return alleMap.values().stream()
+         .map(Expression::getChapter)
+         .map(Chapter::getDatabaseName)
+         .distinct()
+         .toArray(String[]::new);
       }
    }
 }

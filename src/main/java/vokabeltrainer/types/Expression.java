@@ -38,7 +38,7 @@ public class Expression
          uuid = UUID.randomUUID();
          german = "";
          hebrewInLatin = "";
-         chapter = new Chapter();
+         chapter = new Chapter(Database.SELF);
          definitions = new Definitions();
          lastModified = LocalDateTime.now();
       }
@@ -229,7 +229,7 @@ public class Expression
    {
       this.lastModified = lastModified;
    }
-   
+
    public void toggleLastModified()
    {
       this.lastModified = LocalDateTime.now();
@@ -238,7 +238,7 @@ public class Expression
    public String[] toGermanArrayForTableEntry()
    {
       int index = 0;
-      String[] result = new String[9];
+      String[] result = new String[10];
       result[index] = String.valueOf(selected);
       index++;
       result[index] = german;
@@ -256,20 +256,25 @@ public class Expression
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
       result[index] = "Kapitel: " + chapter.getName();
+      index++;
+      result[index] = chapter.getDatabaseName() + " vom " + lastModified
+            .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
       return result;
    }
 
    public String[] toHebrewArray()
    {
       int index = 0;
-      String[] result = new String[9];
+      String[] result = new String[10];
       result[index] = String.valueOf(selected);
       index++;
       result[index] = hebrew;
       index++;
       result[index] = hebrewInLatin;
       index++;
-      result[index] = german;
+      result[index] = german + " aus " + chapter.getDatabaseName() + " vom "
+            + lastModified
+                  .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
       index++;
       result[index] = definitions.getGenderDescriptions();
       index++;
@@ -280,6 +285,9 @@ public class Expression
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
       result[index] = "Kapitel: " + chapter.getName();
+      index++;
+      result[index] = chapter.getDatabaseName() + " vom " + lastModified
+            .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
       return result;
    }
 
@@ -307,6 +315,8 @@ public class Expression
    {
       StringJoiner joiner = new StringJoiner("\t");
       joiner.add(uuid.toString());
+      joiner.add(chapter.getOrigin().name());
+      joiner.add(chapter.getDatabaseName());
       joiner.add(chapter.getName());
       joiner.add(german);
       joiner.add(hebrew);
@@ -319,21 +329,21 @@ public class Expression
       joiner.add(lastModified.toString());
       return joiner.toString();
    }
-   
+
    private String getSearchWordsGermanForSaving()
    {
       StringJoiner joiner = new StringJoiner(",");
-      for(String word : this.searchwordsGerman)
+      for (String word : this.searchwordsGerman)
       {
          joiner.add(word);
       }
       return joiner.toString();
    }
-   
+
    private String getSearchWordsHebrewForSaving()
    {
       StringJoiner joiner = new StringJoiner(",");
-      for(String word : this.searchwordsHebrew)
+      for (String word : this.searchwordsHebrew)
       {
          joiner.add(word);
       }

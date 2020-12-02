@@ -35,7 +35,7 @@ public class Settings
 
    public static int dictionaryTableRowHeight()
    {
-      return 225;
+      return 250;
    }
 
    public static Font getToolBarButtonFont()
