@@ -3,6 +3,8 @@ package vokabeltrainer.common;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
+import java.time.LocalDate;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -33,63 +35,76 @@ public final class Main
 
    public static void main(String[] args)
    {
+      LocalDate thisPointInTime = LocalDate.now();
+      LocalDate endOfTest = LocalDate.of(2022, 1, 1);
+
+      if (endOfTest.isBefore(thisPointInTime))
+      {
+         JOptionPane.showMessageDialog(null,
+               "Die Testzeit für diese kostenloste Testversion\nvon Cerebrummi© Ivrit 0.9 ist abgelaufen.",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
+         System.exit(0);
+      }
+
       try
       {
          Fonts.read();
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null, message+ "Schriftarten fehlen", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
+         JOptionPane.showMessageDialog(null, message + "Schriftarten fehlen",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-      
+
       try
       {
          Images.read();
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null, message+ "Bilder fehlen", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
+         JOptionPane.showMessageDialog(null, message + "Bilder fehlen",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-      
+
       try
       {
          Buchstabenbilder.read();
       }
       catch (Exception e)
       {
-         JOptionPane.showMessageDialog(null, message+ "Buchstabenbilder fehlen", "Nachricht",
+         JOptionPane.showMessageDialog(null,
+               message + "Buchstabenbilder fehlen", "Nachricht",
                JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-      
+
       try
       {
          LetterIcons.read();
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null, message+ "Buchstaben Icons fehlen", "Nachricht",
+         JOptionPane.showMessageDialog(null,
+               message + "Buchstaben Icons fehlen", "Nachricht",
                JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-      
+
       try
       {
          Sounds.read();
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null, message+ "Geräusche fehlen", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
+         JOptionPane.showMessageDialog(null, message + "Geräusche fehlen",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
 
       CerebrummiPreferences.read();
-      
+
       Data.initDataBase();
 
       try
@@ -125,7 +140,8 @@ public final class Main
          window.setResizable(false);
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
-         window.setTitle("Cerebrummi©/Ivrit Version 0.9 Dies ist eine kostenlose Testversion, die bis zum 31.12.2021 funktioniert.");
+         window.setTitle(
+               "Cerebrummi©/Ivrit Version 0.9 Dies ist eine kostenlose Testversion, die bis zum 31.12.2021 funktioniert.");
          window.setFont(germanFont.deriveFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
          ToolTipManager.sharedInstance().setInitialDelay(1000);
@@ -138,8 +154,9 @@ public final class Main
          window.setLocationRelativeTo(null);
          window.setVisible(true);
       });
-      
-      new SwingWorker<Void, Void>(){
+
+      new SwingWorker<Void, Void>()
+      {
 
          @Override
          protected Void doInBackground() throws Exception
@@ -150,24 +167,26 @@ public final class Main
             }
             catch (Exception e)
             {
-               JOptionPane.showMessageDialog(null, message+ "Blaue Bilder fehlen", "Nachricht",
+               JOptionPane.showMessageDialog(null,
+                     message + "Blaue Bilder fehlen", "Nachricht",
                      JOptionPane.CLOSED_OPTION);
                System.exit(1);
             }
-            
+
             try
             {
-               Gruen.read(); 
+               Gruen.read();
             }
             catch (Exception e)
             {
-               JOptionPane.showMessageDialog(null, message+ "Grüne Bilder fehlen", "Nachricht",
+               JOptionPane.showMessageDialog(null,
+                     message + "Grüne Bilder fehlen", "Nachricht",
                      JOptionPane.CLOSED_OPTION);
                System.exit(1);
             }
             return null;
          }
-         
+
       }.execute();
    }
 
@@ -175,7 +194,7 @@ public final class Main
    {
       return germanFont.deriveFont(size);
    }
-   
+
    public static Font getHeaderFont(float size)
    {
       return germanFont.deriveFont(size);
