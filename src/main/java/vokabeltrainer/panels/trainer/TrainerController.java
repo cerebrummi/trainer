@@ -16,8 +16,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.Command;

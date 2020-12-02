@@ -7,14 +7,12 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
-import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
