@@ -40,6 +40,10 @@ public enum LetterForSaving
    {
       List<String> codeList = LetterHelper.findLetterCodes(word);
       GermanLetter first = GermanLetter.getLetterFromCode(codeList.get(0));
+      if(first == null)
+      {
+         return LetterForSaving.OTHER;
+      }
       switch(first)
       {
       case A:

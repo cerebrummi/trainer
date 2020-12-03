@@ -6,8 +6,8 @@ import java.util.Locale;
 public class Chapter implements Comparable<Chapter>
 {
    private String name = "";
-   private Database origin = Database.UNKNOWN;
-   private String databaseNameInCaseImported = "";
+   private Database origin = Database.TO_BE_DETERMINED;
+   private String databaseName = "";
 
    public Chapter()
    {
@@ -25,10 +25,10 @@ public class Chapter implements Comparable<Chapter>
       this.origin = origin;
    }
 
-   public Chapter(String databaseNameInCaseImported, String name,
+   public Chapter(String databaseName, String name,
          Database origin)
    {
-      this.databaseNameInCaseImported = databaseNameInCaseImported;
+      this.databaseName = databaseName;
       this.name = name;
       this.origin = origin;
    }
@@ -62,23 +62,28 @@ public class Chapter implements Comparable<Chapter>
    {
       return origin == Database.IMPORTED;
    }
-
+   
+   public boolean isUnknown()
+   {
+      return origin == Database.UNKNOWN;
+   }
+   
    public String getDatabaseName()
    {
-      if (isImported())
+      if (isImported() || isSelf())
       {
-         return databaseNameInCaseImported;
+         return databaseName;
       }
       return origin.getName();
    }
 
-   public void setDatabaseName(String databaseNameInCaseImported) throws IllegalAccessException
+   public void setDatabaseName(String databaseName) throws IllegalAccessException
    {
-      if (isImported())
+      if (isImported() || isSelf() || isUnknown())
       {
-         this.databaseNameInCaseImported = databaseNameInCaseImported;
+         this.databaseName = databaseName;
       }
-      throw new IllegalAccessException("diese Datenbank ist nicht importiert");
+      throw new IllegalAccessException("diese Datenbank kann nicht umbenannt werden");
    }
 
    @Override

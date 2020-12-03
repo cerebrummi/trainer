@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -27,6 +28,8 @@ public class InputDatabaseNameDialog extends JDialog
    private boolean startImport;
    private boolean overwrite;
    private JRadioButton overwriteYes;
+   private ButtonGroup overwriteGroup;
+   private JRadioButton overwriteNo;
 
    public InputDatabaseNameDialog(String title)
    {
@@ -34,7 +37,7 @@ public class InputDatabaseNameDialog extends JDialog
 
       this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
       this.setIconImage(ApplicationImages.getLogo24());
-      this.setMinimumSize(new Dimension(400, 200));
+      this.setMinimumSize(new Dimension(400, 300));
       this.setLocationRelativeTo(Common.getjFrame());
       
       JPanel panel = new JPanel();
@@ -50,9 +53,11 @@ public class InputDatabaseNameDialog extends JDialog
       inputImportField.setMinimumSize(new Dimension(200, 30));
       inputImportField.setMaximumSize(new Dimension(300, 30));
       inputImportField.setColumns(20);
+      inputImportField.setEditable(false);
+      inputImportField.setEnabled(false);
       
-      ButtonGroup overwriteGroup = new ButtonGroup();
-      JRadioButton overwriteNo = new JRadioButton("vorhandene Datenbanknamen NICHT überschreiben");
+      overwriteGroup = new ButtonGroup();
+      overwriteNo = new JRadioButton("vorhandene Datenbanknamen NICHT überschreiben");
       overwriteYes = new JRadioButton("vorhandene Datenbanknamen überschreiben");
       overwriteGroup.add(overwriteNo);
       overwriteGroup.add(overwriteYes);
@@ -68,9 +73,10 @@ public class InputDatabaseNameDialog extends JDialog
       buttonPanel.add(okButton);
       buttonPanel.add(stopButton);
       
-      vertical.add(inputImportField);
       vertical.add(overwriteNo);
       vertical.add(overwriteYes);
+      vertical.add(new JLabel("Namen für die Datenbank"));
+      vertical.add(inputImportField);
       vertical.add(buttonPanel);
       
       panel.add(vertical);
@@ -91,6 +97,22 @@ public class InputDatabaseNameDialog extends JDialog
       stopButton.addActionListener(event -> {
          startImport = false;
          this.setVisible(false);
+      });
+      
+      overwriteYes.addActionListener(event -> {
+         if(overwriteYes.isSelected())
+         {
+            inputImportField.setEditable(true);
+            inputImportField.setEnabled(true);
+         }
+      });
+      
+      overwriteNo.addActionListener(event -> {
+         if(overwriteNo.isSelected())
+         {
+            inputImportField.setEditable(false);
+            inputImportField.setEnabled(false);
+         }
       });
    }
 

@@ -35,6 +35,7 @@ import vokabeltrainer.common.ImportExpressions;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.common.SaveTraining;
+import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
 import vokabeltrainer.resources.html.Nachweise;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -69,7 +70,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       tabbedPane.addTab("Einstellungen und Service", initSettingsTab());
       try
       {
-         tabbedPane.addTab("Impressum und Haftungsausschluss", initImpressumTab());
+         tabbedPane.addTab("Impressum und Haftungsausschluss",
+               initImpressumTab());
       }
       catch (IOException e1)
       {
@@ -127,11 +129,11 @@ public class SettingsPanel extends BackgroundPanelTiled
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
-      
+
       JScrollPane scroller = new JScrollPane(editorPane);
-      scroller.setMinimumSize(new Dimension(500,300));
-      scroller.setMaximumSize(new Dimension(1000,500));
-      
+      scroller.setMinimumSize(new Dimension(500, 300));
+      scroller.setMaximumSize(new Dimension(1000, 500));
+
       vertical.add(scroller);
       panel.add(vertical);
 
@@ -176,11 +178,11 @@ public class SettingsPanel extends BackgroundPanelTiled
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
-      
+
       JScrollPane scroller = new JScrollPane(editorPane);
-      scroller.setMinimumSize(new Dimension(500,300));
-      scroller.setMaximumSize(new Dimension(1000,500));
-      
+      scroller.setMinimumSize(new Dimension(500, 300));
+      scroller.setMaximumSize(new Dimension(1000, 500));
+
       vertical.add(scroller);
       panel.add(vertical);
 
@@ -493,17 +495,53 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
 
       importButton.addActionListener(event -> {
+
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog("Import");
+         dialog.setVisible(true);
+
+         final String databaseName;
+         final boolean overwriteDatabaseNames;
+         final String databasePath;
+
+         if (!dialog.isStartImport())
+         {
+            dialog.dispose();
+            return;
+         }
+         else
+         {
+            databaseName = dialog.getDatabaseName();
+            overwriteDatabaseNames = dialog.isOverwrite();
+            dialog.dispose();
+         }
+
+         JFileChooser folderChooser = new JFileChooser(
+               Settings.getExpressionPath());
+         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+         int returnVal = folderChooser.showOpenDialog(Common.getjFrame());
+
+         if (returnVal == JFileChooser.APPROVE_OPTION)
+         {
+            databasePath = folderChooser.getSelectedFile().getPath();
+         }
+         else
+         {
+            return;
+         }
+         
          new SwingWorker<Void, Void>()
          {
             @Override
             protected Void doInBackground() throws Exception
             {
                ImportExpressions importer = new ImportExpressions();
-               if (importer.importExpressions())
+               if (importer.importExpressions(databaseName,
+                     overwriteDatabaseNames, databasePath))
                {
                   SaveExpressions saver = new SaveExpressions();
                   saver.save();
                }
+               
                return null;
             }
 

@@ -291,13 +291,13 @@ public final class Data
       private final ConcurrentMap<UUID, Expression> newMap = new ConcurrentHashMap<>(
             100);
       private final ConcurrentMap<UUID, Expression> deletedMap = readFile(
-            DELETED_CSV, Database.SELF, LetterForSaving.DELETED);
+            DELETED_CSV, Database.TO_BE_DETERMINED, LetterForSaving.DELETED);
 
       DataBase()
       {
          for (LetterForSaving letter : LetterForSaving.values())
          {
-            readFile(letter.name() + ".csv", Database.SELF, letter);
+            readFile(letter.name() + ".csv", Database.TO_BE_DETERMINED, letter);
          }
 
          for (Database database : Settings.getChosenDatabases())
@@ -435,6 +435,9 @@ public final class Data
          return numberOfVocabulary;
       }
 
+      // #########################################################
+      // ######################## import #########################
+      // #########################################################
       private boolean importDatabase(String databasePath, String databaseName,
             boolean overwriteDatabaseNames)
       {
@@ -448,7 +451,7 @@ public final class Data
       }
 
       // #########################################################
-      // ####################### import ########################
+      // ######################## import #########################
       // #########################################################
       private void readFile(String path, LetterForSaving letter,
             String databaseName, boolean overwrite)
@@ -534,7 +537,7 @@ public final class Data
 
          ConcurrentMap<UUID, Expression> map = new ConcurrentHashMap<>(
                rows.length + 100);
-         boolean doNotChange = Database.SELF != origin
+         boolean doNotChange = Database.TO_BE_DETERMINED != origin
                && Database.IMPORTED != origin;
          int counter = 0;
          for (String row : rows)
@@ -574,25 +577,22 @@ public final class Data
                   database = Database.UNKNOWN;
                }
                index++;
-               if (databasename != null && overwrite)
+               if (databasename != null && overwrite) // this is for import only
                {
                   index++;
                   expression.setChapter(
                         new Chapter(databasename, entries[index], origin));
                }
-               else if (Database.IMPORTED == database)
+               else if (Database.IMPORTED == database
+                     || Database.SELF == database
+                     || Database.UNKNOWN == database)
                {
                   String nameOfDatabase = entries[index];
                   index++;
                   expression.setChapter(
                         new Chapter(nameOfDatabase, entries[index], database));
                }
-               else if (Database.UNKNOWN == database)
-               {
-                  index++;
-                  expression.setChapter(new Chapter(entries[index], database));
-               }
-               else
+               else // databases delivered with this program
                {
                   index++;
                   expression.setChapter(new Chapter(entries[index], origin));
@@ -999,7 +999,7 @@ public final class Data
 
          for (Chapter chapter : chapterSet)
          {
-            if (chapter.isSelf())
+            if (chapter.isSelf() || chapter.isImported() || chapter.isUnknown())
             {
                chapterList.add(chapter.getName());
             }
@@ -1456,12 +1456,9 @@ public final class Data
       }
 
       private String[] getAllDatabases()
-      { 
-          return alleMap.values().stream()
-         .map(Expression::getChapter)
-         .map(Chapter::getDatabaseName)
-         .distinct()
-         .toArray(String[]::new);
+      {
+         return alleMap.values().stream().map(Expression::getChapter)
+               .map(Chapter::getDatabaseName).distinct().toArray(String[]::new);
       }
    }
 }

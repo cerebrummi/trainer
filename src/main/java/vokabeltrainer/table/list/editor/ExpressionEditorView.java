@@ -145,7 +145,7 @@ public class ExpressionEditorView extends JDialog
 
    private JScrollPane scrollPaneExpressionTable;
 
-   private JLabel databaseNameLabel;
+   private JTextField databaseNameLabel;
 
    private JLabel lastModiefiedLabel;
 
@@ -539,8 +539,11 @@ public class ExpressionEditorView extends JDialog
             BorderFactory.createLineBorder(Settings.getLightGrayGold()),
             "Wortarten"));
 
-      databaseNameLabel = new JLabel();
+      databaseNameLabel = new JTextField();
       databaseNameLabel.setFont(Settings.getButtonFont());
+      databaseNameLabel.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      databaseNameLabel.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      databaseNameLabel.setBorder(new TitledBorder("Datenbank"));
 
       lastModiefiedLabel = new JLabel();
       lastModiefiedLabel.setFont(Settings.getButtonFont());
@@ -844,6 +847,11 @@ public class ExpressionEditorView extends JDialog
                   verbTypeBox.getItemAt(verbTypeBox.getSelectedIndex()));
          }
       }
+      if(definitions.getExpressionKindSet().isEmpty())
+      {
+         definitions.addExpressionKind(ExpressionKind.EXPRESSIONKIND_UNKNOWN);
+      }
+      
       expression.setDefinitions(definitions);
 
       List<String> wordsGerman = new ArrayList<>();
@@ -863,8 +871,19 @@ public class ExpressionEditorView extends JDialog
       selfChapter
             .setName(cleanTextWithoutComma((String) chapter.getSelectedItem()));
       expression.setChapter(selfChapter);
+      
       expression.setAdditionalInformation(
             cleanTextWithoutComma(extraInfo.getText()));
+      
+      try
+      {
+         expression.getChapter().setDatabaseName(databaseNameLabel.getText());
+      }
+      catch (IllegalAccessException e)
+      {
+         // nothing
+      }
+      
       expression.setLastModified(LocalDateTime.now());
    }
 
@@ -956,10 +975,11 @@ public class ExpressionEditorView extends JDialog
          extraInfo.setText(expression.getAdditionalInformation());
       }
 
-      this.databaseNameLabel
-            .setText("Ursprung: " + expression.getChapter().getDatabaseName());
+      
+      databaseNameLabel
+            .setText(expression.getChapter().getDatabaseName());
 
-      this.lastModiefiedLabel
+      lastModiefiedLabel
             .setText("vom "
                   + expression.getLastModified()
                         .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))

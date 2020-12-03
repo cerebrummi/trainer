@@ -5,8 +5,9 @@ public enum Database
    ROSENGARTEN("rosengarten", "Ivrit Schritt für Schritt"),
    BEKEF("bekef", "Ivrit bekef"),
    SELF("", "selbst eingegeben"),
-   IMPORTED("", ""),
-   UNKNOWN("","unbekannt"); // to initialize Chapter
+   IMPORTED("", "importiert"),
+   UNKNOWN("","unbekannt"),
+   TO_BE_DETERMINED("",""); // to initialize Chapter
    
    private String folder;
    private String name;
