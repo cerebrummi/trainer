@@ -40,7 +40,7 @@ import vokabeltrainer.resources.html.Nachweise;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.types.Database;
+import vokabeltrainer.types.Chapter.Database;
 
 public class SettingsPanel extends BackgroundPanelTiled
 {
@@ -503,7 +503,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          final boolean overwriteDatabaseNames;
          final String databasePath;
 
-         if (!dialog.isStartImport())
+         if (!dialog.isStartImportOrExport())
          {
             dialog.dispose();
             return;
@@ -528,7 +528,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          {
             return;
          }
-         
+
          new SwingWorker<Void, Void>()
          {
             @Override
@@ -541,7 +541,7 @@ public class SettingsPanel extends BackgroundPanelTiled
                   SaveExpressions saver = new SaveExpressions();
                   saver.save();
                }
-               
+
                return null;
             }
 
@@ -549,6 +549,26 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
 
       exportButton.addActionListener(event -> {
+
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
+               "Export alle Vokabeln");
+         dialog.setVisible(true);
+
+         final String databaseName;
+         final boolean overwriteDatabaseNames;
+
+         if (!dialog.isStartImportOrExport())
+         {
+            dialog.dispose();
+            return;
+         }
+         else
+         {
+            databaseName = dialog.getDatabaseName();
+            overwriteDatabaseNames = dialog.isOverwrite();
+            dialog.dispose();
+         }
+
          folderChooser = new JFileChooser(Settings.getExpressionPath());
          folderChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
          int returnVal = folderChooser.showOpenDialog(this);
@@ -563,7 +583,7 @@ public class SettingsPanel extends BackgroundPanelTiled
                {
                   SaveExpressions saver = new SaveExpressions(
                         folderChooser.getSelectedFile().getPath());
-                  saver.save();
+                  saver.save(databaseName, overwriteDatabaseNames);
                   return null;
                }
 
@@ -572,6 +592,25 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
 
       this.exportSelectedButton.addActionListener(event -> {
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
+               "Export markierte Vokabeln");
+         dialog.setVisible(true);
+
+         final String databaseName;
+         final boolean overwriteDatabaseNames;
+
+         if (!dialog.isStartImportOrExport())
+         {
+            dialog.dispose();
+            return;
+         }
+         else
+         {
+            databaseName = dialog.getDatabaseName();
+            overwriteDatabaseNames = dialog.isOverwrite();
+            dialog.dispose();
+         }
+
          folderChooser = new JFileChooser(Settings.getExpressionPath());
          folderChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
          int returnVal = folderChooser.showOpenDialog(this);
@@ -586,7 +625,7 @@ public class SettingsPanel extends BackgroundPanelTiled
                {
                   SaveExpressions saver = new SaveExpressions(
                         folderChooser.getSelectedFile().getPath());
-                  saver.save(true);
+                  saver.save(databaseName, overwriteDatabaseNames, true);
                   return null;
                }
 
@@ -595,6 +634,24 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
 
       exportDatabaseButton.addActionListener(event -> {
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
+               "Export eine Datenbank");
+         dialog.setVisible(true);
+
+         final String databaseName;
+         final boolean overwriteDatabaseNames;
+
+         if (!dialog.isStartImportOrExport())
+         {
+            dialog.dispose();
+            return;
+         }
+         else
+         {
+            databaseName = dialog.getDatabaseName();
+            overwriteDatabaseNames = dialog.isOverwrite();
+            dialog.dispose();
+         }
 
          String databaseChoosen = (String) JOptionPane.showInputDialog(
                Common.getMainJPanel(), "Wählen Sie eine Datenbank aus.",
@@ -621,7 +678,8 @@ public class SettingsPanel extends BackgroundPanelTiled
                {
                   SaveExpressions saver = new SaveExpressions(
                         folderChooser.getSelectedFile().getPath());
-                  saver.save(databaseChoosen);
+                  saver.save(databaseName, overwriteDatabaseNames,
+                        databaseChoosen);
                   return null;
                }
 
@@ -631,15 +689,3 @@ public class SettingsPanel extends BackgroundPanelTiled
    }
 }
 
-/*
- * textPanel.add(new JLabel("Ausschluss von Haftung")); textPanel.add(new
- * JLabel("Es wird keine Haftung übernommen.")); textPanel.add(new
- * JLabel("Dieses Programm darf nur auf eigenes")); textPanel.add(new
- * JLabel("Risiko installiert und betrieben werden.")); textPanel.add(new
- * JLabel("")); textPanel.add(new
- * JLabel("ClappingSound: Attribution License, https://freesound.org/people/ebcrosby/sounds/339483/"
- * )); textPanel.add(new
- * JLabel("WaveSound: Creative Commons License, https://freesound.org/people/florianreichelt/sounds/450755/"
- * )); textPanel.add(new JLabel("")); textPanel.add(new
- * JLabel("Alle Bilder sind von pixelbay.com"));
- */

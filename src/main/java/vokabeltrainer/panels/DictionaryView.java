@@ -856,6 +856,7 @@ public class DictionaryView extends BackgroundPanelTiled
    public void setValues()
    {
       this.loadChapters();
+      this.displayNoTable();
    }
 
    @Override

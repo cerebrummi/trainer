@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
@@ -43,9 +44,10 @@ import vokabeltrainer.panels.success.table.SuccessTableRow;
 import vokabeltrainer.panels.success.table.SuccessTableRowComparator;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableRow;
+import vokabeltrainer.resources.vocabulary.Vocabulary;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Chapter;
-import vokabeltrainer.types.Database;
+import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
@@ -300,12 +302,11 @@ public final class Data
             readFile(letter.name() + ".csv", Database.TO_BE_DETERMINED, letter);
          }
 
-         for (Database database : Settings.getChosenDatabases())
+         for (Database database : Settings.getAvailableDatabases())
          {
             for (LetterForSaving letter : LetterForSaving.values())
             {
-               readFile(database.getFolder() + File.separator + letter.name()
-                     + ".csv", database, letter);
+               readFile(letter, database);
             }
          }
 
@@ -468,7 +469,7 @@ public final class Data
                Reader reader = new BufferedReader(isr);)
          {
             readData(letter.name() + ".csv", reader, Database.IMPORTED, letter,
-                  overwrite, databaseName);
+                  overwrite, databaseName, false);
          }
          catch (IOException e)
          {
@@ -477,7 +478,28 @@ public final class Data
       }
 
       // #########################################################
+      // ################# available databases ###################
       // #########################################################
+      private void readFile(LetterForSaving letter,
+            Database origin)
+      {
+         try (InputStream fis = Vocabulary.class.getResourceAsStream(
+               origin.getFolder() + File.separator + letter.name() + ".csv");
+               InputStreamReader isr = new InputStreamReader(fis,
+                     StandardCharsets.UTF_8);
+               Reader reader = new BufferedReader(isr);)
+         {
+            readData(letter.name() + ".csv", reader, origin, letter, false,
+                  origin.getName(), true);
+         }
+         catch (IOException e)
+         {
+            // nothing
+         }
+      }
+
+      // #########################################################
+      // ####################### regular #########################
       // #########################################################
       private ConcurrentMap<UUID, Expression> readFile(String filename,
             Database origin, LetterForSaving letter)
@@ -501,7 +523,7 @@ public final class Data
                      StandardCharsets.UTF_8);
                Reader reader = new BufferedReader(isr);)
          {
-            return readData(filename, reader, origin, letter, false, null);
+            return readData(filename, reader, origin, letter, false, null, false);
          }
          catch (IOException e)
          {
@@ -516,7 +538,7 @@ public final class Data
       // #########################################################
       private ConcurrentMap<UUID, Expression> readData(String filename,
             Reader reader, Database origin, LetterForSaving letter,
-            boolean overwrite, String databasename) throws IOException
+            boolean overwrite, String databasename, boolean doNotChange) throws IOException
       {
          StringBuffer buffer = new StringBuffer();
          String input;
@@ -537,8 +559,7 @@ public final class Data
 
          ConcurrentMap<UUID, Expression> map = new ConcurrentHashMap<>(
                rows.length + 100);
-         boolean doNotChange = Database.TO_BE_DETERMINED != origin
-               && Database.IMPORTED != origin;
+         List<Database> availableDatabases = Settings.getAvailableDatabases();
          int counter = 0;
          for (String row : rows)
          {
@@ -583,9 +604,7 @@ public final class Data
                   expression.setChapter(
                         new Chapter(databasename, entries[index], origin));
                }
-               else if (Database.IMPORTED == database
-                     || Database.SELF == database
-                     || Database.UNKNOWN == database)
+               else if (!availableDatabases.contains(database))
                {
                   String nameOfDatabase = entries[index];
                   index++;
@@ -996,10 +1015,10 @@ public final class Data
       private List<String> getChapterListForEditor()
       {
          List<String> chapterList = new ArrayList<>();
-
+         List<Database> availableDatabases = Settings.getAvailableDatabases();
          for (Chapter chapter : chapterSet)
          {
-            if (chapter.isSelf() || chapter.isImported() || chapter.isUnknown())
+            if (!availableDatabases.contains(chapter.getOrigin()))
             {
                chapterList.add(chapter.getName());
             }

@@ -29,6 +29,8 @@ public final class SaveExpressions
    private boolean takeSelectedOnlyIntoAccount;
    private boolean takeOriginIntoAccount;
    private String origin;
+   private boolean overwriteDatabaseNames;
+   private String databaseName;
 
    public SaveExpressions()
    {
@@ -37,7 +39,8 @@ public final class SaveExpressions
 
    public SaveExpressions(String exportpath)
    {
-      this.exportpath = exportpath;
+      this.exportpath = exportpath + File.separator
+            + Settings.getExpressionFolder();
    }
 
    public boolean save()
@@ -55,18 +58,34 @@ public final class SaveExpressions
          try
          {
             counter = 0;
-            File customDir = new File(Settings.getExpressionPathFolder());
-            if (!customDir.exists())
+            if (this.exportpath.isEmpty())
             {
-               if (!DirectoryHelper.makeExpressionDirectory(customDir))
+               File customDir = new File(Settings.getExpressionPathFolder());
+               if (!customDir.exists())
                {
-                  JOptionPane.showMessageDialog(Common.getjFrame(),
-                        "Es hat beim Speichern einen Fehler gegeben.\n"
-                              + "Wählen Sie unter Einstellungen einen anderen Speicherort.",
-                        "Fehler", JOptionPane.ERROR_MESSAGE);
+                  if (!DirectoryHelper.makeExpressionDirectory(customDir))
+                  {
+                     JOptionPane.showMessageDialog(Common.getjFrame(),
+                           "Es hat beim Speichern einen Fehler gegeben.\n"
+                                 + "Wählen Sie einen anderen Speicherort.",
+                           "Fehler", JOptionPane.ERROR_MESSAGE);
+                  }
                }
             }
-
+            else
+            {
+               File customDir = new File(exportpath);
+               if (!customDir.exists())
+               {
+                  if (!DirectoryHelper.makeExpressionDirectory(customDir))
+                  {
+                     JOptionPane.showMessageDialog(Common.getjFrame(),
+                           "Es hat beim Speichern einen Fehler gegeben.\n"
+                                 + "Wählen Sie einen anderen Speicherort.",
+                           "Fehler", JOptionPane.ERROR_MESSAGE);
+                  }
+               }
+            }
             for (LetterForSaving letter : LetterForSaving.values())
             {
                save(letter);
@@ -168,7 +187,15 @@ public final class SaveExpressions
          if (isMarkedandMarked(expression) || isOriginandOrigin(expression)
                || isAll())
          {
-            joiner.add(expression.getExpressionPrintLineForSaving());
+            if (overwriteDatabaseNames && databaseName != null)
+            {
+               joiner.add(
+                     expression.getExpressionPrintLineForSaving(databaseName));
+            }
+            else
+            {
+               joiner.add(expression.getExpressionPrintLineForSaving());
+            }
             counter++;
          }
       }
@@ -205,15 +232,28 @@ public final class SaveExpressions
       return list;
    }
 
-   @SuppressWarnings("unused")
-   public void save(boolean b)
+   public void save(String databaseName, boolean overwriteDatabaseNames)
    {
+      this.databaseName = databaseName;
+      this.overwriteDatabaseNames = overwriteDatabaseNames;
+      save();
+   }
+
+   @SuppressWarnings("unused")
+   public void save(String databaseName, boolean overwriteDatabaseNames,
+         boolean b)
+   {
+      this.databaseName = databaseName;
+      this.overwriteDatabaseNames = overwriteDatabaseNames;
       this.takeSelectedOnlyIntoAccount = true;
       save();
    }
 
-   public void save(String databaseChoosen)
+   public void save(String databaseName, boolean overwriteDatabaseNames,
+         String databaseChoosen)
    {
+      this.databaseName = databaseName;
+      this.overwriteDatabaseNames = overwriteDatabaseNames;
       this.takeOriginIntoAccount = true;
       this.origin = databaseChoosen;
       save();

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import vokabeltrainer.types.Chapter.Database;
 
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
@@ -317,6 +318,33 @@ public class Expression
       joiner.add(uuid.toString());
       joiner.add(chapter.getOrigin().name());
       joiner.add(chapter.getDatabaseName());
+      joiner.add(chapter.getName());
+      joiner.add(german);
+      joiner.add(hebrew);
+      joiner.add(hebrewInLatin);
+      joiner.add(definitions.getExpressionKindsForSaving());
+      joiner.add(definitions.getGrammaticalEnumsForSaving());
+      joiner.add(additionalInformation);
+      joiner.add(getSearchWordsGermanForSaving());
+      joiner.add(getSearchWordsHebrewForSaving());
+      joiner.add(lastModified.toString());
+      return joiner.toString();
+   }
+   
+   public String getExpressionPrintLineForSaving(String databaseName)
+   {
+      StringJoiner joiner = new StringJoiner("\t");
+      joiner.add(uuid.toString());
+      Database db = Chapter.findOrigin(databaseName);
+      if(db != Database.UNKNOWN)
+      {
+         joiner.add(db.name());
+      }
+      else
+      {
+         joiner.add(Database.ADDITIONAL_VALUE.name());
+      }
+      joiner.add(databaseName);
       joiner.add(chapter.getName());
       joiner.add(german);
       joiner.add(hebrew);

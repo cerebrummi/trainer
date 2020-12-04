@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.prefs.Preferences;
 
 import vokabeltrainer.common.Main;
-import vokabeltrainer.types.Database;
+import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.LanguageSettings;
 
 public class Settings
@@ -24,7 +24,7 @@ public class Settings
    private static String chosenExpressionPath = null;
    private static float volume = -20;
    
-   private static List<Database> chosenDatabases; // TODO user can choose
+   private static List<Database> chosenDatabases = new ArrayList<>(); // TODO user can choose
                                                   // databases
    private static Database[] availableDatabases = {};
 
@@ -58,7 +58,7 @@ public class Settings
       return LanguageSettings.GERMAN;
    }
 
-   private static String getExpressionFolder()
+   public static String getExpressionFolder()
    {
       return "cerebrummi-hebrewtrainer";
    }
@@ -227,10 +227,10 @@ public class Settings
       
       Settings.chosenExpressionPath = choosenExpressionPath;
    }
-
+   
    public static List<Database> getChosenDatabases()
    {
-      return new ArrayList<Database>(Arrays.asList(availableDatabases));
+      return chosenDatabases;
    }
 
    public static void setChosenDatabases(List<Database> chosenDatabases)
@@ -246,5 +246,10 @@ public class Settings
    public static void setVolume(float volume)
    {
       Settings.volume = volume;
+   }
+
+   public static List<Database> getAvailableDatabases()
+   {
+      return Arrays.asList(availableDatabases);
    }
 }

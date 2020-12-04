@@ -8,6 +8,7 @@ public class Chapter implements Comparable<Chapter>
    private String name = "";
    private Database origin = Database.TO_BE_DETERMINED;
    private String databaseName = "";
+   private String databaseFolder = "";
 
    public Chapter()
    {
@@ -18,15 +19,14 @@ public class Chapter implements Comparable<Chapter>
    {
       this.origin = origin;
    }
-   
+
    public Chapter(String name, Database origin)
    {
       this.name = name;
       this.origin = origin;
    }
 
-   public Chapter(String databaseName, String name,
-         Database origin)
+   public Chapter(String databaseName, String name, Database origin)
    {
       this.databaseName = databaseName;
       this.name = name;
@@ -51,39 +51,6 @@ public class Chapter implements Comparable<Chapter>
    public void setOrigin(Database origin)
    {
       this.origin = origin;
-   }
-
-   public boolean isSelf()
-   {
-      return origin == Database.SELF;
-   }
-
-   public boolean isImported()
-   {
-      return origin == Database.IMPORTED;
-   }
-   
-   public boolean isUnknown()
-   {
-      return origin == Database.UNKNOWN;
-   }
-   
-   public String getDatabaseName()
-   {
-      if (isImported() || isSelf())
-      {
-         return databaseName;
-      }
-      return origin.getName();
-   }
-
-   public void setDatabaseName(String databaseName) throws IllegalAccessException
-   {
-      if (isImported() || isSelf() || isUnknown())
-      {
-         this.databaseName = databaseName;
-      }
-      throw new IllegalAccessException("diese Datenbank kann nicht umbenannt werden");
    }
 
    @Override
@@ -127,4 +94,89 @@ public class Chapter implements Comparable<Chapter>
       return true;
    }
 
+   public String getDatabaseFolder(Database database)
+   {
+      if (Database.ADDITIONAL_VALUE == database)
+      {
+         return this.databaseFolder;
+      }
+      return database.getFolder();
+   }
+
+   public String getDatabaseName()
+   {
+      if (Database.ADDITIONAL_VALUE == origin || Database.IMPORTED == origin
+            || Database.SELF == origin || Database.UNKNOWN == origin)
+      {
+         return this.databaseName;
+      }
+      return origin.getName();
+   }
+
+   public void setDatabaseName(String databaseName)
+   {
+      if (Database.ADDITIONAL_VALUE == origin || Database.IMPORTED == origin
+            || Database.SELF == origin || Database.UNKNOWN == origin)
+      {
+         this.databaseName = databaseName;
+      }
+   }
+
+   public enum Database
+   {
+      ROSENGARTEN(
+            "rosengarten",
+            "Ivrit Schritt für Schritt"),
+      BEKEF(
+            "bekef",
+            "Ivrit bekef"),
+      SELF(
+            "",
+            "selbst eingegeben"),
+      IMPORTED(
+            "",
+            "importiert"),
+      UNKNOWN(
+            "",
+            "unbekannt"),
+      TO_BE_DETERMINED(
+            "",
+            "soll bestimmt werden"),
+      ADDITIONAL_VALUE(
+            "",
+            "weiterer Wert");
+
+      private String folder;
+      private String name;
+
+      Database(String folder, String name)
+      {
+         this.folder = folder;
+         this.name = name;
+      }
+
+      public String getFolder()
+      {
+         return folder;
+      }
+
+      public String getName()
+      {
+         return name;
+      }
+   }
+   
+   public static Database findOrigin(String databaseName)
+   {
+      if (Database.ROSENGARTEN.getName().equals(databaseName))
+      {
+         return Database.ROSENGARTEN;
+      }
+      
+      if (Database.BEKEF.getName().equals(databaseName))
+      {
+         return Database.BEKEF;
+      }
+      return Database.UNKNOWN;
+   }
 }

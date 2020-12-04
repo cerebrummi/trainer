@@ -413,5 +413,4 @@ public class DictionaryController implements DictionaryControllerConnector
          decideOnTableInteraction(Action.SORT_FOR_DATE);
       }
    }
-
 }

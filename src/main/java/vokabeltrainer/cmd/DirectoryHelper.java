@@ -22,7 +22,7 @@ public class DirectoryHelper
       catch (Exception e)
       {
          JOptionPane.showMessageDialog(Common.getjFrame(),
-               "Fehler beim Speichern.", "Fehlermeldung",
+               "Fehler beim Speichern.", "Fehlermeldung: \n" + e,
                JOptionPane.ERROR_MESSAGE);
          return false;
       }

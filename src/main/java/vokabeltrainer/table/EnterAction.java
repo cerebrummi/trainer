@@ -42,14 +42,21 @@ public class EnterAction extends AbstractAction
          Expression expression = (Expression) table.getValueAt(selectedRow, 0);
          if(expression.isDoNotChange())
          {
-            JOptionPane.showMessageDialog(Common.getjFrame(), "",
-                  Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                  new ImageIcon(
-                        TextImage.make(
-                              "Diese Vokabel aus der Sammlung",
-                              expression.getOrigin().getName(),
-                              "kann nicht bearbeitet werden.")));
-            return;
+            if(!editor.setFrozen(true))
+            {
+               JOptionPane.showMessageDialog(Common.getjFrame(), "",
+                     Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                     new ImageIcon(
+                           TextImage.make(
+                                 "Diese Vokabel aus der Sammlung",
+                                 expression.getChapter().getDatabaseName(),
+                                 "kann nicht bearbeitet werden.")));
+               return;
+            }
+         }
+         else
+         {
+            editor.setFrozen(false);
          }
          editor.setExpression(expression, false);
          editor.setLocationRelativeTo(null);

@@ -49,7 +49,7 @@ public class InputDatabaseNameDialog extends JDialog
       vertical.setLayout(verticalLayout);
       
       inputImportField = new JTextField();
-      inputImportField.setDocument(new GermanDocument(20));
+      inputImportField.setDocument(new GermanDocument(30));
       inputImportField.setMinimumSize(new Dimension(200, 30));
       inputImportField.setMaximumSize(new Dimension(300, 30));
       inputImportField.setColumns(20);
@@ -121,7 +121,7 @@ public class InputDatabaseNameDialog extends JDialog
       return databaseName;
    }
 
-   public boolean isStartImport()
+   public boolean isStartImportOrExport()
    {
       return startImport;
    }

@@ -3,6 +3,7 @@ package vokabeltrainer.table.list.editor.expressionkindtable.multiselect;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Collections;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -18,10 +19,15 @@ public class ExpressionKindTableMultiselect extends JTable
 {
    private static final long serialVersionUID = 1518676670024526651L;
 
+   private ExpressionEditorViewConnector connector;
+   private boolean frozen;
+   private MouseListener mouseListener;
+
    public ExpressionKindTableMultiselect(ExpressionKindTableModel model,
          int totalWidth, ExpressionEditorViewConnector connector)
    {
       super(model, new ExpressionKindTableColumnModel(totalWidth));
+      this.connector = connector;
       this.setShowVerticalLines(false);
       setOpaque(true);
       setRowHeight(30);
@@ -33,7 +39,14 @@ public class ExpressionKindTableMultiselect extends JTable
       this.setBorder(BorderFactory.createEmptyBorder());
       this.setTableHeader(null);
 
-      addMouseListener(new MouseAdapter()
+      mouseListener = getMultiselectMouseListener(connector);
+      addMouseListener(mouseListener);
+   }
+
+   private MouseAdapter getMultiselectMouseListener(
+         ExpressionEditorViewConnector connector)
+   {
+      return new MouseAdapter()
       {
          public void mousePressed(MouseEvent mouseEvent)
          {
@@ -73,7 +86,7 @@ public class ExpressionKindTableMultiselect extends JTable
                }.execute();
             }
          }
-      });
+      };
    }
 
    @Override
@@ -104,6 +117,28 @@ public class ExpressionKindTableMultiselect extends JTable
    @Override
    public Class<?> getColumnClass(int column)
    {
-      return JLabel.class;  
+      return JLabel.class;
+   }
+
+   public boolean isFrozen()
+   {
+      return frozen;
+   }
+
+   public void setFrozen(boolean frozen)
+   {
+      this.frozen = frozen;
+
+      if (frozen)
+      {
+         this.removeMouseListener(mouseListener);
+      }
+      else
+      {
+         if(this.getMouseListeners().length == 0)
+         {
+            addMouseListener(mouseListener);
+         }
+      }
    }
 }

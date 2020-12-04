@@ -26,7 +26,7 @@ public class ExpressionTable extends JTable
    public ExpressionTable(ExpressionTableModel dm, Language language,
          DictionaryControllerConnector connector, boolean editable)
    {
-      super(dm, new ExpressionColumnModel(language, editable));
+      super(dm, new ExpressionColumnModel(language));
       this.model = dm;
       this.language = language;
       setRowHeight(Settings.dictionaryTableRowHeight());

@@ -51,7 +51,7 @@ import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.Expressi
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
-import vokabeltrainer.types.Database;
+import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
@@ -109,6 +109,7 @@ public class ExpressionEditorView extends JDialog
    private JButton copyButton;
 
    private ExpressionKindTableMultiselect expressionKindTable;
+   private boolean frozen;
 
    @SuppressWarnings("unused")
    private ExpressionEditorControllerConnector connector;
@@ -145,7 +146,7 @@ public class ExpressionEditorView extends JDialog
 
    private JScrollPane scrollPaneExpressionTable;
 
-   private JTextField databaseNameLabel;
+   private JTextField databaseNameField;
 
    private JLabel lastModiefiedLabel;
 
@@ -539,11 +540,11 @@ public class ExpressionEditorView extends JDialog
             BorderFactory.createLineBorder(Settings.getLightGrayGold()),
             "Wortarten"));
 
-      databaseNameLabel = new JTextField();
-      databaseNameLabel.setFont(Settings.getButtonFont());
-      databaseNameLabel.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      databaseNameLabel.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      databaseNameLabel.setBorder(new TitledBorder("Datenbank"));
+      databaseNameField = new JTextField();
+      databaseNameField.setFont(Settings.getButtonFont());
+      databaseNameField.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      databaseNameField.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      databaseNameField.setBorder(new TitledBorder("Datenbank"));
 
       lastModiefiedLabel = new JLabel();
       lastModiefiedLabel.setFont(Settings.getButtonFont());
@@ -558,7 +559,7 @@ public class ExpressionEditorView extends JDialog
       horizontal.add(pasteButton);
 
       vertical.add(scrollPaneExpressionTable);
-      vertical.add(databaseNameLabel);
+      vertical.add(databaseNameField);
       vertical.add(lastModiefiedLabel);
       vertical.add(extraInfoScroller);
       vertical.add(horizontal);
@@ -847,11 +848,11 @@ public class ExpressionEditorView extends JDialog
                   verbTypeBox.getItemAt(verbTypeBox.getSelectedIndex()));
          }
       }
-      if(definitions.getExpressionKindSet().isEmpty())
+      if (definitions.getExpressionKindSet().isEmpty())
       {
          definitions.addExpressionKind(ExpressionKind.EXPRESSIONKIND_UNKNOWN);
       }
-      
+
       expression.setDefinitions(definitions);
 
       List<String> wordsGerman = new ArrayList<>();
@@ -871,19 +872,19 @@ public class ExpressionEditorView extends JDialog
       selfChapter
             .setName(cleanTextWithoutComma((String) chapter.getSelectedItem()));
       expression.setChapter(selfChapter);
-      
+
       expression.setAdditionalInformation(
             cleanTextWithoutComma(extraInfo.getText()));
-      
-      try
+
+      if(databaseNameField.getText().isBlank())
       {
-         expression.getChapter().setDatabaseName(databaseNameLabel.getText());
+         expression.getChapter().setDatabaseName(Database.SELF.getName());
       }
-      catch (IllegalAccessException e)
+      else
       {
-         // nothing
+         expression.getChapter().setDatabaseName(databaseNameField.getText());
       }
-      
+
       expression.setLastModified(LocalDateTime.now());
    }
 
@@ -975,9 +976,7 @@ public class ExpressionEditorView extends JDialog
          extraInfo.setText(expression.getAdditionalInformation());
       }
 
-      
-      databaseNameLabel
-            .setText(expression.getChapter().getDatabaseName());
+      databaseNameField.setText(expression.getChapter().getDatabaseName());
 
       lastModiefiedLabel
             .setText("vom "
@@ -1019,5 +1018,69 @@ public class ExpressionEditorView extends JDialog
    public void setSave(boolean save)
    {
       this.save = save;
+   }
+
+   public boolean isFrozen()
+   {
+      return frozen;
+   }
+
+   public boolean setFrozen(boolean frozen)
+   {
+      boolean works = !frozen;
+      try
+      {
+         this.chapter.setEnabled(works);
+         this.german.setEditable(works);
+         this.german.setEnabled(works);
+         this.hebrewInLatin.setEditable(works);
+         this.hebrewInLatin.setEnabled(works);
+         this.hebrew.setEditable(works);
+         this.hebrew.setEnabled(works);
+         this.keyboard.setFrozen(frozen);
+         this.saveButton.setEnabled(works);
+         this.saveButton.setVisible(works);
+         this.restoreButton.setEnabled(works);
+         this.restoreButton.setVisible(works);
+         this.newSearchwordGerman.setEditable(works);
+         this.newSearchwordGerman.setEnabled(works);
+         this.newSearchwordGerman.setVisible(works);
+         this.deleteSearchwordButtonGerman.setEnabled(works);
+         this.deleteSearchwordButtonGerman.setVisible(works);
+         this.newSearchwordHebrew.setEditable(works);
+         this.newSearchwordHebrew.setEnabled(works);
+         this.newSearchwordHebrew.setVisible(works);
+         this.deleteSearchwordButtonHebrew.setEnabled(works);
+         this.deleteSearchwordButtonHebrew.setVisible(works);
+         this.expressionKindTable.setFrozen(frozen);
+         this.databaseNameField.setEditable(works);
+         this.databaseNameField.setEnabled(works);
+         this.extraInfo.setEditable(works);
+         this.extraInfo.setEnabled(works);
+         this.binjanBox.setEnabled(works);
+         this.genderBox.setEnabled(works);
+         this.numerusBox.setEnabled(works);
+         this.grammaticalPersonBox.setEnabled(works);
+         this.binjanBox.setEnabled(works);
+         this.verbConjugationBox.setEnabled(works);
+         this.verbStrengthBox.setEnabled(works);
+         this.verbTypeBox.setEnabled(works);
+         this.copyButton.setEnabled(works);
+         this.copyButton.setVisible(works);
+         this.cutButton.setEnabled(works);
+         this.cutButton.setVisible(works);
+         this.pasteButton.setEnabled(works);
+         this.pasteButton.setVisible(works);
+         this.searchwordsJListGerman.setEnabled(works);
+         this.searchwordsJListHebrew.setEnabled(works);
+         this.frozen = frozen;
+         return true;
+      }
+      catch (Exception e)
+      {
+         this.frozen = false;
+         return false;
+      }
+
    }
 }
