@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 import javax.swing.event.HyperlinkEvent.EventType;
 
@@ -44,6 +45,7 @@ import vokabeltrainer.types.Chapter.Database;
 
 public class SettingsPanel extends BackgroundPanelTiled
 {
+   private static final int WIDTH = 330;
    private static final long serialVersionUID = 1162776912036921483L;
    private JSlider soundslider;
    private JButton soundButton;
@@ -54,7 +56,7 @@ public class SettingsPanel extends BackgroundPanelTiled
    private JFileChooser folderChooser;
    private JButton folderChooserButton;
    private JButton folderChooserButtonWithoutSaving;
-   private JLabel folderLabel;
+   private JTextArea folderLabel;
    private JButton importButton;
    private JButton exportButton;
    private JButton exportSelectedButton;
@@ -85,10 +87,50 @@ public class SettingsPanel extends BackgroundPanelTiled
       {
          // nothing
       }
+      tabbedPane.addTab("Verfügbare Datenbanken", initDatabaseTab());
 
       add(tabbedPane);
 
       initController();
+   }
+
+   private Component initDatabaseTab()
+   {
+      JPanel panel = new JPanel();
+      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
+      panel.setLayout(panelLayout);
+
+      JPanel horizontal = new JPanel();
+      TrainLayout horizontalLayout = new TrainLayout(horizontal, 60);
+      horizontal.setLayout(horizontalLayout);
+
+      JPanel vertical1 = new JPanel();
+      TotemLayout vertical1Layout = new TotemLayout(vertical1, 60);
+      vertical1.setLayout(vertical1Layout);
+
+      JPanel vertical2 = new JPanel();
+      TotemLayout vertical2Layout = new TotemLayout(vertical2, 60);
+      vertical2.setLayout(vertical2Layout);
+
+      JPanel vertical3 = new JPanel();
+      TotemLayout vertical3Layout = new TotemLayout(vertical3, 60);
+      vertical3.setLayout(vertical3Layout);
+
+      vertical1.add(initDatabaseTableSection());
+
+      horizontal.add(vertical1);
+      horizontal.add(vertical2);
+      horizontal.add(vertical3);
+
+      panel.add(horizontal);
+
+      return panel;
+   }
+
+   private Component initDatabaseTableSection()
+   {
+      // TODO Auto-generated method stub
+      return null;
    }
 
    private Component initLicencingTab() throws IOException
@@ -236,8 +278,12 @@ public class SettingsPanel extends BackgroundPanelTiled
       saverLabel.setFont(Main.getGermanFont(30F));
       saverLabel.setForeground(Settings.getGold());
 
-      folderLabel = new JLabel(Settings.getExpressionPath());
+      folderLabel = new JTextArea(Settings.getExpressionPath());
       folderLabel.setFont(Settings.getButtonFont());
+      folderLabel.setEditable(false);
+      folderLabel.setBorder(BorderFactory.createTitledBorder("Ordner"));
+      folderLabel.setMinimumSize(new Dimension(WIDTH, 100));
+      folderLabel.setMaximumSize(new Dimension(WIDTH, 100));
 
       folderChooserButton = new JButton("ändern mit Speichern");
       folderChooserButton.setFont(Settings.getButtonFont());
@@ -277,6 +323,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       exportDatabaseButton.setFont(Settings.getButtonFont());
       exportDatabaseButton.setToolTipText(
             "Vokabeln einer Datenbank exportieren im csv Format");
+      exportDatabaseButton.setMinimumSize(new Dimension(WIDTH, 30));
+      exportDatabaseButton.setMaximumSize(new Dimension(WIDTH, 30));
 
       JLabel exportLabel = new JLabel("Export");
       exportLabel.setFont(Main.getGermanFont(30F));
@@ -302,6 +350,8 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       importButton = new JButton("Datenbank importieren");
       importButton.setFont(Settings.getButtonFont());
+      importButton.setMinimumSize(new Dimension(WIDTH, 30));
+      importButton.setMaximumSize(new Dimension(WIDTH, 30));
 
       vertical.add(importLabel);
       vertical.add(importButton);
@@ -333,8 +383,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       soundslider.setPaintTicks(true);
       soundslider.setPaintLabels(true);
       soundslider.setSnapToTicks(true);
-      soundslider.setMinimumSize(new Dimension(300, 60));
-      soundslider.setMaximumSize(new Dimension(300, 60));
+      soundslider.setMinimumSize(new Dimension(WIDTH, 60));
+      soundslider.setMaximumSize(new Dimension(WIDTH, 60));
 
       waveSoundButton = new JButton("Wellen");
       waveSoundButton.setFont(Settings.getButtonFont());
