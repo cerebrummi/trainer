@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.prefs.Preferences;
 
@@ -23,11 +23,10 @@ public class Settings
    private static boolean soundOn = true;
    private static String chosenExpressionPath = null;
    private static float volume = -20;
-   
-   private static List<Database> chosenDatabases = new ArrayList<>(); // TODO user can choose
-                                                  // databases
-   private static Database[] availableDatabases = {};
 
+   private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
+   private static LinkedList<Database> chosenDatabases = new LinkedList<>();
+   private static Database[] availableDatabases = { Database.ROSENGARTEN };
 
    private Settings()
    {
@@ -223,19 +222,41 @@ public class Settings
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
-      preferences.put(CerebrummiNodes.getChoosenExpressionPathNode(), choosenExpressionPath);
-      
+      preferences.put(CerebrummiNodes.getChoosenExpressionPathNode(),
+            choosenExpressionPath);
+
       Settings.chosenExpressionPath = choosenExpressionPath;
    }
-   
-   public static List<Database> getChosenDatabases()
+
+   public static LinkedList<Database> getChosenDatabases()
    {
       return chosenDatabases;
    }
 
-   public static void setChosenDatabases(List<Database> chosenDatabases)
+   public static void setChosenDatabases(LinkedList<Database> chosenDatabases)
    {
       Settings.chosenDatabases = chosenDatabases;
+   }
+
+   public static void addChosenDatabase(Database chosen)
+   {
+      Settings.chosenDatabases.add(chosen);
+   }
+
+   public static void removeChosenDatabase(Database chosen)
+   {
+      Settings.chosenDatabases.remove(chosen);
+   }
+
+   public static LinkedList<Database> getOldChosenDatabases()
+   {
+      return oldChosenDatabases;
+   }
+
+   public static void setOldChosenDatabases(
+         LinkedList<Database> oldChosenDatabases)
+   {
+      Settings.oldChosenDatabases = oldChosenDatabases;
    }
 
    public static float getVolume()

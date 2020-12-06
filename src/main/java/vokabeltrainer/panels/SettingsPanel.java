@@ -37,10 +37,12 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
+import vokabeltrainer.panels.settings.table.multiselect.DatabaseTable;
 import vokabeltrainer.resources.html.Nachweise;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
+import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
 
 public class SettingsPanel extends BackgroundPanelTiled
@@ -92,45 +94,6 @@ public class SettingsPanel extends BackgroundPanelTiled
       add(tabbedPane);
 
       initController();
-   }
-
-   private Component initDatabaseTab()
-   {
-      JPanel panel = new JPanel();
-      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
-      panel.setLayout(panelLayout);
-
-      JPanel horizontal = new JPanel();
-      TrainLayout horizontalLayout = new TrainLayout(horizontal, 60);
-      horizontal.setLayout(horizontalLayout);
-
-      JPanel vertical1 = new JPanel();
-      TotemLayout vertical1Layout = new TotemLayout(vertical1, 60);
-      vertical1.setLayout(vertical1Layout);
-
-      JPanel vertical2 = new JPanel();
-      TotemLayout vertical2Layout = new TotemLayout(vertical2, 60);
-      vertical2.setLayout(vertical2Layout);
-
-      JPanel vertical3 = new JPanel();
-      TotemLayout vertical3Layout = new TotemLayout(vertical3, 60);
-      vertical3.setLayout(vertical3Layout);
-
-      vertical1.add(initDatabaseTableSection());
-
-      horizontal.add(vertical1);
-      horizontal.add(vertical2);
-      horizontal.add(vertical3);
-
-      panel.add(horizontal);
-
-      return panel;
-   }
-
-   private Component initDatabaseTableSection()
-   {
-      // TODO Auto-generated method stub
-      return null;
    }
 
    private Component initLicencingTab() throws IOException
@@ -405,6 +368,52 @@ public class SettingsPanel extends BackgroundPanelTiled
       vertical.add(clappingSoundButton);
       vertical.add(splotchSoundButton);
       vertical.add(shredderSoundButton);
+
+      return vertical;
+   }
+
+   private Component initDatabaseTab()
+   {
+      JPanel panel = new JPanel();
+      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
+      panel.setLayout(panelLayout);
+
+      JPanel horizontal = new JPanel();
+      TrainLayout horizontalLayout = new TrainLayout(horizontal, 60);
+      horizontal.setLayout(horizontalLayout);
+
+      JPanel vertical1 = new JPanel();
+      TotemLayout vertical1Layout = new TotemLayout(vertical1, 60);
+      vertical1.setLayout(vertical1Layout);
+
+      vertical1.add(initDatabaseTablePanel());
+
+      horizontal.add(vertical1);
+
+      panel.add(horizontal);
+
+      return panel;
+   }
+
+   private Component initDatabaseTablePanel()
+   {
+      JPanel vertical = new JPanel();
+      TotemLayout verticalLayout = new TotemLayout(vertical, 15);
+      vertical.setLayout(verticalLayout);
+
+      JLabel databaseLabel = new JLabel("Datenbanken");
+      databaseLabel.setFont(Main.getGermanFont(30F));
+      databaseLabel.setForeground(Settings.getDarkGold());
+
+      DatabaseTable databaseTable = new DatabaseTable(
+            Chapter.Database.getModel(), WIDTH*3);
+      
+      JScrollPane scroller = new JScrollPane(databaseTable);
+      scroller.setMinimumSize(new Dimension(WIDTH*3, 300));
+      scroller.setMaximumSize(new Dimension(WIDTH*3, 500));
+      
+      vertical.add(databaseLabel);
+      vertical.add(scroller);
 
       return vertical;
    }
@@ -738,4 +747,3 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
    }
 }
-

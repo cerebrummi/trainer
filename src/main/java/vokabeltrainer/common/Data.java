@@ -266,6 +266,19 @@ public final class Data
    {
       return getDataBaseAtomic().getAllDatabases();
    }
+   
+   public static boolean determineReloadDatabases()
+   {
+      if(!Settings.getChosenDatabases().containsAll(Settings.getOldChosenDatabases()) || 
+            !Settings.getOldChosenDatabases().containsAll(Settings.getChosenDatabases()))
+      {
+         // reload data
+         initDataBase();
+         Settings.setOldChosenDatabases(Settings.getChosenDatabases());
+         return true;
+      }
+      return false;
+   }
 
    // #########################################################
    // #########################################################

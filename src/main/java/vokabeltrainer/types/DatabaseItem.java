@@ -1,12 +1,16 @@
 package vokabeltrainer.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import vokabeltrainer.Settings;
 import vokabeltrainer.types.Chapter.Database;
 
 public class DatabaseItem
 {
    private Database database;
    private boolean selected;
-   
+
    public DatabaseItem(Database database)
    {
       this.database = database;
@@ -27,7 +31,7 @@ public class DatabaseItem
    {
       this.database = database;
    }
-   
+
    public void toggleSelected()
    {
       this.selected = !this.selected;
@@ -42,5 +46,17 @@ public class DatabaseItem
    {
       this.selected = selected;
    }
-   
+
+   public static List<DatabaseItem> getAllDatabaseItems()
+   {
+      List<DatabaseItem> databaseItemList = new ArrayList<>();
+
+      for (Database database : Settings.getAvailableDatabases())
+      {
+         databaseItemList.add(new DatabaseItem(database));
+      }
+
+      return databaseItemList;
+   }
+
 }

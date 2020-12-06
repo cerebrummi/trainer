@@ -8,6 +8,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+
+import vokabeltrainer.Settings;
 import vokabeltrainer.types.DatabaseItem;
 
 public class DatabaseTable extends JTable
@@ -52,6 +54,15 @@ public class DatabaseTable extends JTable
                DatabaseItem database = tableRow.getDatabaseItem();
 
                database.toggleSelected();
+               
+               if(database.isSelected())
+               {
+                  Settings.addChosenDatabase(database.getDatabase());
+               }
+               else
+               {
+                  Settings.removeChosenDatabase(database.getDatabase());
+               }
 
                ((DatabaseTableModel) table.getModel())
                      .fireTableCellUpdated(table.getSelectedRow(), 0);

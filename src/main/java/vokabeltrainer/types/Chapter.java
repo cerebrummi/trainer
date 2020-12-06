@@ -2,6 +2,10 @@ package vokabeltrainer.types;
 
 import java.text.Collator;
 import java.util.Locale;
+import java.util.Vector;
+
+import vokabeltrainer.panels.settings.table.multiselect.DatabaseTableModel;
+import vokabeltrainer.panels.settings.table.multiselect.DatabaseTableRow;
 
 public class Chapter implements Comparable<Chapter>
 {
@@ -126,33 +130,51 @@ public class Chapter implements Comparable<Chapter>
    {
       ROSENGARTEN(
             "rosengarten",
-            "Ivrit Schritt für Schritt"),
+            "Ivrit Schritt für Schritt",
+            "Miriam Rosengarten, Vera Loos",
+            "marixverlag"),
       BEKEF(
             "bekef",
-            "Ivrit bekef"),
+            "Ivrit bekef",
+            "Smadar Raveh-Klemke",
+            "Hempen Verlag"),
       SELF(
             "",
-            "selbst eingegeben"),
+            "selbst eingegeben",
+            "",
+            ""),
       IMPORTED(
             "",
-            "importiert"),
+            "importiert",
+            "",
+            ""),
       UNKNOWN(
             "",
-            "unbekannt"),
+            "unbekannt",
+            "",
+            ""),
       TO_BE_DETERMINED(
             "",
-            "soll bestimmt werden"),
+            "soll bestimmt werden",
+            "",
+            ""),
       ADDITIONAL_VALUE(
             "",
-            "weiterer Wert");
+            "weiterer Wert",
+            "",
+            "");
 
       private String folder;
       private String name;
+      private String authors;
+      private String company;
 
-      Database(String folder, String name)
+      Database(String folder, String name, String authors, String company)
       {
          this.folder = folder;
          this.name = name;
+         this.authors = authors;
+         this.company = company;
       }
 
       public String getFolder()
@@ -164,15 +186,40 @@ public class Chapter implements Comparable<Chapter>
       {
          return name;
       }
+
+      public static DatabaseTableModel getModel()
+      {
+         Vector<Vector<DatabaseTableRow>> data = new Vector<>();
+         for (DatabaseItem item : DatabaseItem.getAllDatabaseItems())
+         {
+            item.setSelected(false);
+            Vector<DatabaseTableRow> row = new Vector<>();
+            row.add(new DatabaseTableRow(item));
+            data.add(row);
+         }
+         Vector<String> columnNames = new Vector<>();
+         columnNames.add("eins");
+         return new DatabaseTableModel(data, columnNames);
+      }
+
+      public String getAuthors()
+      {
+         return authors;
+      }
+
+      public String getCompany()
+      {
+         return company;
+      }
    }
-   
+
    public static Database findOrigin(String databaseName)
    {
       if (Database.ROSENGARTEN.getName().equals(databaseName))
       {
          return Database.ROSENGARTEN;
       }
-      
+
       if (Database.BEKEF.getName().equals(databaseName))
       {
          return Database.BEKEF;

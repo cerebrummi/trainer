@@ -14,6 +14,7 @@ import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.dictionary.DictionaryController;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
@@ -115,6 +116,7 @@ public class MainView extends JPanel
       });
 
       vocabularyCardsButton.addActionListener(event -> {
+         Data.determineReloadDatabases();
          StartTrainingView dialog = new StartTrainingController()
                .getStartTrainingView();
          dialog.setLocationRelativeTo(null);
@@ -157,6 +159,7 @@ public class MainView extends JPanel
       });
 
       statisticsButton.addActionListener(event -> {
+         Data.determineReloadDatabases();
          if (activeComponent != null)
          {
             remove(activeComponent);
@@ -169,6 +172,7 @@ public class MainView extends JPanel
       });
       
       successButton.addActionListener(event -> {
+         Data.determineReloadDatabases();
          if (activeComponent != null)
          {
             remove(activeComponent);
