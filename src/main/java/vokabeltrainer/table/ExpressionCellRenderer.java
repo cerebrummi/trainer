@@ -29,7 +29,7 @@ public class ExpressionCellRenderer
    @Override
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
-   {   
+   {
       Expression expression = (Expression) value;
       if (Language.GERMAN.equals(language))
       {
@@ -48,30 +48,17 @@ public class ExpressionCellRenderer
       {
          list.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
       }
-      
-      if (expression.isDoNotChange())
+
+      if (row % 2 == 1)
       {
-         if (row % 2 == 1)
-         {
-            list.setBackground(Settings.getLightGrayBlue());
-         }
-         else
-         {
-            list.setBackground(Settings.getLightGrayGold());
-         }
+         list.setBackground(Settings.getLightBlue());
       }
       else
       {
-         if (row % 2 == 1)
-         {
-            list.setBackground(Settings.getLightBlue());
-         }
-         else
-         {
-            list.setBackground(Settings.getVeryLightGold());
-         }
+         list.setBackground(Settings.getVeryLightGold());
       }
       
+      list.setLock(expression.isDoNotChange());
 
       return list;
    }
@@ -103,19 +90,19 @@ public class ExpressionCellRenderer
    @Override
    public void cancelCellEditing()
    {
-      
+
    }
 
    @Override
    public void addCellEditorListener(CellEditorListener l)
    {
-      
+
    }
 
    @Override
    public void removeCellEditorListener(CellEditorListener l)
    {
-      
+
    }
 
    @Override

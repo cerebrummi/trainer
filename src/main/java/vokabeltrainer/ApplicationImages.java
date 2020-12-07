@@ -65,6 +65,7 @@ public class ApplicationImages
    private static BufferedImage soundOff;
    
    private static BufferedImage back;
+   private static BufferedImage lock;
    
    private static Map<HebrewLetter, BufferedImage> letterIconsMap;
    
@@ -800,4 +801,20 @@ public class ApplicationImages
    {
       return paste;
    }
+
+   public static BufferedImage getLock()
+   {
+      return lock;
+   }
+
+   public static void setLock(BufferedImage lock)
+   {
+      if(lock == null)
+      {
+         exitWithMessage("kein Schloss Icon");
+      }
+      ApplicationImages.lock = lock;
+   }
+
+   
 }

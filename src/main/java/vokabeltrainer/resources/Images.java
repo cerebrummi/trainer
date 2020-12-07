@@ -96,6 +96,9 @@ public class Images
 
       ApplicationImages.setLetterEmpty(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/letter_empty.png")));
+      
+      ApplicationImages.setLock(ImageIO.read(
+            Images.class.getResourceAsStream("_2_images/lock.png")));
 
       ApplicationImages.setStartImage(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/neutral.jpg")));
