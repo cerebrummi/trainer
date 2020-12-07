@@ -12,7 +12,6 @@ public class Chapter implements Comparable<Chapter>
    private String name = "";
    private Database origin = Database.TO_BE_DETERMINED;
    private String databaseName = "";
-   private String databaseFolder = "";
 
    public Chapter()
    {
@@ -100,17 +99,13 @@ public class Chapter implements Comparable<Chapter>
 
    public String getDatabaseFolder(Database database)
    {
-      if (Database.ADDITIONAL_VALUE == database)
-      {
-         return this.databaseFolder;
-      }
       return database.getFolder();
    }
 
    public String getDatabaseName()
    {
-      if (Database.ADDITIONAL_VALUE == origin || Database.IMPORTED == origin
-            || Database.SELF == origin || Database.UNKNOWN == origin)
+      if (Database.IMPORTED == origin || Database.SELF == origin
+            || Database.UNKNOWN == origin)
       {
          return this.databaseName;
       }
@@ -119,8 +114,8 @@ public class Chapter implements Comparable<Chapter>
 
    public void setDatabaseName(String databaseName)
    {
-      if (Database.ADDITIONAL_VALUE == origin || Database.IMPORTED == origin
-            || Database.SELF == origin || Database.UNKNOWN == origin)
+      if (Database.IMPORTED == origin || Database.SELF == origin
+            || Database.UNKNOWN == origin)
       {
          this.databaseName = databaseName;
       }
@@ -156,11 +151,6 @@ public class Chapter implements Comparable<Chapter>
       TO_BE_DETERMINED(
             "",
             "soll bestimmt werden",
-            "",
-            ""),
-      ADDITIONAL_VALUE(
-            "",
-            "weiterer Wert",
             "",
             "");
 
@@ -224,6 +214,6 @@ public class Chapter implements Comparable<Chapter>
       {
          return Database.BEKEF;
       }
-      return Database.UNKNOWN;
+      return Database.SELF;
    }
 }

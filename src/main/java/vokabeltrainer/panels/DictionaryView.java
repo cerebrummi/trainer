@@ -609,6 +609,7 @@ public class DictionaryView extends BackgroundPanelTiled
          message = "Wollen Sie wirklich " + number + " Einträge löschen?";
       }
 
+      message += "\nHinweis: Die Vokabeln eingebauter Datenbanken\nkönnen nicht gelöscht werden.";
       return JOptionPane.showConfirmDialog(Common.getjFrame(), message, "Frage",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
    }
@@ -625,6 +626,7 @@ public class DictionaryView extends BackgroundPanelTiled
          message = "Es wurden keine Einträge\nzum Löschen ausgewählt.";
       }
 
+      message += "\nHinweis: Die Vokabeln eingebauter Datenbanken\nkönnen nicht gelöscht werden.";
       JOptionPane.showMessageDialog(Common.getjFrame(), message, "Nachricht",
             JOptionPane.CLOSED_OPTION);
 
@@ -767,9 +769,9 @@ public class DictionaryView extends BackgroundPanelTiled
    }
 
    @Override
-   public List<Expression> getInTableSelectedExpressions()
+   public List<Expression> getInTableSelectedExpressions(boolean exceptDoNotChange)
    {
-      return table.getSelectedExpressions();
+      return table.getSelectedExpressions(exceptDoNotChange);
    }
 
    @Override

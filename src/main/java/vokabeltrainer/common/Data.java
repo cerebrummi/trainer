@@ -214,9 +214,9 @@ public final class Data
       getDataBaseAtomic().shredderDeletedExpressions();
    }
 
-   public static List<Expression> getAllSelectedExpressions()
+   public static List<Expression> getAllSelectedExpressions(boolean exceptDoNotChange)
    {
-      return getDataBaseAtomic().findAllSelectedExpressionsList();
+      return getDataBaseAtomic().findAllSelectedExpressionsList(exceptDoNotChange);
    }
 
    public static Chapter[] getChapterArray()
@@ -266,18 +266,18 @@ public final class Data
    {
       return getDataBaseAtomic().getAllDatabases();
    }
-   
+
    public static boolean determineReloadDatabases()
    {
-      if(!Settings.getChosenDatabases().containsAll(Settings.getOldChosenDatabases()) || 
-            !Settings.getOldChosenDatabases().containsAll(Settings.getChosenDatabases()))
+      if (new HashSet<>(Settings.getChosenDatabases())
+            .equals(new HashSet<>(Settings.getOldChosenDatabases())))
       {
-         // reload data
-         initDataBase();
-         Settings.setOldChosenDatabases(Settings.getChosenDatabases());
-         return true;
+         return false;
       }
-      return false;
+      // reload data
+      initDataBase();
+      Settings.setOldChosenDatabases(new LinkedList<>(Settings.getChosenDatabases()));
+      return true;
    }
 
    // #########################################################
@@ -305,21 +305,22 @@ public final class Data
             findNumberOfAllVocabulary() + 100);
       private final ConcurrentMap<UUID, Expression> newMap = new ConcurrentHashMap<>(
             100);
-      private final ConcurrentMap<UUID, Expression> deletedMap = readFile(
+      private final ConcurrentMap<UUID, Expression> deletedMap = readFileRegular(
             DELETED_CSV, Database.TO_BE_DETERMINED, LetterForSaving.DELETED);
 
       DataBase()
       {
          for (LetterForSaving letter : LetterForSaving.values())
          {
-            readFile(letter.name() + ".csv", Database.TO_BE_DETERMINED, letter);
+            readFileRegular(letter.name() + ".csv", Database.TO_BE_DETERMINED,
+                  letter);
          }
 
-         for (Database database : Settings.getAvailableDatabases())
+         for (Database database : Settings.getChosenDatabases())
          {
             for (LetterForSaving letter : LetterForSaving.values())
             {
-               readFile(letter, database);
+               readFileAvailable(letter, database);
             }
          }
 
@@ -457,7 +458,7 @@ public final class Data
       {
          for (LetterForSaving letter : LetterForSaving.values())
          {
-            readFile(databasePath, letter, databaseName,
+            readFileImport(databasePath, letter, databaseName,
                   overwriteDatabaseNames);
          }
 
@@ -467,7 +468,7 @@ public final class Data
       // #########################################################
       // ######################## import #########################
       // #########################################################
-      private void readFile(String path, LetterForSaving letter,
+      private void readFileImport(String path, LetterForSaving letter,
             String databaseName, boolean overwrite)
       {
          File file = new File(path + File.separator + letter.name() + ".csv");
@@ -493,8 +494,7 @@ public final class Data
       // #########################################################
       // ################# available databases ###################
       // #########################################################
-      private void readFile(LetterForSaving letter,
-            Database origin)
+      private void readFileAvailable(LetterForSaving letter, Database origin)
       {
          try (InputStream fis = Vocabulary.class.getResourceAsStream(
                origin.getFolder() + File.separator + letter.name() + ".csv");
@@ -514,7 +514,7 @@ public final class Data
       // #########################################################
       // ####################### regular #########################
       // #########################################################
-      private ConcurrentMap<UUID, Expression> readFile(String filename,
+      private ConcurrentMap<UUID, Expression> readFileRegular(String filename,
             Database origin, LetterForSaving letter)
       {
          File file = null;
@@ -536,7 +536,8 @@ public final class Data
                      StandardCharsets.UTF_8);
                Reader reader = new BufferedReader(isr);)
          {
-            return readData(filename, reader, origin, letter, false, null, false);
+            return readData(filename, reader, origin, letter, false, null,
+                  false);
          }
          catch (IOException e)
          {
@@ -551,7 +552,8 @@ public final class Data
       // #########################################################
       private ConcurrentMap<UUID, Expression> readData(String filename,
             Reader reader, Database origin, LetterForSaving letter,
-            boolean overwrite, String databasename, boolean doNotChange) throws IOException
+            boolean overwrite, String databasename, boolean doNotChange)
+            throws IOException
       {
          StringBuffer buffer = new StringBuffer();
          String input;
@@ -572,7 +574,6 @@ public final class Data
 
          ConcurrentMap<UUID, Expression> map = new ConcurrentHashMap<>(
                rows.length + 100);
-         List<Database> availableDatabases = Settings.getAvailableDatabases();
          int counter = 0;
          for (String row : rows)
          {
@@ -611,24 +612,26 @@ public final class Data
                   database = Database.UNKNOWN;
                }
                index++;
-               if (databasename != null && overwrite) // this is for import only
+               if (Database.IMPORTED == origin && databasename != null
+                     && overwrite)
                {
                   index++;
                   expression.setChapter(
-                        new Chapter(databasename, entries[index], origin));
+                        new Chapter(databasename, entries[index], database));
                }
-               else if (!availableDatabases.contains(database))
+               else if (Settings.getAvailableDatabases().contains(origin))
+               {
+                  index++;
+                  expression.setChapter(new Chapter(entries[index], origin));
+               }
+               else
                {
                   String nameOfDatabase = entries[index];
                   index++;
                   expression.setChapter(
                         new Chapter(nameOfDatabase, entries[index], database));
                }
-               else // databases delivered with this program
-               {
-                  index++;
-                  expression.setChapter(new Chapter(entries[index], origin));
-               }
+
                index++;
                expression.setGerman(entries[index]);
                index++;
@@ -797,7 +800,7 @@ public final class Data
          {
             if (Command.ALL_SELECTED.equals(command))
             {
-               List<Expression> selectedExpressions = findAllSelectedExpressionsList();
+               List<Expression> selectedExpressions = findAllSelectedExpressionsList(false);
                Collections.sort(selectedExpressions,
                      new ExpressionComparator(language, sortForDate));
                return new ExpressionTableModel(
@@ -1119,12 +1122,16 @@ public final class Data
 
       }
 
-      private List<Expression> findAllSelectedExpressionsList()
+      private List<Expression> findAllSelectedExpressionsList(boolean exceptDoNotChange)
       {
          List<Expression> list = new ArrayList<>();
 
          for (Expression expression : alleMap.values())
          {
+            if(exceptDoNotChange && expression.isDoNotChange())
+            {
+               continue;
+            }
             if (expression.isSelected())
             {
                list.add(expression);
@@ -1235,7 +1242,7 @@ public final class Data
             }
             break;
          case AREA_SELECTED:
-            List<Expression> listSelected = findAllSelectedExpressionsList();
+            List<Expression> listSelected = findAllSelectedExpressionsList(false);
             TrainingTableRow selectedRow = new TrainingTableRow();
             selectedRow.setFieldOfTraining(fieldOfTraining);
             selectedRow.setField("Ausgewählte Wörter");

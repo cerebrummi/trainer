@@ -29,17 +29,7 @@ public class ExpressionCellRenderer
    @Override
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
-   {
-
-      if (row % 2 == 1)
-      {
-         list.setBackground(Settings.getLightBlue());
-      }
-      else
-      {
-         list.setBackground(Settings.getVeryLightGold());
-      }
-      
+   {   
       Expression expression = (Expression) value;
       if (Language.GERMAN.equals(language))
       {
@@ -58,6 +48,30 @@ public class ExpressionCellRenderer
       {
          list.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
       }
+      
+      if (expression.isDoNotChange())
+      {
+         if (row % 2 == 1)
+         {
+            list.setBackground(Settings.getLightGrayBlue());
+         }
+         else
+         {
+            list.setBackground(Settings.getLightGrayGold());
+         }
+      }
+      else
+      {
+         if (row % 2 == 1)
+         {
+            list.setBackground(Settings.getLightBlue());
+         }
+         else
+         {
+            list.setBackground(Settings.getVeryLightGold());
+         }
+      }
+      
 
       return list;
    }

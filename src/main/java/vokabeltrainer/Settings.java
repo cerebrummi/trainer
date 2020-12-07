@@ -90,6 +90,11 @@ public class Settings
    {
       return new Color(215, 231, 247);
    }
+   
+   public static Color getLightGrayBlue()
+   {
+      return new Color(150, 165, 180);
+   }
 
    public static Color getMediumBlue()
    {

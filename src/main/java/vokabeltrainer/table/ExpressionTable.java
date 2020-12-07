@@ -106,12 +106,16 @@ public class ExpressionTable extends JTable
       }
    }
 
-   public List<Expression> getSelectedExpressions()
+   public List<Expression> getSelectedExpressions(boolean exceptDoNotChange)
    {
       List<Expression> list = new ArrayList<>();
 
       for (Expression[] expressionArray : model.getTableData())
       {
+         if(exceptDoNotChange && expressionArray[0].isDoNotChange())
+         {
+            continue;
+         }
          if (expressionArray[0].isSelected())
          {
             list.add(expressionArray[0]);

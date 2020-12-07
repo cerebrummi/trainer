@@ -336,14 +336,7 @@ public class Expression
       StringJoiner joiner = new StringJoiner("\t");
       joiner.add(uuid.toString());
       Database db = Chapter.findOrigin(databaseName);
-      if(db != Database.UNKNOWN)
-      {
-         joiner.add(db.name());
-      }
-      else
-      {
-         joiner.add(Database.ADDITIONAL_VALUE.name());
-      }
+      joiner.add(db.name());
       joiner.add(databaseName);
       joiner.add(chapter.getName());
       joiner.add(german);

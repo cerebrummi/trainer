@@ -70,8 +70,8 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    private void initGui()
    {
       tablePanel = new JPanel(new BorderLayout());
+      tablePanel.setMinimumSize(new Dimension(400, 540));
       tablePanel.setMinimumSize(new Dimension(400, 580));
-      tablePanel.setMinimumSize(new Dimension(400, 620));
       tablePanel.setOpaque(false);
 
       layout.add(tablePanel);
@@ -128,7 +128,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       this.restoreButton.addActionListener(event -> {
          if(isTableNotNull())
          {
-            connector.restoreSelectedExpressions(table.getSelectedExpressions());
+            connector.restoreSelectedExpressions(table.getSelectedExpressions(false));
          }
       });
 

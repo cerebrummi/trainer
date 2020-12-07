@@ -24,7 +24,7 @@ public interface DictionaryViewConnector
    public void clearTableDataSelection();
    public void notifyNothingWasSelectedForDeletion(int singularPlural);
    public int askForDeletionConfirmation(int numberOfExpressionsToBeDeleted);
-   public List<Expression> getInTableSelectedExpressions();
+   public List<Expression> getInTableSelectedExpressions(boolean exceptDoNotChange);
    public void selectTableData();
    public void displayNoTable();
    public Chapter getSelectedChapter();

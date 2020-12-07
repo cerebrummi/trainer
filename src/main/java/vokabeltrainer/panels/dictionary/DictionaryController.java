@@ -172,7 +172,7 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void deleteAllSelectedExpressions()
    {
-      List<Expression> list = Data.getAllSelectedExpressions();
+      List<Expression> list = Data.getAllSelectedExpressions(true);
 
       if (list.isEmpty())
       {
@@ -197,7 +197,7 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       if (dictionaryView.isTableNotNull())
       {
-         List<Expression> list = dictionaryView.getInTableSelectedExpressions();
+         List<Expression> list = dictionaryView.getInTableSelectedExpressions(true);
          if (list.isEmpty())
          {
             dictionaryView.notifyNothingWasSelectedForDeletion(2);
