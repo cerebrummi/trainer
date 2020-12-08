@@ -1,7 +1,5 @@
 package vokabeltrainer;
 
-import java.io.File;
-
 public class CerebrummiNodes
 {
 
@@ -12,7 +10,7 @@ public class CerebrummiNodes
 
    public static String getNode() // the node of preferences
    {
-      return File.separator + "cerebrummi" + File.separator + "hebrewtrainer";
+      return "cerebrummi.hebrewtrainer";
    }
 
    public static String getExpressionNode()

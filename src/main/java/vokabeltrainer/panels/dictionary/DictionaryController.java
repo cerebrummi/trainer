@@ -8,11 +8,13 @@ import java.util.List;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.SwingWorker;
 
 import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.Command;
+import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.DictionaryView;
@@ -197,7 +199,8 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       if (dictionaryView.isTableNotNull())
       {
-         List<Expression> list = dictionaryView.getInTableSelectedExpressions(true);
+         List<Expression> list = dictionaryView
+               .getInTableSelectedExpressions(true);
          if (list.isEmpty())
          {
             dictionaryView.notifyNothingWasSelectedForDeletion(2);
@@ -252,15 +255,21 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       if (dictionaryView.askForShredderConfirmation() == 0)
       {
-         try
+         if (Settings.isSoundOn())
          {
-            Clip clip = AudioSystem.getClip();
-            clip.open(ApplicationSound.getShredderSound());
-            clip.start();
-         }
-         catch (LineUnavailableException | IOException e)
-         {
-            // nothing
+            try
+            {
+               Clip clip = AudioSystem.getClip();
+               clip.open(ApplicationSound.getShredderSound());
+               FloatControl volume = (FloatControl) clip
+                     .getControl(FloatControl.Type.MASTER_GAIN);
+               volume.setValue(Settings.getVolume());
+               clip.start();
+            }
+            catch (LineUnavailableException | IOException e)
+            {
+               // nothing
+            }
          }
 
          Data.shredderDeletedExpressions();

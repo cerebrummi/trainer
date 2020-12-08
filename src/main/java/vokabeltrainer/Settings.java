@@ -208,6 +208,9 @@ public class Settings
    public static void toggleSoundOnOff()
    {
       soundOn = !soundOn;
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.putBoolean(CerebrummiNodes.getSoundNode(), soundOn);
    }
 
    public static void setSoundOn(boolean soundOn)
@@ -216,11 +219,6 @@ public class Settings
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getSoundNode(), soundOn);
       Settings.soundOn = soundOn;
-   }
-
-   public static String getChoosenExpressionPath()
-   {
-      return chosenExpressionPath;
    }
 
    public static void setChoosenExpressionPath(String choosenExpressionPath)
@@ -271,6 +269,9 @@ public class Settings
 
    public static void setVolume(float volume)
    {
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.putInt(CerebrummiNodes.getVolumeNode(), (int)volume);
       Settings.volume = volume;
    }
 
