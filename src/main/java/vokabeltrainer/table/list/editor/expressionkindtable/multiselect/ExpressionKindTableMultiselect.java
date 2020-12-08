@@ -39,12 +39,11 @@ public class ExpressionKindTableMultiselect extends JTable
       this.setBorder(BorderFactory.createEmptyBorder());
       this.setTableHeader(null);
 
-      mouseListener = getMultiselectMouseListener(connector);
+      mouseListener = getMultiselectMouseListener();
       addMouseListener(mouseListener);
    }
 
-   private MouseAdapter getMultiselectMouseListener(
-         ExpressionEditorViewConnector connector)
+   private MouseAdapter getMultiselectMouseListener()
    {
       return new MouseAdapter()
       {
