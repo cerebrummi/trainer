@@ -62,6 +62,7 @@ public class ExpressionKindHelper
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
    public static GrammaticalParentEnum[] ZAHL_ENUMS = {
          GrammaticalParentEnum.GENDER };
+   public static GrammaticalParentEnum[] ARTIKEL_ENUMS = {GrammaticalParentEnum.GENDER};
    
    public static List<ExpressionKindItem> getAllExpressionKindItems()
    {

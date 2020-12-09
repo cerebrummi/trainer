@@ -59,6 +59,14 @@ public class DefinitionHelper
          list.add(VerbStrength.VERBSTRENGTH_NA);
          list.add(VerbType.VERBTYPE_NA);
          break;
+      case ARTIKEL:
+         list.add(Binjan.BINJAN_NA);
+         list.add(Numerus.NUMERUS_NA);
+         list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
+         list.add(VerbConjugation.VERBCONJUGATION_NA);
+         list.add(VerbStrength.VERBSTRENGTH_NA);
+         list.add(VerbType.VERBTYPE_NA);
+         break;
       case UMGANGSPRACHE:
       case EXPRESSIONKIND_UNKNOWN:
       case AUSRUF:

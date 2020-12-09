@@ -33,6 +33,7 @@ public enum ExpressionKind
    AUSRUF(
          "Ausruf",
          ExpressionKindHelper.AUSRUF_ENUMS),
+   ARTIKEL("Artikel", ExpressionKindHelper.ARTIKEL_ENUMS),
    BERUF(
          "Beruf",
          ExpressionKindHelper.BERUF_ENUMS),
@@ -133,6 +134,7 @@ public enum ExpressionKind
       case ADVERB:
       case ALTERSANGABE:
       case AUSRUF:
+      case ARTIKEL:
       case BERUF:
       case BINDEWORT:
       case DEMONSTRATIVPRONOM:
