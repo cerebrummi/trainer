@@ -655,8 +655,6 @@ public final class Data
                index++;
                expression.setHebrew(entries[index]);
                index++;
-               // TODO take out
-               index++;
 
                Definitions definitions = new Definitions();
                List<ExpressionKind> kinds = new ArrayList<>();
@@ -758,9 +756,15 @@ public final class Data
                index++;
                expression.setAdditionalInformation(entries[index]);
                index++;
-               expression.setSearchwordsGerman(entries[index].split(","));
+               if (!entries[index].isBlank())
+               {
+                  expression.setSearchwordsGerman(entries[index].split(","));
+               }
                index++;
-               expression.setSearchwordsHebrew(entries[index].split(","));
+               if (!entries[index].isBlank())
+               {
+                  expression.setSearchwordsHebrew(entries[index].split(","));
+               }
                index++;
                try
                {
