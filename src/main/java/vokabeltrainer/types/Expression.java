@@ -175,6 +175,11 @@ public class Expression
    {
       return doNotChange;
    }
+   
+   public boolean isDoChange()
+   {
+      return !doNotChange;
+   }
 
    public Database getOrigin()
    {

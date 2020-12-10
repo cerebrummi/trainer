@@ -24,7 +24,7 @@ public class DatabaseTable extends JTable
       this.setShowVerticalLines(false);
       setOpaque(true);
       setRowHeight(30);
-      setShowHorizontalLines(false);
+      setShowHorizontalLines(true);
       this.setRowSelectionAllowed(true);
       this.setColumnSelectionAllowed(false);
       this.setCellSelectionEnabled(false);

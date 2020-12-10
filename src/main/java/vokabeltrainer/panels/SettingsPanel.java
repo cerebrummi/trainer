@@ -43,7 +43,6 @@ import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
-import vokabeltrainer.types.Chapter.Database;
 
 public class SettingsPanel extends BackgroundPanelTiled
 {
@@ -63,6 +62,7 @@ public class SettingsPanel extends BackgroundPanelTiled
    private JButton exportButton;
    private JButton exportSelectedButton;
    private JButton exportDatabaseButton;
+   private JButton deleteDatabaseButton;
 
    public SettingsPanel()
    {
@@ -258,10 +258,21 @@ public class SettingsPanel extends BackgroundPanelTiled
       folderChooserButtonWithoutSaving.setToolTipText(
             "Lädt alle Vokabeln, die am neuen Ort schon vorhanden sind. Beläßt die aktuellen Vokabeln am alten Ort.");
 
+      JLabel deleteLabel = new JLabel("Datenbank löschen");
+      deleteLabel.setFont(Main.getGermanFont(30F));
+      deleteLabel.setForeground(Settings.getGold());
+
+      deleteDatabaseButton = new JButton("eigene Datenbank löschen");
+      deleteDatabaseButton.setFont(Settings.getButtonFont());
+      deleteDatabaseButton.setToolTipText(
+            "Verschiebt alle Vokabeln einer Datenbank in den Papierkorb.");
+
       vertical.add(saverLabel);
       vertical.add(folderLabel);
       vertical.add(folderChooserButton);
       vertical.add(folderChooserButtonWithoutSaving);
+      vertical.add(deleteLabel);
+      vertical.add(deleteDatabaseButton);
 
       return vertical;
    }
@@ -406,12 +417,12 @@ public class SettingsPanel extends BackgroundPanelTiled
       databaseLabel.setForeground(Settings.getDarkGold());
 
       DatabaseTable databaseTable = new DatabaseTable(
-            Chapter.Database.getModel(), WIDTH*3);
-      
+            Chapter.Database.getModelAvailableDatabases(), WIDTH * 3);
+
       JScrollPane scroller = new JScrollPane(databaseTable);
-      scroller.setMinimumSize(new Dimension(WIDTH*3, 300));
-      scroller.setMaximumSize(new Dimension(WIDTH*3, 500));
-      
+      scroller.setMinimumSize(new Dimension(WIDTH * 3, 300));
+      scroller.setMaximumSize(new Dimension(WIDTH * 3, 500));
+
       vertical.add(databaseLabel);
       vertical.add(scroller);
 
@@ -713,10 +724,10 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
 
          String databaseChoosen = (String) JOptionPane.showInputDialog(
-               Common.getMainJPanel(), "Wählen Sie eine Datenbank aus.",
+               Common.getMainJPanel(), "Wählen Sie eine Datenbank für den Export aus.",
                "Auswahl", JOptionPane.QUESTION_MESSAGE,
                new ImageIcon(ApplicationImages.getLogo24()),
-               Data.getAllDatabases(), Database.SELF.getName());
+               Data.getAllOwnDistinctDatabaseDescriptions(false), null);
 
          if (databaseChoosen == null)
          {
@@ -744,6 +755,33 @@ public class SettingsPanel extends BackgroundPanelTiled
 
             }.execute();
          }
+      });
+
+      this.deleteDatabaseButton.addActionListener(event -> {
+         String databaseChoosen = (String) JOptionPane.showInputDialog(
+               Common.getMainJPanel(),
+               "Wählen Sie eine Datenbank zu Löschen aus.",
+               "Datenbank in den Papierkorb", JOptionPane.QUESTION_MESSAGE,
+               new ImageIcon(ApplicationImages.getLogo24()),
+               Data.getAllOwnDistinctDatabaseDescriptions(false), null);
+
+         if (databaseChoosen == null)
+         {
+            return;
+         }
+
+         new SwingWorker<Void, Void>()
+         {
+
+            @Override
+            protected Void doInBackground() throws Exception
+            {
+               Data.deleteExpressionsOfDatabase(databaseChoosen);
+               new SaveExpressions().save();
+               return null;
+            }
+
+         }.execute();
       });
    }
 }

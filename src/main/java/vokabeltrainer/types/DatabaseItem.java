@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Data;
 import vokabeltrainer.types.Chapter.Database;
 
 public class DatabaseItem
 {
    private Database database;
    private boolean selected;
+   private String databaseName = "";
+   private String authors = "";
+   private String company = "";
 
    public DatabaseItem(Database database)
    {
@@ -20,6 +24,14 @@ public class DatabaseItem
    {
       this.database = database;
       this.selected = selected;
+   }
+
+   public DatabaseItem(DatabaseDescription database)
+   {
+      this.database = database.getDatabase();
+      this.databaseName = database.getDatabaseName();
+      this.authors = database.getAuthors();
+      this.company = database.getCompany();
    }
 
    public Database getDatabase()
@@ -47,7 +59,37 @@ public class DatabaseItem
       this.selected = selected;
    }
 
-   public static List<DatabaseItem> getAllDatabaseItems()
+   public String getDatabaseName()
+   {
+      return databaseName;
+   }
+
+   public void setDatabaseName(String databaseName)
+   {
+      this.databaseName = databaseName;
+   }
+
+   public String getAuthors()
+   {
+      return authors;
+   }
+
+   public void setAuthors(String authors)
+   {
+      this.authors = authors;
+   }
+
+   public String getCompany()
+   {
+      return company;
+   }
+
+   public void setCompany(String company)
+   {
+      this.company = company;
+   }
+
+   public static List<DatabaseItem> getAllAvailableDatabaseItems()
    {
       List<DatabaseItem> databaseItemList = new ArrayList<>();
 
@@ -58,5 +100,4 @@ public class DatabaseItem
 
       return databaseItemList;
    }
-
 }

@@ -28,6 +28,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.prefs.Preferences;
+import java.util.stream.Collectors;
+
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -48,6 +50,7 @@ import vokabeltrainer.resources.vocabulary.Vocabulary;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
+import vokabeltrainer.types.DatabaseDescription;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
@@ -189,6 +192,11 @@ public final class Data
       return getDataBaseAtomic().getChapterComboBoxModel();
    }
 
+   public static ComboBoxModel<String> getOwnDatabasesComboBoxModel()
+   {
+      return getDataBaseAtomic().getOwnDatabasesComboBoxModel();
+   }
+
    public static String getAllSelectedExpressionsAsString(Language language)
    {
       return getDataBaseAtomic().getAllSelectedExpressionsAsString(language);
@@ -204,6 +212,11 @@ public final class Data
       getDataBaseAtomic().deleteExpressions(list);
    }
 
+   public static void deleteExpressionsOfDatabase(String databaseChoosen)
+   {
+      getDataBaseAtomic().deleteExpressionsOfDatabase(databaseChoosen);
+   }
+
    public static void restoreExpressions(List<Expression> list)
    {
       getDataBaseAtomic().restoreExpressions(list);
@@ -214,9 +227,11 @@ public final class Data
       getDataBaseAtomic().shredderDeletedExpressions();
    }
 
-   public static List<Expression> getAllSelectedExpressions(boolean exceptDoNotChange)
+   public static List<Expression> getAllSelectedExpressions(
+         boolean exceptDoNotChange)
    {
-      return getDataBaseAtomic().findAllSelectedExpressionsList(exceptDoNotChange);
+      return getDataBaseAtomic()
+            .findAllSelectedExpressionsList(exceptDoNotChange);
    }
 
    public static Chapter[] getChapterArray()
@@ -262,11 +277,6 @@ public final class Data
       getDataBaseAtomic().unselectAllExpressions();
    }
 
-   public static String[] getAllDatabases()
-   {
-      return getDataBaseAtomic().getAllDatabases();
-   }
-
    public static boolean determineReloadDatabases()
    {
       if (new HashSet<>(Settings.getChosenDatabases())
@@ -276,8 +286,16 @@ public final class Data
       }
       // reload data
       initDataBase();
-      Settings.setOldChosenDatabases(new LinkedList<>(Settings.getChosenDatabases()));
+      Settings.setOldChosenDatabases(
+            new LinkedList<>(Settings.getChosenDatabases()));
       return true;
+   }
+
+   public static String[] getAllOwnDistinctDatabaseDescriptions(
+         boolean withSelfEvenIfNotInUseYet)
+   {
+      return getDataBaseAtomic()
+            .getAllOwnDistinctDatabaseDescriptions(withSelfEvenIfNotInUseYet);
    }
 
    // #########################################################
@@ -800,7 +818,8 @@ public final class Data
          {
             if (Command.ALL_SELECTED.equals(command))
             {
-               List<Expression> selectedExpressions = findAllSelectedExpressionsList(false);
+               List<Expression> selectedExpressions = findAllSelectedExpressionsList(
+                     false);
                Collections.sort(selectedExpressions,
                      new ExpressionComparator(language, sortForDate));
                return new ExpressionTableModel(
@@ -1028,6 +1047,12 @@ public final class Data
          return new DefaultComboBoxModel<String>(getChapterArrayForEditor());
       }
 
+      private ComboBoxModel<String> getOwnDatabasesComboBoxModel()
+      {
+         return new DefaultComboBoxModel<String>(
+               this.getAllOwnDistinctDatabaseDescriptions(true));
+      }
+
       private List<String> getChapterListForEditor()
       {
          List<String> chapterList = new ArrayList<>();
@@ -1122,13 +1147,14 @@ public final class Data
 
       }
 
-      private List<Expression> findAllSelectedExpressionsList(boolean exceptDoNotChange)
+      private List<Expression> findAllSelectedExpressionsList(
+            boolean exceptDoNotChange)
       {
          List<Expression> list = new ArrayList<>();
 
          for (Expression expression : alleMap.values())
          {
-            if(exceptDoNotChange && expression.isDoNotChange())
+            if (exceptDoNotChange && expression.isDoNotChange())
             {
                continue;
             }
@@ -1155,6 +1181,11 @@ public final class Data
          }
 
          reloadChapterSet();
+      }
+
+      public void deleteExpressionsOfDatabase(String databaseChoosen)
+      {
+         deleteExpressions(findAllExpressionsOfDatabase(databaseChoosen));
       }
 
       private void integrateNewExpressions()
@@ -1242,7 +1273,8 @@ public final class Data
             }
             break;
          case AREA_SELECTED:
-            List<Expression> listSelected = findAllSelectedExpressionsList(false);
+            List<Expression> listSelected = findAllSelectedExpressionsList(
+                  false);
             TrainingTableRow selectedRow = new TrainingTableRow();
             selectedRow.setFieldOfTraining(fieldOfTraining);
             selectedRow.setField("Ausgewählte Wörter");
@@ -1293,7 +1325,7 @@ public final class Data
          return result;
       }
 
-      public Set<Expression> findOldExpressionsToBeTested(
+      private Set<Expression> findOldExpressionsToBeTested(
             Language languageDirection, Command fieldOfTraining)
       {
          Set<Expression> result = new HashSet<>();
@@ -1494,10 +1526,30 @@ public final class Data
          });
       }
 
-      private String[] getAllDatabases()
+      private String[] getAllOwnDistinctDatabaseDescriptions(
+            boolean withSelfEvenIfNotInUseYet)
       {
-         return alleMap.values().stream().map(Expression::getChapter)
-               .map(Chapter::getDatabaseName).distinct().toArray(String[]::new);
+         List<DatabaseDescription> result = alleMap.values().stream()
+               .filter(expression -> expression.isDoChange())
+               .map(Expression::getChapter).map(Chapter::getDatabaseDescription)
+               .distinct().collect(Collectors.toList());
+         if (withSelfEvenIfNotInUseYet
+               && !result.contains(new DatabaseDescription(Database.SELF)))
+         {
+            result.add(new DatabaseDescription(Database.SELF));
+         }
+         Collections.sort(result);
+         return result.stream().map(DatabaseDescription::getDatabaseName)
+               .toArray(String[]::new);
+      }
+
+      private List<Expression> findAllExpressionsOfDatabase(
+            String databaseChoosen)
+      {
+         return alleMap
+               .values().stream().filter(expression -> expression.getChapter()
+                     .getDatabaseName().equals(databaseChoosen))
+               .collect(Collectors.toList());
       }
    }
 }

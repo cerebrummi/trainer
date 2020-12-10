@@ -146,7 +146,7 @@ public class ExpressionEditorView extends JDialog
 
    private JScrollPane scrollPaneExpressionTable;
 
-   private JTextField databaseNameField;
+   private JComboBox<String> databaseNameField;
 
    private JLabel lastModiefiedLabel;
 
@@ -342,16 +342,22 @@ public class ExpressionEditorView extends JDialog
       pasteButton.setIcon(new ImageIcon(ApplicationImages.getPaste()));
       pasteButton.setText("");
       pasteButton.setToolTipText("Einfügen");
+      pasteButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
+      pasteButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
 
       cutButton = new JButton(new DefaultEditorKit.CutAction());
       cutButton.setIcon(new ImageIcon(ApplicationImages.getCut()));
       cutButton.setText("");
       cutButton.setToolTipText("Ausschneiden");
+      cutButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
+      cutButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
 
       copyButton = new JButton(new DefaultEditorKit.CopyAction());
       copyButton.setIcon(new ImageIcon(ApplicationImages.getCopy2()));
       copyButton.setText("");
       copyButton.setToolTipText("Kopieren");
+      copyButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
+      copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
 
       expressionKindTable = new ExpressionKindTableMultiselect(
             ExpressionKind.getModel(), WIDTH_INFO_PANEL, this);
@@ -539,11 +545,12 @@ public class ExpressionEditorView extends JDialog
             BorderFactory.createLineBorder(Settings.getLightGrayGold()),
             "Wortarten"));
 
-      databaseNameField = new JTextField();
+      databaseNameField = new JComboBox<>();
       databaseNameField.setFont(Settings.getButtonFont());
-      databaseNameField.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 50));
-      databaseNameField.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 50));
+      databaseNameField.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      databaseNameField.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
       databaseNameField.setBorder(new TitledBorder("Datenbank"));
+      databaseNameField.setEditable(true);
 
       lastModiefiedLabel = new JLabel();
       lastModiefiedLabel.setFont(Settings.getButtonFont());
@@ -875,13 +882,17 @@ public class ExpressionEditorView extends JDialog
       expression.setAdditionalInformation(
             cleanTextWithoutComma(extraInfo.getText()));
 
-      if(databaseNameField.getText().isBlank())
+      if (databaseNameField
+            .getItemAt(databaseNameField.getSelectedIndex()) == null
+            || databaseNameField.getItemAt(databaseNameField.getSelectedIndex())
+                  .isBlank())
       {
          expression.getChapter().setDatabaseName(Database.SELF.getName());
       }
       else
       {
-         expression.getChapter().setDatabaseName(databaseNameField.getText());
+         expression.getChapter().setDatabaseName(databaseNameField
+               .getItemAt(databaseNameField.getSelectedIndex()));
       }
 
       expression.setLastModified(LocalDateTime.now());
@@ -975,7 +986,8 @@ public class ExpressionEditorView extends JDialog
          extraInfo.setText(expression.getAdditionalInformation());
       }
 
-      databaseNameField.setText(expression.getChapter().getDatabaseName());
+      databaseNameField.setModel(Data.getOwnDatabasesComboBoxModel());
+      databaseNameField.setSelectedItem(Database.SELF.getName());
 
       lastModiefiedLabel
             .setText("vom "

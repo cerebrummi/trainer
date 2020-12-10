@@ -10,8 +10,7 @@ import vokabeltrainer.panels.settings.table.multiselect.DatabaseTableRow;
 public class Chapter implements Comparable<Chapter>
 {
    private String name = "";
-   private Database origin = Database.TO_BE_DETERMINED;
-   private String databaseName = "";
+   private DatabaseDescription databaseDescription = new DatabaseDescription();
 
    public Chapter()
    {
@@ -20,20 +19,20 @@ public class Chapter implements Comparable<Chapter>
 
    public Chapter(Database origin)
    {
-      this.origin = origin;
+      databaseDescription.setDatabase(origin);
    }
 
    public Chapter(String name, Database origin)
    {
       this.name = name;
-      this.origin = origin;
+      databaseDescription.setDatabase(origin);
    }
 
    public Chapter(String databaseName, String name, Database origin)
    {
-      this.databaseName = databaseName;
+      databaseDescription.setDatabaseName(databaseName.strip());
       this.name = name;
-      this.origin = origin;
+      databaseDescription.setDatabase(origin);
    }
 
    public String getName()
@@ -48,12 +47,17 @@ public class Chapter implements Comparable<Chapter>
 
    public Database getOrigin()
    {
-      return origin;
+      return databaseDescription.getDatabase();
    }
 
    public void setOrigin(Database origin)
    {
-      this.origin = origin;
+      databaseDescription.setDatabase(origin);
+   }
+
+   public DatabaseDescription getDatabaseDescription()
+   {
+      return databaseDescription;
    }
 
    @Override
@@ -104,20 +108,22 @@ public class Chapter implements Comparable<Chapter>
 
    public String getDatabaseName()
    {
-      if (Database.IMPORTED == origin || Database.SELF == origin
-            || Database.UNKNOWN == origin)
+      if (Database.IMPORTED == databaseDescription.getDatabase()
+            || Database.SELF == databaseDescription.getDatabase()
+            || Database.UNKNOWN == databaseDescription.getDatabase())
       {
-         return this.databaseName;
+         return databaseDescription.getDatabaseName();
       }
-      return origin.getName();
+      return databaseDescription.getDatabase().getName();
    }
 
    public void setDatabaseName(String databaseName)
    {
-      if (Database.IMPORTED == origin || Database.SELF == origin
-            || Database.UNKNOWN == origin)
+      if (Database.IMPORTED == databaseDescription.getDatabase()
+            || Database.SELF == databaseDescription.getDatabase()
+            || Database.UNKNOWN == databaseDescription.getDatabase())
       {
-         this.databaseName = databaseName;
+         this.databaseDescription.setDatabaseName(databaseName);
       }
    }
 
@@ -177,10 +183,10 @@ public class Chapter implements Comparable<Chapter>
          return name;
       }
 
-      public static DatabaseTableModel getModel()
+      public static DatabaseTableModel getModelAvailableDatabases()
       {
          Vector<Vector<DatabaseTableRow>> data = new Vector<>();
-         for (DatabaseItem item : DatabaseItem.getAllDatabaseItems())
+         for (DatabaseItem item : DatabaseItem.getAllAvailableDatabaseItems())
          {
             item.setSelected(false);
             Vector<DatabaseTableRow> row = new Vector<>();
