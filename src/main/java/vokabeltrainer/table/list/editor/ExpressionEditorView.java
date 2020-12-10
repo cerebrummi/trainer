@@ -170,7 +170,7 @@ public class ExpressionEditorView extends JDialog
 
       initController();
       Component[] focusList = { german, hebrew,
-            newSearchwordGerman, newSearchwordHebrew, databaseNameField };
+            newSearchwordGerman, newSearchwordHebrew };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
    }
@@ -460,6 +460,13 @@ public class ExpressionEditorView extends JDialog
       verbTypeBoxPanel.setOpaque(false);
       verbTypeBoxPanel.setBackground(Settings.getTransparent());
       verbTypeBoxPanel.setBorder(BorderFactory.createTitledBorder("Verb Typ"));
+      
+      databaseNameField = new JComboBox<>();
+      databaseNameField.setFont(Settings.getButtonFont());
+      databaseNameField.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      databaseNameField.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      databaseNameField.setBorder(new TitledBorder("Datenbank"));
+      databaseNameField.setEditable(true);
 
       keyboard = new KeyboardHebrew(hebrew, components, 70, true);
    }
@@ -480,6 +487,7 @@ public class ExpressionEditorView extends JDialog
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
       vertical.setLayout(new TotemLayout(vertical, 15));
+      vertical.add(databaseNameField);
       vertical.add(chapter);
       vertical.add(german);
       vertical.add(keyboard);
@@ -536,13 +544,6 @@ public class ExpressionEditorView extends JDialog
             BorderFactory.createLineBorder(Settings.getLightGrayGold()),
             "Wortarten"));
 
-      databaseNameField = new JComboBox<>();
-      databaseNameField.setFont(Settings.getButtonFont());
-      databaseNameField.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      databaseNameField.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      databaseNameField.setBorder(new TitledBorder("Datenbank"));
-      databaseNameField.setEditable(true);
-
       lastModiefiedLabel = new JLabel();
       lastModiefiedLabel.setFont(Settings.getButtonFont());
 
@@ -556,7 +557,6 @@ public class ExpressionEditorView extends JDialog
       horizontal.add(pasteButton);
 
       vertical.add(scrollPaneExpressionTable);
-      vertical.add(databaseNameField);
       vertical.add(lastModiefiedLabel);
       vertical.add(extraInfoScroller);
       vertical.add(horizontal);
