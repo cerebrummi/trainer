@@ -171,8 +171,7 @@ public class ExpressionEditorView extends JDialog
 
       initController();
       Component[] focusList = { german, hebrewInLatin, hebrew,
-            newSearchwordGerman, newSearchwordHebrew, saveButton, restoreButton,
-            cancelButton };
+            newSearchwordGerman, newSearchwordHebrew, databaseNameField };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
    }
