@@ -75,6 +75,7 @@ public class ExpressionEditorView extends JDialog
    private static final long serialVersionUID = 5853498340870217732L;
 
    private Expression expression;
+   private boolean newExpression;
    private JTextField german;
    private JTextField hebrewInLatin;
    private InfoTextField hebrew;
@@ -604,10 +605,6 @@ public class ExpressionEditorView extends JDialog
       german.setBorder(makeBorderBlank(this.germanTitle));
       hebrewInLatin.setBorder(makeBorderBlank(this.hebrewInLatinTitle));
       hebrew.setBlankBorder();
-      searchwordsJListGerman
-            .setBorder(makeBorderBlank(this.searchwordJListGermanTitle));
-      searchwordsJListHebrew
-            .setBorder(makeBorderBlank(this.searchwordsJListHebrewTitle));
    }
 
    private void initController()
@@ -642,11 +639,6 @@ public class ExpressionEditorView extends JDialog
             newSearchwordGerman.setText("");
             newSearchwordGerman.requestFocus();
          }
-         if (!searchwordsSetGerman.isEmpty())
-         {
-            searchwordsJListGerman
-                  .setBorder(makeBorderBlank(this.searchwordJListGermanTitle));
-         }
       });
 
       deleteSearchwordButtonGerman.addActionListener(event -> {
@@ -666,11 +658,6 @@ public class ExpressionEditorView extends JDialog
             searchwordsJListHebrew.setModel(getSearchwordsModelHebrew());
             newSearchwordHebrew.setText("");
             newSearchwordHebrew.requestFocus();
-         }
-         if (!searchwordsSetHebrew.isEmpty())
-         {
-            searchwordsJListHebrew
-                  .setBorder(makeBorderBlank(this.searchwordsJListHebrewTitle));
          }
       });
 
@@ -693,7 +680,7 @@ public class ExpressionEditorView extends JDialog
       });
 
       restoreButton.addActionListener(event -> {
-         setExpression(expression, false);
+         setExpressionForReset();
          resetAllBorders();
       });
 
@@ -800,18 +787,6 @@ public class ExpressionEditorView extends JDialog
          hebrew.setRedBorder();
          result = false;
       }
-      if (searchwordsSetGerman.isEmpty())
-      {
-         searchwordsJListGerman
-               .setBorder(makeBorderRed(this.searchwordJListGermanTitle));
-         result = false;
-      }
-      if (searchwordsSetHebrew.isEmpty())
-      {
-         searchwordsJListHebrew
-               .setBorder(makeBorderRed(this.searchwordsJListHebrewTitle));
-         result = false;
-      }
       return result;
    }
 
@@ -908,11 +883,17 @@ public class ExpressionEditorView extends JDialog
    {
       return text.replaceAll("\t", "").replaceAll("\n", "").strip();
    }
+   
+   private void setExpressionForReset()
+   {
+      setExpression(this.expression, this.newExpression);
+   }
 
    public void setExpression(Expression expression, boolean newExpression)
    {
       this.save = false;
       this.expression = expression;
+      this.newExpression = newExpression;
 
       this.chapter.setModel(Data.getChapterComboBoxModel());
       if (expression.getChapter().getName().isEmpty())
