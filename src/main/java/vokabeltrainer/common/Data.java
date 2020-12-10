@@ -655,7 +655,7 @@ public final class Data
                index++;
                expression.setHebrew(entries[index]);
                index++;
-               expression.setHebrewInLatin(entries[index]);
+               // TODO take out
                index++;
 
                Definitions definitions = new Definitions();

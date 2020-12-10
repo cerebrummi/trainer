@@ -17,7 +17,6 @@ public class Expression
    private UUID uuid;
    private String german;
    private String hebrew;
-   private String hebrewInLatin;
    private List<String> searchwordsGerman = new ArrayList<>();
    private List<String> searchwordsHebrew = new ArrayList<>();
    private TrainingStatus trainingStatusDToH = new TrainingStatus();
@@ -38,7 +37,6 @@ public class Expression
       {
          uuid = UUID.randomUUID();
          german = "";
-         hebrewInLatin = "";
          chapter = new Chapter(Database.SELF);
          definitions = new Definitions();
          lastModified = LocalDateTime.now();
@@ -79,16 +77,6 @@ public class Expression
    public void setGerman(String german)
    {
       this.german = german;
-   }
-
-   public String getHebrewInLatin()
-   {
-      return hebrewInLatin;
-   }
-
-   public void setHebrewInLatin(String hebrewInLatin)
-   {
-      this.hebrewInLatin = hebrewInLatin;
    }
 
    public String getHebrew()
@@ -244,12 +232,10 @@ public class Expression
    public String[] toGermanArrayForTableEntry()
    {
       int index = 0;
-      String[] result = new String[10];
+      String[] result = new String[9];
       result[index] = String.valueOf(selected);
       index++;
       result[index] = german;
-      index++;
-      result[index] = hebrewInLatin;
       index++;
       result[index] = hebrew;
       index++;
@@ -271,16 +257,12 @@ public class Expression
    public String[] toHebrewArray()
    {
       int index = 0;
-      String[] result = new String[10];
+      String[] result = new String[9];
       result[index] = String.valueOf(selected);
       index++;
       result[index] = hebrew;
       index++;
-      result[index] = hebrewInLatin;
-      index++;
-      result[index] = german + " aus " + chapter.getDatabaseName() + " vom "
-            + lastModified
-                  .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+      result[index] = german;
       index++;
       result[index] = definitions.getGenderDescriptions();
       index++;
@@ -326,7 +308,6 @@ public class Expression
       joiner.add(chapter.getName());
       joiner.add(german);
       joiner.add(hebrew);
-      joiner.add(hebrewInLatin);
       joiner.add(definitions.getExpressionKindsForSaving());
       joiner.add(definitions.getGrammaticalEnumsForSaving());
       joiner.add(additionalInformation);
@@ -346,7 +327,6 @@ public class Expression
       joiner.add(chapter.getName());
       joiner.add(german);
       joiner.add(hebrew);
-      joiner.add(hebrewInLatin);
       joiner.add(definitions.getExpressionKindsForSaving());
       joiner.add(definitions.getGrammaticalEnumsForSaving());
       joiner.add(additionalInformation);
@@ -383,13 +363,11 @@ public class Expression
       if (Language.GERMAN.equals(language))
       {
          joiner.add(german);
-         joiner.add(hebrewInLatin);
          joiner.add(hebrew);
       }
       else
       {
          joiner.add(hebrew);
-         joiner.add(hebrewInLatin);
          joiner.add(german);
       }
       joiner.add(definitions.addGrammaticalEnumsForCopy("\n"));
@@ -481,6 +459,6 @@ public class Expression
             + "<p style=\"margin-top:5;\"><b>" + german + "</b></p><br>"
             + "<p style=\"margin-top:5;\">" + hebrew + "</p><br>"
             + "<p style=\"margin-top:5;\">" + this.getAdditionalInfoGerman()
-            + ", <i>" + hebrewInLatin + "</i></p></html>";
+            + "</p></html>";
    }
 }

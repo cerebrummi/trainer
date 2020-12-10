@@ -51,7 +51,7 @@ public class ExpressionListCellRenderer
          }
          return empty;
       }
-      if (index == 3 && language.equals(Language.GERMAN))
+      if (index == 2 && language.equals(Language.GERMAN))
       {
          label.setFont(Main.getHebrewFont(20F));
          label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);

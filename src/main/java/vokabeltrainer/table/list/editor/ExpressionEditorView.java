@@ -77,7 +77,6 @@ public class ExpressionEditorView extends JDialog
    private Expression expression;
    private boolean newExpression;
    private JTextField german;
-   private JTextField hebrewInLatin;
    private InfoTextField hebrew;
 
    private InfoTextField newSearchwordGerman;
@@ -98,7 +97,6 @@ public class ExpressionEditorView extends JDialog
    private JButton cancelButton;
    private List<JTextComponent> components = new ArrayList<>();
    private String germanTitle = "Deutsch";
-   private String hebrewInLatinTitle = "Lautschrift";
    private String searchwordJListGermanTitle = "Deutsche Suchwörter";
    private String searchwordsJListHebrewTitle = "Hebräische Suchwörter";
    private String chapterTitle = "Lektion";
@@ -171,7 +169,7 @@ public class ExpressionEditorView extends JDialog
       initInfosExtra();
 
       initController();
-      Component[] focusList = { german, hebrewInLatin, hebrew,
+      Component[] focusList = { german, hebrew,
             newSearchwordGerman, newSearchwordHebrew, databaseNameField };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
@@ -188,13 +186,6 @@ public class ExpressionEditorView extends JDialog
       german.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       german.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       german.setDocument(new GermanDocument(true));
-
-      hebrewInLatin = new JTextField();
-      hebrewInLatin.setBorder(makeBorderBlank(this.hebrewInLatinTitle));
-      hebrewInLatin.setFont(germanfont);
-      hebrewInLatin.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
-      hebrewInLatin.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
-      hebrewInLatin.setDocument(new GermanDocument(true));
 
       hebrew = new InfoTextField("Hebräisch", "Bitte hineinklicken oder  ",
             "mit der Tabulatortaste auswählen.  ",
@@ -491,7 +482,6 @@ public class ExpressionEditorView extends JDialog
       vertical.setLayout(new TotemLayout(vertical, 15));
       vertical.add(chapter);
       vertical.add(german);
-      vertical.add(hebrewInLatin);
       vertical.add(keyboard);
 
       JPanel horizontal = new JPanel();
@@ -603,7 +593,6 @@ public class ExpressionEditorView extends JDialog
    {
       chapter.setBorder(makeBorderBlank(this.chapterTitle));
       german.setBorder(makeBorderBlank(this.germanTitle));
-      hebrewInLatin.setBorder(makeBorderBlank(this.hebrewInLatinTitle));
       hebrew.setBlankBorder();
    }
 
@@ -613,13 +602,6 @@ public class ExpressionEditorView extends JDialog
          if (!german.getText().isEmpty())
          {
             german.setBorder(makeBorderBlank(this.germanTitle));
-         }
-      });
-
-      hebrewInLatin.addActionListener(event -> {
-         if (!hebrewInLatin.getText().isEmpty())
-         {
-            hebrewInLatin.setBorder(makeBorderBlank(this.hebrewInLatinTitle));
          }
       });
 
@@ -777,11 +759,6 @@ public class ExpressionEditorView extends JDialog
          german.setBorder(makeBorderRed(this.germanTitle));
          result = false;
       }
-      if (hebrewInLatin.getText().isEmpty())
-      {
-         hebrewInLatin.setBorder(makeBorderRed(this.hebrewInLatinTitle));
-         result = false;
-      }
       if (hebrew.getText().isEmpty())
       {
          hebrew.setRedBorder();
@@ -793,8 +770,6 @@ public class ExpressionEditorView extends JDialog
    private void saveExpression()
    {
       expression.setGerman(cleanTextWithoutComma(german.getText()));
-      expression
-            .setHebrewInLatin(cleanTextWithoutComma(hebrewInLatin.getText()));
       expression.setHebrew(cleanTextWithoutComma(hebrew.getText()));
 
       expression.setLetterForSaving(LetterForSaving
@@ -906,7 +881,6 @@ public class ExpressionEditorView extends JDialog
       }
 
       this.german.setText(expression.getGerman());
-      this.hebrewInLatin.setText(expression.getHebrewInLatin());
       this.hebrew.setText(expression.getHebrew());
 
       this.searchwordsSetGerman = new HashSet<>();
@@ -1025,8 +999,6 @@ public class ExpressionEditorView extends JDialog
          this.chapter.setEnabled(works);
          this.german.setEditable(works);
          this.german.setEnabled(works);
-         this.hebrewInLatin.setEditable(works);
-         this.hebrewInLatin.setEnabled(works);
          this.hebrew.setEditable(works);
          this.hebrew.setEnabled(works);
          this.keyboard.setFrozen(frozen);

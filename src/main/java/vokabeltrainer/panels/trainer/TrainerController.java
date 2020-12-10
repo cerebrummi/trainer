@@ -136,19 +136,6 @@ public class TrainerController implements TrainerControllerConnector
       }
    }
 
-   public void setTranscription()
-   {
-      if (trainerView.getTranscriptionField().getText().isEmpty())
-      {
-         trainerView.getTranscriptionField()
-               .setText(currentExpression.getHebrewInLatin());
-      }
-      else
-      {
-         trainerView.getTranscriptionField().setText("");
-      }
-   }
-
    public void setNextTest()
    {
       trainerView.getWordPanel().removeAll();

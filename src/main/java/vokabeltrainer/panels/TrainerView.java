@@ -69,7 +69,6 @@ public class TrainerView extends BackgroundPanelTiled
    private InfoTextField answerField;
    private JLabel languageDirectionLabel;
    private JCheckBox additionalInfo;
-   private JCheckBox transcription;
    private JPanel answerPanel;
    private JButton sendButton;
    private Language languageDirection;
@@ -188,11 +187,7 @@ public class TrainerView extends BackgroundPanelTiled
       additionalInfo = new JCheckBox("weitere Informationen anzeigen");
       additionalInfo.setFont(labelFont);
       additionalInfo.setForeground(Color.WHITE);
-      transcription = new JCheckBox("Lautschrift anzeigen");
-      transcription.setFont(labelFont);
-      transcription.setForeground(Color.WHITE);
       showOptions.add(additionalInfo);
-      showOptions.add(transcription);
 
       JPanel numbers = new JPanel();
       numbers.setLayout(new TrainLayout(numbers, 15));
@@ -555,10 +550,6 @@ public class TrainerView extends BackgroundPanelTiled
          connector.setAdditionalInfo();
       });
 
-      this.transcription.addActionListener(event -> {
-         connector.setTranscription();
-      });
-
       this.soundButton.addActionListener(event -> connector.toggleSound());
 
       if (Language.GERMAN.equals(languageDirection))
@@ -671,7 +662,6 @@ public class TrainerView extends BackgroundPanelTiled
       feedbackPanel.validate();
       feedbackPanel.repaint();
       additionalInfo.setSelected(false);
-      transcription.setSelected(false);
       wordPanel.removeAll();
       additionalInfoField.setText("");
       transcriptionField.setText("");

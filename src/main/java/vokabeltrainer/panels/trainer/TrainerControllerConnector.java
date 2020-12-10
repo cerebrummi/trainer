@@ -12,7 +12,6 @@ public interface TrainerControllerConnector
    public List<Expression> getNewExpressions();
    public List<Expression> getOldExpressions();
    public void setAdditionalInfo();
-   public void setTranscription();
    public void setNextTest();
    public void send();
    public void stopTraining(boolean finished);

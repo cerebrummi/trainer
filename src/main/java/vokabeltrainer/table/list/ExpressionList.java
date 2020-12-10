@@ -22,7 +22,7 @@ public class ExpressionList extends JList<String>
    {
       setSelectionModel(new ExpressionListSelectionModel());
       setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
-      setVisibleRowCount(9);
+      setVisibleRowCount(8);
       this.setFixedCellHeight(25);
       getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false),
             new Object());
