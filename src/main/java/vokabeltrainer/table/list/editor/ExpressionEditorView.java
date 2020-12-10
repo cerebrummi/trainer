@@ -169,8 +169,8 @@ public class ExpressionEditorView extends JDialog
       initInfosExtra();
 
       initController();
-      Component[] focusList = { german, hebrew,
-            newSearchwordGerman, newSearchwordHebrew };
+      Component[] focusList = { german, hebrew, newSearchwordGerman,
+            newSearchwordHebrew };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
    }
@@ -334,22 +334,24 @@ public class ExpressionEditorView extends JDialog
       pasteButton.setIcon(new ImageIcon(ApplicationImages.getPaste()));
       pasteButton.setText("");
       pasteButton.setToolTipText("Einfügen");
-      pasteButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
-      pasteButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
+      pasteButton
+            .setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
+      pasteButton
+            .setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       cutButton = new JButton(new DefaultEditorKit.CutAction());
       cutButton.setIcon(new ImageIcon(ApplicationImages.getCut()));
       cutButton.setText("");
       cutButton.setToolTipText("Ausschneiden");
-      cutButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
-      cutButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
+      cutButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
+      cutButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       copyButton = new JButton(new DefaultEditorKit.CopyAction());
       copyButton.setIcon(new ImageIcon(ApplicationImages.getCopy2()));
       copyButton.setText("");
       copyButton.setToolTipText("Kopieren");
-      copyButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
-      copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL-30)/3,40));
+      copyButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
+      copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       expressionKindTable = new ExpressionKindTableMultiselect(
             ExpressionKind.getModel(), WIDTH_INFO_PANEL, this);
@@ -460,7 +462,7 @@ public class ExpressionEditorView extends JDialog
       verbTypeBoxPanel.setOpaque(false);
       verbTypeBoxPanel.setBackground(Settings.getTransparent());
       verbTypeBoxPanel.setBorder(BorderFactory.createTitledBorder("Verb Typ"));
-      
+
       databaseNameField = new JComboBox<>();
       databaseNameField.setFont(Settings.getButtonFont());
       databaseNameField.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
@@ -749,7 +751,9 @@ public class ExpressionEditorView extends JDialog
    private boolean testForCompletness()
    {
       boolean result = true;
-      if (chapter.getSelectedItem() == null)
+      if (chapter.getSelectedItem() == null || chapter.getSelectedIndex() == -1
+            || chapter.getItemAt(chapter.getSelectedIndex()) == null
+            || chapter.getItemAt(chapter.getSelectedIndex()).isBlank())
       {
          chapter.setBorder(makeBorderRed(this.chapterTitle));
          result = false;
@@ -858,7 +862,7 @@ public class ExpressionEditorView extends JDialog
    {
       return text.replaceAll("\t", "").replaceAll("\n", "").strip();
    }
-   
+
    private void setExpressionForReset()
    {
       setExpression(this.expression, this.newExpression);
