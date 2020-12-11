@@ -159,7 +159,7 @@ public class WordMatching
       {
          cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
       }
-      
+
       if (result.isPartlyFalse())
       {
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
@@ -173,6 +173,8 @@ public class WordMatching
 
          cutOfUnnecessaryDataToTheLeft(dataDic, dataTest);
          lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
+         lookForNewspaceAndMoveLettersToTheRightIfPossible(dataTest, dataDic);
+         lookForNewspaceAndMoveLettersToTheRightIfPossible(dataDic, dataTest);
       }
       else
       {
@@ -351,8 +353,56 @@ public class WordMatching
       }
    }
 
+   private static void lookForNewspaceAndMoveLettersToTheRightIfPossible(
+         List<String> dataWithEndLetter, List<String> dataWithEndNewspace)
+   {
+      List<String> cloneWithEndLetter = cloneList(dataWithEndLetter);
+      List<String> cloneWithEndNewspace = cloneList(dataWithEndNewspace);
+      for (int i = 0; i < dataWithEndNewspace.size(); i++)
+      {
+         if (dataWithEndNewspace.get(0).equalsIgnoreCase("NEWSPACE")
+               && !dataWithEndLetter.get(0).equalsIgnoreCase("NEWSPACE"))
+         {
+            int index = readIndexOfNextNewspaceToTheRight(dataWithEndLetter, 1);
+            if(index > 0)
+            {     
+               cloneWithEndNewspace.remove(0);
+               cloneWithEndLetter.remove(index);
+               int samenessClones = calculateSamenessPunish(cloneWithEndLetter, cloneWithEndNewspace);
+               int samenessOriginals = calculateSamenessPunish(dataWithEndLetter, dataWithEndNewspace);
+               if(samenessClones >= samenessOriginals)
+               {
+                  dataWithEndNewspace.remove(0);
+                  dataWithEndLetter.remove(index);
+               }
+               else
+               {
+                  return;
+               }
+            }
+            else
+            {
+               return;
+            }
+         }
+      }
+   }
+
+   private static int readIndexOfNextNewspaceToTheRight(
+         List<String> dataWithEndLetter, int i)
+   {
+      for (int index = i; index < dataWithEndLetter.size(); index++)
+      {
+         if (dataWithEndLetter.get(index).equalsIgnoreCase("NEWSPACE"))
+         {
+            return index;
+         }
+      }
+      return -1;
+   }
+
    private static List<String> lookForWrongLettersAndMoveDIClettersToTheLeftMaximizeSameness(
-           List<String> dataDic, List<String> dataTest, int maxSameness)
+         List<String> dataDic, List<String> dataTest, int maxSameness)
    {
       Map<Integer, List<String>> samenessMap = new HashMap<>();
       List<String> dataDicCloneOriginal = cloneList(dataDic);
@@ -517,7 +567,7 @@ public class WordMatching
       }
       return true;
    }
-   
+
    private static int evaluateSamePunish(String stringDic, String stringTest)
    {
       if (stringDic == null && stringTest == null)

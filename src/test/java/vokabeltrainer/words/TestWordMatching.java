@@ -67,6 +67,9 @@ public class TestWordMatching
    String wordDic22 = "פּסיכולוג";
    String wordTest22 = "פּסיכולוגית"; // two letters too much at the end
 
+   String wordDic23 = "פיסיקאי";
+   String wordTest23 = "פיסיקית"; // two letters wrong at the end
+
    String[] wordTest4Array = { "HAEI", "TET", "JOD", "SSAMECH", "NEWSPACE",
          "WET", "JOD", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest4List = new LinkedList<String>(
@@ -83,6 +86,7 @@ public class TestWordMatching
          "WET", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest7List = new LinkedList<String>(
          Arrays.asList(wordTest7Array));
+   
    String[] wordTest8Array = { "KUF", "ZADI", "SCHIN", "FAEI", "AIN", "HAEI",
          "TET", "SSAMECH", "WET", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest8List = new LinkedList<String>(
@@ -157,9 +161,16 @@ public class TestWordMatching
          "CHAF", "JOD", "SSAMECH", "PAEI" };
    List<String> wordTest22List = new LinkedList<>(
          Arrays.asList(wordTest22Array));
-   String[] wordDic22Array = {  "NEWSPACE", "NEWSPACE", "GIMEL", "WAW", "LAMED", "WAW",
-         "CHAF", "JOD", "SSAMECH", "PAEI" };
+   String[] wordDic22Array = { "NEWSPACE", "NEWSPACE", "GIMEL", "WAW", "LAMED",
+         "WAW", "CHAF", "JOD", "SSAMECH", "PAEI" };
    List<String> wordDic22List = new LinkedList<>(Arrays.asList(wordDic22Array));
+   
+   String[] wordTest23Array = { "TAW","JOD", "KUF", "JOD", "SSAMECH", "JOD",
+   "FAEI" };
+List<String> wordTest23List = new LinkedList<>(Arrays.asList(wordTest23Array));
+   String[] wordDic23Array = { "JOD", "ALEF", "KUF", "JOD", "SSAMECH", "JOD",
+         "FAEI" };
+   List<String> wordDic23List = new LinkedList<>(Arrays.asList(wordDic23Array));
 
    @Test
    public void testMatchHebrew_Okay()
@@ -260,11 +271,6 @@ public class TestWordMatching
       List<String> wordTesting4 = result4.getDataTest();
       System.out.println(wordTesting4);
       assertTrue(wordTest7List.equals(wordTesting4));
-
-      WordMatchingResult result5 = WordMatching.matchHebrew(wordDic, wordTest8);
-      List<String> wordTesting5 = result5.getDataTest();
-      System.out.println(wordTesting5);
-      assertTrue(wordTest8List.equals(wordTesting5));
 
       WordMatchingResult result6 = WordMatching.matchHebrew(wordDic, wordTest9);
       List<String> wordDicing6 = result6.getDataDic();
@@ -421,7 +427,7 @@ public class TestWordMatching
       assertTrue(wordDic22List.equals(wordDicing));
       assertTrue(wordTest22List.equals(wordTesting));
    }
-   
+
    @Test
    public void testMatchHebrew_PartlyFalse_Alignment3()
    {
@@ -437,6 +443,32 @@ public class TestWordMatching
       assertTrue(result13.getDeltaCol() == 0);
       assertTrue(wordTest17bList.equals(wordTesting13));
       assertTrue(wordDic17bList.equals(wordDicing13));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment4()
+   {
+      WordMatchingResult result13 = WordMatching.matchHebrew(wordDic23,
+            wordTest23);
+      List<String> wordTesting13 = result13.getDataTest();
+      List<String> wordDicing13 = result13.getDataDic();
+      System.out.println(result13.getDeltaCol());
+      System.out.println(wordDic23List);
+      System.out.println(wordDicing13);
+      System.out.println(wordTest23List);
+      System.out.println(wordTesting13);
+      assertTrue(result13.getDeltaCol() == 0);
+      assertTrue(wordTest23List.equals(wordTesting13));
+      assertTrue(wordDic23List.equals(wordDicing13));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment5()
+   {
+      WordMatchingResult result5 = WordMatching.matchHebrew(wordDic, wordTest8);
+      List<String> wordTesting5 = result5.getDataTest();
+      System.out.println(wordTesting5);
+      assertTrue(wordTest8List.equals(wordTesting5));
    }
 
    private List<HebrewLetter> transferToHebrewLetters(List<String> list)
