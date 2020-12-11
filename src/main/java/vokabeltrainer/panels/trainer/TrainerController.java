@@ -68,8 +68,8 @@ public class TrainerController implements TrainerControllerConnector
       else // HtoD
       {
          expressionsToBeTested.forEach(expression -> {
-            expression.getTrainingStatusHToD().setTotalTrys(
-                  expression.getTrainingStatusHToD().getTrys());
+            expression.getTrainingStatusHToD()
+                  .setTotalTrys(expression.getTrainingStatusHToD().getTrys());
          });
       }
 
@@ -134,6 +134,8 @@ public class TrainerController implements TrainerControllerConnector
       {
          trainerView.getAdditionalInfoField().setText("");
       }
+      trainerView.getFocusTraversalPolicy().getFirstComponent(null)
+      .requestFocus();
    }
 
    public void setNextTest()
@@ -324,7 +326,8 @@ public class TrainerController implements TrainerControllerConnector
       {
          Clip clip = AudioSystem.getClip();
          clip.open(ApplicationSound.getSplotchSound());
-         FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+         FloatControl volume = (FloatControl) clip
+               .getControl(FloatControl.Type.MASTER_GAIN);
          volume.setValue(Settings.getVolume());
          clip.start();
       }
@@ -332,7 +335,7 @@ public class TrainerController implements TrainerControllerConnector
       {
          // nothing
       }
-      
+
       trainerView.showResultRed();
    }
 
@@ -342,7 +345,8 @@ public class TrainerController implements TrainerControllerConnector
       {
          Clip clip = AudioSystem.getClip();
          clip.open(ApplicationSound.getClappingSound());
-         FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+         FloatControl volume = (FloatControl) clip
+               .getControl(FloatControl.Type.MASTER_GAIN);
          volume.setValue(Settings.getVolume());
          clip.start();
       }
@@ -360,12 +364,13 @@ public class TrainerController implements TrainerControllerConnector
       {
          Clip clip = AudioSystem.getClip();
          clip.open(ApplicationSound.getWaveSound());
-         FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-         System.out.println("undecided min "+volume.getMinimum());
-         System.out.println("undecided max "+volume.getMaximum());
-         System.out.println("undecided val1 "+volume.getValue());
+         FloatControl volume = (FloatControl) clip
+               .getControl(FloatControl.Type.MASTER_GAIN);
+         System.out.println("undecided min " + volume.getMinimum());
+         System.out.println("undecided max " + volume.getMaximum());
+         System.out.println("undecided val1 " + volume.getValue());
          volume.setValue(Settings.getVolume());
-         System.out.println("undecided val2 "+volume.getValue());
+         System.out.println("undecided val2 " + volume.getValue());
          clip.start();
       }
       catch (LineUnavailableException | IOException e)

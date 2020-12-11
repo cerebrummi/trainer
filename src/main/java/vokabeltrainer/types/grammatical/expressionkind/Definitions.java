@@ -9,6 +9,7 @@ import java.util.StringJoiner;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
+import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
 
 public class Definitions
@@ -72,18 +73,18 @@ public class Definitions
 
    private StringJoiner grammaticalEnumToDescription(Class<? extends GrammaticalEnum> clazz)
    {
-      Set<GrammaticalEnum> genders = new HashSet<>();
+      Set<GrammaticalEnum> grammaticalEnum = new HashSet<>();
       for (ExpressionKind kind : definitions.keySet())
       {
          if (!definitions.get(kind).getGrammaticalEnum(clazz)
                .toDescription().isEmpty())
          {
-            genders.add(definitions.get(kind).getGrammaticalEnum(clazz));
+            grammaticalEnum.add(definitions.get(kind).getGrammaticalEnum(clazz));
          }
       }
       
       StringJoiner joiner = new StringJoiner(", ");
-      for(GrammaticalEnum grammaticalenum : genders)
+      for(GrammaticalEnum grammaticalenum : grammaticalEnum)
       {
          joiner.add(grammaticalenum.toDescription());
       }
@@ -130,34 +131,44 @@ public class Definitions
       return anyDefinition.getGrammaticalEnumsForSaving();
    }
 
+   public String getVerbConjugationInfos()
+   {
+      return grammaticalEnumToInfos(Binjan.class).toString();
+   }
+   
+   public String getBinjanInfos()
+   {
+      return grammaticalEnumToInfos(Binjan.class).toString();
+   }
+   
    public String getNumerusInfos()
    {
-      StringJoiner joiner = new StringJoiner(", ");
-      for (ExpressionKind kind : definitions.keySet())
-      {
-         if (!definitions.get(kind).getGrammaticalEnum(Numerus.class).toInfo()
-               .isEmpty())
-         {
-            joiner.add(definitions.get(kind).getGrammaticalEnum(Numerus.class)
-                  .toInfo());
-         }
-      }
-      return joiner.toString();
+      return grammaticalEnumToInfos(Numerus.class).toString();
    }
 
    public String getGenderInfos()
    {
-      StringJoiner joiner = new StringJoiner(", ");
+      return grammaticalEnumToInfos(Gender.class).toString();
+   }
+   
+   private StringJoiner grammaticalEnumToInfos(Class<? extends GrammaticalEnum> clazz)
+   {
+      Set<GrammaticalEnum> grammaticalEnum = new HashSet<>();
       for (ExpressionKind kind : definitions.keySet())
       {
-         if (!definitions.get(kind).getGrammaticalEnum(Gender.class).toInfo()
-               .isEmpty())
+         if (!definitions.get(kind).getGrammaticalEnum(clazz)
+               .toInfo().isEmpty())
          {
-            joiner.add(definitions.get(kind).getGrammaticalEnum(Gender.class)
-                  .toInfo());
+            grammaticalEnum.add(definitions.get(kind).getGrammaticalEnum(clazz));
          }
       }
-      return joiner.toString();
+      
+      StringJoiner joiner = new StringJoiner(", ");
+      for(GrammaticalEnum grammaticalenum : grammaticalEnum)
+      {
+         joiner.add(grammaticalenum.toInfo());
+      }
+      return joiner;
    }
 
    public String addGrammaticalEnumsForCopy(String tag)

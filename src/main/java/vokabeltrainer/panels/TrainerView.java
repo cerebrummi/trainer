@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
@@ -47,6 +48,7 @@ import vokabeltrainer.panels.trainer.ImagePanelGreen;
 import vokabeltrainer.panels.trainer.ImagePanelStart;
 import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
+import vokabeltrainer.table.list.editor.CerebrummiFocusTraversalPolicy;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Language;
@@ -64,8 +66,7 @@ public class TrainerView extends BackgroundPanelTiled
    private CardLayout cardLayout;
    private JPanel questionPanel;
    private JTextField questionField;
-   private JTextField additionalInfoField;
-   private JTextField transcriptionField;
+   private JTextArea additionalInfoField;
    private InfoTextField answerField;
    private JLabel languageDirectionLabel;
    private JCheckBox additionalInfo;
@@ -342,31 +343,19 @@ public class TrainerView extends BackgroundPanelTiled
          questionField.setEditable(false);
       }
 
-      additionalInfoField = new JTextField();
+      additionalInfoField = new JTextArea();
       additionalInfoField.setFont(Main.getGermanFont(15F));
       additionalInfoField.setBackground(Settings.getTexturedBackgroundColor());
       additionalInfoField.setBorder(
             BorderFactory.createTitledBorder("weitere Informationen"));
       additionalInfoField
-            .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 55));
+            .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 110));
       additionalInfoField
-            .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 55));
+            .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 110));
       additionalInfoField.setEditable(false);
-
-      transcriptionField = new JTextField();
-      transcriptionField.setFont(Main.getGermanFont(15F));
-      transcriptionField.setBackground(Settings.getTexturedBackgroundColor());
-      transcriptionField
-            .setBorder(BorderFactory.createTitledBorder("Lautschrift"));
-      transcriptionField
-            .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 55));
-      transcriptionField
-            .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 55));
-      transcriptionField.setEditable(false);
 
       questionPanel.add(questionField);
       questionPanel.add(additionalInfoField);
-      questionPanel.add(transcriptionField);
 
       answerPanel = new JPanel();
       answerPanel.setLayout(new TotemLayout(answerPanel));
@@ -385,13 +374,6 @@ public class TrainerView extends BackgroundPanelTiled
          answerField.setDocument(new HebrewDocument(true));
          answerField
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-
-         this.setFocusCycleRoot(true);
-         FocusTraversalPolicy focusPolicy = new OneFocusTraversalPolicy(
-               answerField);
-         this.setFocusTraversalPolicy(focusPolicy);
-         focusPolicy.getDefaultComponent(null);
-         answerField.requestFocusInWindow();
 
          keyboard = new KeyboardHebrew(answerField,
                new ArrayList<JTextComponent>(), 80, false);
@@ -425,6 +407,14 @@ public class TrainerView extends BackgroundPanelTiled
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 80));
          answerPanel.add(answerField);
       }
+      
+      this.setFocusCycleRoot(true);
+      FocusTraversalPolicy focusPolicy = new OneFocusTraversalPolicy(
+            answerField);
+      this.setFocusTraversalPolicy(focusPolicy);
+      focusPolicy.getDefaultComponent(null);
+      answerField.requestFocusInWindow();
+      
       questionPanel.validate();
       questionPanel.repaint();
    }
@@ -664,20 +654,14 @@ public class TrainerView extends BackgroundPanelTiled
       additionalInfo.setSelected(false);
       wordPanel.removeAll();
       additionalInfoField.setText("");
-      transcriptionField.setText("");
       connector.setNextTest();
       answerField.grabFocus();
       answerField.requestFocusInWindow();
    }
 
-   public JTextField getAdditionalInfoField()
+   public JTextArea getAdditionalInfoField()
    {
       return additionalInfoField;
-   }
-
-   public JTextField getTranscriptionField()
-   {
-      return transcriptionField;
    }
 
    public JButton getAnswerOkay()

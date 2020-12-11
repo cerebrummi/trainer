@@ -290,13 +290,37 @@ public class Expression
       {
          joiner.add(definitions.getGenderInfos());
       }
-      joiner.add(definitions.getExpressionKindDescriptions());
+      if(!definitions.getBinjanInfos().isEmpty())
+      {
+         joiner.add(definitions.getBinjanInfos());
+      }
+      if(!definitions.getVerbConjugationInfos().isEmpty())
+      {
+         joiner.add(definitions.getVerbConjugationInfos());
+      }
       return joiner.toString();
    }
 
    public String getAdditionalInfoHebrew()
    {
-      return definitions.getExpressionKindDescriptions();
+      StringJoiner joiner = new StringJoiner(", ");
+      if (!definitions.getNumerusInfos().isEmpty())
+      {
+         joiner.add(definitions.getNumerusInfos());
+      }
+      if (!definitions.getGenderInfos().isEmpty())
+      {
+         joiner.add(definitions.getGenderInfos());
+      }
+      if(!definitions.getBinjanInfos().isEmpty())
+      {
+         joiner.add(definitions.getBinjanInfos());
+      }
+      if(!definitions.getVerbConjugationInfos().isEmpty())
+      {
+         joiner.add(definitions.getVerbConjugationInfos());
+      }
+      return joiner.toString();
    }
 
    public String getExpressionPrintLineForSaving()
