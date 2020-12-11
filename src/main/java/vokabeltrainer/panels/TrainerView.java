@@ -48,7 +48,6 @@ import vokabeltrainer.panels.trainer.ImagePanelGreen;
 import vokabeltrainer.panels.trainer.ImagePanelStart;
 import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
-import vokabeltrainer.table.list.editor.CerebrummiFocusTraversalPolicy;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Language;

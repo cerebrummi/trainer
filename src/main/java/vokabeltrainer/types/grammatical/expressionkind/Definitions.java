@@ -11,6 +11,7 @@ import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
+import vokabeltrainer.types.grammatical.VerbConjugation;
 
 public class Definitions
 {
@@ -133,7 +134,7 @@ public class Definitions
 
    public String getVerbConjugationInfos()
    {
-      return grammaticalEnumToInfos(Binjan.class).toString();
+      return grammaticalEnumToInfos(VerbConjugation.class).toString();
    }
    
    public String getBinjanInfos()
