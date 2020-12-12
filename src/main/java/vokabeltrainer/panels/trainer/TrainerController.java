@@ -366,11 +366,7 @@ public class TrainerController implements TrainerControllerConnector
          clip.open(ApplicationSound.getWaveSound());
          FloatControl volume = (FloatControl) clip
                .getControl(FloatControl.Type.MASTER_GAIN);
-         System.out.println("undecided min " + volume.getMinimum());
-         System.out.println("undecided max " + volume.getMaximum());
-         System.out.println("undecided val1 " + volume.getValue());
          volume.setValue(Settings.getVolume());
-         System.out.println("undecided val2 " + volume.getValue());
          clip.start();
       }
       catch (LineUnavailableException | IOException e)

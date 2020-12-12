@@ -33,7 +33,6 @@ public class Interaction
       interactions.put(new Interaction(Action.GERMAN, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.HEBREW, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
       
-      
       interactions.put(new Interaction(Action.TAB_CHAPTER, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.TAB_CHAPTER, Status.TAB_EXPRESSIONKIND), Command.NO_TABLE);
       interactions.put(new Interaction(Action.TAB_CHAPTER, Status.EXPRESSIONKIND_WHICH), Command.NO_TABLE);    
@@ -176,7 +175,7 @@ public class Interaction
       interactions.put(new Interaction(Action.SORT_FOR_DATE, Status.TAB_CHAPTER), Command.NOTHING);
       interactions.put(new Interaction(Action.SORT_FOR_DATE, Status.TAB_EXPRESSIONKIND), Command.NOTHING);
       interactions.put(new Interaction(Action.SORT_FOR_DATE, Status.TAB_SEARCH), Command.NOTHING);
-      interactions.put(new Interaction(Action.SORT_FOR_DATE, Status.TAB_SELECTED_EXPRESSIONS), Command.NOTHING);
+      interactions.put(new Interaction(Action.SORT_FOR_DATE, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.SORT_FOR_DATE, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       interactions.put(new Interaction(Action.SORT_FOR_DATE, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.SORT_FOR_DATE, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_GERMAN);

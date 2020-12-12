@@ -302,69 +302,78 @@ public class DictionaryController implements DictionaryControllerConnector
          @Override
          protected Void doInBackground() throws Exception
          {
-            switch (Interaction
-                  .getCommand(new Interaction(action, Status.pop())))
+            Status status = Status.pop();
+            vokabeltrainer.panels.dictionary.Command commando = Interaction
+                  .getCommand(new Interaction(action, status));
+            if (commando == null)
             {
-            case NOTHING:
-               break;
-            case NO_TABLE:
                dictionaryView.displayNoTable();
-               break;
-            case RESTORE_WHICH_CHAPTER:
-               dictionaryView.selectChapter(currentChapter);
-               break;
-            case RESTORE_WHICH_EXPRESSIONKIND:
-               // nothing
-               break;
-            case RESTORE_WHICH_SEARCH_GERMAN:
-               searchGerman();
-               break;
-            case RESTORE_WHICH_SEARCH_HEBREW:
-               searchHebrew();
-               break;
-            case TABLE_CHAPTER_WHICH:
-               dictionaryView.clearTable();
-               tableModel = Data.findTranslations(
-                     dictionaryView.getSelectedLanguage(), null, null, null,
-                     currentChapter, null, dictionaryView.isSortForDate());
-               dictionaryView.removeChapterListSelectionListener();
-               dictionaryView.selectChapter(currentChapter);
-               dictionaryView.addChapterListSelectionListener();
-               break;
-            case TABLE_EXPRESSIONKIND_WHICH:
-               dictionaryView.clearTable();
-               ExpressionKind expressionKind = dictionaryView
-                     .getSelectedExpressionKind();
-               if (expressionKind != null)
+            }
+            else
+            {
+               switch (commando)
                {
+               case NOTHING:
+                  break;
+               case NO_TABLE:
+                  dictionaryView.displayNoTable();
+                  break;
+               case RESTORE_WHICH_CHAPTER:
+                  dictionaryView.selectChapter(currentChapter);
+                  break;
+               case RESTORE_WHICH_EXPRESSIONKIND:
+                  // nothing
+                  break;
+               case RESTORE_WHICH_SEARCH_GERMAN:
+                  searchGerman();
+                  break;
+               case RESTORE_WHICH_SEARCH_HEBREW:
+                  searchHebrew();
+                  break;
+               case TABLE_CHAPTER_WHICH:
+                  dictionaryView.clearTable();
                   tableModel = Data.findTranslations(
-                        dictionaryView.getSelectedLanguage(), null,
-                        expressionKind, null, null, null,
+                        dictionaryView.getSelectedLanguage(), null, null, null,
+                        currentChapter, null, dictionaryView.isSortForDate());
+                  dictionaryView.removeChapterListSelectionListener();
+                  dictionaryView.selectChapter(currentChapter);
+                  dictionaryView.addChapterListSelectionListener();
+                  break;
+               case TABLE_EXPRESSIONKIND_WHICH:
+                  dictionaryView.clearTable();
+                  ExpressionKind expressionKind = dictionaryView
+                        .getSelectedExpressionKind();
+                  if (expressionKind != null)
+                  {
+                     tableModel = Data.findTranslations(
+                           dictionaryView.getSelectedLanguage(), null,
+                           expressionKind, null, null, null,
+                           dictionaryView.isSortForDate());
+                  }
+                  break;
+               case TABLE_SEARCH_WHICH_GERMAN:
+                  dictionaryView.clearTable();
+                  tableModel = Data.findTranslations(
+                        dictionaryView.getSelectedLanguage(),
+                        dictionaryView.getSearchPhraseGerman(), null,
+                        dictionaryView.getSelectedSearchTypeGerman(), null,
+                        null, dictionaryView.isSortForDate());
+                  break;
+               case TABLE_SEARCH_WHICH_HEBREW:
+                  dictionaryView.clearTable();
+                  tableModel = Data.findTranslations(
+                        dictionaryView.getSelectedLanguage(),
+                        dictionaryView.getSearchPhraseHebrew(), null,
+                        dictionaryView.getSelectedSearchTypeHebrew(), null,
+                        null, dictionaryView.isSortForDate());
+                  break;
+               case TABLE_SELECTED_EXPRESSIONS:
+                  dictionaryView.clearTable();
+                  tableModel = Data.findTranslations(
+                        dictionaryView.getSelectedLanguage(), null, null, null,
+                        null, Command.ALL_SELECTED,
                         dictionaryView.isSortForDate());
                }
-               break;
-            case TABLE_SEARCH_WHICH_GERMAN:
-               dictionaryView.clearTable();
-               tableModel = Data.findTranslations(
-                     dictionaryView.getSelectedLanguage(),
-                     dictionaryView.getSearchPhraseGerman(), null,
-                     dictionaryView.getSelectedSearchTypeGerman(), null, null,
-                     dictionaryView.isSortForDate());
-               break;
-            case TABLE_SEARCH_WHICH_HEBREW:
-               dictionaryView.clearTable();
-               tableModel = Data.findTranslations(
-                     dictionaryView.getSelectedLanguage(),
-                     dictionaryView.getSearchPhraseHebrew(), null,
-                     dictionaryView.getSelectedSearchTypeHebrew(), null, null,
-                     dictionaryView.isSortForDate());
-               break;
-            case TABLE_SELECTED_EXPRESSIONS:
-               dictionaryView.clearTable();
-               tableModel = Data.findTranslations(
-                     dictionaryView.getSelectedLanguage(), null, null, null,
-                     null, Command.ALL_SELECTED,
-                     dictionaryView.isSortForDate());
             }
 
             return null;

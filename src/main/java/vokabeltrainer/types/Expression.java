@@ -298,6 +298,10 @@ public class Expression
       {
          joiner.add(definitions.getVerbConjugationInfos());
       }
+      if(!additionalInformation.isBlank())
+      {
+         joiner.add(additionalInformation);
+      }
       return joiner.toString();
    }
 
@@ -319,6 +323,10 @@ public class Expression
       if(!definitions.getVerbConjugationInfos().isEmpty())
       {
          joiner.add(definitions.getVerbConjugationInfos());
+      }
+      if(!additionalInformation.isBlank())
+      {
+         joiner.add(additionalInformation);
       }
       return joiner.toString();
    }

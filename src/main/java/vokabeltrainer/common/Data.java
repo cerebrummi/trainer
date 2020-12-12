@@ -869,7 +869,7 @@ public final class Data
 
          return new ExpressionTableModel(
                convertToExpressionModelArray(
-                     filterExpressions(text, language, search, expressions)),
+                     filterExpressions(text, language, search, expressions, sortForDate)),
                COLUMNAMES);
       }
 
@@ -886,7 +886,7 @@ public final class Data
       }
 
       private List<Expression> filterExpressions(String text, Language language,
-            SearchType search, Collection<Expression> expressions)
+            SearchType search, Collection<Expression> expressions, boolean sortForDate)
       {
          List<Expression> list = new ArrayList<>();
 
@@ -928,7 +928,8 @@ public final class Data
                }
             }
          }
-         Collections.sort(list, new ExpressionComparator(language));
+         Collections.sort(list, new ExpressionComparator(language, sortForDate));
+         
          return list;
       }
 
