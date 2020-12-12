@@ -279,7 +279,7 @@ public class Expression
       return result;
    }
 
-   public String getAdditionalInfoGerman()
+   public String getAdditionalInfoGerman(boolean longVersion)
    {
       StringJoiner joiner = new StringJoiner(", ");
       if (!definitions.getNumerusInfos().isEmpty())
@@ -298,14 +298,14 @@ public class Expression
       {
          joiner.add(definitions.getVerbConjugationInfos());
       }
-      if(!additionalInformation.isBlank())
+      if(longVersion && !additionalInformation.isBlank())
       {
          joiner.add(additionalInformation);
       }
       return joiner.toString();
    }
 
-   public String getAdditionalInfoHebrew()
+   public String getAdditionalInfoHebrew(boolean longVersion)
    {
       StringJoiner joiner = new StringJoiner(", ");
       if (!definitions.getNumerusInfos().isEmpty())
@@ -324,7 +324,7 @@ public class Expression
       {
          joiner.add(definitions.getVerbConjugationInfos());
       }
-      if(!additionalInformation.isBlank())
+      if(longVersion && !additionalInformation.isBlank())
       {
          joiner.add(additionalInformation);
       }
@@ -490,7 +490,7 @@ public class Expression
       return "<html><p>" + chapter.getName() + "</p><br>"
             + "<p style=\"margin-top:5;\"><b>" + german + "</b></p><br>"
             + "<p style=\"margin-top:5;\">" + hebrew + "</p><br>"
-            + "<p style=\"margin-top:5;\">" + this.getAdditionalInfoGerman()
+            + "<p style=\"margin-top:5;\">" + this.getAdditionalInfoGerman(false)
             + "</p></html>";
    }
 }
