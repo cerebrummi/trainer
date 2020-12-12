@@ -751,9 +751,7 @@ public class ExpressionEditorView extends JDialog
    private boolean testForCompletness()
    {
       boolean result = true;
-      if (chapter.getSelectedItem() == null || chapter.getSelectedIndex() == -1
-            || chapter.getItemAt(chapter.getSelectedIndex()) == null
-            || chapter.getItemAt(chapter.getSelectedIndex()).isBlank())
+      if (((String) chapter.getSelectedItem()).isBlank())
       {
          chapter.setBorder(makeBorderRed(this.chapterTitle));
          result = false;

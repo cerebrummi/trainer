@@ -351,6 +351,7 @@ public class TrainerView extends BackgroundPanelTiled
       JScrollPane scroller = new JScrollPane(additionalInfoField);
       scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 110));
       scroller.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 110));
+      scroller.setBorder(BorderFactory.createEmptyBorder());
       
       questionPanel.add(questionField);
       questionPanel.add(scroller);
@@ -615,15 +616,21 @@ public class TrainerView extends BackgroundPanelTiled
       correctAnswer2.setFont(Main.getGermanFont(20F));
       correctAnswer2.setMinimumSize(new Dimension(490, 30));
       correctAnswer2.setMaximumSize(new Dimension(510, 30));
-      JLabel correctAnswer3 = new JLabel(
-            connector.getCurrentExpression().getAdditionalInfoGerman());
+      JTextField correctAnswer3 = new JTextField(
+            connector.getCurrentExpression().getAdditionalInfoGerman(false));
       correctAnswer3.setFont(Main.getGermanFont(16F));
+      correctAnswer3.setEditable(false);
+      correctAnswer3.setBackground(Settings.getTransparent());
+      correctAnswer3.setOpaque(false);
+      correctAnswer3.setBorder(BorderFactory.createEmptyBorder());
       correctAnswer3.setMinimumSize(new Dimension(490, 30));
       correctAnswer3.setMaximumSize(new Dimension(510, 30));
-
+      JScrollPane scroller = new JScrollPane(correctAnswer3);
+      scroller.setBorder(BorderFactory.createEmptyBorder());
+      
       answerPanel1.add(correctAnswer);
       answerPanel1.add(correctAnswer2);
-      answerPanel1.add(correctAnswer3);
+      answerPanel1.add(scroller);
 
       JPanel answerPanel2 = new JPanel();
       answerPanel2.setLayout(new GridLayout(1, 3));

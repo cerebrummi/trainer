@@ -122,11 +122,11 @@ public class TrainerController implements TrainerControllerConnector
          {
          case GERMAN:
             trainerView.getAdditionalInfoField()
-                  .setText(currentExpression.getAdditionalInfoGerman());
+                  .setText(currentExpression.getAdditionalInfoGerman(true));
             break;
          case HEBREW:
             trainerView.getAdditionalInfoField()
-                  .setText(currentExpression.getAdditionalInfoHebrew());
+                  .setText(currentExpression.getAdditionalInfoHebrew(true));
             break;
          }
       }
