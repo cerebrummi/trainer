@@ -130,7 +130,7 @@ public class BullsEyeLayout
 
    /**
     * private constructor
-    *<p>
+    * <p>
     *
     * All <code>BullsEyeLayout</code> constructors defer to this one.
     */
@@ -339,37 +339,40 @@ public class BullsEyeLayout
          {
             throw new AWTError("BullsEyeLayout can hold only one component");
          }
+
+         Dimension dmin = null;
          if (ncomponents == 0)
          {
-            dimMin = null;
-            return null;
-         }
-
-         Component comp = self.getComponent(0);
-         Dimension dmin;
-
-         /*
-          * In case Component is Container with Layout instance of TrainLayout,
-          * TotemLayout or BullsEyeLyout the dimensions derived by content - if
-          * any - should override given Dimensions. Only when there is no
-          * content the given Dimensions should be used.
-          */
-         if (comp instanceof Container && (((Container) comp)
-               .getLayout() instanceof TotemLayout
-               || ((Container) comp).getLayout() instanceof TrainLayout
-               || ((Container) comp).getLayout() instanceof BullsEyeLayout))
-         {
-            Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                  .getLayout()).minimumLayoutSize((Container) comp);
-            if (dminContent != null)
-               dmin = dminContent;
-            else
-               dmin = comp.getMinimumSize();
+            dmin = self.getMinimumSize();
          }
          else
          {
-            dmin = comp.getMinimumSize();
+            Component comp = self.getComponent(0);
+
+            /*
+             * In case Component is Container with Layout instance of
+             * TrainLayout, TotemLayout or BullsEyeLyout the dimensions derived
+             * by content - if any - should override given Dimensions. Only when
+             * there is no content the given Dimensions should be used.
+             */
+            if (comp instanceof Container && (((Container) comp)
+                  .getLayout() instanceof TotemLayout
+                  || ((Container) comp).getLayout() instanceof TrainLayout
+                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+            {
+               Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                     .getLayout()).minimumLayoutSize((Container) comp);
+               if (dminContent != null)
+                  dmin = dminContent;
+               else
+                  dmin = comp.getMinimumSize();
+            }
+            else
+            {
+               dmin = comp.getMinimumSize();
+            }
          }
+
          if (dmin != null)
          {
             if (h < dmin.height)
@@ -423,30 +426,37 @@ public class BullsEyeLayout
             throw new AWTError("BullsEyeLayout can hold only one component");
          }
 
-         Component comp = self.getComponent(0);
-         Dimension dmax;
-
-         /*
-          * In case Component is Container with Layout instance of TrainLayout,
-          * TotemLayout or BullsEyeLyout the dimensions derived by content - if
-          * any - should override given Dimensions. Only when there is no
-          * content the given Dimensions should be used.
-          */
-         if (comp instanceof Container && (((Container) comp)
-               .getLayout() instanceof TotemLayout
-               || ((Container) comp).getLayout() instanceof TrainLayout
-               || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+         Dimension dmax = null;
+         if (ncomponents == 0)
          {
-            Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
-                  .getLayout()).maximumLayoutSize((Container) comp);
-            if (dmaxContent != null)
-               dmax = dmaxContent;
-            else
-               dmax = comp.getMaximumSize();
+            dmax = self.getMaximumSize();
          }
          else
          {
-            dmax = comp.getMaximumSize();
+            Component comp = self.getComponent(0);
+
+            /*
+             * In case Component is Container with Layout instance of
+             * TrainLayout, TotemLayout or BullsEyeLyout the dimensions derived
+             * by content - if any - should override given Dimensions. Only when
+             * there is no content the given Dimensions should be used.
+             */
+            if (comp instanceof Container && (((Container) comp)
+                  .getLayout() instanceof TotemLayout
+                  || ((Container) comp).getLayout() instanceof TrainLayout
+                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+            {
+               Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
+                     .getLayout()).maximumLayoutSize((Container) comp);
+               if (dmaxContent != null)
+                  dmax = dmaxContent;
+               else
+                  dmax = comp.getMaximumSize();
+            }
+            else
+            {
+               dmax = comp.getMaximumSize();
+            }
          }
 
          if (dmax != null)

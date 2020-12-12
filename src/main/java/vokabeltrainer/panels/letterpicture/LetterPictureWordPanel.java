@@ -1,14 +1,17 @@
 package vokabeltrainer.panels.letterpicture;
 
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.Settings;
 import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.editing.LetterHelper;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -21,7 +24,7 @@ public class LetterPictureWordPanel extends JPanel
 
    public LetterPictureWordPanel()
    {
-      this.setLayout(new FlowLayout());
+      this.setLayout(new BullsEyeLayout(this));
       this.setOpaque(false);
    }
 
@@ -77,6 +80,21 @@ public class LetterPictureWordPanel extends JPanel
       horizontal.add(vertical);
       add(horizontal);
 
+      validate();
+      repaint();
+   }
+
+   public void clear()
+   {
+      removeAll();
+      
+      JLabel dummy = new JLabel();
+      dummy.setMinimumSize(new Dimension(1200,100));
+      dummy.setMaximumSize(new Dimension(1200,100));
+      dummy.setBackground(Settings.getTransparent());
+      dummy.setOpaque(false);
+      add(dummy);
+      
       validate();
       repaint();
    }
