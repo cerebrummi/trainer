@@ -32,15 +32,19 @@ public class HebrewDocument extends PlainDocument
    {
       if (text != null && !text.isEmpty())
       {
+         if (getLength() + text.length() - length > 26)
+         {
+            text = text.substring(0, 25 - getLength() + 1);
+            if (text.isEmpty())
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
+         }
+         
          List<String> list = LetterHelper.findLetterCodes(text);
 
          if (list == null || list.isEmpty())
-         {
-            Toolkit.getDefaultToolkit().beep();
-            return;
-         }
-
-         if (getLength() + list.size() - length > 26)
          {
             Toolkit.getDefaultToolkit().beep();
             return;
@@ -59,10 +63,13 @@ public class HebrewDocument extends PlainDocument
             }
             else
             {
-               Toolkit.getDefaultToolkit().beep();
-               return;
+               // remove letter
+               list.remove(i);
             }
          }
+         super.replace(offset, length, LetterHelper.makeWordFromCodes(list),
+               attrs);
+         return;
       }
       super.replace(offset, length, text, attrs);
    }
@@ -72,15 +79,19 @@ public class HebrewDocument extends PlainDocument
    {
       if (str != null && !str.isEmpty())
       {
+         if (getLength() + str.length() > 26)
+         {
+            str = str.substring(0, 25 - getLength() + 1);
+            if (str.isEmpty())
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
+         }
+         
          List<String> list = LetterHelper.findLetterCodes(str);
 
          if (list == null || list.isEmpty())
-         {
-            Toolkit.getDefaultToolkit().beep();
-            return;
-         }
-
-         if (getLength() + list.size() > 26)
          {
             Toolkit.getDefaultToolkit().beep();
             return;
@@ -99,10 +110,12 @@ public class HebrewDocument extends PlainDocument
             }
             else
             {
-               Toolkit.getDefaultToolkit().beep();
-               return;
+               // remove letter
+               list.remove(i);
             }
          }
+         super.insertString(offset, LetterHelper.makeWordFromCodes(list), attr);
+         return;
       }
       super.insertString(offset, str, attr);
    }
