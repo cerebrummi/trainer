@@ -35,7 +35,12 @@ public class ExtraInformationDocument extends DefaultStyledDocument
 
          if (getLength() + list.size() - length > 600)
          {
-            text = text.substring(0, 599);
+            text = text.substring(0, 599 - getLength() + 1);
+            if (text.isEmpty())
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
          }
 
          for (int i = 0; i < list.size(); i++)
@@ -62,10 +67,10 @@ public class ExtraInformationDocument extends DefaultStyledDocument
                list.remove(i);
             }
          }
-         super.replace(offset, length, LetterHelper.makeWordFromCodes(list), attrs);
+         super.replace(offset, length, LetterHelper.makeWordFromCodes(list),
+               attrs);
          return;
       }
-      
       super.replace(offset, length, text, attrs);
    }
 
@@ -85,7 +90,12 @@ public class ExtraInformationDocument extends DefaultStyledDocument
 
          if (getLength() + list.size() > 600)
          {
-            str = str.substring(0, 599);
+            str = str.substring(0, 599 - getLength() + 1);
+            if (str.isEmpty())
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
          }
 
          for (int i = 0; i < list.size(); i++)
@@ -115,7 +125,6 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          super.insertString(offset, LetterHelper.makeWordFromCodes(list), attr);
          return;
       }
-
       super.insertString(offset, str, attr);
    }
 }

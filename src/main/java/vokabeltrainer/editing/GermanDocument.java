@@ -27,7 +27,7 @@ public class GermanDocument extends PlainDocument
          signPattern = SignLetter.getPatternStringGerman();
       }
    }
-   
+
    public GermanDocument(int size)
    {
       this.size = size;
@@ -50,8 +50,12 @@ public class GermanDocument extends PlainDocument
 
          if (getLength() + list.size() - length > size)
          {
-            Toolkit.getDefaultToolkit().beep();
-            return;
+            text = text.substring(0, (size - 1) - getLength() + 1);
+            if (text.isEmpty())
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
          }
 
          for (int i = 0; i < list.size(); i++)
@@ -67,10 +71,13 @@ public class GermanDocument extends PlainDocument
             }
             else
             {
-               Toolkit.getDefaultToolkit().beep();
-               return;
+               // remove letter
+               list.remove(i);
             }
          }
+         super.replace(offset, length, LetterHelper.makeWordFromCodes(list),
+               attrs);
+         return;
       }
       super.replace(offset, length, text, attrs);
    }
@@ -91,8 +98,12 @@ public class GermanDocument extends PlainDocument
 
          if (getLength() + list.size() > size)
          {
-            Toolkit.getDefaultToolkit().beep();
-            return;
+            str = str.substring(0, (size - 1) - getLength() + 1);
+            if (str.isEmpty())
+            {
+               Toolkit.getDefaultToolkit().beep();
+               return;
+            }
          }
 
          for (int i = 0; i < list.size(); i++)
@@ -108,10 +119,12 @@ public class GermanDocument extends PlainDocument
             }
             else
             {
-               Toolkit.getDefaultToolkit().beep();
-               return;
+               // remove letter
+               list.remove(i);
             }
          }
+         super.insertString(offset, LetterHelper.makeWordFromCodes(list), attr);
+         return;
       }
       super.insertString(offset, str, attr);
    }
