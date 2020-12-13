@@ -2,7 +2,7 @@ package vokabeltrainer.editing;
 
 import org.apache.commons.lang3.StringUtils;
 
-public enum GermanLetter
+public enum GermanLetter implements Letter
 {
    A(
          " 0041",
@@ -229,11 +229,13 @@ public enum GermanLetter
       return null;
    }
 
+   @Override
    public String getCode()
    {
       return code;
    }
 
+   @Override
    public String getUnicode()
    {
       return unicode;

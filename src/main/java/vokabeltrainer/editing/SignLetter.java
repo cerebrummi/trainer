@@ -4,7 +4,7 @@ import java.util.StringJoiner;
 
 import org.apache.commons.lang3.StringUtils;
 
-public enum SignLetter
+public enum SignLetter implements Letter
 {
    QUESTION_MARK(" 003f", "\u003f"),            // ?
    EXCLAMATION_MARK(" 0021", "\u0021"),         // !
@@ -47,7 +47,7 @@ public enum SignLetter
 
    private static SignLetter[] germanSigns = { QUESTION_MARK, EXCLAMATION_MARK,
          FULL_STOP, APOSTROPHE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS,
-         HYPHEN_MINUS };
+         HYPHEN_MINUS, LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET};
    private static SignLetter[] germanSignsWithComma = { QUESTION_MARK,
          EXCLAMATION_MARK, FULL_STOP, APOSTROPHE, LEFT_PARENTHESIS,
          RIGHT_PARENTHESIS, HYPHEN_MINUS, COMMA };
@@ -135,11 +135,13 @@ public enum SignLetter
       return joiner.toString();
    }
 
+   @Override
    public String getCode()
    {
       return code;
    }
 
+   @Override
    public String getUnicode()
    {
       return unicode;

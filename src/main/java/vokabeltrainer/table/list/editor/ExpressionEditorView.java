@@ -313,6 +313,14 @@ public class ExpressionEditorView extends JDialog
       chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       chapter.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
 
+      databaseNameField = new JComboBox<>();
+      databaseNameField.setFont(Settings.getButtonFont());
+      databaseNameField.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      databaseNameField.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      databaseNameField.setBorder(new TitledBorder("Datenbank"));
+      databaseNameField.setEditable(true);
+      databaseNameField.setMaximumRowCount(20);
+
       extraInfo = new JTextPane();
       extraInfo.setFont(Main.getHebrewFont(30));
       extraInfo.setBorder(
@@ -462,13 +470,6 @@ public class ExpressionEditorView extends JDialog
       verbTypeBoxPanel.setOpaque(false);
       verbTypeBoxPanel.setBackground(Settings.getTransparent());
       verbTypeBoxPanel.setBorder(BorderFactory.createTitledBorder("Verb Typ"));
-
-      databaseNameField = new JComboBox<>();
-      databaseNameField.setFont(Settings.getButtonFont());
-      databaseNameField.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      databaseNameField.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      databaseNameField.setBorder(new TitledBorder("Datenbank"));
-      databaseNameField.setEditable(true);
 
       keyboard = new KeyboardHebrew(hebrew, components, 70, true);
    }
@@ -834,17 +835,14 @@ public class ExpressionEditorView extends JDialog
       expression.setAdditionalInformation(
             cleanTextWithoutComma(extraInfo.getText()));
 
-      if (databaseNameField
-            .getItemAt(databaseNameField.getSelectedIndex()) == null
-            || databaseNameField.getItemAt(databaseNameField.getSelectedIndex())
-                  .isBlank())
+      if (((String) databaseNameField.getSelectedItem()).isBlank())
       {
          expression.getChapter().setDatabaseName(Database.SELF.getName());
       }
       else
       {
-         expression.getChapter().setDatabaseName(databaseNameField
-               .getItemAt(databaseNameField.getSelectedIndex()));
+         expression.getChapter()
+               .setDatabaseName((String) databaseNameField.getSelectedItem());
       }
 
       expression.setLastModified(LocalDateTime.now());
@@ -944,7 +942,7 @@ public class ExpressionEditorView extends JDialog
       }
 
       databaseNameField.setModel(Data.getOwnDatabasesComboBoxModel());
-      databaseNameField.setSelectedItem(Database.SELF.getName());
+      databaseNameField.setSelectedItem(expression.getChapter().getDatabaseName());
 
       lastModiefiedLabel
             .setText("vom "

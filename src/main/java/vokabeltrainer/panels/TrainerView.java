@@ -130,8 +130,8 @@ public class TrainerView extends BackgroundPanelTiled
       initTopPanel();
       wordPanel = new LetterPictureWordPanel();
       JScrollPane scroller = new JScrollPane(wordPanel);
-      scroller.setMinimumSize(new Dimension(1200,130));
-      scroller.setMaximumSize(new Dimension(1200,130));
+      scroller.setMinimumSize(new Dimension(1200,110));
+      scroller.setMaximumSize(new Dimension(1200,110));
       scroller.setBorder(BorderFactory.createEmptyBorder());
       scroller.setOpaque(true);
       this.add(scroller);
@@ -186,19 +186,11 @@ public class TrainerView extends BackgroundPanelTiled
       languageDirectionLabel.setForeground(Color.WHITE);
       choicesRight.add(languageDirectionLabel);
 
-      JPanel showOptions = new JPanel();
-      showOptions.setLayout(new TotemLayout(showOptions, 15));
-      showOptions.setBackground(Settings.getGold());
-      showOptions.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
-      additionalInfo = new JCheckBox("weitere Informationen anzeigen");
-      additionalInfo.setFont(labelFont);
-      additionalInfo.setForeground(Color.WHITE);
-      showOptions.add(additionalInfo);
-
       JPanel numbers = new JPanel();
       numbers.setLayout(new TrainLayout(numbers, 15));
       numbers.setBackground(Settings.getGold());
       numbers.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
+      
       JPanel numbersLeft = new JPanel();
       numbersLeft.setLayout(new TotemLayout(numbersLeft));
       numbersLeft.setBackground(Settings.getGold());
@@ -217,6 +209,7 @@ public class TrainerView extends BackgroundPanelTiled
       numbersLeft.add(wordsRightLabel);
       numbersLeft.add(wordsWrongLabel);
       numbersLeft.add(wordsToDoLabel);
+      
       JPanel numbersRight = new JPanel();
       numbersRight.setLayout(new TotemLayout(numbersRight));
       numbersRight.setBackground(Settings.getGold());
@@ -238,6 +231,11 @@ public class TrainerView extends BackgroundPanelTiled
       numbers.add(numbersLeft);
       numbers.add(numbersRight);
 
+      JPanel numberFiller = new JPanel(new FlowLayout());
+      numberFiller.setBackground(Settings.getGold());
+      numberFiller.setMinimumSize(new Dimension(60, 30));
+      numberFiller.setMaximumSize(new Dimension(280, 60));
+      
       nextWordButton = new JButton("nächstes Wort");
       nextWordButton.setIcon(new ImageIcon(ApplicationImages.getStart()));
       nextWordButton.setEnabled(false);
@@ -294,8 +292,8 @@ public class TrainerView extends BackgroundPanelTiled
       stopTrainingButton.setIcon(new ImageIcon(ApplicationImages.getStop()));
 
       verticalLeftPanel.add(choices);
-      verticalLeftPanel.add(showOptions);
       verticalLeftPanel.add(numbers);
+      verticalLeftPanel.add(numberFiller);
       verticalLeftPanel.add(nextWordButton);
       verticalLeftPanel.add(horizontal);
       verticalLeftPanel.add(soundslider);
@@ -349,11 +347,21 @@ public class TrainerView extends BackgroundPanelTiled
       additionalInfoField.setEditable(false);
 
       JScrollPane scroller = new JScrollPane(additionalInfoField);
-      scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 110));
-      scroller.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 110));
+      scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 100));
+      scroller.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 100));
       scroller.setBorder(BorderFactory.createEmptyBorder());
+      scroller.setViewportBorder(BorderFactory.createEmptyBorder());
+      scroller.getViewport().setBackground(Settings.getTransparent());
+      scroller.getViewport().setOpaque(false);
+      
+      additionalInfo = new JCheckBox("weitere Informationen anzeigen");
+      additionalInfo.setFont(Settings.getButtonFont());
+      additionalInfo.addActionListener(event -> {
+         connector.setAdditionalInfo();
+      });
       
       questionPanel.add(questionField);
+      questionPanel.add(additionalInfo);
       questionPanel.add(scroller);
 
       answerPanel = new JPanel();
@@ -533,10 +541,6 @@ public class TrainerView extends BackgroundPanelTiled
 
       stopTrainingButton.addActionListener(event -> {
          connector.stopTraining(false);
-      });
-
-      this.additionalInfo.addActionListener(event -> {
-         connector.setAdditionalInfo();
       });
 
       this.soundButton.addActionListener(event -> connector.toggleSound());

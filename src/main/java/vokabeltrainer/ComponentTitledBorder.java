@@ -1,4 +1,4 @@
-package vokabeltrainer.table.list.editor;
+package vokabeltrainer;
 
 import javax.swing.JComponent;
 import javax.swing.SwingConstants;

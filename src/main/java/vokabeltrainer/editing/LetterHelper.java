@@ -1,10 +1,38 @@
 package vokabeltrainer.editing;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class LetterHelper
 {
+   private static Map<String, Letter> codeMap;
+   static
+   {
+      codeMap = new HashMap<>();
+      for(Letter sign : SignLetter.values())
+      {
+         codeMap.put(sign.getCode().toLowerCase(), sign);
+         codeMap.put(sign.getCode().toUpperCase(), sign);
+      }
+      for(Letter german : GermanLetter.values())
+      {
+         codeMap.put(german.getCode().toLowerCase(), german);
+         codeMap.put(german.getCode().toUpperCase(), german);
+      }
+      for(Letter hebrew : HebrewLetter.values())
+      {
+         codeMap.put(hebrew.getCode().toLowerCase(), hebrew);
+         codeMap.put(hebrew.getCode().toUpperCase(), hebrew);
+      }
+      for(Letter number : NumberLetter.values())
+      {
+         codeMap.put(number.getCode().toLowerCase(), number);
+         codeMap.put(number.getCode().toUpperCase(), number);
+      }
+   }
+   
    private LetterHelper()
    {
       // nothing
@@ -12,7 +40,7 @@ public class LetterHelper
    
    public static List<String> findLetterCodes(String word)
    {
-      List<String> letterCodes = new ArrayList<>();
+      List<String> letterCodes = new LinkedList<>();
       if(word == null)
       {
          return letterCodes;
@@ -57,5 +85,18 @@ public class LetterHelper
          }
       }
       return letterCodes;
+   }
+   
+   public static String makeWordFromCodes(List<String> codes)
+   {
+      StringBuilder builder = new StringBuilder();
+      for(String code : codes)
+      {
+         if(codeMap.get(code) != null)
+         {
+            builder.append(codeMap.get(code).getUnicode());
+         }
+      }
+      return builder.toString();
    }
 }

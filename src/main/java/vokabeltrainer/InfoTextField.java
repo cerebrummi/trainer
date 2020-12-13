@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import vokabeltrainer.common.Main;
-import vokabeltrainer.table.list.editor.ComponentTitledBorder;
 
 public class InfoTextField extends JTextField
 {

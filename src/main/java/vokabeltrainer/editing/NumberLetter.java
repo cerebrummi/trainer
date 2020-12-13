@@ -2,7 +2,7 @@ package vokabeltrainer.editing;
 
 import java.util.StringJoiner;
 
-public enum NumberLetter
+public enum NumberLetter implements Letter
 {
    ZERO(" 0030","\u0030"),
    ONE(" 0031","\u0031"),
@@ -35,12 +35,13 @@ public enum NumberLetter
       return joiner.toString();
    }
 
+   @Override
    public String getCode()
    {
       return code;
    }
 
-
+   @Override
    public String getUnicode()
    {
       return unicode;

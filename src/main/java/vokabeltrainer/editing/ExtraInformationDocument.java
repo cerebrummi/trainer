@@ -58,10 +58,12 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             }
             else
             {
-               Toolkit.getDefaultToolkit().beep();
-               return;
+               // remove letter
+               list.remove(i);
             }
          }
+         super.replace(offset, length, LetterHelper.makeWordFromCodes(list), attrs);
+         return;
       }
       
       super.replace(offset, length, text, attrs);
@@ -106,10 +108,12 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             }
             else
             {
-               Toolkit.getDefaultToolkit().beep();
-               return;
+               // remove letter
+               list.remove(i);
             }
          }
+         super.insertString(offset, LetterHelper.makeWordFromCodes(list), attr);
+         return;
       }
 
       super.insertString(offset, str, attr);

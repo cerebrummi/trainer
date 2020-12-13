@@ -6,7 +6,7 @@ import java.util.StringJoiner;
 
 import org.apache.commons.lang3.StringUtils;
 
-public enum HebrewLetter
+public enum HebrewLetter implements Letter
 {
    AIN(
          "\u05E2",
@@ -252,6 +252,7 @@ public enum HebrewLetter
       return null;
    }
 
+   @Override
    public String getUnicode()
    {
       return unicode;
@@ -262,6 +263,7 @@ public enum HebrewLetter
       return german;
    }
 
+   @Override
    public String getCode()
    {
       return code;
