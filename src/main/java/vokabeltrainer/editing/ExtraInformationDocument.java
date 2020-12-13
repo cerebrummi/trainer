@@ -25,15 +25,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
    {
       if (text != null && !text.isEmpty())
       {
-         List<String> list = LetterHelper.findLetterCodes(text);
-
-         if (list == null || list.isEmpty())
-         {
-            Toolkit.getDefaultToolkit().beep();
-            return;
-         }
-
-         if (getLength() + list.size() - length > 600)
+         if (getLength() + text.length() - length > 600)
          {
             text = text.substring(0, 599 - getLength() + 1);
             if (text.isEmpty())
@@ -41,6 +33,14 @@ public class ExtraInformationDocument extends DefaultStyledDocument
                Toolkit.getDefaultToolkit().beep();
                return;
             }
+         }
+         
+         List<String> list = LetterHelper.findLetterCodes(text);
+
+         if (list == null || list.isEmpty())
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
          }
 
          for (int i = 0; i < list.size(); i++)
@@ -80,15 +80,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
    {
       if (str != null && !str.isEmpty())
       {
-         List<String> list = LetterHelper.findLetterCodes(str);
-
-         if (list == null || list.isEmpty())
-         {
-            Toolkit.getDefaultToolkit().beep();
-            return;
-         }
-
-         if (getLength() + list.size() > 600)
+         if (getLength() + str.length() > 600)
          {
             str = str.substring(0, 599 - getLength() + 1);
             if (str.isEmpty())
@@ -96,6 +88,14 @@ public class ExtraInformationDocument extends DefaultStyledDocument
                Toolkit.getDefaultToolkit().beep();
                return;
             }
+         }
+         
+         List<String> list = LetterHelper.findLetterCodes(str);
+
+         if (list == null || list.isEmpty())
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
          }
 
          for (int i = 0; i < list.size(); i++)

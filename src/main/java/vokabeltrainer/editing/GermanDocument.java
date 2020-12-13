@@ -40,15 +40,7 @@ public class GermanDocument extends PlainDocument
    {
       if (text != null && !text.isEmpty())
       {
-         List<String> list = LetterHelper.findLetterCodes(text);
-
-         if (list == null || list.isEmpty())
-         {
-            Toolkit.getDefaultToolkit().beep();
-            return;
-         }
-
-         if (getLength() + list.size() - length > size)
+         if (getLength() + text.length() - length > size)
          {
             text = text.substring(0, (size - 1) - getLength() + 1);
             if (text.isEmpty())
@@ -56,6 +48,14 @@ public class GermanDocument extends PlainDocument
                Toolkit.getDefaultToolkit().beep();
                return;
             }
+         }
+         
+         List<String> list = LetterHelper.findLetterCodes(text);
+
+         if (list == null || list.isEmpty())
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
          }
 
          for (int i = 0; i < list.size(); i++)
@@ -88,15 +88,7 @@ public class GermanDocument extends PlainDocument
    {
       if (str != null && !str.isEmpty())
       {
-         List<String> list = LetterHelper.findLetterCodes(str);
-
-         if (list == null || list.isEmpty())
-         {
-            Toolkit.getDefaultToolkit().beep();
-            return;
-         }
-
-         if (getLength() + list.size() > size)
+         if (getLength() + str.length() > size)
          {
             str = str.substring(0, (size - 1) - getLength() + 1);
             if (str.isEmpty())
@@ -104,6 +96,14 @@ public class GermanDocument extends PlainDocument
                Toolkit.getDefaultToolkit().beep();
                return;
             }
+         }
+         
+         List<String> list = LetterHelper.findLetterCodes(str);
+
+         if (list == null || list.isEmpty())
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
          }
 
          for (int i = 0; i < list.size(); i++)
