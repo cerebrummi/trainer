@@ -284,7 +284,7 @@ public class WordMatching
          List<String> dataDic, List<String> dataTest, int deltaCol)
    {
       for (int d = dataDic.size() - 1, t = dataTest.size() - 1
-            - deltaCol;; d--, t--)
+            - deltaCol; d >= 0 && t >= 0; d--, t--)
       {
          if (WordMatching.evaluateSame(dataDic.get(d), dataTest.get(t)) == 1)
          {
@@ -302,7 +302,7 @@ public class WordMatching
          List<String> dataDic, List<String> dataTest, int deltaCol)
    {
       for (int t = dataTest.size() - 1, d = dataDic.size() - 1
-            + deltaCol;; t--, d--)
+            + deltaCol; t >= 0 && d >= 0; t--, d--)
       {
          if (WordMatching.evaluateSame(dataTest.get(t), dataDic.get(d)) == 1)
          {
@@ -364,13 +364,15 @@ public class WordMatching
                && !dataWithEndLetter.get(0).equalsIgnoreCase("NEWSPACE"))
          {
             int index = readIndexOfNextNewspaceToTheRight(dataWithEndLetter, 1);
-            if(index > 0)
-            {     
+            if (index > 0)
+            {
                cloneWithEndNewspace.remove(0);
                cloneWithEndLetter.remove(index);
-               int samenessClones = calculateSamenessPunish(cloneWithEndLetter, cloneWithEndNewspace);
-               int samenessOriginals = calculateSamenessPunish(dataWithEndLetter, dataWithEndNewspace);
-               if(samenessClones >= samenessOriginals)
+               int samenessClones = calculateSamenessPunish(cloneWithEndLetter,
+                     cloneWithEndNewspace);
+               int samenessOriginals = calculateSamenessPunish(
+                     dataWithEndLetter, dataWithEndNewspace);
+               if (samenessClones >= samenessOriginals)
                {
                   dataWithEndNewspace.remove(0);
                   dataWithEndLetter.remove(index);
