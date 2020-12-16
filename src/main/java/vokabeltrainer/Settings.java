@@ -26,7 +26,7 @@ public class Settings
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
-   private static Database[] availableDatabases = { Database.ROSENGARTEN };
+   private static Database[] availableDatabases = { };
 
    private Settings()
    {
