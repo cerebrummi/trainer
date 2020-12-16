@@ -913,36 +913,39 @@ public class ExpressionEditorView extends JDialog
          Definitions definitions = expression.getDefinitions();
          Set<ExpressionKind> kinds = definitions.getExpressionKindSet();
          expressionKindTable.setModel(ExpressionKind.getModel(kinds));
-         ExpressionKind kind = kinds.stream().findAny().get();
 
-         binjanBox.setSelectedItem(
-               definitions.getGrammaticalEnum(kind, Binjan.class));
-         genderBox.setSelectedItem(
-               definitions.getGrammaticalEnum(kind, Gender.class));
-         grammaticalPersonBox.setSelectedItem(
-               definitions.getGrammaticalEnum(kind, GrammaticalPerson.class));
-         numerusBox.setSelectedItem(
-               definitions.getGrammaticalEnum(kind, Numerus.class));
-         verbConjugationBox.setSelectedItem(
-               definitions.getGrammaticalEnum(kind, VerbConjugation.class));
-         verbStrengthBox.setSelectedItem(
-               definitions.getGrammaticalEnum(kind, VerbStrength.class));
-         verbTypeBox.setSelectedItem(
-               definitions.getGrammaticalEnum(kind, VerbType.class));
+         ExpressionKind kind;
+         if (kinds.stream().findAny().isPresent())
+         {
+            kind = kinds.stream().findAny().get();
+            binjanBox.setSelectedItem(
+                  definitions.getGrammaticalEnum(kind, Binjan.class));
+            genderBox.setSelectedItem(
+                  definitions.getGrammaticalEnum(kind, Gender.class));
+            grammaticalPersonBox.setSelectedItem(definitions
+                  .getGrammaticalEnum(kind, GrammaticalPerson.class));
+            numerusBox.setSelectedItem(
+                  definitions.getGrammaticalEnum(kind, Numerus.class));
+            verbConjugationBox.setSelectedItem(
+                  definitions.getGrammaticalEnum(kind, VerbConjugation.class));
+            verbStrengthBox.setSelectedItem(
+                  definitions.getGrammaticalEnum(kind, VerbStrength.class));
+            verbTypeBox.setSelectedItem(
+                  definitions.getGrammaticalEnum(kind, VerbType.class));
+            showGrammaticalEnums(
+                  ExpressionKind.getSetOfGrammaticalParentEnums(kinds));
 
-         showGrammaticalEnums(
-               ExpressionKind.getSetOfGrammaticalParentEnums(kinds));
-
-         scrollPaneExpressionTable.getVerticalScrollBar()
-               .setMaximum(expressionKindTable.getMaxScrollValue());
-         scrollPaneExpressionTable.getVerticalScrollBar()
-               .setValue(expressionKindTable.getScrollValue());
-
+            scrollPaneExpressionTable.getVerticalScrollBar()
+                  .setMaximum(expressionKindTable.getMaxScrollValue());
+            scrollPaneExpressionTable.getVerticalScrollBar()
+                  .setValue(expressionKindTable.getScrollValue());
+         }
          extraInfo.setText(expression.getAdditionalInformation());
       }
 
       databaseNameField.setModel(Data.getOwnDatabasesComboBoxModel());
-      databaseNameField.setSelectedItem(expression.getChapter().getDatabaseName());
+      databaseNameField
+            .setSelectedItem(expression.getChapter().getDatabaseName());
 
       lastModiefiedLabel
             .setText("vom "
