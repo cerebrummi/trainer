@@ -175,6 +175,7 @@ public class WordMatching
          lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
          lookForNewspaceAndMoveLettersToTheRightIfPossible(dataTest, dataDic);
          lookForNewspaceAndMoveLettersToTheRightIfPossible(dataDic, dataTest);
+         cutOutCommonNewspace(dataTest, dataDic);
       }
       else
       {
@@ -351,6 +352,22 @@ public class WordMatching
             }
          }
       }
+   }
+   
+   private static void cutOutCommonNewspace(List<String> dataTest,
+         List<String> dataDic)
+   {
+      for(int i = 0; i < Math.min(dataTest.size(), dataDic.size()); i++)
+      {
+         if (dataTest.get(i).equalsIgnoreCase("NEWSPACE")
+               && dataDic.get(i).equalsIgnoreCase("NEWSPACE"))
+         {
+            dataTest.remove(i);
+            dataDic.remove(i);
+            i--;
+         }
+      }
+      
    }
 
    private static void lookForNewspaceAndMoveLettersToTheRightIfPossible(

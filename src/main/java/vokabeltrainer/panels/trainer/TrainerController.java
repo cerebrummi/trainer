@@ -163,7 +163,7 @@ public class TrainerController implements TrainerControllerConnector
       {
          if (Language.GERMAN.equals(this.languageDirection)) // DtoH
          {
-            Result result = Resultfactory.getResultDtoH(currentExpression,
+            Result result = Resultfactory.getResultDtoHScentence(currentExpression,
                   trainerView.getAnswerField().getText().trim());
             if (result.isAnswerEmpty())
             {
