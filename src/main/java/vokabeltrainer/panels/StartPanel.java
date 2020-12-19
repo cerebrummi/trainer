@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -13,12 +15,13 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.resources.Images;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class StartPanel extends JPanel
 {
    private static final long serialVersionUID = -4928761869820144146L;
-   
+
    public StartPanel()
    {
       setLayout(new BorderLayout());
@@ -79,9 +82,26 @@ public class StartPanel extends JPanel
       super.paintComponent(g);
       if (ApplicationImages.getImage() != null)
       {
-         int x = this.getParent().getWidth() / 2 - 1280 / 2;
-         int y = this.getParent().getHeight() / 2 - 859 / 2;
-         g.drawImage(ApplicationImages.getImage(), x, y, this);
+         float factorWidth = getParent().getWidth() / 1280F;
+         float factorHeight = getParent().getHeight() / 859F;
+         if (factorWidth < factorHeight)
+         {
+            int width = (int) (1280F * factorHeight);
+            int x = getParent().getWidth() / 2 - width / 2;
+            g.drawImage(
+                  ApplicationImages.getImage().getScaledInstance(width,
+                        getParent().getHeight(), BufferedImage.SCALE_SMOOTH),
+                  x, 0, this);
+         }
+         else
+         {
+            int height = (int) (859F * factorWidth);
+            int y = getParent().getHeight() / 2 - height / 2;
+            g.drawImage(ApplicationImages.getImage().getScaledInstance(
+                  getParent().getWidth(), height, BufferedImage.SCALE_SMOOTH),
+                  0, y, this);
+         }
+
       }
    }
 }
