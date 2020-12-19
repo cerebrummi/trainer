@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.ToolTipManager;
@@ -137,7 +138,7 @@ public final class Main
 
       SwingUtilities.invokeLater(() -> {
          javax.swing.JFrame window = new JFrame();
-         window.setResizable(false);
+         window.setResizable(true);
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
          window.setTitle(
@@ -148,7 +149,7 @@ public final class Main
          vokabeltrainer.common.Common.setMainJPanel(
                new vokabeltrainer.common.MainController().getMainView());
          window.getContentPane()
-               .add(vokabeltrainer.common.Common.getMainJPanel());
+               .add(new JScrollPane(vokabeltrainer.common.Common.getMainJPanel()));
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
          window.setSize(1300, 735);
          window.setLocationRelativeTo(null);
