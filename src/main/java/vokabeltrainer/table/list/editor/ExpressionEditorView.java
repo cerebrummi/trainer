@@ -6,6 +6,7 @@ import java.awt.ComponentOrientation;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -155,12 +156,15 @@ public class ExpressionEditorView extends JDialog
             Dialog.ModalityType.APPLICATION_MODAL);
       this.connector = connector;
       save = false;
-      setSize(1271, 680);
+      setResizable(true);
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      setSize(Math.min(screenSize.width - 60, 1301),
+            Math.min(screenSize.height - 60, 710));
       layout = new BackgroundPanelTiled();
       layout.setBorder(
             BorderFactory.createLineBorder(Settings.getGreen(), 15, false));
       layout.setLayout(new TrainLayout(layout, 15));
-      getContentPane().add(layout);
+      getContentPane().add(new JScrollPane(layout));
 
       initGuiFields();
       initInput();
