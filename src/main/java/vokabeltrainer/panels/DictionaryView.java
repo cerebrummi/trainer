@@ -360,35 +360,47 @@ public class DictionaryView extends BackgroundPanelTiled
       copyAllSelectedButton.setFont(buttonFont);
       copyAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyAllSelectedButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
+      copyAllSelectedButton.setMinimumSize(new Dimension(200, 40));
+      copyAllSelectedButton.setMaximumSize(new Dimension(400, 40));
 
       copyInTableSelectedButton = new JButton("Tabellenauswahl kopieren");
       copyInTableSelectedButton.setFont(buttonFont);
       copyInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getCopy()));
+      copyInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
+      copyInTableSelectedButton.setMaximumSize(new Dimension(400, 40));
 
       copyTableButton = new JButton("Tabelle kopieren");
       copyTableButton.setFont(buttonFont);
       copyTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyTableButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
+      copyTableButton.setMinimumSize(new Dimension(200, 40));
+      copyTableButton.setMaximumSize(new Dimension(400, 40));
 
       selectAllInTableButton = new JButton("Tabelle auswählen");
       selectAllInTableButton.setFont(buttonFont);
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       selectAllInTableButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
+      selectAllInTableButton.setMinimumSize(new Dimension(200, 40));
+      selectAllInTableButton.setMaximumSize(new Dimension(400, 40));
 
       clearAllSelectedButton = new JButton("Gesamtauswahl aufheben");
       clearAllSelectedButton.setFont(buttonFont);
       clearAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearAllSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
+      clearAllSelectedButton.setMinimumSize(new Dimension(200, 40));
+      clearAllSelectedButton.setMaximumSize(new Dimension(400, 40));
 
       clearInTableSelectedButton = new JButton("Tabellenauswahl aufheben");
       clearInTableSelectedButton.setFont(buttonFont);
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
+      clearInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
+      clearInTableSelectedButton.setMaximumSize(new Dimension(400, 40));
 
       newWordButton = new JButton("neues Wort");
       newWordButton.setFont(buttonFont);
@@ -402,12 +414,16 @@ public class DictionaryView extends BackgroundPanelTiled
       deleteInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getDeleteWord()));
+      deleteInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
+      deleteInTableSelectedButton.setMaximumSize(new Dimension(400, 40));
 
       deleteAllSelectedButton = new JButton("Gesamtauswahl löschen");
       deleteAllSelectedButton.setFont(buttonFont);
       deleteAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteAllSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getDeleteWord()));
+      deleteAllSelectedButton.setMinimumSize(new Dimension(200, 40));
+      deleteAllSelectedButton.setMaximumSize(new Dimension(400, 40));
 
       JPanel copyPanel = new JPanel();
       copyPanel.setLayout(new TotemLayout(copyPanel, 10));
@@ -644,7 +660,7 @@ public class DictionaryView extends BackgroundPanelTiled
       JScrollPane scroller = new JScrollPane(chapterList);
       scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
       scroller.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 400));
+            new Dimension(Settings.getKeyboardWidth() + 50, 470));
       scroller.setBorder(BorderFactory.createEmptyBorder());
 
       chapterPanel.add(scroller);
