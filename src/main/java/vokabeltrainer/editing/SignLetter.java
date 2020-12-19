@@ -50,7 +50,7 @@ public enum SignLetter implements Letter
          HYPHEN_MINUS, LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET};
    private static SignLetter[] germanSignsWithComma = { QUESTION_MARK,
          EXCLAMATION_MARK, FULL_STOP, APOSTROPHE, LEFT_PARENTHESIS,
-         RIGHT_PARENTHESIS, HYPHEN_MINUS, COMMA };
+         RIGHT_PARENTHESIS, HYPHEN_MINUS, LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET, COMMA };
 
    private static SignLetter[] hebrewSigns = { QUESTION_MARK, EXCLAMATION_MARK,
          FULL_STOP };
