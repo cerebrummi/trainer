@@ -746,11 +746,13 @@ public class TrainerView extends BackgroundPanelTiled
 
    public void showResultBlue()
    {
+      ImagePanelBlue.setNextImage();
       cardLayout.show(swapPanel, "BLUE");
    }
 
    public void showResultGreen()
    {
+      ImagePanelGreen.setNextImage();
       cardLayout.show(swapPanel, "GREEN");
       wordsRightNumber++;
       wordsRight.setText(String.valueOf(wordsRightNumber));
