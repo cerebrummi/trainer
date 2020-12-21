@@ -11,7 +11,7 @@ import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.editing.LetterHelper;
-import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -24,7 +24,7 @@ public class LetterPictureWordPanel extends JPanel
 
    public LetterPictureWordPanel()
    {
-      this.setLayout(new BullsEyeExpanderLayout(this));
+      this.setLayout(new BullsEyeLayout(this));
       this.setOpaque(false);
    }
 

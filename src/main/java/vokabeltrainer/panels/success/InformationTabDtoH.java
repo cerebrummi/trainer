@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -20,7 +20,7 @@ public class InformationTabDtoH extends JPanel
 
    public InformationTabDtoH()
    {
-      this.setLayout(new BullsEyeExpanderLayout(this));
+      this.setLayout(new BullsEyeLayout(this));
       setOpaque(false);
       setBackground(Settings.getTransparent());
 

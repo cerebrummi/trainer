@@ -23,7 +23,7 @@ import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingView;
-import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 
 public class MainView extends JPanel
@@ -57,7 +57,7 @@ public class MainView extends JPanel
 
    private void initContent()
    {
-      setLayout(new BullsEyeExpanderLayout(this));
+      setLayout(new BullsEyeLayout(this));
       layoutPanel = new JPanel();
       TotemLayout layoutPanelLayout = new TotemLayout(layoutPanel);
       layoutPanel.setLayout(layoutPanelLayout);      

@@ -54,7 +54,7 @@ import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableRow2;
 import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableSingleselect;
-import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -112,7 +112,7 @@ public class DictionaryView extends BackgroundPanelTiled
    public DictionaryView(DictionaryControllerConnector connector)
    {
       this.connector = connector;
-      setLayout(new BullsEyeExpanderLayout(this));
+      setLayout(new BullsEyeLayout(this));
       setBorder(BorderFactory.createLineBorder(Color.GREEN));
 
       JPanel layout = new JPanel();
@@ -179,7 +179,7 @@ public class DictionaryView extends BackgroundPanelTiled
       vertical.add(filler);
 
       tablePanel = new JPanel();
-      BullsEyeExpanderLayout tablePanelLayout = new BullsEyeExpanderLayout(tablePanel, "tabelle orange");
+      BullsEyeLayout tablePanelLayout = new BullsEyeLayout(tablePanel, "tabelle orange");
       tablePanel.setLayout(tablePanelLayout);
       tablePanel.setMinimumSize(new Dimension(420, 400));
       tablePanel.setMaximumSize(new Dimension(513, 900));
@@ -368,7 +368,7 @@ public class DictionaryView extends BackgroundPanelTiled
       scroller.setMaximumSize(new Dimension(300, 470));
 
       JPanel scrollerWrapper = new JPanel();
-      BullsEyeExpanderLayout scrollerWrapperLayout = new BullsEyeExpanderLayout(
+      BullsEyeLayout scrollerWrapperLayout = new BullsEyeLayout(
             scrollerWrapper);
       scrollerWrapper.setLayout(scrollerWrapperLayout);
 

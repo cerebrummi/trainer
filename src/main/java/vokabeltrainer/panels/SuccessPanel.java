@@ -11,7 +11,7 @@ import vokabeltrainer.panels.success.LanguageTab;
 import vokabeltrainer.panels.success.InformationTab;
 import vokabeltrainer.panels.success.InformationTabDtoH;
 import vokabeltrainer.panels.success.InformationTabHtoD;
-import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.types.Language;
 
 public class SuccessPanel extends BackgroundPanelTiled
@@ -24,7 +24,7 @@ public class SuccessPanel extends BackgroundPanelTiled
 
    public SuccessPanel()
    {
-      setLayout(new BullsEyeExpanderLayout(this));
+      setLayout(new BullsEyeLayout(this));
 
       germanHebrewRegister = new JTabbedPane();
       germanHebrewRegister.setFont(Settings.getSecondaryToolBarButtonFont());

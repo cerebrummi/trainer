@@ -18,7 +18,7 @@ import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.panels.success.table.SuccessTable;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
 import vokabeltrainer.panels.success.table.SuccessTableRow;
-import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;
@@ -37,7 +37,7 @@ public class SuccessHelper
    static JPanel makePanel(JPanel panel)
    {
       JPanel wrapper = new JPanel();
-      BullsEyeExpanderLayout wrapperLayout = new BullsEyeExpanderLayout(wrapper);
+      BullsEyeLayout wrapperLayout = new BullsEyeLayout(wrapper);
       wrapper.setLayout(wrapperLayout);
       wrapper.setBackground(Settings.getDarkGold());
       wrapper.setOpaque(true);
@@ -65,7 +65,7 @@ public class SuccessHelper
       scroller.getViewport().setOpaque(true);
       
       JPanel tablePanel = new JPanel();
-      BullsEyeExpanderLayout tableLayout = new BullsEyeExpanderLayout(tablePanel);
+      BullsEyeLayout tableLayout = new BullsEyeLayout(tablePanel);
       tablePanel.setLayout(tableLayout);
       tablePanel.setBackground(Settings.getDarkGold());
       tablePanel.add(scroller);
@@ -77,7 +77,7 @@ public class SuccessHelper
       fillerPanel.setMaximumSize(new Dimension(1017,15));
       
       JPanel buttonWrapperPanel = new JPanel();
-      BullsEyeExpanderLayout buttonWrapperLayout = new BullsEyeExpanderLayout(buttonWrapperPanel);
+      BullsEyeLayout buttonWrapperLayout = new BullsEyeLayout(buttonWrapperPanel);
       buttonWrapperPanel.setLayout(buttonWrapperLayout);
       buttonWrapperPanel.setBackground(Settings.getDarkGold());
       

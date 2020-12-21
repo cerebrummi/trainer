@@ -17,7 +17,7 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.statistics.StatisticsTable;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
-import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 
 public class StatisticsPanel extends BackgroundPanelTiled
@@ -29,7 +29,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
 
    public StatisticsPanel()
    {
-      setLayout(new BullsEyeExpanderLayout(this));
+      setLayout(new BullsEyeLayout(this));
 
       tablePanel = new JPanel();
       tablePanel.setLayout(new TotemLayout(tablePanel));
@@ -38,7 +38,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
       tablePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
       wordPanel = new JPanel();
-      BullsEyeExpanderLayout wordPanelLayout = new BullsEyeExpanderLayout(wordPanel);
+      BullsEyeLayout wordPanelLayout = new BullsEyeLayout(wordPanel);
       wordPanel.setLayout(wordPanelLayout);
       wordPanel.setMinimumSize(new Dimension(1100, 160));
       wordPanel.setMaximumSize(new Dimension(1100, 160));

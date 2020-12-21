@@ -48,7 +48,7 @@ import vokabeltrainer.panels.trainer.ImagePanelGreen;
 import vokabeltrainer.panels.trainer.ImagePanelStart;
 import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
-import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Language;
@@ -106,7 +106,7 @@ public class TrainerView extends BackgroundPanelTiled
    {
       this.connector = connector;
       this.languageDirection = connector.getLanguageDirection();
-      BullsEyeExpanderLayout trainerLayout = new BullsEyeExpanderLayout(this);
+      BullsEyeLayout trainerLayout = new BullsEyeLayout(this);
       setLayout(trainerLayout);
       verticalTrainerPanel = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalTrainerPanel, 15);
