@@ -48,6 +48,7 @@ import vokabeltrainer.panels.trainer.ImagePanelGreen;
 import vokabeltrainer.panels.trainer.ImagePanelStart;
 import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
+import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Language;
@@ -99,14 +100,21 @@ public class TrainerView extends BackgroundPanelTiled
 
    private JSlider soundslider;
 
+   private JPanel verticalTrainerPanel;
+
    public TrainerView(TrainerControllerConnector connector)
    {
       this.connector = connector;
       this.languageDirection = connector.getLanguageDirection();
-      setLayout(new TotemLayout(this));
+      BullsEyeExpanderLayout trainerLayout = new BullsEyeExpanderLayout(this);
+      setLayout(trainerLayout);
+      verticalTrainerPanel = new JPanel();
+      TotemLayout verticalLayout = new TotemLayout(verticalTrainerPanel, 15);
+      verticalTrainerPanel.setLayout(verticalLayout);
       setBorder(BorderFactory.createEmptyBorder());
       setOpaque(false);
       initGui();
+      this.add(verticalTrainerPanel);
       initController();
    }
 
@@ -127,17 +135,17 @@ public class TrainerView extends BackgroundPanelTiled
 
    private void initGui()
    {
-      initTopPanel();
+      verticalTrainerPanel.add(initTopPanel());
       wordPanel = new LetterPictureWordPanel();
       JScrollPane scroller = new JScrollPane(wordPanel);
       scroller.setMinimumSize(new Dimension(1200,110));
       scroller.setMaximumSize(new Dimension(1200,110));
       scroller.setBorder(BorderFactory.createEmptyBorder());
       scroller.setOpaque(true);
-      this.add(scroller);
+      verticalTrainerPanel.add(scroller);
    }
 
-   private void initTopPanel()
+   private Component initTopPanel()
    {
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
@@ -150,7 +158,7 @@ public class TrainerView extends BackgroundPanelTiled
       horizontal.add(questionPanel);
       horizontal.add(initRightPanel());
 
-      this.add(horizontal);
+      return horizontal;
    }
 
    private JPanel initLeftPanel()

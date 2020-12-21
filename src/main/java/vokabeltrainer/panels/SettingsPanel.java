@@ -39,7 +39,7 @@ import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
 import vokabeltrainer.panels.settings.table.multiselect.DatabaseTable;
 import vokabeltrainer.resources.html.Nachweise;
-import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -66,7 +66,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
    public SettingsPanel()
    {
-      setLayout(new BullsEyeLayout(this));
+      setLayout(new BullsEyeExpanderLayout(this));
 
       JTabbedPane tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(false);
@@ -99,7 +99,7 @@ public class SettingsPanel extends BackgroundPanelTiled
    private Component initLicencingTab() throws IOException
    {
       JPanel panel = new JPanel();
-      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
+      BullsEyeExpanderLayout panelLayout = new BullsEyeExpanderLayout(panel);
       panel.setLayout(panelLayout);
 
       JEditorPane editorPane = new JEditorPane();
@@ -148,7 +148,7 @@ public class SettingsPanel extends BackgroundPanelTiled
    private Component initImpressumTab() throws IOException
    {
       JPanel panel = new JPanel();
-      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
+      BullsEyeExpanderLayout panelLayout = new BullsEyeExpanderLayout(panel);
       panel.setLayout(panelLayout);
 
       JEditorPane editorPane = new JEditorPane();
@@ -197,7 +197,7 @@ public class SettingsPanel extends BackgroundPanelTiled
    private Component initSettingsTab()
    {
       JPanel panel = new JPanel();
-      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
+      BullsEyeExpanderLayout panelLayout = new BullsEyeExpanderLayout(panel);
       panel.setLayout(panelLayout);
 
       JPanel horizontal = new JPanel();
@@ -386,7 +386,7 @@ public class SettingsPanel extends BackgroundPanelTiled
    private Component initDatabaseTab()
    {
       JPanel panel = new JPanel();
-      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
+      BullsEyeExpanderLayout panelLayout = new BullsEyeExpanderLayout(panel);
       panel.setLayout(panelLayout);
 
       JPanel horizontal = new JPanel();

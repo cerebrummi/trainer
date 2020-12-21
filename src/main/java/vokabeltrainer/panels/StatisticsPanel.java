@@ -1,6 +1,5 @@
 package vokabeltrainer.panels;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
@@ -18,9 +17,8 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.statistics.StatisticsTable;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
-import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
-import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class StatisticsPanel extends BackgroundPanelTiled
 {
@@ -31,16 +29,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
 
    public StatisticsPanel()
    {
-      setLayout(new BorderLayout());
-      this.setPreferredSize(new Dimension(990, 643));
-      this.setSize(990, 643);
-
-      JPanel eyePanel = new JPanel();
-      eyePanel.setLayout(new BullsEyeLayout(eyePanel));
-      
-      JPanel center = new JPanel();
-      center.setLayout(new TrainLayout(center, 15));
-      center.setOpaque(false);
+      setLayout(new BullsEyeExpanderLayout(this));
 
       tablePanel = new JPanel();
       tablePanel.setLayout(new TotemLayout(tablePanel));
@@ -48,16 +37,15 @@ public class StatisticsPanel extends BackgroundPanelTiled
       tablePanel.setBackground(Settings.getVeryLightGold());
       tablePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-      wordPanel = new JPanel(new BorderLayout());
+      wordPanel = new JPanel();
+      BullsEyeExpanderLayout wordPanelLayout = new BullsEyeExpanderLayout(wordPanel);
+      wordPanel.setLayout(wordPanelLayout);
       wordPanel.setMinimumSize(new Dimension(1100, 160));
       wordPanel.setMaximumSize(new Dimension(1100, 160));
       wordPanel.setOpaque(true);
       wordPanel.setBackground(Settings.getVeryLightGold());
-     
-      center.add(tablePanel);
 
-      eyePanel.add(center);
-      add(eyePanel, BorderLayout.CENTER);
+      add(tablePanel);
    }
 
    public void setValues()
@@ -102,7 +90,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
                   scroller.getViewport()
                         .setBackground(Settings.getTransparent());
                   scroller.setViewportBorder(BorderFactory.createEmptyBorder());
-                  wordPanel.add(scroller, BorderLayout.CENTER);
+                  wordPanel.add(scroller);
                }
                else if (column == 2)
                {
@@ -117,7 +105,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
                   scroller.getViewport()
                         .setBackground(Settings.getTransparent());
                   scroller.setViewportBorder(BorderFactory.createEmptyBorder());
-                  wordPanel.add(scroller, BorderLayout.CENTER);
+                  wordPanel.add(scroller);
                }
                wordPanel.validate();
                wordPanel.repaint();

@@ -1,6 +1,5 @@
 package vokabeltrainer.panels;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -12,7 +11,7 @@ import vokabeltrainer.panels.success.LanguageTab;
 import vokabeltrainer.panels.success.InformationTab;
 import vokabeltrainer.panels.success.InformationTabDtoH;
 import vokabeltrainer.panels.success.InformationTabHtoD;
-import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
 import vokabeltrainer.types.Language;
 
 public class SuccessPanel extends BackgroundPanelTiled
@@ -25,12 +24,7 @@ public class SuccessPanel extends BackgroundPanelTiled
 
    public SuccessPanel()
    {
-      setLayout(new BorderLayout());
-
-      JPanel eyePanel = new JPanel();
-      eyePanel.setLayout(new BullsEyeLayout(eyePanel));
-      eyePanel.setOpaque(false);
-      eyePanel.setBackground(Settings.getTransparent());
+      setLayout(new BullsEyeExpanderLayout(this));
 
       germanHebrewRegister = new JTabbedPane();
       germanHebrewRegister.setFont(Settings.getSecondaryToolBarButtonFont());
@@ -45,10 +39,8 @@ public class SuccessPanel extends BackgroundPanelTiled
       germanHebrewRegister.addTab("Start", infoCard);
       germanHebrewRegister.addTab("Deutsch >> Hebräisch", languageDtoHcard);
       germanHebrewRegister.addTab("Hebräisch >> Deutsch", languageHtoDcard);
-      
-      eyePanel.add(germanHebrewRegister);
 
-      add(eyePanel, BorderLayout.CENTER);
+      add(germanHebrewRegister);
 
       initController();
    }

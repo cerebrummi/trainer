@@ -12,7 +12,7 @@ import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.success.table.SuccessTable;
-import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
 
@@ -148,7 +148,7 @@ public class LanguageTab extends JPanel
          case 1:
             notStartedPanel.removeAll();
             JPanel wrapper = new JPanel();
-            BullsEyeLayout wrapperLayout = new BullsEyeLayout(wrapper);
+            BullsEyeExpanderLayout wrapperLayout = new BullsEyeExpanderLayout(wrapper);
             wrapper.setLayout(wrapperLayout);
             wrapper.setBackground(Settings.getDarkGold());
             wrapper.setOpaque(true);         

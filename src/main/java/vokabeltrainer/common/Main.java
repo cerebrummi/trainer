@@ -151,7 +151,7 @@ public final class Main
          window.getContentPane()
                .add(new JScrollPane(vokabeltrainer.common.Common.getMainJPanel()));
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-         window.setSize(1300, 735);
+         window.setSize(1400, 800);
          window.setLocationRelativeTo(null);
          window.setVisible(true);
       });

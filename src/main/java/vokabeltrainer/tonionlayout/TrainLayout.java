@@ -286,8 +286,7 @@ public class TrainLayout
              */
             if (comp instanceof Container && (((Container) comp)
                   .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+                  || ((Container) comp).getLayout() instanceof TrainLayout))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -301,6 +300,16 @@ public class TrainLayout
                   dmax = dmaxContent;
                else
                   dmax = comp.getMaximumSize();
+            }
+            else if (((Container) comp).getLayout() instanceof BullsEyeExpanderLayout)
+            {
+               Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                     .getLayout()).minimumLayoutSize((Container) comp);
+               if (dminContent != null)
+                  dmin = dminContent;
+               else
+                  dmin = comp.getMinimumSize();
+               dmax = comp.getMaximumSize();
             }
             else
             {
@@ -478,7 +487,7 @@ public class TrainLayout
             if (comp instanceof Container && (((Container) comp)
                   .getLayout() instanceof TotemLayout
                   || ((Container) comp).getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+                  || ((Container) comp).getLayout() instanceof BullsEyeExpanderLayout))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -562,8 +571,7 @@ public class TrainLayout
              */
             if (comp instanceof Container && (((Container) comp)
                   .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+                  || ((Container) comp).getLayout() instanceof TrainLayout))
             {
                Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).maximumLayoutSize((Container) comp);
@@ -663,8 +671,7 @@ public class TrainLayout
              */
             if (comp instanceof Container && (((Container) comp)
                   .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+                  || ((Container) comp).getLayout() instanceof TrainLayout))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -678,6 +685,16 @@ public class TrainLayout
                   dmax = dmaxContent;
                else
                   dmax = comp.getMaximumSize();
+            }
+            else if (((Container) comp).getLayout() instanceof BullsEyeExpanderLayout)
+            {
+               Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                     .getLayout()).minimumLayoutSize((Container) comp);
+               if (dminContent != null)
+                  dmin = dminContent;
+               else
+                  dmin = comp.getMinimumSize();
+               dmax = comp.getMaximumSize();
             }
             else
             {

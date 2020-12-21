@@ -1,6 +1,5 @@
 package vokabeltrainer.panels;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 
@@ -10,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
 import vokabeltrainer.ApplicationImages;
@@ -35,7 +35,7 @@ public class MainView extends JPanel
    private JButton aboutButton;
    private JButton letterPicturesButton;
    private JButton successButton;
-   private JPanel activeComponent;
+   private Component activeComponent;
    private DictionaryViewConnector dictionaryPanel;
    private StatisticsPanel statisticsPanel;
    private StartPanel startPanel;
@@ -48,7 +48,7 @@ public class MainView extends JPanel
       initContent();
       initController();
       activeComponent = startPanel;
-      add(activeComponent, BorderLayout.CENTER);
+      add(activeComponent);
    }
 
    private void initContent()
@@ -113,7 +113,7 @@ public class MainView extends JPanel
          {
             remove(activeComponent);
          }
-         activeComponent = (JPanel) dictionaryPanel;
+         activeComponent = (Component) dictionaryPanel;
          dictionaryPanel.setValues();
          add(activeComponent);
          validate();
@@ -194,7 +194,7 @@ public class MainView extends JPanel
          {
             remove(activeComponent);
          }
-         activeComponent = settingsPanel;
+         activeComponent = new JScrollPane(settingsPanel);
 
          add(activeComponent);
          validate();

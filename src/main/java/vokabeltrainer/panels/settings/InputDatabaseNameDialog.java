@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.editing.GermanDocument;
-import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -41,7 +41,7 @@ public class InputDatabaseNameDialog extends JDialog
       this.setLocationRelativeTo(Common.getjFrame());
       
       JPanel panel = new JPanel();
-      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
+      BullsEyeExpanderLayout panelLayout = new BullsEyeExpanderLayout(panel);
       panel.setLayout(panelLayout);
       
       JPanel vertical = new JPanel();

@@ -61,7 +61,7 @@ import javax.swing.JViewport;
  * @version BullsEyeLayout 3.0 (released 20. July 2020)
  */
 
-public class BullsEyeLayout
+public class BullsEyeExpanderLayout
       implements LayoutManager, LayoutManager2, java.io.Serializable
 {
 
@@ -71,22 +71,13 @@ public class BullsEyeLayout
    private static final long serialVersionUID = 5350471242829162225L;
 
    /**
-    * BullsEyeLayout remembers the minimum size of its components. Adding or
+    * BullsEyeExpanderLayout remembers the minimum size of its components. Adding or
     * deleting a component causes the minimum size to be recalculated. The
     * update is passed up the TOnion layers to the outside, therefore
     * BullsEyeLayout must know the component it is assigned to. BullsEyeLayout
     * can not be shared between components.
     */
    private Dimension dimMin;
-
-   /**
-    * BullsEyeLayout remembers the maximum size of its components. Adding or
-    * deleting a component causes the maximum size to be recalculated. The
-    * update is passed up the TOnion layers to the outside, therefore
-    * BullsEyeLayout must know the component it is assigned to. BullsEyeLayout
-    * can not be shared between components.
-    */
-   private Dimension dimMax;
 
    /**
     * This is the container BullsEyeLayout is assigned to.
@@ -109,7 +100,7 @@ public class BullsEyeLayout
     * @param self
     *           the container to be laid out
     */
-   public BullsEyeLayout(Container self)
+   public BullsEyeExpanderLayout(Container self)
    {
       this(self, "none", LayoutMode.NOTEST);
    }
@@ -123,7 +114,7 @@ public class BullsEyeLayout
     * @param testname
     *           the name of the object in test mode
     */
-   public BullsEyeLayout(Container self, String testname)
+   public BullsEyeExpanderLayout(Container self, String testname)
    {
       this(self, testname, LayoutMode.TEST_BULLS_EYE);
    }
@@ -134,10 +125,10 @@ public class BullsEyeLayout
     *
     * All <code>BullsEyeLayout</code> constructors defer to this one.
     */
-   private BullsEyeLayout(Container self, String testname, LayoutMode mode)
+   private BullsEyeExpanderLayout(Container self, String testname,
+         LayoutMode mode)
    {
       this.dimMin = null;
-      this.dimMax = null;
       this.self = self;
       this.testname = testname;
       this.mode = mode;
@@ -206,14 +197,13 @@ public class BullsEyeLayout
          Dimension dmax;
          /*
           * In case Component is Container with Layout instance of TrainLayout,
-          * TotemLayout or BullsEyeLayout the dimensions derived by content - if
+          * TotemLayout or BullsEyeExpanderLayout the dimensions derived by content - if
           * any - should override given Dimensions. Only when there is no
           * content the given Dimensions should be used.
           */
          if (comp instanceof Container && (((Container) comp)
                .getLayout() instanceof TotemLayout
-               || ((Container) comp).getLayout() instanceof TrainLayout
-               || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+               || ((Container) comp).getLayout() instanceof TrainLayout))
          {
             Dimension dminContent = ((LayoutManager2) ((Container) comp)
                   .getLayout()).minimumLayoutSize((Container) comp);
@@ -228,6 +218,16 @@ public class BullsEyeLayout
                dmax = dmaxContent;
             else
                dmax = comp.getMaximumSize();
+         }
+         else if (((Container) comp).getLayout() instanceof BullsEyeExpanderLayout)
+         {
+            Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                  .getLayout()).minimumLayoutSize((Container) comp);
+            if (dminContent != null)
+               dmin = dminContent;
+            else
+               dmin = comp.getMinimumSize();
+            dmax = comp.getMaximumSize();
          }
          else
          {
@@ -358,7 +358,7 @@ public class BullsEyeLayout
             if (comp instanceof Container && (((Container) comp)
                   .getLayout() instanceof TotemLayout
                   || ((Container) comp).getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+                  || ((Container) comp).getLayout() instanceof BullsEyeExpanderLayout))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -393,19 +393,17 @@ public class BullsEyeLayout
 
    /**
     * Determines the maximum size of the container argument using this
-    * BullsEyeLayout.
+    * BullsEyeExpanderLayout.
     * <p>
-    * The maximum height of a BullsEyeLayout is the maximum height of the
-    * component in the container, plus the top and bottom insets of the self
-    * container.
+    * The maximum height of a BullsEyeExpanderLayout is the maximum height 
+    * available, but at least the minimum size of self.
     * <p>
-    * The maximum width of a BullsEyeLayout is the maximum width of the
-    * component in the container, plus the left and right insets of the self
-    * container.
+    * The maximum width of a BullsEyeLayout is the maximum width available,
+    * but at least the minimum width of self
     *
     * @param self
     *           the container in which to do the layout
-    * @return the minimum dimensions needed to lay out the subcomponents of the
+    * @return the maximum dimensions needed to lay out the subcomponents of the
     *         specified container
     * @see java.awt.Container#doLayout
     */
@@ -415,64 +413,27 @@ public class BullsEyeLayout
       synchronized (self.getTreeLock())
       {
          checkContainer(self);
-         if (dimMax != null)
-            return dimMax;
-         Insets insets = self.getInsets();
-         int h = 0;
-         int w = 0;
-         int ncomponents = self.getComponentCount();
-         if (ncomponents > 1)
+         Container parent = self.getParent();
+         double h = parent.getSize().getHeight()
+               - (parent.getInsets().top + parent.getInsets().bottom);
+         double w = parent.getSize().getWidth()
+               - (parent.getInsets().left + parent.getInsets().right);
+         
+         
+         if(self.getMinimumSize() != null)
          {
-            throw new AWTError("BullsEyeLayout can hold only one component");
-         }
-
-         Dimension dmax = null;
-         if (ncomponents == 0)
-         {
-            dmax = self.getMaximumSize();
-         }
-         else
-         {
-            Component comp = self.getComponent(0);
-
-            /*
-             * In case Component is Container with Layout instance of
-             * TrainLayout, TotemLayout or BullsEyeLyout the dimensions derived
-             * by content - if any - should override given Dimensions. Only when
-             * there is no content the given Dimensions should be used.
-             */
-            if (comp instanceof Container && (((Container) comp)
-                  .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+            double hmin = self.getMinimumSize().height;
+            double wmin = self.getMinimumSize().width;
+            if(h < hmin)
             {
-               Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
-                     .getLayout()).maximumLayoutSize((Container) comp);
-               if (dmaxContent != null)
-                  dmax = dmaxContent;
-               else
-                  dmax = comp.getMaximumSize();
+               h = hmin;
             }
-            else
+            if(w < wmin)
             {
-               dmax = comp.getMaximumSize();
+               w = wmin;
             }
          }
-
-         if (dmax != null)
-         {
-            if (h < dmax.height)
-               h = dmax.height; // maxheight is maximized
-            if (w < dmax.width)
-               w = dmax.width; // maxwidth is maximized
-         }
-         else
-         {
-            h = self.getHeight() - (insets.top + insets.bottom);
-            w = self.getWidth() - (insets.left + insets.right);
-         }
-
-         return new Dimension(w, h);
+         return new Dimension((int)w, (int)h);
       }
    }
 
@@ -510,19 +471,8 @@ public class BullsEyeLayout
             return;
 
          Insets insets = self.getInsets();
-         int availableHeight;
-         int availableWidth;
-         if (self.getParent() instanceof JViewport)
-         {
-            JViewport vp = (JViewport) self.getParent();
-            availableHeight = vp.getHeight() - (insets.top + insets.bottom);
-            availableWidth = vp.getWidth() - (insets.left + insets.right);
-         }
-         else
-         {
-            availableHeight = self.getHeight() - (insets.top + insets.bottom);
-            availableWidth = self.getWidth() - (insets.left + insets.right);
-         }
+         int availableHeight = maximumLayoutSize(self).height;
+         int availableWidth = maximumLayoutSize(self).width;
 
          int h = availableHeight;
          int w = availableWidth;
@@ -542,8 +492,7 @@ public class BullsEyeLayout
           */
          if (comp instanceof Container && (((Container) comp)
                .getLayout() instanceof TotemLayout
-               || ((Container) comp).getLayout() instanceof TrainLayout
-               || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+               || ((Container) comp).getLayout() instanceof TrainLayout))
          {
             Dimension dminContent = ((LayoutManager2) ((Container) comp)
                   .getLayout()).minimumLayoutSize((Container) comp);
@@ -558,6 +507,16 @@ public class BullsEyeLayout
                dmax = dmaxContent;
             else
                dmax = comp.getMaximumSize();
+         }
+         else if (((Container) comp).getLayout() instanceof BullsEyeExpanderLayout)
+         {
+            Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                  .getLayout()).minimumLayoutSize((Container) comp);
+            if (dminContent != null)
+               dmin = dminContent;
+            else
+               dmin = comp.getMinimumSize();
+            dmax = comp.getMaximumSize();
          }
          else
          {
@@ -707,11 +666,10 @@ public class BullsEyeLayout
    {
       checkContainer(self);
       this.dimMin = null;
-      this.dimMax = null;
       if (self.getParent() != null && self.getParent().getLayout() != null
             && (self.getParent().getLayout() instanceof TotemLayout
                   || self.getParent().getLayout() instanceof TrainLayout
-                  || self.getParent().getLayout() instanceof BullsEyeLayout))
+                  || self.getParent().getLayout() instanceof BullsEyeExpanderLayout))
       {
          ((LayoutManager2) self.getParent().getLayout())
                .invalidateLayout(self.getParent());
@@ -746,7 +704,7 @@ public class BullsEyeLayout
    {
       if (this.self != self)
       {
-         throw new AWTError("BullsEyeLayout can't be shared");
+         throw new AWTError("BullsEyeLayout can't be shared: " + this.testname);
       }
    }
 }

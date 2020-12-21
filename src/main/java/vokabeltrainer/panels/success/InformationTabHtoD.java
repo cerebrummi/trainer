@@ -1,6 +1,5 @@
 package vokabeltrainer.panels.success;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -11,7 +10,7 @@ import javax.swing.SwingConstants;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -21,14 +20,9 @@ public class InformationTabHtoD extends JPanel
 
    public InformationTabHtoD()
    {
-      this.setLayout(new BorderLayout());
+      this.setLayout(new BullsEyeExpanderLayout(this));
       setOpaque(false);
       setBackground(Settings.getTransparent());
-      
-      JPanel eyePanel = new JPanel();
-      eyePanel.setOpaque(false);
-      eyePanel.setBackground(Settings.getTransparent());
-      eyePanel.setLayout(new BullsEyeLayout(eyePanel));
       
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
@@ -73,9 +67,7 @@ public class InformationTabHtoD extends JPanel
       horizontal.add(leftSide);
       horizontal.add(fillerRight);
       
-      eyePanel.add(horizontal);
-      
-      add(eyePanel, BorderLayout.CENTER);
+      add(horizontal);
    }
    
    public void paintComponent(Graphics g)

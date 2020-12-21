@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BoxLayout;
@@ -15,7 +14,6 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.resources.Images;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class StartPanel extends JPanel

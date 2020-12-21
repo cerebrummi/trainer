@@ -22,6 +22,7 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.letterpicture.LetterPictureAlphabetPanel;
 import vokabeltrainer.panels.letterpicture.LetterTextField;
+import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -37,12 +38,17 @@ public class AlefbetPanel extends BackgroundPanelTiled
 
    public AlefbetPanel()
    {
-      setLayout(new TrainLayout(this, 165));
+      setLayout(new BullsEyeExpanderLayout(this));
+      
+      JPanel horizontal = new JPanel();
+      horizontal.setLayout(new TrainLayout(horizontal, 165));
       this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel();
 
-      add(initLetterPanel());
-      add(letterPictureAlphabetPanel);
-      add(initButtons());
+      horizontal.add(initLetterPanel());
+      horizontal.add(letterPictureAlphabetPanel);
+      horizontal.add(initButtons());
+      
+      add(horizontal);
 
       initController();
       this.setFocusTraversalPolicyProvider(true);
