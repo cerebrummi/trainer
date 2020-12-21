@@ -1,5 +1,6 @@
 package vokabeltrainer.panels;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
@@ -22,6 +23,7 @@ import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingView;
+import vokabeltrainer.tonionlayout.BullsEyeExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 
 public class MainView extends JPanel
@@ -43,19 +45,25 @@ public class MainView extends JPanel
    private AlefbetPanel letterPicturesPanel;
    private SuccessPanel successPanel;
 
+   private JPanel layoutPanel;
+
    public MainView()
    {
       initContent();
       initController();
       activeComponent = startPanel;
-      add(activeComponent);
+      layoutPanel.add(activeComponent);
    }
 
    private void initContent()
    {
-      setLayout(new TotemLayout(this));
-      setBorder(BorderFactory.createEmptyBorder());
-      add(initToolBar());
+      setLayout(new BullsEyeExpanderLayout(this));
+      layoutPanel = new JPanel();
+      TotemLayout layoutPanelLayout = new TotemLayout(layoutPanel);
+      layoutPanel.setLayout(layoutPanelLayout);      
+      
+      setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+      layoutPanel.add(initToolBar());
 
       startPanel = new StartPanel();
       dictionaryPanel = new DictionaryController().getDictionaryPanel();
@@ -63,6 +71,8 @@ public class MainView extends JPanel
       statisticsPanel = new StatisticsPanel();
       settingsPanel = new SettingsPanel();
       successPanel = new SuccessPanel();
+      
+      add(layoutPanel);
    }
 
    private Component initToolBar()
@@ -111,11 +121,11 @@ public class MainView extends JPanel
       dictionaryButton.addActionListener(event -> {
          if (activeComponent != null)
          {
-            remove(activeComponent);
+            layoutPanel.remove(activeComponent);
          }
          activeComponent = (Component) dictionaryPanel;
          dictionaryPanel.setValues();
-         add(activeComponent);
+         layoutPanel.add(activeComponent);
          validate();
          repaint();
       });
@@ -138,7 +148,7 @@ public class MainView extends JPanel
             
             if (activeComponent != null)
             {
-               remove(activeComponent);
+               layoutPanel.remove(activeComponent);
             }
 
             TrainerView trainerPanel = new TrainerController(
@@ -146,7 +156,7 @@ public class MainView extends JPanel
                   dialog.getNewExpressions(), dialog.getOldExpressions()).getTrainerView();
 
             activeComponent = trainerPanel;
-            add(activeComponent);
+            layoutPanel.add(activeComponent);
             validate();
             repaint();
          }
@@ -155,10 +165,10 @@ public class MainView extends JPanel
       letterPicturesButton.addActionListener(event -> {
          if (activeComponent != null)
          {
-            remove(activeComponent);
+            layoutPanel.remove(activeComponent);
          }
          activeComponent = letterPicturesPanel;
-         add(activeComponent);
+         layoutPanel.add(activeComponent);
          validate();
          repaint();
       });
@@ -167,11 +177,11 @@ public class MainView extends JPanel
          Data.determineReloadDatabases();
          if (activeComponent != null)
          {
-            remove(activeComponent);
+            layoutPanel.remove(activeComponent);
          }
          activeComponent = statisticsPanel;
          statisticsPanel.setValues();
-         add(activeComponent);
+         layoutPanel.add(activeComponent);
          validate();
          repaint();
       });
@@ -180,11 +190,11 @@ public class MainView extends JPanel
          Data.determineReloadDatabases();
          if (activeComponent != null)
          {
-            remove(activeComponent);
+            layoutPanel.remove(activeComponent);
          }
          activeComponent = successPanel;
          successPanel.reset();
-         add(activeComponent);
+         layoutPanel.add(activeComponent);
          validate();
          repaint();
       });
@@ -192,11 +202,11 @@ public class MainView extends JPanel
       aboutButton.addActionListener(event -> {
          if (activeComponent != null)
          {
-            remove(activeComponent);
+            layoutPanel.remove(activeComponent);
          }
          activeComponent = new JScrollPane(settingsPanel);
 
-         add(activeComponent);
+         layoutPanel.add(activeComponent);
          validate();
          repaint();
       });
@@ -206,10 +216,10 @@ public class MainView extends JPanel
    {
       if (activeComponent != null)
       {
-         remove(activeComponent);
+         layoutPanel.remove(activeComponent);
       }
       activeComponent = startPanel;
-      add(activeComponent);
+      layoutPanel.add(activeComponent);
       validate();
       repaint();
    }

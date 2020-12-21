@@ -1,6 +1,5 @@
 package vokabeltrainer.panels;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -114,16 +113,19 @@ public class DictionaryView extends BackgroundPanelTiled
    {
       this.connector = connector;
       setLayout(new BullsEyeExpanderLayout(this));
+      setBorder(BorderFactory.createLineBorder(Color.GREEN));
 
       JPanel layout = new JPanel();
       TrainLayout layoutLayout = new TrainLayout(layout, 15);
       layout.setLayout(layoutLayout);
-      layout.setMinimumSize(new Dimension(1703, 600));
+      layout.setMinimumSize(new Dimension(1000, 600));
       layout.setMaximumSize(new Dimension(6000, 2000));
+      layout.setBorder(BorderFactory.createLineBorder(Color.RED));
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 15));
       vertical.setOpaque(false);
+      vertical.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
       horizontalLanguagePanel = new JPanel();
       horizontalLanguagePanel
@@ -137,6 +139,8 @@ public class DictionaryView extends BackgroundPanelTiled
       while (enumeration1.hasMoreElements())
       {
          AbstractButton button = enumeration1.nextElement();
+         button.setMinimumSize(new Dimension(60,30));
+         button.setMaximumSize(new Dimension(200,60));
          button.addActionListener(event -> this.connector
                .switchLanguage(button.getActionCommand()));
          horizontalLanguagePanel.add(button);
@@ -144,6 +148,8 @@ public class DictionaryView extends BackgroundPanelTiled
 
       sortForDateBox = new JCheckBox("nach Datum sortieren");
       sortForDateBox.setFont(Main.getGermanFont(12F));
+      sortForDateBox.setMinimumSize(new Dimension(60,30));
+      sortForDateBox.setMaximumSize(new Dimension(200,60));
       horizontalLanguagePanel.add(sortForDateBox);
       tableInfoButton = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
@@ -160,19 +166,40 @@ public class DictionaryView extends BackgroundPanelTiled
       tabbedPane.addTab("Suche", initSearchTab());
       tabbedPane.addTab("Wortarten", initExpressionKindsTab());
       tabbedPane.addTab("Auswahl", initSelectedTab());
+      tabbedPane.setMinimumSize(new Dimension(420, 400));
+      tabbedPane.setMinimumSize(new Dimension(600, 600));
 
+      JPanel filler = new JPanel();
+      filler.setMinimumSize(new Dimension(1,1));
+      filler.setMaximumSize(new Dimension(1000,2000));
+      filler.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+      
       vertical.add(horizontalLanguagePanel);
       vertical.add(tabbedPane);
+      vertical.add(filler);
 
       tablePanel = new JPanel();
-      TotemLayout tablePanelLayout = new TotemLayout(tablePanel);
+      BullsEyeExpanderLayout tablePanelLayout = new BullsEyeExpanderLayout(tablePanel, "tabelle orange");
       tablePanel.setLayout(tablePanelLayout);
-      tablePanel.setMinimumSize(new Dimension(420, 507));
-      tablePanel.setMaximumSize(new Dimension(513, 600));
+      tablePanel.setMinimumSize(new Dimension(420, 400));
+      tablePanel.setMaximumSize(new Dimension(513, 900));
       tablePanel.setOpaque(false);
+      tablePanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
 
+      JPanel filler2 = new JPanel();
+      filler2.setMinimumSize(new Dimension(50,1));
+      filler2.setMaximumSize(new Dimension(1000,2000));
+      filler2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+      
+      JPanel filler3 = new JPanel();
+      filler3.setMinimumSize(new Dimension(50,1));
+      filler3.setMaximumSize(new Dimension(1000,2000));
+      filler3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+      
       layout.add(vertical);
+      layout.add(filler2);
       layout.add(tablePanel);
+      layout.add(filler3);
       layout.add(initServicePanel());
 
       add(layout);
@@ -489,12 +516,18 @@ public class DictionaryView extends BackgroundPanelTiled
       trashIconPanel.add(shredderButton);
 
       trashPanel.add(trashIconPanel);
+      
+      JPanel filler = new JPanel();
+      filler.setMinimumSize(new Dimension(1,1));
+      filler.setMaximumSize(new Dimension(800,800));
+      filler.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
       vertical.add(newPanel);
       vertical.add(selectUnselectPanel);
       vertical.add(copyPanel);
       vertical.add(deletePanel);
       vertical.add(trashPanel);
+      vertical.add(filler);
       return vertical;
    }
 
@@ -665,7 +698,7 @@ public class DictionaryView extends BackgroundPanelTiled
       JScrollPane scroller = new JScrollPane(chapterList);
       scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
       scroller.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 470));
+            new Dimension(Settings.getKeyboardWidth() + 50, 500));
       scroller.setBorder(BorderFactory.createEmptyBorder());
 
       chapterPanel.add(scroller);
@@ -700,6 +733,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
    public void doShowTable(ExpressionTableModel tableModel)
    {
+      tablePanel.removeAll();
       table = new ExpressionTable(tableModel, this.getSelectedLanguage(),
             connector, true);
       tableScroller = new JScrollPane(table);
@@ -707,8 +741,10 @@ public class DictionaryView extends BackgroundPanelTiled
       tableScroller.getViewport().setOpaque(false);
       tableScroller.setViewportBorder(BorderFactory.createEmptyBorder());
       tableScroller.getVerticalScrollBar().setUnitIncrement(30);
+      tableScroller.setMinimumSize(new Dimension(300,400));
+      tableScroller.setMaximumSize(new Dimension(500,700));
 
-      tablePanel.add(tableScroller, BorderLayout.CENTER);
+      tablePanel.add(tableScroller);
       tableValidateRepaint();
    }
 

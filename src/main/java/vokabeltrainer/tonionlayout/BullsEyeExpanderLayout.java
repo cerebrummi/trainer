@@ -18,24 +18,24 @@ import java.awt.LayoutManager2;
 import javax.swing.JViewport;
 
 /**
- * The <code>BullsEyeLayout</code> class is a layout manager that lays out a
+ * The <code>BullsEyeExpanderLayout</code> class is a layout manager that lays out a
  * container's component in the center.
  * <p>
  * Minimum and maximum sizes are taken into account.
  * <p>
  * <code>TotemLayout</code>, <code>TrainLayout</code> and
- * <code>BullsEyeLayout</code> work together like layers of an onion. They stack
+ * <code>BullsEyeExpanderLayout</code> work together like layers of an onion. They stack
  * into each other and are called TOnionLayout. TOnionLayout was developed to
  * layout forms and data masks. By using minimum and maximum size the layout
  * will resize to fit the available space. The components inside TOnionLayout
  * only have to fit together approximately, the layout will align the components
- * to look neatly by itself. <code>BullsEyeLayout</code> will give the component
+ * to look neatly by itself. <code>BullsEyeExpanderLayout</code> will give the component
  * the maximal possible width and height.
  * <p>
  * Even though TOnionLayout is done top-down each layer inquires about the
  * minimum and maximum sizes of all its components. To acquire a good
  * performance each layer caches the overall minimum and maximum size of its
- * components. Therefore BullsEyeLayout can not be shared. Adding or removing a
+ * components. Therefore BullsEyeExpanderLayout can not be shared. Adding or removing a
  * component invalidates the cache of the layout and all TOnionLayouts above it.
  * <p>
  * All first components inside a TOnionLayout must have a minimum and maximum
@@ -58,7 +58,7 @@ import javax.swing.JViewport;
  *
  * @author Birke Heeren
  * @since private
- * @version BullsEyeLayout 3.0 (released 20. July 2020)
+ * @version BullsEyeExpanderLayout 3.0 (released 20. July 2020)
  */
 
 public class BullsEyeExpanderLayout
@@ -74,13 +74,13 @@ public class BullsEyeExpanderLayout
     * BullsEyeExpanderLayout remembers the minimum size of its components. Adding or
     * deleting a component causes the minimum size to be recalculated. The
     * update is passed up the TOnion layers to the outside, therefore
-    * BullsEyeLayout must know the component it is assigned to. BullsEyeLayout
+    * BullsEyeExpanderLayout must know the component it is assigned to. BullsEyeExpanderLayout
     * can not be shared between components.
     */
    private Dimension dimMin;
 
    /**
-    * This is the container BullsEyeLayout is assigned to.
+    * This is the container BullsEyeExpanderLayout is assigned to.
     */
    private Container self;
 
@@ -95,7 +95,7 @@ public class BullsEyeExpanderLayout
    private LayoutMode mode;
 
    /**
-    * Creates a BullsEyeLayout.
+    * Creates a BullsEyeExpanderLayout.
     * 
     * @param self
     *           the container to be laid out
@@ -106,7 +106,7 @@ public class BullsEyeExpanderLayout
    }
 
    /**
-    * Creates a BullsEyeLayout in test mode.
+    * Creates a BullsEyeExpanderLayout in test mode.
     * <p>
     * 
     * @param self
@@ -123,7 +123,7 @@ public class BullsEyeExpanderLayout
     * private constructor
     * <p>
     *
-    * All <code>BullsEyeLayout</code> constructors defer to this one.
+    * All <code>BullsEyeExpanderLayout</code> constructors defer to this one.
     */
    private BullsEyeExpanderLayout(Container self, String testname,
          LayoutMode mode)
@@ -136,7 +136,7 @@ public class BullsEyeExpanderLayout
 
    /**
     * Determines the preferred size of the container argument using this
-    * BullsEyeLayout.
+    * BullsEyeExpanderLayout.
     * <p>
     * The preferred size is all size available.
     *
@@ -155,7 +155,7 @@ public class BullsEyeExpanderLayout
          int ncomponents = self.getComponentCount();
          if (ncomponents > 1)
          {
-            throw new AWTError("BullsEyeLayout can hold only one component");
+            throw new AWTError("BullsEyeExpanderLayout can hold only one component");
          }
          if (ncomponents == 0)
          {
@@ -178,7 +178,7 @@ public class BullsEyeExpanderLayout
 
          if (self.getParent() instanceof JViewport)
          {
-            return this.minimumLayoutSize(self);
+            return this.maximumLayoutSize(self);
          }
 
          Insets insets = self.getInsets();
@@ -307,13 +307,13 @@ public class BullsEyeExpanderLayout
 
    /**
     * Determines the minimum size of the container argument using this
-    * BullsEyeLayout.
+    * BullsEyeExpanderLayout.
     * <p>
-    * The minimum height of a BullsEyeLayout is the minimum height of the
+    * The minimum height of a BullsEyeExpanderLayout is the minimum height of the
     * component in the container, plus the top and bottom insets of the self
     * container.
     * <p>
-    * The minimum width of a BullsEyeLayout is the minimum width of the
+    * The minimum width of a BullsEyeExpanderLayout is the minimum width of the
     * component in the container, plus the left and right insets of the self
     * container.
     *
@@ -337,7 +337,7 @@ public class BullsEyeExpanderLayout
          int ncomponents = self.getComponentCount();
          if (ncomponents > 1)
          {
-            throw new AWTError("BullsEyeLayout can hold only one component");
+            throw new AWTError("BullsEyeExpanderLayout can hold only one component");
          }
 
          Dimension dmin = null;
@@ -398,7 +398,7 @@ public class BullsEyeExpanderLayout
     * The maximum height of a BullsEyeExpanderLayout is the maximum height 
     * available, but at least the minimum size of self.
     * <p>
-    * The maximum width of a BullsEyeLayout is the maximum width available,
+    * The maximum width of a BullsEyeExpanderLayout is the maximum width available,
     * but at least the minimum width of self
     *
     * @param self
@@ -413,11 +413,10 @@ public class BullsEyeExpanderLayout
       synchronized (self.getTreeLock())
       {
          checkContainer(self);
-         Container parent = self.getParent();
-         double h = parent.getSize().getHeight()
-               - (parent.getInsets().top + parent.getInsets().bottom);
-         double w = parent.getSize().getWidth()
-               - (parent.getInsets().left + parent.getInsets().right);
+         double h = self.getSize().getHeight()
+               - (self.getInsets().top + self.getInsets().bottom);
+         double w = self.getSize().getWidth()
+               - (self.getInsets().left + self.getInsets().right);
          
          
          if(self.getMinimumSize() != null)
@@ -441,10 +440,10 @@ public class BullsEyeExpanderLayout
     * Lays out the specified container using this layout.
     * <p>
     * This method reshapes the component in the specified self container in
-    * order to satisfy the constraints of the <code>BullsEyeLayout</code>
+    * order to satisfy the constraints of the <code>BullsEyeExpanderLayout</code>
     * object.
     * <p>
-    * The component in a BullsEyeLayout is given the maximal height and width
+    * The component in a BullsEyeExpanderLayout is given the maximal height and width
     * within its minium and maximum dimensions range. If the available space is
     * larger than needed by the component, then the component is placed in the
     * center. If the available space is smaller than needed by the component,
@@ -465,7 +464,7 @@ public class BullsEyeExpanderLayout
          int ncomponents = self.getComponentCount();
          if (ncomponents > 1)
          {
-            throw new AWTError("BullsEyeLayout can hold only one component");
+            throw new AWTError("BullsEyeExpanderLayout can hold only one component");
          }
          if (ncomponents == 0)
             return;
@@ -598,7 +597,7 @@ public class BullsEyeExpanderLayout
          if (LayoutMode.TEST_BULLS_EYE == this.mode)
          {
             System.out.println("");
-            System.out.println(testname + " with BullsEyeLayout");
+            System.out.println(testname + " with BullsEyeExpanderLayout");
             System.out.println("available width: " + availableWidth);
             System.out.println("available height: " + availableHeight);
             System.out.println("space left: " + Math.max(x, deltaX));
@@ -704,7 +703,7 @@ public class BullsEyeExpanderLayout
    {
       if (this.self != self)
       {
-         throw new AWTError("BullsEyeLayout can't be shared: " + this.testname);
+         throw new AWTError("BullsEyeExpanderLayout can't be shared: " + this.testname);
       }
    }
 }
