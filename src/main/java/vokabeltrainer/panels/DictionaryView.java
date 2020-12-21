@@ -1,5 +1,6 @@
 package vokabeltrainer.panels;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -55,6 +56,7 @@ import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableRow2;
 import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableSingleselect;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.ExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -112,20 +114,15 @@ public class DictionaryView extends BackgroundPanelTiled
    public DictionaryView(DictionaryControllerConnector connector)
    {
       this.connector = connector;
-      setLayout(new BullsEyeLayout(this));
-      setBorder(BorderFactory.createLineBorder(Color.GREEN));
+      setLayout(new BorderLayout());
 
       JPanel layout = new JPanel();
       TrainLayout layoutLayout = new TrainLayout(layout, 15);
       layout.setLayout(layoutLayout);
-      layout.setMinimumSize(new Dimension(1000, 600));
-      layout.setMaximumSize(new Dimension(6000, 2000));
-      layout.setBorder(BorderFactory.createLineBorder(Color.RED));
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 15));
       vertical.setOpaque(false);
-      vertical.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
       horizontalLanguagePanel = new JPanel();
       horizontalLanguagePanel
@@ -167,34 +164,28 @@ public class DictionaryView extends BackgroundPanelTiled
       tabbedPane.addTab("Wortarten", initExpressionKindsTab());
       tabbedPane.addTab("Auswahl", initSelectedTab());
       tabbedPane.setMinimumSize(new Dimension(420, 400));
-      tabbedPane.setMinimumSize(new Dimension(600, 600));
+      tabbedPane.setMaximumSize(new Dimension(600, 700));
 
       JPanel filler = new JPanel();
       filler.setMinimumSize(new Dimension(1,1));
       filler.setMaximumSize(new Dimension(1000,2000));
-      filler.setBorder(BorderFactory.createLineBorder(Color.BLACK));
       
       vertical.add(horizontalLanguagePanel);
       vertical.add(tabbedPane);
       vertical.add(filler);
 
-      tablePanel = new JPanel();
-      BullsEyeLayout tablePanelLayout = new BullsEyeLayout(tablePanel, "tabelle orange");
-      tablePanel.setLayout(tablePanelLayout);
+      tablePanel = new JPanel(new BorderLayout());
       tablePanel.setMinimumSize(new Dimension(420, 400));
-      tablePanel.setMaximumSize(new Dimension(513, 900));
+      tablePanel.setMaximumSize(new Dimension(513, 800));
       tablePanel.setOpaque(false);
-      tablePanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
 
       JPanel filler2 = new JPanel();
-      filler2.setMinimumSize(new Dimension(50,1));
+      filler2.setMinimumSize(new Dimension(1,1));
       filler2.setMaximumSize(new Dimension(1000,2000));
-      filler2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
       
       JPanel filler3 = new JPanel();
-      filler3.setMinimumSize(new Dimension(50,1));
+      filler3.setMinimumSize(new Dimension(1,1));
       filler3.setMaximumSize(new Dimension(1000,2000));
-      filler3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
       
       layout.add(vertical);
       layout.add(filler2);
@@ -350,16 +341,15 @@ public class DictionaryView extends BackgroundPanelTiled
    private JPanel initChaptersTab()
    {
       chapterPanel = new JPanel();
-      chapterPanel.setLayout(new TotemLayout(chapterPanel));
+      chapterPanel.setLayout(new BorderLayout());
       chapterPanel.setOpaque(false);
       return chapterPanel;
    }
 
    private JPanel initExpressionKindsTab()
    {
-      JPanel vertical1 = new JPanel();
+      JPanel vertical1 = new JPanel(new BorderLayout());
       vertical1.setOpaque(false);
-      vertical1.setLayout(new TotemLayout(vertical1, 15));
 
       expressionKindTable = new ExpressionKindTableSingleselect(
             ExpressionKind.getModel2(), 300, connector);
@@ -520,7 +510,6 @@ public class DictionaryView extends BackgroundPanelTiled
       JPanel filler = new JPanel();
       filler.setMinimumSize(new Dimension(1,1));
       filler.setMaximumSize(new Dimension(800,800));
-      filler.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
       vertical.add(newPanel);
       vertical.add(selectUnselectPanel);
@@ -698,7 +687,7 @@ public class DictionaryView extends BackgroundPanelTiled
       JScrollPane scroller = new JScrollPane(chapterList);
       scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
       scroller.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 500));
+            new Dimension(Settings.getKeyboardWidth() + 50, 700));
       scroller.setBorder(BorderFactory.createEmptyBorder());
 
       chapterPanel.add(scroller);
@@ -741,8 +730,8 @@ public class DictionaryView extends BackgroundPanelTiled
       tableScroller.getViewport().setOpaque(false);
       tableScroller.setViewportBorder(BorderFactory.createEmptyBorder());
       tableScroller.getVerticalScrollBar().setUnitIncrement(30);
-      tableScroller.setMinimumSize(new Dimension(300,400));
-      tableScroller.setMaximumSize(new Dimension(500,700));
+      tableScroller.setMinimumSize(new Dimension(300,300));
+      tableScroller.setMaximumSize(new Dimension(500,800));
 
       tablePanel.add(tableScroller);
       tableValidateRepaint();

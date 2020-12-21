@@ -1,18 +1,18 @@
 package vokabeltrainer.panels;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
@@ -23,7 +23,7 @@ import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingView;
-import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.ExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 
 public class MainView extends JPanel
@@ -45,25 +45,21 @@ public class MainView extends JPanel
    private AlefbetPanel letterPicturesPanel;
    private SuccessPanel successPanel;
 
-   private JPanel layoutPanel;
+   private JMenuBar menuBar;
 
    public MainView()
    {
       initContent();
       initController();
       activeComponent = startPanel;
-      layoutPanel.add(activeComponent);
+      add(activeComponent);
    }
 
    private void initContent()
    {
-      setLayout(new BullsEyeLayout(this));
-      layoutPanel = new JPanel();
-      TotemLayout layoutPanelLayout = new TotemLayout(layoutPanel);
-      layoutPanel.setLayout(layoutPanelLayout);      
-      
-      setBorder(BorderFactory.createLineBorder(Color.YELLOW));
-      layoutPanel.add(initToolBar());
+      setLayout(new ExpanderLayout(this));
+
+      initToolBar();
 
       startPanel = new StartPanel();
       dictionaryPanel = new DictionaryController().getDictionaryPanel();
@@ -71,20 +67,16 @@ public class MainView extends JPanel
       statisticsPanel = new StatisticsPanel();
       settingsPanel = new SettingsPanel();
       successPanel = new SuccessPanel();
-      
-      add(layoutPanel);
    }
 
-   private Component initToolBar()
+   private void initToolBar()
    {
-      JToolBar toolBar = new JToolBar("Werkzeugleiste");
-      toolBar.setOpaque(true);
-      toolBar.setBackground(Settings.getLightGold());
-      toolBar.setRollover(true);
-      toolBar.setFloatable(false);
-      toolBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-      toolBar.setMinimumSize(new Dimension(1200,80));
-      toolBar.setMaximumSize(new Dimension(6000,80));
+      menuBar = new JMenuBar();
+      menuBar.setOpaque(true);
+      menuBar.setBackground(Settings.getLightGold());
+      menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+      menuBar.setMinimumSize(new Dimension(1200,80));
+      menuBar.setMaximumSize(new Dimension(6000,80));
 
       startButton = new JButton("Start");
       vocabularyCardsButton = new JButton("Vokabelkarten");
@@ -101,15 +93,14 @@ public class MainView extends JPanel
       letterPicturesButton.setFont(Settings.getToolBarButtonFont());
       successButton.setFont(Settings.getToolBarButtonFont());
 
-      toolBar.add(startButton);
-      toolBar.add(dictionaryButton);
-      toolBar.add(vocabularyCardsButton);
-      toolBar.add(letterPicturesButton);
-      toolBar.add(statisticsButton);
-      toolBar.add(successButton);
-      toolBar.add(Box.createHorizontalGlue());
-      toolBar.add(aboutButton);
-      return toolBar;
+      menuBar.add(startButton);
+      menuBar.add(dictionaryButton);
+      menuBar.add(vocabularyCardsButton);
+      menuBar.add(letterPicturesButton);
+      menuBar.add(statisticsButton);
+      menuBar.add(successButton);
+      menuBar.add(Box.createHorizontalGlue());
+      menuBar.add(aboutButton);
    }
 
    private void initController()
@@ -121,11 +112,11 @@ public class MainView extends JPanel
       dictionaryButton.addActionListener(event -> {
          if (activeComponent != null)
          {
-            layoutPanel.remove(activeComponent);
+            remove(activeComponent);
          }
          activeComponent = (Component) dictionaryPanel;
          dictionaryPanel.setValues();
-         layoutPanel.add(activeComponent);
+         add(activeComponent);
          validate();
          repaint();
       });
@@ -148,7 +139,7 @@ public class MainView extends JPanel
             
             if (activeComponent != null)
             {
-               layoutPanel.remove(activeComponent);
+               remove(activeComponent);
             }
 
             TrainerView trainerPanel = new TrainerController(
@@ -156,7 +147,7 @@ public class MainView extends JPanel
                   dialog.getNewExpressions(), dialog.getOldExpressions()).getTrainerView();
 
             activeComponent = trainerPanel;
-            layoutPanel.add(activeComponent);
+            add(activeComponent);
             validate();
             repaint();
          }
@@ -165,10 +156,10 @@ public class MainView extends JPanel
       letterPicturesButton.addActionListener(event -> {
          if (activeComponent != null)
          {
-            layoutPanel.remove(activeComponent);
+            remove(activeComponent);
          }
          activeComponent = letterPicturesPanel;
-         layoutPanel.add(activeComponent);
+         add(activeComponent);
          validate();
          repaint();
       });
@@ -177,11 +168,11 @@ public class MainView extends JPanel
          Data.determineReloadDatabases();
          if (activeComponent != null)
          {
-            layoutPanel.remove(activeComponent);
+            remove(activeComponent);
          }
          activeComponent = statisticsPanel;
          statisticsPanel.setValues();
-         layoutPanel.add(activeComponent);
+         add(activeComponent);
          validate();
          repaint();
       });
@@ -190,11 +181,11 @@ public class MainView extends JPanel
          Data.determineReloadDatabases();
          if (activeComponent != null)
          {
-            layoutPanel.remove(activeComponent);
+            remove(activeComponent);
          }
          activeComponent = successPanel;
          successPanel.reset();
-         layoutPanel.add(activeComponent);
+         add(activeComponent);
          validate();
          repaint();
       });
@@ -202,11 +193,11 @@ public class MainView extends JPanel
       aboutButton.addActionListener(event -> {
          if (activeComponent != null)
          {
-            layoutPanel.remove(activeComponent);
+            remove(activeComponent);
          }
          activeComponent = new JScrollPane(settingsPanel);
 
-         layoutPanel.add(activeComponent);
+         add(activeComponent);
          validate();
          repaint();
       });
@@ -216,10 +207,10 @@ public class MainView extends JPanel
    {
       if (activeComponent != null)
       {
-         layoutPanel.remove(activeComponent);
+         remove(activeComponent);
       }
       activeComponent = startPanel;
-      layoutPanel.add(activeComponent);
+      add(activeComponent);
       validate();
       repaint();
    }
@@ -266,6 +257,11 @@ public class MainView extends JPanel
    public DictionaryViewConnector getDictionaryPanel()
    {
       return dictionaryPanel;
+   }
+
+   public JMenuBar getMenuBar()
+   {
+      return menuBar;
    }
 
 }
