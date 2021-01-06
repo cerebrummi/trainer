@@ -367,6 +367,8 @@ public class TrainerView extends BackgroundPanelTiled
       additionalInfo.addActionListener(event -> {
          connector.setAdditionalInfo();
       });
+      additionalInfo.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
+      additionalInfo.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 30));
       
       questionPanel.add(questionField);
       questionPanel.add(additionalInfo);
@@ -490,8 +492,8 @@ public class TrainerView extends BackgroundPanelTiled
 
       feedbackPanel = new JPanel();
       feedbackPanel.setLayout(new TotemLayout(feedbackPanel, 15));
-      feedbackPanel.setMinimumSize(new Dimension(501, 215));
-      feedbackPanel.setMinimumSize(new Dimension(501, 215));
+      feedbackPanel.setMinimumSize(new Dimension(501, 225));
+      feedbackPanel.setMaximumSize(new Dimension(501, 225));
 
       vertical.add(swapPanel);
       vertical.add(sendButton);
@@ -635,9 +637,9 @@ public class TrainerView extends BackgroundPanelTiled
       correctAnswer3.setBackground(Settings.getTransparent());
       correctAnswer3.setOpaque(false);
       correctAnswer3.setBorder(BorderFactory.createEmptyBorder());
-      correctAnswer3.setMinimumSize(new Dimension(490, 30));
-      correctAnswer3.setMaximumSize(new Dimension(510, 30));
       JScrollPane scroller = new JScrollPane(correctAnswer3);
+      scroller.setMinimumSize(new Dimension(490, 40));
+      scroller.setMaximumSize(new Dimension(510, 40));
       scroller.setBorder(BorderFactory.createEmptyBorder());
       
       answerPanel1.add(correctAnswer);
@@ -648,10 +650,9 @@ public class TrainerView extends BackgroundPanelTiled
       answerPanel2.setLayout(new GridLayout(1, 3));
       answerPanel2.setMinimumSize(new Dimension(501, 100));
       answerPanel2.setMaximumSize(new Dimension(501, 100));
-
+      
       feedbackPanel.add(answerPanel1);
       feedbackPanel.add(answerPanel2);
-      feedbackPanel.add(new JPanel());
 
       setHtoDanswerButtons();
       answerPanel2.add(answerOkay);
@@ -785,8 +786,13 @@ public class TrainerView extends BackgroundPanelTiled
       scrollPane.setBorder(BorderFactory.createEmptyBorder());
       scrollPane.setMinimumSize(new Dimension(501, 120));
       scrollPane.setMaximumSize(new Dimension(501, 120));
+      
+      JPanel fillerAnswerPanel = new JPanel();
+      fillerAnswerPanel.setMinimumSize(new Dimension(501, 1));
+      fillerAnswerPanel.setMaximumSize(new Dimension(501, 95));
+      
       feedbackPanel.add(scrollPane);
-      feedbackPanel.add(new JPanel());
+      feedbackPanel.add(fillerAnswerPanel);
       wordPanel.displayWord(result.getExpression().getHebrew());
    }
 }
