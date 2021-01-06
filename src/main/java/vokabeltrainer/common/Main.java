@@ -153,8 +153,8 @@ public final class Main
                .add(new JScrollPane(vokabeltrainer.common.Common.getMainJPanel()));
          window.setJMenuBar(Common.getMainJPanel().getMenuBar());
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-         window.setMinimumSize(new Dimension(1600,950));
-         window.setExtendedState(JFrame. MAXIMIZED_BOTH);
+         window.setSize(new Dimension(1600,950));
+//         window.setExtendedState(JFrame. MAXIMIZED_BOTH);
          window.setLocationRelativeTo(null);
          window.setVisible(true);
       });

@@ -114,7 +114,7 @@ public class DictionaryView extends BackgroundPanelTiled
    public DictionaryView(DictionaryControllerConnector connector)
    {
       this.connector = connector;
-      setLayout(new BorderLayout());
+      setLayout(new ExpanderLayout(this));
 
       JPanel layout = new JPanel();
       TrainLayout layoutLayout = new TrainLayout(layout, 15);

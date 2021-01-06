@@ -3,8 +3,6 @@ package vokabeltrainer.panels;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -23,8 +21,6 @@ import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingView;
-import vokabeltrainer.tonionlayout.ExpanderLayout;
-import vokabeltrainer.tonionlayout.TotemLayout;
 
 public class MainView extends JPanel
 {
@@ -57,7 +53,7 @@ public class MainView extends JPanel
 
    private void initContent()
    {
-      setLayout(new ExpanderLayout(this));
+      setLayout(new BorderLayout());
 
       initToolBar();
 

@@ -89,7 +89,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       {
          // nothing
       }
-      tabbedPane.addTab("Verfügbare Datenbanken", initDatabaseTab());
+//      tabbedPane.addTab("Verfügbare Datenbanken", initDatabaseTab());
 
       add(tabbedPane);
 

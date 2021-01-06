@@ -19,6 +19,7 @@ import vokabeltrainer.panels.statistics.StatisticsTable;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
+import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class StatisticsPanel extends BackgroundPanelTiled
 {
@@ -26,11 +27,16 @@ public class StatisticsPanel extends BackgroundPanelTiled
 
    private JPanel tablePanel;
    private JPanel wordPanel;
+   private JPanel horizontalPanel;
 
    public StatisticsPanel()
    {
       setLayout(new BullsEyeLayout(this));
 
+      horizontalPanel = new JPanel();
+      TrainLayout horizontalPanelLayout = new TrainLayout(horizontalPanel);
+      horizontalPanel.setLayout(horizontalPanelLayout);
+      
       tablePanel = new JPanel();
       tablePanel.setLayout(new TotemLayout(tablePanel));
       tablePanel.setOpaque(true);
@@ -40,12 +46,15 @@ public class StatisticsPanel extends BackgroundPanelTiled
       wordPanel = new JPanel();
       BullsEyeLayout wordPanelLayout = new BullsEyeLayout(wordPanel);
       wordPanel.setLayout(wordPanelLayout);
-      wordPanel.setMinimumSize(new Dimension(1100, 160));
-      wordPanel.setMaximumSize(new Dimension(1100, 160));
+      wordPanel.setMinimumSize(new Dimension(500, 160));
+      wordPanel.setMaximumSize(new Dimension(700, 800));
       wordPanel.setOpaque(true);
       wordPanel.setBackground(Settings.getVeryLightGold());
 
-      add(tablePanel);
+      horizontalPanel.add(tablePanel);
+      horizontalPanel.add(wordPanel);
+      
+      add(horizontalPanel);
    }
 
    public void setValues()
@@ -124,6 +133,5 @@ public class StatisticsPanel extends BackgroundPanelTiled
 
       tablePanel.add(titlePanel);
       tablePanel.add(scroller);
-      tablePanel.add(wordPanel);
    }
 }
