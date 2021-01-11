@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.scale.Scale;
 
 public class LetterPictureButtonPanel extends JPanel
 {
@@ -36,10 +37,13 @@ public class LetterPictureButtonPanel extends JPanel
 
    private CardLayout layout;
 
-   public LetterPictureButtonPanel(BufferedImage picture,
-         HebrewLetter letter, Card[] cards)
+   private Scale scale;
+
+   public LetterPictureButtonPanel(BufferedImage picture, HebrewLetter letter,
+         Card[] cards)
    {
       this.letter = letter;
+      scale = new Scale(50);
 
       this.setMinimumSize(new Dimension(50, 50));
       this.setMaximumSize(new Dimension(50, 50));
@@ -55,9 +59,9 @@ public class LetterPictureButtonPanel extends JPanel
       initGermanCard();
       initBlankCard();
 
-      for(Card card : cards)
+      for (Card card : cards)
       {
-         switch(card)
+         switch (card)
          {
          case BLANK:
             this.add(blankCard);
@@ -97,7 +101,7 @@ public class LetterPictureButtonPanel extends JPanel
       hebrewButton.addActionListener(event -> {
          layout.next(this);
       });
-      
+
       blankButton.addActionListener(event -> {
          layout.next(this);
       });
@@ -166,8 +170,10 @@ public class LetterPictureButtonPanel extends JPanel
       }
       else
       {
-         letterButton = new JButton("<html>"
-               + letter.getUnicode() + "</html>");
+         letterButton = new JButton(
+               new ImageIcon(ApplicationImages.getLetterIconsMap().get(letter)
+                     .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
+                           java.awt.Image.SCALE_SMOOTH)));
          letterButton.setFont(Main.getHebrewFont(30F));
          letterButton.setBorder(BorderFactory.createEmptyBorder());
          letterButton.setContentAreaFilled(false);
@@ -189,18 +195,19 @@ public class LetterPictureButtonPanel extends JPanel
       pictureButton.setOpaque(false);
       pictureCard.add(pictureButton, BorderLayout.CENTER);
    }
-   
+
    private void initBlankCard()
    {
       blankCard = new JPanel(new BorderLayout());
       blankCard.setOpaque(false);
       blankCard.setPreferredSize(new Dimension(50, 50));
-      blankButton = new JButton(new ImageIcon(ApplicationImages.getLetterEmpty()));
+      blankButton = new JButton(
+            new ImageIcon(ApplicationImages.getLetterEmpty()));
       blankButton.setBorder(BorderFactory.createEmptyBorder());
       blankButton.setMargin(new Insets(0, 0, 0, 0));
       blankButton.setOpaque(false);
       blankCard.add(blankButton, BorderLayout.CENTER);
-      
+
    }
 
    public void nextCard()

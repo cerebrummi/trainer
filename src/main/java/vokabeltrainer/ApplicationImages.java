@@ -507,7 +507,7 @@ public class ApplicationImages
    public static void setLetterPicturesMap(
          Map<HebrewLetter, BufferedImage> letterPicturesMap)
    {
-      if(letterPicturesMap.size() < 35)
+      if(letterPicturesMap.size() < 34)
       {
             exitWithMessage("Buchstabenbilder fehlen");
       }
@@ -522,7 +522,7 @@ public class ApplicationImages
    public static void setLetterIconsMap(
          Map<HebrewLetter, BufferedImage> letterIconsMap)
    {
-      if(letterPicturesMap.size() < 33)
+      if(letterIconsMap.size() < 33)
       {
             exitWithMessage("Buchstaben Icons fehlen");
       }

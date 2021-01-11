@@ -72,18 +72,6 @@ public final class Main
 
       try
       {
-         Buchstabenbilder.read();
-      }
-      catch (Exception e)
-      {
-         JOptionPane.showMessageDialog(null,
-               message + "Buchstabenbilder fehlen", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
-         System.exit(1);
-      }
-
-      try
-      {
          LetterIcons.read();
       }
       catch (Exception e1)
@@ -91,6 +79,19 @@ public final class Main
          JOptionPane.showMessageDialog(null,
                message + "Buchstaben Icons fehlen", "Nachricht",
                JOptionPane.CLOSED_OPTION);
+         System.exit(1);
+      }
+      
+      try
+      {
+         Buchstabenbilder.read();
+      }
+      catch (Exception e)
+      {
+         JOptionPane.showMessageDialog(null,
+               message + "Buchstabenbilder fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         e.printStackTrace();
          System.exit(1);
       }
 

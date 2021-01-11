@@ -3,12 +3,9 @@ package vokabeltrainer;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.AffineTransform;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -17,6 +14,7 @@ import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -27,36 +25,12 @@ public class KeyboardHebrewSimple extends JPanel
    private final int BUTTON_SIZE = 42;
    private List<JTextComponent> components;
 
-   private int scaleX;
-   private int scaleY;
+   private Scale scale;
 
    public KeyboardHebrewSimple(JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight)
    {
-      GraphicsConfiguration asdf = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-
-      AffineTransform asfd2 = asdf.getDefaultTransform();
-
-      if(asfd2.getScaleX() < 1.1)
-      {
-         scaleX = BUTTON_SIZE+2;
-         scaleY = BUTTON_SIZE;
-      }
-      else if(asfd2.getScaleX() < 1.35)
-      {
-         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.75);
-         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.75);
-      }
-      else if(asfd2.getScaleX() < 1.6)
-      {
-         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.65);
-         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.65);
-      }
-      else
-      {
-         scaleX = (int)(asfd2.getScaleX()*(BUTTON_SIZE+2)*0.6);
-         scaleY = (int)(asfd2.getScaleY()*BUTTON_SIZE*0.6);
-      }
+      scale = new Scale(BUTTON_SIZE);
       
       if (textfield != null)
       {
@@ -159,7 +133,7 @@ public class KeyboardHebrewSimple extends JPanel
    private Component makeButton(HebrewLetter letter)
    {
       DataButton jButton = new DataButton(ApplicationImages.getLetterIconsMap()
-            .get(letter).getScaledInstance(scaleX, scaleY, java.awt.Image.SCALE_SMOOTH),
+            .get(letter).getScaledInstance(scale.getScaleX(), scale.getScaleY(), java.awt.Image.SCALE_SMOOTH),
             letter.getUnicode());
       jButton.setMargin(new Insets(3, -5, 0, -5));
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));

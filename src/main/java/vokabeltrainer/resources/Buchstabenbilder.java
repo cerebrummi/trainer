@@ -24,6 +24,10 @@ public class Buchstabenbilder
       
       for(HebrewLetter letter : HebrewLetter.values())
       {
+         if(HebrewLetter.NEWSPACE == letter)
+         {
+            continue;
+         }
          BufferedImage picture = ImageIO.read(Buchstabenbilder.class
                .getResourceAsStream("buchstabenbilder/" + letter.name() + ".png"));
          
