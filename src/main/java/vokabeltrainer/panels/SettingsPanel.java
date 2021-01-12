@@ -74,7 +74,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       tabbedPane.addTab("Einstellungen und Service", initSettingsTab());
       try
       {
-         tabbedPane.addTab("Impressum und Haftungsausschluss",
+         tabbedPane.addTab("Lizenz",
                initImpressumTab());
       }
       catch (IOException e1)
@@ -154,7 +154,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       JEditorPane editorPane = new JEditorPane();
       editorPane.setFont(Settings.getButtonFont());
       editorPane.setContentType("text/html");
-      editorPane.setPage(Nachweise.class.getResource("Impressum"));
+      editorPane.setPage(Nachweise.class.getResource("lizenz.txt"));
       editorPane.setEditable(false);
       editorPane.addHyperlinkListener(event -> {
          if (event.getEventType() == EventType.ACTIVATED

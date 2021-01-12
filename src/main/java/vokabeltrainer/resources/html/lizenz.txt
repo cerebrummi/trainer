@@ -1,0 +1,56 @@
+Lizenz
+
+
+AdaAdama UG (haftungsbeschränkt)
+Gustebiner Wende 4a
+17491 Greifswald
+
+cerebrummi@adaadama.com
+
+Steuernummer: 084/105/04821
+Handelsregister: Amtsgericht Stralsund, B 21350
+
+
+
+Diese Lizenz gilt für den Vokabeltrainer "Cerebrummi Ivrit" in der Version 0.9. Der Quellcode für Cerebrummi Ivrit ist nicht verfügbar. Diese Lizenzbestimmungen sind ein Vertrag zwischen Ihnen und der AdaAdama UG (haftungsbeschränkt).
+
+Die Installation und Nutzung des Vokabeltrainer Cerebrummi Ivrit Version 0.9 wird zu Testzwecken "wie besehen" verschenkt, das Produkt selbst bleibt im Eigentum der AdaAdama UG (haftungsbeschränkt). Es besteht kein Anrecht darauf, dass der Vokabeltrainer Cerebrummi Ivrit Version 0.9 funktioniert. Betriebssystem:
+Der Vokabeltrainer Cerebrummi Ivrit Version 0.9 funktioniert nur mit Windows 10, 64 bit.
+
+
+
+WENN SIE DIESE LIZENZBESTIMMUNGEN EINHALTEN, VERFÜGEN SIE ÜBER DIE NACHFOLGEND AUFGEFÜHRTEN RECHTE:
+
+1.	RECHTE ZUR INSTALLATION UND NUTZUNG.
+Allgemein. Sie sind berechtigt, eine beliebige Anzahl von Kopien der Software Vokabeltrainer Cerebrummi Ivrit Version 0.9  zu verwenden. Der Test der Software endet am 31.12.2021 und kann danach nicht mehr verwendet werden.
+
+2.	DATEN.  
+Datenerfassung. Diese Software erhebt keine Daten über sie. Es werden keine Daten an die AdaAdama UG (haftungsbeschränkt) gesendet. Die von Ihnen eingegeben Vokabeln werden auf Ihrem Computer gespeichert.
+
+3.	SERVICES. 
+Da die Installation und Nutzung der Software "wie besehen" verschenkt wird, stellen wir für diese möglicherweise keine Supportleistungen zur Verfügung. Wir freuen uns aber über konstruktive Rückmeldungen, die geeignet sind das Produkt zu verbessern. Wenn Sie AdaAdama UG (haftungsbeschränkt) Rückmeldungen zur Software geben, berechtigen Sie AdaAdama UG (haftungsbeschränkt), Ihr Feedback zu verwenden, an Dritte weiterzugeben und für kommerzielle Zwecke und in jeglicher Weise und für jeglichen Zweck zu nutzen, ohne dafür Gebühren zu berechnen.
+
+4.	GESAMTER VERTRAG. 
+Dieser Vertrag stellt den gesamten Vertrag über die Software dar.
+
+5.	GEWÄHRLEISTUNG.
+Die ordnungsgemäß lizenzierte Software ist eine Testsoftware. AdaAdama UG (haftungsbeschränkt) erteilt keine vertragliche Garantie hinsichtlich der lizenzierten Software.
+
+6.	HAFTUNGSBESCHRÄNKUNG. 
+Bei Vorsatz, grober Fahrlässigkeit, Ansprüchen nach dem Produkthaftungsgesetz sowie bei Verletzung von Leben, Körper oder Gesundheit haftet AdaAdama UG (haftungsbeschränkt) nach den gesetzlichen Bestimmungen.
+Vorbehaltlich der vorstehenden Klausel haftet AdaAdama UG (haftungsbeschränkt) bei leichter Fahrlässigkeit nur, wenn das Unternehmen eine wesentliche Vertragspflicht verletzt, deren Erfüllung die ordnungsgemäße Durchführung dieses Vertrages überhaupt erst ermöglicht, deren Verletzung die Erreichung des Vertragszwecks gefährdet und auf deren Einhaltung eine Partei regelmäßig vertrauen darf (sog. "Kardinalpflichten"). In anderen Fällen leichter Fahrlässigkeit haftet AdaAdama UG (haftungsbeschränkt) nicht. Fehler in der Software sind keine Fahrlässigkeit, da es sich um Testsoftware handelt.
+
+7.	AUSSCHLUSS VON GARANTIEN. 
+Die Software wird "wie besehen" lizenziert. Sie tragen das mit der Installation und Nutzung verbundene Risiko. AdaAdama UG (haftungsbeschränkt) gewährt keine ausdrücklichen Gewährleistungen oder Garantien. In dem nach ihrem örtlich anwendbaren Recht zulässigen Umfang schließt AdaAdama UG (haftungsbeschränkt) konkludente Garantien der Handelsüblichkeit, Eignung für einen bestimmten Zweck und Nichtverletzung von Rechten Dritter aus.
+
+8.	BESCHRÄNKUNG UND AUSSCHLUSS VON SCHADENERSATZ. 
+Sie können von AdaAdama UG (haftungsbeschränkt) keinen Ersatz für direkte Schäden erhalten. Sie können keinen Ersatz für andere Schäden erhalten, einschließlich Folgeschäden, Schäden aus entgangenem Gewinn, spezielle, indirekte oder zufällige Schäden.
+Diese Einschränkung gilt für 
+(a) jeden Gegenstand im Zusammenhang mit der Software, Diensten, Inhalten (einschließlich Code) 
+(b) Ansprüche aus Vertragsverletzungen, Verletzungen der Garantie oder der Gewährleistung, verschuldensunabhängiger Haftung, Fahrlässigkeit oder anderen unerlaubten Handlungen im durch das anwendbare Recht zugelassenen Umfang.
+Sie hat auch dann Gültigkeit, wenn AdaAdama UG (haftungsbeschränkt) von der Möglichkeit der Schäden gewusst hat oder hätte wissen müssen.
+
+9.	GÜLTIGKEIT.
+Sollte eine Bestimmung dieser Lizenz rechtlich ungültig sein, dann behält der Rest der Lizenz seine Gültigkeit.
+
+Greifswald, den 12.01.2021
