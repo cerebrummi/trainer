@@ -30,13 +30,13 @@ public class SuccessPanel extends BackgroundPanelTiled
       germanHebrewRegister.setFont(Settings.getSecondaryToolBarButtonFont());
       germanHebrewRegister.setTabPlacement(JTabbedPane.LEFT);
       germanHebrewRegister.setMinimumSize(new Dimension(1254, 613));
-      germanHebrewRegister.setMaximumSize(new Dimension(1254, 613));
+      germanHebrewRegister.setMaximumSize(new Dimension(1500, 800));
 
       infoCard = new InformationTab();
       languageDtoHcard = new LanguageTab(new InformationTabDtoH(), Language.GERMAN);
       languageHtoDcard = new LanguageTab(new InformationTabHtoD(), Language.HEBREW);
 
-      germanHebrewRegister.addTab("Start", infoCard);
+      germanHebrewRegister.addTab("Karteikasten", infoCard);
       germanHebrewRegister.addTab("Deutsch >> Hebräisch", languageDtoHcard);
       germanHebrewRegister.addTab("Hebräisch >> Deutsch", languageHtoDcard);
 

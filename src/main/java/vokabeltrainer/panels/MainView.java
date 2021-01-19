@@ -192,7 +192,7 @@ public class MainView extends JPanel
             remove(activeComponent);
          }
          activeComponent = new JScrollPane(settingsPanel);
-
+         settingsPanel.setValues();
          add(activeComponent);
          validate();
          repaint();

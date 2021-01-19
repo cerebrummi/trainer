@@ -21,6 +21,7 @@ public class SuccessTableCellRenderer
    private JLabel selected;
    private JLabel empty;
    private JLabel expression;
+   private JLabel chapter;
 
    public SuccessTableCellRenderer()
    {
@@ -36,6 +37,11 @@ public class SuccessTableCellRenderer
       expression.setFont(Main.getHebrewFont(18F));
       expression.setBackground(Settings.getVeryLightGold());
       expression.setOpaque(true);
+      
+      chapter = new JLabel();
+      chapter.setFont(Main.getGermanFont(20));
+      chapter.setBackground(Settings.getVeryLightGold());
+      chapter.setOpaque(true);
    }
 
    @Override
@@ -105,8 +111,14 @@ public class SuccessTableCellRenderer
          }
       }
 
-      this.expression.setText(expression.getWordGermanForSuccess());
-      return this.expression;
+      if(column == 1)
+      {
+         this.expression.setText(expression.getWordGermanForSuccess());
+         return this.expression;
+      }
+      
+      chapter.setText(expression.getChapter().getName());
+      return chapter;
    }
 
 }

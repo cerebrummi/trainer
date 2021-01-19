@@ -333,6 +333,12 @@ public class SettingsPanel extends BackgroundPanelTiled
       return vertical;
    }
 
+   public void setValues()
+   {
+      soundButton.setIcon(new ImageIcon(Settings.getSound()));
+      soundslider.setValue((int) Settings.getVolume());
+   }
+   
    private Component initSoundPanel()
    {
       JPanel vertical = new JPanel();

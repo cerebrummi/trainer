@@ -19,10 +19,10 @@ Der Vokabeltrainer Cerebrummi Ivrit Version 0.9 funktioniert nur mit Windows 10,
 
 
 
-WENN SIE DIESE LIZENZBESTIMMUNGEN EINHALTEN, VERFUeGEN SIE UeBER DIE NACHFOLGEND AUFGEFUeHRTEN RECHTE:
+WENN SIE DIESE LIZENZBESTIMMUNGEN EINHALTEN, VERFUEGEN SIE UEBER DIE NACHFOLGEND AUFGEFUEHRTEN RECHTE:
 
 1.	RECHTE ZUR INSTALLATION UND NUTZUNG.
-Allgemein. Sie sind berechtigt, eine beliebige Anzahl von Kopien der Software Vokabeltrainer Cerebrummi Ivrit Version 0.9  zu verwenden. Der Test der Software endet am 31.12.2021 und kann danach nicht mehr verwendet werden.
+Allgemein. Sie sind berechtigt, eine beliebige Anzahl von Kopien der Software Vokabeltrainer Cerebrummi Ivrit Version 0.9  zu verwenden. Der Test der Software endet am 31.12.2021 und die Software kann danach nicht mehr verwendet werden.
 
 2.	DATEN.  
 Datenerfassung. Diese Software erhebt keine Daten ueber sie. Es werden keine Daten an die AdaAdama UG (haftungsbeschraenkt) gesendet. Die von Ihnen eingegeben Vokabeln werden auf Ihrem Computer gespeichert.
@@ -53,4 +53,4 @@ Sie hat auch dann Gueltigkeit, wenn AdaAdama UG (haftungsbeschraenkt) von der Mo
 9.	GUELTIGKEIT.
 Sollte eine Bestimmung dieser Lizenz rechtlich ungueltig sein, dann behaelt der Rest der Lizenz seine Gueltigkeit.
 
-Greifswald, den 12.01.2021
+Greifswald, den 14.01.2021

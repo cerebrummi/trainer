@@ -163,7 +163,7 @@ public class Expression
    {
       return doNotChange;
    }
-   
+
    public boolean isDoChange()
    {
       return !doNotChange;
@@ -290,15 +290,15 @@ public class Expression
       {
          joiner.add(definitions.getGenderInfos());
       }
-      if(!definitions.getBinjanInfos().isEmpty())
+      if (!definitions.getBinjanInfos().isEmpty())
       {
          joiner.add(definitions.getBinjanInfos());
       }
-      if(!definitions.getVerbConjugationInfos().isEmpty())
+      if (!definitions.getVerbConjugationInfos().isEmpty())
       {
          joiner.add(definitions.getVerbConjugationInfos());
       }
-      if(longVersion && !additionalInformation.isBlank())
+      if (longVersion && !additionalInformation.isBlank())
       {
          joiner.add(additionalInformation);
       }
@@ -316,15 +316,15 @@ public class Expression
       {
          joiner.add(definitions.getGenderInfos());
       }
-      if(!definitions.getBinjanInfos().isEmpty())
+      if (!definitions.getBinjanInfos().isEmpty())
       {
          joiner.add(definitions.getBinjanInfos());
       }
-      if(!definitions.getVerbConjugationInfos().isEmpty())
+      if (!definitions.getVerbConjugationInfos().isEmpty())
       {
          joiner.add(definitions.getVerbConjugationInfos());
       }
-      if(longVersion && !additionalInformation.isBlank())
+      if (longVersion && !additionalInformation.isBlank())
       {
          joiner.add(additionalInformation);
       }
@@ -348,7 +348,7 @@ public class Expression
       joiner.add(lastModified.toString());
       return joiner.toString();
    }
-   
+
    public String getExpressionPrintLineForSaving(String databaseName)
    {
       StringJoiner joiner = new StringJoiner("\t");
@@ -487,10 +487,9 @@ public class Expression
 
    public String getWordGermanForSuccess()
    {
-      return "<html><p>" + chapter.getName() + "</p><br>"
-            + "<p style=\"margin-top:5;\"><b>" + german + "</b></p><br>"
+      return "<html><p style=\"margin-top:5;\"><b>" + german + "</b></p><br>"
             + "<p style=\"margin-top:5;\">" + hebrew + "</p><br>"
-            + "<p style=\"margin-top:5;\">" + this.getAdditionalInfoGerman(false)
-            + "</p></html>";
+            + "<p style=\"margin-top:5;\">"
+            + this.getAdditionalInfoGerman(false) + "</p></html>";
    }
 }

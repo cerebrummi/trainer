@@ -54,9 +54,9 @@ public class LanguageTab extends JPanel
       register = new JTabbedPane();
       register.setFont(Settings.getSecondaryToolBarButtonFont());
 
-      register.addTab("Start", infoPanel); // 0
+      register.addTab("Richtung", infoPanel); // 0
       register.addTab("Ungelernt", initNotStarted()); // 1
-      register.addTab("Heute", initNow()); // 2
+      register.addTab("Start", initNow()); // 2
       register.addTab("Einen Tag", initOneDay()); // 3
       register.addTab("Zwei Tage", initTwoDays()); // 4
       register.addTab("Vier Tage", initFourDays()); // 5
@@ -157,7 +157,7 @@ public class LanguageTab extends JPanel
                   Data.findSuccessModel(languageDirection, null));
             JScrollPane scroller = new JScrollPane(table);
             scroller.setMinimumSize(new Dimension(1017,508));
-            scroller.setMaximumSize(new Dimension(1017,508));
+            scroller.setMaximumSize(new Dimension(1200,655));
             scroller.setBackground(Settings.getDarkGold());
             scroller.setOpaque(true);
             scroller.getViewport().setBackground(Settings.getLightBlue());

@@ -24,7 +24,14 @@ public class SuccessTableColumnModel extends DefaultTableColumnModel
       column1.setHeaderValue("Wort");
       column1.setCellRenderer(renderer);
       column1.setCellEditor(renderer);
-      column1.setPreferredWidth(900);
+      column1.setPreferredWidth(800);
       addColumn(column1);
+      
+      TableColumn column2 = new TableColumn();
+      column2.setHeaderValue("Kapitel");
+      column2.setCellRenderer(renderer);
+      column2.setCellEditor(renderer);
+      column2.setPreferredWidth(300);
+      addColumn(column2);
    }
 }

@@ -57,8 +57,8 @@ public class SuccessHelper
       SuccessTable table = new SuccessTable(model);
       
       JScrollPane scroller = new JScrollPane(table);
-      scroller.setMinimumSize(new Dimension(1017,468));
-      scroller.setMaximumSize(new Dimension(1017,468));
+      scroller.setMinimumSize(new Dimension(1200,600));
+      scroller.setMaximumSize(new Dimension(1500,750));
       scroller.setBackground(Settings.getDarkGold());
       scroller.setOpaque(true);
       scroller.getViewport().setBackground(Settings.getLightBlue());
@@ -73,8 +73,8 @@ public class SuccessHelper
       JPanel fillerPanel = new JPanel(new FlowLayout());
       fillerPanel.setBackground(Settings.getDarkGold());
       fillerPanel.setOpaque(true);
-      fillerPanel.setMinimumSize(new Dimension(1017,15));
-      fillerPanel.setMaximumSize(new Dimension(1017,15));
+      fillerPanel.setMinimumSize(new Dimension(1200,15));
+      fillerPanel.setMaximumSize(new Dimension(1500,15));
       
       JPanel buttonWrapperPanel = new JPanel();
       BullsEyeLayout buttonWrapperLayout = new BullsEyeLayout(buttonWrapperPanel);
@@ -85,8 +85,8 @@ public class SuccessHelper
       buttonPanel.setBackground(Settings.getDarkGold());
       buttonPanel.setOpaque(true);
       buttonPanel.setLayout(new TrainLayout(buttonPanel, 15));
-      buttonPanel.setMinimumSize(new Dimension(935,40));
-      buttonPanel.setMaximumSize(new Dimension(935,40));
+      buttonPanel.setMinimumSize(new Dimension(1200,40));
+      buttonPanel.setMaximumSize(new Dimension(1500,40));
       
       JButton selectAllButton = new JButton("alle auswählen");
       selectAllButton.setIcon(new ImageIcon(ApplicationImages.getSelect()));

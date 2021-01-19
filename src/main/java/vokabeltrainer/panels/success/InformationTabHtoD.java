@@ -20,30 +20,25 @@ public class InformationTabHtoD extends JPanel
 
    public InformationTabHtoD()
    {
-      this.setLayout(new BullsEyeLayout(this));
+      this.setLayout(new TrainLayout(this));
       setOpaque(false);
       setBackground(Settings.getTransparent());
-      
-      JPanel horizontal = new JPanel();
-      horizontal.setLayout(new TrainLayout(horizontal));
-      horizontal.setOpaque(false);
-      horizontal.setBackground(Settings.getTransparent());
       
       JPanel leftSide = new JPanel();
       leftSide.setLayout(new TotemLayout(leftSide));
       leftSide.setOpaque(true);
       leftSide.setBackground(Settings.getLightGold());
       
-      JPanel fillerTop = new JPanel(new FlowLayout());
-      fillerTop.setMinimumSize(new Dimension(200, 10));
-      fillerTop.setMaximumSize(new Dimension(400, 10));
-      fillerTop.setOpaque(false);
-      fillerTop.setBackground(Settings.getTransparent());
+      JPanel fillerBottom = new JPanel(new FlowLayout());
+      fillerBottom.setMinimumSize(new Dimension(200, 100));
+      fillerBottom.setMaximumSize(new Dimension(400, 700));
+      fillerBottom.setOpaque(false);
+      fillerBottom.setBackground(Settings.getTransparent());
       
       JPanel boxWrapper = new JPanel(new FlowLayout());
       boxWrapper.setOpaque(false);
       boxWrapper.setBackground(Settings.getTransparent());
-      boxWrapper.setPreferredSize(new Dimension(400, 100));
+      boxWrapper.setPreferredSize(new Dimension(355, 100));
       JLabel box = new JLabel("<html>Hebräisch >> Deutsch</html>");
       box.setMinimumSize(new Dimension(355, 100));
       box.setMaximumSize(new Dimension(355, 100));
@@ -57,17 +52,15 @@ public class InformationTabHtoD extends JPanel
       
       JPanel fillerRight = new JPanel(new FlowLayout());
       fillerRight.setMinimumSize(new Dimension(600, 500));
-      fillerRight.setMaximumSize(new Dimension(900, 700));
+      fillerRight.setMaximumSize(new Dimension(900, 850));
       fillerRight.setOpaque(false);
       fillerRight.setBackground(Settings.getTransparent());
       
-      leftSide.add(fillerTop);
       leftSide.add(boxWrapper);
+      leftSide.add(fillerBottom);
       
-      horizontal.add(leftSide);
-      horizontal.add(fillerRight);
-      
-      add(horizontal);
+      add(leftSide);
+      add(fillerRight);
    }
    
    public void paintComponent(Graphics g)
