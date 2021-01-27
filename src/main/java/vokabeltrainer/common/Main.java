@@ -119,7 +119,23 @@ public final class Main
          UIManager.put("List.opaque", false);
          UIManager.put("Table.cellRenderer", false);
          UIManager.put("OptionPane.buttonFont", Main.getGermanFont(16F));
-
+         UIManager.put("FileChooser.openButtonText", "Öffnen");
+         UIManager.put("FileChooser.cancelButtonText", "Abbrechen");
+         UIManager.put("FileChooser.saveButtonText", "Speichern");
+         UIManager.put("FileChooser.cancelButtonToolTipText", "Abbrechen der Auswahl");
+         UIManager.put("FileChooser.saveButtonToolTipText", "Ausgewählte Datei speichern");
+         UIManager.put("FileChooser.openButtonToolTipText", "Ausgewählte Datei öffnen");
+         UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene höher");
+         UIManager.put("FileChooser.homeFolderToolTipText", "Home");
+         UIManager.put("FileChooser.newFolderToolTipText", "Neuen Ordner erstellen");
+         UIManager.put("FileChooser.listViewButtonToolTipText", "Liste");
+         UIManager.put("FileChooser.detailsViewButtonToolTipText", "Details");
+         UIManager.put("FileChooser.lookInLabelText", "Suchen in:");
+         UIManager.put("FileChooser.fileNameLabelText", "Dateiname:");
+         UIManager.put("FileChooser.filesOfTypeLabelText", "Dateityp:");
+         UIManager.put("FileChooser.acceptAllFileFilterText", "Alle Dateien (*.*)");
+         UIManager.put("FileChooser.folderNameLabelText", "Ordner Name:");
+         UIManager.put("FileChooser.openDialogTitleText", "Öffnen");
       }
       catch (UnsupportedLookAndFeelException e3)
       {
