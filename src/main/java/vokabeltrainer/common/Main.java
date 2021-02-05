@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
+import java.time.LocalDate;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -33,9 +35,22 @@ public final class Main
    private static Font hebrewFont;
    private static String message = "Cerebrummi© bitte neu starten.\nFehler: ";
 
+   // -Dsun.java2d.uiScale=1
+   
    public static void main(String[] args)
    {
 
+      LocalDate thisPointInTime = LocalDate.now();
+      LocalDate endOfTest = LocalDate.of(2023, 1, 1);
+
+      if (endOfTest.isBefore(thisPointInTime))
+      {
+         JOptionPane.showMessageDialog(null,
+               "Die Nutzungszeit für diese Version Jahr 2022\nvon Cerebrummi© Ivrit 1.0 ist abgelaufen.\nBestellen Sie eine aktuelle Version\nunter cerebrummi@adaadama.com",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
+         System.exit(0);
+      }
+      
       try
       {
          Fonts.read();
@@ -148,7 +163,7 @@ public final class Main
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
          window.setTitle(
-               "Cerebrummi©/Ivrit Version 1.0");
+               "Cerebrummi© Ivrit 1.0 Version Jahr 2022 | Nutzungszeit bis 31.12.2022");
          window.setFont(germanFont.deriveFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
          ToolTipManager.sharedInstance().setInitialDelay(1000);
