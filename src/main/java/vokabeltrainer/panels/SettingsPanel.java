@@ -35,7 +35,6 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.ImportExpressions;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
-import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
 import vokabeltrainer.panels.settings.table.multiselect.DatabaseTable;
 import vokabeltrainer.resources.html.Nachweise;
@@ -55,7 +54,6 @@ public class SettingsPanel extends BackgroundPanelTiled
    private JButton splotchSoundButton;
    private JButton shredderSoundButton;
    private JFileChooser folderChooser;
-   private JButton folderChooserButton;
    private JButton folderChooserButtonWithoutSaving;
    private JTextArea folderLabel;
    private JButton importButton;
@@ -248,11 +246,6 @@ public class SettingsPanel extends BackgroundPanelTiled
       folderLabel.setMinimumSize(new Dimension(WIDTH, 100));
       folderLabel.setMaximumSize(new Dimension(WIDTH, 100));
 
-      folderChooserButton = new JButton("ändern mit Speichern");
-      folderChooserButton.setFont(Settings.getButtonFont());
-      folderChooserButton.setToolTipText(
-            "Behält die aktuellen Vokabeln und speichert sie am neuen Ort. Vorsicht! Alle Vokabeln die am neuen Ort schon waren, gehen verloren!");
-
       folderChooserButtonWithoutSaving = new JButton("ändern ohne Speichern");
       folderChooserButtonWithoutSaving.setFont(Settings.getButtonFont());
       folderChooserButtonWithoutSaving.setToolTipText(
@@ -269,7 +262,6 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       vertical.add(saverLabel);
       vertical.add(folderLabel);
-      vertical.add(folderChooserButton);
       vertical.add(folderChooserButtonWithoutSaving);
       vertical.add(deleteLabel);
       vertical.add(deleteDatabaseButton);
@@ -525,35 +517,6 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
       });
 
-      folderChooserButton.addActionListener(event -> {
-         folderChooser = new JFileChooser(Settings.getExpressionPath());
-         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-         int returnVal = folderChooser.showOpenDialog(this);
-
-         if (returnVal == JFileChooser.APPROVE_OPTION)
-         {
-            Settings.setChoosenExpressionPath(
-                  folderChooser.getSelectedFile().getPath());
-
-            this.folderLabel.setText(Settings.getExpressionPath());
-
-            new SwingWorker<Void, Void>()
-            {
-
-               @Override
-               protected Void doInBackground() throws Exception
-               {
-                  SaveExpressions saver = new SaveExpressions();
-                  saver.save();
-                  SaveTraining trainingSaver = new SaveTraining();
-                  trainingSaver.save();
-                  return null;
-               }
-
-            }.execute();
-         }
-      });
-
       folderChooserButtonWithoutSaving.addActionListener(event -> {
          folderChooser = new JFileChooser(Settings.getExpressionPath());
          folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -766,7 +729,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       this.deleteDatabaseButton.addActionListener(event -> {
          String databaseChoosen = (String) JOptionPane.showInputDialog(
                Common.getMainJPanel(),
-               "Wählen Sie eine Datenbank zu Löschen aus.",
+               "Wählen Sie eine Datenbank zum Löschen aus.",
                "Datenbank in den Papierkorb", JOptionPane.QUESTION_MESSAGE,
                new ImageIcon(ApplicationImages.getLogo24()),
                Data.getAllOwnDistinctDatabaseDescriptions(false), null);
