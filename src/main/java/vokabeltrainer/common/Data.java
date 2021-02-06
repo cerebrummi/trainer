@@ -19,16 +19,18 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.Vector;
-import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -474,10 +476,37 @@ public final class Data
       private boolean importDatabase(String databasePath, String databaseName,
             boolean overwriteDatabaseNames)
       {
-         for (LetterForSaving letter : LetterForSaving.values())
+         if (databasePath.endsWith(".zip"))
          {
-            readFileImport(databasePath, letter, databaseName,
-                  overwriteDatabaseNames);
+            try (ZipFile zipFile = new ZipFile(databasePath);)
+            {
+               for (LetterForSaving letter : LetterForSaving.values())
+               {
+                  try
+                  {
+                     readZipFileImport(zipFile,
+                           zipFile.getEntry(letter.name() + ".csv"), letter,
+                           databaseName, overwriteDatabaseNames);
+                  }
+                  catch (Exception e1)
+                  {
+                     // nothing
+                  }
+               }
+            }
+            catch (Exception e)
+            {
+               return false;
+            }
+
+         }
+         else
+         {
+            for (LetterForSaving letter : LetterForSaving.values())
+            {
+               readFileImport(databasePath, letter, databaseName,
+                     overwriteDatabaseNames);
+            }
          }
 
          return true;
@@ -504,6 +533,22 @@ public final class Data
                   overwrite, databaseName, false);
          }
          catch (IOException e)
+         {
+            // nothing
+         }
+      }
+
+      private void readZipFileImport(ZipFile zipFile, ZipEntry entry,
+            LetterForSaving letter, String databaseName, boolean overwrite)
+      {
+         try (InputStream stream = zipFile.getInputStream(entry);
+               InputStreamReader isr = new InputStreamReader(stream, "UTF-8");
+               Reader reader = new BufferedReader(isr);)
+         {
+            readData(letter.name() + ".csv", reader, Database.IMPORTED, letter,
+                  overwrite, databaseName, false);
+         }
+         catch (Exception e)
          {
             // nothing
          }
@@ -868,8 +913,8 @@ public final class Data
          }
 
          return new ExpressionTableModel(
-               convertToExpressionModelArray(
-                     filterExpressions(text, language, search, expressions, sortForDate)),
+               convertToExpressionModelArray(filterExpressions(text, language,
+                     search, expressions, sortForDate)),
                COLUMNAMES);
       }
 
@@ -886,7 +931,8 @@ public final class Data
       }
 
       private List<Expression> filterExpressions(String text, Language language,
-            SearchType search, Collection<Expression> expressions, boolean sortForDate)
+            SearchType search, Collection<Expression> expressions,
+            boolean sortForDate)
       {
          List<Expression> list = new ArrayList<>();
 
@@ -928,8 +974,9 @@ public final class Data
                }
             }
          }
-         Collections.sort(list, new ExpressionComparator(language, sortForDate));
-         
+         Collections.sort(list,
+               new ExpressionComparator(language, sortForDate));
+
          return list;
       }
 

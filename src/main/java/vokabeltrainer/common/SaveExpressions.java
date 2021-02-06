@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.prefs.Preferences;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
@@ -41,6 +43,33 @@ public final class SaveExpressions
    {
       this.exportpath = exportpath + File.separator
             + Settings.getExpressionFolder();
+   }
+
+   public void save(String databaseName, boolean overwriteDatabaseNames)
+   {
+      this.databaseName = databaseName;
+      this.overwriteDatabaseNames = overwriteDatabaseNames;
+      save();
+   }
+
+   @SuppressWarnings("unused")
+   public void save(String databaseName, boolean overwriteDatabaseNames,
+         boolean b)
+   {
+      this.databaseName = databaseName;
+      this.overwriteDatabaseNames = overwriteDatabaseNames;
+      this.takeSelectedOnlyIntoAccount = true;
+      save();
+   }
+
+   public void save(String databaseName, boolean overwriteDatabaseNames,
+         String databaseChoosen)
+   {
+      this.databaseName = databaseName;
+      this.overwriteDatabaseNames = overwriteDatabaseNames;
+      this.takeOriginIntoAccount = true;
+      this.origin = databaseChoosen;
+      save();
    }
 
    public boolean save()
@@ -116,6 +145,91 @@ public final class SaveExpressions
          }
       }
       return false;
+   }
+
+   public boolean exportAsZip(String filePath)
+   {
+      ProgressMonitor bar = new ProgressMonitor(null,
+            "Die Daten werden gespeichert.", "", 0, 100);
+      int progress = 0;
+      bar.setProgress(progress);
+      bar.setMillisToPopup(1000);
+      bar.setMillisToDecideToPopup(1000);
+
+      UUID uuidSearchLock = UUID.randomUUID();
+      if (Data.lockDataBase(uuidSearchLock))
+      {
+         try
+         {
+            File f = new File(filePath + Settings.getZipExtension());
+            try (ZipOutputStream out = new ZipOutputStream(
+                  new FileOutputStream(f)))
+            {
+               for (LetterForSaving letter : LetterForSaving.values())
+               {
+                  ZipEntry entry = new ZipEntry(letter.name() + ".csv");
+                  out.putNextEntry(entry);
+
+                  byte[] data = saveAsString(letter).getBytes();
+                  out.write(data, 0, data.length);
+                  out.closeEntry();
+
+                  progress += 100 / LetterForSaving.values().length;
+                  bar.setProgress(progress);
+               }
+
+            }
+            catch (Exception e)
+            {
+               JOptionPane.showMessageDialog(Common.getjFrame(),
+                     "Es hat beim Export der ZipDatei einen Fehler gegeben.\n"
+                           + e.getMessage(),
+                     "Fehler", JOptionPane.ERROR_MESSAGE);
+            }
+
+            progress = 100;
+            bar.setProgress(progress);
+            OkayExpressionsSavedNotification.display();
+            return true;
+         }
+         catch (Exception e)
+         {
+            JOptionPane
+                  .showMessageDialog(Common.getjFrame(),
+                        "Es hat beim Export einen Fehler gegeben.\n"
+                              + e.getMessage(),
+                        "Fehler", JOptionPane.ERROR_MESSAGE);
+         }
+         finally
+         {
+            Data.unlockDataBase(uuidSearchLock);
+         }
+      }
+      return false;
+   }
+
+   private String saveAsString(LetterForSaving letter) throws IOException
+   {
+      StringJoiner joiner = new StringJoiner("\n");
+      joiner.add(HEADER_CSV);
+      for (Expression expression : getValues(letter))
+      {
+         if (isMarkedandMarked(expression) || isOriginandOrigin(expression)
+               || isAll())
+         {
+            if (overwriteDatabaseNames && databaseName != null)
+            {
+               joiner.add(
+                     expression.getExpressionPrintLineForSaving(databaseName));
+            }
+            else
+            {
+               joiner.add(expression.getExpressionPrintLineForSaving());
+            }
+            counter++;
+         }
+      }
+      return joiner.toString();
    }
 
    private void saveDeletedExpressions() throws IOException
@@ -230,32 +344,5 @@ public final class SaveExpressions
       }
 
       return list;
-   }
-
-   public void save(String databaseName, boolean overwriteDatabaseNames)
-   {
-      this.databaseName = databaseName;
-      this.overwriteDatabaseNames = overwriteDatabaseNames;
-      save();
-   }
-
-   @SuppressWarnings("unused")
-   public void save(String databaseName, boolean overwriteDatabaseNames,
-         boolean b)
-   {
-      this.databaseName = databaseName;
-      this.overwriteDatabaseNames = overwriteDatabaseNames;
-      this.takeSelectedOnlyIntoAccount = true;
-      save();
-   }
-
-   public void save(String databaseName, boolean overwriteDatabaseNames,
-         String databaseChoosen)
-   {
-      this.databaseName = databaseName;
-      this.overwriteDatabaseNames = overwriteDatabaseNames;
-      this.takeOriginIntoAccount = true;
-      this.origin = databaseChoosen;
-      save();
    }
 }
