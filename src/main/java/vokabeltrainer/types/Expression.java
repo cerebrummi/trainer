@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 import vokabeltrainer.types.Chapter.Database;
-
+import vokabeltrainer.common.Letter;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
@@ -199,9 +199,12 @@ public class Expression
       return letterForSaving;
    }
 
-   public void setLetterForSaving(LetterForSaving letterForSaving)
+   public void setLetterForSaving(Letter letterForSaving)
    {
-      this.letterForSaving = letterForSaving;
+      if(letterForSaving instanceof LetterForSaving)
+      {
+         this.letterForSaving = (LetterForSaving)letterForSaving;
+      }
    }
 
    public String getAdditionalInformation()

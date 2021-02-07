@@ -25,6 +25,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 import javax.swing.event.HyperlinkEvent.EventType;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSound;
@@ -72,8 +74,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       tabbedPane.addTab("Einstellungen und Service", initSettingsTab());
       try
       {
-         tabbedPane.addTab("Lizenz",
-               initImpressumTab());
+         tabbedPane.addTab("Lizenz", initImpressumTab());
       }
       catch (IOException e1)
       {
@@ -87,7 +88,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       {
          // nothing
       }
-//      tabbedPane.addTab("Verfügbare Datenbanken", initDatabaseTab());
+      // tabbedPane.addTab("Verfügbare Datenbanken", initDatabaseTab());
 
       add(tabbedPane);
 
@@ -246,7 +247,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       folderLabel.setMinimumSize(new Dimension(WIDTH, 100));
       folderLabel.setMaximumSize(new Dimension(WIDTH, 100));
 
-      folderChooserButtonWithoutSaving = new JButton("ändern ohne Speichern");
+      folderChooserButtonWithoutSaving = new JButton("ändern");
       folderChooserButtonWithoutSaving.setFont(Settings.getButtonFont());
       folderChooserButtonWithoutSaving.setToolTipText(
             "Lädt alle Vokabeln, die am neuen Ort schon vorhanden sind. Beläßt die aktuellen Vokabeln am alten Ort.");
@@ -330,7 +331,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       soundButton.setIcon(new ImageIcon(Settings.getSound()));
       soundslider.setValue((int) Settings.getVolume());
    }
-   
+
    private Component initSoundPanel()
    {
       JPanel vertical = new JPanel();
@@ -556,7 +557,10 @@ public class SettingsPanel extends BackgroundPanelTiled
 
          JFileChooser folderChooser = new JFileChooser(
                Settings.getExpressionPath());
-         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+         folderChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+         FileFilter filter = new FileNameExtensionFilter("zip-Datei","zip");
+         folderChooser.setAcceptAllFileFilterUsed(false);
+         folderChooser.addChoosableFileFilter(filter);
          int returnVal = folderChooser.showOpenDialog(Common.getjFrame());
 
          if (returnVal == JFileChooser.APPROVE_OPTION)
@@ -609,7 +613,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
 
          folderChooser = new JFileChooser(Settings.getExpressionPath());
-         folderChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
          int returnVal = folderChooser.showOpenDialog(this);
 
          if (returnVal == JFileChooser.APPROVE_OPTION)
@@ -622,7 +626,8 @@ public class SettingsPanel extends BackgroundPanelTiled
                {
                   SaveExpressions saver = new SaveExpressions(
                         folderChooser.getSelectedFile().getPath());
-                  saver.save(databaseName, overwriteDatabaseNames);
+                  saver.export(databaseName, overwriteDatabaseNames);
+
                   return null;
                }
 
@@ -651,7 +656,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
 
          folderChooser = new JFileChooser(Settings.getExpressionPath());
-         folderChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
          int returnVal = folderChooser.showOpenDialog(this);
 
          if (returnVal == JFileChooser.APPROVE_OPTION)
@@ -664,7 +669,8 @@ public class SettingsPanel extends BackgroundPanelTiled
                {
                   SaveExpressions saver = new SaveExpressions(
                         folderChooser.getSelectedFile().getPath());
-                  saver.save(databaseName, overwriteDatabaseNames, true);
+                  saver.export(databaseName, overwriteDatabaseNames, true);
+
                   return null;
                }
 
@@ -693,8 +699,9 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
 
          String databaseChoosen = (String) JOptionPane.showInputDialog(
-               Common.getMainJPanel(), "Wählen Sie eine Datenbank für den Export aus.",
-               "Auswahl", JOptionPane.QUESTION_MESSAGE,
+               Common.getMainJPanel(),
+               "Wählen Sie eine Datenbank für den Export aus.", "Auswahl",
+               JOptionPane.QUESTION_MESSAGE,
                new ImageIcon(ApplicationImages.getLogo24()),
                Data.getAllOwnDistinctDatabaseDescriptions(false), null);
 
@@ -704,7 +711,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
 
          folderChooser = new JFileChooser(Settings.getExpressionPath());
-         folderChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
          int returnVal = folderChooser.showOpenDialog(this);
 
          if (returnVal == JFileChooser.APPROVE_OPTION)
@@ -717,7 +724,7 @@ public class SettingsPanel extends BackgroundPanelTiled
                {
                   SaveExpressions saver = new SaveExpressions(
                         folderChooser.getSelectedFile().getPath());
-                  saver.save(databaseName, overwriteDatabaseNames,
+                  saver.export(databaseName, overwriteDatabaseNames,
                         databaseChoosen);
                   return null;
                }

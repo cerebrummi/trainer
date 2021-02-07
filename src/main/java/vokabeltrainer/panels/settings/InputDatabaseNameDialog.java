@@ -37,7 +37,7 @@ public class InputDatabaseNameDialog extends JDialog
 
       this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
       this.setIconImage(ApplicationImages.getLogo24());
-      this.setMinimumSize(new Dimension(400, 300));
+      this.setMinimumSize(new Dimension(400, 320));
       this.setLocationRelativeTo(Common.getjFrame());
       
       JPanel panel = new JPanel();

@@ -326,7 +326,7 @@ public final class Data
       private final ConcurrentMap<UUID, Expression> newMap = new ConcurrentHashMap<>(
             100);
       private final ConcurrentMap<UUID, Expression> deletedMap = readFileRegular(
-            DELETED_CSV, Database.TO_BE_DETERMINED, LetterForSaving.DELETED);
+            DELETED_CSV, Database.TO_BE_DETERMINED, LetterForLoading.DELETED);
 
       DataBase()
       {
@@ -578,7 +578,7 @@ public final class Data
       // ####################### regular #########################
       // #########################################################
       private ConcurrentMap<UUID, Expression> readFileRegular(String filename,
-            Database origin, LetterForSaving letter)
+            Database origin, Letter letter)
       {
          File file = null;
 
@@ -614,7 +614,7 @@ public final class Data
       // #########################################################
       // #########################################################
       private ConcurrentMap<UUID, Expression> readData(String filename,
-            Reader reader, Database origin, LetterForSaving letter,
+            Reader reader, Database origin, Letter letter,
             boolean overwrite, String databasename, boolean doNotChange)
             throws IOException
       {
@@ -820,7 +820,7 @@ public final class Data
                {
                   expression.toggleLastModified();
                }
-               if (LetterForSaving.DELETED != letter)
+               if (LetterForLoading.DELETED != letter)
                {
                   expression.setLetterForSaving(letter);
                }

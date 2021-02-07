@@ -41,35 +41,34 @@ public final class SaveExpressions
 
    public SaveExpressions(String exportpath)
    {
-      this.exportpath = exportpath + File.separator
-            + Settings.getExpressionFolder();
+      this.exportpath = exportpath;
    }
 
-   public void save(String databaseName, boolean overwriteDatabaseNames)
+   public void export(String databaseName, boolean overwriteDatabaseNames)
    {
       this.databaseName = databaseName;
       this.overwriteDatabaseNames = overwriteDatabaseNames;
-      save();
+      exportAsZip();
    }
 
    @SuppressWarnings("unused")
-   public void save(String databaseName, boolean overwriteDatabaseNames,
+   public void export(String databaseName, boolean overwriteDatabaseNames,
          boolean b)
    {
       this.databaseName = databaseName;
       this.overwriteDatabaseNames = overwriteDatabaseNames;
       this.takeSelectedOnlyIntoAccount = true;
-      save();
+      exportAsZip();
    }
 
-   public void save(String databaseName, boolean overwriteDatabaseNames,
+   public void export(String databaseName, boolean overwriteDatabaseNames,
          String databaseChoosen)
    {
       this.databaseName = databaseName;
       this.overwriteDatabaseNames = overwriteDatabaseNames;
       this.takeOriginIntoAccount = true;
       this.origin = databaseChoosen;
-      save();
+      exportAsZip();
    }
 
    public boolean save()
@@ -146,8 +145,8 @@ public final class SaveExpressions
       }
       return false;
    }
-
-   public boolean exportAsZip(String filePath)
+   
+   private boolean exportAsZip()
    {
       ProgressMonitor bar = new ProgressMonitor(null,
             "Die Daten werden gespeichert.", "", 0, 100);
@@ -161,7 +160,7 @@ public final class SaveExpressions
       {
          try
          {
-            File f = new File(filePath + Settings.getZipExtension());
+            File f = new File(this.exportpath+File.separator + Settings.getZipExtension());
             try (ZipOutputStream out = new ZipOutputStream(
                   new FileOutputStream(f)))
             {
@@ -170,14 +169,13 @@ public final class SaveExpressions
                   ZipEntry entry = new ZipEntry(letter.name() + ".csv");
                   out.putNextEntry(entry);
 
-                  byte[] data = saveAsString(letter).getBytes();
+                  byte[] data = saveAsStringForZip(letter).getBytes();
                   out.write(data, 0, data.length);
                   out.closeEntry();
 
                   progress += 100 / LetterForSaving.values().length;
                   bar.setProgress(progress);
                }
-
             }
             catch (Exception e)
             {
@@ -185,6 +183,7 @@ public final class SaveExpressions
                      "Es hat beim Export der ZipDatei einen Fehler gegeben.\n"
                            + e.getMessage(),
                      "Fehler", JOptionPane.ERROR_MESSAGE);
+               return false;
             }
 
             progress = 100;
@@ -208,7 +207,7 @@ public final class SaveExpressions
       return false;
    }
 
-   private String saveAsString(LetterForSaving letter) throws IOException
+   private String saveAsStringForZip(LetterForSaving letter) throws IOException
    {
       StringJoiner joiner = new StringJoiner("\n");
       joiner.add(HEADER_CSV);
@@ -226,7 +225,6 @@ public final class SaveExpressions
             {
                joiner.add(expression.getExpressionPrintLineForSaving());
             }
-            counter++;
          }
       }
       return joiner.toString();

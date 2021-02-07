@@ -64,7 +64,7 @@ public class Settings
    
    public static String getZipExtension()
    {
-      return "-cerebrummi.zip";
+      return "Cerebrummi-export.zip";
    }
 
    public static String getExpressionPath()

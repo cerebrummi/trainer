@@ -5,7 +5,7 @@ import java.util.List;
 import vokabeltrainer.editing.GermanLetter;
 import vokabeltrainer.editing.LetterHelper;
 
-public enum LetterForSaving
+public enum LetterForSaving implements Letter
 {
    A,
    B,
@@ -33,8 +33,7 @@ public enum LetterForSaving
    X,
    Y,
    Z,
-   OTHER,
-   DELETED;
+   OTHER;
    
    public static LetterForSaving getLetter(String word)
    {
