@@ -151,6 +151,7 @@ public final class Main
          UIManager.put("FileChooser.acceptAllFileFilterText", "Alle Dateien (*.*)");
          UIManager.put("FileChooser.folderNameLabelText", "Ordnername:");
          UIManager.put("FileChooser.openDialogTitleText", "Öffnen");
+         UIManager.put("FileChooser.saveDialogTitleText", "Speichern");
       }
       catch (UnsupportedLookAndFeelException e3)
       {

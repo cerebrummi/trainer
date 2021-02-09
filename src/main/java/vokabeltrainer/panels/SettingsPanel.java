@@ -5,8 +5,8 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
@@ -27,7 +27,6 @@ import javax.swing.SwingWorker;
 import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.BackgroundPanelTiled;
@@ -55,7 +54,6 @@ public class SettingsPanel extends BackgroundPanelTiled
    private JButton clappingSoundButton;
    private JButton splotchSoundButton;
    private JButton shredderSoundButton;
-   private JFileChooser folderChooser;
    private JButton folderChooserButtonWithoutSaving;
    private JTextArea folderLabel;
    private JButton importButton;
@@ -519,19 +517,15 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
 
       folderChooserButtonWithoutSaving.addActionListener(event -> {
-         folderChooser = new JFileChooser(Settings.getExpressionPath());
-         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-         int returnVal = folderChooser.showOpenDialog(this);
 
-         if (returnVal == JFileChooser.APPROVE_OPTION)
+         String pathOfFolder = choosesFolder();
+         if (pathOfFolder != null)
          {
-            Settings.setChoosenExpressionPath(
-                  folderChooser.getSelectedFile().getPath());
-
+            Settings.setChoosenExpressionPath(pathOfFolder);
             this.folderLabel.setText(Settings.getExpressionPath());
-
             Main.initDatabase();
          }
+
       });
 
       importButton.addActionListener(event -> {
@@ -541,7 +535,6 @@ public class SettingsPanel extends BackgroundPanelTiled
 
          final String databaseName;
          final boolean overwriteDatabaseNames;
-         final String databasePath;
 
          if (!dialog.isStartImportOrExport())
          {
@@ -555,40 +548,27 @@ public class SettingsPanel extends BackgroundPanelTiled
             dialog.dispose();
          }
 
-         JFileChooser folderChooser = new JFileChooser(
-               Settings.getExpressionPath());
-         folderChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-         FileFilter filter = new FileNameExtensionFilter("zip-Datei","zip");
-         folderChooser.setAcceptAllFileFilterUsed(false);
-         folderChooser.addChoosableFileFilter(filter);
-         int returnVal = folderChooser.showOpenDialog(Common.getjFrame());
-
-         if (returnVal == JFileChooser.APPROVE_OPTION)
+         String pathOfFolderOrFile = choosesFolderOrZipFile();
+         if (pathOfFolderOrFile != null)
          {
-            databasePath = folderChooser.getSelectedFile().getPath();
-         }
-         else
-         {
-            return;
-         }
-
-         new SwingWorker<Void, Void>()
-         {
-            @Override
-            protected Void doInBackground() throws Exception
+            new SwingWorker<Void, Void>()
             {
-               ImportExpressions importer = new ImportExpressions();
-               if (importer.importExpressions(databaseName,
-                     overwriteDatabaseNames, databasePath))
+               @Override
+               protected Void doInBackground() throws Exception
                {
-                  SaveExpressions saver = new SaveExpressions();
-                  saver.save();
+                  ImportExpressions importer = new ImportExpressions();
+                  if (importer.importExpressions(databaseName,
+                        overwriteDatabaseNames, pathOfFolderOrFile))
+                  {
+                     SaveExpressions saver = new SaveExpressions();
+                     saver.save();
+                  }
+
+                  return null;
                }
 
-               return null;
-            }
-
-         }.execute();
+            }.execute();
+         }
       });
 
       exportButton.addActionListener(event -> {
@@ -612,11 +592,8 @@ public class SettingsPanel extends BackgroundPanelTiled
             dialog.dispose();
          }
 
-         folderChooser = new JFileChooser(Settings.getExpressionPath());
-         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-         int returnVal = folderChooser.showOpenDialog(this);
-
-         if (returnVal == JFileChooser.APPROVE_OPTION)
+         String pathOfFolder = choosesFolder();
+         if (pathOfFolder != null)
          {
             new SwingWorker<Void, Void>()
             {
@@ -624,8 +601,7 @@ public class SettingsPanel extends BackgroundPanelTiled
                @Override
                protected Void doInBackground() throws Exception
                {
-                  SaveExpressions saver = new SaveExpressions(
-                        folderChooser.getSelectedFile().getPath());
+                  SaveExpressions saver = new SaveExpressions(pathOfFolder);
                   saver.export(databaseName, overwriteDatabaseNames);
 
                   return null;
@@ -655,11 +631,8 @@ public class SettingsPanel extends BackgroundPanelTiled
             dialog.dispose();
          }
 
-         folderChooser = new JFileChooser(Settings.getExpressionPath());
-         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-         int returnVal = folderChooser.showOpenDialog(this);
-
-         if (returnVal == JFileChooser.APPROVE_OPTION)
+         String pathOfFolder = choosesFolder();
+         if (pathOfFolder != null)
          {
             new SwingWorker<Void, Void>()
             {
@@ -667,8 +640,7 @@ public class SettingsPanel extends BackgroundPanelTiled
                @Override
                protected Void doInBackground() throws Exception
                {
-                  SaveExpressions saver = new SaveExpressions(
-                        folderChooser.getSelectedFile().getPath());
+                  SaveExpressions saver = new SaveExpressions(pathOfFolder);
                   saver.export(databaseName, overwriteDatabaseNames, true);
 
                   return null;
@@ -710,11 +682,8 @@ public class SettingsPanel extends BackgroundPanelTiled
             return;
          }
 
-         folderChooser = new JFileChooser(Settings.getExpressionPath());
-         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-         int returnVal = folderChooser.showOpenDialog(this);
-
-         if (returnVal == JFileChooser.APPROVE_OPTION)
+         String pathOfFolder = choosesFolder();
+         if (pathOfFolder != null)
          {
             new SwingWorker<Void, Void>()
             {
@@ -722,8 +691,7 @@ public class SettingsPanel extends BackgroundPanelTiled
                @Override
                protected Void doInBackground() throws Exception
                {
-                  SaveExpressions saver = new SaveExpressions(
-                        folderChooser.getSelectedFile().getPath());
+                  SaveExpressions saver = new SaveExpressions(pathOfFolder);
                   saver.export(databaseName, overwriteDatabaseNames,
                         databaseChoosen);
                   return null;
@@ -759,5 +727,82 @@ public class SettingsPanel extends BackgroundPanelTiled
 
          }.execute();
       });
+   }
+
+   private boolean testIfFolderExists(String path)
+   {
+      File folder = new File(path);
+      return folder.exists() && folder.isDirectory();
+   }
+
+   private boolean testIfZipFileExists(String path)
+   {
+      File folder = new File(path);
+      return folder.exists() && folder.isFile()
+            && (path.endsWith(".zip") || path.endsWith(".ZIP"));
+   }
+
+   private String choosesFolder()
+   {
+      JFileChooser folderChooser = new JFileChooser(
+            Settings.getExpressionPath());
+      folderChooser.setAcceptAllFileFilterUsed(false);
+      folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+      int choice = folderChooser.showSaveDialog(this);
+
+      if (JFileChooser.APPROVE_OPTION == choice)
+      {
+         if (testIfFolderExists(folderChooser.getSelectedFile().getPath()))
+         {
+            return folderChooser.getSelectedFile().getPath();
+         }
+         else
+         {
+            JOptionPane.showMessageDialog(this,
+                  "Der gewählte Ordner existiert nicht:\n"
+                        + folderChooser.getSelectedFile().getPath()
+                        + "\nBitte wählen Sie einen existierenden Ordner.\nDanke!",
+                  "Nachricht", JOptionPane.CLOSED_OPTION);
+            return null;
+         }
+      }
+      return null;
+   }
+
+   private String choosesFolderOrZipFile()
+   {
+      JFileChooser folderChooser = new JFileChooser(
+            Settings.getExpressionPath());
+      folderChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+      FileFilter filter = new FileNameExtensionFilter("zip-Datei", "zip");
+      folderChooser.setAcceptAllFileFilterUsed(false);
+      folderChooser.addChoosableFileFilter(filter);
+
+      int choice = folderChooser.showOpenDialog(this);
+      if (JFileChooser.APPROVE_OPTION == choice)
+      {
+         if (testIfFolderExists(folderChooser.getSelectedFile().getPath()))
+         {
+            return folderChooser.getSelectedFile().getPath();
+         }
+         else if (testIfZipFileExists(
+               folderChooser.getSelectedFile().getPath()))
+         {
+            return folderChooser.getSelectedFile().getPath();
+         }
+         else
+         {
+            JOptionPane.showMessageDialog(this,
+                  "Der gewählte Ordner/die Datei existiert nicht:\n"
+                        + "oder die Datei ist keine zip-Datei\n"
+                        + folderChooser.getSelectedFile().getPath()
+                        + "\nBitte wählen Sie einen existierenden Ordner bzw. zip-Datei.\nDanke!",
+                  "Nachricht", JOptionPane.CLOSED_OPTION);
+           return null;
+         }
+      }
+      
+      return null;
    }
 }
