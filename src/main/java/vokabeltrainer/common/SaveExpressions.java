@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 
 import vokabeltrainer.CerebrummiNodes;
+import vokabeltrainer.PathAndFile;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.Expression;
@@ -27,7 +28,7 @@ public final class SaveExpressions
 {
    private static final String HEADER_CSV = "UUID\tUrsprung\tDatenbank\tchapter\tGerman\tHebrew\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tzusätzliche Informationen\tsearchwords German\tsearchwords Hebrew\tletzte Änderung";
    private int counter;
-   private String exportpath = "";
+   private PathAndFile exportpath;
    private boolean takeSelectedOnlyIntoAccount;
    private boolean takeOriginIntoAccount;
    private String origin;
@@ -36,12 +37,12 @@ public final class SaveExpressions
 
    public SaveExpressions()
    {
-
+      // for regular saving
    }
 
-   public SaveExpressions(String exportpath)
+   public SaveExpressions(PathAndFile exportpath)
    {
-      this.exportpath = exportpath;
+      this.exportpath = exportpath; // for exports
    }
 
    public void export(String databaseName, boolean overwriteDatabaseNames)
@@ -86,7 +87,7 @@ public final class SaveExpressions
          try
          {
             counter = 0;
-            if (this.exportpath.isEmpty())
+            if (this.exportpath == null)
             {
                File customDir = new File(Settings.getExpressionPathFolder());
                if (!customDir.exists())
@@ -102,17 +103,7 @@ public final class SaveExpressions
             }
             else
             {
-               File customDir = new File(exportpath);
-               if (!customDir.exists())
-               {
-                  if (!DirectoryHelper.makeExpressionDirectory(customDir))
-                  {
-                     JOptionPane.showMessageDialog(Common.getjFrame(),
-                           "Es hat beim Speichern einen Fehler gegeben.\n"
-                                 + "Wählen Sie einen anderen Speicherort.",
-                           "Fehler", JOptionPane.ERROR_MESSAGE);
-                  }
-               }
+               return false;
             }
             for (LetterForSaving letter : LetterForSaving.values())
             {
@@ -160,7 +151,7 @@ public final class SaveExpressions
       {
          try
          {
-            File f = new File(this.exportpath+File.separator + Settings.getZipExtension());
+            File f = new File(this.exportpath.getPathFileWithZipTest());
             try (ZipOutputStream out = new ZipOutputStream(
                   new FileOutputStream(f)))
             {
@@ -233,14 +224,14 @@ public final class SaveExpressions
    private void saveDeletedExpressions() throws IOException
    {
       File file;
-      if (exportpath.isEmpty())
+      if (exportpath == null)
       {
          file = new File(Settings.getExpressionPathFolder() + File.separator
                + "DELETED.csv");
       }
       else
       {
-         file = new File(exportpath + File.separator + "DELETED.csv");
+         return;
       }
 
       FileOutputStream stream = new FileOutputStream(file);
@@ -280,14 +271,14 @@ public final class SaveExpressions
    private void save(LetterForSaving letter) throws IOException
    {
       File file;
-      if (exportpath.isEmpty())
+      if (exportpath == null)
       {
          file = new File(Settings.getExpressionPathFolder() + File.separator
                + letter.name() + ".csv");
       }
       else
       {
-         file = new File(exportpath + File.separator + letter.name() + ".csv");
+         return;
       }
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,

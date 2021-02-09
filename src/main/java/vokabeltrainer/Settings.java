@@ -61,11 +61,6 @@ public class Settings
    {
       return "cerebrummi-hebrewtrainer";
    }
-   
-   public static String getZipExtension()
-   {
-      return "Cerebrummi-export.zip";
-   }
 
    public static String getExpressionPath()
    {

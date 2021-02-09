@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.StringJoiner;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
@@ -30,6 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.BackgroundPanelTiled;
+import vokabeltrainer.PathAndFile;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
@@ -518,7 +521,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       folderChooserButtonWithoutSaving.addActionListener(event -> {
 
-         String pathOfFolder = choosesFolder();
+         String pathOfFolder = choosesFolderForSave();
          if (pathOfFolder != null)
          {
             Settings.setChoosenExpressionPath(pathOfFolder);
@@ -548,7 +551,7 @@ public class SettingsPanel extends BackgroundPanelTiled
             dialog.dispose();
          }
 
-         String pathOfFolderOrFile = choosesFolderOrZipFile();
+         String pathOfFolderOrFile = choosesFolderOrZipFileForOpen();
          if (pathOfFolderOrFile != null)
          {
             new SwingWorker<Void, Void>()
@@ -592,7 +595,7 @@ public class SettingsPanel extends BackgroundPanelTiled
             dialog.dispose();
          }
 
-         String pathOfFolder = choosesFolder();
+         PathAndFile pathOfFolder = choosesFolderAndFileForSave();
          if (pathOfFolder != null)
          {
             new SwingWorker<Void, Void>()
@@ -631,7 +634,7 @@ public class SettingsPanel extends BackgroundPanelTiled
             dialog.dispose();
          }
 
-         String pathOfFolder = choosesFolder();
+         PathAndFile pathOfFolder = choosesFolderAndFileForSave();
          if (pathOfFolder != null)
          {
             new SwingWorker<Void, Void>()
@@ -682,7 +685,7 @@ public class SettingsPanel extends BackgroundPanelTiled
             return;
          }
 
-         String pathOfFolder = choosesFolder();
+         PathAndFile pathOfFolder = choosesFolderAndFileForSave();
          if (pathOfFolder != null)
          {
             new SwingWorker<Void, Void>()
@@ -742,7 +745,13 @@ public class SettingsPanel extends BackgroundPanelTiled
             && (path.endsWith(".zip") || path.endsWith(".ZIP"));
    }
 
-   private String choosesFolder()
+   private boolean testIfFileExists(String path)
+   {
+      File folder = new File(path);
+      return folder.exists() && folder.isFile();
+   }
+
+   private String choosesFolderForSave()
    {
       JFileChooser folderChooser = new JFileChooser(
             Settings.getExpressionPath());
@@ -753,24 +762,100 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       if (JFileChooser.APPROVE_OPTION == choice)
       {
-         if (testIfFolderExists(folderChooser.getSelectedFile().getPath()))
-         {
-            return folderChooser.getSelectedFile().getPath();
-         }
-         else
+         String result = folderChooser.getSelectedFile().getPath();
+         if (!testIfFolderExists(folderChooser.getSelectedFile().getPath()))
          {
             JOptionPane.showMessageDialog(this,
-                  "Der gewählte Ordner existiert nicht:\n"
-                        + folderChooser.getSelectedFile().getPath()
+                  "Der gewählte Ordner existiert nicht:\n" + result
                         + "\nBitte wählen Sie einen existierenden Ordner.\nDanke!",
                   "Nachricht", JOptionPane.CLOSED_OPTION);
             return null;
          }
+         return result;
       }
       return null;
    }
 
-   private String choosesFolderOrZipFile()
+   private PathAndFile choosesFolderAndFileForSave()
+   {
+      JFileChooser folderChooser = new JFileChooser(
+            Settings.getExpressionPath());
+      folderChooser.setAcceptAllFileFilterUsed(false);
+      folderChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+      int choice = folderChooser.showSaveDialog(this);
+
+      if (JFileChooser.APPROVE_OPTION == choice)
+      {
+         String splitter = "\\"+File.separator;
+         String[] foldersAndFile = folderChooser.getSelectedFile().getPath()
+               .split(splitter);
+         PathAndFile pathAndFile = new PathAndFile();
+         StringJoiner joiner = new StringJoiner(splitter);
+         for (int i = 0; i < foldersAndFile.length; i++)
+         {
+            if (i == foldersAndFile.length - 1)
+            {
+               pathAndFile.setFile(foldersAndFile[i]);
+            }
+            else
+            {
+               joiner.add(foldersAndFile[i]);
+            }
+         }
+         pathAndFile.setPath(joiner.toString());
+
+         if (!testIfFolderExists(pathAndFile.getPath()))
+         {
+            JOptionPane.showMessageDialog(this,
+                  "Der gewählte Ordner existiert nicht:\n"
+                        + pathAndFile.getPath()
+                        + "\nBitte wählen Sie einen existierenden Ordner.\nDanke!",
+                  "Nachricht", JOptionPane.CLOSED_OPTION);
+            return null;
+         }
+
+         if (testIfFileExists(pathAndFile.getPathFile()))
+         {
+            int answer = JOptionPane.showConfirmDialog(this,
+                  "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
+                  "Frage", JOptionPane.OK_CANCEL_OPTION,
+                  JOptionPane.QUESTION_MESSAGE);
+            if (JOptionPane.OK_OPTION != answer)
+            {
+               return null;
+            }
+         }
+
+         if (testIfFileExists(pathAndFile.getPathFile() + ".zip"))
+         {
+            int answer = JOptionPane.showConfirmDialog(this,
+                  "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
+                  "Frage", JOptionPane.OK_CANCEL_OPTION,
+                  JOptionPane.QUESTION_MESSAGE);
+            if (JOptionPane.OK_OPTION != answer)
+            {
+               return null;
+            }
+         }
+
+         if (testIfFileExists(pathAndFile.getPathFile() + ".ZIP"))
+         {
+            int answer = JOptionPane.showConfirmDialog(this,
+                  "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
+                  "Frage", JOptionPane.OK_CANCEL_OPTION,
+                  JOptionPane.QUESTION_MESSAGE);
+            if (JOptionPane.OK_OPTION != answer)
+            {
+               return null;
+            }
+         }
+         return pathAndFile;
+      }
+      return null;
+   }
+
+   private String choosesFolderOrZipFileForOpen()
    {
       JFileChooser folderChooser = new JFileChooser(
             Settings.getExpressionPath());
@@ -782,14 +867,14 @@ public class SettingsPanel extends BackgroundPanelTiled
       int choice = folderChooser.showOpenDialog(this);
       if (JFileChooser.APPROVE_OPTION == choice)
       {
-         if (testIfFolderExists(folderChooser.getSelectedFile().getPath()))
+         String result = folderChooser.getSelectedFile().getPath();
+         if (testIfFolderExists(result))
          {
-            return folderChooser.getSelectedFile().getPath();
+            return result;
          }
-         else if (testIfZipFileExists(
-               folderChooser.getSelectedFile().getPath()))
+         else if (testIfZipFileExists(result))
          {
-            return folderChooser.getSelectedFile().getPath();
+            return result;
          }
          else
          {
@@ -799,10 +884,10 @@ public class SettingsPanel extends BackgroundPanelTiled
                         + folderChooser.getSelectedFile().getPath()
                         + "\nBitte wählen Sie einen existierenden Ordner bzw. zip-Datei.\nDanke!",
                   "Nachricht", JOptionPane.CLOSED_OPTION);
-           return null;
+            return null;
          }
       }
-      
+
       return null;
    }
 }
