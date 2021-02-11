@@ -293,7 +293,7 @@ public class ExpressionEditorView extends JDialog
       deleteSearchwordButtonGerman
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 40));
 
-      saveButton = new JButton("anwenden");
+      saveButton = new JButton("speichern");
       saveButton.setFont(Main.getGermanFont(16F));
       saveButton.setMinimumSize(new Dimension(120, 40));
       saveButton.setMaximumSize(new Dimension(160, 40));
