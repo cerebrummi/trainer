@@ -1,4 +1,4 @@
-package vokabeltrainer;
+package vokabeltrainer.keyboards;
 
 import java.awt.Component;
 import java.awt.ComponentOrientation;
@@ -11,6 +11,8 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
+import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.scale.Scale;

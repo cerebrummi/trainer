@@ -1,4 +1,4 @@
-package vokabeltrainer;
+package vokabeltrainer.keyboards;
 
 import java.awt.ComponentOrientation;
 import java.awt.Image;

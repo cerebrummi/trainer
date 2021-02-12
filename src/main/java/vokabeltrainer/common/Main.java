@@ -87,6 +87,18 @@ public final class Main
       
       try
       {
+         LetterIcons.readNikud();
+      }
+      catch (Exception e1)
+      {
+         JOptionPane.showMessageDialog(null,
+               message + "Buchstaben Nikud Icons fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         System.exit(1);
+      }
+      
+      try
+      {
          Buchstabenbilder.read();
       }
       catch (Exception e)

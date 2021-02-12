@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.NikudLetter;
 
 public class ApplicationImages
 {
@@ -68,6 +69,7 @@ public class ApplicationImages
    private static BufferedImage lock;
    
    private static Map<HebrewLetter, BufferedImage> letterIconsMap;
+   private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    
    private static String message = "Bitte neu starten.\nCerebrummi© konnte keine Bilder laden.\nFehler: ";
 
@@ -527,6 +529,21 @@ public class ApplicationImages
             exitWithMessage("Buchstaben Icons fehlen");
       }
       ApplicationImages.letterIconsMap = letterIconsMap;
+   }
+
+   public static Map<NikudLetter, BufferedImage> getLetterIconsNikudMap()
+   {
+      return letterIconsNikudMap;
+   }
+
+   public static void setLetterIconsNikudMap(
+         Map<NikudLetter, BufferedImage> letterIconsNikudMap)
+   {
+      if(letterIconsNikudMap.size() < 58)
+      {
+            exitWithMessage("Buchstaben Nikud Icons fehlen");
+      }
+      ApplicationImages.letterIconsNikudMap = letterIconsNikudMap;
    }
 
    public static BufferedImage getTurn()

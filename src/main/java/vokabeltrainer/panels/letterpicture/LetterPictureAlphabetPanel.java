@@ -18,11 +18,11 @@ import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSpecialPanels;
-import vokabeltrainer.KeyboardHebrewStandard;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.editing.SingleLetterDocument;
+import vokabeltrainer.keyboards.KeyboardHebrewStandard;
 import vokabeltrainer.table.list.editor.CerebrummiFocusTraversalPolicy;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;

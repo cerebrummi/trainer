@@ -38,12 +38,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.KeyboardHebrew;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.keyboards.KeyboardHebrew;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.dictionary.Action;
 import vokabeltrainer.panels.dictionary.Tabulator;

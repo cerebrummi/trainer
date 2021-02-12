@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.NikudLetter;
 
 public class LetterIcons
 {
@@ -32,5 +33,26 @@ public class LetterIcons
       
       ApplicationImages.setLetterIconsMap(letterIconsMap);
    }
-
+   
+   
+   public static void readNikud() throws Exception
+   {
+      Map<NikudLetter, BufferedImage> letterIconsNikudMap = new HashMap<>();
+      
+      for(NikudLetter letter : NikudLetter.values())
+      {
+         if(letter == NikudLetter.SPACE)
+         {
+            continue;
+         }
+         BufferedImage image = ImageIO.read(
+               LetterIcons.class.getResourceAsStream("letterIcons/"+letter.name()+".png"));
+         if(image != null)
+         {
+            letterIconsNikudMap.put(letter, image);
+         }
+      }
+      
+      ApplicationImages.setLetterIconsNikudMap(letterIconsNikudMap);
+   }
 }

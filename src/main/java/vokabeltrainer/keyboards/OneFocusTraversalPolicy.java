@@ -1,4 +1,4 @@
-package vokabeltrainer;
+package vokabeltrainer.keyboards;
 
 import java.awt.Component;
 import java.awt.Container;

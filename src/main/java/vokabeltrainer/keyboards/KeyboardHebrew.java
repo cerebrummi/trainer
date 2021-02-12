@@ -1,4 +1,4 @@
-package vokabeltrainer;
+package vokabeltrainer.keyboards;
 
 import java.awt.Component;
 import java.awt.ComponentOrientation;
@@ -6,32 +6,41 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
+import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
-public class KeyboardHebrewSimple extends JPanel
+public class KeyboardHebrew extends JPanel
 {
-   private static final long serialVersionUID = -7532952398298332087L;
+   private static final long serialVersionUID = 2289311868636133544L;
 
    private final int BUTTON_SIZE = 42;
    private List<JTextComponent> components;
 
+   private List<JButton> buttons = new ArrayList<>();
+   private List<JLabel> labels = new ArrayList<>();
+   private boolean frozen;
+   
    private Scale scale;
 
-   public KeyboardHebrewSimple(JTextComponent textfield,
-         List<JTextComponent> arrayList, int textFieldHeight)
+   public KeyboardHebrew(JTextComponent textfield,
+         List<JTextComponent> arrayList, int textFieldHeight,
+         boolean addTextField)
    {
       scale = new Scale(BUTTON_SIZE);
-      
+
       if (textfield != null)
       {
          textfield.setFont(Main.getHebrewFont(29F));
@@ -50,6 +59,11 @@ public class KeyboardHebrewSimple extends JPanel
       this.setPreferredSize(new Dimension(Settings.getKeyboardWidth(),
             textFieldHeight + 10 + 218));
 
+      if (textfield != null && addTextField)
+      {
+         add(textfield);
+      }
+
       if (textfield != null)
       {
          setFocusTraversalPolicy(new OneFocusTraversalPolicy(textfield));
@@ -63,7 +77,7 @@ public class KeyboardHebrewSimple extends JPanel
       JPanel row1 = new JPanel();
       row1.setOpaque(false);
       row1.setLayout(new TrainLayout(row1, 8));
-     
+
       row1.add(makeButton(HebrewLetter.CHET));
       row1.add(makeButton(HebrewLetter.SSAIN));
       row1.add(makeButton(HebrewLetter.WAW));
@@ -127,14 +141,17 @@ public class KeyboardHebrewSimple extends JPanel
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE + 10));
       jButton.setMaximumSize(new Dimension(4 * BUTTON_SIZE, BUTTON_SIZE + 10));
       jButton.addMouseListener(new KeyboardListener());
+      buttons.add(jButton);
       return jButton;
    }
 
    private Component makeButton(HebrewLetter letter)
    {
-      DataButton jButton = new DataButton(ApplicationImages.getLetterIconsMap()
-            .get(letter).getScaledInstance(scale.getScaleX(), scale.getScaleY(), java.awt.Image.SCALE_SMOOTH),
+      DataButton jButton = new DataButton(
+            ApplicationImages.getLetterIconsMap().get(letter).getScaledInstance(
+                  scale.getScaleX(), scale.getScaleY(), java.awt.Image.SCALE_SMOOTH),
             letter.getUnicode());
+      jButton.setToolTipText(letter.getTranscript());
       jButton.setMargin(new Insets(3, -5, 0, -5));
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
       jButton.setMaximumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
@@ -143,8 +160,8 @@ public class KeyboardHebrewSimple extends JPanel
       buttonCaption.setOpaque(false);
       buttonCaption.setLayout(new TotemLayout(buttonCaption));
       buttonCaption.add(jButton);
-      JLabel captionLabel = new JLabel(" ");
 
+      JLabel captionLabel = new JLabel(letter.getTranscript());
       captionLabel.setFont(Main.getGermanFont(8F));
       captionLabel.setMinimumSize(new Dimension(BUTTON_SIZE + 2, 10));
       captionLabel.setMaximumSize(new Dimension(BUTTON_SIZE + 2, 10));
@@ -152,6 +169,8 @@ public class KeyboardHebrewSimple extends JPanel
       buttonCaption.add(captionLabel);
 
       jButton.addMouseListener(new KeyboardListener());
+      buttons.add(jButton);
+      labels.add(captionLabel);
       return buttonCaption;
    }
 
@@ -207,5 +226,47 @@ public class KeyboardHebrewSimple extends JPanel
 
       }
 
+   }
+
+   public boolean isFrozen()
+   {
+      return frozen;
+   }
+
+   public void setFrozen(boolean frozen)
+   {
+      this.frozen = frozen;
+      if (frozen)
+      {
+         for (JButton button : buttons)
+         {
+            button.setEnabled(false);
+            button.setVisible(false);
+            if (button.getMouseListeners().length > 0)
+            {
+               button.removeMouseListener(button.getMouseListeners()[0]);
+            }
+         }
+         for (JLabel label : labels)
+         {
+            label.setVisible(false);
+         }
+      }
+      else
+      {
+         for (JButton button : buttons)
+         {
+            button.setEnabled(true);
+            button.setVisible(true);
+            if (button.getMouseListeners().length == 0)
+            {
+               button.addMouseListener(new KeyboardListener());
+            }
+         }
+         for (JLabel label : labels)
+         {
+            label.setVisible(true);
+         }
+      }
    }
 }

@@ -54,7 +54,7 @@ public class LetterHelper
             if (i == 0 && (code.equalsIgnoreCase(" 05BC")
                   || code.equalsIgnoreCase(" 05c2")))
             {
-               i++;
+               i++; // TODO warum wird i hier hochgezählt?
                c++;
                continue; // wrong spelling, dagesch and ssin dot can not be in
                          // the beginning of a word
