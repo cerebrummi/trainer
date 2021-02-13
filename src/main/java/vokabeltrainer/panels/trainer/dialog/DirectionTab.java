@@ -48,11 +48,11 @@ public class DirectionTab extends BackgroundPanelTiled
       vertical.setLayout(new BoxLayout(vertical, 1));
       vertical.setOpaque(false);
 
-      germanToHebrewButton = new JRadioButton("Deutsch >>> Hebräisch");
+      germanToHebrewButton = new JRadioButton("Deutsch >> Hebräisch (nur Ivrit Wörter)");
       germanToHebrewButton.setFont(Settings.getToolBarButtonFont());
       directionGroup.add(germanToHebrewButton);
 
-      hebrewToGermanButton = new JRadioButton("Hebräisch >>> Deutsch");
+      hebrewToGermanButton = new JRadioButton("Hebräisch >> Deutsch (Ivrit und Wörter mit Punktation)");
       hebrewToGermanButton.setFont(Settings.getToolBarButtonFont());
       directionGroup.add(hebrewToGermanButton);
 

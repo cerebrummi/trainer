@@ -8,23 +8,23 @@ import javax.swing.text.PlainDocument;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class HebrewDocument extends PlainDocument
+public class NikudDocument extends PlainDocument
 {
+   private static final int NUMBER_OF_LETTERS_ALLOWED = 50;
+
    private static final long serialVersionUID = -9186425449349376170L;
 
-   private static final int NUMBER_OF_LETTERS_ALLOWED = 26;
-   
    private String signPattern;
 
-   public HebrewDocument(boolean withComma)
+   public NikudDocument(boolean withComma)
    {
       if (withComma)
       {
-         signPattern = SignLetter.getPatternStringHebrewWithComma();
+         signPattern = SignLetter.getPatternStringNikudWithComma();
       }
       else
       {
-         signPattern = SignLetter.getPatternStringHebrew();
+         signPattern = SignLetter.getPatternStringNikud();
       }
    }
 
@@ -44,8 +44,8 @@ public class HebrewDocument extends PlainDocument
                return;
             }
          }
-         
-         List<String> list = LetterHelper.findLetterCodes(text);
+
+         List<String> list = LetterHelper.findNikudLetterCodes(text);
 
          if (list == null || list.isEmpty())
          {
@@ -55,7 +55,7 @@ public class HebrewDocument extends PlainDocument
 
          for (int i = 0; i < list.size(); i++)
          {
-            HebrewLetter letter = HebrewLetter.getLetterFromCode(list.get(i));
+            NikudLetter letter = NikudLetter.getLetterFromCode(list.get(i));
             if (letter != null)
             {
                // okay
@@ -91,8 +91,8 @@ public class HebrewDocument extends PlainDocument
                return;
             }
          }
-         
-         List<String> list = LetterHelper.findLetterCodes(str);
+
+         List<String> list = LetterHelper.findNikudLetterCodes(str);
 
          if (list == null || list.isEmpty())
          {
@@ -102,7 +102,7 @@ public class HebrewDocument extends PlainDocument
 
          for (int i = 0; i < list.size(); i++)
          {
-            HebrewLetter letter = HebrewLetter.getLetterFromCode(list.get(i));
+            NikudLetter letter = NikudLetter.getLetterFromCode(list.get(i));
             if (letter != null)
             {
                // okay

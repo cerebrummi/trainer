@@ -539,7 +539,7 @@ public class ApplicationImages
    public static void setLetterIconsNikudMap(
          Map<NikudLetter, BufferedImage> letterIconsNikudMap)
    {
-      if(letterIconsNikudMap.size() < 58)
+      if(letterIconsNikudMap.size() < 57)
       {
             exitWithMessage("Buchstaben Nikud Icons fehlen");
       }

@@ -56,6 +56,11 @@ public enum SignLetter implements Letter
          FULL_STOP };
    private static SignLetter[] hebrewSignsWithComma = { QUESTION_MARK,
          EXCLAMATION_MARK, FULL_STOP, COMMA };
+   
+   private static SignLetter[] nikudSigns = { QUESTION_MARK, EXCLAMATION_MARK,
+         FULL_STOP };
+   private static SignLetter[] nikudSignsWithComma = { QUESTION_MARK,
+         EXCLAMATION_MARK, FULL_STOP, COMMA };
 
    private static SignLetter[] extraInformationSigns = { QUESTION_MARK,
          EXCLAMATION_MARK, FULL_STOP, APOSTROPHE, LEFT_PARENTHESIS,
@@ -109,6 +114,26 @@ public enum SignLetter implements Letter
    {
       StringJoiner joiner = new StringJoiner(",");
       for (SignLetter letter : hebrewSignsWithComma)
+      {
+         joiner.add(letter.getCode());
+      }
+      return joiner.toString();
+   }
+   
+   public static String getPatternStringNikud()
+   {
+      StringJoiner joiner = new StringJoiner(",");
+      for (SignLetter letter : nikudSigns)
+      {
+         joiner.add(letter.getCode());
+      }
+      return joiner.toString();
+   }
+   
+   public static String getPatternStringNikudWithComma()
+   {
+      StringJoiner joiner = new StringJoiner(",");
+      for (SignLetter letter : nikudSignsWithComma)
       {
          joiner.add(letter.getCode());
       }

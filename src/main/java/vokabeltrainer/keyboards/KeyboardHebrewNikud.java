@@ -6,8 +6,10 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
@@ -28,9 +30,11 @@ public class KeyboardHebrewNikud extends JPanel
    private List<JTextComponent> components;
 
    private Scale scale;
+   private List<JButton> buttons = new ArrayList<>();
 
    public KeyboardHebrewNikud(JTextComponent textfield,
-         List<JTextComponent> arrayList, int textFieldHeight)
+         List<JTextComponent> arrayList, int textFieldHeight,
+         boolean addTextField)
    {
       scale = new Scale(BUTTON_SIZE);
       
@@ -52,6 +56,11 @@ public class KeyboardHebrewNikud extends JPanel
       this.setPreferredSize(new Dimension(Settings.getKeyboardWidth(),
             textFieldHeight + 10 + 218));
 
+      if (textfield != null && addTextField)
+      {
+         add(textfield);
+      }
+      
       if (textfield != null)
       {
          setFocusTraversalPolicy(new OneFocusTraversalPolicy(textfield));
@@ -151,16 +160,18 @@ public class KeyboardHebrewNikud extends JPanel
       row7.setLayout(new TrainLayout(row7, 8));
 
       row7.add(makeButton(NikudLetter.JIDDISH_DOUBLE_JOD));
-      row7.add(makeButton(NikudLetter.JIDDISH_WAW_JOD));
       row7.add(makeSpaceButton());
+      row7.add(makeButton(NikudLetter.JIDDISH_WAW_JOD));
       row7.add(makeButton(NikudLetter.JIDDISH_DOUBLE_WAW));
-      row7.add(makeButton(NikudLetter.JOD_TRIANGLE));
 
 
       keyboard.add(row1);
       keyboard.add(row2);
       keyboard.add(row3);
       keyboard.add(row4);
+      keyboard.add(row5);
+      keyboard.add(row6);
+      keyboard.add(row7);
       add(keyboard);
    }
 
@@ -168,14 +179,15 @@ public class KeyboardHebrewNikud extends JPanel
    {
       DataButton jButton = new DataButton("\u0020", "\u0020");
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE + 10));
-      jButton.setMaximumSize(new Dimension(6 * BUTTON_SIZE, BUTTON_SIZE + 10));
+      jButton.setMaximumSize(new Dimension(8 * BUTTON_SIZE, BUTTON_SIZE + 10));
       jButton.addMouseListener(new KeyboardListener());
+      buttons.add(jButton);
       return jButton;
    }
 
    private Component makeButton(NikudLetter letter)
    {
-      DataButton jButton = new DataButton(ApplicationImages.getLetterIconsMap()
+      DataButton jButton = new DataButton(ApplicationImages.getLetterIconsNikudMap()
             .get(letter).getScaledInstance(scale.getScaleX(), scale.getScaleY(), java.awt.Image.SCALE_SMOOTH),
             letter.getUnicode());
       jButton.setMargin(new Insets(3, -5, 0, -5));
@@ -196,6 +208,7 @@ public class KeyboardHebrewNikud extends JPanel
       buttonCaption.add(captionLabel);
 
       jButton.addMouseListener(new KeyboardListener());
+      buttons.add(jButton);
       return buttonCaption;
    }
 
@@ -251,5 +264,33 @@ public class KeyboardHebrewNikud extends JPanel
 
       }
 
+   }
+
+   public void setFrozen(boolean frozen)
+   {
+      if (frozen)
+      {
+         for (JButton button : buttons)
+         {
+            button.setEnabled(false);
+            button.setVisible(false);
+            if (button.getMouseListeners().length > 0)
+            {
+               button.removeMouseListener(button.getMouseListeners()[0]);
+            }
+         }
+      }
+      else
+      {
+         for (JButton button : buttons)
+         {
+            button.setEnabled(true);
+            button.setVisible(true);
+            if (button.getMouseListeners().length == 0)
+            {
+               button.addMouseListener(new KeyboardListener());
+            }
+         }
+      }
    }
 }

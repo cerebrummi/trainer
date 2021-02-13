@@ -614,9 +614,8 @@ public final class Data
       // #########################################################
       // #########################################################
       private ConcurrentMap<UUID, Expression> readData(String filename,
-            Reader reader, Database origin, Letter letter,
-            boolean overwrite, String databasename, boolean doNotChange)
-            throws IOException
+            Reader reader, Database origin, Letter letter, boolean overwrite,
+            String databasename, boolean doNotChange) throws IOException
       {
          StringBuffer buffer = new StringBuffer();
          String input;
@@ -653,7 +652,8 @@ public final class Data
             try
             {
 
-               Expression expression = new Expression(false, doNotChange);
+               Expression expression = new Expression(false, doNotChange,
+                     false);
                // read csv file row
                int index = 0;
                String[] entries = row.split("\t");
@@ -819,6 +819,16 @@ public final class Data
                catch (Exception e)
                {
                   expression.toggleLastModified();
+               }
+               index++;
+               try
+               {
+                  expression.setIvrit(Boolean.valueOf(entries[index]));
+               }
+               catch (Exception e)
+               {
+                  // old csv is always ivrit
+                  expression.setIvrit(true);
                }
                if (LetterForLoading.DELETED != letter)
                {
@@ -1359,6 +1369,10 @@ public final class Data
          case GERMAN:
             for (Expression expression : list)
             {
+               if(!expression.isIvrit())
+               {
+                  continue;
+               }
                if (!expression.getTrainingStatusDToH().isTrainingStarted())
                {
                   result.add(expression);
@@ -1388,6 +1402,10 @@ public final class Data
          case GERMAN:
             for (Expression expression : allExpressions)
             {
+               if(!expression.isIvrit())
+               {
+                  continue;
+               }
                if (Command.AREA_SELECTED == fieldOfTraining)
                {
                   if (expression.isSelected() && expression

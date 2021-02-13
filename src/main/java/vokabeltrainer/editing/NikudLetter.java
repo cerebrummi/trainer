@@ -1,6 +1,8 @@
 package vokabeltrainer.editing;
 
-public enum NikudLetter
+import org.apache.commons.lang3.StringUtils;
+
+public enum NikudLetter implements Letter
 {
    AIN(
          "\u05E2",
@@ -135,14 +137,14 @@ public enum NikudLetter
    HATAF_PATAH("\u05B2",
          " 05B2",
          "hataf patah"),
-   HATAF_QAMATS("\u05B2",
-         " 05B2",
+   HATAF_QAMATS("\u05B3",
+         " 05B3",
          "hataf qamats"),
    HIRIQ("\u05B4",
          " 05B4",
          "hiriq"),
-   TSERE("\u05B4",
-         " 05B4",
+   TSERE("\u05B5",
+         " 05B5",
          "tsere"),
    SEGOL("\u05B6",
          " 05B6",
@@ -150,8 +152,8 @@ public enum NikudLetter
    PATAH("\u05B7",
          " 05B7",
          "patah"),
-   QAMATS("\u05B7",
-         " 05B7",
+   QAMATS("\u05B8",
+         " 05B8",
          "qamats"),
    HOLAM("\u05B9",
          " 05B9",
@@ -171,8 +173,8 @@ public enum NikudLetter
    MAQAF("\u05BE",
          " 05BE",
          "maqaf"),
-   RAFE("\u05BE",
-         " 05BE",
+   RAFE("\u05BF",
+         " 05BF",
          "rafe"),
    PASEQ("\u05C0",
          " 05C0",
@@ -198,9 +200,6 @@ public enum NikudLetter
    QAMATS_QATAN("\u05C7",
          " 05C7",
          "qamats qatan"),
-   JOD_TRIANGLE("\u05EF",
-         " 05EF",
-         "jod triangle"),
    JIDDISH_DOUBLE_WAW("\u05F0",
          " 05F0",
          "jiddish double waw"),
@@ -235,6 +234,18 @@ public enum NikudLetter
    public String getTranscript()
    {
       return transcript;
+   }
+
+   public static NikudLetter getLetterFromCode(String code)
+   {
+      for (NikudLetter letter : NikudLetter.values())
+      {
+         if (StringUtils.containsIgnoreCase(letter.getCode(), code))
+         {
+            return letter;
+         }
+      }
+      return null;
    }
 
 }

@@ -12,9 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 public class GermanDocument extends PlainDocument
 {
    private static final long serialVersionUID = 7089213677826493757L;
-
+   
    private String signPattern;
-   private int size = 50;
+   private int numberOfLettersAllowed = 50;
 
    public GermanDocument(boolean withComma)
    {
@@ -30,7 +30,7 @@ public class GermanDocument extends PlainDocument
 
    public GermanDocument(int size)
    {
-      this.size = size;
+      numberOfLettersAllowed = size;
       signPattern = SignLetter.getPatternStringForFileNames();
    }
 
@@ -40,9 +40,10 @@ public class GermanDocument extends PlainDocument
    {
       if (text != null && !text.isEmpty())
       {
-         if (getLength() + text.length() - length > size)
+         if (getLength() + text.length() - length > numberOfLettersAllowed)
          {
-            text = text.substring(0, (size - 1) - getLength() + 1);
+            text = text.substring(0,
+                  numberOfLettersAllowed - (getLength() - length));
             if (text.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();
@@ -88,9 +89,9 @@ public class GermanDocument extends PlainDocument
    {
       if (str != null && !str.isEmpty())
       {
-         if (getLength() + str.length() > size)
+         if (getLength() + str.length() > numberOfLettersAllowed)
          {
-            str = str.substring(0, (size - 1) - getLength() + 1);
+            str = str.substring(0, numberOfLettersAllowed - getLength());
             if (str.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();

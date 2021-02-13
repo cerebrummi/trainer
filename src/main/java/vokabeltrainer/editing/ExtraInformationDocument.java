@@ -11,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 public class ExtraInformationDocument extends DefaultStyledDocument
 {
    private static final long serialVersionUID = 216678564395494689L;
+   
+   private static final int NUMBER_OF_LETTERS_ALLOWED = 600;
 
    private String signPattern;
 
@@ -25,16 +27,17 @@ public class ExtraInformationDocument extends DefaultStyledDocument
    {
       if (text != null && !text.isEmpty())
       {
-         if (getLength() + text.length() - length > 600)
+         if (getLength() + text.length() - length > NUMBER_OF_LETTERS_ALLOWED)
          {
-            text = text.substring(0, 599 - getLength() + 1);
+            text = text.substring(0,
+                  NUMBER_OF_LETTERS_ALLOWED - (getLength() - length));
             if (text.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();
                return;
             }
          }
-         
+
          List<String> list = LetterHelper.findLetterCodes(text);
 
          if (list == null || list.isEmpty())
@@ -49,11 +52,17 @@ public class ExtraInformationDocument extends DefaultStyledDocument
                   .getLetterFromCode(list.get(i));
             HebrewLetter hebrewLetter = HebrewLetter
                   .getLetterFromCode(list.get(i));
+            NikudLetter nikudLetter = NikudLetter
+                  .getLetterFromCode(list.get(i));
             if (germanLetter != null)
             {
                // okay
             }
             else if (hebrewLetter != null)
+            {
+               // okay
+            }
+            else if (nikudLetter != null)
             {
                // okay
             }
@@ -80,16 +89,16 @@ public class ExtraInformationDocument extends DefaultStyledDocument
    {
       if (str != null && !str.isEmpty())
       {
-         if (getLength() + str.length() > 600)
+         if (getLength() + str.length() > NUMBER_OF_LETTERS_ALLOWED)
          {
-            str = str.substring(0, 599 - getLength() + 1);
+            str = str.substring(0, NUMBER_OF_LETTERS_ALLOWED - getLength());
             if (str.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();
                return;
             }
          }
-         
+
          List<String> list = LetterHelper.findLetterCodes(str);
 
          if (list == null || list.isEmpty())
@@ -104,11 +113,17 @@ public class ExtraInformationDocument extends DefaultStyledDocument
                   .getLetterFromCode(list.get(i));
             HebrewLetter hebrewLetter = HebrewLetter
                   .getLetterFromCode(list.get(i));
+            NikudLetter nikudLetter = NikudLetter
+                  .getLetterFromCode(list.get(i));
             if (germanLetter != null)
             {
                // okay
             }
             else if (hebrewLetter != null)
+            {
+               // okay
+            }
+            else if (nikudLetter != null)
             {
                // okay
             }

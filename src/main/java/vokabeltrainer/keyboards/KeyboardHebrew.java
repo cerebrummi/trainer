@@ -31,7 +31,6 @@ public class KeyboardHebrew extends JPanel
 
    private List<JButton> buttons = new ArrayList<>();
    private List<JLabel> labels = new ArrayList<>();
-   private boolean frozen;
    
    private Scale scale;
 
@@ -228,14 +227,8 @@ public class KeyboardHebrew extends JPanel
 
    }
 
-   public boolean isFrozen()
-   {
-      return frozen;
-   }
-
    public void setFrozen(boolean frozen)
    {
-      this.frozen = frozen;
       if (frozen)
       {
          for (JButton button : buttons)

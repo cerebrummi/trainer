@@ -26,7 +26,7 @@ import vokabeltrainer.cmd.DirectoryHelper;
 
 public final class SaveExpressions
 {
-   private static final String HEADER_CSV = "UUID\tUrsprung\tDatenbank\tchapter\tGerman\tHebrew\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tzusätzliche Informationen\tsearchwords German\tsearchwords Hebrew\tletzte Änderung";
+   private static final String HEADER_CSV = "UUID\tUrsprung\tDatenbank\tchapter\tGerman\tHebrew\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb conjugation\tverb strength\tverb type\tzusätzliche Informationen\tsearchwords German\tsearchwords Hebrew\tletzte Änderung\tivrit";
    private int counter;
    private PathAndFile exportpath;
    private boolean takeSelectedOnlyIntoAccount;

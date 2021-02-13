@@ -76,7 +76,8 @@ public class DictionaryView extends BackgroundPanelTiled
    private ButtonGroup searchTypeGroupGerman;
    private ExpressionTable table;
    private JPanel tablePanel;
-   private JButton newWordButton;
+   private JButton newWordIvritButton;
+   private JButton newWordPunktationButton;
    private JButton copyAllSelectedButton;
    private JButton copyInTableSelectedButton;
    private JButton copyTableButton;
@@ -422,12 +423,19 @@ public class DictionaryView extends BackgroundPanelTiled
       clearInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
       clearInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
 
-      newWordButton = new JButton("neues Wort");
-      newWordButton.setFont(buttonFont);
-      newWordButton.setHorizontalAlignment(SwingConstants.LEFT);
-      newWordButton.setMinimumSize(new Dimension(200, 40));
-      newWordButton.setMaximumSize(new Dimension(600, 40));
-      newWordButton.setIcon(new ImageIcon(ApplicationImages.getNewWord()));
+      newWordIvritButton = new JButton("neues Wort Ivrit");
+      newWordIvritButton.setFont(buttonFont);
+      newWordIvritButton.setHorizontalAlignment(SwingConstants.LEFT);
+      newWordIvritButton.setMinimumSize(new Dimension(200, 40));
+      newWordIvritButton.setMaximumSize(new Dimension(600, 40));
+      newWordIvritButton.setIcon(new ImageIcon(ApplicationImages.getNewWord()));
+      
+      newWordPunktationButton = new JButton("neues Wort mit Punktation");
+      newWordPunktationButton.setFont(buttonFont);
+      newWordPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
+      newWordPunktationButton.setMinimumSize(new Dimension(200, 40));
+      newWordPunktationButton.setMaximumSize(new Dimension(600, 40));
+      newWordPunktationButton.setIcon(new ImageIcon(ApplicationImages.getNewWord()));
 
       deleteInTableSelectedButton = new JButton("Tabellenauswahl löschen");
       deleteInTableSelectedButton.setFont(buttonFont);
@@ -468,7 +476,8 @@ public class DictionaryView extends BackgroundPanelTiled
       newPanel.setBackground(Settings.getGreen());
       newPanel.setBorder(
             BorderFactory.createMatteBorder(5, 3, 5, 3, Settings.getGreen()));
-      newPanel.add(newWordButton);
+      newPanel.add(newWordIvritButton);
+      newPanel.add(newWordPunktationButton);
 
       JPanel deletePanel = new JPanel();
       deletePanel.setLayout(new TotemLayout(deletePanel, 10));
@@ -525,8 +534,11 @@ public class DictionaryView extends BackgroundPanelTiled
       tabbedPane.addChangeListener(event -> connector
             .tabbedPaneChanged(tabbedPane.getSelectedIndex()));
 
-      newWordButton
+      newWordIvritButton
             .addActionListener(event -> connector.openNewExpressionDialog());
+      
+      newWordPunktationButton
+      .addActionListener(event -> connector.openNewNikudExpressionDialog());
 
       copyAllSelectedButton
             .addActionListener(event -> connector.copyAllSelectedExpressions());

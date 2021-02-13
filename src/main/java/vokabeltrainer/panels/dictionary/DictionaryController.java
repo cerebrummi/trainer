@@ -22,6 +22,8 @@ import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.ExpressionEditorController;
 import vokabeltrainer.table.list.editor.ExpressionEditorView;
+import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
+import vokabeltrainer.table.list.editor.NikudExpressionEditorView;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
@@ -102,7 +104,26 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       ExpressionEditorView editor = new ExpressionEditorController()
             .getExpressionEditorDialog();
-      editor.setExpression(new Expression(true, false), true);
+      editor.setExpression(new Expression(true, false, true), true);
+      editor.setLocationRelativeTo(null);
+      editor.setVisible(true);
+      if (editor.isSave())
+      {
+         Expression expression = editor.getExpression();
+         Data.putExpressionInNewMap(expression.getUuid(), expression);
+         Status.push(Status.peek());
+         decideOnTableInteraction(Action.NEW_EXPRESSION);
+         save();
+      }
+   }
+
+  
+   @Override
+   public void openNewNikudExpressionDialog()
+   {
+      NikudExpressionEditorView editor = new NikudExpressionEditorController()
+            .getNikudExpressionEditorDialog();
+      editor.setExpression(new Expression(true, false, false), true);
       editor.setLocationRelativeTo(null);
       editor.setVisible(true);
       if (editor.isSave())
