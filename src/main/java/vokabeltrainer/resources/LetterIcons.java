@@ -41,7 +41,7 @@ public class LetterIcons
       
       for(NikudLetter letter : NikudLetter.values())
       {
-         if(letter == NikudLetter.SPACE)
+         if(letter == NikudLetter.NEWSPACE || letter == NikudLetter.SPACE)
          {
             continue;
          }

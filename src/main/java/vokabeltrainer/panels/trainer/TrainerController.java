@@ -215,6 +215,10 @@ public class TrainerController implements TrainerControllerConnector
             }
             reactToAnswer(result.isOkay());
          }
+         else if (Language.TO_NIKUD.equals(languageDirection))
+         {
+            // TODO
+         }
          else // HtoD
          {
             trainerView.prepareHtoDFeedbackPanel();

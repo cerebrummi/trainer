@@ -103,7 +103,7 @@ public class KeyboardHebrewNikud extends JPanel
       row3.setOpaque(false);
       row3.setLayout(new TrainLayout(row3, 8));
 
-      row3.add(makeButton(NikudLetter.SSIN));
+      row3.add(makeButton(NikudLetter.TAW));
       row3.add(makeButton(NikudLetter.SCHIN));
       row3.add(makeButton(NikudLetter.RESCH));
       row3.add(makeButton(NikudLetter.KUF));
@@ -117,6 +117,7 @@ public class KeyboardHebrewNikud extends JPanel
       row4.setOpaque(false);
       row4.setLayout(new TrainLayout(row4, 8));
 
+      row4.add(makeButton(NikudLetter.SEGOL));
       row4.add(makeButton(NikudLetter.TSERE));
       row4.add(makeButton(NikudLetter.HIRIQ));
       row4.add(makeButton(NikudLetter.HATAF_QAMATS));
@@ -125,12 +126,12 @@ public class KeyboardHebrewNikud extends JPanel
       row4.add(makeButton(NikudLetter.SHEVA));
       row4.add(makeButton(NikudLetter.GERSCHAYIM));
       row4.add(makeButton(NikudLetter.GERESCH));
-      row4.add(makeButton(NikudLetter.TAW));
 
       JPanel row5 = new JPanel();
       row5.setOpaque(false);
       row5.setLayout(new TrainLayout(row5, 8));
 
+      row5.add(makeButton(NikudLetter.RAFE));
       row5.add(makeButton(NikudLetter.MAQAF));
       row5.add(makeButton(NikudLetter.METEG));
       row5.add(makeButton(NikudLetter.DAGESH));
@@ -139,12 +140,12 @@ public class KeyboardHebrewNikud extends JPanel
       row5.add(makeButton(NikudLetter.HOLAM));
       row5.add(makeButton(NikudLetter.QAMATS));
       row5.add(makeButton(NikudLetter.PATAH));
-      row5.add(makeButton(NikudLetter.SEGOL));
       
       JPanel row6 = new JPanel();
       row6.setOpaque(false);
       row6.setLayout(new TrainLayout(row6, 8));
 
+      row6.add(makeButton(NikudLetter.JIDDISH_DOUBLE_WAW));
       row6.add(makeButton(NikudLetter.QAMATS_QATAN));
       row6.add(makeButton(NikudLetter.HAFUKAH));
       row6.add(makeButton(NikudLetter.LOWER_DOT));
@@ -153,7 +154,6 @@ public class KeyboardHebrewNikud extends JPanel
       row6.add(makeButton(NikudLetter.SIN_DOT));
       row6.add(makeButton(NikudLetter.SHIN_DOT));
       row6.add(makeButton(NikudLetter.PASEQ));
-      row6.add(makeButton(NikudLetter.RAFE));
       
       JPanel row7 = new JPanel();
       row7.setOpaque(false);
@@ -162,8 +162,6 @@ public class KeyboardHebrewNikud extends JPanel
       row7.add(makeButton(NikudLetter.JIDDISH_DOUBLE_JOD));
       row7.add(makeSpaceButton());
       row7.add(makeButton(NikudLetter.JIDDISH_WAW_JOD));
-      row7.add(makeButton(NikudLetter.JIDDISH_DOUBLE_WAW));
-
 
       keyboard.add(row1);
       keyboard.add(row2);
@@ -179,7 +177,7 @@ public class KeyboardHebrewNikud extends JPanel
    {
       DataButton jButton = new DataButton("\u0020", "\u0020");
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE + 10));
-      jButton.setMaximumSize(new Dimension(8 * BUTTON_SIZE, BUTTON_SIZE + 10));
+      jButton.setMaximumSize(new Dimension(9 * BUTTON_SIZE, BUTTON_SIZE + 10));
       jButton.addMouseListener(new KeyboardListener());
       buttons.add(jButton);
       return jButton;

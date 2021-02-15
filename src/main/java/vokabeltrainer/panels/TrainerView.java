@@ -38,6 +38,7 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
 import vokabeltrainer.keyboards.KeyboardHebrew;
+import vokabeltrainer.keyboards.KeyboardHebrewNikud;
 import vokabeltrainer.keyboards.KeyboardHebrewSimple;
 import vokabeltrainer.keyboards.OneFocusTraversalPolicy;
 import vokabeltrainer.panels.letterpicture.LetterPictureWordPanel;
@@ -46,6 +47,7 @@ import vokabeltrainer.panels.trainer.ImagePanelBlue;
 import vokabeltrainer.panels.trainer.ImagePanelError;
 import vokabeltrainer.panels.trainer.ImagePanelGreen;
 import vokabeltrainer.panels.trainer.ImagePanelStart;
+import vokabeltrainer.panels.trainer.NikudResult;
 import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
@@ -88,6 +90,7 @@ public class TrainerView extends BackgroundPanelTiled
 
    private KeyboardHebrew keyboard;
    private KeyboardHebrewSimple simpleKeyboard;
+   private KeyboardHebrewNikud keyboardNikud;
    private CardLayout keyboardCardLayout;
    private JPanel keyboardSwapPanel;
    private JCheckBox keyboardHints;
@@ -318,7 +321,7 @@ public class TrainerView extends BackgroundPanelTiled
    private void initQuestionPanel(Language languageDirection)
    {
       questionPanel.removeAll();
-      if (Language.GERMAN.equals(languageDirection))
+      if (Language.GERMAN.equals(languageDirection) || Language.TO_NIKUD.equals(languageDirection))
       {
          questionField = new JTextField();
          questionField.setBackground(Settings.getLightBlue());
@@ -406,6 +409,25 @@ public class TrainerView extends BackgroundPanelTiled
          answerPanel.add(keyboardSwapPanel);
          keyboardCardLayout.show(keyboardSwapPanel, "BLANK");
       }
+      else if(Language.TO_NIKUD.equals(languageDirection))
+      {
+         answerPanel.removeAll();
+         answerPanel
+               .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
+         answerPanel
+               .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 308));
+         answerField = new InfoTextField("Antwortfeld", "Antwortfeld:",
+               "Mit der hebräischen Tastatur", "bitte die Antwort schreiben.");
+         answerField.setDocument(new HebrewDocument(true));
+         answerField
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+
+         keyboardNikud = new KeyboardHebrewNikud(answerField,
+               new ArrayList<JTextComponent>(), 80, false);
+
+         answerPanel.add(answerField);
+         answerPanel.add(keyboardNikud);
+      }
       else
       {
          answerPanel.removeAll();
@@ -476,7 +498,7 @@ public class TrainerView extends BackgroundPanelTiled
       swapPanel.add("RED", imageFieldError);
       cardLayout.show(swapPanel, "START");
 
-      if (Language.GERMAN.equals(languageDirection))
+      if (Language.GERMAN.equals(languageDirection) || Language.TO_NIKUD.equals(languageDirection))
       {
          sendButton = new JButton("Antwort absenden");
       }
@@ -794,5 +816,10 @@ public class TrainerView extends BackgroundPanelTiled
       feedbackPanel.add(scrollPane);
       feedbackPanel.add(fillerAnswerPanel);
       wordPanel.displayWord(result.getExpression().getHebrew());
+   }
+   
+   public void prepareDtoNikudFeedbackPanel(NikudResult result)
+   {
+      // TODO
    }
 }

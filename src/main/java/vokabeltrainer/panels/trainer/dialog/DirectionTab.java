@@ -24,6 +24,7 @@ public class DirectionTab extends BackgroundPanelTiled
 
    private ButtonGroup directionGroup;
    private JRadioButton germanToHebrewButton;
+   private JRadioButton germanToNikudButton;
    private JRadioButton hebrewToGermanButton;
    private JButton nextButton;
    private JButton cancelButton;
@@ -48,15 +49,20 @@ public class DirectionTab extends BackgroundPanelTiled
       vertical.setLayout(new BoxLayout(vertical, 1));
       vertical.setOpaque(false);
 
-      germanToHebrewButton = new JRadioButton("Deutsch >> Hebräisch (nur Ivrit Wörter)");
+      germanToHebrewButton = new JRadioButton("Deutsch >> Hebräisch (Ivrit Wörter)");
       germanToHebrewButton.setFont(Settings.getToolBarButtonFont());
       directionGroup.add(germanToHebrewButton);
+      
+      germanToNikudButton = new JRadioButton("Deutsch >> Hebräisch (Wörter mit Punktation)");
+      germanToNikudButton.setFont(Settings.getToolBarButtonFont());
+      directionGroup.add(germanToNikudButton);
 
       hebrewToGermanButton = new JRadioButton("Hebräisch >> Deutsch (Ivrit und Wörter mit Punktation)");
       hebrewToGermanButton.setFont(Settings.getToolBarButtonFont());
       directionGroup.add(hebrewToGermanButton);
 
       vertical.add(germanToHebrewButton);
+      vertical.add(germanToNikudButton);
       vertical.add(hebrewToGermanButton);
       vertical.add(Box.createRigidArea(new Dimension(30, 30)));
 
@@ -82,6 +88,12 @@ public class DirectionTab extends BackgroundPanelTiled
       germanToHebrewButton.addActionListener(event -> {
          removeTabsToTheRight(dialog);
          dialog.setLanguageDirection(Language.GERMAN);
+         nextButton.setEnabled(true);
+      });
+      
+      germanToNikudButton.addActionListener(event -> {
+         removeTabsToTheRight(dialog);
+         dialog.setLanguageDirection(Language.TO_NIKUD);
          nextButton.setEnabled(true);
       });
 
