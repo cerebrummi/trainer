@@ -308,4 +308,28 @@ public enum HebrewLetter implements Letter
       }
       return hebrewLetters;
    }
+
+   @Override
+   public boolean isNewspace()
+   {
+      return HebrewLetter.NEWSPACE == this;
+   }
+
+   @Override
+   public boolean isSpace()
+   {
+      return HebrewLetter.SPACE == this;
+   }
+   
+   @Override
+   public LetterType isType()
+   {
+      return LetterType.HEBREW;
+   }
+
+   @Override
+   public Letter getNewspace()
+   {
+      return HebrewLetter.NEWSPACE;
+   }
 }

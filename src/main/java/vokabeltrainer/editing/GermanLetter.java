@@ -240,4 +240,28 @@ public enum GermanLetter implements Letter
    {
       return unicode;
    }
+
+   @Override
+   public boolean isNewspace()
+   {
+      return false;
+   }
+
+   @Override
+   public boolean isSpace()
+   {
+      return GermanLetter.SPACE == this;
+   }
+
+   @Override
+   public LetterType isType()
+   {
+      return LetterType.GERMAN;
+   }
+
+   @Override
+   public Letter getNewspace()
+   {
+      return null;
+   }
 }

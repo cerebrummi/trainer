@@ -46,4 +46,29 @@ public enum NumberLetter implements Letter
    {
       return unicode;
    }
+
+   @Override
+   public boolean isNewspace()
+   {
+      return false;
+   }
+
+   @Override
+   public boolean isSpace()
+   {
+      return false;
+   }
+   
+   @Override
+   public LetterType isType()
+   {
+      return LetterType.NUMBER;
+   }
+
+   @Override
+   public Letter getNewspace()
+   {
+      return null;
+   }
+   
 }

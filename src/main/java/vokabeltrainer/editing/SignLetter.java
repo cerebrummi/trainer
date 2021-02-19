@@ -183,4 +183,28 @@ public enum SignLetter implements Letter
       }
       return null;
    }
+
+   @Override
+   public boolean isNewspace()
+   {
+      return false;
+   }
+
+   @Override
+   public boolean isSpace()
+   {
+      return false;
+   }
+   
+   @Override
+   public LetterType isType()
+   {
+      return LetterType.SIGN;
+   }
+
+   @Override
+   public Letter getNewspace()
+   {
+      return null;
+   }
 }

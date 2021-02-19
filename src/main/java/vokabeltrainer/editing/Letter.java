@@ -5,6 +5,13 @@ public interface Letter
 
    String getCode();
 
-   Object getUnicode();
+   String getUnicode();
+   
+   boolean isNewspace();
+   
+   boolean isSpace();
+   
+   LetterType isType();
 
+   Letter getNewspace();
 }

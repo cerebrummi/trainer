@@ -10,6 +10,10 @@ import vokabeltrainer.words.WordMatchingResult;
 
 public class Resultfactory
 {
+   private Resultfactory()
+   {
+      
+   }
 
    public static Result getResultDtoHScentence(Expression expression,
          String answer)

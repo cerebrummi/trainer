@@ -313,4 +313,27 @@ public enum NikudLetter implements Letter
       return null;
    }
 
+   @Override
+   public boolean isNewspace()
+   {
+      return NikudLetter.NEWSPACE == this;
+   }
+
+   @Override
+   public boolean isSpace()
+   {
+      return NikudLetter.SPACE == this;
+   }
+   
+   @Override
+   public LetterType isType()
+   {
+      return LetterType.NIKUD;
+   }
+
+   @Override
+   public Letter getNewspace()
+   {
+      return NikudLetter.NEWSPACE;
+   }
 }

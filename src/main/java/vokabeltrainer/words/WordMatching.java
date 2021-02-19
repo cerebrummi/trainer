@@ -141,6 +141,7 @@ public class WordMatching
 
       int deltaCol = findDeltaColumns(dataTest, sizeTest);
       result.setDeltaCol(deltaCol);
+      
       if (deltaCol > 0) // moved to the left
       {
          cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
