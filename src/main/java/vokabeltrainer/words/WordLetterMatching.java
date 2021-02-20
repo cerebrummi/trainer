@@ -189,39 +189,44 @@ public class WordLetterMatching
 
       if (result.isPartlyFalse())
       {
-         dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
+         dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
                dataDic, dataTest, NEWSPACE, Math.min(sizeDic, sizeTest));
 
          if (dataDic.size() != dataTest.size())
          {
             throw new IllegalStateException("Längen unterschiedlich 4");
          }
-         
-         dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
+
+         dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
                dataTest, dataDic, NEWSPACE, Math.min(sizeDic, sizeTest));
-         
+
          if (dataDic.size() != dataTest.size())
          {
             throw new IllegalStateException("Längen unterschiedlich 5");
          }
-         
+
          // for example
          // nnnnnnnnnnndnnddddddddddddddd
          // nnnnnnnnnntttttttttttttnnnntt
       }
 
       cutOutCommonNewspace(dataTest, dataDic);
-      
+
+      if (dataDic.size() != dataTest.size())
+      {
+         throw new IllegalStateException("Längen unterschiedlich 6");
+      }
+
       result.setDictionary(dataDic);
       result.setAnswer(dataTest);
-      
+
       return result;
    }
 
    private static void cutOutCommonNewspace(List<LetterForAnalysis> dataT,
          List<LetterForAnalysis> dataD)
    {
-      for(int i = 0; i < Math.min(dataT.size(), dataD.size()); i++)
+      for (int i = 0; i < Math.min(dataT.size(), dataD.size()); i++)
       {
          if (dataT.get(i).getContent().isNewspace()
                && dataD.get(i).getContent().isNewspace())
@@ -254,8 +259,8 @@ public class WordLetterMatching
 
       Map<Integer, List<LetterForAnalysis>> samenessMap = new HashMap<>();
       List<LetterForAnalysis> dataDcloneOriginal = cloneList(dataD);
-      samenessMap.put(calculateSamenessPunish(dataT, dataDcloneOriginal),
-            dataDcloneOriginal);
+      int startSameness = calculateSamenessPunish(dataT, dataDcloneOriginal);
+      samenessMap.put(startSameness, dataDcloneOriginal);
 
       for (int i = 0; i < dataD.size(); i++)
       {
@@ -275,12 +280,15 @@ public class WordLetterMatching
          }
       }
 
-      for (int i = maxSameness; i > 0; i--)
+      for (int i = maxSameness; i >= startSameness; i--)
       {
          if (samenessMap.get(i) != null)
          {
-            makeOtherSameLengthAddNewspaceToLeft(dataT, samenessMap.get(i),
-                  NEWSPACE);
+            if(dataT.size() != samenessMap.get(i).size())
+            {
+               makeBothTheSameSize(dataT, samenessMap.get(i),
+                     NEWSPACE);
+            }
 
             return samenessMap.get(i);
          }
@@ -289,11 +297,27 @@ public class WordLetterMatching
       return dataD;
    }
 
-   private static void makeOtherSameLengthAddNewspaceToLeft(
+   private static void makeBothTheSameSize(
          List<LetterForAnalysis> other, List<LetterForAnalysis> list,
          Letter NEWSPACE)
    {
-      for (int i = 0; i < list.size() - other.size(); i++)
+      if(other.size() == list.size())
+      {
+         return;
+      }
+      
+      if(other.size() > list.size())
+      {
+         int diff = other.size()-list.size();
+         for (int i = 0; i < diff; i++)
+         {
+            list.add(0, new LetterForAnalysis(NEWSPACE));
+         }
+         return;
+      }
+      
+      int diff = list.size() - other.size();
+      for (int i = 0; i < diff; i++)
       {
          other.add(0, new LetterForAnalysis(NEWSPACE));
       }
@@ -342,8 +366,8 @@ public class WordLetterMatching
    {
       // nnnnnnnnnndddddddddddddddD
       // nnnnnnnnnnnntttttttttT T
-      for (int d = dataD.size() - 1, t = dataT.size() - 1 - deltaCol; d >= 0
-            && t >= 0; d--, t--)
+      for (int d = dataD.size() - 1, t = dataT.size() - 1
+            - Math.abs(deltaCol); d >= 0 && t >= 0; d--, t--)
       {
          if (evaluateSame(dataD.get(d), dataT.get(t)) == 1)
          {

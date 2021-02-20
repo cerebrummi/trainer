@@ -1,5 +1,9 @@
 package vokabeltrainer.panels.trainer;
 
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
 import vokabeltrainer.types.Expression;
 
 public class NikudResult
@@ -8,6 +12,7 @@ public class NikudResult
    private boolean dictionaryEmpty;
    private boolean answerEmpty;
    private Expression expression;
+   private List<BufferedImage> feedbackImageList = new ArrayList<BufferedImage>();
 
    public boolean isOkay()
    {
@@ -49,4 +54,23 @@ public class NikudResult
       this.expression = expression;
    }
 
+   public List<BufferedImage> getFeedbackImageList()
+   {
+      return feedbackImageList;
+   }
+
+   public void setFeedbackImageList(List<BufferedImage> feedbackImageList)
+   {
+      this.feedbackImageList = feedbackImageList;
+   }
+   
+   public void addFeedbackImageList(List<BufferedImage> list)
+   {
+      this.feedbackImageList.addAll(list);
+   }
+   
+   public void addFeedbackImage(BufferedImage image)
+   {
+      this.feedbackImageList.add(image);
+   }
 }

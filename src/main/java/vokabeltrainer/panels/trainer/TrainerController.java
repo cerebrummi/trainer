@@ -121,6 +121,7 @@ public class TrainerController implements TrainerControllerConnector
          switch (languageDirection)
          {
          case GERMAN:
+         case TO_NIKUD:
             trainerView.getAdditionalInfoField()
                   .setText(currentExpression.getAdditionalInfoGerman(true));
             break;
@@ -146,6 +147,7 @@ public class TrainerController implements TrainerControllerConnector
       switch (languageDirection)
       {
       case GERMAN:
+      case TO_NIKUD:
          trainerView.getQuestionField().setText(currentExpression.getGerman());
          break;
       case HEBREW:
@@ -186,40 +188,48 @@ public class TrainerController implements TrainerControllerConnector
             trainerView.prepareDtoHFeedbackPanel(result);
             if (result.isOkay())
             {
-               currentExpression.getTrainingStatusDToH().setTrys(
-                     currentExpression.getTrainingStatusDToH().getTrys() - 1);
-               if (currentExpression.getTrainingStatusDToH().getTrys() == 0)
-               {
-                  currentExpression.getTrainingStatusDToH().nextRepetition();
-                  currentExpression.getTrainingStatusDToH().setTrys(1);
-               }
-               expressionsToBeTested.remove(0);
+               resultDtoIsOkay();
             }
             else
             {
-               if (currentExpression.getTrainingStatusDToH().getTotalTrys() < 4)
-               {
-                  currentExpression.getTrainingStatusDToH().setTrys(
-                        currentExpression.getTrainingStatusDToH().getTrys()
-                              + 1);
-                  currentExpression.getTrainingStatusDToH().setTotalTrys(
-                        currentExpression.getTrainingStatusDToH().getTotalTrys()
-                              + 1);
-                  expressionsToBeTested.add(currentExpression);
-               }
-               else
-               {
-                  currentExpression.getTrainingStatusDToH()
-                        .previousRepetition();
-               }
+               resultDtoIsNotOkay();
             }
             reactToAnswer(result.isOkay());
          }
-         else if (Language.TO_NIKUD.equals(languageDirection))
+         else if (Language.TO_NIKUD.equals(languageDirection)) // DtoNikud
          {
-            // TODO
+            NikudResult result = NikudResultFactory.getResultDtoNikudSentence(currentExpression,
+                  trainerView.getAnswerField().getText().trim());
+            if (result.isAnswerEmpty())
+            {
+               JOptionPane.showMessageDialog(Common.getjFrame(), "",
+                     Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                     new ImageIcon(TextImage
+                           .make("Bitte schreiben Sie eine Antwort.")));
+               return;
+            }
+            else if (result.isDictionaryEmpty())
+            {
+               JOptionPane.showMessageDialog(Common.getjFrame(), "",
+                     Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                     new ImageIcon(TextImage.make(
+                           "Ihr Trainingswort enthält keine Buchstaben.",
+                           "Bitte löschen Sie diesen Ausdruck",
+                           "aus Kapitel " + currentExpression.getChapter())));
+               return;
+            }
+            trainerView.prepareDtoNikudFeedbackPanel(result);
+            if (result.isOkay())
+            {
+               resultDtoIsOkay();
+            }
+            else
+            {
+               resultDtoIsNotOkay();
+            }
+            reactToAnswer(result.isOkay());
          }
-         else // HtoD
+         else // HtoD or NikudtoD
          {
             trainerView.prepareHtoDFeedbackPanel();
          }
@@ -231,6 +241,37 @@ public class TrainerController implements TrainerControllerConnector
       {
          e1.printStackTrace();
       }
+   }
+
+   private void resultDtoIsNotOkay()
+   {
+      if (currentExpression.getTrainingStatusDToH().getTotalTrys() < 4)
+      {
+         currentExpression.getTrainingStatusDToH().setTrys(
+               currentExpression.getTrainingStatusDToH().getTrys()
+                     + 1);
+         currentExpression.getTrainingStatusDToH().setTotalTrys(
+               currentExpression.getTrainingStatusDToH().getTotalTrys()
+                     + 1);
+         expressionsToBeTested.add(currentExpression);
+      }
+      else
+      {
+         currentExpression.getTrainingStatusDToH()
+               .previousRepetition();
+      }
+   }
+
+   private void resultDtoIsOkay()
+   {
+      currentExpression.getTrainingStatusDToH().setTrys(
+            currentExpression.getTrainingStatusDToH().getTrys() - 1);
+      if (currentExpression.getTrainingStatusDToH().getTrys() == 0)
+      {
+         currentExpression.getTrainingStatusDToH().nextRepetition();
+         currentExpression.getTrainingStatusDToH().setTrys(1);
+      }
+      expressionsToBeTested.remove(0);
    }
 
    @Override

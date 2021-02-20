@@ -14,12 +14,29 @@ public class HebrewAnswerWordPanel extends JPanel
 
    public HebrewAnswerWordPanel(Result result)
    {
-      this.setPreferredSize(new Dimension(result.getWidth()
-            + (Math.max(result.getAnswerLettersSize(), result.getExpressionLettersSize()) * 4),
+      this.setPreferredSize(new Dimension(
+            result.getWidth() + (Math.max(result.getAnswerLettersSize(),
+                  result.getExpressionLettersSize()) * 4),
             110));
       this.setLayout(new TrainLayout(this, 4));
 
       for (BufferedImage image : result.getLetterFeedbackImages())
+      {
+         JLabel label = new JLabel(new ImageIcon(image));
+         label.setMinimumSize(new Dimension(image.getWidth(), 110));
+         label.setMaximumSize(new Dimension(image.getWidth(), 110));
+         this.add(label);
+      }
+   }
+
+   public HebrewAnswerWordPanel(NikudResult result)
+   {
+      this.setPreferredSize(
+            new Dimension(result.getFeedbackImageList().size() * 18
+                  + (result.getFeedbackImageList().size() - 1) * 4, 110));
+      this.setLayout(new TrainLayout(this, 4));
+
+      for (BufferedImage image : result.getFeedbackImageList())
       {
          JLabel label = new JLabel(new ImageIcon(image));
          label.setMinimumSize(new Dimension(image.getWidth(), 110));

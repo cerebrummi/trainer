@@ -70,7 +70,7 @@ public class NikudDocument extends PlainDocument
                list.remove(i);
             }
          }
-         super.replace(offset, length, LetterHelper.makeWordFromCodes(list),
+         super.replace(offset, length, LetterHelper.makeNikudWordFromCodes(list),
                attrs);
          return;
       }
@@ -117,7 +117,7 @@ public class NikudDocument extends PlainDocument
                list.remove(i);
             }
          }
-         super.insertString(offset, LetterHelper.makeWordFromCodes(list), attr);
+         super.insertString(offset, LetterHelper.makeNikudWordFromCodes(list), attr);
          return;
       }
       super.insertString(offset, str, attr);

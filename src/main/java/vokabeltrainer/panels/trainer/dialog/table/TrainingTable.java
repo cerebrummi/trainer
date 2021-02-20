@@ -70,6 +70,7 @@ public class TrainingTable extends JTable
       switch (languageDirection)
       {
       case GERMAN:
+      case TO_NIKUD:
          for (Expression expression : resultSet)
          {
             if (!expression.getTrainingStatusDToH().isTrainingStarted())
@@ -91,7 +92,6 @@ public class TrainingTable extends JTable
             }
             list.add(expression);
          }
-
       }
       return list;
    }

@@ -1379,6 +1379,19 @@ public final class Data
                }
             }
             break;
+         case TO_NIKUD:
+            for (Expression expression : list)
+            {
+               if(expression.isIvrit())
+               {
+                  continue;
+               }
+               if (!expression.getTrainingStatusDToH().isTrainingStarted())
+               {
+                  result.add(expression);
+               }
+            }
+            break;
          case HEBREW:
             for (Expression expression : list)
             {
@@ -1403,6 +1416,34 @@ public final class Data
             for (Expression expression : allExpressions)
             {
                if(!expression.isIvrit())
+               {
+                  continue;
+               }
+               if (Command.AREA_SELECTED == fieldOfTraining)
+               {
+                  if (expression.isSelected() && expression
+                        .getTrainingStatusDToH().isTrainingStarted())
+                  {
+                     result.add(expression);
+                  }
+               }
+               else
+               {
+                  if (expression.getTrainingStatusDToH().isTrainingStarted()
+                        && (now.isEqual(
+                              expression.getTrainingStatusDToH().getNextDate())
+                              || now.isAfter(expression.getTrainingStatusDToH()
+                                    .getNextDate())))
+                  {
+                     result.add(expression);
+                  }
+               }
+            }
+            break;
+         case TO_NIKUD:
+            for (Expression expression : allExpressions)
+            {
+               if(expression.isIvrit())
                {
                   continue;
                }

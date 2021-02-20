@@ -37,6 +37,7 @@ import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
+import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.keyboards.KeyboardHebrew;
 import vokabeltrainer.keyboards.KeyboardHebrewNikud;
 import vokabeltrainer.keyboards.KeyboardHebrewSimple;
@@ -124,8 +125,8 @@ public class TrainerView extends BackgroundPanelTiled
    public void init()
    {
       languageDirectionLabel.setText(
-            languageDirection.equals(Language.GERMAN) ? "Deutsch >> Hebräisch"
-                  : "Hebräisch >> Deutsch");
+            languageDirection.equals(Language.HEBREW) ? "Hebräisch >> Deutsch" : "Deutsch >> Hebräisch"
+                  );
 
       initQuestionPanel(languageDirection);
 
@@ -418,7 +419,7 @@ public class TrainerView extends BackgroundPanelTiled
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 308));
          answerField = new InfoTextField("Antwortfeld", "Antwortfeld:",
                "Mit der hebräischen Tastatur", "bitte die Antwort schreiben.");
-         answerField.setDocument(new HebrewDocument(true));
+         answerField.setDocument(new NikudDocument(true));
          answerField
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
@@ -820,6 +821,18 @@ public class TrainerView extends BackgroundPanelTiled
    
    public void prepareDtoNikudFeedbackPanel(NikudResult result)
    {
-      // TODO
+      HebrewAnswerWordPanel answerPanel = new HebrewAnswerWordPanel(result);
+      JScrollPane scrollPane = new JScrollPane(answerPanel);
+      scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+      scrollPane.setBorder(BorderFactory.createEmptyBorder());
+      scrollPane.setMinimumSize(new Dimension(501, 120));
+      scrollPane.setMaximumSize(new Dimension(501, 120));
+      
+      JPanel fillerAnswerPanel = new JPanel();
+      fillerAnswerPanel.setMinimumSize(new Dimension(501, 1));
+      fillerAnswerPanel.setMaximumSize(new Dimension(501, 95));
+      
+      feedbackPanel.add(scrollPane);
+      feedbackPanel.add(fillerAnswerPanel);
    }
 }

@@ -1,5 +1,6 @@
 package vokabeltrainer.words;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import vokabeltrainer.editing.LetterForAnalysis;
@@ -17,6 +18,8 @@ public class WordLetterMatchingResult
    
    private List<LetterForAnalysis> dictionary;
    private List<LetterForAnalysis> answer;
+   
+   private List<BufferedImage> feedbackImageList;
 
    public boolean isDictionaryEmpty()
    {
@@ -96,5 +99,15 @@ public class WordLetterMatchingResult
    public void setAnswer(List<LetterForAnalysis> answer)
    {
       this.answer = answer;
+   }
+
+   public List<BufferedImage> getFeedbackImageList()
+   {
+      return feedbackImageList;
+   }
+
+   public void setFeedbackImageList(List<BufferedImage> feedbackImageList)
+   {
+      this.feedbackImageList = feedbackImageList;
    }
 }

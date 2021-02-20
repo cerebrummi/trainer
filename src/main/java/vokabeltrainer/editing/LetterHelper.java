@@ -8,6 +8,7 @@ import java.util.Map;
 public class LetterHelper
 {
    private static Map<String, Letter> codeMap;
+   private static Map<String, Letter> nikudCodeMap;
    static
    {
       codeMap = new HashMap<>();
@@ -26,15 +27,27 @@ public class LetterHelper
          codeMap.put(hebrew.getCode().toLowerCase(), hebrew);
          codeMap.put(hebrew.getCode().toUpperCase(), hebrew);
       }
-      for (Letter nikud : NikudLetter.values())
-      {
-         codeMap.put(nikud.getCode().toLowerCase(), nikud);
-         codeMap.put(nikud.getCode().toUpperCase(), nikud);
-      }
       for (Letter number : NumberLetter.values())
       {
          codeMap.put(number.getCode().toLowerCase(), number);
          codeMap.put(number.getCode().toUpperCase(), number);
+      }
+
+      nikudCodeMap = new HashMap<>();
+      for (Letter nikud : NikudLetter.values())
+      {
+         nikudCodeMap.put(nikud.getCode().toLowerCase(), nikud);
+         nikudCodeMap.put(nikud.getCode().toUpperCase(), nikud);
+      }
+      for (Letter sign : SignLetter.values())
+      {
+         nikudCodeMap.put(sign.getCode().toLowerCase(), sign);
+         nikudCodeMap.put(sign.getCode().toUpperCase(), sign);
+      }
+      for (Letter number : NumberLetter.values())
+      {
+         nikudCodeMap.put(number.getCode().toLowerCase(), number);
+         nikudCodeMap.put(number.getCode().toUpperCase(), number);
       }
    }
 
@@ -134,5 +147,79 @@ public class LetterHelper
       }
       return builder.toString();
    }
+   
 
+   public static String makeNikudWordFromCodes(List<String> codes)
+   {
+      StringBuilder builder = new StringBuilder();
+      for (String code : codes)
+      {
+         if (nikudCodeMap.get(code) != null)
+         {
+            builder.append(nikudCodeMap.get(code).getUnicode());
+         }
+      }
+      return builder.toString();
+   }
+
+   public static LinkedList<LetterForAnalysis> findNikudLetterForAnalysisList(
+         String word)
+   {
+      LinkedList<LetterForAnalysis> analysisList = new LinkedList<>();
+
+      List<String> codeList = findNikudLetterCodes(word);
+
+      LetterForAnalysis currentLetterForAnalysis = new LetterForAnalysis(
+            NikudLetter.SPACE);
+
+      for (int i = 0; i < codeList.size(); i++)
+      {
+         Letter letter = nikudCodeMap.get(codeList.get(i));
+         if (LetterType.NIKUD == letter.isType())
+         {
+            NikudLetter nikudLetter = (NikudLetter) letter;
+            switch (nikudLetter.getDistinction())
+            {
+            case LETTER:
+               currentLetterForAnalysis = new LetterForAnalysis(nikudLetter);
+               analysisList.add(currentLetterForAnalysis);
+               break;
+            case LOWER_PUNKTATION:
+               currentLetterForAnalysis.addToLowerPunktation(nikudLetter);
+               break;
+            case MIDDLE_PUNKTATION:
+               currentLetterForAnalysis.addDagesh(nikudLetter);
+               break;
+            case UPPER_PUNKTATION:
+               currentLetterForAnalysis.addToUpperPunktation(nikudLetter);
+            }
+         }
+      }
+
+      return analysisList;
+   }
+   
+   public static boolean areLettersEqual(LetterForAnalysis one, LetterForAnalysis two)
+   {
+      if(one.getContent() != two.getContent())
+      {
+         return false;
+      }
+      
+      if(!one.getSetUpperPunktation().equals(two.getSetUpperPunktation()))
+      {
+         return false;
+      }
+      
+      if(one.getDagesh() != two.getDagesh())
+      {
+         return false;
+      }
+      
+      if(!one.getListLowerPunktation().equals(two.getListLowerPunktation()))
+      {
+         return false;
+      }
+      return true;
+   }
 }
