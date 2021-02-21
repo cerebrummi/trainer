@@ -246,7 +246,7 @@ public class TrainerController implements TrainerControllerConnector
 
    private void resultDtoIsNotOkay()
    {
-      if (currentExpression.getTrainingStatusDToH().getTotalTrys() < 4)
+      if (currentExpression.getTrainingStatusDToH().getTrys() < 4)
       {
          currentExpression.getTrainingStatusDToH().setTrys(
                currentExpression.getTrainingStatusDToH().getTrys()
