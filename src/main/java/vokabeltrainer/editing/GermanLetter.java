@@ -264,4 +264,10 @@ public enum GermanLetter implements Letter
    {
       return null;
    }
+
+   @Override
+   public int getPixelWidth()
+   {
+      return -1;
+   }
 }

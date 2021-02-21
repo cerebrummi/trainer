@@ -31,9 +31,9 @@ public class HebrewAnswerWordPanel extends JPanel
 
    public HebrewAnswerWordPanel(NikudResult result)
    {
-      this.setPreferredSize(
-            new Dimension(result.getFeedbackImageList().size() * 18
-                  + (result.getFeedbackImageList().size() - 1) * 4, 110));
+      this.setPreferredSize(new Dimension(
+            result.getWidth() + (result.getFeedbackImageList().size() - 1) * 4,
+            110));
       this.setLayout(new TrainLayout(this, 4));
 
       for (BufferedImage image : result.getFeedbackImageList())

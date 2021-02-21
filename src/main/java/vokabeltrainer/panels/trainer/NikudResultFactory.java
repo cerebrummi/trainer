@@ -57,7 +57,7 @@ public class NikudResultFactory
                   result.isAnswerEmpty() && singleResult.isAnswerEmpty());
             result.setDictionaryEmpty(result.isDictionaryEmpty()
                   && singleResult.isDictionaryEmpty());
-            if(index > 0)
+            if (index > 0)
             {
                result.addFeedbackImage(LetterFeedbackImage.makeNikudSpace());
             }
@@ -88,7 +88,7 @@ public class NikudResultFactory
             LetterHelper.findNikudLetterForAnalysisList(dictionary),
             LetterHelper.findNikudLetterForAnalysisList(answer),
             LetterType.NIKUD);
-      
+
       result.setOkay(matchingResult.isOkay());
 
       List<LetterForAnalysis> dictionaryList = matchingResult.getDictionary();
@@ -97,10 +97,13 @@ public class NikudResultFactory
       List<BufferedImage> feedbackImageList = new ArrayList<BufferedImage>();
       for (int i = 0; i < dictionaryList.size() && i < answerList.size(); i++)
       {
+         boolean letterresult = LetterHelper.areLettersEqual(
+               dictionaryList.get(i), answerList.get(i));
+         
          feedbackImageList
                .add(LetterFeedbackImage.makeNikud(dictionaryList.get(i),
-                     answerList.get(i), LetterHelper.areLettersEqual(
-                           dictionaryList.get(i), answerList.get(i))));
+                     answerList.get(i), letterresult));
+         result.setOkay(result.isOkay() && letterresult);
       }
       result.setFeedbackImageList(feedbackImageList);
       return result;

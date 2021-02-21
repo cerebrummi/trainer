@@ -70,5 +70,11 @@ public enum NumberLetter implements Letter
    {
       return null;
    }
+
+   @Override
+   public int getPixelWidth()
+   {
+      return -1;
+   }
    
 }

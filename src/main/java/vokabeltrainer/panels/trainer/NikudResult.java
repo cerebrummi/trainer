@@ -73,4 +73,14 @@ public class NikudResult
    {
       this.feedbackImageList.add(image);
    }
+   
+   public int getWidth()
+   {
+      int width = 0;
+      for (BufferedImage image : feedbackImageList)
+      {
+         width += image.getWidth();
+      }
+      return width;
+   }
 }

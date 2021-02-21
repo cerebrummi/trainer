@@ -14,4 +14,6 @@ public interface Letter
    LetterType isType();
 
    Letter getNewspace();
+   
+   int getPixelWidth();
 }

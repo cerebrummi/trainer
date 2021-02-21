@@ -76,4 +76,9 @@ public class LetterForAnalysis
    {
       this.setUpperPunktation = setUpperPunktation;
    }
+
+   public int getPixelWidth()
+   {
+      return content.getPixelWidth();
+   }
 }

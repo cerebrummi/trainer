@@ -12,7 +12,7 @@ public class Resultfactory
 {
    private Resultfactory()
    {
-      
+      // nothing
    }
 
    public static Result getResultDtoHScentence(Expression expression,
