@@ -12,7 +12,7 @@ public class HebrewDocument extends PlainDocument
 {
    private static final long serialVersionUID = -9186425449349376170L;
 
-   private static final int NUMBER_OF_LETTERS_ALLOWED = 26;
+   private static final int NUMBER_OF_LETTERS_ALLOWED = 50;
    
    private String signPattern;
 

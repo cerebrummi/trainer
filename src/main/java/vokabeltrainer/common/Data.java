@@ -407,6 +407,10 @@ public final class Data
                {
                   trys = 1;
                }
+               if (trys > 4)
+               {
+                  trys = 4;
+               }
                TrainingStatus trainingstatus = new TrainingStatus(repetition,
                      trys, nextDate);
                Expression expression = alleMap.get(uuid);

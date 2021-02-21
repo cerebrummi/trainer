@@ -14,7 +14,7 @@ public class GermanDocument extends PlainDocument
    private static final long serialVersionUID = 7089213677826493757L;
    
    private String signPattern;
-   private int numberOfLettersAllowed = 50;
+   private int numberOfLettersAllowed = 100;
 
    public GermanDocument(boolean withComma)
    {
