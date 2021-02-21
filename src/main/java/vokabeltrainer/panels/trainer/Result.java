@@ -2,7 +2,6 @@ package vokabeltrainer.panels.trainer;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import vokabeltrainer.types.Expression;
@@ -12,21 +11,9 @@ public class Result
    private boolean okay = true;
    private boolean dictionaryEmpty;
    private boolean answerEmpty;
-   private List<BufferedImage> letterFeedbackImages = new ArrayList<>();
-   private int width;
-   private int answerLettersSize;
-   private int expressionLettersSize;
    private Expression expression;
-
-   public Expression getExpression()
-   {
-      return expression;
-   }
-
-   public void setExpression(Expression expression)
-   {
-      this.expression = expression;
-   }
+   
+   private List<BufferedImage> feedbackImageList = new ArrayList<BufferedImage>();
 
    public boolean isOkay()
    {
@@ -36,46 +23,6 @@ public class Result
    public void setOkay(boolean okay)
    {
       this.okay = okay;
-   }
-
-   public List<BufferedImage> getLetterFeedbackImages()
-   {
-      return letterFeedbackImages;
-   }
-
-   public int getWidth()
-   {
-      return width;
-   }
-
-   public void addToWidth(int pixelWidth)
-   {
-      width += pixelWidth;
-   }
-
-   public int getAnswerLettersSize()
-   {
-      return answerLettersSize;
-   }
-
-   public void setAnswerLettersSize(int answerLettersSize)
-   {
-      this.answerLettersSize = answerLettersSize;
-   }
-
-   public int getExpressionLettersSize()
-   {
-      return expressionLettersSize;
-   }
-
-   public void setExpressionLettersSize(int expressionLettersSize)
-   {
-      this.expressionLettersSize = expressionLettersSize;
-   }
-   
-   public void reverseLetterFeedbackImage()
-   {
-      Collections.reverse(letterFeedbackImages);
    }
 
    public boolean isDictionaryEmpty()
@@ -96,5 +43,45 @@ public class Result
    public void setAnswerEmpty(boolean answerEmpty)
    {
       this.answerEmpty = answerEmpty;
+   }
+
+   public Expression getExpression()
+   {
+      return expression;
+   }
+
+   public void setExpression(Expression expression)
+   {
+      this.expression = expression;
+   }
+
+   public List<BufferedImage> getFeedbackImageList()
+   {
+      return feedbackImageList;
+   }
+
+   public void setFeedbackImageList(List<BufferedImage> feedbackImageList)
+   {
+      this.feedbackImageList = feedbackImageList;
+   }
+   
+   public void addFeedbackImageList(List<BufferedImage> list)
+   {
+      this.feedbackImageList.addAll(list);
+   }
+   
+   public void addFeedbackImage(BufferedImage image)
+   {
+      this.feedbackImageList.add(image);
+   }
+   
+   public int getWidth()
+   {
+      int width = 0;
+      for (BufferedImage image : feedbackImageList)
+      {
+         width += image.getWidth();
+      }
+      return width;
    }
 }

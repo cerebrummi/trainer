@@ -48,7 +48,6 @@ import vokabeltrainer.panels.trainer.ImagePanelBlue;
 import vokabeltrainer.panels.trainer.ImagePanelError;
 import vokabeltrainer.panels.trainer.ImagePanelGreen;
 import vokabeltrainer.panels.trainer.ImagePanelStart;
-import vokabeltrainer.panels.trainer.NikudResult;
 import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
@@ -416,7 +415,7 @@ public class TrainerView extends BackgroundPanelTiled
          answerPanel
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
          answerPanel
-               .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 308));
+               .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 444));
          answerField = new InfoTextField("Antwortfeld", "Antwortfeld:",
                "Mit der hebräischen Tastatur", "bitte die Antwort schreiben.");
          answerField.setDocument(new NikudDocument(true));
@@ -819,7 +818,7 @@ public class TrainerView extends BackgroundPanelTiled
       wordPanel.displayWord(result.getExpression().getHebrew());
    }
    
-   public void prepareDtoNikudFeedbackPanel(NikudResult result)
+   public void prepareDtoNikudFeedbackPanel(Result result)
    {
       HebrewAnswerWordPanel answerPanel = new HebrewAnswerWordPanel(result);
       JScrollPane scrollPane = new JScrollPane(answerPanel);

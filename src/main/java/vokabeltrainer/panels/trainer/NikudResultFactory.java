@@ -20,7 +20,7 @@ public class NikudResultFactory
       // nothing
    }
 
-   public static NikudResult getResultDtoNikudSentence(Expression expression,
+   public static Result getResultDtoNikudSentence(Expression expression,
          String answer)
    {
 
@@ -36,13 +36,13 @@ public class NikudResultFactory
 
       if (expressionArray.length == answerArray.length)
       {
-         NikudResult result = new NikudResult();
+         Result result = new Result();
          result.setExpression(expression);
-         List<NikudResult> resultList = new ArrayList<>(expressionArray.length);
+         List<Result> resultList = new ArrayList<>(expressionArray.length);
          for (int i = expressionArray.length - 1; i >= 0; i--)
          {
             resultList.add(getResultDtoNikudString(expressionArray[i],
-                  answerArray[i], new NikudResult()));
+                  answerArray[i], new Result()));
          }
 
          result.setOkay(true);
@@ -50,7 +50,7 @@ public class NikudResultFactory
          result.setDictionaryEmpty(true);
          int index = 0;
 
-         for (NikudResult singleResult : resultList)
+         for (Result singleResult : resultList)
          {
             result.setOkay(result.isOkay() && singleResult.isOkay());
             result.setAnswerEmpty(
@@ -59,7 +59,7 @@ public class NikudResultFactory
                   && singleResult.isDictionaryEmpty());
             if (index > 0)
             {
-               result.addFeedbackImage(LetterFeedbackImage.makeNikudSpace());
+               result.addFeedbackImage(LetterFeedbackImage.makeSpace());
             }
             result.addFeedbackImageList(singleResult.getFeedbackImageList());
             index++;
@@ -71,17 +71,17 @@ public class NikudResultFactory
       return getResultDtoNikud(expression, answer);
    }
 
-   private static NikudResult getResultDtoNikud(Expression expression,
+   private static Result getResultDtoNikud(Expression expression,
          String answer)
    {
-      NikudResult result = new NikudResult();
+      Result result = new Result();
       result.setExpression(expression);
 
       return getResultDtoNikudString(expression.getHebrew(), answer, result);
    }
 
-   private static NikudResult getResultDtoNikudString(String dictionary,
-         String answer, NikudResult result)
+   private static Result getResultDtoNikudString(String dictionary,
+         String answer, Result result)
    {
 
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetter(
@@ -101,7 +101,7 @@ public class NikudResultFactory
                dictionaryList.get(i), answerList.get(i));
          
          feedbackImageList
-               .add(LetterFeedbackImage.makeNikud(dictionaryList.get(i),
+               .add(LetterFeedbackImage.make(dictionaryList.get(i),
                      answerList.get(i), letterresult));
          result.setOkay(result.isOkay() && letterresult);
       }

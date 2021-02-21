@@ -199,6 +199,26 @@ public class LetterHelper
       return analysisList;
    }
    
+   public static LinkedList<LetterForAnalysis> findLetterForAnalysisList(
+         String word)
+   {
+      LinkedList<LetterForAnalysis> analysisList = new LinkedList<>();
+
+      List<String> codeList = findLetterCodes(word);
+
+      for (int i = 0; i < codeList.size(); i++)
+      {
+         Letter letter = codeMap.get(codeList.get(i));
+         if (LetterType.HEBREW == letter.isType())
+         {
+            HebrewLetter hebrewLetter = (HebrewLetter) letter;
+            analysisList.add(new LetterForAnalysis(hebrewLetter));
+         }
+      }
+
+      return analysisList;
+   }
+   
    public static boolean areLettersEqual(LetterForAnalysis one, LetterForAnalysis two)
    {
       if(one.getContent() != two.getContent())
@@ -222,4 +242,6 @@ public class LetterHelper
       }
       return true;
    }
+
+
 }

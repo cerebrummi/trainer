@@ -198,7 +198,7 @@ public class TrainerController implements TrainerControllerConnector
          }
          else if (Language.TO_NIKUD.equals(languageDirection)) // DtoNikud
          {
-            NikudResult result = NikudResultFactory.getResultDtoNikudSentence(currentExpression,
+            Result result = NikudResultFactory.getResultDtoNikudSentence(currentExpression,
                   trainerView.getAnswerField().getText().trim());
             if (result.isAnswerEmpty())
             {

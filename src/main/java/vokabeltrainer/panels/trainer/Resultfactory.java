@@ -1,12 +1,16 @@
 package vokabeltrainer.panels.trainer;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.LetterForAnalysis;
+import vokabeltrainer.editing.LetterHelper;
+import vokabeltrainer.editing.LetterType;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.words.WordMatching;
-import vokabeltrainer.words.WordMatchingResult;
+import vokabeltrainer.words.WordLetterMatching;
+import vokabeltrainer.words.WordLetterMatchingResult;
 
 public class Resultfactory
 {
@@ -25,7 +29,7 @@ public class Resultfactory
 
       if (expressionArray.length == 1 && answerArray.length == 1)
       {
-         return getResultDtoH(expression, answer);
+         return getResultDtoNikud(expression, answer);
       }
 
       if (expressionArray.length == answerArray.length)
@@ -33,15 +37,17 @@ public class Resultfactory
          Result result = new Result();
          result.setExpression(expression);
          List<Result> resultList = new ArrayList<>(expressionArray.length);
-         for (int i = expressionArray.length-1; i >=0 ; i--)
+         for (int i = expressionArray.length - 1; i >= 0; i--)
          {
-            resultList.add(getResultDtoHString(expressionArray[i],
+            resultList.add(getResultDtoNikudString(expressionArray[i],
                   answerArray[i], new Result()));
          }
 
          result.setOkay(true);
          result.setAnswerEmpty(true);
          result.setDictionaryEmpty(true);
+         int index = 0;
+
          for (Result singleResult : resultList)
          {
             result.setOkay(result.isOkay() && singleResult.isOkay());
@@ -49,92 +55,55 @@ public class Resultfactory
                   result.isAnswerEmpty() && singleResult.isAnswerEmpty());
             result.setDictionaryEmpty(result.isDictionaryEmpty()
                   && singleResult.isDictionaryEmpty());
-         }
-
-         for (int i = 0; i < resultList.size(); i++)
-         {
-            if (i == 0)
+            if (index > 0)
             {
-               result.addToWidth(resultList.get(i).getWidth());
-               result.getLetterFeedbackImages()
-                     .addAll(resultList.get(i).getLetterFeedbackImages());
-               result.setAnswerLettersSize(result.getAnswerLettersSize()
-                     + resultList.get(i).getAnswerLettersSize());
+               result.addFeedbackImage(LetterFeedbackImage.makeSpace());
             }
-            else
-            {
-               result.addToWidth(HebrewLetter.SPACE.getPixelWidth());
-               result.addToWidth(resultList.get(i).getWidth());
-               result.getLetterFeedbackImages().add(LetterFeedbackImage
-                     .make(HebrewLetter.SPACE, HebrewLetter.SPACE, true));
-               result.getLetterFeedbackImages()
-                     .addAll(resultList.get(i).getLetterFeedbackImages());
-               result.setAnswerLettersSize(result.getAnswerLettersSize() + 1);
-               result.setAnswerLettersSize(result.getAnswerLettersSize()
-                     + resultList.get(i).getAnswerLettersSize());
-            }
+            result.addFeedbackImageList(singleResult.getFeedbackImageList());
+            index++;
          }
 
          return result;
       }
 
-      return getResultDtoH(expression, answer);
+      return getResultDtoNikud(expression, answer);
    }
 
-   private static Result getResultDtoH(Expression expression, String answer)
+   private static Result getResultDtoNikud(Expression expression,
+         String answer)
    {
       Result result = new Result();
       result.setExpression(expression);
 
-      return getResultDtoHString(expression.getHebrew(), answer, result);
+      return getResultDtoNikudString(expression.getHebrew(), answer, result);
    }
 
-   private static Result getResultDtoHString(String hebrew, String answer,
-         Result result)
+   private static Result getResultDtoNikudString(String dictionary,
+         String answer, Result result)
    {
-      WordMatchingResult wordMatchingResult = WordMatching.matchHebrew(hebrew,
-            answer);
 
-      if (wordMatchingResult.isAnswerEmpty())
+      WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetter(
+            LetterHelper.findLetterForAnalysisList(dictionary),
+            LetterHelper.findLetterForAnalysisList(answer),
+            LetterType.HEBREW);
+
+      result.setOkay(matchingResult.isOkay());
+
+      List<LetterForAnalysis> dictionaryList = matchingResult.getDictionary();
+      List<LetterForAnalysis> answerList = matchingResult.getAnswer();
+
+      List<BufferedImage> feedbackImageList = new ArrayList<BufferedImage>();
+      for (int i = 0; i < dictionaryList.size() && i < answerList.size(); i++)
       {
-         result.setAnswerEmpty(true);
-         return result;
+         boolean letterresult = LetterHelper.areLettersEqual(
+               dictionaryList.get(i), answerList.get(i));
+         
+         feedbackImageList
+               .add(LetterFeedbackImage.make(dictionaryList.get(i),
+                     answerList.get(i), letterresult));
+         result.setOkay(result.isOkay() && letterresult);
       }
-      else if (wordMatchingResult.isDictionaryEmpty())
-      {
-         result.setDictionaryEmpty(true);
-         return result;
-      }
-
-      List<HebrewLetter> answerLetters = wordMatchingResult.getHebrewTest();
-      List<HebrewLetter> expressionLetters = wordMatchingResult
-            .getHebrewDictionary();
-
-      Collections.reverse(answerLetters);
-      Collections.reverse(expressionLetters);
-
-      result.setOkay(wordMatchingResult.isOkay());
-
-      for (int i = 0; i < answerLetters.size(); i++)
-      {
-         if (answerLetters.get(i).equals(expressionLetters.get(i)))
-         {
-            result.getLetterFeedbackImages().add(LetterFeedbackImage
-                  .make(expressionLetters.get(i), answerLetters.get(i), true));
-         }
-         else
-         {
-            result.getLetterFeedbackImages().add(LetterFeedbackImage
-                  .make(expressionLetters.get(i), answerLetters.get(i), false));
-         }
-         result.addToWidth(Math.max(expressionLetters.get(i).getPixelWidth(),
-               answerLetters.get(i).getPixelWidth()));
-      }
-
-      result.setAnswerLettersSize(answerLetters.size());
-      result.setExpressionLettersSize(expressionLetters.size());
-      result.reverseLetterFeedbackImage();
-
+      result.setFeedbackImageList(feedbackImageList);
       return result;
    }
 
