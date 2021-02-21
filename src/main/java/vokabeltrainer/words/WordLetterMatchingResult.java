@@ -1,6 +1,7 @@
 package vokabeltrainer.words;
 
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 import java.util.List;
 
 import vokabeltrainer.editing.LetterForAnalysis;
@@ -16,10 +17,10 @@ public class WordLetterMatchingResult
    
    private int deltaCol;
    
-   private List<LetterForAnalysis> dictionary;
-   private List<LetterForAnalysis> answer;
+   private List<LetterForAnalysis> dictionary = new LinkedList<>();
+   private List<LetterForAnalysis> answer = new LinkedList<>();
    
-   private List<BufferedImage> feedbackImageList;
+   private List<BufferedImage> feedbackImageList = new LinkedList<>();
 
    public boolean isDictionaryEmpty()
    {

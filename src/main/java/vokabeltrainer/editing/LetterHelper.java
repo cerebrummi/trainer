@@ -199,7 +199,7 @@ public class LetterHelper
       return analysisList;
    }
    
-   public static LinkedList<LetterForAnalysis> findLetterForAnalysisList(
+   public static LinkedList<LetterForAnalysis> findHebrewLetterForAnalysisList(
          String word)
    {
       LinkedList<LetterForAnalysis> analysisList = new LinkedList<>();
@@ -211,8 +211,7 @@ public class LetterHelper
          Letter letter = codeMap.get(codeList.get(i));
          if (LetterType.HEBREW == letter.isType())
          {
-            HebrewLetter hebrewLetter = (HebrewLetter) letter;
-            analysisList.add(new LetterForAnalysis(hebrewLetter));
+            analysisList.add(new LetterForAnalysis((HebrewLetter) letter));
          }
       }
 

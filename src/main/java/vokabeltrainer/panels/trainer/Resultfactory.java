@@ -59,8 +59,12 @@ public class Resultfactory
             if (index > 0)
             {
                result.addFeedbackImage(LetterFeedbackImage.makeSpace());
+               result.addAnswerSpace(new LetterForAnalysis(HebrewLetter.SPACE));
+               result.addDictionarySpace(new LetterForAnalysis(HebrewLetter.SPACE));
             }
             result.addFeedbackImageList(singleResult.getFeedbackImageList());
+            result.addAnswer(singleResult.getAnswer()); // for unit testing
+            result.addDictionary(singleResult.getDictionary()); // for unit testing
             index++;
          }
 
@@ -83,12 +87,16 @@ public class Resultfactory
          String answer, Result result, Font hebrewFont)
    {
 
-      WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetter(
-            LetterHelper.findLetterForAnalysisList(dictionary),
-            LetterHelper.findLetterForAnalysisList(answer),
+      WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
+            LetterHelper.findHebrewLetterForAnalysisList(dictionary),
+            LetterHelper.findHebrewLetterForAnalysisList(answer),
             LetterType.HEBREW);
 
+      result.setAnswerEmpty(matchingResult.isAnswerEmpty());
+      result.setDictionaryEmpty(matchingResult.isDictionaryEmpty());
       result.setOkay(matchingResult.isOkay());
+      result.setDictionary(matchingResult.getDictionary()); // for unit testing
+      result.setAnswer(matchingResult.getAnswer()); // for unit testing
 
       List<LetterForAnalysis> dictionaryList = matchingResult.getDictionary();
       List<LetterForAnalysis> answerList = matchingResult.getAnswer();

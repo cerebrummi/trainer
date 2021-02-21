@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.Resultfactory;
 import vokabeltrainer.types.Expression;
@@ -20,6 +21,11 @@ import vokabeltrainer.types.Expression;
 public class TestWordMatching
 {
    String wordDic = "בּאוניברסיטה";
+   String[] wordDicArray = { "HAEI", "TET", "JOD", "SSAMECH", "RESCH",
+         "WET", "JOD", "NUN", "WAW", "ALEF", "BET" };
+   List<String> wordDicList = new LinkedList<String>(
+         Arrays.asList(wordDicArray));
+   
    String wordTest1 = "בּאוניברסיטה";
    String wordTest2 = "גדפ";
    String wordTest3 = "בּוניברסיטה";
@@ -86,8 +92,8 @@ public class TestWordMatching
          "WET", "NEWSPACE", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest6List = new LinkedList<String>(
          Arrays.asList(wordTest6Array));
-   String[] wordTest7Array = { "SCHIN", "FAEI", "AIN", "HAEI", "TET", "SSAMECH",
-         "WET", "NUN", "WAW", "NEWSPACE", "BET" };
+   String[] wordTest7Array = { "SCHIN", "FAEI", "AIN", "HAEI", "TET", "NEWSPACE", "SSAMECH","NEWSPACE",
+         "WET", "NEWSPACE", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest7List = new LinkedList<String>(
          Arrays.asList(wordTest7Array));
    
@@ -190,7 +196,344 @@ List<String> wordTest23List = new LinkedList<>(Arrays.asList(wordTest23Array));
    {
       Expression expressionDic = new Expression(true, false, true);
       expressionDic.setHebrew(wordDic);
-      Result result2 = Resultfactory.getResultDtoHScentence(expressionDic, wordTest4, new Font(null));
-      assertFalse(result2.isOkay());
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest4, new Font(null));
+      assertFalse(result.isOkay());
+   }
+   
+   @Test
+   public void testMatchHebrew_Okay3()
+   {
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest2, new Font(null));
+      assertFalse(result.isOkay());
+   }
+  
+   @Test
+   public void testMatchHebrew_Empty()
+   {
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic20);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest20, new Font(null));
+      assertTrue(result.isAnswerEmpty());
+   }
+   
+   @Test
+   public void testMatchHebrew_Empty2()
+   {
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic20);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest20a, new Font(null));
+      assertTrue(result.isAnswerEmpty());
+   }
+   
+   @Test
+   public void testMatchHebrew_Empty_Dic1()
+   {
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic21);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest21, new Font(null));
+      assertTrue(result.isDictionaryEmpty());
+   }
+
+   @Test
+   public void testMatchHebrew_Empty_Dic2()
+   {
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic21a);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest21, new Font(null));
+      assertTrue(result.isDictionaryEmpty());
+   }
+
+   @Test
+   public void testMatchHebrew_Empty_Dic3()
+   {
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic21b);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest21, new Font(null));
+      assertTrue(result.isDictionaryEmpty());
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest4, new Font(null));
+      
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.println(wordDicList);
+      System.out.println(wordTest4List);
+      System.out.println(wordTesting);
+      assertTrue(wordTest4List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment2()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment2");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest5, new Font(null));
+      
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.println(wordDicList);
+      System.out.println(wordTest5List);
+      System.out.println(wordTesting);
+      assertTrue(wordTest5List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment3()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment3");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest6, new Font(null));
+      
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.println(wordDicList);
+      System.out.println(wordTest6List);
+      System.out.println(wordTesting);
+      assertTrue(wordTest6List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment4()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment4");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest7, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("Original ");System.out.println(wordDicList);
+      System.out.print("alt      ");System.out.println(wordTest7List);
+      System.out.print("test neu ");System.out.print("");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      assertTrue(wordTest7List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment5()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment5");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest9, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("Original ");System.out.println(wordDicList);
+      System.out.print("alt      ");System.out.println(wordTest9List);
+      System.out.print("test neu ");System.out.print("");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      assertTrue(wordTest9List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment6()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment6");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest10, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("Original ");System.out.println(wordDicList);
+      System.out.print("alt      ");System.out.println(wordTest10List);
+      System.out.print("test neu ");System.out.print("");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      assertTrue(wordTest10List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment7()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment7");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic11);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest11, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("alt      ");System.out.println(wordTest11List);
+      System.out.print("test neu ");System.out.print("");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      assertTrue(wordTest11List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment8()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment8");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordTest13);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest13, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("alt      ");System.out.println(wordTest13List);
+      System.out.print("test neu ");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      assertTrue(wordTest13List.equals(wordTesting));
+   }
+
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment9()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment9");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic14);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest14, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("alt      ");System.out.println(wordTest14List);
+      System.out.print("test neu ");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      assertFalse(result.isAnswerEmpty());
+      assertFalse(result.isDictionaryEmpty());
+      assertTrue(wordTest14List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment10()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment10");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic15);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest15, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("alt      ");System.out.println(wordTest15List);
+      System.out.print("test neu ");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      assertFalse(result.isAnswerEmpty());
+      assertFalse(result.isDictionaryEmpty());
+      assertTrue(wordTest15List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment11()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment11");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic19);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest19, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("alt      ");System.out.println(wordDic19bList);
+      System.out.print("test neu ");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      assertFalse(result.isAnswerEmpty());
+      assertFalse(result.isDictionaryEmpty());
+      assertTrue(wordDic19bList.equals(dicTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment12()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment12");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic22);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest22, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("alt      ");System.out.println(wordTest22List);
+      System.out.print("test neu ");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      assertFalse(result.isAnswerEmpty());
+      assertFalse(result.isDictionaryEmpty());
+      assertTrue(wordTest22List.equals(wordTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment13()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment13");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic17);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest17, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("test alt ");System.out.println(wordTest17bList);
+      System.out.print("test neu ");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      System.out.print("dic alt  ");System.out.println(wordDic17bList);
+      assertFalse(result.isAnswerEmpty());
+      assertFalse(result.isDictionaryEmpty());
+      assertTrue(wordTest17bList.equals(wordTesting));
+      assertTrue(wordDic17bList.equals(dicTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment14()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment14");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic23);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest23, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("test alt ");System.out.println(wordTest23List);
+      System.out.print("test neu ");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      System.out.print("dic alt  ");System.out.println(wordDic23List);
+      assertFalse(result.isAnswerEmpty());
+      assertFalse(result.isDictionaryEmpty());
+      assertTrue(wordTest23List.equals(wordTesting));
+      assertTrue(wordDic23List.equals(dicTesting));
+   }
+   
+   @Test
+   public void testMatchHebrew_PartlyFalse_Alignment15()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_PartlyFalse_Alignment15");
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest8, new Font(null));
+      
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("alt      ");System.out.println(wordTest8List);
+      System.out.print("test neu ");System.out.println(wordTesting);
+      System.out.print("dic neu  ");System.out.println(dicTesting);
+      assertFalse(result.isAnswerEmpty());
+      assertFalse(result.isDictionaryEmpty());
+      assertTrue(wordTest8List.equals(wordTesting));
+   }
+   
+   private List<String> turnIntoListOfStrings(List<LetterForAnalysis> answer)
+   {
+      List<String> list = new ArrayList<>();
+      for (LetterForAnalysis letter : answer)
+      {
+       list.add(letter.getContent().name());
+      }
+      return list;
    }
 }

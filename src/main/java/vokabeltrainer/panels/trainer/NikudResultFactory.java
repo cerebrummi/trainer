@@ -85,7 +85,7 @@ public class NikudResultFactory
          String answer, Result result, Font hebrewFont)
    {
 
-      WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetter(
+      WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
             LetterHelper.findNikudLetterForAnalysisList(dictionary),
             LetterHelper.findNikudLetterForAnalysisList(answer),
             LetterType.NIKUD);

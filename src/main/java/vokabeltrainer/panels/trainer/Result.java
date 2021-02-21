@@ -2,8 +2,10 @@ package vokabeltrainer.panels.trainer;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.types.Expression;
 
 public class Result
@@ -12,6 +14,9 @@ public class Result
    private boolean dictionaryEmpty;
    private boolean answerEmpty;
    private Expression expression;
+   
+   private List<LetterForAnalysis> dictionary = new LinkedList<>(); // for unit testing
+   private List<LetterForAnalysis> answer = new LinkedList<>(); // for unit testing
    
    private List<BufferedImage> feedbackImageList = new ArrayList<BufferedImage>();
 
@@ -83,5 +88,45 @@ public class Result
          width += image.getWidth();
       }
       return width;
+   }
+
+   public List<LetterForAnalysis> getDictionary()
+   {
+      return dictionary;
+   }
+
+   public void setDictionary(List<LetterForAnalysis> dictionary)
+   {
+      this.dictionary = dictionary;
+   }
+   
+   public void addDictionary(List<LetterForAnalysis> dictionary)
+   {
+      this.dictionary.addAll(dictionary);
+   }
+   
+   public void addDictionarySpace(LetterForAnalysis space)
+   {
+      this.dictionary.add(space);
+   }
+
+   public List<LetterForAnalysis> getAnswer()
+   {
+      return answer;
+   }
+
+   public void setAnswer(List<LetterForAnalysis> answer)
+   {
+      this.answer = answer;
+   }
+   
+   public void addAnswer(List<LetterForAnalysis> answer)
+   {
+      this.answer.addAll(answer);
+   }
+   
+   public void addAnswerSpace(LetterForAnalysis space)
+   {
+      this.answer.add(space);
    }
 }

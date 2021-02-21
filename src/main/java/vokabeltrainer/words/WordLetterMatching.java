@@ -20,7 +20,7 @@ public class WordLetterMatching
 
    }
 
-   public static WordLetterMatchingResult matchLetter(
+   public static WordLetterMatchingResult matchLetters(
          LinkedList<LetterForAnalysis> dictionary,
          LinkedList<LetterForAnalysis> answer, LetterType type)
    {
@@ -33,11 +33,8 @@ public class WordLetterMatching
       case NIKUD:
          NEWSPACE = NikudLetter.NEWSPACE;
          break;
-      case GERMAN:
-      case NUMBER:
-      case SIGN:
       default:
-         return null;
+         throw new IllegalArgumentException("letter type can only be HEBREW or NIKUD but was "+ type.name());
       }
 
       WordLetterMatchingResult result = new WordLetterMatchingResult();
@@ -116,6 +113,11 @@ public class WordLetterMatching
       else if (sizeDic == rowSameMaxValue && rowDiffValueAtSameMax == 0)
       {
          result.setOkay(true);
+         Collections.reverse(dictionary);
+         Collections.reverse(answer);
+         result.setDictionary(dictionary);
+         result.setAnswer(answer);
+         return result;
       }
       else
       {
@@ -213,9 +215,19 @@ public class WordLetterMatching
             throw new IllegalStateException("Längen unterschiedlich 5");
          }
 
-         // for example
-         // nnnnnnnnnnndnnddddddddddddddd
-         // nnnnnnnnnntttttttttttttnnnntt
+         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
+         
+         if (dataDic.size() != dataTest.size())
+         {
+            throw new IllegalStateException("Längen unterschiedlich 5a");
+         }
+         
+         lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
+         
+         if (dataDic.size() != dataTest.size())
+         {
+            throw new IllegalStateException("Längen unterschiedlich 5b");
+         }
       }
 
       cutOutCommonNewspace(dataTest, dataDic);
@@ -231,6 +243,37 @@ public class WordLetterMatching
       return result;
    }
 
+   private static void lookForNewspaceAndMoveLettersToTheLeftIfPossible(
+         List<LetterForAnalysis> dataReference, List<LetterForAnalysis> dataToBeChanged)
+   {
+      for (int i = 0; i < dataToBeChanged.size(); i++)
+      {
+         if(dataToBeChanged.get(i).getContent().isNewspace() &&
+               !dataReference.get(i).getContent().isNewspace())
+         {
+            int index = readIndexOfNextNotNewspaceLetterToTheRight(dataToBeChanged, i);
+            if (index > 0 && evaluateSame(dataReference.get(i), dataToBeChanged.get(index)) == 1)
+            {
+               LetterForAnalysis letterToBeMoved = dataToBeChanged.remove(index);
+               dataToBeChanged.add(i, letterToBeMoved);
+            }
+         }
+      }
+   }
+   
+   private static int readIndexOfNextNotNewspaceLetterToTheRight(
+         List<LetterForAnalysis> dataTest, int i)
+   {
+      for (int index = i; index < dataTest.size(); index++)
+      {
+         if (!dataTest.get(index).getContent().isNewspace())
+         {
+            return index;
+         }
+      }
+      return -1;
+   }
+   
    private static void cutOutCommonNewspace(List<LetterForAnalysis> dataT,
          List<LetterForAnalysis> dataD)
    {
@@ -373,15 +416,14 @@ public class WordLetterMatching
          int deltaCol, Letter NEWSPACE)
    {
       // nnnnnnnnnndddddddddddddddD
-      // nnnnnnnnnnnntttttttttT T
+      // nnnnnnnnnnnntttttttttT   T
       for (int d = dataD.size() - 1, t = dataT.size() - 1
             - Math.abs(deltaCol); d >= 0 && t >= 0; d--, t--)
       {
          if (evaluateSame(dataD.get(d), dataT.get(t)) == 1)
          {
-
-            dataT.add(d, dataT.get(t));
-            dataT.add(t, new LetterForAnalysis(NEWSPACE));
+            LetterForAnalysis letter = dataT.remove(t);
+            dataT.add(d, letter);
          }
          else
          {

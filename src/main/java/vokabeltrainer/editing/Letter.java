@@ -16,4 +16,6 @@ public interface Letter
    Letter getNewspace();
    
    int getPixelWidth();
+   
+   String name();
 }
