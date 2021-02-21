@@ -3,6 +3,7 @@ package vokabeltrainer.panels.statistics;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.Settings;
 
 public class StatisticsTable extends JTable
@@ -16,7 +17,7 @@ public class StatisticsTable extends JTable
       setOpaque(true);
       setRowHeight(50);
       setShowHorizontalLines(true);
-      setBackground(Settings.getDarkRed());
+      setBackground(ApplicationColors.getDarkRed());
       this.setRowSelectionAllowed(true);
       this.setColumnSelectionAllowed(true);
       this.setCellSelectionEnabled(true);

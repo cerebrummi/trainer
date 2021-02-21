@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.LetterForAnalysis;
@@ -20,11 +21,11 @@ public class LetterFeedbackImage
             Math.max(letterDic.getPixelWidth(), letterAnswer.getPixelWidth()),
             100, BufferedImage.TYPE_INT_RGB);
       Graphics2D g2d = finalImg.createGraphics();
-      g2d.setColor(Settings.getTexturedBackgroundColor());
+      g2d.setColor(ApplicationColors.getTexturedBackgroundColor());
       g2d.fillRect(0, 0,
             Math.max(letterDic.getPixelWidth(), letterAnswer.getPixelWidth()),
             100);
-      g2d.setColor(Settings.getDarkRed());
+      g2d.setColor(ApplicationColors.getDarkRed());
       if (!okay)
       {
          double midX = ((double) Math.max(
@@ -56,7 +57,7 @@ public class LetterFeedbackImage
       g2d.setFont(Main.getHebrewFont(30F));
       FontMetrics fm = g2d.getFontMetrics();
       fm = g2d.getFontMetrics();
-      g2d.setColor(Settings.getGreen());
+      g2d.setColor(ApplicationColors.getGreen());
       g2d.drawString(letterDic.getContent().getUnicode(), 0,
             fm.getAscent() + 9);
       for (NikudLetter nikudLetter : letterDic.getSetUpperPunktation())
@@ -97,7 +98,7 @@ public class LetterFeedbackImage
       BufferedImage finalImg = new BufferedImage(18, 100,
             BufferedImage.TYPE_INT_RGB);
       Graphics2D g2d = finalImg.createGraphics();
-      g2d.setColor(Settings.getTexturedBackgroundColor());
+      g2d.setColor(ApplicationColors.getTexturedBackgroundColor());
       g2d.fillRect(0, 0, 18, 100);
       g2d.dispose();
       return finalImg;

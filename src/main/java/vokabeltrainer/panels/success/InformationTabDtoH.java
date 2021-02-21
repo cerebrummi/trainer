@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
@@ -21,30 +22,30 @@ public class InformationTabDtoH extends JPanel
    {
       this.setLayout(new TrainLayout(this));
       setOpaque(false);
-      setBackground(Settings.getTransparent());
+      setBackground(ApplicationColors.getTransparent());
 
       JPanel leftSide = new JPanel();
       leftSide.setLayout(new TotemLayout(leftSide));
       leftSide.setOpaque(true);
-      leftSide.setBackground(Settings.getLightGold());
+      leftSide.setBackground(ApplicationColors.getLightGold());
 
       JPanel fillerBottom = new JPanel(new FlowLayout());
       fillerBottom.setMinimumSize(new Dimension(200, 100));
       fillerBottom.setMaximumSize(new Dimension(400, 700));
       fillerBottom.setOpaque(false);
-      fillerBottom.setBackground(Settings.getTransparent());
+      fillerBottom.setBackground(ApplicationColors.getTransparent());
 
       JPanel boxWrapper = new JPanel(new FlowLayout());
       boxWrapper.setOpaque(false);
-      boxWrapper.setBackground(Settings.getTransparent());
+      boxWrapper.setBackground(ApplicationColors.getTransparent());
       boxWrapper.setPreferredSize(new Dimension(355, 100));
       JLabel box = new JLabel("<html>Deutsch >> Hebräisch</html>");
       box.setMinimumSize(new Dimension(355, 100));
       box.setMaximumSize(new Dimension(355, 100));
       box.setPreferredSize(new Dimension(355, 100));
       box.setSize(new Dimension(355, 100));
-      box.setForeground(Settings.getWhite());
-      box.setBackground(Settings.getTransparent());
+      box.setForeground(ApplicationColors.getWhite());
+      box.setBackground(ApplicationColors.getTransparent());
       box.setFont(Main.getHebrewFont(30F));
       box.setHorizontalAlignment(SwingConstants.CENTER);
       boxWrapper.add(box);
@@ -53,7 +54,7 @@ public class InformationTabDtoH extends JPanel
       fillerRight.setMinimumSize(new Dimension(600, 500));
       fillerRight.setMaximumSize(new Dimension(900, 850));
       fillerRight.setOpaque(false);
-      fillerRight.setBackground(Settings.getTransparent());
+      fillerRight.setBackground(ApplicationColors.getTransparent());
 
       leftSide.add(boxWrapper);
       leftSide.add(fillerBottom);

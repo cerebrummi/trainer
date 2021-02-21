@@ -44,6 +44,7 @@ import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.keyboards.KeyboardHebrew;
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.dictionary.Action;
 import vokabeltrainer.panels.dictionary.Tabulator;
@@ -455,7 +456,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
       JPanel copyPanel = new JPanel();
       copyPanel.setLayout(new TotemLayout(copyPanel, 10));
-      copyPanel.setBackground(Settings.getLightBlue());
+      copyPanel.setBackground(ApplicationColors.getLightBlue());
       copyPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
             new Color(215, 231, 247)));
       copyPanel.add(copyInTableSelectedButton);
@@ -473,9 +474,9 @@ public class DictionaryView extends BackgroundPanelTiled
 
       JPanel newPanel = new JPanel();
       newPanel.setLayout(new TotemLayout(newPanel, 10));
-      newPanel.setBackground(Settings.getGreen());
+      newPanel.setBackground(ApplicationColors.getGreen());
       newPanel.setBorder(
-            BorderFactory.createMatteBorder(5, 3, 5, 3, Settings.getGreen()));
+            BorderFactory.createMatteBorder(5, 3, 5, 3, ApplicationColors.getGreen()));
       newPanel.add(newWordIvritButton);
       newPanel.add(newWordPunktationButton);
 

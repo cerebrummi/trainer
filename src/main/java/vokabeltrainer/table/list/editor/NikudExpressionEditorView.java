@@ -35,6 +35,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.Settings;
@@ -163,9 +164,9 @@ public class NikudExpressionEditorView extends JDialog
             Math.min(screenSize.height - 60, 755));
       
       outerLayout = new JPanel();
-      outerLayout.setBackground(Settings.getBackgroundGold());
+      outerLayout.setBackground(ApplicationColors.getBackgroundGold());
       outerLayout.setBorder(
-            BorderFactory.createLineBorder(Settings.getGreen(), 15, false));
+            BorderFactory.createLineBorder(ApplicationColors.getGreen(), 15, false));
       outerLayout.setLayout(new TotemLayout(outerLayout, 15));
       
       layout = new JPanel();
@@ -231,7 +232,7 @@ public class NikudExpressionEditorView extends JDialog
             }
             else
             {
-               listComponent.setBackground(Settings.getBackgroundGold());
+               listComponent.setBackground(ApplicationColors.getBackgroundGold());
             }
             return listComponent;
          }
@@ -274,7 +275,7 @@ public class NikudExpressionEditorView extends JDialog
             }
             else
             {
-               listComponent.setBackground(Settings.getBackgroundGold());
+               listComponent.setBackground(ApplicationColors.getBackgroundGold());
             }
             return listComponent;
          }
@@ -283,7 +284,7 @@ public class NikudExpressionEditorView extends JDialog
       searchwordsJListHebrew.setFixedCellHeight(50);
       searchwordsJListHebrew
             .setBorder(makeBorderBlank(this.searchwordsJListHebrewTitle));
-      searchwordsJListHebrew.setBackground(Settings.getBackgroundGold());
+      searchwordsJListHebrew.setBackground(ApplicationColors.getBackgroundGold());
       searchwordsJListHebrew
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       searchwordsJListHebrew
@@ -343,7 +344,7 @@ public class NikudExpressionEditorView extends JDialog
       extraInfo.setDocument(new ExtraInformationDocument());
       StyledDocument doc = extraInfo.getStyledDocument();
       SimpleAttributeSet style = new SimpleAttributeSet();
-      StyleConstants.setForeground(style, Settings.getDarkGold());
+      StyleConstants.setForeground(style, ApplicationColors.getDarkGold());
       StyleConstants.setFontSize(style, 20);
       StyleConstants.setFontFamily(style, "Serif");
       doc.setParagraphAttributes(0, doc.getLength(), style, true);
@@ -390,7 +391,7 @@ public class NikudExpressionEditorView extends JDialog
       binjanBoxPanel.setLayout(binjanLayout);
       binjanBoxPanel.add(binjanBox);
       binjanBoxPanel.setOpaque(false);
-      binjanBoxPanel.setBackground(Settings.getTransparent());
+      binjanBoxPanel.setBackground(ApplicationColors.getTransparent());
       binjanBoxPanel.setBorder(new TitledBorder("Binjan"));
 
       genderBox = new JComboBox<>(Gender.values());
@@ -404,7 +405,7 @@ public class NikudExpressionEditorView extends JDialog
       genderBoxPanel.setLayout(genderLayout);
       genderBoxPanel.add(genderBox);
       genderBoxPanel.setOpaque(false);
-      genderBoxPanel.setBackground(Settings.getTransparent());
+      genderBoxPanel.setBackground(ApplicationColors.getTransparent());
       genderBoxPanel.setBorder(BorderFactory.createTitledBorder("Geschlecht"));
 
       grammaticalPersonBox = new JComboBox<>(GrammaticalPerson.values());
@@ -422,7 +423,7 @@ public class NikudExpressionEditorView extends JDialog
       grammaticalPersonBoxPanel.setLayout(grammaticalPersonLayout);
       grammaticalPersonBoxPanel.add(grammaticalPersonBox);
       grammaticalPersonBoxPanel.setOpaque(false);
-      grammaticalPersonBoxPanel.setBackground(Settings.getTransparent());
+      grammaticalPersonBoxPanel.setBackground(ApplicationColors.getTransparent());
       grammaticalPersonBoxPanel
             .setBorder(BorderFactory.createTitledBorder("Grammatische Person"));
 
@@ -437,7 +438,7 @@ public class NikudExpressionEditorView extends JDialog
       numerusBoxPanel.setLayout(numerusLayout);
       numerusBoxPanel.add(numerusBox);
       numerusBoxPanel.setOpaque(false);
-      numerusBoxPanel.setBackground(Settings.getTransparent());
+      numerusBoxPanel.setBackground(ApplicationColors.getTransparent());
       numerusBoxPanel.setBorder(BorderFactory.createTitledBorder("Numerus"));
 
       verbConjugationBox = new JComboBox<>(VerbConjugation.values());
@@ -454,7 +455,7 @@ public class NikudExpressionEditorView extends JDialog
       verbConjugationBoxPanel.setLayout(verbConjugationLayout);
       verbConjugationBoxPanel.add(verbConjugationBox);
       verbConjugationBoxPanel.setOpaque(false);
-      verbConjugationBoxPanel.setBackground(Settings.getTransparent());
+      verbConjugationBoxPanel.setBackground(ApplicationColors.getTransparent());
       verbConjugationBoxPanel
             .setBorder(BorderFactory.createTitledBorder("VerbConjugation"));
 
@@ -469,7 +470,7 @@ public class NikudExpressionEditorView extends JDialog
       verbStrengthBoxPanel.setLayout(verbStrengthLayout);
       verbStrengthBoxPanel.add(verbStrengthBox);
       verbStrengthBoxPanel.setOpaque(false);
-      verbStrengthBoxPanel.setBackground(Settings.getTransparent());
+      verbStrengthBoxPanel.setBackground(ApplicationColors.getTransparent());
       verbStrengthBoxPanel
             .setBorder(BorderFactory.createTitledBorder("VerbStärke"));
 
@@ -483,7 +484,7 @@ public class NikudExpressionEditorView extends JDialog
       verbTypeBoxPanel.setLayout(verbTypeBoxLayout);
       verbTypeBoxPanel.add(verbTypeBox);
       verbTypeBoxPanel.setOpaque(false);
-      verbTypeBoxPanel.setBackground(Settings.getTransparent());
+      verbTypeBoxPanel.setBackground(ApplicationColors.getTransparent());
       verbTypeBoxPanel.setBorder(BorderFactory.createTitledBorder("Verb Typ"));
 
       keyboard = new KeyboardHebrewNikud(hebrew, components, 70, true);
@@ -557,7 +558,7 @@ public class NikudExpressionEditorView extends JDialog
    {
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
-      vertical.setBackground(Settings.getTransparent());
+      vertical.setBackground(ApplicationColors.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 15));
 
       scrollPaneExpressionTable = new JScrollPane(expressionKindTable);
@@ -566,7 +567,7 @@ public class NikudExpressionEditorView extends JDialog
       scrollPaneExpressionTable
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
       scrollPaneExpressionTable.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Settings.getLightGrayGold()),
+            BorderFactory.createLineBorder(ApplicationColors.getLightGrayGold()),
             "Wortarten"));
 
       lastModiefiedLabel = new JLabel();
@@ -574,7 +575,7 @@ public class NikudExpressionEditorView extends JDialog
 
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);
-      horizontal.setBackground(Settings.getTransparent());
+      horizontal.setBackground(ApplicationColors.getTransparent());
       horizontal.setLayout(new TrainLayout(horizontal, 15));
 
       horizontal.add(copyButton);
@@ -593,14 +594,14 @@ public class NikudExpressionEditorView extends JDialog
    {
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
-      vertical.setBackground(Settings.getTransparent());
+      vertical.setBackground(ApplicationColors.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 15));
 
       definitionPanel = new JPanel();
       TotemLayout definitionLayout = new TotemLayout(definitionPanel, 5);
       definitionPanel.setLayout(definitionLayout);
       definitionPanel.setBorder(BorderFactory.createEmptyBorder());
-      definitionPanel.setBackground(Settings.getTransparent());
+      definitionPanel.setBackground(ApplicationColors.getTransparent());
       definitionPanel.setOpaque(false);
 
       JScrollPane scrollPane2 = new JScrollPane(definitionPanel);

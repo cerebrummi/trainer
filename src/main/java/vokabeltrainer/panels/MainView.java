@@ -11,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
@@ -69,7 +71,7 @@ public class MainView extends JPanel
    {
       menuBar = new JMenuBar();
       menuBar.setOpaque(true);
-      menuBar.setBackground(Settings.getLightGold());
+      menuBar.setBackground(ApplicationColors.getLightGold());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
       menuBar.setMinimumSize(new Dimension(1200,80));
       menuBar.setMaximumSize(new Dimension(6000,80));

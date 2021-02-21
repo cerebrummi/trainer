@@ -16,7 +16,7 @@ public class ThemeCompliantListCellRendererMustInput implements ListCellRenderer
    {
       Component c = wrappedRenderer.getListCellRendererComponent(list, value,
             index, isSelected, cellHasFocus);
-      c.setBackground(Settings.getLightYellow());
+      c.setBackground(ApplicationColors.getLightYellow());
       return c;
    }
 }

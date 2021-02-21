@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
@@ -40,7 +41,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
       tablePanel = new JPanel();
       tablePanel.setLayout(new TotemLayout(tablePanel));
       tablePanel.setOpaque(true);
-      tablePanel.setBackground(Settings.getVeryLightGold());
+      tablePanel.setBackground(ApplicationColors.getVeryLightGold());
       tablePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
       wordPanel = new JPanel();
@@ -49,7 +50,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
       wordPanel.setMinimumSize(new Dimension(500, 160));
       wordPanel.setMaximumSize(new Dimension(700, 800));
       wordPanel.setOpaque(true);
-      wordPanel.setBackground(Settings.getVeryLightGold());
+      wordPanel.setBackground(ApplicationColors.getVeryLightGold());
 
       horizontalPanel.add(tablePanel);
       horizontalPanel.add(wordPanel);
@@ -64,7 +65,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
 
       JPanel titlePanel = new JPanel(new FlowLayout());
       titlePanel.setOpaque(false);
-      titlePanel.setBackground(Settings.getTransparent());
+      titlePanel.setBackground(ApplicationColors.getTransparent());
       titlePanel.setMinimumSize(new Dimension(580, 50));
       titlePanel.setMaximumSize(new Dimension(580, 50));
 
@@ -93,11 +94,11 @@ public class StatisticsPanel extends BackgroundPanelTiled
                   JScrollPane scroller = new JScrollPane(
                         statisticsTableRow.getJListHtoD());
                   scroller.setOpaque(false);
-                  scroller.setBackground(Settings.getTransparent());
+                  scroller.setBackground(ApplicationColors.getTransparent());
                   scroller.setBorder(BorderFactory.createEmptyBorder());
                   scroller.getViewport().setOpaque(false);
                   scroller.getViewport()
-                        .setBackground(Settings.getTransparent());
+                        .setBackground(ApplicationColors.getTransparent());
                   scroller.setViewportBorder(BorderFactory.createEmptyBorder());
                   wordPanel.add(scroller);
                }
@@ -108,11 +109,11 @@ public class StatisticsPanel extends BackgroundPanelTiled
                   JScrollPane scroller = new JScrollPane(
                         statisticsTableRow.getJListDtoH());
                   scroller.setOpaque(false);
-                  scroller.setBackground(Settings.getTransparent());
+                  scroller.setBackground(ApplicationColors.getTransparent());
                   scroller.setBorder(BorderFactory.createEmptyBorder());
                   scroller.getViewport().setOpaque(false);
                   scroller.getViewport()
-                        .setBackground(Settings.getTransparent());
+                        .setBackground(ApplicationColors.getTransparent());
                   scroller.setViewportBorder(BorderFactory.createEmptyBorder());
                   wordPanel.add(scroller);
                }
@@ -124,12 +125,12 @@ public class StatisticsPanel extends BackgroundPanelTiled
       
       JScrollPane scroller = new JScrollPane(table);
       scroller.setOpaque(false);
-      scroller.setBackground(Settings.getTransparent());
+      scroller.setBackground(ApplicationColors.getTransparent());
       scroller.setBorder(BorderFactory.createEmptyBorder());
       scroller.getViewport().setOpaque(false);
-      scroller.getViewport().setBackground(Settings.getTransparent());
+      scroller.getViewport().setBackground(ApplicationColors.getTransparent());
       scroller.setViewportBorder(BorderFactory.createEmptyBorder());
-      scroller.setBackground(Settings.getDarkRed());
+      scroller.setBackground(ApplicationColors.getDarkRed());
 
       tablePanel.add(titlePanel);
       tablePanel.add(scroller);

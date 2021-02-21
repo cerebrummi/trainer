@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
@@ -44,7 +45,7 @@ public class LanguageTab extends JPanel
       this.languageDirection = languageDirection;
       this.setLayout(new BorderLayout());
       this.setOpaque(false);
-      this.setBackground(Settings.getTransparent());
+      this.setBackground(ApplicationColors.getTransparent());
    }
 
    public void loadBoxes()
@@ -150,7 +151,7 @@ public class LanguageTab extends JPanel
             JPanel wrapper = new JPanel();
             BullsEyeLayout wrapperLayout = new BullsEyeLayout(wrapper);
             wrapper.setLayout(wrapperLayout);
-            wrapper.setBackground(Settings.getDarkGold());
+            wrapper.setBackground(ApplicationColors.getDarkGold());
             wrapper.setOpaque(true);         
             
             SuccessTable table = new SuccessTable(
@@ -158,9 +159,9 @@ public class LanguageTab extends JPanel
             JScrollPane scroller = new JScrollPane(table);
             scroller.setMinimumSize(new Dimension(1017,508));
             scroller.setMaximumSize(new Dimension(1200,655));
-            scroller.setBackground(Settings.getDarkGold());
+            scroller.setBackground(ApplicationColors.getDarkGold());
             scroller.setOpaque(true);
-            scroller.getViewport().setBackground(Settings.getLightBlue());
+            scroller.getViewport().setBackground(ApplicationColors.getLightBlue());
             scroller.getViewport().setOpaque(true);
             
             wrapper.add(scroller);

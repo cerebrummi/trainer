@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.editing.HebrewLetter;
@@ -91,7 +92,7 @@ public class LetterPictureWordPanel extends JPanel
       JLabel dummy = new JLabel();
       dummy.setMinimumSize(new Dimension(1200,100));
       dummy.setMaximumSize(new Dimension(1200,100));
-      dummy.setBackground(Settings.getTransparent());
+      dummy.setBackground(ApplicationColors.getTransparent());
       dummy.setOpaque(false);
       add(dummy);
       

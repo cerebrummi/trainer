@@ -15,8 +15,8 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.IntegerSpinnerEditor;
 import vokabeltrainer.editing.IntegerSpinnerModel;
@@ -66,7 +66,7 @@ public class TrainingTableCellRendererEditor
       amountOfNewWordsButton = new JButton();
       amountOfNewWordsButton.setFont(font);
       amountOfNewWordsButton.setBorder(BorderFactory.createEmptyBorder());
-      amountOfNewWordsButton.setBackground(Settings.getLightYellow());
+      amountOfNewWordsButton.setBackground(ApplicationColors.getLightYellow());
       amountOfNewWordsButton.addActionListener(event -> {
          table.editCellAt(row, column);
       });

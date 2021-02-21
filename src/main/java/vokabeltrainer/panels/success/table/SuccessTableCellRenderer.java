@@ -10,6 +10,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
@@ -26,21 +27,21 @@ public class SuccessTableCellRenderer
    public SuccessTableCellRenderer()
    {
       selected = new JLabel(new ImageIcon(ApplicationImages.getSelect()));
-      selected.setBackground(Settings.getVeryLightGold());
+      selected.setBackground(ApplicationColors.getVeryLightGold());
       selected.setOpaque(true);
       
       empty = new JLabel();
-      empty.setBackground(Settings.getVeryLightGold());
+      empty.setBackground(ApplicationColors.getVeryLightGold());
       empty.setOpaque(true);
 
       expression = new JLabel();
       expression.setFont(Main.getHebrewFont(18F));
-      expression.setBackground(Settings.getVeryLightGold());
+      expression.setBackground(ApplicationColors.getVeryLightGold());
       expression.setOpaque(true);
       
       chapter = new JLabel();
       chapter.setFont(Main.getGermanFont(20));
-      chapter.setBackground(Settings.getVeryLightGold());
+      chapter.setBackground(ApplicationColors.getVeryLightGold());
       chapter.setOpaque(true);
    }
 

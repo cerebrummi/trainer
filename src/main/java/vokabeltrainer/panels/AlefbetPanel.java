@@ -19,6 +19,7 @@ import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.letterpicture.LetterPictureAlphabetPanel;
 import vokabeltrainer.panels.letterpicture.LetterTextField;
@@ -104,15 +105,15 @@ public class AlefbetPanel extends BackgroundPanelTiled
          {
             if (((LetterTextField) jtc).isOkay())
             {
-               jtc.setBackground(Settings.getGreen());
+               jtc.setBackground(ApplicationColors.getGreen());
             }
             else if (jtc.getText().isBlank())
             {
-               jtc.setBackground(Settings.getLightYellow());
+               jtc.setBackground(ApplicationColors.getLightYellow());
             }
             else
             {
-               jtc.setBackground(Settings.getLightGrayGold());
+               jtc.setBackground(ApplicationColors.getLightGrayGold());
             }
          }
       });
@@ -120,7 +121,7 @@ public class AlefbetPanel extends BackgroundPanelTiled
       resetButton.addActionListener(event -> {
          for (JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
          {
-            jtc.setBackground(Settings.getLightYellow());
+            jtc.setBackground(ApplicationColors.getLightYellow());
             jtc.setText("");
          }
       });

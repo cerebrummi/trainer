@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
@@ -39,11 +40,11 @@ public class SuccessHelper
       JPanel wrapper = new JPanel();
       BullsEyeLayout wrapperLayout = new BullsEyeLayout(wrapper);
       wrapper.setLayout(wrapperLayout);
-      wrapper.setBackground(Settings.getDarkGold());
+      wrapper.setBackground(ApplicationColors.getDarkGold());
       wrapper.setOpaque(true);
       TotemLayout totemLayout = new TotemLayout(panel);
       panel.setLayout(totemLayout);
-      panel.setBackground(Settings.getDarkGold());
+      panel.setBackground(ApplicationColors.getDarkGold());
       panel.setOpaque(true);
       wrapper.add(panel);
       return wrapper;
@@ -59,19 +60,19 @@ public class SuccessHelper
       JScrollPane scroller = new JScrollPane(table);
       scroller.setMinimumSize(new Dimension(1200,600));
       scroller.setMaximumSize(new Dimension(1500,750));
-      scroller.setBackground(Settings.getDarkGold());
+      scroller.setBackground(ApplicationColors.getDarkGold());
       scroller.setOpaque(true);
-      scroller.getViewport().setBackground(Settings.getLightBlue());
+      scroller.getViewport().setBackground(ApplicationColors.getLightBlue());
       scroller.getViewport().setOpaque(true);
       
       JPanel tablePanel = new JPanel();
       BullsEyeLayout tableLayout = new BullsEyeLayout(tablePanel);
       tablePanel.setLayout(tableLayout);
-      tablePanel.setBackground(Settings.getDarkGold());
+      tablePanel.setBackground(ApplicationColors.getDarkGold());
       tablePanel.add(scroller);
       
       JPanel fillerPanel = new JPanel(new FlowLayout());
-      fillerPanel.setBackground(Settings.getDarkGold());
+      fillerPanel.setBackground(ApplicationColors.getDarkGold());
       fillerPanel.setOpaque(true);
       fillerPanel.setMinimumSize(new Dimension(1200,15));
       fillerPanel.setMaximumSize(new Dimension(1500,15));
@@ -79,10 +80,10 @@ public class SuccessHelper
       JPanel buttonWrapperPanel = new JPanel();
       BullsEyeLayout buttonWrapperLayout = new BullsEyeLayout(buttonWrapperPanel);
       buttonWrapperPanel.setLayout(buttonWrapperLayout);
-      buttonWrapperPanel.setBackground(Settings.getDarkGold());
+      buttonWrapperPanel.setBackground(ApplicationColors.getDarkGold());
       
       JPanel buttonPanel = new JPanel();
-      buttonPanel.setBackground(Settings.getDarkGold());
+      buttonPanel.setBackground(ApplicationColors.getDarkGold());
       buttonPanel.setOpaque(true);
       buttonPanel.setLayout(new TrainLayout(buttonPanel, 15));
       buttonPanel.setMinimumSize(new Dimension(1200,40));

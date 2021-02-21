@@ -12,6 +12,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 
@@ -51,15 +52,15 @@ public class StatisticsTableCellRenderer
          date.setText(renderedRow.getDate());
          if(now.isBefore(renderedRow.getLocalDate()))
          {
-            date.setBackground(Settings.getLightBlue());
+            date.setBackground(ApplicationColors.getLightBlue());
          }
          else if(now.isAfter(renderedRow.getLocalDate()))
          {
-            date.setBackground(Settings.getRose());
+            date.setBackground(ApplicationColors.getRose());
          }
          else
          {
-            date.setBackground(Settings.getGreen());
+            date.setBackground(ApplicationColors.getGreen());
          }
          return date;
       }
@@ -68,11 +69,11 @@ public class StatisticsTableCellRenderer
       {
          if (isSelected)
          {
-            expressionsHtoD.setBackground(Settings.getLightGold());
+            expressionsHtoD.setBackground(ApplicationColors.getLightGold());
          }
          else
          {
-            expressionsHtoD.setBackground(Settings.getVeryLightGold());
+            expressionsHtoD.setBackground(ApplicationColors.getVeryLightGold());
          }
          expressionsHtoD
                .setText(String.valueOf(renderedRow.getExpressionsHtoDSize()));
@@ -82,11 +83,11 @@ public class StatisticsTableCellRenderer
       // column == 2
       if (isSelected)
       {
-         expressionsDtoH.setBackground(Settings.getLightGold());
+         expressionsDtoH.setBackground(ApplicationColors.getLightGold());
       }
       else
       {
-         expressionsDtoH.setBackground(Settings.getVeryLightGold());
+         expressionsDtoH.setBackground(ApplicationColors.getVeryLightGold());
       }
       expressionsDtoH
             .setText(String.valueOf(renderedRow.getExpressionsDtoHSize()));

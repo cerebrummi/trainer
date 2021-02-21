@@ -10,8 +10,8 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
@@ -25,16 +25,16 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
    public ExpressionKindTableCellRenderer() // multiple selection possible, except unknown selection row 0
    {
       selected = new JLabel(new ImageIcon(ApplicationImages.getSelectDone()));
-      selected.setBackground(Settings.getTransparent());
+      selected.setBackground(ApplicationColors.getTransparent());
       selected.setOpaque(false);
       
       empty = new JLabel();
-      empty.setBackground(Settings.getTransparent());
+      empty.setBackground(ApplicationColors.getTransparent());
       empty.setOpaque(false);
 
       expressionKind = new JLabel();
       expressionKind.setFont(Main.getGermanFont(14F));
-      expressionKind.setBackground(Settings.getTransparent());
+      expressionKind.setBackground(ApplicationColors.getTransparent());
       expressionKind.setOpaque(false);
    }
 

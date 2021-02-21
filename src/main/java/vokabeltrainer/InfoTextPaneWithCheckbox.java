@@ -22,7 +22,7 @@ public class InfoTextPaneWithCheckbox extends JTextPane
       box.setFont(Settings.getButtonFont());
       box.setMargin(new Insets(-5, 5, -5, -20));
       box.setBackground(new Color(0, 0, 0, 0));
-      box.setForeground(Settings.getGold());
+      box.setForeground(ApplicationColors.getGold());
       box.setPreferredSize(new Dimension(32, 32));
       box.addActionListener(event -> {
          System.out.println("Action");

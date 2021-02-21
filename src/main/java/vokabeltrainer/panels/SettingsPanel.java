@@ -29,6 +29,8 @@ import javax.swing.SwingWorker;
 import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.BackgroundPanelTiled;
@@ -239,7 +241,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JLabel saverLabel = new JLabel("Speicherort");
       saverLabel.setFont(Main.getGermanFont(30F));
-      saverLabel.setForeground(Settings.getGold());
+      saverLabel.setForeground(ApplicationColors.getGold());
 
       folderLabel = new JTextArea(Settings.getExpressionPath());
       folderLabel.setFont(Settings.getButtonFont());
@@ -255,7 +257,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JLabel deleteLabel = new JLabel("Datenbank löschen");
       deleteLabel.setFont(Main.getGermanFont(30F));
-      deleteLabel.setForeground(Settings.getGold());
+      deleteLabel.setForeground(ApplicationColors.getGold());
 
       deleteDatabaseButton = new JButton("eigene Datenbank löschen");
       deleteDatabaseButton.setFont(Settings.getButtonFont());
@@ -296,7 +298,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JLabel exportLabel = new JLabel("Export");
       exportLabel.setFont(Main.getGermanFont(30F));
-      exportLabel.setForeground(Settings.getGold());
+      exportLabel.setForeground(ApplicationColors.getGold());
 
       vertical.add(exportLabel);
       vertical.add(exportButton);
@@ -314,7 +316,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JLabel importLabel = new JLabel("Import");
       importLabel.setFont(Main.getGermanFont(30F));
-      importLabel.setForeground(Settings.getGold());
+      importLabel.setForeground(ApplicationColors.getGold());
 
       importButton = new JButton("Datenbank importieren");
       importButton.setFont(Settings.getButtonFont());
@@ -341,7 +343,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JLabel soundLabel = new JLabel("Lautstärke");
       soundLabel.setFont(Main.getGermanFont(30F));
-      soundLabel.setForeground(Settings.getDarkGold());
+      soundLabel.setForeground(ApplicationColors.getDarkGold());
 
       soundButton = new JButton(new ImageIcon(Settings.getSound()));
       soundButton.setBorder(BorderFactory.createEmptyBorder());
@@ -414,7 +416,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JLabel databaseLabel = new JLabel("Datenbanken");
       databaseLabel.setFont(Main.getGermanFont(30F));
-      databaseLabel.setForeground(Settings.getDarkGold());
+      databaseLabel.setForeground(ApplicationColors.getDarkGold());
 
       DatabaseTable databaseTable = new DatabaseTable(
             Chapter.Database.getModelAvailableDatabases(), WIDTH * 3);

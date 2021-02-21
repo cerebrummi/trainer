@@ -17,6 +17,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.CerebrummiPreferences;
 import vokabeltrainer.Settings;
@@ -129,14 +130,14 @@ public final class Main
       {
          NimbusLookAndFeel nimbus = new NimbusLookAndFeel();
          UIManager.setLookAndFeel(nimbus);
-         UIManager.put("control", Settings.getTexturedBackgroundColor());
-         UIManager.put("nimbusBlueGrey", Settings.getLightGrayGold());
-         UIManager.put("nimbusBase", Settings.getDarkGold());
+         UIManager.put("control", ApplicationColors.getTexturedBackgroundColor());
+         UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
+         UIManager.put("nimbusBase", ApplicationColors.getDarkGold());
          UIManager.put("textForeground", Color.BLACK);
          UIManager.put("nimbusFocus", new Color(255, 220, 35));
          UIManager.put("ToolBar:Button.contentMargins",
                new Insets(5, 15, 5, 15));
-         UIManager.put("TextField.background", Settings.getLightYellow());
+         UIManager.put("TextField.background", ApplicationColors.getLightYellow());
          UIManager.put("ComboBox.forceOpaque", false);
          UIManager.put("TitledBorder.border", new Insets(10, 10, 10, 10));
          UIManager.put("TitledBorder.position", TitledBorder.ABOVE_BOTTOM);

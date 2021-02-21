@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.Settings;
 import vokabeltrainer.types.Expression;
 
@@ -21,7 +22,7 @@ public class SuccessTable extends JTable
       setOpaque(false);
       setRowHeight(140);
       setShowHorizontalLines(true);
-      setBackground(Settings.getTransparent());
+      setBackground(ApplicationColors.getTransparent());
       this.setRowSelectionAllowed(false);
       this.setColumnSelectionAllowed(false);
       this.setCellSelectionEnabled(false);

@@ -4,7 +4,7 @@ package vokabeltrainer.table.list.editor;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-import vokabeltrainer.Settings;
+import vokabeltrainer.ApplicationColors;
 
 public class AntiFocusTextField extends JTextField
 {
@@ -15,7 +15,7 @@ public class AntiFocusTextField extends JTextField
       super(value);
       setFocusable(false);
       setOpaque(true);
-      setBackground(Settings.getBackgroundGold());
+      setBackground(ApplicationColors.getBackgroundGold());
       setBorder(BorderFactory.createEmptyBorder());
       setEnabled(true);
    }
@@ -24,7 +24,7 @@ public class AntiFocusTextField extends JTextField
    {
       setFocusable(false);
       setOpaque(true);
-      setBackground(Settings.getBackgroundGold());
+      setBackground(ApplicationColors.getBackgroundGold());
       setBorder(BorderFactory.createEmptyBorder());
       setEnabled(true);
    }

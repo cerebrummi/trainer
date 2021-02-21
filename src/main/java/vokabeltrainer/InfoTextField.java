@@ -30,7 +30,7 @@ public class InfoTextField extends JTextField
       button.setFont(Main.getGermanFont(30F));
       button.setMargin(new Insets(-5, -20, -5, -20));
       button.setBackground(new Color(0, 0, 0, 0));
-      button.setForeground(Settings.getGold());
+      button.setForeground(ApplicationColors.getGold());
       button.setPreferredSize(new Dimension(14, 32));
 
       button.addActionListener(event -> {

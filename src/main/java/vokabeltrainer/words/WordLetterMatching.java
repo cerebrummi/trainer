@@ -170,6 +170,10 @@ public class WordLetterMatching
          // tttttttttt
          moveBeginningLettersToTheRightIfPossible(dataDic, dataTest, deltaCol,
                NEWSPACE);
+         if (dataDic.size() != dataTest.size())
+         {
+            throw new IllegalStateException("Längen unterschiedlich 3a");
+         }
       }
       else if (deltaCol < 0) // dataTest moved to the right of dataDic
       {
@@ -177,6 +181,10 @@ public class WordLetterMatching
          // tttttttttt
          moveBeginningLettersToTheRightIfPossible(dataTest, dataDic, deltaCol,
                NEWSPACE);
+         if (dataDic.size() != dataTest.size())
+         {
+            throw new IllegalStateException("Längen unterschiedlich 3b");
+         }
       }
       // else // not moved
       // dddddddddddddddd
