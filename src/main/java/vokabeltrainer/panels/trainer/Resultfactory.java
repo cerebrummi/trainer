@@ -1,5 +1,6 @@
 package vokabeltrainer.panels.trainer;
 
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class Resultfactory
    }
 
    public static Result getResultDtoHScentence(Expression expression,
-         String answer)
+         String answer, Font hebrewFont)
    {
       String[] expressionArray = expression.getHebrew()
             .split(HebrewLetter.SPACE.getUnicode());
@@ -29,7 +30,7 @@ public class Resultfactory
 
       if (expressionArray.length == 1 && answerArray.length == 1)
       {
-         return getResultDtoNikud(expression, answer);
+         return getResultDtoNikud(expression, answer, hebrewFont);
       }
 
       if (expressionArray.length == answerArray.length)
@@ -40,7 +41,7 @@ public class Resultfactory
          for (int i = expressionArray.length - 1; i >= 0; i--)
          {
             resultList.add(getResultDtoNikudString(expressionArray[i],
-                  answerArray[i], new Result()));
+                  answerArray[i], new Result(), hebrewFont));
          }
 
          result.setOkay(true);
@@ -66,20 +67,20 @@ public class Resultfactory
          return result;
       }
 
-      return getResultDtoNikud(expression, answer);
+      return getResultDtoNikud(expression, answer, hebrewFont);
    }
 
    private static Result getResultDtoNikud(Expression expression,
-         String answer)
+         String answer, Font hebrewFont)
    {
       Result result = new Result();
       result.setExpression(expression);
 
-      return getResultDtoNikudString(expression.getHebrew(), answer, result);
+      return getResultDtoNikudString(expression.getHebrew(), answer, result, hebrewFont);
    }
 
    private static Result getResultDtoNikudString(String dictionary,
-         String answer, Result result)
+         String answer, Result result, Font hebrewFont)
    {
 
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetter(
@@ -100,7 +101,7 @@ public class Resultfactory
          
          feedbackImageList
                .add(LetterFeedbackImage.make(dictionaryList.get(i),
-                     answerList.get(i), letterresult));
+                     answerList.get(i), letterresult, hebrewFont));
          result.setOkay(result.isOkay() && letterresult);
       }
       result.setFeedbackImageList(feedbackImageList);

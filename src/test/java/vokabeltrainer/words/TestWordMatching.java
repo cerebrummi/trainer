@@ -3,6 +3,7 @@ package vokabeltrainer.words;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -180,11 +181,16 @@ List<String> wordTest23List = new LinkedList<>(Arrays.asList(wordTest23Array));
    {
       Expression expressionDic = new Expression(true, false, true);
       expressionDic.setHebrew(wordDic);
-      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest1);
+      Result result = Resultfactory.getResultDtoHScentence(expressionDic, wordTest1, new Font(null));
       assertTrue(result.isOkay());
-      Result result2 = Resultfactory.getResultDtoHScentence(expressionDic, wordTest4);
-      assertFalse(result2.isOkay());
    }
 
-   
+   @Test
+   public void testMatchHebrew_Okay2()
+   {
+      Expression expressionDic = new Expression(true, false, true);
+      expressionDic.setHebrew(wordDic);
+      Result result2 = Resultfactory.getResultDtoHScentence(expressionDic, wordTest4, new Font(null));
+      assertFalse(result2.isOkay());
+   }
 }

@@ -23,6 +23,7 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.TextImageWithPicture;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.panels.TrainerView;
 import vokabeltrainer.types.Expression;
@@ -166,7 +167,7 @@ public class TrainerController implements TrainerControllerConnector
          if (Language.GERMAN.equals(this.languageDirection)) // DtoH
          {
             Result result = Resultfactory.getResultDtoHScentence(currentExpression,
-                  trainerView.getAnswerField().getText().trim());
+                  trainerView.getAnswerField().getText().trim(), Main.getHebrewFont(30F));
             if (result.isAnswerEmpty())
             {
                JOptionPane.showMessageDialog(Common.getjFrame(), "",
@@ -199,7 +200,7 @@ public class TrainerController implements TrainerControllerConnector
          else if (Language.TO_NIKUD.equals(languageDirection)) // DtoNikud
          {
             Result result = NikudResultFactory.getResultDtoNikudSentence(currentExpression,
-                  trainerView.getAnswerField().getText().trim());
+                  trainerView.getAnswerField().getText().trim(), Main.getHebrewFont(30F));
             if (result.isAnswerEmpty())
             {
                JOptionPane.showMessageDialog(Common.getjFrame(), "",
