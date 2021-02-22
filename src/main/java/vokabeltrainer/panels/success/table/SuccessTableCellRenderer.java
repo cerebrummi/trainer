@@ -6,14 +6,15 @@ import java.util.EventObject;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.panels.success.table.list.SuccessList;
 import vokabeltrainer.types.Expression;
 
 public class SuccessTableCellRenderer
@@ -21,8 +22,9 @@ public class SuccessTableCellRenderer
 {
    private JLabel selected;
    private JLabel empty;
-   private JLabel expression;
    private JLabel chapter;
+   
+   private SuccessList content;
 
    public SuccessTableCellRenderer()
    {
@@ -34,15 +36,15 @@ public class SuccessTableCellRenderer
       empty.setBackground(ApplicationColors.getVeryLightGold());
       empty.setOpaque(true);
 
-      expression = new JLabel();
-      expression.setFont(Main.getHebrewFont(18F));
-      expression.setBackground(ApplicationColors.getVeryLightGold());
-      expression.setOpaque(true);
+      content = new SuccessList();
+      content.setBackground(ApplicationColors.getVeryLightGold());
+      content.setOpaque(true);;
       
       chapter = new JLabel();
       chapter.setFont(Main.getGermanFont(20));
       chapter.setBackground(ApplicationColors.getVeryLightGold());
       chapter.setOpaque(true);
+      chapter.setHorizontalAlignment(SwingConstants.CENTER);
    }
 
    @Override
@@ -114,8 +116,8 @@ public class SuccessTableCellRenderer
 
       if(column == 1)
       {
-         this.expression.setText(expression.getWordGermanForSuccess());
-         return this.expression;
+         content.setListData(expression.getGermanHebrewGrammarArrayForSuccess());
+         return this.content;
       }
       
       chapter.setText(expression.getChapter().getName());

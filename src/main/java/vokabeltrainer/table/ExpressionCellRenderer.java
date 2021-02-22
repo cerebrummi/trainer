@@ -17,8 +17,8 @@ import vokabeltrainer.types.Language;
 public class ExpressionCellRenderer
       implements TableCellRenderer, TableCellEditor
 {
-   ExpressionList list;
-   Language language;
+   private ExpressionList list;
+   private Language language;
 
    public ExpressionCellRenderer(Language language)
    {

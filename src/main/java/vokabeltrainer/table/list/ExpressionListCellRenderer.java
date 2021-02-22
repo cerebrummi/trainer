@@ -1,6 +1,5 @@
 package vokabeltrainer.table.list;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.io.Serializable;
@@ -12,6 +11,7 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.types.Language;
@@ -31,7 +31,7 @@ public class ExpressionListCellRenderer
       label = new JTextField();
       label.setOpaque(false);
       label.setEditable(false);
-      label.setBackground(new Color(0, 0, 0, 0F));
+      label.setBackground(ApplicationColors.getTransparent());
       label.setBorder(BorderFactory.createEmptyBorder());
       selected = new JLabel(new ImageIcon(ApplicationImages.getSelect()));
       empty = new JLabel();

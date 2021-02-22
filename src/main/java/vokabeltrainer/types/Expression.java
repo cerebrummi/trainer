@@ -503,11 +503,12 @@ public class Expression
       }
    }
 
-   public String getWordGermanForSuccess()
+   public String[] getGermanHebrewGrammarArrayForSuccess()
    {
-      return "<html><p style=\"margin-top:5;\"><b>" + german + "</b></p><br>"
-            + "<p style=\"margin-top:5;\">" + hebrew + "</p><br>"
-            + "<p style=\"margin-top:5;\">"
-            + this.getAdditionalInfoGerman(false) + "</p></html>";
+      String[] content = new String[3];
+      content[0] = german;
+      content[1] = hebrew;
+      content[2] = getAdditionalInfoGerman(false);
+      return content;
    }
 }
