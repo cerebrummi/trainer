@@ -270,4 +270,16 @@ public enum GermanLetter implements Letter
    {
       return -1;
    }
+
+   @Override
+   public HebrewLetter getHebrewLetter()
+   {
+      return null;
+   }
+
+   @Override
+   public String getTranscript()
+   {
+      return name();
+   }
 }

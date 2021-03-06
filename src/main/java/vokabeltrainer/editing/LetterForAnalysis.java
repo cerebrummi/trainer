@@ -12,7 +12,7 @@ public class LetterForAnalysis
    private List<NikudLetter> listLowerPunktation = new ArrayList<>();
    private NikudLetter dagesh;
    private Set<NikudLetter> setUpperPunktation = new HashSet<>();
-   
+
    public LetterForAnalysis(Letter content)
    {
       this.content = content;
@@ -26,22 +26,23 @@ public class LetterForAnalysis
    public LetterForAnalysis clone()
    {
       LetterForAnalysis duplicate = new LetterForAnalysis(content);
-      duplicate.setListLowerPunktation(Collections.nCopies(1, listLowerPunktation).get(0));
+      duplicate.setListLowerPunktation(
+            Collections.nCopies(1, listLowerPunktation).get(0));
       duplicate.setDagesh(dagesh);
       duplicate.getSetUpperPunktation().addAll(setUpperPunktation);
       return duplicate;
    }
-   
+
    public void addToLowerPunktation(NikudLetter punktation)
    {
       listLowerPunktation.add(punktation);
    }
-   
+
    public void addDagesh(NikudLetter dagesh)
    {
       this.dagesh = dagesh;
    }
-   
+
    public void addToUpperPunktation(NikudLetter punktation)
    {
       setUpperPunktation.add(punktation);
@@ -80,5 +81,33 @@ public class LetterForAnalysis
    public int getPixelWidth()
    {
       return content.getPixelWidth();
+   }
+
+   public boolean isBet()
+   {
+      return HebrewLetter.BET == this.content.getHebrewLetter()
+            || (this.dagesh != null
+                  && HebrewLetter.WET == this.content.getHebrewLetter());
+   }
+
+   public boolean isKaf()
+   {
+      return HebrewLetter.KAF == this.content.getHebrewLetter()
+            || (this.dagesh != null
+                  && HebrewLetter.WAW == this.content.getHebrewLetter());
+   }
+
+   public boolean isPaei()
+   {
+      return HebrewLetter.PAEI == this.content.getHebrewLetter()
+            || (this.dagesh != null
+                  && HebrewLetter.FAEI == this.content.getHebrewLetter());
+   }
+
+   public boolean isSsin()
+   {
+      return HebrewLetter.SSIN == this.content.getHebrewLetter()
+            || (this.setUpperPunktation.contains(NikudLetter.SIN_DOT)
+                  && HebrewLetter.SCHIN == this.content.getHebrewLetter());
    }
 }

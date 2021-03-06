@@ -18,4 +18,8 @@ public interface Letter
    int getPixelWidth();
    
    String name();
+   
+   HebrewLetter getHebrewLetter();
+   
+   String getTranscript();
 }

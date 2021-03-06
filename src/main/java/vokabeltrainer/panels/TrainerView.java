@@ -834,5 +834,6 @@ public class TrainerView extends BackgroundPanelTiled
       
       feedbackPanel.add(scrollPane);
       feedbackPanel.add(fillerAnswerPanel);
+      wordPanel.displayNikudWord(result.getExpression().getHebrew());
    }
 }

@@ -46,7 +46,7 @@ public final class Main
       if (endOfTest.isBefore(thisPointInTime))
       {
          JOptionPane.showMessageDialog(null,
-               "Die Nutzungszeit für diese Testversion Jahr 2021\nvon Cerebrummi© Ivrit 0.95 ist abgelaufen.\nInformationen unter kontakt@adaadama.com",
+               "Die Nutzungszeit für diese Testversion Jahr 2021\nvon Cerebrummi© Ivrit 1.0 ist abgelaufen.\nInformationen unter kontakt@adaadama.com",
                "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(0);
       }
@@ -176,7 +176,7 @@ public final class Main
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
          window.setTitle(
-               "Cerebrummi© Ivrit 0.95 Testversion Jahr 2021 | Nutzungszeit bis 31.12.2021");
+               "Cerebrummi© Ivrit 1.0 Testversion Jahr 2021 | Nutzungszeit bis 31.12.2021");
          window.setFont(germanFont.deriveFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
          ToolTipManager.sharedInstance().setInitialDelay(1000);

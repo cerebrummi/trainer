@@ -8,12 +8,16 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
 
 public class LetterFeedbackImage
 {
+   
+   private LetterFeedbackImage()
+   {
+      // nothing
+   }
    
    public static BufferedImage make(LetterForAnalysis letterDic,
          LetterForAnalysis letterAnswer, boolean okay, Font hebrewFont)

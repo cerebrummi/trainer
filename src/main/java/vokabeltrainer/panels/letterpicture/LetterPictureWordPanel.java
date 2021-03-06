@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.Settings;
 import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -29,6 +29,47 @@ public class LetterPictureWordPanel extends JPanel
       this.setOpaque(false);
    }
 
+   public void displayNikudWord(String nikudWord)
+   {
+      removeAll();
+
+      JPanel horizontal = new JPanel();
+      horizontal.setLayout(new TrainLayout(horizontal));
+
+      JPanel vertical = new JPanel();
+      vertical.setLayout(new TotemLayout(vertical));
+
+      JPanel displayPanel = new JPanel();
+      displayPanel.setLayout(new TrainLayout(displayPanel));
+
+      List<LetterForAnalysis> hebrewLettersCode = LetterHelper
+            .findNikudLetterForAnalysisList(nikudWord);
+      Collections.reverse(hebrewLettersCode);
+
+      for (LetterForAnalysis letter : hebrewLettersCode)
+      {
+         displayPanel.add(new NikudPictureButtonPanel(letter, cards));
+      }
+
+      vertical.add(displayPanel);
+
+      JPanel displayPanel2 = new JPanel();
+      displayPanel2.setLayout(new TrainLayout(displayPanel2));
+
+      for (LetterForAnalysis letter : hebrewLettersCode)
+      {
+         displayPanel2.add(new NikudPictureButtonPanel(letter, cards2));
+      }
+
+      vertical.add(displayPanel2);
+
+      horizontal.add(vertical);
+      add(horizontal);
+
+      validate();
+      repaint();
+   }
+
    public void displayWord(String hebrewWord)
    {
       removeAll();
@@ -42,8 +83,7 @@ public class LetterPictureWordPanel extends JPanel
       JPanel displayPanel = new JPanel();
       displayPanel.setLayout(new TrainLayout(displayPanel));
 
-      List<String> hebrewLettersCode = LetterHelper
-            .findLetterCodes(hebrewWord);
+      List<String> hebrewLettersCode = LetterHelper.findLetterCodes(hebrewWord);
       Collections.reverse(hebrewLettersCode);
 
       for (String hebrewLetterCode : hebrewLettersCode)
@@ -88,14 +128,14 @@ public class LetterPictureWordPanel extends JPanel
    public void clear()
    {
       removeAll();
-      
+
       JLabel dummy = new JLabel();
-      dummy.setMinimumSize(new Dimension(1200,100));
-      dummy.setMaximumSize(new Dimension(1200,100));
+      dummy.setMinimumSize(new Dimension(1200, 100));
+      dummy.setMaximumSize(new Dimension(1200, 100));
       dummy.setBackground(ApplicationColors.getTransparent());
       dummy.setOpaque(false);
       add(dummy);
-      
+
       validate();
       repaint();
    }

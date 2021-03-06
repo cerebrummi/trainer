@@ -37,7 +37,7 @@ public enum HebrewLetter implements Letter
          "Gans",
          " 05D2",
          "gimel",
-         10),
+         11),
    GERESCH(
          "\u05F3",
          "geresch",
@@ -139,7 +139,7 @@ public enum HebrewLetter implements Letter
          "Welle",
          " 05D5",
          "waw",
-         8),
+         9),
    ZADI(
          "\u05E6",
          "Zitrone",
@@ -331,5 +331,11 @@ public enum HebrewLetter implements Letter
    public Letter getNewspace()
    {
       return HebrewLetter.NEWSPACE;
+   }
+
+   @Override
+   public HebrewLetter getHebrewLetter()
+   {
+      return this;
    }
 }
