@@ -153,14 +153,14 @@ public final class SaveExpressions
          {
             File f = new File(this.exportpath.getPathFileWithZipTest());
             try (ZipOutputStream out = new ZipOutputStream(
-                  new FileOutputStream(f)))
+                  new FileOutputStream(f), StandardCharsets.UTF_8))
             {
                for (LetterForSaving letter : LetterForSaving.values())
                {
                   ZipEntry entry = new ZipEntry(letter.name() + ".csv");
                   out.putNextEntry(entry);
 
-                  byte[] data = saveAsStringForZip(letter).getBytes();
+                  byte[] data = saveAsStringForZip(letter).getBytes(StandardCharsets.UTF_8);
                   out.write(data, 0, data.length);
                   out.closeEntry();
 
@@ -282,7 +282,7 @@ public final class SaveExpressions
       }
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
-            "UTF-8");
+            StandardCharsets.UTF_8);
       StringJoiner joiner = new StringJoiner("\n");
       joiner.add(HEADER_CSV);
       for (Expression expression : getValues(letter))
