@@ -26,14 +26,14 @@ public enum NikudLetter
          "chet",
          NikudLetterDistinction.LETTER,
          HebrewLetter.CHET,
-         17),
+         18),
    DALET(
          "\u05D3",
          " 05D3",
          "dalet",
          NikudLetterDistinction.LETTER,
          HebrewLetter.DALET,
-         17),
+         18),
    GIMEL(
          "\u05D2",
          " 05D2",
@@ -61,7 +61,7 @@ public enum NikudLetter
          "häi",
          NikudLetterDistinction.LETTER,
          HebrewLetter.HAEI,
-         17),
+         18),
    JOD(
          "\u05D9",
          " 05D9",
@@ -75,7 +75,7 @@ public enum NikudLetter
          "kuf",
          NikudLetterDistinction.LETTER,
          HebrewLetter.KUF,
-         17),
+         18),
    LAMED(
          "\u05DC",
          " 05DC",
@@ -96,14 +96,14 @@ public enum NikudLetter
          "ssain",
          NikudLetterDistinction.LETTER,
          HebrewLetter.SSAIN,
-         8),
+         9),
    SCHIN(
          "\u05E9",
          " 05E9",
          "schin",
          NikudLetterDistinction.LETTER,
          HebrewLetter.SCHIN,
-         18),
+         19),
    SSAMECH(
          "\u05E1",
          " 05E1",
@@ -145,7 +145,7 @@ public enum NikudLetter
          "wet",
          NikudLetterDistinction.LETTER,
          HebrewLetter.WET,
-         16),
+         18),
    WAW(
          "\u05D5",
          " 05D5",
@@ -180,7 +180,7 @@ public enum NikudLetter
          "chafssofit",
          NikudLetterDistinction.LETTER,
          HebrewLetter.CHAFSSOFIT,
-         17),
+         18),
    FAEI(
          "\u05E4",
          " 05E4",
@@ -194,7 +194,7 @@ public enum NikudLetter
          "fäissofit",
          NikudLetterDistinction.LETTER,
          HebrewLetter.FAEISSOFIT,
-         17),
+         18),
    MEM(
          "\u05DE",
          " 05DE",
@@ -215,7 +215,7 @@ public enum NikudLetter
          "nun",
          NikudLetterDistinction.LETTER,
          HebrewLetter.NUN,
-         9),
+         10),
    NUNSSOFIT(
          "\u05DF",
          " 05DF",
@@ -383,7 +383,7 @@ public enum NikudLetter
          "chafukach",
          NikudLetterDistinction.LETTER,
          null,
-         11),
+         10),
    QAMATS_QATAN(
          "\u05C7",
          " 05C7",
@@ -397,7 +397,7 @@ public enum NikudLetter
          "waw waw",
          NikudLetterDistinction.LETTER,
          null,
-         18),
+         19),
    JIDDISH_WAW_JOD(
          "\u05F1",
          " 05F1",
@@ -411,7 +411,7 @@ public enum NikudLetter
          "jod jod",
          NikudLetterDistinction.LETTER,
          null,
-         20);
+         21);
 
    private String unicode;
    private String code;

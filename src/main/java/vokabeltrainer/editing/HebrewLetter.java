@@ -25,13 +25,13 @@ public enum HebrewLetter implements Letter
          "China",
          " 05D7",
          "chet",
-         17),
+         18),
    DALET(
          "\u05D3",
          "Domino",
          " 05D3",
          "dalet",
-         17),
+         18),
    GIMEL(
          "\u05D2",
          "Gans",
@@ -55,7 +55,7 @@ public enum HebrewLetter implements Letter
          "Haus",
          " 05D4",
          "häi",
-         17),
+         18),
    JOD(
          "\u05D9",
          "Igel",
@@ -67,7 +67,7 @@ public enum HebrewLetter implements Letter
          "Kuh",
          " 05E7",
          "kuf",
-         17),
+         18),
    LAMED(
          "\u05DC",
          "Laterne",
@@ -85,19 +85,19 @@ public enum HebrewLetter implements Letter
          "Sandalen",
          " Fb2B",
          "ssin",
-         18),
+         19),
    SSAIN(
          "\u05D6",
          "Sand",
          " 05D6",
          "ssain",
-         8),
+         9),
    SCHIN(
          "\u05E9",
          "Schaukel",
          " 05E9",
          "schin",
-         18),
+         19),
    SSAMECH(
          "\u05E1",
          "Sonne",
@@ -133,7 +133,7 @@ public enum HebrewLetter implements Letter
          "Wein",
          " 05D1",
          "wet",
-         16),
+         18),
    WAW(
          "\u05D5",
          "Welle",
@@ -163,7 +163,7 @@ public enum HebrewLetter implements Letter
          "Chemie",
          " 05DA",
          "chafssofit",
-         17),
+         18),
    FAEI(
          "\u05E4",
          "Feder",
@@ -175,7 +175,7 @@ public enum HebrewLetter implements Letter
          "Feder",
          " 05E3",
          "fäissofit",
-         17),
+         18),
    MEM(
          "\u05DE",
          "Maus",
@@ -193,7 +193,7 @@ public enum HebrewLetter implements Letter
          "Nonne",
          " 05E0",
          "nun",
-         9),
+         10),
    NUNSSOFIT(
          "\u05DF",
          "Nonne",
@@ -205,7 +205,7 @@ public enum HebrewLetter implements Letter
          "Bett",
          " 05D1 05BC",
          "bet",
-         16),
+         18),
    KAF(
          "\u05DB\u05BC",
          "Kuchen",
