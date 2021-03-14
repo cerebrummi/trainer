@@ -282,7 +282,7 @@ public final class SaveExpressions
       }
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
-            StandardCharsets.UTF_8);
+            "UTF-8");
       StringJoiner joiner = new StringJoiner("\n");
       joiner.add(HEADER_CSV);
       for (Expression expression : getValues(letter))
