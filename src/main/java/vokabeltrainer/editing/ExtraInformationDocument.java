@@ -15,10 +15,12 @@ public class ExtraInformationDocument extends DefaultStyledDocument
    private static final int NUMBER_OF_LETTERS_ALLOWED = 600;
 
    private String signPattern;
+   private String numberPattern;
 
    public ExtraInformationDocument()
    {
       signPattern = SignLetter.getPatternStringExtraInformation();
+      numberPattern = NumberLetter.getPatternString();
    }
 
    @Override
@@ -67,6 +69,10 @@ public class ExtraInformationDocument extends DefaultStyledDocument
                // okay
             }
             else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
+            {
+               // okay
+            }
+            else if (StringUtils.containsIgnoreCase(numberPattern, list.get(i)))
             {
                // okay
             }
@@ -128,6 +134,10 @@ public class ExtraInformationDocument extends DefaultStyledDocument
                // okay
             }
             else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
+            {
+               // okay
+            }
+            else if (StringUtils.containsIgnoreCase(numberPattern, list.get(i)))
             {
                // okay
             }
