@@ -522,7 +522,7 @@ public class WordLetterMatching
       }
       if (letterD.getContent() == letterT.getContent())
       {
-         return 1;
+         return 3;
       }
       return 0;
    }
