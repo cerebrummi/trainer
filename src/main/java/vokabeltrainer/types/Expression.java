@@ -30,6 +30,7 @@ public class Expression
    private LetterForSaving letterForSaving;
    private String additionalInformation;
    private LocalDateTime lastModified;
+   private String sortingIndex = "";
 
    public Expression(boolean preset, boolean doNotChange, boolean ivrit)
    {
@@ -245,6 +246,16 @@ public class Expression
       this.ivrit = ivrit;
    }
 
+   public String getSortingIndex()
+   {
+      return sortingIndex;
+   }
+
+   public void setSortingIndex(String sortingIndex)
+   {
+      this.sortingIndex = sortingIndex;
+   }
+
    public String[] toGermanArrayForTableEntry()
    {
       int index = 0;
@@ -263,7 +274,7 @@ public class Expression
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
-      result[index] = "Kapitel: " + chapter.getName();
+      result[index] = "Kapitel: " + chapter.getName() + ", Index: " + sortingIndex;
       index++;
       result[index] = chapter.getDatabaseName() + " vom " + lastModified
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
@@ -288,7 +299,7 @@ public class Expression
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
-      result[index] = "Kapitel: " + chapter.getName();
+      result[index] = "Kapitel: " + chapter.getName() + ", Index: " + sortingIndex;
       index++;
       result[index] = chapter.getDatabaseName() + " vom " + lastModified
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
@@ -363,6 +374,7 @@ public class Expression
       joiner.add(getSearchWordsHebrewForSaving());
       joiner.add(lastModified.toString());
       joiner.add(String.valueOf(ivrit));
+      joiner.add(sortingIndex);
       return joiner.toString();
    }
 
@@ -383,6 +395,7 @@ public class Expression
       joiner.add(getSearchWordsHebrewForSaving());
       joiner.add(lastModified.toString());
       joiner.add(String.valueOf(ivrit));
+      joiner.add(sortingIndex);
       return joiner.toString();
    }
 

@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.types.Chapter;
 

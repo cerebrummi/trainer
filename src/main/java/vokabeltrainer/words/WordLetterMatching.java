@@ -170,8 +170,7 @@ public class WordLetterMatching
       {
          // dddddddddddddddd
          // tttttttttt
-         moveBeginningLettersToTheRightIfPossible(dataDic, dataTest, deltaCol,
-               NEWSPACE);
+         moveBeginningLettersToTheRightIfPossible(dataDic, dataTest, deltaCol);
          if (dataDic.size() != dataTest.size())
          {
             throw new IllegalStateException("Längen unterschiedlich 3a");
@@ -181,8 +180,7 @@ public class WordLetterMatching
       {
          // dddddddddddddddd
          // tttttttttt
-         moveBeginningLettersToTheRightIfPossible(dataTest, dataDic, deltaCol,
-               NEWSPACE);
+         moveBeginningLettersToTheRightIfPossible(dataTest, dataDic, deltaCol);
          if (dataDic.size() != dataTest.size())
          {
             throw new IllegalStateException("Längen unterschiedlich 3b");
@@ -413,7 +411,7 @@ public class WordLetterMatching
 
    private static void moveBeginningLettersToTheRightIfPossible(
          List<LetterForAnalysis> dataD, List<LetterForAnalysis> dataT,
-         int deltaCol, Letter NEWSPACE)
+         int deltaCol)
    {
       // nnnnnnnnnndddddddddddddddD
       // nnnnnnnnnnnntttttttttT   T

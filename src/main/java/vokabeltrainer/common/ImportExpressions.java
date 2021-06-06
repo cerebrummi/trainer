@@ -10,7 +10,7 @@ public final class ImportExpressions
          boolean overwriteDatabaseNames, String databasePath)
    {
       ProgressMonitor bar = new ProgressMonitor(null,
-            "Die Daten werden gespeichert.", "", 0, 100);
+            "Die Daten werden geladen.", "", 0, 100);
       int progress = 0;
       bar.setProgress(progress);
       bar.setMillisToPopup(1000);

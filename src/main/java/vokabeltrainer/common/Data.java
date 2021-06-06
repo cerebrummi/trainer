@@ -57,6 +57,8 @@ import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.SearchType;
+import vokabeltrainer.types.SortingIndex;
+import vokabeltrainer.types.SortingType;
 import vokabeltrainer.types.TrainingStatus;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
@@ -177,10 +179,10 @@ public final class Data
 
    public static ExpressionTableModel findTranslations(Language language,
          String text, ExpressionKind kind, SearchType search, Chapter chapter,
-         Command command, boolean sortForDate)
+         Command command, SortingType sortingType)
    {
       return getDataBaseAtomic().findTranslations(language, text, kind, search,
-            chapter, command, sortForDate);
+            chapter, command, sortingType);
    }
 
    public static ExpressionTableModel findTranslationsDeletedWords(
@@ -306,7 +308,19 @@ public final class Data
    // #########################################################
    // #########################################################
    // #########################################################
+   // #########################################################
+   // #########################################################
+   // #########################################################
+   // #########################################################
+   // #########################################################
+   // #########################################################
    // ###################### DataBase #########################
+   // #########################################################
+   // #########################################################
+   // #########################################################
+   // #########################################################
+   // #########################################################
+   // #########################################################
    // #########################################################
    // #########################################################
    // #########################################################
@@ -834,6 +848,17 @@ public final class Data
                   // old csv is always ivrit
                   expression.setIvrit(true);
                }
+               index++;
+               try
+               {
+                  expression.setSortingIndex(entries[index]);
+               }
+               catch (Exception e)
+               {
+                  // old csv is given an index
+                  expression.setSortingIndex(String.valueOf(SortingIndex.getCounter()));
+               }
+               
                if (LetterForLoading.DELETED != letter)
                {
                   expression.setLetterForSaving(letter);
@@ -861,7 +886,7 @@ public final class Data
             }
             catch (Exception e1)
             {
-               // nothing broken expressions are not read
+               // nothing: broken expressions are not read
                e1.printStackTrace();
             }
          }
@@ -872,7 +897,7 @@ public final class Data
 
       private ExpressionTableModel findTranslations(Language language,
             String text, ExpressionKind kind, SearchType search,
-            Chapter chapter, Command command, boolean sortForDate)
+            Chapter chapter, Command command, SortingType sortingType)
       {
          Collection<Expression> expressions = null;
 
@@ -884,7 +909,7 @@ public final class Data
                List<Expression> selectedExpressions = findAllSelectedExpressionsList(
                      false);
                Collections.sort(selectedExpressions,
-                     new ExpressionComparator(language, sortForDate));
+                     new ExpressionComparator(language, sortingType));
                return new ExpressionTableModel(
                      convertToExpressionModelArray(selectedExpressions),
                      COLUMNAMES);
@@ -894,14 +919,14 @@ public final class Data
                && chapter != null && command == null)
          {
             return new ExpressionTableModel(convertToExpressionModelArray(
-                  findExpressionsChapterSorted(chapter, language, sortForDate)),
+                  findExpressionsChapterSorted(chapter, language, sortingType)),
                   COLUMNAMES);
          }
          else if (text == null && kind != null && search == null
                && chapter == null && command == null)
          {
             return new ExpressionTableModel(convertToExpressionModelArray(
-                  findSortedExpressionsOfKind(kind, language, sortForDate)),
+                  findSortedExpressionsOfKind(kind, language, sortingType)),
                   COLUMNAMES);
          }
          else if (text != null && kind == null && search != null
@@ -923,12 +948,12 @@ public final class Data
                         + "Language = " + language + ", kind = " + kind
                         + ", search = " + search + "\n" + "chapter = " + chapter
                         + ", command = " + command + ", sortForDate = "
-                        + sortForDate);
+                        + sortingType);
          }
 
          return new ExpressionTableModel(
                convertToExpressionModelArray(filterExpressions(text, language,
-                     search, expressions, sortForDate)),
+                     search, expressions, sortingType)),
                COLUMNAMES);
       }
 
@@ -946,7 +971,7 @@ public final class Data
 
       private List<Expression> filterExpressions(String text, Language language,
             SearchType search, Collection<Expression> expressions,
-            boolean sortForDate)
+            SortingType sortingType)
       {
          List<Expression> list = new ArrayList<>();
 
@@ -989,17 +1014,17 @@ public final class Data
             }
          }
          Collections.sort(list,
-               new ExpressionComparator(language, sortForDate));
+               new ExpressionComparator(language, sortingType));
 
          return list;
       }
 
       private List<Expression> findExpressionsChapterSorted(Chapter chapter,
-            Language language, boolean sortForDate)
+            Language language, SortingType sortingType)
       {
          List<Expression> list = findExpressionsChapter(chapter);
          Collections.sort(list,
-               new ExpressionComparator(language, sortForDate));
+               new ExpressionComparator(language, sortingType));
          return list;
       }
 
@@ -1018,11 +1043,11 @@ public final class Data
       }
 
       private List<Expression> findSortedExpressionsOfKind(ExpressionKind kind,
-            Language language, boolean sortForDate)
+            Language language, SortingType sortingType)
       {
          List<Expression> list = findExpressionsOfKind(kind);
          Collections.sort(list,
-               new ExpressionComparator(language, sortForDate));
+               new ExpressionComparator(language, sortingType));
          return list;
       }
 

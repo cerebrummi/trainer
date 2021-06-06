@@ -55,6 +55,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.SortingIndex;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
@@ -80,6 +81,8 @@ public class ExpressionEditorView extends JDialog
    private boolean newExpression;
    private JTextField german;
    private InfoTextField hebrew;
+
+   private JTextField indexField;
 
    private InfoTextField newSearchwordGerman;
    private JList<String> searchwordsJListGerman;
@@ -162,8 +165,8 @@ public class ExpressionEditorView extends JDialog
       setSize(Math.min(screenSize.width - 60, 1301),
             Math.min(screenSize.height - 60, 710));
       layout = new BackgroundPanelTiled();
-      layout.setBorder(
-            BorderFactory.createLineBorder(ApplicationColors.getGreen(), 15, false));
+      layout.setBorder(BorderFactory
+            .createLineBorder(ApplicationColors.getGreen(), 15, false));
       layout.setLayout(new TrainLayout(layout, 15));
       getContentPane().add(new JScrollPane(layout));
 
@@ -221,7 +224,8 @@ public class ExpressionEditorView extends JDialog
             }
             else
             {
-               listComponent.setBackground(ApplicationColors.getBackgroundGold());
+               listComponent
+                     .setBackground(ApplicationColors.getBackgroundGold());
             }
             return listComponent;
          }
@@ -264,7 +268,8 @@ public class ExpressionEditorView extends JDialog
             }
             else
             {
-               listComponent.setBackground(ApplicationColors.getBackgroundGold());
+               listComponent
+                     .setBackground(ApplicationColors.getBackgroundGold());
             }
             return listComponent;
          }
@@ -273,7 +278,8 @@ public class ExpressionEditorView extends JDialog
       searchwordsJListHebrew.setFixedCellHeight(50);
       searchwordsJListHebrew
             .setBorder(makeBorderBlank(this.searchwordsJListHebrewTitle));
-      searchwordsJListHebrew.setBackground(ApplicationColors.getBackgroundGold());
+      searchwordsJListHebrew
+            .setBackground(ApplicationColors.getBackgroundGold());
       searchwordsJListHebrew
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       searchwordsJListHebrew
@@ -314,9 +320,17 @@ public class ExpressionEditorView extends JDialog
       chapter.setMaximumRowCount(20);
       chapter.setBorder(new TitledBorder(this.chapterTitle));
       chapter.setOpaque(false);
-      chapter.setBackground(new Color(0, 0, 0, 0));
-      chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
-      chapter.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
+      chapter.setBackground(ApplicationColors.getTransparent());
+      chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL - 100, 70));
+      chapter.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL - 100, 70));
+
+      indexField = new JTextField();
+      indexField.setBorder(makeBorderBlank("Index"));
+      indexField.setFont(germanfont);
+      indexField.setOpaque(false);
+      indexField.setBackground(ApplicationColors.getTransparent());
+      indexField.setMinimumSize(new Dimension(85, 70));
+      indexField.setMaximumSize(new Dimension(85, 70));
 
       databaseNameField = new JComboBox<>();
       databaseNameField.setFont(Settings.getButtonFont());
@@ -412,7 +426,8 @@ public class ExpressionEditorView extends JDialog
       grammaticalPersonBoxPanel.setLayout(grammaticalPersonLayout);
       grammaticalPersonBoxPanel.add(grammaticalPersonBox);
       grammaticalPersonBoxPanel.setOpaque(false);
-      grammaticalPersonBoxPanel.setBackground(ApplicationColors.getTransparent());
+      grammaticalPersonBoxPanel
+            .setBackground(ApplicationColors.getTransparent());
       grammaticalPersonBoxPanel
             .setBorder(BorderFactory.createTitledBorder("Grammatische Person"));
 
@@ -495,8 +510,14 @@ public class ExpressionEditorView extends JDialog
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
       vertical.setLayout(new TotemLayout(vertical, 15));
+
+      JPanel horizontal0 = new JPanel();
+      horizontal0.setLayout(new TrainLayout(horizontal0, 15));
+      horizontal0.add(chapter);
+      horizontal0.add(indexField);
+
       vertical.add(databaseNameField);
-      vertical.add(chapter);
+      vertical.add(horizontal0);
       vertical.add(german);
       vertical.add(keyboard);
 
@@ -548,9 +569,12 @@ public class ExpressionEditorView extends JDialog
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       scrollPaneExpressionTable
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
-      scrollPaneExpressionTable.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(ApplicationColors.getLightGrayGold()),
-            "Wortarten"));
+      scrollPaneExpressionTable
+            .setBorder(
+                  BorderFactory.createTitledBorder(
+                        BorderFactory.createLineBorder(
+                              ApplicationColors.getLightGrayGold()),
+                        "Wortarten"));
 
       lastModiefiedLabel = new JLabel();
       lastModiefiedLabel.setFont(Settings.getButtonFont());
@@ -850,6 +874,15 @@ public class ExpressionEditorView extends JDialog
                .setDatabaseName((String) databaseNameField.getSelectedItem());
       }
 
+      if (indexField.getText().isBlank())
+      {
+         expression.setSortingIndex(String.valueOf(SortingIndex.getCounter()));
+      }
+      else
+      {
+         expression.setSortingIndex(indexField.getText());
+      }
+
       expression.setLastModified(LocalDateTime.now());
    }
 
@@ -884,6 +917,8 @@ public class ExpressionEditorView extends JDialog
       {
          this.chapter.setSelectedItem(expression.getChapter().getName());
       }
+      
+      this.indexField.setText(expression.getSortingIndex());
 
       this.german.setText(expression.getGerman());
       this.hebrew.setText(expression.getHebrew());

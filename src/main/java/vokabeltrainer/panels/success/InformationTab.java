@@ -10,7 +10,6 @@ import javax.swing.SwingConstants;
 
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;

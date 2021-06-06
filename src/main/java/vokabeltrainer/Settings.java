@@ -1,6 +1,5 @@
 package vokabeltrainer;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;

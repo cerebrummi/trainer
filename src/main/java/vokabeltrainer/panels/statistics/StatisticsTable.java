@@ -4,7 +4,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.Settings;
 
 public class StatisticsTable extends JTable
 {

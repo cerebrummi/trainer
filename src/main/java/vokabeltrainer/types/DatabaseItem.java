@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vokabeltrainer.Settings;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.types.Chapter.Database;
 
 public class DatabaseItem

@@ -13,7 +13,6 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 
 public class StatisticsTableCellRenderer

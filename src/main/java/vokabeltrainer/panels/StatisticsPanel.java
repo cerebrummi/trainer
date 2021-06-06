@@ -13,7 +13,6 @@ import javax.swing.JTable;
 
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.statistics.StatisticsTable;

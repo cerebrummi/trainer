@@ -24,7 +24,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -64,6 +64,7 @@ import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.SearchType;
+import vokabeltrainer.types.SortingType;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
@@ -111,7 +112,10 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private ExpressionKindTableSingleselect expressionKindTable;
 
-   private JCheckBox sortForDateBox;
+   private JRadioButton sortForDateBox;
+   private JRadioButton sortForIndexBox;
+   private JRadioButton sortForAlphabetBox;
+   private ButtonGroup sortingGroup;
 
    public DictionaryView(DictionaryControllerConnector connector)
    {
@@ -138,25 +142,48 @@ public class DictionaryView extends BackgroundPanelTiled
       while (enumeration1.hasMoreElements())
       {
          AbstractButton button = enumeration1.nextElement();
-         button.setMinimumSize(new Dimension(60,30));
-         button.setMaximumSize(new Dimension(200,60));
+         button.setMinimumSize(new Dimension(90,30));
+         button.setMaximumSize(new Dimension(120,60));
          button.addActionListener(event -> this.connector
                .switchLanguage(button.getActionCommand()));
          horizontalLanguagePanel.add(button);
       }
 
-      sortForDateBox = new JCheckBox("nach Datum sortieren");
+      JPanel horizontalSortPanel = new JPanel();
+      horizontalSortPanel.setLayout(new TrainLayout(horizontalSortPanel, 15));
+      horizontalSortPanel.setOpaque(true);
+      horizontalSortPanel.setBackground(ApplicationColors.getLightGold());
+      horizontalSortPanel.setBorder(BorderFactory.createTitledBorder("Tabelle sortieren nach"));
+      
+      sortForAlphabetBox = new JRadioButton("Alfabet");
+      sortForAlphabetBox.setFont(Main.getGermanFont(12F));
+      sortForAlphabetBox.setMinimumSize(new Dimension(70,30));
+      sortForAlphabetBox.setMaximumSize(new Dimension(100,60));
+      sortForAlphabetBox.setActionCommand(SortingType.ALPHABET.name());
+      
+      sortForDateBox = new JRadioButton("Datum");
       sortForDateBox.setFont(Main.getGermanFont(12F));
-      sortForDateBox.setMinimumSize(new Dimension(60,30));
-      sortForDateBox.setMaximumSize(new Dimension(200,60));
-      horizontalLanguagePanel.add(sortForDateBox);
-      tableInfoButton = new JButton(
-            new ImageIcon(ApplicationImages.getInfoButtonIcon()));
-      tableInfoButton.setBackground(new Color(0, 0, 0, 0));
-      tableInfoButton.setMinimumSize(new Dimension(20, 40));
-      tableInfoButton.setMaximumSize(new Dimension(20, 40));
-      tableInfoButton.setMargin(new Insets(0, 0, 0, 0));
-      horizontalLanguagePanel.add(tableInfoButton);
+      sortForDateBox.setMinimumSize(new Dimension(70,30));
+      sortForDateBox.setMaximumSize(new Dimension(100,60));
+      sortForDateBox.setActionCommand(SortingType.DATE.name());
+      
+      sortForIndexBox = new JRadioButton("Index");
+      sortForIndexBox.setFont(Main.getGermanFont(12F));
+      sortForIndexBox.setMinimumSize(new Dimension(70,30));
+      sortForIndexBox.setMaximumSize(new Dimension(100,60));
+      sortForIndexBox.setActionCommand(SortingType.INDEX.name());
+      
+      sortingGroup = new ButtonGroup();
+      sortingGroup.add(sortForAlphabetBox);
+      sortingGroup.add(sortForDateBox);
+      sortingGroup.add(sortForIndexBox);
+      
+      sortForIndexBox.setSelected(true);
+      
+      horizontalSortPanel.add(sortForAlphabetBox);
+      horizontalSortPanel.add(sortForDateBox);
+      horizontalSortPanel.add(sortForIndexBox);
+      horizontalLanguagePanel.add(horizontalSortPanel);
 
       tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(false);
@@ -488,6 +515,27 @@ public class DictionaryView extends BackgroundPanelTiled
       deletePanel.add(deleteInTableSelectedButton);
       deletePanel.add(deleteAllSelectedButton);
 
+      JPanel infoPanel = new JPanel();
+      infoPanel.setLayout(new TrainLayout(infoPanel, 10));
+      infoPanel.setBackground(ApplicationColors.getDarkGold());
+      infoPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
+            ApplicationColors.getDarkGold()));
+      
+      JLabel infoLabel = new JLabel("Tabelle bedienen");
+      infoLabel.setFont(buttonFont);
+      infoLabel.setForeground(ApplicationColors.getWhite());
+      infoLabel.setMinimumSize(new Dimension(200, 40));
+      infoLabel.setMaximumSize(new Dimension(600, 40));
+      
+      tableInfoButton = new JButton(
+            new ImageIcon(ApplicationImages.getInfoButtonIcon()));
+      tableInfoButton.setBackground(new Color(0, 0, 0, 0));
+      tableInfoButton.setMinimumSize(new Dimension(20, 40));
+      tableInfoButton.setMaximumSize(new Dimension(20, 40));
+      tableInfoButton.setMargin(new Insets(0, 0, 0, 0));
+      infoPanel.add(tableInfoButton);
+      infoPanel.add(infoLabel);
+      
       JPanel trashPanel = new JPanel();
       TrainLayout trashPanelLayout = new TrainLayout(trashPanel, 15);
       trashPanel.setLayout(trashPanelLayout);
@@ -525,6 +573,7 @@ public class DictionaryView extends BackgroundPanelTiled
       vertical.add(selectUnselectPanel);
       vertical.add(copyPanel);
       vertical.add(deletePanel);
+      vertical.add(infoPanel);
       vertical.add(trashPanel);
       vertical.add(filler);
       return vertical;
@@ -642,7 +691,15 @@ public class DictionaryView extends BackgroundPanelTiled
       });
 
       sortForDateBox.addActionListener(event -> {
-         connector.sortTableForDateOrNot();
+         connector.sortTableNow();
+      });
+      
+      sortForAlphabetBox.addActionListener(event -> {
+         connector.sortTableNow();
+      });
+      
+      sortForIndexBox.addActionListener(event -> {
+         connector.sortTableNow();
       });
    }
 
@@ -924,8 +981,8 @@ public class DictionaryView extends BackgroundPanelTiled
    }
 
    @Override
-   public boolean isSortForDate()
+   public SortingType getSortNow()
    {
-      return sortForDateBox.isSelected();
+      return SortingType.valueOf(sortingGroup.getSelection().getActionCommand());
    }
 }

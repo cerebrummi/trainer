@@ -10,6 +10,7 @@ import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.SearchType;
+import vokabeltrainer.types.SortingType;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public interface DictionaryViewConnector
@@ -44,5 +45,5 @@ public interface DictionaryViewConnector
    public void addChapterListSelectionListener();
    public void doShowTable(ExpressionTableModel tableModel);
    public void setValues();
-   public boolean isSortForDate();
+   public SortingType getSortNow();
 }

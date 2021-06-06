@@ -23,5 +23,5 @@ public enum Action
    SAVE,
    WORK_WASTEBIN,
    WORK_SHREDDER, 
-   SORT_FOR_DATE
+   SORT_NOW
 }
