@@ -78,7 +78,6 @@ public class DictionaryView extends BackgroundPanelTiled
    private ButtonGroup searchTypeGroupGerman;
    private ExpressionTable table;
    private JPanel tablePanel;
-   private JButton newWordIvritButton;
    private JButton newWordPunktationButton;
    private JButton copyAllSelectedButton;
    private JButton copyInTableSelectedButton;
@@ -450,15 +449,8 @@ public class DictionaryView extends BackgroundPanelTiled
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
       clearInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
       clearInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
-
-      newWordIvritButton = new JButton("neues Wort Ivrit");
-      newWordIvritButton.setFont(buttonFont);
-      newWordIvritButton.setHorizontalAlignment(SwingConstants.LEFT);
-      newWordIvritButton.setMinimumSize(new Dimension(200, 40));
-      newWordIvritButton.setMaximumSize(new Dimension(600, 40));
-      newWordIvritButton.setIcon(new ImageIcon(ApplicationImages.getNewWord()));
       
-      newWordPunktationButton = new JButton("neues Wort mit Punktation");
+      newWordPunktationButton = new JButton("neue Vokabel");
       newWordPunktationButton.setFont(buttonFont);
       newWordPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newWordPunktationButton.setMinimumSize(new Dimension(200, 40));
@@ -504,7 +496,6 @@ public class DictionaryView extends BackgroundPanelTiled
       newPanel.setBackground(ApplicationColors.getGreen());
       newPanel.setBorder(
             BorderFactory.createMatteBorder(5, 3, 5, 3, ApplicationColors.getGreen()));
-      newPanel.add(newWordIvritButton);
       newPanel.add(newWordPunktationButton);
 
       JPanel deletePanel = new JPanel();
@@ -583,9 +574,6 @@ public class DictionaryView extends BackgroundPanelTiled
    {
       tabbedPane.addChangeListener(event -> connector
             .tabbedPaneChanged(tabbedPane.getSelectedIndex()));
-
-      newWordIvritButton
-            .addActionListener(event -> connector.openNewExpressionDialog());
       
       newWordPunktationButton
       .addActionListener(event -> connector.openNewNikudExpressionDialog());

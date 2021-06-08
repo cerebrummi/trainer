@@ -6,7 +6,6 @@ public interface DictionaryControllerConnector
 {
    public void save();
    public void tabbedPaneChanged(int selectedIndex);
-   public void openNewExpressionDialog();
    public void openNewNikudExpressionDialog();
    public void copyAllSelectedExpressions();
    public void copyExpressionsOfTable();

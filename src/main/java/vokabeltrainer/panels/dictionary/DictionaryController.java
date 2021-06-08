@@ -98,25 +98,6 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       return dictionaryView;
    }
-
-   @Override
-   public void openNewExpressionDialog()
-   {
-      ExpressionEditorView editor = new ExpressionEditorController()
-            .getExpressionEditorDialog();
-      editor.setExpression(new Expression(true, false, true), true);
-      editor.setLocationRelativeTo(null);
-      editor.setVisible(true);
-      if (editor.isSave())
-      {
-         Expression expression = editor.getExpression();
-         Data.putExpressionInNewMap(expression.getUuid(), expression);
-         Status.push(Status.peek());
-         decideOnTableInteraction(Action.NEW_EXPRESSION);
-         save();
-      }
-   }
-
   
    @Override
    public void openNewNikudExpressionDialog()

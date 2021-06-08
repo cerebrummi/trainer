@@ -23,7 +23,6 @@ public class DirectionTab extends BackgroundPanelTiled
    private static final long serialVersionUID = -5986907667521647559L;
 
    private ButtonGroup directionGroup;
-   private JRadioButton germanToHebrewButton;
    private JRadioButton germanToNikudButton;
    private JRadioButton hebrewToGermanButton;
    private JButton nextButton;
@@ -48,20 +47,15 @@ public class DirectionTab extends BackgroundPanelTiled
       JPanel vertical = new JPanel();
       vertical.setLayout(new BoxLayout(vertical, 1));
       vertical.setOpaque(false);
-
-      germanToHebrewButton = new JRadioButton("Deutsch >> Hebräisch (Ivrit Wörter)");
-      germanToHebrewButton.setFont(Settings.getToolBarButtonFont());
-      directionGroup.add(germanToHebrewButton);
       
-      germanToNikudButton = new JRadioButton("Deutsch >> Hebräisch (Wörter mit Punktation)");
+      germanToNikudButton = new JRadioButton("Deutsch >> Hebräisch");
       germanToNikudButton.setFont(Settings.getToolBarButtonFont());
       directionGroup.add(germanToNikudButton);
 
-      hebrewToGermanButton = new JRadioButton("Hebräisch >> Deutsch (Ivrit und Wörter mit Punktation)");
+      hebrewToGermanButton = new JRadioButton("Hebräisch >> Deutsch");
       hebrewToGermanButton.setFont(Settings.getToolBarButtonFont());
       directionGroup.add(hebrewToGermanButton);
 
-      vertical.add(germanToHebrewButton);
       vertical.add(germanToNikudButton);
       vertical.add(hebrewToGermanButton);
       vertical.add(Box.createRigidArea(new Dimension(30, 30)));
@@ -84,12 +78,6 @@ public class DirectionTab extends BackgroundPanelTiled
       buttonWrapper.add(cancelButton);
       buttonWrapper.add(nextButton);
       add(buttonWrapper, BorderLayout.SOUTH);
-
-      germanToHebrewButton.addActionListener(event -> {
-         removeTabsToTheRight(dialog);
-         dialog.setLanguageDirection(Language.GERMAN);
-         nextButton.setEnabled(true);
-      });
       
       germanToNikudButton.addActionListener(event -> {
          removeTabsToTheRight(dialog);
