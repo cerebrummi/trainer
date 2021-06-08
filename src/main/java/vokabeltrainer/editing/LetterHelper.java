@@ -1,5 +1,6 @@
 package vokabeltrainer.editing;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -242,5 +243,22 @@ public class LetterHelper
       return true;
    }
 
-
+   public static String turnHebrewSsinIntoNikudSsin(String hebrew)
+   {
+      List<String> nikudCodeList = new ArrayList<>();
+      List<String> hebrewCodeList = LetterHelper.findLetterCodes(hebrew);
+      for(String hebrewCode : hebrewCodeList)
+      {
+         if(HebrewLetter.SSIN.getCode().equalsIgnoreCase(hebrewCode))
+         {
+            nikudCodeList.add(NikudLetter.SCHIN.getCode());
+            nikudCodeList.add(NikudLetter.SIN_DOT.getCode());
+         }
+         else
+         {
+            nikudCodeList.add(hebrewCode);
+         }
+      }
+      return LetterHelper.makeNikudWordFromCodes(nikudCodeList);      
+   }
 }

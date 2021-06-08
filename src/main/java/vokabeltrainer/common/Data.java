@@ -41,6 +41,9 @@ import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
 import vokabeltrainer.cmd.DirectoryHelper;
+import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.LetterHelper;
+import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
@@ -457,7 +460,7 @@ public final class Data
                {
                   JOptionPane.showMessageDialog(Common.getjFrame(),
                         "Es hat beim Lesen einen Fehler gegeben.\n"
-                              + "Wählen Sie unter Einstellungen einen anderen Speicherort.",
+                              + "WÃ¤hlen Sie unter Einstellungen einen anderen Speicherort.",
                         "Fehler", JOptionPane.ERROR_MESSAGE);
                   return false;
                }
@@ -468,7 +471,7 @@ public final class Data
          {
             JOptionPane.showMessageDialog(Common.getjFrame(),
                   "Fehler beim Lesen der selbsteingegebenen Vokabeln.\n"
-                        + "Ändern Sie den Ort zum Abspeichern und\n"
+                        + "Ã„ndern Sie den Ort zum Abspeichern und\n"
                         + "Lesen der Vokabeln in den Einstellungen.",
                   "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -839,26 +842,25 @@ public final class Data
                   expression.toggleLastModified();
                }
                index++;
-               try
+               if (expression.getHebrew().contains("ï¬«")) // HebrewLetter.SSIN is not supported
                {
-                  expression.setIvrit(Boolean.valueOf(entries[index]));
+                  expression.setHebrew(LetterHelper
+                        .turnHebrewSsinIntoNikudSsin(expression.getHebrew()));
                }
-               catch (Exception e)
-               {
-                  // old csv is always ivrit
-                  expression.setIvrit(true);
-               }
+               expression.setIvrit(false);
                index++;
                try
                {
                   expression.setSortingIndex(entries[index]);
+                  SortingIndex.setCounter(expression.getSortingIndex());
                }
                catch (Exception e)
                {
                   // old csv is given an index
-                  expression.setSortingIndex(String.valueOf(SortingIndex.getCounter()));
+                  expression.setSortingIndex(
+                        String.valueOf(SortingIndex.getCounter()));
                }
-               
+
                if (LetterForLoading.DELETED != letter)
                {
                   expression.setLetterForSaving(letter);
@@ -944,7 +946,7 @@ public final class Data
          else
          {
             System.out.println(
-                  "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
+                  "Data: Search: Es wurde eine nicht berÃ¼cksichtigte Kombination gefunden:\n"
                         + "Language = " + language + ", kind = " + kind
                         + ", search = " + search + "\n" + "chapter = " + chapter
                         + ", command = " + command + ", sortForDate = "
@@ -1368,7 +1370,7 @@ public final class Data
                   false);
             TrainingTableRow selectedRow = new TrainingTableRow();
             selectedRow.setFieldOfTraining(fieldOfTraining);
-            selectedRow.setField("Ausgewählte Wörter");
+            selectedRow.setField("AusgewÃ¤hlte WÃ¶rter");
             selectedRow.setExpressionListOldWords(oldToBeTested);
             selectedRow.setToBeRepeatedWords(oldToBeTested.size());
             selectedRow.setExpressionListNewWords(
@@ -1398,7 +1400,7 @@ public final class Data
          case GERMAN:
             for (Expression expression : list)
             {
-               if(!expression.isIvrit())
+               if (!expression.isIvrit())
                {
                   continue;
                }
@@ -1411,7 +1413,7 @@ public final class Data
          case TO_NIKUD:
             for (Expression expression : list)
             {
-               if(expression.isIvrit())
+               if (expression.isIvrit())
                {
                   continue;
                }
@@ -1444,7 +1446,7 @@ public final class Data
          case GERMAN:
             for (Expression expression : allExpressions)
             {
-               if(!expression.isIvrit())
+               if (!expression.isIvrit())
                {
                   continue;
                }
@@ -1472,7 +1474,7 @@ public final class Data
          case TO_NIKUD:
             for (Expression expression : allExpressions)
             {
-               if(expression.isIvrit())
+               if (expression.isIvrit())
                {
                   continue;
                }

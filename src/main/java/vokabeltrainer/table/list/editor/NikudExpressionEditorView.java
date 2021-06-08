@@ -888,6 +888,7 @@ public class NikudExpressionEditorView extends JDialog
       {
          expression.setSortingIndex(indexField.getText());
       }
+      SortingIndex.setCounter(expression.getSortingIndex());
 
       expression.setLastModified(LocalDateTime.now());
    }

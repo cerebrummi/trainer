@@ -982,7 +982,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
    @Override
    public SortingType getSortNow()
-   {
+   { 
       return SortingType.valueOf(sortingGroup.getSelection().getActionCommand());
    }
 }
