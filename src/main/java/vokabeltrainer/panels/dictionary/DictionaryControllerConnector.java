@@ -1,12 +1,12 @@
 package vokabeltrainer.panels.dictionary;
 
+import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.types.Chapter;
 
-public interface DictionaryControllerConnector
+public interface DictionaryControllerConnector extends TableConnector
 {
    public void save();
    public void tabbedPaneChanged(int selectedIndex);
-   public void openNewNikudExpressionDialog();
    public void copyAllSelectedExpressions();
    public void copyExpressionsOfTable();
    public void copyInTableSelectedExpressions();

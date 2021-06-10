@@ -31,11 +31,13 @@ public class MainView extends JPanel
    private JButton vocabularyCardsButton;
    private JButton dictionaryButton;
    private JButton startButton;
+   private JButton inputButton;
    private JButton statisticsButton;
    private JButton aboutButton;
    private JButton letterPicturesButton;
    private JButton successButton;
    private Component activeComponent;
+   private InputPanel inputPanel;
    private DictionaryViewConnector dictionaryPanel;
    private StatisticsPanel statisticsPanel;
    private StartPanel startPanel;
@@ -60,6 +62,7 @@ public class MainView extends JPanel
       initToolBar();
 
       startPanel = new StartPanel();
+      inputPanel = new InputPanel();
       dictionaryPanel = new DictionaryController().getDictionaryPanel();
       letterPicturesPanel = new AlefbetPanel();
       statisticsPanel = new StatisticsPanel();
@@ -77,7 +80,8 @@ public class MainView extends JPanel
       menuBar.setMaximumSize(new Dimension(6000,80));
 
       startButton = new JButton("Start");
-      vocabularyCardsButton = new JButton("Vokabelkarten");
+      inputButton = new JButton("Eingabe");
+      vocabularyCardsButton = new JButton("Abfragen");
       dictionaryButton = new JButton("Wörterbuch");
       statisticsButton = new JButton("Trainingsübersicht");
       aboutButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
@@ -85,6 +89,7 @@ public class MainView extends JPanel
       successButton = new JButton("Karteikasten");
 
       startButton.setFont(Settings.getToolBarButtonFont());
+      inputButton.setFont(Settings.getToolBarButtonFont());
       vocabularyCardsButton.setFont(Settings.getToolBarButtonFont());
       dictionaryButton.setFont(Settings.getToolBarButtonFont());
       statisticsButton.setFont(Settings.getToolBarButtonFont());
@@ -92,6 +97,7 @@ public class MainView extends JPanel
       successButton.setFont(Settings.getToolBarButtonFont());
 
       menuBar.add(startButton);
+      menuBar.add(inputButton);
       menuBar.add(dictionaryButton);
       menuBar.add(vocabularyCardsButton);
       menuBar.add(letterPicturesButton);
@@ -105,6 +111,18 @@ public class MainView extends JPanel
    {
       startButton.addActionListener(event -> {
          moveToStartPanel();
+      });
+      
+      inputButton.addActionListener(event -> {
+         if (activeComponent != null)
+         {
+            remove(activeComponent);
+         }
+         activeComponent = (Component) inputPanel;
+         inputPanel.reset();
+         add(activeComponent);
+         validate();
+         repaint();
       });
 
       dictionaryButton.addActionListener(event -> {

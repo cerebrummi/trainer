@@ -13,7 +13,7 @@ import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.Settings;
-import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
+import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
@@ -24,7 +24,7 @@ public class ExpressionTable extends JTable
    private ExpressionTableModel model;
 
    public ExpressionTable(ExpressionTableModel dm, Language language,
-         DictionaryControllerConnector connector, boolean editable)
+         TableConnector connector, boolean editable)
    {
       super(dm, new ExpressionColumnModel(language));
       this.model = dm;
@@ -38,7 +38,7 @@ public class ExpressionTable extends JTable
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       this.setSurrendersFocusOnKeystroke(true);
 
-      if (editable)
+      if (editable && connector != null)
       {
          String editCommand = "edit";
          KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);

@@ -61,6 +61,8 @@ import javax.swing.JViewport;
  * @version BullsEyeLayout 3.0 (released 20. July 2020)
  */
 
+// TODO look for bug, stackoverflow, when this layout has no components
+
 public class BullsEyeLayout
       implements LayoutManager, LayoutManager2, java.io.Serializable
 {

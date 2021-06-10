@@ -3,7 +3,7 @@ package vokabeltrainer.table;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
+import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.list.editor.ExpressionEditorController;
 import vokabeltrainer.table.list.editor.ExpressionEditorView;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
@@ -15,10 +15,10 @@ public class EnterAction extends AbstractAction
    private ExpressionTable table;
    private ExpressionEditorView editorIvrit;
    private NikudExpressionEditorView editorPunktation;
-   private DictionaryControllerConnector connector;
+   private TableConnector connector;
 
    public EnterAction(ExpressionTable table,
-         DictionaryControllerConnector connector)
+         TableConnector connector)
    {
       this.table = table;
       this.connector = connector;

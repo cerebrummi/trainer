@@ -16,17 +16,17 @@ public enum Status
    
    private static ArrayDeque<Status> status = new ArrayDeque<>();
    
-   public static void push(Status status)
+   protected static void push(Status status)
    {
       Status.status.push(status);
    }
    
-   public static Status pop()
+   protected static Status pop()
    {
       return Status.status.pollLast();
    }
    
-   public static Status peek()
+   protected static Status peek()
    {
       return Status.status.peekLast();
    }

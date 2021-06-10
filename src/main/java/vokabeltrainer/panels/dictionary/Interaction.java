@@ -121,7 +121,7 @@ public class Interaction
       interactions.put(new Interaction(Action.UNSELECT_ALL, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_GERMAN);
       interactions.put(new Interaction(Action.UNSELECT_ALL, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_HEBREW);
       
-      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.OPENED_PAGE), Command.NOTHING);
+      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.OPENED_PAGE), Command.NOTHING); // must be nothing, because it is always followed by Action "save"
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.TAB_CHAPTER), Command.NOTHING);
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.TAB_EXPRESSIONKIND), Command.NOTHING);
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.TAB_SEARCH), Command.NOTHING);
