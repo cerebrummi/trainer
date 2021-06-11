@@ -37,6 +37,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 import vokabeltrainer.CerebrummiNodes;
+import vokabeltrainer.ChapterComparator;
 import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
@@ -195,6 +196,11 @@ public final class Data
    public static ComboBoxModel<String> getChapterComboBoxModel()
    {
       return getDataBaseAtomic().getChapterComboBoxModel();
+   }
+
+   public static ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter()
+   {
+      return getDataBaseAtomic().getChapterComboBoxModelAsChapter();
    }
 
    public static ComboBoxModel<String> getOwnDatabasesComboBoxModel()
@@ -840,7 +846,8 @@ public final class Data
                   expression.toggleLastModified();
                }
                index++;
-               if (expression.getHebrew().contains("שׂ")) // HebrewLetter.SSIN is not supported
+               if (expression.getHebrew().contains("שׂ")) // HebrewLetter.SSIN is
+                                                         // not supported
                {
                   expression.setHebrew(LetterHelper
                         .turnHebrewSsinIntoNikudSsin(expression.getHebrew()));
@@ -1136,6 +1143,13 @@ public final class Data
       private ComboBoxModel<String> getChapterComboBoxModel()
       {
          return new DefaultComboBoxModel<String>(getChapterArrayForEditor());
+      }
+
+      private ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter()
+      {
+         return new DefaultComboBoxModel<Chapter>(chapterSet.stream()
+               .sorted((c1, c2) -> ChapterComparator.compareChapter(c1, c2))
+               .toArray(size -> new Chapter[size]));
       }
 
       private ComboBoxModel<String> getOwnDatabasesComboBoxModel()

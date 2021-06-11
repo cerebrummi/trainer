@@ -145,7 +145,7 @@ public class ExpanderLayout
          int ncomponents = self.getComponentCount();
          if (ncomponents > 1)
          {
-            throw new AWTError("BullsEyeLayout can hold only one component");
+            throw new AWTError("ExpanderLayout can hold only one component");
          }
          if (ncomponents == 0)
          {

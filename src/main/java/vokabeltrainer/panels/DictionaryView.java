@@ -947,6 +947,10 @@ public class DictionaryView extends BackgroundPanelTiled
       Data.determineReloadDatabases();
       this.loadChapters();
       this.displayNoTable();
+      if(chapterList.getComponentCount() > 0)
+      {
+         chapterList.setSelectedIndex(0);
+      }
    }
 
    @Override
