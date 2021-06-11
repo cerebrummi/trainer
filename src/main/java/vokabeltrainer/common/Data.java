@@ -29,6 +29,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -42,6 +43,7 @@ import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
 import vokabeltrainer.cmd.DirectoryHelper;
+import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
@@ -1103,7 +1105,18 @@ public final class Data
       private boolean equalsHebrewWordStart(String text, Expression expression)
       {
          text = text.trim();
-         return expression.getHebrew().startsWith(text);
+         List<LetterForAnalysis> textList = LetterHelper
+               .findNikudLetterForAnalysisList(text);
+         List<LetterForAnalysis> expressionList = LetterHelper
+               .findNikudLetterForAnalysisList(expression.getHebrew());
+         if(textList.size() > expressionList.size())
+         {
+            return false;
+         }
+         
+         final IntStream indices = IntStream.range(0, textList.size());
+         return indices.allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
+               expressionList.get(i)));
       }
 
       private boolean equalsGermanWordStart(String text, Expression expression)

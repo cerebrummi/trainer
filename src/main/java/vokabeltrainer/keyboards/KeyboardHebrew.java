@@ -77,6 +77,7 @@ public class KeyboardHebrew extends JPanel
       row1.setOpaque(false);
       row1.setLayout(new TrainLayout(row1, 8));
 
+      row1.add(makeButton(HebrewLetter.TET));
       row1.add(makeButton(HebrewLetter.CHET));
       row1.add(makeButton(HebrewLetter.SSAIN));
       row1.add(makeButton(HebrewLetter.WAW));
@@ -84,48 +85,46 @@ public class KeyboardHebrew extends JPanel
       row1.add(makeButton(HebrewLetter.DALET));
       row1.add(makeButton(HebrewLetter.GIMEL));
       row1.add(makeButton(HebrewLetter.WET));
-      row1.add(makeButton(HebrewLetter.BET));
       row1.add(makeButton(HebrewLetter.ALEF));
 
       JPanel row2 = new JPanel();
       row2.setOpaque(false);
       row2.setLayout(new TrainLayout(row2, 8));
 
+      row2.add(makeButton(HebrewLetter.SSAMECH));
+      row2.add(makeButton(HebrewLetter.NUNSSOFIT));
       row2.add(makeButton(HebrewLetter.NUN));
       row2.add(makeButton(HebrewLetter.MEMSSOFIT));
       row2.add(makeButton(HebrewLetter.MEM));
       row2.add(makeButton(HebrewLetter.LAMED));
       row2.add(makeButton(HebrewLetter.CHAFSSOFIT));
       row2.add(makeButton(HebrewLetter.CHAF));
-      row2.add(makeButton(HebrewLetter.KAF));
       row2.add(makeButton(HebrewLetter.JOD));
-      row2.add(makeButton(HebrewLetter.TET));
+
 
       JPanel row3 = new JPanel();
       row3.setOpaque(false);
       row3.setLayout(new TrainLayout(row3, 8));
 
+      row3.add(makeButton(HebrewLetter.TAW));
+      row3.add(makeButton(HebrewLetter.SCHIN));
+      row3.add(makeButton(HebrewLetter.RESCH));
       row3.add(makeButton(HebrewLetter.KUF));
       row3.add(makeButton(HebrewLetter.ZADISSOFIT));
       row3.add(makeButton(HebrewLetter.ZADI));
       row3.add(makeButton(HebrewLetter.FAEISSOFIT));
       row3.add(makeButton(HebrewLetter.FAEI));
-      row3.add(makeButton(HebrewLetter.PAEI));
       row3.add(makeButton(HebrewLetter.AIN));
-      row3.add(makeButton(HebrewLetter.SSAMECH));
-      row3.add(makeButton(HebrewLetter.NUNSSOFIT));
+
 
       JPanel row4 = new JPanel();
       row4.setOpaque(false);
       row4.setLayout(new TrainLayout(row4, 8));
 
       row4.add(makeButton(HebrewLetter.GERSCHAYIM));
-      row4.add(makeButton(HebrewLetter.GERESCH));
-      row4.add(makeButton(HebrewLetter.TAW));
       row4.add(makeSpaceButton());
-      row4.add(makeButton(HebrewLetter.SSIN));
-      row4.add(makeButton(HebrewLetter.SCHIN));
-      row4.add(makeButton(HebrewLetter.RESCH));
+      row4.add(makeButton(HebrewLetter.GERESCH));
+
 
       keyboard.add(row1);
       keyboard.add(row2);
@@ -138,7 +137,7 @@ public class KeyboardHebrew extends JPanel
    {
       DataButton jButton = new DataButton("\u0020", "\u0020");
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE + 10));
-      jButton.setMaximumSize(new Dimension(4 * BUTTON_SIZE, BUTTON_SIZE + 10));
+      jButton.setMaximumSize(new Dimension(9 * BUTTON_SIZE, BUTTON_SIZE + 10));
       jButton.addMouseListener(new KeyboardListener());
       buttons.add(jButton);
       return jButton;

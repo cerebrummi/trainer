@@ -32,6 +32,47 @@ public class LetterForAnalysis
       duplicate.getSetUpperPunktation().addAll(setUpperPunktation);
       return duplicate;
    }
+   
+   public static boolean isEqual(LetterForAnalysis letter1,LetterForAnalysis letter2)
+   {
+      if(letter1.getContent() == letter2.getContent())
+      {
+         return true;
+      }
+      else if (letter1.getContent() instanceof NikudLetter && letter2.getContent() instanceof HebrewLetter)
+      {
+         if(((NikudLetter)letter1.getContent()).getHebrewLetter() == letter2.getContent())
+         {
+            return true;
+         }
+         return false;
+      }
+      else if (letter2.getContent() instanceof NikudLetter && letter1.getContent() instanceof HebrewLetter)
+      {
+         if(((NikudLetter)letter2.getContent()).getHebrewLetter() == letter1.getContent())
+         {
+            return true;
+         }
+         return false;
+      }
+      else if (letter1.isBet() && letter2.isBet())
+      {
+         return true;
+      }
+      else if (letter1.isKaf() && letter2.isKaf())
+      {
+         return true;
+      }
+      else if (letter1.isPaei() && letter2.isPaei())
+      {
+         return true;
+      }
+      else if (letter1.isSsin() && letter2.isSsin())
+      {
+         return true;
+      }
+      return false;
+   }
 
    public void addToLowerPunktation(NikudLetter punktation)
    {
