@@ -257,7 +257,7 @@ public class NikudExpressionEditorView extends JDialog
             .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       newSearchwordHebrew.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
       newSearchwordHebrew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      newSearchwordHebrew.setDocument(new HebrewDocument(false));
+      newSearchwordHebrew.setDocument(new NikudDocument(false));
       this.components.add(newSearchwordHebrew);
 
       searchwordsJListHebrew = new JList<>();

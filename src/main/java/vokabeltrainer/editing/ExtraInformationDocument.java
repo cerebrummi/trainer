@@ -41,6 +41,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          }
 
          List<String> list = LetterHelper.findLetterCodes(text);
+         List<String> nikudList = LetterHelper.findNikudLetterCodes(text);
 
          if (list == null || list.isEmpty())
          {
@@ -55,7 +56,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             HebrewLetter hebrewLetter = HebrewLetter
                   .getLetterFromCode(list.get(i));
             NikudLetter nikudLetter = NikudLetter
-                  .getLetterFromCode(list.get(i));
+                  .getLetterFromCode(nikudList.get(i));
             if (germanLetter != null)
             {
                // okay
@@ -67,6 +68,9 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             else if (nikudLetter != null)
             {
                // okay
+               super.replace(offset, length, LetterHelper.makeNikudWordFromCodes(nikudList),
+                     attrs);
+               return;
             }
             else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
             {
@@ -106,6 +110,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          }
 
          List<String> list = LetterHelper.findLetterCodes(str);
+         List<String> nikudList = LetterHelper.findNikudLetterCodes(str);
 
          if (list == null || list.isEmpty())
          {
@@ -120,7 +125,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             HebrewLetter hebrewLetter = HebrewLetter
                   .getLetterFromCode(list.get(i));
             NikudLetter nikudLetter = NikudLetter
-                  .getLetterFromCode(list.get(i));
+                  .getLetterFromCode(nikudList.get(i));
             if (germanLetter != null)
             {
                // okay
@@ -132,6 +137,8 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             else if (nikudLetter != null)
             {
                // okay
+               super.insertString(offset, LetterHelper.makeNikudWordFromCodes(nikudList), attr);
+               return;
             }
             else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
             {
