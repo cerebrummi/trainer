@@ -39,7 +39,7 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
 import vokabeltrainer.editing.NikudDocument;
-import vokabeltrainer.keyboards.KeyboardHebrew;
+import vokabeltrainer.keyboards.KeyboardHebrewNoPuntation;
 import vokabeltrainer.keyboards.KeyboardHebrewNikud;
 import vokabeltrainer.keyboards.KeyboardHebrewSimple;
 import vokabeltrainer.keyboards.OneFocusTraversalPolicy;
@@ -89,7 +89,7 @@ public class TrainerView extends BackgroundPanelTiled
    private JButton stopTrainingButton;
    private JButton soundButton;
 
-   private KeyboardHebrew keyboard;
+   private KeyboardHebrewNoPuntation keyboard;
    private KeyboardHebrewSimple simpleKeyboard;
    private KeyboardHebrewNikud keyboardNikud;
    private CardLayout keyboardCardLayout;
@@ -396,7 +396,7 @@ public class TrainerView extends BackgroundPanelTiled
          answerField
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
-         keyboard = new KeyboardHebrew(answerField,
+         keyboard = new KeyboardHebrewNoPuntation(answerField,
                new ArrayList<JTextComponent>(), 80, false);
          simpleKeyboard = new KeyboardHebrewSimple(answerField,
                new ArrayList<JTextComponent>(), 80);

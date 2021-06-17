@@ -22,7 +22,7 @@ import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
-public class KeyboardHebrew extends JPanel
+public class KeyboardHebrewNoPuntation extends JPanel
 {
    private static final long serialVersionUID = 2289311868636133544L;
 
@@ -34,7 +34,7 @@ public class KeyboardHebrew extends JPanel
    
    private Scale scale;
 
-   public KeyboardHebrew(JTextComponent textfield,
+   public KeyboardHebrewNoPuntation(JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight,
          boolean addTextField)
    {

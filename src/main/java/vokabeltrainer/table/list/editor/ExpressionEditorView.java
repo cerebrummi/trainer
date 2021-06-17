@@ -47,7 +47,7 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.HebrewDocument;
-import vokabeltrainer.keyboards.KeyboardHebrew;
+import vokabeltrainer.keyboards.KeyboardHebrewNoPuntation;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableMultiselect;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableRow;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -94,7 +94,7 @@ public class ExpressionEditorView extends JDialog
    private Set<String> searchwordsSetHebrew;
    private JButton deleteSearchwordButtonHebrew;
 
-   private KeyboardHebrew keyboard;
+   private KeyboardHebrewNoPuntation keyboard;
    private JPanel layout;
    private boolean save;
    private JButton saveButton;
@@ -491,7 +491,7 @@ public class ExpressionEditorView extends JDialog
       verbTypeBoxPanel.setBackground(ApplicationColors.getTransparent());
       verbTypeBoxPanel.setBorder(BorderFactory.createTitledBorder("Verb Typ"));
 
-      keyboard = new KeyboardHebrew(hebrew, components, 70, true);
+      keyboard = new KeyboardHebrewNoPuntation(hebrew, components, 70, true);
    }
 
    private TitledBorder makeBorderBlank(String title)
