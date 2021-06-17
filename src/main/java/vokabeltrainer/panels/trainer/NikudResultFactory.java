@@ -7,7 +7,6 @@ import java.util.List;
 
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
-import vokabeltrainer.editing.LetterType;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.words.WordLetterMatching;

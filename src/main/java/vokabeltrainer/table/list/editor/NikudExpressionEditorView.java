@@ -45,7 +45,6 @@ import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.GermanDocument;
-import vokabeltrainer.editing.HebrewDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewNikud;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableMultiselect;
