@@ -17,7 +17,7 @@ public class SingleLetterDocument extends PlainDocument
 
    public SingleLetterDocument()
    {
-      pattern = HebrewLetter.getLetterPatternString();
+      pattern = NikudLetter.getLetterPatternStringForSingleLetterDocument();
    }
 
    @Override

@@ -41,7 +41,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          }
 
          List<String> list = LetterHelper.findLetterCodes(text);
-         List<String> nikudList = LetterHelper.findNikudLetterCodes(text);
+         List<String> nikudList = LetterHelper.findLetterCodes(text);
 
          if (list == null || list.isEmpty())
          {
@@ -53,22 +53,16 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          {
             GermanLetter germanLetter = GermanLetter
                   .getLetterFromCode(list.get(i));
-            HebrewLetter hebrewLetter = HebrewLetter
-                  .getLetterFromCode(list.get(i));
             NikudLetter nikudLetter = NikudLetter
                   .getLetterFromCode(nikudList.get(i));
             if (germanLetter != null)
             {
                // okay
             }
-            else if (hebrewLetter != null)
-            {
-               // okay
-            }
             else if (nikudLetter != null)
             {
                // okay
-               super.replace(offset, length, LetterHelper.makeNikudWordFromCodes(nikudList),
+               super.replace(offset, length, LetterHelper.makeWordFromCodes(nikudList),
                      attrs);
                return;
             }
@@ -110,7 +104,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          }
 
          List<String> list = LetterHelper.findLetterCodes(str);
-         List<String> nikudList = LetterHelper.findNikudLetterCodes(str);
+         List<String> nikudList = LetterHelper.findLetterCodes(str);
 
          if (list == null || list.isEmpty())
          {
@@ -122,22 +116,16 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          {
             GermanLetter germanLetter = GermanLetter
                   .getLetterFromCode(list.get(i));
-            HebrewLetter hebrewLetter = HebrewLetter
-                  .getLetterFromCode(list.get(i));
             NikudLetter nikudLetter = NikudLetter
                   .getLetterFromCode(nikudList.get(i));
             if (germanLetter != null)
             {
                // okay
             }
-            else if (hebrewLetter != null)
-            {
-               // okay
-            }
             else if (nikudLetter != null)
             {
                // okay
-               super.insertString(offset, LetterHelper.makeNikudWordFromCodes(nikudList), attr);
+               super.insertString(offset, LetterHelper.makeWordFromCodes(nikudList), attr);
                return;
             }
             else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))

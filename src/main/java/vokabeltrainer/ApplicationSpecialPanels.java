@@ -4,23 +4,23 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
-import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.panels.letterpicture.LetterPictureButtonPanel;
 
 public class ApplicationSpecialPanels
 {
-   private static Map<HebrewLetter, LetterPictureButtonPanel> letterPicturesPanelMap;
+   private static Map<NikudLetter, LetterPictureButtonPanel> letterPicturesPanelMap;
    private static String message = "Cerebrummi© konnte Resourcen nicht laden.\\nFehler: ";
 
-   public static Map<HebrewLetter, LetterPictureButtonPanel> getLetterPicturesPanelMap()
+   public static Map<NikudLetter, LetterPictureButtonPanel> getLetterPicturesPanelMap()
    {
       return letterPicturesPanelMap;
    }
 
    public static void setLetterPicturesPanelMap(
-         Map<HebrewLetter, LetterPictureButtonPanel> letterPicturesPanelMap)
+         Map<NikudLetter, LetterPictureButtonPanel> letterPicturesPanelMap)
    {
-      if(letterPicturesPanelMap.size() < 34)
+      if(letterPicturesPanelMap.size() < 30)
       {
          exitWithMessage("Es fehlen Buchstabenbilder.");
       }

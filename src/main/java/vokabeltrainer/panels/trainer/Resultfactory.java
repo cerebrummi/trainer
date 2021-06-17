@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.NikudLetter;
@@ -24,9 +23,9 @@ public class Resultfactory
          String answer, Font hebrewFont)
    {
       String[] expressionArray = expression.getHebrew()
-            .split(HebrewLetter.SPACE.getUnicode());
+            .split(NikudLetter.SPACE.getUnicode());
 
-      String[] answerArray = answer.split(HebrewLetter.SPACE.getUnicode());
+      String[] answerArray = answer.split(NikudLetter.SPACE.getUnicode());
 
       if (expressionArray.length == 1 && answerArray.length == 1)
       {

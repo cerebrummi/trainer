@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
+import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -88,7 +88,7 @@ public class LetterPictureWordPanel extends JPanel
 
       for (String hebrewLetterCode : hebrewLettersCode)
       {
-         HebrewLetter hebrewLetter = HebrewLetter
+         NikudLetter hebrewLetter = NikudLetter
                .getLetterFromCode(hebrewLetterCode);
          if (hebrewLetter != null)
          {
@@ -105,7 +105,7 @@ public class LetterPictureWordPanel extends JPanel
 
       for (String hebrewLetterCode : hebrewLettersCode)
       {
-         HebrewLetter hebrewLetter = HebrewLetter
+         NikudLetter hebrewLetter = NikudLetter
                .getLetterFromCode(hebrewLetterCode);
          if (hebrewLetter != null)
          {

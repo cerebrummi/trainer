@@ -45,7 +45,7 @@ public class NikudDocument extends PlainDocument
             }
          }
 
-         List<String> list = LetterHelper.findNikudLetterCodes(text);
+         List<String> list = LetterHelper.findLetterCodes(text);
 
          if (list == null || list.isEmpty())
          {
@@ -70,7 +70,7 @@ public class NikudDocument extends PlainDocument
                list.remove(i);
             }
          }
-         super.replace(offset, length, LetterHelper.makeNikudWordFromCodes(list),
+         super.replace(offset, length, LetterHelper.makeWordFromCodes(list),
                attrs);
          return;
       }
@@ -92,7 +92,7 @@ public class NikudDocument extends PlainDocument
             }
          }
 
-         List<String> list = LetterHelper.findNikudLetterCodes(str);
+         List<String> list = LetterHelper.findLetterCodes(str);
 
          if (list == null || list.isEmpty())
          {
@@ -117,7 +117,7 @@ public class NikudDocument extends PlainDocument
                list.remove(i);
             }
          }
-         super.insertString(offset, LetterHelper.makeNikudWordFromCodes(list), attr);
+         super.insertString(offset, LetterHelper.makeWordFromCodes(list), attr);
          return;
       }
       super.insertString(offset, str, attr);

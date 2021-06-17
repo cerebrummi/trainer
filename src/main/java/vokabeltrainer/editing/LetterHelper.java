@@ -8,32 +8,9 @@ import java.util.Map;
 
 public class LetterHelper
 {
-   private static Map<String, Letter> codeMap;
    private static Map<String, Letter> nikudCodeMap;
    static
    {
-      codeMap = new HashMap<>();
-      for (Letter sign : SignLetter.values())
-      {
-         codeMap.put(sign.getCode().toLowerCase(), sign);
-         codeMap.put(sign.getCode().toUpperCase(), sign);
-      }
-      for (Letter german : GermanLetter.values())
-      {
-         codeMap.put(german.getCode().toLowerCase(), german);
-         codeMap.put(german.getCode().toUpperCase(), german);
-      }
-      for (Letter hebrew : HebrewLetter.values())
-      {
-         codeMap.put(hebrew.getCode().toLowerCase(), hebrew);
-         codeMap.put(hebrew.getCode().toUpperCase(), hebrew);
-      }
-      for (Letter number : NumberLetter.values())
-      {
-         codeMap.put(number.getCode().toLowerCase(), number);
-         codeMap.put(number.getCode().toUpperCase(), number);
-      }
-
       nikudCodeMap = new HashMap<>();
       for (Letter nikud : NikudLetter.values())
       {
@@ -57,63 +34,22 @@ public class LetterHelper
       // nothing
    }
 
-   public static List<String> findLetterCodes(String word)
+   public static List<NikudLetter> findNikudLetters(String hebrewWord)
    {
-      List<String> letterCodes = new LinkedList<>();
-      if (word == null)
+      List<String> letterCodes = LetterHelper.findLetterCodes(hebrewWord);
+      List<NikudLetter> hebrewLetters = new ArrayList<>();
+      for (String code : letterCodes)
       {
-         return letterCodes;
-      }
-      for (int i = 0, c = 0; i < word.length() && c < word.length();)
-      {
-         try
+         NikudLetter hebrewLetter = NikudLetter.getLetterFromCode(code);
+         if (hebrewLetter != null)
          {
-            String code = String.format(" %04x", (int) word.charAt(c));
-            if (i == 0 && (code.equalsIgnoreCase(" 05BC")
-                  || code.equalsIgnoreCase(" 05c2")))
-            {
-               // i is the number of letterCodes, since no new letterCode is
-               // added i is not advanced
-               c++;
-               continue; // wrong spelling, dagesch and ssin dot can not be in
-                         // the beginning of a word, this is cut out
-            }
-
-            if (code.equalsIgnoreCase(" 05BC")) // dagesch
-            {
-               // i is the number of letterCodes, since no new letterCode is
-               // added i is not advanced
-               letterCodes.set(i - 1, letterCodes.get(i - 1) + code); // dagesch
-                                                                      // is
-                                                                      // added
-                                                                      // to
-                                                                      // letter
-                                                                      // before
-               c++;
-            }
-            else if (code.equalsIgnoreCase(" 05c2")) // ssin dot
-            {
-               // i is the number of letterCodes, since no new letterCode is
-               // added i is not advanced
-               letterCodes.set(i - 1, " Fb2B"); // letter before is a ssin
-               c++;
-            }
-            else
-            {
-               letterCodes.add(code);
-               i++;
-               c++;
-            }
-         }
-         catch (Exception e)
-         {
-            c++;
+            hebrewLetters.add(hebrewLetter);
          }
       }
-      return letterCodes;
+      return hebrewLetters;
    }
-
-   public static List<String> findNikudLetterCodes(String word)
+   
+   public static List<String> findLetterCodes(String word)
    {
       List<String> letterCodes = new LinkedList<>();
       if (word == null)
@@ -135,22 +71,8 @@ public class LetterHelper
       }
       return letterCodes;
    }
-
-   public static String makeWordFromCodes(List<String> codes)
-   {
-      StringBuilder builder = new StringBuilder();
-      for (String code : codes)
-      {
-         if (codeMap.get(code) != null)
-         {
-            builder.append(codeMap.get(code).getUnicode());
-         }
-      }
-      return builder.toString();
-   }
    
-
-   public static String makeNikudWordFromCodes(List<String> codes)
+   public static String makeWordFromCodes(List<String> codes)
    {
       StringBuilder builder = new StringBuilder();
       for (String code : codes)
@@ -168,7 +90,7 @@ public class LetterHelper
    {
       LinkedList<LetterForAnalysis> analysisList = new LinkedList<>();
 
-      List<String> codeList = findNikudLetterCodes(word);
+      List<String> codeList = findLetterCodes(word);
 
       LetterForAnalysis currentLetterForAnalysis = new LetterForAnalysis(
             NikudLetter.SPACE);
@@ -240,7 +162,7 @@ public class LetterHelper
             nikudCodeList.add(hebrewCode);
          }
       }
-      return LetterHelper.makeNikudWordFromCodes(nikudCodeList);
+      return LetterHelper.makeWordFromCodes(nikudCodeList);
    }
 
 }

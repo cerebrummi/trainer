@@ -7,7 +7,6 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.editing.NikudLetter;
 
 public class ApplicationImages
@@ -58,7 +57,7 @@ public class ApplicationImages
    private static BufferedImage answerUndecided;
    private static BufferedImage reward;
 
-   private static Map<HebrewLetter, BufferedImage> letterPicturesMap;
+   private static Map<NikudLetter, BufferedImage> letterPicturesMap;
    private static BufferedImage letterEmpty;
    private static BufferedImage letterNone;
    private static BufferedImage work;
@@ -68,7 +67,6 @@ public class ApplicationImages
    private static BufferedImage back;
    private static BufferedImage lock;
    
-   private static Map<HebrewLetter, BufferedImage> letterIconsMap;
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    
    private static String message = "Bitte neu starten.\nCerebrummi© konnte keine Bilder laden.\nFehler: ";
@@ -501,34 +499,19 @@ public class ApplicationImages
       ApplicationImages.logo150 = logo150;
    }
 
-   public static Map<HebrewLetter, BufferedImage> getLetterPicturesMap()
+   public static Map<NikudLetter, BufferedImage> getLetterPicturesMap()
    {
       return letterPicturesMap;
    }
 
    public static void setLetterPicturesMap(
-         Map<HebrewLetter, BufferedImage> letterPicturesMap)
+         Map<NikudLetter, BufferedImage> letterPicturesMap)
    {
-      if(letterPicturesMap.size() < 34)
+      if(letterPicturesMap.size() < 30)
       {
             exitWithMessage("Buchstabenbilder fehlen");
       }
       ApplicationImages.letterPicturesMap = letterPicturesMap;
-   }
-
-   public static Map<HebrewLetter, BufferedImage> getLetterIconsMap()
-   {
-      return letterIconsMap;
-   }
-
-   public static void setLetterIconsMap(
-         Map<HebrewLetter, BufferedImage> letterIconsMap)
-   {
-      if(letterIconsMap.size() < 33)
-      {
-            exitWithMessage("Buchstaben Icons fehlen");
-      }
-      ApplicationImages.letterIconsMap = letterIconsMap;
    }
 
    public static Map<NikudLetter, BufferedImage> getLetterIconsNikudMap()

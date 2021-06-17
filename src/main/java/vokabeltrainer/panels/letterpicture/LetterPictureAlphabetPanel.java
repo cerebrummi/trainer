@@ -20,7 +20,7 @@ import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSpecialPanels;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.editing.SingleLetterDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewStandard;
 import vokabeltrainer.table.list.editor.CerebrummiFocusTraversalPolicy;
@@ -31,82 +31,78 @@ public class LetterPictureAlphabetPanel extends JPanel
 {
    private static final long serialVersionUID = 2284393162989380186L;
 
-   private final HebrewLetter[] keys1 = { HebrewLetter.CHET, HebrewLetter.SSAIN,
-         HebrewLetter.WAW, HebrewLetter.HAEI, HebrewLetter.DALET,
-         HebrewLetter.GIMEL, HebrewLetter.WET, HebrewLetter.BET,
-         HebrewLetter.ALEF };
+   private final NikudLetter[] keys1 = { NikudLetter.CHET, NikudLetter.SSAIN,
+         NikudLetter.WAW, NikudLetter.HAEI, NikudLetter.DALET,
+         NikudLetter.GIMEL, NikudLetter.WET,
+         NikudLetter.ALEF };
 
-   private final HebrewLetter[] keys2 = { HebrewLetter.NUN, HebrewLetter.MEMSSOFIT,
-         HebrewLetter.MEM, HebrewLetter.LAMED, HebrewLetter.CHAFSSOFIT,
-         HebrewLetter.CHAF, HebrewLetter.KAF, HebrewLetter.JOD,
-         HebrewLetter.TET };
+   private final NikudLetter[] keys2 = { NikudLetter.NUN, NikudLetter.MEMSSOFIT,
+         NikudLetter.MEM, NikudLetter.LAMED, NikudLetter.CHAFSSOFIT,
+         NikudLetter.CHAF, NikudLetter.JOD,
+         NikudLetter.TET };
 
-   private final HebrewLetter[] keys3 = { HebrewLetter.KUF, HebrewLetter.ZADISSOFIT,
-         HebrewLetter.ZADI, HebrewLetter.FAEISSOFIT, HebrewLetter.FAEI,
-         HebrewLetter.PAEI, HebrewLetter.AIN, HebrewLetter.SSAMECH,
-         HebrewLetter.NUNSSOFIT };
+   private final NikudLetter[] keys3 = { NikudLetter.KUF, NikudLetter.ZADISSOFIT,
+         NikudLetter.ZADI, NikudLetter.FAEISSOFIT, NikudLetter.FAEI,
+         NikudLetter.AIN, NikudLetter.SSAMECH,
+         NikudLetter.NUNSSOFIT };
 
-   private final HebrewLetter[] keys4 = { HebrewLetter.TAW, HebrewLetter.SSIN,
-         HebrewLetter.SCHIN, HebrewLetter.RESCH };
+   private final NikudLetter[] keys4 = { NikudLetter.TAW,
+         NikudLetter.SCHIN, NikudLetter.RESCH };
 
-   private LetterTextField alef = new LetterTextField(HebrewLetter.ALEF);
-   private LetterTextField bet = new LetterTextField(HebrewLetter.BET);
-   private LetterTextField wet = new LetterTextField(HebrewLetter.WET);
-   private LetterTextField gimel = new LetterTextField(HebrewLetter.GIMEL);
-   private LetterTextField dalet = new LetterTextField(HebrewLetter.DALET);
-   private LetterTextField haei = new LetterTextField(HebrewLetter.HAEI);
-   private LetterTextField waw = new LetterTextField(HebrewLetter.WAW);
-   private LetterTextField ssain = new LetterTextField(HebrewLetter.SSAIN);
-   private LetterTextField chet = new LetterTextField(HebrewLetter.CHET);
-   private LetterTextField tet = new LetterTextField(HebrewLetter.TET);
-   private LetterTextField jod = new LetterTextField(HebrewLetter.JOD);
-   private LetterTextField kaf = new LetterTextField(HebrewLetter.KAF);
-   private LetterTextField chaf = new LetterTextField(HebrewLetter.CHAF);
+   private LetterTextField alef = new LetterTextField(NikudLetter.ALEF);
+   private LetterTextField wet = new LetterTextField(NikudLetter.WET);
+   private LetterTextField gimel = new LetterTextField(NikudLetter.GIMEL);
+   private LetterTextField dalet = new LetterTextField(NikudLetter.DALET);
+   private LetterTextField haei = new LetterTextField(NikudLetter.HAEI);
+   private LetterTextField waw = new LetterTextField(NikudLetter.WAW);
+   private LetterTextField ssain = new LetterTextField(NikudLetter.SSAIN);
+   private LetterTextField chet = new LetterTextField(NikudLetter.CHET);
+   private LetterTextField tet = new LetterTextField(NikudLetter.TET);
+   private LetterTextField jod = new LetterTextField(NikudLetter.JOD);
+   private LetterTextField chaf = new LetterTextField(NikudLetter.CHAF);
    private LetterTextField chafssofit = new LetterTextField(
-         HebrewLetter.CHAFSSOFIT);
-   private LetterTextField lamed = new LetterTextField(HebrewLetter.LAMED);
-   private LetterTextField mem = new LetterTextField(HebrewLetter.MEM);
+         NikudLetter.CHAFSSOFIT);
+   private LetterTextField lamed = new LetterTextField(NikudLetter.LAMED);
+   private LetterTextField mem = new LetterTextField(NikudLetter.MEM);
    private LetterTextField memssofit = new LetterTextField(
-         HebrewLetter.MEMSSOFIT);
-   private LetterTextField nun = new LetterTextField(HebrewLetter.NUN);
+         NikudLetter.MEMSSOFIT);
+   private LetterTextField nun = new LetterTextField(NikudLetter.NUN);
    private LetterTextField nunssofit = new LetterTextField(
-         HebrewLetter.NUNSSOFIT);
-   private LetterTextField ssamech = new LetterTextField(HebrewLetter.SSAMECH);
-   private LetterTextField ain = new LetterTextField(HebrewLetter.AIN);
-   private LetterTextField paei = new LetterTextField(HebrewLetter.PAEI);
-   private LetterTextField faei = new LetterTextField(HebrewLetter.FAEI);
+         NikudLetter.NUNSSOFIT);
+   private LetterTextField ssamech = new LetterTextField(NikudLetter.SSAMECH);
+   private LetterTextField ain = new LetterTextField(NikudLetter.AIN);
+   private LetterTextField faei = new LetterTextField(NikudLetter.FAEI);
    private LetterTextField faeissofit = new LetterTextField(
-         HebrewLetter.FAEISSOFIT);
-   private LetterTextField zadi = new LetterTextField(HebrewLetter.ZADI);
+         NikudLetter.FAEISSOFIT);
+   private LetterTextField zadi = new LetterTextField(NikudLetter.ZADI);
    private LetterTextField zadissofit = new LetterTextField(
-         HebrewLetter.ZADISSOFIT);
-   private LetterTextField kuf = new LetterTextField(HebrewLetter.KUF);
-   private LetterTextField resch = new LetterTextField(HebrewLetter.RESCH);
-   private LetterTextField schin = new LetterTextField(HebrewLetter.SCHIN);
-   private LetterTextField ssin = new LetterTextField(HebrewLetter.SSIN);
-   private LetterTextField taw = new LetterTextField(HebrewLetter.TAW);
+         NikudLetter.ZADISSOFIT);
+   private LetterTextField kuf = new LetterTextField(NikudLetter.KUF);
+   private LetterTextField resch = new LetterTextField(NikudLetter.RESCH);
+   private LetterTextField schin = new LetterTextField(NikudLetter.SCHIN);
+   private LetterTextField taw = new LetterTextField(NikudLetter.TAW);
 
    private LetterTextField[] textFields1 = { chet, ssain, waw, haei, dalet,
-         gimel, wet, bet, alef };
+         gimel, wet, alef };
    private LetterTextField[] textFields2 = { nun, memssofit, mem, lamed,
-         chafssofit, chaf, kaf, jod, tet };
+         chafssofit, chaf, jod, tet };
    private LetterTextField[] textFields3 = { kuf, zadissofit, zadi, faeissofit,
-         faei, paei, ain, ssamech, nunssofit };
-   private LetterTextField[] textFields4 = { taw, ssin, schin, resch };
+         faei, ain, ssamech, nunssofit };
+   private LetterTextField[] textFields4 = { taw, schin, resch };
 
    private List<JTextComponent> textFields;
 
-   Component[] focusList = { alef, bet, wet, gimel, dalet, haei, waw, ssain,
-         chet, tet, jod, kaf, chaf, chafssofit, lamed, mem, memssofit, nun,
-         nunssofit, ssamech, ain, paei, faei, faeissofit, zadi, zadissofit, kuf,
-         resch, schin, ssin, taw };
+   Component[] focusList = { alef, wet, gimel, dalet, haei, waw, ssain,
+         chet, tet, jod, chaf, chafssofit, lamed, mem, memssofit, nun,
+         nunssofit, ssamech, ain, faei, faeissofit, zadi, zadissofit, kuf,
+         resch, schin, taw };
 
    FocusTraversalPolicy focusTraversalPolicy;
 
    public LetterPictureAlphabetPanel()
    {
       textFields = new ArrayList<>();
-      Map<HebrewLetter, LetterPictureButtonPanel> panels = ApplicationSpecialPanels
+      Map<NikudLetter, LetterPictureButtonPanel> panels = ApplicationSpecialPanels
             .getLetterPicturesPanelMap();
       this.setOpaque(false);
       this.setLayout(new TotemLayout(this, 15));
@@ -164,8 +160,8 @@ public class LetterPictureAlphabetPanel extends JPanel
       JPanel filler = new JPanel(new FlowLayout());
       filler.setOpaque(false);
 
-      filler.setMinimumSize(new Dimension(250, 50));
-      filler.setMaximumSize(new Dimension(400, 50));
+      filler.setMinimumSize(new Dimension(310, 50));
+      filler.setMaximumSize(new Dimension(310, 50));
 
       JButton turnButton = new JButton("alle umdrehen");
       turnButton.setFont(Settings.getButtonFont());

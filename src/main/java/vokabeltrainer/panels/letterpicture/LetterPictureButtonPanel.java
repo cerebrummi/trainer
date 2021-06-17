@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
 
 public class LetterPictureButtonPanel extends JPanel
@@ -21,7 +21,7 @@ public class LetterPictureButtonPanel extends JPanel
    private static final long serialVersionUID = 7788782278925301915L;
 
    private BufferedImage picture;
-   private HebrewLetter letter;
+   private NikudLetter letter;
 
    private JButton pictureButton;
    private JButton letterButton;
@@ -39,7 +39,7 @@ public class LetterPictureButtonPanel extends JPanel
 
    private Scale scale;
 
-   public LetterPictureButtonPanel(BufferedImage picture, HebrewLetter letter,
+   public LetterPictureButtonPanel(BufferedImage picture, NikudLetter letter,
          Card[] cards)
    {
       this.letter = letter;
@@ -113,7 +113,7 @@ public class LetterPictureButtonPanel extends JPanel
       germanCard = new JPanel(new BorderLayout());
       germanCard.setOpaque(false);
       germanCard.setPreferredSize(new Dimension(50, 50));
-      if (letter == HebrewLetter.SPACE)
+      if (letter == NikudLetter.SPACE)
       {
          germanButton = new JButton(new ImageIcon(picture));
          germanButton.setBorder(BorderFactory.createEmptyBorder());
@@ -122,7 +122,7 @@ public class LetterPictureButtonPanel extends JPanel
       }
       else
       {
-         germanButton = new JButton(letter.getGerman());
+         germanButton = new JButton(letter.getGermanPictureName());
          germanButton.setFont(Main.getGermanFont(10F));
          germanButton.setBorder(BorderFactory.createEmptyBorder());
          germanButton.setMargin(new Insets(0, 0, 0, 0));
@@ -137,7 +137,7 @@ public class LetterPictureButtonPanel extends JPanel
       hebrewCard = new JPanel(new BorderLayout());
       hebrewCard.setOpaque(false);
       hebrewCard.setPreferredSize(new Dimension(50, 50));
-      if (letter == HebrewLetter.SPACE)
+      if (letter == NikudLetter.SPACE)
       {
          hebrewButton = new JButton(new ImageIcon(picture));
          hebrewButton.setBorder(BorderFactory.createEmptyBorder());
@@ -161,7 +161,7 @@ public class LetterPictureButtonPanel extends JPanel
       letterCard = new JPanel(new BorderLayout());
       letterCard.setOpaque(false);
       letterCard.setPreferredSize(new Dimension(50, 50));
-      if (letter == HebrewLetter.SPACE)
+      if (letter == NikudLetter.SPACE)
       {
          letterButton = new JButton(new ImageIcon(picture));
          letterButton.setBorder(BorderFactory.createEmptyBorder());
@@ -171,7 +171,7 @@ public class LetterPictureButtonPanel extends JPanel
       else
       {
          letterButton = new JButton(
-               new ImageIcon(ApplicationImages.getLetterIconsMap().get(letter)
+               new ImageIcon(ApplicationImages.getLetterIconsNikudMap().get(letter)
                      .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                            java.awt.Image.SCALE_SMOOTH)));
          letterButton.setFont(Main.getHebrewFont(30F));
@@ -189,7 +189,17 @@ public class LetterPictureButtonPanel extends JPanel
       pictureCard = new JPanel(new BorderLayout());
       pictureCard.setOpaque(false);
       pictureCard.setPreferredSize(new Dimension(50, 50));
-      pictureButton = new JButton(new ImageIcon(picture));
+      if(picture != null)
+      {
+         pictureButton = new JButton(new ImageIcon(picture));
+      }
+      else
+      {
+         pictureButton = new JButton(
+               new ImageIcon(ApplicationImages.getLetterIconsNikudMap().get(letter)
+                     .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
+                           java.awt.Image.SCALE_SMOOTH)));
+      }
       pictureButton.setBorder(BorderFactory.createEmptyBorder());
       pictureButton.setMargin(new Insets(0, 0, 0, 0));
       pictureButton.setOpaque(false);

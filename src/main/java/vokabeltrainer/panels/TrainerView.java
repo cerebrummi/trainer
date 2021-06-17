@@ -37,7 +37,6 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
-import vokabeltrainer.editing.HebrewDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewNoPunktation;
 import vokabeltrainer.keyboards.KeyboardHebrewNikud;
@@ -322,7 +321,7 @@ public class TrainerView extends BackgroundPanelTiled
    private void initQuestionPanel(Language languageDirection)
    {
       questionPanel.removeAll();
-      if (Language.GERMAN.equals(languageDirection) || Language.TO_NIKUD.equals(languageDirection))
+      if (Language.TO_NIKUD.equals(languageDirection))
       {
          questionField = new JTextField();
          questionField.setBackground(ApplicationColors.getLightBlue());
@@ -383,34 +382,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       questionPanel.add(answerPanel);
 
-      if (Language.GERMAN.equals(languageDirection))
-      {
-         answerPanel.removeAll();
-         answerPanel
-               .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
-         answerPanel
-               .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 308));
-         answerField = new InfoTextField("Antwortfeld", "Antwortfeld:",
-               "Mit der hebräischen Tastatur", "bitte die Antwort schreiben.");
-         answerField.setDocument(new HebrewDocument(true));
-         answerField
-               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-
-         keyboard = new KeyboardHebrewNoPunktation(answerField,
-               new ArrayList<JTextComponent>(), 80, false);
-         simpleKeyboard = new KeyboardHebrewSimple(answerField,
-               new ArrayList<JTextComponent>(), 80);
-
-         keyboardCardLayout = new CardLayout();
-         keyboardSwapPanel = new JPanel(this.keyboardCardLayout);
-         keyboardSwapPanel.add("HINTS", keyboard);
-         keyboardSwapPanel.add("BLANK", simpleKeyboard);
-
-         answerPanel.add(answerField);
-         answerPanel.add(keyboardSwapPanel);
-         keyboardCardLayout.show(keyboardSwapPanel, "BLANK");
-      }
-      else if(Language.TO_NIKUD.equals(languageDirection))
+      if(Language.TO_NIKUD.equals(languageDirection))
       {
          answerPanel.removeAll();
          answerPanel

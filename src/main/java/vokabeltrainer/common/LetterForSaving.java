@@ -35,9 +35,9 @@ public enum LetterForSaving implements Letter
    Z,
    OTHER;
    
-   public static LetterForSaving getLetter(String word)
+   public static LetterForSaving getLetter(String german)
    {
-      List<String> codeList = LetterHelper.findLetterCodes(word);
+      List<String> codeList = LetterHelper.findLetterCodes(german);
       GermanLetter first = GermanLetter.getLetterFromCode(codeList.get(0));
       if(first == null)
       {

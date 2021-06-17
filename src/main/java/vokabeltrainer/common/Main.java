@@ -72,18 +72,6 @@ public final class Main
                "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-
-      try
-      {
-         LetterIcons.read();
-      }
-      catch (Exception e1)
-      {
-         JOptionPane.showMessageDialog(null,
-               message + "Buchstaben Icons fehlen", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
-         System.exit(1);
-      }
       
       try
       {

@@ -14,7 +14,7 @@ import javax.swing.text.JTextComponent;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.editing.HebrewLetter;
+import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -69,16 +69,14 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller1.setMaximumSize(new Dimension(20, BUTTON_SIZE));
       row1.add(halfSizedFiller1);
 
-      row1.add(makeButton(HebrewLetter.SSIN));
-      row1.add(makeButton(HebrewLetter.KUF));
-      row1.add(makeButton(HebrewLetter.RESCH));
-      row1.add(makeButton(HebrewLetter.ALEF));
-      row1.add(makeButton(HebrewLetter.TET));
-      row1.add(makeButton(HebrewLetter.WAW));
-      row1.add(makeButton(HebrewLetter.NUNSSOFIT));
-      row1.add(makeButton(HebrewLetter.MEMSSOFIT));
-      row1.add(makeButton(HebrewLetter.FAEI));
-      row1.add(makeButton(HebrewLetter.PAEI));
+      row1.add(makeButton(NikudLetter.KUF));
+      row1.add(makeButton(NikudLetter.RESCH));
+      row1.add(makeButton(NikudLetter.ALEF));
+      row1.add(makeButton(NikudLetter.TET));
+      row1.add(makeButton(NikudLetter.WAW));
+      row1.add(makeButton(NikudLetter.NUNSSOFIT));
+      row1.add(makeButton(NikudLetter.MEMSSOFIT));
+      row1.add(makeButton(NikudLetter.FAEI));
 
       JPanel row2 = new JPanel();
       row2.setOpaque(false);
@@ -89,17 +87,16 @@ public class KeyboardHebrewStandard extends JPanel
       tinyFiller2.setMaximumSize(new Dimension(0, BUTTON_SIZE));
       row2.add(tinyFiller2);
 
-      row2.add(makeButton(HebrewLetter.SCHIN));
-      row2.add(makeButton(HebrewLetter.DALET));
-      row2.add(makeButton(HebrewLetter.GIMEL));
-      row2.add(makeButton(HebrewLetter.CHAF));
-      row2.add(makeButton(HebrewLetter.AIN));
-      row2.add(makeButton(HebrewLetter.JOD));
-      row2.add(makeButton(HebrewLetter.CHET));
-      row2.add(makeButton(HebrewLetter.LAMED));
-      row2.add(makeButton(HebrewLetter.CHAFSSOFIT));
-      row2.add(makeButton(HebrewLetter.FAEISSOFIT));
-      row2.add(makeButton(HebrewLetter.KAF));
+      row2.add(makeButton(NikudLetter.SCHIN));
+      row2.add(makeButton(NikudLetter.DALET));
+      row2.add(makeButton(NikudLetter.GIMEL));
+      row2.add(makeButton(NikudLetter.CHAF));
+      row2.add(makeButton(NikudLetter.AIN));
+      row2.add(makeButton(NikudLetter.JOD));
+      row2.add(makeButton(NikudLetter.CHET));
+      row2.add(makeButton(NikudLetter.LAMED));
+      row2.add(makeButton(NikudLetter.CHAFSSOFIT));
+      row2.add(makeButton(NikudLetter.FAEISSOFIT));
 
       JPanel row3 = new JPanel();
       row3.setOpaque(false);
@@ -110,16 +107,15 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller3.setMaximumSize(new Dimension(20, BUTTON_SIZE));
       row3.add(halfSizedFiller3);
 
-      row3.add(makeButton(HebrewLetter.SSAIN));
-      row3.add(makeButton(HebrewLetter.SSAMECH));
-      row3.add(makeButton(HebrewLetter.WET));
-      row3.add(makeButton(HebrewLetter.HAEI));
-      row3.add(makeButton(HebrewLetter.NUN));
-      row3.add(makeButton(HebrewLetter.MEM));
-      row3.add(makeButton(HebrewLetter.ZADI));
-      row3.add(makeButton(HebrewLetter.TAW));
-      row3.add(makeButton(HebrewLetter.ZADISSOFIT));
-      row3.add(makeButton(HebrewLetter.BET));
+      row3.add(makeButton(NikudLetter.SSAIN));
+      row3.add(makeButton(NikudLetter.SSAMECH));
+      row3.add(makeButton(NikudLetter.WET));
+      row3.add(makeButton(NikudLetter.HAEI));
+      row3.add(makeButton(NikudLetter.NUN));
+      row3.add(makeButton(NikudLetter.MEM));
+      row3.add(makeButton(NikudLetter.ZADI));
+      row3.add(makeButton(NikudLetter.TAW));
+      row3.add(makeButton(NikudLetter.ZADISSOFIT));
 
       keyboard.add(row1);
       keyboard.add(row2);
@@ -127,9 +123,9 @@ public class KeyboardHebrewStandard extends JPanel
       add(keyboard);
    }
 
-   private Component makeButton(HebrewLetter letter)
+   private Component makeButton(NikudLetter letter)
    {
-      DataButton jButton = new DataButton(ApplicationImages.getLetterIconsMap()
+      DataButton jButton = new DataButton(ApplicationImages.getLetterIconsNikudMap()
             .get(letter).getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                   java.awt.Image.SCALE_SMOOTH),
             letter.getUnicode());
