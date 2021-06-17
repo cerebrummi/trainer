@@ -243,13 +243,13 @@ public class LetterHelper
       return true;
    }
 
-   public static String turnHebrewSsinIntoNikudSsin(String hebrew)
+   public static String turnExchangeSsinIntoNikudSsin(String hebrew)
    {
       List<String> nikudCodeList = new ArrayList<>();
       List<String> hebrewCodeList = LetterHelper.findLetterCodes(hebrew);
       for(String hebrewCode : hebrewCodeList)
       {
-         if(HebrewLetter.SSIN.getCode().equalsIgnoreCase(hebrewCode))
+         if(ExchangeLetter.SSIN.getCode().equalsIgnoreCase(hebrewCode))
          {
             nikudCodeList.add(NikudLetter.SCHIN.getCode());
             nikudCodeList.add(NikudLetter.SIN_DOT.getCode());
@@ -259,6 +259,7 @@ public class LetterHelper
             nikudCodeList.add(hebrewCode);
          }
       }
-      return LetterHelper.makeNikudWordFromCodes(nikudCodeList);      
+      return LetterHelper.makeNikudWordFromCodes(nikudCodeList);
    }
+
 }

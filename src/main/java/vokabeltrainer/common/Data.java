@@ -43,6 +43,7 @@ import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
 import vokabeltrainer.cmd.DirectoryHelper;
+import vokabeltrainer.editing.ExchangeLetter;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
@@ -848,11 +849,10 @@ public final class Data
                   expression.toggleLastModified();
                }
                index++;
-               if (expression.getHebrew().contains("שׂ")) // HebrewLetter.SSIN is
-                                                         // not supported
+               if (expression.getHebrew().contains(ExchangeLetter.SSIN.getUnicode()))
                {
                   expression.setHebrew(LetterHelper
-                        .turnHebrewSsinIntoNikudSsin(expression.getHebrew()));
+                        .turnExchangeSsinIntoNikudSsin(expression.getHebrew()));
                }
                expression.setIvrit(false);
                index++;
