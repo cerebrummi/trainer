@@ -11,10 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.editing.LetterForAnalysis;
+import vokabeltrainer.editing.NikudLetter;
 
 public class NikudPictureButtonPanel extends JPanel
 {
@@ -44,38 +43,7 @@ public class NikudPictureButtonPanel extends JPanel
       this.setMaximumSize(new Dimension(50, 50));
 
       this.letterPicture = NikudLetterImage.make(letter);
-      if (letter.getContent().getHebrewLetter() != null)
-      {
-         if (letter.isBet())
-         {
-            this.imagePicture = ApplicationImages.getLetterPicturesMap()
-                  .get(HebrewLetter.BET);
-         }
-         else if (letter.isKaf())
-         {
-            this.imagePicture = ApplicationImages.getLetterPicturesMap()
-                  .get(HebrewLetter.KAF);
-         }
-         else if (letter.isPaei())
-         {
-            this.imagePicture = ApplicationImages.getLetterPicturesMap()
-                  .get(HebrewLetter.PAEI);
-         } 
-         else if (letter.isSsin())
-         {
-            this.imagePicture = ApplicationImages.getLetterPicturesMap()
-                  .get(HebrewLetter.PAEI);
-         }
-         else
-         {
-            this.imagePicture = ApplicationImages.getLetterPicturesMap()
-                  .get(letter.getContent().getHebrewLetter());
-         }      
-      }
-      else
-      {
-         this.imagePicture = NikudLetterImage.make(letter);
-      }
+      
       layout = new CardLayout();
       this.setLayout(layout);
       this.setOpaque(false);
@@ -135,43 +103,14 @@ public class NikudPictureButtonPanel extends JPanel
       germanCard = new JPanel(new BorderLayout());
       germanCard.setOpaque(false);
       germanCard.setPreferredSize(new Dimension(50, 50));
-      if (letter.getContent().getHebrewLetter() == null
-            || letter.getContent().getHebrewLetter() == HebrewLetter.SPACE)
+      if (letter.getContent() == NikudLetter.SPACE)
       {
          germanButton = new JButton(new ImageIcon(letterPicture));
-      }
-      else if (letter.isBet())
-      {
-         germanButton = new JButton(
-               HebrewLetter.BET.getGerman());
-         germanButton.setFont(Main.getGermanFont(10F));
-         germanButton.setContentAreaFilled(false);
-      }
-      else if (letter.isKaf())
-      {
-         germanButton = new JButton(
-               HebrewLetter.KAF.getGerman());
-         germanButton.setFont(Main.getGermanFont(10F));
-         germanButton.setContentAreaFilled(false);
-      }
-      else if (letter.isPaei())
-      {
-         germanButton = new JButton(
-               HebrewLetter.PAEI.getGerman());
-         germanButton.setFont(Main.getGermanFont(10F));
-         germanButton.setContentAreaFilled(false);
-      } 
-      else if (letter.isSsin())
-      {
-         germanButton = new JButton(
-               HebrewLetter.SSIN.getGerman());
-         germanButton.setFont(Main.getGermanFont(10F));
-         germanButton.setContentAreaFilled(false);
       }
       else
       {
          germanButton = new JButton(
-               letter.getContent().getHebrewLetter().getGerman());
+               letter.getContent().getTranscript());
          germanButton.setFont(Main.getGermanFont(10F));
          germanButton.setContentAreaFilled(false);
       }
@@ -186,37 +125,13 @@ public class NikudPictureButtonPanel extends JPanel
       hebrewCard = new JPanel(new BorderLayout());
       hebrewCard.setOpaque(false);
       hebrewCard.setPreferredSize(new Dimension(50, 50));
-      if (letter.getContent().getHebrewLetter() == HebrewLetter.SPACE)
+      if (letter.getContent() == NikudLetter.SPACE)
       {
          hebrewButton = new JButton(new ImageIcon(letterPicture));
          hebrewButton.setBorder(BorderFactory.createEmptyBorder());
          hebrewButton.setMargin(new Insets(0, 0, 0, 0));
          hebrewButton.setOpaque(false);
-      }
-      else if (letter.isBet())
-      {
-         hebrewButton = new JButton(HebrewLetter.BET.getTranscript());
-         hebrewButton.setFont(Main.getGermanFont(10F));
-         hebrewButton.setContentAreaFilled(false); 
-      }
-      else if (letter.isKaf())
-      {
-         hebrewButton = new JButton(HebrewLetter.KAF.getTranscript());
-         hebrewButton.setFont(Main.getGermanFont(10F));
-         hebrewButton.setContentAreaFilled(false); 
-      }
-      else if (letter.isPaei())
-      {
-         hebrewButton = new JButton(HebrewLetter.PAEI.getTranscript());
-         hebrewButton.setFont(Main.getGermanFont(10F));
-         hebrewButton.setContentAreaFilled(false); 
-      } 
-      else if (letter.isSsin())
-      {
-         hebrewButton = new JButton(HebrewLetter.SSIN.getTranscript());
-         hebrewButton.setFont(Main.getGermanFont(10F));
-         hebrewButton.setContentAreaFilled(false); 
-      }
+      }     
       else
       {
          hebrewButton = new JButton(letter.getContent().getTranscript());

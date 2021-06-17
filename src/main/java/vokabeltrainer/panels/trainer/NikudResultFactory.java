@@ -87,8 +87,7 @@ public class NikudResultFactory
 
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
             LetterHelper.findNikudLetterForAnalysisList(dictionary),
-            LetterHelper.findNikudLetterForAnalysisList(answer),
-            LetterType.NIKUD);
+            LetterHelper.findNikudLetterForAnalysisList(answer));
 
       result.setOkay(matchingResult.isOkay());
 

@@ -492,9 +492,4 @@ public enum NikudLetter
    {
       return NikudLetter.NEWSPACE;
    }
-
-   public HebrewLetter getHebrewLetter()
-   {
-      return hebrewLetter;
-   }
 }

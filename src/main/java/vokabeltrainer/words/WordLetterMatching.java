@@ -6,10 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import vokabeltrainer.editing.HebrewLetter;
-import vokabeltrainer.editing.Letter;
 import vokabeltrainer.editing.LetterForAnalysis;
-import vokabeltrainer.editing.LetterType;
 import vokabeltrainer.editing.NikudLetter;
 
 public class WordLetterMatching
@@ -22,20 +19,9 @@ public class WordLetterMatching
 
    public static WordLetterMatchingResult matchLetters(
          LinkedList<LetterForAnalysis> dictionary,
-         LinkedList<LetterForAnalysis> answer, LetterType type)
+         LinkedList<LetterForAnalysis> answer)
    {
-      final Letter NEWSPACE;
-      switch (type)
-      {
-      case HEBREW:
-         NEWSPACE = HebrewLetter.NEWSPACE;
-         break;
-      case NIKUD:
-         NEWSPACE = NikudLetter.NEWSPACE;
-         break;
-      default:
-         throw new IllegalArgumentException("letter type can only be HEBREW or NIKUD but was "+ type.name());
-      }
+      final NikudLetter NEWSPACE = NikudLetter.NEWSPACE;
 
       WordLetterMatchingResult result = new WordLetterMatchingResult();
 
@@ -289,7 +275,7 @@ public class WordLetterMatching
 
    private static List<LetterForAnalysis> lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
          List<LetterForAnalysis> dataT, List<LetterForAnalysis> dataD,
-         Letter NEWSPACE, int maxSameness)
+         NikudLetter NEWSPACE, int maxSameness)
    {
       // for example
       // nnnnnnnnnndddddddddddddddd
@@ -348,7 +334,7 @@ public class WordLetterMatching
 
    private static void makeBothTheSameSize(
          List<LetterForAnalysis> other, List<LetterForAnalysis> list,
-         Letter NEWSPACE)
+         NikudLetter NEWSPACE)
    {
       if(other.size() == list.size())
       {

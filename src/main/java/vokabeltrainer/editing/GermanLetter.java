@@ -272,12 +272,6 @@ public enum GermanLetter implements Letter
    }
 
    @Override
-   public HebrewLetter getHebrewLetter()
-   {
-      return null;
-   }
-
-   @Override
    public String getTranscript()
    {
       return name();

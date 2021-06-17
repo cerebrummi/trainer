@@ -8,7 +8,7 @@ import java.util.List;
 import vokabeltrainer.editing.HebrewLetter;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
-import vokabeltrainer.editing.LetterType;
+import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.words.WordLetterMatching;
 import vokabeltrainer.words.WordLetterMatchingResult;
@@ -59,8 +59,8 @@ public class Resultfactory
             if (index > 0)
             {
                result.addFeedbackImage(LetterFeedbackImage.makeSpace());
-               result.addAnswerSpace(new LetterForAnalysis(HebrewLetter.SPACE));
-               result.addDictionarySpace(new LetterForAnalysis(HebrewLetter.SPACE));
+               result.addAnswerSpace(new LetterForAnalysis(NikudLetter.SPACE));
+               result.addDictionarySpace(new LetterForAnalysis(NikudLetter.SPACE));
             }
             result.addFeedbackImageList(singleResult.getFeedbackImageList());
             result.addAnswer(singleResult.getAnswer()); // for unit testing
@@ -88,9 +88,8 @@ public class Resultfactory
    {
 
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
-            LetterHelper.findHebrewLetterForAnalysisList(dictionary),
-            LetterHelper.findHebrewLetterForAnalysisList(answer),
-            LetterType.HEBREW);
+            LetterHelper.findNikudLetterForAnalysisList(dictionary),
+            LetterHelper.findNikudLetterForAnalysisList(answer));
 
       result.setAnswerEmpty(matchingResult.isAnswerEmpty());
       result.setDictionaryEmpty(matchingResult.isDictionaryEmpty());

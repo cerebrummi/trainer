@@ -224,12 +224,6 @@ public enum SignLetter implements Letter
    {
       return -1;
    }
-
-   @Override
-   public HebrewLetter getHebrewLetter()
-   {
-      return null;
-   }
    
    @Override
    public String getTranscript()

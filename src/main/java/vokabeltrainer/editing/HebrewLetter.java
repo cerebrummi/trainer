@@ -333,7 +333,6 @@ public enum HebrewLetter implements Letter
       return HebrewLetter.NEWSPACE;
    }
 
-   @Override
    public HebrewLetter getHebrewLetter()
    {
       return this;

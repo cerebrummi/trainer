@@ -200,25 +200,6 @@ public class LetterHelper
       return analysisList;
    }
    
-   public static LinkedList<LetterForAnalysis> findHebrewLetterForAnalysisList(
-         String word)
-   {
-      LinkedList<LetterForAnalysis> analysisList = new LinkedList<>();
-
-      List<String> codeList = findLetterCodes(word);
-
-      for (int i = 0; i < codeList.size(); i++)
-      {
-         Letter letter = codeMap.get(codeList.get(i));
-         if (LetterType.HEBREW == letter.isType())
-         {
-            analysisList.add(new LetterForAnalysis((HebrewLetter) letter));
-         }
-      }
-
-      return analysisList;
-   }
-   
    public static boolean areLettersEqual(LetterForAnalysis one, LetterForAnalysis two)
    {
       if(one.getContent() != two.getContent())

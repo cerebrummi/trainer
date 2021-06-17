@@ -19,7 +19,5 @@ public interface Letter
    
    String name();
    
-   HebrewLetter getHebrewLetter();
-   
    String getTranscript();
 }
