@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
@@ -65,8 +66,10 @@ public class KeyboardHebrewStandard extends JPanel
       row1.setLayout(new TrainLayout(row1, 4));
 
       JPanel halfSizedFiller1 = new JPanel();
-      halfSizedFiller1.setMinimumSize(new Dimension(20, BUTTON_SIZE));
-      halfSizedFiller1.setMaximumSize(new Dimension(20, BUTTON_SIZE));
+      halfSizedFiller1.setMinimumSize(new Dimension(76, BUTTON_SIZE));
+      halfSizedFiller1.setMaximumSize(new Dimension(76, BUTTON_SIZE));
+      halfSizedFiller1.setOpaque(false);
+      halfSizedFiller1.setBackground(ApplicationColors.getTransparent());
       row1.add(halfSizedFiller1);
 
       row1.add(makeButton(NikudLetter.KUF));
@@ -85,6 +88,8 @@ public class KeyboardHebrewStandard extends JPanel
       JPanel tinyFiller2 = new JPanel();
       tinyFiller2.setMinimumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setMaximumSize(new Dimension(0, BUTTON_SIZE));
+      tinyFiller2.setOpaque(false);
+      tinyFiller2.setBackground(ApplicationColors.getTransparent());
       row2.add(tinyFiller2);
 
       row2.add(makeButton(NikudLetter.SCHIN));
@@ -103,8 +108,10 @@ public class KeyboardHebrewStandard extends JPanel
       row3.setLayout(new TrainLayout(row3, 4));
 
       JPanel halfSizedFiller3 = new JPanel();
-      halfSizedFiller3.setMinimumSize(new Dimension(20, BUTTON_SIZE));
-      halfSizedFiller3.setMaximumSize(new Dimension(20, BUTTON_SIZE));
+      halfSizedFiller3.setMinimumSize(new Dimension(30, BUTTON_SIZE));
+      halfSizedFiller3.setMaximumSize(new Dimension(30, BUTTON_SIZE));
+      halfSizedFiller3.setOpaque(false);
+      halfSizedFiller3.setBackground(ApplicationColors.getTransparent());
       row3.add(halfSizedFiller3);
 
       row3.add(makeButton(NikudLetter.SSAIN));

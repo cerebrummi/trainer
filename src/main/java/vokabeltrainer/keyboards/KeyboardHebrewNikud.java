@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
@@ -73,45 +74,67 @@ public class KeyboardHebrewNikud extends JPanel
 
       JPanel row1 = new JPanel();
       row1.setOpaque(false);
-      row1.setLayout(new TrainLayout(row1, 8));
-     
-      row1.add(makeButton(NikudLetter.TET));
-      row1.add(makeButton(NikudLetter.CHET));
-      row1.add(makeButton(NikudLetter.SSAIN));
-      row1.add(makeButton(NikudLetter.WAW));
-      row1.add(makeButton(NikudLetter.HAEI));
-      row1.add(makeButton(NikudLetter.DALET));
-      row1.add(makeButton(NikudLetter.GIMEL));
-      row1.add(makeButton(NikudLetter.WET));
+      row1.setLayout(new TrainLayout(row1, 4));
+
+      JPanel halfSizedFiller1 = new JPanel();
+      halfSizedFiller1.setMinimumSize(new Dimension(76, BUTTON_SIZE));
+      halfSizedFiller1.setMaximumSize(new Dimension(76, BUTTON_SIZE));
+      halfSizedFiller1.setOpaque(false);
+      halfSizedFiller1.setBackground(ApplicationColors.getTransparent());
+      row1.add(halfSizedFiller1);
+
+      row1.add(makeButton(NikudLetter.KUF));
+      row1.add(makeButton(NikudLetter.RESCH));
       row1.add(makeButton(NikudLetter.ALEF));
+      row1.add(makeButton(NikudLetter.TET));
+      row1.add(makeButton(NikudLetter.WAW));
+      row1.add(makeButton(NikudLetter.NUNSSOFIT));
+      row1.add(makeButton(NikudLetter.MEMSSOFIT));
+      row1.add(makeButton(NikudLetter.FAEI));
 
       JPanel row2 = new JPanel();
       row2.setOpaque(false);
-      row2.setLayout(new TrainLayout(row2, 8));
+      row2.setLayout(new TrainLayout(row2, 4));
 
-      row2.add(makeButton(NikudLetter.SSAMECH));
-      row2.add(makeButton(NikudLetter.NUNSSOFIT));
-      row2.add(makeButton(NikudLetter.NUN));
-      row2.add(makeButton(NikudLetter.MEMSSOFIT));
-      row2.add(makeButton(NikudLetter.MEM));
+      JPanel tinyFiller2 = new JPanel();
+      tinyFiller2.setMinimumSize(new Dimension(0, BUTTON_SIZE));
+      tinyFiller2.setMaximumSize(new Dimension(0, BUTTON_SIZE));
+      tinyFiller2.setOpaque(false);
+      tinyFiller2.setBackground(ApplicationColors.getTransparent());
+      row2.add(tinyFiller2);
+
+      row2.add(makeButton(NikudLetter.SCHIN));
+      row2.add(makeButton(NikudLetter.DALET));
+      row2.add(makeButton(NikudLetter.GIMEL));
+      row2.add(makeButton(NikudLetter.CHAF));
+      row2.add(makeButton(NikudLetter.AIN));
+      row2.add(makeButton(NikudLetter.JOD));
+      row2.add(makeButton(NikudLetter.CHET));
       row2.add(makeButton(NikudLetter.LAMED));
       row2.add(makeButton(NikudLetter.CHAFSSOFIT));
-      row2.add(makeButton(NikudLetter.CHAF));
-      row2.add(makeButton(NikudLetter.JOD));
+      row2.add(makeButton(NikudLetter.FAEISSOFIT));
 
       JPanel row3 = new JPanel();
       row3.setOpaque(false);
-      row3.setLayout(new TrainLayout(row3, 8));
+      row3.setLayout(new TrainLayout(row3, 4));
 
-      row3.add(makeButton(NikudLetter.TAW));
-      row3.add(makeButton(NikudLetter.SCHIN));
-      row3.add(makeButton(NikudLetter.RESCH));
-      row3.add(makeButton(NikudLetter.KUF));
-      row3.add(makeButton(NikudLetter.ZADISSOFIT));
+      JPanel halfSizedFiller3 = new JPanel();
+      halfSizedFiller3.setMinimumSize(new Dimension(30, BUTTON_SIZE));
+      halfSizedFiller3.setMaximumSize(new Dimension(30, BUTTON_SIZE));
+      halfSizedFiller3.setOpaque(false);
+      halfSizedFiller3.setBackground(ApplicationColors.getTransparent());
+      row3.add(halfSizedFiller3);
+
+      row3.add(makeButton(NikudLetter.SSAIN));
+      row3.add(makeButton(NikudLetter.SSAMECH));
+      row3.add(makeButton(NikudLetter.WET));
+      row3.add(makeButton(NikudLetter.HAEI));
+      row3.add(makeButton(NikudLetter.NUN));
+      row3.add(makeButton(NikudLetter.MEM));
       row3.add(makeButton(NikudLetter.ZADI));
-      row3.add(makeButton(NikudLetter.FAEISSOFIT));
-      row3.add(makeButton(NikudLetter.FAEI));
-      row3.add(makeButton(NikudLetter.AIN));
+      row3.add(makeButton(NikudLetter.TAW));
+      row3.add(makeButton(NikudLetter.ZADISSOFIT));
+
 
       JPanel row4 = new JPanel();
       row4.setOpaque(false);
