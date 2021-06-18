@@ -16,7 +16,10 @@ public class Expression
 {
    private UUID uuid;
    private String german;
-   private String hebrew;
+   private boolean simpleHebrew = true;
+   private String hebrew = "";
+   private String hebrewPlene = "";
+   private String hebrewDefektiv = "";
    private List<String> searchwordsGerman = new ArrayList<>();
    private List<String> searchwordsHebrew = new ArrayList<>();
    private TrainingStatus trainingStatusDToH = new TrainingStatus();
@@ -84,6 +87,36 @@ public class Expression
    public String getHebrew()
    {
       return hebrew;
+   }
+
+   public boolean isSimpleHebrew()
+   {
+      return simpleHebrew;
+   }
+
+   public void setSimpleHebrew(boolean simpleHebrew)
+   {
+      this.simpleHebrew = simpleHebrew;
+   }
+
+   public String getHebrewPlene()
+   {
+      return hebrewPlene;
+   }
+
+   public void setHebrewPlene(String hebrewPlene)
+   {
+      this.hebrewPlene = hebrewPlene;
+   }
+
+   public String getHebrewDefektiv()
+   {
+      return hebrewDefektiv;
+   }
+
+   public void setHebrewDefektiv(String hebrewDefektiv)
+   {
+      this.hebrewDefektiv = hebrewDefektiv;
    }
 
    public void setHebrew(String hebrew)
@@ -354,7 +387,10 @@ public class Expression
       joiner.add(chapter.getDatabaseName());
       joiner.add(chapter.getName());
       joiner.add(german);
+      joiner.add(String.valueOf(simpleHebrew));
       joiner.add(hebrew);
+      joiner.add(hebrewPlene);
+      joiner.add(hebrewDefektiv);
       joiner.add(definitions.getExpressionKindsForSaving());
       joiner.add(definitions.getGrammaticalEnumsForSaving());
       joiner.add(additionalInformation);
@@ -374,7 +410,10 @@ public class Expression
       joiner.add(databaseName);
       joiner.add(chapter.getName());
       joiner.add(german);
+      joiner.add(String.valueOf(simpleHebrew));
       joiner.add(hebrew);
+      joiner.add(hebrewPlene);
+      joiner.add(hebrewDefektiv);
       joiner.add(definitions.getExpressionKindsForSaving());
       joiner.add(definitions.getGrammaticalEnumsForSaving());
       joiner.add(additionalInformation);

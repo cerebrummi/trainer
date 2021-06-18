@@ -723,12 +723,18 @@ public final class Data
                index++;
                expression.setGerman(entries[index]);
                index++;
+               expression.setSimpleHebrew(Boolean.valueOf(entries[index]));
+               index++;
                expression.setHebrew(entries[index]);
                if (expression.getHebrew().contains(ExchangeLetter.SSIN.getUnicode()))
                {
                   expression.setHebrew(LetterHelper
                         .turnExchangeSsinIntoNikudSsin(expression.getHebrew()));
                }
+               index++;
+               expression.setHebrewPlene(entries[index]);
+               index++;
+               expression.setHebrewDefektiv(entries[index]);
                index++;
 
                Definitions definitions = new Definitions();
@@ -846,8 +852,6 @@ public final class Data
                {
                   expression.toggleLastModified();
                }
-               index++;
-               // TODO was ivrit
                index++;
                try
                {
