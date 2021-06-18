@@ -17,7 +17,6 @@ public class Expression
    private UUID uuid;
    private String german;
    private String hebrew;
-   private boolean ivrit;
    private List<String> searchwordsGerman = new ArrayList<>();
    private List<String> searchwordsHebrew = new ArrayList<>();
    private TrainingStatus trainingStatusDToH = new TrainingStatus();
@@ -32,10 +31,9 @@ public class Expression
    private LocalDateTime lastModified;
    private String sortingIndex = "";
 
-   public Expression(boolean preset, boolean doNotChange, boolean ivrit)
+   public Expression(boolean preset, boolean doNotChange)
    {
       this.doNotChange = doNotChange;
-      this.ivrit = ivrit;
       
       if (preset)
       {
@@ -236,16 +234,6 @@ public class Expression
       this.lastModified = LocalDateTime.now();
    }
 
-   public boolean isIvrit()
-   {
-      return ivrit;
-   }
-
-   public void setIvrit(boolean ivrit)
-   {
-      this.ivrit = ivrit;
-   }
-
    public String getSortingIndex()
    {
       return sortingIndex;
@@ -373,7 +361,6 @@ public class Expression
       joiner.add(getSearchWordsGermanForSaving());
       joiner.add(getSearchWordsHebrewForSaving());
       joiner.add(lastModified.toString());
-      joiner.add(String.valueOf(ivrit));
       joiner.add(sortingIndex);
       return joiner.toString();
    }
@@ -394,7 +381,6 @@ public class Expression
       joiner.add(getSearchWordsGermanForSaving());
       joiner.add(getSearchWordsHebrewForSaving());
       joiner.add(lastModified.toString());
-      joiner.add(String.valueOf(ivrit));
       joiner.add(sortingIndex);
       return joiner.toString();
    }

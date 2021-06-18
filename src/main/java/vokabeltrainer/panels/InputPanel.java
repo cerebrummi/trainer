@@ -171,7 +171,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    {
       NikudExpressionEditorView editor = new NikudExpressionEditorController()
             .getNikudExpressionEditorDialog();
-      editor.setExpression(new Expression(true, false, false), true);
+      editor.setExpression(new Expression(true, false), true);
       editor.setLocationRelativeTo(null);
       editor.setVisible(true);
       if (editor.isSave())

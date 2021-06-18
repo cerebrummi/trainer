@@ -205,7 +205,7 @@ public class TestWordMatching
    @Test
    public void testMatchHebrew_Okay()
    {
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest1, new Font(null));
@@ -215,7 +215,7 @@ public class TestWordMatching
    @Test
    public void testMatchHebrew_Okay2()
    {
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest4, new Font(null));
@@ -225,7 +225,7 @@ public class TestWordMatching
    @Test
    public void testMatchHebrew_Okay3()
    {
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest2, new Font(null));
@@ -235,7 +235,7 @@ public class TestWordMatching
    @Test
    public void testMatchHebrew_Empty()
    {
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic20);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest20, new Font(null));
@@ -245,7 +245,7 @@ public class TestWordMatching
    @Test
    public void testMatchHebrew_Empty2()
    {
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic20);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest20a, new Font(null));
@@ -255,7 +255,7 @@ public class TestWordMatching
    @Test
    public void testMatchHebrew_Empty_Dic1()
    {
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic21);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest21, new Font(null));
@@ -265,7 +265,7 @@ public class TestWordMatching
    @Test
    public void testMatchHebrew_Empty_Dic2()
    {
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic21a);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest21, new Font(null));
@@ -275,7 +275,7 @@ public class TestWordMatching
    @Test
    public void testMatchHebrew_Empty_Dic3()
    {
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic21b);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest21, new Font(null));
@@ -287,7 +287,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest4, new Font(null));
@@ -304,7 +304,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment2");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest5, new Font(null));
@@ -321,7 +321,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment3");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest6, new Font(null));
@@ -338,7 +338,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment4");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest7, new Font(null));
@@ -362,7 +362,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment5");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest9, new Font(null));
@@ -386,7 +386,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment6");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest10, new Font(null));
@@ -410,7 +410,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment7");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic11);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest11, new Font(null));
@@ -432,7 +432,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment8");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordTest13);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest13, new Font(null));
@@ -453,7 +453,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment9");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic14);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest14, new Font(null));
@@ -476,7 +476,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment10");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic15);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest15, new Font(null));
@@ -499,7 +499,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment11");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic19);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest19, new Font(null));
@@ -522,7 +522,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment12");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic22);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest22, new Font(null));
@@ -545,7 +545,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment13");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic17);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest17, new Font(null));
@@ -571,7 +571,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment14");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic23);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest23, new Font(null));
@@ -597,7 +597,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment15");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest8, new Font(null));
@@ -623,7 +623,7 @@ public class TestWordMatching
    {
       System.out.println("");
       System.out.println("testMatchHebrew_PartlyFalse_Alignment16");
-      Expression expressionDic = new Expression(true, false, true);
+      Expression expressionDic = new Expression(true, false);
       expressionDic.setHebrew(wordDic24);
       Result result = Resultfactory.getResultDtoHScentence(expressionDic,
             wordTest24, new Font(null));

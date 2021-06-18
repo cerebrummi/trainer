@@ -678,8 +678,7 @@ public final class Data
             try
             {
 
-               Expression expression = new Expression(false, doNotChange,
-                     false);
+               Expression expression = new Expression(false, doNotChange);
                // read csv file row
                int index = 0;
                String[] entries = row.split("\t");
@@ -725,6 +724,11 @@ public final class Data
                expression.setGerman(entries[index]);
                index++;
                expression.setHebrew(entries[index]);
+               if (expression.getHebrew().contains(ExchangeLetter.SSIN.getUnicode()))
+               {
+                  expression.setHebrew(LetterHelper
+                        .turnExchangeSsinIntoNikudSsin(expression.getHebrew()));
+               }
                index++;
 
                Definitions definitions = new Definitions();
@@ -843,12 +847,7 @@ public final class Data
                   expression.toggleLastModified();
                }
                index++;
-               if (expression.getHebrew().contains(ExchangeLetter.SSIN.getUnicode()))
-               {
-                  expression.setHebrew(LetterHelper
-                        .turnExchangeSsinIntoNikudSsin(expression.getHebrew()));
-               }
-               expression.setIvrit(false);
+               // TODO was ivrit
                index++;
                try
                {
@@ -1419,10 +1418,6 @@ public final class Data
          case GERMAN:
             for (Expression expression : list)
             {
-               if (!expression.isIvrit())
-               {
-                  continue;
-               }
                if (!expression.getTrainingStatusDToH().isTrainingStarted())
                {
                   result.add(expression);
@@ -1432,10 +1427,6 @@ public final class Data
          case TO_NIKUD:
             for (Expression expression : list)
             {
-               if (expression.isIvrit())
-               {
-                  continue;
-               }
                if (!expression.getTrainingStatusDToH().isTrainingStarted())
                {
                   result.add(expression);
@@ -1465,10 +1456,6 @@ public final class Data
          case GERMAN:
             for (Expression expression : allExpressions)
             {
-               if (!expression.isIvrit())
-               {
-                  continue;
-               }
                if (Command.AREA_SELECTED == fieldOfTraining)
                {
                   if (expression.isSelected() && expression
@@ -1493,10 +1480,6 @@ public final class Data
          case TO_NIKUD:
             for (Expression expression : allExpressions)
             {
-               if (expression.isIvrit())
-               {
-                  continue;
-               }
                if (Command.AREA_SELECTED == fieldOfTraining)
                {
                   if (expression.isSelected() && expression
