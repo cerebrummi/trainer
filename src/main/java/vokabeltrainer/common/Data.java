@@ -860,7 +860,6 @@ public final class Data
                }
                catch (Exception e)
                {
-                  // old csv is given an index
                   expression.setSortingIndex(
                         String.valueOf(SortingIndex.getCounter()));
                }

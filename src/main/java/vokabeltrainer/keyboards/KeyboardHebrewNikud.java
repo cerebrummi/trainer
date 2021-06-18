@@ -223,8 +223,8 @@ public class KeyboardHebrewNikud extends JPanel
       JLabel captionLabel = new JLabel(" ");
 
       captionLabel.setFont(Main.getGermanFont(8F));
-      captionLabel.setMinimumSize(new Dimension(BUTTON_SIZE + 2, 10));
-      captionLabel.setMaximumSize(new Dimension(BUTTON_SIZE + 2, 10));
+      captionLabel.setMinimumSize(new Dimension(BUTTON_SIZE + 2, 5));
+      captionLabel.setMaximumSize(new Dimension(BUTTON_SIZE + 2, 5));
 
       buttonCaption.add(captionLabel);
 
