@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -66,6 +67,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       JPanel spanner = new JPanel();
       spanner.setMinimumSize(new Dimension(1550, 30));
       spanner.setMaximumSize(new Dimension(1550, 30));
+      spanner.add(new JLabel("Um eine Vokabel wieder aufzurufen, einmal anklicken und dann Enter/Eingabe Taste auf der Tastatur drücken."));
 
       vertical.add(horizontal);
       vertical.add(spanner);
