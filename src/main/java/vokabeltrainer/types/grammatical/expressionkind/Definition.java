@@ -15,9 +15,7 @@ import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
-import vokabeltrainer.types.grammatical.VerbConjugation;
-import vokabeltrainer.types.grammatical.VerbStrength;
-import vokabeltrainer.types.grammatical.VerbType;
+import vokabeltrainer.types.grammatical.VerbTimes;
 
 public class Definition
 {
@@ -119,9 +117,7 @@ public class Definition
       joiner.add(grammaticalEnumMap.get(Numerus.class).name());
       joiner.add(grammaticalEnumMap.get(GrammaticalPerson.class).name());
       joiner.add(grammaticalEnumMap.get(Binjan.class).name());
-      joiner.add(grammaticalEnumMap.get(VerbConjugation.class).name());
-      joiner.add(grammaticalEnumMap.get(VerbStrength.class).name());
-      joiner.add(grammaticalEnumMap.get(VerbType.class).name());
+      joiner.add(grammaticalEnumMap.get(VerbTimes.class).name());
       return joiner.toString();
    }
 

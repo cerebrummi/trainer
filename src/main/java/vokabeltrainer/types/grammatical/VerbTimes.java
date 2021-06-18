@@ -1,6 +1,6 @@
 package vokabeltrainer.types.grammatical;
 
-public enum VerbConjugation implements GrammaticalEnum
+public enum VerbTimes implements GrammaticalEnum
 {
    PLEASE_CHOOSE(
          "bitte wählen"),
@@ -27,7 +27,7 @@ public enum VerbConjugation implements GrammaticalEnum
    private boolean selected;
    private GrammaticalParentEnum parent = GrammaticalParentEnum.VERB_CONJUGATION;
 
-   VerbConjugation(String description)
+   VerbTimes(String description)
    {
       this.description = description;
    }
@@ -59,9 +59,9 @@ public enum VerbConjugation implements GrammaticalEnum
    }
    
    @Override
-   public VerbConjugation fromEnumName(String name)
+   public VerbTimes fromEnumName(String name)
    {
-      return VerbConjugation.valueOf(name);
+      return VerbTimes.valueOf(name);
    }
 
    @Override

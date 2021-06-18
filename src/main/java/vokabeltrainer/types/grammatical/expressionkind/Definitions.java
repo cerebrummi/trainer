@@ -10,7 +10,7 @@ import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
 import vokabeltrainer.types.grammatical.Numerus;
-import vokabeltrainer.types.grammatical.VerbConjugation;
+import vokabeltrainer.types.grammatical.VerbTimes;
 
 public class Definitions
 {
@@ -133,7 +133,7 @@ public class Definitions
 
    public String getVerbConjugationInfos()
    {
-      return grammaticalEnumToInfos(VerbConjugation.class).toString();
+      return grammaticalEnumToInfos(VerbTimes.class).toString();
    }
    
    public String getBinjanInfos()

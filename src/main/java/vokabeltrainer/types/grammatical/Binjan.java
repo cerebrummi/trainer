@@ -10,10 +10,6 @@ public enum Binjan
          "unbekannt"),
    PAAL(
          "pa'al"),
-   PAAL_HOHL(
-         "pa'al hohl"),
-   PAAL_SCHWACH(
-         "pa'al schwach"),
    PIEL(
          "pi'el"),
    HIFIL(
@@ -53,8 +49,6 @@ public enum Binjan
       case HUFAL:
       case NIFAL:
       case PAAL:
-      case PAAL_HOHL:
-      case PAAL_SCHWACH:
       case PIEL:
       case PUAL:
          return description;
@@ -82,8 +76,6 @@ public enum Binjan
       case HUFAL:
       case NIFAL:
       case PAAL:
-      case PAAL_HOHL:
-      case PAAL_SCHWACH:
       case PIEL:
       case PUAL:
          return description;

@@ -8,9 +8,7 @@ import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
-import vokabeltrainer.types.grammatical.VerbConjugation;
-import vokabeltrainer.types.grammatical.VerbStrength;
-import vokabeltrainer.types.grammatical.VerbType;
+import vokabeltrainer.types.grammatical.VerbTimes;
 
 public class DefinitionHelper
 {
@@ -37,9 +35,7 @@ public class DefinitionHelper
       case PERSONALPRONOM:
       case POSSESSIVPRONOM:
          list.add(Binjan.BINJAN_NA);
-         list.add(VerbConjugation.VERBCONJUGATION_NA);
-         list.add(VerbStrength.VERBSTRENGTH_NA);
-         list.add(VerbType.VERBTYPE_NA);
+         list.add(VerbTimes.VERBCONJUGATION_NA);
          break;
       case SUBSTANTIV:
       case UHRZEIT:
@@ -55,17 +51,13 @@ public class DefinitionHelper
       case FARBE:
          list.add(Binjan.BINJAN_NA);
          list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
-         list.add(VerbConjugation.VERBCONJUGATION_NA);
-         list.add(VerbStrength.VERBSTRENGTH_NA);
-         list.add(VerbType.VERBTYPE_NA);
+         list.add(VerbTimes.VERBCONJUGATION_NA);
          break;
       case ARTIKEL:
          list.add(Binjan.BINJAN_NA);
          list.add(Numerus.NUMERUS_NA);
          list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
-         list.add(VerbConjugation.VERBCONJUGATION_NA);
-         list.add(VerbStrength.VERBSTRENGTH_NA);
-         list.add(VerbType.VERBTYPE_NA);
+         list.add(VerbTimes.VERBCONJUGATION_NA);
          break;
       case UMGANGSPRACHE:
       case EXPRESSIONKIND_UNKNOWN:
@@ -82,9 +74,7 @@ public class DefinitionHelper
          list.add(Gender.GENDER_NA);
          list.add(Numerus.NUMERUS_NA);
          list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
-         list.add(VerbConjugation.VERBCONJUGATION_NA);
-         list.add(VerbStrength.VERBSTRENGTH_NA);
-         list.add(VerbType.VERBTYPE_NA);
+         list.add(VerbTimes.VERBCONJUGATION_NA);
       }
       return list;
    }
@@ -110,17 +100,9 @@ public class DefinitionHelper
       {
          list.add(Numerus.NUMERUS_UNKNOWN);
       }
-      if (!listNA.contains(VerbConjugation.VERBCONJUGATION_NA))
+      if (!listNA.contains(VerbTimes.VERBCONJUGATION_NA))
       {
-         list.add(VerbConjugation.VERBCONJUGATION_UNKNOWN);
-      }
-      if (!listNA.contains(VerbStrength.VERBSTRENGTH_NA))
-      {
-         list.add(VerbStrength.VERBSTRENGTH_UNKNOWN);
-      }
-      if (!listNA.contains(VerbType.VERBTYPE_NA))
-      {
-         list.add(VerbType.VERBTYPE_UNKNOWN);
+         list.add(VerbTimes.VERBCONJUGATION_UNKNOWN);
       }
       return list;
    }

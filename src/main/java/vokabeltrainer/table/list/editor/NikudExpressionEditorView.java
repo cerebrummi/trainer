@@ -60,9 +60,7 @@ import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
-import vokabeltrainer.types.grammatical.VerbConjugation;
-import vokabeltrainer.types.grammatical.VerbStrength;
-import vokabeltrainer.types.grammatical.VerbType;
+import vokabeltrainer.types.grammatical.VerbTimes;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
@@ -128,10 +126,6 @@ public class NikudExpressionEditorView extends JDialog
 
    private JPanel verbConjugationBoxPanel;
 
-   private JPanel verbStrengthBoxPanel;
-
-   private JPanel verbTypeBoxPanel;
-
    private JComboBox<Binjan> binjanBox;
 
    private JComboBox<Gender> genderBox;
@@ -140,11 +134,7 @@ public class NikudExpressionEditorView extends JDialog
 
    private JComboBox<Numerus> numerusBox;
 
-   private JComboBox<VerbConjugation> verbConjugationBox;
-
-   private JComboBox<VerbStrength> verbStrengthBox;
-
-   private JComboBox<VerbType> verbTypeBox;
+   private JComboBox<VerbTimes> verbConjugationBox;
 
    private JPanel definitionPanel;
 
@@ -451,14 +441,14 @@ public class NikudExpressionEditorView extends JDialog
       numerusBoxPanel.setBackground(ApplicationColors.getTransparent());
       numerusBoxPanel.setBorder(BorderFactory.createTitledBorder("Numerus"));
 
-      verbConjugationBox = new JComboBox<>(VerbConjugation.values());
+      verbConjugationBox = new JComboBox<>(VerbTimes.values());
       verbConjugationBox.setFont(Main.getGermanFont(14F));
       verbConjugationBox.setEditable(false);
       verbConjugationBox
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       verbConjugationBox
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbConjugationBox.setMaximumRowCount(VerbConjugation.values().length);
+      verbConjugationBox.setMaximumRowCount(VerbTimes.values().length);
       verbConjugationBoxPanel = new JPanel();
       TotemLayout verbConjugationLayout = new TotemLayout(
             verbConjugationBoxPanel);
@@ -467,35 +457,7 @@ public class NikudExpressionEditorView extends JDialog
       verbConjugationBoxPanel.setOpaque(false);
       verbConjugationBoxPanel.setBackground(ApplicationColors.getTransparent());
       verbConjugationBoxPanel
-            .setBorder(BorderFactory.createTitledBorder("VerbConjugation"));
-
-      verbStrengthBox = new JComboBox<>(VerbStrength.values());
-      verbStrengthBox.setFont(Main.getGermanFont(14F));
-      verbStrengthBox.setEditable(false);
-      verbStrengthBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbStrengthBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbStrengthBox.setMaximumRowCount(VerbStrength.values().length);
-      verbStrengthBoxPanel = new JPanel();
-      TotemLayout verbStrengthLayout = new TotemLayout(verbStrengthBoxPanel);
-      verbStrengthBoxPanel.setLayout(verbStrengthLayout);
-      verbStrengthBoxPanel.add(verbStrengthBox);
-      verbStrengthBoxPanel.setOpaque(false);
-      verbStrengthBoxPanel.setBackground(ApplicationColors.getTransparent());
-      verbStrengthBoxPanel
-            .setBorder(BorderFactory.createTitledBorder("VerbStärke"));
-
-      verbTypeBox = new JComboBox<>(VerbType.values());
-      verbTypeBox.setFont(Main.getGermanFont(14F));
-      verbTypeBox.setEditable(false);
-      verbTypeBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbTypeBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbTypeBoxPanel = new JPanel();
-      TotemLayout verbTypeBoxLayout = new TotemLayout(verbTypeBoxPanel);
-      verbTypeBoxPanel.setLayout(verbTypeBoxLayout);
-      verbTypeBoxPanel.add(verbTypeBox);
-      verbTypeBoxPanel.setOpaque(false);
-      verbTypeBoxPanel.setBackground(ApplicationColors.getTransparent());
-      verbTypeBoxPanel.setBorder(BorderFactory.createTitledBorder("Verb Typ"));
+            .setBorder(BorderFactory.createTitledBorder("Zeitformen"));
 
       keyboard = new KeyboardHebrewNikud(hebrew, components, 70, true);
    }
@@ -579,7 +541,7 @@ public class NikudExpressionEditorView extends JDialog
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
       scrollPaneExpressionTable.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(ApplicationColors.getLightGrayGold()),
-            "Wortarten"));
+            "Wortarten (Mehrfachauswahl)"));
 
       lastModiefiedLabel = new JLabel();
       lastModiefiedLabel.setFont(Settings.getButtonFont());
@@ -756,24 +718,9 @@ public class NikudExpressionEditorView extends JDialog
       else
       {
          this.verbConjugationBox
-               .setSelectedItem(VerbConjugation.VERBCONJUGATION_NA);
+               .setSelectedItem(VerbTimes.VERBCONJUGATION_NA);
       }
-      if (grammaticalEnumsToShow.contains(GrammaticalParentEnum.VERB_STRENGTH))
-      {
-         definitionPanel.add(this.verbStrengthBoxPanel);
-      }
-      else
-      {
-         verbStrengthBox.setSelectedItem(VerbStrength.VERBSTRENGTH_NA);
-      }
-      if (grammaticalEnumsToShow.contains(GrammaticalParentEnum.VERB_TYPE))
-      {
-         definitionPanel.add(this.verbTypeBoxPanel);
-      }
-      else
-      {
-         verbTypeBox.setSelectedItem(VerbType.VERBTYPE_NA);
-      }
+     
       JPanel filler = new JPanel();
       filler.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 0));
       filler.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 700));
@@ -834,11 +781,6 @@ public class NikudExpressionEditorView extends JDialog
             definitions.setGrammaticalEnum(expressionKind.getKind(),
                   verbConjugationBox
                         .getItemAt(verbConjugationBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind.getKind(),
-                  verbStrengthBox
-                        .getItemAt(verbStrengthBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind.getKind(),
-                  verbTypeBox.getItemAt(verbTypeBox.getSelectedIndex()));
          }
       }
       if (definitions.getExpressionKindSet().isEmpty())
@@ -915,14 +857,7 @@ public class NikudExpressionEditorView extends JDialog
       this.newExpression = newExpression;
 
       this.chapter.setModel(Data.getChapterComboBoxModel());
-      if (expression.getChapter().getName().isEmpty())
-      {
-         chapter.setSelectedIndex(chapter.getItemCount() - 1);
-      }
-      else
-      {
-         this.chapter.setSelectedItem(expression.getChapter().getName());
-      }
+      this.chapter.setSelectedItem(expression.getChapter().getName());
       
       this.indexField.setText(expression.getSortingIndex());
 
@@ -951,8 +886,6 @@ public class NikudExpressionEditorView extends JDialog
          grammaticalPersonBox.setSelectedIndex(0);
          numerusBox.setSelectedIndex(0);
          verbConjugationBox.setSelectedIndex(0);
-         verbStrengthBox.setSelectedIndex(0);
-         verbTypeBox.setSelectedIndex(0);
       }
       else
       {
@@ -973,11 +906,7 @@ public class NikudExpressionEditorView extends JDialog
             numerusBox.setSelectedItem(
                   definitions.getGrammaticalEnum(kind, Numerus.class));
             verbConjugationBox.setSelectedItem(
-                  definitions.getGrammaticalEnum(kind, VerbConjugation.class));
-            verbStrengthBox.setSelectedItem(
-                  definitions.getGrammaticalEnum(kind, VerbStrength.class));
-            verbTypeBox.setSelectedItem(
-                  definitions.getGrammaticalEnum(kind, VerbType.class));
+                  definitions.getGrammaticalEnum(kind, VerbTimes.class));
             showGrammaticalEnums(
                   ExpressionKind.getSetOfGrammaticalParentEnums(kinds));
 
@@ -1076,8 +1005,6 @@ public class NikudExpressionEditorView extends JDialog
          this.grammaticalPersonBox.setEnabled(works);
          this.binjanBox.setEnabled(works);
          this.verbConjugationBox.setEnabled(works);
-         this.verbStrengthBox.setEnabled(works);
-         this.verbTypeBox.setEnabled(works);
          this.copyButton.setEnabled(works);
          this.copyButton.setVisible(works);
          this.cutButton.setEnabled(works);

@@ -69,9 +69,7 @@ import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
-import vokabeltrainer.types.grammatical.VerbConjugation;
-import vokabeltrainer.types.grammatical.VerbStrength;
-import vokabeltrainer.types.grammatical.VerbType;
+import vokabeltrainer.types.grammatical.VerbTimes;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
@@ -750,9 +748,7 @@ public final class Data
                Numerus numerus = Numerus.PLEASE_CHOOSE;
                GrammaticalPerson person = GrammaticalPerson.PLEASE_CHOOSE;
                Binjan binjan = Binjan.PLEASE_CHOOSE;
-               VerbConjugation conjugation = VerbConjugation.PLEASE_CHOOSE;
-               VerbStrength strength = VerbStrength.PLEASE_CHOOSE;
-               VerbType type = VerbType.PLEASE_CHOOSE;
+               VerbTimes conjugation = VerbTimes.PLEASE_CHOOSE;
                try
                {
                   gender = Gender.valueOf(entries[index]);
@@ -791,7 +787,7 @@ public final class Data
                index++;
                try
                {
-                  conjugation = VerbConjugation.valueOf(entries[index]);
+                  conjugation = VerbTimes.valueOf(entries[index]);
                }
                catch (Exception e)
                {
@@ -800,7 +796,7 @@ public final class Data
                index++;
                try
                {
-                  strength = VerbStrength.valueOf(entries[index]);
+                  // TODO
                }
                catch (Exception e)
                {
@@ -809,7 +805,7 @@ public final class Data
                index++;
                try
                {
-                  type = VerbType.valueOf(entries[index]);
+                  // TODO
                }
                catch (Exception e)
                {
@@ -822,8 +818,6 @@ public final class Data
                   definitions.setGrammaticalEnum(kind, person);
                   definitions.setGrammaticalEnum(kind, binjan);
                   definitions.setGrammaticalEnum(kind, conjugation);
-                  definitions.setGrammaticalEnum(kind, strength);
-                  definitions.setGrammaticalEnum(kind, type);
                }
                expression.setDefinitions(definitions);
                index++;

@@ -18,9 +18,7 @@ public class GrammaticalEnumHelper
       enums.add(Gender.class);
       enums.add(GrammaticalPerson.class);
       enums.add(Numerus.class);
-      enums.add(VerbConjugation.class);
-      enums.add(VerbStrength.class);
-      enums.add(VerbType.class);
+      enums.add(VerbTimes.class);
       return enums;
    }
 }

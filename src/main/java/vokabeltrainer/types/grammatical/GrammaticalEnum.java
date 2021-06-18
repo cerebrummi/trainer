@@ -17,9 +17,7 @@ public interface GrammaticalEnum
       NUMERUS(20),
       GRAMMATICAL_PERSON(30),
       BINJAN(40),
-      VERB_CONJUGATION(50),
-      VERB_STRENGTH(60),
-      VERB_TYPE(70);
+      VERB_CONJUGATION(50);
       
       private int sortNumber;
       
