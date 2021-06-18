@@ -8,24 +8,29 @@ import java.util.Map;
 
 public class LetterHelper
 {
-   private static Map<String, Letter> nikudCodeMap;
+   private static Map<String, Letter> codeMap;
    static
    {
-      nikudCodeMap = new HashMap<>();
+      codeMap = new HashMap<>();
       for (Letter nikud : NikudLetter.values())
       {
-         nikudCodeMap.put(nikud.getCode().toLowerCase(), nikud);
-         nikudCodeMap.put(nikud.getCode().toUpperCase(), nikud);
+         codeMap.put(nikud.getCode().toLowerCase(), nikud);
+         codeMap.put(nikud.getCode().toUpperCase(), nikud);
+      }
+      for (Letter german : GermanLetter.values())
+      {
+         codeMap.put(german.getCode().toLowerCase(), german);
+         codeMap.put(german.getCode().toUpperCase(), german);
       }
       for (Letter sign : SignLetter.values())
       {
-         nikudCodeMap.put(sign.getCode().toLowerCase(), sign);
-         nikudCodeMap.put(sign.getCode().toUpperCase(), sign);
+         codeMap.put(sign.getCode().toLowerCase(), sign);
+         codeMap.put(sign.getCode().toUpperCase(), sign);
       }
       for (Letter number : NumberLetter.values())
       {
-         nikudCodeMap.put(number.getCode().toLowerCase(), number);
-         nikudCodeMap.put(number.getCode().toUpperCase(), number);
+         codeMap.put(number.getCode().toLowerCase(), number);
+         codeMap.put(number.getCode().toUpperCase(), number);
       }
    }
 
@@ -77,9 +82,9 @@ public class LetterHelper
       StringBuilder builder = new StringBuilder();
       for (String code : codes)
       {
-         if (nikudCodeMap.get(code) != null)
+         if (codeMap.get(code) != null)
          {
-            builder.append(nikudCodeMap.get(code).getUnicode());
+            builder.append(codeMap.get(code).getUnicode());
          }
       }
       return builder.toString();
@@ -97,7 +102,7 @@ public class LetterHelper
 
       for (int i = 0; i < codeList.size(); i++)
       {
-         Letter letter = nikudCodeMap.get(codeList.get(i));
+         Letter letter = codeMap.get(codeList.get(i));
          if (LetterType.NIKUD == letter.isType())
          {
             NikudLetter nikudLetter = (NikudLetter) letter;
