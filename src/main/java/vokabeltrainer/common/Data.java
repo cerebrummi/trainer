@@ -744,11 +744,11 @@ public final class Data
                   }
                }
                index++;
-               Gender gender = Gender.PLEASE_CHOOSE;
-               Numerus numerus = Numerus.PLEASE_CHOOSE;
-               GrammaticalPerson person = GrammaticalPerson.PLEASE_CHOOSE;
-               Binjan binjan = Binjan.PLEASE_CHOOSE;
-               VerbTimes conjugation = VerbTimes.PLEASE_CHOOSE;
+               Gender gender = Gender.GENDER_NA;
+               Numerus numerus = Numerus.NUMERUS_NA;
+               GrammaticalPerson person = GrammaticalPerson.GRAMMATICALPERSON_NA;
+               Binjan binjan = Binjan.BINJAN_NA;
+               VerbTimes times = VerbTimes.VERBTIMES_NA;
                try
                {
                   gender = Gender.valueOf(entries[index]);
@@ -787,37 +787,37 @@ public final class Data
                index++;
                try
                {
-                  conjugation = VerbTimes.valueOf(entries[index]);
+                  times = VerbTimes.valueOf(entries[index]);
                }
                catch (Exception e)
                {
                   // nothing
                }
-               index++;
-               try
-               {
-                  // TODO
-               }
-               catch (Exception e)
-               {
-                  // nothing
-               }
-               index++;
-               try
-               {
-                  // TODO
-               }
-               catch (Exception e)
-               {
-                  // nothing
-               }
+//               index++;
+//               try
+//               {
+//                  // TODO
+//               }
+//               catch (Exception e)
+//               {
+//                  // nothing
+//               }
+//               index++;
+//               try
+//               {
+//                  // TODO
+//               }
+//               catch (Exception e)
+//               {
+//                  // nothing
+//               }
                for (ExpressionKind kind : kinds)
                {
                   definitions.setGrammaticalEnum(kind, gender);
                   definitions.setGrammaticalEnum(kind, numerus);
                   definitions.setGrammaticalEnum(kind, person);
                   definitions.setGrammaticalEnum(kind, binjan);
-                  definitions.setGrammaticalEnum(kind, conjugation);
+                  definitions.setGrammaticalEnum(kind, times);
                }
                expression.setDefinitions(definitions);
                index++;

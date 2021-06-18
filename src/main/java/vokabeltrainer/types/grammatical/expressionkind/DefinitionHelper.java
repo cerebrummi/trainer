@@ -35,7 +35,7 @@ public class DefinitionHelper
       case PERSONALPRONOM:
       case POSSESSIVPRONOM:
          list.add(Binjan.BINJAN_NA);
-         list.add(VerbTimes.VERBCONJUGATION_NA);
+         list.add(VerbTimes.VERBTIMES_NA);
          break;
       case SUBSTANTIV:
       case UHRZEIT:
@@ -51,13 +51,13 @@ public class DefinitionHelper
       case FARBE:
          list.add(Binjan.BINJAN_NA);
          list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
-         list.add(VerbTimes.VERBCONJUGATION_NA);
+         list.add(VerbTimes.VERBTIMES_NA);
          break;
       case ARTIKEL:
          list.add(Binjan.BINJAN_NA);
          list.add(Numerus.NUMERUS_NA);
          list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
-         list.add(VerbTimes.VERBCONJUGATION_NA);
+         list.add(VerbTimes.VERBTIMES_NA);
          break;
       case UMGANGSPRACHE:
       case EXPRESSIONKIND_UNKNOWN:
@@ -74,7 +74,7 @@ public class DefinitionHelper
          list.add(Gender.GENDER_NA);
          list.add(Numerus.NUMERUS_NA);
          list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
-         list.add(VerbTimes.VERBCONJUGATION_NA);
+         list.add(VerbTimes.VERBTIMES_NA);
       }
       return list;
    }
@@ -100,9 +100,9 @@ public class DefinitionHelper
       {
          list.add(Numerus.NUMERUS_UNKNOWN);
       }
-      if (!listNA.contains(VerbTimes.VERBCONJUGATION_NA))
+      if (!listNA.contains(VerbTimes.VERBTIMES_NA))
       {
-         list.add(VerbTimes.VERBCONJUGATION_UNKNOWN);
+         list.add(VerbTimes.VERBTIMES_UNKNOWN);
       }
       return list;
    }

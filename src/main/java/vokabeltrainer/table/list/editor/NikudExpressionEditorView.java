@@ -124,7 +124,7 @@ public class NikudExpressionEditorView extends JDialog
 
    private JPanel numerusBoxPanel;
 
-   private JPanel verbConjugationBoxPanel;
+   private JPanel verbTimesBoxPanel;
 
    private JComboBox<Binjan> binjanBox;
 
@@ -134,7 +134,7 @@ public class NikudExpressionEditorView extends JDialog
 
    private JComboBox<Numerus> numerusBox;
 
-   private JComboBox<VerbTimes> verbConjugationBox;
+   private JComboBox<VerbTimes> verbTimesBox;
 
    private JPanel definitionPanel;
 
@@ -441,22 +441,22 @@ public class NikudExpressionEditorView extends JDialog
       numerusBoxPanel.setBackground(ApplicationColors.getTransparent());
       numerusBoxPanel.setBorder(BorderFactory.createTitledBorder("Numerus"));
 
-      verbConjugationBox = new JComboBox<>(VerbTimes.values());
-      verbConjugationBox.setFont(Main.getGermanFont(14F));
-      verbConjugationBox.setEditable(false);
-      verbConjugationBox
+      verbTimesBox = new JComboBox<>(VerbTimes.values());
+      verbTimesBox.setFont(Main.getGermanFont(14F));
+      verbTimesBox.setEditable(false);
+      verbTimesBox
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbConjugationBox
+      verbTimesBox
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbConjugationBox.setMaximumRowCount(VerbTimes.values().length);
-      verbConjugationBoxPanel = new JPanel();
+      verbTimesBox.setMaximumRowCount(VerbTimes.values().length);
+      verbTimesBoxPanel = new JPanel();
       TotemLayout verbConjugationLayout = new TotemLayout(
-            verbConjugationBoxPanel);
-      verbConjugationBoxPanel.setLayout(verbConjugationLayout);
-      verbConjugationBoxPanel.add(verbConjugationBox);
-      verbConjugationBoxPanel.setOpaque(false);
-      verbConjugationBoxPanel.setBackground(ApplicationColors.getTransparent());
-      verbConjugationBoxPanel
+            verbTimesBoxPanel);
+      verbTimesBoxPanel.setLayout(verbConjugationLayout);
+      verbTimesBoxPanel.add(verbTimesBox);
+      verbTimesBoxPanel.setOpaque(false);
+      verbTimesBoxPanel.setBackground(ApplicationColors.getTransparent());
+      verbTimesBoxPanel
             .setBorder(BorderFactory.createTitledBorder("Zeitformen"));
 
       keyboard = new KeyboardHebrewNikud(hebrew, components, 70, true);
@@ -711,14 +711,14 @@ public class NikudExpressionEditorView extends JDialog
          this.binjanBox.setSelectedItem(Binjan.BINJAN_NA);
       }
       if (grammaticalEnumsToShow
-            .contains(GrammaticalParentEnum.VERB_CONJUGATION))
+            .contains(GrammaticalParentEnum.VERB_TIMES))
       {
-         definitionPanel.add(this.verbConjugationBoxPanel);
+         definitionPanel.add(this.verbTimesBoxPanel);
       }
       else
       {
-         this.verbConjugationBox
-               .setSelectedItem(VerbTimes.VERBCONJUGATION_NA);
+         this.verbTimesBox
+               .setSelectedItem(VerbTimes.VERBTIMES_NA);
       }
      
       JPanel filler = new JPanel();
@@ -779,8 +779,8 @@ public class NikudExpressionEditorView extends JDialog
             definitions.setGrammaticalEnum(expressionKind.getKind(),
                   numerusBox.getItemAt(numerusBox.getSelectedIndex()));
             definitions.setGrammaticalEnum(expressionKind.getKind(),
-                  verbConjugationBox
-                        .getItemAt(verbConjugationBox.getSelectedIndex()));
+                  verbTimesBox
+                        .getItemAt(verbTimesBox.getSelectedIndex()));
          }
       }
       if (definitions.getExpressionKindSet().isEmpty())
@@ -885,7 +885,7 @@ public class NikudExpressionEditorView extends JDialog
          genderBox.setSelectedIndex(0);
          grammaticalPersonBox.setSelectedIndex(0);
          numerusBox.setSelectedIndex(0);
-         verbConjugationBox.setSelectedIndex(0);
+         verbTimesBox.setSelectedIndex(0);
       }
       else
       {
@@ -905,7 +905,7 @@ public class NikudExpressionEditorView extends JDialog
                   .getGrammaticalEnum(kind, GrammaticalPerson.class));
             numerusBox.setSelectedItem(
                   definitions.getGrammaticalEnum(kind, Numerus.class));
-            verbConjugationBox.setSelectedItem(
+            verbTimesBox.setSelectedItem(
                   definitions.getGrammaticalEnum(kind, VerbTimes.class));
             showGrammaticalEnums(
                   ExpressionKind.getSetOfGrammaticalParentEnums(kinds));
@@ -1004,7 +1004,7 @@ public class NikudExpressionEditorView extends JDialog
          this.numerusBox.setEnabled(works);
          this.grammaticalPersonBox.setEnabled(works);
          this.binjanBox.setEnabled(works);
-         this.verbConjugationBox.setEnabled(works);
+         this.verbTimesBox.setEnabled(works);
          this.copyButton.setEnabled(works);
          this.copyButton.setVisible(works);
          this.cutButton.setEnabled(works);

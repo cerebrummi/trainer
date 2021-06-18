@@ -4,7 +4,7 @@ public enum VerbTimes implements GrammaticalEnum
 {
    PLEASE_CHOOSE(
          "bitte wählen"),
-   VERBCONJUGATION_UNKNOWN(
+   VERBTIMES_UNKNOWN(
          "unbekannt"),
    INFINITIVE(
          "Infinitiv"),
@@ -20,12 +20,12 @@ public enum VerbTimes implements GrammaticalEnum
          "Befehlsform"),
    ACTION_NOUN(
          "Gerundium"),
-   VERBCONJUGATION_NA(
+   VERBTIMES_NA(
          "nicht anwendbar");
 
    private String description;
    private boolean selected;
-   private GrammaticalParentEnum parent = GrammaticalParentEnum.VERB_CONJUGATION;
+   private GrammaticalParentEnum parent = GrammaticalParentEnum.VERB_TIMES;
 
    VerbTimes(String description)
    {
@@ -50,9 +50,9 @@ public enum VerbTimes implements GrammaticalEnum
       case PAST_PARTICIPLE:
       case PRESENT:
          return description;
-      case VERBCONJUGATION_UNKNOWN:
+      case VERBTIMES_UNKNOWN:
          return "Verbconjugation " + description;
-      case VERBCONJUGATION_NA:
+      case VERBTIMES_NA:
       default:
          return "";
       }
@@ -77,8 +77,8 @@ public enum VerbTimes implements GrammaticalEnum
       case PAST_PARTICIPLE:
       case PRESENT:
          return description;
-      case VERBCONJUGATION_UNKNOWN:
-      case VERBCONJUGATION_NA:
+      case VERBTIMES_UNKNOWN:
+      case VERBTIMES_NA:
       default:
          return "";
       }

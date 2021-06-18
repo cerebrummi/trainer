@@ -35,7 +35,7 @@ public class ExpressionKindHelper
    public static GrammaticalParentEnum[] MODALVERB_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS,
          GrammaticalParentEnum.GRAMMATICAL_PERSON, GrammaticalParentEnum.BINJAN,
-         GrammaticalParentEnum.VERB_CONJUGATION};
+         GrammaticalParentEnum.VERB_TIMES};
    public static GrammaticalParentEnum[] ORDNUNGSZAHL_ENUMS = {
          GrammaticalParentEnum.GENDER };
    public static GrammaticalParentEnum[] PARTIKEL_ENUMS = {};
@@ -55,7 +55,7 @@ public class ExpressionKindHelper
    public static GrammaticalParentEnum[] VERB_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS,
          GrammaticalParentEnum.GRAMMATICAL_PERSON, GrammaticalParentEnum.BINJAN,
-         GrammaticalParentEnum.VERB_CONJUGATION};
+         GrammaticalParentEnum.VERB_TIMES};
    public static GrammaticalParentEnum[] WOCHENTAG_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
    public static GrammaticalParentEnum[] ZAHL_ENUMS = {
