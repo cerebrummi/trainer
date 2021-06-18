@@ -59,7 +59,7 @@ public class ExpressionComparator implements Comparator<Expression>
          coll.setStrength(Collator.PRIMARY);
          return coll.compare(o1.getSortingIndex(), o2.getSortingIndex());
       default:
-         if (Language.GERMAN.equals(language))
+         if (Language.GERMAN_TO_HEBREW.equals(language))
          {
             Collator coll2 = Collator.getInstance(Locale.GERMAN);
             coll2.setStrength(Collator.PRIMARY);

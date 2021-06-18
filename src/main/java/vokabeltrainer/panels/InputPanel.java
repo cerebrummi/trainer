@@ -185,10 +185,10 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
 
    private void doShowTable()
    {
-      ExpressionTableModel tableModel = Data.findTranslations(Language.GERMAN,
+      ExpressionTableModel tableModel = Data.findTranslations(Language.GERMAN_TO_HEBREW,
             null, null, null, currentChapter, null, SortingType.DATE);
       tablePanel.removeAll();
-      ExpressionTable table = new ExpressionTable(tableModel, Language.GERMAN,
+      ExpressionTable table = new ExpressionTable(tableModel, Language.GERMAN_TO_HEBREW,
             this, true);
       JScrollPane tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);

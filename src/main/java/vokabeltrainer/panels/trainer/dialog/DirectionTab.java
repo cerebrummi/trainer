@@ -81,13 +81,13 @@ public class DirectionTab extends BackgroundPanelTiled
       
       germanToNikudButton.addActionListener(event -> {
          removeTabsToTheRight(dialog);
-         dialog.setLanguageDirection(Language.TO_NIKUD);
+         dialog.setLanguageDirection(Language.GERMAN_TO_HEBREW);
          nextButton.setEnabled(true);
       });
 
       hebrewToGermanButton.addActionListener(event -> {
          removeTabsToTheRight(dialog);
-         dialog.setLanguageDirection(Language.HEBREW);
+         dialog.setLanguageDirection(Language.HEBREW_TO_GERMAN);
          nextButton.setEnabled(true);
       });
 

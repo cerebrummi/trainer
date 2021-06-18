@@ -34,18 +34,18 @@ public class StatisticsTableRow
       this.row = row;
       this.date = date;
       
-      Collections.sort(expressionsDtoH, new ExpressionComparator(Language.GERMAN));
+      Collections.sort(expressionsDtoH, new ExpressionComparator(Language.GERMAN_TO_HEBREW));
       germanDtoH = new ArrayList<>(expressionsDtoH.size());
       for(Expression expression : expressionsDtoH)
       {
-         germanDtoH.add(expression.getWordGermanForStatistics(Language.GERMAN));
+         germanDtoH.add(expression.getWordGermanForStatistics(Language.GERMAN_TO_HEBREW));
       }
       
-      Collections.sort(expressionsHtoD, new ExpressionComparator(Language.GERMAN));
+      Collections.sort(expressionsHtoD, new ExpressionComparator(Language.HEBREW_TO_GERMAN));
       germanHtoD = new ArrayList<>(expressionsHtoD.size());
       for(Expression expression : expressionsHtoD)
       {
-         germanHtoD.add(expression.getWordGermanForStatistics(Language.HEBREW));
+         germanHtoD.add(expression.getWordGermanForStatistics(Language.HEBREW_TO_GERMAN));
       }
       
       this.model = model;

@@ -409,7 +409,7 @@ public class Expression
    {
       StringJoiner joiner = new StringJoiner("\n");
       joiner.add(chapter.getName());
-      if (Language.GERMAN.equals(language))
+      if (Language.GERMAN_TO_HEBREW.equals(language))
       {
          joiner.add(german);
          joiner.add(hebrew);
@@ -441,7 +441,7 @@ public class Expression
             .ofPattern("dd.MM.yyyy");
       StringJoiner joiner = new StringJoiner("\t");
       joiner.add(this.uuid.toString());
-      if (Language.GERMAN.equals(languageDirection))
+      if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          joiner.add(
                this.trainingStatusDToH.getNextDate().format(dateTimeFormatter));
@@ -460,7 +460,7 @@ public class Expression
 
    public TrainingStatus getTrainingStatus(Language languageDirection)
    {
-      if (Language.GERMAN.equals(languageDirection))
+      if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          return this.getTrainingStatusDToH();
       }
@@ -484,7 +484,7 @@ public class Expression
 
    public String getWordGermanForStatistics(Language language)
    {
-      if (Language.GERMAN == language) // DtoH
+      if (Language.GERMAN_TO_HEBREW == language)
       {
          return german + "   [" + this.getTrainingStatusDToH().getTrys()
                + " mal "
@@ -492,7 +492,7 @@ public class Expression
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }
-      else // HtoD
+      else
       {
          return german + "   [" + this.getTrainingStatusHToD().getTrys()
                + " mal "

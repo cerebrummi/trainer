@@ -69,8 +69,7 @@ public class TrainingTable extends JTable
       List<Expression> list = new ArrayList<>(resultSet.size());
       switch (languageDirection)
       {
-      case GERMAN:
-      case TO_NIKUD:
+      case GERMAN_TO_HEBREW:
          for (Expression expression : resultSet)
          {
             if (!expression.getTrainingStatusDToH().isTrainingStarted())
@@ -82,7 +81,7 @@ public class TrainingTable extends JTable
             list.add(expression);
          }
          break;
-      case HEBREW:
+      case HEBREW_TO_GERMAN:
          for (Expression expression : resultSet)
          {
             if (!expression.getTrainingStatusHToD().isTrainingStarted())

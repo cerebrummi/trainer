@@ -3,8 +3,8 @@ package vokabeltrainer.panels.dictionary;
 public enum Action
 {
    OPENED_PAGE,
-   GERMAN,
-   HEBREW,
+   GERMAN_TO_HEBREW,
+   HEBREW_TO_GERMAN,
    TAB_CHAPTER,
    TAB_SEARCH,
    TAB_EXPRESSIONKIND,

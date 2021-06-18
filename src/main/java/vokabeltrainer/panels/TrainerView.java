@@ -112,7 +112,7 @@ public class TrainerView extends BackgroundPanelTiled
    public void init()
    {
       languageDirectionLabel.setText(
-            languageDirection.equals(Language.HEBREW) ? "Hebräisch >> Deutsch" : "Deutsch >> Hebräisch"
+            languageDirection.equals(Language.HEBREW_TO_GERMAN) ? "Hebräisch >> Deutsch" : "Deutsch >> Hebräisch"
                   );
 
       initQuestionPanel(languageDirection);
@@ -301,7 +301,7 @@ public class TrainerView extends BackgroundPanelTiled
    private void initQuestionPanel(Language languageDirection)
    {
       questionPanel.removeAll();
-      if (Language.TO_NIKUD.equals(languageDirection))
+      if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          questionField = new JTextField();
          questionField.setBackground(ApplicationColors.getLightBlue());
@@ -362,7 +362,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       questionPanel.add(answerPanel);
 
-      if(Language.TO_NIKUD.equals(languageDirection))
+      if(Language.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          answerPanel.removeAll();
          answerPanel
@@ -451,7 +451,7 @@ public class TrainerView extends BackgroundPanelTiled
       swapPanel.add("RED", imageFieldError);
       cardLayout.show(swapPanel, "START");
 
-      if (Language.GERMAN.equals(languageDirection) || Language.TO_NIKUD.equals(languageDirection))
+      if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          sendButton = new JButton("Antwort absenden");
       }

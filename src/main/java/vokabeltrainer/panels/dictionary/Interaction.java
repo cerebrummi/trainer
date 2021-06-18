@@ -10,28 +10,28 @@ public class Interaction
    {
       Interaction.interactions = new HashMap<>();
       
-      interactions.put(new Interaction(Action.GERMAN, Status.OPENED_PAGE), Command.NOTHING);
-      interactions.put(new Interaction(Action.HEBREW, Status.OPENED_PAGE), Command.NOTHING);
+      interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.OPENED_PAGE), Command.NOTHING);
+      interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.OPENED_PAGE), Command.NOTHING);
  
-      interactions.put(new Interaction(Action.GERMAN, Status.TAB_CHAPTER), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.HEBREW, Status.TAB_CHAPTER), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.GERMAN, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
-      interactions.put(new Interaction(Action.HEBREW, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
+      interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.TAB_CHAPTER), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.TAB_CHAPTER), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
+      interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       
-      interactions.put(new Interaction(Action.GERMAN, Status.TAB_EXPRESSIONKIND), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.HEBREW, Status.TAB_EXPRESSIONKIND), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.GERMAN, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
-      interactions.put(new Interaction(Action.HEBREW, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
+      interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.TAB_EXPRESSIONKIND), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.TAB_EXPRESSIONKIND), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
+      interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       
-      interactions.put(new Interaction(Action.GERMAN, Status.TAB_SEARCH), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.HEBREW, Status.TAB_SEARCH), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.GERMAN, Status.SEARCH_WHICH_HEBREW), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.GERMAN, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_GERMAN);
-      interactions.put(new Interaction(Action.HEBREW, Status.SEARCH_WHICH_GERMAN), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.HEBREW, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_HEBREW);
+      interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.TAB_SEARCH), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.TAB_SEARCH), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.SEARCH_WHICH_HEBREW), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_GERMAN);
+      interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.SEARCH_WHICH_GERMAN), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_HEBREW);
       
-      interactions.put(new Interaction(Action.GERMAN, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
-      interactions.put(new Interaction(Action.HEBREW, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
       
       interactions.put(new Interaction(Action.TAB_CHAPTER, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.TAB_CHAPTER, Status.TAB_EXPRESSIONKIND), Command.NO_TABLE);

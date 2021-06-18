@@ -181,16 +181,16 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       Font font = Main.getGermanFont(20F);
 
       JRadioButton german = new JRadioButton("Deutsch");
-      german.setActionCommand(Language.GERMAN.name());
+      german.setActionCommand(Language.GERMAN_TO_HEBREW.name());
       german.setFont(font);
       languageTypeGroup.add(german);
 
       JRadioButton hebrew = new JRadioButton("Hebräisch");
-      hebrew.setActionCommand(Language.HEBREW.name());
+      hebrew.setActionCommand(Language.HEBREW_TO_GERMAN.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
 
-      if (Language.GERMAN.equals(initialLanguage))
+      if (Language.GERMAN_TO_HEBREW.equals(initialLanguage))
       {
          german.setSelected(true);
       }

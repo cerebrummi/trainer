@@ -59,14 +59,14 @@ public class TrainerController implements TrainerControllerConnector
       allExpressions.addAll(this.newExpressions);
       expressionsToBeTested = new LinkedList<>();
       expressionsToBeTested.addAll(allExpressions);
-      if (languageDirection == Language.GERMAN) // DtoH
+      if (languageDirection == Language.GERMAN_TO_HEBREW)
       {
          expressionsToBeTested.forEach(expression -> {
             expression.getTrainingStatusDToH()
                   .setTotalTrys(expression.getTrainingStatusDToH().getTrys());
          });
       }
-      else // HtoD
+      else
       {
          expressionsToBeTested.forEach(expression -> {
             expression.getTrainingStatusHToD()
@@ -121,12 +121,11 @@ public class TrainerController implements TrainerControllerConnector
       {
          switch (languageDirection)
          {
-         case GERMAN:
-         case TO_NIKUD:
+         case GERMAN_TO_HEBREW:
             trainerView.getAdditionalInfoField()
                   .setText(currentExpression.getAdditionalInfoGerman(true));
             break;
-         case HEBREW:
+         case HEBREW_TO_GERMAN:
             trainerView.getAdditionalInfoField()
                   .setText(currentExpression.getAdditionalInfoHebrew(true));
             break;
@@ -147,11 +146,10 @@ public class TrainerController implements TrainerControllerConnector
 
       switch (languageDirection)
       {
-      case GERMAN:
-      case TO_NIKUD:
+      case GERMAN_TO_HEBREW:
          trainerView.getQuestionField().setText(currentExpression.getGerman());
          break;
-      case HEBREW:
+      case HEBREW_TO_GERMAN:
          trainerView.getQuestionField().setText(currentExpression.getHebrew());
          break;
       }
@@ -164,7 +162,7 @@ public class TrainerController implements TrainerControllerConnector
    {
       try
       {
-         if (Language.TO_NIKUD.equals(languageDirection)) // DtoNikud
+         if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
          {
             Result result = NikudResultFactory.getResultDtoNikudSentence(currentExpression,
                   trainerView.getAnswerField().getText().trim(), Main.getHebrewFont(30F));
@@ -197,7 +195,7 @@ public class TrainerController implements TrainerControllerConnector
             }
             reactToAnswer(result.isOkay());
          }
-         else // HtoD or NikudtoD
+         else
          {
             trainerView.prepareHtoDFeedbackPanel();
          }

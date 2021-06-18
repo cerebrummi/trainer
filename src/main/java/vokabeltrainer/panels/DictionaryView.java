@@ -323,8 +323,8 @@ public class DictionaryView extends BackgroundPanelTiled
             new Dimension(Settings.getKeyboardWidth() + 50, 420));
       germanSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
       hebrewSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
-      swapPanel.add(Language.GERMAN.name(), germanSearch);
-      swapPanel.add(Language.HEBREW.name(), hebrewSearch);
+      swapPanel.add(Language.GERMAN_TO_HEBREW.name(), germanSearch);
+      swapPanel.add(Language.HEBREW_TO_GERMAN.name(), hebrewSearch);
 
       vertical1.add(swapPanel);
 
@@ -787,7 +787,7 @@ public class DictionaryView extends BackgroundPanelTiled
    {
       Font font = Main.getGermanFont(20F);
       JRadioButton german = new JRadioButton("Deutsch");
-      german.setActionCommand(Action.GERMAN.name());
+      german.setActionCommand(Action.GERMAN_TO_HEBREW.name());
       german.setFont(font);
       german.setSelected(true);
       languageTypeGroup.add(german);
@@ -795,7 +795,7 @@ public class DictionaryView extends BackgroundPanelTiled
       german.setMaximumSize(new Dimension(205, 32));
 
       JRadioButton hebrew = new JRadioButton("Hebräisch");
-      hebrew.setActionCommand(Action.HEBREW.name());
+      hebrew.setActionCommand(Action.HEBREW_TO_GERMAN.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
       hebrew.setMinimumSize(new Dimension(100, 26));

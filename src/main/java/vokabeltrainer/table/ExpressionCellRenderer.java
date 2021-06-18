@@ -31,7 +31,7 @@ public class ExpressionCellRenderer
          boolean isSelected, boolean hasFocus, int row, int column)
    {
       Expression expression = (Expression) value;
-      if (Language.GERMAN.equals(language))
+      if (Language.GERMAN_TO_HEBREW.equals(language))
       {
          list.setListData(expression.toGermanArrayForTableEntry());
       }

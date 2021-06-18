@@ -33,8 +33,8 @@ public class SuccessPanel extends BackgroundPanelTiled
       germanHebrewRegister.setMaximumSize(new Dimension(1500, 800));
 
       infoCard = new InformationTab();
-      languageDtoHcard = new LanguageTab(new InformationTabDtoH(), Language.GERMAN);
-      languageHtoDcard = new LanguageTab(new InformationTabHtoD(), Language.HEBREW);
+      languageDtoHcard = new LanguageTab(new InformationTabDtoH(), Language.GERMAN_TO_HEBREW);
+      languageHtoDcard = new LanguageTab(new InformationTabHtoD(), Language.HEBREW_TO_GERMAN);
 
       germanHebrewRegister.addTab("Karteikasten", infoCard);
       germanHebrewRegister.addTab("Deutsch >> Hebräisch", languageDtoHcard);

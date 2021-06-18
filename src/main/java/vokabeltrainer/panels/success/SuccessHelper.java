@@ -122,13 +122,13 @@ public class SuccessHelper
          for (Vector<SuccessTableRow> row : model.getData())
          {
             Expression expression = row.get(0).getExpression();
-            if (expression.isSelected() && Language.GERMAN == direction)
+            if (expression.isSelected() && Language.GERMAN_TO_HEBREW == direction)
             {
                expression.setTrainingStatusDToH(new TrainingStatus());
                expression.setSelected(false);
                rows.add(row);
             }
-            else if (expression.isSelected() && Language.HEBREW == direction)
+            else if (expression.isSelected() && Language.HEBREW_TO_GERMAN == direction)
             {
                expression.setTrainingStatusHToD(new TrainingStatus());
                expression.setSelected(false);

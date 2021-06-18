@@ -374,18 +374,18 @@ public final class Data
          else
          {
             File german = new File(Settings.getTrainingPath() + File.separator
-                  + Language.GERMAN.name() + ".txt");
+                  + Language.GERMAN_TO_HEBREW.name() + ".txt");
             File hebrew = new File(Settings.getTrainingPath() + File.separator
-                  + Language.HEBREW.name() + ".txt");
+                  + Language.HEBREW_TO_GERMAN.name() + ".txt");
 
             if (german.exists())
             {
-               readTrainingFile(german, Language.GERMAN);
+               readTrainingFile(german, Language.GERMAN_TO_HEBREW);
             }
 
             if (hebrew.exists())
             {
-               readTrainingFile(hebrew, Language.HEBREW);
+               readTrainingFile(hebrew, Language.HEBREW_TO_GERMAN);
             }
          }
       }
@@ -436,12 +436,12 @@ public final class Data
                TrainingStatus trainingstatus = new TrainingStatus(repetition,
                      trys, nextDate);
                Expression expression = alleMap.get(uuid);
-               if (expression != null && Language.GERMAN == languageDirection)
+               if (expression != null && Language.GERMAN_TO_HEBREW == languageDirection)
                {
                   expression.setTrainingStatusDToH(trainingstatus);
                }
                else if (expression != null
-                     && Language.HEBREW == languageDirection)
+                     && Language.HEBREW_TO_GERMAN == languageDirection)
                {
                   expression.setTrainingStatusHToD(trainingstatus);
                }
@@ -981,7 +981,7 @@ public final class Data
          {
             for (Expression expression : expressions)
             {
-               if (Language.GERMAN.equals(language)
+               if (Language.GERMAN_TO_HEBREW.equals(language)
                      && SearchType.SEARCHWORD.equals(search))
                {
                   if (equalsGermanSearchWord(text, expression))
@@ -989,7 +989,7 @@ public final class Data
                      list.add(expression);
                   }
                }
-               else if (Language.GERMAN.equals(language)
+               else if (Language.GERMAN_TO_HEBREW.equals(language)
                      && SearchType.WORDSTART.equals(search))
                {
                   if (equalsGermanWordStart(text, expression))
@@ -997,7 +997,7 @@ public final class Data
                      list.add(expression);
                   }
                }
-               else if (Language.HEBREW.equals(language)
+               else if (Language.HEBREW_TO_GERMAN.equals(language)
                      && SearchType.SEARCHWORD.equals(search))
                {
                   if (equalsHebrewSearchWord(text, expression))
@@ -1005,7 +1005,7 @@ public final class Data
                      list.add(expression);
                   }
                }
-               else if (Language.HEBREW.equals(language)
+               else if (Language.HEBREW_TO_GERMAN.equals(language)
                      && SearchType.WORDSTART.equals(search))
                {
                   if (equalsHebrewWordStart(text, expression))
@@ -1415,7 +1415,7 @@ public final class Data
          List<Expression> result = new ArrayList<>();
          switch (languageDirection)
          {
-         case GERMAN:
+         case GERMAN_TO_HEBREW:
             for (Expression expression : list)
             {
                if (!expression.getTrainingStatusDToH().isTrainingStarted())
@@ -1424,16 +1424,7 @@ public final class Data
                }
             }
             break;
-         case TO_NIKUD:
-            for (Expression expression : list)
-            {
-               if (!expression.getTrainingStatusDToH().isTrainingStarted())
-               {
-                  result.add(expression);
-               }
-            }
-            break;
-         case HEBREW:
+         case HEBREW_TO_GERMAN:
             for (Expression expression : list)
             {
                if (!expression.getTrainingStatusHToD().isTrainingStarted())
@@ -1453,7 +1444,7 @@ public final class Data
          Collection<Expression> allExpressions = alleMap.values();
          switch (languageDirection)
          {
-         case GERMAN:
+         case GERMAN_TO_HEBREW:
             for (Expression expression : allExpressions)
             {
                if (Command.AREA_SELECTED == fieldOfTraining)
@@ -1477,31 +1468,7 @@ public final class Data
                }
             }
             break;
-         case TO_NIKUD:
-            for (Expression expression : allExpressions)
-            {
-               if (Command.AREA_SELECTED == fieldOfTraining)
-               {
-                  if (expression.isSelected() && expression
-                        .getTrainingStatusDToH().isTrainingStarted())
-                  {
-                     result.add(expression);
-                  }
-               }
-               else
-               {
-                  if (expression.getTrainingStatusDToH().isTrainingStarted()
-                        && (now.isEqual(
-                              expression.getTrainingStatusDToH().getNextDate())
-                              || now.isAfter(expression.getTrainingStatusDToH()
-                                    .getNextDate())))
-                  {
-                     result.add(expression);
-                  }
-               }
-            }
-            break;
-         case HEBREW:
+         case HEBREW_TO_GERMAN:
             for (Expression expression : allExpressions)
             {
                if (Command.AREA_SELECTED == fieldOfTraining)
