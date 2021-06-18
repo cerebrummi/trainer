@@ -22,6 +22,7 @@ public class Settings
    private static boolean soundOn = true;
    private static String chosenExpressionPath = null;
    private static float volume = -20;
+   private static boolean letterImagesOn = true;
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
@@ -89,7 +90,7 @@ public class Settings
 
    public static int getKeyboardWidth()
    {
-      return 460;
+      return 474;
    }
 
    
@@ -127,6 +128,27 @@ public class Settings
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getSoundNode(), soundOn);
       Settings.soundOn = soundOn;
+   }
+
+   public static boolean isLetterImagesOn()
+   {
+      return letterImagesOn;
+   }
+   
+   public static void toggleLetterImagesOnOff()
+   {
+      letterImagesOn = !letterImagesOn;
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.putBoolean(CerebrummiNodes.getLetterPicturesNode(), letterImagesOn);
+   }
+
+   public static void setLetterImagesOn(boolean letterImagesOn)
+   {
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.putBoolean(CerebrummiNodes.getLetterPicturesNode(), letterImagesOn);
+      Settings.letterImagesOn = letterImagesOn;
    }
 
    public static void setChoosenExpressionPath(String choosenExpressionPath)

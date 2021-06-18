@@ -11,9 +11,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
+import vokabeltrainer.scale.Scale;
 
 public class NikudPictureButtonPanel extends JPanel
 {
@@ -34,10 +36,12 @@ public class NikudPictureButtonPanel extends JPanel
    private JPanel hebrewCard;
 
    private CardLayout layout;
+   private Scale scale;
 
    public NikudPictureButtonPanel(LetterForAnalysis letter, Card[] cards)
    {
       this.letter = letter;
+      scale = new Scale(50);
 
       this.setMinimumSize(new Dimension(50, 50));
       this.setMaximumSize(new Dimension(50, 50));
@@ -110,7 +114,7 @@ public class NikudPictureButtonPanel extends JPanel
       else
       {
          germanButton = new JButton(
-               letter.getContent().getTranscript());
+               letter.getContent().getGermanPictureName());
          germanButton.setFont(Main.getGermanFont(10F));
          germanButton.setContentAreaFilled(false);
       }
@@ -163,7 +167,18 @@ public class NikudPictureButtonPanel extends JPanel
       pictureCard = new JPanel(new BorderLayout());
       pictureCard.setOpaque(false);
       pictureCard.setPreferredSize(new Dimension(50, 50));
-      pictureButton = new JButton(new ImageIcon(imagePicture));
+      imagePicture = ApplicationImages.getLetterPicturesMap().get(letter.getContent());
+      if(imagePicture != null)
+      {
+         pictureButton = new JButton(new ImageIcon(imagePicture));
+      }
+      else
+      {
+         pictureButton = new JButton(
+               new ImageIcon(ApplicationImages.getLetterIconsNikudMap().get(letter.getContent())
+                     .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
+                           java.awt.Image.SCALE_SMOOTH)));
+      }
       pictureButton.setBorder(BorderFactory.createEmptyBorder());
       pictureButton.setMargin(new Insets(0, 0, 0, 0));
       pictureButton.setOpaque(false);

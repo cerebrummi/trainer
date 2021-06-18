@@ -164,40 +164,7 @@ public class TrainerController implements TrainerControllerConnector
    {
       try
       {
-         if (Language.GERMAN.equals(this.languageDirection)) // DtoH
-         {
-            Result result = Resultfactory.getResultDtoHScentence(currentExpression,
-                  trainerView.getAnswerField().getText().trim(), Main.getHebrewFont(30F));
-            if (result.isAnswerEmpty())
-            {
-               JOptionPane.showMessageDialog(Common.getjFrame(), "",
-                     Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                     new ImageIcon(TextImage
-                           .make("Bitte schreiben Sie eine Antwort.")));
-               return;
-            }
-            else if (result.isDictionaryEmpty())
-            {
-               JOptionPane.showMessageDialog(Common.getjFrame(), "",
-                     Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                     new ImageIcon(TextImage.make(
-                           "Ihr Trainingswort enthält keine Buchstaben.",
-                           "Bitte löschen Sie diesen Ausdruck",
-                           "aus Kapitel " + currentExpression.getChapter())));
-               return;
-            }
-            trainerView.prepareDtoHFeedbackPanel(result);
-            if (result.isOkay())
-            {
-               resultDtoIsOkay();
-            }
-            else
-            {
-               resultDtoIsNotOkay();
-            }
-            reactToAnswer(result.isOkay());
-         }
-         else if (Language.TO_NIKUD.equals(languageDirection)) // DtoNikud
+         if (Language.TO_NIKUD.equals(languageDirection)) // DtoNikud
          {
             Result result = NikudResultFactory.getResultDtoNikudSentence(currentExpression,
                   trainerView.getAnswerField().getText().trim(), Main.getHebrewFont(30F));
@@ -552,6 +519,12 @@ public class TrainerController implements TrainerControllerConnector
    {
       Settings.toggleSoundOnOff();
       trainerView.getSoundButton().setIcon(new ImageIcon(Settings.getSound()));
+   }
+
+   @Override
+   public void toggleLetterPictures()
+   {
+      Settings.toggleLetterImagesOnOff();
    }
 
 }

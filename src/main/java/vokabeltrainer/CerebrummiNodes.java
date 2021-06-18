@@ -37,4 +37,9 @@ public class CerebrummiNodes
    {
       return "soundvolume";
    }
+   
+   public static String getLetterPicturesNode()
+   {
+      return "letterpictures";
+   }
 }

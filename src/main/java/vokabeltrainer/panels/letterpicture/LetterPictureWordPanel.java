@@ -8,10 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.Settings;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
-import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -21,7 +20,8 @@ public class LetterPictureWordPanel extends JPanel
    private static final long serialVersionUID = 4694738420843719008L;
 
    private Card[] cards = { Card.LETTER, Card.HEBREW };
-   private Card[] cards2 = { Card.PICTURE, Card.GERMAN };
+   private Card[] cards2on = { Card.PICTURE, Card.GERMAN };
+   private Card[] cards2off = { Card.BLANK };
 
    public LetterPictureWordPanel()
    {
@@ -58,61 +58,13 @@ public class LetterPictureWordPanel extends JPanel
 
       for (LetterForAnalysis letter : hebrewLettersCode)
       {
-         displayPanel2.add(new NikudPictureButtonPanel(letter, cards2));
-      }
-
-      vertical.add(displayPanel2);
-
-      horizontal.add(vertical);
-      add(horizontal);
-
-      validate();
-      repaint();
-   }
-
-   public void displayWord(String hebrewWord)
-   {
-      removeAll();
-
-      JPanel horizontal = new JPanel();
-      horizontal.setLayout(new TrainLayout(horizontal));
-
-      JPanel vertical = new JPanel();
-      vertical.setLayout(new TotemLayout(vertical));
-
-      JPanel displayPanel = new JPanel();
-      displayPanel.setLayout(new TrainLayout(displayPanel));
-
-      List<String> hebrewLettersCode = LetterHelper.findLetterCodes(hebrewWord);
-      Collections.reverse(hebrewLettersCode);
-
-      for (String hebrewLetterCode : hebrewLettersCode)
-      {
-         NikudLetter hebrewLetter = NikudLetter
-               .getLetterFromCode(hebrewLetterCode);
-         if (hebrewLetter != null)
+         if(Settings.isLetterImagesOn())
          {
-            displayPanel.add(new LetterPictureButtonPanel(
-                  ApplicationImages.getLetterPicturesMap().get(hebrewLetter),
-                  hebrewLetter, cards));
+            displayPanel2.add(new NikudPictureButtonPanel(letter, cards2on));
          }
-      }
-
-      vertical.add(displayPanel);
-
-      JPanel displayPanel2 = new JPanel();
-      displayPanel2.setLayout(new TrainLayout(displayPanel2));
-
-      for (String hebrewLetterCode : hebrewLettersCode)
-      {
-         NikudLetter hebrewLetter = NikudLetter
-               .getLetterFromCode(hebrewLetterCode);
-         if (hebrewLetter != null)
+         else
          {
-            LetterPictureButtonPanel panel = new LetterPictureButtonPanel(
-                  ApplicationImages.getLetterPicturesMap().get(hebrewLetter),
-                  hebrewLetter, cards2);
-            displayPanel2.add(panel);
+            displayPanel2.add(new NikudPictureButtonPanel(letter, cards2off));
          }
       }
 

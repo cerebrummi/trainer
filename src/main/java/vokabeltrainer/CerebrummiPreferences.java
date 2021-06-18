@@ -48,5 +48,16 @@ public class CerebrummiPreferences
          // nothing
       }
 
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setLetterImagesOn(
+               preferences.getBoolean(CerebrummiNodes.getLetterPicturesNode(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
    }
 }

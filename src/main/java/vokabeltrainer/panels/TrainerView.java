@@ -38,9 +38,7 @@ import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
-import vokabeltrainer.keyboards.KeyboardHebrewNoPunktation;
-import vokabeltrainer.keyboards.KeyboardHebrewNikud;
-import vokabeltrainer.keyboards.KeyboardHebrewSimple;
+import vokabeltrainer.keyboards.KeyboardHebrewStandard;
 import vokabeltrainer.keyboards.OneFocusTraversalPolicy;
 import vokabeltrainer.panels.letterpicture.LetterPictureWordPanel;
 import vokabeltrainer.panels.trainer.HebrewAnswerWordPanel;
@@ -87,22 +85,12 @@ public class TrainerView extends BackgroundPanelTiled
    private JButton answerNotOkay;
    private JButton stopTrainingButton;
    private JButton soundButton;
-
-   private KeyboardHebrewNoPunktation keyboard;
-   private KeyboardHebrewSimple simpleKeyboard;
-   private KeyboardHebrewNikud keyboardNikud;
-   private CardLayout keyboardCardLayout;
-   private JPanel keyboardSwapPanel;
-   private JCheckBox keyboardHints;
-
+   private KeyboardHebrewStandard keyboardNikud;
    private TrainerControllerConnector connector;
-
    private JButton infoStopTrainingButton;
-
    private JPanel infoStopTrainingPanel;
-
    private JSlider soundslider;
-
+   private JCheckBox pictureToggleBox;
    private JPanel verticalTrainerPanel;
 
    public TrainerView(TrainerControllerConnector connector)
@@ -276,14 +264,9 @@ public class TrainerView extends BackgroundPanelTiled
       soundslider.setPaintTicks(true);
       soundslider.setPaintLabels(true);
       soundslider.setSnapToTicks(true);
-
-      if (Language.GERMAN.equals(languageDirection))
-      {
-         keyboardHints = new JCheckBox("Tastatur Beschriftung");
-         keyboardHints.setFont(labelFont);
-         keyboardHints.setForeground(Color.WHITE);
-         keyboardHints.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
-      }
+      
+      pictureToggleBox = new JCheckBox("Buchstabenbilder");
+      pictureToggleBox.setSelected(Settings.isLetterImagesOn());
 
       infoStopTrainingPanel = new JPanel(new BorderLayout());
       infoStopTrainingPanel.setMinimumSize(new Dimension(150, 40));
@@ -308,10 +291,7 @@ public class TrainerView extends BackgroundPanelTiled
       verticalLeftPanel.add(nextWordButton);
       verticalLeftPanel.add(horizontal);
       verticalLeftPanel.add(soundslider);
-      if (Language.GERMAN.equals(languageDirection))
-      {
-         verticalLeftPanel.add(keyboardHints);
-      }
+      verticalLeftPanel.add(pictureToggleBox);
       verticalLeftPanel.add(infoStopTrainingPanel);
       verticalLeftPanel.add(stopTrainingButton);
 
@@ -395,8 +375,8 @@ public class TrainerView extends BackgroundPanelTiled
          answerField
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
-         keyboardNikud = new KeyboardHebrewNikud(answerField,
-               new ArrayList<JTextComponent>(), 80, false);
+         keyboardNikud = new KeyboardHebrewStandard(answerField,
+               new ArrayList<JTextComponent>(), 80);
 
          answerPanel.add(answerField);
          answerPanel.add(keyboardNikud);
@@ -550,26 +530,14 @@ public class TrainerView extends BackgroundPanelTiled
 
       this.soundButton.addActionListener(event -> connector.toggleSound());
 
-      if (Language.GERMAN.equals(languageDirection))
-      {
-         this.keyboardHints.addActionListener(event -> {
-            if (keyboardHints.isSelected())
-            {
-               keyboardCardLayout.show(keyboardSwapPanel, "HINTS");
-            }
-            else
-            {
-               keyboardCardLayout.show(keyboardSwapPanel, "BLANK");
-            }
-         });
-      }
-
       soundslider.addChangeListener(event -> {
          if(!soundslider.getValueIsAdjusting())
          {
             Settings.setVolume(soundslider.getValue());
          }
       });
+      
+      pictureToggleBox.addActionListener(event -> connector.toggleLetterPictures());
    }
 
    public void setHtoDanswerButtons()
@@ -748,6 +716,11 @@ public class TrainerView extends BackgroundPanelTiled
       return soundButton;
    }
 
+   public JCheckBox getPictureToggleBox()
+   {
+      return pictureToggleBox;
+   }
+
    public void showResultBlue()
    {
       ImagePanelBlue.setNextImage();
@@ -771,24 +744,6 @@ public class TrainerView extends BackgroundPanelTiled
       wordsWrong.setText(String.valueOf(wordsWrongNumber));
       wordsToDo.setText(
             String.valueOf(connector.getExpressionsToBeTested().size()));
-   }
-
-   public void prepareDtoHFeedbackPanel(Result result)
-   {
-      HebrewAnswerWordPanel answerPanel = new HebrewAnswerWordPanel(result);
-      JScrollPane scrollPane = new JScrollPane(answerPanel);
-      scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      scrollPane.setBorder(BorderFactory.createEmptyBorder());
-      scrollPane.setMinimumSize(new Dimension(501, 120));
-      scrollPane.setMaximumSize(new Dimension(501, 120));
-      
-      JPanel fillerAnswerPanel = new JPanel();
-      fillerAnswerPanel.setMinimumSize(new Dimension(501, 1));
-      fillerAnswerPanel.setMaximumSize(new Dimension(501, 95));
-      
-      feedbackPanel.add(scrollPane);
-      feedbackPanel.add(fillerAnswerPanel);
-      wordPanel.displayWord(result.getExpression().getHebrew());
    }
    
    public void prepareDtoNikudFeedbackPanel(Result result)
