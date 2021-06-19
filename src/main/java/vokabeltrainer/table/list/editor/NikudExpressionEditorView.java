@@ -155,7 +155,7 @@ public class NikudExpressionEditorView extends JDialog
       setResizable(true);
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       setSize(Math.min(screenSize.width - 60, 1301),
-            Math.min(screenSize.height - 60, 775));
+            Math.min(screenSize.height - 60, 795));
       
       outerLayout = new JPanel();
       outerLayout.setBackground(ApplicationColors.getBackgroundGold());
@@ -197,7 +197,7 @@ public class NikudExpressionEditorView extends JDialog
       german.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       german.setDocument(new GermanDocument(true));
 
-      hebrew = new InputHebrewPanel(Selection.SIMPLE, 120);
+      hebrew = new InputHebrewPanel(Selection.SIMPLE, 140);
       hebrew.setBlankBorder();
 
       newSearchwordGerman = new InfoTextField("Neues Suchwort Deutsch  ",
@@ -458,7 +458,7 @@ public class NikudExpressionEditorView extends JDialog
       verbTimesBoxPanel
             .setBorder(BorderFactory.createTitledBorder("Zeitformen"));
 
-      keyboard = new KeyboardHebrewNikud(hebrew, components, 120, true);
+      keyboard = new KeyboardHebrewNikud(hebrew, components, 140, true);
    }
 
    private TitledBorder makeBorderBlank(String title)
