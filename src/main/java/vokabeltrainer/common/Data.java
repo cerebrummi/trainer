@@ -723,18 +723,28 @@ public final class Data
                index++;
                expression.setGerman(entries[index]);
                index++;
-               expression.setSimpleHebrew(Boolean.valueOf(entries[index]));
+               expression.getHebrew().setSimpleHebrew(Boolean.valueOf(entries[index]));
                index++;
-               expression.setHebrew(entries[index]);
-               if (expression.getHebrew().contains(ExchangeLetter.SSIN.getUnicode()))
+               expression.getHebrew().setHebrew(entries[index]);
+               if (expression.getHebrew().getHebrew().contains(ExchangeLetter.SSIN.getUnicode()))
                {
-                  expression.setHebrew(LetterHelper
-                        .turnExchangeSsinIntoNikudSsin(expression.getHebrew()));
+                  expression.getHebrew().setHebrew(LetterHelper
+                        .turnExchangeSsinIntoNikudSsin(expression.getHebrew().getHebrew()));
                }
                index++;
-               expression.setHebrewPlene(entries[index]);
+               expression.getHebrew().setHebrewPlene(entries[index]);
+               if (expression.getHebrew().getHebrewPlene().contains(ExchangeLetter.SSIN.getUnicode()))
+               {
+                  expression.getHebrew().setHebrewPlene(LetterHelper
+                        .turnExchangeSsinIntoNikudSsin(expression.getHebrew().getHebrew()));
+               }
                index++;
-               expression.setHebrewDefektiv(entries[index]);
+               expression.getHebrew().setHebrewDefektiv(entries[index]);
+               if (expression.getHebrew().getHebrewDefektiv().contains(ExchangeLetter.SSIN.getUnicode()))
+               {
+                  expression.getHebrew().setHebrewDefektiv(LetterHelper
+                        .turnExchangeSsinIntoNikudSsin(expression.getHebrew().getHebrew()));
+               }
                index++;
 
                Definitions definitions = new Definitions();
@@ -803,24 +813,6 @@ public final class Data
                {
                   // nothing
                }
-//               index++;
-//               try
-//               {
-//                  // TODO
-//               }
-//               catch (Exception e)
-//               {
-//                  // nothing
-//               }
-//               index++;
-//               try
-//               {
-//                  // TODO
-//               }
-//               catch (Exception e)
-//               {
-//                  // nothing
-//               }
                for (ExpressionKind kind : kinds)
                {
                   definitions.setGrammaticalEnum(kind, gender);
@@ -1103,16 +1095,45 @@ public final class Data
          text = text.trim();
          List<LetterForAnalysis> textList = LetterHelper
                .findNikudLetterForAnalysisList(text);
-         List<LetterForAnalysis> expressionList = LetterHelper
-               .findNikudLetterForAnalysisList(expression.getHebrew());
-         if(textList.size() > expressionList.size())
+
+         if(expression.getHebrew().isSimpleHebrew())
          {
-            return false;
+            List<LetterForAnalysis> expressionList = LetterHelper
+                  .findNikudLetterForAnalysisList(expression.getHebrew().getHebrew());
+            if(textList.size() > expressionList.size())
+            {
+               return false;
+            }          
+            final IntStream indices = IntStream.range(0, textList.size());
+            return indices.allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
+                  expressionList.get(i)));
          }
          
-         final IntStream indices = IntStream.range(0, textList.size());
-         return indices.allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
-               expressionList.get(i)));
+         List<LetterForAnalysis> expressionListPlene = LetterHelper
+               .findNikudLetterForAnalysisList(expression.getHebrew().getHebrewPlene());
+         if(textList.size() <= expressionListPlene.size())
+         {
+            final IntStream indices = IntStream.range(0, textList.size());
+            if(indices.allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
+                  expressionListPlene.get(i))))
+            {
+               return true;
+            }
+         }
+         
+         List<LetterForAnalysis> expressionListDefektiv = LetterHelper
+               .findNikudLetterForAnalysisList(expression.getHebrew().getHebrew());
+         if(textList.size() <= expressionListDefektiv.size())
+         {
+            final IntStream indices = IntStream.range(0, textList.size());
+            if(indices.allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
+                  expressionListDefektiv.get(i))))
+            {
+               return true;
+            }
+         }
+         
+        return false;
       }
 
       private boolean equalsGermanWordStart(String text, Expression expression)

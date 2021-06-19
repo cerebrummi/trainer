@@ -16,10 +16,7 @@ public class Expression
 {
    private UUID uuid;
    private String german;
-   private boolean simpleHebrew = true;
-   private String hebrew = "";
-   private String hebrewPlene = "";
-   private String hebrewDefektiv = "";
+   private Hebrew hebrew = new Hebrew();
    private List<String> searchwordsGerman = new ArrayList<>();
    private List<String> searchwordsHebrew = new ArrayList<>();
    private TrainingStatus trainingStatusDToH = new TrainingStatus();
@@ -84,42 +81,12 @@ public class Expression
       this.german = german;
    }
 
-   public String getHebrew()
+   public Hebrew getHebrew()
    {
       return hebrew;
    }
 
-   public boolean isSimpleHebrew()
-   {
-      return simpleHebrew;
-   }
-
-   public void setSimpleHebrew(boolean simpleHebrew)
-   {
-      this.simpleHebrew = simpleHebrew;
-   }
-
-   public String getHebrewPlene()
-   {
-      return hebrewPlene;
-   }
-
-   public void setHebrewPlene(String hebrewPlene)
-   {
-      this.hebrewPlene = hebrewPlene;
-   }
-
-   public String getHebrewDefektiv()
-   {
-      return hebrewDefektiv;
-   }
-
-   public void setHebrewDefektiv(String hebrewDefektiv)
-   {
-      this.hebrewDefektiv = hebrewDefektiv;
-   }
-
-   public void setHebrew(String hebrew)
+   public void setHebrew(Hebrew hebrew)
    {
       this.hebrew = hebrew;
    }
@@ -285,7 +252,7 @@ public class Expression
       index++;
       result[index] = german;
       index++;
-      result[index] = hebrew;
+      result[index] = hebrew.toString();
       index++;
       result[index] = definitions.getGenderDescriptions();
       index++;
@@ -308,7 +275,7 @@ public class Expression
       String[] result = new String[9];
       result[index] = String.valueOf(selected);
       index++;
-      result[index] = hebrew;
+      result[index] = hebrew.toString();
       index++;
       result[index] = german;
       index++;
@@ -387,10 +354,10 @@ public class Expression
       joiner.add(chapter.getDatabaseName());
       joiner.add(chapter.getName());
       joiner.add(german);
-      joiner.add(String.valueOf(simpleHebrew));
-      joiner.add(hebrew);
-      joiner.add(hebrewPlene);
-      joiner.add(hebrewDefektiv);
+      joiner.add(String.valueOf(hebrew.isSimpleHebrew()));
+      joiner.add(hebrew.getHebrew());
+      joiner.add(hebrew.getHebrewPlene());
+      joiner.add(hebrew.getHebrewDefektiv());
       joiner.add(definitions.getExpressionKindsForSaving());
       joiner.add(definitions.getGrammaticalEnumsForSaving());
       joiner.add(additionalInformation);
@@ -410,10 +377,10 @@ public class Expression
       joiner.add(databaseName);
       joiner.add(chapter.getName());
       joiner.add(german);
-      joiner.add(String.valueOf(simpleHebrew));
-      joiner.add(hebrew);
-      joiner.add(hebrewPlene);
-      joiner.add(hebrewDefektiv);
+      joiner.add(String.valueOf(hebrew.isSimpleHebrew()));
+      joiner.add(hebrew.getHebrew());
+      joiner.add(hebrew.getHebrewPlene());
+      joiner.add(hebrew.getHebrewDefektiv());
       joiner.add(definitions.getExpressionKindsForSaving());
       joiner.add(definitions.getGrammaticalEnumsForSaving());
       joiner.add(additionalInformation);
@@ -451,11 +418,11 @@ public class Expression
       if (Language.GERMAN_TO_HEBREW.equals(language))
       {
          joiner.add(german);
-         joiner.add(hebrew);
+         joiner.add(hebrew.toString());
       }
       else
       {
-         joiner.add(hebrew);
+         joiner.add(hebrew.toString());
          joiner.add(german);
       }
       joiner.add(definitions.addGrammaticalEnumsForCopy("\n"));
@@ -545,7 +512,7 @@ public class Expression
    {
       String[] content = new String[3];
       content[0] = german;
-      content[1] = hebrew;
+      content[1] = hebrew.toString();
       content[2] = getAdditionalInfoGerman(false);
       return content;
    }

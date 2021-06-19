@@ -42,4 +42,9 @@ public class CerebrummiNodes
    {
       return "letterpictures";
    }
+   
+   public static String getSimpleHebrewNode()
+   {
+      return "simplehebrew";
+   }
 }

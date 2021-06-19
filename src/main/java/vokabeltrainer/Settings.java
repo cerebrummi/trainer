@@ -23,6 +23,7 @@ public class Settings
    private static String chosenExpressionPath = null;
    private static float volume = -20;
    private static boolean letterImagesOn = true;
+   private static boolean simpleHebrewInput = true;
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
@@ -208,5 +209,26 @@ public class Settings
    public static List<Database> getAvailableDatabases()
    {
       return Arrays.asList(availableDatabases);
+   }
+
+   public static boolean isSimpleHebrewInput()
+   {
+      return simpleHebrewInput;
+   }
+
+   public static void setSimpleHebrewInput(boolean simpleHebrewInput)
+   {
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.putBoolean(CerebrummiNodes.getSimpleHebrewNode(), simpleHebrewInput);
+      Settings.simpleHebrewInput = simpleHebrewInput;
+   }
+   
+   public static void toggleSimpleHebrewInput()
+   {
+      simpleHebrewInput = !simpleHebrewInput;
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.putBoolean(CerebrummiNodes.getSimpleHebrewNode(), simpleHebrewInput);
    }
 }

@@ -67,7 +67,7 @@ public class ExpressionComparator implements Comparator<Expression>
          }
          else
          {
-            return o1.getHebrew().compareTo(o2.getHebrew());
+            return o1.getHebrew().getHebrew().compareTo(o2.getHebrew().getHebrew());
          }
       }
    }

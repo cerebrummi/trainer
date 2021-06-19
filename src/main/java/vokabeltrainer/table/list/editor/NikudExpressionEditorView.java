@@ -56,6 +56,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.Hebrew;
 import vokabeltrainer.types.SortingIndex;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
@@ -197,7 +198,14 @@ public class NikudExpressionEditorView extends JDialog
       german.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       german.setDocument(new GermanDocument(true));
 
-      hebrew = new InputHebrewPanel(Selection.SIMPLE, 140);
+      if(Settings.isSimpleHebrewInput())
+      {
+         hebrew = new InputHebrewPanel(Selection.SIMPLE, 140, 0);
+      }
+      else
+      {
+         hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 140, 0);
+      }
       hebrew.setBlankBorder();
 
       newSearchwordGerman = new InfoTextField("Neues Suchwort Deutsch  ",
@@ -735,7 +743,7 @@ public class NikudExpressionEditorView extends JDialog
          german.setBorder(makeBorderRed(this.germanTitle));
          result = false;
       }
-      if (hebrew.getText().isEmpty())
+      if (!hebrew.isFilledOut())
       {
          hebrew.setRedBorder();
          result = false;
@@ -745,11 +753,15 @@ public class NikudExpressionEditorView extends JDialog
 
    private void saveExpression()
    {
-      expression.setGerman(cleanTextWithoutComma(german.getText()));
-      expression.setHebrew(cleanTextWithoutComma(hebrew.getText()));
+      expression.setGerman(cleanTextLeaveComma(german.getText()));
+      
+      expression.setHebrew(new Hebrew(cleanTextLeaveComma(hebrew.getHebrewFieldText()),
+            cleanTextLeaveComma(hebrew.getPleneFieldText()),
+            cleanTextLeaveComma(hebrew.getDefektivFieldText()),
+            hebrew.isSimple()));
 
       expression.setLetterForSaving(LetterForSaving
-            .getLetter(cleanTextWithoutComma(expression.getGerman())));
+            .getLetter(cleanTextLeaveComma(expression.getGerman())));
 
       Definitions definitions = new Definitions();
       Vector<Vector<ExpressionKindTableRow>> vektorRows = expressionKindTable
@@ -785,23 +797,23 @@ public class NikudExpressionEditorView extends JDialog
       List<String> wordsGerman = new ArrayList<>();
       for (String word : searchwordsSetGerman)
       {
-         wordsGerman.add(cleanText(word));
+         wordsGerman.add(cleanTextAndNoComma(word));
       }
       expression.setSearchwordsGerman(wordsGerman);
       List<String> wordsHebrew = new ArrayList<>();
       for (String word : searchwordsSetHebrew)
       {
-         wordsHebrew.add(cleanText(word));
+         wordsHebrew.add(cleanTextAndNoComma(word));
       }
       expression.setSearchwordsHebrew(wordsHebrew);
       Chapter selfChapter = new Chapter();
       selfChapter.setOrigin(Database.SELF);
       selfChapter
-            .setName(cleanTextWithoutComma((String) chapter.getSelectedItem()));
+            .setName(cleanTextLeaveComma((String) chapter.getSelectedItem()));
       expression.setChapter(selfChapter);
 
       expression.setAdditionalInformation(
-            cleanTextWithoutComma(extraInfo.getText()));
+            cleanTextLeaveComma(extraInfo.getText()));
 
       if (((String) databaseNameField.getSelectedItem()).isBlank())
       {
@@ -826,13 +838,13 @@ public class NikudExpressionEditorView extends JDialog
       expression.setLastModified(LocalDateTime.now());
    }
 
-   private String cleanText(String text)
+   private String cleanTextAndNoComma(String text)
    {
       return text.replaceAll("\t", "").replaceAll("\n", "").replaceAll(",", "")
             .strip();
    }
 
-   private String cleanTextWithoutComma(String text)
+   private String cleanTextLeaveComma(String text)
    {
       return text.replaceAll("\t", "").replaceAll("\n", "").strip();
    }
@@ -854,7 +866,18 @@ public class NikudExpressionEditorView extends JDialog
       this.indexField.setText(expression.getSortingIndex());
 
       this.german.setText(expression.getGerman());
-      this.hebrew.setText(expression.getHebrew());
+      
+      if(expression.getHebrew().isSimpleHebrew())
+      {
+         this.hebrew.setHebrewLayout(Selection.SIMPLE);
+         this.hebrew.setHebrewFieldText(expression.getHebrew().getHebrew());
+      }
+      else
+      {
+         this.hebrew.setHebrewLayout(Selection.PLENE_DEFEKTIV);
+         this.hebrew.setPleneFieldText(expression.getHebrew().getHebrewPlene());
+         this.hebrew.setDefektivFieldText(expression.getHebrew().getHebrewDefektiv());
+      }
 
       this.searchwordsSetGerman = new HashSet<>();
       for (String word : expression.getSearchwordsGerman())

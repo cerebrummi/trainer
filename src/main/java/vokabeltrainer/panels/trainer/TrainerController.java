@@ -136,21 +136,28 @@ public class TrainerController implements TrainerControllerConnector
          trainerView.getAdditionalInfoField().setText("");
       }
       trainerView.getFocusTraversalPolicy().getFirstComponent(null)
-      .requestFocus();
+            .requestFocus();
    }
 
    public void setNextTest()
    {
-      trainerView.getWordPanel().clear();
+      trainerView.getWordPanelPlene().clear();
+      trainerView.getWordPanelDefektiv().clear();
       currentExpression = expressionsToBeTested.get(0);
 
       switch (languageDirection)
       {
       case GERMAN_TO_HEBREW:
-         trainerView.getQuestionField().setText(currentExpression.getGerman());
+         trainerView.getQuestionFieldGerman()
+               .setText(currentExpression.getGerman());
          break;
       case HEBREW_TO_GERMAN:
-         trainerView.getQuestionField().setText(currentExpression.getHebrew());
+         trainerView.getQuestionFieldHebrew()
+               .setHebrewFieldText(currentExpression.getHebrew().getHebrew());
+         trainerView.getQuestionFieldHebrew().setPleneFieldText(
+               currentExpression.getHebrew().getHebrewPlene());
+         trainerView.getQuestionFieldHebrew().setDefektivFieldText(
+               currentExpression.getHebrew().getHebrewDefektiv());
          break;
       }
 
@@ -164,8 +171,11 @@ public class TrainerController implements TrainerControllerConnector
       {
          if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
          {
-            Result result = NikudResultFactory.getResultDtoNikudSentence(currentExpression,
-                  trainerView.getAnswerField().getText().trim(), Main.getHebrewFont(30F));
+            BestResult bestResult = NikudResultFactory.getBestResultPossible(
+                  currentExpression,
+                  trainerView.getAnswerField().getText().trim(),
+                  Main.getHebrewFont(30F));
+            Result result = bestResult.getBestResult();
             if (result.isAnswerEmpty())
             {
                JOptionPane.showMessageDialog(Common.getjFrame(), "",
@@ -214,24 +224,21 @@ public class TrainerController implements TrainerControllerConnector
       if (currentExpression.getTrainingStatusDToH().getTrys() < 4)
       {
          currentExpression.getTrainingStatusDToH().setTrys(
-               currentExpression.getTrainingStatusDToH().getTrys()
-                     + 1);
+               currentExpression.getTrainingStatusDToH().getTrys() + 1);
          currentExpression.getTrainingStatusDToH().setTotalTrys(
-               currentExpression.getTrainingStatusDToH().getTotalTrys()
-                     + 1);
+               currentExpression.getTrainingStatusDToH().getTotalTrys() + 1);
          expressionsToBeTested.add(currentExpression);
       }
       else
       {
-         currentExpression.getTrainingStatusDToH()
-               .previousRepetition();
+         currentExpression.getTrainingStatusDToH().previousRepetition();
       }
    }
 
    private void resultDtoIsOkay()
    {
-      currentExpression.getTrainingStatusDToH().setTrys(
-            currentExpression.getTrainingStatusDToH().getTrys() - 1);
+      currentExpression.getTrainingStatusDToH()
+            .setTrys(currentExpression.getTrainingStatusDToH().getTrys() - 1);
       if (currentExpression.getTrainingStatusDToH().getTrys() == 0)
       {
          currentExpression.getTrainingStatusDToH().nextRepetition();
