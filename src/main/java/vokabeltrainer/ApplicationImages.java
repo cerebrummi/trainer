@@ -38,6 +38,8 @@ public class ApplicationImages
    private static BufferedImage infoCursor;
    private static BufferedImage infoButtonIcon;
    private static BufferedImage infoIcon;
+   private static BufferedImage toggleCursor;
+   private static BufferedImage toggleButtonIcon;
    private static BufferedImage trashcanBackground;
    private static BufferedImage startImage;
    private static BufferedImage errorImage;
@@ -331,6 +333,20 @@ public class ApplicationImages
       ApplicationImages.infoCursor = infoCursor;
    }
 
+   public static BufferedImage getToggleCursor()
+   {
+      return toggleCursor;
+   }
+
+   public static void setToggleCursor(BufferedImage toggleCursor)
+   {
+      if(toggleCursor == null)
+      {
+         exitWithMessage("kein ToggleCursor");
+      }
+      ApplicationImages.toggleCursor = toggleCursor;
+   }
+
    public static BufferedImage getInfoButtonIcon()
    {
       return infoButtonIcon;
@@ -343,6 +359,20 @@ public class ApplicationImages
          exitWithMessage("kein InfoButton Icon");
       }
       ApplicationImages.infoButtonIcon = infoButtonIcon;
+   }
+
+   public static BufferedImage getToggleButtonIcon()
+   {
+      return toggleButtonIcon;
+   }
+
+   public static void setToggleButtonIcon(BufferedImage toggleButtonIcon)
+   {
+      if(toggleButtonIcon == null)
+      {
+         exitWithMessage("kein ToggleButton Icon");
+      }
+      ApplicationImages.toggleButtonIcon = toggleButtonIcon;
    }
 
    public static BufferedImage getInfoIcon()

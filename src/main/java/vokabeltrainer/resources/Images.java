@@ -88,6 +88,12 @@ public class Images
 
       ApplicationImages.setInfoCursor(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/info-cursor.png")));
+      
+      ApplicationImages.setToggleButtonIcon(ImageIO.read(Images.class
+            .getResourceAsStream("_2_images/toggle-button-icon.png")));
+
+      ApplicationImages.setToggleCursor(ImageIO.read(
+            Images.class.getResourceAsStream("_2_images/toggle-cursor.png")));
 
       ApplicationImages.setInfoIcon(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/info-icon.png")));

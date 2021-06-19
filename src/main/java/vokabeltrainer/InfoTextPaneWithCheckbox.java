@@ -72,7 +72,7 @@ public class InfoTextPaneWithCheckbox extends JTextPane
       });
 
       ComponentTitledBorder border = new ComponentTitledBorder(box, this,
-            BorderFactory.createTitledBorder(labeltext));
+            BorderFactory.createTitledBorder(labeltext), 25);
 
       this.setBorder(border);
    }

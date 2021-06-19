@@ -26,13 +26,15 @@ public class ComponentTitledBorder
    private Rectangle rect;
    private Border border;
    private boolean mouseEntered = false;
+   private int left;
 
    public ComponentTitledBorder(Component comp, JComponent container,
-         Border border)
+         Border border, int left)
    {
       this.comp = comp;
       this.container = container;
       this.border = border;
+      this.left = left;
       container.addMouseListener(this);
       container.addMouseMotionListener(this);
    }
@@ -62,7 +64,7 @@ public class ComponentTitledBorder
       Dimension size = comp.getPreferredSize();
       Insets insets = border.getBorderInsets(c);
       insets.top = Math.min(insets.top, size.height);
-      insets.left = 25;
+      insets.left = left;
       return insets;
    }
 

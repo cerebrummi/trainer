@@ -16,6 +16,7 @@ import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.InputHebrewPanel;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.NikudLetter;
@@ -41,13 +42,25 @@ public class KeyboardHebrewNikud extends JPanel
       
       if (textfield != null)
       {
-         textfield.setFont(Main.getHebrewFont(29F));
-         textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-         textfield.setMinimumSize(
-               new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
-         textfield.setMaximumSize(
-               new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
-         arrayList.add(textfield);
+         if(textfield instanceof InputHebrewPanel)
+         {
+            textfield.setMinimumSize(
+                  new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+            textfield.setMaximumSize(
+                  new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+            arrayList.addAll(((InputHebrewPanel)textfield).getTextComponents());
+         }
+         else
+         {
+            textfield.setFont(Main.getHebrewFont(29F));
+            textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            textfield.setMinimumSize(
+                  new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+            textfield.setMaximumSize(
+                  new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+            arrayList.add(textfield);
+         }
+         
       }
 
       this.components = arrayList;
@@ -62,7 +75,7 @@ public class KeyboardHebrewNikud extends JPanel
          add(textfield);
       }
       
-      if (textfield != null)
+      if (textfield != null && !(textfield instanceof InputHebrewPanel))
       {
          setFocusTraversalPolicy(new OneFocusTraversalPolicy(textfield));
          textfield.grabFocus();

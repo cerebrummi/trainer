@@ -38,6 +38,8 @@ import javax.swing.text.StyledDocument;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.InfoTextField;
+import vokabeltrainer.InputHebrewPanel;
+import vokabeltrainer.InputHebrewPanel.Selection;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
@@ -77,7 +79,7 @@ public class NikudExpressionEditorView extends JDialog
    private Expression expression;
    private boolean newExpression;
    private JTextField german;
-   private InfoTextField hebrew;
+   private InputHebrewPanel hebrew;
    
    private JTextField indexField;
 
@@ -153,7 +155,7 @@ public class NikudExpressionEditorView extends JDialog
       setResizable(true);
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       setSize(Math.min(screenSize.width - 60, 1301),
-            Math.min(screenSize.height - 60, 755));
+            Math.min(screenSize.height - 60, 775));
       
       outerLayout = new JPanel();
       outerLayout.setBackground(ApplicationColors.getBackgroundGold());
@@ -195,11 +197,8 @@ public class NikudExpressionEditorView extends JDialog
       german.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       german.setDocument(new GermanDocument(true));
 
-      hebrew = new InfoTextField("Hebräisch", "Bitte hineinklicken oder  ",
-            "mit der Tabulatortaste auswählen.  ",
-            "Dann hebräische Tastatur benutzen.  ");
+      hebrew = new InputHebrewPanel(Selection.SIMPLE, 120);
       hebrew.setBlankBorder();
-      hebrew.setDocument(new NikudDocument(true));
 
       newSearchwordGerman = new InfoTextField("Neues Suchwort Deutsch  ",
             "Bitte je ein Wort eingeben  ", "und dann ENTER drücken!  ");
@@ -459,7 +458,7 @@ public class NikudExpressionEditorView extends JDialog
       verbTimesBoxPanel
             .setBorder(BorderFactory.createTitledBorder("Zeitformen"));
 
-      keyboard = new KeyboardHebrewNikud(hebrew, components, 70, true);
+      keyboard = new KeyboardHebrewNikud(hebrew, components, 120, true);
    }
 
    private TitledBorder makeBorderBlank(String title)
@@ -601,13 +600,6 @@ public class NikudExpressionEditorView extends JDialog
          if (!german.getText().isEmpty())
          {
             german.setBorder(makeBorderBlank(this.germanTitle));
-         }
-      });
-
-      hebrew.addCaretListener(event -> {
-         if (!hebrew.getText().isEmpty())
-         {
-            hebrew.setBlankBorder();
          }
       });
 

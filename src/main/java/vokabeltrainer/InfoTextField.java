@@ -76,7 +76,7 @@ public class InfoTextField extends JTextField
       });
 
       ComponentTitledBorder border = new ComponentTitledBorder(button, this,
-            BorderFactory.createTitledBorder(borderTitle));
+            BorderFactory.createTitledBorder(borderTitle), 25);
 
       this.setBorder(border);
    }
@@ -85,7 +85,7 @@ public class InfoTextField extends JTextField
    public void setBlankBorder()
    {
       ComponentTitledBorder border = new ComponentTitledBorder(button, this,
-            BorderFactory.createTitledBorder(title));
+            BorderFactory.createTitledBorder(title),025);
 
       this.setBorder(border);
    }
@@ -93,8 +93,8 @@ public class InfoTextField extends JTextField
    public void setRedBorder()
    {
       ComponentTitledBorder border = new ComponentTitledBorder(button, this,
-            new TitledBorder(BorderFactory.createLineBorder(Color.RED, 3),
-                  title));
+            new TitledBorder(BorderFactory.createLineBorder(Color.RED),
+                  title), 25);
 
       this.setBorder(border);
    }
