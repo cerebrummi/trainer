@@ -19,34 +19,34 @@ import vokabeltrainer.types.SelectionHebrewType;
 
 public class TestWordMatching
 {
-   String wordDic = "בּאוניברסיטה";
+   String wordDic = "באוניברסיטה";
    
    String[] wordDicArray = { "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "WET",
-         "JOD", "NUN", "WAW", "ALEF", "BET" };
+         "JOD", "NUN", "WAW", "ALEF", "WET" };
    List<String> wordDicList = new LinkedList<String>(
          Arrays.asList(wordDicArray));
 
-   String wordTest1 = "בּאוניברסיטה";
+   String wordTest1 = "באוניברסיטה";
    String wordTest2 = "גדפ";
-   String wordTest3 = "בּוניברסיטה";
-   String wordTest4 = "בּוניבסיטה"; // 2 letters missing
-   String wordTest5 = "בּוניבסטה"; // 3 letters missing
-   String wordTest6 = "בּונבסטה"; // 4 letters missing
-   String wordTest7 = "בּונבסטהעפש"; // 4 letters missing plus 3 letters stupid
-   String wordTest8 = "בּונבסטהעפשצק"; // 4 letters missing plus 5 letters
+   String wordTest3 = "בוניברסיטה";
+   String wordTest4 = "בוניבסיטה"; // 2 letters miSCHINg
+   String wordTest5 = "בוניבסטה"; // 3 letters miSCHINg
+   String wordTest6 = "בונבסטה"; // 4 letters miSCHINg
+   String wordTest7 = "בונבסטהעפש"; // 4 letters miSCHINg plus 3 letters stupid
+   String wordTest8 = "בונבסטהעפשצק"; // 4 letters miSCHINg plus 5 letters
                                        // stupid
-   String wordTest9 = "אובּאוניברסיטה"; // 2 letters added at the beginning =>
+   String wordTest9 = "אובאוניברסיטה"; // 2 letters added at the beginning =>
                                         // right shift case
-   String wordTest10 = "אובּאוניבריטה"; // 2 letters added at the beginning =>
+   String wordTest10 = "אובאוניבריטה"; // 2 letters added at the beginning =>
                                         // right shift case, and 1 letter
-                                        // missing inside
+                                        // miSCHINg inside
    String wordTest11 = "מסרדם"; // example from real life, wrong spelling
-   String wordDic11 = "משׂרדים"; // correct spelling of 11
-   String wordTest12 = "פּקדה"; // example from real life, wrong spelling
-   String wordDic12 = "פּקידה"; // correct spelling of 12
+   String wordDic11 = "משרדים"; // correct spelling of 11
+   String wordTest12 = "פקדה"; // example from real life, wrong spelling
+   String wordDic12 = "פקידה"; // correct spelling of 12
    String wordTest13 = "חברים"; // correct spelling test
-   String wordTest14 = "בּקר טוב"; // wrong spelling
-   String wordDic14 = "בּוקר טוב"; // correct spelling of 14
+   String wordTest14 = "בקר טוב"; // wrong spelling
+   String wordDic14 = "בוקר טוב"; // correct spelling of 14
    String wordTest15 = "נימות"; // wrong spelling
    String wordDic15 = "נעימות"; // correct spelling
    String wordTest15b = "נ ימות"; // corrected spelling
@@ -59,23 +59,23 @@ public class TestWordMatching
    String wordDic17b = "מה נ שמע"; // dic corrected spelling
    String wordTest17b = "מא נישמה"; // test corrected spelling
 
-   String wordTest18 = "בּוקרטוב"; // wrong spelling
-   String wordDic18 = "בּוקר טוב"; // correct spelling
+   String wordTest18 = "בוקרטוב"; // wrong spelling
+   String wordDic18 = "בוקר טוב"; // correct spelling
 
-   String wordTest19 = "בּמשׂראד"; // wrong spelling
-   String wordDic19 = "בּמשׂרד"; // correct spelling
+   String wordTest19 = "במשראד"; // wrong spelling
+   String wordDic19 = "במשרד"; // correct spelling
 
-   String wordDic20 = "בּוקר טוב"; // correct spelling
+   String wordDic20 = "בוקר טוב"; // correct spelling
    String wordTest20 = "????????"; // empty
    String wordTest20a = ""; // empty
 
    String wordDic21 = "?"; // empty
    String wordDic21a = ""; // empty
    String wordDic21b = "?????????"; // empty
-   String wordTest21 = "בּוקר טוב"; // not empty
+   String wordTest21 = "בוקר טוב"; // not empty
 
-   String wordDic22 = "פּסיכולוג";
-   String wordTest22 = "פּסיכולוגית"; // two letters too much at the end
+   String wordDic22 = "פסיכולוג";
+   String wordTest22 = "פסיכולוגית"; // two letters too much at the end
 
    String wordDic23 = "פיסיקאי";
    String wordTest23 = "פיסיקית"; // two letters wrong at the end
@@ -84,46 +84,46 @@ public class TestWordMatching
    String wordTest24 = "נוימת"; // mixed up
 
    String[] wordTest4Array = { "HAEI", "TET", "JOD", "SSAMECH", "NEWSPACE",
-         "WET", "JOD", "NUN", "WAW", "NEWSPACE", "BET" };
+         "WET", "JOD", "NUN", "WAW", "NEWSPACE", "WET" };
    List<String> wordTest4List = new LinkedList<String>(
          Arrays.asList(wordTest4Array));
 
    String[] wordTest5Array = { "HAEI", "TET", "NEWSPACE", "SSAMECH", "NEWSPACE",
-         "WET", "JOD", "NUN", "WAW", "NEWSPACE", "BET" };
+         "WET", "JOD", "NUN", "WAW", "NEWSPACE", "WET" };
    List<String> wordTest5List = new LinkedList<String>(
          Arrays.asList(wordTest5Array));
 
    String[] wordTest6Array = { "HAEI", "TET", "NEWSPACE", "SSAMECH", "NEWSPACE",
-         "WET", "NEWSPACE", "NUN", "WAW", "NEWSPACE", "BET" };
+         "WET", "NEWSPACE", "NUN", "WAW", "NEWSPACE", "WET" };
    List<String> wordTest6List = new LinkedList<String>(
          Arrays.asList(wordTest6Array));
 
    String[] wordTest7Array = { "SCHIN", "FAEI", "AIN", "HAEI", "TET",
          "NEWSPACE", "SSAMECH", "NEWSPACE", "WET", "NEWSPACE", "NUN", "WAW",
-         "NEWSPACE", "BET" };
+         "NEWSPACE", "WET" };
    List<String> wordTest7List = new LinkedList<String>(
          Arrays.asList(wordTest7Array));
 
    String[] wordTest8Array = { "KUF", "ZADI", "SCHIN", "FAEI", "AIN", "HAEI",
-         "TET", "NEWSPACE","SSAMECH", "NEWSPACE","WET","NEWSPACE", "NUN", "WAW", "NEWSPACE", "BET" };
+         "TET", "NEWSPACE","SSAMECH", "NEWSPACE","WET","NEWSPACE", "NUN", "WAW", "NEWSPACE", "WET" };
    List<String> wordTest8List = new LinkedList<String>(
          Arrays.asList(wordTest8Array));
    
-   String[] wordDic8Array = {"NEWSPACE", "NEWSPACE", "NEWSPACE", "NEWSPACE", "NEWSPACE", "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "WET", "JOD", "NUN", "WAW", "ALEF", "BET"};
+   String[] wordDic8Array = {"NEWSPACE", "NEWSPACE", "NEWSPACE", "NEWSPACE", "NEWSPACE", "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "WET", "JOD", "NUN", "WAW", "ALEF", "WET"};
    List<String> wordDic8List = new LinkedList<String>(Arrays.asList(wordDic8Array));
   
    String[] wordDic9Array = { "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "WET",
-         "JOD", "NUN", "WAW", "ALEF", "BET", "NEWSPACE", "NEWSPACE" };
+         "JOD", "NUN", "WAW", "ALEF", "WET", "NEWSPACE", "NEWSPACE" };
    List<String> wordDic9List = new LinkedList<String>(
          Arrays.asList(wordDic9Array));
 
    String[] wordTest9Array = { "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "WET",
-         "JOD", "NUN", "WAW", "ALEF", "BET", "WAW", "ALEF" };
+         "JOD", "NUN", "WAW", "ALEF", "WET", "WAW", "ALEF" };
    List<String> wordTest9List = new LinkedList<String>(
          Arrays.asList(wordTest9Array));
 
    String[] wordTest10Array = { "HAEI", "TET", "JOD", "NEWSPACE", "RESCH",
-         "WET", "JOD", "NUN", "WAW", "ALEF", "BET", "WAW", "ALEF" };
+         "WET", "JOD", "NUN", "WAW", "ALEF", "WET", "WAW", "ALEF" };
    List<String> wordTest10List = new LinkedList<String>(
          Arrays.asList(wordTest10Array));
 
@@ -132,7 +132,7 @@ public class TestWordMatching
    List<String> wordTest11List = new LinkedList<String>(
          Arrays.asList(wordTest11Array));
 
-   String[] wordTest12Array = { "HAEI", "DALET", "NEWSPACE", "KUF", "PAEI" };
+   String[] wordTest12Array = { "HAEI", "DALET", "NEWSPACE", "KUF", "FAEI" };
    List<String> wordTest12List = new LinkedList<String>(
          Arrays.asList(wordTest12Array));
 
@@ -141,7 +141,7 @@ public class TestWordMatching
          Arrays.asList(wordTest13Array));
 
    String[] wordTest14Array = { "WET", "WAW", "TET", "SPACE", "RESCH", "KUF",
-         "NEWSPACE", "BET" };
+         "NEWSPACE", "WET" };
    List<String> wordTest14List = new LinkedList<String>(
          Arrays.asList(wordTest14Array));
 
@@ -170,22 +170,22 @@ public class TestWordMatching
          Arrays.asList(wordDic17bArray));
 
    String[] wordTest18bArray = { "WET", "WAW", "TET", "NEWSPACE", "RESCH",
-         "KUF", "WAW", "BET" };
+         "KUF", "WAW", "WET" };
    List<String> wordTest18bList = new LinkedList<>(
          Arrays.asList(wordTest18bArray));
 
-   String[] wordDic19bArray = { "DALET", "NEWSPACE", "RESCH", "SSIN", "MEM",
-         "BET" };
+   String[] wordDic19bArray = { "DALET", "NEWSPACE", "RESCH", "SCHIN", "MEM",
+         "WET" };
    List<String> wordDic19bList = new LinkedList<>(
          Arrays.asList(wordDic19bArray));
 
    String[] wordTest22Array = { "TAW", "JOD", "GIMEL", "WAW", "LAMED", "WAW",
-         "CHAF", "JOD", "SSAMECH", "PAEI" };
+         "CHAF", "JOD", "SSAMECH", "FAEI" };
    List<String> wordTest22List = new LinkedList<>(
          Arrays.asList(wordTest22Array));
 
    String[] wordDic22Array = { "NEWSPACE", "NEWSPACE", "GIMEL", "WAW", "LAMED",
-         "WAW", "CHAF", "JOD", "SSAMECH", "PAEI" };
+         "WAW", "CHAF", "JOD", "SSAMECH", "FAEI" };
    List<String> wordDic22List = new LinkedList<>(Arrays.asList(wordDic22Array));
 
    String[] wordTest23Array = { "TAW", "JOD", "KUF", "JOD", "SSAMECH", "JOD",

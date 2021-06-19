@@ -83,8 +83,12 @@ public class NikudResultFactory
             if (index > 0)
             {
                result.addFeedbackImage(LetterFeedbackImage.makeSpace());
+               result.addAnswerSpace(new LetterForAnalysis(NikudLetter.SPACE));
+               result.addDictionarySpace(new LetterForAnalysis(NikudLetter.SPACE));
             }
             result.addFeedbackImageList(singleResult.getFeedbackImageList());
+            result.addAnswer(singleResult.getAnswer()); // for unit testing
+            result.addDictionary(singleResult.getDictionary()); // for unit testing
             index++;
          }
 
@@ -113,10 +117,16 @@ public class NikudResultFactory
             LetterHelper.findNikudLetterForAnalysisList(dictionary),
             LetterHelper.findNikudLetterForAnalysisList(answer));
 
+      result.setAnswerEmpty(matchingResult.isAnswerEmpty());
+      result.setDictionaryEmpty(matchingResult.isDictionaryEmpty());
       result.setOkay(matchingResult.isOkay());
+      result.setSimilarity(matchingResult.getSimilarity());
 
       List<LetterForAnalysis> dictionaryList = matchingResult.getDictionary();
       List<LetterForAnalysis> answerList = matchingResult.getAnswer();
+
+      result.setDictionary(matchingResult.getDictionary()); // for unit testing
+      result.setAnswer(matchingResult.getAnswer()); // for unit testing
 
       List<BufferedImage> feedbackImageList = new ArrayList<BufferedImage>();
       for (int i = 0; i < dictionaryList.size() && i < answerList.size(); i++)

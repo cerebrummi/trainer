@@ -14,6 +14,7 @@ public class WordLetterMatchingResult
    private boolean completelyFalse;
    private boolean partlyFalse;
    private boolean okay;
+   private int similarity;
    
    private int deltaCol;
    
@@ -110,5 +111,15 @@ public class WordLetterMatchingResult
    public void setFeedbackImageList(List<BufferedImage> feedbackImageList)
    {
       this.feedbackImageList = feedbackImageList;
+   }
+
+   public int getSimilarity()
+   {
+      return similarity;
+   }
+
+   public void setSimilarity(int similarity)
+   {
+      this.similarity = similarity;
    }
 }

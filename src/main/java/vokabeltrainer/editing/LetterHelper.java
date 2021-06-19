@@ -103,7 +103,7 @@ public class LetterHelper
       for (int i = 0; i < codeList.size(); i++)
       {
          Letter letter = codeMap.get(codeList.get(i));
-         if (LetterType.NIKUD == letter.isType())
+         if (letter != null && LetterType.HEBREW == letter.isType())
          {
             NikudLetter nikudLetter = (NikudLetter) letter;
             switch (nikudLetter.getDistinction())
@@ -122,6 +122,10 @@ public class LetterHelper
                currentLetterForAnalysis.addToUpperPunktation(nikudLetter);
             }
          }
+         else if(letter == null)
+         {
+            System.out.println("LetterHelper: "+codeList.get(i));
+         }
       }
 
       return analysisList;
@@ -133,21 +137,7 @@ public class LetterHelper
       {
          return false;
       }
-      
-      if(!one.getSetUpperPunktation().equals(two.getSetUpperPunktation()))
-      {
-         return false;
-      }
-      
-      if(one.getDagesh() != two.getDagesh())
-      {
-         return false;
-      }
-      
-      if(!one.getListLowerPunktation().equals(two.getListLowerPunktation()))
-      {
-         return false;
-      }
+     
       return true;
    }
 

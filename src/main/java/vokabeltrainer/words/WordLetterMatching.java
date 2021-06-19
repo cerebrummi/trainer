@@ -22,8 +22,10 @@ public class WordLetterMatching
          LinkedList<LetterForAnalysis> answer)
    {
       final NikudLetter NEWSPACE = NikudLetter.NEWSPACE;
-
+      
       WordLetterMatchingResult result = new WordLetterMatchingResult();
+
+      result.setSimilarity(calculateSamenessPunish(dictionary, answer));
 
       if (answer.isEmpty())
       {

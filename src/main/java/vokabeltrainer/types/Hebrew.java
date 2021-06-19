@@ -1,11 +1,8 @@
 package vokabeltrainer.types;
 
-import vokabeltrainer.Settings;
-import vokabeltrainer.editing.NikudLetter;
-
 public class Hebrew
 {
-   private boolean simpleHebrew = Settings.isSimpleHebrewInput();
+   private boolean simpleHebrew = true;
    private String hebrew = "";
    private String hebrewPlene = "";
    private String hebrewDefektiv = "";

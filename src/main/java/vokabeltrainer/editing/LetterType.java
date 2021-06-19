@@ -4,7 +4,6 @@ public enum LetterType
 {
    GERMAN,
    HEBREW,
-   NIKUD,
    NUMBER,
    SIGN;
 }

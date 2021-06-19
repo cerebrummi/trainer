@@ -501,7 +501,7 @@ public enum NikudLetter
    @Override
    public LetterType isType()
    {
-      return LetterType.NIKUD;
+      return LetterType.HEBREW;
    }
 
    @Override
