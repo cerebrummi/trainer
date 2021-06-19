@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 import vokabeltrainer.types.Chapter.Database;
+import vokabeltrainer.Settings;
 import vokabeltrainer.common.Letter;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
@@ -31,6 +32,21 @@ public class Expression
    private LocalDateTime lastModified;
    private String sortingIndex = "";
 
+   public Expression(boolean preset) // for unit testing
+   {
+      this.doNotChange = true;
+      
+      if (preset)
+      {
+         uuid = UUID.randomUUID();
+         german = "";
+         chapter = new Chapter(Database.SELF);
+         definitions = new Definitions();
+         lastModified = LocalDateTime.now();
+      }
+   }
+   
+   
    public Expression(boolean preset, boolean doNotChange)
    {
       this.doNotChange = doNotChange;
@@ -42,6 +58,7 @@ public class Expression
          chapter = new Chapter(Database.SELF);
          definitions = new Definitions();
          lastModified = LocalDateTime.now();
+         hebrew.setSimpleHebrew(Settings.isSimpleHebrewInput());
       }
    }
 

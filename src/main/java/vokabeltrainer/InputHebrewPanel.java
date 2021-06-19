@@ -64,9 +64,12 @@ public class InputHebrewPanel extends JTextPane
       cards = new JPanel();
       layout = new CardLayout();
       cards.setLayout(layout);
+      cards.setOpaque(true);
+      cards.setBackground(ApplicationColors.getWhite());
+      cards.setBorder(BorderFactory.createEmptyBorder());
 
-      this.setOpaque(false);
-      this.setBackground(ApplicationColors.getTransparent());
+      this.setOpaque(true);
+      this.setBackground(ApplicationColors.getWhite());
 
       toggleButton = new JButton(
             new ImageIcon(ApplicationImages.getToggleButtonIcon()));
@@ -93,9 +96,20 @@ public class InputHebrewPanel extends JTextPane
 
    private void initController()
    {
-      // TODO
       hebrewField.addCaretListener(event -> {
          if (!hebrewField.getText().isEmpty())
+         {
+            setBlankBorder();
+         }
+      });
+      pleneField.addCaretListener(event -> {
+         if (!pleneField.getText().isBlank() && !defektivField.getText().isBlank())
+         {
+            setBlankBorder();
+         }
+      });
+      defektivField.addCaretListener(event -> {
+         if (!pleneField.getText().isBlank() && !defektivField.getText().isBlank())
          {
             setBlankBorder();
          }
@@ -346,5 +360,15 @@ public class InputHebrewPanel extends JTextPane
    public Collection<? extends JTextComponent> getTextComponents()
    {
       return components;
+   }
+
+   public Selection getSelection()
+   {
+      return selection;
+   }
+
+   public void setSelection(Selection selection)
+   {
+      this.selection = selection;
    }
 }

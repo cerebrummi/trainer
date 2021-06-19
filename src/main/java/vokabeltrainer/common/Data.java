@@ -679,7 +679,6 @@ public final class Data
             {
 
                Expression expression = new Expression(false, doNotChange);
-               expression.getHebrew().setSimpleHebrew(Settings.isSimpleHebrewInput());
                // read csv file row
                int index = 0;
                String[] entries = row.split("\t");

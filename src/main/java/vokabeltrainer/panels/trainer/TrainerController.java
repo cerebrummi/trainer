@@ -19,6 +19,7 @@ import javax.swing.SwingUtilities;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.Command;
+import vokabeltrainer.InputHebrewPanel.Selection;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.TextImageWithPicture;
@@ -152,12 +153,20 @@ public class TrainerController implements TrainerControllerConnector
                .setText(currentExpression.getGerman());
          break;
       case HEBREW_TO_GERMAN:
-         trainerView.getQuestionFieldHebrew()
-               .setHebrewFieldText(currentExpression.getHebrew().getHebrew());
-         trainerView.getQuestionFieldHebrew().setPleneFieldText(
-               currentExpression.getHebrew().getHebrewPlene());
-         trainerView.getQuestionFieldHebrew().setDefektivFieldText(
-               currentExpression.getHebrew().getHebrewDefektiv());
+         if(currentExpression.getHebrew().isSimpleHebrew())
+         {
+            trainerView.getQuestionFieldHebrew()
+            .setHebrewFieldText(currentExpression.getHebrew().getHebrew());
+            trainerView.getQuestionFieldHebrew().setHebrewLayout(Selection.SIMPLE);
+         }
+         else
+         {
+            trainerView.getQuestionFieldHebrew().setPleneFieldText(
+                  currentExpression.getHebrew().getHebrewPlene());
+            trainerView.getQuestionFieldHebrew().setDefektivFieldText(
+                  currentExpression.getHebrew().getHebrewDefektiv());
+            trainerView.getQuestionFieldHebrew().setHebrewLayout(Selection.PLENE_DEFEKTIV);
+         }
          break;
       }
 

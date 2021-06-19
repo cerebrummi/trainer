@@ -9,7 +9,7 @@ public class Hebrew
 
    public Hebrew()
    {
-
+      
    }
 
    public Hebrew(String hebrew, String hebrewPlene, String hebrewDefektiv,

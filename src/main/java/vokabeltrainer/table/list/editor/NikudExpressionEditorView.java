@@ -156,7 +156,7 @@ public class NikudExpressionEditorView extends JDialog
       setResizable(true);
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       setSize(Math.min(screenSize.width - 60, 1301),
-            Math.min(screenSize.height - 60, 795));
+            Math.min(screenSize.height - 60, 815));
       
       outerLayout = new JPanel();
       outerLayout.setBackground(ApplicationColors.getBackgroundGold());
@@ -180,7 +180,7 @@ public class NikudExpressionEditorView extends JDialog
       getContentPane().add(new JScrollPane(outerLayout));
 
       initController();
-      Component[] focusList = { german, hebrew, newSearchwordGerman,
+      Component[] focusList = { german, newSearchwordGerman,
             newSearchwordHebrew };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
@@ -200,11 +200,11 @@ public class NikudExpressionEditorView extends JDialog
 
       if(Settings.isSimpleHebrewInput())
       {
-         hebrew = new InputHebrewPanel(Selection.SIMPLE, 140, 0);
+         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6);
       }
       else
       {
-         hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 140, 0);
+         hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 152, 6);
       }
       hebrew.setBlankBorder();
 
@@ -466,7 +466,7 @@ public class NikudExpressionEditorView extends JDialog
       verbTimesBoxPanel
             .setBorder(BorderFactory.createTitledBorder("Zeitformen"));
 
-      keyboard = new KeyboardHebrewNikud(hebrew, components, 140, true);
+      keyboard = new KeyboardHebrewNikud(hebrew, components, 152, true);
    }
 
    private TitledBorder makeBorderBlank(String title)

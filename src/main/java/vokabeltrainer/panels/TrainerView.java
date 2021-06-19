@@ -326,6 +326,7 @@ public class TrainerView extends BackgroundPanelTiled
          questionFieldGerman
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 70));
          questionFieldGerman.setEditable(false);
+         questionPanel.add(questionFieldGerman);
       }
       else
       {
@@ -338,6 +339,8 @@ public class TrainerView extends BackgroundPanelTiled
          questionFieldHebrew
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 160));
          questionFieldHebrew.setEditable(false);
+         questionFieldHebrew.setEnabled(false);
+         questionPanel.add(questionFieldHebrew);
       }
 
       additionalInfoField = new JTextPane();
@@ -364,7 +367,6 @@ public class TrainerView extends BackgroundPanelTiled
       additionalInfo
             .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 30));
 
-      questionPanel.add(questionFieldGerman);
       questionPanel.add(additionalInfo);
       questionPanel.add(scroller);
 
