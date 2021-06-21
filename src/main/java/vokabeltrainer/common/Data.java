@@ -1067,16 +1067,10 @@ public final class Data
 
       private boolean equalsHebrewSearchWord(String text, Expression expression)
       {
-         text = text.trim();
-         List<String> searchwords = expression.getSearchwordsHebrew();
-         for (String word : searchwords)
-         {
-            if (word.equals(text))
-            {
-               return true;
-            }
-         }
-         return false;
+         final String trimmedText = text.trim();
+
+         return expression.getSearchwordsHebrew().stream()
+               .anyMatch(word -> word.equals(trimmedText));
       }
 
       private boolean equalsHebrewWordStart(String text, Expression expression)
@@ -1114,7 +1108,7 @@ public final class Data
 
          List<LetterForAnalysis> expressionListDefektiv = LetterHelper
                .findNikudLetterForAnalysisList(
-                     expression.getHebrew().getHebrew());
+                     expression.getHebrew().getHebrewDefektiv());
          if (textList.size() <= expressionListDefektiv.size())
          {
             final IntStream indices = IntStream.range(0, textList.size());
@@ -1180,32 +1174,16 @@ public final class Data
                this.getAllOwnDistinctDatabaseDescriptions(true));
       }
 
-      private List<String> getChapterListForEditor()
-      {
-         List<String> chapterList = new ArrayList<>();
-         List<Database> availableDatabases = Settings.getAvailableDatabases();
-         for (Chapter chapter : chapterSet)
-         {
-            if (!availableDatabases.contains(chapter.getOrigin()))
-            {
-               chapterList.add(chapter.getName());
-            }
-         }
-         Collections.sort(chapterList);
-         return chapterList;
-      }
-
       private String[] getChapterArrayForEditor()
       {
-         List<String> chapterList = getChapterListForEditor();
-         String[] result = new String[chapterList.size()];
-         int index = 0;
-         for (String chapter : chapterList)
-         {
-            result[index] = chapter;
-            index++;
-         }
-         return result;
+         final List<Database> availableDatabases = Settings
+               .getAvailableDatabases();
+
+         return chapterSet.stream().filter(
+               chapter -> !availableDatabases.contains(chapter.getOrigin()))
+               .sorted()
+               .map(chapter -> chapter.getName())
+               .toArray(String[]::new);
       }
 
       private List<Chapter> getChapterList()
