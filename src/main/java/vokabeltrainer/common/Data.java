@@ -30,6 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -352,19 +353,13 @@ public final class Data
 
       DataBase()
       {
-         for (LetterForSaving letter : LetterForSaving.values())
-         {
-            readFileRegular(letter.name() + ".csv", Database.TO_BE_DETERMINED,
-                  letter);
-         }
+         Stream.of(LetterForSaving.values())
+               .forEach(letter -> readFileRegular(letter.name() + ".csv",
+                     Database.TO_BE_DETERMINED, letter));
 
-         for (Database database : Settings.getChosenDatabases())
-         {
-            for (LetterForSaving letter : LetterForSaving.values())
-            {
-               readFileAvailable(letter, database);
-            }
-         }
+         Settings.getChosenDatabases().stream()
+               .forEach(database -> Stream.of(LetterForSaving.values())
+                     .forEach(letter -> readFileAvailable(letter, database)));
 
          File customDir = new File(Settings.getTrainingPath());
          if (!customDir.exists())
@@ -436,7 +431,8 @@ public final class Data
                TrainingStatus trainingstatus = new TrainingStatus(repetition,
                      trys, nextDate);
                Expression expression = alleMap.get(uuid);
-               if (expression != null && Language.GERMAN_TO_HEBREW == languageDirection)
+               if (expression != null
+                     && Language.GERMAN_TO_HEBREW == languageDirection)
                {
                   expression.setTrainingStatusDToH(trainingstatus);
                }
@@ -723,27 +719,34 @@ public final class Data
                index++;
                expression.setGerman(entries[index]);
                index++;
-               expression.getHebrew().setSimpleHebrew(Boolean.valueOf(entries[index]));
+               expression.getHebrew()
+                     .setSimpleHebrew(Boolean.valueOf(entries[index]));
                index++;
                expression.getHebrew().setHebrew(entries[index]);
-               if (expression.getHebrew().getHebrew().contains(ExchangeLetter.SSIN.getUnicode()))
+               if (expression.getHebrew().getHebrew()
+                     .contains(ExchangeLetter.SSIN.getUnicode()))
                {
-                  expression.getHebrew().setHebrew(LetterHelper
-                        .turnExchangeSsinIntoNikudSsin(expression.getHebrew().getHebrew()));
+                  expression.getHebrew()
+                        .setHebrew(LetterHelper.turnExchangeSsinIntoNikudSsin(
+                              expression.getHebrew().getHebrew()));
                }
                index++;
                expression.getHebrew().setHebrewPlene(entries[index]);
-               if (expression.getHebrew().getHebrewPlene().contains(ExchangeLetter.SSIN.getUnicode()))
+               if (expression.getHebrew().getHebrewPlene()
+                     .contains(ExchangeLetter.SSIN.getUnicode()))
                {
-                  expression.getHebrew().setHebrewPlene(LetterHelper
-                        .turnExchangeSsinIntoNikudSsin(expression.getHebrew().getHebrew()));
+                  expression.getHebrew().setHebrewPlene(
+                        LetterHelper.turnExchangeSsinIntoNikudSsin(
+                              expression.getHebrew().getHebrew()));
                }
                index++;
                expression.getHebrew().setHebrewDefektiv(entries[index]);
-               if (expression.getHebrew().getHebrewDefektiv().contains(ExchangeLetter.SSIN.getUnicode()))
+               if (expression.getHebrew().getHebrewDefektiv()
+                     .contains(ExchangeLetter.SSIN.getUnicode()))
                {
-                  expression.getHebrew().setHebrewDefektiv(LetterHelper
-                        .turnExchangeSsinIntoNikudSsin(expression.getHebrew().getHebrew()));
+                  expression.getHebrew().setHebrewDefektiv(
+                        LetterHelper.turnExchangeSsinIntoNikudSsin(
+                              expression.getHebrew().getHebrew()));
                }
                index++;
 
@@ -1096,44 +1099,47 @@ public final class Data
          List<LetterForAnalysis> textList = LetterHelper
                .findNikudLetterForAnalysisList(text);
 
-         if(expression.getHebrew().isSimpleHebrew())
+         if (expression.getHebrew().isSimpleHebrew())
          {
             List<LetterForAnalysis> expressionList = LetterHelper
-                  .findNikudLetterForAnalysisList(expression.getHebrew().getHebrew());
-            if(textList.size() > expressionList.size())
+                  .findNikudLetterForAnalysisList(
+                        expression.getHebrew().getHebrew());
+            if (textList.size() > expressionList.size())
             {
                return false;
-            }          
+            }
             final IntStream indices = IntStream.range(0, textList.size());
-            return indices.allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
-                  expressionList.get(i)));
+            return indices.allMatch((i) -> LetterForAnalysis
+                  .isEqual(textList.get(i), expressionList.get(i)));
          }
-         
+
          List<LetterForAnalysis> expressionListPlene = LetterHelper
-               .findNikudLetterForAnalysisList(expression.getHebrew().getHebrewPlene());
-         if(textList.size() <= expressionListPlene.size())
+               .findNikudLetterForAnalysisList(
+                     expression.getHebrew().getHebrewPlene());
+         if (textList.size() <= expressionListPlene.size())
          {
             final IntStream indices = IntStream.range(0, textList.size());
-            if(indices.allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
-                  expressionListPlene.get(i))))
+            if (indices.allMatch((i) -> LetterForAnalysis
+                  .isEqual(textList.get(i), expressionListPlene.get(i))))
             {
                return true;
             }
          }
-         
+
          List<LetterForAnalysis> expressionListDefektiv = LetterHelper
-               .findNikudLetterForAnalysisList(expression.getHebrew().getHebrew());
-         if(textList.size() <= expressionListDefektiv.size())
+               .findNikudLetterForAnalysisList(
+                     expression.getHebrew().getHebrew());
+         if (textList.size() <= expressionListDefektiv.size())
          {
             final IntStream indices = IntStream.range(0, textList.size());
-            if(indices.allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
-                  expressionListDefektiv.get(i))))
+            if (indices.allMatch((i) -> LetterForAnalysis
+                  .isEqual(textList.get(i), expressionListDefektiv.get(i))))
             {
                return true;
             }
          }
-         
-        return false;
+
+         return false;
       }
 
       private boolean equalsGermanWordStart(String text, Expression expression)
