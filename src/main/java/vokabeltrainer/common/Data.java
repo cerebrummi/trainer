@@ -524,11 +524,9 @@ public final class Data
          }
          else
          {
-            for (LetterForSaving letter : LetterForSaving.values())
-            {
-               readFileImport(databasePath, letter, databaseName,
-                     overwriteDatabaseNames);
-            }
+            Stream.of(LetterForSaving.values())
+                  .forEach(letter -> readFileImport(databasePath, letter,
+                        databaseName, overwriteDatabaseNames));
          }
 
          return true;
@@ -1053,30 +1051,18 @@ public final class Data
 
       private List<Expression> findExpressionsOfKind(ExpressionKind kind)
       {
-         List<Expression> list = new ArrayList<>();
-         for (Expression expression : alleMap.values())
-         {
-            if (expression.getDefinitions().getExpressionKindSet()
-                  .contains(kind))
-            {
-               list.add(expression);
-            }
-         }
-         return list;
+         return alleMap.values().stream()
+               .filter(expression -> expression.getDefinitions()
+                     .getExpressionKindSet().contains(kind))
+               .collect(Collectors.toList());
       }
 
       private boolean equalsGermanSearchWord(String text, Expression expression)
       {
-         text = text.trim();
-         List<String> searchwords = expression.getSearchwordsGerman();
-         for (String word : searchwords)
-         {
-            if (word.equals(text))
-            {
-               return true;
-            }
-         }
-         return false;
+         final String trimmedText = text.trim();
+
+         return expression.getSearchwordsGerman().stream()
+               .anyMatch(word -> word.equalsIgnoreCase(trimmedText));
       }
 
       private boolean equalsHebrewSearchWord(String text, Expression expression)
