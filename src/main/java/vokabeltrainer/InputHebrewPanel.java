@@ -17,8 +17,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.common.Main;
@@ -26,7 +26,7 @@ import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 
-public class InputHebrewPanel extends JTextPane
+public class InputHebrewPanel extends JTextArea
 {
    private static final long serialVersionUID = 2787773393300243696L;
 
