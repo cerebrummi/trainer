@@ -27,11 +27,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
+import vokabeltrainer.ComponentTitledBorder;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputHebrewPanel;
 import vokabeltrainer.InputHebrewPanel.Selection;
@@ -332,7 +334,8 @@ public class TrainerView extends BackgroundPanelTiled
       }
       else
       {
-         questionFieldHebrew = new InputHebrewPanel(Selection.SIMPLE, 160, 10, false);
+         questionFieldHebrew = new InputHebrewPanel(Selection.SIMPLE, 160, 10,
+               false);
          questionFieldHebrew.setBackground(ApplicationColors.getLightBlue());
          questionFieldHebrew.setBorder(BorderFactory.createTitledBorder(
                "Wie lautet die Übersetzung dieses Begriffes?"));
@@ -345,11 +348,20 @@ public class TrainerView extends BackgroundPanelTiled
          questionPanel.add(questionFieldHebrew);
       }
 
+      additionalInfo = new JCheckBox();
+      additionalInfo.setFont(Settings.getButtonFont());
+      additionalInfo
+            .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
+      additionalInfo
+            .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 30));
+
       additionalInfoField = new JTextPane();
       additionalInfoField.setFont(Main.getGermanFont(15F));
-      additionalInfoField.setBorder(
-            BorderFactory.createTitledBorder("weitere Informationen"));
+      additionalInfoField.setBorder(new ComponentTitledBorder(additionalInfo,
+            additionalInfoField, new TitledBorder("weitere Informationen"), 35));
       additionalInfoField.setEditable(false);
+      
+      additionalInfo.addActionListener(event -> connector.setAdditionalInfo());
 
       JScrollPane scroller = new JScrollPane(additionalInfoField);
       scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 100));
@@ -359,17 +371,6 @@ public class TrainerView extends BackgroundPanelTiled
       scroller.getViewport().setBackground(ApplicationColors.getTransparent());
       scroller.getViewport().setOpaque(false);
 
-      additionalInfo = new JCheckBox("weitere Informationen anzeigen");
-      additionalInfo.setFont(Settings.getButtonFont());
-      additionalInfo.addActionListener(event -> {
-         connector.setAdditionalInfo();
-      });
-      additionalInfo
-            .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
-      additionalInfo
-            .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 30));
-
-      questionPanel.add(additionalInfo);
       questionPanel.add(scroller);
 
       answerPanel = new JPanel();
@@ -650,9 +651,12 @@ public class TrainerView extends BackgroundPanelTiled
       feedbackPanel.validate();
       feedbackPanel.repaint();
       additionalInfo.setSelected(false);
+      additionalInfoField.setText("");
+      additionalInfoField.validate();
+      additionalInfoField.repaint();
       pictureWordPanelPlene.removeAll();
       pictureWordPanelDefektiv.removeAll();
-      additionalInfoField.setText("");
+      
       connector.setNextTest();
       answerField.grabFocus();
       answerField.requestFocusInWindow();
