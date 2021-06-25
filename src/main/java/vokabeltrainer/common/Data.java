@@ -27,6 +27,7 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -1181,111 +1182,57 @@ public final class Data
 
          return chapterSet.stream().filter(
                chapter -> !availableDatabases.contains(chapter.getOrigin()))
-               .sorted()
-               .map(chapter -> chapter.getName())
+               .sorted().map(chapter -> chapter.getName())
                .toArray(String[]::new);
-      }
-
-      private List<Chapter> getChapterList()
-      {
-         List<Chapter> chapterList = new ArrayList<>();
-
-         for (Chapter chapter : chapterSet)
-         {
-            chapterList.add(chapter);
-         }
-         Collections.sort(chapterList);
-         return chapterList;
       }
 
       private Chapter[] getChapterArray()
       {
-         List<Chapter> chapterList = getChapterList();
-         Chapter[] result = new Chapter[chapterList.size()];
-         int index = 0;
-         for (Chapter chapter : chapterList)
-         {
-            result[index] = chapter;
-            index++;
-         }
-         return result;
+         return chapterSet.stream().sorted().toArray(Chapter[]::new);
       }
 
       private String getAllSelectedExpressionsAsString(Language language)
       {
-         List<Expression> list = new ArrayList<>();
-
-         for (Expression expression : alleMap.values())
-         {
-            if (expression.isSelected())
-            {
-               list.add(expression);
-            }
-         }
-
-         for (Expression expression : newMap.values())
-         {
-            if (expression.isSelected())
-            {
-               list.add(expression);
-            }
-         }
-
-         Collections.sort(list, new ExpressionComparator(language));
-
-         StringJoiner joiner = new StringJoiner("\n\n");
-
-         for (Expression expression : list)
-         {
-            joiner.add(expression.getCopyLines(language));
-         }
-
-         return joiner.toString();
+         return alleMap.values().stream()
+               .filter(expression -> expression.isSelected())
+               .sorted(new ExpressionComparator(language))
+               .map(expression -> expression.getCopyLines(language))
+               .collect(Collectors.joining("\n\n"));
       }
 
       private void clearAllSelectedExpressions()
       {
-         for (Expression expression : alleMap.values())
-         {
-            expression.setSelected(false);
-         }
-
+         alleMap.values().stream()
+               .forEach(expression -> expression.setSelected(false));
       }
 
       private List<Expression> findAllSelectedExpressionsList(
             boolean exceptDoNotChange)
       {
-         List<Expression> list = new ArrayList<>();
-
-         for (Expression expression : alleMap.values())
+         if (exceptDoNotChange)
          {
-            if (exceptDoNotChange && expression.isDoNotChange())
-            {
-               continue;
-            }
-            if (expression.isSelected())
-            {
-               list.add(expression);
-            }
+            return alleMap.values().stream()
+                  .filter(expression -> expression.isDoChange())
+                  .filter(expression -> expression.isSelected())
+                  .collect(Collectors.toList());
          }
-
-         return list;
+         return alleMap.values().stream()
+               .filter(expression -> expression.isSelected())
+               .collect(Collectors.toList());
       }
 
       private void deleteExpressions(List<Expression> list)
       {
-         for (Expression expression : list)
-         {
-            if (expression.isDoNotChange())
-            {
-               continue;
-            }
-            deletedMap.put(expression.getUuid(), expression);
-            alleMap.remove(expression.getUuid(), expression);
-            newMap.remove(expression.getUuid(), expression);
-         }
-
+         list.stream().filter(expression -> expression.isDoChange())
+               .forEach(expression -> expressionDeleteOperation(expression));
          reloadChapterSet();
+      }
+
+      private void expressionDeleteOperation(Expression expression)
+      {
+         deletedMap.put(expression.getUuid(), expression);
+         alleMap.remove(expression.getUuid(), expression);
+         newMap.remove(expression.getUuid(), expression);
       }
 
       public void deleteExpressionsOfDatabase(String databaseChoosen)
@@ -1341,93 +1288,101 @@ public final class Data
             Command fieldOfTraining)
       {
          TrainingTableRow[][] data = null;
-         Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
+         final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
                languageDirection, fieldOfTraining);
 
          switch (fieldOfTraining)
          {
          case AREA_CHAPTER:
-            List<TrainingTableRow> unlearnedPerChapter = new ArrayList<>();
-            for (Chapter chapter : getChapterList())
-            {
-               List<Expression> listChapter = this
-                     .findExpressionsChapter(chapter);
-               TrainingTableRow chapterRow = new TrainingTableRow();
-               chapterRow.setFieldOfTraining(fieldOfTraining);
-               chapterRow.setChapter(chapter);
-               chapterRow.setField(chapter.getName());
-               chapterRow.setExpressionListOldWords(
-                     findExpressionListOldToBeTestedPerChapter(chapter,
-                           oldToBeTested));
-               chapterRow.setToBeRepeatedWords(
-                     findOldToBeTestedPerChapter(chapter, oldToBeTested));
-               chapterRow.setExpressionListNewWords(
-                     findNotStudiedWords(languageDirection, listChapter));
-               chapterRow.setNotStudiedWords(
-                     chapterRow.getExpressionListNewWords().size());
-               chapterRow.setAmountOfNewWords(0);
-               chapterRow.setFieldDone(chapterRow.getNotStudiedWords() == 0
-                     && chapterRow.getToBeRepeatedWords() == 0);
-               chapterRow.setStarted(chapterRow.getToBeRepeatedWords() > 0);
-               unlearnedPerChapter.add(chapterRow);
-            }
-            data = new TrainingTableRow[unlearnedPerChapter.size()][1];
-            for (int i = 0; i < unlearnedPerChapter.size(); i++)
-            {
-               data[i][0] = unlearnedPerChapter.get(i);
-            }
+            data = chapterSet.stream().sorted()
+                  .map(chapter -> makeChapterRow(languageDirection,
+                        fieldOfTraining, oldToBeTested, chapter))
+                  .map(trainingTableRow -> new TrainingTableRow[] {
+                        trainingTableRow })
+                  .toArray(size -> new TrainingTableRow[size][1]);
             break;
          case AREA_SELECTED:
             List<Expression> listSelected = findAllSelectedExpressionsList(
                   false);
-            TrainingTableRow selectedRow = new TrainingTableRow();
-            selectedRow.setFieldOfTraining(fieldOfTraining);
-            selectedRow.setField("Ausgewählte Wörter");
-            selectedRow.setExpressionListOldWords(oldToBeTested);
-            selectedRow.setToBeRepeatedWords(oldToBeTested.size());
-            selectedRow.setExpressionListNewWords(
-                  findNotStudiedWords(languageDirection, listSelected));
-            selectedRow.setNotStudiedWords(
-                  selectedRow.getExpressionListNewWords().size());
-            selectedRow.setAmountOfNewWords(selectedRow.getNotStudiedWords());
-            selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0
-                  && selectedRow.getToBeRepeatedWords() == 0);
-            selectedRow.setStarted(selectedRow.getToBeRepeatedWords() > 0);
+            TrainingTableRow selectedRow = makeSelectedRow(languageDirection,
+                  fieldOfTraining, oldToBeTested, listSelected);
             data = new TrainingTableRow[1][1];
             data[0][0] = selectedRow;
             break;
          default:
+            System.out.println(
+                  "Data:Database:findTrainingModel was wrongly called with "
+                        + fieldOfTraining);
+            // TODO make own enum for fieldOfTraining
             break;
          }
 
          return new TrainingTableModel(data);
       }
 
+      private TrainingTableRow makeSelectedRow(Language languageDirection,
+            Command fieldOfTraining, final Set<Expression> oldToBeTested,
+            List<Expression> listSelected)
+      {
+         TrainingTableRow selectedRow = new TrainingTableRow();
+         selectedRow.setFieldOfTraining(fieldOfTraining);
+         selectedRow.setField("Ausgewählte Wörter");
+         selectedRow.setExpressionListOldWords(oldToBeTested);
+         selectedRow.setToBeRepeatedWords(oldToBeTested.size());
+         selectedRow.setExpressionListNewWords(
+               findNotStudiedWords(languageDirection, listSelected));
+         selectedRow.setNotStudiedWords(
+               selectedRow.getExpressionListNewWords().size());
+         selectedRow.setAmountOfNewWords(selectedRow.getNotStudiedWords());
+         selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0
+               && selectedRow.getToBeRepeatedWords() == 0);
+         selectedRow.setStarted(selectedRow.getToBeRepeatedWords() > 0);
+         return selectedRow;
+      }
+
+      private TrainingTableRow makeChapterRow(Language languageDirection,
+            Command fieldOfTraining, final Set<Expression> oldToBeTested,
+            Chapter chapter)
+      {
+         List<Expression> listChapter = this.findExpressionsChapter(chapter);
+         TrainingTableRow chapterRow = new TrainingTableRow();
+         chapterRow.setFieldOfTraining(fieldOfTraining);
+         chapterRow.setChapter(chapter);
+         chapterRow.setField(chapter.getName());
+         chapterRow.setExpressionListOldWords(
+               findExpressionListOldToBeTestedPerChapter(chapter,
+                     oldToBeTested));
+         chapterRow.setToBeRepeatedWords(
+               findOldToBeTestedPerChapter(chapter, oldToBeTested));
+         chapterRow.setExpressionListNewWords(
+               findNotStudiedWords(languageDirection, listChapter));
+         chapterRow.setNotStudiedWords(
+               chapterRow.getExpressionListNewWords().size());
+         chapterRow.setAmountOfNewWords(0);
+         chapterRow.setFieldDone(chapterRow.getNotStudiedWords() == 0
+               && chapterRow.getToBeRepeatedWords() == 0);
+         chapterRow.setStarted(chapterRow.getToBeRepeatedWords() > 0);
+         return chapterRow;
+      }
+
       private List<Expression> findNotStudiedWords(Language languageDirection,
             List<Expression> list)
       {
-         List<Expression> result = new ArrayList<>();
          switch (languageDirection)
          {
          case GERMAN_TO_HEBREW:
-            for (Expression expression : list)
-            {
-               if (!expression.getTrainingStatusDToH().isTrainingStarted())
-               {
-                  result.add(expression);
-               }
-            }
-            break;
+            return list
+                  .stream().filter(expression -> !expression
+                        .getTrainingStatusDToH().isTrainingStarted())
+                  .collect(Collectors.toList());
          case HEBREW_TO_GERMAN:
-            for (Expression expression : list)
-            {
-               if (!expression.getTrainingStatusHToD().isTrainingStarted())
-               {
-                  result.add(expression);
-               }
-            }
+            return list
+                  .stream().filter(expression -> !expression
+                        .getTrainingStatusHToD().isTrainingStarted())
+                  .collect(Collectors.toList());
+         default:
+            return new ArrayList<>();
          }
-         return result;
       }
 
       private Set<Expression> findOldExpressionsToBeTested(
