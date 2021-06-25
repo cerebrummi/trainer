@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -1492,21 +1491,21 @@ public final class Data
          StatisticsTableModel model = new StatisticsTableModel(data,
                columnNames);
 
-         for (int i = 0; i < sortedAllDates.size(); i++)
-         {
-            StatisticsTableRow row = new StatisticsTableRow(i,
-                  sortedAllDates.get(i),
-                  mapDtoH.get(sortedAllDates.get(i)) == null
-                        ? Collections.emptyList()
-                        : mapDtoH.get(sortedAllDates.get(i)),
-                  mapHtoD.get(sortedAllDates.get(i)) == null
-                        ? Collections.emptyList()
-                        : mapHtoD.get(sortedAllDates.get(i)),
-                  model);
-            Vector<StatisticsTableRow> vector = new Vector<>();
-            vector.add(row);
-            data.add(vector);
-         }
+         Stream.iterate(0, i -> i + 1).limit(sortedAllDates.size())
+               .forEachOrdered(i -> {
+                  StatisticsTableRow row = new StatisticsTableRow(i,
+                        sortedAllDates.get(i),
+                        mapDtoH.get(sortedAllDates.get(i)) == null
+                              ? Collections.emptyList()
+                              : mapDtoH.get(sortedAllDates.get(i)),
+                        mapHtoD.get(sortedAllDates.get(i)) == null
+                              ? Collections.emptyList()
+                              : mapHtoD.get(sortedAllDates.get(i)),
+                        model);
+                  Vector<StatisticsTableRow> vector = new Vector<>();
+                  vector.add(row);
+                  data.add(vector);
+               });
 
          return model;
       }
