@@ -133,6 +133,7 @@ public class TrainerView extends BackgroundPanelTiled
    {
       verticalTrainerPanel.add(initTopPanel());
       pictureWordPanelPlene = new LetterPictureWordPanel();
+      pictureWordPanelPlene.setPreferredSize(new Dimension(1200, 110));
       JScrollPane scroller = new JScrollPane(pictureWordPanelPlene);
       scroller.setMinimumSize(new Dimension(1200, 110));
       scroller.setMaximumSize(new Dimension(1200, 110));
@@ -140,6 +141,7 @@ public class TrainerView extends BackgroundPanelTiled
       scroller.setOpaque(true);
       verticalTrainerPanel.add(scroller);
       pictureWordPanelDefektiv = new LetterPictureWordPanel();
+      pictureWordPanelDefektiv.setPreferredSize(new Dimension(1200, 110));
       JScrollPane scroller2 = new JScrollPane(pictureWordPanelDefektiv);
       scroller2.setMinimumSize(new Dimension(1200, 110));
       scroller2.setMaximumSize(new Dimension(1200, 110));
@@ -282,7 +284,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       infoStopTrainingPanel = new JPanel(new BorderLayout());
       infoStopTrainingPanel.setMinimumSize(new Dimension(150, 40));
-      infoStopTrainingPanel.setMinimumSize(new Dimension(280, 40));
+      infoStopTrainingPanel.setMaximumSize(new Dimension(280, 40));
       infoStopTrainingPanel.setBackground(ApplicationColors.getGold());
 
       infoStopTrainingButton = new JButton(
@@ -480,8 +482,8 @@ public class TrainerView extends BackgroundPanelTiled
 
       feedbackPanel = new JPanel();
       feedbackPanel.setLayout(new TotemLayout(feedbackPanel, 15));
-      feedbackPanel.setMinimumSize(new Dimension(501, 225));
-      feedbackPanel.setMaximumSize(new Dimension(501, 225));
+      feedbackPanel.setMinimumSize(new Dimension(501, 220));
+      feedbackPanel.setMaximumSize(new Dimension(501, 220));
 
       vertical.add(swapPanel);
       vertical.add(sendButton);
@@ -782,7 +784,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       JPanel fillerAnswerPanel = new JPanel();
       fillerAnswerPanel.setMinimumSize(new Dimension(501, 1));
-      fillerAnswerPanel.setMaximumSize(new Dimension(501, 95));
+      fillerAnswerPanel.setMaximumSize(new Dimension(501, 225));
 
       feedbackPanel.add(scrollPane);
       feedbackPanel.add(fillerAnswerPanel);
