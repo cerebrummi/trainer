@@ -26,6 +26,7 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Predicate;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -1313,8 +1314,8 @@ public final class Data
       }
 
       private TrainingTableRow makeSelectedRow(Language languageDirection,
-            FieldOfTraining fieldOfTraining, final Set<Expression> oldToBeTested,
-            List<Expression> listSelected)
+            FieldOfTraining fieldOfTraining,
+            final Set<Expression> oldToBeTested, List<Expression> listSelected)
       {
          TrainingTableRow selectedRow = new TrainingTableRow();
          selectedRow.setFieldOfTraining(fieldOfTraining);
@@ -1333,8 +1334,8 @@ public final class Data
       }
 
       private TrainingTableRow makeChapterRow(Language languageDirection,
-            FieldOfTraining fieldOfTraining, final Set<Expression> oldToBeTested,
-            Chapter chapter)
+            FieldOfTraining fieldOfTraining,
+            final Set<Expression> oldToBeTested, Chapter chapter)
       {
          List<Expression> listChapter = this.findExpressionsChapter(chapter);
          TrainingTableRow chapterRow = new TrainingTableRow();
@@ -1342,10 +1343,10 @@ public final class Data
          chapterRow.setChapter(chapter);
          chapterRow.setField(chapter.getName());
          chapterRow.setExpressionListOldWords(
-               findExpressionListOldToBeTestedPerChapter(chapter,
+               findSetOfOldExpressionsToBeTestedPerChapter(chapter,
                      oldToBeTested));
          chapterRow.setToBeRepeatedWords(
-               findOldToBeTestedPerChapter(chapter, oldToBeTested));
+               findNumberOfOldToBeTestedPerChapter(chapter, oldToBeTested));
          chapterRow.setExpressionListNewWords(
                findNotStudiedWords(languageDirection, listChapter));
          chapterRow.setNotStudiedWords(
@@ -1380,89 +1381,71 @@ public final class Data
       private Set<Expression> findOldExpressionsToBeTested(
             Language languageDirection, FieldOfTraining fieldOfTraining)
       {
-         Set<Expression> result = new HashSet<>();
-         LocalDate now = LocalDate.now();
-         Collection<Expression> allExpressions = alleMap.values();
-         switch (languageDirection)
+         if (Language.GERMAN_TO_HEBREW == languageDirection
+               && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
-         case GERMAN_TO_HEBREW:
-            for (Expression expression : allExpressions)
-            {
-               if (FieldOfTraining.AREA_SELECTED == fieldOfTraining)
-               {
-                  if (expression.isSelected() && expression
-                        .getTrainingStatusDToH().isTrainingStarted())
-                  {
-                     result.add(expression);
-                  }
-               }
-               else
-               {
-                  if (expression.getTrainingStatusDToH().isTrainingStarted()
-                        && (now.isEqual(
-                              expression.getTrainingStatusDToH().getNextDate())
-                              || now.isAfter(expression.getTrainingStatusDToH()
-                                    .getNextDate())))
-                  {
-                     result.add(expression);
-                  }
-               }
-            }
-            break;
-         case HEBREW_TO_GERMAN:
-            for (Expression expression : allExpressions)
-            {
-               if (FieldOfTraining.AREA_SELECTED == fieldOfTraining)
-               {
-                  if (expression.isSelected() && expression
-                        .getTrainingStatusHToD().isTrainingStarted())
-                  {
-                     result.add(expression);
-                  }
-               }
-               else
-               {
-                  if (expression.getTrainingStatusHToD().isTrainingStarted()
-                        && (now.isEqual(
-                              expression.getTrainingStatusHToD().getNextDate())
-                              || now.isAfter(expression.getTrainingStatusHToD()
-                                    .getNextDate())))
-                  {
-                     result.add(expression);
-                  }
-               }
-            }
+            return alleMap.values().stream()
+                  .filter(expression -> expression.isSelected())
+                  .filter(expression -> expression.getTrainingStatusDToH()
+                        .isTrainingStarted())
+                  .collect(Collectors.toSet());
          }
 
-         return result;
+         final LocalDate now = LocalDate.now();
+
+         if (Language.GERMAN_TO_HEBREW == languageDirection
+               && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
+         {
+            Predicate<Expression> con1 = e -> e.getTrainingStatusDToH()
+                  .isTrainingStarted();
+            Predicate<Expression> con2 = e -> now
+                  .isEqual(e.getTrainingStatusDToH().getNextDate());
+            Predicate<Expression> con3 = e -> now
+                  .isAfter(e.getTrainingStatusDToH().getNextDate());
+            return alleMap.values().stream().filter(con1).filter(con2.or(con3))
+                  .collect(Collectors.toSet());
+         }
+
+         if (Language.HEBREW_TO_GERMAN == languageDirection
+               && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
+         {
+            return alleMap.values().stream()
+                  .filter(expression -> expression.isSelected())
+                  .filter(expression -> expression.getTrainingStatusHToD()
+                        .isTrainingStarted())
+                  .collect(Collectors.toSet());
+         }
+
+         if (Language.HEBREW_TO_GERMAN == languageDirection
+               && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
+         {
+            Predicate<Expression> con1 = e -> e.getTrainingStatusHToD()
+                  .isTrainingStarted();
+            Predicate<Expression> con2 = e -> now
+                  .isEqual(e.getTrainingStatusHToD().getNextDate());
+            Predicate<Expression> con3 = e -> now
+                  .isAfter(e.getTrainingStatusHToD().getNextDate());
+            return alleMap.values().stream().filter(con1).filter(con2.or(con3))
+                  .collect(Collectors.toSet());
+         }
+
+         return Collections.emptySet();
       }
 
-      private int findOldToBeTestedPerChapter(Chapter chapter,
+      private int findNumberOfOldToBeTestedPerChapter(Chapter chapter,
             Set<Expression> allOldToBeTestedExpressions)
       {
-         int result = 0;
-         for (Expression e : allOldToBeTestedExpressions)
-         {
-            if (chapter.equals(e.getChapter()))
-            {
-               result++;
-            }
-         }
-         return result;
+         return allOldToBeTestedExpressions.stream()
+               .filter(expression -> chapter.equals(expression.getChapter()))
+               .mapToInt(expression -> 1).sum();
       }
 
-      private Set<Expression> findExpressionListOldToBeTestedPerChapter(
+      private Set<Expression> findSetOfOldExpressionsToBeTestedPerChapter(
             Chapter chapter, Set<Expression> allOldToBeTestedExpressions)
       {
-         Set<Expression> result = new HashSet<>();
-         for (Expression e : allOldToBeTestedExpressions)
-         {
-            if (chapter.equals(e.getChapter()))
-            {
-               result.add(e);
-            }
-         }
-         return result;
+         return allOldToBeTestedExpressions.stream()
+         .filter(expression -> chapter.equals(expression.getChapter()))
+         .collect(Collectors.toSet());
       }
 
       private Map<UUID, Expression> getDeletedMap()
