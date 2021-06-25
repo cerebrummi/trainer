@@ -1444,8 +1444,8 @@ public final class Data
             Chapter chapter, Set<Expression> allOldToBeTestedExpressions)
       {
          return allOldToBeTestedExpressions.stream()
-         .filter(expression -> chapter.equals(expression.getChapter()))
-         .collect(Collectors.toSet());
+               .filter(expression -> chapter.equals(expression.getChapter()))
+               .collect(Collectors.toSet());
       }
 
       private Map<UUID, Expression> getDeletedMap()
@@ -1460,51 +1460,31 @@ public final class Data
 
       private StatisticsTableModel findStatisticsModel()
       {
-         Set<LocalDate> datesAll = new HashSet<>();
-         Map<LocalDate, List<List<Expression>>> dates = new HashMap<>();
+         Predicate<Expression> trainingDToHStarted = e -> e
+               .getTrainingStatusDToH().isTrainingStarted();
+         Predicate<Expression> trainingDToHNotDone = e -> !e
+               .getTrainingStatusDToH().isTrainingDone();
 
-         alleMap.forEach((uuid, expression) -> {
-            Expression e = ((Expression) expression);
+         final Map<LocalDate, List<Expression>> mapDtoH = alleMap.values()
+               .stream().filter(trainingDToHStarted).filter(trainingDToHNotDone)
+               .collect(Collectors.groupingBy(expression -> expression
+                     .getTrainingStatusDToH().getNextDate()));
 
-            if (e.getTrainingStatusDToH().isTrainingStarted()
-                  && !e.getTrainingStatusDToH().isTrainingDone()
-                  && datesAll.add(e.getTrainingStatusDToH().getNextDate()))
-            {
-               List<Expression> oneWay = new ArrayList<>();
-               List<Expression> otherWay = new ArrayList<>();
-               List<List<Expression>> bothWays = new ArrayList<>();
-               bothWays.add(oneWay);
-               bothWays.add(otherWay);
-               dates.put(e.getTrainingStatusDToH().getNextDate(), bothWays);
-            }
-            if (e.getTrainingStatusHToD().isTrainingStarted()
-                  && !e.getTrainingStatusHToD().isTrainingDone()
-                  && datesAll.add(e.getTrainingStatusHToD().getNextDate()))
-            {
-               List<Expression> oneWay = new ArrayList<>();
-               List<Expression> otherWay = new ArrayList<>();
-               List<List<Expression>> bothWays = new ArrayList<>();
-               bothWays.add(oneWay);
-               bothWays.add(otherWay);
-               dates.put(e.getTrainingStatusHToD().getNextDate(), bothWays);
-            }
+         Predicate<Expression> trainingHToDStarted = e -> e
+               .getTrainingStatusHToD().isTrainingStarted();
+         Predicate<Expression> trainingHToDNotDone = e -> !e
+               .getTrainingStatusHToD().isTrainingDone();
 
-            if (e.getTrainingStatusDToH().isTrainingStarted()
-                  && !e.getTrainingStatusDToH().isTrainingDone())
-            {
-               dates.get(e.getTrainingStatusDToH().getNextDate()).get(0).add(e);
-            }
+         final Map<LocalDate, List<Expression>> mapHtoD = alleMap.values()
+               .stream().filter(trainingHToDStarted).filter(trainingHToDNotDone)
+               .collect(Collectors.groupingBy(expression -> expression
+                     .getTrainingStatusHToD().getNextDate()));
 
-            if (e.getTrainingStatusHToD().isTrainingStarted()
-                  && !e.getTrainingStatusHToD().isTrainingDone())
-            {
-               dates.get(e.getTrainingStatusHToD().getNextDate()).get(1).add(e);
-            }
-
-         });
-
-         List<LocalDate> sortedDates = new LinkedList<>(datesAll);
-         sortedDates.sort((date1, date2) -> date1.compareTo(date2));
+         Set<LocalDate> unsortedAllDates = new HashSet<>();
+         unsortedAllDates.addAll(mapDtoH.keySet());
+         unsortedAllDates.addAll(mapHtoD.keySet());
+         List<LocalDate> sortedAllDates = unsortedAllDates.stream().sorted()
+               .collect(Collectors.toList());
 
          Vector<Vector<StatisticsTableRow>> data = new Vector<>();
          Vector<String> columnNames = new Vector<>();
@@ -1512,11 +1492,17 @@ public final class Data
          StatisticsTableModel model = new StatisticsTableModel(data,
                columnNames);
 
-         for (int i = 0; i < sortedDates.size(); i++)
+         for (int i = 0; i < sortedAllDates.size(); i++)
          {
             StatisticsTableRow row = new StatisticsTableRow(i,
-                  sortedDates.get(i), dates.get(sortedDates.get(i)).get(0),
-                  dates.get(sortedDates.get(i)).get(1), model);
+                  sortedAllDates.get(i),
+                  mapDtoH.get(sortedAllDates.get(i)) == null
+                        ? Collections.emptyList()
+                        : mapDtoH.get(sortedAllDates.get(i)),
+                  mapHtoD.get(sortedAllDates.get(i)) == null
+                        ? Collections.emptyList()
+                        : mapHtoD.get(sortedAllDates.get(i)),
+                  model);
             Vector<StatisticsTableRow> vector = new Vector<>();
             vector.add(row);
             data.add(vector);
