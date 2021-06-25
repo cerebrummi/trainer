@@ -1,14 +1,14 @@
 package vokabeltrainer.panels.trainer;
 
 import java.util.List;
-import vokabeltrainer.Command;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.Language;
 
 public interface TrainerControllerConnector
 {
    public Language getLanguageDirection();
-   public Command getFieldOfTraining();
+   public FieldOfTraining getFieldOfTraining();
    public List<Expression> getNewExpressions();
    public List<Expression> getOldExpressions();
    public void setAdditionalInfo();

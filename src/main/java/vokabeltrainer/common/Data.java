@@ -21,13 +21,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -61,6 +59,7 @@ import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.DatabaseDescription;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.SearchType;
@@ -264,7 +263,7 @@ public final class Data
    }
 
    public static TrainingTableModel findTrainingModel(
-         Language languageDirection, Command fieldOfTraining)
+         Language languageDirection, FieldOfTraining fieldOfTraining)
    {
       return getDataBaseAtomic().findTrainingModel(languageDirection,
             fieldOfTraining);
@@ -1285,7 +1284,7 @@ public final class Data
       }
 
       private TrainingTableModel findTrainingModel(Language languageDirection,
-            Command fieldOfTraining)
+            FieldOfTraining fieldOfTraining)
       {
          TrainingTableRow[][] data = null;
          final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
@@ -1308,20 +1307,13 @@ public final class Data
                   fieldOfTraining, oldToBeTested, listSelected);
             data = new TrainingTableRow[1][1];
             data[0][0] = selectedRow;
-            break;
-         default:
-            System.out.println(
-                  "Data:Database:findTrainingModel was wrongly called with "
-                        + fieldOfTraining);
-            // TODO make own enum for fieldOfTraining
-            break;
          }
 
          return new TrainingTableModel(data);
       }
 
       private TrainingTableRow makeSelectedRow(Language languageDirection,
-            Command fieldOfTraining, final Set<Expression> oldToBeTested,
+            FieldOfTraining fieldOfTraining, final Set<Expression> oldToBeTested,
             List<Expression> listSelected)
       {
          TrainingTableRow selectedRow = new TrainingTableRow();
@@ -1341,7 +1333,7 @@ public final class Data
       }
 
       private TrainingTableRow makeChapterRow(Language languageDirection,
-            Command fieldOfTraining, final Set<Expression> oldToBeTested,
+            FieldOfTraining fieldOfTraining, final Set<Expression> oldToBeTested,
             Chapter chapter)
       {
          List<Expression> listChapter = this.findExpressionsChapter(chapter);
@@ -1386,7 +1378,7 @@ public final class Data
       }
 
       private Set<Expression> findOldExpressionsToBeTested(
-            Language languageDirection, Command fieldOfTraining)
+            Language languageDirection, FieldOfTraining fieldOfTraining)
       {
          Set<Expression> result = new HashSet<>();
          LocalDate now = LocalDate.now();
@@ -1396,7 +1388,7 @@ public final class Data
          case GERMAN_TO_HEBREW:
             for (Expression expression : allExpressions)
             {
-               if (Command.AREA_SELECTED == fieldOfTraining)
+               if (FieldOfTraining.AREA_SELECTED == fieldOfTraining)
                {
                   if (expression.isSelected() && expression
                         .getTrainingStatusDToH().isTrainingStarted())
@@ -1420,7 +1412,7 @@ public final class Data
          case HEBREW_TO_GERMAN:
             for (Expression expression : allExpressions)
             {
-               if (Command.AREA_SELECTED == fieldOfTraining)
+               if (FieldOfTraining.AREA_SELECTED == fieldOfTraining)
                {
                   if (expression.isSelected() && expression
                         .getTrainingStatusHToD().isTrainingStarted())

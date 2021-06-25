@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSound;
-import vokabeltrainer.Command;
 import vokabeltrainer.InputHebrewPanel.Selection;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
@@ -28,13 +27,14 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.panels.TrainerView;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.Language;
 
 public class TrainerController implements TrainerControllerConnector
 {
    private TrainerView trainerView;
    private Language languageDirection;
-   private Command fieldOfTraining;
+   private FieldOfTraining fieldOfTraining;
    private List<Expression> newExpressions;
    private List<Expression> oldExpressions;
    private Expression currentExpression;
@@ -43,7 +43,7 @@ public class TrainerController implements TrainerControllerConnector
    private Set<Expression> allExpressions;
    private List<Expression> expressionsToBeTested;
 
-   public TrainerController(Language languageDirection, Command fieldOfTraining,
+   public TrainerController(Language languageDirection, FieldOfTraining fieldOfTraining,
          List<Expression> newExpressions, List<Expression> oldExpressions)
    {
       this.languageDirection = languageDirection;
@@ -101,7 +101,7 @@ public class TrainerController implements TrainerControllerConnector
       return languageDirection;
    }
 
-   public Command getFieldOfTraining()
+   public FieldOfTraining getFieldOfTraining()
    {
       return fieldOfTraining;
    }

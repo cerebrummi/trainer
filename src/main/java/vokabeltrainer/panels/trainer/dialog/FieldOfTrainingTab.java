@@ -14,8 +14,8 @@ import javax.swing.JRadioButton;
 
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
+import vokabeltrainer.types.FieldOfTraining;
 
 public class FieldOfTrainingTab extends BackgroundPanelTiled
 {
@@ -48,12 +48,12 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
 
       chapterButton = new JRadioButton("Aus den Lektionen.");
       chapterButton.setFont(Settings.getToolBarButtonFont());
-      chapterButton.setActionCommand(Command.AREA_CHAPTER.name());
+      chapterButton.setActionCommand(FieldOfTraining.AREA_CHAPTER.name());
       areaGroup.add(chapterButton);
 
       selectedButton = new JRadioButton("Aus den ausgewählten Wörtern.");
       selectedButton.setFont(Settings.getToolBarButtonFont());
-      selectedButton.setActionCommand(Command.AREA_SELECTED.name());
+      selectedButton.setActionCommand(FieldOfTraining.AREA_SELECTED.name());
       areaGroup.add(selectedButton);
 
       vertical.add(chapterButton);
@@ -78,13 +78,13 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
       add(buttonWrapper, BorderLayout.SOUTH);
 
       chapterButton.addActionListener(event -> {
-         dialog.setFieldOfTraining(Command.AREA_CHAPTER);
+         dialog.setFieldOfTraining(FieldOfTraining.AREA_CHAPTER);
          removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });
 
       selectedButton.addActionListener(event -> {
-         dialog.setFieldOfTraining(Command.AREA_SELECTED);
+         dialog.setFieldOfTraining(FieldOfTraining.AREA_SELECTED);
          removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });

@@ -11,10 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.Language;
 
 public class StartTrainingView extends JDialog
@@ -24,7 +24,7 @@ public class StartTrainingView extends JDialog
    private JPanel layout;
    private JTabbedPane tabbedPane;
    private Language languageDirection;
-   private Command fieldOfTraining;
+   private FieldOfTraining fieldOfTraining;
    private List<Expression> newExpressions;
    private List<Expression> oldExpressions;
    private boolean training;
@@ -73,7 +73,7 @@ public class StartTrainingView extends JDialog
       this.languageDirection = languageDirection;
    }
 
-   public Command getFieldOfTraining()
+   public FieldOfTraining getFieldOfTraining()
    {
       return fieldOfTraining;
    }
@@ -83,7 +83,7 @@ public class StartTrainingView extends JDialog
       this.newExpressions = newExpressions;
    }
 
-   public void setFieldOfTraining(Command fieldOfTraining)
+   public void setFieldOfTraining(FieldOfTraining fieldOfTraining)
    {
       this.fieldOfTraining = fieldOfTraining;
    }

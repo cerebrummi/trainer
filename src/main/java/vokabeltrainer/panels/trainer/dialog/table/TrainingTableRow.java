@@ -3,9 +3,9 @@ package vokabeltrainer.panels.trainer.dialog.table;
 import java.util.List;
 import java.util.Set;
 
-import vokabeltrainer.Command;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class TrainingTableRow
@@ -15,7 +15,7 @@ public class TrainingTableRow
    private int notStudiedWords;
    private int amountOfNewWords;
    private boolean fieldDone;
-   private Command fieldOfTraining;
+   private FieldOfTraining fieldOfTraining;
    private Chapter chapter;
    private ExpressionKind kind;
    private List<Expression> expressionListNewWords;
@@ -72,12 +72,12 @@ public class TrainingTableRow
       this.fieldDone = fieldDone;
    }
 
-   public Command getFieldOfTraining()
+   public FieldOfTraining getFieldOfTraining()
    {
       return fieldOfTraining;
    }
 
-   public void setFieldOfTraining(Command fieldOfTraining)
+   public void setFieldOfTraining(FieldOfTraining fieldOfTraining)
    {
       this.fieldOfTraining = fieldOfTraining;
    }
