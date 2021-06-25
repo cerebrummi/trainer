@@ -25,4 +25,5 @@ public interface TrainerControllerConnector
    public void resultHtoDFalse();
    public void toggleSound();
    public void toggleLetterPictures();
+   public void setGrammarInfo();
 }

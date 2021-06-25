@@ -311,33 +311,12 @@ public class Expression
       return result;
    }
 
-   public String getAdditionalInfoGerman(boolean longVersion)
+   public String getAdditionalInfo()
    {
-      StringJoiner joiner = new StringJoiner(", ");
-      if (!definitions.getNumerusInfos().isEmpty())
-      {
-         joiner.add(definitions.getNumerusInfos());
-      }
-      if (!definitions.getGenderInfos().isEmpty())
-      {
-         joiner.add(definitions.getGenderInfos());
-      }
-      if (!definitions.getBinjanInfos().isEmpty())
-      {
-         joiner.add(definitions.getBinjanInfos());
-      }
-      if (!definitions.getVerbConjugationInfos().isEmpty())
-      {
-         joiner.add(definitions.getVerbConjugationInfos());
-      }
-      if (longVersion && !additionalInformation.isBlank())
-      {
-         joiner.add(additionalInformation);
-      }
-      return joiner.toString();
+      return additionalInformation;
    }
-
-   public String getAdditionalInfoHebrew(boolean longVersion)
+   
+   public String getGrammarInfo()
    {
       StringJoiner joiner = new StringJoiner(", ");
       if (!definitions.getNumerusInfos().isEmpty())
@@ -355,10 +334,6 @@ public class Expression
       if (!definitions.getVerbConjugationInfos().isEmpty())
       {
          joiner.add(definitions.getVerbConjugationInfos());
-      }
-      if (longVersion && !additionalInformation.isBlank())
-      {
-         joiner.add(additionalInformation);
       }
       return joiner.toString();
    }
@@ -530,7 +505,7 @@ public class Expression
       String[] content = new String[3];
       content[0] = german;
       content[1] = hebrew.toString();
-      content[2] = getAdditionalInfoGerman(false);
+      content[2] = getGrammarInfo();
       return content;
    }
 }

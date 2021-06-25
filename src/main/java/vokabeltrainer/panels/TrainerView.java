@@ -72,10 +72,12 @@ public class TrainerView extends BackgroundPanelTiled
    private JPanel questionPanel;
    private JTextField questionFieldGerman;
    private InputHebrewPanel questionFieldHebrew;
+   private JTextPane grammarInfoField;
    private JTextPane additionalInfoField;
    private InfoTextField answerField;
    private JLabel languageDirectionLabel;
    private JCheckBox additionalInfo;
+   private JCheckBox grammarInfo;
    private JPanel answerPanel;
    private JButton sendButton;
    private Language languageDirection;
@@ -348,12 +350,15 @@ public class TrainerView extends BackgroundPanelTiled
          questionPanel.add(questionFieldHebrew);
       }
 
+      JPanel additionalInfoPanel = new JPanel();
+      additionalInfoPanel.setLayout(new TrainLayout(additionalInfoPanel, 15));
+      
       additionalInfo = new JCheckBox();
       additionalInfo.setFont(Settings.getButtonFont());
       additionalInfo
-            .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
+            .setMinimumSize(new Dimension(Settings.getKeyboardWidth()/2-8, 30));
       additionalInfo
-            .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 30));
+            .setMaximumSize(new Dimension(Settings.getKeyboardWidth()/2-7, 30));
 
       additionalInfoField = new JTextPane();
       additionalInfoField.setFont(Main.getGermanFont(15F));
@@ -363,15 +368,41 @@ public class TrainerView extends BackgroundPanelTiled
       
       additionalInfo.addActionListener(event -> connector.setAdditionalInfo());
 
-      JScrollPane scroller = new JScrollPane(additionalInfoField);
-      scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 100));
-      scroller.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 100));
-      scroller.setBorder(BorderFactory.createEmptyBorder());
-      scroller.setViewportBorder(BorderFactory.createEmptyBorder());
-      scroller.getViewport().setBackground(ApplicationColors.getTransparent());
-      scroller.getViewport().setOpaque(false);
+      JScrollPane scrollerAdditionalInfo = new JScrollPane(additionalInfoField);
+      scrollerAdditionalInfo.setMinimumSize(new Dimension(Settings.getKeyboardWidth()/2-8, 100));
+      scrollerAdditionalInfo.setMaximumSize(new Dimension(Settings.getKeyboardWidth()/2-7, 100));
+      scrollerAdditionalInfo.setBorder(BorderFactory.createEmptyBorder());
+      scrollerAdditionalInfo.setViewportBorder(BorderFactory.createEmptyBorder());
+      scrollerAdditionalInfo.getViewport().setBackground(ApplicationColors.getTransparent());
+      scrollerAdditionalInfo.getViewport().setOpaque(false);
 
-      questionPanel.add(scroller);
+      grammarInfo = new JCheckBox();
+      grammarInfo.setFont(Settings.getButtonFont());
+      grammarInfo
+            .setMinimumSize(new Dimension(Settings.getKeyboardWidth()/2-8, 30));
+      grammarInfo
+            .setMaximumSize(new Dimension(Settings.getKeyboardWidth()/2-7, 30));
+
+      grammarInfoField = new JTextPane();
+      grammarInfoField.setFont(Main.getGermanFont(15F));
+      grammarInfoField.setBorder(new ComponentTitledBorder(grammarInfo,
+            grammarInfoField, new TitledBorder("Grammatik"), 35));
+      grammarInfoField.setEditable(false);
+      
+      grammarInfo.addActionListener(event -> connector.setGrammarInfo());
+
+      JScrollPane scrollerGrammarInfo = new JScrollPane(grammarInfoField);
+      scrollerGrammarInfo.setMinimumSize(new Dimension(Settings.getKeyboardWidth()/2-8, 100));
+      scrollerGrammarInfo.setMaximumSize(new Dimension(Settings.getKeyboardWidth()/2-7, 100));
+      scrollerGrammarInfo.setBorder(BorderFactory.createEmptyBorder());
+      scrollerGrammarInfo.setViewportBorder(BorderFactory.createEmptyBorder());
+      scrollerGrammarInfo.getViewport().setBackground(ApplicationColors.getTransparent());
+      scrollerGrammarInfo.getViewport().setOpaque(false);
+      
+      additionalInfoPanel.add(scrollerGrammarInfo);
+      additionalInfoPanel.add(scrollerAdditionalInfo);
+      
+      questionPanel.add(additionalInfoPanel);
 
       answerPanel = new JPanel();
       answerPanel.setLayout(new TotemLayout(answerPanel));
@@ -611,7 +642,7 @@ public class TrainerView extends BackgroundPanelTiled
       correctAnswer2.setMinimumSize(new Dimension(490, 30));
       correctAnswer2.setMaximumSize(new Dimension(510, 30));
       JTextField correctAnswer3 = new JTextField(
-            connector.getCurrentExpression().getAdditionalInfoGerman(false));
+            connector.getCurrentExpression().getGrammarInfo());
       correctAnswer3.setFont(Main.getGermanFont(16F));
       correctAnswer3.setEditable(false);
       correctAnswer3.setBackground(ApplicationColors.getTransparent());
@@ -654,6 +685,10 @@ public class TrainerView extends BackgroundPanelTiled
       additionalInfoField.setText("");
       additionalInfoField.validate();
       additionalInfoField.repaint();
+      grammarInfo.setSelected(false);
+      grammarInfoField.setText("");
+      grammarInfoField.validate();
+      grammarInfoField.repaint();
       pictureWordPanelPlene.removeAll();
       pictureWordPanelDefektiv.removeAll();
       
@@ -750,6 +785,11 @@ public class TrainerView extends BackgroundPanelTiled
    public JCheckBox getPictureToggleBox()
    {
       return pictureToggleBox;
+   }
+
+   public JTextPane getGrammarInfoField()
+   {
+      return grammarInfoField;
    }
 
    public void showResultBlue()

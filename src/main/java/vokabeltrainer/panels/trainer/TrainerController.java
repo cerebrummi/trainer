@@ -120,21 +120,28 @@ public class TrainerController implements TrainerControllerConnector
    {
       if (trainerView.getAdditionalInfoField().getText().isEmpty())
       {
-         switch (languageDirection)
-         {
-         case GERMAN_TO_HEBREW:
-            trainerView.getAdditionalInfoField()
-                  .setText(currentExpression.getAdditionalInfoGerman(true));
-            break;
-         case HEBREW_TO_GERMAN:
-            trainerView.getAdditionalInfoField()
-                  .setText(currentExpression.getAdditionalInfoHebrew(true));
-            break;
-         }
+         trainerView.getAdditionalInfoField()
+         .setText(currentExpression.getAdditionalInfo());
       }
       else
       {
          trainerView.getAdditionalInfoField().setText("");
+      }
+      trainerView.getFocusTraversalPolicy().getFirstComponent(null)
+            .requestFocus();
+   }
+   
+   @Override
+   public void setGrammarInfo()
+   {
+      if (trainerView.getGrammarInfoField().getText().isEmpty())
+      {
+         trainerView.getGrammarInfoField()
+         .setText(currentExpression.getGrammarInfo());
+      }
+      else
+      {
+         trainerView.getGrammarInfoField().setText("");
       }
       trainerView.getFocusTraversalPolicy().getFirstComponent(null)
             .requestFocus();
