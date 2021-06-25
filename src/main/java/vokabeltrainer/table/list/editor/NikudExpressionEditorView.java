@@ -200,11 +200,11 @@ public class NikudExpressionEditorView extends JDialog
 
       if(Settings.isSimpleHebrewInput())
       {
-         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6);
+         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6, true);
       }
       else
       {
-         hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 152, 6);
+         hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 152, 6, true);
       }
       hebrew.setBlankBorder();
 

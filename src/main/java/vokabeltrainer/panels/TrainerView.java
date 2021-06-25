@@ -330,7 +330,7 @@ public class TrainerView extends BackgroundPanelTiled
       }
       else
       {
-         questionFieldHebrew = new InputHebrewPanel(Selection.SIMPLE, 160, 10);
+         questionFieldHebrew = new InputHebrewPanel(Selection.SIMPLE, 160, 10, false);
          questionFieldHebrew.setBackground(ApplicationColors.getLightBlue());
          questionFieldHebrew.setBorder(BorderFactory.createTitledBorder(
                "Wie lautet die Übersetzung dieses Begriffes?"));

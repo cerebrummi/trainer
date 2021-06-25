@@ -45,7 +45,6 @@ public class InputHebrewPanel extends JTextArea
    private ComponentTitledBorder toggleBorder;
 
    private JPanel cards;
-
    public enum Selection
    {
       SIMPLE,
@@ -53,12 +52,11 @@ public class InputHebrewPanel extends JTextArea
    }
 
    public InputHebrewPanel(Selection selection, int heightTotal,
-         int heightBorderTitel)
+         int heightBorderTitel, boolean canBeToggled)
    {
       this.selection = selection;
       this.heightTotal = heightTotal;
       this.heightBorderTitel = heightBorderTitel;
-
       this.setLayout(new BullsEyeLayout(this));
 
       cards = new JPanel();
@@ -79,9 +77,16 @@ public class InputHebrewPanel extends JTextArea
       toggleButton.setForeground(ApplicationColors.getGold());
       toggleButton.setPreferredSize(new Dimension(40, 32));
 
-      toggleBorder = new ComponentTitledBorder(toggleButton, this,
-            BorderFactory.createEmptyBorder(), 40);
-      cards.setBorder(toggleBorder);
+      if(canBeToggled)
+      {
+         toggleBorder = new ComponentTitledBorder(toggleButton, this,
+               BorderFactory.createEmptyBorder(), 40);
+         cards.setBorder(toggleBorder);
+      }
+      else
+      {
+         cards.setBorder(BorderFactory.createEmptyBorder());
+      }
 
       cards.add("simple", initSimpleHebrew());
       cards.add("pleneDefektiv", initPleneDefektivHebrew());
@@ -318,7 +323,7 @@ public class InputHebrewPanel extends JTextArea
          defektivField.setBackground(color);
       }
    }
-
+   
    @Override
    public void setEnabled(boolean enabled)
    {
