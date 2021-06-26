@@ -107,4 +107,10 @@ public enum VerbTimes implements GrammaticalEnum
    {
       return parent;
    }
+   
+   @Override
+   public int getPrintOrderNumber()
+   {
+      return parent.getSortNumber();
+   }
 }

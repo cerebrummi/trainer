@@ -109,4 +109,10 @@ public enum Binjan
    {
       return parent;
    }
+
+   @Override
+   public int getPrintOrderNumber()
+   {
+      return parent.getSortNumber();
+   }
 }

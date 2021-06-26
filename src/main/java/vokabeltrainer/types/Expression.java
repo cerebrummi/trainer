@@ -417,19 +417,29 @@ public class Expression
          joiner.add(hebrew.toString());
          joiner.add(german);
       }
-      joiner.add(definitions.addGrammaticalEnumsForCopy("\n"));
+      if(!definitions.addGrammaticalEnumsForCopy("\n").isBlank())
+      {
+         joiner.add(definitions.addGrammaticalEnumsForCopy("\n"));
+      }
+      joiner.add(additionalInformation);
       StringJoiner searchJoinerGerman = new StringJoiner(",");
       for (String word : searchwordsGerman)
       {
          searchJoinerGerman.add(word);
       }
-      joiner.add("Suchworte Deutsch: " + searchJoinerGerman.toString());
+      if(!searchJoinerGerman.toString().isBlank())
+      {
+         joiner.add("Suchworte Deutsch: " + searchJoinerGerman.toString());
+      }
       StringJoiner searchJoinerHebrew = new StringJoiner(",");
       for (String word : searchwordsHebrew)
       {
          searchJoinerHebrew.add(word);
       }
-      joiner.add("Suchworte Hebräisch: " + searchJoinerHebrew.toString());
+      if(!searchJoinerHebrew.toString().isBlank())
+      {
+         joiner.add("Suchworte Hebräisch: " + searchJoinerHebrew.toString());
+      }
       return joiner.toString();
    }
 

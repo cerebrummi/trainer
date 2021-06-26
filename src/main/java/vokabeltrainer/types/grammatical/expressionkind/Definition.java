@@ -7,9 +7,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
+import vokabeltrainer.GrammaticalEnumComparator;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
@@ -95,19 +96,14 @@ public class Definition
    {
       return grammaticalEnumMap.values();
    }
-   
+
    public String addGrammaticalEnumsForCopy(String tag)
    {
-      StringJoiner joiner = new StringJoiner(tag);
-      for (Entry<Class<? extends GrammaticalEnum>, GrammaticalEnum> entry : grammaticalEnumMap
-            .entrySet())
-      {
-         if(!entry.getValue().toInfo().isEmpty())
-         {
-            joiner.add(entry.getKey().getCanonicalName()+": "+entry.getValue().toInfo());
-         }       
-      }
-      return joiner.toString();
+      return grammaticalEnumMap.values().stream()
+            .sorted(new GrammaticalEnumComparator())
+            .filter(gE -> !gE.toInfo().isBlank())
+            .map(gE -> gE.getParent().getIdentifier() + ": " + gE.toInfo())
+            .collect(Collectors.joining(tag));
    }
 
    public String getGrammaticalEnumsForSaving()

@@ -10,25 +10,33 @@ public interface GrammaticalEnum
    public boolean isSelected();
    public void setSelected(boolean selected);
    public GrammaticalParentEnum getParent();
+   public int getPrintOrderNumber();
    
    public enum GrammaticalParentEnum
    {
-      GENDER(10),
-      NUMERUS(20),
-      GRAMMATICAL_PERSON(30),
-      BINJAN(40),
-      VERB_TIMES(50);
+      GENDER(10, "Geschlecht"),
+      NUMERUS(20, "Numerus"),
+      GRAMMATICAL_PERSON(30, "grammatische Person"),
+      BINJAN(40, "Binjan"),
+      VERB_TIMES(50, "Zeit");
       
       private int sortNumber;
+      private String identifier;
       
-      GrammaticalParentEnum(int sortNumber)
+      GrammaticalParentEnum(int sortNumber, String identifier)
       {
          this.sortNumber = sortNumber;
+         this.identifier = identifier;
       }
 
       public int getSortNumber()
       {
          return sortNumber;
+      }
+
+      public String getIdentifier()
+      {
+         return identifier;
       }
    }
 }

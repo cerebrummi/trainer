@@ -71,20 +71,22 @@ public class Definitions
       return grammaticalEnumToDescription(Binjan.class).toString();
    }
 
-   private StringJoiner grammaticalEnumToDescription(Class<? extends GrammaticalEnum> clazz)
+   private StringJoiner grammaticalEnumToDescription(
+         Class<? extends GrammaticalEnum> clazz)
    {
       Set<GrammaticalEnum> grammaticalEnum = new HashSet<>();
       for (ExpressionKind kind : definitions.keySet())
       {
-         if (!definitions.get(kind).getGrammaticalEnum(clazz)
-               .toDescription().isEmpty())
+         if (!definitions.get(kind).getGrammaticalEnum(clazz).toDescription()
+               .isEmpty())
          {
-            grammaticalEnum.add(definitions.get(kind).getGrammaticalEnum(clazz));
+            grammaticalEnum
+                  .add(definitions.get(kind).getGrammaticalEnum(clazz));
          }
       }
-      
+
       StringJoiner joiner = new StringJoiner(", ");
-      for(GrammaticalEnum grammaticalenum : grammaticalEnum)
+      for (GrammaticalEnum grammaticalenum : grammaticalEnum)
       {
          joiner.add(grammaticalenum.toDescription());
       }
@@ -135,12 +137,12 @@ public class Definitions
    {
       return grammaticalEnumToInfos(VerbTimes.class).toString();
    }
-   
+
    public String getBinjanInfos()
    {
       return grammaticalEnumToInfos(Binjan.class).toString();
    }
-   
+
    public String getNumerusInfos()
    {
       return grammaticalEnumToInfos(Numerus.class).toString();
@@ -150,21 +152,23 @@ public class Definitions
    {
       return grammaticalEnumToInfos(Gender.class).toString();
    }
-   
-   private StringJoiner grammaticalEnumToInfos(Class<? extends GrammaticalEnum> clazz)
+
+   private StringJoiner grammaticalEnumToInfos(
+         Class<? extends GrammaticalEnum> clazz)
    {
       Set<GrammaticalEnum> grammaticalEnum = new HashSet<>();
       for (ExpressionKind kind : definitions.keySet())
       {
-         if (!definitions.get(kind).getGrammaticalEnum(clazz)
-               .toInfo().isEmpty())
+         if (!definitions.get(kind).getGrammaticalEnum(clazz).toInfo()
+               .isEmpty())
          {
-            grammaticalEnum.add(definitions.get(kind).getGrammaticalEnum(clazz));
+            grammaticalEnum
+                  .add(definitions.get(kind).getGrammaticalEnum(clazz));
          }
       }
-      
+
       StringJoiner joiner = new StringJoiner(", ");
-      for(GrammaticalEnum grammaticalenum : grammaticalEnum)
+      for (GrammaticalEnum grammaticalenum : grammaticalEnum)
       {
          joiner.add(grammaticalenum.toInfo());
       }
@@ -173,12 +177,12 @@ public class Definitions
 
    public String addGrammaticalEnumsForCopy(String tag)
    {
-      StringJoiner joiner = new StringJoiner(tag);
-      for (Definition definition : definitions.values())
+      if (definitions.values().stream().findAny().isEmpty())
       {
-         joiner.add(definition.addGrammaticalEnumsForCopy(tag));
+         return "";
       }
-      return joiner.toString();
+      return definitions.values().stream().findAny().get()
+            .addGrammaticalEnumsForCopy(tag);
    }
 
    public Set<ExpressionKind> getExpressionKindSet()
