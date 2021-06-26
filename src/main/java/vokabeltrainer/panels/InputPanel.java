@@ -81,7 +81,6 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
 
    public void reset()
    {
-      chapterBox.removeAllItems();
       chapterBox.setModel(Data.getChapterComboBoxModelAsChapter());
       if (chapterBox.getModel().getSize() > 0)
       {
