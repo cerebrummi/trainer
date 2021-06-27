@@ -514,8 +514,8 @@ public class TrainerView extends BackgroundPanelTiled
 
       feedbackPanel = new JPanel();
       feedbackPanel.setLayout(new TotemLayout(feedbackPanel, 15));
-      feedbackPanel.setMinimumSize(new Dimension(501, 220));
-      feedbackPanel.setMaximumSize(new Dimension(501, 220));
+      feedbackPanel.setMinimumSize(new Dimension(501, 225));
+      feedbackPanel.setMaximumSize(new Dimension(501, 225));
 
       vertical.add(swapPanel);
       vertical.add(sendButton);
@@ -595,30 +595,30 @@ public class TrainerView extends BackgroundPanelTiled
       answerOkay.addActionListener(event2 -> {
          connector.resultHtoDOkay();
       });
-      answerOkay.setMinimumSize(new Dimension(167, 100));
-      answerOkay.setMaximumSize(new Dimension(167, 100));
-      answerOkay.setPreferredSize(new Dimension(167, 100));
-      answerOkay.setSize(167, 105);
+      answerOkay.setMinimumSize(new Dimension(150, 110));
+      answerOkay.setMaximumSize(new Dimension(150, 110));
+      answerOkay.setPreferredSize(new Dimension(150, 110));
+      answerOkay.setSize(150, 110);
 
       answerUndecided = new JButton(
             new ImageIcon(ApplicationImages.getAnswerUndecided()));
       answerUndecided.addActionListener(event2 -> {
          connector.resultHtoDUndecided();
       });
-      answerUndecided.setMinimumSize(new Dimension(167, 100));
-      answerUndecided.setMaximumSize(new Dimension(167, 100));
-      answerUndecided.setPreferredSize(new Dimension(167, 100));
-      answerUndecided.setSize(167, 105);
+      answerUndecided.setMinimumSize(new Dimension(150, 110));
+      answerUndecided.setMaximumSize(new Dimension(150, 110));
+      answerUndecided.setPreferredSize(new Dimension(150, 110));
+      answerUndecided.setSize(150, 110);
 
       answerNotOkay = new JButton(
             new ImageIcon(ApplicationImages.getAnswerNotOkay()));
       answerNotOkay.addActionListener(event2 -> {
          connector.resultHtoDFalse();
       });
-      answerNotOkay.setMinimumSize(new Dimension(167, 100));
-      answerNotOkay.setMaximumSize(new Dimension(167, 100));
-      answerNotOkay.setPreferredSize(new Dimension(167, 100));
-      answerUndecided.setSize(167, 105);
+      answerNotOkay.setMinimumSize(new Dimension(150, 110));
+      answerNotOkay.setMaximumSize(new Dimension(150, 110));
+      answerNotOkay.setPreferredSize(new Dimension(150, 110));
+      answerNotOkay.setSize(150, 110);
    }
 
    public void enableHtoDAnswerButtons(boolean b)
