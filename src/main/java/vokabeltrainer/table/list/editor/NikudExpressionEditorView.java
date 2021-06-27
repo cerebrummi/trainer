@@ -464,7 +464,7 @@ public class NikudExpressionEditorView extends JDialog
       verbTimesBoxPanel.setOpaque(false);
       verbTimesBoxPanel.setBackground(ApplicationColors.getTransparent());
       verbTimesBoxPanel
-            .setBorder(BorderFactory.createTitledBorder("Zeitformen"));
+            .setBorder(BorderFactory.createTitledBorder("Zeitform"));
 
       keyboard = new KeyboardHebrewNikud(hebrew, components, 152, true);
    }

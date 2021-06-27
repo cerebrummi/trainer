@@ -81,7 +81,7 @@ public class MainView extends JPanel
 
       startButton = new JButton("Start");
       inputButton = new JButton("Eingabe");
-      vocabularyCardsButton = new JButton("Abfragen");
+      vocabularyCardsButton = new JButton("Vokabeln abfragen");
       dictionaryButton = new JButton("Wörterbuch");
       statisticsButton = new JButton("Trainingsübersicht");
       aboutButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
