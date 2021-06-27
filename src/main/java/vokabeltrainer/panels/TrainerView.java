@@ -42,7 +42,7 @@ import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
-import vokabeltrainer.keyboards.KeyboardHebrewStandard;
+import vokabeltrainer.keyboards.KeyboardHebrewAllLetters;
 import vokabeltrainer.keyboards.OneFocusTraversalPolicy;
 import vokabeltrainer.panels.letterpicture.LetterPictureWordPanel;
 import vokabeltrainer.panels.trainer.HebrewAnswerWordPanel;
@@ -93,7 +93,7 @@ public class TrainerView extends BackgroundPanelTiled
    private JButton answerNotOkay;
    private JButton stopTrainingButton;
    private JButton soundButton;
-   private KeyboardHebrewStandard keyboardNikud;
+   private KeyboardHebrewAllLetters keyboardNikud;
    private TrainerControllerConnector connector;
    private JButton infoStopTrainingButton;
    private JPanel infoStopTrainingPanel;
@@ -422,7 +422,7 @@ public class TrainerView extends BackgroundPanelTiled
          answerField
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
-         keyboardNikud = new KeyboardHebrewStandard(answerField,
+         keyboardNikud = new KeyboardHebrewAllLetters(answerField,
                new ArrayList<JTextComponent>(), 80);
 
          answerPanel.add(answerField);
