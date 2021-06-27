@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 import java.util.Vector;
@@ -255,11 +254,6 @@ public final class Data
    public static void putExpressionInNewMap(UUID uuid, Expression expression)
    {
       getDataBaseAtomic().getNewMap().put(uuid, expression);
-   }
-
-   public static List<Expression> findAllExpressionsList()
-   {
-      return getDataBaseAtomic().findAllExpressionsList();
    }
 
    public static TrainingTableModel findTrainingModel(
@@ -1008,7 +1002,7 @@ public final class Data
                .filter(germanToHebrewSearchword.or(germanToHebrewWordstart)
                      .or(hebrewToGermanSearchword).or(hebrewToGermanWordstart))
                .sorted(new ExpressionComparator(language, sortingType))
-               .collect(Collectors.toList()); 
+               .collect(Collectors.toList());
       }
 
       private List<Expression> findExpressionsChapterSorted(Chapter chapter,
@@ -1022,32 +1016,18 @@ public final class Data
 
       private List<Expression> findExpressionsChapter(Chapter chapter)
       {
-         List<Expression> list = new ArrayList<>();
-         Collection<Expression> expressions = alleMap.values();
-         for (Expression expression : expressions)
-         {
-            if (expression.getChapter().equals(chapter))
-            {
-               list.add(expression);
-            }
-         }
-         return list;
+         return alleMap.values().stream()
+               .filter(expression -> chapter.equals(expression.getChapter()))
+               .collect(Collectors.toList());
       }
 
       private List<Expression> findSortedExpressionsOfKind(ExpressionKind kind,
             Language language, SortingType sortingType)
       {
-         List<Expression> list = findExpressionsOfKind(kind);
-         Collections.sort(list,
-               new ExpressionComparator(language, sortingType));
-         return list;
-      }
-
-      private List<Expression> findExpressionsOfKind(ExpressionKind kind)
-      {
          return alleMap.values().stream()
                .filter(expression -> expression.getDefinitions()
                      .getExpressionKindSet().contains(kind))
+               .sorted(new ExpressionComparator(language, sortingType))
                .collect(Collectors.toList());
       }
 
@@ -1082,9 +1062,9 @@ public final class Data
             {
                return false;
             }
-            final IntStream indices = IntStream.range(0, textList.size());
-            return indices.allMatch((i) -> LetterForAnalysis
-                  .isEqual(textList.get(i), expressionList.get(i)));
+            return IntStream.range(0, textList.size())
+                  .allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
+                        expressionList.get(i)));
          }
 
          List<LetterForAnalysis> expressionListPlene = LetterHelper
@@ -1092,9 +1072,9 @@ public final class Data
                      expression.getHebrew().getHebrewPlene());
          if (textList.size() <= expressionListPlene.size())
          {
-            final IntStream indices = IntStream.range(0, textList.size());
-            if (indices.allMatch((i) -> LetterForAnalysis
-                  .isEqual(textList.get(i), expressionListPlene.get(i))))
+            if (IntStream.range(0, textList.size())
+                  .allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
+                        expressionListPlene.get(i))))
             {
                return true;
             }
@@ -1105,9 +1085,9 @@ public final class Data
                      expression.getHebrew().getHebrewDefektiv());
          if (textList.size() <= expressionListDefektiv.size())
          {
-            final IntStream indices = IntStream.range(0, textList.size());
-            if (indices.allMatch((i) -> LetterForAnalysis
-                  .isEqual(textList.get(i), expressionListDefektiv.get(i))))
+            if (IntStream.range(0, textList.size())
+                  .allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
+                        expressionListDefektiv.get(i))))
             {
                return true;
             }
@@ -1259,22 +1239,9 @@ public final class Data
 
       private void reloadChapterSet()
       {
-         chapterSet = new HashSet<>();
-         Set<Entry<UUID, Expression>> allSet = alleMap.entrySet();
-         for (Entry<UUID, Expression> entry : allSet)
-         {
-            chapterSet.add(entry.getValue().getChapter());
-         }
-      }
-
-      private List<Expression> findAllExpressionsList()
-      {
-         List<Expression> list = new ArrayList<Expression>();
-         for (Expression expression : getAlleMap().values())
-         {
-            list.add(expression);
-         }
-         return list;
+         chapterSet = alleMap.entrySet().stream()
+               .map(entry -> entry.getValue().getChapter())
+               .collect(Collectors.toSet());
       }
 
       private TrainingTableModel findTrainingModel(Language languageDirection,
