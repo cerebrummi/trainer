@@ -971,50 +971,44 @@ public final class Data
             SearchType search, Collection<Expression> expressions,
             SortingType sortingType)
       {
-         List<Expression> list = new ArrayList<>();
-
-         if (expressions != null)
+         if (expressions == null)
          {
-            for (Expression expression : expressions)
-            {
-               if (Language.GERMAN_TO_HEBREW.equals(language)
-                     && SearchType.SEARCHWORD.equals(search))
-               {
-                  if (equalsGermanSearchWord(text, expression))
-                  {
-                     list.add(expression);
-                  }
-               }
-               else if (Language.GERMAN_TO_HEBREW.equals(language)
-                     && SearchType.WORDSTART.equals(search))
-               {
-                  if (equalsGermanWordStart(text, expression))
-                  {
-                     list.add(expression);
-                  }
-               }
-               else if (Language.HEBREW_TO_GERMAN.equals(language)
-                     && SearchType.SEARCHWORD.equals(search))
-               {
-                  if (equalsHebrewSearchWord(text, expression))
-                  {
-                     list.add(expression);
-                  }
-               }
-               else if (Language.HEBREW_TO_GERMAN.equals(language)
-                     && SearchType.WORDSTART.equals(search))
-               {
-                  if (equalsHebrewWordStart(text, expression))
-                  {
-                     list.add(expression);
-                  }
-               }
-            }
+            return Collections.emptyList();
          }
-         Collections.sort(list,
-               new ExpressionComparator(language, sortingType));
 
-         return list;
+         Predicate<Expression> germanSearchword = expression -> equalsGermanSearchWord(
+               text, expression);
+         Predicate<Expression> germanWordstart = expression -> equalsGermanWordStart(
+               text, expression);
+         Predicate<Expression> hebrewSearchword = expression -> equalsHebrewSearchWord(
+               text, expression);
+         Predicate<Expression> hebrewWordstart = expression -> equalsHebrewWordStart(
+               text, expression);
+
+         Predicate<Expression> germanToHebrew = expression -> Language.GERMAN_TO_HEBREW
+               .equals(language);
+         Predicate<Expression> hebrewToGerman = expression -> Language.HEBREW_TO_GERMAN
+               .equals(language);
+
+         Predicate<Expression> searchWord = expression -> SearchType.SEARCHWORD
+               .equals(search);
+         Predicate<Expression> wordStart = expression -> SearchType.WORDSTART
+               .equals(search);
+
+         Predicate<Expression> germanToHebrewSearchword = germanToHebrew
+               .and(searchWord).and(germanSearchword);
+         Predicate<Expression> germanToHebrewWordstart = germanToHebrew
+               .and(wordStart).and(germanWordstart);
+         Predicate<Expression> hebrewToGermanSearchword = hebrewToGerman
+               .and(searchWord).and(hebrewSearchword);
+         Predicate<Expression> hebrewToGermanWordstart = hebrewToGerman
+               .and(wordStart).and(hebrewWordstart);
+
+         return expressions.stream()
+               .filter(germanToHebrewSearchword.or(germanToHebrewWordstart)
+                     .or(hebrewToGermanSearchword).or(hebrewToGermanWordstart))
+               .sorted(new ExpressionComparator(language, sortingType))
+               .collect(Collectors.toList()); 
       }
 
       private List<Expression> findExpressionsChapterSorted(Chapter chapter,
