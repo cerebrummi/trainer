@@ -1351,21 +1351,6 @@ public final class Data
                   .collect(Collectors.toSet());
          }
 
-         final LocalDate now = LocalDate.now();
-
-         if (Language.GERMAN_TO_HEBREW == languageDirection
-               && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
-         {
-            Predicate<Expression> con1 = e -> e.getTrainingStatusDToH()
-                  .isTrainingStarted();
-            Predicate<Expression> con2 = e -> now
-                  .isEqual(e.getTrainingStatusDToH().getNextDate());
-            Predicate<Expression> con3 = e -> now
-                  .isAfter(e.getTrainingStatusDToH().getNextDate());
-            return alleMap.values().stream().filter(con1).filter(con2.or(con3))
-                  .collect(Collectors.toSet());
-         }
-
          if (Language.HEBREW_TO_GERMAN == languageDirection
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
@@ -1375,17 +1360,34 @@ public final class Data
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
          }
+         
+         final LocalDate now = LocalDate.now();
+
+         if (Language.GERMAN_TO_HEBREW == languageDirection
+               && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
+         {
+            Predicate<Expression> started = e -> e.getTrainingStatusDToH()
+                  .isTrainingStarted();
+            Predicate<Expression> isDueNow = e -> now
+                  .isEqual(e.getTrainingStatusDToH().getNextDate());
+            Predicate<Expression> wasDueBefore = e -> now
+                  .isAfter(e.getTrainingStatusDToH().getNextDate());
+            return alleMap.values().stream().filter(started)
+                  .filter(isDueNow.or(wasDueBefore))
+                  .collect(Collectors.toSet());
+         }
 
          if (Language.HEBREW_TO_GERMAN == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
-            Predicate<Expression> con1 = e -> e.getTrainingStatusHToD()
+            Predicate<Expression> started = e -> e.getTrainingStatusHToD()
                   .isTrainingStarted();
-            Predicate<Expression> con2 = e -> now
+            Predicate<Expression> isDueNow = e -> now
                   .isEqual(e.getTrainingStatusHToD().getNextDate());
-            Predicate<Expression> con3 = e -> now
+            Predicate<Expression> wasDueBefore = e -> now
                   .isAfter(e.getTrainingStatusHToD().getNextDate());
-            return alleMap.values().stream().filter(con1).filter(con2.or(con3))
+            return alleMap.values().stream().filter(started)
+                  .filter(isDueNow.or(wasDueBefore))
                   .collect(Collectors.toSet());
          }
 
@@ -1439,7 +1441,7 @@ public final class Data
                .stream().filter(trainingHToDStarted).filter(trainingHToDNotDone)
                .collect(Collectors.groupingBy(expression -> expression
                      .getTrainingStatusHToD().getNextDate()));
-
+         
          Set<LocalDate> unsortedAllDates = new HashSet<>();
          unsortedAllDates.addAll(mapDtoH.keySet());
          unsortedAllDates.addAll(mapHtoD.keySet());
