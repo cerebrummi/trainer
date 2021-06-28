@@ -39,12 +39,6 @@ public class Definitions
    }
 
    public void setGrammaticalEnum(ExpressionKind expressionKind,
-         Class<? extends GrammaticalEnum> clazz, String value)
-   {
-      definitions.get(expressionKind).setGrammaticalEnum(clazz, value);
-   }
-
-   public void setGrammaticalEnum(ExpressionKind expressionKind,
          GrammaticalEnum e)
    {
       definitions.get(expressionKind).setGrammaticalEnum(e);
@@ -58,39 +52,28 @@ public class Definitions
 
    public String getGenderDescriptions()
    {
-      return grammaticalEnumToDescription(Gender.class).toString();
+      return grammaticalEnumToDescription(Gender.class);
    }
 
    public String getNumerusDescriptions()
    {
-      return grammaticalEnumToDescription(Numerus.class).toString();
+      return grammaticalEnumToDescription(Numerus.class);
    }
 
    public String getBinjanDescriptions()
    {
-      return grammaticalEnumToDescription(Binjan.class).toString();
+      return grammaticalEnumToDescription(Binjan.class);
    }
 
-   private StringJoiner grammaticalEnumToDescription(
+   private String grammaticalEnumToDescription(
          Class<? extends GrammaticalEnum> clazz)
    {
-      Set<GrammaticalEnum> grammaticalEnum = new HashSet<>();
-      for (ExpressionKind kind : definitions.keySet())
+      if (definitions.isEmpty())
       {
-         if (!definitions.get(kind).getGrammaticalEnum(clazz).toDescription()
-               .isEmpty())
-         {
-            grammaticalEnum
-                  .add(definitions.get(kind).getGrammaticalEnum(clazz));
-         }
+         return "";
       }
-
-      StringJoiner joiner = new StringJoiner(", ");
-      for (GrammaticalEnum grammaticalenum : grammaticalEnum)
-      {
-         joiner.add(grammaticalenum.toDescription());
-      }
-      return joiner;
+      return definitions.get(definitions.keySet().stream().findAny().get())
+            .getGrammaticalEnum(clazz).toDescription();
    }
 
    public String getExpressionKindDescriptions()

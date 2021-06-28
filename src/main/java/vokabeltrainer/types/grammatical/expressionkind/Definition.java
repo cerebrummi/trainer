@@ -39,13 +39,6 @@ public class Definition
       }
    }
 
-   public void setGrammaticalEnum(Class<? extends GrammaticalEnum> clazz,
-         String value)
-   {
-      GrammaticalEnum e = (GrammaticalEnum) grammaticalEnumMap.get(clazz);
-      grammaticalEnumMap.put(clazz, e.fromEnumName(value));
-   }
-
    public void setGrammaticalEnum(GrammaticalEnum e)
    {
       grammaticalEnumMap.put(e.getClass(), e);
