@@ -63,7 +63,7 @@ public class InputHebrewPanel extends JTextArea
       PLENE_DEFEKTIV
    }
 
-   class FocusAction extends AbstractAction
+   class FocusForwardAction extends AbstractAction
    {
       private static final long serialVersionUID = -8790050293258845388L;
 
@@ -77,13 +77,18 @@ public class InputHebrewPanel extends JTextArea
          else if (Selection.PLENE_DEFEKTIV == selection
                && pleneField.isFocusOwner())
          {
-            defektivField.requestFocusInWindow();
+            forwardInside();
          }
          else if (Selection.PLENE_DEFEKTIV == selection
                && defektivField.isFocusOwner())
          {
             forwardToOutsideTraversalCycle();
          }
+      }
+
+      private void forwardInside()
+      {
+         defektivField.requestFocusInWindow();
       }
 
       private void forwardToOutsideTraversalCycle()
@@ -110,13 +115,18 @@ public class InputHebrewPanel extends JTextArea
          else if (Selection.PLENE_DEFEKTIV == selection
                && defektivField.isFocusOwner())
          {
-            pleneField.requestFocusInWindow();
+            backwardInside();
          }
          else if (Selection.PLENE_DEFEKTIV == selection
                && pleneField.isFocusOwner())
          {
             backwardToOutsideTraversalCycle();
          }
+      }
+
+      private void backwardInside()
+      {
+         pleneField.requestFocusInWindow();
       }
 
       private void backwardToOutsideTraversalCycle()
@@ -151,14 +161,15 @@ public class InputHebrewPanel extends JTextArea
 
       toggleButton = new JButton(
             new ImageIcon(ApplicationImages.getToggleButtonIcon()));
-      toggleButton.setFont(Main.getGermanFont(30F));
-      toggleButton.setMargin(new Insets(-5, 0, -5, 0));
-      toggleButton.setBackground(new Color(0, 0, 0, 0));
-      toggleButton.setForeground(ApplicationColors.getGold());
-      toggleButton.setPreferredSize(new Dimension(40, 32));
 
       if (canBeToggled)
       {
+         toggleButton.setFont(Main.getGermanFont(30F));
+         toggleButton.setMargin(new Insets(-5, 0, -5, 0));
+         toggleButton.setBackground(new Color(0, 0, 0, 0));
+         toggleButton.setForeground(ApplicationColors.getGold());
+         toggleButton.setPreferredSize(new Dimension(40, 32));
+         toggleButton.setActionCommand("was_toggled");
          toggleBorder = new ComponentTitledBorder(toggleButton, this,
                BorderFactory.createEmptyBorder(), 40);
          cards.setBorder(toggleBorder);
@@ -182,7 +193,7 @@ public class InputHebrewPanel extends JTextArea
       KeyStroke tab = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0);
       getInputMap(InputHebrewPanel.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(tab,
             focusCommand);
-      getActionMap().put(focusCommand, new FocusAction());
+      getActionMap().put(focusCommand, new FocusForwardAction());
       
       String focusBackwardCommand = "focus_backward";
       KeyStroke tabBack = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, InputEvent.SHIFT_DOWN_MASK);
@@ -197,6 +208,11 @@ public class InputHebrewPanel extends JTextArea
       {
          @Override
          public void focusGained(FocusEvent e)
+         {          
+            fromOutsideToInside(e);
+         }
+
+         private void fromOutsideToInside(FocusEvent e)
          {
             if (e.getCause() == Cause.TRAVERSAL_FORWARD)
             {
@@ -220,7 +236,6 @@ public class InputHebrewPanel extends JTextArea
                   defektivField.requestFocusInWindow();
                }
             }
-               
          }
 
          @Override
@@ -258,7 +273,19 @@ public class InputHebrewPanel extends JTextArea
          @Override
          public void mouseClicked(MouseEvent e)
          {
+            toggleFocusInside();
+         }
 
+         private void toggleFocusInside()
+         {
+            if (Selection.SIMPLE == selection)
+            {
+               hebrewField.requestFocusInWindow();
+            }
+            else
+            {
+               pleneField.requestFocusInWindow();
+            }
          }
 
          @Override
