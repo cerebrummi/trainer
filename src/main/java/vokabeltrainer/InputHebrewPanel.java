@@ -4,21 +4,30 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusEvent.Cause;
+import java.awt.event.FocusListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.common.Main;
@@ -45,18 +54,89 @@ public class InputHebrewPanel extends JTextArea
    private ComponentTitledBorder toggleBorder;
 
    private JPanel cards;
+   
+   private Container parent;
+
    public enum Selection
    {
       SIMPLE,
       PLENE_DEFEKTIV
    }
 
+   class FocusAction extends AbstractAction
+   {
+      private static final long serialVersionUID = -8790050293258845388L;
+
+      @Override
+      public void actionPerformed(ActionEvent e)
+      {
+         if (Selection.SIMPLE == selection && hebrewField.isFocusOwner())
+         {
+            forwardToOutsideTraversalCycle();
+         }
+         else if (Selection.PLENE_DEFEKTIV == selection
+               && pleneField.isFocusOwner())
+         {
+            defektivField.requestFocusInWindow();
+         }
+         else if (Selection.PLENE_DEFEKTIV == selection
+               && defektivField.isFocusOwner())
+         {
+            forwardToOutsideTraversalCycle();
+         }
+      }
+
+      private void forwardToOutsideTraversalCycle()
+      {
+         parent.getFocusTraversalPolicy()
+         .getComponentAfter(parent,
+               InputHebrewPanel.this)
+         .requestFocusInWindow(Cause.TRAVERSAL_FORWARD);
+      }
+
+   }
+   
+   class FocusBackwardAction extends AbstractAction
+   {
+      private static final long serialVersionUID = -8790050293258845388L;
+
+      @Override
+      public void actionPerformed(ActionEvent e)
+      {
+         if (Selection.SIMPLE == selection && hebrewField.isFocusOwner())
+         {
+            backwardToOutsideTraversalCycle();
+         }
+         else if (Selection.PLENE_DEFEKTIV == selection
+               && defektivField.isFocusOwner())
+         {
+            pleneField.requestFocusInWindow();
+         }
+         else if (Selection.PLENE_DEFEKTIV == selection
+               && pleneField.isFocusOwner())
+         {
+            backwardToOutsideTraversalCycle();
+         }
+      }
+
+      private void backwardToOutsideTraversalCycle()
+      {
+         parent.getFocusTraversalPolicy()
+         .getComponentBefore(parent,
+               InputHebrewPanel.this)
+         .requestFocusInWindow(Cause.TRAVERSAL_FORWARD);
+      }
+
+   }
+
    public InputHebrewPanel(Selection selection, int heightTotal,
-         int heightBorderTitel, boolean canBeToggled)
+         int heightBorderTitel, boolean canBeToggled, Container parent)
    {
       this.selection = selection;
       this.heightTotal = heightTotal;
       this.heightBorderTitel = heightBorderTitel;
+      this.parent = parent;
+      
       this.setLayout(new BullsEyeLayout(this));
 
       cards = new JPanel();
@@ -77,7 +157,7 @@ public class InputHebrewPanel extends JTextArea
       toggleButton.setForeground(ApplicationColors.getGold());
       toggleButton.setPreferredSize(new Dimension(40, 32));
 
-      if(canBeToggled)
+      if (canBeToggled)
       {
          toggleBorder = new ComponentTitledBorder(toggleButton, this,
                BorderFactory.createEmptyBorder(), 40);
@@ -97,10 +177,58 @@ public class InputHebrewPanel extends JTextArea
       {
          layout.next(cards);
       }
+
+      String focusCommand = "focus_forward";
+      KeyStroke tab = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0);
+      getInputMap(InputHebrewPanel.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(tab,
+            focusCommand);
+      getActionMap().put(focusCommand, new FocusAction());
+      
+      String focusBackwardCommand = "focus_backward";
+      KeyStroke tabBack = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, InputEvent.SHIFT_DOWN_MASK);
+      getInputMap(InputHebrewPanel.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(tabBack,
+            focusBackwardCommand);
+      getActionMap().put(focusBackwardCommand, new FocusBackwardAction());
    }
 
    private void initController()
    {
+      addFocusListener(new FocusListener()
+      {
+         @Override
+         public void focusGained(FocusEvent e)
+         {
+            if (e.getCause() == Cause.TRAVERSAL_FORWARD)
+            {
+               if (Selection.SIMPLE == selection)
+               {
+                  hebrewField.requestFocusInWindow();
+               }
+               else
+               {
+                  pleneField.requestFocusInWindow();
+               }
+            }
+            else if (e.getCause() == Cause.TRAVERSAL_BACKWARD)
+            {
+               if (Selection.SIMPLE == selection)
+               {
+                  hebrewField.requestFocusInWindow();
+               }
+               else
+               {
+                  defektivField.requestFocusInWindow();
+               }
+            }
+               
+         }
+
+         @Override
+         public void focusLost(FocusEvent e)
+         {
+         }
+      });
+
       hebrewField.addCaretListener(event -> {
          if (!hebrewField.getText().isEmpty())
          {
@@ -108,13 +236,15 @@ public class InputHebrewPanel extends JTextArea
          }
       });
       pleneField.addCaretListener(event -> {
-         if (!pleneField.getText().isBlank() && !defektivField.getText().isBlank())
+         if (!pleneField.getText().isBlank()
+               && !defektivField.getText().isBlank())
          {
             setBlankBorder();
          }
       });
       defektivField.addCaretListener(event -> {
-         if (!pleneField.getText().isBlank() && !defektivField.getText().isBlank())
+         if (!pleneField.getText().isBlank()
+               && !defektivField.getText().isBlank())
          {
             setBlankBorder();
          }
@@ -323,7 +453,7 @@ public class InputHebrewPanel extends JTextArea
          defektivField.setBackground(color);
       }
    }
-   
+
    @Override
    public void setEnabled(boolean enabled)
    {

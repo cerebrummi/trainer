@@ -6,6 +6,7 @@ import java.awt.ComponentOrientation;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -180,8 +181,8 @@ public class NikudExpressionEditorView extends JDialog
       getContentPane().add(new JScrollPane(outerLayout));
 
       initController();
-      Component[] focusList = { german, newSearchwordGerman,
-            newSearchwordHebrew };
+      Component[] focusList = { german, hebrew, newSearchwordGerman,
+            newSearchwordHebrew, extraInfo };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
    }
@@ -200,11 +201,11 @@ public class NikudExpressionEditorView extends JDialog
 
       if(Settings.isSimpleHebrewInput())
       {
-         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6, true);
+         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6, true, this);
       }
       else
       {
-         hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 152, 6, true);
+         hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 152, 6, true, this);
       }
       hebrew.setBlankBorder();
 
@@ -355,6 +356,8 @@ public class NikudExpressionEditorView extends JDialog
       StyleConstants.setFontSize(style, 20);
       StyleConstants.setFontFamily(style, "Serif");
       doc.setParagraphAttributes(0, doc.getLength(), style, true);
+      extraInfo.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+      extraInfo.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
 
       components.add(extraInfo);
       extraInfoScroller = new JScrollPane(extraInfo);
