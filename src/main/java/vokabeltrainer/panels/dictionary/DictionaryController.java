@@ -302,9 +302,6 @@ public class DictionaryController implements DictionaryControllerConnector
                case RESTORE_WHICH_CHAPTER:
                   dictionaryView.selectChapter(currentChapter);
                   break;
-               case RESTORE_WHICH_EXPRESSIONKIND:
-                  // nothing
-                  break;
                case RESTORE_WHICH_SEARCH_GERMAN:
                   searchGerman();
                   break;
@@ -412,4 +409,11 @@ public class DictionaryController implements DictionaryControllerConnector
          decideOnTableInteraction(Action.SORT_NOW);
       }
    }
+
+   @Override
+   public void displayTableAfterOpeningPage()
+   {
+      Status.push(Status.peek());
+      decideOnTableInteraction(Action.OPENED_PAGE);
+   }  
 }

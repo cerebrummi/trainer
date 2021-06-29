@@ -224,6 +224,15 @@ public class DictionaryView extends BackgroundPanelTiled
 
       Tabulator.setTabShowing(Tabulator.CHAPTER_TAB);
 
+      initChapterController();
+
+      loadChapters();
+
+      initController();
+   }
+
+   private void initChapterController()
+   {
       listSelectionListener = new ListSelectionListener()
       {
 
@@ -237,10 +246,6 @@ public class DictionaryView extends BackgroundPanelTiled
          }
 
       };
-
-      loadChapters();
-
-      initController();
    }
 
    private Component initSearchTab()
@@ -947,10 +952,7 @@ public class DictionaryView extends BackgroundPanelTiled
       Data.determineReloadDatabases();
       this.loadChapters();
       this.displayNoTable();
-      if(chapterList.getComponentCount() > 0)
-      {
-         chapterList.setSelectedIndex(0);
-      }
+      connector.displayTableAfterOpeningPage();
    }
 
    @Override

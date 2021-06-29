@@ -25,4 +25,5 @@ public interface DictionaryControllerConnector extends TableConnector
    public void displayExpressionKindWhich();
    public DictionaryViewConnector getDictionaryPanel();
    public void sortTableNow();
+   public void displayTableAfterOpeningPage();
 }

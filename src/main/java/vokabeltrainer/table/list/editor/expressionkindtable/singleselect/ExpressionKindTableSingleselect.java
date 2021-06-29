@@ -17,10 +17,13 @@ public class ExpressionKindTableSingleselect extends JTable
 {
    private static final long serialVersionUID = 4773612153340762368L;
 
+   private DictionaryControllerConnector connector;
+
    public ExpressionKindTableSingleselect(ExpressionKindTableModel2 model,
          int totalWidth, DictionaryControllerConnector connector)
    {
       super(model, new ExpressionKindTableColumnModel2(totalWidth));
+      this.connector = connector;
       this.setShowVerticalLines(false);
       setOpaque(true);
       setRowHeight(30);
@@ -29,7 +32,9 @@ public class ExpressionKindTableSingleselect extends JTable
       this.setColumnSelectionAllowed(false);
       this.setCellSelectionEnabled(false);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-      this.setBorder(BorderFactory.createLineBorder(ApplicationColors.getDarkGold()));
+      this
+            .setBorder(BorderFactory
+                  .createLineBorder(ApplicationColors.getDarkGold()));
       this.setTableHeader(null);
 
       addMouseListener(new MouseAdapter()
@@ -71,6 +76,20 @@ public class ExpressionKindTableSingleselect extends JTable
       });
    }
 
+   public void redisplaySelectedExpressionKindIfAny()
+   {
+      for (int i = 0; i < getRowCount(); i++)
+      {
+         ExpressionKindItem kind = ((ExpressionKindTableRow2) getValueAt(i, 0))
+               .getExpressionKind();
+         if (kind.isSelected())
+         {
+            connector.displayExpressionKindWhich();
+            break;
+         }
+      }
+   }
+
    @Override
    public ExpressionKindTableModel2 getModel()
    {
@@ -80,6 +99,6 @@ public class ExpressionKindTableSingleselect extends JTable
    @Override
    public Class<?> getColumnClass(int column)
    {
-      return JLabel.class;  
+      return JLabel.class;
    }
 }
