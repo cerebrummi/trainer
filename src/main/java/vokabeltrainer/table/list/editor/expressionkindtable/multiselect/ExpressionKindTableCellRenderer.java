@@ -91,21 +91,21 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
    {
-      ExpressionKindItem expressionKind = ((ExpressionKindTableRow) value).getExpressionKind();
+      ExpressionKindItem expressionKind = ((ExpressionKindTableRow) value).getExpressionKindItem();
       
       if(row == 0 && expressionKind.isSelected())
       {
          for (int i = 1; i < table.getRowCount(); i++)
          {
             ExpressionKindTableRow rowValue = (ExpressionKindTableRow) table.getValueAt(i, 1);
-            rowValue.getExpressionKind().setSelected(false);
+            rowValue.getExpressionKindItem().setSelected(false);
             table.setValueAt(rowValue, i, 1);
          }
       }
       else if(row >  0 && expressionKind.isSelected())
       {
          ExpressionKindTableRow rowValue = (ExpressionKindTableRow) table.getValueAt(0, 1);
-         rowValue.getExpressionKind().setSelected(false);
+         rowValue.getExpressionKindItem().setSelected(false);
          table.setValueAt(rowValue, 0, 1);
       }
       

@@ -388,7 +388,7 @@ public class NikudExpressionEditorView extends JDialog
       copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       expressionKindTable = new ExpressionKindTableMultiselect(
-            ExpressionKind.getModel(), WIDTH_INFO_PANEL, this);
+            ExpressionKind.getModelForMultiselect(), WIDTH_INFO_PANEL, this);
 
       binjanBox = new JComboBox<>(Binjan.values());
       binjanBox.setFont(Main.getGermanFont(14F));
@@ -675,11 +675,11 @@ public class NikudExpressionEditorView extends JDialog
 
    }
 
-   public void showGrammaticalEnums(
-         Set<GrammaticalParentEnum> grammaticalEnumsToShow)
+   public void showGrammaticalParentEnums(
+         Set<GrammaticalParentEnum> grammaticalParentEnumsToShow)
    {
       definitionPanel.removeAll();
-      if (grammaticalEnumsToShow.contains(GrammaticalParentEnum.GENDER))
+      if (grammaticalParentEnumsToShow.contains(GrammaticalParentEnum.GENDER))
       {
          definitionPanel.add(this.genderBoxPanel);
       }
@@ -687,7 +687,7 @@ public class NikudExpressionEditorView extends JDialog
       {
          this.genderBox.setSelectedItem(Gender.GENDER_NA);
       }
-      if (grammaticalEnumsToShow.contains(GrammaticalParentEnum.NUMERUS))
+      if (grammaticalParentEnumsToShow.contains(GrammaticalParentEnum.NUMERUS))
       {
          definitionPanel.add(this.numerusBoxPanel);
       }
@@ -695,7 +695,7 @@ public class NikudExpressionEditorView extends JDialog
       {
          this.numerusBox.setSelectedItem(Numerus.NUMERUS_NA);
       }
-      if (grammaticalEnumsToShow
+      if (grammaticalParentEnumsToShow
             .contains(GrammaticalParentEnum.GRAMMATICAL_PERSON))
       {
          definitionPanel.add(this.grammaticalPersonBoxPanel);
@@ -705,7 +705,7 @@ public class NikudExpressionEditorView extends JDialog
          this.grammaticalPersonBox
                .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
       }
-      if (grammaticalEnumsToShow.contains(GrammaticalParentEnum.BINJAN))
+      if (grammaticalParentEnumsToShow.contains(GrammaticalParentEnum.BINJAN))
       {
          definitionPanel.add(this.binjanBoxPanel);
       }
@@ -713,7 +713,7 @@ public class NikudExpressionEditorView extends JDialog
       {
          this.binjanBox.setSelectedItem(Binjan.BINJAN_NA);
       }
-      if (grammaticalEnumsToShow
+      if (grammaticalParentEnumsToShow
             .contains(GrammaticalParentEnum.VERB_TIMES))
       {
          definitionPanel.add(this.verbTimesBoxPanel);
@@ -772,7 +772,7 @@ public class NikudExpressionEditorView extends JDialog
       for (Vector<ExpressionKindTableRow> vektorRow : vektorRows)
       {
          ExpressionKindItem expressionKind = vektorRow.get(0)
-               .getExpressionKind();
+               .getExpressionKindItem();
          if (expressionKind.isSelected())
          {
             definitions.addExpressionKind(expressionKind.getKind());
@@ -898,7 +898,7 @@ public class NikudExpressionEditorView extends JDialog
 
       if (newExpression)
       {
-         expressionKindTable.setModel(ExpressionKind.getModel());
+         expressionKindTable.setModel(ExpressionKind.getModelForMultiselect());
          binjanBox.setSelectedIndex(0);
          genderBox.setSelectedIndex(0);
          grammaticalPersonBox.setSelectedIndex(0);
@@ -909,7 +909,7 @@ public class NikudExpressionEditorView extends JDialog
       {
          Definitions definitions = expression.getDefinitions();
          Set<ExpressionKind> kinds = definitions.getExpressionKindSet();
-         expressionKindTable.setModel(ExpressionKind.getModel(kinds));
+         expressionKindTable.setModel(ExpressionKind.getModelForMultiselect(kinds));
 
          ExpressionKind kind;
          if (kinds.stream().findAny().isPresent())
@@ -925,7 +925,7 @@ public class NikudExpressionEditorView extends JDialog
                   definitions.getGrammaticalEnum(kind, Numerus.class));
             verbTimesBox.setSelectedItem(
                   definitions.getGrammaticalEnum(kind, VerbTimes.class));
-            showGrammaticalEnums(
+            showGrammaticalParentEnums(
                   ExpressionKind.getSetOfGrammaticalParentEnums(kinds));
 
             scrollPaneExpressionTable.getVerticalScrollBar()

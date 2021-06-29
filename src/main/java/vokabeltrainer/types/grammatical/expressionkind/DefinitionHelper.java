@@ -51,7 +51,7 @@ public class DefinitionHelper
    public static List<GrammaticalEnum> getDefinitionsUNKNOWN(
          ExpressionKind expressionKind)
    {
-      return Arrays.stream(expressionKind.getGrammaticalEnums())
+      return Arrays.stream(expressionKind.getGrammaticalParentEnums())
                    .map(parent -> parent.getUnkown())
                    .collect(Collectors.toList());
    }

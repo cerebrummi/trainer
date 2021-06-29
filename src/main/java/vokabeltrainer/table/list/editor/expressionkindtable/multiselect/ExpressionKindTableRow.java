@@ -4,16 +4,16 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableRow
 {
-   private ExpressionKindItem expressionKind;
+   private ExpressionKindItem expressionKindItem;
 
-   public ExpressionKindTableRow(ExpressionKindItem expressionKind)
+   public ExpressionKindTableRow(ExpressionKindItem expressionKindItem)
    {
-      this.expressionKind = expressionKind;
+      this.expressionKindItem = expressionKindItem;
    }
 
-   public ExpressionKindItem getExpressionKind()
+   public ExpressionKindItem getExpressionKindItem()
    {
-      return expressionKind;
+      return expressionKindItem;
    }
 
 }

@@ -11,7 +11,6 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.common.Letter;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
-import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class Expression
 {
@@ -206,11 +205,6 @@ public class Expression
    public void setDefinitions(Definitions definitions)
    {
       this.definitions = definitions;
-   }
-
-   public boolean addExpressionKind(ExpressionKind expressionKind)
-   {
-      return definitions.addExpressionKind(expressionKind);
    }
 
    public LetterForSaving getLetterForSaving()

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableModel;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableRow;
@@ -33,7 +34,9 @@ public enum ExpressionKind
    AUSRUF(
          "Ausruf",
          ExpressionKindHelper.AUSRUF_ENUMS),
-   ARTIKEL("Artikel", ExpressionKindHelper.ARTIKEL_ENUMS),
+   ARTIKEL(
+         "Artikel",
+         ExpressionKindHelper.ARTIKEL_ENUMS),
    BERUF(
          "Beruf",
          ExpressionKindHelper.BERUF_ENUMS),
@@ -112,12 +115,13 @@ public enum ExpressionKind
 
    private String description;
    private boolean selected;
-   private GrammaticalParentEnum[] grammaticalEnums;
+   private GrammaticalParentEnum[] grammaticalParentEnums;
 
-   ExpressionKind(String description, GrammaticalParentEnum[] grammaticalEnums)
+   ExpressionKind(String description,
+         GrammaticalParentEnum[] grammaticalParentEnums)
    {
       this.description = description;
-      this.grammaticalEnums = grammaticalEnums;
+      this.grammaticalParentEnums = grammaticalParentEnums;
    }
 
    @Override
@@ -220,10 +224,11 @@ public enum ExpressionKind
       selected = !selected;
    }
 
-   public static ExpressionKindTableModel getModel() // for Multiselect
+   public static ExpressionKindTableModel getModelForMultiselect()
    {
       Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
-      for (ExpressionKindItem kind : ExpressionKindHelper.getAllExpressionKindItems())
+      for (ExpressionKindItem kind : ExpressionKindHelper
+            .getAllExpressionKindItems())
       {
          kind.setSelected(false);
          Vector<ExpressionKindTableRow> row = new Vector<>();
@@ -235,10 +240,11 @@ public enum ExpressionKind
       return new ExpressionKindTableModel(data, columnNames);
    }
 
-   public static ExpressionKindTableModel2 getModel2() // for Singleselect
+   public static ExpressionKindTableModel2 getModelForSingleselect()
    {
       Vector<Vector<ExpressionKindTableRow2>> data = new Vector<>();
-      for (ExpressionKindItem kind : ExpressionKindHelper.getAllExpressionKindItems())
+      for (ExpressionKindItem kind : ExpressionKindHelper
+            .getAllExpressionKindItems())
       {
          kind.setSelected(false);
          Vector<ExpressionKindTableRow2> row = new Vector<>();
@@ -250,7 +256,7 @@ public enum ExpressionKind
       return new ExpressionKindTableModel2(data, columnNames);
    }
 
-   public static ExpressionKindTableModel getModel(
+   public static ExpressionKindTableModel getModelForMultiselect(
          Set<ExpressionKind> expressionKinds)
    {
       Set<ExpressionKindItem> expressionKindItems = new HashSet<>();
@@ -277,41 +283,35 @@ public enum ExpressionKind
       return new ExpressionKindTableModel(data, columnNames);
    }
 
-   public Set<GrammaticalParentEnum> getSetOfGrammaticalEnums()
-   {
-      return new HashSet<GrammaticalParentEnum>(
-            Arrays.asList(this.grammaticalEnums));
-   }
-
    public static Set<GrammaticalParentEnum> getSetOfGrammaticalParentEnums(
          List<ExpressionKindTableRow> rows)
    {
-      Set<GrammaticalParentEnum> grammaticalEnums = new HashSet<>();
-
-      for (ExpressionKindTableRow row : rows)
-      {
-         grammaticalEnums
-               .addAll(row.getExpressionKind().getKind().getSetOfGrammaticalEnums());
-      }
-
-      return grammaticalEnums;
+      return rows
+            .stream()
+            .map(row -> Arrays
+                  .stream(row
+                        .getExpressionKindItem()
+                        .getKind()
+                        .getGrammaticalParentEnums())
+                  .collect(Collectors.toSet()))
+            .flatMap(Set::stream)
+            .collect(Collectors.toSet());
    }
 
    public static Set<GrammaticalParentEnum> getSetOfGrammaticalParentEnums(
          Set<ExpressionKind> kinds)
    {
-      Set<GrammaticalParentEnum> grammaticalEnums = new HashSet<>();
-
-      for (ExpressionKind kind : kinds)
-      {
-         grammaticalEnums.addAll(kind.getSetOfGrammaticalEnums());
-      }
-
-      return grammaticalEnums;
+      return kinds
+            .stream()
+            .map(kind -> Arrays
+                  .stream(kind.getGrammaticalParentEnums())
+                  .collect(Collectors.toSet()))
+            .flatMap(Set::stream)
+            .collect(Collectors.toSet());
    }
 
-   public GrammaticalParentEnum[] getGrammaticalEnums()
+   public GrammaticalParentEnum[] getGrammaticalParentEnums()
    {
-      return grammaticalEnums;
+      return grammaticalParentEnums;
    }
 }

@@ -379,7 +379,7 @@ public class DictionaryView extends BackgroundPanelTiled
       vertical1.setOpaque(false);
 
       expressionKindTable = new ExpressionKindTableSingleselect(
-            ExpressionKind.getModel2(), 300, connector);
+            ExpressionKind.getModelForSingleselect(), 300, connector);
       JScrollPane scroller = new JScrollPane(expressionKindTable);
       scroller.setMinimumSize(new Dimension(300, 470));
       scroller.setMaximumSize(new Dimension(300, 470));

@@ -34,7 +34,7 @@ public class ExpressionKindTableModel extends DefaultTableModel
       List<ExpressionKindTableRow> selectedRows = new ArrayList<>();
       for(ExpressionKindTableRow row : rows)
       {
-         if(row.getExpressionKind().isSelected())
+         if(row.getExpressionKindItem().isSelected())
          {
             selectedRows.add(row);
          }
