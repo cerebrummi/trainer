@@ -1,7 +1,9 @@
 package vokabeltrainer.types.grammatical.expressionkind;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
@@ -21,59 +23,26 @@ public class DefinitionHelper
    public static List<GrammaticalEnum> getDefinitionsNA(
          ExpressionKind expressionKind)
    {
+      List<GrammaticalEnum> listNA = getDefinitionsUNKNOWN(expressionKind);
       List<GrammaticalEnum> list = new ArrayList<>();
-      switch (expressionKind)
+      if (!listNA.contains(Binjan.BINJAN_UNKNOWN))
       {
-      case VERB:
-      case MODALVERB:
-         list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
-         break;
-      case PERSONALPRAEFIX:
-      case PERSONALSUFFIX:
-      case PRONOM:
-      case DEMONSTRATIVPRONOM:
-      case PERSONALPRONOM:
-      case POSSESSIVPRONOM:
          list.add(Binjan.BINJAN_NA);
-         list.add(VerbTimes.VERBTIMES_NA);
-         break;
-      case SUBSTANTIV:
-      case UHRZEIT:
-      case WOCHENTAG:
-      case ZAHL:
-      case ORDNUNGSZAHL:
-      case JAHRESZEIT:
-      case EIGENNAME:
-      case BERUF:
-      case ALTERSANGABE:
-      case ADJEKTIV:
-      case ADVERB:
-      case FARBE:
-         list.add(Binjan.BINJAN_NA);
-         list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
-         list.add(VerbTimes.VERBTIMES_NA);
-         break;
-      case ARTIKEL:
-         list.add(Binjan.BINJAN_NA);
-         list.add(Numerus.NUMERUS_NA);
-         list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
-         list.add(VerbTimes.VERBTIMES_NA);
-         break;
-      case UMGANGSPRACHE:
-      case EXPRESSIONKIND_UNKNOWN:
-      case AUSRUF:
-      case BINDEWORT:
-      case FRAGEWORT:
-      case KONSTRUKT:
-      case PARTIKEL:
-      case PRAEPOSITION:
-      case REDEWENDUNG:
-      case GLUECKWUNSCH:
-      default:
-         list.add(Binjan.BINJAN_NA);
+      }
+      if (!listNA.contains(Gender.GENDER_UNKNOWN))
+      {
          list.add(Gender.GENDER_NA);
-         list.add(Numerus.NUMERUS_NA);
+      }
+      if (!listNA.contains(GrammaticalPerson.GRAMMATICALPERSON_UNKNOWN))
+      {
          list.add(GrammaticalPerson.GRAMMATICALPERSON_NA);
+      }
+      if (!listNA.contains(Numerus.NUMERUS_UNKNOWN))
+      {
+         list.add(Numerus.NUMERUS_NA);
+      }
+      if (!listNA.contains(VerbTimes.VERBTIMES_UNKNOWN))
+      {
          list.add(VerbTimes.VERBTIMES_NA);
       }
       return list;
@@ -82,29 +51,8 @@ public class DefinitionHelper
    public static List<GrammaticalEnum> getDefinitionsUNKNOWN(
          ExpressionKind expressionKind)
    {
-      List<GrammaticalEnum> listNA = getDefinitionsNA(expressionKind);
-      List<GrammaticalEnum> list = new ArrayList<>();
-      if (!listNA.contains(Binjan.BINJAN_NA))
-      {
-         list.add(Binjan.BINJAN_UNKNOWN);
-      }
-      if (!listNA.contains(Gender.GENDER_NA))
-      {
-         list.add(Gender.GENDER_UNKNOWN);
-      }
-      if (!listNA.contains(GrammaticalPerson.GRAMMATICALPERSON_NA))
-      {
-         list.add(GrammaticalPerson.GRAMMATICALPERSON_UNKNOWN);
-      }
-      if (!listNA.contains(Numerus.NUMERUS_NA))
-      {
-         list.add(Numerus.NUMERUS_UNKNOWN);
-      }
-      if (!listNA.contains(VerbTimes.VERBTIMES_NA))
-      {
-         list.add(VerbTimes.VERBTIMES_UNKNOWN);
-      }
-      return list;
+      return Arrays.stream(expressionKind.getGrammaticalEnums())
+                   .map(parent -> parent.getUnkown())
+                   .collect(Collectors.toList());
    }
-
 }

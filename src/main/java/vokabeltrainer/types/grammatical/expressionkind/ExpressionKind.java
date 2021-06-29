@@ -309,4 +309,9 @@ public enum ExpressionKind
 
       return grammaticalEnums;
    }
+
+   public GrammaticalParentEnum[] getGrammaticalEnums()
+   {
+      return grammaticalEnums;
+   }
 }
