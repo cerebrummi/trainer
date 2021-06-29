@@ -1,12 +1,8 @@
 package vokabeltrainer.types.grammatical.expressionkind;
 
-import java.text.Collator;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
 import java.util.stream.Collectors;
@@ -172,38 +168,6 @@ public enum ExpressionKind
       }
    }
 
-   public static List<ExpressionKind> getValuesAsSortedList()
-   {
-      List<ExpressionKind> list = Arrays.asList(ExpressionKind.values());
-
-      Collections.sort(list, new Comparator<ExpressionKind>()
-      {
-         @Override
-         public int compare(ExpressionKind o1, ExpressionKind o2)
-         {
-            if (o1.equals(EXPRESSIONKIND_UNKNOWN)
-                  && o2.equals(EXPRESSIONKIND_UNKNOWN))
-            {
-               return 0;
-            }
-            if (o1.equals(EXPRESSIONKIND_UNKNOWN))
-            {
-               return -1;
-            }
-            if (o2.equals(EXPRESSIONKIND_UNKNOWN))
-            {
-               return 1;
-            }
-
-            Collator coll = Collator.getInstance(Locale.GERMAN);
-            coll.setStrength(Collator.PRIMARY);
-            return coll.compare(o1.description, o2.description);
-         }
-      });
-
-      return list;
-   }
-
    public static int getNumberOfValues()
    {
       return ExpressionKind.values().length;
@@ -222,6 +186,11 @@ public enum ExpressionKind
    public void toggleSelected()
    {
       selected = !selected;
+   }
+
+   public String getDescription()
+   {
+      return description;
    }
 
    public static ExpressionKindTableModel getModelForMultiselect()
