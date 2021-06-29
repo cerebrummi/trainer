@@ -1,10 +1,9 @@
 package vokabeltrainer.types.grammatical.expressionkind;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
@@ -14,12 +13,10 @@ import vokabeltrainer.types.grammatical.VerbTimes;
 
 public class Definitions
 {
-   private Set<ExpressionKind> expressionKinds = new HashSet<>();
    private Map<ExpressionKind, Definition> definitions = new HashMap<>();
 
    public Definitions(Map<ExpressionKind, Definition> definitions)
    {
-      expressionKinds = definitions.keySet();
       this.definitions = definitions;
    }
 
@@ -30,7 +27,7 @@ public class Definitions
 
    public boolean addExpressionKind(ExpressionKind expressionKind)
    {
-      if (expressionKinds.add(expressionKind))
+      if (!definitions.containsKey(expressionKind))
       {
          definitions.put(expressionKind, new Definition(expressionKind));
          return true;
@@ -72,95 +69,68 @@ public class Definitions
       {
          return "";
       }
-      return definitions.get(definitions.keySet().stream().findAny().get())
+      return definitions.values().stream().findAny().get()
             .getGrammaticalEnum(clazz).toDescription();
-   }
-
-   public String getExpressionKindDescriptions()
-   {
-      StringJoiner joiner = new StringJoiner(", ");
-      for (ExpressionKind kind : definitions.keySet())
-      {
-         if (!kind.toDescription().isEmpty())
-         {
-            joiner.add(kind.toDescription());
-         }
-      }
-      return joiner.toString();
-   }
-
-   public String getExpressionKindsForSaving()
-   {
-      StringJoiner joiner = new StringJoiner(",");
-      for (ExpressionKind kind : definitions.keySet())
-      {
-         joiner.add(kind.name());
-      }
-      return joiner.toString();
-   }
-
-   public String getGrammaticalEnumsForSaving()
-   {
-      int counter = 0;
-      Definition anyDefinition = new Definition(
-            ExpressionKind.EXPRESSIONKIND_UNKNOWN);
-      for (ExpressionKind kind : definitions.keySet())
-      {
-         if (counter > 0)
-         {
-            break;
-         }
-         anyDefinition = definitions.get(kind);
-         counter++;
-      }
-      return anyDefinition.getGrammaticalEnumsForSaving();
    }
 
    public String getVerbConjugationInfos()
    {
-      return grammaticalEnumToInfos(VerbTimes.class).toString();
+      return grammaticalEnumToInfos(VerbTimes.class);
    }
 
    public String getBinjanInfos()
    {
-      return grammaticalEnumToInfos(Binjan.class).toString();
+      return grammaticalEnumToInfos(Binjan.class);
    }
 
    public String getNumerusInfos()
    {
-      return grammaticalEnumToInfos(Numerus.class).toString();
+      return grammaticalEnumToInfos(Numerus.class);
    }
 
    public String getGenderInfos()
    {
-      return grammaticalEnumToInfos(Gender.class).toString();
+      return grammaticalEnumToInfos(Gender.class);
    }
 
-   private StringJoiner grammaticalEnumToInfos(
-         Class<? extends GrammaticalEnum> clazz)
+   private String grammaticalEnumToInfos(Class<? extends GrammaticalEnum> clazz)
    {
-      Set<GrammaticalEnum> grammaticalEnum = new HashSet<>();
-      for (ExpressionKind kind : definitions.keySet())
+      if (definitions.isEmpty())
       {
-         if (!definitions.get(kind).getGrammaticalEnum(clazz).toInfo()
-               .isEmpty())
-         {
-            grammaticalEnum
-                  .add(definitions.get(kind).getGrammaticalEnum(clazz));
-         }
+         return "";
       }
+      return definitions.values().stream().findAny().get()
+            .getGrammaticalEnum(clazz).toInfo();
+   }
 
-      StringJoiner joiner = new StringJoiner(", ");
-      for (GrammaticalEnum grammaticalenum : grammaticalEnum)
+   public String getExpressionKindDescriptions()
+   {
+      return definitions.keySet().stream()
+            .filter(kind -> !kind.toDescription().isEmpty())
+            .map(kind -> kind.toDescription())
+            .collect(Collectors.joining(", "));
+   }
+
+   public String getExpressionKindsForSaving()
+   {
+      return definitions.keySet().stream().map(kind -> kind.name())
+            .collect(Collectors.joining(","));
+   }
+
+   public String getGrammaticalEnumsForSaving()
+   {
+      if (definitions.isEmpty())
       {
-         joiner.add(grammaticalenum.toInfo());
+         return new Definition(ExpressionKind.EXPRESSIONKIND_UNKNOWN)
+               .getGrammaticalEnumsForSaving();
       }
-      return joiner;
+      return definitions.values().stream().findAny().get()
+            .getGrammaticalEnumsForSaving();
    }
 
    public String addGrammaticalEnumsForCopy(String tag)
    {
-      if (definitions.values().stream().findAny().isEmpty())
+      if (definitions.isEmpty())
       {
          return "";
       }
@@ -170,6 +140,6 @@ public class Definitions
 
    public Set<ExpressionKind> getExpressionKindSet()
    {
-      return expressionKinds;
+      return definitions.keySet();
    }
 }
