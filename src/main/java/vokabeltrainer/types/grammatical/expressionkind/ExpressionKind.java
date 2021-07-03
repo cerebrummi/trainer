@@ -37,7 +37,7 @@ public enum ExpressionKind
          "Beruf",
          ExpressionKindHelper.BERUF_ENUMS),
    BINDEWORT(
-         "Bindewort",
+         "Konjunktion/Bindewort",
          ExpressionKindHelper.BINDEWORT_ENUMS),
    DEMONSTRATIVPRONOM(
          "Demonstrativpronom",
@@ -52,7 +52,7 @@ public enum ExpressionKind
          "Fragewort",
          ExpressionKindHelper.FRAGEWORT_ENUMS),
    PRONOM(
-         "Fürwort/Pronom",
+         "Pronom/Fürwort",
          ExpressionKindHelper.PRONOM_ENUMS),
    GLUECKWUNSCH(
          "Glückwunsch/Gruß",
@@ -110,7 +110,6 @@ public enum ExpressionKind
          ExpressionKindHelper.ZAHL_ENUMS);
 
    private String description;
-   private boolean selected;
    private GrammaticalParentEnum[] grammaticalParentEnums;
 
    ExpressionKind(String description,
@@ -173,21 +172,6 @@ public enum ExpressionKind
       return ExpressionKind.values().length;
    }
 
-   public boolean isSelected()
-   {
-      return selected;
-   }
-
-   public void setSelected(boolean selected)
-   {
-      this.selected = selected;
-   }
-
-   public void toggleSelected()
-   {
-      selected = !selected;
-   }
-
    public String getDescription()
    {
       return description;
@@ -230,7 +214,8 @@ public enum ExpressionKind
    {
       Set<ExpressionKindItem> expressionKindItems = new HashSet<>();
       Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
-      for (ExpressionKind kind : ExpressionKind.values())
+      for (ExpressionKind kind : ExpressionKindHelper
+            .getAllExpressionKinds())
       {
          ExpressionKindItem item = new ExpressionKindItem(kind);
          if (expressionKinds.contains(kind))

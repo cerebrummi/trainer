@@ -1,12 +1,11 @@
 package vokabeltrainer.types.grammatical.expressionkind;
 
-import java.text.Collator;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
+import vokabeltrainer.ExpressionKindComparator;
 import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
 
 public class ExpressionKindHelper
@@ -40,7 +39,8 @@ public class ExpressionKindHelper
 
    public static GrammaticalParentEnum[] FRAGEWORT_ENUMS = {};
 
-   public static GrammaticalParentEnum[] PRONOM_ENUMS = {};
+   public static GrammaticalParentEnum[] PRONOM_ENUMS = {
+         GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
 
    public static GrammaticalParentEnum[] GLUECKWUNSCH_ENUMS = {};
 
@@ -97,33 +97,18 @@ public class ExpressionKindHelper
 
    public static List<ExpressionKindItem> getAllExpressionKindItems()
    {
-      return Arrays
-            .stream(ExpressionKind.values())
-            .sorted(new Comparator<ExpressionKind>()
-            {
-               @Override
-               public int compare(ExpressionKind o1, ExpressionKind o2)
-               {
-                  if (o1.equals(ExpressionKind.EXPRESSIONKIND_UNKNOWN)
-                        && o2.equals(ExpressionKind.EXPRESSIONKIND_UNKNOWN))
-                  {
-                     return 0;
-                  }
-                  if (o1.equals(ExpressionKind.EXPRESSIONKIND_UNKNOWN))
-                  {
-                     return -1;
-                  }
-                  if (o2.equals(ExpressionKind.EXPRESSIONKIND_UNKNOWN))
-                  {
-                     return 1;
-                  }
-
-                  Collator coll = Collator.getInstance(Locale.GERMAN);
-                  coll.setStrength(Collator.PRIMARY);
-                  return coll.compare(o1.getDescription(), o2.getDescription());
-               }
-            })
+      return getAllExpressionKinds()
+            .stream()
             .map(kind -> new ExpressionKindItem(kind))
             .collect(Collectors.toList());
+   }
+
+   public static List<ExpressionKind> getAllExpressionKinds()
+   {
+      List<ExpressionKind> sortedKinds = Arrays
+            .stream(ExpressionKind.values())
+            .collect(Collectors.toList());
+      Collections.sort(sortedKinds, new ExpressionKindComparator());
+      return sortedKinds;
    }
 }

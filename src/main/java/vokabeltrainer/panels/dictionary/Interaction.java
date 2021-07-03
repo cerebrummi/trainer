@@ -25,16 +25,19 @@ public class Interaction
  
       interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.TAB_CHAPTER), Command.NO_TABLE);
       interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.TAB_CHAPTER), Command.NO_TABLE);
+      
       interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       
       interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.TAB_EXPRESSIONKIND), Command.NO_TABLE);
       interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.TAB_EXPRESSIONKIND), Command.NO_TABLE);
+      
       interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       
       interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.TAB_SEARCH), Command.NO_TABLE);
       interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.TAB_SEARCH), Command.NO_TABLE);
+      
       interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.SEARCH_WHICH_HEBREW), Command.NO_TABLE);
       interactions.put(new Interaction(Action.GERMAN_TO_HEBREW, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_GERMAN);
       interactions.put(new Interaction(Action.HEBREW_TO_GERMAN, Status.SEARCH_WHICH_GERMAN), Command.NO_TABLE);
