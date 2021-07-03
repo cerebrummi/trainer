@@ -15,8 +15,7 @@ public class ExpressionKindHelper
    public static GrammaticalParentEnum[] ADJECTIVE_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
 
-   public static GrammaticalParentEnum[] ADVERB_ENUMS = {
-         GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
+   public static GrammaticalParentEnum[] ADVERB_ENUMS = {};
 
    public static GrammaticalParentEnum[] ALTERSANGABE_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };

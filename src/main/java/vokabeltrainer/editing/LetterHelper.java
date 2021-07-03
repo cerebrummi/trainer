@@ -38,6 +38,11 @@ public class LetterHelper
    {
       // nothing
    }
+   
+   public static Letter getLetterFromCode(String code)
+   {
+      return codeMap.get(code);
+   }
 
    public static List<NikudLetter> findNikudLetters(String hebrewWord)
    {

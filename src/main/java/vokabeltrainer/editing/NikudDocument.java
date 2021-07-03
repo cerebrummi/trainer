@@ -36,8 +36,9 @@ public class NikudDocument extends PlainDocument
       {
          if (getLength() + text.length() - length > NUMBER_OF_LETTERS_ALLOWED)
          {
-            text = text.substring(0,
-                  NUMBER_OF_LETTERS_ALLOWED - (getLength() - length));
+            text = text
+                  .substring(0,
+                        NUMBER_OF_LETTERS_ALLOWED - (getLength() - length));
             if (text.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();
@@ -46,6 +47,7 @@ public class NikudDocument extends PlainDocument
          }
 
          List<String> list = LetterHelper.findLetterCodes(text);
+         StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
          {
@@ -53,25 +55,8 @@ public class NikudDocument extends PlainDocument
             return;
          }
 
-         for (int i = 0; i < list.size(); i++)
-         {
-            NikudLetter letter = NikudLetter.getLetterFromCode(list.get(i));
-            if (letter != null)
-            {
-               // okay
-            }
-            else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
-            {
-               // okay
-            }
-            else
-            {
-               // remove letter
-               list.remove(i);
-            }
-         }
-         super.replace(offset, length, LetterHelper.makeWordFromCodes(list),
-               attrs);
+         checking(list, builder);
+         super.replace(offset, length, builder.toString(), attrs);
          return;
       }
       super.replace(offset, length, text, attrs);
@@ -93,6 +78,7 @@ public class NikudDocument extends PlainDocument
          }
 
          List<String> list = LetterHelper.findLetterCodes(str);
+         StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
          {
@@ -100,26 +86,35 @@ public class NikudDocument extends PlainDocument
             return;
          }
 
-         for (int i = 0; i < list.size(); i++)
-         {
-            NikudLetter letter = NikudLetter.getLetterFromCode(list.get(i));
-            if (letter != null)
-            {
-               // okay
-            }
-            else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
-            {
-               // okay
-            }
-            else
-            {
-               // remove letter
-               list.remove(i);
-            }
-         }
-         super.insertString(offset, LetterHelper.makeWordFromCodes(list), attr);
+         checking(list, builder);
+         super.insertString(offset, builder.toString(), attr);
          return;
       }
       super.insertString(offset, str, attr);
+   }
+
+   private void checking(List<String> list, StringBuilder builder)
+   {
+      for (int i = 0; i < list.size(); i++)
+      {
+         NikudLetter letter = NikudLetter.getLetterFromCode(list.get(i));
+         if (letter != null)
+         {
+            // okay
+            builder.append(letter.getUnicode());
+         }
+         else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
+         {
+            // okay
+            builder
+                  .append(LetterHelper
+                        .getLetterFromCode(list.get(i))
+                        .getUnicode());
+         }
+         else
+         {
+            // remove letter
+         }
+      }
    }
 }

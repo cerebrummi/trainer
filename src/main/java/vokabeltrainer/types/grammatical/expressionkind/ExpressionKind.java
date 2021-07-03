@@ -19,7 +19,7 @@ public enum ExpressionKind
          "unbekannt",
          ExpressionKindHelper.UNKNOWN_ENUMS),
    ADJEKTIV(
-         "Adjektiv",
+         "Adjektiv/Eigenschaftswort",
          ExpressionKindHelper.ADJECTIVE_ENUMS),
    ADVERB(
          "Adverb",
@@ -28,7 +28,7 @@ public enum ExpressionKind
          "Altersangabe",
          ExpressionKindHelper.ALTERSANGABE_ENUMS),
    AUSRUF(
-         "Ausruf",
+         "Interjektion/Ausruf",
          ExpressionKindHelper.AUSRUF_ENUMS),
    ARTIKEL(
          "Artikel",
@@ -91,7 +91,7 @@ public enum ExpressionKind
          "Redewendung",
          ExpressionKindHelper.REDEWENDUNG_ENUMS),
    SUBSTANTIV(
-         "Substantiv",
+         "Substantiv/Hauptwort",
          ExpressionKindHelper.SUBSTANTIV_ENUMS),
    UHRZEIT(
          "Uhrzeit",
@@ -100,7 +100,7 @@ public enum ExpressionKind
          "Umgangsprache",
          ExpressionKindHelper.UMGANGSSPRACHE_ENUMS),
    VERB(
-         "Verb",
+         "Verb/Tuwort",
          ExpressionKindHelper.VERB_ENUMS),
    WOCHENTAG(
          "Wochentag",
