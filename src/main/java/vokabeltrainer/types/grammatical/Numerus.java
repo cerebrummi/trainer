@@ -16,8 +16,6 @@ public enum Numerus implements GrammaticalEnum
          "nicht anwendbar");
 
    private String description;
-   private boolean selected;
-   private GrammaticalParentEnum parent = GrammaticalParentEnum.NUMERUS;
 
    Numerus(String description)
    {
@@ -68,32 +66,20 @@ public enum Numerus implements GrammaticalEnum
    }
 
    @Override
-   public void toggleSelected()
-   {
-      selected = !selected;  
-   } 
-   
-   @Override
-   public boolean isSelected()
-   {
-      return selected;
-   }
-
-   @Override
-   public void setSelected(boolean selected)
-   {
-      this.selected = selected;
-   }
-
-   @Override
    public GrammaticalParentEnum getParent()
    {
-      return parent;
+      return GrammaticalParentEnum.NUMERUS;
    }
    
    @Override
    public int getPrintOrderNumber()
    {
-      return parent.getSortNumber();
+      return getParent().getSortNumber();
+   }
+
+   @Override
+   public GrammaticalEnum getUnkown()
+   {
+      return Numerus.NUMERUS_UNKNOWN;
    }
 }

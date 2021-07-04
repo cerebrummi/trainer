@@ -26,8 +26,6 @@ public enum Binjan
          "nicht anwendbar");
 
    private String description;
-   private boolean selected;
-   private GrammaticalParentEnum parent = GrammaticalParentEnum.BINJAN;
 
    Binjan(String description)
    {
@@ -87,32 +85,20 @@ public enum Binjan
    }
 
    @Override
-   public void toggleSelected()
-   {
-      selected = !selected;
-   }
-
-   @Override
-   public boolean isSelected()
-   {
-      return selected;
-   }
-
-   @Override
-   public void setSelected(boolean selected)
-   {
-      this.selected = selected;
-   }
-
-   @Override
    public GrammaticalParentEnum getParent()
    {
-      return parent;
+      return GrammaticalParentEnum.BINJAN;
    }
 
    @Override
    public int getPrintOrderNumber()
    {
-      return parent.getSortNumber();
+      return getParent().getSortNumber();
+   }
+
+   @Override
+   public GrammaticalEnum getUnkown()
+   {
+      return Binjan.BINJAN_UNKNOWN;
    }
 }

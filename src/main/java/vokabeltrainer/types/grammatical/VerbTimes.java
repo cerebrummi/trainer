@@ -24,8 +24,6 @@ public enum VerbTimes implements GrammaticalEnum
          "nicht anwendbar");
 
    private String description;
-   private boolean selected;
-   private GrammaticalParentEnum parent = GrammaticalParentEnum.VERB_TIMES;
 
    VerbTimes(String description)
    {
@@ -85,32 +83,20 @@ public enum VerbTimes implements GrammaticalEnum
    }
 
    @Override
-   public void toggleSelected()
-   {
-      selected = !selected;  
-   }
-   
-   @Override
-   public boolean isSelected()
-   {
-      return selected;
-   }
-
-   @Override
-   public void setSelected(boolean selected)
-   {
-      this.selected = selected;
-   }
-
-   @Override
    public GrammaticalParentEnum getParent()
    {
-      return parent;
+      return GrammaticalParentEnum.VERB_TIMES;
    }
    
    @Override
    public int getPrintOrderNumber()
    {
-      return parent.getSortNumber();
+      return getParent().getSortNumber();
+   }
+
+   @Override
+   public GrammaticalEnum getUnkown()
+   {
+      return VerbTimes.VERBTIMES_UNKNOWN;
    }
 }

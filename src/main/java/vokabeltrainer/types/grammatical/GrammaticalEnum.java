@@ -10,49 +10,37 @@ public interface GrammaticalEnum
 
    public String toInfo();
 
-   public void toggleSelected();
-
-   public boolean isSelected();
-
-   public void setSelected(boolean selected);
-
    public GrammaticalParentEnum getParent();
 
    public int getPrintOrderNumber();
+   
+   public GrammaticalEnum getUnkown();
 
    public enum GrammaticalParentEnum
    {
       GENDER(
             10,
-            "Geschlecht",
-            Gender.GENDER_UNKNOWN),
+            "Geschlecht"),
       NUMERUS(
             20,
-            "Numerus",
-            Numerus.NUMERUS_UNKNOWN),
+            "Numerus"),
       GRAMMATICAL_PERSON(
             30,
-            "grammatische Person",
-            GrammaticalPerson.GRAMMATICALPERSON_UNKNOWN),
+            "grammatische Person"),
       BINJAN(
             40,
-            "Binjan",
-            Binjan.BINJAN_UNKNOWN),
+            "Binjan"),
       VERB_TIMES(
             50,
-            "Zeit",
-            VerbTimes.VERBTIMES_UNKNOWN);
+            "Zeitform");
 
       private int sortNumber;
       private String identifier;
-      private GrammaticalEnum unkown;
 
-      GrammaticalParentEnum(int sortNumber, String identifier,
-            GrammaticalEnum unkown)
+      GrammaticalParentEnum(int sortNumber, String identifier)
       {
          this.sortNumber = sortNumber;
          this.identifier = identifier;
-         this.unkown = unkown;
       }
 
       public int getSortNumber()
@@ -64,10 +52,23 @@ public interface GrammaticalEnum
       {
          return identifier;
       }
-
+      
       public GrammaticalEnum getUnkown()
       {
-         return unkown;
+         switch(this)
+         {
+         case BINJAN:
+            return Binjan.BINJAN_UNKNOWN;
+         case GENDER:
+            return Gender.GENDER_UNKNOWN;
+         case GRAMMATICAL_PERSON:
+            return GrammaticalPerson.GRAMMATICALPERSON_UNKNOWN;
+         case NUMERUS:
+            return Numerus.NUMERUS_UNKNOWN;
+         case VERB_TIMES:
+            return VerbTimes.VERBTIMES_UNKNOWN;
+         }
+         return null;
       }
    }
 }

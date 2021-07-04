@@ -16,8 +16,6 @@ public enum Gender implements GrammaticalEnum
          "nicht anwendbar");
 
    private String description;
-   private boolean selected;
-   private GrammaticalParentEnum parent = GrammaticalParentEnum.GENDER;
 
    Gender(String description)
    {
@@ -68,32 +66,20 @@ public enum Gender implements GrammaticalEnum
    }
 
    @Override
-   public void toggleSelected()
-   {
-      selected = !selected;  
-   }
-   
-   @Override
-   public boolean isSelected()
-   {
-      return selected;
-   }
-
-   @Override
-   public void setSelected(boolean selected)
-   {
-      this.selected = selected;
-   }
-
-   @Override
    public GrammaticalParentEnum getParent()
    {
-      return parent;
+      return GrammaticalParentEnum.GENDER;
    }
    
    @Override
    public int getPrintOrderNumber()
    {
-      return parent.getSortNumber();
+      return getParent().getSortNumber();
+   }
+
+   @Override
+   public GrammaticalEnum getUnkown()
+   {
+      return Gender.GENDER_UNKNOWN;
    }
 }
