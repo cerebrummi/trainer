@@ -415,7 +415,10 @@ public class Expression
       {
          joiner.add(definitions.addGrammaticalEnumsForCopy("\n"));
       }
-      joiner.add(additionalInformation);
+      if(!additionalInformation.isBlank())
+      {
+         joiner.add(additionalInformation);
+      }
       StringJoiner searchJoinerGerman = new StringJoiner(",");
       for (String word : searchwordsGerman)
       {
