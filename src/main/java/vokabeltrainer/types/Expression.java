@@ -399,8 +399,7 @@ public class Expression
 
    public String getCopyLines(Language language)
    {
-      StringJoiner joiner = new StringJoiner("\n");
-      joiner.add(chapter.getName());
+      StringJoiner joiner = new StringJoiner("\t");
       if (Language.GERMAN_TO_HEBREW.equals(language))
       {
          joiner.add(german);
@@ -411,31 +410,33 @@ public class Expression
          joiner.add(hebrew.toString());
          joiner.add(german);
       }
-      if(!definitions.addGrammaticalEnumsForCopy("\n").isBlank())
-      {
-         joiner.add(definitions.addGrammaticalEnumsForCopy("\n"));
-      }
-      if(!additionalInformation.isBlank())
-      {
-         joiner.add(additionalInformation);
-      }
-      StringJoiner searchJoinerGerman = new StringJoiner(",");
+      joiner.add(chapter.getName());
+      joiner.add(definitions.addExpressionKindsForCopy(", "));
+//      if(!definitions.addGrammaticalEnumsForCopy(", ").isBlank())
+//      {
+         joiner.add(definitions.addGrammaticalEnumsForCopy(", "));
+//      }
+      StringJoiner searchJoinerGerman = new StringJoiner(", ");
       for (String word : searchwordsGerman)
       {
          searchJoinerGerman.add(word);
       }
-      if(!searchJoinerGerman.toString().isBlank())
-      {
+//      if(!searchJoinerGerman.toString().isBlank())
+//      {
          joiner.add("Suchworte Deutsch: " + searchJoinerGerman.toString());
-      }
-      StringJoiner searchJoinerHebrew = new StringJoiner(",");
+//      }
+      StringJoiner searchJoinerHebrew = new StringJoiner(", ");
       for (String word : searchwordsHebrew)
       {
          searchJoinerHebrew.add(word);
       }
-      if(!searchJoinerHebrew.toString().isBlank())
-      {
+//      if(!searchJoinerHebrew.toString().isBlank())
+//      {
          joiner.add("Suchworte Hebräisch: " + searchJoinerHebrew.toString());
+//      }
+      if(!additionalInformation.isBlank())
+      {
+         joiner.add(additionalInformation);
       }
       return joiner.toString();
    }

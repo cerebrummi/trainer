@@ -69,8 +69,13 @@ public class Definitions
       {
          return "";
       }
-      return definitions.values().stream().findAny().get()
-            .getGrammaticalEnum(clazz).toDescription();
+      return definitions
+            .values()
+            .stream()
+            .findAny()
+            .get()
+            .getGrammaticalEnum(clazz)
+            .toDescription();
    }
 
    public String getVerbConjugationInfos()
@@ -99,13 +104,20 @@ public class Definitions
       {
          return "";
       }
-      return definitions.values().stream().findAny().get()
-            .getGrammaticalEnum(clazz).toInfo();
+      return definitions
+            .values()
+            .stream()
+            .findAny()
+            .get()
+            .getGrammaticalEnum(clazz)
+            .toInfo();
    }
 
    public String getExpressionKindDescriptions()
    {
-      return definitions.keySet().stream()
+      return definitions
+            .keySet()
+            .stream()
             .filter(kind -> !kind.toDescription().isEmpty())
             .map(kind -> kind.toDescription())
             .collect(Collectors.joining(", "));
@@ -113,7 +125,10 @@ public class Definitions
 
    public String getExpressionKindsForSaving()
    {
-      return definitions.keySet().stream().map(kind -> kind.name())
+      return definitions
+            .keySet()
+            .stream()
+            .map(kind -> kind.name())
             .collect(Collectors.joining(","));
    }
 
@@ -124,7 +139,11 @@ public class Definitions
          return new Definition(ExpressionKind.EXPRESSIONKIND_UNKNOWN)
                .getGrammaticalEnumsForSaving();
       }
-      return definitions.values().stream().findAny().get()
+      return definitions
+            .values()
+            .stream()
+            .findAny()
+            .get()
             .getGrammaticalEnumsForSaving();
    }
 
@@ -134,8 +153,25 @@ public class Definitions
       {
          return "";
       }
-      return definitions.values().stream().findAny().get()
+      return definitions
+            .values()
+            .stream()
+            .findAny()
+            .get()
             .addGrammaticalEnumsForCopy(tag);
+   }
+
+   public String addExpressionKindsForCopy(String tag)
+   {
+      if (definitions.isEmpty())
+      {
+         return "";
+      }
+      return definitions
+            .keySet()
+            .stream()
+            .map(kind -> kind.getDescription())
+            .collect(Collectors.joining(tag));
    }
 
    public Set<ExpressionKind> getExpressionKindSet()

@@ -72,6 +72,8 @@ public class ExpressionKindHelper
    public static GrammaticalParentEnum[] PRAEPOSITION_ENUMS = {};
 
    public static GrammaticalParentEnum[] REDEWENDUNG_ENUMS = {};
+   
+   public static GrammaticalParentEnum[] RELATIVPRONOM_ENUMS = {};
 
    public static GrammaticalParentEnum[] SUBSTANTIV_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };

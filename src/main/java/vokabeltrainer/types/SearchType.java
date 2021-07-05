@@ -14,8 +14,22 @@ public enum SearchType
       this.meaning = meaning;
    }
 
-   public String toString()
+   public String getMeaning(Language language)
    {
-      return meaning;
+      switch (language)
+      {
+      case GERMAN_TO_HEBREW:
+         return meaning;
+      case HEBREW_TO_GERMAN:
+         switch (this)
+         {
+         case SEARCHWORD:
+            return meaning + " (mit Punktierung)";
+         case WORDSTART:
+            return meaning + " (ohne Punktierung)";
+         }
+      }
+      return "";
    }
+
 }

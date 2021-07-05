@@ -90,6 +90,9 @@ public enum ExpressionKind
    REDEWENDUNG(
          "Redewendung",
          ExpressionKindHelper.REDEWENDUNG_ENUMS),
+   RELATIVPRONOM(
+         "Relativpronom",
+         ExpressionKindHelper.RELATIVPRONOM_ENUMS),
    SUBSTANTIV(
          "Substantiv/Hauptwort",
          ExpressionKindHelper.SUBSTANTIV_ENUMS),
@@ -153,6 +156,7 @@ public enum ExpressionKind
       case PRAEPOSITION:
       case PRONOM:
       case REDEWENDUNG:
+      case RELATIVPRONOM:
       case SUBSTANTIV:
       case UHRZEIT:
       case UMGANGSPRACHE:
