@@ -34,7 +34,7 @@ public class Expression
    public Expression(boolean preset) // for unit testing
    {
       this.doNotChange = true;
-      
+
       if (preset)
       {
          uuid = UUID.randomUUID();
@@ -44,12 +44,11 @@ public class Expression
          lastModified = LocalDateTime.now();
       }
    }
-   
-   
+
    public Expression(boolean preset, boolean doNotChange)
    {
       this.doNotChange = doNotChange;
-      
+
       if (preset)
       {
          uuid = UUID.randomUUID();
@@ -214,9 +213,9 @@ public class Expression
 
    public void setLetterForSaving(Letter letterForSaving)
    {
-      if(letterForSaving instanceof LetterForSaving)
+      if (letterForSaving instanceof LetterForSaving)
       {
-         this.letterForSaving = (LetterForSaving)letterForSaving;
+         this.letterForSaving = (LetterForSaving) letterForSaving;
       }
    }
 
@@ -273,7 +272,8 @@ public class Expression
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
-      result[index] = "Kapitel: " + chapter.getName() + ", Index: " + sortingIndex;
+      result[index] = "Kapitel: " + chapter.getName() + ", Index: "
+            + sortingIndex;
       index++;
       result[index] = chapter.getDatabaseName() + " vom " + lastModified
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
@@ -298,7 +298,8 @@ public class Expression
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
-      result[index] = "Kapitel: " + chapter.getName() + ", Index: " + sortingIndex;
+      result[index] = "Kapitel: " + chapter.getName() + ", Index: "
+            + sortingIndex;
       index++;
       result[index] = chapter.getDatabaseName() + " vom " + lastModified
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
@@ -309,7 +310,7 @@ public class Expression
    {
       return additionalInformation;
    }
-   
+
    public String getGrammarInfo()
    {
       StringJoiner joiner = new StringJoiner(", ");
@@ -321,6 +322,10 @@ public class Expression
       {
          joiner.add(definitions.getGenderInfos());
       }
+      if(!definitions.getGrammaticalPersonInfos().isEmpty())
+      {
+         joiner.add(definitions.getGrammaticalPersonInfos());
+      }
       if (!definitions.getBinjanInfos().isEmpty())
       {
          joiner.add(definitions.getBinjanInfos());
@@ -328,6 +333,10 @@ public class Expression
       if (!definitions.getVerbConjugationInfos().isEmpty())
       {
          joiner.add(definitions.getVerbConjugationInfos());
+      }
+      if (!definitions.getExpressionKindDescriptions().isBlank())
+      {
+         joiner.add(definitions.getExpressionKindDescriptions());
       }
       return joiner.toString();
    }
@@ -412,29 +421,20 @@ public class Expression
       }
       joiner.add(chapter.getName());
       joiner.add(definitions.addExpressionKindsForCopy(", "));
-//      if(!definitions.addGrammaticalEnumsForCopy(", ").isBlank())
-//      {
-         joiner.add(definitions.addGrammaticalEnumsForCopy(", "));
-//      }
+      joiner.add(definitions.addGrammaticalEnumsForCopy(", "));
       StringJoiner searchJoinerGerman = new StringJoiner(", ");
       for (String word : searchwordsGerman)
       {
          searchJoinerGerman.add(word);
       }
-//      if(!searchJoinerGerman.toString().isBlank())
-//      {
-         joiner.add("Suchworte Deutsch: " + searchJoinerGerman.toString());
-//      }
+      joiner.add("Suchworte Deutsch: " + searchJoinerGerman.toString());
       StringJoiner searchJoinerHebrew = new StringJoiner(", ");
       for (String word : searchwordsHebrew)
       {
          searchJoinerHebrew.add(word);
       }
-//      if(!searchJoinerHebrew.toString().isBlank())
-//      {
-         joiner.add("Suchworte Hebräisch: " + searchJoinerHebrew.toString());
-//      }
-      if(!additionalInformation.isBlank())
+      joiner.add("Suchworte Hebräisch: " + searchJoinerHebrew.toString());
+      if (!additionalInformation.isBlank())
       {
          joiner.add(additionalInformation);
       }
@@ -449,15 +449,19 @@ public class Expression
       joiner.add(this.uuid.toString());
       if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
       {
-         joiner.add(
-               this.trainingStatusDToH.getNextDate().format(dateTimeFormatter));
+         joiner
+               .add(this.trainingStatusDToH
+                     .getNextDate()
+                     .format(dateTimeFormatter));
          joiner.add(this.trainingStatusDToH.getRepetition().name());
          joiner.add(String.valueOf(this.trainingStatusDToH.getTrys()));
       }
       else
       {
-         joiner.add(
-               this.trainingStatusHToD.getNextDate().format(dateTimeFormatter));
+         joiner
+               .add(this.trainingStatusHToD
+                     .getNextDate()
+                     .format(dateTimeFormatter));
          joiner.add(this.trainingStatusHToD.getRepetition().name());
          joiner.add(String.valueOf(this.trainingStatusHToD.getTrys()));
       }

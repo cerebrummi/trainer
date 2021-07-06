@@ -456,6 +456,14 @@ public class TrainerView extends BackgroundPanelTiled
 
       questionPanel.validate();
       questionPanel.repaint();
+      if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
+      {
+         this.pictureToggleBox.setVisible(true);
+      }
+      else
+      {
+         this.pictureToggleBox.setVisible(false);
+      }
    }
 
    private Component initRightPanel()

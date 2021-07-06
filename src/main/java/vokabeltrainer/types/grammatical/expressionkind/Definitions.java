@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum;
+import vokabeltrainer.types.grammatical.GrammaticalPerson;
 import vokabeltrainer.types.grammatical.Numerus;
 import vokabeltrainer.types.grammatical.VerbTimes;
 
@@ -97,6 +98,11 @@ public class Definitions
    {
       return grammaticalEnumToInfos(Gender.class);
    }
+   
+   public String getGrammaticalPersonInfos()
+   {
+      return grammaticalEnumToInfos(GrammaticalPerson.class);
+   }
 
    private String grammaticalEnumToInfos(Class<? extends GrammaticalEnum> clazz)
    {
@@ -178,4 +184,6 @@ public class Definitions
    {
       return definitions.keySet();
    }
+
+
 }
