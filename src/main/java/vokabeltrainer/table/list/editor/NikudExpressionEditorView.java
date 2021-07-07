@@ -936,7 +936,14 @@ public class NikudExpressionEditorView extends JDialog
          extraInfo.setText(expression.getAdditionalInformation());
       }
 
-      databaseNameField.setModel(Data.getOwnDatabasesComboBoxModel());
+      if(expression.isDoChange())
+      {
+         databaseNameField.setModel(Data.getOwnDatabasesComboBoxModel());
+      }
+      else
+      {
+         databaseNameField.setModel(Data.getInternalDatabasesComboBoxModel());
+      }
       databaseNameField
             .setSelectedItem(expression.getChapter().getDatabaseName());
 

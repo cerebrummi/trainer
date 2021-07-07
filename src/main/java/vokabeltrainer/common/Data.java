@@ -307,6 +307,11 @@ public final class Data
             .getAllOwnDistinctDatabaseDescriptions(withSelfEvenIfNotInUseYet);
    }
 
+   public static ComboBoxModel<String> getInternalDatabasesComboBoxModel()
+   {
+      return getDataBaseAtomic().getInternalDatabasesComboBoxModel();
+   }
+
    // #########################################################
    // #########################################################
    // #########################################################
@@ -1209,6 +1214,12 @@ public final class Data
                this.getAllOwnDistinctDatabaseDescriptions(true));
       }
 
+      private ComboBoxModel<String> getInternalDatabasesComboBoxModel()
+      {
+         return new DefaultComboBoxModel<String>(
+               this.getInternalDatabaseNames());
+      }
+
       private String[] getChapterArrayForEditor()
       {
          final List<Database> availableDatabases = Settings
@@ -1655,6 +1666,14 @@ public final class Data
          return result
                .stream()
                .map(DatabaseDescription::getDatabaseName)
+               .toArray(String[]::new);
+      }
+
+      private String[] getInternalDatabaseNames()
+      {
+         return Arrays.stream(Settings
+               .getAvailableDatabasesAsArray())
+               .map(database -> database.getName())
                .toArray(String[]::new);
       }
 

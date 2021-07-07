@@ -260,6 +260,11 @@ public class Settings
    {
       return Arrays.asList(availableDatabases);
    }
+   
+   public static Database[] getAvailableDatabasesAsArray()
+   {
+      return availableDatabases;
+   }
 
    public static boolean isSimpleHebrewInput()
    {
