@@ -183,7 +183,6 @@ public class Chapter implements Comparable<Chapter>
          Vector<Vector<DatabaseTableRow>> data = new Vector<>();
          for (DatabaseItem item : DatabaseItem.getAllAvailableDatabaseItems())
          {
-            item.setSelected(false);
             Vector<DatabaseTableRow> row = new Vector<>();
             row.add(new DatabaseTableRow(item));
             data.add(row);

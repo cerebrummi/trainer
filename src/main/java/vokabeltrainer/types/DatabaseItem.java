@@ -94,7 +94,9 @@ public class DatabaseItem
 
       for (Database database : Settings.getAvailableDatabases())
       {
-         databaseItemList.add(new DatabaseItem(database));
+         databaseItemList
+               .add(new DatabaseItem(database,
+                     Settings.isDatabaseChoosen(database)));
       }
 
       return databaseItemList;

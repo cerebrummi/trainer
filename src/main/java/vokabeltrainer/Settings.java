@@ -168,6 +168,11 @@ public class Settings
       Settings.chosenDatabases = new LinkedList<>();
       Settings.chosenDatabases.addAll(chosenDatabases);
    }
+   
+   public static boolean isDatabaseChoosen(Database database)
+   {
+      return Settings.chosenDatabases.contains(database);
+   }
 
    public static LinkedList<Database> getChosenDatabases()
    {
@@ -211,7 +216,7 @@ public class Settings
          // nothing
       }
       preferences = preferences.node(CerebrummiNodes.getChoosenDatabases());
-      preferences = preferences.node(chosen.name());
+      preferences = preferences.node(chosen.name().toLowerCase());
       try
       {
          preferences.removeNode();
