@@ -944,6 +944,7 @@ public class NikudExpressionEditorView extends JDialog
       {
          databaseNameField.setModel(Data.getInternalDatabasesComboBoxModel());
       }
+      
       databaseNameField
             .setSelectedItem(expression.getChapter().getDatabaseName());
 
@@ -999,45 +1000,38 @@ public class NikudExpressionEditorView extends JDialog
       boolean works = !frozen;
       try
       {
-         this.chapter.setEnabled(works);
          this.german.setEditable(works);
-         this.german.setEnabled(works);
          this.hebrew.setEditable(works);
-         this.hebrew.setEnabled(works);
          this.keyboard.setFrozen(frozen);
          this.saveButton.setEnabled(works);
          this.saveButton.setVisible(works);
          this.restoreButton.setEnabled(works);
          this.restoreButton.setVisible(works);
          this.newSearchwordGerman.setEditable(works);
-         this.newSearchwordGerman.setEnabled(works);
          this.newSearchwordGerman.setVisible(works);
-         this.deleteSearchwordButtonGerman.setEnabled(works);
          this.deleteSearchwordButtonGerman.setVisible(works);
          this.newSearchwordHebrew.setEditable(works);
-         this.newSearchwordHebrew.setEnabled(works);
          this.newSearchwordHebrew.setVisible(works);
-         this.deleteSearchwordButtonHebrew.setEnabled(works);
          this.deleteSearchwordButtonHebrew.setVisible(works);
          this.expressionKindTable.setFrozen(frozen);
          this.databaseNameField.setEditable(works);
-         this.databaseNameField.setEnabled(works);
          this.extraInfo.setEditable(works);
-         this.extraInfo.setEnabled(works);
+         this.binjanBox.setEditable(works);
+         this.genderBox.setEditable(works);
+         this.numerusBox.setEditable(works);
+         this.grammaticalPersonBox.setEditable(works);
+         this.binjanBox.setEditable(works);
+         this.verbTimesBox.setEditable(works);
          this.binjanBox.setEnabled(works);
          this.genderBox.setEnabled(works);
          this.numerusBox.setEnabled(works);
          this.grammaticalPersonBox.setEnabled(works);
          this.binjanBox.setEnabled(works);
          this.verbTimesBox.setEnabled(works);
-         this.copyButton.setEnabled(works);
          this.copyButton.setVisible(works);
-         this.cutButton.setEnabled(works);
          this.cutButton.setVisible(works);
-         this.pasteButton.setEnabled(works);
          this.pasteButton.setVisible(works);
-         this.searchwordsJListGerman.setEnabled(works);
-         this.searchwordsJListHebrew.setEnabled(works);
+         this.indexField.setEditable(works);
          this.frozen = frozen;
          return true;
       }

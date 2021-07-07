@@ -91,7 +91,8 @@ public class InputDatabaseNameDialog extends JDialog
    {
       okButton.addActionListener(event -> {
          databaseName = inputImportField.getText();
-         if (databaseName.isBlank())
+         overwrite = overwriteYes.isSelected();
+         if (overwrite && databaseName.isBlank())
          {
             this.inputImportField
                   .setBorder(BorderFactory
@@ -99,7 +100,6 @@ public class InputDatabaseNameDialog extends JDialog
                               3));
             return;
          }
-         overwrite = overwriteYes.isSelected();
          startImport = true;
          this.setVisible(false);
       });
