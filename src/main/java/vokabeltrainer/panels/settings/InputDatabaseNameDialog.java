@@ -2,6 +2,7 @@ package vokabeltrainer.panels.settings;
 
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.editing.GermanDocument;
@@ -89,6 +91,14 @@ public class InputDatabaseNameDialog extends JDialog
    {
       okButton.addActionListener(event -> {
          databaseName = inputImportField.getText();
+         if (databaseName.isBlank())
+         {
+            this.inputImportField
+                  .setBorder(BorderFactory
+                        .createLineBorder(ApplicationColors.getDarkRed(),
+                              3));
+            return;
+         }
          overwrite = overwriteYes.isSelected();
          startImport = true;
          this.setVisible(false);
@@ -129,5 +139,10 @@ public class InputDatabaseNameDialog extends JDialog
    public boolean isOverwrite()
    {
       return overwrite;
+   }
+
+   public JTextField getInputImportField()
+   {
+      return inputImportField;
    }
 }

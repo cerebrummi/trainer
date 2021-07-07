@@ -129,16 +129,11 @@ public class Chapter implements Comparable<Chapter>
 
    public enum Database
    {
-      ROSENGARTEN(
-            "rosengarten",
-            "Ivrit Schritt für Schritt",
-            "Miriam Rosengarten, Vera Loos",
-            "marixverlag"),
-      BEKEF(
-            "bekef",
-            "Ivrit bekef",
-            "Smadar Raveh-Klemke",
-            "Hempen Verlag"),
+      GRUNDWORTSCHATZADAADAMA(
+            "grundwortschatz",
+            "Grundwortschatz",
+            "390 Vokabeln",
+            "AdaAdama UG (haftungsbeschränkt)"),
       SELF(
             "",
             "selbst eingegeben",
@@ -211,14 +206,9 @@ public class Chapter implements Comparable<Chapter>
 
    public static Database findOrigin(String databaseName)
    {
-      if (Database.ROSENGARTEN.getName().equals(databaseName))
+      if (Database.GRUNDWORTSCHATZADAADAMA.getName().equals(databaseName))
       {
-         return Database.ROSENGARTEN;
-      }
-
-      if (Database.BEKEF.getName().equals(databaseName))
-      {
-         return Database.BEKEF;
+         return Database.GRUNDWORTSCHATZADAADAMA;
       }
       return Database.SELF;
    }

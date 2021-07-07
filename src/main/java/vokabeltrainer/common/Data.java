@@ -693,7 +693,7 @@ public final class Data
                {
                   index++;
                   expression.setChapter(
-                        new Chapter(databasename, entries[index], database));
+                        new Chapter(databasename, entries[index], origin));
                }
                else if (Settings.getAvailableDatabases().contains(origin))
                {

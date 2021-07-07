@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import vokabeltrainer.common.Main;
@@ -27,7 +28,7 @@ public class Settings
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
-   private static Database[] availableDatabases = { };
+   private static Database[] availableDatabases = { Database.GRUNDWORTSCHATZADAADAMA };
 
    private Settings()
    {
@@ -161,24 +162,65 @@ public class Settings
 
       Settings.chosenExpressionPath = choosenExpressionPath;
    }
+   
+   public static void setChosenDatabases(List<Database> chosenDatabases)
+   {
+      Settings.chosenDatabases = new LinkedList<>();
+      Settings.chosenDatabases.addAll(chosenDatabases);
+   }
 
    public static LinkedList<Database> getChosenDatabases()
    {
-      return chosenDatabases;
-   }
-
-   public static void setChosenDatabases(LinkedList<Database> chosenDatabases)
-   {
-      Settings.chosenDatabases = chosenDatabases;
+      return Settings.chosenDatabases;
    }
 
    public static void addChosenDatabase(Database chosen)
    {
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      try
+      {
+         if(!preferences.nodeExists(CerebrummiNodes.getChoosenDatabases()))
+         {
+            preferences.put(CerebrummiNodes.getChoosenDatabases(), "");
+         }
+      }
+      catch (BackingStoreException e)
+      {
+         // nothing
+      }
+      preferences = preferences.node(CerebrummiNodes.getChoosenDatabases());
+      preferences.putBoolean(chosen.name().toLowerCase(), true);
+      
       Settings.chosenDatabases.add(chosen);
    }
 
    public static void removeChosenDatabase(Database chosen)
    {
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      try
+      {
+         if(!preferences.nodeExists(CerebrummiNodes.getChoosenDatabases()))
+         {
+            preferences.put(CerebrummiNodes.getChoosenDatabases(), "");
+         }
+      }
+      catch (BackingStoreException e)
+      {
+         // nothing
+      }
+      preferences = preferences.node(CerebrummiNodes.getChoosenDatabases());
+      preferences = preferences.node(chosen.name());
+      try
+      {
+         preferences.removeNode();
+      }
+      catch (BackingStoreException e)
+      {
+         // nothing
+      }
+      
       Settings.chosenDatabases.remove(chosen);
    }
 

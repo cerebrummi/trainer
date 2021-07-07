@@ -20,6 +20,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.CerebrummiPreferences;
+import vokabeltrainer.Settings;
 import vokabeltrainer.resources.Blue;
 import vokabeltrainer.resources.Buchstabenbilder;
 import vokabeltrainer.resources.Fonts;
@@ -110,7 +111,7 @@ public final class Main
       }
 
       CerebrummiPreferences.read();
-
+      
       Data.initDataBase();
 
       try

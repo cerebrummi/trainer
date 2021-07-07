@@ -47,4 +47,9 @@ public class CerebrummiNodes
    {
       return "simplehebrew";
    }
+   
+   public static String getChoosenDatabases()
+   {
+      return "choosendatabases";
+   }
 }

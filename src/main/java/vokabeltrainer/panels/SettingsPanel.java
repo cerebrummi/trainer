@@ -91,7 +91,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       {
          // nothing
       }
-      // tabbedPane.addTab("Verfügbare Datenbanken", initDatabaseTab());
+      tabbedPane.addTab("Verfügbare Datenbanken", initDatabaseTab());
 
       add(tabbedPane);
 
@@ -252,8 +252,9 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       folderChooserButtonWithoutSaving = new JButton("ändern");
       folderChooserButtonWithoutSaving.setFont(Settings.getButtonFont());
-      folderChooserButtonWithoutSaving.setToolTipText(
-            "Lädt alle Vokabeln, die am neuen Ort schon vorhanden sind. Beläßt die aktuellen Vokabeln am alten Ort.");
+      folderChooserButtonWithoutSaving
+            .setToolTipText(
+                  "Lädt alle Vokabeln, die am neuen Ort schon vorhanden sind. Beläßt die aktuellen Vokabeln am alten Ort.");
 
       JLabel deleteLabel = new JLabel("Datenbank löschen");
       deleteLabel.setFont(Main.getGermanFont(30F));
@@ -261,8 +262,9 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       deleteDatabaseButton = new JButton("eigene Datenbank löschen");
       deleteDatabaseButton.setFont(Settings.getButtonFont());
-      deleteDatabaseButton.setToolTipText(
-            "Verschiebt alle Vokabeln einer Datenbank in den Papierkorb.");
+      deleteDatabaseButton
+            .setToolTipText(
+                  "Verschiebt alle Vokabeln einer Datenbank in den Papierkorb.");
 
       vertical.add(saverLabel);
       vertical.add(folderLabel);
@@ -285,14 +287,16 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       exportSelectedButton = new JButton("markierte Vokabeln exportieren");
       exportSelectedButton.setFont(Settings.getButtonFont());
-      exportSelectedButton.setToolTipText(
-            "alle markierten Vokabeln exportieren im csv Format");
+      exportSelectedButton
+            .setToolTipText(
+                  "alle markierten Vokabeln exportieren im csv Format");
 
       exportDatabaseButton = new JButton(
             "Vokabeln einer Datenbank exportieren");
       exportDatabaseButton.setFont(Settings.getButtonFont());
-      exportDatabaseButton.setToolTipText(
-            "Vokabeln einer Datenbank exportieren im csv Format");
+      exportDatabaseButton
+            .setToolTipText(
+                  "Vokabeln einer Datenbank exportieren im csv Format");
       exportDatabaseButton.setMinimumSize(new Dimension(WIDTH, 30));
       exportDatabaseButton.setMaximumSize(new Dimension(WIDTH, 30));
 
@@ -562,8 +566,9 @@ public class SettingsPanel extends BackgroundPanelTiled
                protected Void doInBackground() throws Exception
                {
                   ImportExpressions importer = new ImportExpressions();
-                  if (importer.importExpressions(databaseName,
-                        overwriteDatabaseNames, pathOfFolderOrFile))
+                  if (importer
+                        .importExpressions(databaseName, overwriteDatabaseNames,
+                              pathOfFolderOrFile))
                   {
                      SaveExpressions saver = new SaveExpressions();
                      saver.save();
@@ -675,12 +680,12 @@ public class SettingsPanel extends BackgroundPanelTiled
             dialog.dispose();
          }
 
-         String databaseChoosen = (String) JOptionPane.showInputDialog(
-               Common.getMainJPanel(),
-               "Wählen Sie eine Datenbank für den Export aus.", "Auswahl",
-               JOptionPane.QUESTION_MESSAGE,
-               new ImageIcon(ApplicationImages.getLogo24()),
-               Data.getAllOwnDistinctDatabaseDescriptions(false), null);
+         String databaseChoosen = (String) JOptionPane
+               .showInputDialog(Common.getMainJPanel(),
+                     "Wählen Sie eine Datenbank für den Export aus.", "Auswahl",
+                     JOptionPane.QUESTION_MESSAGE,
+                     new ImageIcon(ApplicationImages.getLogo24()),
+                     Data.getAllOwnDistinctDatabaseDescriptions(false), null);
 
          if (databaseChoosen == null)
          {
@@ -697,8 +702,9 @@ public class SettingsPanel extends BackgroundPanelTiled
                protected Void doInBackground() throws Exception
                {
                   SaveExpressions saver = new SaveExpressions(pathOfFolder);
-                  saver.export(databaseName, overwriteDatabaseNames,
-                        databaseChoosen);
+                  saver
+                        .export(databaseName, overwriteDatabaseNames,
+                              databaseChoosen);
                   return null;
                }
 
@@ -707,12 +713,13 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
 
       this.deleteDatabaseButton.addActionListener(event -> {
-         String databaseChoosen = (String) JOptionPane.showInputDialog(
-               Common.getMainJPanel(),
-               "Wählen Sie eine Datenbank zum Löschen aus.",
-               "Datenbank in den Papierkorb", JOptionPane.QUESTION_MESSAGE,
-               new ImageIcon(ApplicationImages.getLogo24()),
-               Data.getAllOwnDistinctDatabaseDescriptions(false), null);
+         String databaseChoosen = (String) JOptionPane
+               .showInputDialog(Common.getMainJPanel(),
+                     "Wählen Sie eine Datenbank zum Löschen aus.",
+                     "Datenbank in den Papierkorb",
+                     JOptionPane.QUESTION_MESSAGE,
+                     new ImageIcon(ApplicationImages.getLogo24()),
+                     Data.getAllOwnDistinctDatabaseDescriptions(false), null);
 
          if (databaseChoosen == null)
          {
@@ -767,10 +774,11 @@ public class SettingsPanel extends BackgroundPanelTiled
          String result = folderChooser.getSelectedFile().getPath();
          if (!testIfFolderExists(folderChooser.getSelectedFile().getPath()))
          {
-            JOptionPane.showMessageDialog(this,
-                  "Der gewählte Ordner existiert nicht:\n" + result
-                        + "\nBitte wählen Sie einen existierenden Ordner.\nDanke!",
-                  "Nachricht", JOptionPane.CLOSED_OPTION);
+            JOptionPane
+                  .showMessageDialog(this,
+                        "Der gewählte Ordner existiert nicht:\n" + result
+                              + "\nBitte wählen Sie einen existierenden Ordner.\nDanke!",
+                        "Nachricht", JOptionPane.CLOSED_OPTION);
             return null;
          }
          return result;
@@ -789,8 +797,10 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       if (JFileChooser.APPROVE_OPTION == choice)
       {
-         String splitter = "\\"+File.separator;
-         String[] foldersAndFile = folderChooser.getSelectedFile().getPath()
+         String splitter = "\\" + File.separator;
+         String[] foldersAndFile = folderChooser
+               .getSelectedFile()
+               .getPath()
                .split(splitter);
          PathAndFile pathAndFile = new PathAndFile();
          StringJoiner joiner = new StringJoiner(splitter);
@@ -809,20 +819,22 @@ public class SettingsPanel extends BackgroundPanelTiled
 
          if (!testIfFolderExists(pathAndFile.getPath()))
          {
-            JOptionPane.showMessageDialog(this,
-                  "Der gewählte Ordner existiert nicht:\n"
-                        + pathAndFile.getPath()
-                        + "\nBitte wählen Sie einen existierenden Ordner.\nDanke!",
-                  "Nachricht", JOptionPane.CLOSED_OPTION);
+            JOptionPane
+                  .showMessageDialog(this,
+                        "Der gewählte Ordner existiert nicht:\n"
+                              + pathAndFile.getPath()
+                              + "\nBitte wählen Sie einen existierenden Ordner.\nDanke!",
+                        "Nachricht", JOptionPane.CLOSED_OPTION);
             return null;
          }
 
          if (testIfFileExists(pathAndFile.getPathFile()))
          {
-            int answer = JOptionPane.showConfirmDialog(this,
-                  "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
-                  "Frage", JOptionPane.OK_CANCEL_OPTION,
-                  JOptionPane.QUESTION_MESSAGE);
+            int answer = JOptionPane
+                  .showConfirmDialog(this,
+                        "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
+                        "Frage", JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
             if (JOptionPane.OK_OPTION != answer)
             {
                return null;
@@ -831,10 +843,11 @@ public class SettingsPanel extends BackgroundPanelTiled
 
          if (testIfFileExists(pathAndFile.getPathFile() + ".zip"))
          {
-            int answer = JOptionPane.showConfirmDialog(this,
-                  "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
-                  "Frage", JOptionPane.OK_CANCEL_OPTION,
-                  JOptionPane.QUESTION_MESSAGE);
+            int answer = JOptionPane
+                  .showConfirmDialog(this,
+                        "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
+                        "Frage", JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
             if (JOptionPane.OK_OPTION != answer)
             {
                return null;
@@ -843,10 +856,11 @@ public class SettingsPanel extends BackgroundPanelTiled
 
          if (testIfFileExists(pathAndFile.getPathFile() + ".ZIP"))
          {
-            int answer = JOptionPane.showConfirmDialog(this,
-                  "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
-                  "Frage", JOptionPane.OK_CANCEL_OPTION,
-                  JOptionPane.QUESTION_MESSAGE);
+            int answer = JOptionPane
+                  .showConfirmDialog(this,
+                        "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
+                        "Frage", JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
             if (JOptionPane.OK_OPTION != answer)
             {
                return null;
@@ -880,12 +894,13 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
          else
          {
-            JOptionPane.showMessageDialog(this,
-                  "Der gewählte Ordner/die Datei existiert nicht:\n"
-                        + "oder die Datei ist keine zip-Datei\n"
-                        + folderChooser.getSelectedFile().getPath()
-                        + "\nBitte wählen Sie einen existierenden Ordner bzw. zip-Datei.\nDanke!",
-                  "Nachricht", JOptionPane.CLOSED_OPTION);
+            JOptionPane
+                  .showMessageDialog(this,
+                        "Der gewählte Ordner/die Datei existiert nicht:\n"
+                              + "oder die Datei ist keine zip-Datei\n"
+                              + folderChooser.getSelectedFile().getPath()
+                              + "\nBitte wählen Sie einen existierenden Ordner bzw. zip-Datei.\nDanke!",
+                        "Nachricht", JOptionPane.CLOSED_OPTION);
             return null;
          }
       }
