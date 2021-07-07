@@ -2,6 +2,7 @@ package vokabeltrainer.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -11,10 +12,16 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.panels.settings.table.multiselect.DatabaseTable;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
+import vokabeltrainer.types.Chapter;
 
 public class StartPanel extends JPanel
 {
@@ -53,7 +60,7 @@ public class StartPanel extends JPanel
 
       center.add(titlePanel);
       add(center, BorderLayout.NORTH);
-
+      add(add(initDatabaseTablePanel()), BorderLayout.CENTER);
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);
       horizontal.setLayout(new TrainLayout(horizontal));
@@ -75,6 +82,41 @@ public class StartPanel extends JPanel
       add(horizontal, BorderLayout.SOUTH);
    }
 
+   private Component initDatabaseTablePanel()
+   {
+      JPanel center = new JPanel();
+      center.setLayout(new BullsEyeLayout(center));
+      center.setOpaque(false);
+      center.setBackground(ApplicationColors.getTransparent());
+      
+      JPanel vertical = new JPanel();
+      TotemLayout verticalLayout = new TotemLayout(vertical, 15);
+      vertical.setLayout(verticalLayout);
+
+      JLabel databaseLabel = new JLabel(" Datenbanken");
+      databaseLabel.setFont(Main.getGermanFont(30F));
+      databaseLabel.setForeground(ApplicationColors.getDarkGold());
+
+      DatabaseTable databaseTable = new DatabaseTable(
+            Chapter.Database.getModelAvailableDatabases(), 990);
+
+      JScrollPane scroller = new JScrollPane(databaseTable);
+      scroller.setMinimumSize(new Dimension(990, 240));
+      scroller.setMaximumSize(new Dimension(990, 240));
+
+      JLabel databaseLabel2 = new JLabel(" interne Datenbank durch Doppelklick auswählen");
+      databaseLabel2.setFont(Main.getGermanFont(16F));
+      databaseLabel2.setForeground(ApplicationColors.getDarkGold());
+      
+      vertical.add(databaseLabel);
+      vertical.add(scroller);
+      vertical.add(databaseLabel2);
+      
+      center.add(vertical);
+
+      return center;
+   }
+   
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);

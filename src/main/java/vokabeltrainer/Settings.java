@@ -28,7 +28,8 @@ public class Settings
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
-   private static Database[] availableDatabases = { Database.GRUNDWORTSCHATZADAADAMA };
+   private static Database[] availableDatabases = {
+         Database.GRUNDWORTSCHATZADAADAMA };
 
    private Settings()
    {
@@ -88,14 +89,10 @@ public class Settings
       return getExpressionFolder() + "-training";
    }
 
-   
-
    public static int getKeyboardWidth()
    {
       return 474;
    }
-
-   
 
    public static String getWindowTitle()
    {
@@ -119,14 +116,16 @@ public class Settings
    public static void toggleSoundOnOff()
    {
       soundOn = !soundOn;
-      Preferences preferences = Preferences.userRoot()
+      Preferences preferences = Preferences
+            .userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getSoundNode(), soundOn);
    }
 
    public static void setSoundOn(boolean soundOn)
    {
-      Preferences preferences = Preferences.userRoot()
+      Preferences preferences = Preferences
+            .userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getSoundNode(), soundOn);
       Settings.soundOn = soundOn;
@@ -136,39 +135,47 @@ public class Settings
    {
       return letterImagesOn;
    }
-   
+
    public static void toggleLetterImagesOnOff()
    {
       letterImagesOn = !letterImagesOn;
-      Preferences preferences = Preferences.userRoot()
+      Preferences preferences = Preferences
+            .userRoot()
             .node(CerebrummiNodes.getNode());
-      preferences.putBoolean(CerebrummiNodes.getLetterPicturesNode(), letterImagesOn);
+      preferences
+            .putBoolean(CerebrummiNodes.getLetterPicturesNode(),
+                  letterImagesOn);
    }
 
    public static void setLetterImagesOn(boolean letterImagesOn)
    {
-      Preferences preferences = Preferences.userRoot()
+      Preferences preferences = Preferences
+            .userRoot()
             .node(CerebrummiNodes.getNode());
-      preferences.putBoolean(CerebrummiNodes.getLetterPicturesNode(), letterImagesOn);
+      preferences
+            .putBoolean(CerebrummiNodes.getLetterPicturesNode(),
+                  letterImagesOn);
       Settings.letterImagesOn = letterImagesOn;
    }
 
    public static void setChoosenExpressionPath(String choosenExpressionPath)
    {
-      Preferences preferences = Preferences.userRoot()
+      Preferences preferences = Preferences
+            .userRoot()
             .node(CerebrummiNodes.getNode());
-      preferences.put(CerebrummiNodes.getChoosenExpressionPathNode(),
-            choosenExpressionPath);
+      preferences
+            .put(CerebrummiNodes.getChoosenExpressionPathNode(),
+                  choosenExpressionPath);
 
       Settings.chosenExpressionPath = choosenExpressionPath;
    }
-   
+
    public static void setChosenDatabases(List<Database> chosenDatabases)
    {
       Settings.chosenDatabases = new LinkedList<>();
       Settings.chosenDatabases.addAll(chosenDatabases);
    }
-   
+
    public static boolean isDatabaseChoosen(Database database)
    {
       return Settings.chosenDatabases.contains(database);
@@ -181,11 +188,12 @@ public class Settings
 
    public static void addChosenDatabase(Database chosen)
    {
-      Preferences preferences = Preferences.userRoot()
+      Preferences preferences = Preferences
+            .userRoot()
             .node(CerebrummiNodes.getNode());
       try
       {
-         if(!preferences.nodeExists(CerebrummiNodes.getChoosenDatabases()))
+         if (!preferences.nodeExists(CerebrummiNodes.getChoosenDatabases()))
          {
             preferences.put(CerebrummiNodes.getChoosenDatabases(), "");
          }
@@ -196,17 +204,18 @@ public class Settings
       }
       preferences = preferences.node(CerebrummiNodes.getChoosenDatabases());
       preferences.putBoolean(chosen.name().toLowerCase(), true);
-      
+
       Settings.chosenDatabases.add(chosen);
    }
 
    public static void removeChosenDatabase(Database chosen)
    {
-      Preferences preferences = Preferences.userRoot()
+      Preferences preferences = Preferences
+            .userRoot()
             .node(CerebrummiNodes.getNode());
       try
       {
-         if(!preferences.nodeExists(CerebrummiNodes.getChoosenDatabases()))
+         if (!preferences.nodeExists(CerebrummiNodes.getChoosenDatabases()))
          {
             preferences.put(CerebrummiNodes.getChoosenDatabases(), "");
          }
@@ -216,16 +225,9 @@ public class Settings
          // nothing
       }
       preferences = preferences.node(CerebrummiNodes.getChoosenDatabases());
-      preferences = preferences.node(chosen.name().toLowerCase());
-      try
-      {
-         preferences.removeNode();
-      }
-      catch (BackingStoreException e)
-      {
-         // nothing
-      }
-      
+
+      preferences.putBoolean(chosen.name().toLowerCase(), false);
+
       Settings.chosenDatabases.remove(chosen);
    }
 
@@ -247,9 +249,10 @@ public class Settings
 
    public static void setVolume(float volume)
    {
-      Preferences preferences = Preferences.userRoot()
+      Preferences preferences = Preferences
+            .userRoot()
             .node(CerebrummiNodes.getNode());
-      preferences.putInt(CerebrummiNodes.getVolumeNode(), (int)volume);
+      preferences.putInt(CerebrummiNodes.getVolumeNode(), (int) volume);
       Settings.volume = volume;
    }
 
@@ -265,17 +268,23 @@ public class Settings
 
    public static void setSimpleHebrewInput(boolean simpleHebrewInput)
    {
-      Preferences preferences = Preferences.userRoot()
+      Preferences preferences = Preferences
+            .userRoot()
             .node(CerebrummiNodes.getNode());
-      preferences.putBoolean(CerebrummiNodes.getSimpleHebrewNode(), simpleHebrewInput);
+      preferences
+            .putBoolean(CerebrummiNodes.getSimpleHebrewNode(),
+                  simpleHebrewInput);
       Settings.simpleHebrewInput = simpleHebrewInput;
    }
-   
+
    public static void toggleSimpleHebrewInput()
    {
       simpleHebrewInput = !simpleHebrewInput;
-      Preferences preferences = Preferences.userRoot()
+      Preferences preferences = Preferences
+            .userRoot()
             .node(CerebrummiNodes.getNode());
-      preferences.putBoolean(CerebrummiNodes.getSimpleHebrewNode(), simpleHebrewInput);
+      preferences
+            .putBoolean(CerebrummiNodes.getSimpleHebrewNode(),
+                  simpleHebrewInput);
    }
 }

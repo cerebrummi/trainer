@@ -42,12 +42,10 @@ import vokabeltrainer.common.ImportExpressions;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
-import vokabeltrainer.panels.settings.table.multiselect.DatabaseTable;
 import vokabeltrainer.resources.html.Nachweise;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.types.Chapter;
 
 public class SettingsPanel extends BackgroundPanelTiled
 {
@@ -91,7 +89,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       {
          // nothing
       }
-      tabbedPane.addTab("Verfügbare Datenbanken", initDatabaseTab());
+      // tabbedPane.addTab("Verfügbare Datenbanken", initDatabaseTab());
 
       add(tabbedPane);
 
@@ -385,52 +383,6 @@ public class SettingsPanel extends BackgroundPanelTiled
       vertical.add(clappingSoundButton);
       vertical.add(splotchSoundButton);
       vertical.add(shredderSoundButton);
-
-      return vertical;
-   }
-
-   private Component initDatabaseTab()
-   {
-      JPanel panel = new JPanel();
-      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
-      panel.setLayout(panelLayout);
-
-      JPanel horizontal = new JPanel();
-      TrainLayout horizontalLayout = new TrainLayout(horizontal, 60);
-      horizontal.setLayout(horizontalLayout);
-
-      JPanel vertical1 = new JPanel();
-      TotemLayout vertical1Layout = new TotemLayout(vertical1, 60);
-      vertical1.setLayout(vertical1Layout);
-
-      vertical1.add(initDatabaseTablePanel());
-
-      horizontal.add(vertical1);
-
-      panel.add(horizontal);
-
-      return panel;
-   }
-
-   private Component initDatabaseTablePanel()
-   {
-      JPanel vertical = new JPanel();
-      TotemLayout verticalLayout = new TotemLayout(vertical, 15);
-      vertical.setLayout(verticalLayout);
-
-      JLabel databaseLabel = new JLabel("Datenbanken");
-      databaseLabel.setFont(Main.getGermanFont(30F));
-      databaseLabel.setForeground(ApplicationColors.getDarkGold());
-
-      DatabaseTable databaseTable = new DatabaseTable(
-            Chapter.Database.getModelAvailableDatabases(), WIDTH * 3);
-
-      JScrollPane scroller = new JScrollPane(databaseTable);
-      scroller.setMinimumSize(new Dimension(WIDTH * 3, 300));
-      scroller.setMaximumSize(new Dimension(WIDTH * 3, 500));
-
-      vertical.add(databaseLabel);
-      vertical.add(scroller);
 
       return vertical;
    }
