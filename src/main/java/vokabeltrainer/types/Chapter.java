@@ -72,11 +72,15 @@ public class Chapter implements Comparable<Chapter>
       return coll.compare(this.name, o.name);
    }
 
+   
+
    @Override
    public int hashCode()
    {
       final int prime = 31;
       int result = 1;
+      result = prime * result + ((databaseDescription == null) ? 0
+            : databaseDescription.hashCode());
       result = prime * result + ((name == null) ? 0 : name.hashCode());
       return result;
    }
@@ -91,6 +95,13 @@ public class Chapter implements Comparable<Chapter>
       if (getClass() != obj.getClass())
          return false;
       Chapter other = (Chapter) obj;
+      if (databaseDescription == null)
+      {
+         if (other.databaseDescription != null)
+            return false;
+      }
+      else if (!databaseDescription.equals(other.databaseDescription))
+         return false;
       if (name == null)
       {
          if (other.name != null)

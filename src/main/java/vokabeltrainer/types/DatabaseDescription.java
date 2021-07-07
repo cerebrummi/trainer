@@ -67,6 +67,9 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
    {
       final int prime = 31;
       int result = 1;
+      result = prime * result + ((authors == null) ? 0 : authors.hashCode());
+      result = prime * result + ((company == null) ? 0 : company.hashCode());
+      result = prime * result + ((database == null) ? 0 : database.hashCode());
       result = prime * result
             + ((databaseName == null) ? 0 : databaseName.hashCode());
       return result;
@@ -82,6 +85,22 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       if (getClass() != obj.getClass())
          return false;
       DatabaseDescription other = (DatabaseDescription) obj;
+      if (authors == null)
+      {
+         if (other.authors != null)
+            return false;
+      }
+      else if (!authors.equals(other.authors))
+         return false;
+      if (company == null)
+      {
+         if (other.company != null)
+            return false;
+      }
+      else if (!company.equals(other.company))
+         return false;
+      if (database != other.database)
+         return false;
       if (databaseName == null)
       {
          if (other.databaseName != null)

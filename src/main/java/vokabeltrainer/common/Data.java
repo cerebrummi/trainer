@@ -155,8 +155,8 @@ public final class Data
    static boolean importDatabase(String databasePath, String databaseName,
          boolean overwriteDatabaseNames)
    {
-      return database.importDatabase(databasePath, databaseName,
-            overwriteDatabaseNames);
+      return database
+            .importDatabase(databasePath, databaseName, overwriteDatabaseNames);
    }
 
    // for saving expressions only, therefore NOT public
@@ -184,8 +184,9 @@ public final class Data
          String text, ExpressionKind kind, SearchType search, Chapter chapter,
          Command command, SortingType sortingType)
    {
-      return getDataBaseAtomic().findTranslations(language, text, kind, search,
-            chapter, command, sortingType);
+      return getDataBaseAtomic()
+            .findTranslations(language, text, kind, search, chapter, command,
+                  sortingType);
    }
 
    public static ExpressionTableModel findTranslationsDeletedWords(
@@ -259,8 +260,8 @@ public final class Data
    public static TrainingTableModel findTrainingModel(
          Language languageDirection, FieldOfTraining fieldOfTraining)
    {
-      return getDataBaseAtomic().findTrainingModel(languageDirection,
-            fieldOfTraining);
+      return getDataBaseAtomic()
+            .findTrainingModel(languageDirection, fieldOfTraining);
    }
 
    public static StatisticsTableModel findStatisticsModel()
@@ -293,8 +294,9 @@ public final class Data
       }
       // reload data
       initDataBase();
-      Settings.setOldChosenDatabases(
-            new LinkedList<>(Settings.getChosenDatabases()));
+      Settings
+            .setOldChosenDatabases(
+                  new LinkedList<>(Settings.getChosenDatabases()));
       return true;
    }
 
@@ -347,12 +349,16 @@ public final class Data
 
       DataBase()
       {
-         Stream.of(LetterForSaving.values())
+         Stream
+               .of(LetterForSaving.values())
                .forEach(letter -> readFileRegular(letter.name() + ".csv",
                      Database.TO_BE_DETERMINED, letter));
 
-         Settings.getChosenDatabases().stream()
-               .forEach(database -> Stream.of(LetterForSaving.values())
+         Settings
+               .getChosenDatabases()
+               .stream()
+               .forEach(database -> Stream
+                     .of(LetterForSaving.values())
                      .forEach(letter -> readFileAvailable(letter, database)));
 
          File customDir = new File(Settings.getTrainingPath());
@@ -410,8 +416,9 @@ public final class Data
                String[] items = row.split("\t");
                UUID uuid = UUID.fromString(items[0]);
                String[] date = items[1].split("\\.");
-               LocalDate nextDate = LocalDate.of(Integer.valueOf(date[2]),
-                     Integer.valueOf(date[1]), Integer.valueOf(date[0]));
+               LocalDate nextDate = LocalDate
+                     .of(Integer.valueOf(date[2]), Integer.valueOf(date[1]),
+                           Integer.valueOf(date[0]));
                Repetition repetition = Repetition.valueOf(items[2]);
                int trys = Integer.valueOf(items[3]);
                if (trys < 1)
@@ -453,10 +460,11 @@ public final class Data
             {
                if (!DirectoryHelper.makeExpressionDirectory(customDir))
                {
-                  JOptionPane.showMessageDialog(Common.getjFrame(),
-                        "Es hat beim Lesen einen Fehler gegeben.\n"
-                              + "Wählen Sie unter Einstellungen einen anderen Speicherort.",
-                        "Fehler", JOptionPane.ERROR_MESSAGE);
+                  JOptionPane
+                        .showMessageDialog(Common.getjFrame(),
+                              "Es hat beim Lesen einen Fehler gegeben.\n"
+                                    + "Wählen Sie unter Einstellungen einen anderen Speicherort.",
+                              "Fehler", JOptionPane.ERROR_MESSAGE);
                   return false;
                }
             }
@@ -464,18 +472,20 @@ public final class Data
          }
          catch (Exception e)
          {
-            JOptionPane.showMessageDialog(Common.getjFrame(),
-                  "Fehler beim Lesen der selbsteingegebenen Vokabeln.\n"
-                        + "Ändern Sie den Ort zum Abspeichern und\n"
-                        + "Lesen der Vokabeln in den Einstellungen.",
-                  "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
+            JOptionPane
+                  .showMessageDialog(Common.getjFrame(),
+                        "Fehler beim Lesen der selbsteingegebenen Vokabeln.\n"
+                              + "Ändern Sie den Ort zum Abspeichern und\n"
+                              + "Lesen der Vokabeln in den Einstellungen.",
+                        "Fehlermeldung", JOptionPane.ERROR_MESSAGE);
             return false;
          }
       }
 
       private int findNumberOfAllVocabulary()
       {
-         Preferences preferences = Preferences.userRoot()
+         Preferences preferences = Preferences
+               .userRoot()
                .node(CerebrummiNodes.getNode());
          int numberOfVocabulary = preferences
                .getInt(CerebrummiNodes.getExpressionNode(), 0);
@@ -518,7 +528,8 @@ public final class Data
          }
          else
          {
-            Stream.of(LetterForSaving.values())
+            Stream
+                  .of(LetterForSaving.values())
                   .forEach(letter -> readFileImport(databasePath, letter,
                         databaseName, overwriteDatabaseNames));
          }
@@ -573,8 +584,9 @@ public final class Data
       // #########################################################
       private void readFileAvailable(LetterForSaving letter, Database origin)
       {
-         try (InputStream fis = Vocabulary.class.getResourceAsStream(
-               origin.getFolder() + File.separator + letter.name() + ".csv");
+         try (InputStream fis = Vocabulary.class
+               .getResourceAsStream(origin.getFolder() + File.separator
+                     + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
                Reader reader = new BufferedReader(isr);)
@@ -692,8 +704,9 @@ public final class Data
                      && overwrite)
                {
                   index++;
-                  expression.setChapter(
-                        new Chapter(databasename, entries[index], origin));
+                  expression
+                        .setChapter(new Chapter(databasename, entries[index],
+                              origin));
                }
                else if (Settings.getAvailableDatabases().contains(origin))
                {
@@ -704,41 +717,55 @@ public final class Data
                {
                   String nameOfDatabase = entries[index];
                   index++;
-                  expression.setChapter(
-                        new Chapter(nameOfDatabase, entries[index], database));
+                  expression
+                        .setChapter(new Chapter(nameOfDatabase, entries[index],
+                              database));
                }
 
                index++;
                expression.setGerman(entries[index]);
                index++;
-               expression.getHebrew()
+               expression
+                     .getHebrew()
                      .setSimpleHebrew(Boolean.valueOf(entries[index]));
                index++;
                expression.getHebrew().setHebrew(entries[index]);
-               if (expression.getHebrew().getHebrew()
+               if (expression
+                     .getHebrew()
+                     .getHebrew()
                      .contains(ExchangeLetter.SSIN.getUnicode()))
                {
-                  expression.getHebrew()
-                        .setHebrew(LetterHelper.turnExchangeSsinIntoNikudSsin(
-                              expression.getHebrew().getHebrew()));
+                  expression
+                        .getHebrew()
+                        .setHebrew(LetterHelper
+                              .turnExchangeSsinIntoNikudSsin(
+                                    expression.getHebrew().getHebrew()));
                }
                index++;
                expression.getHebrew().setHebrewPlene(entries[index]);
-               if (expression.getHebrew().getHebrewPlene()
+               if (expression
+                     .getHebrew()
+                     .getHebrewPlene()
                      .contains(ExchangeLetter.SSIN.getUnicode()))
                {
-                  expression.getHebrew().setHebrewPlene(
-                        LetterHelper.turnExchangeSsinIntoNikudSsin(
-                              expression.getHebrew().getHebrew()));
+                  expression
+                        .getHebrew()
+                        .setHebrewPlene(LetterHelper
+                              .turnExchangeSsinIntoNikudSsin(
+                                    expression.getHebrew().getHebrew()));
                }
                index++;
                expression.getHebrew().setHebrewDefektiv(entries[index]);
-               if (expression.getHebrew().getHebrewDefektiv()
+               if (expression
+                     .getHebrew()
+                     .getHebrewDefektiv()
                      .contains(ExchangeLetter.SSIN.getUnicode()))
                {
-                  expression.getHebrew().setHebrewDefektiv(
-                        LetterHelper.turnExchangeSsinIntoNikudSsin(
-                              expression.getHebrew().getHebrew()));
+                  expression
+                        .getHebrew()
+                        .setHebrewDefektiv(LetterHelper
+                              .turnExchangeSsinIntoNikudSsin(
+                                    expression.getHebrew().getHebrew()));
                }
                index++;
 
@@ -847,8 +874,9 @@ public final class Data
                }
                catch (Exception e)
                {
-                  expression.setSortingIndex(
-                        String.valueOf(SortingIndex.getCounter()));
+                  expression
+                        .setSortingIndex(
+                              String.valueOf(SortingIndex.getCounter()));
                }
 
                if (LetterForLoading.DELETED != letter)
@@ -857,8 +885,9 @@ public final class Data
                }
                else
                {
-                  expression.setLetterForSaving(
-                        LetterForSaving.getLetter(expression.getGerman()));
+                  expression
+                        .setLetterForSaving(LetterForSaving
+                              .getLetter(expression.getGerman()));
                }
 
                if (!DELETED_CSV.equals(filename))
@@ -900,8 +929,9 @@ public final class Data
             {
                List<Expression> selectedExpressions = findAllSelectedExpressionsList(
                      false);
-               Collections.sort(selectedExpressions,
-                     new ExpressionComparator(language, sortingType));
+               Collections
+                     .sort(selectedExpressions,
+                           new ExpressionComparator(language, sortingType));
                return new ExpressionTableModel(
                      convertToExpressionModelArray(selectedExpressions),
                      COLUMNAMES);
@@ -935,12 +965,13 @@ public final class Data
          }
          else
          {
-            System.out.println(
-                  "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
-                        + "Language = " + language + ", kind = " + kind
-                        + ", search = " + search + "\n" + "chapter = " + chapter
-                        + ", command = " + command + ", sortForDate = "
-                        + sortingType);
+            System.out
+                  .println(
+                        "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
+                              + "Language = " + language + ", kind = " + kind
+                              + ", search = " + search + "\n" + "chapter = "
+                              + chapter + ", command = " + command
+                              + ", sortForDate = " + sortingType);
          }
 
          return new ExpressionTableModel(
@@ -990,17 +1021,24 @@ public final class Data
                .equals(search);
 
          Predicate<Expression> germanToHebrewSearchword = germanToHebrew
-               .and(searchWord).and(germanSearchword);
+               .and(searchWord)
+               .and(germanSearchword);
          Predicate<Expression> germanToHebrewWordstart = germanToHebrew
-               .and(wordStart).and(germanWordstart);
+               .and(wordStart)
+               .and(germanWordstart);
          Predicate<Expression> hebrewToGermanSearchword = hebrewToGerman
-               .and(searchWord).and(hebrewSearchword);
+               .and(searchWord)
+               .and(hebrewSearchword);
          Predicate<Expression> hebrewToGermanWordstart = hebrewToGerman
-               .and(wordStart).and(hebrewWordstart);
+               .and(wordStart)
+               .and(hebrewWordstart);
 
-         return expressions.stream()
-               .filter(germanToHebrewSearchword.or(germanToHebrewWordstart)
-                     .or(hebrewToGermanSearchword).or(hebrewToGermanWordstart))
+         return expressions
+               .stream()
+               .filter(germanToHebrewSearchword
+                     .or(germanToHebrewWordstart)
+                     .or(hebrewToGermanSearchword)
+                     .or(hebrewToGermanWordstart))
                .sorted(new ExpressionComparator(language, sortingType))
                .collect(Collectors.toList());
       }
@@ -1009,14 +1047,16 @@ public final class Data
             Language language, SortingType sortingType)
       {
          List<Expression> list = findExpressionsChapter(chapter);
-         Collections.sort(list,
-               new ExpressionComparator(language, sortingType));
+         Collections
+               .sort(list, new ExpressionComparator(language, sortingType));
          return list;
       }
 
       private List<Expression> findExpressionsChapter(Chapter chapter)
       {
-         return alleMap.values().stream()
+         return alleMap
+               .values()
+               .stream()
                .filter(expression -> chapter.equals(expression.getChapter()))
                .collect(Collectors.toList());
       }
@@ -1024,9 +1064,13 @@ public final class Data
       private List<Expression> findSortedExpressionsOfKind(ExpressionKind kind,
             Language language, SortingType sortingType)
       {
-         return alleMap.values().stream()
-               .filter(expression -> expression.getDefinitions()
-                     .getExpressionKindSet().contains(kind))
+         return alleMap
+               .values()
+               .stream()
+               .filter(expression -> expression
+                     .getDefinitions()
+                     .getExpressionKindSet()
+                     .contains(kind))
                .sorted(new ExpressionComparator(language, sortingType))
                .collect(Collectors.toList());
       }
@@ -1035,7 +1079,9 @@ public final class Data
       {
          final String trimmedText = text.trim();
 
-         return expression.getSearchwordsGerman().stream()
+         return expression
+               .getSearchwordsGerman()
+               .stream()
                .anyMatch(word -> word.equalsIgnoreCase(trimmedText));
       }
 
@@ -1043,7 +1089,9 @@ public final class Data
       {
          final String trimmedText = text.trim();
 
-         return expression.getSearchwordsHebrew().stream()
+         return expression
+               .getSearchwordsHebrew()
+               .stream()
                .anyMatch(word -> word.equals(trimmedText));
       }
 
@@ -1062,9 +1110,10 @@ public final class Data
             {
                return false;
             }
-            return IntStream.range(0, textList.size())
-                  .allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
-                        expressionList.get(i)));
+            return IntStream
+                  .range(0, textList.size())
+                  .allMatch((i) -> LetterForAnalysis
+                        .isEqual(textList.get(i), expressionList.get(i)));
          }
 
          List<LetterForAnalysis> expressionListPlene = LetterHelper
@@ -1072,9 +1121,10 @@ public final class Data
                      expression.getHebrew().getHebrewPlene());
          if (textList.size() <= expressionListPlene.size())
          {
-            if (IntStream.range(0, textList.size())
-                  .allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
-                        expressionListPlene.get(i))))
+            if (IntStream
+                  .range(0, textList.size())
+                  .allMatch((i) -> LetterForAnalysis
+                        .isEqual(textList.get(i), expressionListPlene.get(i))))
             {
                return true;
             }
@@ -1085,9 +1135,11 @@ public final class Data
                      expression.getHebrew().getHebrewDefektiv());
          if (textList.size() <= expressionListDefektiv.size())
          {
-            if (IntStream.range(0, textList.size())
-                  .allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
-                        expressionListDefektiv.get(i))))
+            if (IntStream
+                  .range(0, textList.size())
+                  .allMatch((i) -> LetterForAnalysis
+                        .isEqual(textList.get(i),
+                              expressionListDefektiv.get(i))))
             {
                return true;
             }
@@ -1137,7 +1189,16 @@ public final class Data
 
       private ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter()
       {
-         return new DefaultComboBoxModel<Chapter>(chapterSet.stream()
+         return new DefaultComboBoxModel<Chapter>(chapterSet
+               .stream()
+               .filter(chapter -> chapter
+                     .getDatabaseDescription()
+                     .getDatabase()
+                     .equals(Database.IMPORTED)
+                     || chapter
+                           .getDatabaseDescription()
+                           .getDatabase()
+                           .equals(Database.SELF))
                .sorted((c1, c2) -> ChapterComparator.compareChapter(c1, c2))
                .toArray(size -> new Chapter[size]));
       }
@@ -1153,9 +1214,12 @@ public final class Data
          final List<Database> availableDatabases = Settings
                .getAvailableDatabases();
 
-         return chapterSet.stream().filter(
-               chapter -> !availableDatabases.contains(chapter.getOrigin()))
-               .sorted().map(chapter -> chapter.getName())
+         return chapterSet
+               .stream()
+               .filter(chapter -> !availableDatabases
+                     .contains(chapter.getOrigin()))
+               .sorted()
+               .map(chapter -> chapter.getName())
                .toArray(String[]::new);
       }
 
@@ -1166,7 +1230,9 @@ public final class Data
 
       private String getAllSelectedExpressionsAsString(Language language)
       {
-         return alleMap.values().stream()
+         return alleMap
+               .values()
+               .stream()
                .filter(expression -> expression.isSelected())
                .sorted(new ExpressionComparator(language))
                .map(expression -> expression.getCopyLines(language))
@@ -1175,7 +1241,9 @@ public final class Data
 
       private void clearAllSelectedExpressions()
       {
-         alleMap.values().stream()
+         alleMap
+               .values()
+               .stream()
                .forEach(expression -> expression.setSelected(false));
       }
 
@@ -1184,19 +1252,25 @@ public final class Data
       {
          if (exceptDoNotChange)
          {
-            return alleMap.values().stream()
+            return alleMap
+                  .values()
+                  .stream()
                   .filter(expression -> expression.isDoChange())
                   .filter(expression -> expression.isSelected())
                   .collect(Collectors.toList());
          }
-         return alleMap.values().stream()
+         return alleMap
+               .values()
+               .stream()
                .filter(expression -> expression.isSelected())
                .collect(Collectors.toList());
       }
 
       private void deleteExpressions(List<Expression> list)
       {
-         list.stream().filter(expression -> expression.isDoChange())
+         list
+               .stream()
+               .filter(expression -> expression.isDoChange())
                .forEach(expression -> expressionDeleteOperation(expression));
          reloadChapterSet();
       }
@@ -1239,7 +1313,9 @@ public final class Data
 
       private void reloadChapterSet()
       {
-         chapterSet = alleMap.entrySet().stream()
+         chapterSet = alleMap
+               .entrySet()
+               .stream()
                .map(entry -> entry.getValue().getChapter())
                .collect(Collectors.toSet());
       }
@@ -1254,7 +1330,9 @@ public final class Data
          switch (fieldOfTraining)
          {
          case AREA_CHAPTER:
-            data = chapterSet.stream().sorted()
+            data = chapterSet
+                  .stream()
+                  .sorted()
                   .map(chapter -> makeChapterRow(languageDirection,
                         fieldOfTraining, oldToBeTested, chapter))
                   .map(trainingTableRow -> new TrainingTableRow[] {
@@ -1282,13 +1360,16 @@ public final class Data
          selectedRow.setField("Ausgewählte Wörter");
          selectedRow.setExpressionListOldWords(oldToBeTested);
          selectedRow.setToBeRepeatedWords(oldToBeTested.size());
-         selectedRow.setExpressionListNewWords(
-               findNotStudiedWords(languageDirection, listSelected));
-         selectedRow.setNotStudiedWords(
-               selectedRow.getExpressionListNewWords().size());
+         selectedRow
+               .setExpressionListNewWords(
+                     findNotStudiedWords(languageDirection, listSelected));
+         selectedRow
+               .setNotStudiedWords(
+                     selectedRow.getExpressionListNewWords().size());
          selectedRow.setAmountOfNewWords(selectedRow.getNotStudiedWords());
-         selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0
-               && selectedRow.getToBeRepeatedWords() == 0);
+         selectedRow
+               .setFieldDone(selectedRow.getNotStudiedWords() == 0
+                     && selectedRow.getToBeRepeatedWords() == 0);
          selectedRow.setStarted(selectedRow.getToBeRepeatedWords() > 0);
          return selectedRow;
       }
@@ -1302,18 +1383,23 @@ public final class Data
          chapterRow.setFieldOfTraining(fieldOfTraining);
          chapterRow.setChapter(chapter);
          chapterRow.setField(chapter.getName());
-         chapterRow.setExpressionListOldWords(
-               findSetOfOldExpressionsToBeTestedPerChapter(chapter,
-                     oldToBeTested));
-         chapterRow.setToBeRepeatedWords(
-               findNumberOfOldToBeTestedPerChapter(chapter, oldToBeTested));
-         chapterRow.setExpressionListNewWords(
-               findNotStudiedWords(languageDirection, listChapter));
-         chapterRow.setNotStudiedWords(
-               chapterRow.getExpressionListNewWords().size());
+         chapterRow
+               .setExpressionListOldWords(
+                     findSetOfOldExpressionsToBeTestedPerChapter(chapter,
+                           oldToBeTested));
+         chapterRow
+               .setToBeRepeatedWords(findNumberOfOldToBeTestedPerChapter(
+                     chapter, oldToBeTested));
+         chapterRow
+               .setExpressionListNewWords(
+                     findNotStudiedWords(languageDirection, listChapter));
+         chapterRow
+               .setNotStudiedWords(
+                     chapterRow.getExpressionListNewWords().size());
          chapterRow.setAmountOfNewWords(0);
-         chapterRow.setFieldDone(chapterRow.getNotStudiedWords() == 0
-               && chapterRow.getToBeRepeatedWords() == 0);
+         chapterRow
+               .setFieldDone(chapterRow.getNotStudiedWords() == 0
+                     && chapterRow.getToBeRepeatedWords() == 0);
          chapterRow.setStarted(chapterRow.getToBeRepeatedWords() > 0);
          return chapterRow;
       }
@@ -1325,13 +1411,17 @@ public final class Data
          {
          case GERMAN_TO_HEBREW:
             return list
-                  .stream().filter(expression -> !expression
-                        .getTrainingStatusDToH().isTrainingStarted())
+                  .stream()
+                  .filter(expression -> !expression
+                        .getTrainingStatusDToH()
+                        .isTrainingStarted())
                   .collect(Collectors.toList());
          case HEBREW_TO_GERMAN:
             return list
-                  .stream().filter(expression -> !expression
-                        .getTrainingStatusHToD().isTrainingStarted())
+                  .stream()
+                  .filter(expression -> !expression
+                        .getTrainingStatusHToD()
+                        .isTrainingStarted())
                   .collect(Collectors.toList());
          default:
             return new ArrayList<>();
@@ -1344,9 +1434,12 @@ public final class Data
          if (Language.GERMAN_TO_HEBREW == languageDirection
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
-            return alleMap.values().stream()
+            return alleMap
+                  .values()
+                  .stream()
                   .filter(expression -> expression.isSelected())
-                  .filter(expression -> expression.getTrainingStatusDToH()
+                  .filter(expression -> expression
+                        .getTrainingStatusDToH()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
          }
@@ -1354,25 +1447,32 @@ public final class Data
          if (Language.HEBREW_TO_GERMAN == languageDirection
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
-            return alleMap.values().stream()
+            return alleMap
+                  .values()
+                  .stream()
                   .filter(expression -> expression.isSelected())
-                  .filter(expression -> expression.getTrainingStatusHToD()
+                  .filter(expression -> expression
+                        .getTrainingStatusHToD()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
          }
-         
+
          final LocalDate now = LocalDate.now();
 
          if (Language.GERMAN_TO_HEBREW == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
-            Predicate<Expression> started = e -> e.getTrainingStatusDToH()
+            Predicate<Expression> started = e -> e
+                  .getTrainingStatusDToH()
                   .isTrainingStarted();
             Predicate<Expression> isDueNow = e -> now
                   .isEqual(e.getTrainingStatusDToH().getNextDate());
             Predicate<Expression> wasDueBefore = e -> now
                   .isAfter(e.getTrainingStatusDToH().getNextDate());
-            return alleMap.values().stream().filter(started)
+            return alleMap
+                  .values()
+                  .stream()
+                  .filter(started)
                   .filter(isDueNow.or(wasDueBefore))
                   .collect(Collectors.toSet());
          }
@@ -1380,13 +1480,17 @@ public final class Data
          if (Language.HEBREW_TO_GERMAN == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
-            Predicate<Expression> started = e -> e.getTrainingStatusHToD()
+            Predicate<Expression> started = e -> e
+                  .getTrainingStatusHToD()
                   .isTrainingStarted();
             Predicate<Expression> isDueNow = e -> now
                   .isEqual(e.getTrainingStatusHToD().getNextDate());
             Predicate<Expression> wasDueBefore = e -> now
                   .isAfter(e.getTrainingStatusHToD().getNextDate());
-            return alleMap.values().stream().filter(started)
+            return alleMap
+                  .values()
+                  .stream()
+                  .filter(started)
                   .filter(isDueNow.or(wasDueBefore))
                   .collect(Collectors.toSet());
          }
@@ -1397,15 +1501,18 @@ public final class Data
       private int findNumberOfOldToBeTestedPerChapter(Chapter chapter,
             Set<Expression> allOldToBeTestedExpressions)
       {
-         return allOldToBeTestedExpressions.stream()
+         return allOldToBeTestedExpressions
+               .stream()
                .filter(expression -> chapter.equals(expression.getChapter()))
-               .mapToInt(expression -> 1).sum();
+               .mapToInt(expression -> 1)
+               .sum();
       }
 
       private Set<Expression> findSetOfOldExpressionsToBeTestedPerChapter(
             Chapter chapter, Set<Expression> allOldToBeTestedExpressions)
       {
-         return allOldToBeTestedExpressions.stream()
+         return allOldToBeTestedExpressions
+               .stream()
                .filter(expression -> chapter.equals(expression.getChapter()))
                .collect(Collectors.toSet());
       }
@@ -1423,29 +1530,45 @@ public final class Data
       private StatisticsTableModel findStatisticsModel()
       {
          Predicate<Expression> trainingDToHStarted = e -> e
-               .getTrainingStatusDToH().isTrainingStarted();
+               .getTrainingStatusDToH()
+               .isTrainingStarted();
          Predicate<Expression> trainingDToHNotDone = e -> !e
-               .getTrainingStatusDToH().isTrainingDone();
+               .getTrainingStatusDToH()
+               .isTrainingDone();
 
-         final Map<LocalDate, List<Expression>> mapDtoH = alleMap.values()
-               .stream().filter(trainingDToHStarted).filter(trainingDToHNotDone)
-               .collect(Collectors.groupingBy(expression -> expression
-                     .getTrainingStatusDToH().getNextDate()));
+         final Map<LocalDate, List<Expression>> mapDtoH = alleMap
+               .values()
+               .stream()
+               .filter(trainingDToHStarted)
+               .filter(trainingDToHNotDone)
+               .collect(Collectors
+                     .groupingBy(expression -> expression
+                           .getTrainingStatusDToH()
+                           .getNextDate()));
 
          Predicate<Expression> trainingHToDStarted = e -> e
-               .getTrainingStatusHToD().isTrainingStarted();
+               .getTrainingStatusHToD()
+               .isTrainingStarted();
          Predicate<Expression> trainingHToDNotDone = e -> !e
-               .getTrainingStatusHToD().isTrainingDone();
+               .getTrainingStatusHToD()
+               .isTrainingDone();
 
-         final Map<LocalDate, List<Expression>> mapHtoD = alleMap.values()
-               .stream().filter(trainingHToDStarted).filter(trainingHToDNotDone)
-               .collect(Collectors.groupingBy(expression -> expression
-                     .getTrainingStatusHToD().getNextDate()));
-         
+         final Map<LocalDate, List<Expression>> mapHtoD = alleMap
+               .values()
+               .stream()
+               .filter(trainingHToDStarted)
+               .filter(trainingHToDNotDone)
+               .collect(Collectors
+                     .groupingBy(expression -> expression
+                           .getTrainingStatusHToD()
+                           .getNextDate()));
+
          Set<LocalDate> unsortedAllDates = new HashSet<>();
          unsortedAllDates.addAll(mapDtoH.keySet());
          unsortedAllDates.addAll(mapHtoD.keySet());
-         List<LocalDate> sortedAllDates = unsortedAllDates.stream().sorted()
+         List<LocalDate> sortedAllDates = unsortedAllDates
+               .stream()
+               .sorted()
                .collect(Collectors.toList());
 
          Vector<Vector<StatisticsTableRow>> data = new Vector<>();
@@ -1454,7 +1577,9 @@ public final class Data
          StatisticsTableModel model = new StatisticsTableModel(data,
                columnNames);
 
-         Stream.iterate(0, i -> i + 1).limit(sortedAllDates.size())
+         Stream
+               .iterate(0, i -> i + 1)
+               .limit(sortedAllDates.size())
                .forEachOrdered(i -> {
                   StatisticsTableRow row = new StatisticsTableRow(i,
                         sortedAllDates.get(i),
@@ -1490,7 +1615,8 @@ public final class Data
                vector.add(new SuccessTableRow(e));
                data.add(vector);
             }
-            else if (repetition == e.getTrainingStatus(direction)
+            else if (repetition == e
+                  .getTrainingStatus(direction)
                   .getRepetition())
             {
                Vector<SuccessTableRow> vector = new Vector<>();
@@ -1512,17 +1638,23 @@ public final class Data
       private String[] getAllOwnDistinctDatabaseDescriptions(
             boolean withSelfEvenIfNotInUseYet)
       {
-         List<DatabaseDescription> result = alleMap.values().stream()
+         List<DatabaseDescription> result = alleMap
+               .values()
+               .stream()
                .filter(expression -> expression.isDoChange())
-               .map(Expression::getChapter).map(Chapter::getDatabaseDescription)
-               .distinct().collect(Collectors.toList());
+               .map(Expression::getChapter)
+               .map(Chapter::getDatabaseDescription)
+               .distinct()
+               .collect(Collectors.toList());
          if (withSelfEvenIfNotInUseYet
                && !result.contains(new DatabaseDescription(Database.SELF)))
          {
             result.add(new DatabaseDescription(Database.SELF));
          }
          Collections.sort(result);
-         return result.stream().map(DatabaseDescription::getDatabaseName)
+         return result
+               .stream()
+               .map(DatabaseDescription::getDatabaseName)
                .toArray(String[]::new);
       }
 
@@ -1530,8 +1662,12 @@ public final class Data
             String databaseChoosen)
       {
          return alleMap
-               .values().stream().filter(expression -> expression.getChapter()
-                     .getDatabaseName().equals(databaseChoosen))
+               .values()
+               .stream()
+               .filter(expression -> expression
+                     .getChapter()
+                     .getDatabaseName()
+                     .equals(databaseChoosen))
                .collect(Collectors.toList());
       }
    }
