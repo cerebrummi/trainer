@@ -12,17 +12,17 @@ Handelsregister: Amtsgericht Stralsund, B 21350
 
 
 
-Diese Lizenz gilt fuer den Vokabeltrainer "Cerebrummi Ivrit" in der Version 1.0 Jahr 2022. Der Quellcode fuer Cerebrummi Ivrit ist nicht verfuegbar. Diese Lizenzbestimmungen sind ein Vertrag zwischen Ihnen und der AdaAdama UG (haftungsbeschraenkt).
+Diese Lizenz gilt fuer den Vokabeltrainer "Cerebrummi Ivrit" in der Version 2.0 Jahr 2021. Der Quellcode fuer Cerebrummi Ivrit ist nicht verfuegbar. Diese Lizenzbestimmungen sind ein Vertrag zwischen Ihnen und der AdaAdama UG (haftungsbeschraenkt).
 
-Die Installation und Nutzung des Vokabeltrainer Cerebrummi Ivrit Version 1.0 Jahr 2022 wird zu Testzwecken "wie besehen" verschenkt, das Produkt selbst bleibt im Eigentum der AdaAdama UG (haftungsbeschraenkt). Es besteht kein Anrecht darauf, dass der Vokabeltrainer Cerebrummi Ivrit Version 1.0 Jahr 2022 funktioniert. Betriebssystem:
-Der Vokabeltrainer Cerebrummi Ivrit Version 1.0 Jahr 2022 funktioniert nur mit Windows 10, 64 bit.
+Die Installation und Nutzung des Vokabeltrainer Cerebrummi Ivrit Version 2.0 Jahr 2021 wird zu Testzwecken "wie besehen" verschenkt, das Produkt selbst bleibt im Eigentum der AdaAdama UG (haftungsbeschraenkt). Es besteht kein Anrecht darauf, dass der Vokabeltrainer Cerebrummi Ivrit Version 2.0 Jahr 2021 funktioniert. Betriebssystem:
+Der Vokabeltrainer Cerebrummi Ivrit Version 2.0 Jahr 2021 funktioniert nur mit Windows 10, 64 bit.
 
 
 
 WENN SIE DIESE LIZENZBESTIMMUNGEN EINHALTEN, VERFUEGEN SIE UEBER DIE NACHFOLGEND AUFGEFUEHRTEN RECHTE:
 
 1.	RECHTE ZUR INSTALLATION UND NUTZUNG.
-Allgemein. Sie sind berechtigt, eine beliebige Anzahl von Kopien der Software Vokabeltrainer Cerebrummi Ivrit Version 1.0 Jahr 2022 zu verwenden. Der Test der Software endet am 31.12.2022 und kann danach nicht mehr verwendet werden.
+Allgemein. Sie sind berechtigt, eine beliebige Anzahl von Kopien der Software Vokabeltrainer Cerebrummi Ivrit Version 2.0 Jahr 2021 zu verwenden. Der Test der Software endet am 31.12.2021 und kann danach nicht mehr verwendet werden.
 
 2.	DATEN.  
 Datenerfassung. Diese Software erhebt keine Daten ueber sie. Es werden keine Daten an die AdaAdama UG (haftungsbeschraenkt) gesendet. Die von Ihnen eingegeben Vokabeln werden auf Ihrem Computer gespeichert.
@@ -53,4 +53,4 @@ Sie hat auch dann Gueltigkeit, wenn AdaAdama UG (haftungsbeschraenkt) von der Mo
 9.	GUELTIGKEIT.
 Sollte eine Bestimmung dieser Lizenz rechtlich ungueltig sein, dann behaelt der Rest der Lizenz seine Gueltigkeit.
 
-Greifswald, den 14.03.2021
+Greifswald, den 08.07.2021
