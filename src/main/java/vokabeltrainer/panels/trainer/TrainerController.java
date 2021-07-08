@@ -411,7 +411,7 @@ public class TrainerController implements TrainerControllerConnector
 
    public void stopTraining(boolean finished)
    {
-      Common.getMainJPanel().moveToStartPanel();
+      Common.getMainJPanel().moveToStatisticsPanel();
 
       if (finished)
       {

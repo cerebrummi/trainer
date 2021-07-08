@@ -182,15 +182,7 @@ public class MainView extends JPanel
 
       statisticsButton.addActionListener(event -> {
          Data.determineReloadDatabases();
-         if (activeComponent != null)
-         {
-            remove(activeComponent);
-         }
-         activeComponent = statisticsPanel;
-         statisticsPanel.setValues();
-         add(activeComponent);
-         validate();
-         repaint();
+         moveToStatisticsPanel();
       });
       
       successButton.addActionListener(event -> {
@@ -226,6 +218,19 @@ public class MainView extends JPanel
          remove(activeComponent);
       }
       activeComponent = startPanel;
+      add(activeComponent);
+      validate();
+      repaint();
+   }
+   
+   public void moveToStatisticsPanel()
+   {
+      if (activeComponent != null)
+      {
+         remove(activeComponent);
+      }
+      activeComponent = statisticsPanel;
+      statisticsPanel.setValues();
       add(activeComponent);
       validate();
       repaint();

@@ -143,7 +143,7 @@ public class Chapter implements Comparable<Chapter>
       GRUNDWORTSCHATZADAADAMA(
             "grundwortschatz",
             "Grundwortschatz",
-            "391 Vokabeln",
+            "390 Vokabeln",
             "Neuhebräisch"),
       SELF(
             "",
