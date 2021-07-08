@@ -20,7 +20,6 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.CerebrummiPreferences;
-import vokabeltrainer.Settings;
 import vokabeltrainer.resources.Blue;
 import vokabeltrainer.resources.Buchstabenbilder;
 import vokabeltrainer.resources.Fonts;
@@ -42,12 +41,12 @@ public final class Main
    {
 
       LocalDate thisPointInTime = LocalDate.now();
-      LocalDate endOfTest = LocalDate.of(2023, 1, 1);
+      LocalDate endOfTest = LocalDate.of(2022, 1, 1);
 
       if (endOfTest.isBefore(thisPointInTime))
       {
          JOptionPane.showMessageDialog(null,
-               "Die Nutzungszeit für diese Testversion Jahr 2022\nvon Cerebrummi© Ivrit 1.0 ist abgelaufen.\nInformationen unter kontakt@adaadama.com",
+               "Die Nutzungszeit für diese Testversion Jahr 2021\nvon Cerebrummi© Ivrit 2.0 ist abgelaufen.\nInformationen unter kontakt@adaadama.com",
                "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(0);
       }
@@ -165,7 +164,7 @@ public final class Main
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
          window.setTitle(
-               "Cerebrummi© Ivrit 1.0 Testversion Jahr 2022 | Nutzungszeit bis 31.12.2022");
+               "Cerebrummi© Ivrit 2.0 Testversion Jahr 2021 | Nutzungszeit bis 31.12.2021");
          window.setFont(germanFont.deriveFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
          ToolTipManager.sharedInstance().setInitialDelay(1000);

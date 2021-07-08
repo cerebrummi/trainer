@@ -590,7 +590,7 @@ public final class Data
       private void readFileAvailable(LetterForSaving letter, Database origin)
       {
          try (InputStream fis = Vocabulary.class
-               .getResourceAsStream(origin.getFolder() + File.separator
+               .getResourceAsStream(origin.getFolder() + "/"
                      + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
