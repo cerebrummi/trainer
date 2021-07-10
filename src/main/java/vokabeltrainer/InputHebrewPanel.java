@@ -484,18 +484,6 @@ public class InputHebrewPanel extends JTextArea
    @Override
    public void setEnabled(boolean enabled)
    {
-      if (hebrewField != null)
-      {
-         this.hebrewField.setEnabled(enabled);
-      }
-      if (pleneField != null)
-      {
-         this.pleneField.setEnabled(enabled);
-      }
-      if (defektivField != null)
-      {
-         this.defektivField.setEnabled(enabled);
-      }
       if (toggleButton != null)
       {
          this.toggleButton.setEnabled(enabled);
