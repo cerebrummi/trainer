@@ -141,11 +141,11 @@ public enum NikudLetter
          "Tanz",
          NikudLetterDistinction.LETTER,
          17),
-   WET(
+   BET(
          "\u05D1",
          " 05D1",
-         "wet",
-         "Wein",
+         "bet",
+         "Bett",
          NikudLetterDistinction.LETTER,
          18),
    WAW(

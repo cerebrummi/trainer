@@ -33,7 +33,7 @@ public class LetterPictureAlphabetPanel extends JPanel
 
    private final NikudLetter[] keys1 = { NikudLetter.CHET, NikudLetter.SSAIN,
          NikudLetter.WAW, NikudLetter.HAEI, NikudLetter.DALET,
-         NikudLetter.GIMEL, NikudLetter.WET,
+         NikudLetter.GIMEL, NikudLetter.BET,
          NikudLetter.ALEF };
 
    private final NikudLetter[] keys2 = { NikudLetter.NUN, NikudLetter.MEMSSOFIT,
@@ -50,7 +50,7 @@ public class LetterPictureAlphabetPanel extends JPanel
          NikudLetter.SCHIN, NikudLetter.RESCH };
 
    private LetterTextField alef = new LetterTextField(NikudLetter.ALEF);
-   private LetterTextField wet = new LetterTextField(NikudLetter.WET);
+   private LetterTextField wet = new LetterTextField(NikudLetter.BET);
    private LetterTextField gimel = new LetterTextField(NikudLetter.GIMEL);
    private LetterTextField dalet = new LetterTextField(NikudLetter.DALET);
    private LetterTextField haei = new LetterTextField(NikudLetter.HAEI);

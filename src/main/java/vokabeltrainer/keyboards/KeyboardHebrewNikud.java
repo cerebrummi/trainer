@@ -140,7 +140,7 @@ public class KeyboardHebrewNikud extends JPanel
 
       row3.add(makeButton(NikudLetter.SSAIN));
       row3.add(makeButton(NikudLetter.SSAMECH));
-      row3.add(makeButton(NikudLetter.WET));
+      row3.add(makeButton(NikudLetter.BET));
       row3.add(makeButton(NikudLetter.HAEI));
       row3.add(makeButton(NikudLetter.NUN));
       row3.add(makeButton(NikudLetter.MEM));
