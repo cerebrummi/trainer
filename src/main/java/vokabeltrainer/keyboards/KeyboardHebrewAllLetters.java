@@ -113,7 +113,7 @@ public class KeyboardHebrewAllLetters extends JPanel
       row2.add(makeButton(NikudLetter.SCHIN));
       row2.add(makeButton(NikudLetter.DALET));
       row2.add(makeButton(NikudLetter.GIMEL));
-      row2.add(makeButton(NikudLetter.CHAF));
+      row2.add(makeButton(NikudLetter.KAF));
       row2.add(makeButton(NikudLetter.AIN));
       row2.add(makeButton(NikudLetter.JOD));
       row2.add(makeButton(NikudLetter.CHET));

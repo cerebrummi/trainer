@@ -169,11 +169,11 @@ public enum NikudLetter
          "Zitrone",
          NikudLetterDistinction.LETTER,
          18),
-   CHAF(
+   KAF(
          "\u05DB",
          " 05DB",
-         "chaf",
-         "Chemie",
+         "kaf",
+         "Kuchen",
          NikudLetterDistinction.LETTER,
          17),
    CHAFSSOFIT(
