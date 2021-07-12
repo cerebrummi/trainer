@@ -183,11 +183,11 @@ public enum NikudLetter
          "Chemie",
          NikudLetterDistinction.LETTER,
          18),
-   FAEI(
+   PAEI(
          "\u05E4",
          " 05E4",
-         "fäi",
-         "Feder",
+         "päi",
+         "Post",
          NikudLetterDistinction.LETTER,
          17),
    FAEISSOFIT(

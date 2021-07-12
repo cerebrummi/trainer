@@ -79,7 +79,7 @@ public class KeyboardHebrewStandard extends JPanel
       row1.add(makeButton(NikudLetter.WAW));
       row1.add(makeButton(NikudLetter.NUNSSOFIT));
       row1.add(makeButton(NikudLetter.MEMSSOFIT));
-      row1.add(makeButton(NikudLetter.FAEI));
+      row1.add(makeButton(NikudLetter.PAEI));
 
       JPanel row2 = new JPanel();
       row2.setOpaque(false);

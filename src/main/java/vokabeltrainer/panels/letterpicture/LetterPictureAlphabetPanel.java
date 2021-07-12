@@ -42,7 +42,7 @@ public class LetterPictureAlphabetPanel extends JPanel
          NikudLetter.TET };
 
    private final NikudLetter[] keys3 = { NikudLetter.KUF, NikudLetter.ZADISSOFIT,
-         NikudLetter.ZADI, NikudLetter.FAEISSOFIT, NikudLetter.FAEI,
+         NikudLetter.ZADI, NikudLetter.FAEISSOFIT, NikudLetter.PAEI,
          NikudLetter.AIN, NikudLetter.SSAMECH,
          NikudLetter.NUNSSOFIT };
 
@@ -71,7 +71,7 @@ public class LetterPictureAlphabetPanel extends JPanel
          NikudLetter.NUNSSOFIT);
    private LetterTextField ssamech = new LetterTextField(NikudLetter.SSAMECH);
    private LetterTextField ain = new LetterTextField(NikudLetter.AIN);
-   private LetterTextField faei = new LetterTextField(NikudLetter.FAEI);
+   private LetterTextField faei = new LetterTextField(NikudLetter.PAEI);
    private LetterTextField faeissofit = new LetterTextField(
          NikudLetter.FAEISSOFIT);
    private LetterTextField zadi = new LetterTextField(NikudLetter.ZADI);
