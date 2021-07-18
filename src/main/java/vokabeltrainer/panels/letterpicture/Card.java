@@ -6,5 +6,6 @@ public enum Card
    GERMAN,
    HEBREW,
    LETTER,
-   BLANK;
+   BLANK,
+   LETTER_HANDWRITTEN;
 }

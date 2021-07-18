@@ -25,12 +25,14 @@ public class LetterPictureButtonPanel extends JPanel
 
    private JButton pictureButton;
    private JButton letterButton;
+   private JButton letterHandwrittenButton;
    private JButton germanButton;
    private JButton hebrewButton;
    private JButton blankButton;
 
    private JPanel pictureCard;
    private JPanel letterCard;
+   private JPanel letterHandwrittenCard;
    private JPanel germanCard;
    private JPanel hebrewCard;
    private JPanel blankCard;
@@ -55,6 +57,7 @@ public class LetterPictureButtonPanel extends JPanel
 
       initPictureCard();
       initLetterCard();
+      initLetterHandwrittenCard();
       initHebrewCard();
       initGermanCard();
       initBlankCard();
@@ -75,6 +78,9 @@ public class LetterPictureButtonPanel extends JPanel
          case LETTER:
             this.add(letterCard);
             break;
+         case LETTER_HANDWRITTEN:
+            this.add(letterHandwrittenCard);
+            break;
          case PICTURE:
             this.add(pictureCard);
             break;
@@ -91,6 +97,10 @@ public class LetterPictureButtonPanel extends JPanel
       });
 
       letterButton.addActionListener(event -> {
+         layout.next(this);
+      });
+      
+      letterHandwrittenButton.addActionListener(event -> {
          layout.next(this);
       });
 
@@ -182,6 +192,34 @@ public class LetterPictureButtonPanel extends JPanel
       }
 
       letterCard.add(letterButton, BorderLayout.CENTER);
+   }
+   
+   private void initLetterHandwrittenCard()
+   {
+      letterHandwrittenCard = new JPanel(new BorderLayout());
+      letterHandwrittenCard.setOpaque(false);
+      letterHandwrittenCard.setPreferredSize(new Dimension(50, 50));
+      if (letter == NikudLetter.SPACE)
+      {
+         letterHandwrittenButton = new JButton(new ImageIcon(picture));
+         letterHandwrittenButton.setBorder(BorderFactory.createEmptyBorder());
+         letterHandwrittenButton.setMargin(new Insets(0, 0, 0, 0));
+         letterHandwrittenButton.setOpaque(false);
+      }
+      else
+      {
+         letterHandwrittenButton = new JButton(
+               new ImageIcon(ApplicationImages.getLetterIconsNikudHandwrittenMap().get(letter)
+                     .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
+                           java.awt.Image.SCALE_SMOOTH)));
+         letterHandwrittenButton.setFont(Main.getHebrewHandwrittenFont(30F));
+         letterHandwrittenButton.setBorder(BorderFactory.createEmptyBorder());
+         letterHandwrittenButton.setContentAreaFilled(false);
+         letterHandwrittenButton.setMargin(new Insets(-10, 0, 0, 0));
+         letterHandwrittenButton.setOpaque(false);
+      }
+
+      letterHandwrittenCard.add(letterHandwrittenButton, BorderLayout.CENTER);
    }
 
    private void initPictureCard()

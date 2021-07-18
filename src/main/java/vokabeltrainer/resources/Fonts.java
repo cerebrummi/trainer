@@ -20,6 +20,10 @@ public class Fonts
       Main.setGermanBoldFont(
             Font.createFont(Font.TRUETYPE_FONT, Fonts.class.getResourceAsStream(
                   "_1_fonts/Orkney Medium.ttf")));
+      
+      Main.setHebrewHandwrittenFont(
+            Font.createFont(Font.TRUETYPE_FONT, Fonts.class.getResourceAsStream(
+                  "_1_fonts/AdaAdama.ttf")));
    }
 
 }

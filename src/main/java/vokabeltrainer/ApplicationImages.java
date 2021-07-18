@@ -48,7 +48,7 @@ public class ApplicationImages
    private static BufferedImage cancel;
    private static BufferedImage done;
    private static BufferedImage emptyList;
-   
+
    private static BufferedImage logo24;
    private static BufferedImage logo150;
    private static BufferedImage logo;
@@ -65,12 +65,13 @@ public class ApplicationImages
    private static BufferedImage work;
    private static BufferedImage soundOn;
    private static BufferedImage soundOff;
-   
+
    private static BufferedImage back;
    private static BufferedImage lock;
-   
+
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
-   
+   private static Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap;
+
    private static String message = "Bitte neu starten.\nCerebrummi© konnte keine Bilder laden.\nFehler: ";
 
    public static void setImage(BufferedImage image)
@@ -90,9 +91,9 @@ public class ApplicationImages
 
    public static void setGreenImages(List<BufferedImage> greenImages)
    {
-      if(greenImages.size() < 72)
+      if (greenImages.size() < 72)
       {
-        exitWithMessage("Es fehlen grüne Bilder.");
+         exitWithMessage("Es fehlen grüne Bilder.");
       }
       ApplicationImages.greenImages = greenImages;
    }
@@ -104,7 +105,7 @@ public class ApplicationImages
 
    public static void setTrashcan(BufferedImage trashcan)
    {
-      if(trashcan == null)
+      if (trashcan == null)
       {
          exitWithMessage("keine Trashcan");
       }
@@ -118,7 +119,7 @@ public class ApplicationImages
 
    public static void setShredder(BufferedImage shredder)
    {
-      if(shredder == null)
+      if (shredder == null)
       {
          exitWithMessage("kein Shredder");
       }
@@ -139,7 +140,7 @@ public class ApplicationImages
 
    public static void setCopy(BufferedImage copy)
    {
-      if(copy == null)
+      if (copy == null)
       {
          exitWithMessage("kein Copy Icon");
       }
@@ -158,7 +159,7 @@ public class ApplicationImages
 
    public static void setClear(BufferedImage clear)
    {
-      if(clear == null)
+      if (clear == null)
       {
          exitWithMessage("kein Clear Icon");
       }
@@ -172,7 +173,7 @@ public class ApplicationImages
 
    public static void setSelect(BufferedImage selected)
    {
-      if(selected == null)
+      if (selected == null)
       {
          exitWithMessage("kein Selected Icon");
       }
@@ -186,7 +187,7 @@ public class ApplicationImages
 
    public static void setNewWord(BufferedImage newWord)
    {
-      if(newWord == null)
+      if (newWord == null)
       {
          exitWithMessage("kein NewWord Icon");
       }
@@ -200,7 +201,7 @@ public class ApplicationImages
 
    public static void setSaveWord(BufferedImage saveWord)
    {
-      if(saveWord == null)
+      if (saveWord == null)
       {
          exitWithMessage("kein SaveWord Icon");
       }
@@ -214,7 +215,7 @@ public class ApplicationImages
 
    public static void setDeleteWord(BufferedImage deleteWord)
    {
-      if(deleteWord == null)
+      if (deleteWord == null)
       {
          exitWithMessage("kein deleteWord");
       }
@@ -228,7 +229,7 @@ public class ApplicationImages
 
    public static void setRestore(BufferedImage restore)
    {
-      if(restore == null)
+      if (restore == null)
       {
          exitWithMessage("kein Restore Icon");
       }
@@ -242,7 +243,7 @@ public class ApplicationImages
 
    public static void setSend(BufferedImage send)
    {
-      if(send == null)
+      if (send == null)
       {
          exitWithMessage("kein Send Icon");
       }
@@ -256,7 +257,7 @@ public class ApplicationImages
 
    public static void setStart(BufferedImage start)
    {
-      if(start == null)
+      if (start == null)
       {
          exitWithMessage("kein Start Icon");
       }
@@ -270,7 +271,7 @@ public class ApplicationImages
 
    public static void setStop(BufferedImage stop)
    {
-      if(stop == null)
+      if (stop == null)
       {
          exitWithMessage("kein Stop Icon");
       }
@@ -284,7 +285,7 @@ public class ApplicationImages
 
    public static void setSearch(BufferedImage search)
    {
-      if(search == null)
+      if (search == null)
       {
          exitWithMessage("kein Search Icon");
       }
@@ -298,7 +299,7 @@ public class ApplicationImages
 
    public static void setOkaySave(BufferedImage okaySave)
    {
-      if(okaySave == null)
+      if (okaySave == null)
       {
          exitWithMessage("kein OkaySave Icon");
       }
@@ -312,7 +313,7 @@ public class ApplicationImages
 
    public static void setEmpty(BufferedImage empty)
    {
-      if(empty == null)
+      if (empty == null)
       {
          exitWithMessage("kein empty Icon");
       }
@@ -326,7 +327,7 @@ public class ApplicationImages
 
    public static void setInfoCursor(BufferedImage infoCursor)
    {
-      if(infoCursor == null)
+      if (infoCursor == null)
       {
          exitWithMessage("kein InfoCursor");
       }
@@ -340,7 +341,7 @@ public class ApplicationImages
 
    public static void setToggleCursor(BufferedImage toggleCursor)
    {
-      if(toggleCursor == null)
+      if (toggleCursor == null)
       {
          exitWithMessage("kein ToggleCursor");
       }
@@ -354,7 +355,7 @@ public class ApplicationImages
 
    public static void setInfoButtonIcon(BufferedImage infoButtonIcon)
    {
-      if(infoButtonIcon == null)
+      if (infoButtonIcon == null)
       {
          exitWithMessage("kein InfoButton Icon");
       }
@@ -368,7 +369,7 @@ public class ApplicationImages
 
    public static void setToggleButtonIcon(BufferedImage toggleButtonIcon)
    {
-      if(toggleButtonIcon == null)
+      if (toggleButtonIcon == null)
       {
          exitWithMessage("kein ToggleButton Icon");
       }
@@ -382,7 +383,7 @@ public class ApplicationImages
 
    public static void setInfoIcon(BufferedImage infoIcon)
    {
-      if(infoIcon == null)
+      if (infoIcon == null)
       {
          exitWithMessage("kein InfoIcon Icon");
       }
@@ -396,7 +397,7 @@ public class ApplicationImages
 
    public static void setTrashcanBackground(BufferedImage trashcanBackground)
    {
-      if(trashcanBackground == null)
+      if (trashcanBackground == null)
       {
          exitWithMessage("kein Trashcan Hintergrund");
       }
@@ -410,7 +411,7 @@ public class ApplicationImages
 
    public static void setStartImage(BufferedImage startImage)
    {
-      if(startImage == null)
+      if (startImage == null)
       {
          exitWithMessage("kein StartImage");
       }
@@ -424,7 +425,7 @@ public class ApplicationImages
 
    public static void setErrorImage(BufferedImage errorImage)
    {
-      if(errorImage == null)
+      if (errorImage == null)
       {
          exitWithMessage("kein errorImage");
       }
@@ -438,7 +439,7 @@ public class ApplicationImages
 
    public static void setTexturedBackground(BufferedImage texturedBackground)
    {
-      if(texturedBackground == null)
+      if (texturedBackground == null)
       {
          exitWithMessage("kein textured Hintergrund");
       }
@@ -452,7 +453,7 @@ public class ApplicationImages
 
    public static void setArrow(BufferedImage arrow)
    {
-      if(arrow == null)
+      if (arrow == null)
       {
          exitWithMessage("kein Arrow Icon");
       }
@@ -466,7 +467,7 @@ public class ApplicationImages
 
    public static void setDone(BufferedImage done)
    {
-      if(done == null)
+      if (done == null)
       {
          exitWithMessage("kein Done Icon");
       }
@@ -480,7 +481,7 @@ public class ApplicationImages
 
    public static void setEmptyList(BufferedImage emptyList)
    {
-      if(emptyList == null)
+      if (emptyList == null)
       {
          exitWithMessage("kein EmptyList Icon");
       }
@@ -494,13 +495,13 @@ public class ApplicationImages
 
    public static void setLogo(BufferedImage logo)
    {
-      if(logo == null)
+      if (logo == null)
       {
          exitWithMessage("kein Logo");
       }
       ApplicationImages.logo = logo;
    }
-   
+
    public static BufferedImage getLogo24()
    {
       return logo24;
@@ -508,7 +509,7 @@ public class ApplicationImages
 
    public static void setLogo24(BufferedImage logo24)
    {
-      if(logo24 == null)
+      if (logo24 == null)
       {
          exitWithMessage("kein Logo 24");
       }
@@ -522,7 +523,7 @@ public class ApplicationImages
 
    public static void setLogo150(BufferedImage logo150)
    {
-      if(logo150 == null)
+      if (logo150 == null)
       {
          exitWithMessage("kein Logo 150");
       }
@@ -537,9 +538,13 @@ public class ApplicationImages
    public static void setLetterPicturesMap(
          Map<NikudLetter, BufferedImage> letterPicturesMap)
    {
-      if(letterPicturesMap.size() < 30)
+      if (letterPicturesMap.size() < 30)
       {
-            exitWithMessage("Buchstabenbilder fehlen");
+         exitWithMessage("Buchstabenbilder fehlen");
+      }
+      else if (letterPicturesMap.size() > 30)
+      {
+         exitWithMessage("zuviele Buchstabenbilder");
       }
       ApplicationImages.letterPicturesMap = letterPicturesMap;
    }
@@ -552,11 +557,34 @@ public class ApplicationImages
    public static void setLetterIconsNikudMap(
          Map<NikudLetter, BufferedImage> letterIconsNikudMap)
    {
-      if(letterIconsNikudMap.size() < 56)
+      if (letterIconsNikudMap.size() < 56)
       {
-            exitWithMessage("Buchstaben Nikud Icons fehlen");
+         exitWithMessage("Buchstaben Nikud Icons fehlen");
+      }
+      else if (letterIconsNikudMap.size() > 56)
+      {
+         exitWithMessage("zuviele Buchstaben Nikud Icons");
       }
       ApplicationImages.letterIconsNikudMap = letterIconsNikudMap;
+   }
+
+   public static Map<NikudLetter, BufferedImage> getLetterIconsNikudHandwrittenMap()
+   {
+      return letterIconsNikudHandwrittenMap;
+   }
+
+   public static void setLetterIconsNikudHandwrittenMap(
+         Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap)
+   {
+      if (letterIconsNikudHandwrittenMap.size() < 27)
+      {
+         exitWithMessage("Buchstaben Nikud Icons Handwritten fehlen");
+      }
+      else if (letterIconsNikudHandwrittenMap.size() > 27)
+      {
+         exitWithMessage("zuviele Buchstaben Nikud Icons Handwritten");
+      }
+      ApplicationImages.letterIconsNikudHandwrittenMap = letterIconsNikudHandwrittenMap;
    }
 
    public static BufferedImage getTurn()
@@ -566,7 +594,7 @@ public class ApplicationImages
 
    public static void setTurn(BufferedImage turn)
    {
-      if(turn == null)
+      if (turn == null)
       {
          exitWithMessage("kein Turn Icon");
       }
@@ -580,7 +608,7 @@ public class ApplicationImages
 
    public static void setAnswerOkay(BufferedImage answerOkay)
    {
-      if(answerOkay == null)
+      if (answerOkay == null)
       {
          exitWithMessage("kein AnswerOkay Icon");
       }
@@ -594,7 +622,7 @@ public class ApplicationImages
 
    public static void setAnswerNotOkay(BufferedImage answerNotOkay)
    {
-      if(answerNotOkay == null)
+      if (answerNotOkay == null)
       {
          exitWithMessage("kein AnswerNotOkay Icon");
       }
@@ -608,7 +636,7 @@ public class ApplicationImages
 
    public static void setAnswerUndecided(BufferedImage answerUndecided)
    {
-      if(answerUndecided == null)
+      if (answerUndecided == null)
       {
          exitWithMessage("kein AnswerUndecided Icon");
       }
@@ -622,7 +650,7 @@ public class ApplicationImages
 
    public static void setBlueImages(List<BufferedImage> blueImages)
    {
-      if(blueImages.size() < 32)
+      if (blueImages.size() < 32)
       {
          exitWithMessage("Es fehlen blaue Bilder.");
       }
@@ -636,7 +664,7 @@ public class ApplicationImages
 
    public static void setCancel(BufferedImage cancel)
    {
-      if(cancel == null)
+      if (cancel == null)
       {
          exitWithMessage("kein Cancel Icon");
       }
@@ -650,7 +678,7 @@ public class ApplicationImages
 
    public static void setReward(BufferedImage reward)
    {
-      if(reward == null)
+      if (reward == null)
       {
          exitWithMessage("kein Reward Icon");
       }
@@ -659,7 +687,7 @@ public class ApplicationImages
 
    public static void setLetterEmpty(BufferedImage letterEmpty)
    {
-      if(letterEmpty == null)
+      if (letterEmpty == null)
       {
          exitWithMessage("kein LetterEmpty Icon");
       }
@@ -668,7 +696,7 @@ public class ApplicationImages
 
    public static void setLetterNone(BufferedImage letterNone)
    {
-      if(letterNone == null)
+      if (letterNone == null)
       {
          exitWithMessage("kein LetterNone Icon");
       }
@@ -687,7 +715,7 @@ public class ApplicationImages
 
    public static void setWork(BufferedImage work)
    {
-      if(work == null)
+      if (work == null)
       {
          exitWithMessage("kein Work Icon");
       }
@@ -701,7 +729,7 @@ public class ApplicationImages
 
    public static void setSoundOn(BufferedImage soundOn)
    {
-      if(soundOn == null)
+      if (soundOn == null)
       {
          exitWithMessage("kein SoundOn Icon");
       }
@@ -715,7 +743,7 @@ public class ApplicationImages
 
    public static void setSoundOff(BufferedImage soundOff)
    {
-      if(soundOff == null)
+      if (soundOff == null)
       {
          exitWithMessage("kein SoundOff Icon");
       }
@@ -726,17 +754,18 @@ public class ApplicationImages
    {
       return soundOff;
    }
-   
+
    private static void exitWithMessage(String localMessage)
    {
-      JOptionPane.showMessageDialog(null, message+ localMessage, "Nachricht",
-            JOptionPane.CLOSED_OPTION);
+      JOptionPane
+            .showMessageDialog(null, message + localMessage, "Nachricht",
+                  JOptionPane.CLOSED_OPTION);
       System.exit(1);
    }
 
    public static void setDreidel(BufferedImage dreidel)
    {
-      if(dreidel == null)
+      if (dreidel == null)
       {
          exitWithMessage("kein Dreidel Bild");
       }
@@ -755,7 +784,7 @@ public class ApplicationImages
 
    public static void setHebrewLetters(BufferedImage hebrewLetters)
    {
-      if(hebrewLetters == null)
+      if (hebrewLetters == null)
       {
          exitWithMessage("kein Hebräische Buchstaben Bild");
       }
@@ -769,7 +798,7 @@ public class ApplicationImages
 
    public static void setBack(BufferedImage back)
    {
-      if(back == null)
+      if (back == null)
       {
          exitWithMessage("kein Zurück Icon");
       }
@@ -783,7 +812,7 @@ public class ApplicationImages
 
    public static void setSelectDone(BufferedImage selectDone)
    {
-      if(selectDone == null)
+      if (selectDone == null)
       {
          exitWithMessage("kein Häckchen Icon");
       }
@@ -792,7 +821,7 @@ public class ApplicationImages
 
    public static void setCopy2(BufferedImage copy2)
    {
-      if(copy2 == null)
+      if (copy2 == null)
       {
          exitWithMessage("kein Kopieren Nr.2 Icon");
       }
@@ -801,7 +830,7 @@ public class ApplicationImages
 
    public static void setCut(BufferedImage cut)
    {
-      if(cut == null)
+      if (cut == null)
       {
          exitWithMessage("kein Ausschneiden Icon");
       }
@@ -810,7 +839,7 @@ public class ApplicationImages
 
    public static void setPaste(BufferedImage paste)
    {
-      if(paste == null)
+      if (paste == null)
       {
          exitWithMessage("kein Einfügen Icon");
       }
@@ -839,12 +868,11 @@ public class ApplicationImages
 
    public static void setLock(BufferedImage lock)
    {
-      if(lock == null)
+      if (lock == null)
       {
          exitWithMessage("kein Schloss Icon");
       }
       ApplicationImages.lock = lock;
    }
 
-   
 }

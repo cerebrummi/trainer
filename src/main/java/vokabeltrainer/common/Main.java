@@ -26,6 +26,7 @@ import vokabeltrainer.resources.Fonts;
 import vokabeltrainer.resources.Gruen;
 import vokabeltrainer.resources.Images;
 import vokabeltrainer.resources.LetterIcons;
+import vokabeltrainer.resources.LetterIconsHandwritten;
 import vokabeltrainer.resources.Sounds;
 
 public final class Main
@@ -33,6 +34,7 @@ public final class Main
    private static Font germanFont;
    private static Font germanBoldFont;
    private static Font hebrewFont;
+   private static Font hebrewHandwrittenFont;
    private static String message = "Cerebrummi© bitte neu starten.\nFehler: ";
 
    // -Dsun.java2d.uiScale=1
@@ -81,6 +83,18 @@ public final class Main
       {
          JOptionPane.showMessageDialog(null,
                message + "Buchstaben Nikud Icons fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
+         System.exit(1);
+      }
+      
+      try
+      {
+         LetterIconsHandwritten.readNikud();
+      }
+      catch (Exception e1)
+      {
+         JOptionPane.showMessageDialog(null,
+               message + "Buchstaben Nikud Handwritten Icons fehlen", "Nachricht",
                JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
@@ -233,6 +247,16 @@ public final class Main
    public static Font getHebrewFont(float size)
    {
       return hebrewFont.deriveFont(size);
+   }
+
+   public static Font getHebrewHandwrittenFont(float size)
+   {
+      return hebrewHandwrittenFont.deriveFont(size);
+   }
+
+   public static void setHebrewHandwrittenFont(Font hebrewHandwrittenFont)
+   {
+      Main.hebrewHandwrittenFont = hebrewHandwrittenFont;
    }
 
    public static void setGermanFont(Font germanFont)

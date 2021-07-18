@@ -1,6 +1,7 @@
 package vokabeltrainer.panels.letterpicture;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
@@ -11,9 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.ApplicationImages;
@@ -23,31 +26,34 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.editing.SingleLetterDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewStandard;
+import vokabeltrainer.keyboards.KeyboardHebrewStandardHandwritten;
 import vokabeltrainer.table.list.editor.CerebrummiFocusTraversalPolicy;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class LetterPictureAlphabetPanel extends JPanel
 {
+   private static final String SCHREIBSCHRIFT = "SCHREIBSCHRIFT";
+
+   private static final String DRUCKSCHRIFT = "DRUCKSCHRIFT";
+
    private static final long serialVersionUID = 2284393162989380186L;
 
    private final NikudLetter[] keys1 = { NikudLetter.CHET, NikudLetter.SSAIN,
          NikudLetter.WAW, NikudLetter.HAEI, NikudLetter.DALET,
-         NikudLetter.GIMEL, NikudLetter.BET,
-         NikudLetter.ALEF };
+         NikudLetter.GIMEL, NikudLetter.BET, NikudLetter.ALEF };
 
    private final NikudLetter[] keys2 = { NikudLetter.NUN, NikudLetter.MEMSSOFIT,
          NikudLetter.MEM, NikudLetter.LAMED, NikudLetter.CHAFSSOFIT,
-         NikudLetter.KAF, NikudLetter.JOD,
-         NikudLetter.TET };
+         NikudLetter.KAF, NikudLetter.JOD, NikudLetter.TET };
 
-   private final NikudLetter[] keys3 = { NikudLetter.KUF, NikudLetter.ZADISSOFIT,
-         NikudLetter.ZADI, NikudLetter.FAEISSOFIT, NikudLetter.PAEI,
-         NikudLetter.AIN, NikudLetter.SSAMECH,
+   private final NikudLetter[] keys3 = { NikudLetter.KUF,
+         NikudLetter.ZADISSOFIT, NikudLetter.ZADI, NikudLetter.FAEISSOFIT,
+         NikudLetter.PAEI, NikudLetter.AIN, NikudLetter.SSAMECH,
          NikudLetter.NUNSSOFIT };
 
-   private final NikudLetter[] keys4 = { NikudLetter.TAW,
-         NikudLetter.SCHIN, NikudLetter.RESCH };
+   private final NikudLetter[] keys4 = { NikudLetter.TAW, NikudLetter.SCHIN,
+         NikudLetter.RESCH };
 
    private LetterTextField alef = new LetterTextField(NikudLetter.ALEF);
    private LetterTextField wet = new LetterTextField(NikudLetter.BET);
@@ -92,12 +98,20 @@ public class LetterPictureAlphabetPanel extends JPanel
 
    private List<JTextComponent> textFields;
 
-   Component[] focusList = { alef, wet, gimel, dalet, haei, waw, ssain,
-         chet, tet, jod, chaf, chafssofit, lamed, mem, memssofit, nun,
-         nunssofit, ssamech, ain, faei, faeissofit, zadi, zadissofit, kuf,
-         resch, schin, taw };
+   Component[] focusList = { alef, wet, gimel, dalet, haei, waw, ssain, chet,
+         tet, jod, chaf, chafssofit, lamed, mem, memssofit, nun, nunssofit,
+         ssamech, ain, faei, faeissofit, zadi, zadissofit, kuf, resch, schin,
+         taw };
+
+   JRadioButton printLetters = new JRadioButton("Druckschrift");
+   JRadioButton handwrittenLetters = new JRadioButton("Schreibschrift");
+   ButtonGroup switchButtonGroup = new ButtonGroup();
 
    FocusTraversalPolicy focusTraversalPolicy;
+
+   private JPanel keyboardPanel;
+
+   private CardLayout cardLayout;
 
    public LetterPictureAlphabetPanel()
    {
@@ -188,25 +202,67 @@ public class LetterPictureAlphabetPanel extends JPanel
       }
       this.add(row4);
 
-      JPanel keyboardPanel = new JPanel(new BorderLayout());
-      keyboardPanel.setMinimumSize(new Dimension(530, 200));
-      keyboardPanel.setMaximumSize(new Dimension(530, 400));
-
       for (JTextComponent jtc : textFields)
       {
-         jtc.setFont(Main.getHebrewFont(30));
          jtc.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 14));
          jtc.setMinimumSize(new Dimension(50, 40));
          jtc.setMaximumSize(new Dimension(50, 40));
          jtc.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          jtc.setDocument(new SingleLetterDocument());
       }
-      KeyboardHebrewStandard keyboard = new KeyboardHebrewStandard(null,
+
+      JPanel keyboardPrintPanel = new JPanel(new BorderLayout());
+      KeyboardHebrewStandard keyboardPrint = new KeyboardHebrewStandard(null,
             textFields, 15);
-      keyboardPanel.add(keyboard, BorderLayout.CENTER);
+      keyboardPrintPanel.add(keyboardPrint, BorderLayout.CENTER);
+
+      JPanel keyboardHandwrittenPanel = new JPanel(new BorderLayout());
+      KeyboardHebrewStandardHandwritten keyboardHandwritten = new KeyboardHebrewStandardHandwritten(
+            null, textFields, 15);
+      keyboardHandwrittenPanel.add(keyboardHandwritten, BorderLayout.CENTER);
+
+      cardLayout = new CardLayout();
+      keyboardPanel = new JPanel(cardLayout);
+      keyboardPanel.add(DRUCKSCHRIFT, keyboardPrintPanel);
+      keyboardPanel.add(SCHREIBSCHRIFT, keyboardHandwrittenPanel);
+      keyboardPanel.setMinimumSize(new Dimension(530, 150));
+      keyboardPanel.setMaximumSize(new Dimension(530, 200));
+
       this.add(keyboardPanel);
 
+      printLetters.addActionListener(event -> setWriting(DRUCKSCHRIFT));
+      handwrittenLetters.addActionListener(event -> setWriting(SCHREIBSCHRIFT));
+      switchButtonGroup.add(printLetters);
+      switchButtonGroup.add(handwrittenLetters);
+      
+      this.add(printLetters);
+      this.add(handwrittenLetters);
+      printLetters.setSelected(true);
+
+      setWriting(switchButtonGroup.getSelection().getActionCommand());
+      
+
       this.focusTraversalPolicy = new CerebrummiFocusTraversalPolicy(focusList);
+   }
+
+   private void setWriting(String actionCommand)
+   {
+      if (DRUCKSCHRIFT == actionCommand)
+      {
+         for (JTextComponent jtc : textFields)
+         {
+            jtc.setFont(Main.getHebrewFont(30));
+         }
+         cardLayout.show(keyboardPanel, DRUCKSCHRIFT);
+      }
+      else if (SCHREIBSCHRIFT == actionCommand)
+      {
+         for (JTextComponent jtc : textFields)
+         {
+            jtc.setFont(Main.getHebrewHandwrittenFont(30));
+         }
+         cardLayout.show(keyboardPanel, SCHREIBSCHRIFT);
+      }
    }
 
    public List<JTextComponent> getTextFields()
