@@ -12,15 +12,15 @@ public class LetterHelper
    static
    {
       codeMap = new HashMap<>();
-      for (Letter nikud : NikudLetter.values())
-      {
-         codeMap.put(nikud.getCode().toLowerCase(), nikud);
-         codeMap.put(nikud.getCode().toUpperCase(), nikud);
-      }
       for (Letter german : GermanLetter.values())
       {
          codeMap.put(german.getCode().toLowerCase(), german);
          codeMap.put(german.getCode().toUpperCase(), german);
+      }
+      for (Letter nikud : NikudLetter.values())
+      {
+         codeMap.put(nikud.getCode().toLowerCase(), nikud);
+         codeMap.put(nikud.getCode().toUpperCase(), nikud);
       }
       for (Letter sign : SignLetter.values())
       {
@@ -38,9 +38,14 @@ public class LetterHelper
    {
       // nothing
    }
-   
-   public static Letter getLetterFromCode(String code)
+
+   public static Letter getLetterFromCode(String code, LetterType type)
    {
+      if (LetterType.GERMAN == type
+            && GermanLetter.SPACE.getCode().equalsIgnoreCase(code))
+      {
+         return GermanLetter.SPACE;
+      }
       return codeMap.get(code);
    }
 
@@ -58,7 +63,7 @@ public class LetterHelper
       }
       return hebrewLetters;
    }
-   
+
    public static List<String> findLetterCodes(String word)
    {
       List<String> letterCodes = new LinkedList<>();
@@ -81,7 +86,7 @@ public class LetterHelper
       }
       return letterCodes;
    }
-   
+
    public static String makeWordFromCodes(List<String> codes)
    {
       StringBuilder builder = new StringBuilder();
@@ -125,24 +130,26 @@ public class LetterHelper
                break;
             case UPPER_PUNKTATION:
                currentLetterForAnalysis.addToUpperPunktation(nikudLetter);
+               break;
             }
          }
-         else if(letter == null)
+         else if (letter == null)
          {
-            System.out.println("LetterHelper: "+codeList.get(i));
+            System.out.println("LetterHelper: " + codeList.get(i));
          }
       }
 
       return analysisList;
    }
-   
-   public static boolean areLettersEqual(LetterForAnalysis one, LetterForAnalysis two)
+
+   public static boolean areLettersEqual(LetterForAnalysis one,
+         LetterForAnalysis two)
    {
-      if(one.getContent() != two.getContent())
+      if (one.getContent() != two.getContent())
       {
          return false;
       }
-     
+
       return true;
    }
 
@@ -150,9 +157,9 @@ public class LetterHelper
    {
       List<String> nikudCodeList = new ArrayList<>();
       List<String> hebrewCodeList = LetterHelper.findLetterCodes(hebrew);
-      for(String hebrewCode : hebrewCodeList)
+      for (String hebrewCode : hebrewCodeList)
       {
-         if(ExchangeLetter.SSIN.getCode().equalsIgnoreCase(hebrewCode))
+         if (ExchangeLetter.SSIN.getCode().equalsIgnoreCase(hebrewCode))
          {
             nikudCodeList.add(NikudLetter.SCHIN.getCode());
             nikudCodeList.add(NikudLetter.SIN_DOT.getCode());

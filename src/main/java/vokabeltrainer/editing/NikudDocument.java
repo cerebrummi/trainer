@@ -108,7 +108,7 @@ public class NikudDocument extends PlainDocument
             // okay
             builder
                   .append(LetterHelper
-                        .getLetterFromCode(list.get(i))
+                        .getLetterFromCode(list.get(i), LetterType.SIGN)
                         .getUnicode());
          }
          else

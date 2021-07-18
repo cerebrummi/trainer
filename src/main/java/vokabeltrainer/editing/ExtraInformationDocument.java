@@ -111,7 +111,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             // okay
             builder
                   .append(LetterHelper
-                        .getLetterFromCode(list.get(i))
+                        .getLetterFromCode(list.get(i), LetterType.SIGN)
                         .getUnicode());
          }
          else if (StringUtils.containsIgnoreCase(numberPattern, list.get(i)))
@@ -119,7 +119,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             // okay
             builder
                   .append(LetterHelper
-                        .getLetterFromCode(list.get(i))
+                        .getLetterFromCode(list.get(i), LetterType.NUMBER)
                         .getUnicode());
          }
          else

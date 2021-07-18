@@ -227,6 +227,10 @@ public class TestWordMatching
    {
       Expression expressionDic = new Expression(true);
       expressionDic.getHebrew().setHebrew(wordDic25);
+      
+      System.out.println("TestWordMatching " + expressionDic.getHebrew().getHebrew());
+      System.out.println("TestWordMatching " + wordTest25);
+      
       Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
             wordTest25, new Font(null), SelectionHebrewType.SIMPLE);
       assertFalse(result.isOkay());
