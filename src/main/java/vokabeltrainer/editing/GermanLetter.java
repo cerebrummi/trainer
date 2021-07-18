@@ -1,8 +1,8 @@
 package vokabeltrainer.editing;
 
-import org.apache.commons.lang3.StringUtils;
-
-public enum GermanLetter implements Letter
+public enum GermanLetter
+      implements
+      Letter
 {
    A(
          " 0041",
@@ -219,14 +219,8 @@ public enum GermanLetter implements Letter
 
    public static GermanLetter getLetterFromCode(String code)
    {
-      for (GermanLetter letter : GermanLetter.values())
-      {
-         if (StringUtils.containsIgnoreCase(letter.getCode(), code))
-         {
-            return letter;
-         }
-      }
-      return null;
+      return (GermanLetter) LetterHelper
+            .getLetterFromCode(code, LetterType.GERMAN);
    }
 
    @Override

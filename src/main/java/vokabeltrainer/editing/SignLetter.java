@@ -2,8 +2,6 @@ package vokabeltrainer.editing;
 
 import java.util.StringJoiner;
 
-import org.apache.commons.lang3.StringUtils;
-
 public enum SignLetter implements Letter
 {
    QUESTION_MARK(" 003f", "\u003f"),            // ?
@@ -181,18 +179,6 @@ public enum SignLetter implements Letter
    public String getUnicode()
    {
       return unicode;
-   }
-
-   static SignLetter getLetterFromCode(String code)
-   {
-      for (SignLetter letter : SignLetter.values())
-      {
-         if (StringUtils.containsIgnoreCase(letter.getCode(), code))
-         {
-            return letter;
-         }
-      }
-      return null;
    }
 
    @Override

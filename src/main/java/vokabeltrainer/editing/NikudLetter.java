@@ -2,8 +2,6 @@ package vokabeltrainer.editing;
 
 import java.util.StringJoiner;
 
-import org.apache.commons.lang3.StringUtils;
-
 public enum NikudLetter
       implements
       Letter
@@ -481,8 +479,9 @@ public enum NikudLetter
    private int pixelWidth;
    private boolean handwritten;
 
-   NikudLetter(String unicode, String code, String transcript, String germanPictureName,
-         NikudLetterDistinction distinction, int pixelWidth, boolean handwritten)
+   NikudLetter(String unicode, String code, String transcript,
+         String germanPictureName, NikudLetterDistinction distinction,
+         int pixelWidth, boolean handwritten)
    {
       this.unicode = unicode;
       this.code = code;
@@ -525,14 +524,8 @@ public enum NikudLetter
 
    public static NikudLetter getLetterFromCode(String code)
    {
-      for (NikudLetter letter : NikudLetter.values())
-      {
-         if (StringUtils.containsIgnoreCase(letter.getCode(), code))
-         {
-            return letter;
-         }
-      }
-      return null;
+      return (NikudLetter) LetterHelper
+            .getLetterFromCode(code, LetterType.HEBREW);
    }
 
    public static String getLetterPatternStringForSingleLetterDocument()
