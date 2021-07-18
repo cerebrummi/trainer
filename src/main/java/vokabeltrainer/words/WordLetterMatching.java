@@ -263,6 +263,7 @@ public class WordLetterMatching
    private static void cutOutCommonNewspace(List<LetterForAnalysis> dataT,
          List<LetterForAnalysis> dataD)
    {
+      // TODO Listen zu ändern, die man durchläuft ist böse !!! Hier ???
       for (int i = 0; i < Math.min(dataT.size(), dataD.size()); i++)
       {
          if (dataT.get(i).getContent().isNewspace()
