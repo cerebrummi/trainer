@@ -76,6 +76,9 @@ public class NikudPictureButtonPanel extends JPanel
          case PICTURE:
             this.add(pictureCard);
             break;
+         case LETTER_HANDWRITTEN:
+            // nothing
+            break;
          }
       }
 
