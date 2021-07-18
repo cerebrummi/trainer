@@ -21,8 +21,8 @@ public class TestWordMatching
 {
    String wordDic = "באוניברסיטה";
    
-   String[] wordDicArray = { "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "WET",
-         "JOD", "NUN", "WAW", "ALEF", "WET" };
+   String[] wordDicArray = { "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "BET",
+         "JOD", "NUN", "WAW", "ALEF", "BET" };
    List<String> wordDicList = new LinkedList<String>(
          Arrays.asList(wordDicArray));
 
@@ -82,48 +82,51 @@ public class TestWordMatching
 
    String wordDic24 = "נעימות";
    String wordTest24 = "נוימת"; // mixed up
+   
+   String wordDic25 = "נעי מות"; 
+   String wordTest25 = "נעימות"; // space missing
 
    String[] wordTest4Array = { "HAEI", "TET", "JOD", "SSAMECH", "NEWSPACE",
-         "WET", "JOD", "NUN", "WAW", "NEWSPACE", "WET" };
+         "BET", "JOD", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest4List = new LinkedList<String>(
          Arrays.asList(wordTest4Array));
 
    String[] wordTest5Array = { "HAEI", "TET", "NEWSPACE", "SSAMECH", "NEWSPACE",
-         "WET", "JOD", "NUN", "WAW", "NEWSPACE", "WET" };
+         "BET", "JOD", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest5List = new LinkedList<String>(
          Arrays.asList(wordTest5Array));
 
    String[] wordTest6Array = { "HAEI", "TET", "NEWSPACE", "SSAMECH", "NEWSPACE",
-         "WET", "NEWSPACE", "NUN", "WAW", "NEWSPACE", "WET" };
+         "BET", "NEWSPACE", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest6List = new LinkedList<String>(
          Arrays.asList(wordTest6Array));
 
-   String[] wordTest7Array = { "SCHIN", "FAEI", "AIN", "HAEI", "TET",
-         "NEWSPACE", "SSAMECH", "NEWSPACE", "WET", "NEWSPACE", "NUN", "WAW",
-         "NEWSPACE", "WET" };
+   String[] wordTest7Array = { "SCHIN", "PAEI", "AIN", "HAEI", "TET",
+         "NEWSPACE", "SSAMECH", "NEWSPACE", "BET", "NEWSPACE", "NUN", "WAW",
+         "NEWSPACE", "BET" };
    List<String> wordTest7List = new LinkedList<String>(
          Arrays.asList(wordTest7Array));
 
-   String[] wordTest8Array = { "KUF", "ZADI", "SCHIN", "FAEI", "AIN", "HAEI",
-         "TET", "NEWSPACE","SSAMECH", "NEWSPACE","WET","NEWSPACE", "NUN", "WAW", "NEWSPACE", "WET" };
+   String[] wordTest8Array = { "KUF", "ZADI", "SCHIN", "PAEI", "AIN", "HAEI",
+         "TET", "NEWSPACE","SSAMECH", "NEWSPACE","BET","NEWSPACE", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest8List = new LinkedList<String>(
          Arrays.asList(wordTest8Array));
    
-   String[] wordDic8Array = {"NEWSPACE", "NEWSPACE", "NEWSPACE", "NEWSPACE", "NEWSPACE", "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "WET", "JOD", "NUN", "WAW", "ALEF", "WET"};
+   String[] wordDic8Array = {"NEWSPACE", "NEWSPACE", "NEWSPACE", "NEWSPACE", "NEWSPACE", "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "BET", "JOD", "NUN", "WAW", "ALEF", "BET"};
    List<String> wordDic8List = new LinkedList<String>(Arrays.asList(wordDic8Array));
   
-   String[] wordDic9Array = { "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "WET",
-         "JOD", "NUN", "WAW", "ALEF", "WET", "NEWSPACE", "NEWSPACE" };
+   String[] wordDic9Array = { "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "BET",
+         "JOD", "NUN", "WAW", "ALEF", "BET", "NEWSPACE", "NEWSPACE" };
    List<String> wordDic9List = new LinkedList<String>(
          Arrays.asList(wordDic9Array));
 
-   String[] wordTest9Array = { "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "WET",
-         "JOD", "NUN", "WAW", "ALEF", "WET", "WAW", "ALEF" };
+   String[] wordTest9Array = { "HAEI", "TET", "JOD", "SSAMECH", "RESCH", "BET",
+         "JOD", "NUN", "WAW", "ALEF", "BET", "WAW", "ALEF" };
    List<String> wordTest9List = new LinkedList<String>(
          Arrays.asList(wordTest9Array));
 
    String[] wordTest10Array = { "HAEI", "TET", "JOD", "NEWSPACE", "RESCH",
-         "WET", "JOD", "NUN", "WAW", "ALEF", "WET", "WAW", "ALEF" };
+         "BET", "JOD", "NUN", "WAW", "ALEF", "BET", "WAW", "ALEF" };
    List<String> wordTest10List = new LinkedList<String>(
          Arrays.asList(wordTest10Array));
 
@@ -132,16 +135,16 @@ public class TestWordMatching
    List<String> wordTest11List = new LinkedList<String>(
          Arrays.asList(wordTest11Array));
 
-   String[] wordTest12Array = { "HAEI", "DALET", "NEWSPACE", "KUF", "FAEI" };
+   String[] wordTest12Array = { "HAEI", "DALET", "NEWSPACE", "KUF", "PAEI" };
    List<String> wordTest12List = new LinkedList<String>(
          Arrays.asList(wordTest12Array));
 
-   String[] wordTest13Array = { "MEMSSOFIT", "JOD", "RESCH", "WET", "CHET" };
+   String[] wordTest13Array = { "MEMSSOFIT", "JOD", "RESCH", "BET", "CHET" };
    List<String> wordTest13List = new LinkedList<String>(
          Arrays.asList(wordTest13Array));
 
-   String[] wordTest14Array = { "WET", "WAW", "TET", "SPACE", "RESCH", "KUF",
-         "NEWSPACE", "WET" };
+   String[] wordTest14Array = { "BET", "WAW", "TET", "SPACE", "RESCH", "KUF",
+         "NEWSPACE", "BET" };
    List<String> wordTest14List = new LinkedList<String>(
          Arrays.asList(wordTest14Array));
 
@@ -169,31 +172,31 @@ public class TestWordMatching
    List<String> wordDic17bList = new LinkedList<String>(
          Arrays.asList(wordDic17bArray));
 
-   String[] wordTest18bArray = { "WET", "WAW", "TET", "NEWSPACE", "RESCH",
-         "KUF", "WAW", "WET" };
+   String[] wordTest18bArray = { "BET", "WAW", "TET", "NEWSPACE", "RESCH",
+         "KUF", "WAW", "BET" };
    List<String> wordTest18bList = new LinkedList<>(
          Arrays.asList(wordTest18bArray));
 
    String[] wordDic19bArray = { "DALET", "NEWSPACE", "RESCH", "SCHIN", "MEM",
-         "WET" };
+         "BET" };
    List<String> wordDic19bList = new LinkedList<>(
          Arrays.asList(wordDic19bArray));
 
    String[] wordTest22Array = { "TAW", "JOD", "GIMEL", "WAW", "LAMED", "WAW",
-         "CHAF", "JOD", "SSAMECH", "FAEI" };
+         "KAF", "JOD", "SSAMECH", "PAEI" };
    List<String> wordTest22List = new LinkedList<>(
          Arrays.asList(wordTest22Array));
 
    String[] wordDic22Array = { "NEWSPACE", "NEWSPACE", "GIMEL", "WAW", "LAMED",
-         "WAW", "CHAF", "JOD", "SSAMECH", "FAEI" };
+         "WAW", "KAF", "JOD", "SSAMECH", "PAEI" };
    List<String> wordDic22List = new LinkedList<>(Arrays.asList(wordDic22Array));
 
    String[] wordTest23Array = { "TAW", "JOD", "KUF", "JOD", "SSAMECH", "JOD",
-         "FAEI" };
+         "PAEI" };
    List<String> wordTest23List = new LinkedList<>(
          Arrays.asList(wordTest23Array));
    String[] wordDic23Array = { "JOD", "ALEF", "KUF", "JOD", "SSAMECH", "JOD",
-         "FAEI" };
+         "PAEI" };
    List<String> wordDic23List = new LinkedList<>(Arrays.asList(wordDic23Array));
 
    String[] wordTest24Array = { "TAW", "NEWSPACE", "MEM", "JOD", "WAW", "NUN" };
@@ -202,6 +205,12 @@ public class TestWordMatching
 
    String[] wordDic24Array = { "TAW", "WAW", "MEM", "JOD", "AIN", "NUN" };
    List<String> wordDic24List = new LinkedList<>(Arrays.asList(wordDic24Array));
+   
+   String[] wordDic25Array = { "TAW", "WAW", "MEM", "JOD", "AIN", "NUN" };
+   List<String> wordDic25List = new LinkedList<>(Arrays.asList(wordDic25Array));
+   
+   String[] wordTest25Array = { "TAW", "WAW", "MEM", "SPACE", "JOD", "AIN", "NUN" };
+   List<String> wordTest25List = new LinkedList<>(Arrays.asList(wordTest25Array));
 
    @Test
    public void testMatchHebrew_Okay()
@@ -211,6 +220,16 @@ public class TestWordMatching
       Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
             wordTest1, new Font(null), SelectionHebrewType.SIMPLE);
       assertTrue(result.isOkay());
+   }
+   
+   @Test
+   public void testMatchHebrew_NotOkay()
+   {
+      Expression expressionDic = new Expression(true);
+      expressionDic.getHebrew().setHebrew(wordDic25);
+      Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+            wordTest25, new Font(null), SelectionHebrewType.SIMPLE);
+      assertFalse(result.isOkay());
    }
 
    @Test
