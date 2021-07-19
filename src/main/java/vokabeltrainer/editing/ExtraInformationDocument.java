@@ -83,7 +83,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          }
 
          checking(list, builder);
-         super.insertString(offset, LetterHelper.makeWordFromCodes(list), attr);
+         super.insertString(offset, builder.toString(), attr);
          return;
       }
       super.insertString(offset, str, attr);
