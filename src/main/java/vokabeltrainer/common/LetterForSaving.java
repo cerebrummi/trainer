@@ -4,8 +4,11 @@ import java.util.List;
 
 import vokabeltrainer.editing.GermanLetter;
 import vokabeltrainer.editing.LetterHelper;
+import vokabeltrainer.editing.LetterType;
 
-public enum LetterForSaving implements Letter
+public enum LetterForSaving
+      implements
+      Letter
 {
    A,
    B,
@@ -34,16 +37,17 @@ public enum LetterForSaving implements Letter
    Y,
    Z,
    OTHER;
-   
+
    public static LetterForSaving getLetter(String german)
    {
       List<String> codeList = LetterHelper.findLetterCodes(german);
-      GermanLetter first = GermanLetter.getLetterFromCode(codeList.get(0));
-      if(first == null)
+      vokabeltrainer.editing.Letter first = LetterHelper
+            .getLetterFromCode(codeList.get(0), LetterType.GERMAN);
+      if (first == null || !(first instanceof GermanLetter))
       {
          return LetterForSaving.OTHER;
       }
-      switch(first)
+      switch ((GermanLetter) first)
       {
       case A:
          return LetterForSaving.A;
@@ -170,5 +174,3 @@ public enum LetterForSaving implements Letter
       }
    }
 }
-
-

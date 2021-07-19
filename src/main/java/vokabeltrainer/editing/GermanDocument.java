@@ -106,8 +106,8 @@ public class GermanDocument extends PlainDocument
    {
       for (int i = 0; i < list.size(); i++)
       {
-         GermanLetter letter = GermanLetter.getLetterFromCode(list.get(i));
-         if (letter != null)
+         Letter letter = LetterHelper.getLetterFromCode(list.get(i), LetterType.GERMAN);
+         if (letter != null && letter instanceof GermanLetter)
          {
             // okay
             builder.append(letter.getUnicode());

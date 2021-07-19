@@ -97,8 +97,8 @@ public class NikudDocument extends PlainDocument
    {
       for (int i = 0; i < list.size(); i++)
       {
-         NikudLetter letter = NikudLetter.getLetterFromCode(list.get(i));
-         if (letter != null)
+         Letter letter = LetterHelper.getLetterFromCode(list.get(i), LetterType.HEBREW);
+         if (letter != null && letter instanceof NikudLetter)
          {
             // okay
             builder.append(letter.getUnicode());

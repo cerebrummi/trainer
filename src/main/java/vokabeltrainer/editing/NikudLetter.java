@@ -522,12 +522,6 @@ public enum NikudLetter
       return handwritten;
    }
 
-   public static NikudLetter getLetterFromCode(String code)
-   {
-      return (NikudLetter) LetterHelper
-            .getLetterFromCode(code, LetterType.HEBREW);
-   }
-
    public static String getLetterPatternStringForSingleLetterDocument()
    {
       StringJoiner joiner = new StringJoiner(",");

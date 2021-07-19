@@ -55,10 +55,10 @@ public class LetterHelper
       List<NikudLetter> hebrewLetters = new ArrayList<>();
       for (String code : letterCodes)
       {
-         NikudLetter hebrewLetter = NikudLetter.getLetterFromCode(code);
-         if (hebrewLetter != null)
+         Letter hebrewLetter = LetterHelper.getLetterFromCode(code, LetterType.HEBREW);
+         if (hebrewLetter != null && hebrewLetter instanceof NikudLetter)
          {
-            hebrewLetters.add(hebrewLetter);
+            hebrewLetters.add((NikudLetter)hebrewLetter);
          }
       }
       return hebrewLetters;

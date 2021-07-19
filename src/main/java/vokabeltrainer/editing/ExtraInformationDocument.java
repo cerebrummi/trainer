@@ -93,15 +93,15 @@ public class ExtraInformationDocument extends DefaultStyledDocument
    {
       for (int i = 0; i < list.size(); i++)
       {
-         GermanLetter germanLetter = GermanLetter
-               .getLetterFromCode(list.get(i));
-         NikudLetter nikudLetter = NikudLetter.getLetterFromCode(list.get(i));
-         if (germanLetter != null)
+         Letter germanLetter = LetterHelper
+               .getLetterFromCode(list.get(i), LetterType.GERMAN);
+         Letter nikudLetter = LetterHelper.getLetterFromCode(list.get(i), LetterType.HEBREW);
+         if (germanLetter != null && germanLetter instanceof GermanLetter)
          {
             // okay
             builder.append(germanLetter.getUnicode());
          }
-         else if (nikudLetter != null)
+         else if (nikudLetter != null && nikudLetter instanceof NikudLetter)
          {
             // okay
             builder.append(nikudLetter.getUnicode());

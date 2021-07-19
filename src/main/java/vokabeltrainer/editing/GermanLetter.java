@@ -217,12 +217,6 @@ public enum GermanLetter
       this.unicode = unicode;
    }
 
-   public static GermanLetter getLetterFromCode(String code)
-   {
-      return (GermanLetter) LetterHelper
-            .getLetterFromCode(code, LetterType.GERMAN);
-   }
-
    @Override
    public String getCode()
    {
