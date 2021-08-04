@@ -6,6 +6,7 @@ public enum VerbTimes implements GrammaticalEnum
          "bitte wählen"),
    VERBTIMES_UNKNOWN(
          "unbekannt"),
+   ROOT("Wurzel"),
    INFINITIVE(
          "Infinitiv"),
    PAST(
