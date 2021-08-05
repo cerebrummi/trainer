@@ -28,10 +28,21 @@ public class ChapterListCellRenderer extends DefaultListCellRenderer
    public Component getListCellRendererComponent(JList<? extends Object> list,
          Object value, int index, boolean isSelected, boolean cellHasFocus)
    {
-      label.setText(((Chapter) value).getName());
+      if (value != null)
+      {
+         Chapter chapter = (Chapter) value;
+         label
+               .setText(chapter.getDatabaseDescription().getDatabaseName()
+                     + " | " + chapter.getName());
+      }
+      else
+      {
+         label.setText("");
+      }
+
       label.setBorder(BorderFactory.createEmptyBorder());
-      if(list.getSelectedIndex() == index)
-      {        
+      if (list.getSelectedIndex() == index)
+      {
          label.setOpaque(true);
       }
       else

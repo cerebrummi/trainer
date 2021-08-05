@@ -77,7 +77,7 @@ public class ExpressionTable extends JTable
 
    public String getTableDataToString()
    {
-      StringJoiner joiner = new StringJoiner("\n\n");
+      StringJoiner joiner = new StringJoiner("\n");
       for (Expression[] expressionArray : model.getTableData())
       {
          joiner.add(expressionArray[0].getCopyLines(language));
@@ -87,7 +87,7 @@ public class ExpressionTable extends JTable
 
    public String getSelectedTableDataToString()
    {
-      StringJoiner joiner = new StringJoiner("\n\n");
+      StringJoiner joiner = new StringJoiner("\n");
       for (Expression[] expressionArray : model.getTableData())
       {
          if (expressionArray[0].isSelected())
