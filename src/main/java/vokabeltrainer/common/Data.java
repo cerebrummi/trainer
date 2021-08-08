@@ -1666,6 +1666,7 @@ public final class Data
          return result
                .stream()
                .map(DatabaseDescription::getDatabaseName)
+               .distinct()
                .toArray(String[]::new);
       }
 
