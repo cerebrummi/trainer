@@ -62,6 +62,11 @@ public class Definitions
    {
       return grammaticalEnumToDescription(Binjan.class);
    }
+   
+   public String getVerbTimeDescriptions()
+   {
+      return grammaticalEnumToDescription(VerbTimes.class);
+   }
 
    private String grammaticalEnumToDescription(
          Class<? extends GrammaticalEnum> clazz)

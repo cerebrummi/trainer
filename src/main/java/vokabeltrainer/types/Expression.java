@@ -268,7 +268,16 @@ public class Expression
       index++;
       result[index] = definitions.getNumerusDescriptions();
       index++;
-      result[index] = definitions.getBinjanDescriptions();
+      StringJoiner joiner = new StringJoiner(", ");
+      if(!definitions.getBinjanDescriptions().isBlank())
+      {
+         joiner.add(definitions.getBinjanDescriptions());
+      }
+      if (!definitions.getVerbTimeDescriptions().isBlank())
+      {
+         joiner.add(definitions.getVerbTimeDescriptions());
+      }
+      result[index] = joiner.toString();
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
@@ -294,7 +303,16 @@ public class Expression
       index++;
       result[index] = definitions.getNumerusDescriptions();
       index++;
-      result[index] = definitions.getBinjanDescriptions();
+      StringJoiner joiner = new StringJoiner(", ");
+      if(!definitions.getBinjanDescriptions().isBlank())
+      {
+         joiner.add(definitions.getBinjanDescriptions());
+      }
+      if (!definitions.getVerbTimeDescriptions().isBlank())
+      {
+         joiner.add(definitions.getVerbTimeDescriptions());
+      }
+      result[index] = joiner.toString();
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
