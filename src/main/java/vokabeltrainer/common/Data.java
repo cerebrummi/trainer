@@ -590,8 +590,8 @@ public final class Data
       private void readFileAvailable(LetterForSaving letter, Database origin)
       {
          try (InputStream fis = Vocabulary.class
-               .getResourceAsStream(origin.getFolder() + "/"
-                     + letter.name() + ".csv");
+               .getResourceAsStream(
+                     origin.getFolder() + "/" + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
                Reader reader = new BufferedReader(isr);)
@@ -716,7 +716,9 @@ public final class Data
                else if (Settings.getAvailableDatabases().contains(origin))
                {
                   index++;
-                  expression.setChapter(new Chapter(entries[index], origin));
+                  expression
+                        .setChapter(new Chapter(origin.getName(),
+                              entries[index], origin));
                }
                else
                {
@@ -1672,8 +1674,8 @@ public final class Data
 
       private String[] getInternalDatabaseNames()
       {
-         return Arrays.stream(Settings
-               .getAvailableDatabasesAsArray())
+         return Arrays
+               .stream(Settings.getAvailableDatabasesAsArray())
                .map(database -> database.getName())
                .toArray(String[]::new);
       }
