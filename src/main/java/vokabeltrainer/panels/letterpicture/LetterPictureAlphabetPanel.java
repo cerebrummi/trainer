@@ -247,15 +247,7 @@ public class LetterPictureAlphabetPanel extends JPanel
 
    private void setWriting(String actionCommand)
    {
-      if (DRUCKSCHRIFT == actionCommand)
-      {
-         for (JTextComponent jtc : textFields)
-         {
-            jtc.setFont(Main.getHebrewFont(30));
-         }
-         cardLayout.show(keyboardPanel, DRUCKSCHRIFT);
-      }
-      else if (SCHREIBSCHRIFT == actionCommand)
+      if (SCHREIBSCHRIFT == actionCommand)
       {
          for (JTextComponent jtc : textFields)
          {
@@ -263,6 +255,14 @@ public class LetterPictureAlphabetPanel extends JPanel
          }
          cardLayout.show(keyboardPanel, SCHREIBSCHRIFT);
       }
+      else
+      {
+         for (JTextComponent jtc : textFields)
+         {
+            jtc.setFont(Main.getHebrewFont(30));
+         }
+         cardLayout.show(keyboardPanel, DRUCKSCHRIFT);
+      }  
    }
 
    public List<JTextComponent> getTextFields()
