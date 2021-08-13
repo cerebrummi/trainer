@@ -301,11 +301,16 @@ public class SettingsPanel extends BackgroundPanelTiled
       JLabel exportLabel = new JLabel("Export");
       exportLabel.setFont(Main.getGermanFont(30F));
       exportLabel.setForeground(ApplicationColors.getGold());
+      
+      JLabel exportExplanation = new JLabel(" Kein Export von internen Datenbanken möglich.");
+      exportExplanation.setFont(Main.getGermanFont(14F));
+      exportExplanation.setForeground(ApplicationColors.getGold());
 
       vertical.add(exportLabel);
       vertical.add(exportButton);
       vertical.add(exportSelectedButton);
       vertical.add(exportDatabaseButton);
+      vertical.add(exportExplanation);
 
       return vertical;
    }
