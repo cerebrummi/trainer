@@ -75,7 +75,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       tabbedPane.addTab("Einstellungen und Service", initSettingsTab());
       try
       {
-         tabbedPane.addTab("Lizenz", initImpressumTab());
+         tabbedPane.addTab("Info", initImpressumTab());
       }
       catch (IOException e1)
       {

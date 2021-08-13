@@ -33,7 +33,7 @@ public final class Main
    private static Font germanBoldFont;
    private static Font hebrewFont;
    private static Font hebrewHandwrittenFont;
-   private static String message = "Cerebrummi© bitte neu starten.\nFehler: ";
+   private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
 
    // -Dsun.java2d.uiScale=1
    
