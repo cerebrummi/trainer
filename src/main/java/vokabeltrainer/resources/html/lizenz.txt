@@ -1,56 +1,18 @@
-Lizenz
+Vokabeltrainer Cerebrummi Version 2.5
+
+© 2021 AdaAdama UG (haftungsbeschraenkt), Gustebiner Wende 4a, 17491 Greifswald.
 
 
-AdaAdama UG (haftungsbeschraenkt)
-Gustebiner Wende 4a
-17491 Greifswald
+Alle Rechte vorbehalten.
 
-cerebrummi@adaadama.com
+Produktentwicklung:
+AdaAdama UG (haftungsbeschraenkt), Greifswald.
 
-Steuernummer: 084/105/04821
-Handelsregister: Amtsgericht Stralsund, B 21350
-
+Programmentwicklung, Programmierung, Projektleitung, Konzeption und Screendesign:
+Birke Heeren
 
 
-Diese Lizenz gilt fuer den Vokabeltrainer "Cerebrummi Ivrit" in der Version 2.0 Jahr 2021. Der Quellcode fuer Cerebrummi Ivrit ist nicht verfuegbar. Diese Lizenzbestimmungen sind ein Vertrag zwischen Ihnen und der AdaAdama UG (haftungsbeschraenkt).
+Die Software und das digitalisierte Datenmaterial sind urheberrechtlich geschuetzt und duerfen grundsaetzlich nur privat genutzt werden.
+Insbesondere Vermietung, Tausch, Sendung, Vervielfaeltigung, Kopieren, Verarbeitung in elektronischen Systemen sind grundsaetzlich unzulaessig. Rueckfragen fuer Ausnahmen sind direkt an AdaAdama UG (haftungsbeschraenkt) zu richten.
+Alle Daten und Angaben wurden ueberprueft und getestet. Eine Garantie fuer technische Fehlerfreiheit oder fuer die Richtigkeit der gemachten Angaben wird nicht gegeben.
 
-Die Installation und Nutzung des Vokabeltrainer Cerebrummi Ivrit Version 2.0 Jahr 2021 wird zu Testzwecken "wie besehen" verschenkt, das Produkt selbst bleibt im Eigentum der AdaAdama UG (haftungsbeschraenkt). Es besteht kein Anrecht darauf, dass der Vokabeltrainer Cerebrummi Ivrit Version 2.0 Jahr 2021 funktioniert. Betriebssystem:
-Der Vokabeltrainer Cerebrummi Ivrit Version 2.0 Jahr 2021 funktioniert nur mit Windows 10, 64 bit.
-
-
-
-WENN SIE DIESE LIZENZBESTIMMUNGEN EINHALTEN, VERFUEGEN SIE UEBER DIE NACHFOLGEND AUFGEFUEHRTEN RECHTE:
-
-1.	RECHTE ZUR INSTALLATION UND NUTZUNG.
-Allgemein. Sie sind berechtigt, eine beliebige Anzahl von Kopien der Software Vokabeltrainer Cerebrummi Ivrit Version 2.0 Jahr 2021 zu verwenden. Der Test der Software endet am 31.12.2021 und kann danach nicht mehr verwendet werden.
-
-2.	DATEN.  
-Datenerfassung. Diese Software erhebt keine Daten ueber sie. Es werden keine Daten an die AdaAdama UG (haftungsbeschraenkt) gesendet. Die von Ihnen eingegeben Vokabeln werden auf Ihrem Computer gespeichert.
-
-3.	SERVICES. 
-Da die Installation und Nutzung der Software "wie besehen" verschenkt wird, stellen wir fuer diese moeglicherweise keine Supportleistungen zur Verfuegung. Wir freuen uns aber ueber konstruktive Rueckmeldungen, die geeignet sind das Produkt zu verbessern. Wenn Sie AdaAdama UG (haftungsbeschraenkt) Rueckmeldungen zur Software geben, berechtigen Sie AdaAdama UG (haftungsbeschraenkt), Ihr Feedback zu verwenden, an Dritte weiterzugeben und fuer kommerzielle Zwecke und in jeglicher Weise und fuer jeglichen Zweck zu nutzen, ohne dafuer Gebuehren zu berechnen.
-
-4.	GESAMTER VERTRAG. 
-Dieser Vertrag stellt den gesamten Vertrag ueber die Software dar.
-
-5.	GEWAEHRLEISTUNG.
-Die ordnungsgemaess lizenzierte Software ist eine Testsoftware. AdaAdama UG (haftungsbeschraenkt) erteilt keine vertragliche Garantie hinsichtlich der lizenzierten Software.
-
-6.	HAFTUNGSBESCHRAENKUNG. 
-Bei Vorsatz, grober Fahrlaessigkeit, Anspruechen nach dem Produkthaftungsgesetz sowie bei Verletzung von Leben, Koerper oder Gesundheit haftet AdaAdama UG (haftungsbeschraenkt) nach den gesetzlichen Bestimmungen.
-Vorbehaltlich der vorstehenden Klausel haftet AdaAdama UG (haftungsbeschraenkt) bei leichter Fahrlaessigkeit nur, wenn das Unternehmen eine wesentliche Vertragspflicht verletzt, deren Erfuellung die ordnungsgemaesse Durchfuehrung dieses Vertrages ueberhaupt erst ermoeglicht, deren Verletzung die Erreichung des Vertragszwecks gefaehrdet und auf deren Einhaltung eine Partei regelmaessig vertrauen darf (sog. "Kardinalpflichten"). In anderen Faellen leichter Fahrlaessigkeit haftet AdaAdama UG (haftungsbeschraenkt) nicht. Fehler in der Software sind keine Fahrlaessigkeit, da es sich um Testsoftware handelt.
-
-7.	AUSSCHLUSS VON GARANTIEN. 
-Die Software wird "wie besehen" lizenziert. Sie tragen das mit der Installation und Nutzung verbundene Risiko. AdaAdama UG (haftungsbeschraenkt) gewaehrt keine ausdruecklichen Gewaehrleistungen oder Garantien. In dem nach ihrem oertlich anwendbaren Recht zulaessigen Umfang schliesst AdaAdama UG (haftungsbeschraenkt) konkludente Garantien der Handelsueblichkeit, Eignung fuer einen bestimmten Zweck und Nichtverletzung von Rechten Dritter aus.
-
-8.	BESCHRAENKUNG UND AUSSCHLUSS VON SCHADENERSATZ. 
-Sie koennen von AdaAdama UG (haftungsbeschraenkt) keinen Ersatz fuer direkte Schaeden erhalten. Sie koennen keinen Ersatz fuer andere Schaeden erhalten, einschliesslich Folgeschaeden, Schaeden aus entgangenem Gewinn, spezielle, indirekte oder zufaellige Schaeden.
-Diese Einschraenkung gilt fuer 
-(a) jeden Gegenstand im Zusammenhang mit der Software, Diensten, Inhalten (einschliesslich Code) 
-(b) Ansprueche aus Vertragsverletzungen, Verletzungen der Garantie oder der Gewaehrleistung, verschuldensunabhaengiger Haftung, Fahrlaessigkeit oder anderen unerlaubten Handlungen im durch das anwendbare Recht zugelassenen Umfang.
-Sie hat auch dann Gueltigkeit, wenn AdaAdama UG (haftungsbeschraenkt) von der Moeglichkeit der Schaeden gewusst hat oder haette wissen muessen.
-
-9.	GUELTIGKEIT.
-Sollte eine Bestimmung dieser Lizenz rechtlich ungueltig sein, dann behaelt der Rest der Lizenz seine Gueltigkeit.
-
-Greifswald, den 08.07.2021
