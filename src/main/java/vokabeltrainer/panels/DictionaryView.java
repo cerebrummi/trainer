@@ -524,25 +524,29 @@ public class DictionaryView extends BackgroundPanelTiled
       trashPanel.setMinimumSize(new Dimension(300, 100));
       trashPanel.setMaximumSize(new Dimension(600, 120));
 
-      JPanel trashIconPanel = new JPanel(new GridLayout(1, 2));
+      JPanel trashIconPanel = new JPanel(new GridLayout(3, 2));
       trashIconPanel.setOpaque(false);
 
       wasteBinButton = new JButton(
             new ImageIcon(ApplicationImages.getTrashcan()));
-      wasteBinButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
-      wasteBinButton.setBorderPainted(false);
+      wasteBinButton.setBorder(BorderFactory.createLineBorder(ApplicationColors.getGreen(), 2));
+      wasteBinButton.setBorderPainted(true);
       wasteBinButton.setContentAreaFilled(false);
       wasteBinButton.setFocusPainted(false);
 
       shredderButton = new JButton(
             new ImageIcon(ApplicationImages.getShredder()));
-      shredderButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 2));
-      shredderButton.setBorderPainted(false);
+      shredderButton.setBorder(BorderFactory.createLineBorder(ApplicationColors.getDarkRed(), 2));
+      shredderButton.setBorderPainted(true);
       shredderButton.setContentAreaFilled(false);
       shredderButton.setFocusPainted(false);
 
+      trashIconPanel.add(new JPanel());
+      trashIconPanel.add(new JPanel());
       trashIconPanel.add(wasteBinButton);
       trashIconPanel.add(shredderButton);
+      trashIconPanel.add(new JPanel());
+      trashIconPanel.add(new JPanel());
 
       trashPanel.add(trashIconPanel);
       
