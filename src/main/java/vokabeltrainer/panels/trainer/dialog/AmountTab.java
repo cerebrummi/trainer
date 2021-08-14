@@ -26,7 +26,7 @@ public class AmountTab extends BackgroundPanelTiled
    {
       setLayout(new BorderLayout());
 
-      JLabel question = new JLabel("Wieviele neue Wörter möchten Sie lernen?");
+      JLabel question = new JLabel("Wie viele neue Wörter möchten Sie lernen?");
       question.setFont(Settings.getButtonFont());
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));

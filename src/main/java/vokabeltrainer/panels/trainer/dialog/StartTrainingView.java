@@ -31,7 +31,7 @@ public class StartTrainingView extends JDialog
 
    public StartTrainingView(StartTrainingControllerConnector connector)
    {
-      super(Common.getjFrame(), "Cerebrummi©",
+      super(Common.getjFrame(), "Cerebrummi",
             Dialog.ModalityType.APPLICATION_MODAL);
 
       training = false;

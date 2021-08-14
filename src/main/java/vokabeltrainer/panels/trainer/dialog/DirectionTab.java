@@ -94,7 +94,7 @@ public class DirectionTab extends BackgroundPanelTiled
       nextButton.addActionListener(event -> {
          if (dialog.getTabbedPane().getTabCount() == 2)
          {
-            dialog.getTabbedPane().addTab("WIEVIELE",
+            dialog.getTabbedPane().addTab("WIE VIELE",
                   new ImageIcon(ApplicationImages.getArrow()),
                   new AmountTab(dialog));
          }
