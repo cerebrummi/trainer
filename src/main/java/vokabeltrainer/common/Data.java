@@ -77,7 +77,7 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 public final class Data
 {
    private static final AtomicBoolean databaseInUse = new AtomicBoolean(false);
-   private static UUID uuidDataBaseLock;
+   private static volatile UUID uuidDataBaseLock;
    private static DataBase database;
 
    private Data()
