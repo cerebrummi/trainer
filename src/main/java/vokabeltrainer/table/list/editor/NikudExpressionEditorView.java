@@ -904,6 +904,7 @@ public class NikudExpressionEditorView extends JDialog
          grammaticalPersonBox.setSelectedIndex(0);
          numerusBox.setSelectedIndex(0);
          verbTimesBox.setSelectedIndex(0);
+         extraInfo.setText("");
       }
       else
       {
