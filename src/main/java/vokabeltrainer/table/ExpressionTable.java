@@ -5,8 +5,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
@@ -77,25 +78,19 @@ public class ExpressionTable extends JTable
 
    public String getTableDataToString()
    {
-      StringJoiner joiner = new StringJoiner("\n");
-      for (Expression[] expressionArray : model.getTableData())
-      {
-         joiner.add(expressionArray[0].getCopyLines(language));
-      }
-      return joiner.toString();
+      return Arrays.stream(model.getTableData())
+         .filter(expressionArray -> expressionArray[0].isDoChange())
+         .map(expressionArray -> expressionArray[0].getCopyLines(language))
+         .collect(Collectors.joining("\n"));
    }
 
    public String getSelectedTableDataToString()
    {
-      StringJoiner joiner = new StringJoiner("\n");
-      for (Expression[] expressionArray : model.getTableData())
-      {
-         if (expressionArray[0].isSelected())
-         {
-            joiner.add(expressionArray[0].getCopyLines(language));
-         }
-      }
-      return joiner.toString();
+      return Arrays.stream(model.getTableData())
+            .filter(expressionArray -> expressionArray[0].isDoChange())
+            .filter(expressionArray -> expressionArray[0].isSelected())
+            .map(expressionArray -> expressionArray[0].getCopyLines(language))
+            .collect(Collectors.joining("\n"));
    }
 
    public void clearTableDataSelection()

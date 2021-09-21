@@ -1247,6 +1247,7 @@ public final class Data
                .values()
                .stream()
                .filter(expression -> expression.isSelected())
+               .filter(expression -> expression.isDoChange())
                .sorted(new ExpressionComparator(language))
                .map(expression -> expression.getCopyLines(language))
                .collect(Collectors.joining("\n\n"));

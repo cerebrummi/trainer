@@ -10,11 +10,13 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.DictionaryView;
@@ -98,11 +100,9 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void copyAllSelectedExpressions()
    {
-      Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-      clipboard.setContents(
-            new StringSelection(Data.getAllSelectedExpressionsAsString(
-                  dictionaryView.getSelectedLanguage())),
-            null);
+      copyStringToClipboard(Data
+            .getAllSelectedExpressionsAsString(
+                  dictionaryView.getSelectedLanguage()));
    }
 
    @Override
@@ -110,10 +110,7 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       if (dictionaryView.isTableNotNull())
       {
-         StringSelection stringSelection = new StringSelection(
-               dictionaryView.getTableDataToString());
-         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-         clipboard.setContents(stringSelection, null);
+         copyStringToClipboard(dictionaryView.getTableDataToString());
       }
    }
 
@@ -122,11 +119,29 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       if (dictionaryView.isTableNotNull())
       {
-         StringSelection stringSelection = new StringSelection(
-               dictionaryView.getSelectedTableDataToString());
-         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-         clipboard.setContents(stringSelection, null);
+         copyStringToClipboard(dictionaryView.getSelectedTableDataToString());
       }
+   }
+
+   private void copyStringToClipboard(String stringToCopy)
+   {
+      if (checkIfAnythingToCopyWithMessageIfNot(stringToCopy))
+      {
+         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+         clipboard.setContents(new StringSelection(stringToCopy), null);
+      }
+   }
+
+   private boolean checkIfAnythingToCopyWithMessageIfNot(String stringToCopy)
+   {
+      if (stringToCopy.isBlank())
+      {
+         JOptionPane
+               .showMessageDialog(Common.getjFrame(),
+                     "Nur selbst eingegebene Vokabeln\nkönnen kopiert werden.");
+         return false;
+      }
+      return true;
    }
 
    @Override
@@ -285,7 +300,7 @@ public class DictionaryController implements DictionaryControllerConnector
             Status status = Status.pop();
             vokabeltrainer.panels.dictionary.Command commando = Interaction
                   .getCommand(new Interaction(action, status));
-            
+
             if (commando == null)
             {
                dictionaryView.displayNoTable();
@@ -310,9 +325,10 @@ public class DictionaryController implements DictionaryControllerConnector
                   break;
                case TABLE_CHAPTER_WHICH:
                   dictionaryView.clearTable();
-                  tableModel = Data.findTranslations(
-                        dictionaryView.getSelectedLanguage(), null, null, null,
-                        currentChapter, null, dictionaryView.getSortNow());
+                  tableModel = Data
+                        .findTranslations(dictionaryView.getSelectedLanguage(),
+                              null, null, null, currentChapter, null,
+                              dictionaryView.getSortNow());
                   dictionaryView.removeChapterListSelectionListener();
                   dictionaryView.selectChapter(currentChapter);
                   dictionaryView.addChapterListSelectionListener();
@@ -323,34 +339,35 @@ public class DictionaryController implements DictionaryControllerConnector
                         .getSelectedExpressionKind();
                   if (expressionKind != null)
                   {
-                     tableModel = Data.findTranslations(
-                           dictionaryView.getSelectedLanguage(), null,
-                           expressionKind, null, null, null,
-                           dictionaryView.getSortNow());
+                     tableModel = Data
+                           .findTranslations(
+                                 dictionaryView.getSelectedLanguage(), null,
+                                 expressionKind, null, null, null,
+                                 dictionaryView.getSortNow());
                   }
                   break;
                case TABLE_SEARCH_WHICH_GERMAN:
                   dictionaryView.clearTable();
-                  tableModel = Data.findTranslations(
-                        dictionaryView.getSelectedLanguage(),
-                        dictionaryView.getSearchPhraseGerman(), null,
-                        dictionaryView.getSelectedSearchTypeGerman(), null,
-                        null, dictionaryView.getSortNow());
+                  tableModel = Data
+                        .findTranslations(dictionaryView.getSelectedLanguage(),
+                              dictionaryView.getSearchPhraseGerman(), null,
+                              dictionaryView.getSelectedSearchTypeGerman(),
+                              null, null, dictionaryView.getSortNow());
                   break;
                case TABLE_SEARCH_WHICH_HEBREW:
                   dictionaryView.clearTable();
-                  tableModel = Data.findTranslations(
-                        dictionaryView.getSelectedLanguage(),
-                        dictionaryView.getSearchPhraseHebrew(), null,
-                        dictionaryView.getSelectedSearchTypeHebrew(), null,
-                        null, dictionaryView.getSortNow());
+                  tableModel = Data
+                        .findTranslations(dictionaryView.getSelectedLanguage(),
+                              dictionaryView.getSearchPhraseHebrew(), null,
+                              dictionaryView.getSelectedSearchTypeHebrew(),
+                              null, null, dictionaryView.getSortNow());
                   break;
                case TABLE_SELECTED_EXPRESSIONS:
                   dictionaryView.clearTable();
-                  tableModel = Data.findTranslations(
-                        dictionaryView.getSelectedLanguage(), null, null, null,
-                        null, Command.ALL_SELECTED,
-                        dictionaryView.getSortNow());
+                  tableModel = Data
+                        .findTranslations(dictionaryView.getSelectedLanguage(),
+                              null, null, null, null, Command.ALL_SELECTED,
+                              dictionaryView.getSortNow());
                }
             }
 
@@ -415,5 +432,5 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       Status.push(Status.peek());
       decideOnTableInteraction(Action.OPENED_PAGE);
-   }  
+   }
 }
