@@ -24,7 +24,7 @@ public enum SearchType
          switch (this)
          {
          case SEARCHWORD:
-            return meaning + " (mit Punktierung)";
+            return meaning + " (ohne Punktierung)";
          case WORDSTART:
             return meaning + " (ohne Punktierung)";
          }

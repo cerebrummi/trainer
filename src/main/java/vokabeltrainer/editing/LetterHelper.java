@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import vokabeltrainer.types.Expression;
 
 public class LetterHelper
 {
@@ -55,10 +58,11 @@ public class LetterHelper
       List<NikudLetter> hebrewLetters = new ArrayList<>();
       for (String code : letterCodes)
       {
-         Letter hebrewLetter = LetterHelper.getLetterFromCode(code, LetterType.HEBREW);
+         Letter hebrewLetter = LetterHelper
+               .getLetterFromCode(code, LetterType.HEBREW);
          if (hebrewLetter != null && hebrewLetter instanceof NikudLetter)
          {
-            hebrewLetters.add((NikudLetter)hebrewLetter);
+            hebrewLetters.add((NikudLetter) hebrewLetter);
          }
       }
       return hebrewLetters;
@@ -139,7 +143,24 @@ public class LetterHelper
          }
       }
 
-      return analysisList;
+      LinkedList<LetterForAnalysis> analysisListWithoutDoubleSpace = new LinkedList<>();
+
+      for (int i = 0; i < analysisList.size(); i++)
+      {
+         if (i > 0 && NikudLetter.SPACE == analysisList.get(i).getContent()
+               && NikudLetter.SPACE == analysisListWithoutDoubleSpace
+                     .get(i - 1)
+                     .getContent())
+         {
+            // nothing
+         }
+         else
+         {
+            analysisListWithoutDoubleSpace.add(analysisList.get(i));
+         }
+      }
+
+      return analysisListWithoutDoubleSpace;
    }
 
    public static boolean areLettersEqual(LetterForAnalysis one,
@@ -170,6 +191,16 @@ public class LetterHelper
          }
       }
       return LetterHelper.makeWordFromCodes(nikudCodeList);
+   }
+
+   public static List<List<LetterForAnalysis>> findListofNikudLetterForAnalysisListsHebrewSearchwords(
+         Expression expression)
+   {
+      return expression
+            .getSearchwordsHebrew()
+            .stream()
+            .map(word -> findNikudLetterForAnalysisList(word))
+            .collect(Collectors.toList());
    }
 
 }

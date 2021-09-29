@@ -1096,10 +1096,25 @@ public final class Data
       {
          final String trimmedText = text.trim();
 
-         return expression
-               .getSearchwordsHebrew()
-               .stream()
-               .anyMatch(word -> word.equals(trimmedText));
+         List<LetterForAnalysis> textList = LetterHelper
+               .findNikudLetterForAnalysisList(trimmedText);
+         
+         List<List<LetterForAnalysis>> searchWordListofLists = LetterHelper.
+               findListofNikudLetterForAnalysisListsHebrewSearchwords(expression);
+         
+         return searchWordListofLists.stream()
+         .filter(searchWordList -> textList.size() == searchWordList.size())
+         .filter(searchWordList -> allLettersMatchingInEqualSizedLists(searchWordList, textList))
+         .findAny().isPresent();
+      }
+
+      private boolean allLettersMatchingInEqualSizedLists(List<LetterForAnalysis> list1,
+            List<LetterForAnalysis> list2)
+      {
+         return IntStream
+               .range(0, list1.size())
+               .allMatch((i) -> LetterForAnalysis
+                     .isEqual(list1.get(i), list2.get(i)));
       }
 
       private boolean equalsHebrewWordStart(String text, Expression expression)
@@ -1117,10 +1132,8 @@ public final class Data
             {
                return false;
             }
-            return IntStream
-                  .range(0, textList.size())
-                  .allMatch((i) -> LetterForAnalysis
-                        .isEqual(textList.get(i), expressionList.get(i)));
+            
+            return allLettersMatchingInEqualSizedLists(textList,expressionList);
          }
 
          List<LetterForAnalysis> expressionListPlene = LetterHelper
