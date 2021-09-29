@@ -154,6 +154,11 @@ public class LetterHelper
          {
             // nothing
          }
+         else if (i == analysisList.size() - 1
+               && NikudLetter.SPACE == analysisList.get(i).getContent())
+         {
+            // nothing
+         }
          else
          {
             analysisListWithoutDoubleSpace.add(analysisList.get(i));
