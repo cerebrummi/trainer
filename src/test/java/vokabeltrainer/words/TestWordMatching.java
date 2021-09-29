@@ -85,7 +85,10 @@ public class TestWordMatching
    
    String wordDic25 = "נעי מות"; 
    String wordTest25 = "נעימות"; // space missing
-
+   
+   String wordDic26 = "אִישׁ ... רֵעֵהוּ";
+   String wordTest26 = "איש ... רעהו";
+   
    String[] wordTest4Array = { "HAEI", "TET", "JOD", "SSAMECH", "NEWSPACE",
          "BET", "JOD", "NUN", "WAW", "NEWSPACE", "BET" };
    List<String> wordTest4List = new LinkedList<String>(
@@ -211,6 +214,9 @@ public class TestWordMatching
    
    String[] wordTest25Array = { "TAW", "WAW", "MEM", "SPACE", "JOD", "AIN", "NUN" };
    List<String> wordTest25List = new LinkedList<>(Arrays.asList(wordTest25Array));
+   
+   String[] wordTest26Array= {"WAW", "HAEI", "AIN", "RESCH", "SPACE", "SPACE", "SCHIN", "JOD", "ALEF"};
+   List<String> wordTest26List = new LinkedList<>(Arrays.asList(wordTest26Array));
 
    @Test
    public void testMatchHebrew_Okay()
@@ -254,6 +260,39 @@ public class TestWordMatching
       Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
             wordTest2, new Font(null), SelectionHebrewType.SIMPLE);
       assertFalse(result.isOkay());
+   }
+   
+   @Test
+   public void testMatchHebrew_Okay4()
+   {
+      Expression expressionDic = new Expression(true);
+      expressionDic.getHebrew().setHebrew(wordDic26);
+      Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+            wordTest26, new Font(null), SelectionHebrewType.SIMPLE);
+      assertTrue(result.isOkay());
+   }
+   
+   @Test
+   public void testMatchHebrew_Correct_Alignment1()
+   {
+      System.out.println("");
+      System.out.println("testMatchHebrew_Correct_Alignment1");
+      Expression expressionDic = new Expression(true);
+      expressionDic.getHebrew().setHebrew(wordDic26);
+      Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+            wordTest26, new Font(null), SelectionHebrewType.SIMPLE);
+
+      List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
+      List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
+      System.out.print("test26   ");
+      System.out.println(wordTest26List);
+      System.out.print("test neu ");
+      System.out.println(wordTesting);
+      System.out.print("dic neu  ");
+      System.out.println(dicTesting);
+      assertFalse(result.isAnswerEmpty());
+      assertFalse(result.isDictionaryEmpty());
+      assertTrue(wordTest26List.equals(wordTesting));
    }
 
    @Test

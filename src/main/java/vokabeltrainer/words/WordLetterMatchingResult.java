@@ -50,6 +50,10 @@ public class WordLetterMatchingResult
 
    public void setCompletelyFalse(boolean completelyFalse)
    {
+      if(completelyFalse)
+      {
+         this.okay = false;
+      }
       this.completelyFalse = completelyFalse;
    }
 
@@ -60,6 +64,10 @@ public class WordLetterMatchingResult
 
    public void setPartlyFalse(boolean partlyFalse)
    {
+      if(partlyFalse)
+      {
+         this.okay = false;
+      }
       this.partlyFalse = partlyFalse;
    }
 

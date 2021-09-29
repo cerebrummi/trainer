@@ -21,23 +21,33 @@ public class WordLetterMatching
          LinkedList<LetterForAnalysis> dictionary,
          LinkedList<LetterForAnalysis> answer)
    {
-      final NikudLetter NEWSPACE = NikudLetter.NEWSPACE;
-      
       WordLetterMatchingResult result = new WordLetterMatchingResult();
-
-      result.setSimilarity(calculateSamenessPunish(dictionary, answer));
-
+      
       if (answer.isEmpty())
       {
          result.setAnswerEmpty(true);
-         return result;
       }
 
       if (dictionary.isEmpty())
       {
          result.setDictionaryEmpty(true);
+      }
+      
+      if (answer.isEmpty() && dictionary.isEmpty())
+      {
+         result.setOkay(true);
          return result;
       }
+      
+      if (answer.isEmpty() || dictionary.isEmpty())
+      {
+         result.setCompletelyFalse(true);
+         return result;
+      }
+          
+      final NikudLetter NEWSPACE = NikudLetter.NEWSPACE;
+
+      result.setSimilarity(calculateSamenessPunish(dictionary, answer));
 
       int sizeDic = dictionary.size();
       int sizeTest = answer.size();
