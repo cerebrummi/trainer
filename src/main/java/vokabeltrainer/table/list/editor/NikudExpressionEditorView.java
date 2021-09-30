@@ -339,8 +339,8 @@ public class NikudExpressionEditorView extends JDialog
 
       databaseNameField = new JComboBox<>();
       databaseNameField.setFont(Settings.getButtonFont());
-      databaseNameField.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      databaseNameField.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      databaseNameField.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
+      databaseNameField.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       databaseNameField.setBorder(new TitledBorder("Datenbank"));
       databaseNameField.setEditable(true);
       databaseNameField.setMaximumRowCount(20);
