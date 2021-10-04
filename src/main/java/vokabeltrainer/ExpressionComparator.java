@@ -35,26 +35,26 @@ public class ExpressionComparator implements Comparator<Expression>
          return o2.getLastModified().compareTo(o1.getLastModified());
       case INDEX:
          int o1Int, o2Int;
-         
+
          try
          {
             o1Int = Integer.valueOf(o1.getSortingIndex());
             o2Int = Integer.valueOf(o2.getSortingIndex());
-            if(o1Int > o2Int)
+            if (o1Int > o2Int)
             {
                return 1;
             }
-            else if(o1Int < o2Int)
+            else if (o1Int < o2Int)
             {
                return -1;
             }
             return 0;
          }
-         catch(Exception e)
+         catch (Exception e)
          {
             // nothing
          }
-         
+
          Collator coll = Collator.getInstance(Locale.GERMAN);
          coll.setStrength(Collator.PRIMARY);
          return coll.compare(o1.getSortingIndex(), o2.getSortingIndex());
@@ -67,7 +67,10 @@ public class ExpressionComparator implements Comparator<Expression>
          }
          else
          {
-            return o1.getHebrew().getHebrew().compareTo(o2.getHebrew().getHebrew());
+            return o1
+                  .getHebrew()
+                  .getHebrewNoMatterWhichKind()
+                  .compareTo(o2.getHebrew().getHebrewNoMatterWhichKind());
          }
       }
    }

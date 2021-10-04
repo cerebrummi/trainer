@@ -55,6 +55,16 @@ public class Hebrew
    {
       return hebrew;
    }
+   
+   public String getHebrewNoMatterWhichKind()
+   {
+      if(simpleHebrew)
+      {
+         return hebrew;
+      }
+      
+      return hebrewPlene + " | " + hebrewDefektiv;
+   }
 
    public void setHebrew(String hebrew)
    {
