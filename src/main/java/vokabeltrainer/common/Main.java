@@ -18,6 +18,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.CerebrummiPreferences;
+import vokabeltrainer.Settings;
 import vokabeltrainer.resources.Blue;
 import vokabeltrainer.resources.Buchstabenbilder;
 import vokabeltrainer.resources.Fonts;
@@ -36,17 +37,18 @@ public final class Main
    private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
 
    // -Dsun.java2d.uiScale=1
-   
+
    public static void main(String[] args)
-   {     
+   {
       try
       {
          Fonts.read();
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null, message + "Schriftarten fehlen",
-               "Nachricht", JOptionPane.CLOSED_OPTION);
+         JOptionPane
+               .showMessageDialog(null, message + "Schriftarten fehlen",
+                     "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
 
@@ -56,44 +58,47 @@ public final class Main
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null, message + "Bilder fehlen",
-               "Nachricht", JOptionPane.CLOSED_OPTION);
+         JOptionPane
+               .showMessageDialog(null, message + "Bilder fehlen", "Nachricht",
+                     JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-      
+
       try
       {
          LetterIcons.readNikud();
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null,
-               message + "Buchstaben Nikud Icons fehlen", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
+         JOptionPane
+               .showMessageDialog(null,
+                     message + "Buchstaben Nikud Icons fehlen", "Nachricht",
+                     JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-      
+
       try
       {
          LetterIconsHandwritten.readNikud();
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null,
-               message + "Buchstaben Nikud Handwritten Icons fehlen", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
+         JOptionPane
+               .showMessageDialog(null,
+                     message + "Buchstaben Nikud Handwritten Icons fehlen",
+                     "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-      
+
       try
       {
          Buchstabenbilder.read();
       }
       catch (Exception e)
       {
-         JOptionPane.showMessageDialog(null,
-               message + "Buchstabenbilder fehlen", "Nachricht",
-               JOptionPane.CLOSED_OPTION);
+         JOptionPane
+               .showMessageDialog(null, message + "Buchstabenbilder fehlen",
+                     "Nachricht", JOptionPane.CLOSED_OPTION);
          e.printStackTrace();
          System.exit(1);
       }
@@ -104,27 +109,30 @@ public final class Main
       }
       catch (Exception e1)
       {
-         JOptionPane.showMessageDialog(null, message + "Geräusche fehlen",
-               "Nachricht", JOptionPane.CLOSED_OPTION);
+         JOptionPane
+               .showMessageDialog(null, message + "Geräusche fehlen",
+                     "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
 
       CerebrummiPreferences.read();
-      
+
       Data.initDataBase();
 
       try
       {
          NimbusLookAndFeel nimbus = new NimbusLookAndFeel();
          UIManager.setLookAndFeel(nimbus);
-         UIManager.put("control", ApplicationColors.getTexturedBackgroundColor());
+         UIManager
+               .put("control", ApplicationColors.getTexturedBackgroundColor());
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
          UIManager.put("nimbusBase", ApplicationColors.getDarkGold());
          UIManager.put("textForeground", Color.BLACK);
          UIManager.put("nimbusFocus", new Color(255, 220, 35));
-         UIManager.put("ToolBar:Button.contentMargins",
-               new Insets(5, 15, 5, 15));
-         UIManager.put("TextField.background", ApplicationColors.getLightYellow());
+         UIManager
+               .put("ToolBar:Button.contentMargins", new Insets(5, 15, 5, 15));
+         UIManager
+               .put("TextField.background", ApplicationColors.getLightYellow());
          UIManager.put("ComboBox.forceOpaque", false);
          UIManager.put("TitledBorder.border", new Insets(10, 10, 10, 10));
          UIManager.put("TitledBorder.position", TitledBorder.ABOVE_BOTTOM);
@@ -137,18 +145,28 @@ public final class Main
          UIManager.put("FileChooser.openButtonText", "Öffnen");
          UIManager.put("FileChooser.cancelButtonText", "Abbrechen");
          UIManager.put("FileChooser.saveButtonText", "Speichern");
-         UIManager.put("FileChooser.cancelButtonToolTipText", "Abbrechen der Auswahl");
-         UIManager.put("FileChooser.saveButtonToolTipText", "Ausgewählte Datei speichern");
-         UIManager.put("FileChooser.openButtonToolTipText", "Ausgewählte Datei öffnen");
+         UIManager
+               .put("FileChooser.cancelButtonToolTipText",
+                     "Abbrechen der Auswahl");
+         UIManager
+               .put("FileChooser.saveButtonToolTipText",
+                     "Ausgewählte Datei speichern");
+         UIManager
+               .put("FileChooser.openButtonToolTipText",
+                     "Ausgewählte Datei öffnen");
          UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene höher");
          UIManager.put("FileChooser.homeFolderToolTipText", "Home");
-         UIManager.put("FileChooser.newFolderToolTipText", "Neuen Ordner erstellen");
+         UIManager
+               .put("FileChooser.newFolderToolTipText",
+                     "Neuen Ordner erstellen");
          UIManager.put("FileChooser.listViewButtonToolTipText", "Liste");
          UIManager.put("FileChooser.detailsViewButtonToolTipText", "Details");
          UIManager.put("FileChooser.lookInLabelText", "Suchen in:");
          UIManager.put("FileChooser.fileNameLabelText", "Dateiname:");
          UIManager.put("FileChooser.filesOfTypeLabelText", "Dateityp:");
-         UIManager.put("FileChooser.acceptAllFileFilterText", "Alle Dateien (*.*)");
+         UIManager
+               .put("FileChooser.acceptAllFileFilterText",
+                     "Alle Dateien (*.*)");
          UIManager.put("FileChooser.folderNameLabelText", "Ordnername:");
          UIManager.put("FileChooser.openDialogTitleText", "Öffnen");
          UIManager.put("FileChooser.saveDialogTitleText", "Speichern");
@@ -163,19 +181,23 @@ public final class Main
          window.setResizable(true);
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
-         window.setTitle(
-               "Vokabeltrainer Cerebrummi Version 2.5");
+         window
+               .setTitle("Vokabeltrainer Cerebrummi Version "
+                     + Settings.getVersion());
          window.setFont(germanFont.deriveFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
          ToolTipManager.sharedInstance().setInitialDelay(1000);
-         vokabeltrainer.common.Common.setMainJPanel(
-               new vokabeltrainer.common.MainController().getMainView());
-         window.getContentPane()
-               .add(new JScrollPane(vokabeltrainer.common.Common.getMainJPanel()));
+         vokabeltrainer.common.Common
+               .setMainJPanel(
+                     new vokabeltrainer.common.MainController().getMainView());
+         window
+               .getContentPane()
+               .add(new JScrollPane(
+                     vokabeltrainer.common.Common.getMainJPanel()));
          window.setJMenuBar(Common.getMainJPanel().getMenuBar());
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-         window.setSize(new Dimension(1600,950));
-//         window.setExtendedState(JFrame. MAXIMIZED_BOTH);
+         window.setSize(new Dimension(1600, 950));
+         // window.setExtendedState(JFrame. MAXIMIZED_BOTH);
          window.setLocationRelativeTo(null);
          window.setVisible(true);
       });
@@ -192,9 +214,9 @@ public final class Main
             }
             catch (Exception e)
             {
-               JOptionPane.showMessageDialog(null,
-                     message + "Blaue Bilder fehlen", "Nachricht",
-                     JOptionPane.CLOSED_OPTION);
+               JOptionPane
+                     .showMessageDialog(null, message + "Blaue Bilder fehlen",
+                           "Nachricht", JOptionPane.CLOSED_OPTION);
                System.exit(1);
             }
 
@@ -204,9 +226,9 @@ public final class Main
             }
             catch (Exception e)
             {
-               JOptionPane.showMessageDialog(null,
-                     message + "Grüne Bilder fehlen", "Nachricht",
-                     JOptionPane.CLOSED_OPTION);
+               JOptionPane
+                     .showMessageDialog(null, message + "Grüne Bilder fehlen",
+                           "Nachricht", JOptionPane.CLOSED_OPTION);
                System.exit(1);
             }
             return null;

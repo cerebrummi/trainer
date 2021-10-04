@@ -25,6 +25,7 @@ public class Settings
    private static float volume = -20;
    private static boolean letterImagesOn = true;
    private static boolean simpleHebrewInput = true;
+   private static String version = "2.5";
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
@@ -34,6 +35,11 @@ public class Settings
 
    private Settings()
    {
+   }
+
+   public static String getVersion()
+   {
+      return version;
    }
 
    public static int dictionaryTableRowHeight()
