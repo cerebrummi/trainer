@@ -402,7 +402,7 @@ public class NikudExpressionEditorView extends JDialog
       binjanBoxPanel.add(binjanBox);
       binjanBoxPanel.setOpaque(false);
       binjanBoxPanel.setBackground(ApplicationColors.getTransparent());
-      binjanBoxPanel.setBorder(new TitledBorder("Binjan"));
+      binjanBoxPanel.setBorder(new TitledBorder("Binjan / Stamm"));
 
       genderBox = new JComboBox<>(Gender.values());
       genderBox.setFont(Main.getGermanFont(14F));

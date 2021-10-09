@@ -9,19 +9,19 @@ public enum Binjan
    BINJAN_UNKNOWN(
          "unbekannt"),
    PAAL(
-         "pa'al"),
-   PIEL(
-         "pi'el"),
-   HIFIL(
-         "hif'il"),
-   HITPAEL(
-         "hitpa'el"),
-   HUFAL(
-         "huf'al"),
-   PUAL(
-         "pu'al"),
+         "pa'al / qal"),
    NIFAL(
          "nif'al"),
+   HIFIL(
+         "hif'il"),
+   HUFAL(
+         "huf'al / hofal"),
+   PIEL(
+         "pi'el"),
+   PUAL(
+         "pu'al"),
+   HITPAEL(
+         "hitpa'el"),
    BINJAN_NA(
          "nicht anwendbar");
 

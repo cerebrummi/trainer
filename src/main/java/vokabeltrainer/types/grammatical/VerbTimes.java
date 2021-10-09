@@ -1,12 +1,17 @@
 package vokabeltrainer.types.grammatical;
 
-public enum VerbTimes implements GrammaticalEnum
+public enum VerbTimes
+      implements
+      GrammaticalEnum
 {
    PLEASE_CHOOSE(
          "bitte wählen"),
    VERBTIMES_UNKNOWN(
          "unbekannt"),
-   ROOT("Wurzel"),
+   ROOT(
+         "Wurzel"),
+   BASIC(
+         "Grundform"),
    INFINITIVE(
          "Infinitiv"),
    PAST(
@@ -57,7 +62,7 @@ public enum VerbTimes implements GrammaticalEnum
          return "";
       }
    }
-   
+
    @Override
    public VerbTimes fromEnumName(String name)
    {
@@ -90,7 +95,7 @@ public enum VerbTimes implements GrammaticalEnum
    {
       return GrammaticalParentEnum.VERB_TIMES;
    }
-   
+
    @Override
    public int getPrintOrderNumber()
    {
