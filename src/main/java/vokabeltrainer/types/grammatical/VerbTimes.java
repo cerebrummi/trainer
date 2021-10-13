@@ -54,6 +54,7 @@ public enum VerbTimes
       case PAST_PARTICIPLE:
       case PRESENT:
       case ROOT:
+      case BASIC:
          return description;
       case VERBTIMES_UNKNOWN:
          return "Verbconjugation " + description;
@@ -82,6 +83,7 @@ public enum VerbTimes
       case PAST_PARTICIPLE:
       case PRESENT:
       case ROOT:
+      case BASIC:
          return description;
       case VERBTIMES_UNKNOWN:
       case VERBTIMES_NA:
