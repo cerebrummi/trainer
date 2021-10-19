@@ -1,4 +1,4 @@
-package vokabeltrainer.panels.settings.table.multiselect;
+package vokabeltrainer.panels.start.table.multiselect;
 
 import java.awt.Point;
 import java.awt.event.MouseAdapter;

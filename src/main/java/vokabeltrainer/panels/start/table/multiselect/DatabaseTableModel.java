@@ -1,4 +1,4 @@
-package vokabeltrainer.panels.settings.table.multiselect;
+package vokabeltrainer.panels.start.table.multiselect;
 
 import java.util.ArrayList;
 import java.util.List;

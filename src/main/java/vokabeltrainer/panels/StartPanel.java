@@ -17,7 +17,8 @@ import javax.swing.JScrollPane;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.panels.settings.table.multiselect.DatabaseTable;
+import vokabeltrainer.panels.start.table.multiselect.DatabaseTable;
+import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopy;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -31,8 +32,8 @@ public class StartPanel extends JPanel
    {
       setLayout(new BorderLayout());
 
-      JPanel center = new JPanel(new FlowLayout());
-      center.setOpaque(false);
+      JPanel north = new JPanel(new FlowLayout());
+      north.setOpaque(false);
       JPanel titlePanel = new JPanel();
       titlePanel.setLayout(new BoxLayout(titlePanel, 1));
       titlePanel.setOpaque(false);
@@ -58,9 +59,24 @@ public class StartPanel extends JPanel
       titlePanel.add(nameWrapper);
       titlePanel.add(trainerWrapper);
 
-      center.add(titlePanel);
-      add(center, BorderLayout.NORTH);
-      add(add(initDatabaseTablePanel()), BorderLayout.CENTER);
+      north.add(titlePanel);
+      add(north, BorderLayout.NORTH);
+      
+      JPanel centerWrapper = new JPanel();
+      centerWrapper.setOpaque(false);
+      centerWrapper.setBackground(ApplicationColors.getTransparent());
+      centerWrapper.setLayout(new BullsEyeLayout(centerWrapper));
+      
+      JPanel center = new JPanel();
+      center.setLayout(new TotemLayout(center, 15));
+      center.setOpaque(false);
+      center.setBackground(ApplicationColors.getTransparent());
+      center.add(initDatabaseTablePanel());
+      center.add(initCopyTablePanel());
+      
+      centerWrapper.add(center);
+      add(centerWrapper, BorderLayout.CENTER);
+      
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);
       horizontal.setLayout(new TrainLayout(horizontal));
@@ -101,10 +117,45 @@ public class StartPanel extends JPanel
             Chapter.Database.getModelAvailableDatabases(), 990);
 
       JScrollPane scroller = new JScrollPane(databaseTable);
-      scroller.setMinimumSize(new Dimension(990, 240));
-      scroller.setMaximumSize(new Dimension(990, 240));
+      scroller.setMinimumSize(new Dimension(990, 120));
+      scroller.setMaximumSize(new Dimension(990, 120));
 
-      JLabel databaseLabel2 = new JLabel(" interne Datenbank durch Doppelklick auswählen");
+      JLabel databaseLabel2 = new JLabel(" interne Datenbank durch Doppelklick SICHTBAR machen => Datensätze können NICHT editiert werden");
+      databaseLabel2.setFont(Main.getGermanFont(16F));
+      databaseLabel2.setForeground(ApplicationColors.getDarkGold());
+      
+      vertical.add(databaseLabel);
+      vertical.add(scroller);
+      vertical.add(databaseLabel2);
+      
+      center.add(vertical);
+
+      return center;
+   }
+   
+   private Component initCopyTablePanel()
+   {
+      JPanel center = new JPanel();
+      center.setLayout(new BullsEyeLayout(center));
+      center.setOpaque(false);
+      center.setBackground(ApplicationColors.getTransparent());
+      
+      JPanel vertical = new JPanel();
+      TotemLayout verticalLayout = new TotemLayout(vertical, 15);
+      vertical.setLayout(verticalLayout);
+
+      JLabel databaseLabel = new JLabel(" Datenbanken");
+      databaseLabel.setFont(Main.getGermanFont(30F));
+      databaseLabel.setForeground(ApplicationColors.getDarkGold());
+
+      DatabaseTableCopy databaseTable = new DatabaseTableCopy(
+            Chapter.Database.getModelCopyAvailableDatabases(), 990);
+
+      JScrollPane scroller = new JScrollPane(databaseTable);
+      scroller.setMinimumSize(new Dimension(990, 120));
+      scroller.setMaximumSize(new Dimension(990, 120));
+
+      JLabel databaseLabel2 = new JLabel(" interne Datenbank durch Doppelklick KOPIEREN => Datensätze können editiert werden");
       databaseLabel2.setFont(Main.getGermanFont(16F));
       databaseLabel2.setForeground(ApplicationColors.getDarkGold());
       

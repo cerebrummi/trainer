@@ -4,8 +4,10 @@ import java.text.Collator;
 import java.util.Locale;
 import java.util.Vector;
 
-import vokabeltrainer.panels.settings.table.multiselect.DatabaseTableModel;
-import vokabeltrainer.panels.settings.table.multiselect.DatabaseTableRow;
+import vokabeltrainer.panels.start.table.multiselect.DatabaseTableModel;
+import vokabeltrainer.panels.start.table.multiselect.DatabaseTableRow;
+import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopyModel;
+import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopyRow;
 
 public class Chapter implements Comparable<Chapter>
 {
@@ -201,6 +203,20 @@ public class Chapter implements Comparable<Chapter>
          Vector<String> columnNames = new Vector<>();
          columnNames.add("eins");
          return new DatabaseTableModel(data, columnNames);
+      }
+      
+      public static DatabaseTableCopyModel getModelCopyAvailableDatabases()
+      {
+         Vector<Vector<DatabaseTableCopyRow>> data = new Vector<>();
+         for (DatabaseItem item : DatabaseItem.getAllAvailableDatabaseItems())
+         {
+            Vector<DatabaseTableCopyRow> row = new Vector<>();
+            row.add(new DatabaseTableCopyRow(item));
+            data.add(row);
+         }
+         Vector<String> columnNames = new Vector<>();
+         columnNames.add("eins");
+         return new DatabaseTableCopyModel(data, columnNames);
       }
 
       public String getAuthors()

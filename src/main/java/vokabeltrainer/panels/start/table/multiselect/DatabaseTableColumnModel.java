@@ -1,4 +1,4 @@
-package vokabeltrainer.panels.settings.table.multiselect;
+package vokabeltrainer.panels.start.table.multiselect;
 
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
