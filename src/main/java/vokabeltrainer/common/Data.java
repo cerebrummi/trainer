@@ -312,6 +312,14 @@ public final class Data
       return getDataBaseAtomic().getInternalDatabasesComboBoxModel();
    }
 
+   public static void copyInternalDatabase(Database database,
+         boolean overwriteDatabaseName, String databaseName)
+   {
+      getDataBaseAtomic()
+            .copyInternalDatabase(database, overwriteDatabaseName,
+                  databaseName);
+   }
+
    // #########################################################
    // #########################################################
    // #########################################################
@@ -501,6 +509,15 @@ public final class Data
          return numberOfVocabulary;
       }
 
+      public void copyInternalDatabase(Database database,
+            boolean overwriteDatabaseName, String databaseName)
+      {
+         Stream
+               .of(LetterForSaving.values())
+               .forEach(letter -> readFileAvailable(letter, database,
+                     overwriteDatabaseName, databaseName));
+      }
+
       // #########################################################
       // ######################## import #########################
       // #########################################################
@@ -606,6 +623,36 @@ public final class Data
       }
 
       // #########################################################
+      // ############## copy available databases #################
+      // #########################################################
+      private void readFileAvailable(LetterForSaving letter, Database origin,
+            boolean overwriteDatabaseName, String databaseName)
+      {
+         try (InputStream fis = Vocabulary.class
+               .getResourceAsStream(
+                     origin.getFolder() + "/" + letter.name() + ".csv");
+               InputStreamReader isr = new InputStreamReader(fis,
+                     StandardCharsets.UTF_8);
+               Reader reader = new BufferedReader(isr);)
+         {
+            if (overwriteDatabaseName)
+            {
+               readData(letter.name() + ".csv", reader, Database.COPY, letter, true,
+                     databaseName, false);
+            }
+            else
+            {
+               readData(letter.name() + ".csv", reader, Database.COPY, letter, false,
+                     origin.getName() + " Kopie", false);
+            }
+         }
+         catch (IOException e)
+         {
+            // nothing
+         }
+      }
+
+      // #########################################################
       // ####################### regular #########################
       // #########################################################
       private ConcurrentMap<UUID, Expression> readFileRegular(String filename,
@@ -646,7 +693,8 @@ public final class Data
       // #########################################################
       private ConcurrentMap<UUID, Expression> readData(String filename,
             Reader reader, Database origin, Letter letter, boolean overwrite,
-            String databasename, boolean doNotChange) throws IOException
+            String databasename, boolean doNotChange)
+            throws IOException
       {
          StringBuffer buffer = new StringBuffer();
          String input;
@@ -688,13 +736,21 @@ public final class Data
                int index = 0;
                String[] entries = row.split("\t");
 
-               expression.setUuid(UUID.fromString(entries[index]));
+               if (Database.COPY == origin)
+               {
+                  expression.setUuid(UUID.randomUUID());
+               }
+               else
+               {
+                  expression.setUuid(UUID.fromString(entries[index]));
+               }
                if (alleMap.containsKey(expression.getUuid())
                      || map.containsKey(expression.getUuid()))
                {
                   expression.setUuid(UUID.randomUUID());
                }
                index++;
+
                Database database;
                try
                {
@@ -705,13 +761,21 @@ public final class Data
                   database = Database.UNKNOWN;
                }
                index++;
+               
                if (Database.IMPORTED == origin && databasename != null
                      && overwrite)
                {
                   index++;
                   expression
                         .setChapter(new Chapter(databasename, entries[index],
-                              origin));
+                              Database.SELF));
+               }
+               else if (Database.COPY == origin)
+               {
+                  index++;
+                  expression
+                        .setChapter(new Chapter(databasename, entries[index],
+                              Database.SELF));
                }
                else if (Settings.getAvailableDatabases().contains(origin))
                {
@@ -1098,18 +1162,23 @@ public final class Data
 
          List<LetterForAnalysis> textList = LetterHelper
                .findNikudLetterForAnalysisList(trimmedText);
-         
-         List<List<LetterForAnalysis>> searchWordListofLists = LetterHelper.
-               findListofNikudLetterForAnalysisListsHebrewSearchwords(expression);
-         
-         return searchWordListofLists.stream()
-         .filter(searchWordList -> textList.size() == searchWordList.size())
-         .filter(searchWordList -> allLettersMatchingInEqualSizedLists(searchWordList, textList))
-         .findAny().isPresent();
+
+         List<List<LetterForAnalysis>> searchWordListofLists = LetterHelper
+               .findListofNikudLetterForAnalysisListsHebrewSearchwords(
+                     expression);
+
+         return searchWordListofLists
+               .stream()
+               .filter(
+                     searchWordList -> textList.size() == searchWordList.size())
+               .filter(searchWordList -> allLettersMatchingInEqualSizedLists(
+                     searchWordList, textList))
+               .findAny()
+               .isPresent();
       }
 
-      private boolean allLettersMatchingInEqualSizedLists(List<LetterForAnalysis> list1,
-            List<LetterForAnalysis> list2)
+      private boolean allLettersMatchingInEqualSizedLists(
+            List<LetterForAnalysis> list1, List<LetterForAnalysis> list2)
       {
          return IntStream
                .range(0, list1.size())
@@ -1132,8 +1201,9 @@ public final class Data
             {
                return false;
             }
-            
-            return allLettersMatchingInEqualSizedLists(textList,expressionList);
+
+            return allLettersMatchingInEqualSizedLists(textList,
+                  expressionList);
          }
 
          List<LetterForAnalysis> expressionListPlene = LetterHelper
@@ -1707,4 +1777,5 @@ public final class Data
                .collect(Collectors.toList());
       }
    }
+
 }

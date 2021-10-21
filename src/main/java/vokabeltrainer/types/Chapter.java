@@ -152,6 +152,11 @@ public class Chapter implements Comparable<Chapter>
             "selbst eingegeben",
             "",
             ""),
+      COPY(
+            "",
+            "Kopie",
+            "",
+            ""),
       IMPORTED(
             "",
             "importiert",

@@ -8,16 +8,18 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingWorker;
 
-import vokabeltrainer.types.DatabaseItem;
+import vokabeltrainer.common.Data;
+import vokabeltrainer.common.SaveExpressions;
+import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
 
 public class DatabaseTableCopy extends JTable
 {
    private static final long serialVersionUID = 4815287371476856952L;
    private MouseListener mouseListener;
 
-   public DatabaseTableCopy(DatabaseTableCopyModel model,
-         int totalWidth)
+   public DatabaseTableCopy(DatabaseTableCopyModel model, int totalWidth)
    {
       super(model, new DatabaseTableCopyColumnModel(totalWidth));
       this.setShowVerticalLines(false);
@@ -50,14 +52,39 @@ public class DatabaseTableCopy extends JTable
                DatabaseTableCopyRow tableRow = ((DatabaseTableCopyRow) table
                      .getValueAt(table.getSelectedRow(), 0));
 
-               DatabaseItem databaseItem = tableRow.getDatabaseItem();
-               
-               // databaseItem.getDatabase();
-                  
-                  //TODO copy with new UUIDs !!!
-                  
-                  
-               
+               InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
+                     "Export interne Datenbank");
+               dialog.setVisible(true);
+
+               final String databaseName;
+               final boolean overwriteDatabaseNames;
+
+               if (!dialog.isStartImportOrExport())
+               {
+                  dialog.dispose();
+                  return;
+               }
+               else
+               {
+                  databaseName = dialog.getDatabaseName();
+                  overwriteDatabaseNames = dialog.isOverwrite();
+                  dialog.dispose();
+                  Data
+                  .copyInternalDatabase(
+                        tableRow.getDatabaseItem().getDatabase(),
+                        overwriteDatabaseNames, databaseName);
+                  new SwingWorker<Void, Void>()
+                  {
+
+                     @Override
+                     protected Void doInBackground() throws Exception
+                     {
+                        new SaveExpressions().save();
+                        return null;
+                     }
+
+                  }.execute();
+               } 
             }
          }
       };

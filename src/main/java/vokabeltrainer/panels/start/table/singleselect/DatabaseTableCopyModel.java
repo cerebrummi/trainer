@@ -29,19 +29,4 @@ public class DatabaseTableCopyModel extends DefaultTableModel
    {
       return data;
    }
-
-   public List<DatabaseTableCopyRow> getSelectedRows()
-   {
-      List<DatabaseTableCopyRow> selectedRows = new ArrayList<>();
-      for(DatabaseTableCopyRow row : rows)
-      {
-         if(row.getDatabaseItem().isSelected())
-         {
-            selectedRows.add(row);
-         }
-      }
-      return selectedRows;
-   }
-   
-   
 }

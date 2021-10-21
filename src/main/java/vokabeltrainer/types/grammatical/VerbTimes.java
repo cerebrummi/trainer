@@ -10,22 +10,16 @@ public enum VerbTimes
          "unbekannt"),
    ROOT(
          "Wurzel"),
-   BASIC(
-         "Grundform"),
    INFINITIVE(
          "Infinitiv"),
    PAST(
          "Vergangenheit"),
-   PAST_PARTICIPLE(
-         "Vergangenheit-Partizip"),
    PRESENT(
          "Gegenwart"),
    FUTURE(
          "Zukunft"),
    IMPERARTIVE(
          "Befehlsform"),
-   ACTION_NOUN(
-         "Gerundium"),
    VERBTIMES_NA(
          "nicht anwendbar");
 
@@ -46,15 +40,12 @@ public enum VerbTimes
    {
       switch (this)
       {
-      case ACTION_NOUN:
       case FUTURE:
       case IMPERARTIVE:
       case INFINITIVE:
       case PAST:
-      case PAST_PARTICIPLE:
       case PRESENT:
       case ROOT:
-      case BASIC:
          return description;
       case VERBTIMES_UNKNOWN:
          return "Verbconjugation " + description;
@@ -75,15 +66,12 @@ public enum VerbTimes
    {
       switch (this)
       {
-      case ACTION_NOUN:
       case FUTURE:
       case IMPERARTIVE:
       case INFINITIVE:
       case PAST:
-      case PAST_PARTICIPLE:
       case PRESENT:
       case ROOT:
-      case BASIC:
          return description;
       case VERBTIMES_UNKNOWN:
       case VERBTIMES_NA:

@@ -59,8 +59,8 @@ public class InputDatabaseNameDialog extends JDialog
       inputImportField.setEnabled(false);
       
       overwriteGroup = new ButtonGroup();
-      overwriteNo = new JRadioButton("vorhandene Datenbanknamen NICHT überschreiben");
-      overwriteYes = new JRadioButton("vorhandene Datenbanknamen überschreiben");
+      overwriteNo = new JRadioButton("vorhandenen Datenbanknamen NICHT überschreiben");
+      overwriteYes = new JRadioButton("vorhandenen Datenbanknamen überschreiben");
       overwriteGroup.add(overwriteNo);
       overwriteGroup.add(overwriteYes);
       overwriteNo.setSelected(true);

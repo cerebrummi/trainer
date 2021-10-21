@@ -17,16 +17,13 @@ import vokabeltrainer.types.DatabaseItem;
 public class DatabaseTableCopyCellRenderer
       implements TableCellRenderer, TableCellEditor
 {
-   private JLabel selected;
    private JLabel empty;
    private JLabel database;
    private JLabel authors;
    private JLabel company;
 
-   public DatabaseTableCopyCellRenderer() // multiple selection possible
+   public DatabaseTableCopyCellRenderer() // no multiple selection possible
    {
-      selected = new JLabel(new ImageIcon(ApplicationImages.getSelectDone()));
-
       empty = new JLabel();
 
       database = new JLabel();
@@ -96,21 +93,10 @@ public class DatabaseTableCopyCellRenderer
 
       if (column == 0)
       {
-         if (databaseItem.isSelected())
-         {
-            return selected;
-         }
-         else
-         {
-            return empty;
-         }
-      }
-      if (column == 1)
-      {
          this.database.setText(databaseItem.getDatabase().getName());
          return this.database;
       }
-      if(column == 2)
+      if(column == 1)
       {
          this.authors.setText(databaseItem.getDatabase().getAuthors());
          return this.authors;
