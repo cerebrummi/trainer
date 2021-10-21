@@ -38,6 +38,7 @@ import javax.swing.JOptionPane;
 
 import vokabeltrainer.CerebrummiNodes;
 import vokabeltrainer.ChapterComparator;
+import vokabeltrainer.ChapterDatabaseComparator;
 import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
@@ -637,13 +638,13 @@ public final class Data
          {
             if (overwriteDatabaseName)
             {
-               readData(letter.name() + ".csv", reader, Database.COPY, letter, true,
-                     databaseName, false);
+               readData(letter.name() + ".csv", reader, Database.COPY, letter,
+                     true, databaseName, false);
             }
             else
             {
-               readData(letter.name() + ".csv", reader, Database.COPY, letter, false,
-                     origin.getName() + " Kopie", false);
+               readData(letter.name() + ".csv", reader, Database.COPY, letter,
+                     false, origin.getName() + " Kopie", false);
             }
          }
          catch (IOException e)
@@ -693,8 +694,7 @@ public final class Data
       // #########################################################
       private ConcurrentMap<UUID, Expression> readData(String filename,
             Reader reader, Database origin, Letter letter, boolean overwrite,
-            String databasename, boolean doNotChange)
-            throws IOException
+            String databasename, boolean doNotChange) throws IOException
       {
          StringBuffer buffer = new StringBuffer();
          String input;
@@ -761,7 +761,7 @@ public final class Data
                   database = Database.UNKNOWN;
                }
                index++;
-               
+
                if (Database.IMPORTED == origin && databasename != null
                      && overwrite)
                {
@@ -1321,7 +1321,10 @@ public final class Data
 
       private Chapter[] getChapterArray()
       {
-         return chapterSet.stream().sorted().toArray(Chapter[]::new);
+         return chapterSet
+               .stream()
+               .sorted(new ChapterDatabaseComparator())
+               .toArray(Chapter[]::new);
       }
 
       private String getAllSelectedExpressionsAsString(Language language)
