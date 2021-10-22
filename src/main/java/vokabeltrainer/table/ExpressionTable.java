@@ -6,9 +6,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
@@ -43,15 +44,15 @@ public class ExpressionTable extends JTable
       {
          String editCommand = "edit";
          KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
-         getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(enter,
-               editCommand);
+         getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+               .put(enter, editCommand);
          getActionMap().put(editCommand, new EnterAction(this, connector));
       }
 
       String selectCommand = "select";
       KeyStroke select = KeyStroke.getKeyStroke(KeyEvent.VK_A, 0);
-      getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(select,
-            selectCommand);
+      getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+            .put(select, selectCommand);
       getActionMap().put(selectCommand, new SelectAction(this));
 
       addMouseListener(new MouseAdapter()
@@ -78,15 +79,17 @@ public class ExpressionTable extends JTable
 
    public String getTableDataToString()
    {
-      return Arrays.stream(model.getTableData())
-         .filter(expressionArray -> expressionArray[0].isDoChange())
-         .map(expressionArray -> expressionArray[0].getCopyLines(language))
-         .collect(Collectors.joining("\n"));
+      return Arrays
+            .stream(model.getTableData())
+            .filter(expressionArray -> expressionArray[0].isDoChange())
+            .map(expressionArray -> expressionArray[0].getCopyLines(language))
+            .collect(Collectors.joining("\n"));
    }
 
    public String getSelectedTableDataToString()
    {
-      return Arrays.stream(model.getTableData())
+      return Arrays
+            .stream(model.getTableData())
             .filter(expressionArray -> expressionArray[0].isDoChange())
             .filter(expressionArray -> expressionArray[0].isSelected())
             .map(expressionArray -> expressionArray[0].getCopyLines(language))
@@ -107,7 +110,7 @@ public class ExpressionTable extends JTable
 
       for (Expression[] expressionArray : model.getTableData())
       {
-         if(exceptDoNotChange && expressionArray[0].isDoNotChange())
+         if (exceptDoNotChange && expressionArray[0].isDoNotChange())
          {
             continue;
          }
@@ -126,5 +129,39 @@ public class ExpressionTable extends JTable
       {
          expressionArray[0].setSelected(true);
       }
+   }
+
+   public List<Expression> findExpressionsFromPattern(String inputText)
+   {
+      if(inputText.isBlank() || inputText.length() < 2)
+      {
+         return Collections.emptyList();
+      }
+      String regex = "{0,}" + inputText + "{0,}";
+      Pattern pattern = Pattern.compile(regex);
+      
+      return Arrays.stream(model.getTableData())
+      .map(expressionArray -> expressionArray[0])
+      .filter(expression -> expression.findPattern(pattern))
+      .collect(Collectors.toList());
+   }
+
+   public boolean scrollToExpression(Expression expression)
+   {
+      if(expression == null)
+      {
+         return false;
+      }
+      
+      for (int i = 0; i< model.getTableData().length; i++)
+      {
+         if(model.getTableData()[i][0] == expression)
+         {
+            this.scrollRectToVisible(this.getCellRect(i,0, true));
+            return true;
+         }
+      }
+      
+      return false;
    }
 }

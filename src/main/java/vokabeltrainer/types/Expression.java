@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.regex.Pattern;
+
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Letter;
@@ -537,5 +539,26 @@ public class Expression
       content[1] = hebrew.toString();
       content[2] = getGrammarInfo();
       return content;
+   }
+
+   public boolean findPattern(Pattern pattern)
+   {
+      if(pattern.matcher(german).find())
+      {
+         return true;
+      }
+      if(pattern.matcher(hebrew.getHebrew()).find())
+      {
+         return true;
+      }
+      if(pattern.matcher(hebrew.getHebrewPlene()).find())
+      {
+         return true;
+      }
+      if(pattern.matcher(hebrew.getHebrewDefektiv()).find())
+      {
+         return true;
+      }
+      return false;
    }
 }

@@ -196,7 +196,7 @@ public final class Main
                      vokabeltrainer.common.Common.getMainJPanel()));
          window.setJMenuBar(Common.getMainJPanel().getMenuBar());
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-         window.setSize(new Dimension(1600, 950));
+         window.setSize(new Dimension(1600, 1000));
          // window.setExtendedState(JFrame. MAXIMIZED_BOTH);
          window.setLocationRelativeTo(null);
          window.setVisible(true);

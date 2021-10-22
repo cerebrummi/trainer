@@ -33,6 +33,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
@@ -47,6 +49,7 @@ import vokabeltrainer.keyboards.KeyboardHebrewNikud;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.dictionary.Action;
+import vokabeltrainer.panels.dictionary.DataButton;
 import vokabeltrainer.panels.dictionary.Tabulator;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
@@ -114,6 +117,9 @@ public class DictionaryView extends BackgroundPanelTiled
    private JRadioButton sortForIndexBox;
    private JRadioButton sortForAlphabetBox;
    private ButtonGroup sortingGroup;
+
+   private JTextField scrollsearchField;
+   private DataButton scrollsearchButton;
 
    public DictionaryView(DictionaryControllerConnector connector)
    {
@@ -203,6 +209,13 @@ public class DictionaryView extends BackgroundPanelTiled
       vertical.add(horizontalLanguagePanel);
       vertical.add(tabbedPane);
       vertical.add(filler);
+
+      scrollsearchField = new JTextField();
+      scrollsearchField.setOpaque(false);
+
+      scrollsearchButton = new DataButton("suche in Tabelle");
+      scrollsearchButton.setOpaque(false);
+      scrollsearchButton.setFont(Settings.getButtonFont());
 
       tablePanel = new JPanel(new BorderLayout());
       tablePanel.setMinimumSize(new Dimension(420, 400));
@@ -813,6 +826,12 @@ public class DictionaryView extends BackgroundPanelTiled
    public void doShowTable(ExpressionTableModel tableModel)
    {
       tablePanel.removeAll();
+      scrollsearchField = new JTextField();
+      scrollsearchField.setOpaque(false);
+      scrollsearchButton = new DataButton("suche in Tabelle");
+      scrollsearchButton.setOpaque(false);
+      scrollsearchButton.setFont(Settings.getButtonFont());
+      
       table = new ExpressionTable(tableModel, this.getSelectedLanguage(),
             connector, true);
       tableScroller = new JScrollPane(table);
@@ -823,12 +842,61 @@ public class DictionaryView extends BackgroundPanelTiled
       tableScroller.setMinimumSize(new Dimension(300, 300));
       tableScroller.setMaximumSize(new Dimension(500, 800));
 
-      tablePanel.add(tableScroller);
-      tableValidateRepaint();
+      JPanel scrollsearchPanel = new JPanel();
+      TrainLayout scrollsearchPanelLayout = new TrainLayout(scrollsearchPanel,
+            15);
+      scrollsearchPanel.setLayout(scrollsearchPanelLayout);
+      scrollsearchPanel.add(scrollsearchField);
+      scrollsearchPanel.add(scrollsearchButton);
+
+      scrollsearchField
+            .addActionListener(event -> scrollsearchButton
+                  .setData(table
+                        .findExpressionsFromPattern(
+                              scrollsearchField.getText().strip())));
+
+      scrollsearchField.getDocument().addDocumentListener(new DocumentListener()
+      {
+         public void changedUpdate(DocumentEvent e)
+         {
+            setDataForDataButton();
+         }
+
+         public void removeUpdate(DocumentEvent e)
+         {
+            setDataForDataButton();
+         }
+
+         public void insertUpdate(DocumentEvent e)
+         {
+            setDataForDataButton();
+         }
+
+         public void setDataForDataButton()
+         {
+            if (scrollsearchField.getText().strip().length() < 2)
+            {
+               return;
+            }
+            scrollsearchButton
+                  .setData(table
+                        .findExpressionsFromPattern(
+                              scrollsearchField.getText().strip()));
+         }
+      });
+
+      scrollsearchButton.addActionListener(event -> {
+         table.scrollToExpression(scrollsearchButton.getIndexExpression());
+         scrollsearchButton.nextIndex();
+      });
+
+      tablePanel.add(tableScroller, BorderLayout.CENTER);
+      tablePanel.add(scrollsearchPanel, BorderLayout.SOUTH);
+      tablePanelValidateRepaint();
    }
 
    @Override
-   public void tableValidateRepaint()
+   public void tablePanelValidateRepaint()
    {
       tablePanel.validate();
       tablePanel.repaint();
@@ -924,7 +992,7 @@ public class DictionaryView extends BackgroundPanelTiled
    public void displayNoTable()
    {
       clearTable();
-      tableValidateRepaint();
+      tablePanelValidateRepaint();
    }
 
    @Override

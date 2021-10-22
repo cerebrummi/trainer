@@ -83,14 +83,14 @@ public class StartPanel extends JPanel
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
-      filler.setMinimumSize(new Dimension(600, 250));
-      filler.setMaximumSize(new Dimension(800, 250));
+      filler.setMinimumSize(new Dimension(600, 200));
+      filler.setMaximumSize(new Dimension(800, 200));
 
       JLabel schalom = new JLabel(
             new ImageIcon(ApplicationImages.getLogo150()));
 
-      schalom.setMinimumSize(new Dimension(400, 250));
-      schalom.setMaximumSize(new Dimension(600, 250));
+      schalom.setMinimumSize(new Dimension(400, 200));
+      schalom.setMaximumSize(new Dimension(600, 200));
 
       horizontal.add(filler);
       horizontal.add(schalom);
@@ -109,7 +109,7 @@ public class StartPanel extends JPanel
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
 
-      JLabel databaseLabel = new JLabel(" Datenbanken");
+      JLabel databaseLabel = new JLabel(" Datenbanken ansehen");
       databaseLabel.setFont(Main.getGermanFont(30F));
       databaseLabel.setForeground(ApplicationColors.getDarkGold());
 
@@ -144,7 +144,7 @@ public class StartPanel extends JPanel
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
 
-      JLabel databaseLabel = new JLabel(" Datenbanken");
+      JLabel databaseLabel = new JLabel(" Datenbanken kopieren");
       databaseLabel.setFont(Main.getGermanFont(30F));
       databaseLabel.setForeground(ApplicationColors.getDarkGold());
 

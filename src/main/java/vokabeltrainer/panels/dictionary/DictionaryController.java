@@ -384,7 +384,7 @@ public class DictionaryController implements DictionaryControllerConnector
             else if (tableModel.getRowCount() == 0)
             {
                EmptyNotification.display();
-               dictionaryView.tableValidateRepaint();
+               dictionaryView.tablePanelValidateRepaint();
             }
             else
             {

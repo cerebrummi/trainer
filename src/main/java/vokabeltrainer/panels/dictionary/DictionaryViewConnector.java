@@ -32,7 +32,7 @@ public interface DictionaryViewConnector
    public ExpressionKind getSelectedExpressionKind();
    public SearchType getSelectedSearchTypeGerman();
    public SearchType getSelectedSearchTypeHebrew();
-   public void tableValidateRepaint();
+   public void tablePanelValidateRepaint();
    public String getSearchPhraseGerman();
    public String getSearchPhraseHebrew();
    public void switchSearchLanguagePanel(String actionCommand);

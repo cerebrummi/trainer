@@ -119,7 +119,7 @@ public class Chapter implements Comparable<Chapter>
       return database.getFolder();
    }
 
-   public String getDatabaseName()
+   public String getDatabaseName() // TODO aufräumen
    {
       if (Database.IMPORTED == databaseDescription.getDatabase()
             || Database.SELF == databaseDescription.getDatabase()
