@@ -16,39 +16,39 @@ public class DataButton extends JButton
    private List<Expression> data = Collections.emptyList();
 
    private int index = -1;
-
-   public List<Expression> getData()
-   {
-      return data;
-   }
+   private Expression currentExpression;
 
    public void setData(List<Expression> data)
    {
       this.data = data;
       this.index = 0;
+      if(currentExpression == null)
+      {
+         this.nextExpression();
+      }
    }
 
    public DataButton()
    {
-      // TODO Auto-generated constructor stub
+
    }
 
    public DataButton(Icon icon)
    {
       super(icon);
-      // TODO Auto-generated constructor stub
+
    }
 
    public DataButton(String text)
    {
       super(text);
-      // TODO Auto-generated constructor stub
+
    }
 
    public DataButton(Action a)
    {
       super(a);
-      // TODO Auto-generated constructor stub
+
    }
 
    public DataButton(String text, Icon icon)
@@ -66,6 +66,15 @@ public class DataButton extends JButton
       return null;
    }
 
+   public Expression getCurrentExpression()
+   {
+      if (!data.isEmpty())
+      {
+         return currentExpression;
+      }
+      return null;
+   }
+
    public void nextIndex()
    {
       if (!data.isEmpty())
@@ -75,4 +84,29 @@ public class DataButton extends JButton
 
    }
 
+   public void nextExpression()
+   {
+      if (data.isEmpty())
+      {
+         currentExpression = null;
+         return;
+      }
+      for (int i = 0; i < data.size(); i++)
+      {
+         if (currentExpression == data.get(i))
+         {
+            index = i;
+            nextIndex();
+            currentExpression = data.get(index);
+            return;
+         }
+      }
+      if (index < data.size())
+      {
+         nextIndex();
+         currentExpression = data.get(index);
+         return;
+      }
+      currentExpression = data.get(0);
+   }
 }
