@@ -137,7 +137,7 @@ public class ExpressionTable extends JTable
       {
          return Collections.emptyList();
       }
-      String regex = "{0,}" + inputText + "{0,}";
+      String regex = ".*" + inputText + ".*";
       Pattern pattern = Pattern.compile(regex);
       
       return Arrays.stream(model.getTableData())
@@ -158,6 +158,8 @@ public class ExpressionTable extends JTable
          if(model.getTableData()[i][0] == expression)
          {
             this.scrollRectToVisible(this.getCellRect(i,0, true));
+            this.setRowSelectionInterval(i, i);
+            this.setColumnSelectionInterval(0, 0);
             return true;
          }
       }
