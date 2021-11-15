@@ -28,4 +28,12 @@ public class AntiFocusTextField extends JTextField
       setBorder(BorderFactory.createEmptyBorder());
       setEnabled(true);
    }
+
+   @Override
+   public String toString()
+   {
+      return this.getText();
+   }
+   
+   
 }

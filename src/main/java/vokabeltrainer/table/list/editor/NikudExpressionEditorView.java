@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -24,13 +27,17 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.DefaultEditorKit.CopyAction;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -245,6 +252,15 @@ public class NikudExpressionEditorView extends JDialog
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       searchwordsJListGerman
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+      JPopupMenu popupGerman = new JPopupMenu();
+      JMenuItem copyMenuGerman = new JMenuItem("kopieren");
+      copyMenuGerman.addActionListener(event -> {
+         StringSelection stringSelection = new StringSelection(searchwordsJListGerman.getSelectedValue());
+         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+         clipboard.setContents(stringSelection, null);
+      });
+      popupGerman.add(copyMenuGerman);
+      searchwordsJListGerman.setComponentPopupMenu(popupGerman);
 
       newSearchwordHebrew = new InfoTextField("Neues Suchwort Hebräisch  ",
             "Bitte hineinklicken.", "Hebräische Tastatur benutzen.",
@@ -289,6 +305,16 @@ public class NikudExpressionEditorView extends JDialog
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       searchwordsJListHebrew
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+      JPopupMenu popupHebrew = new JPopupMenu();
+      JMenuItem copyMenuHebrew = new JMenuItem("kopieren");
+      copyMenuHebrew.addActionListener(event -> {
+         StringSelection stringSelection = new StringSelection(searchwordsJListHebrew.getSelectedValue());
+         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+         clipboard.setContents(stringSelection, null);
+      });
+      popupHebrew.add(copyMenuHebrew);
+      searchwordsJListHebrew.setComponentPopupMenu(popupHebrew);
+      
 
       deleteSearchwordButtonHebrew = new JButton("lösche Suchwort Hebräisch");
       deleteSearchwordButtonHebrew.setFont(Main.getGermanFont(16F));
