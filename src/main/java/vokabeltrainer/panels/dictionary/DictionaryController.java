@@ -224,7 +224,7 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       TrashCanDialog dialog = new TrashCanController(this,
             dictionaryView.getSelectedLanguage()).getTrashCanDialog();
-      dialog.setLocationRelativeTo(null);
+      dialog.setLocationRelativeTo(Common.getjFrame());
       dialog.setVisible(true);
       if (dialog.isRestore())
       {

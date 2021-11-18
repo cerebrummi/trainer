@@ -3,6 +3,8 @@ package vokabeltrainer.table;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+
+import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorView;
@@ -39,7 +41,7 @@ public class EnterAction extends AbstractAction
    {
       editorPunktation.setFrozen(expression.isDoNotChange());
       editorPunktation.setExpression(expression, false);
-      editorPunktation.setLocationRelativeTo(null);
+      editorPunktation.setLocationRelativeTo(Common.getjFrame());
       editorPunktation.setVisible(true);
       if (editorPunktation.isSave())
       {

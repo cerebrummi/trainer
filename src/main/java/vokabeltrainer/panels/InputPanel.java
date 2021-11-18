@@ -23,6 +23,7 @@ import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.TextImage;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
@@ -173,7 +174,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       NikudExpressionEditorView editor = new NikudExpressionEditorController()
             .getNikudExpressionEditorDialog();
       editor.setExpression(new Expression(true, false), true);
-      editor.setLocationRelativeTo(null);
+      editor.setLocationRelativeTo(Common.getjFrame());
       editor.setVisible(true);
       if (editor.isSave())
       {
