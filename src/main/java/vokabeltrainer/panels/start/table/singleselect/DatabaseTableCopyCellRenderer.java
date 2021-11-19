@@ -3,14 +3,12 @@ package vokabeltrainer.panels.start.table.singleselect;
 import java.awt.Component;
 import java.util.EventObject;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.types.DatabaseItem;
 
