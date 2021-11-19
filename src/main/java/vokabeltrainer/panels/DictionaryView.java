@@ -45,7 +45,7 @@ import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.keyboards.KeyboardHebrewNikud;
+import vokabeltrainer.keyboards.KeyboardHebrewAllLetters;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.dictionary.Action;
@@ -321,7 +321,7 @@ public class DictionaryView extends BackgroundPanelTiled
       searchPhraseHebrew
             .setBorder(new TitledBorder("Wort auf Hebräisch eingeben"));
 
-      KeyboardHebrewNikud keyboard = new KeyboardHebrewNikud(searchPhraseHebrew,
+      KeyboardHebrewAllLetters keyboard = new KeyboardHebrewAllLetters(searchPhraseHebrew,
             new ArrayList<JTextComponent>(), 70, true);
 
       hebrewSearch.add(keyboard);

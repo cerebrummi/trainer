@@ -35,7 +35,8 @@ public class KeyboardHebrewAllLetters extends JPanel
    private List<JButton> buttons = new ArrayList<>();
 
    public KeyboardHebrewAllLetters(JTextComponent textfield,
-         List<JTextComponent> arrayList, int textFieldHeight)
+         List<JTextComponent> arrayList, int textFieldHeight,
+         boolean addTextField)
    {
       scale = new Scale(BUTTON_SIZE);
       
@@ -68,6 +69,11 @@ public class KeyboardHebrewAllLetters extends JPanel
       this.setOpaque(false);
       this.setPreferredSize(new Dimension(Settings.getKeyboardWidth(),
             textFieldHeight + 10 + 218));
+      
+      if (textfield != null && addTextField)
+      {
+         add(textfield);
+      }
       
       if (textfield != null && !(textfield instanceof InputHebrewPanel))
       {

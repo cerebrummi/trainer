@@ -423,7 +423,7 @@ public class TrainerView extends BackgroundPanelTiled
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
          keyboardNikud = new KeyboardHebrewAllLetters(answerField,
-               new ArrayList<JTextComponent>(), 80);
+               new ArrayList<JTextComponent>(), 80, false);
 
          answerPanel.add(answerField);
          answerPanel.add(keyboardNikud);
