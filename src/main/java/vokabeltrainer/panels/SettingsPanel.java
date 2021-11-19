@@ -618,6 +618,19 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
 
       exportDatabaseButton.addActionListener(event -> {
+         
+         String databaseChoosen = (String) JOptionPane
+               .showInputDialog(Common.getMainJPanel(),
+                     "Wählen Sie eine Datenbank für den Export aus.", "Auswahl",
+                     JOptionPane.QUESTION_MESSAGE,
+                     new ImageIcon(ApplicationImages.getLogo24()),
+                     Data.getAllOwnDistinctDatabaseDescriptions(false), null);
+
+         if (databaseChoosen == null)
+         {
+            return;
+         }
+         
          InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
                "Export eine Datenbank");
          dialog.setVisible(true);
@@ -635,18 +648,6 @@ public class SettingsPanel extends BackgroundPanelTiled
             databaseName = dialog.getDatabaseName();
             overwriteDatabaseNames = dialog.isOverwrite();
             dialog.dispose();
-         }
-
-         String databaseChoosen = (String) JOptionPane
-               .showInputDialog(Common.getMainJPanel(),
-                     "Wählen Sie eine Datenbank für den Export aus.", "Auswahl",
-                     JOptionPane.QUESTION_MESSAGE,
-                     new ImageIcon(ApplicationImages.getLogo24()),
-                     Data.getAllOwnDistinctDatabaseDescriptions(false), null);
-
-         if (databaseChoosen == null)
-         {
-            return;
          }
 
          PathAndFile pathOfFolder = choosesFolderAndFileForSave();
