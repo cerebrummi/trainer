@@ -17,11 +17,4 @@ public class ChapterComparator implements Comparator<Chapter>
       return coll.compare(o1.getName(), o2.getName());
    }
 
-   
-   public static int compareChapter(Chapter o1, Chapter o2)
-   {
-      Collator coll = Collator.getInstance(Locale.GERMAN);
-      coll.setStrength(Collator.PRIMARY);
-      return coll.compare(o1.getName(), o2.getName());
-   }
 }

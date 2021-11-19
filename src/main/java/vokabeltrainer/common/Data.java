@@ -1282,14 +1282,10 @@ public final class Data
          return new DefaultComboBoxModel<Chapter>(chapterSet
                .stream()
                .filter(chapter -> chapter
-                     .getDatabaseDescription()
-                     .getDatabase()
-                     .equals(Database.IMPORTED)
-                     || chapter
                            .getDatabaseDescription()
                            .getDatabase()
                            .equals(Database.SELF))
-               .sorted((c1, c2) -> ChapterComparator.compareChapter(c1, c2))
+               .sorted((c1, c2) -> ChapterDatabaseComparator.compareChapter(c1, c2))
                .toArray(size -> new Chapter[size]));
       }
 
