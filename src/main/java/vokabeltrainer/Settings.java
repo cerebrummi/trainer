@@ -32,6 +32,9 @@ public class Settings
    private static Database[] availableDatabases = {
          Database.GRUNDWORTSCHATZADAADAMA 
          };
+   
+   private static String rememberDatabaseForInput = "";
+   private static String rememberChapterForInput = "";
 
    private Settings()
    {
@@ -298,5 +301,25 @@ public class Settings
       preferences
             .putBoolean(CerebrummiNodes.getSimpleHebrewNode(),
                   simpleHebrewInput);
+   }
+
+   public static String getRememberDatabaseForInput()
+   {
+      return rememberDatabaseForInput;
+   }
+
+   public static void setRememberDatabaseForInput(String rememberDatabaseForInput)
+   {
+      Settings.rememberDatabaseForInput = rememberDatabaseForInput;
+   }
+
+   public static String getRememberChapterForInput()
+   {
+      return rememberChapterForInput;
+   }
+
+   public static void setRememberChapterForInput(String rememberChapterForInput)
+   {
+      Settings.rememberChapterForInput = rememberChapterForInput;
    }
 }

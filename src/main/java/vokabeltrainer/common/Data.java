@@ -37,7 +37,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 import vokabeltrainer.CerebrummiNodes;
-import vokabeltrainer.ChapterComparator;
 import vokabeltrainer.ChapterDatabaseComparator;
 import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
@@ -305,7 +304,7 @@ public final class Data
          boolean withSelfEvenIfNotInUseYet)
    {
       return getDataBaseAtomic()
-            .getAllOwnDistinctDatabaseDescriptions(withSelfEvenIfNotInUseYet);
+            .getAllOwnDistinctDatabaseDescriptions(withSelfEvenIfNotInUseYet, false);
    }
 
    public static ComboBoxModel<String> getInternalDatabasesComboBoxModel()
@@ -1282,17 +1281,18 @@ public final class Data
          return new DefaultComboBoxModel<Chapter>(chapterSet
                .stream()
                .filter(chapter -> chapter
-                           .getDatabaseDescription()
-                           .getDatabase()
-                           .equals(Database.SELF))
-               .sorted((c1, c2) -> ChapterDatabaseComparator.compareChapter(c1, c2))
+                     .getDatabaseDescription()
+                     .getDatabase()
+                     .equals(Database.SELF))
+               .sorted((c1, c2) -> ChapterDatabaseComparator
+                     .compareChapter(c1, c2))
                .toArray(size -> new Chapter[size]));
       }
 
       private ComboBoxModel<String> getOwnDatabasesComboBoxModel()
       {
          return new DefaultComboBoxModel<String>(
-               this.getAllOwnDistinctDatabaseDescriptions(true));
+               this.getAllOwnDistinctDatabaseDescriptions(true, true));
       }
 
       private ComboBoxModel<String> getInternalDatabasesComboBoxModel()
@@ -1306,13 +1306,17 @@ public final class Data
          final List<Database> availableDatabases = Settings
                .getAvailableDatabases();
 
-         return chapterSet
+         List<String> chapterList = chapterSet
                .stream()
                .filter(chapter -> !availableDatabases
                      .contains(chapter.getOrigin()))
                .sorted()
                .map(chapter -> chapter.getName())
-               .toArray(String[]::new);
+               .collect(Collectors.toCollection(LinkedList::new));
+
+         chapterList.add(0, "");
+
+         return chapterList.stream().toArray(String[]::new);
       }
 
       private Chapter[] getChapterArray()
@@ -1732,7 +1736,7 @@ public final class Data
       }
 
       private String[] getAllOwnDistinctDatabaseDescriptions(
-            boolean withSelfEvenIfNotInUseYet)
+            boolean withSelfEvenIfNotInUseYet, boolean withEmptySelection)
       {
          List<DatabaseDescription> result = alleMap
                .values()
@@ -1748,11 +1752,19 @@ public final class Data
             result.add(new DatabaseDescription(Database.SELF));
          }
          Collections.sort(result);
-         return result
+
+         List<String> resultAsString = result
                .stream()
                .map(DatabaseDescription::getDatabaseName)
                .distinct()
-               .toArray(String[]::new);
+               .collect(Collectors.toCollection(LinkedList::new));
+
+         if(withEmptySelection)
+         {
+            resultAsString.add(0, "");
+         }
+
+         return resultAsString.stream().toArray(String[]::new);
       }
 
       private String[] getInternalDatabaseNames()
