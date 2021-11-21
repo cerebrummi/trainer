@@ -118,10 +118,6 @@ public class DictionaryView extends BackgroundPanelTiled
    private JRadioButton sortForAlphabetBox;
    private ButtonGroup sortingGroup;
 
-   private JTextField scrollsearchField;
-   private DataButton scrollsearchButton;
-   private DataButton scrollsearchPinButton;
-
    public DictionaryView(DictionaryControllerConnector connector)
    {
       this.connector = connector;
@@ -210,19 +206,6 @@ public class DictionaryView extends BackgroundPanelTiled
       vertical.add(horizontalLanguagePanel);
       vertical.add(tabbedPane);
       vertical.add(filler);
-
-      scrollsearchField = new JTextField();
-      scrollsearchField.setOpaque(false);
-
-      scrollsearchButton = new DataButton("suche Wort in Tabelle");
-      scrollsearchButton.setOpaque(false);
-      scrollsearchButton.setFont(Settings.getButtonFont());
-
-      scrollsearchPinButton = new DataButton("nächste");
-      scrollsearchPinButton
-            .setIcon(new ImageIcon(ApplicationImages.getSelect()));
-      scrollsearchPinButton.setOpaque(false);
-      scrollsearchPinButton.setFont(Settings.getButtonFont());
 
       tablePanel = new JPanel(new BorderLayout());
       tablePanel.setMinimumSize(new Dimension(420, 400));
@@ -833,12 +816,14 @@ public class DictionaryView extends BackgroundPanelTiled
    public void doShowTable(ExpressionTableModel tableModel)
    {
       tablePanel.removeAll();
-      scrollsearchField = new JTextField();
+      
+      JTextField scrollsearchField = new JTextField();
       scrollsearchField.setOpaque(false);
-      scrollsearchButton = new DataButton("suche in Tabelle");
+      scrollsearchField.setBorder(BorderFactory.createTitledBorder("Suchwort"));
+      DataButton scrollsearchButton = new DataButton("suche Wort in Tabelle");
       scrollsearchButton.setOpaque(false);
       scrollsearchButton.setFont(Settings.getButtonFont());
-      scrollsearchPinButton = new DataButton("nächste");
+      DataButton scrollsearchPinButton = new DataButton("nächste Auswahl");
       scrollsearchPinButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
       scrollsearchPinButton.setOpaque(false);
@@ -908,7 +893,7 @@ public class DictionaryView extends BackgroundPanelTiled
       TrainLayout infotablePanelLayout = new TrainLayout(infotablePanel, 15);
       infotablePanel.setLayout(infotablePanelLayout);
       JLabel numberOfEntriesLabel = new JLabel(
-            tableModel.getRowCount() + " Einträge in dieser Tabelle");
+            " " + tableModel.getRowCount() + " Einträge in dieser Tabelle");
       numberOfEntriesLabel.setFont(Settings.getButtonFont());
       infotablePanel.add(numberOfEntriesLabel);
 
