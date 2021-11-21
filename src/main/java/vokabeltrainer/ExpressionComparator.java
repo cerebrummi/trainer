@@ -25,6 +25,11 @@ public class ExpressionComparator implements Comparator<Expression>
       this.language = language;
       this.sortingType = SortingType.ALPHABET;
    }
+   
+   public ExpressionComparator(SortingType sortingType)
+   {
+      this.sortingType = sortingType;
+   }
 
    @Override
    public int compare(Expression o1, Expression o2)

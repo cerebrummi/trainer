@@ -54,7 +54,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    public InputPanel()
    {
       setLayout(new TrainLayout(this));
-      
+
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
 
@@ -68,29 +68,30 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       JPanel spanner = new JPanel();
       spanner.setMinimumSize(new Dimension(1550, 30));
       spanner.setMaximumSize(new Dimension(1550, 30));
-      spanner.add(new JLabel("Um eine Vokabel wieder aufzurufen, einmal anklicken und dann Enter/Eingabe Taste auf der Tastatur drücken."));
+      spanner
+            .add(new JLabel(
+                  "Um eine Vokabel wieder aufzurufen, einmal anklicken und dann Enter/Eingabe Taste auf der Tastatur drücken."));
 
       vertical.add(horizontal);
       vertical.add(spanner);
-      
+
       this.add(vertical);
-      
+
       initController();
    }
 
-  
-
    public void reset()
    {
+      Chapter lastModiefiedChapter = Data.getChapterWithLastModifiedDate();
       chapterBox.setModel(Data.getChapterComboBoxModelAsChapter());
       if (chapterBox.getModel().getSize() > 0)
       {
-         chapterBox.setSelectedIndex(chapterBox.getItemCount() - 1);
+         chapterBox.setSelectedItem(lastModiefiedChapter);
       }
       else
       {
          chapterBox.addItem(new Chapter());
-         chapterBox.setSelectedIndex(-0);
+         chapterBox.setSelectedIndex(0);
          this.validate();
          this.repaint();
       }
@@ -124,14 +125,16 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
                .getItemAt(chapterBox.getSelectedIndex());
          this.doShowTable();
       });
-      
+
       tableInfoButton.addActionListener(event -> {
-         JOptionPane.showMessageDialog(this, "",
-               "Cerebrummi©", JOptionPane.INFORMATION_MESSAGE,
-               new ImageIcon(TextImage.make("Tabelle",
-                     "einmal klicken markiert einen Eintrag",
-                     "Enter drücken öffnet den markierten Eintrag",
-                     "zweimal klicken wählt einen Eintrag aus (Stecknadel)")));
+         JOptionPane
+               .showMessageDialog(this, "", "Cerebrummi©",
+                     JOptionPane.INFORMATION_MESSAGE,
+                     new ImageIcon(TextImage
+                           .make("Tabelle",
+                                 "einmal klicken markiert einen Eintrag",
+                                 "Enter drücken öffnet den markierten Eintrag",
+                                 "zweimal klicken wählt einen Eintrag aus (Stecknadel)")));
       });
 
       tableInfoButton.addMouseListener(new MouseListener()
@@ -187,11 +190,12 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
 
    private void doShowTable()
    {
-      ExpressionTableModel tableModel = Data.findTranslations(Language.GERMAN_TO_HEBREW,
-            null, null, null, currentChapter, null, SortingType.DATE);
+      ExpressionTableModel tableModel = Data
+            .findTranslations(Language.GERMAN_TO_HEBREW, null, null, null,
+                  currentChapter, null, SortingType.DATE);
       tablePanel.removeAll();
-      ExpressionTable table = new ExpressionTable(tableModel, Language.GERMAN_TO_HEBREW,
-            this, true);
+      ExpressionTable table = new ExpressionTable(tableModel,
+            Language.GERMAN_TO_HEBREW, this, true);
       JScrollPane tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);
       tableScroller.getViewport().setOpaque(false);
@@ -204,12 +208,12 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       tablePanel.validate();
       tablePanel.repaint();
    }
-   
+
    private Component initRightside()
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
-      
+
       JPanel flow = new JPanel();
       tableInfoButton = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
@@ -257,8 +261,10 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       newWordPunktationButton.setMaximumSize(new Dimension(300, 60));
       newWordPunktationButton
             .setIcon(new ImageIcon(ApplicationImages.getNewWord()));
-      newWordPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
-            10, 10, ApplicationColors.getGreen()));
+      newWordPunktationButton
+            .setBorder(BorderFactory
+                  .createMatteBorder(10, 10, 10, 10,
+                        ApplicationColors.getGreen()));
 
       leftside.add(newWordPunktationButton);
       return leftside;

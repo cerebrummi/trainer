@@ -304,7 +304,8 @@ public final class Data
          boolean withSelfEvenIfNotInUseYet)
    {
       return getDataBaseAtomic()
-            .getAllOwnDistinctDatabaseDescriptions(withSelfEvenIfNotInUseYet, false);
+            .getAllOwnDistinctDatabaseDescriptions(withSelfEvenIfNotInUseYet,
+                  false);
    }
 
    public static ComboBoxModel<String> getInternalDatabasesComboBoxModel()
@@ -318,6 +319,11 @@ public final class Data
       getDataBaseAtomic()
             .copyInternalDatabase(database, overwriteDatabaseName,
                   databaseName);
+   }
+
+   public static Chapter getChapterWithLastModifiedDate()
+   {
+      return getDataBaseAtomic().getChapterWithLastModifiedDate();
    }
 
    // #########################################################
@@ -396,6 +402,17 @@ public final class Data
                readTrainingFile(hebrew, Language.HEBREW_TO_GERMAN);
             }
          }
+      }
+
+      public Chapter getChapterWithLastModifiedDate()
+      {
+         return alleMap
+               .values()
+               .stream()
+               .sorted(new ExpressionComparator(SortingType.DATE))
+               .findFirst()
+               .get()
+               .getChapter();
       }
 
       private void readTrainingFile(File german, Language languageDirection)
@@ -1759,7 +1776,7 @@ public final class Data
                .distinct()
                .collect(Collectors.toCollection(LinkedList::new));
 
-         if(withEmptySelection)
+         if (withEmptySelection)
          {
             resultAsString.add(0, "");
          }
@@ -1788,5 +1805,4 @@ public final class Data
                .collect(Collectors.toList());
       }
    }
-
 }
