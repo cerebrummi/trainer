@@ -214,12 +214,13 @@ public class DictionaryView extends BackgroundPanelTiled
       scrollsearchField = new JTextField();
       scrollsearchField.setOpaque(false);
 
-      scrollsearchButton = new DataButton("suche in Tabelle");
+      scrollsearchButton = new DataButton("suche Wort in Tabelle");
       scrollsearchButton.setOpaque(false);
       scrollsearchButton.setFont(Settings.getButtonFont());
-      
+
       scrollsearchPinButton = new DataButton("nächste");
-      scrollsearchPinButton.setIcon(new ImageIcon(ApplicationImages.getSelect()));
+      scrollsearchPinButton
+            .setIcon(new ImageIcon(ApplicationImages.getSelect()));
       scrollsearchPinButton.setOpaque(false);
       scrollsearchPinButton.setFont(Settings.getButtonFont());
 
@@ -321,8 +322,8 @@ public class DictionaryView extends BackgroundPanelTiled
       searchPhraseHebrew
             .setBorder(new TitledBorder("Wort auf Hebräisch eingeben"));
 
-      KeyboardHebrewAllLetters keyboard = new KeyboardHebrewAllLetters(searchPhraseHebrew,
-            new ArrayList<JTextComponent>(), 70, true);
+      KeyboardHebrewAllLetters keyboard = new KeyboardHebrewAllLetters(
+            searchPhraseHebrew, new ArrayList<JTextComponent>(), 70, true);
 
       hebrewSearch.add(keyboard);
 
@@ -838,10 +839,11 @@ public class DictionaryView extends BackgroundPanelTiled
       scrollsearchButton.setOpaque(false);
       scrollsearchButton.setFont(Settings.getButtonFont());
       scrollsearchPinButton = new DataButton("nächste");
-      scrollsearchPinButton.setIcon(new ImageIcon(ApplicationImages.getSelect()));
+      scrollsearchPinButton
+            .setIcon(new ImageIcon(ApplicationImages.getSelect()));
       scrollsearchPinButton.setOpaque(false);
       scrollsearchPinButton.setFont(Settings.getButtonFont());
-      
+
       table = new ExpressionTable(tableModel, this.getSelectedLanguage(),
             connector, true);
       tableScroller = new JScrollPane(table);
@@ -852,11 +854,12 @@ public class DictionaryView extends BackgroundPanelTiled
       tableScroller.setMinimumSize(new Dimension(300, 300));
       tableScroller.setMaximumSize(new Dimension(500, 800));
 
+      JPanel southWrapperPanel = new JPanel(new BorderLayout());
+
       JPanel scrollsearchPanel = new JPanel();
       TrainLayout scrollsearchPanelLayout = new TrainLayout(scrollsearchPanel,
             15);
       scrollsearchPanel.setLayout(scrollsearchPanelLayout);
-      scrollsearchPanel.add(scrollsearchField);
       scrollsearchPanel.add(scrollsearchButton);
       scrollsearchPanel.add(scrollsearchPinButton);
 
@@ -894,15 +897,27 @@ public class DictionaryView extends BackgroundPanelTiled
          table.scrollToExpression(scrollsearchButton.getIndexExpression());
          scrollsearchButton.nextIndex();
       });
-      
+
       scrollsearchPinButton.addActionListener(event -> {
          scrollsearchPinButton.setData(table.getSelectedExpressions(false));
          table.scrollToExpression(scrollsearchPinButton.getCurrentExpression());
          scrollsearchPinButton.nextExpression();
       });
 
+      JPanel infotablePanel = new JPanel();
+      TrainLayout infotablePanelLayout = new TrainLayout(infotablePanel, 15);
+      infotablePanel.setLayout(infotablePanelLayout);
+      JLabel numberOfEntriesLabel = new JLabel(
+            tableModel.getRowCount() + " Einträge in dieser Tabelle");
+      numberOfEntriesLabel.setFont(Settings.getButtonFont());
+      infotablePanel.add(numberOfEntriesLabel);
+
+      southWrapperPanel.add(scrollsearchField, BorderLayout.NORTH);
+      southWrapperPanel.add(scrollsearchPanel, BorderLayout.CENTER);
+      southWrapperPanel.add(infotablePanel, BorderLayout.SOUTH);
+
       tablePanel.add(tableScroller, BorderLayout.CENTER);
-      tablePanel.add(scrollsearchPanel, BorderLayout.SOUTH);
+      tablePanel.add(southWrapperPanel, BorderLayout.SOUTH);
       tablePanelValidateRepaint();
    }
 
