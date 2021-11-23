@@ -31,6 +31,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
@@ -53,6 +54,7 @@ import vokabeltrainer.panels.dictionary.DataButton;
 import vokabeltrainer.panels.dictionary.Tabulator;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
+import vokabeltrainer.panels.dictionary.SearchAction;
 import vokabeltrainer.panels.list.ChapterList;
 import vokabeltrainer.panels.list.ChapterListSelectionModel;
 import vokabeltrainer.table.ExpressionTable;
@@ -877,11 +879,17 @@ public class DictionaryView extends BackgroundPanelTiled
                               scrollsearchField.getText().strip()));
          }
       });
-
+      
       scrollsearchButton.addActionListener(event -> {
          table.scrollToExpression(scrollsearchButton.getIndexExpression());
          scrollsearchButton.nextIndex();
       });
+      
+      String searchCommand = "search";
+      KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+      scrollsearchField.getInputMap(JTextField.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+            .put(enter, searchCommand);
+      scrollsearchField.getActionMap().put(searchCommand, new SearchAction(scrollsearchButton));
 
       scrollsearchPinButton.addActionListener(event -> {
          scrollsearchPinButton.setData(table.getSelectedExpressions(false));
