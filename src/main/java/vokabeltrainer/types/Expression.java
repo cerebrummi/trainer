@@ -268,10 +268,11 @@ public class Expression
       index++;
       result[index] = definitions.getGenderDescriptions();
       index++;
-      result[index] = definitions.getNumerusDescriptions();
+      result[index] = definitions.getNumerusDescriptions() + " "
+            + definitions.getGrammaticalPersonDescriptions();
       index++;
       StringJoiner joiner = new StringJoiner(", ");
-      if(!definitions.getBinjanDescriptions().isBlank())
+      if (!definitions.getBinjanDescriptions().isBlank())
       {
          joiner.add(definitions.getBinjanDescriptions());
       }
@@ -303,10 +304,11 @@ public class Expression
       index++;
       result[index] = definitions.getGenderDescriptions();
       index++;
-      result[index] = definitions.getNumerusDescriptions();
+      result[index] = definitions.getNumerusDescriptions() + " "
+            + definitions.getGrammaticalPersonDescriptions();
       index++;
       StringJoiner joiner = new StringJoiner(", ");
-      if(!definitions.getBinjanDescriptions().isBlank())
+      if (!definitions.getBinjanDescriptions().isBlank())
       {
          joiner.add(definitions.getBinjanDescriptions());
       }
@@ -342,7 +344,7 @@ public class Expression
       {
          joiner.add(definitions.getGenderInfos());
       }
-      if(!definitions.getGrammaticalPersonInfos().isEmpty())
+      if (!definitions.getGrammaticalPersonInfos().isEmpty())
       {
          joiner.add(definitions.getGrammaticalPersonInfos());
       }
@@ -543,19 +545,19 @@ public class Expression
 
    public boolean findPattern(Pattern pattern)
    {
-      if(pattern.matcher(german).find())
+      if (pattern.matcher(german).find())
       {
          return true;
       }
-      if(pattern.matcher(hebrew.getHebrew()).find())
+      if (pattern.matcher(hebrew.getHebrew()).find())
       {
          return true;
       }
-      if(pattern.matcher(hebrew.getHebrewPlene()).find())
+      if (pattern.matcher(hebrew.getHebrewPlene()).find())
       {
          return true;
       }
-      if(pattern.matcher(hebrew.getHebrewDefektiv()).find())
+      if (pattern.matcher(hebrew.getHebrewDefektiv()).find())
       {
          return true;
       }

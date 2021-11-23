@@ -12,6 +12,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
          "2. Person"),
    DRITTE_PERSON(
          "3. Person"),
+   ALL_PERSON("1., 2. und 3. Person"),
    GRAMMATICALPERSON_NA(
          "nicht anwendbar");
 
@@ -35,6 +36,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
       case DRITTE_PERSON:
       case ZWEITE_PERSON:
       case ERSTE_PERSON:
+      case ALL_PERSON:
          return description;
       case GRAMMATICALPERSON_UNKNOWN:
          return "Grammatische-Person " + description;
@@ -58,6 +60,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
       case DRITTE_PERSON:
       case ZWEITE_PERSON:
       case ERSTE_PERSON:
+      case ALL_PERSON:
          return description;
       case GRAMMATICALPERSON_UNKNOWN:
       case GRAMMATICALPERSON_NA:

@@ -67,6 +67,11 @@ public class Definitions
    {
       return grammaticalEnumToDescription(VerbTimes.class);
    }
+   
+   public String getGrammaticalPersonDescriptions()
+   {
+      return grammaticalEnumToDescription(GrammaticalPerson.class);
+   }
 
    private String grammaticalEnumToDescription(
          Class<? extends GrammaticalEnum> clazz)
