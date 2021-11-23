@@ -160,6 +160,7 @@ public class ExpressionTable extends JTable
             this.scrollRectToVisible(this.getCellRect(i,0, true));
             this.setRowSelectionInterval(i, i);
             this.setColumnSelectionInterval(0, 0);
+            this.grabFocus();
             return true;
          }
       }
