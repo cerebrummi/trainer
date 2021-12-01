@@ -400,6 +400,7 @@ public class DictionaryView extends BackgroundPanelTiled
       horizontalMoveToChapterPanel.setLayout(horizontalMoveToChapterLayout);
 
       chapterChoiceBox = new JComboBox<>();
+      chapterChoiceBox.setEditable(true);
       chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
 
       moveToChapterButton = new JButton("Auswahl zur Lektion verschieben");
@@ -760,6 +761,7 @@ public class DictionaryView extends BackgroundPanelTiled
          else
          {
             connector.moveExpressionsToChapter(chapterAim);
+            chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
          }
       });
    }
