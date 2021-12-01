@@ -325,6 +325,11 @@ public final class Data
    {
       return getDataBaseAtomic().getChapterWithLastModifiedDate();
    }
+   
+   public static void moveSelectedExpressionsToChapter(String toChapter)
+   {
+      getDataBaseAtomic().moveSelectedExpressionToChapter(toChapter);  
+   }
 
    // #########################################################
    // #########################################################
@@ -1804,5 +1809,28 @@ public final class Data
                      .equals(databaseChoosen))
                .collect(Collectors.toList());
       }
+      
+      private void moveSelectedExpressionToChapter(final String toChapter)
+      {
+         chapterSet.clear();
+         
+         alleMap
+         .values()
+         .stream()
+         .filter(expression -> expression.isDoChange())
+         .filter(expression -> expression.isSelected())
+         .forEach(expression -> moveExpressionToChapter(expression, toChapter));
+         
+         reloadChapterSet();
+      }
+
+      private Chapter moveExpressionToChapter(Expression expression,
+            String toChapter)
+      {
+         expression.getChapter().setName(toChapter);
+         return expression.getChapter();
+      }
    }
+
+
 }

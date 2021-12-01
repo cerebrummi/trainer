@@ -23,5 +23,6 @@ public enum Action
    SAVE,
    WORK_WASTEBIN,
    WORK_SHREDDER, 
-   SORT_NOW
+   SORT_NOW,
+   MOVE_TO_CHAPTER
 }

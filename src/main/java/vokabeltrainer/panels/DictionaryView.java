@@ -24,6 +24,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -119,6 +120,10 @@ public class DictionaryView extends BackgroundPanelTiled
    private JRadioButton sortForIndexBox;
    private JRadioButton sortForAlphabetBox;
    private ButtonGroup sortingGroup;
+
+   private JButton moveToChapterButton;
+
+   private JComboBox<String> chapterChoiceBox;
 
    public DictionaryView(DictionaryControllerConnector connector)
    {
@@ -384,9 +389,28 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private Component initSelectedTab()
    {
-      JPanel vertical1 = new JPanel();
-      vertical1.setOpaque(false);
-      return vertical1;
+      JPanel vertical = new JPanel();
+      TotemLayout verticalLayout = new TotemLayout(vertical, 15);
+      vertical.setLayout(verticalLayout);
+      vertical.setOpaque(false);
+
+      JPanel horizontalMoveToChapterPanel = new JPanel();
+      TrainLayout horizontalMoveToChapterLayout = new TrainLayout(
+            horizontalMoveToChapterPanel, 15);
+      horizontalMoveToChapterPanel.setLayout(horizontalMoveToChapterLayout);
+
+      chapterChoiceBox = new JComboBox<>();
+      chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
+
+      moveToChapterButton = new JButton("Auswahl zur Lektion verschieben");
+      moveToChapterButton.setFont(Settings.getButtonFont());
+
+      horizontalMoveToChapterPanel.add(chapterChoiceBox);
+      horizontalMoveToChapterPanel.add(moveToChapterButton);
+
+      vertical.add(horizontalMoveToChapterPanel);
+
+      return vertical;
    }
 
    private JPanel initChaptersTab()
@@ -722,8 +746,35 @@ public class DictionaryView extends BackgroundPanelTiled
       sortForIndexBox.addActionListener(event -> {
          connector.sortTableNow();
       });
+
+      moveToChapterButton.addActionListener(event -> {
+         String chapterAim = (String) chapterChoiceBox.getSelectedItem();
+         chapterAim = this.cleanTextLeaveComma(chapterAim);
+         if (chapterAim.isBlank())
+         {
+            JOptionPane
+                  .showMessageDialog(Common.getjFrame(),
+                        "Bitte geben Sie einen neuen Lektionsnamen ein\n oder wählen Sie eine vorhandene Lektion aus.",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+         }
+         else
+         {
+            connector.moveExpressionsToChapter(chapterAim);
+         }
+      });
    }
 
+   @Override
+   public int askForMovingToChapterConfirmation()
+   {
+      return JOptionPane
+            .showConfirmDialog(Common.getjFrame(),
+                  "Wollen Sie wirklich die Vokabeln in eine andere Lektion verschieben?",
+                  "Frage", JOptionPane.OK_CANCEL_OPTION,
+                  JOptionPane.QUESTION_MESSAGE);
+   }
+
+   @Override
    public int askForShredderConfirmation()
    {
       return JOptionPane
@@ -732,6 +783,7 @@ public class DictionaryView extends BackgroundPanelTiled
                   JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
    }
 
+   @Override
    public int askForDeletionConfirmation(int number)
    {
       String message;
@@ -818,7 +870,7 @@ public class DictionaryView extends BackgroundPanelTiled
    public void doShowTable(ExpressionTableModel tableModel)
    {
       tablePanel.removeAll();
-      
+
       JTextField scrollsearchField = new JTextField();
       scrollsearchField.setOpaque(false);
       scrollsearchField.setBorder(BorderFactory.createTitledBorder("Suchwort"));
@@ -879,17 +931,20 @@ public class DictionaryView extends BackgroundPanelTiled
                               scrollsearchField.getText().strip()));
          }
       });
-      
+
       scrollsearchButton.addActionListener(event -> {
          table.scrollToExpression(scrollsearchButton.getIndexExpression());
          scrollsearchButton.nextIndex();
       });
-      
+
       String searchCommand = "search";
       KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
-      scrollsearchField.getInputMap(JTextField.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+      scrollsearchField
+            .getInputMap(JTextField.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
             .put(enter, searchCommand);
-      scrollsearchField.getActionMap().put(searchCommand, new SearchAction(scrollsearchButton));
+      scrollsearchField
+            .getActionMap()
+            .put(searchCommand, new SearchAction(scrollsearchButton));
 
       scrollsearchPinButton.addActionListener(event -> {
          scrollsearchPinButton.setData(table.getSelectedExpressions(false));
@@ -1096,5 +1151,10 @@ public class DictionaryView extends BackgroundPanelTiled
    {
       return SortingType
             .valueOf(sortingGroup.getSelection().getActionCommand());
+   }
+
+   private String cleanTextLeaveComma(String text)
+   {
+      return text.replaceAll("\t", "").replaceAll("\n", "").strip();
    }
 }

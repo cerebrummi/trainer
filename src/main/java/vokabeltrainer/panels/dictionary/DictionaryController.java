@@ -433,4 +433,19 @@ public class DictionaryController implements DictionaryControllerConnector
       Status.push(Status.peek());
       decideOnTableInteraction(Action.OPENED_PAGE);
    }
+
+   @Override
+   public void moveExpressionsToChapter(String toChapter)
+   {
+      if (dictionaryView.askForMovingToChapterConfirmation() == 0)
+      {
+         Data.moveSelectedExpressionsToChapter(toChapter);
+         
+         SaveExpressions saver = new SaveExpressions();
+         saver.save();
+         
+         Status.push(Status.peek());
+         decideOnTableInteraction(Action.MOVE_TO_CHAPTER);
+      }
+   }
 }

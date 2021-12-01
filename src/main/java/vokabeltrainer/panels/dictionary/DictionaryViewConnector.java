@@ -46,4 +46,5 @@ public interface DictionaryViewConnector
    public void doShowTable(ExpressionTableModel tableModel);
    public void setValues();
    public SortingType getSortNow();
+   public int askForMovingToChapterConfirmation();
 }
