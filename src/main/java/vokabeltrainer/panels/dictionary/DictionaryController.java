@@ -11,6 +11,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingWorker;
 
 import vokabeltrainer.ApplicationSound;
@@ -35,28 +36,6 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       this.dictionaryView = new DictionaryView(this);
       Status.push(Status.OPENED_PAGE);
-   }
-
-   @Override
-   public void save()
-   {
-      new SwingWorker<Void, Void>()
-      {
-         @Override
-         protected Void doInBackground() throws Exception
-         {
-            if (new SaveExpressions().save())
-            {
-               if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
-               {
-                  dictionaryView.loadChapters();
-               }
-               Status.push(Status.peek());
-               decideOnTableInteraction(Action.SAVE);
-            }
-            return null;
-         }
-      }.execute();
    }
 
    @Override
@@ -229,8 +208,7 @@ public class DictionaryController implements DictionaryControllerConnector
       if (dialog.isRestore())
       {
          Status.push(Status.peek());
-         decideOnTableInteraction(Action.NEW_EXPRESSION);
-         save();
+         decideOnTableInteraction(Action.WORK_WASTEBIN);
       }
    }
 
@@ -446,6 +424,43 @@ public class DictionaryController implements DictionaryControllerConnector
          
          Status.push(Status.peek());
          decideOnTableInteraction(Action.MOVE_TO_CHAPTER);
+      }
+   }
+
+   @Override
+   public void save()
+   {
+      new SwingWorker<Void, Void>()
+      {
+         @Override
+         protected Void doInBackground() throws Exception
+         {
+            if (new SaveExpressions().save())
+            {
+               if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
+               {
+                  dictionaryView.loadChapters();
+               }
+               Status.push(Status.peek());
+               decideOnTableInteraction(Action.SAVE);
+            }
+            return null;
+         }
+      }.execute();
+   }
+   
+   @Override
+   public void fireTableCellUpdated(JTable table, int selectedRow, int column)
+   {
+      if (Tabulator.SELECTED_TAB.equals(Tabulator.getTabShowing()))
+      {
+         Status.push(Status.peek());
+         decideOnTableInteraction(Action.UNSELECT_EXPRESSION);
+      }
+      else
+      {
+         ((ExpressionTableModel) table.getModel())
+         .fireTableCellUpdated(table.getSelectedRow(), 0);
       }
    }
 }

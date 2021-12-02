@@ -152,7 +152,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
          table = new ExpressionTable(tableModel,
                Language
                      .valueOf(languageGroup.getSelection().getActionCommand()),
-               connector.getDictionaryControllerConnector(), false);
+               connector, false);
          JScrollPane scrollPane = new JScrollPane(table);
          scrollPane.setOpaque(false);
          scrollPane.getViewport().setOpaque(false);

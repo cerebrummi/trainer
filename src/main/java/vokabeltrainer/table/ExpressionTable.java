@@ -70,8 +70,7 @@ public class ExpressionTable extends JTable
 
                expression.toggleSelected();
 
-               ((ExpressionTableModel) table.getModel())
-                     .fireTableCellUpdated(table.getSelectedRow(), 0);
+               connector.fireTableCellUpdated(table, table.getSelectedRow(), 0);
             }
          }
       });

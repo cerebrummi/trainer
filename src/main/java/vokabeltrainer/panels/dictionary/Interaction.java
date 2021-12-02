@@ -134,6 +134,16 @@ public class Interaction
       interactions.put(new Interaction(Action.UNSELECT_ALL, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_GERMAN);
       interactions.put(new Interaction(Action.UNSELECT_ALL, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_HEBREW);
       
+      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.OPENED_PAGE), Command.NOTHING);
+      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.TAB_CHAPTER), Command.NOTHING);
+      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.TAB_EXPRESSIONKIND), Command.NOTHING);
+      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.TAB_SEARCH), Command.NOTHING);
+      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.CHAPTER_WHICH), Command.NOTHING);
+      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.EXPRESSIONKIND_WHICH), Command.NOTHING);
+      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.SEARCH_WHICH_GERMAN), Command.NOTHING);
+      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.SEARCH_WHICH_HEBREW), Command.NOTHING);
+      
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.OPENED_PAGE), Command.NOTHING); // must be nothing, because it is always followed by Action "save"
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.TAB_CHAPTER), Command.NOTHING);
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.TAB_EXPRESSIONKIND), Command.NOTHING);
@@ -143,6 +153,16 @@ public class Interaction
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.EXPRESSIONKIND_WHICH), Command.NOTHING);
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.SEARCH_WHICH_GERMAN), Command.NOTHING);
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.SEARCH_WHICH_HEBREW), Command.NOTHING);
+      
+      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.OPENED_PAGE), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.TAB_CHAPTER), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.TAB_EXPRESSIONKIND), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.TAB_SEARCH), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.CHAPTER_WHICH), Command.RESTORE_WHICH_CHAPTER);
+      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
+      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_GERMAN);
+      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_HEBREW);
       
       interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.TAB_CHAPTER), Command.NOTHING);

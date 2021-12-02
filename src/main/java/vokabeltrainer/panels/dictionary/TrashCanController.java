@@ -2,7 +2,11 @@ package vokabeltrainer.panels.dictionary;
 
 import java.util.List;
 
+import javax.swing.JTable;
+import javax.swing.SwingWorker;
+
 import vokabeltrainer.common.Data;
+import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
@@ -49,6 +53,7 @@ public class TrashCanController implements TrashCanControllerConnector
          trashCanDialog.doShowTable(
                loadTableModel(trashCanDialog.getSelectedLanguage()));
          trashCanDialog.tableValidateRepaint();
+         save();
       }
    }
 
@@ -85,5 +90,26 @@ public class TrashCanController implements TrashCanControllerConnector
       trashCanDialog
             .doShowTable(loadTableModel(trashCanDialog.getSelectedLanguage()));
       trashCanDialog.tableValidateRepaint();
+   }
+
+   @Override
+   public void save()
+   {
+      new SwingWorker<Void, Void>()
+      {
+         @Override
+         protected Void doInBackground() throws Exception
+         {
+            new SaveExpressions().save();
+            return null;
+         }
+      }.execute();
+   }
+
+   @Override
+   public void fireTableCellUpdated(JTable table, int selectedRow, int i)
+   {
+      ((ExpressionTableModel) table.getModel())
+      .fireTableCellUpdated(table.getSelectedRow(), 0);
    }
 }

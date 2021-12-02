@@ -2,11 +2,12 @@ package vokabeltrainer.panels.dictionary;
 
 import java.util.List;
 
+import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
-public interface TrashCanControllerConnector
+public interface TrashCanControllerConnector extends TableConnector
 {
 
    public DictionaryControllerConnector getDictionaryControllerConnector();

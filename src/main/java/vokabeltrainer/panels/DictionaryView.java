@@ -1127,6 +1127,11 @@ public class DictionaryView extends BackgroundPanelTiled
    public void selectChapter(Chapter currentChapter)
    {
       chapterList.setSelectedValue(currentChapter, true);
+      if(chapterList.getSelectedValue() == null)
+      {
+         loadChapters();
+         chapterList.setSelectedValue(currentChapter, true);
+      }
    }
 
    public JScrollPane getTableScroller()

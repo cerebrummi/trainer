@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
@@ -95,24 +96,6 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
          this.validate();
          this.repaint();
       }
-   }
-
-   @Override
-   public void save()
-   {
-      new SwingWorker<Void, Void>()
-      {
-         @Override
-         protected Void doInBackground() throws Exception
-         {
-            if (new SaveExpressions().save())
-            {
-               chapterBox.setModel(Data.getChapterComboBoxModelAsChapter());
-               chapterBox.setSelectedItem(currentChapter);
-            }
-            return null;
-         }
-      }.execute();
    }
 
    private void initController()
@@ -268,5 +251,30 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
 
       leftside.add(newWordPunktationButton);
       return leftside;
+   }
+
+   @Override
+   public void save()
+   {
+      new SwingWorker<Void, Void>()
+      {
+         @Override
+         protected Void doInBackground() throws Exception
+         {
+            if (new SaveExpressions().save())
+            {
+               chapterBox.setModel(Data.getChapterComboBoxModelAsChapter());
+               chapterBox.setSelectedItem(currentChapter);
+            }
+            return null;
+         }
+      }.execute();
+   }
+   
+   @Override
+   public void fireTableCellUpdated(JTable table, int selectedRow, int i)
+   {
+      ((ExpressionTableModel) table.getModel())
+      .fireTableCellUpdated(table.getSelectedRow(), 0);
    }
 }
