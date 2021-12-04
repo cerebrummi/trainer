@@ -223,6 +223,16 @@ public class Interaction
       interactions.put(new Interaction(Action.MOVE_TO_CHAPTER, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.MOVE_TO_CHAPTER, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.MOVE_TO_CHAPTER, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SELECTED_EXPRESSIONS);
+      
+      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.OPENED_PAGE), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.TAB_CHAPTER), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.CHAPTER_WHICH), Command.TABLE_SELECTED_EXPRESSIONS); 
+      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.TAB_EXPRESSIONKIND), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.EXPRESSIONKIND_WHICH), Command.TABLE_SELECTED_EXPRESSIONS);  
+      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.TAB_SEARCH), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SELECTED_EXPRESSIONS);
    }
    
    public static Command getCommand(Interaction interaction)

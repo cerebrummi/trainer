@@ -683,6 +683,15 @@ public class SettingsPanel extends BackgroundPanelTiled
          {
             return;
          }
+         
+         if(JOptionPane
+            .showConfirmDialog(Common.getjFrame(),
+                  "Wollen Sie wirklich die Vokabeln von \"" + databaseChoosen + "\" löschen?",
+                  "Frage", JOptionPane.OK_CANCEL_OPTION,
+                  JOptionPane.QUESTION_MESSAGE) != 0)
+         {
+            return;
+         }
 
          new SwingWorker<Void, Void>()
          {

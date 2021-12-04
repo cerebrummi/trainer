@@ -27,4 +27,5 @@ public interface DictionaryControllerConnector extends TableConnector
    public void sortTableNow();
    public void displayTableAfterOpeningPage();
    public void moveExpressionsToChapter(String toChapter);
+   public void moveExpressionsToDatabase(String databaseAim);
 }

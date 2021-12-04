@@ -426,6 +426,21 @@ public class DictionaryController implements DictionaryControllerConnector
          decideOnTableInteraction(Action.MOVE_TO_CHAPTER);
       }
    }
+   
+   @Override
+   public void moveExpressionsToDatabase(String toDatabase)
+   {
+      if (dictionaryView.askForMovingToDatabaseConfirmation() == 0)
+      {
+         Data.moveSelectedExpressionsToDatabase(toDatabase);
+         
+         SaveExpressions saver = new SaveExpressions();
+         saver.save();
+         
+         Status.push(Status.peek());
+         decideOnTableInteraction(Action.MOVE_TO_DATABASE);
+      }
+   }
 
    @Override
    public void save()

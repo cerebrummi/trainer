@@ -325,10 +325,15 @@ public final class Data
    {
       return getDataBaseAtomic().getChapterWithLastModifiedDate();
    }
-   
+
    public static void moveSelectedExpressionsToChapter(String toChapter)
    {
-      getDataBaseAtomic().moveSelectedExpressionToChapter(toChapter);  
+      getDataBaseAtomic().moveSelectedExpressionToChapter(toChapter);
+   }
+
+   public static void moveSelectedExpressionsToDatabase(String toDatabase)
+   {
+      getDataBaseAtomic().moveSelectedExpressionsToDatabase(toDatabase);
    }
 
    // #########################################################
@@ -409,7 +414,7 @@ public final class Data
          }
       }
 
-      public Chapter getChapterWithLastModifiedDate()
+      private Chapter getChapterWithLastModifiedDate()
       {
          return alleMap
                .values()
@@ -1809,28 +1814,46 @@ public final class Data
                      .equals(databaseChoosen))
                .collect(Collectors.toList());
       }
-      
+
       private void moveSelectedExpressionToChapter(final String toChapter)
       {
          chapterSet.clear();
-         
+
          alleMap
-         .values()
-         .stream()
-         .filter(expression -> expression.isDoChange())
-         .filter(expression -> expression.isSelected())
-         .forEach(expression -> moveExpressionToChapter(expression, toChapter));
-         
+               .values()
+               .stream()
+               .filter(expression -> expression.isDoChange())
+               .filter(expression -> expression.isSelected())
+               .forEach(expression -> moveExpressionToChapter(expression,
+                     toChapter));
+
          reloadChapterSet();
       }
 
-      private Chapter moveExpressionToChapter(Expression expression,
+      private void moveExpressionToChapter(Expression expression,
             String toChapter)
       {
          expression.getChapter().setName(toChapter);
-         return expression.getChapter();
+      }
+
+      private void moveSelectedExpressionsToDatabase(final String toDatabase)
+      {
+         alleMap
+               .values()
+               .stream()
+               .filter(expression -> expression.isDoChange())
+               .filter(expression -> expression.isSelected())
+               .forEach(expression -> moveExpressionToDatabase(expression,
+                     toDatabase));
+      }
+
+      private void moveExpressionToDatabase(Expression expression,
+            String toDatabase)
+      {
+         expression
+               .getChapter()
+               .getDatabaseDescription()
+               .setDatabaseName(toDatabase);
       }
    }
-
-
 }

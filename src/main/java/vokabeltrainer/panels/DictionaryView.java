@@ -125,6 +125,10 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private JComboBox<String> chapterChoiceBox;
 
+   private JComboBox<String> databaseChoiceBox;
+
+   private JButton moveToDatabaseButton;
+
    public DictionaryView(DictionaryControllerConnector connector)
    {
       this.connector = connector;
@@ -393,6 +397,7 @@ public class DictionaryView extends BackgroundPanelTiled
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
       vertical.setOpaque(false);
+      vertical.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
       JPanel horizontalMoveToChapterPanel = new JPanel();
       TrainLayout horizontalMoveToChapterLayout = new TrainLayout(
@@ -409,7 +414,23 @@ public class DictionaryView extends BackgroundPanelTiled
       horizontalMoveToChapterPanel.add(chapterChoiceBox);
       horizontalMoveToChapterPanel.add(moveToChapterButton);
 
+      JPanel horizontalMoveToDatabasePanel = new JPanel();
+      TrainLayout horizontalMoveToDatabaseLayout = new TrainLayout(
+            horizontalMoveToDatabasePanel, 15);
+      horizontalMoveToDatabasePanel.setLayout(horizontalMoveToDatabaseLayout);
+      
+      databaseChoiceBox = new JComboBox<>();
+      databaseChoiceBox.setEditable(true);
+      databaseChoiceBox.setModel(Data.getOwnDatabasesComboBoxModel());
+      
+      moveToDatabaseButton = new JButton("Auswahl zur Datenbank verschieben");
+      moveToDatabaseButton.setFont(Settings.getButtonFont());
+      
+      horizontalMoveToDatabasePanel.add(databaseChoiceBox);
+      horizontalMoveToDatabasePanel.add(moveToDatabaseButton);
+
       vertical.add(horizontalMoveToChapterPanel);
+      vertical.add(horizontalMoveToDatabasePanel);
 
       return vertical;
    }
@@ -750,7 +771,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
       moveToChapterButton.addActionListener(event -> {
          String chapterAim = (String) chapterChoiceBox.getSelectedItem();
-         chapterAim = this.cleanTextLeaveComma(chapterAim);
+         chapterAim = cleanTextLeaveComma(chapterAim);
          if (chapterAim.isBlank())
          {
             JOptionPane
@@ -764,8 +785,35 @@ public class DictionaryView extends BackgroundPanelTiled
             chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
          }
       });
+      
+      moveToDatabaseButton.addActionListener(event -> {
+         String databaseAim = (String) databaseChoiceBox.getSelectedItem();
+         databaseAim = cleanTextLeaveComma(databaseAim);
+         if (databaseAim.isBlank())
+         {
+            JOptionPane
+            .showMessageDialog(Common.getjFrame(),
+                  "Bitte geben Sie einen neuen Datenbanknamen ein\n oder wählen Sie eine vorhandene Datenbank aus.",
+                  "Information", JOptionPane.INFORMATION_MESSAGE);
+         }
+         else
+         {
+            connector.moveExpressionsToDatabase(databaseAim);
+            databaseChoiceBox.setModel(Data.getOwnDatabasesComboBoxModel());
+         }
+      });
    }
 
+   @Override
+   public int askForMovingToDatabaseConfirmation()
+   {
+      return JOptionPane
+            .showConfirmDialog(Common.getjFrame(),
+                  "Wollen Sie wirklich die Vokabeln in eine andere Datenbank verschieben?",
+                  "Frage", JOptionPane.OK_CANCEL_OPTION,
+                  JOptionPane.QUESTION_MESSAGE);
+   }
+   
    @Override
    public int askForMovingToChapterConfirmation()
    {
@@ -1127,7 +1175,7 @@ public class DictionaryView extends BackgroundPanelTiled
    public void selectChapter(Chapter currentChapter)
    {
       chapterList.setSelectedValue(currentChapter, true);
-      if(chapterList.getSelectedValue() == null)
+      if (chapterList.getSelectedValue() == null)
       {
          loadChapters();
          chapterList.setSelectedValue(currentChapter, true);

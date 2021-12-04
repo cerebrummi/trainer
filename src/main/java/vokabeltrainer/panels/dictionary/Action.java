@@ -25,5 +25,6 @@ public enum Action
    WORK_WASTEBIN,
    WORK_SHREDDER, 
    SORT_NOW,
-   MOVE_TO_CHAPTER
+   MOVE_TO_CHAPTER, 
+   MOVE_TO_DATABASE
 }

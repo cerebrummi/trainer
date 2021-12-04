@@ -47,4 +47,5 @@ public interface DictionaryViewConnector
    public void setValues();
    public SortingType getSortNow();
    public int askForMovingToChapterConfirmation();
+   public int askForMovingToDatabaseConfirmation();
 }
