@@ -25,7 +25,7 @@ public class Settings
    private static float volume = -20;
    private static boolean letterImagesOn = true;
    private static boolean simpleHebrewInput = true;
-   private static String version = "2.5";
+   private static String version = "3.0";
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
