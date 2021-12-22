@@ -24,6 +24,9 @@ public enum ExpressionKind
    ADVERB(
          "Adverb",
          ExpressionKindHelper.ADVERB_ENUMS),
+   ADVERB_PLUS(
+         "Adverb mit Zusatz",
+         ExpressionKindHelper.ADVERB_PLUS_ENUMS),
    ALTERSANGABE(
          "Altersangabe",
          ExpressionKindHelper.ALTERSANGABE_ENUMS),
@@ -134,6 +137,7 @@ public enum ExpressionKind
       {
       case ADJEKTIV:
       case ADVERB:
+      case ADVERB_PLUS:
       case ALTERSANGABE:
       case AUSRUF:
       case ARTIKEL:

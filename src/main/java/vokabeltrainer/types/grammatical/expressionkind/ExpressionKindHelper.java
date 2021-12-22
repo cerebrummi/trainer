@@ -16,6 +16,11 @@ public class ExpressionKindHelper
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
 
    public static GrammaticalParentEnum[] ADVERB_ENUMS = {};
+   
+   public static GrammaticalParentEnum[] ADVERB_PLUS_ENUMS = {
+         GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS,
+         GrammaticalParentEnum.GRAMMATICAL_PERSON,
+         GrammaticalParentEnum.VERB_TIMES };
 
    public static GrammaticalParentEnum[] ALTERSANGABE_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
