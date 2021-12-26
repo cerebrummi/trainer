@@ -41,7 +41,7 @@ public class StatisticsTableRow
          germanDtoH.add(expression.getWordGermanForStatistics(Language.GERMAN_TO_HEBREW));
       }
       
-      Collections.sort(expressionsHtoD, new ExpressionComparator(Language.HEBREW_TO_GERMAN));
+      Collections.sort(expressionsHtoD, new ExpressionComparator(Language.GERMAN_TO_HEBREW));
       germanHtoD = new ArrayList<>(expressionsHtoD.size());
       for(Expression expression : expressionsHtoD)
       {

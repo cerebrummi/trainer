@@ -333,7 +333,7 @@ public class Expression
       return additionalInformation;
    }
 
-   public String getGrammarInfo()
+   public String getGrammarInfo(boolean withExpressionKind)
    {
       StringJoiner joiner = new StringJoiner(", ");
       if (!definitions.getNumerusInfos().isEmpty())
@@ -356,7 +356,7 @@ public class Expression
       {
          joiner.add(definitions.getVerbConjugationInfos());
       }
-      if (!definitions.getExpressionKindDescriptions().isBlank())
+      if (withExpressionKind && !definitions.getExpressionKindDescriptions().isBlank())
       {
          joiner.add(definitions.getExpressionKindDescriptions());
       }
@@ -510,7 +510,6 @@ public class Expression
       {
          joiner.add(definitions.getGenderInfos());
       }
-      joiner.add(definitions.getExpressionKindDescriptions());
       return joiner.toString();
    }
 
@@ -539,7 +538,7 @@ public class Expression
       String[] content = new String[3];
       content[0] = german;
       content[1] = hebrew.toString();
-      content[2] = getGrammarInfo();
+      content[2] = getGrammarInfo(true);
       return content;
    }
 

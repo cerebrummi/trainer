@@ -650,7 +650,7 @@ public class TrainerView extends BackgroundPanelTiled
       correctAnswer2.setMinimumSize(new Dimension(490, 30));
       correctAnswer2.setMaximumSize(new Dimension(510, 30));
       JTextField correctAnswer3 = new JTextField(
-            connector.getCurrentExpression().getGrammarInfo());
+            connector.getCurrentExpression().getGrammarInfo(false));
       correctAnswer3.setFont(Main.getGermanFont(16F));
       correctAnswer3.setEditable(false);
       correctAnswer3.setBackground(ApplicationColors.getTransparent());

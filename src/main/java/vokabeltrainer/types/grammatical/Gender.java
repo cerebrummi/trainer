@@ -7,11 +7,11 @@ public enum Gender implements GrammaticalEnum
    GENDER_UNKNOWN(
          "unbekannt"),
    FEMALE(
-         "weiblich"),
+         "feminin"),
    MALE(
-         "männlich"),
+         "maskulin"),
    BOTH_FEMALE_MALE(
-         "weiblich und männlich"),
+         "feminin und maskulin"),
    GENDER_NA(
          "nicht anwendbar");
 

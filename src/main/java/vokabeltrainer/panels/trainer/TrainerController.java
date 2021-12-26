@@ -137,7 +137,7 @@ public class TrainerController implements TrainerControllerConnector
       if (trainerView.getGrammarInfoField().getText().isEmpty())
       {
          trainerView.getGrammarInfoField()
-         .setText(currentExpression.getGrammarInfo());
+         .setText(currentExpression.getGrammarInfo(true));
       }
       else
       {
