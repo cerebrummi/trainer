@@ -26,13 +26,16 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.editing.SingleLetterDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewStandard;
-import vokabeltrainer.keyboards.KeyboardHebrewStandardHandwritten;
 import vokabeltrainer.table.list.editor.CerebrummiFocusTraversalPolicy;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class LetterPictureAlphabetPanel extends JPanel
 {
+   private static final String SHUFFLE = "SHUFFLE";
+
+   private static final String REGULAR = "REGULAR";
+
    private static final String SCHREIBSCHRIFT = "SCHREIBSCHRIFT";
 
    private static final String DRUCKSCHRIFT = "DRUCKSCHRIFT";
@@ -103,15 +106,23 @@ public class LetterPictureAlphabetPanel extends JPanel
          ssamech, ain, faei, faeissofit, zadi, zadissofit, kuf, resch, schin,
          taw };
 
-   JRadioButton printLetters = new JRadioButton("Druckschrift");
-   JRadioButton handwrittenLetters = new JRadioButton("Schreibschrift");
+   JRadioButton printLettersButton = new JRadioButton("Druckschrift");
+   JRadioButton handwrittenLettersButton = new JRadioButton("Schreibschrift");
    ButtonGroup switchButtonGroup = new ButtonGroup();
+   
+   JRadioButton keyboardRegularButton = new JRadioButton("Tastatur, regulär");
+   JRadioButton keyboardShuffleButton = new JRadioButton("Tastatur, vermischt");
+   ButtonGroup keyboardButtonGroup = new ButtonGroup();
 
    FocusTraversalPolicy focusTraversalPolicy;
 
    private JPanel keyboardPanel;
 
    private CardLayout cardLayout;
+
+   private KeyboardHebrewStandard keyboardPrint;
+
+   private KeyboardHebrewStandard keyboardHandwritten;
 
    public LetterPictureAlphabetPanel()
    {
@@ -212,13 +223,13 @@ public class LetterPictureAlphabetPanel extends JPanel
       }
 
       JPanel keyboardPrintPanel = new JPanel(new BorderLayout());
-      KeyboardHebrewStandard keyboardPrint = new KeyboardHebrewStandard(null,
-            textFields, 15);
+      keyboardPrint = new KeyboardHebrewStandard(null,
+            textFields, 15, false);
       keyboardPrintPanel.add(keyboardPrint, BorderLayout.CENTER);
 
       JPanel keyboardHandwrittenPanel = new JPanel(new BorderLayout());
-      KeyboardHebrewStandardHandwritten keyboardHandwritten = new KeyboardHebrewStandardHandwritten(
-            null, textFields, 15);
+      keyboardHandwritten = new KeyboardHebrewStandard(
+            null, textFields, 15, true);
       keyboardHandwrittenPanel.add(keyboardHandwritten, BorderLayout.CENTER);
 
       cardLayout = new CardLayout();
@@ -230,19 +241,60 @@ public class LetterPictureAlphabetPanel extends JPanel
 
       this.add(keyboardPanel);
 
-      printLetters.addActionListener(event -> setWriting(DRUCKSCHRIFT));
-      handwrittenLetters.addActionListener(event -> setWriting(SCHREIBSCHRIFT));
-      switchButtonGroup.add(printLetters);
-      switchButtonGroup.add(handwrittenLetters);
+      printLettersButton.addActionListener(event -> setWriting(DRUCKSCHRIFT));
+      handwrittenLettersButton.addActionListener(event -> setWriting(SCHREIBSCHRIFT));
+      switchButtonGroup.add(printLettersButton);
+      switchButtonGroup.add(handwrittenLettersButton);
       
-      this.add(printLetters);
-      this.add(handwrittenLetters);
-      printLetters.setSelected(true);
+      keyboardRegularButton.addActionListener(event -> setKeyboard(REGULAR));
+      keyboardShuffleButton.addActionListener(event -> setKeyboard(SHUFFLE));
+      keyboardButtonGroup.add(keyboardRegularButton);
+      keyboardButtonGroup.add(keyboardShuffleButton);
+      
+      JPanel buttonPanel = new JPanel();
+      TrainLayout buttonPanelLayout = new TrainLayout(buttonPanel, 15);
+      buttonPanel.setLayout(buttonPanelLayout);
+      
+      JPanel letterSwitchPanel = new JPanel();
+      TotemLayout letterSwitchPanelLayout = new TotemLayout(letterSwitchPanel, 15);
+      letterSwitchPanel.setLayout(letterSwitchPanelLayout);
+      
+      JPanel keyboardShufflePanel = new JPanel();
+      TotemLayout keyboardShufflePanelLayout = new TotemLayout(keyboardShufflePanel, 15);
+      keyboardShufflePanel.setLayout(keyboardShufflePanelLayout);
+      
+      letterSwitchPanel.add(printLettersButton);
+      letterSwitchPanel.add(handwrittenLettersButton);
+      printLettersButton.setSelected(true);
+      
+      keyboardShufflePanel.add(keyboardRegularButton);
+      keyboardShufflePanel.add(keyboardShuffleButton);
+      keyboardRegularButton.setSelected(true);
+      
+      buttonPanel.add(letterSwitchPanel);
+      buttonPanel.add(keyboardShufflePanel);
+      
+      this.add(buttonPanel);
+      
 
       setWriting(switchButtonGroup.getSelection().getActionCommand());
       
 
       this.focusTraversalPolicy = new CerebrummiFocusTraversalPolicy(focusList);
+   }
+
+   private void setKeyboard(String actionCommand)
+   {
+      if(REGULAR == actionCommand)
+      {
+         keyboardPrint.makeRegularKeyboard();
+         keyboardHandwritten.makeRegularKeyboard();
+      }
+      else
+      {
+         keyboardPrint.shuffleKeyboard();
+         keyboardHandwritten.shuffleKeyboard();
+      }
    }
 
    private void setWriting(String actionCommand)
