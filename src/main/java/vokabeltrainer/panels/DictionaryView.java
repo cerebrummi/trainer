@@ -314,7 +314,7 @@ public class DictionaryView extends BackgroundPanelTiled
       hebrewSearch.setBackground(Color.WHITE);
       searchPhraseHebrew = new JTextField();
       searchPhraseHebrew
-            .setBorder(new TitledBorder("Wort auf HebrÃ¤isch eingeben"));
+            .setBorder(new TitledBorder("Wort auf Hebräisch eingeben"));
 
       KeyboardHebrewAllLetters keyboard = new KeyboardHebrewAllLetters(
             searchPhraseHebrew, new ArrayList<JTextComponent>(), 70, true);
@@ -479,7 +479,7 @@ public class DictionaryView extends BackgroundPanelTiled
       copyAllSelectedButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
       copyAllSelectedButton
             .setToolTipText(
-                  "Nur selbst eingegebene Vokabeln kÃ¶nnen kopiert werden.");
+                  "Nur selbst eingegebene Vokabeln können kopiert werden.");
       copyAllSelectedButton.setMinimumSize(new Dimension(200, 40));
       copyAllSelectedButton.setMaximumSize(new Dimension(600, 40));
 
@@ -490,7 +490,7 @@ public class DictionaryView extends BackgroundPanelTiled
             .setIcon(new ImageIcon(ApplicationImages.getCopy()));
       copyInTableSelectedButton
             .setToolTipText(
-                  "Nur selbst eingegebene Vokabeln kÃ¶nnen kopiert werden.");
+                  "Nur selbst eingegebene Vokabeln können kopiert werden.");
       copyInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
       copyInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
 
@@ -500,7 +500,7 @@ public class DictionaryView extends BackgroundPanelTiled
       copyTableButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
       copyTableButton
             .setToolTipText(
-                  "Nur selbst eingegebene Vokabeln kÃ¶nnen kopiert werden.");
+                  "Nur selbst eingegebene Vokabeln können kopiert werden.");
       copyTableButton.setMinimumSize(new Dimension(200, 40));
       copyTableButton.setMaximumSize(new Dimension(600, 40));
 
@@ -528,7 +528,7 @@ public class DictionaryView extends BackgroundPanelTiled
       clearInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
       clearInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
 
-      deleteInTableSelectedButton = new JButton("Tabellenauswahl lÃ¶schen");
+      deleteInTableSelectedButton = new JButton("Tabellenauswahl löschen");
       deleteInTableSelectedButton.setFont(buttonFont);
       deleteInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteInTableSelectedButton
@@ -536,7 +536,7 @@ public class DictionaryView extends BackgroundPanelTiled
       deleteInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
       deleteInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
 
-      deleteAllSelectedButton = new JButton("Gesamtauswahl lÃ¶schen");
+      deleteAllSelectedButton = new JButton("Gesamtauswahl löschen");
       deleteAllSelectedButton.setFont(buttonFont);
       deleteAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteAllSelectedButton
@@ -714,13 +714,13 @@ public class DictionaryView extends BackgroundPanelTiled
 
       tableInfoButton.addActionListener(event -> {
          JOptionPane
-               .showMessageDialog(horizontalLanguagePanel, "", "CerebrummiÂ©",
+               .showMessageDialog(horizontalLanguagePanel, "", Settings.getWindowTitle(),
                      JOptionPane.INFORMATION_MESSAGE,
                      new ImageIcon(TextImage
                            .make("Tabelle",
                                  "einmal klicken markiert einen Eintrag",
-                                 "Enter drÃ¼cken Ã¶ffnet den markierten Eintrag",
-                                 "zweimal klicken wÃ¤hlt einen Eintrag aus (Stecknadel)")));
+                                 "Enter drücken öffnet den markierten Eintrag",
+                                 "zweimal klicken wählt einen Eintrag aus (Stecknadel)")));
       });
 
       tableInfoButton.addMouseListener(new MouseListener()
@@ -776,7 +776,7 @@ public class DictionaryView extends BackgroundPanelTiled
          {
             JOptionPane
                   .showMessageDialog(Common.getjFrame(),
-                        "Bitte geben Sie einen neuen Lektionsnamen ein\n oder wÃ¤hlen Sie eine vorhandene Lektion aus.",
+                        "Bitte geben Sie einen neuen Lektionsnamen ein\n oder wählen Sie eine vorhandene Lektion aus.",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
          }
          else
@@ -793,7 +793,7 @@ public class DictionaryView extends BackgroundPanelTiled
          {
             JOptionPane
             .showMessageDialog(Common.getjFrame(),
-                  "Bitte geben Sie einen neuen Datenbanknamen ein\n oder wÃ¤hlen Sie eine vorhandene Datenbank aus.",
+                  "Bitte geben Sie einen neuen Datenbanknamen ein\n oder wählen Sie eine vorhandene Datenbank aus.",
                   "Information", JOptionPane.INFORMATION_MESSAGE);
          }
          else
@@ -839,14 +839,14 @@ public class DictionaryView extends BackgroundPanelTiled
       String message;
       if (number == 1)
       {
-         message = "Wollen Sie wirklich einen Eintrag lÃ¶schen?";
+         message = "Wollen Sie wirklich einen Eintrag löschen?";
       }
       else
       {
-         message = "Wollen Sie wirklich " + number + " EintrÃ¤ge lÃ¶schen?";
+         message = "Wollen Sie wirklich " + number + " Einträge löschen?";
       }
 
-      message += "\nHinweis: Die Vokabeln eingebauter Datenbanken\nkÃ¶nnen nicht gelÃ¶scht werden.";
+      message += "\nHinweis: Die Vokabeln eingebauter Datenbanken\nkönnen nicht gelöscht werden.";
       return JOptionPane
             .showConfirmDialog(Common.getjFrame(), message, "Frage",
                   JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -857,14 +857,14 @@ public class DictionaryView extends BackgroundPanelTiled
       String message;
       if (number == 1)
       {
-         message = "Es wurde kein Eintrag\nzum LÃ¶schen ausgewÃ¤hlt.";
+         message = "Es wurde kein Eintrag\nzum Löschen ausgewählt.";
       }
       else
       {
-         message = "Es wurden keine EintrÃ¤ge\nzum LÃ¶schen ausgewÃ¤hlt.";
+         message = "Es wurden keine Einträge\nzum Löschen ausgewählt.";
       }
 
-      message += "\nHinweis: Die Vokabeln eingebauter Datenbanken\nkÃ¶nnen nicht gelÃ¶scht werden.";
+      message += "\nHinweis: Die Vokabeln eingebauter Datenbanken\nkönnen nicht gelöscht werden.";
       JOptionPane
             .showMessageDialog(Common.getjFrame(), message, "Nachricht",
                   JOptionPane.CLOSED_OPTION);
@@ -927,7 +927,7 @@ public class DictionaryView extends BackgroundPanelTiled
       DataButton scrollsearchButton = new DataButton("suche Wort in Tabelle");
       scrollsearchButton.setOpaque(false);
       scrollsearchButton.setFont(Settings.getButtonFont());
-      DataButton scrollsearchPinButton = new DataButton("nÃ¤chste Auswahl");
+      DataButton scrollsearchPinButton = new DataButton("nächste Auswahl");
       scrollsearchPinButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
       scrollsearchPinButton.setOpaque(false);
@@ -1006,7 +1006,7 @@ public class DictionaryView extends BackgroundPanelTiled
       TrainLayout infotablePanelLayout = new TrainLayout(infotablePanel, 15);
       infotablePanel.setLayout(infotablePanelLayout);
       JLabel numberOfEntriesLabel = new JLabel(
-            " " + tableModel.getRowCount() + " EintrÃ¤ge in dieser Tabelle");
+            " " + tableModel.getRowCount() + " Einträge in dieser Tabelle");
       numberOfEntriesLabel.setFont(Settings.getButtonFont());
       infotablePanel.add(numberOfEntriesLabel);
 
@@ -1037,7 +1037,7 @@ public class DictionaryView extends BackgroundPanelTiled
       german.setMinimumSize(new Dimension(100, 26));
       german.setMaximumSize(new Dimension(205, 32));
 
-      JRadioButton hebrew = new JRadioButton("HebrÃ¤isch");
+      JRadioButton hebrew = new JRadioButton("Hebräisch");
       hebrew.setActionCommand(Action.HEBREW_TO_GERMAN.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
