@@ -110,7 +110,7 @@ public final class Main
       catch (Exception e1)
       {
          JOptionPane
-               .showMessageDialog(null, message + "GerÃ¤usche fehlen",
+               .showMessageDialog(null, message + "Geräusche fehlen",
                      "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
@@ -142,7 +142,7 @@ public final class Main
          UIManager.put("List.opaque", false);
          UIManager.put("Table.cellRenderer", false);
          UIManager.put("OptionPane.buttonFont", Main.getGermanFont(16F));
-         UIManager.put("FileChooser.openButtonText", "Ã–ffnen");
+         UIManager.put("FileChooser.openButtonText", "Öffnen");
          UIManager.put("FileChooser.cancelButtonText", "Abbrechen");
          UIManager.put("FileChooser.saveButtonText", "Speichern");
          UIManager
@@ -153,8 +153,8 @@ public final class Main
                      "AusgewÃ¤hlte Datei speichern");
          UIManager
                .put("FileChooser.openButtonToolTipText",
-                     "AusgewÃ¤hlte Datei Ã¶ffnen");
-         UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene hÃ¶her");
+                     "Ausgewählte Datei öffnen");
+         UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene höher");
          UIManager.put("FileChooser.homeFolderToolTipText", "Home");
          UIManager
                .put("FileChooser.newFolderToolTipText",
@@ -168,7 +168,7 @@ public final class Main
                .put("FileChooser.acceptAllFileFilterText",
                      "Alle Dateien (*.*)");
          UIManager.put("FileChooser.folderNameLabelText", "Ordnername:");
-         UIManager.put("FileChooser.openDialogTitleText", "Ã–ffnen");
+         UIManager.put("FileChooser.openDialogTitleText", "Öffnen");
          UIManager.put("FileChooser.saveDialogTitleText", "Speichern");
       }
       catch (UnsupportedLookAndFeelException e3)
@@ -227,7 +227,7 @@ public final class Main
             catch (Exception e)
             {
                JOptionPane
-                     .showMessageDialog(null, message + "GrÃ¼ne Bilder fehlen",
+                     .showMessageDialog(null, message + "Grüne Bilder fehlen",
                            "Nachricht", JOptionPane.CLOSED_OPTION);
                System.exit(1);
             }
