@@ -120,7 +120,7 @@ public class StartPanel extends JPanel
       scroller.setMinimumSize(new Dimension(990, 120));
       scroller.setMaximumSize(new Dimension(990, 120));
 
-      JLabel databaseLabel2 = new JLabel(" interne Datenbank durch Doppelklick SICHTBAR machen => DatensÃ¤tze kÃ¶nnen NICHT editiert werden");
+      JLabel databaseLabel2 = new JLabel(" interne Datenbank durch Doppelklick SICHTBAR machen => Datensätze können NICHT editiert werden");
       databaseLabel2.setFont(Main.getGermanFont(16F));
       databaseLabel2.setForeground(ApplicationColors.getDarkGold());
       
@@ -155,7 +155,7 @@ public class StartPanel extends JPanel
       scroller.setMinimumSize(new Dimension(990, 120));
       scroller.setMaximumSize(new Dimension(990, 120));
 
-      JLabel databaseLabel2 = new JLabel(" interne Datenbank durch Doppelklick KOPIEREN => DatensÃ¤tze kÃ¶nnen editiert werden");
+      JLabel databaseLabel2 = new JLabel(" interne Datenbank durch Doppelklick KOPIEREN => Datensätze können editiert werden");
       databaseLabel2.setFont(Main.getGermanFont(16F));
       databaseLabel2.setForeground(ApplicationColors.getDarkGold());
       

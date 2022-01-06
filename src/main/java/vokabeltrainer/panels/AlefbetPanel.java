@@ -68,7 +68,7 @@ public class AlefbetPanel extends BackgroundPanelTiled
 
       resultButton = new JButton("auswerten");
       resultButton.setFont(Settings.getButtonFont());
-      resetButton = new JButton("zurÃ¼cksetzen");
+      resetButton = new JButton("zurücksetzen");
       resetButton.setFont(Settings.getButtonFont());
 
       vertical.add(filler);
@@ -83,7 +83,7 @@ public class AlefbetPanel extends BackgroundPanelTiled
       letterPanel.setLayout(new TotemLayout(letterPanel));
       letterPanel.setOpaque(false);
 
-      JLabel title = new JLabel(" Alefbet Ã¼ben");
+      JLabel title = new JLabel(" Alefbet üben");
       title.setFont(Main.getGermanFont(24F));
       letterPanel.add(title);
 
@@ -127,7 +127,7 @@ public class AlefbetPanel extends BackgroundPanelTiled
       });
 
       pictureInfoButton.addActionListener(event -> {
-         JOptionPane.showMessageDialog(letterPanel, "", "CerebrummiÂ©",
+         JOptionPane.showMessageDialog(letterPanel, "", Settings.getWindowTitle(),
                JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make("Bilderbuchstaben",
                      "Alle Bilder kann man", "auch einzeln anklicken.")));

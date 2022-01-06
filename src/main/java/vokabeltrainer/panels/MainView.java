@@ -238,7 +238,7 @@ public class MainView extends JPanel
    
    private void showNoWordsForTraining()
    {
-      JOptionPane.showMessageDialog(Common.getjFrame(), "", "Cerebrummi©",
+      JOptionPane.showMessageDialog(Common.getjFrame(), "", Settings.getWindowTitle(),
             JOptionPane.PLAIN_MESSAGE,
             new ImageIcon(TextImage.make("Keine Worte zum Üben ausgewählt.",
                   "Bitte neue Worte durch Eingabe einer Anzahl",

@@ -1,18 +1,18 @@
-Vokabeltrainer Cerebrummi Version 2.5
+Vokabeltrainer Cerebrummi Version 3.0
 
-© 2021 AdaAdama UG (haftungsbeschraenkt), Gustebiner Wende 4a, 17491 Greifswald.
+©2022 Birke Heeren, Gustebiner Wende 4a, 17491 Greifswald.
 
 
 Alle Rechte vorbehalten.
 
-Produktentwicklung:
-AdaAdama UG (haftungsbeschraenkt), Greifswald.
-
-Programmentwicklung, Programmierung, Projektleitung, Konzeption und Screendesign:
-Birke Heeren
+Produktentwicklung, Programmentwicklung, Programmierung, Projektleitung, Konzeption und Screendesign:
+Birke Heeren.
 
 
 Die Software und das digitalisierte Datenmaterial sind urheberrechtlich geschuetzt und duerfen grundsaetzlich nur privat genutzt werden.
-Insbesondere Vermietung, Tausch, Sendung, Vervielfaeltigung, Kopieren, Verarbeitung in elektronischen Systemen sind grundsaetzlich unzulaessig. Rueckfragen fuer Ausnahmen sind direkt an AdaAdama UG (haftungsbeschraenkt) zu richten.
+Insbesondere Vermietung, Tausch, Sendung, Vervielfaeltigung, Kopieren, Verarbeitung in elektronischen Systemen sind grundsaetzlich unzulaessig. Rueckfragen fuer Ausnahmen sind direkt an Birke Heeren zu richten.
 Alle Daten und Angaben wurden ueberprueft und getestet. Eine Garantie fuer technische Fehlerfreiheit oder fuer die Richtigkeit der gemachten Angaben wird nicht gegeben.
 
+Installieren und Nutzen Sie den Vokabeltrainer Cerebrummi nur auf EIGENES RISIKO !
+
+Greifswald, den 6.Januar 2022
