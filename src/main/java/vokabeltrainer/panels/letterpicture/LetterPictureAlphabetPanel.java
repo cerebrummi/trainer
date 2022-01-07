@@ -22,13 +22,16 @@ import javax.swing.text.JTextComponent;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSpecialPanels;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.common.Translator;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.editing.SingleLetterDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewStandard;
 import vokabeltrainer.table.list.editor.CerebrummiFocusTraversalPolicy;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
+import vokabeltrainer.types.Translation;
 
 public class LetterPictureAlphabetPanel extends JPanel
 {
@@ -58,6 +61,8 @@ public class LetterPictureAlphabetPanel extends JPanel
    private final NikudLetter[] keys4 = { NikudLetter.TAW, NikudLetter.SCHIN,
          NikudLetter.RESCH };
 
+   private Translator translator = Common.getTranslator();
+   
    private LetterTextField alef = new LetterTextField(NikudLetter.ALEF);
    private LetterTextField wet = new LetterTextField(NikudLetter.BET);
    private LetterTextField gimel = new LetterTextField(NikudLetter.GIMEL);
@@ -106,12 +111,12 @@ public class LetterPictureAlphabetPanel extends JPanel
          ssamech, ain, faei, faeissofit, zadi, zadissofit, kuf, resch, schin,
          taw };
 
-   JRadioButton printLettersButton = new JRadioButton("Druckschrift");
-   JRadioButton handwrittenLettersButton = new JRadioButton("Schreibschrift");
+   JRadioButton printLettersButton = new JRadioButton(translator.translate(Translation.DRUCKSCHRIFT));
+   JRadioButton handwrittenLettersButton = new JRadioButton(translator.translate(Translation.SCHREIBSCHRIFT));
    ButtonGroup switchButtonGroup = new ButtonGroup();
    
-   JRadioButton keyboardRegularButton = new JRadioButton("Tastatur, regulär");
-   JRadioButton keyboardShuffleButton = new JRadioButton("Tastatur, vermischt");
+   JRadioButton keyboardRegularButton = new JRadioButton(translator.translate(Translation.TASTATUR_REGULAER));
+   JRadioButton keyboardShuffleButton = new JRadioButton(translator.translate(Translation.TASTATUR_VERMISCHT));
    ButtonGroup keyboardButtonGroup = new ButtonGroup();
 
    FocusTraversalPolicy focusTraversalPolicy;
@@ -123,9 +128,16 @@ public class LetterPictureAlphabetPanel extends JPanel
    private KeyboardHebrewStandard keyboardPrint;
 
    private KeyboardHebrewStandard keyboardHandwritten;
+   
+   private ComponentOrientation componentOrientation = Settings.getTranslationCode().getOrientation();
 
    public LetterPictureAlphabetPanel()
    {
+      printLettersButton.setComponentOrientation(componentOrientation);
+      handwrittenLettersButton.setComponentOrientation(componentOrientation);
+      keyboardRegularButton.setComponentOrientation(componentOrientation);
+      keyboardShuffleButton.setComponentOrientation(componentOrientation);
+      
       textFields = new ArrayList<>();
       Map<NikudLetter, LetterPictureButtonPanel> panels = ApplicationSpecialPanels
             .getLetterPicturesPanelMap();
@@ -188,9 +200,10 @@ public class LetterPictureAlphabetPanel extends JPanel
       filler.setMinimumSize(new Dimension(310, 50));
       filler.setMaximumSize(new Dimension(310, 50));
 
-      JButton turnButton = new JButton("alle umdrehen");
+      JButton turnButton = new JButton(translator.translate(Translation.ALLE_UMDREHEN));
       turnButton.setFont(Settings.getButtonFont());
       turnButton.setIcon(new ImageIcon(ApplicationImages.getTurn()));
+      turnButton.setComponentOrientation(componentOrientation);
       turnButton.addActionListener(event -> {
          for (LetterPictureButtonPanel panel : panels.values())
          {

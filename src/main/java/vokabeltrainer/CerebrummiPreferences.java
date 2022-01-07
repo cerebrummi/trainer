@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
+import vokabeltrainer.types.TranslationCode;
 
 public class CerebrummiPreferences
 {
@@ -22,12 +23,10 @@ public class CerebrummiPreferences
    {
       try
       {
-         Preferences preferences = Preferences
-               .userRoot()
+         Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings
-               .setSoundOn(preferences
-                     .getBoolean(CerebrummiNodes.getSoundNode(), true));
+         Settings.setSoundOn(
+               preferences.getBoolean(CerebrummiNodes.getSoundNode(), true));
       }
       catch (Exception e)
       {
@@ -36,13 +35,10 @@ public class CerebrummiPreferences
 
       try
       {
-         Preferences preferences = Preferences
-               .userRoot()
+         Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings
-               .setChoosenExpressionPath(preferences
-                     .get(CerebrummiNodes.getChoosenExpressionPathNode(),
-                           null));
+         Settings.setChoosenExpressionPath(preferences
+               .get(CerebrummiNodes.getChoosenExpressionPathNode(), null));
       }
       catch (Exception e)
       {
@@ -51,12 +47,10 @@ public class CerebrummiPreferences
 
       try
       {
-         Preferences preferences = Preferences
-               .userRoot()
+         Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings
-               .setVolume(preferences
-                     .getFloat(CerebrummiNodes.getVolumeNode(), -20f));
+         Settings.setVolume(
+               preferences.getFloat(CerebrummiNodes.getVolumeNode(), -20f));
       }
       catch (Exception e)
       {
@@ -65,13 +59,10 @@ public class CerebrummiPreferences
 
       try
       {
-         Preferences preferences = Preferences
-               .userRoot()
+         Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings
-               .setLetterImagesOn(preferences
-                     .getBoolean(CerebrummiNodes.getLetterPicturesNode(),
-                           true));
+         Settings.setLetterImagesOn(preferences
+               .getBoolean(CerebrummiNodes.getLetterPicturesNode(), true));
       }
       catch (Exception e)
       {
@@ -80,8 +71,7 @@ public class CerebrummiPreferences
 
       try
       {
-         Preferences preferences = Preferences
-               .userRoot()
+         Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
 
          if (!preferences.nodeExists(CerebrummiNodes.getChoosenDatabases()))
@@ -90,24 +80,23 @@ public class CerebrummiPreferences
          }
 
          preferences = preferences.node(CerebrummiNodes.getChoosenDatabases());
-         
+
          List<String> possibleDatabases = Arrays
                .stream(Chapter.Database.values())
                .filter(database -> !database.equals(Database.IMPORTED))
                .filter(database -> !database.equals(Database.SELF))
-               .filter(database -> !database
-                     .equals(Database.TO_BE_DETERMINED))
+               .filter(database -> !database.equals(Database.TO_BE_DETERMINED))
                .filter(database -> !database.equals(Database.UNKNOWN))
                .map(database -> database.name().toLowerCase())
                .collect(Collectors.toList());
-         
+
          List<Database> choosenDatabases = new ArrayList<>();
-         
-         for(String name : possibleDatabases)
+
+         for (String name : possibleDatabases)
          {
             try
             {
-               if(preferences.getBoolean(name, false))
+               if (preferences.getBoolean(name, false))
                {
                   choosenDatabases.add(Database.valueOf(name.toUpperCase()));
                }
@@ -117,7 +106,7 @@ public class CerebrummiPreferences
                // nothing
             }
          }
-         
+
          Settings.setChosenDatabases(choosenDatabases);
       }
       catch (BackingStoreException e)
@@ -125,5 +114,18 @@ public class CerebrummiPreferences
          // nothing
       }
 
+      try
+
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setTranslationCode(TranslationCode.valueOf(
+               preferences.get(CerebrummiNodes.getTranslationLanguage(),
+                     TranslationCode.de_DE.name())));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
    }
 }

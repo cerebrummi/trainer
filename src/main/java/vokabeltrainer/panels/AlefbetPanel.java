@@ -2,6 +2,7 @@ package vokabeltrainer.panels;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -18,7 +19,9 @@ import javax.swing.text.JTextComponent;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.common.Translator;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.letterpicture.LetterPictureAlphabetPanel;
@@ -26,6 +29,7 @@ import vokabeltrainer.panels.letterpicture.LetterTextField;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
+import vokabeltrainer.types.Translation;
 
 public class AlefbetPanel extends BackgroundPanelTiled
 {
@@ -36,11 +40,13 @@ public class AlefbetPanel extends BackgroundPanelTiled
    private LetterPictureAlphabetPanel letterPictureAlphabetPanel;
    private JButton resultButton;
    private JButton resetButton;
+   private Translator translator = Common.getTranslator();
+   private ComponentOrientation componentOrientation = Settings.getTranslationCode().getOrientation();
 
    public AlefbetPanel()
    {
       setLayout(new BullsEyeLayout(this));
-      
+
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 165));
       this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel();
@@ -48,7 +54,7 @@ public class AlefbetPanel extends BackgroundPanelTiled
       horizontal.add(initLetterPanel());
       horizontal.add(letterPictureAlphabetPanel);
       horizontal.add(initButtons());
-      
+
       add(horizontal);
 
       initController();
@@ -66,10 +72,13 @@ public class AlefbetPanel extends BackgroundPanelTiled
       filler.setMinimumSize(new Dimension(200, 1));
       filler.setMaximumSize(new Dimension(200, 1));
 
-      resultButton = new JButton("auswerten");
+      resultButton = new JButton(translator.translate(Translation.AUSWERTEN));
       resultButton.setFont(Settings.getButtonFont());
-      resetButton = new JButton("zurücksetzen");
+      resultButton.setComponentOrientation(componentOrientation);
+      resetButton = new JButton(
+            translator.translate(Translation.ZURUECKSETZEN));
       resetButton.setFont(Settings.getButtonFont());
+      resetButton.setComponentOrientation(componentOrientation);
 
       vertical.add(filler);
       vertical.add(resultButton);
@@ -83,8 +92,10 @@ public class AlefbetPanel extends BackgroundPanelTiled
       letterPanel.setLayout(new TotemLayout(letterPanel));
       letterPanel.setOpaque(false);
 
-      JLabel title = new JLabel(" Alefbet üben");
+      JLabel title = new JLabel(
+            translator.translate(Translation.ALEFBET_UEBEN));
       title.setFont(Main.getGermanFont(24F));
+      title.setComponentOrientation(componentOrientation);
       letterPanel.add(title);
 
       pictureInfoButton = new JButton(
@@ -127,10 +138,13 @@ public class AlefbetPanel extends BackgroundPanelTiled
       });
 
       pictureInfoButton.addActionListener(event -> {
-         JOptionPane.showMessageDialog(letterPanel, "", Settings.getWindowTitle(),
-               JOptionPane.INFORMATION_MESSAGE,
-               new ImageIcon(TextImage.make("Bilderbuchstaben",
-                     "Alle Bilder kann man", "auch einzeln anklicken.")));
+         JOptionPane.showMessageDialog(letterPanel, "",
+               Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
+               new ImageIcon(TextImage.make(
+                     translator.translate(Translation.BILDERBUCHSTABEN),
+                     translator.translate(Translation.ALLE_BILDER_KANN_MAN),
+                     translator
+                           .translate(Translation.AUCH_EINZELN_ANKLICKEN))));
       });
 
       pictureInfoButton.addMouseListener(new MouseListener()

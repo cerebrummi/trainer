@@ -12,6 +12,7 @@ import java.util.prefs.Preferences;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.LanguageSettings;
+import vokabeltrainer.types.TranslationCode;
 
 public class Settings
 {
@@ -35,6 +36,8 @@ public class Settings
    
    private static String rememberDatabaseForInput = "";
    private static String rememberChapterForInput = "";
+   
+   private static TranslationCode translationCode = TranslationCode.de_DE;
 
    private Settings()
    {
@@ -149,6 +152,20 @@ public class Settings
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getSoundNode(), soundOn);
       Settings.soundOn = soundOn;
+   }
+
+   public static TranslationCode getTranslationCode()
+   {
+      return translationCode;
+   }
+
+   public static void setTranslationCode(TranslationCode translationCode)
+   {
+      Preferences preferences = Preferences
+            .userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.put(CerebrummiNodes.getTranslationLanguage(), translationCode.name());
+      Settings.translationCode = translationCode;
    }
 
    public static boolean isLetterImagesOn()

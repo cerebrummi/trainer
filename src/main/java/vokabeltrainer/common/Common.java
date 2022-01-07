@@ -9,6 +9,7 @@ public final class Common
    private static JFrame jFrame;
    private static boolean setMainJPanelOnlyOnce = false;
    private static boolean setJFrameOnlyOnce = false;
+   private static Translator translator = new Translator();
 
    private Common()
    {
@@ -39,5 +40,15 @@ public final class Common
       {
          Common.jFrame = jFrame;
       }
+   }
+
+   public static Translator getTranslator()
+   {
+      return translator;
+   }
+
+   public static void setTranslator(Translator translator)
+   {
+      Common.translator = translator;
    }
 }

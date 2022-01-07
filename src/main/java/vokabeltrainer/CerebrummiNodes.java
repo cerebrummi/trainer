@@ -52,4 +52,9 @@ public class CerebrummiNodes
    {
       return "choosendatabases";
    }
+   
+   public static String getTranslationLanguage()
+   {
+      return "translation";
+   }
 }

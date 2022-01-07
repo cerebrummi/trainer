@@ -50,6 +50,7 @@ public class MainView extends JPanel
    private JMenuBar menuBar;
    
    private JButton backButton;
+   private LanguagePanel languagePanel;
 
    public MainView()
    {
@@ -79,6 +80,8 @@ public class MainView extends JPanel
       this.removeAll();
       
       initLanguageToolBar();
+      languagePanel = new LanguagePanel();
+      add(languagePanel);
       initLanguageController();
       
       Main.resetMenuBar();
