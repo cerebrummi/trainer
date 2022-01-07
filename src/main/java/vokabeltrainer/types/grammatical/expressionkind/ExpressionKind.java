@@ -55,10 +55,10 @@ public enum ExpressionKind
          "Fragewort",
          ExpressionKindHelper.FRAGEWORT_ENUMS),
    PRONOM(
-         "Pronom/F√ºrwort",
+         "Pronom/F¸rwort",
          ExpressionKindHelper.PRONOM_ENUMS),
    GLUECKWUNSCH(
-         "Gl√ºckwunsch/Gru√ü",
+         "Gl¸ckwunsch/Gruﬂ",
          ExpressionKindHelper.GLUECKWUNSCH_ENUMS),
    JAHRESZEIT(
          "Jahreszeit",
@@ -76,7 +76,7 @@ public enum ExpressionKind
          "Partikel",
          ExpressionKindHelper.PARTIKEL_ENUMS),
    PERSONALPRAEFIX(
-         "Personalpr√§fix",
+         "Personalpr‰fix",
          ExpressionKindHelper.PERSONALPRAEFIX_ENUMS),
    PERSONALPRONOM(
          "Personalpronom",
@@ -88,7 +88,7 @@ public enum ExpressionKind
          "Possessivpronom",
          ExpressionKindHelper.POSSESSIVPRONOM_ENUMS),
    PRAEPOSITION(
-         "Pr√§position",
+         "Pr‰position",
          ExpressionKindHelper.PRAEPOSITION_ENUMS),
    REDEWENDUNG(
          "Redewendung",
