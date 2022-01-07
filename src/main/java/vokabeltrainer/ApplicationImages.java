@@ -68,6 +68,9 @@ public class ApplicationImages
 
    private static BufferedImage back;
    private static BufferedImage lock;
+   private static BufferedImage languages;
+   private static BufferedImage newWordSmall;
+   private static BufferedImage l18n;
 
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    private static Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap;
@@ -192,6 +195,48 @@ public class ApplicationImages
          exitWithMessage("kein NewWord Icon");
       }
       ApplicationImages.newWord = newWord;
+   }
+
+   public static BufferedImage getLanguages()
+   {
+      return languages;
+   }
+
+   public static void setLanguages(BufferedImage languages)
+   {
+      if (languages == null)
+      {
+         exitWithMessage("kein Languages Icon");
+      }
+      ApplicationImages.languages = languages;
+   }
+
+   public static BufferedImage getNewWordSmall()
+   {
+      return newWordSmall;
+   }
+
+   public static void setNewWordSmall(BufferedImage newWordSmall)
+   {
+      if (newWordSmall == null)
+      {
+         exitWithMessage("kein NewWordSmall Icon");
+      }
+      ApplicationImages.newWordSmall = newWordSmall;
+   }
+   
+   public static BufferedImage getL18n()
+   {
+      return l18n;
+   }
+
+   public static void setL18n(BufferedImage l18n)
+   {
+      if (l18n == null)
+      {
+         exitWithMessage("kein L18n Icon");
+      }
+      ApplicationImages.l18n = l18n;
    }
 
    public static BufferedImage getSaveWord()

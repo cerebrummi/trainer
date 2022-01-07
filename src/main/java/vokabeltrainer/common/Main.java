@@ -286,4 +286,13 @@ public final class Main
    {
       Data.initDataBase();
    }
+   
+   public static void resetMenuBar()
+   {
+      SwingUtilities.invokeLater(() -> { 
+         vokabeltrainer.common.Common.getjFrame().setJMenuBar(Common.getMainJPanel().getMenuBar());
+         vokabeltrainer.common.Common.getjFrame().validate();
+         vokabeltrainer.common.Common.getjFrame().repaint();
+      });
+   }
 }

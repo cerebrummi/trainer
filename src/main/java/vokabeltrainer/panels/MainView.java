@@ -18,6 +18,7 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
+import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.dictionary.DictionaryController;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
@@ -44,8 +45,11 @@ public class MainView extends JPanel
    private SettingsPanel settingsPanel;
    private AlefbetPanel letterPicturesPanel;
    private SuccessPanel successPanel;
+   private JButton languageButton;
 
    private JMenuBar menuBar;
+   
+   private JButton backButton;
 
    public MainView()
    {
@@ -69,6 +73,47 @@ public class MainView extends JPanel
       settingsPanel = new SettingsPanel();
       successPanel = new SuccessPanel();
    }
+   
+   private void initLanguageContent()
+   {
+      this.removeAll();
+      
+      initLanguageToolBar();
+      initLanguageController();
+      
+      Main.resetMenuBar();
+      this.validate();
+      this.repaint();
+   }
+
+   private void initLanguageController()
+   {
+      backButton.addActionListener(event -> {
+         this.removeAll();
+         initContent();
+         initController();
+         activeComponent = startPanel;
+         add(activeComponent);
+         Main.resetMenuBar();
+         this.validate();
+         this.repaint();
+      });
+      
+   }
+
+   private void initLanguageToolBar()
+   {
+      menuBar = new JMenuBar();
+      menuBar.setOpaque(true);
+      menuBar.setBackground(ApplicationColors.getLightGold());
+      menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+      menuBar.setMinimumSize(new Dimension(1200,80));
+      menuBar.setMaximumSize(new Dimension(6000,80));
+      
+      backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
+      
+      menuBar.add(backButton);
+   }
 
    private void initToolBar()
    {
@@ -87,6 +132,7 @@ public class MainView extends JPanel
       aboutButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
       letterPicturesButton = new JButton("Alefbet");
       successButton = new JButton("Karteikasten");
+      languageButton = new JButton(new ImageIcon(ApplicationImages.getL18n()));
 
       startButton.setFont(Settings.getToolBarButtonFont());
       inputButton.setFont(Settings.getToolBarButtonFont());
@@ -95,6 +141,7 @@ public class MainView extends JPanel
       statisticsButton.setFont(Settings.getToolBarButtonFont());
       letterPicturesButton.setFont(Settings.getToolBarButtonFont());
       successButton.setFont(Settings.getToolBarButtonFont());
+      languageButton.setFont(Settings.getToolBarButtonFont());
 
       menuBar.add(startButton);
       menuBar.add(inputButton);
@@ -103,6 +150,7 @@ public class MainView extends JPanel
       menuBar.add(letterPicturesButton);
       menuBar.add(statisticsButton);
       menuBar.add(successButton);
+      menuBar.add(languageButton);
       menuBar.add(Box.createHorizontalGlue());
       menuBar.add(aboutButton);
    }
@@ -208,6 +256,10 @@ public class MainView extends JPanel
          add(activeComponent);
          validate();
          repaint();
+      });
+      
+      languageButton.addActionListener(event -> {
+         initLanguageContent();
       });
    }
 

@@ -98,6 +98,16 @@ public class Settings
    {
       return getExpressionFolder() + "-training";
    }
+   
+   public static String getLanguagePath()
+   {
+      return getExpressionPath() + File.separator + getLanguagesFolder();
+   }
+   
+   private static String getLanguagesFolder()
+   {
+      return getExpressionFolder() + "-languages";
+   }
 
    public static int getKeyboardWidth()
    {

@@ -100,6 +100,12 @@ public class Images
 
       // "_2_images/jewish-1159704_1280.jpg":
 
+      ApplicationImages.setL18n(ImageIO.read(
+            Images.class.getResourceAsStream("_2_images/l18n.png")));
+      
+      ApplicationImages.setLanguages(ImageIO.read(
+            Images.class.getResourceAsStream("_2_images/languages.png")));
+      
       ApplicationImages.setLetterEmpty(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/letter_empty.png")));
       
@@ -111,6 +117,9 @@ public class Images
 
       ApplicationImages.setNewWord(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/new.png")));
+      
+      ApplicationImages.setNewWordSmall(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/new_small.png")));
 
       ApplicationImages.setOkaySave(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/okay-save.png")));
