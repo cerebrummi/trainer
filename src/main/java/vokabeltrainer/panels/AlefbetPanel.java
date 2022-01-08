@@ -2,7 +2,6 @@ package vokabeltrainer.panels;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -41,7 +40,6 @@ public class AlefbetPanel extends BackgroundPanelTiled
    private JButton resultButton;
    private JButton resetButton;
    private Translator translator = Common.getTranslator();
-   private ComponentOrientation componentOrientation = Settings.getTranslationCode().getOrientation();
 
    public AlefbetPanel()
    {
@@ -74,11 +72,9 @@ public class AlefbetPanel extends BackgroundPanelTiled
 
       resultButton = new JButton(translator.translate(Translation.AUSWERTEN));
       resultButton.setFont(Settings.getButtonFont());
-      resultButton.setComponentOrientation(componentOrientation);
       resetButton = new JButton(
             translator.translate(Translation.ZURUECKSETZEN));
       resetButton.setFont(Settings.getButtonFont());
-      resetButton.setComponentOrientation(componentOrientation);
 
       vertical.add(filler);
       vertical.add(resultButton);
@@ -95,7 +91,6 @@ public class AlefbetPanel extends BackgroundPanelTiled
       JLabel title = new JLabel(
             translator.translate(Translation.ALEFBET_UEBEN));
       title.setFont(Main.getGermanFont(24F));
-      title.setComponentOrientation(componentOrientation);
       letterPanel.add(title);
 
       pictureInfoButton = new JButton(

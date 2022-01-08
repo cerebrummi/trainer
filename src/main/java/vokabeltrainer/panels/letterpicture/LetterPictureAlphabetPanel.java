@@ -128,16 +128,9 @@ public class LetterPictureAlphabetPanel extends JPanel
    private KeyboardHebrewStandard keyboardPrint;
 
    private KeyboardHebrewStandard keyboardHandwritten;
-   
-   private ComponentOrientation componentOrientation = Settings.getTranslationCode().getOrientation();
 
    public LetterPictureAlphabetPanel()
-   {
-      printLettersButton.setComponentOrientation(componentOrientation);
-      handwrittenLettersButton.setComponentOrientation(componentOrientation);
-      keyboardRegularButton.setComponentOrientation(componentOrientation);
-      keyboardShuffleButton.setComponentOrientation(componentOrientation);
-      
+   {      
       textFields = new ArrayList<>();
       Map<NikudLetter, LetterPictureButtonPanel> panels = ApplicationSpecialPanels
             .getLetterPicturesPanelMap();
@@ -203,7 +196,6 @@ public class LetterPictureAlphabetPanel extends JPanel
       JButton turnButton = new JButton(translator.translate(Translation.ALLE_UMDREHEN));
       turnButton.setFont(Settings.getButtonFont());
       turnButton.setIcon(new ImageIcon(ApplicationImages.getTurn()));
-      turnButton.setComponentOrientation(componentOrientation);
       turnButton.addActionListener(event -> {
          for (LetterPictureButtonPanel panel : panels.values())
          {

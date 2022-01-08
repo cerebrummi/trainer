@@ -23,7 +23,7 @@ public interface DictionaryViewConnector
    public String getTableDataToString();
    public String getSelectedTableDataToString();
    public void clearTableDataSelection();
-   public void notifyNothingWasSelectedForDeletion(int singularPlural);
+   public void notifyNothingWasSelectedForDeletion();
    public int askForDeletionConfirmation(int numberOfExpressionsToBeDeleted);
    public List<Expression> getInTableSelectedExpressions(boolean exceptDoNotChange);
    public void selectTableData();

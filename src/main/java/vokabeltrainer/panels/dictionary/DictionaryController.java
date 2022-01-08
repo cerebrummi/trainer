@@ -152,7 +152,7 @@ public class DictionaryController implements DictionaryControllerConnector
 
       if (list.isEmpty())
       {
-         dictionaryView.notifyNothingWasSelectedForDeletion(2);
+         dictionaryView.notifyNothingWasSelectedForDeletion();
          return;
       }
       if (dictionaryView.askForDeletionConfirmation(list.size()) == 0)
@@ -177,7 +177,7 @@ public class DictionaryController implements DictionaryControllerConnector
                .getInTableSelectedExpressions(true);
          if (list.isEmpty())
          {
-            dictionaryView.notifyNothingWasSelectedForDeletion(2);
+            dictionaryView.notifyNothingWasSelectedForDeletion();
             return;
          }
          if (dictionaryView.askForDeletionConfirmation(list.size()) == 0)
@@ -194,7 +194,7 @@ public class DictionaryController implements DictionaryControllerConnector
       }
       else
       {
-         dictionaryView.notifyNothingWasSelectedForDeletion(2);
+         dictionaryView.notifyNothingWasSelectedForDeletion();
       }
    }
 
