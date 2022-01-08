@@ -33,4 +33,22 @@ public class Translator
       
       return translation.getGerman();
    }
+   
+   public String translateTo(Translation translation, TranslationCode code)
+   {
+      if(TranslationCode.de_DE == code)
+      {
+         return translation.getGerman();
+      }
+      
+      Map<Translation, String> translationMapCode = new HashMap<>();
+      // TODO load language
+      
+      if(translationMapCode.containsKey(translation))
+      {
+         return translationMap.get(translation);
+      }
+      
+      return translation.getGerman();
+   }
 }
