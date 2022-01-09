@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public enum TranslationCode
 {
+   none("", ComponentOrientation.LEFT_TO_RIGHT, false),
    af("Afrikaans", ComponentOrientation.LEFT_TO_RIGHT, false),
    af_ZA("Afrikaans (South Africa)", ComponentOrientation.LEFT_TO_RIGHT, false),
    ar("Arabic", ComponentOrientation.RIGHT_TO_LEFT, false),
@@ -43,9 +44,10 @@ public enum TranslationCode
    de("German", ComponentOrientation.LEFT_TO_RIGHT, false),
    de_AT("German (Austria)", ComponentOrientation.LEFT_TO_RIGHT, false),
    de_CH("German (Switzerland)", ComponentOrientation.LEFT_TO_RIGHT, false),
-   de_DE("German (Germany)", ComponentOrientation.LEFT_TO_RIGHT, true),
+   de_DE("German (Germany)", ComponentOrientation.LEFT_TO_RIGHT, false),
    de_LI("German (Liechtenstein)", ComponentOrientation.LEFT_TO_RIGHT, false),
    de_LU("German (Luxembourg)", ComponentOrientation.LEFT_TO_RIGHT, false),
+   de_original("German Original", ComponentOrientation.LEFT_TO_RIGHT, true),
    dv("Divehi", ComponentOrientation.LEFT_TO_RIGHT, false),
    dv_MV("Divehi (Maldives)", ComponentOrientation.LEFT_TO_RIGHT, false),
    el("Greek", ComponentOrientation.LEFT_TO_RIGHT, false),
@@ -280,6 +282,23 @@ public enum TranslationCode
             .filter(value -> value.isAvailable())
             .toArray(TranslationCode[]::new);
    }
+   
+   public static TranslationCode[] valuesNoOriginal()
+   {
+      return Arrays
+            .stream(TranslationCode.values())
+            .filter(value -> TranslationCode.de_original != value)
+            .toArray(TranslationCode[]::new);
+   }
+   
+   public static String[] stringsNoOriginal()
+   {
+      return Arrays
+            .stream(TranslationCode.values())
+            .filter(value -> TranslationCode.de_original != value)
+            .map(code -> code.getName())
+            .toArray(String[]::new);
+   }
 
    public boolean isAvailable()
    {
@@ -289,5 +308,19 @@ public enum TranslationCode
    public void setAvailable(boolean available)
    {
       this.available = available;
+   }
+
+   public static String[]  anyLanguagesLeftToRight()
+   {
+      String[] result = {""};
+      // TODO load languages
+      return result;
+   }
+   
+   public static String[]  anyLanguagesRightToLeft()
+   {
+      String[] result = {""};
+      // TODO load languages
+      return result;
    }
 }

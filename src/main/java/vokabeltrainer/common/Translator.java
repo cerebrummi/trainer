@@ -21,7 +21,7 @@ public class Translator
    
    public String translate(Translation translation)
    {
-      if(TranslationCode.de_DE == language)
+      if(TranslationCode.de_original == language)
       {
          return translation.getGerman();
       }
@@ -36,7 +36,7 @@ public class Translator
    
    public String translateTo(Translation translation, TranslationCode code)
    {
-      if(TranslationCode.de_DE == code)
+      if(TranslationCode.de_original == code)
       {
          return translation.getGerman();
       }
