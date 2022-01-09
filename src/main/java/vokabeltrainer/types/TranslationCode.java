@@ -3,8 +3,6 @@ package vokabeltrainer.types;
 import java.awt.ComponentOrientation;
 import java.util.Arrays;
 
-import javax.swing.ComboBoxModel;
-
 import vokabeltrainer.panels.translation.TranslationLanguage;
 
 public enum TranslationCode

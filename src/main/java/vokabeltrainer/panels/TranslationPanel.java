@@ -239,7 +239,10 @@ public class TranslationPanel extends JPanel
          {
             return;
          }
-         
+
+         String name = currentCode.getName();
+         UUID uuid = null;
+
          if (TranslationCode.ANY_ltr_ == currentCode
                || TranslationCode.ANY_rtl_ == currentCode)
          {
@@ -247,23 +250,23 @@ public class TranslationPanel extends JPanel
                   .getSelectedIndex();
             TranslationLanguage translationLanguage = ((JComboBox<TranslationLanguage>) nameField)
                   .getItemAt(selectedIndex);
-            if(translationLanguage.getText().isBlank())
+
+            if (translationLanguage == null)
+            {
+               name = (String) ((JComboBox<Object>) nameField)
+                     .getSelectedItem();
+               name = name.strip();
+               uuid = UUID.randomUUID();
+            }
+            else if (translationLanguage.getText().isBlank())
             {
                return;
             }
-         }
-         
-         UUID currentUUID = null;
-         String name = currentCode.getName();
-         if (TranslationCode.ANY_ltr_ == currentCode
-               || TranslationCode.ANY_rtl_ == currentCode)
-         {
-            int selectedIndex = ((JComboBox<TranslationLanguage>) nameField)
-                  .getSelectedIndex();
-            TranslationLanguage translationLanguage = ((JComboBox<TranslationLanguage>) nameField)
-                  .getItemAt(selectedIndex);
-            currentUUID = translationLanguage.getUuid();
-            name = translationLanguage.getText().strip();
+            else
+            {
+               name = translationLanguage.getText();
+               uuid = translationLanguage.getUuid();
+            }
          }
 
          verticalRightSide.removeAll();
@@ -272,7 +275,7 @@ public class TranslationPanel extends JPanel
             verticalRightSide.add(field);
             field.setCode(currentCode);
             field.setText(field.getTranslation().getGerman());
-            field.setUuid(currentUUID);
+            field.setUuid(uuid);
             field.setName(name);
          }
          Common.getjFrame().validate();
@@ -287,15 +290,14 @@ public class TranslationPanel extends JPanel
          if (TranslationCode.ANY_ltr_ == currentCode
                || TranslationCode.ANY_rtl_ == currentCode)
          {
-            int selectedIndex = ((JComboBox<TranslationLanguage>) nameField)
-                  .getSelectedIndex();
-            TranslationLanguage translationLanguage = ((JComboBox<TranslationLanguage>) nameField)
-                  .getItemAt(selectedIndex);
-            if(translationLanguage.getText().isBlank())
+            String name = (String) ((JComboBox<Object>) nameField)
+                  .getSelectedItem();
+            if (name.isBlank())
             {
                return;
             }
          }
+
          controller.saveTranslations(fields);
       });
    }

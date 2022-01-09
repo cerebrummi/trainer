@@ -12,8 +12,7 @@ import javax.swing.JOptionPane;
 
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.TranslationCode;
 
 public class TranslationController
@@ -43,6 +42,7 @@ public class TranslationController
       try
       {
          save(fields);
+         OkayExpressionsSavedNotification.display();
       }
       catch (IOException e)
       {
