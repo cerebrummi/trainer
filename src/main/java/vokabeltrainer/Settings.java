@@ -102,12 +102,12 @@ public class Settings
       return getExpressionFolder() + "-training";
    }
    
-   public static String getLanguagePath()
+   public static String getTranslationPath()
    {
-      return getExpressionPath() + File.separator + getLanguagesFolder();
+      return getExpressionPath() + File.separator + getTranslationFolder();
    }
    
-   private static String getLanguagesFolder()
+   private static String getTranslationFolder()
    {
       return getExpressionFolder() + "-languages";
    }

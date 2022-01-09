@@ -3,6 +3,10 @@ package vokabeltrainer.types;
 import java.awt.ComponentOrientation;
 import java.util.Arrays;
 
+import javax.swing.ComboBoxModel;
+
+import vokabeltrainer.panels.translation.TranslationLanguage;
+
 public enum TranslationCode
 {
    none("", ComponentOrientation.LEFT_TO_RIGHT, false),
@@ -246,8 +250,8 @@ public enum TranslationCode
    zh_TW("Chinese (T)", ComponentOrientation.LEFT_TO_RIGHT, false),
    zu("Zulu", ComponentOrientation.LEFT_TO_RIGHT, false),
    zu_ZA("Zulu (South Africa)", ComponentOrientation.LEFT_TO_RIGHT, false),
-   ANY_ltr("any language, left to right", ComponentOrientation.LEFT_TO_RIGHT, false),
-   ANY_rtl("any language, right to left", ComponentOrientation.RIGHT_TO_LEFT, false);
+   ANY_ltr_("any language, left to right", ComponentOrientation.LEFT_TO_RIGHT, false),
+   ANY_rtl_("any language, right to left", ComponentOrientation.RIGHT_TO_LEFT, false);
    
    private String name;
    private ComponentOrientation orientation;
@@ -310,16 +314,16 @@ public enum TranslationCode
       this.available = available;
    }
 
-   public static String[]  anyLanguagesLeftToRight()
+   public static TranslationLanguage[]  anyLanguagesLeftToRight()
    {
-      String[] result = {""};
+      TranslationLanguage[] result = {new TranslationLanguage()};
       // TODO load languages
       return result;
    }
    
-   public static String[]  anyLanguagesRightToLeft()
+   public static TranslationLanguage[]  anyLanguagesRightToLeft()
    {
-      String[] result = {""};
+      TranslationLanguage[] result = {new TranslationLanguage()};
       // TODO load languages
       return result;
    }

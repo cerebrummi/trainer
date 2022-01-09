@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,13 +14,15 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.common.Translator;
+import vokabeltrainer.panels.translation.TranslationController;
+import vokabeltrainer.panels.translation.TranslationField;
+import vokabeltrainer.panels.translation.TranslationLanguage;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -37,6 +42,9 @@ public class TranslationPanel extends JPanel
    private TranslationCode currentCode;
    private JButton goButton;
    private JButton saveButton;
+   private List<TranslationField> fields = new ArrayList<>();
+   private JPanel verticalRightSide;
+   private TranslationController controller = new TranslationController();
 
    TranslationPanel()
    {
@@ -83,6 +91,7 @@ public class TranslationPanel extends JPanel
 
       fromLanguage = new JComboBox<>(TranslationCode.valuesAvailable());
       fromLanguage.setMinimumSize(new Dimension(300, 30));
+      currentCode = TranslationCode.none;
       JLabel label = new JLabel(">>>");
       label.setFont(Settings.getToolBarButtonFont());
       toLanguage = new JComboBox<>(TranslationCode.valuesNoOriginal());
@@ -92,7 +101,7 @@ public class TranslationPanel extends JPanel
       changePanel.setMinimumSize(new Dimension(400, 30));
       initNameBox("");
       changePanel.add(nameField);
-      
+
       goButton = new JButton(new ImageIcon(ApplicationImages.getSelectDone()));
       saveButton = new JButton(new ImageIcon(ApplicationImages.getSaveWord()));
 
@@ -135,7 +144,7 @@ public class TranslationPanel extends JPanel
    private void initNameIndividualBoxLtR()
    {
       changePanel.removeAll();
-      nameField = new JComboBox<String>(
+      nameField = new JComboBox<TranslationLanguage>(
             TranslationCode.anyLanguagesLeftToRight());
       nameField.setBackground(ApplicationColors.getLightYellow());
       nameField.setMinimumSize(new Dimension(400, 30));
@@ -149,7 +158,7 @@ public class TranslationPanel extends JPanel
    private void initNameIndividualBoxRtL()
    {
       changePanel.removeAll();
-      nameField = new JComboBox<String>(
+      nameField = new JComboBox<TranslationLanguage>(
             TranslationCode.anyLanguagesRightToLeft());
       nameField.setBackground(ApplicationColors.getLightYellow());
       nameField.setMinimumSize(new Dimension(400, 30));
@@ -179,20 +188,19 @@ public class TranslationPanel extends JPanel
 
    private Component initAddLanguageRightSide()
    {
-      JPanel vertical = new JPanel();
-      TotemLayout verticalLayout = new TotemLayout(vertical, 5);
-      vertical.setLayout(verticalLayout);
+      verticalRightSide = new JPanel();
+      TotemLayout verticalLayout = new TotemLayout(verticalRightSide, 5);
+      verticalRightSide.setLayout(verticalLayout);
 
-      for (@SuppressWarnings("unused")
-      Translation e : Translation.values())
+      for (Translation e : Translation.values())
       {
-         JTextField textField = new JTextField();
+         TranslationField textField = new TranslationField(e);
          textField.setMinimumSize(new Dimension(900, 30));
          textField.setMaximumSize(new Dimension(900, 30));
-         vertical.add(textField);
+         fields.add(textField);
       }
 
-      return vertical;
+      return verticalRightSide;
    }
 
    @SuppressWarnings("unchecked")
@@ -207,24 +215,88 @@ public class TranslationPanel extends JPanel
       toLanguage.addActionListener(event -> {
          currentCode = toLanguage.getItemAt(toLanguage.getSelectedIndex());
 
-         if (TranslationCode.ANY_ltr == currentCode)
+         if (TranslationCode.ANY_ltr_ == currentCode)
          {
             initNameIndividualBoxLtR();
-            ((JComboBox<String>) nameField).setSelectedIndex(0);
+            ((JComboBox<TranslationLanguage>) nameField).setSelectedIndex(0);
          }
-         else if (TranslationCode.ANY_rtl == currentCode)
+         else if (TranslationCode.ANY_rtl_ == currentCode)
          {
             initNameIndividualBoxRtL();
-            ((JComboBox<String>) nameField).setSelectedIndex(0);
+            ((JComboBox<TranslationLanguage>) nameField).setSelectedIndex(0);
          }
          else
          {
             initNameBox(currentCode.getName());
          }
-         Common.getjFrame().invalidate();
          Common.getjFrame().validate();
          Common.getjFrame().repaint();
       });
 
+      goButton.addActionListener(event -> {
+
+         if (TranslationCode.none == currentCode)
+         {
+            return;
+         }
+         
+         if (TranslationCode.ANY_ltr_ == currentCode
+               || TranslationCode.ANY_rtl_ == currentCode)
+         {
+            int selectedIndex = ((JComboBox<TranslationLanguage>) nameField)
+                  .getSelectedIndex();
+            TranslationLanguage translationLanguage = ((JComboBox<TranslationLanguage>) nameField)
+                  .getItemAt(selectedIndex);
+            if(translationLanguage.getText().isBlank())
+            {
+               return;
+            }
+         }
+         
+         UUID currentUUID = null;
+         String name = currentCode.getName();
+         if (TranslationCode.ANY_ltr_ == currentCode
+               || TranslationCode.ANY_rtl_ == currentCode)
+         {
+            int selectedIndex = ((JComboBox<TranslationLanguage>) nameField)
+                  .getSelectedIndex();
+            TranslationLanguage translationLanguage = ((JComboBox<TranslationLanguage>) nameField)
+                  .getItemAt(selectedIndex);
+            currentUUID = translationLanguage.getUuid();
+            name = translationLanguage.getText().strip();
+         }
+
+         verticalRightSide.removeAll();
+         for (TranslationField field : fields)
+         {
+            verticalRightSide.add(field);
+            field.setCode(currentCode);
+            field.setText(field.getTranslation().getGerman());
+            field.setUuid(currentUUID);
+            field.setName(name);
+         }
+         Common.getjFrame().validate();
+         Common.getjFrame().repaint();
+      });
+
+      saveButton.addActionListener(event -> {
+         if (TranslationCode.none == currentCode)
+         {
+            return;
+         }
+         if (TranslationCode.ANY_ltr_ == currentCode
+               || TranslationCode.ANY_rtl_ == currentCode)
+         {
+            int selectedIndex = ((JComboBox<TranslationLanguage>) nameField)
+                  .getSelectedIndex();
+            TranslationLanguage translationLanguage = ((JComboBox<TranslationLanguage>) nameField)
+                  .getItemAt(selectedIndex);
+            if(translationLanguage.getText().isBlank())
+            {
+               return;
+            }
+         }
+         controller.saveTranslations(fields);
+      });
    }
 }
