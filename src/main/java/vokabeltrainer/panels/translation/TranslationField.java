@@ -4,9 +4,6 @@ import java.util.UUID;
 
 import javax.swing.JTextField;
 
-import vokabeltrainer.types.Translation;
-import vokabeltrainer.types.TranslationCode;
-
 public class TranslationField extends JTextField
 {
    private static final long serialVersionUID = -1180875060419483477L;

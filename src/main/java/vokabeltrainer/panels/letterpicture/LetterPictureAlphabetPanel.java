@@ -24,14 +24,14 @@ import vokabeltrainer.ApplicationSpecialPanels;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.common.Translator;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.editing.SingleLetterDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewStandard;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.list.editor.CerebrummiFocusTraversalPolicy;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.types.Translation;
 
 public class LetterPictureAlphabetPanel extends JPanel
 {

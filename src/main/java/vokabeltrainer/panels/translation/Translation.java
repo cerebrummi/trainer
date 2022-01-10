@@ -1,4 +1,4 @@
-package vokabeltrainer.types;
+package vokabeltrainer.panels.translation;
 
 public enum Translation
 {

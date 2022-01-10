@@ -20,15 +20,15 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.common.Translator;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.letterpicture.LetterPictureAlphabetPanel;
 import vokabeltrainer.panels.letterpicture.LetterTextField;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.types.Translation;
 
 public class AlefbetPanel extends BackgroundPanelTiled
 {

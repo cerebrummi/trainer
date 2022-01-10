@@ -19,22 +19,21 @@ import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.common.Translator;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.TranslationController;
 import vokabeltrainer.panels.translation.TranslationField;
 import vokabeltrainer.panels.translation.TranslationLanguage;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.types.Translation;
-import vokabeltrainer.types.TranslationCode;
 
 public class TranslationPanel extends JPanel
 {
    private static final long serialVersionUID = 369293645105172512L;
    private JComboBox<TranslationCode> fromLanguage;
    private JComboBox<TranslationCode> toLanguage;
-   private Translator translator = Common.getTranslator();
    private JPanel leftSide;
    private Component nameField;
    private JPanel changePanel;
@@ -175,8 +174,8 @@ public class TranslationPanel extends JPanel
 
       for (Translation e : Translation.values())
       {
-         JLabel label = new JLabel(translator.translateTo(e,
-               fromLanguage.getItemAt(fromLanguage.getSelectedIndex())));
+         Translator translator = new Translator();
+         JLabel label = new JLabel(translator.translate(e));
          label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          label.setMinimumSize(new Dimension(400, 30));
          label.setMaximumSize(new Dimension(400, 30));
@@ -268,13 +267,15 @@ public class TranslationPanel extends JPanel
                uuid = translationLanguage.getUuid();
             }
          }
+         
+         Translator translator = new Translator(currentCode, uuid);
 
          verticalRightSide.removeAll();
          for (TranslationField field : fields)
          {
             verticalRightSide.add(field);
             field.setCode(currentCode);
-            field.setText(field.getTranslation().getGerman());
+            field.setText(translator.translate(field.getTranslation()));
             field.setUuid(uuid);
             field.setName(name);
          }

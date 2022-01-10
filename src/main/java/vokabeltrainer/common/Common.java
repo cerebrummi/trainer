@@ -2,6 +2,8 @@ package vokabeltrainer.common;
 
 import javax.swing.JFrame;
 import vokabeltrainer.panels.MainView;
+import vokabeltrainer.panels.translation.TranslationController;
+import vokabeltrainer.panels.translation.Translator;
 
 public final class Common
 {
@@ -16,6 +18,12 @@ public final class Common
 
    }
 
+   public static void loadAvailableTranslations()
+   {
+      TranslationController controller = new TranslationController();
+      controller.loadAvailableTranslations();
+   }
+   
    public static MainView getMainJPanel()
    {
       return mainJPanel;

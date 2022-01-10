@@ -6,13 +6,14 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import vokabeltrainer.common.Main;
+import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.LanguageSettings;
-import vokabeltrainer.types.TranslationCode;
 
 public class Settings
 {
@@ -38,6 +39,7 @@ public class Settings
    private static String rememberChapterForInput = "";
    
    private static TranslationCode translationCode = TranslationCode.de_DE;
+   private static UUID translationUUID = null;
 
    private Settings()
    {
@@ -166,6 +168,20 @@ public class Settings
             .node(CerebrummiNodes.getNode());
       preferences.put(CerebrummiNodes.getTranslationLanguage(), translationCode.name());
       Settings.translationCode = translationCode;
+   }
+
+   public static UUID getTranslationUUID()
+   {
+      return translationUUID;
+   }
+
+   public static void setTranslationUUID(UUID translationUUID)
+   {
+      Preferences preferences = Preferences
+            .userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.put(CerebrummiNodes.getTranslationUUID(), translationCode.name());
+      Settings.translationUUID = translationUUID;
    }
 
    public static boolean isLetterImagesOn()

@@ -7,9 +7,9 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
+import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
-import vokabeltrainer.types.TranslationCode;
 
 public class CerebrummiPreferences
 {

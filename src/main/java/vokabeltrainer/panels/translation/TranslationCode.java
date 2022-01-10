@@ -1,9 +1,8 @@
-package vokabeltrainer.types;
+package vokabeltrainer.panels.translation;
 
 import java.awt.ComponentOrientation;
 import java.util.Arrays;
-
-import vokabeltrainer.panels.translation.TranslationLanguage;
+import java.util.UUID;
 
 public enum TranslationCode
 {
@@ -254,6 +253,7 @@ public enum TranslationCode
    private String name;
    private ComponentOrientation orientation;
    private boolean available;
+   private UUID uuid = null;
    
    TranslationCode(String name, ComponentOrientation orientation, boolean available)
    {
@@ -277,6 +277,16 @@ public enum TranslationCode
       return name;
    }
    
+   public UUID getUuid()
+   {
+      return uuid;
+   }
+
+   public void setUuid(UUID uuid)
+   {
+      this.uuid = uuid;
+   }
+
    public static TranslationCode[] valuesAvailable()
    {
       return Arrays
@@ -314,15 +324,13 @@ public enum TranslationCode
 
    public static TranslationLanguage[]  anyLanguagesLeftToRight()
    {
-      TranslationLanguage[] result = {new TranslationLanguage()};
-      // TODO load languages
-      return result;
+      TranslationController controller = new TranslationController();
+      return controller.findTranslationLanguagesANY(TranslationCode.ANY_ltr_);
    }
    
    public static TranslationLanguage[]  anyLanguagesRightToLeft()
    {
-      TranslationLanguage[] result = {new TranslationLanguage()};
-      // TODO load languages
-      return result;
+      TranslationController controller = new TranslationController();
+      return controller.findTranslationLanguagesANY(TranslationCode.ANY_rtl_);
    }
 }

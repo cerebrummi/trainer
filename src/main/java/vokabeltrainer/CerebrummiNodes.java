@@ -57,4 +57,9 @@ public class CerebrummiNodes
    {
       return "translation";
    }
+
+   public static String getTranslationUUID()
+   {
+      return "uuid";
+   }
 }

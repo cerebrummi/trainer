@@ -121,6 +121,8 @@ public final class Main
       CerebrummiPreferences.read();
 
       Data.initDataBase();
+      
+      Common.loadAvailableTranslations();
 
       try
       {
