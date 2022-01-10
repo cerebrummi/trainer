@@ -70,10 +70,10 @@ public class AlefbetPanel extends BackgroundPanelTiled
       filler.setMinimumSize(new Dimension(200, 1));
       filler.setMaximumSize(new Dimension(200, 1));
 
-      resultButton = new JButton(translator.translate(Translation.AUSWERTEN));
+      resultButton = new JButton(translator.realisticTranslate(Translation.AUSWERTEN));
       resultButton.setFont(Settings.getButtonFont());
       resetButton = new JButton(
-            translator.translate(Translation.ZURUECKSETZEN));
+            translator.realisticTranslate(Translation.ZURUECKSETZEN));
       resetButton.setFont(Settings.getButtonFont());
 
       vertical.add(filler);
@@ -89,7 +89,7 @@ public class AlefbetPanel extends BackgroundPanelTiled
       letterPanel.setOpaque(false);
 
       JLabel title = new JLabel(
-            translator.translate(Translation.ALEFBET_UEBEN));
+            translator.realisticTranslate(Translation.ALEFBET_UEBEN));
       title.setFont(Main.getGermanFont(24F));
       letterPanel.add(title);
 
@@ -136,10 +136,10 @@ public class AlefbetPanel extends BackgroundPanelTiled
          JOptionPane.showMessageDialog(letterPanel, "",
                Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(
-                     translator.translate(Translation.BILDERBUCHSTABEN),
-                     translator.translate(Translation.ALLE_BILDER_KANN_MAN),
+                     translator.realisticTranslate(Translation.BILDERBUCHSTABEN),
+                     translator.realisticTranslate(Translation.ALLE_BILDER_KANN_MAN),
                      translator
-                           .translate(Translation.AUCH_EINZELN_ANKLICKEN))));
+                           .realisticTranslate(Translation.AUCH_EINZELN_ANKLICKEN))));
       });
 
       pictureInfoButton.addMouseListener(new MouseListener()

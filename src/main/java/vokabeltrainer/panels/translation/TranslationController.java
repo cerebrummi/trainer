@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -169,32 +170,93 @@ public class TranslationController
       Set<String> allCodes = Arrays.stream(TranslationCode.values())
             .map(code -> code.name()).collect(Collectors.toSet());
 
+      Set<TranslationCodeWrapper> availableTranslations = new HashSet<>();
+      availableTranslations
+            .add(new TranslationCodeWrapper(TranslationCode.de_original));
+
       for (File file : customDir.listFiles())
       {
          String name = file.getName();
          name = name.substring(0, name.length() - 4);
+         TranslationCodeWrapper codeWrapper;
 
          if (allCodes.contains(name))
          {
-            TranslationCode.valueOf(name).setAvailable(true);
+            codeWrapper = new TranslationCodeWrapper(
+                  TranslationCode.valueOf(name));
+            codeWrapper.setAvailable(true);
+            availableTranslations.add(codeWrapper);
          }
          else if (name.startsWith(TranslationCode.ANY_ltr_.name()))
          {
-            TranslationCode.ANY_ltr_.setAvailable(true);
+            codeWrapper = new TranslationCodeWrapper(TranslationCode.ANY_ltr_);
+            String anyName = readAnyName(file);
+            if (anyName == null)
+            {
+               continue;
+            }
+            codeWrapper.setAnyName(anyName);
+            codeWrapper.setUuid(UUID.fromString(name.substring(8)));
+            codeWrapper.setAvailable(true);
+            availableTranslations.add(codeWrapper);
          }
          else if (name.startsWith(TranslationCode.ANY_rtl_.name()))
          {
-            TranslationCode.ANY_rtl_.setAvailable(true);
+            codeWrapper = new TranslationCodeWrapper(TranslationCode.ANY_rtl_);
+            String anyName = readAnyName(file);
+            if (anyName == null)
+            {
+               continue;
+            }
+            codeWrapper.setAnyName(anyName);
+            codeWrapper.setUuid(UUID.fromString(name.substring(8)));
+            codeWrapper.setAvailable(true);
+            availableTranslations.add(codeWrapper);
          }
       }
+
+      Common.setAvailableTranslations(availableTranslations);
    }
 
-   public Map<Translation, String> findTranslationMap(TranslationCode code,
-         UUID uuid)
+   private String readAnyName(File file)
+   {
+      try (FileInputStream fis = new FileInputStream(file);
+            InputStreamReader isr = new InputStreamReader(fis,
+                  StandardCharsets.UTF_8);
+            Reader reader = new BufferedReader(isr);)
+      {
+         StringBuffer buffer = new StringBuffer();
+         String input;
+         int ch;
+         while ((ch = reader.read()) > -1)
+         {
+            buffer.append((char) ch);
+         }
+         reader.close();
+         input = buffer.toString().trim();
+         if (input.isEmpty())
+         {
+            return null;
+         }
+
+         String[] rows = input.split("\n");
+
+         return rows[0].split("\t")[1];
+      }
+      catch (IOException e)
+      {
+         // nothing
+      }
+      return null;
+   }
+
+   public Map<Translation, String> findTranslationMap(
+         TranslationCodeWrapper translationCodeWrapper)
    {
       Map<Translation, String> translationMap = new HashMap<>();
+      UUID uuid = translationCodeWrapper.getUuid();
 
-      if (!code.isAvailable())
+      if (!translationCodeWrapper.isAvailable())
       {
          return translationMap;
       }
@@ -218,11 +280,13 @@ public class TranslationController
 
       if (uuid != null)
       {
-         file = new File(code.name() + uuid + ".txt");
+         file = new File(Settings.getTranslationPath() + File.separator
+               + translationCodeWrapper.getCode().name() + uuid + ".txt");
       }
       else
       {
-         file = new File(code.name() + ".txt");
+         file = new File(Settings.getTranslationPath() + File.separator
+               + translationCodeWrapper.getCode().name() + ".txt");
       }
 
       try (FileInputStream fis = new FileInputStream(file);
@@ -261,7 +325,7 @@ public class TranslationController
       }
       catch (IOException e)
       {
-         // nothing
+         e.printStackTrace();
       }
 
       return translationMap;

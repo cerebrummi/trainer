@@ -12,6 +12,7 @@ import java.util.prefs.Preferences;
 
 import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.translation.TranslationCode;
+import vokabeltrainer.panels.translation.TranslationCodeWrapper;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.LanguageSettings;
 
@@ -38,8 +39,9 @@ public class Settings
    private static String rememberDatabaseForInput = "";
    private static String rememberChapterForInput = "";
    
-   private static TranslationCode translationCode = TranslationCode.de_DE;
+   private static TranslationCode translationCode = TranslationCode.de_original;
    private static UUID translationUUID = null;
+   private static String anyName = null;
 
    private Settings()
    {
@@ -156,9 +158,12 @@ public class Settings
       Settings.soundOn = soundOn;
    }
 
-   public static TranslationCode getTranslationCode()
+   public static TranslationCodeWrapper getTranslationCodeWrapper()
    {
-      return translationCode;
+      TranslationCodeWrapper codeWrapper = new TranslationCodeWrapper(translationCode);
+      codeWrapper.setUuid(translationUUID);
+      codeWrapper.setAnyName(anyName);
+      return codeWrapper;
    }
 
    public static void setTranslationCode(TranslationCode translationCode)
@@ -180,8 +185,22 @@ public class Settings
       Preferences preferences = Preferences
             .userRoot()
             .node(CerebrummiNodes.getNode());
-      preferences.put(CerebrummiNodes.getTranslationUUID(), translationCode.name());
+      preferences.put(CerebrummiNodes.getTranslationUUID(), translationUUID.toString());
       Settings.translationUUID = translationUUID;
+   }
+
+   public static String getAnyName()
+   {
+      return anyName;
+   }
+
+   public static void setAnyName(String anyName)
+   {
+      Preferences preferences = Preferences
+            .userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.put(CerebrummiNodes.getAnyName(), anyName);
+      Settings.anyName = anyName;
    }
 
    public static boolean isLetterImagesOn()

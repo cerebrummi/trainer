@@ -3,6 +3,7 @@ package vokabeltrainer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
@@ -115,13 +116,36 @@ public class CerebrummiPreferences
       }
 
       try
-
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
          Settings.setTranslationCode(TranslationCode.valueOf(
                preferences.get(CerebrummiNodes.getTranslationLanguage(),
-                     TranslationCode.de_DE.name())));
+                     TranslationCode.de_original.name())));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setTranslationUUID(UUID.fromString(
+               preferences.get(CerebrummiNodes.getTranslationUUID(), null)));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings
+               .setAnyName(preferences.get(CerebrummiNodes.getAnyName(), null));
       }
       catch (Exception e)
       {

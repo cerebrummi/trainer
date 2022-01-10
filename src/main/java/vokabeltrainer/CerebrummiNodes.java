@@ -62,4 +62,9 @@ public class CerebrummiNodes
    {
       return "uuid";
    }
+
+   public static String getAnyName()
+   {
+      return "anyname";
+   }
 }

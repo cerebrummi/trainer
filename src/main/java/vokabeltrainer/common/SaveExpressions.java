@@ -52,7 +52,6 @@ public final class SaveExpressions
       exportAsZip();
    }
 
-   @SuppressWarnings("unused")
    public void export(String databaseName, boolean overwriteDatabaseNames,
          boolean b)
    {

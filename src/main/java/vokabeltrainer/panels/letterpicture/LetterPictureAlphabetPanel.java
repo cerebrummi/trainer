@@ -111,12 +111,12 @@ public class LetterPictureAlphabetPanel extends JPanel
          ssamech, ain, faei, faeissofit, zadi, zadissofit, kuf, resch, schin,
          taw };
 
-   JRadioButton printLettersButton = new JRadioButton(translator.translate(Translation.DRUCKSCHRIFT));
-   JRadioButton handwrittenLettersButton = new JRadioButton(translator.translate(Translation.SCHREIBSCHRIFT));
+   JRadioButton printLettersButton = new JRadioButton(translator.realisticTranslate(Translation.DRUCKSCHRIFT));
+   JRadioButton handwrittenLettersButton = new JRadioButton(translator.realisticTranslate(Translation.SCHREIBSCHRIFT));
    ButtonGroup switchButtonGroup = new ButtonGroup();
    
-   JRadioButton keyboardRegularButton = new JRadioButton(translator.translate(Translation.TASTATUR_REGULAER));
-   JRadioButton keyboardShuffleButton = new JRadioButton(translator.translate(Translation.TASTATUR_VERMISCHT));
+   JRadioButton keyboardRegularButton = new JRadioButton(translator.realisticTranslate(Translation.TASTATUR_REGULAER));
+   JRadioButton keyboardShuffleButton = new JRadioButton(translator.realisticTranslate(Translation.TASTATUR_VERMISCHT));
    ButtonGroup keyboardButtonGroup = new ButtonGroup();
 
    FocusTraversalPolicy focusTraversalPolicy;
@@ -193,7 +193,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       filler.setMinimumSize(new Dimension(310, 50));
       filler.setMaximumSize(new Dimension(310, 50));
 
-      JButton turnButton = new JButton(translator.translate(Translation.ALLE_UMDREHEN));
+      JButton turnButton = new JButton(translator.realisticTranslate(Translation.ALLE_UMDREHEN));
       turnButton.setFont(Settings.getButtonFont());
       turnButton.setIcon(new ImageIcon(ApplicationImages.getTurn()));
       turnButton.addActionListener(event -> {
