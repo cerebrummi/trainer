@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
@@ -99,10 +100,6 @@ public class TranslationPanel extends JPanel
 
    private Component initAddLanguage()
    {
-      JPanel center = new JPanel();
-      BullsEyeLayout centerLayout = new BullsEyeLayout(center);
-      center.setLayout(centerLayout);
-
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
@@ -136,6 +133,8 @@ public class TranslationPanel extends JPanel
       JPanel horizontal2 = new JPanel();
       TrainLayout horizontal2Layout = new TrainLayout(horizontal2, 15);
       horizontal2.setLayout(horizontal2Layout);
+      horizontal2.setMinimumSize(new Dimension(1050,700));
+      horizontal2.setMaximumSize(new Dimension(1050,700));
 
       wrapper.add(horizontalTop);
 
@@ -151,11 +150,9 @@ public class TranslationPanel extends JPanel
 
       vertical.add(wrapper);
       
-      vertical.add(horizontal2);
+      vertical.add(new JScrollPane(horizontal2));
 
-      center.add(vertical);
-
-      return center;
+      return vertical;
    }
 
    private void initNameBox(String name)
@@ -199,7 +196,9 @@ public class TranslationPanel extends JPanel
       verticalLeftSide = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalLeftSide, 5);
       verticalLeftSide.setLayout(verticalLayout);
-
+      verticalLeftSide.setMinimumSize(new Dimension(400,700));
+      verticalLeftSide.setMaximumSize(new Dimension(400,700));
+      
       return verticalLeftSide;
    }
 
@@ -208,7 +207,9 @@ public class TranslationPanel extends JPanel
       verticalRightSide = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalRightSide, 5);
       verticalRightSide.setLayout(verticalLayout);
-
+      verticalRightSide.setMinimumSize(new Dimension(650,700));
+      verticalRightSide.setMaximumSize(new Dimension(650,700));
+      
       return verticalRightSide;
    }
 
