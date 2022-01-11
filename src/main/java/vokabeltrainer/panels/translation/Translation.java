@@ -8,6 +8,8 @@ public enum Translation
    ALLE_BILDER_KANN_MAN("Alle Bilder kann man"),
    ALLE_UMDREHEN("alle umdrehen"),
    AUCH_EINZELN_ANKLICKEN("auch einzeln anklicken."),
+   AUF_DER_TASTATUR_DRUECKEN_("auf der Tastatur drücken."),
+   AUSWAHLEN__UM_DANN_DAS_TRAINING_ZU_STARTEN_("auswählen, um dann das Training zu starten."),
    AUSWAHL("Auswahl"),
    AUSWAHL_ZUR_DATENBANK_VERSCHIEBEN("Auswahl zur Datenbank verschieben"),
    AUSWAHL_ZUR_LEKTION_VERSCHIEBEN("Auswahl zur Lektion verschieben"),
@@ -16,13 +18,16 @@ public enum Translation
    BILDERBUCHSTABEN("Bilderbuchstaben"),
    BITTE_GEBEN_SIE_EINEN_NEUEN_DATENBANKNAMEN_EIN("Bitte geben Sie einen neuen Datenbanknamen ein"),
    BITTE_GEBEN_SIE_EINEN_NEUEN_LEKTIONSNAMEN_EIN("Bitte geben Sie einen neuen Lektionsnamen ein"),
+   BITTE_NEUE_WORTE_DURCH_EINGABE_EINER_ANZAHL("Bitte neue Worte durch Eingabe einer Anzahl"),
   
    DATUM("Datum"),
    DEUTSCH("Deutsch"),
    DRUCKSCHRIFT("Druckschrift"),
    
    EINGABE("Eingabe"),
+   EINMAL_ANKLICKEN_UND_DANN_ENTER_EINGABE_TASTE("einmal anklicken und dann Enter/Eingabe Taste"),
    EINMAL_KLICKEN_MARKIERT_EINEN_EINTRAG("einmal klicken markiert einen Eintrag"),
+   EINSTELLUNGEN_UND_SERVICE("Einstellungen und Service"),
    EINTRAEGE_IN_DIESER_TABELLE("Einträge in dieser Tabelle"),
    EINTRAEGE_LOESCHEN__("Einträge löschen?"),
    ENTER_DRUECKEN_OEFFNET_DEN_MARKIERTEN_EINTRAG("Enter drücken öffnet den markierten Eintrag"),
@@ -38,14 +43,18 @@ public enum Translation
    HINWEIS__DIE_VOKABELN_EINGEBAUTER_DATENBANKEN("Hinweis: Die Vokabeln eingebauter Datenbanken"),
    
    INDEX("Index"),
+   INFO("Info"),
    INFORMATION("Information"),
    
    KARTEIKASTEN("Karteikasten"),
+   KEINE_WORTE_ZUM_UEBEN_AUSGEWAEHLT("Keine Worte zum Üben ausgewählt."),
    KOENNEN_NICHT_GELOESCHT_WERDEN_("können nicht gelöscht werden."),
    
    LEKTIONEN("Lektionen"),
    
+   NACHWEISE("Nachweise"),
    NAECHSTE_AUSWAHL("nächste Auswahl"),
+   NEUE_VOKABEL("neue Vokabel"),
    NUR_SELBST_EINGEGEBENE_VOKABELN_KOENNEN_KOPIERT_WERDEN("Nur selbst eingegebene Vokabeln können kopiert werden."),
    
    ODER_WAEHLEN_SIE_EINE_VORHANDENE_DATENBANK_AUS("oder wählen Sie eine vorhandene Datenbank aus."),
@@ -69,6 +78,8 @@ public enum Translation
    TASTATUR_REGULAER("Tastatur, regulär"),
    TASTATUR_VERMISCHT("Tastatur, vermischt"),
    TRAININGSUEBERSICHT("Trainingsübersicht"),
+   
+   UM_EINE_VOKABEL_WIEDER_AUFZURUFEN__("Um eine Vokabel wieder aufzurufen,"),
    
    VOKABELN_ABFRAGEN("Vokabeln abfragen"),
    

@@ -133,8 +133,8 @@ public class TranslationPanel extends JPanel
       JPanel horizontal2 = new JPanel();
       TrainLayout horizontal2Layout = new TrainLayout(horizontal2, 15);
       horizontal2.setLayout(horizontal2Layout);
-      horizontal2.setMinimumSize(new Dimension(1050,700));
-      horizontal2.setMaximumSize(new Dimension(1050,700));
+      horizontal2.setMinimumSize(new Dimension(1230,700));
+      horizontal2.setMaximumSize(new Dimension(1230,700));
 
       wrapper.add(horizontalTop);
 
@@ -196,8 +196,8 @@ public class TranslationPanel extends JPanel
       verticalLeftSide = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalLeftSide, 5);
       verticalLeftSide.setLayout(verticalLayout);
-      verticalLeftSide.setMinimumSize(new Dimension(400,700));
-      verticalLeftSide.setMaximumSize(new Dimension(400,700));
+      verticalLeftSide.setMinimumSize(new Dimension(600,700));
+      verticalLeftSide.setMaximumSize(new Dimension(600,700));
       
       return verticalLeftSide;
    }
@@ -207,8 +207,8 @@ public class TranslationPanel extends JPanel
       verticalRightSide = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalRightSide, 5);
       verticalRightSide.setLayout(verticalLayout);
-      verticalRightSide.setMinimumSize(new Dimension(650,700));
-      verticalRightSide.setMaximumSize(new Dimension(650,700));
+      verticalRightSide.setMinimumSize(new Dimension(600,700));
+      verticalRightSide.setMaximumSize(new Dimension(600,700));
       
       return verticalRightSide;
    }
@@ -223,8 +223,8 @@ public class TranslationPanel extends JPanel
          for(Translation translation: Translation.values())
          {
             JLabel label = new JLabel(translator.realisticTranslate(translation));
-            label.setMinimumSize(new Dimension(400,30));
-            label.setMaximumSize(new Dimension(400,30));
+            label.setMinimumSize(new Dimension(600,30));
+            label.setMaximumSize(new Dimension(600,30));
             label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             verticalLeftSide.add(label);
          }

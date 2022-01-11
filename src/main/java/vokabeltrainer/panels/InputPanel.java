@@ -23,6 +23,7 @@ import javax.swing.SwingWorker;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
+import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
@@ -30,6 +31,8 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.input.ChapterComboBox;
 import vokabeltrainer.panels.input.TableConnector;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
@@ -51,6 +54,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    private Chapter currentChapter;
    private ChapterComboBox chapterBox;
    private JButton tableInfoButton;
+   private Translator translator = Common.getTranslator();
 
    public InputPanel()
    {
@@ -69,9 +73,13 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       JPanel spanner = new JPanel();
       spanner.setMinimumSize(new Dimension(1550, 30));
       spanner.setMaximumSize(new Dimension(1550, 30));
-      spanner
-            .add(new JLabel(
-                  "Um eine Vokabel wieder aufzurufen, einmal anklicken und dann Enter/Eingabe Taste auf der Tastatur drücken."));
+      spanner.add(new JLabel(translator
+            .realisticTranslate(Translation.UM_EINE_VOKABEL_WIEDER_AUFZURUFEN__)
+            + " "
+            + translator.realisticTranslate(
+                  Translation.EINMAL_ANKLICKEN_UND_DANN_ENTER_EINGABE_TASTE)
+            + " " + translator
+                  .realisticTranslate(Translation.AUF_DER_TASTATUR_DRUECKEN_)));
 
       vertical.add(horizontal);
       vertical.add(spanner);
@@ -110,14 +118,16 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       });
 
       tableInfoButton.addActionListener(event -> {
-         JOptionPane
-               .showMessageDialog(this, "", "Cerebrummi©",
-                     JOptionPane.INFORMATION_MESSAGE,
-                     new ImageIcon(TextImage
-                           .make("Tabelle",
-                                 "einmal klicken markiert einen Eintrag",
-                                 "Enter drücken öffnet den markierten Eintrag",
-                                 "zweimal klicken wählt einen Eintrag aus (Stecknadel)")));
+         JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
+               JOptionPane.INFORMATION_MESSAGE,
+               new ImageIcon(TextImage.make(
+                     translator.realisticTranslate(Translation.TABELLE),
+                     translator.realisticTranslate(
+                           Translation.EINMAL_KLICKEN_MARKIERT_EINEN_EINTRAG),
+                     translator.realisticTranslate(
+                           Translation.ENTER_DRUECKEN_OEFFNET_DEN_MARKIERTEN_EINTRAG),
+                     translator.realisticTranslate(
+                           Translation.ZWEIMAL_KLICKEN_WAEHLT_EINEN_EINTRAG_AUS__STECKNADEL_))));
       });
 
       tableInfoButton.addMouseListener(new MouseListener()
@@ -173,9 +183,9 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
 
    private void doShowTable()
    {
-      ExpressionTableModel tableModel = Data
-            .findTranslations(Language.GERMAN_TO_HEBREW, null, null, null,
-                  currentChapter, null, SortingType.DATE);
+      ExpressionTableModel tableModel = Data.findTranslations(
+            Language.GERMAN_TO_HEBREW, null, null, null, currentChapter, null,
+            SortingType.DATE);
       tablePanel.removeAll();
       ExpressionTable table = new ExpressionTable(tableModel,
             Language.GERMAN_TO_HEBREW, this, true);
@@ -237,17 +247,15 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       JPanel leftside = new JPanel();
       leftside.setLayout(new BullsEyeLayout(leftside));
 
-      newWordPunktationButton = new JButton("neue Vokabel");
+      newWordPunktationButton = new JButton(translator.realisticTranslate(Translation.NEUE_VOKABEL));
       newWordPunktationButton.setFont(Main.getGermanFont(16F));
       newWordPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newWordPunktationButton.setMinimumSize(new Dimension(300, 60));
       newWordPunktationButton.setMaximumSize(new Dimension(300, 60));
       newWordPunktationButton
             .setIcon(new ImageIcon(ApplicationImages.getNewWord()));
-      newWordPunktationButton
-            .setBorder(BorderFactory
-                  .createMatteBorder(10, 10, 10, 10,
-                        ApplicationColors.getGreen()));
+      newWordPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
+            10, 10, ApplicationColors.getGreen()));
 
       leftside.add(newWordPunktationButton);
       return leftside;
@@ -270,11 +278,11 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
          }
       }.execute();
    }
-   
+
    @Override
    public void fireTableCellUpdated(JTable table, int selectedRow, int i)
    {
       ((ExpressionTableModel) table.getModel())
-      .fireTableCellUpdated(table.getSelectedRow(), 0);
+            .fireTableCellUpdated(table.getSelectedRow(), 0);
    }
 }

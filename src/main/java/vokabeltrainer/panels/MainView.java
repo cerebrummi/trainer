@@ -301,9 +301,9 @@ public class MainView extends JPanel
    {
       JOptionPane.showMessageDialog(Common.getjFrame(), "", Settings.getWindowTitle(),
             JOptionPane.PLAIN_MESSAGE,
-            new ImageIcon(TextImage.make("Keine Worte zum Üben ausgewählt.",
-                  "Bitte neue Worte durch Eingabe einer Anzahl",
-                  "auswählen, um dann das Training zu starten.")));
+            new ImageIcon(TextImage.make(translator.realisticTranslate(Translation.KEINE_WORTE_ZUM_UEBEN_AUSGEWAEHLT),
+                  translator.realisticTranslate(Translation.BITTE_NEUE_WORTE_DURCH_EINGABE_EINER_ANZAHL),
+                  translator.realisticTranslate(Translation.AUSWAHLEN__UM_DANN_DAS_TRAINING_ZU_STARTEN_))));
    }
 
    public JButton getVocabularyCardsButton()

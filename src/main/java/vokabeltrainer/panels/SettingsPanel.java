@@ -42,6 +42,8 @@ import vokabeltrainer.common.ImportExpressions;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.resources.html.Nachweise;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -64,6 +66,7 @@ public class SettingsPanel extends BackgroundPanelTiled
    private JButton exportSelectedButton;
    private JButton exportDatabaseButton;
    private JButton deleteDatabaseButton;
+   private Translator translator = Common.getTranslator();
 
    public SettingsPanel()
    {
@@ -72,10 +75,10 @@ public class SettingsPanel extends BackgroundPanelTiled
       JTabbedPane tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(false);
       tabbedPane.setFont(Main.getGermanFont(16F));
-      tabbedPane.addTab("Einstellungen und Service", initSettingsTab());
+      tabbedPane.addTab(translator.realisticTranslate(Translation.EINSTELLUNGEN_UND_SERVICE), initSettingsTab());
       try
       {
-         tabbedPane.addTab("Info", initImpressumTab());
+         tabbedPane.addTab(translator.realisticTranslate(Translation.INFO), initImpressumTab());
       }
       catch (IOException e1)
       {
@@ -83,13 +86,12 @@ public class SettingsPanel extends BackgroundPanelTiled
       }
       try
       {
-         tabbedPane.addTab("Nachweise", initLicencingTab());
+         tabbedPane.addTab(translator.realisticTranslate(Translation.NACHWEISE), initLicencingTab());
       }
       catch (IOException e)
       {
          // nothing
       }
-      // tabbedPane.addTab("Verfügbare Datenbanken", initDatabaseTab());
 
       add(tabbedPane);
 
