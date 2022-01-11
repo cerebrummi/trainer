@@ -14,14 +14,13 @@ public class Translator
       this.language = Settings.getTranslationCodeWrapper();
       translationMap = new HashMap<>();
       TranslationController controller = new TranslationController();
-      this.translationMap = controller.findTranslationMap(
-            Settings.getTranslationCodeWrapper());
+      this.translationMap = controller.findTranslationMap(language);
    }
 
    public Translator(TranslationCodeWrapper currentCode)
    {
       this.language = currentCode;
-      if(TranslationCode.de_original == currentCode.getCode())
+      if (TranslationCode.de_original == currentCode.getCode())
       {
          return;
       }
@@ -43,7 +42,7 @@ public class Translator
 
       return "missing";
    }
-   
+
    public String saveTranslate(Translation translation)
    {
       if (TranslationCode.de_original == language.getCode())
@@ -58,6 +57,5 @@ public class Translator
 
       return translation.getGerman();
    }
-
 
 }

@@ -2,6 +2,7 @@ package vokabeltrainer.panels.translation;
 
 public enum Translation
 {
+   ALEFBET("Alefbet"),
    ALEFBET_UEBEN("Alefbet üben"),
    ALFABET("Alfabet"),
    ALLE_BILDER_KANN_MAN("Alle Bilder kann man"),
@@ -20,6 +21,7 @@ public enum Translation
    DEUTSCH("Deutsch"),
    DRUCKSCHRIFT("Druckschrift"),
    
+   EINGABE("Eingabe"),
    EINMAL_KLICKEN_MARKIERT_EINEN_EINTRAG("einmal klicken markiert einen Eintrag"),
    EINTRAEGE_IN_DIESER_TABELLE("Einträge in dieser Tabelle"),
    EINTRAEGE_LOESCHEN__("Einträge löschen?"),
@@ -38,6 +40,7 @@ public enum Translation
    INDEX("Index"),
    INFORMATION("Information"),
    
+   KARTEIKASTEN("Karteikasten"),
    KOENNEN_NICHT_GELOESCHT_WERDEN_("können nicht gelöscht werden."),
    
    LEKTIONEN("Lektionen"),
@@ -49,6 +52,7 @@ public enum Translation
    ODER_WAEHLEN_SIE_EINE_VORHANDENE_LEKTION_AUS("oder wählen Sie eine vorhandene Lektion aus."),
    
    SCHREIBSCHRIFT("Schreibschrift"),
+   START("Start"),
    SUCHE("Suche"),
    SUCHE_STARTEN("Suche starten"),
    SUCHE_WORT_IN_TABELLE("suche Wort in Tabelle"),
@@ -64,7 +68,11 @@ public enum Translation
    TABELLENAUSWAHL_LOESCHEN("Tabellenauswahl löschen"),
    TASTATUR_REGULAER("Tastatur, regulär"),
    TASTATUR_VERMISCHT("Tastatur, vermischt"),
+   TRAININGSUEBERSICHT("Trainingsübersicht"),
    
+   VOKABELN_ABFRAGEN("Vokabeln abfragen"),
+   
+   WOERTERBUCH("Wörterbuch"),
    WOLLEN_SIE_WIRKLICH("Wollen Sie wirklich"),
    WOLLEN_SIE_WIRKLICH_DEN_PAPIERKORB_LEEREN__("Wollen Sie wirklich den Papierkorb leeren?"),
    WOLLEN_SIE_WIRKLICH_DIE_VOKABELN_IN_EINE_ANDERE_DATENBANK_VERSCHIEBEN__("Wollen Sie wirklich die Vokabeln in eine andere Datenbank verschieben?"),

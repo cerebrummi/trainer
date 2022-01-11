@@ -24,6 +24,8 @@ import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingController;
 import vokabeltrainer.panels.trainer.dialog.StartTrainingView;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 
 public class MainView extends JPanel
 {
@@ -51,6 +53,8 @@ public class MainView extends JPanel
    
    private JButton backButton;
    private TranslationPanel languagePanel;
+   
+   private Translator translator;
 
    public MainView()
    {
@@ -63,6 +67,8 @@ public class MainView extends JPanel
    private void initContent()
    {
       setLayout(new BorderLayout());
+      
+      translator = Common.getTranslator();
 
       initToolBar();
 
@@ -98,8 +104,8 @@ public class MainView extends JPanel
          activeComponent = startPanel;
          add(activeComponent);
          Main.resetMenuBar();
-         this.validate();
-         this.repaint();
+         Common.getjFrame().validate();
+         Common.getjFrame().repaint();
       });
       
    }
@@ -127,14 +133,14 @@ public class MainView extends JPanel
       menuBar.setMinimumSize(new Dimension(1200,80));
       menuBar.setMaximumSize(new Dimension(6000,80));
 
-      startButton = new JButton("Start");
-      inputButton = new JButton("Eingabe");
-      vocabularyCardsButton = new JButton("Vokabeln abfragen");
-      dictionaryButton = new JButton("Wörterbuch");
-      statisticsButton = new JButton("Trainingsübersicht");
+      startButton = new JButton(translator.realisticTranslate(Translation.START));
+      inputButton = new JButton(translator.realisticTranslate(Translation.EINGABE));
+      vocabularyCardsButton = new JButton(translator.realisticTranslate(Translation.VOKABELN_ABFRAGEN));
+      dictionaryButton = new JButton(translator.realisticTranslate(Translation.WOERTERBUCH));
+      statisticsButton = new JButton(translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
       aboutButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
-      letterPicturesButton = new JButton("Alefbet");
-      successButton = new JButton("Karteikasten");
+      letterPicturesButton = new JButton(translator.realisticTranslate(Translation.ALEFBET));
+      successButton = new JButton(translator.realisticTranslate(Translation.KARTEIKASTEN));
       languageButton = new JButton(new ImageIcon(ApplicationImages.getL18n()));
 
       startButton.setFont(Settings.getToolBarButtonFont());

@@ -35,6 +35,7 @@ public class TranslationPanel extends JPanel
    private static final long serialVersionUID = 369293645105172512L;
    private JComboBox<TranslationCodeWrapper> fromLanguage;
    private JComboBox<TranslationCodeWrapper> toLanguage;
+   private JComboBox<TranslationCodeWrapper> chooseLanguage;
    private Component nameField;
    private JPanel changePanel;
    private JPanel horizontalTop;
@@ -45,6 +46,7 @@ public class TranslationPanel extends JPanel
    private JPanel verticalRightSide;
    private TranslationController controller = new TranslationController();
    private JPanel verticalLeftSide;
+   private JButton applyButton;
 
    TranslationPanel()
    {
@@ -66,20 +68,33 @@ public class TranslationPanel extends JPanel
    }
 
    private Component initChooseLanguage()
-   {
-      JPanel center = new JPanel();
-      BullsEyeLayout centerLayout = new BullsEyeLayout(center);
-      center.setLayout(centerLayout);
-      
+   {      
       JPanel horizontal = new JPanel();
       TrainLayout horizontalLayout = new TrainLayout(horizontal, 15);
       horizontal.setLayout(horizontalLayout);
       
       JLabel appTranslation = new JLabel();
       
-      center.add(horizontal);
+      if(Settings.getTranslationUUID() == null)
+      {
+         appTranslation.setText(Settings.getTranslationCodeWrapper().getCode().getName());
+      }
+      else
+      {
+         appTranslation.setText(Settings.getAnyName());
+      }
       
-      return center;
+      chooseLanguage = new JComboBox<>(TranslationCode.valuesAvailable());
+      chooseLanguage.setMinimumSize(new Dimension(300,30));
+      chooseLanguage.setMaximumSize(new Dimension(300,50));
+      
+      applyButton = new JButton(new ImageIcon(ApplicationImages.getSelectDone()));
+      
+      horizontal.add(appTranslation);
+      horizontal.add(chooseLanguage);
+      horizontal.add(applyButton);
+      
+      return horizontal;
    }
 
    private Component initAddLanguage()
@@ -318,6 +333,17 @@ public class TranslationPanel extends JPanel
          }
 
          controller.saveTranslations(fields);
+      });
+      
+      applyButton.addActionListener(event -> {
+         TranslationCodeWrapper choosen = chooseLanguage.getItemAt(chooseLanguage.getSelectedIndex());
+         if(choosen.getUuid() != null)
+         {
+            Settings.setAnyName(choosen.getAnyName());
+            Settings.setTranslationUUID(choosen.getUuid());
+         }
+         Settings.setTranslationCode(choosen.getCode());
+         Common.setTranslator(new Translator());
       });
    }
 }
