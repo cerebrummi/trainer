@@ -12,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -170,7 +169,7 @@ public class TranslationController
       Set<String> allCodes = Arrays.stream(TranslationCode.values())
             .map(code -> code.name()).collect(Collectors.toSet());
 
-      Set<TranslationCodeWrapper> availableTranslations = new HashSet<>();
+      List<TranslationCodeWrapper> availableTranslations = new ArrayList<>();
       availableTranslations
             .add(new TranslationCodeWrapper(TranslationCode.de_original));
 
@@ -256,11 +255,6 @@ public class TranslationController
       Map<Translation, String> translationMap = new HashMap<>();
       UUID uuid = translationCodeWrapper.getUuid();
 
-      if (!translationCodeWrapper.isAvailable())
-      {
-         return translationMap;
-      }
-
       File customDir = new File(Settings.getTranslationPath());
 
       if (!customDir.exists())
@@ -287,6 +281,11 @@ public class TranslationController
       {
          file = new File(Settings.getTranslationPath() + File.separator
                + translationCodeWrapper.getCode().name() + ".txt");
+      }
+      
+      if(!file.exists())
+      {
+         return translationMap;
       }
 
       try (FileInputStream fis = new FileInputStream(file);

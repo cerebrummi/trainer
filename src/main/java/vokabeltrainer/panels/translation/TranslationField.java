@@ -1,5 +1,6 @@
 package vokabeltrainer.panels.translation;
 
+import java.awt.Dimension;
 import java.util.UUID;
 
 import javax.swing.JTextField;
@@ -16,6 +17,8 @@ public class TranslationField extends JTextField
    public TranslationField(Translation translation)
    {
       this.translation = translation;
+      this.setMinimumSize(new Dimension(400,30));
+      this.setMaximumSize(new Dimension(600,30));
    }
 
    public Translation getTranslation()

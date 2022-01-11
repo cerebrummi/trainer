@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 public class TranslationLanguage extends JTextField
 {
    private static final long serialVersionUID = 6017959608668426572L;
-   private UUID uuid = UUID.randomUUID();
+   private UUID uuid = null;
    
    public TranslationLanguage()
    {

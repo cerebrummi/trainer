@@ -1,8 +1,6 @@
 package vokabeltrainer.common;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.List;
 import javax.swing.JFrame;
 import vokabeltrainer.panels.MainView;
 import vokabeltrainer.panels.translation.TranslationCodeWrapper;
@@ -16,7 +14,7 @@ public final class Common
    private static boolean setMainJPanelOnlyOnce = false;
    private static boolean setJFrameOnlyOnce = false;
    private static Translator translator = new Translator();
-   private static Set<TranslationCodeWrapper> availableTranslations = new HashSet<>();
+   private static List<TranslationCodeWrapper> availableTranslations;
 
    private Common()
    {
@@ -65,13 +63,13 @@ public final class Common
       Common.translator = translator;
    }
 
-   public static Set<TranslationCodeWrapper> getAvailableTranslations()
+   public static List<TranslationCodeWrapper> getAvailableTranslations()
    {
       return availableTranslations;
    }
 
    public static void setAvailableTranslations(
-         Set<TranslationCodeWrapper> availableTranslations)
+         List<TranslationCodeWrapper> availableTranslations)
    {
       Common.availableTranslations = availableTranslations;
    }

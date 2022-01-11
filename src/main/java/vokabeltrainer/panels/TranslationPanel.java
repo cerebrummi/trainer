@@ -41,7 +41,7 @@ public class TranslationPanel extends JPanel
    private TranslationCode currentCode;
    private JButton goButton;
    private JButton saveButton;
-   private List<TranslationField> fields = new ArrayList<>();
+   private List<TranslationField> fields;
    private JPanel verticalRightSide;
    private TranslationController controller = new TranslationController();
    private JPanel verticalLeftSide;
@@ -49,7 +49,7 @@ public class TranslationPanel extends JPanel
    TranslationPanel()
    {
       setLayout(new BullsEyeLayout(this));
-
+      
       JTabbedPane tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(false);
       tabbedPane.setFont(Main.getGermanFont(16F));
@@ -67,8 +67,19 @@ public class TranslationPanel extends JPanel
 
    private Component initChooseLanguage()
    {
-      // TODO Auto-generated method stub
-      return new JPanel();
+      JPanel center = new JPanel();
+      BullsEyeLayout centerLayout = new BullsEyeLayout(center);
+      center.setLayout(centerLayout);
+      
+      JPanel horizontal = new JPanel();
+      TrainLayout horizontalLayout = new TrainLayout(horizontal, 15);
+      horizontal.setLayout(horizontalLayout);
+      
+      JLabel appTranslation = new JLabel();
+      
+      center.add(horizontal);
+      
+      return center;
    }
 
    private Component initAddLanguage()
@@ -196,6 +207,8 @@ public class TranslationPanel extends JPanel
          for(Translation translation: Translation.values())
          {
             JLabel label = new JLabel(translator.realisticTranslate(translation));
+            label.setMinimumSize(new Dimension(400,30));
+            label.setMaximumSize(new Dimension(400,30));
             label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             verticalLeftSide.add(label);
          }
@@ -232,6 +245,18 @@ public class TranslationPanel extends JPanel
             return;
          }
 
+         fields = new ArrayList<>();
+         
+         for (Translation translation: Translation.values())
+         {
+            TranslationField translationField = new TranslationField(translation);
+            translationField.setComponentOrientation(currentCode.getOrientation());
+            fields.add(translationField);
+         }
+         
+         TranslationCodeWrapper translationWrapper = new TranslationCodeWrapper(currentCode);
+         Translator translator = new Translator(translationWrapper);
+         
          String name = currentCode.getName();
          UUID uuid = null;
 
@@ -248,6 +273,7 @@ public class TranslationPanel extends JPanel
                name = (String) ((JComboBox<Object>) nameField)
                      .getSelectedItem();
                name = name.strip();
+               translationWrapper.setAnyName(name);
             }
             else if (translationLanguage.getText().isBlank())
             {
@@ -257,12 +283,10 @@ public class TranslationPanel extends JPanel
             {
                name = translationLanguage.getText();
                uuid = translationLanguage.getUuid();
+               translationWrapper.setAnyName(name);
+               translationWrapper.setUuid(uuid);
             }
          }
-         
-         TranslationCodeWrapper translationWrapper = new TranslationCodeWrapper(currentCode);
-         
-         Translator translator = new Translator(translationWrapper);
 
          verticalRightSide.removeAll();
          for (TranslationField field : fields)
