@@ -239,32 +239,34 @@ public class SettingsPanel extends BackgroundPanelTiled
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
 
-      JLabel saverLabel = new JLabel("Speicherort");
+      JLabel saverLabel = new JLabel(translator.realisticTranslate(Translation.SPEICHERORT));
       saverLabel.setFont(Main.getGermanFont(30F));
       saverLabel.setForeground(ApplicationColors.getGold());
 
       folderLabel = new JTextArea(Settings.getExpressionPath());
       folderLabel.setFont(Settings.getButtonFont());
       folderLabel.setEditable(false);
-      folderLabel.setBorder(BorderFactory.createTitledBorder("Ordner"));
+      folderLabel.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.ORDNER)));
       folderLabel.setMinimumSize(new Dimension(WIDTH, 100));
       folderLabel.setMaximumSize(new Dimension(WIDTH, 100));
 
-      folderChooserButtonWithoutSaving = new JButton("ändern");
+      folderChooserButtonWithoutSaving = new JButton(translator.realisticTranslate(Translation.AENDERN));
       folderChooserButtonWithoutSaving.setFont(Settings.getButtonFont());
       folderChooserButtonWithoutSaving
             .setToolTipText(
-                  "Lädt alle Vokabeln, die am neuen Ort schon vorhanden sind. Beläßt die aktuellen Vokabeln am alten Ort.");
+                  translator.realisticTranslate(Translation.LAEDT_ALLE_VOKABELN__DIE_AM_NEUEN_ORT_SCHON_VORHANDEN_SIND_)
+                  + " "
+                  + translator.realisticTranslate(Translation.BELAESST_DIE_AKTUELLEN_VOKABELN_AM_ALTEN_ORT));
 
-      JLabel deleteLabel = new JLabel("Datenbank löschen");
+      JLabel deleteLabel = new JLabel(translator.realisticTranslate(Translation.BELAESST_DIE_AKTUELLEN_VOKABELN_AM_ALTEN_ORT));
       deleteLabel.setFont(Main.getGermanFont(30F));
       deleteLabel.setForeground(ApplicationColors.getGold());
 
-      deleteDatabaseButton = new JButton("eigene Datenbank löschen");
+      deleteDatabaseButton = new JButton(translator.realisticTranslate(Translation.EIGENE_DATENBANK_LOESCHEN));
       deleteDatabaseButton.setFont(Settings.getButtonFont());
       deleteDatabaseButton
             .setToolTipText(
-                  "Verschiebt alle Vokabeln einer Datenbank in den Papierkorb.");
+                  translator.realisticTranslate(Translation.VERSCHIEBT_ALLE_VOKABELN_EINER_DATENBANK_IN_DEN_PAPIERKORB_));
 
       vertical.add(saverLabel);
       vertical.add(folderLabel);
@@ -281,30 +283,37 @@ public class SettingsPanel extends BackgroundPanelTiled
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
 
-      exportButton = new JButton("alle Vokabeln exportieren");
+      exportButton = new JButton(translator.realisticTranslate(Translation.ALLE_VOKABELN_EXPORTIEREN));
       exportButton.setFont(Settings.getButtonFont());
-      exportButton.setToolTipText("alle Vokabeln exportieren im csv Format");
+      exportButton.setToolTipText(translator.realisticTranslate(Translation.ALLE_VOKABELN_EXPORTIEREN)
+            + " "
+            + translator.realisticTranslate(Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
 
-      exportSelectedButton = new JButton("markierte Vokabeln exportieren");
+      exportSelectedButton = new JButton(translator.realisticTranslate(Translation.MARKIERTE_VOKABELN_EXPORTIEREN));
       exportSelectedButton.setFont(Settings.getButtonFont());
       exportSelectedButton
             .setToolTipText(
-                  "alle markierten Vokabeln exportieren im csv Format");
+                  translator.realisticTranslate(Translation.MARKIERTE_VOKABELN_EXPORTIEREN)
+                  + " "
+                  + translator.realisticTranslate(Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
 
       exportDatabaseButton = new JButton(
-            "Vokabeln einer Datenbank exportieren");
+            translator.realisticTranslate(Translation.VOKABELN_EINER_DATENBANK_EXPORTIEREN));
       exportDatabaseButton.setFont(Settings.getButtonFont());
       exportDatabaseButton
             .setToolTipText(
-                  "Vokabeln einer Datenbank exportieren im csv Format");
+                  translator.realisticTranslate(Translation.VOKABELN_EINER_DATENBANK_EXPORTIEREN)
+                  + " "
+                  + translator.realisticTranslate(Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
       exportDatabaseButton.setMinimumSize(new Dimension(WIDTH, 30));
       exportDatabaseButton.setMaximumSize(new Dimension(WIDTH, 30));
 
-      JLabel exportLabel = new JLabel("Export");
+      JLabel exportLabel = new JLabel(translator.realisticTranslate(Translation.EXPORT));
       exportLabel.setFont(Main.getGermanFont(30F));
       exportLabel.setForeground(ApplicationColors.getGold());
       
-      JLabel exportExplanation = new JLabel(" Kein Export von internen Datenbanken möglich.");
+      JLabel exportExplanation = new JLabel(" "
+            + translator.realisticTranslate(Translation.KEIN_EXPORT_VON_INTERNEN_DATENBANKEN_MOEGLICH));
       exportExplanation.setFont(Main.getGermanFont(14F));
       exportExplanation.setForeground(ApplicationColors.getGold());
 

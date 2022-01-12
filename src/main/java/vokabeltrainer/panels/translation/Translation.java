@@ -2,11 +2,13 @@ package vokabeltrainer.panels.translation;
 
 public enum Translation
 {
+   AENDERN("ändern"),
    ALEFBET("Alefbet"),
    ALEFBET_UEBEN("Alefbet üben"),
    ALFABET("Alfabet"),
    ALLE_BILDER_KANN_MAN("Alle Bilder kann man"),
    ALLE_UMDREHEN("alle umdrehen"),
+   ALLE_VOKABELN_EXPORTIEREN("alle Vokabeln exportieren"),
    AUCH_EINZELN_ANKLICKEN("auch einzeln anklicken."),
    AUF_DER_TASTATUR_DRUECKEN_("auf der Tastatur drücken."),
    AUSWAHLEN__UM_DANN_DAS_TRAINING_ZU_STARTEN_("auswählen, um dann das Training zu starten."),
@@ -15,15 +17,18 @@ public enum Translation
    AUSWAHL_ZUR_LEKTION_VERSCHIEBEN("Auswahl zur Lektion verschieben"),
    AUSWERTEN("auswerten"),
    
+   BELAESST_DIE_AKTUELLEN_VOKABELN_AM_ALTEN_ORT("Beläßt die aktuellen Vokabeln am alten Ort."),
    BILDERBUCHSTABEN("Bilderbuchstaben"),
    BITTE_GEBEN_SIE_EINEN_NEUEN_DATENBANKNAMEN_EIN("Bitte geben Sie einen neuen Datenbanknamen ein"),
    BITTE_GEBEN_SIE_EINEN_NEUEN_LEKTIONSNAMEN_EIN("Bitte geben Sie einen neuen Lektionsnamen ein"),
    BITTE_NEUE_WORTE_DURCH_EINGABE_EINER_ANZAHL("Bitte neue Worte durch Eingabe einer Anzahl"),
   
+   DATENBANK_LOESCHEN("Datenbank löschen"),
    DATUM("Datum"),
    DEUTSCH("Deutsch"),
    DRUCKSCHRIFT("Druckschrift"),
    
+   EIGENE_DATENBANK_LOESCHEN("eigene Datenbank löschen"),
    EINGABE("Eingabe"),
    EINMAL_ANKLICKEN_UND_DANN_ENTER_EINGABE_TASTE("einmal anklicken und dann Enter/Eingabe Taste"),
    EINMAL_KLICKEN_MARKIERT_EINEN_EINTRAG("einmal klicken markiert einen Eintrag"),
@@ -32,6 +37,7 @@ public enum Translation
    EINTRAEGE_LOESCHEN__("Einträge löschen?"),
    ENTER_DRUECKEN_OEFFNET_DEN_MARKIERTEN_EINTRAG("Enter drücken öffnet den markierten Eintrag"),
    ES_WURDEN_KEINE_EINTRAEGE("Es wurden keine Einträge"),
+   EXPORT("Export"),
    
    FRAGE("Frage"),
    
@@ -45,12 +51,17 @@ public enum Translation
    INDEX("Index"),
    INFO("Info"),
    INFORMATION("Information"),
+   IM_CSV_FORMAT_ALS_ZIP_DATEI("im csv Format als zip Datei"),
    
    KARTEIKASTEN("Karteikasten"),
+   KEIN_EXPORT_VON_INTERNEN_DATENBANKEN_MOEGLICH("Kein Export von internen Datenbanken möglich."),
    KEINE_WORTE_ZUM_UEBEN_AUSGEWAEHLT("Keine Worte zum Üben ausgewählt."),
    KOENNEN_NICHT_GELOESCHT_WERDEN_("können nicht gelöscht werden."),
    
+   LAEDT_ALLE_VOKABELN__DIE_AM_NEUEN_ORT_SCHON_VORHANDEN_SIND_("Lädt alle Vokabeln, die am neuen Ort schon vorhanden sind."),
    LEKTIONEN("Lektionen"),
+   
+   MARKIERTE_VOKABELN_EXPORTIEREN("markierte Vokabeln exportieren"),
    
    NACHWEISE("Nachweise"),
    NAECHSTE_AUSWAHL("nächste Auswahl"),
@@ -59,8 +70,10 @@ public enum Translation
    
    ODER_WAEHLEN_SIE_EINE_VORHANDENE_DATENBANK_AUS("oder wählen Sie eine vorhandene Datenbank aus."),
    ODER_WAEHLEN_SIE_EINE_VORHANDENE_LEKTION_AUS("oder wählen Sie eine vorhandene Lektion aus."),
+   ORDNER("Ordner"),
    
    SCHREIBSCHRIFT("Schreibschrift"),
+   SPEICHERORT("Speicherort"),
    START("Start"),
    SUCHE("Suche"),
    SUCHE_STARTEN("Suche starten"),
@@ -81,7 +94,9 @@ public enum Translation
    
    UM_EINE_VOKABEL_WIEDER_AUFZURUFEN__("Um eine Vokabel wieder aufzurufen,"),
    
+   VERSCHIEBT_ALLE_VOKABELN_EINER_DATENBANK_IN_DEN_PAPIERKORB_("Verschiebt alle Vokabeln einer Datenbank in den Papierkorb."),
    VOKABELN_ABFRAGEN("Vokabeln abfragen"),
+   VOKABELN_EINER_DATENBANK_EXPORTIEREN("Vokabeln einer Datenbank exportieren"),
    
    WOERTERBUCH("Wörterbuch"),
    WOLLEN_SIE_WIRKLICH("Wollen Sie wirklich"),
