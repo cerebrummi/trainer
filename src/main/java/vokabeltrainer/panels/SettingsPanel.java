@@ -75,10 +75,12 @@ public class SettingsPanel extends BackgroundPanelTiled
       JTabbedPane tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(false);
       tabbedPane.setFont(Main.getGermanFont(16F));
-      tabbedPane.addTab(translator.realisticTranslate(Translation.EINSTELLUNGEN_UND_SERVICE), initSettingsTab());
+      tabbedPane.addTab(translator.realisticTranslate(
+            Translation.EINSTELLUNGEN_UND_SERVICE), initSettingsTab());
       try
       {
-         tabbedPane.addTab(translator.realisticTranslate(Translation.INFO), initImpressumTab());
+         tabbedPane.addTab(translator.realisticTranslate(Translation.INFO),
+               initImpressumTab());
       }
       catch (IOException e1)
       {
@@ -86,7 +88,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       }
       try
       {
-         tabbedPane.addTab(translator.realisticTranslate(Translation.NACHWEISE), initLicencingTab());
+         tabbedPane.addTab(translator.realisticTranslate(Translation.NACHWEISE),
+               initLicencingTab());
       }
       catch (IOException e)
       {
@@ -221,6 +224,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       vertical1.add(initSoundPanel());
 
       vertical2.add(initSavePanel());
+      vertical2.add(initDeletePanel());
+      
       vertical3.add(initImportPanel());
       vertical3.add(initExportPanel());
 
@@ -233,46 +238,64 @@ public class SettingsPanel extends BackgroundPanelTiled
       return panel;
    }
 
+   private Component initDeletePanel()
+   {
+      JPanel vertical = new JPanel();
+      TotemLayout verticalLayout = new TotemLayout(vertical, 15);
+      vertical.setLayout(verticalLayout);
+      
+      JLabel deleteLabel = new JLabel(
+            translator.realisticTranslate(Translation.LOESCHEN));
+      deleteLabel.setFont(Main.getGermanFont(30F));
+      deleteLabel.setForeground(ApplicationColors.getGold());
+
+      deleteDatabaseButton = new JButton(translator
+            .realisticTranslate(Translation.EIGENE_DATENBANK_LOESCHEN));
+      deleteDatabaseButton.setFont(Settings.getButtonFont());
+      deleteDatabaseButton.setToolTipText(translator.realisticTranslate(
+            Translation.VERSCHIEBT_ALLE_VOKABELN_EINER_DATENBANK_IN_DEN_PAPIERKORB_));
+      deleteDatabaseButton.setMinimumSize(new Dimension(WIDTH, 30));
+      deleteDatabaseButton.setMaximumSize(new Dimension(WIDTH, 30));
+      
+      vertical.add(deleteLabel);
+      vertical.add(deleteDatabaseButton);
+      
+      return vertical;
+   }
+
    private Component initSavePanel()
    {
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
 
-      JLabel saverLabel = new JLabel(translator.realisticTranslate(Translation.SPEICHERORT));
+      JLabel saverLabel = new JLabel(
+            translator.realisticTranslate(Translation.SPEICHERORT));
       saverLabel.setFont(Main.getGermanFont(30F));
       saverLabel.setForeground(ApplicationColors.getGold());
 
       folderLabel = new JTextArea(Settings.getExpressionPath());
       folderLabel.setFont(Settings.getButtonFont());
       folderLabel.setEditable(false);
-      folderLabel.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.ORDNER)));
+      folderLabel.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.ORDNER)));
       folderLabel.setMinimumSize(new Dimension(WIDTH, 100));
       folderLabel.setMaximumSize(new Dimension(WIDTH, 100));
 
-      folderChooserButtonWithoutSaving = new JButton(translator.realisticTranslate(Translation.AENDERN));
+      folderChooserButtonWithoutSaving = new JButton(
+            translator.realisticTranslate(Translation.AENDERN));
       folderChooserButtonWithoutSaving.setFont(Settings.getButtonFont());
-      folderChooserButtonWithoutSaving
-            .setToolTipText(
-                  translator.realisticTranslate(Translation.LAEDT_ALLE_VOKABELN__DIE_AM_NEUEN_ORT_SCHON_VORHANDEN_SIND_)
-                  + " "
-                  + translator.realisticTranslate(Translation.BELAESST_DIE_AKTUELLEN_VOKABELN_AM_ALTEN_ORT));
+      folderChooserButtonWithoutSaving.setToolTipText(translator
+            .realisticTranslate(
+                  Translation.LAEDT_ALLE_VOKABELN__DIE_AM_NEUEN_ORT_SCHON_VORHANDEN_SIND_)
+            + " " + translator.realisticTranslate(
+                  Translation.BELAESST_DIE_AKTUELLEN_VOKABELN_AM_ALTEN_ORT));
 
-      JLabel deleteLabel = new JLabel(translator.realisticTranslate(Translation.BELAESST_DIE_AKTUELLEN_VOKABELN_AM_ALTEN_ORT));
-      deleteLabel.setFont(Main.getGermanFont(30F));
-      deleteLabel.setForeground(ApplicationColors.getGold());
-
-      deleteDatabaseButton = new JButton(translator.realisticTranslate(Translation.EIGENE_DATENBANK_LOESCHEN));
-      deleteDatabaseButton.setFont(Settings.getButtonFont());
-      deleteDatabaseButton
-            .setToolTipText(
-                  translator.realisticTranslate(Translation.VERSCHIEBT_ALLE_VOKABELN_EINER_DATENBANK_IN_DEN_PAPIERKORB_));
+     
 
       vertical.add(saverLabel);
       vertical.add(folderLabel);
       vertical.add(folderChooserButtonWithoutSaving);
-      vertical.add(deleteLabel);
-      vertical.add(deleteDatabaseButton);
 
       return vertical;
    }
@@ -283,37 +306,39 @@ public class SettingsPanel extends BackgroundPanelTiled
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
 
-      exportButton = new JButton(translator.realisticTranslate(Translation.ALLE_VOKABELN_EXPORTIEREN));
+      exportButton = new JButton(translator
+            .realisticTranslate(Translation.ALLE_VOKABELN_EXPORTIEREN));
       exportButton.setFont(Settings.getButtonFont());
-      exportButton.setToolTipText(translator.realisticTranslate(Translation.ALLE_VOKABELN_EXPORTIEREN)
-            + " "
-            + translator.realisticTranslate(Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
+      exportButton.setToolTipText(
+            translator.realisticTranslate(Translation.ALLE_VOKABELN_EXPORTIEREN)
+                  + " " + translator.realisticTranslate(
+                        Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
 
-      exportSelectedButton = new JButton(translator.realisticTranslate(Translation.MARKIERTE_VOKABELN_EXPORTIEREN));
+      exportSelectedButton = new JButton(translator
+            .realisticTranslate(Translation.MARKIERTE_VOKABELN_EXPORTIEREN));
       exportSelectedButton.setFont(Settings.getButtonFont());
-      exportSelectedButton
-            .setToolTipText(
-                  translator.realisticTranslate(Translation.MARKIERTE_VOKABELN_EXPORTIEREN)
-                  + " "
-                  + translator.realisticTranslate(Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
+      exportSelectedButton.setToolTipText(translator
+            .realisticTranslate(Translation.MARKIERTE_VOKABELN_EXPORTIEREN)
+            + " " + translator
+                  .realisticTranslate(Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
 
-      exportDatabaseButton = new JButton(
-            translator.realisticTranslate(Translation.VOKABELN_EINER_DATENBANK_EXPORTIEREN));
+      exportDatabaseButton = new JButton(translator.realisticTranslate(
+            Translation.VOKABELN_EINER_DATENBANK_EXPORTIEREN));
       exportDatabaseButton.setFont(Settings.getButtonFont());
-      exportDatabaseButton
-            .setToolTipText(
-                  translator.realisticTranslate(Translation.VOKABELN_EINER_DATENBANK_EXPORTIEREN)
-                  + " "
-                  + translator.realisticTranslate(Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
+      exportDatabaseButton.setToolTipText(translator.realisticTranslate(
+            Translation.VOKABELN_EINER_DATENBANK_EXPORTIEREN) + " "
+            + translator
+                  .realisticTranslate(Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
       exportDatabaseButton.setMinimumSize(new Dimension(WIDTH, 30));
       exportDatabaseButton.setMaximumSize(new Dimension(WIDTH, 30));
 
-      JLabel exportLabel = new JLabel(translator.realisticTranslate(Translation.EXPORT));
+      JLabel exportLabel = new JLabel(
+            translator.realisticTranslate(Translation.EXPORT));
       exportLabel.setFont(Main.getGermanFont(30F));
       exportLabel.setForeground(ApplicationColors.getGold());
-      
-      JLabel exportExplanation = new JLabel(" "
-            + translator.realisticTranslate(Translation.KEIN_EXPORT_VON_INTERNEN_DATENBANKEN_MOEGLICH));
+
+      JLabel exportExplanation = new JLabel(" " + translator.realisticTranslate(
+            Translation.KEIN_EXPORT_VON_INTERNEN_DATENBANKEN_MOEGLICH));
       exportExplanation.setFont(Main.getGermanFont(14F));
       exportExplanation.setForeground(ApplicationColors.getGold());
 
@@ -332,11 +357,13 @@ public class SettingsPanel extends BackgroundPanelTiled
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
 
-      JLabel importLabel = new JLabel("Import");
+      JLabel importLabel = new JLabel(
+            translator.realisticTranslate(Translation.IMPORT));
       importLabel.setFont(Main.getGermanFont(30F));
       importLabel.setForeground(ApplicationColors.getGold());
 
-      importButton = new JButton("Datenbank importieren");
+      importButton = new JButton(
+            translator.realisticTranslate(Translation.DATENBANK_IMPORTIEREN));
       importButton.setFont(Settings.getButtonFont());
       importButton.setMinimumSize(new Dimension(WIDTH, 30));
       importButton.setMaximumSize(new Dimension(WIDTH, 30));
@@ -359,7 +386,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
 
-      JLabel soundLabel = new JLabel("Lautstärke");
+      JLabel soundLabel = new JLabel(
+            translator.realisticTranslate(Translation.LAUTSTAERKE));
       soundLabel.setFont(Main.getGermanFont(30F));
       soundLabel.setForeground(ApplicationColors.getDarkGold());
 
@@ -380,16 +408,20 @@ public class SettingsPanel extends BackgroundPanelTiled
       soundslider.setMinimumSize(new Dimension(WIDTH, 60));
       soundslider.setMaximumSize(new Dimension(WIDTH, 60));
 
-      waveSoundButton = new JButton("Wellen");
+      waveSoundButton = new JButton(
+            translator.realisticTranslate(Translation.WELLEN));
       waveSoundButton.setFont(Settings.getButtonFont());
 
-      clappingSoundButton = new JButton("Applaus");
+      clappingSoundButton = new JButton(
+            translator.realisticTranslate(Translation.APPLAUS));
       clappingSoundButton.setFont(Settings.getButtonFont());
 
-      splotchSoundButton = new JButton("Tintenspritzer");
+      splotchSoundButton = new JButton(
+            translator.realisticTranslate(Translation.TINTENSPRITZER));
       splotchSoundButton.setFont(Settings.getButtonFont());
 
-      shredderSoundButton = new JButton("Aktenvernichter");
+      shredderSoundButton = new JButton(
+            translator.realisticTranslate(Translation.AKTENVERNICHTER));
       shredderSoundButton.setFont(Settings.getButtonFont());
 
       vertical.add(soundLabel);
@@ -507,7 +539,8 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       importButton.addActionListener(event -> {
 
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog("Import");
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
+               translator.realisticTranslate(Translation.IMPORT));
          dialog.setVisible(true);
 
          final String databaseName;
@@ -534,9 +567,8 @@ public class SettingsPanel extends BackgroundPanelTiled
                protected Void doInBackground() throws Exception
                {
                   ImportExpressions importer = new ImportExpressions();
-                  if (importer
-                        .importExpressions(databaseName, overwriteDatabaseNames,
-                              pathOfFolderOrFile))
+                  if (importer.importExpressions(databaseName,
+                        overwriteDatabaseNames, pathOfFolderOrFile))
                   {
                      SaveExpressions saver = new SaveExpressions();
                      saver.save();
@@ -551,8 +583,8 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       exportButton.addActionListener(event -> {
 
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
-               "Export alle Vokabeln");
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(translator
+               .realisticTranslate(Translation.EXPORT_ALLER_VOKABELN));
          dialog.setVisible(true);
 
          final String databaseName;
@@ -590,8 +622,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
 
       this.exportSelectedButton.addActionListener(event -> {
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
-               "Export markierte Vokabeln");
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(translator
+               .realisticTranslate(Translation.EXPORT_MARKIERTER_VOKABELN));
          dialog.setVisible(true);
 
          final String databaseName;
@@ -629,21 +661,23 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
 
       exportDatabaseButton.addActionListener(event -> {
-         
-         String databaseChoosen = (String) JOptionPane
-               .showInputDialog(Common.getMainJPanel(),
-                     "Wählen Sie eine Datenbank für den Export aus.", "Auswahl",
-                     JOptionPane.QUESTION_MESSAGE,
-                     new ImageIcon(ApplicationImages.getLogo24()),
-                     Data.getAllOwnDistinctDatabaseDescriptions(false), null);
+
+         String databaseChoosen = (String) JOptionPane.showInputDialog(
+               Common.getMainJPanel(),
+               translator.realisticTranslate(
+                     Translation.WAEHLEN_SIE_EINE_DATENBANK_FUER_DEN_EXPORT_AUS_),
+               translator.realisticTranslate(Translation.AUSWAHL),
+               JOptionPane.QUESTION_MESSAGE,
+               new ImageIcon(ApplicationImages.getLogo24()),
+               Data.getAllOwnDistinctDatabaseDescriptions(false), null);
 
          if (databaseChoosen == null)
          {
             return;
          }
-         
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
-               "Export eine Datenbank");
+
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(translator
+               .realisticTranslate(Translation.EXPORT_EINER_DATENBANK));
          dialog.setVisible(true);
 
          final String databaseName;
@@ -671,9 +705,8 @@ public class SettingsPanel extends BackgroundPanelTiled
                protected Void doInBackground() throws Exception
                {
                   SaveExpressions saver = new SaveExpressions(pathOfFolder);
-                  saver
-                        .export(databaseName, overwriteDatabaseNames,
-                              databaseChoosen);
+                  saver.export(databaseName, overwriteDatabaseNames,
+                        databaseChoosen);
                   return null;
                }
 
@@ -682,24 +715,28 @@ public class SettingsPanel extends BackgroundPanelTiled
       });
 
       this.deleteDatabaseButton.addActionListener(event -> {
-         String databaseChoosen = (String) JOptionPane
-               .showInputDialog(Common.getMainJPanel(),
-                     "Wählen Sie eine Datenbank zum Löschen aus.",
-                     "Datenbank in den Papierkorb",
-                     JOptionPane.QUESTION_MESSAGE,
-                     new ImageIcon(ApplicationImages.getLogo24()),
-                     Data.getAllOwnDistinctDatabaseDescriptions(false), null);
+         String databaseChoosen = (String) JOptionPane.showInputDialog(
+               Common.getMainJPanel(),
+               translator.realisticTranslate(
+                     Translation.WAEHLEN_SIE_EINE_DATENBANK_ZUM_LOESCHEN_AUS),
+               translator.realisticTranslate(
+                     Translation.DATENBANK_IN_DEN_PAPIERKORB),
+               JOptionPane.QUESTION_MESSAGE,
+               new ImageIcon(ApplicationImages.getLogo24()),
+               Data.getAllOwnDistinctDatabaseDescriptions(false), null);
 
          if (databaseChoosen == null)
          {
             return;
          }
-         
-         if(JOptionPane
-            .showConfirmDialog(Common.getjFrame(),
-                  "Wollen Sie wirklich die Vokabeln von \"" + databaseChoosen + "\" löschen?",
-                  "Frage", JOptionPane.OK_CANCEL_OPTION,
-                  JOptionPane.QUESTION_MESSAGE) != 0)
+
+         if (JOptionPane.showConfirmDialog(Common.getjFrame(),
+               translator.realisticTranslate(
+                     Translation.WOLLEN_SIE_WIRKLICH_DIE_VOKABELN_VON__)
+                     + databaseChoosen
+                     + translator.realisticTranslate(Translation.__LOESCHEN_),
+               translator.realisticTranslate(Translation.FRAGE),
+               JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) != 0)
          {
             return;
          }
@@ -752,11 +789,14 @@ public class SettingsPanel extends BackgroundPanelTiled
          String result = folderChooser.getSelectedFile().getPath();
          if (!testIfFolderExists(folderChooser.getSelectedFile().getPath()))
          {
-            JOptionPane
-                  .showMessageDialog(this,
-                        "Der gewählte Ordner existiert nicht:\n" + result
-                              + "\nBitte wählen Sie einen existierenden Ordner.\nDanke!",
-                        "Nachricht", JOptionPane.CLOSED_OPTION);
+            JOptionPane.showMessageDialog(this, translator.realisticTranslate(
+                  Translation.DER_GEWAEHLTE_ORDNER_EXISTIERT_NICHT_) + "\n"
+                  + result + "\n"
+                  + translator.realisticTranslate(
+                        Translation.BITTE_WAEHLEN_SIE_EINEN_EXISTIERENDEN_ORDNER_)
+                  + "\n" + translator.realisticTranslate(Translation.DANKE_),
+                  translator.realisticTranslate(Translation.NACHRICHT),
+                  JOptionPane.CLOSED_OPTION);
             return null;
          }
          return result;
@@ -776,9 +816,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       if (JFileChooser.APPROVE_OPTION == choice)
       {
          String splitter = "\\" + File.separator;
-         String[] foldersAndFile = folderChooser
-               .getSelectedFile()
-               .getPath()
+         String[] foldersAndFile = folderChooser.getSelectedFile().getPath()
                .split(splitter);
          PathAndFile pathAndFile = new PathAndFile();
          StringJoiner joiner = new StringJoiner(splitter);
@@ -797,22 +835,27 @@ public class SettingsPanel extends BackgroundPanelTiled
 
          if (!testIfFolderExists(pathAndFile.getPath()))
          {
-            JOptionPane
-                  .showMessageDialog(this,
-                        "Der gewählte Ordner existiert nicht:\n"
-                              + pathAndFile.getPath()
-                              + "\nBitte wählen Sie einen existierenden Ordner.\nDanke!",
-                        "Nachricht", JOptionPane.CLOSED_OPTION);
+            JOptionPane.showMessageDialog(this, translator.realisticTranslate(
+                  Translation.DER_GEWAEHLTE_ORDNER_EXISTIERT_NICHT_) + "\n"
+                  + pathAndFile.getPath() + "\n"
+                  + translator.realisticTranslate(
+                        Translation.BITTE_WAEHLEN_SIE_EINEN_EXISTIERENDEN_ORDNER_)
+                  + "\n" + translator.realisticTranslate(Translation.DANKE_),
+                  translator.realisticTranslate(Translation.NACHRICHT),
+                  JOptionPane.CLOSED_OPTION);
             return null;
          }
 
          if (testIfFileExists(pathAndFile.getPathFile()))
          {
-            int answer = JOptionPane
-                  .showConfirmDialog(this,
-                        "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
-                        "Frage", JOptionPane.OK_CANCEL_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
+            int answer = JOptionPane.showConfirmDialog(this,
+                  translator.realisticTranslate(
+                        Translation.DIE_DATEI_EXISTIERT_SCHON)
+                        + "\n"
+                        + translator.realisticTranslate(
+                              Translation.SOLL_SIE_UEBERSCHRIEBEN_WERDEN_),
+                  translator.realisticTranslate(Translation.FRAGE),
+                  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (JOptionPane.OK_OPTION != answer)
             {
                return null;
@@ -821,11 +864,14 @@ public class SettingsPanel extends BackgroundPanelTiled
 
          if (testIfFileExists(pathAndFile.getPathFile() + ".zip"))
          {
-            int answer = JOptionPane
-                  .showConfirmDialog(this,
-                        "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
-                        "Frage", JOptionPane.OK_CANCEL_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
+            int answer = JOptionPane.showConfirmDialog(this,
+                  translator.realisticTranslate(
+                        Translation.DIE_DATEI_EXISTIERT_SCHON)
+                        + "\n"
+                        + translator.realisticTranslate(
+                              Translation.SOLL_SIE_UEBERSCHRIEBEN_WERDEN_),
+                  translator.realisticTranslate(Translation.FRAGE),
+                  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (JOptionPane.OK_OPTION != answer)
             {
                return null;
@@ -834,11 +880,14 @@ public class SettingsPanel extends BackgroundPanelTiled
 
          if (testIfFileExists(pathAndFile.getPathFile() + ".ZIP"))
          {
-            int answer = JOptionPane
-                  .showConfirmDialog(this,
-                        "Die Datei existiert schon,\nsoll Sie überschrieben werden?",
-                        "Frage", JOptionPane.OK_CANCEL_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
+            int answer = JOptionPane.showConfirmDialog(this,
+                  translator.realisticTranslate(
+                        Translation.DIE_DATEI_EXISTIERT_SCHON)
+                        + "\n"
+                        + translator.realisticTranslate(
+                              Translation.SOLL_SIE_UEBERSCHRIEBEN_WERDEN_),
+                  translator.realisticTranslate(Translation.FRAGE),
+                  JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (JOptionPane.OK_OPTION != answer)
             {
                return null;
@@ -872,13 +921,17 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
          else
          {
-            JOptionPane
-                  .showMessageDialog(this,
-                        "Der gewählte Ordner/die Datei existiert nicht:\n"
-                              + "oder die Datei ist keine zip-Datei\n"
-                              + folderChooser.getSelectedFile().getPath()
-                              + "\nBitte wählen Sie einen existierenden Ordner bzw. zip-Datei.\nDanke!",
-                        "Nachricht", JOptionPane.CLOSED_OPTION);
+            JOptionPane.showMessageDialog(this, translator.realisticTranslate(
+                  Translation.DER_GEWAEHLTE_ORDNER_DIE_DATEI_EXISTIERT_NICHT_)
+                  + "\n"
+                  + translator.realisticTranslate(
+                        Translation.ODER_DIE_DATEI_IST_KEINE_ZIP_DATEI)
+                  + "\n" + folderChooser.getSelectedFile().getPath() + "\n"
+                  + translator.realisticTranslate(
+                        Translation.BITTE_WAEHLEN_SIE_EINEN_EXISTIERENDEN_ORDNER_BZW__ZIP_DATEI_)
+                  + "\n" + translator.realisticTranslate(Translation.DANKE_),
+                  translator.realisticTranslate(Translation.NACHRICHT),
+                  JOptionPane.CLOSED_OPTION);
             return null;
          }
       }
