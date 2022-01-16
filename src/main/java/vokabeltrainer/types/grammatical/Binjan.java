@@ -1,33 +1,37 @@
 package vokabeltrainer.types.grammatical;
 
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
+
 public enum Binjan
       implements
       GrammaticalEnum
 {
    PLEASE_CHOOSE(
-         "bitte wählen"),
+         Translation.BITTE_WAEHLEN),
    BINJAN_UNKNOWN(
-         "unbekannt"),
+         Translation.UNBEKANNT),
    PAAL(
-         "pa'al / qal"),
+         Translation.PA_AL___QAL),
    NIFAL(
-         "nif'al"),
+         Translation.NIF_AL),
    HIFIL(
-         "hif'il"),
+         Translation.HIF_IL),
    HUFAL(
-         "huf'al / hofal"),
+         Translation.HUF_AL___HOFAL),
    PIEL(
-         "pi'el"),
+         Translation.PI_EL),
    PUAL(
-         "pu'al"),
+         Translation.PU_AL),
    HITPAEL(
-         "hitpa'el"),
+         Translation.HITPA_EL),
    BINJAN_NA(
-         "nicht anwendbar");
+         Translation.NICHT_ANWENDBAR);
 
-   private String description;
+   private Translation description;
 
-   Binjan(String description)
+   Binjan(Translation description)
    {
       this.description = description;
    }
@@ -35,11 +39,13 @@ public enum Binjan
    @Override
    public String toString()
    {
-      return description;
+      Translator translator = Common.getTranslator();
+      return translator.realisticTranslate(description);
    }
 
    public String toDescription()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case HIFIL:
@@ -49,9 +55,10 @@ public enum Binjan
       case PAAL:
       case PIEL:
       case PUAL:
-         return description;
+         return translator.realisticTranslate(description);
       case BINJAN_UNKNOWN:
-         return "Binjan " + description;
+         return translator.realisticTranslate(Translation.BINJAN___STAMM)
+               + " " + translator.realisticTranslate(description);
       case BINJAN_NA:
       default:
          return "";
@@ -67,6 +74,7 @@ public enum Binjan
    @Override
    public String toInfo()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case HIFIL:
@@ -76,7 +84,7 @@ public enum Binjan
       case PAAL:
       case PIEL:
       case PUAL:
-         return description;
+         return translator.realisticTranslate(description);
       case BINJAN_UNKNOWN:
       case BINJAN_NA:
       default:

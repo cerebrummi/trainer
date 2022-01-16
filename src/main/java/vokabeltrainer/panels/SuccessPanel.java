@@ -6,8 +6,11 @@ import javax.swing.JTabbedPane;
 
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.success.LanguageTab;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.panels.success.InformationTab;
 import vokabeltrainer.panels.success.InformationTabDtoH;
 import vokabeltrainer.panels.success.InformationTabHtoD;
@@ -21,6 +24,7 @@ public class SuccessPanel extends BackgroundPanelTiled
    private JPanel infoCard;
    private LanguageTab languageDtoHcard;
    private LanguageTab languageHtoDcard;
+   private Translator translator = Common.getTranslator();
 
    public SuccessPanel()
    {
@@ -33,12 +37,21 @@ public class SuccessPanel extends BackgroundPanelTiled
       germanHebrewRegister.setMaximumSize(new Dimension(1500, 800));
 
       infoCard = new InformationTab();
-      languageDtoHcard = new LanguageTab(new InformationTabDtoH(), Language.GERMAN_TO_HEBREW);
-      languageHtoDcard = new LanguageTab(new InformationTabHtoD(), Language.HEBREW_TO_GERMAN);
+      languageDtoHcard = new LanguageTab(new InformationTabDtoH(),
+            Language.GERMAN_TO_HEBREW);
+      languageHtoDcard = new LanguageTab(new InformationTabHtoD(),
+            Language.HEBREW_TO_GERMAN);
 
-      germanHebrewRegister.addTab("Karteikasten", infoCard);
-      germanHebrewRegister.addTab("Deutsch >> Hebräisch", languageDtoHcard);
-      germanHebrewRegister.addTab("Hebräisch >> Deutsch", languageHtoDcard);
+      germanHebrewRegister.addTab(
+            translator.realisticTranslate(Translation.KARTEIKASTEN), infoCard);
+      germanHebrewRegister.addTab(
+            translator.realisticTranslate(Translation.DEUTSCH) + " >> "
+                  + translator.realisticTranslate(Translation.HEBRAEISCH),
+            languageDtoHcard);
+      germanHebrewRegister.addTab(
+            translator.realisticTranslate(Translation.HEBRAEISCH) + " >> "
+                  + translator.realisticTranslate(Translation.DEUTSCH),
+            languageHtoDcard);
 
       add(germanHebrewRegister);
 

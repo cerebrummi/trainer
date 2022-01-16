@@ -39,6 +39,7 @@ import vokabeltrainer.InputHebrewPanel;
 import vokabeltrainer.InputHebrewPanel.Selection;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
@@ -52,6 +53,8 @@ import vokabeltrainer.panels.trainer.ImagePanelGreen;
 import vokabeltrainer.panels.trainer.ImagePanelStart;
 import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -100,6 +103,7 @@ public class TrainerView extends BackgroundPanelTiled
    private JSlider soundslider;
    private JCheckBox pictureToggleBox;
    private JPanel verticalTrainerPanel;
+   private Translator translator = Common.getTranslator();
 
    public TrainerView(TrainerControllerConnector connector)
    {
@@ -120,9 +124,17 @@ public class TrainerView extends BackgroundPanelTiled
    public void init()
    {
       languageDirectionLabel
-            .setText(languageDirection.equals(Language.HEBREW_TO_GERMAN)
-                  ? "Hebräisch >> Deutsch"
-                  : "Deutsch >> Hebräisch");
+            .setText(
+                  languageDirection.equals(Language.HEBREW_TO_GERMAN)
+                        ? translator.realisticTranslate(Translation.HEBRAEISCH)
+                              + " >> "
+                              + translator
+                                    .realisticTranslate(Translation.DEUTSCH)
+                        : "Deutsch"
+                              + translator
+                                    .realisticTranslate(Translation.DEUTSCH)
+                              + translator.realisticTranslate(
+                                    Translation.HEBRAEISCH));
 
       initQuestionPanel(languageDirection);
 
@@ -191,7 +203,8 @@ public class TrainerView extends BackgroundPanelTiled
       choices.add(choicesLeft);
       choices.add(choicesRight);
 
-      JLabel label3 = new JLabel("RICHTUNG");
+      JLabel label3 = new JLabel(
+            translator.realisticTranslate(Translation.RICHTUNG));
       label3.setFont(labelFont);
       label3.setBackground(ApplicationColors.getGold());
       label3.setForeground(Color.WHITE);
@@ -211,15 +224,18 @@ public class TrainerView extends BackgroundPanelTiled
       JPanel numbersLeft = new JPanel();
       numbersLeft.setLayout(new TotemLayout(numbersLeft));
       numbersLeft.setBackground(ApplicationColors.getGold());
-      JLabel wordsRightLabel = new JLabel("RICHTIG");
+      JLabel wordsRightLabel = new JLabel(
+            translator.realisticTranslate(Translation.RICHTIG));
       wordsRightLabel.setBackground(ApplicationColors.getGold());
       wordsRightLabel.setFont(labelFont);
       wordsRightLabel.setForeground(Color.WHITE);
-      JLabel wordsWrongLabel = new JLabel("FALSCH");
+      JLabel wordsWrongLabel = new JLabel(
+            translator.realisticTranslate(Translation.FALSCH));
       wordsWrongLabel.setBackground(ApplicationColors.getGold());
       wordsWrongLabel.setFont(labelFont);
       wordsWrongLabel.setForeground(Color.WHITE);
-      JLabel wordsToDoLabel = new JLabel("ZU TUN");
+      JLabel wordsToDoLabel = new JLabel(
+            translator.realisticTranslate(Translation.ZU_TUN));
       wordsToDoLabel.setBackground(ApplicationColors.getGold());
       wordsToDoLabel.setFont(labelFont);
       wordsToDoLabel.setForeground(Color.WHITE);
@@ -253,7 +269,8 @@ public class TrainerView extends BackgroundPanelTiled
       numberFiller.setMinimumSize(new Dimension(60, 30));
       numberFiller.setMaximumSize(new Dimension(280, 60));
 
-      nextWordButton = new JButton("nächstes Wort");
+      nextWordButton = new JButton(
+            translator.realisticTranslate(Translation.NAECHSTES_WORT));
       nextWordButton.setIcon(new ImageIcon(ApplicationImages.getStart()));
       nextWordButton.setEnabled(false);
 
@@ -283,7 +300,8 @@ public class TrainerView extends BackgroundPanelTiled
       soundslider.setPaintLabels(true);
       soundslider.setSnapToTicks(true);
 
-      pictureToggleBox = new JCheckBox("Buchstabenbilder");
+      pictureToggleBox = new JCheckBox(
+            translator.realisticTranslate(Translation.BILDERBUCHSTABEN));
       pictureToggleBox.setSelected(Settings.isLetterImagesOn());
 
       infoStopTrainingPanel = new JPanel(new BorderLayout());
@@ -300,7 +318,8 @@ public class TrainerView extends BackgroundPanelTiled
 
       infoStopTrainingPanel.add(infoStopTrainingButton, BorderLayout.WEST);
 
-      stopTrainingButton = new JButton("abbrechen");
+      stopTrainingButton = new JButton(
+            translator.realisticTranslate(Translation.ABBRECHEN));
       stopTrainingButton.setIcon(new ImageIcon(ApplicationImages.getStop()));
 
       verticalLeftPanel.add(choices);
@@ -325,8 +344,8 @@ public class TrainerView extends BackgroundPanelTiled
          questionFieldGerman.setBackground(ApplicationColors.getLightBlue());
          questionFieldGerman.setFont(Main.getGermanFont(20F));
          questionFieldGerman.setBorder(BorderFactory.createTitledBorder(
-               BorderFactory.createEmptyBorder(),
-               "Wie lautet die Übersetzung dieses Begriffes?"));
+               BorderFactory.createEmptyBorder(), translator.realisticTranslate(
+                     Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
          questionFieldGerman
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 70));
          questionFieldGerman
@@ -339,8 +358,9 @@ public class TrainerView extends BackgroundPanelTiled
          questionFieldHebrew = new InputHebrewPanel(Selection.SIMPLE, 160, 10,
                false, this);
          questionFieldHebrew.setBackground(ApplicationColors.getLightBlue());
-         questionFieldHebrew.setBorder(BorderFactory.createTitledBorder(
-               "Wie lautet die Übersetzung dieses Begriffes?"));
+         questionFieldHebrew.setBorder(
+               BorderFactory.createTitledBorder(translator.realisticTranslate(
+                     Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
          questionFieldHebrew
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 160));
          questionFieldHebrew
@@ -352,56 +372,69 @@ public class TrainerView extends BackgroundPanelTiled
 
       JPanel additionalInfoPanel = new JPanel();
       additionalInfoPanel.setLayout(new TrainLayout(additionalInfoPanel, 15));
-      
+
       additionalInfo = new JCheckBox();
       additionalInfo.setFont(Settings.getButtonFont());
-      additionalInfo
-            .setMinimumSize(new Dimension(Settings.getKeyboardWidth()/2-8, 30));
-      additionalInfo
-            .setMaximumSize(new Dimension(Settings.getKeyboardWidth()/2-7, 30));
+      additionalInfo.setMinimumSize(
+            new Dimension(Settings.getKeyboardWidth() / 2 - 8, 30));
+      additionalInfo.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() / 2 - 7, 30));
 
       additionalInfoField = new JTextPane();
       additionalInfoField.setFont(Main.getGermanFont(15F));
-      additionalInfoField.setBorder(new ComponentTitledBorder(additionalInfo,
-            additionalInfoField, new TitledBorder("weitere Informationen"), 35));
+      additionalInfoField.setBorder(
+            new ComponentTitledBorder(additionalInfo, additionalInfoField,
+                  new TitledBorder(translator
+                        .realisticTranslate(Translation.WEITERE_INFORMATIONEN)),
+                  35));
       additionalInfoField.setEditable(false);
-      
+
       additionalInfo.addActionListener(event -> connector.setAdditionalInfo());
 
       JScrollPane scrollerAdditionalInfo = new JScrollPane(additionalInfoField);
-      scrollerAdditionalInfo.setMinimumSize(new Dimension(Settings.getKeyboardWidth()/2-8, 100));
-      scrollerAdditionalInfo.setMaximumSize(new Dimension(Settings.getKeyboardWidth()/2-7, 100));
+      scrollerAdditionalInfo.setMinimumSize(
+            new Dimension(Settings.getKeyboardWidth() / 2 - 8, 100));
+      scrollerAdditionalInfo.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() / 2 - 7, 100));
       scrollerAdditionalInfo.setBorder(BorderFactory.createEmptyBorder());
-      scrollerAdditionalInfo.setViewportBorder(BorderFactory.createEmptyBorder());
-      scrollerAdditionalInfo.getViewport().setBackground(ApplicationColors.getTransparent());
+      scrollerAdditionalInfo
+            .setViewportBorder(BorderFactory.createEmptyBorder());
+      scrollerAdditionalInfo.getViewport()
+            .setBackground(ApplicationColors.getTransparent());
       scrollerAdditionalInfo.getViewport().setOpaque(false);
 
       grammarInfo = new JCheckBox();
       grammarInfo.setFont(Settings.getButtonFont());
-      grammarInfo
-            .setMinimumSize(new Dimension(Settings.getKeyboardWidth()/2-8, 30));
-      grammarInfo
-            .setMaximumSize(new Dimension(Settings.getKeyboardWidth()/2-7, 30));
+      grammarInfo.setMinimumSize(
+            new Dimension(Settings.getKeyboardWidth() / 2 - 8, 30));
+      grammarInfo.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() / 2 - 7, 30));
 
       grammarInfoField = new JTextPane();
       grammarInfoField.setFont(Main.getGermanFont(15F));
-      grammarInfoField.setBorder(new ComponentTitledBorder(grammarInfo,
-            grammarInfoField, new TitledBorder("Grammatik"), 35));
+      grammarInfoField
+            .setBorder(new ComponentTitledBorder(grammarInfo, grammarInfoField,
+                  new TitledBorder(
+                        translator.realisticTranslate(Translation.GRAMMATIK)),
+                  35));
       grammarInfoField.setEditable(false);
-      
+
       grammarInfo.addActionListener(event -> connector.setGrammarInfo());
 
       JScrollPane scrollerGrammarInfo = new JScrollPane(grammarInfoField);
-      scrollerGrammarInfo.setMinimumSize(new Dimension(Settings.getKeyboardWidth()/2-8, 100));
-      scrollerGrammarInfo.setMaximumSize(new Dimension(Settings.getKeyboardWidth()/2-7, 100));
+      scrollerGrammarInfo.setMinimumSize(
+            new Dimension(Settings.getKeyboardWidth() / 2 - 8, 100));
+      scrollerGrammarInfo.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() / 2 - 7, 100));
       scrollerGrammarInfo.setBorder(BorderFactory.createEmptyBorder());
       scrollerGrammarInfo.setViewportBorder(BorderFactory.createEmptyBorder());
-      scrollerGrammarInfo.getViewport().setBackground(ApplicationColors.getTransparent());
+      scrollerGrammarInfo.getViewport()
+            .setBackground(ApplicationColors.getTransparent());
       scrollerGrammarInfo.getViewport().setOpaque(false);
-      
+
       additionalInfoPanel.add(scrollerGrammarInfo);
       additionalInfoPanel.add(scrollerAdditionalInfo);
-      
+
       questionPanel.add(additionalInfoPanel);
 
       answerPanel = new JPanel();
@@ -416,8 +449,13 @@ public class TrainerView extends BackgroundPanelTiled
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
          answerPanel
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 444));
-         answerField = new InfoTextField("Antwortfeld", "Antwortfeld:",
-               "Mit der hebräischen Tastatur", "bitte die Antwort schreiben.");
+         answerField = new InfoTextField(
+               translator.realisticTranslate(Translation.ANTWORTFELD),
+               translator.realisticTranslate(Translation.ANTWORTFELD) + ":",
+               translator.realisticTranslate(
+                     Translation.MIT_DER_HEBRAEISCHEN_TASTATUR),
+               translator.realisticTranslate(
+                     Translation.BITTE_DIE_ANTWORT_SCHREIBEN));
          answerField.setDocument(new NikudDocument(true));
          answerField
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -435,9 +473,13 @@ public class TrainerView extends BackgroundPanelTiled
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 80));
          answerPanel
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 80));
-         answerField = new InfoTextField("Antwortfeld", "Antwortfeld:",
-               "Sie können hier die Lösung schreiben",
-               "oder einfach laut nennen oder denken.");
+         answerField = new InfoTextField(
+               translator.realisticTranslate(Translation.ANTWORTFELD),
+               translator.realisticTranslate(Translation.ANTWORTFELD) + ":",
+               translator.realisticTranslate(
+                     Translation.SIE_KOENNEN_HIER_DIE_LOESUNG_SCHREIBEN),
+               translator.realisticTranslate(
+                     Translation.ODER_EINfACH_LAUT_NENNEN_ODER_DENKEN));
          answerField.setDocument(new GermanDocument(true));
          answerField.setFont(Main.getGermanFont(20F));
          answerField
@@ -508,11 +550,13 @@ public class TrainerView extends BackgroundPanelTiled
 
       if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
       {
-         sendButton = new JButton("Antwort absenden");
+         sendButton = new JButton(
+               translator.realisticTranslate(Translation.ANTWORT_ABSENDEN));
       }
       else
       {
-         sendButton = new JButton("Antwort anschauen");
+         sendButton = new JButton(
+               translator.realisticTranslate(Translation.ANTWORT_ANSCHAUEN));
       }
       sendButton.setFont(Settings.getButtonFont());
       sendButton.setIcon(new ImageIcon(ApplicationImages.getSend()));
@@ -539,10 +583,14 @@ public class TrainerView extends BackgroundPanelTiled
 
       infoStopTrainingButton.addActionListener(
             event -> JOptionPane.showMessageDialog(infoStopTrainingPanel, "",
-                  "Cerebrummi©", JOptionPane.INFORMATION_MESSAGE,
+                  Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
                   new ImageIcon(TextImage.make(
-                        "Wenn Sie auf abbrechen drücken,",
-                        "werden alle gelernten Antworten", "gespeichert."))));
+                        translator.realisticTranslate(
+                              Translation.WENN_SIE_AUF_ABBRECHEN_DRUECKEN_),
+                        translator.realisticTranslate(
+                              Translation.WERDEN_ALLE_GELERNTEN_ANTWORTEN),
+                        translator
+                              .realisticTranslate(Translation.GESPEICHERT_)))));
 
       infoStopTrainingButton.addMouseListener(new MouseListener()
       {
@@ -640,7 +688,8 @@ public class TrainerView extends BackgroundPanelTiled
    {
       JPanel answerPanel1 = new JPanel();
       answerPanel1.setLayout(new TotemLayout(answerPanel1, 5));
-      JLabel correctAnswer = new JLabel("Die richtige Antwort lautet:");
+      JLabel correctAnswer = new JLabel(translator
+            .realisticTranslate(Translation.DIE_RICHTIGE_ANTWORT_LAUTET_));
       correctAnswer.setFont(Main.getGermanFont(16F));
       correctAnswer.setMinimumSize(new Dimension(490, 30));
       correctAnswer.setMaximumSize(new Dimension(510, 30));
@@ -699,7 +748,7 @@ public class TrainerView extends BackgroundPanelTiled
       grammarInfoField.repaint();
       pictureWordPanelPlene.removeAll();
       pictureWordPanelDefektiv.removeAll();
-      
+
       connector.setNextTest();
       answerField.grabFocus();
       answerField.requestFocusInWindow();

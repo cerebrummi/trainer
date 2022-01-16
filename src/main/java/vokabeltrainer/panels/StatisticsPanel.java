@@ -13,10 +13,13 @@ import javax.swing.JTable;
 
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.BackgroundPanelTiled;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.statistics.StatisticsTable;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -28,6 +31,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
    private JPanel tablePanel;
    private JPanel wordPanel;
    private JPanel horizontalPanel;
+   private Translator translator = Common.getTranslator();
 
    public StatisticsPanel()
    {
@@ -68,7 +72,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
       titlePanel.setMinimumSize(new Dimension(580, 50));
       titlePanel.setMaximumSize(new Dimension(580, 50));
 
-      JLabel title = new JLabel("Trainingsübersicht");
+      JLabel title = new JLabel(translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
       title.setFont(Main.getGermanFont(30F));
       titlePanel.add(title);
 

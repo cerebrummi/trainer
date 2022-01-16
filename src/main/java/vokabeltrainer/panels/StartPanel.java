@@ -16,9 +16,12 @@ import javax.swing.JScrollPane;
 
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTable;
 import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopy;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -27,6 +30,7 @@ import vokabeltrainer.types.Chapter;
 public class StartPanel extends JPanel
 {
    private static final long serialVersionUID = -4928761869820144146L;
+   private Translator translator = Common.getTranslator();
 
    public StartPanel()
    {
@@ -41,7 +45,9 @@ public class StartPanel extends JPanel
       JPanel nameWrapper = new JPanel(new FlowLayout());
       nameWrapper.setOpaque(false);
       nameWrapper.setPreferredSize(new Dimension(580, 130));
-      JLabel name = new JLabel("<html>Cerebrummi</html>");
+      JLabel name = new JLabel("<html>"
+            + translator.realisticTranslate(Translation.CEREBRUMMI)
+            + "</html>");
       name.setPreferredSize(new Dimension(580, 120));
       name.setForeground(Color.WHITE);
       name.setFont(Main.getHebrewFont(100F));
@@ -50,7 +56,9 @@ public class StartPanel extends JPanel
       JPanel trainerWrapper = new JPanel(new FlowLayout());
       trainerWrapper.setOpaque(false);
       trainerWrapper.setPreferredSize(new Dimension(400, 80));
-      JLabel trainer = new JLabel("<html>Vokabeltrainer</html>");
+      JLabel trainer = new JLabel("<html>"
+            + translator.realisticTranslate(Translation.VOKABELTRAINER)
+            + "</html>");
       trainer.setPreferredSize(new Dimension(355, 70));
       trainer.setForeground(Color.WHITE);
       trainer.setFont(Main.getHebrewFont(55F));
@@ -109,7 +117,8 @@ public class StartPanel extends JPanel
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
 
-      JLabel databaseLabel = new JLabel(" Datenbanken ansehen");
+      JLabel databaseLabel = new JLabel(" "
+            + translator.realisticTranslate(Translation.DATENBANKEN_ANSEHEN));
       databaseLabel.setFont(Main.getGermanFont(30F));
       databaseLabel.setForeground(ApplicationColors.getDarkGold());
 
@@ -120,7 +129,10 @@ public class StartPanel extends JPanel
       scroller.setMinimumSize(new Dimension(990, 120));
       scroller.setMaximumSize(new Dimension(990, 120));
 
-      JLabel databaseLabel2 = new JLabel(" interne Datenbank durch Doppelklick SICHTBAR machen => Datensätze können NICHT editiert werden");
+      JLabel databaseLabel2 = new JLabel(" "
+            + translator.realisticTranslate(Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_SICHTBAR_MACHEN)
+            + " => "
+            + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
       databaseLabel2.setFont(Main.getGermanFont(16F));
       databaseLabel2.setForeground(ApplicationColors.getDarkGold());
       
@@ -144,7 +156,8 @@ public class StartPanel extends JPanel
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
 
-      JLabel databaseLabel = new JLabel(" Datenbanken kopieren");
+      JLabel databaseLabel = new JLabel(" "
+            + translator.realisticTranslate(Translation.DATENBANKEN_KOPIEREN));
       databaseLabel.setFont(Main.getGermanFont(30F));
       databaseLabel.setForeground(ApplicationColors.getDarkGold());
 
@@ -155,7 +168,10 @@ public class StartPanel extends JPanel
       scroller.setMinimumSize(new Dimension(990, 120));
       scroller.setMaximumSize(new Dimension(990, 120));
 
-      JLabel databaseLabel2 = new JLabel(" interne Datenbank durch Doppelklick KOPIEREN => Datensätze können editiert werden");
+      JLabel databaseLabel2 = new JLabel(" "
+            + translator.realisticTranslate(Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_KOPIEREN)
+            + " => "
+            + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
       databaseLabel2.setFont(Main.getGermanFont(16F));
       databaseLabel2.setForeground(ApplicationColors.getDarkGold());
       

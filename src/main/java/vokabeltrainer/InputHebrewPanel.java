@@ -30,8 +30,11 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.text.JTextComponent;
 
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.NikudDocument;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 
@@ -56,6 +59,7 @@ public class InputHebrewPanel extends JTextArea
    private JPanel cards;
    
    private Container parent;
+   private Translator translator = Common.getTranslator();
 
    public enum Selection
    {
@@ -331,7 +335,7 @@ public class InputHebrewPanel extends JTextArea
       pleneField.setMaximumSize(new Dimension(Settings.getKeyboardWidth() - 50,
             (heightTotal - heightBorderTitel) / 2));
       pleneField
-            .setBorder(BorderFactory.createTitledBorder("Hebräisch, plene"));
+            .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__PLENE)));
       components.add(pleneField);
 
       defektivField = new JTextField();
@@ -345,7 +349,7 @@ public class InputHebrewPanel extends JTextArea
             .setMaximumSize(new Dimension(Settings.getKeyboardWidth() - 50,
                   (heightTotal - heightBorderTitel) / 2));
       defektivField
-            .setBorder(BorderFactory.createTitledBorder("Hebräisch, defektiv"));
+            .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__DEFEKTIV)));
       components.add(defektivField);
 
       vertical.add(pleneField);
@@ -368,7 +372,7 @@ public class InputHebrewPanel extends JTextArea
       hebrewField.setMaximumSize(new Dimension(Settings.getKeyboardWidth() - 50,
             (heightTotal - heightBorderTitel) / 2));
       hebrewField.setBorder(BorderFactory
-            .createTitledBorder("Hebräisch, einfache Schreibweise"));
+            .createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
 
       components.add(hebrewField);
 
