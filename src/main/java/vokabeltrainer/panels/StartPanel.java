@@ -45,9 +45,7 @@ public class StartPanel extends JPanel
       JPanel nameWrapper = new JPanel(new FlowLayout());
       nameWrapper.setOpaque(false);
       nameWrapper.setPreferredSize(new Dimension(580, 130));
-      JLabel name = new JLabel("<html>"
-            + translator.realisticTranslate(Translation.CEREBRUMMI)
-            + "</html>");
+      JLabel name = new JLabel("<html>Cerebrummi</html>");
       name.setPreferredSize(new Dimension(580, 120));
       name.setForeground(Color.WHITE);
       name.setFont(Main.getHebrewFont(100F));

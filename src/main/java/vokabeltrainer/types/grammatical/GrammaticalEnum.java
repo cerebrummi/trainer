@@ -1,5 +1,9 @@
 package vokabeltrainer.types.grammatical;
 
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
+
 public interface GrammaticalEnum
 {
    public String toDescription();
@@ -20,24 +24,24 @@ public interface GrammaticalEnum
    {
       GENDER(
             10,
-            "Geschlecht"),
+            Translation.GESCHLECHT),
       NUMERUS(
             20,
-            "Numerus"),
+            Translation.NUMERUS),
       GRAMMATICAL_PERSON(
             30,
-            "grammatische Person"),
+            Translation.GRAMMATISCHE_PERSON),
       BINJAN(
             40,
-            "Binjan"),
+            Translation.BINJAN___STAMM),
       VERB_TIMES(
             50,
-            "Zeitform");
+            Translation.ZEITFORM);
 
       private int sortNumber;
-      private String identifier;
+      private Translation identifier;
 
-      GrammaticalParentEnum(int sortNumber, String identifier)
+      GrammaticalParentEnum(int sortNumber, Translation identifier)
       {
          this.sortNumber = sortNumber;
          this.identifier = identifier;
@@ -50,7 +54,8 @@ public interface GrammaticalEnum
 
       public String getIdentifier()
       {
-         return identifier;
+         Translator translator = Common.getTranslator();
+         return translator.realisticTranslate(identifier);
       }
       
       public GrammaticalEnum getUnkown()

@@ -7,6 +7,9 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableModel;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableRow;
 import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableModel2;
@@ -16,109 +19,109 @@ import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
 public enum ExpressionKind
 {
    EXPRESSIONKIND_UNKNOWN(
-         "unbekannt",
+         Translation.UNBEKANNT,
          ExpressionKindHelper.UNKNOWN_ENUMS),
    ADJEKTIV(
-         "Adjektiv/Eigenschaftswort",
+         Translation.ADJEKTIV_EIGENSCHAFTSWORT,
          ExpressionKindHelper.ADJECTIVE_ENUMS),
    ADVERB(
-         "Adverb",
+         Translation.ADVERB,
          ExpressionKindHelper.ADVERB_ENUMS),
    ADVERB_PLUS(
-         "Adverb mit Zusatz",
+         Translation.ADVERB_MIT_ZUSATZ,
          ExpressionKindHelper.ADVERB_PLUS_ENUMS),
    ALTERSANGABE(
-         "Altersangabe",
+         Translation.ALTERSANGABE,
          ExpressionKindHelper.ALTERSANGABE_ENUMS),
    AUSRUF(
-         "Interjektion/Ausruf",
+         Translation.INTERJEKTION_AUSRUF,
          ExpressionKindHelper.AUSRUF_ENUMS),
    ARTIKEL(
-         "Artikel",
+         Translation.ARTIKEL,
          ExpressionKindHelper.ARTIKEL_ENUMS),
    BERUF(
-         "Beruf",
+         Translation.BERUF,
          ExpressionKindHelper.BERUF_ENUMS),
    BINDEWORT(
-         "Konjunktion/Bindewort",
+         Translation.KONJUGATION_BINDEWORT,
          ExpressionKindHelper.BINDEWORT_ENUMS),
    DEMONSTRATIVPRONOM(
-         "Demonstrativpronom",
+         Translation.DEMONSTRATIVPRONOM,
          ExpressionKindHelper.DEMONSTRATIVPRONOM_ENUMS),
    EIGENNAME(
-         "Eigenname",
+         Translation.EIGENNAME,
          ExpressionKindHelper.EIGENNAME_ENUMS),
    FARBE(
-         "Farbe",
+         Translation.FARBE,
          ExpressionKindHelper.FARBE_ENUMS),
    FRAGEWORT(
-         "Fragewort",
+         Translation.FRAGEWORT,
          ExpressionKindHelper.FRAGEWORT_ENUMS),
    PRONOM(
-         "Pronom/Fürwort",
+         Translation.PRONOM_FUERWORT,
          ExpressionKindHelper.PRONOM_ENUMS),
    GLUECKWUNSCH(
-         "Glückwunsch/Gruß",
+         Translation.GLUECKWUNSCH_GRUSS,
          ExpressionKindHelper.GLUECKWUNSCH_ENUMS),
    JAHRESZEIT(
-         "Jahreszeit",
+         Translation.JAHRESZEIT,
          ExpressionKindHelper.JAHRESZEIT_ENUMS),
    KONSTRUKT(
-         "Konstrukt/ssmichut",
+         Translation.KONSTRUKT_SSMICHUT,
          ExpressionKindHelper.KONSTRUKT_ENUMS),
    MODALVERB(
-         "Modalverb",
+         Translation.MODALVERB,
          ExpressionKindHelper.MODALVERB_ENUMS),
    ORDNUNGSZAHL(
-         "Ordnungszahl",
+         Translation.ORDNUNGSZAHL,
          ExpressionKindHelper.ORDNUNGSZAHL_ENUMS),
    PARTIKEL(
-         "Partikel",
+         Translation.PARTIKEL,
          ExpressionKindHelper.PARTIKEL_ENUMS),
    PERSONALPRAEFIX(
-         "Personalpräfix",
+         Translation.PERSONALPRAEFIX,
          ExpressionKindHelper.PERSONALPRAEFIX_ENUMS),
    PERSONALPRONOM(
-         "Personalpronom",
+         Translation.PERSONALPRONOM,
          ExpressionKindHelper.PERSONALPRONOM_ENUMS),
    PERSONALSUFFIX(
-         "Personalsuffix",
+         Translation.PERSONALSUFFIX,
          ExpressionKindHelper.PERSONALSUFFIX_ENUMS),
    POSSESSIVPRONOM(
-         "Possessivpronom",
+         Translation.POSSESSIVPRONOM,
          ExpressionKindHelper.POSSESSIVPRONOM_ENUMS),
    PRAEPOSITION(
-         "Präposition",
+         Translation.PRAEPOSITION,
          ExpressionKindHelper.PRAEPOSITION_ENUMS),
    REDEWENDUNG(
-         "Redewendung",
+         Translation.REDEWENDUNG,
          ExpressionKindHelper.REDEWENDUNG_ENUMS),
    RELATIVPRONOM(
-         "Relativpronom",
+         Translation.REATIVPRONOM,
          ExpressionKindHelper.RELATIVPRONOM_ENUMS),
    SUBSTANTIV(
-         "Substantiv/Hauptwort",
+         Translation.SUBSTANTIV_HAUPTWORT,
          ExpressionKindHelper.SUBSTANTIV_ENUMS),
    UHRZEIT(
-         "Uhrzeit",
+         Translation.UHRZEIT,
          ExpressionKindHelper.UHRZEIT_ENUMS),
    UMGANGSPRACHE(
-         "Umgangsprache",
+         Translation.UMGANGSSPRACHE,
          ExpressionKindHelper.UMGANGSSPRACHE_ENUMS),
    VERB(
-         "Verb/Tuwort",
+         Translation.VERB_TUWORT,
          ExpressionKindHelper.VERB_ENUMS),
    WOCHENTAG(
-         "Wochentag",
+         Translation.WOCHENTAG,
          ExpressionKindHelper.WOCHENTAG_ENUMS),
    ZAHL(
-         "Zahl",
+         Translation.ZAHL,
          ExpressionKindHelper.ZAHL_ENUMS);
 
-   private String description;
+   private Translation description;
    private GrammaticalParentEnum[] grammaticalParentEnums;
 
-   ExpressionKind(String description,
+   ExpressionKind(Translation description,
          GrammaticalParentEnum[] grammaticalParentEnums)
    {
       this.description = description;
@@ -128,11 +131,13 @@ public enum ExpressionKind
    @Override
    public String toString()
    {
-      return description;
+      Translator translator = Common.getTranslator();
+      return translator.realisticTranslate(description);
    }
 
    public String toDescription()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case ADJEKTIV:
@@ -167,9 +172,10 @@ public enum ExpressionKind
       case VERB:
       case WOCHENTAG:
       case ZAHL:
-         return description;
+         return translator.realisticTranslate(description);
       case EXPRESSIONKIND_UNKNOWN:
-         return "Wortart " + description;
+         return translator.realisticTranslate(Translation.WORTART)
+               + " " + translator.realisticTranslate(description);
       default:
          return "";
       }
@@ -182,7 +188,8 @@ public enum ExpressionKind
 
    public String getDescription()
    {
-      return description;
+      Translator translator = Common.getTranslator();
+      return translator.realisticTranslate(description);
    }
 
    public static ExpressionKindTableModel getModelForMultiselect()

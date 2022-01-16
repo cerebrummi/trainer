@@ -4,10 +4,13 @@ import java.text.Collator;
 import java.util.Locale;
 import java.util.Vector;
 
+import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTableModel;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTableRow;
 import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopyModel;
 import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopyRow;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 
 public class Chapter implements Comparable<Chapter>
 {
@@ -149,7 +152,7 @@ public class Chapter implements Comparable<Chapter>
             "Neuhebräisch"),
       SELF(
             "",
-            "selbst eingegeben",
+            "",
             "",
             ""),
       COPY(
@@ -193,6 +196,11 @@ public class Chapter implements Comparable<Chapter>
 
       public String getName()
       {
+         if(this == Database.SELF)
+         {
+            Translator translator = Common.getTranslator();
+            return translator.realisticTranslate(Translation.SELBST_EINGEGEBEN);
+         }
          return name;
       }
 

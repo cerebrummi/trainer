@@ -1,23 +1,27 @@
 package vokabeltrainer.types.grammatical;
 
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
+
 public enum Numerus implements GrammaticalEnum
 {
    PLEASE_CHOOSE(
-         "bitte wählen"),
+         Translation.BITTE_WAEHLEN),
    NUMERUS_UNKNOWN(
-         "unbekannt"),
+         Translation.UNBEKANNT),
    SINGULAR(
-         "Singular"),
+         Translation.SINGULAR),
    DUAL(
-         "Dual"),
+         Translation.DUAL),
    PLURAL(
-         "Plural"),
+         Translation.PLURAL),
    NUMERUS_NA(
-         "nicht anwendbar");
+         Translation.NICHT_ANWENDBAR);
 
-   private String description;
+   private Translation description;
 
-   Numerus(String description)
+   Numerus(Translation description)
    {
       this.description = description;
    }
@@ -25,19 +29,22 @@ public enum Numerus implements GrammaticalEnum
    @Override
    public String toString()
    {
-      return description;
+      Translator translator = Common.getTranslator();
+      return translator.realisticTranslate(description);
    }
 
    public String toDescription()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case DUAL:
       case PLURAL:
       case SINGULAR:
-         return description;
+         return translator.realisticTranslate(description);
       case NUMERUS_UNKNOWN:
-         return "Numerus " + description;
+         return translator.realisticTranslate(Translation.NUMERUS)
+               + " " + translator.realisticTranslate(description);
       case NUMERUS_NA:
       default:
          return "";
@@ -46,12 +53,13 @@ public enum Numerus implements GrammaticalEnum
    
    public String toInfo()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case DUAL:
       case PLURAL:
       case SINGULAR:
-         return description;
+         return translator.realisticTranslate(description);
       case NUMERUS_UNKNOWN:
       case NUMERUS_NA:
       default:

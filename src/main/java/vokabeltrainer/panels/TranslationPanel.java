@@ -309,7 +309,7 @@ public class TranslationPanel extends JPanel
          {
             verticalRightSide.add(field);
             field.setCode(currentCode);
-            field.setText(translator.realisticTranslate(field.getTranslation()));
+            field.setText(translator.saveTranslate(field.getTranslation()));
             field.setUuid(uuid);
             field.setName(name);
          }

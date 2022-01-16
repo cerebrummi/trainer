@@ -1,24 +1,28 @@
 package vokabeltrainer.types.grammatical;
 
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
+
 public enum GrammaticalPerson implements GrammaticalEnum
 {
    PLEASE_CHOOSE(
-         "bitte wählen"),
+         Translation.BITTE_WAEHLEN),
    GRAMMATICALPERSON_UNKNOWN(
-         "unbekannt"),
+         Translation.UNBEKANNT),
    ERSTE_PERSON(
-         "1. Person"),
+         Translation._1_PERSON),
    ZWEITE_PERSON(
-         "2. Person"),
+         Translation._2_PERSON),
    DRITTE_PERSON(
-         "3. Person"),
-   ALL_PERSON("1., 2. und 3. Person"),
+         Translation._3_PERSON),
+   ALL_PERSON(Translation._1_2_3_PERSON),
    GRAMMATICALPERSON_NA(
-         "nicht anwendbar");
+         Translation.NICHT_ANWENDBAR);
 
-   private String description;
+   private Translation description;
 
-   GrammaticalPerson(String description)
+   GrammaticalPerson(Translation description)
    {
       this.description = description;
    }
@@ -26,20 +30,23 @@ public enum GrammaticalPerson implements GrammaticalEnum
    @Override
    public String toString()
    {
-      return description;
+      Translator translator = Common.getTranslator();
+      return translator.realisticTranslate(description);
    }
 
    public String toDescription()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case DRITTE_PERSON:
       case ZWEITE_PERSON:
       case ERSTE_PERSON:
       case ALL_PERSON:
-         return description;
+         return translator.realisticTranslate(description);
       case GRAMMATICALPERSON_UNKNOWN:
-         return "Grammatische-Person " + description;
+         return translator.realisticTranslate(Translation.GRAMMATISCHE_PERSON)
+               + " " + translator.realisticTranslate(description);
       case GRAMMATICALPERSON_NA:
       default:
          return "";
@@ -55,13 +62,14 @@ public enum GrammaticalPerson implements GrammaticalEnum
    @Override
    public String toInfo()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case DRITTE_PERSON:
       case ZWEITE_PERSON:
       case ERSTE_PERSON:
       case ALL_PERSON:
-         return description;
+         return translator.realisticTranslate(description);
       case GRAMMATICALPERSON_UNKNOWN:
       case GRAMMATICALPERSON_NA:
       default:

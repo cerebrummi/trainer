@@ -1,32 +1,38 @@
 package vokabeltrainer.types;
 
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
+
 public enum SearchType
 {
-   SEARCHWORD(
-         "Suche nach Suchwort"),
+   SEARCHWORD(Translation.SUCHE_NACH_SUCHWORT),
    WORDSTART(
-         "Suche nach Wortanfang");
+         Translation.SUCHE_NACH_WORTANFANG);
 
-   String meaning;
+   Translation meaning;
 
-   SearchType(String meaning)
+   SearchType(Translation meaning)
    {
       this.meaning = meaning;
    }
 
    public String getMeaning(Language language)
    {
+      Translator translator = Common.getTranslator();
       switch (language)
       {
       case GERMAN_TO_HEBREW:
-         return meaning;
+         return translator.realisticTranslate(meaning);
       case HEBREW_TO_GERMAN:
          switch (this)
          {
          case SEARCHWORD:
-            return meaning + " (ohne Punktierung)";
+            return translator.realisticTranslate(meaning) + " " + translator
+                  .realisticTranslate(Translation._OHNE_PUNKTIERUNG_);
          case WORDSTART:
-            return meaning + " (ohne Punktierung)";
+            return translator.realisticTranslate(meaning) + " " + translator
+                  .realisticTranslate(Translation._OHNE_PUNKTIERUNG_);
          }
       }
       return "";

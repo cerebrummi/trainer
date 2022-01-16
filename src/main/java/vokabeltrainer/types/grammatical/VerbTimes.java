@@ -1,31 +1,35 @@
 package vokabeltrainer.types.grammatical;
 
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
+
 public enum VerbTimes
       implements
       GrammaticalEnum
 {
    PLEASE_CHOOSE(
-         "bitte wählen"),
+         Translation.BITTE_WAEHLEN),
    VERBTIMES_UNKNOWN(
-         "unbekannt"),
+         Translation.UNBEKANNT),
    ROOT(
-         "Wurzel"),
+         Translation.WURZEL),
    INFINITIVE(
-         "Infinitiv"),
+         Translation.INFINITIV),
    PAST(
-         "Vergangenheit"),
+         Translation.VERGANGENHEIT),
    PRESENT(
-         "Gegenwart"),
+         Translation.GEGENWART),
    FUTURE(
-         "Zukunft"),
+         Translation.ZUKUNFT),
    IMPERARTIVE(
-         "Befehlsform"),
+         Translation.BEFEHLSFORM),
    VERBTIMES_NA(
-         "nicht anwendbar");
+         Translation.NICHT_ANWENDBAR);
 
-   private String description;
+   private Translation description;
 
-   VerbTimes(String description)
+   VerbTimes(Translation description)
    {
       this.description = description;
    }
@@ -33,11 +37,13 @@ public enum VerbTimes
    @Override
    public String toString()
    {
-      return description;
+      Translator translator = Common.getTranslator();
+      return translator.realisticTranslate(description);
    }
 
    public String toDescription()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case FUTURE:
@@ -46,9 +52,10 @@ public enum VerbTimes
       case PAST:
       case PRESENT:
       case ROOT:
-         return description;
+         return translator.realisticTranslate(description);
       case VERBTIMES_UNKNOWN:
-         return "Verbconjugation " + description;
+         return translator.realisticTranslate(Translation.ZEITFORM)
+               + " " + translator.realisticTranslate(description);
       case VERBTIMES_NA:
       default:
          return "";
@@ -64,6 +71,7 @@ public enum VerbTimes
    @Override
    public String toInfo()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case FUTURE:
@@ -72,7 +80,7 @@ public enum VerbTimes
       case PAST:
       case PRESENT:
       case ROOT:
-         return description;
+         return translator.realisticTranslate(description);
       case VERBTIMES_UNKNOWN:
       case VERBTIMES_NA:
       default:

@@ -1,23 +1,27 @@
 package vokabeltrainer.types.grammatical;
 
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
+
 public enum Gender implements GrammaticalEnum
 {
    PLEASE_CHOOSE(
-         "bitte wählen"),
+         Translation.BITTE_WAEHLEN),
    GENDER_UNKNOWN(
-         "unbekannt"),
+         Translation.UNBEKANNT),
    FEMALE(
-         "feminin"),
+         Translation.FEMININ),
    MALE(
-         "maskulin"),
+         Translation.MASKULIN),
    BOTH_FEMALE_MALE(
-         "feminin und maskulin"),
+         Translation.FEMININ_UND_MASKULIN),
    GENDER_NA(
-         "nicht anwendbar");
+         Translation.NICHT_ANWENDBAR);
 
-   private String description;
+   private Translation description;
 
-   Gender(String description)
+   Gender(Translation description)
    {
       this.description = description;
    }
@@ -25,19 +29,22 @@ public enum Gender implements GrammaticalEnum
    @Override
    public String toString()
    {
-      return description;
+      Translator translator = Common.getTranslator();
+      return translator.realisticTranslate(description);
    }
 
    public String toDescription()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case BOTH_FEMALE_MALE:
       case FEMALE:
       case MALE:
-         return description;
+         return translator.realisticTranslate(description);
       case GENDER_UNKNOWN:
-         return "Geschlecht " + description;
+         return translator.realisticTranslate(Translation.GESCHLECHT)
+               + " " + translator.realisticTranslate(description);
       case GENDER_NA:
       default:
          return "";
@@ -46,12 +53,13 @@ public enum Gender implements GrammaticalEnum
    
    public String toInfo()
    {
+      Translator translator = Common.getTranslator();
       switch (this)
       {
       case BOTH_FEMALE_MALE:
       case FEMALE:
       case MALE:
-         return description;
+         return translator.realisticTranslate(description);
       case GENDER_UNKNOWN:
       case GENDER_NA:
       default:
