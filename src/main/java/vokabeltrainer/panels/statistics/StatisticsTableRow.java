@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JList;
 
 import vokabeltrainer.ExpressionComparator;
@@ -24,7 +23,6 @@ public class StatisticsTableRow
    private List<String> germanDtoH;
    private List<String> germanHtoD;
    private LocalDate date;
-   private JButton takeOutButton;
    private Translator translator = Common.getTranslator();
    private DateTimeFormatter dateFormatter = DateTimeFormatter
          .ofPattern("EEEE "
@@ -54,8 +52,6 @@ public class StatisticsTableRow
       }
       
       this.model = model;
-      takeOutButton = new JButton("herausnehmen");
-      takeOutButton.setFont(Settings.getButtonFont());
    }
 
    public int getExpressionsDtoHSize()
@@ -76,11 +72,6 @@ public class StatisticsTableRow
    public LocalDate getLocalDate()
    {
       return date;
-   }
-
-   public JButton getTakeOutButton()
-   {
-      return takeOutButton;
    }
 
    public JList<String> getJListHtoD()
