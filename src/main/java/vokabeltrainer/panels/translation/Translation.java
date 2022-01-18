@@ -47,6 +47,7 @@ public enum Translation
    AUS_DEN_LEKTIONEN("Aus den Lektionen."),
    AUF_DER_TASTATUR_DRUECKEN_("auf der Tastatur drücken."),
    AUS_KAPITEL("aus Kapitel"),
+   AUSGEWAEHLTE_WOERTER("ausgewählte Wörter"),
    AUSGEWAEHLTE_WOERTER_ZU("ausgewählte Wörter zu"),
    AUSSCNEIDEN("ausschneiden"),
    AUSWAHLEN__UM_DANN_DAS_TRAINING_ZU_STARTEN_("auswählen, um dann das Training zu starten."),

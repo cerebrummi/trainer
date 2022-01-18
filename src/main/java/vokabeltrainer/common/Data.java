@@ -52,6 +52,8 @@ import vokabeltrainer.panels.success.table.SuccessTableRow;
 import vokabeltrainer.panels.success.table.SuccessTableRowComparator;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableRow;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.resources.vocabulary.Vocabulary;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Chapter;
@@ -371,6 +373,7 @@ public final class Data
             100);
       private final ConcurrentMap<UUID, Expression> deletedMap = readFileRegular(
             DELETED_CSV, Database.TO_BE_DETERMINED, LetterForLoading.DELETED);
+      private Translator translator = Common.getTranslator();
 
       DataBase()
       {
@@ -1404,7 +1407,7 @@ public final class Data
       {
          TrainingTableRow selectedRow = new TrainingTableRow();
          selectedRow.setFieldOfTraining(fieldOfTraining);
-         selectedRow.setField("Ausgewählte Wörter");
+         selectedRow.setField(translator.realisticTranslate(Translation.AUSGEWAEHLTE_WOERTER));
          selectedRow.setExpressionListOldWords(oldToBeTested);
          selectedRow.setToBeRepeatedWords(oldToBeTested.size());
          selectedRow.setExpressionListNewWords(

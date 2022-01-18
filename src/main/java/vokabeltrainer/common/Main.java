@@ -121,11 +121,11 @@ public final class Main
       }
 
       CerebrummiPreferences.read();
-
-      Data.initDataBase();
       
       Common.loadAvailableTranslations();
       Translator translator = Common.getTranslator();
+      
+      Data.initDataBase();
 
       try
       {
