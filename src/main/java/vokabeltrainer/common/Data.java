@@ -1553,7 +1553,9 @@ public final class Data
                .getTrainingStatusDToH().isTrainingDone();
 
          final Map<LocalDate, List<Expression>> mapDtoH = alleMap.values()
-               .stream().filter(trainingDToHStarted).filter(trainingDToHNotDone)
+               .stream()
+               .filter(trainingDToHStarted)
+               .filter(trainingDToHNotDone)
                .collect(Collectors.groupingBy(expression -> expression
                      .getTrainingStatusDToH().getNextDate()));
 
@@ -1563,14 +1565,17 @@ public final class Data
                .getTrainingStatusHToD().isTrainingDone();
 
          final Map<LocalDate, List<Expression>> mapHtoD = alleMap.values()
-               .stream().filter(trainingHToDStarted).filter(trainingHToDNotDone)
+               .stream()
+               .filter(trainingHToDStarted)
+               .filter(trainingHToDNotDone)
                .collect(Collectors.groupingBy(expression -> expression
                      .getTrainingStatusHToD().getNextDate()));
 
          Set<LocalDate> unsortedAllDates = new HashSet<>();
          unsortedAllDates.addAll(mapDtoH.keySet());
          unsortedAllDates.addAll(mapHtoD.keySet());
-         List<LocalDate> sortedAllDates = unsortedAllDates.stream().sorted()
+         List<LocalDate> sortedAllDates = unsortedAllDates.stream()
+               .sorted()
                .collect(Collectors.toList());
 
          Vector<Vector<StatisticsTableRow>> data = new Vector<>();
@@ -1579,8 +1584,9 @@ public final class Data
          StatisticsTableModel model = new StatisticsTableModel(data,
                columnNames);
 
-         Stream.iterate(0, i -> i + 1).limit(sortedAllDates.size())
-               .forEachOrdered(i -> {
+         Stream.iterate(0, i -> i + 1)
+            .limit(sortedAllDates.size())
+            .forEachOrdered(i -> {
                   StatisticsTableRow row = new StatisticsTableRow(i,
                         sortedAllDates.get(i),
                         mapDtoH.get(sortedAllDates.get(i)) == null

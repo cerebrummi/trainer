@@ -10,8 +10,11 @@ import java.util.regex.Pattern;
 
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Letter;
 import vokabeltrainer.common.LetterForSaving;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 
 public class Expression
@@ -32,6 +35,7 @@ public class Expression
    private String additionalInformation;
    private LocalDateTime lastModified;
    private String sortingIndex = "";
+   private Translator translator = Common.getTranslator();
 
    public Expression(boolean preset) // for unit testing
    {
@@ -284,15 +288,19 @@ public class Expression
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
-      result[index] = "Kapitel: " + chapter.getName() + ", Index: "
+      result[index] = translator.realisticTranslate(Translation.KAPITEL) + ": "
+            + chapter.getName() + ", "
+            + translator.realisticTranslate(Translation.INDEX) + ": "
             + sortingIndex;
       index++;
-      result[index] = chapter.getDatabaseName() + " vom " + lastModified
-            .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+      result[index] = chapter.getDatabaseName() + " "
+            + translator.realisticTranslate(Translation.VOM) + " "
+            + lastModified.format(DateTimeFormatter.ofPattern(
+                  translator.realisticTranslate(Translation._DATE_TIME)));
       return result;
    }
 
-   public String[] toHebrewArray()
+   public String[] toHebrewArrayForTableEntry()
    {
       int index = 0;
       String[] result = new String[9];
@@ -320,11 +328,15 @@ public class Expression
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
-      result[index] = "Kapitel: " + chapter.getName() + ", Index: "
+      result[index] = translator.realisticTranslate(Translation.KAPITEL) + ": "
+            + chapter.getName() + ", "
+            + translator.realisticTranslate(Translation.INDEX) + ": "
             + sortingIndex;
       index++;
-      result[index] = chapter.getDatabaseName() + " vom " + lastModified
-            .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+      result[index] = chapter.getDatabaseName() + " "
+            + translator.realisticTranslate(Translation.VOM) + " "
+            + lastModified.format(DateTimeFormatter.ofPattern(
+                  translator.realisticTranslate(Translation._DATE_TIME)));
       return result;
    }
 
@@ -356,7 +368,8 @@ public class Expression
       {
          joiner.add(definitions.getVerbConjugationInfos());
       }
-      if (withExpressionKind && !definitions.getExpressionKindDescriptions().isBlank())
+      if (withExpressionKind
+            && !definitions.getExpressionKindDescriptions().isBlank())
       {
          joiner.add(definitions.getExpressionKindDescriptions());
       }
@@ -449,13 +462,19 @@ public class Expression
       {
          searchJoinerGerman.add(word);
       }
-      joiner.add("Suchworte Deutsch: " + searchJoinerGerman.toString());
+      joiner.add(translator.realisticTranslate(Translation.SUCHWORTE)
+            + " "
+            + translator.realisticTranslate(Translation.DEUTSCH)
+            + ": " + searchJoinerGerman.toString());
       StringJoiner searchJoinerHebrew = new StringJoiner(", ");
       for (String word : searchwordsHebrew)
       {
          searchJoinerHebrew.add(word);
       }
-      joiner.add("Suchworte Hebräisch: " + searchJoinerHebrew.toString());
+      joiner.add(translator.realisticTranslate(Translation.SUCHWORTE)
+            + " "
+            + translator.realisticTranslate(Translation.HEBRAEISCH)
+            + ": " + searchJoinerHebrew.toString());
       if (!additionalInformation.isBlank())
       {
          joiner.add(additionalInformation);
@@ -471,19 +490,15 @@ public class Expression
       joiner.add(this.uuid.toString());
       if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
       {
-         joiner
-               .add(this.trainingStatusDToH
-                     .getNextDate()
-                     .format(dateTimeFormatter));
+         joiner.add(
+               this.trainingStatusDToH.getNextDate().format(dateTimeFormatter));
          joiner.add(this.trainingStatusDToH.getRepetition().name());
          joiner.add(String.valueOf(this.trainingStatusDToH.getTrys()));
       }
       else
       {
-         joiner
-               .add(this.trainingStatusHToD
-                     .getNextDate()
-                     .format(dateTimeFormatter));
+         joiner.add(
+               this.trainingStatusHToD.getNextDate().format(dateTimeFormatter));
          joiner.add(this.trainingStatusHToD.getRepetition().name());
          joiner.add(String.valueOf(this.trainingStatusHToD.getTrys()));
       }
@@ -517,16 +532,16 @@ public class Expression
    {
       if (Language.GERMAN_TO_HEBREW == language)
       {
-         return german + "   [" + this.getTrainingStatusDToH().getTrys()
-               + " mal "
+         return german + "   [" + this.getTrainingStatusDToH().getTrys() + " "
+               + translator.realisticTranslate(Translation.MAL) + " "
                + this.getTrainingStatusDToH().getRepetition().getTranslation()
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }
       else
       {
-         return german + "   [" + this.getTrainingStatusHToD().getTrys()
-               + " mal "
+         return german + "   [" + this.getTrainingStatusHToD().getTrys() + " "
+               + translator.realisticTranslate(Translation.MAL) + " "
                + this.getTrainingStatusHToD().getRepetition().getTranslation()
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();

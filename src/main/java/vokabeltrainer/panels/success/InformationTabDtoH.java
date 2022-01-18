@@ -9,13 +9,17 @@ import javax.swing.SwingConstants;
 
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class InformationTabDtoH extends JPanel
 {
    private static final long serialVersionUID = -4006431590073534430L;
+   private Translator translator = Common.getTranslator();
 
    public InformationTabDtoH()
    {
@@ -38,7 +42,11 @@ public class InformationTabDtoH extends JPanel
       boxWrapper.setOpaque(false);
       boxWrapper.setBackground(ApplicationColors.getTransparent());
       boxWrapper.setPreferredSize(new Dimension(355, 100));
-      JLabel box = new JLabel("<html>Deutsch >> Hebräisch</html>");
+      JLabel box = new JLabel("<html>"
+            + translator.realisticTranslate(Translation.DEUTSCH)
+            + " >> "
+            + translator.realisticTranslate(Translation.HEBRAEISCH)
+            + "</html>");
       box.setMinimumSize(new Dimension(355, 100));
       box.setMaximumSize(new Dimension(355, 100));
       box.setPreferredSize(new Dimension(355, 100));

@@ -14,11 +14,14 @@ import javax.swing.JScrollPane;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.panels.success.table.SuccessTable;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
 import vokabeltrainer.panels.success.table.SuccessTableRow;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -53,6 +56,7 @@ public class SuccessHelper
    static void addContent(Repetition repetition, JPanel panel,
          Language direction)
    {
+      Translator translator = Common.getTranslator();
       panel.removeAll();
       SuccessTableModel model = Data.findSuccessModel(direction, repetition);
       SuccessTable table = new SuccessTable(model);
@@ -89,7 +93,7 @@ public class SuccessHelper
       buttonPanel.setMinimumSize(new Dimension(1200,40));
       buttonPanel.setMaximumSize(new Dimension(1500,40));
       
-      JButton selectAllButton = new JButton("alle auswählen");
+      JButton selectAllButton = new JButton(translator.realisticTranslate(Translation.ALLE_AUSWAEHLEN));
       selectAllButton.setIcon(new ImageIcon(ApplicationImages.getSelect()));
       selectAllButton.setFont(Settings.getButtonFont());
       selectAllButton.addActionListener(event -> {
@@ -101,7 +105,7 @@ public class SuccessHelper
          model.fireTableDataChanged();
 
       });
-      JButton unselectAllButton = new JButton("alle nicht auswählen");
+      JButton unselectAllButton = new JButton(translator.realisticTranslate(Translation.ALLE_NICHT_AUSWAEHLEN));
       unselectAllButton.setIcon(new ImageIcon(ApplicationImages.getClear()));
       unselectAllButton.setFont(Settings.getButtonFont());
       unselectAllButton.addActionListener(event -> {
@@ -114,7 +118,11 @@ public class SuccessHelper
 
       });
       JButton moveButton = new JButton(
-            "ausgewählte Wörter zu \"Ungelernt\" verschieben");
+            translator.realisticTranslate(Translation.AUSGEWAEHLTE_WOERTER_ZU)
+            + " \""
+            + translator.realisticTranslate(Translation.VORRAT)
+            + "\" "
+            + translator.realisticTranslate(Translation.VERSCHIEBEN));
       moveButton.setIcon(new ImageIcon(ApplicationImages.getBack()));
       moveButton.setFont(Settings.getButtonFont());
       moveButton.addActionListener(event -> {

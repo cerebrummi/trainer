@@ -16,6 +16,7 @@ public enum Translation
    _4_MONATE("4 Monate"),
    _4_TAGE("4 Tage"),
    
+   _DATE("dd.MM.yyyy"),
    _DATE_TIME("dd.MM.yyyy HH:mm"),
    _OHNE_PUNKTIERUNG_("(ohne Punktierung)"),
    
@@ -28,7 +29,9 @@ public enum Translation
    ALEFBET("Alefbet"),
    ALEFBET_UEBEN("Alefbet üben"),
    ALFABET("Alfabet"),
+   ALLE_AUSWAEHLEN("alle auswählen"),
    ALLE_BILDER_KANN_MAN("Alle Bilder kann man"),
+   ALLE_NICHT_AUSWAEHLEN("alle nicht auswählen"),
    ALLE_UMDREHEN("alle umdrehen"),
    ALLE_VOKABELN_EXPORTIEREN("alle Vokabeln exportieren"),
    ALTERSANGABE("Altersangabe"),
@@ -39,6 +42,7 @@ public enum Translation
    ARTIKEL("Artikel"),
    AUCH_EINZELN_ANKLICKEN("auch einzeln anklicken."),
    AUF_DER_TASTATUR_DRUECKEN_("auf der Tastatur drücken."),
+   AUSGEWAEHLTE_WOERTER_ZU("ausgewählte Wörter zu"),
    AUSSCNEIDEN("ausschneiden"),
    AUSWAHLEN__UM_DANN_DAS_TRAINING_ZU_STARTEN_("auswählen, um dann das Training zu starten."),
    AUSWAHL("Auswahl"),
@@ -140,6 +144,7 @@ public enum Translation
    
    JAHRESZEIT("Jahreszeit"),
    
+   KAPITEL("Kapitel"),
    KARTEIKASTEN("Karteikasten"),
    KEIN_EXPORT_VON_INTERNEN_DATENBANKEN_MOEGLICH("Kein Export von internen Datenbanken möglich."),
    KEINE_WORTE_ZUM_UEBEN_AUSGEWAEHLT("Keine Worte zum Üben ausgewählt."),
@@ -156,6 +161,7 @@ public enum Translation
    LOESCHE_SUCHWORT_HEBRAEISCH("lösche Suchwort Hebräisch"),
    LOESCHEN("Löschen"),
    
+   MAL("mal"),
    MARKIERTE_VOKABELN_EXPORTIEREN("markierte Vokabeln exportieren"),
    MASKULIN("maskulin"),
    MIT_DER_HEBRAEISCHEN_TASTATUR("Mit der hebräischen Tastatur"),
@@ -196,7 +202,7 @@ public enum Translation
    REDEWENDUNG("Redewendung"),
    REATIVPRONOM("Relativpronom"),
    RICHTIG("RICHTIG"),
-   RICHTUNG("RICHTUNG"),
+   RICHTUNG("Richtung"),
    
    SCHREIBSCHRIFT("Schreibschrift"),
    SELBST_EINGEGEBEN("selbst eingegeben"),
@@ -213,6 +219,7 @@ public enum Translation
    SUCHE_STARTEN("Suche starten"),
    SUCHE_WORT_IN_TABELLE("suche Wort in Tabelle"),
    SUCHWORT("Suchwort"),
+   SUCHWORTE("Suchworte"),
    
    TABELLE("Tabelle"),
    TABELLE_AUSWAEHLEN("Tabelle auswählen"),
@@ -236,11 +243,13 @@ public enum Translation
    
    VERB_TUWORT("Verb/Tuwort"),
    VERGANGENHEIT("Vergangenheit"),
+   VERSCHIEBEN("verschieben"),
    VERSCHIEBT_ALLE_VOKABELN_EINER_DATENBANK_IN_DEN_PAPIERKORB_("Verschiebt alle Vokabeln einer Datenbank in den Papierkorb."),
    VOKABELN_ABFRAGEN("Vokabeln abfragen"),
    VOKABELN_EINER_DATENBANK_EXPORTIEREN("Vokabeln einer Datenbank exportieren"),
    VOKABELTRAINER("Vokabeltrainer"),
    VOM("vom"),
+   VORRAT("Vorrat"),
    
    WAEHLEN_SIE_EINE_DATENBANK_FUER_DEN_EXPORT_AUS_("Wählen Sie eine Datenbank für den Export aus."),
    WAEHLEN_SIE_EINE_DATENBANK_ZUM_LOESCHEN_AUS("Wählen Sie eine Datenbank zum Löschen aus."),

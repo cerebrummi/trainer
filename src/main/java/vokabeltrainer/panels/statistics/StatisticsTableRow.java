@@ -13,6 +13,9 @@ import javax.swing.JList;
 
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
@@ -22,8 +25,10 @@ public class StatisticsTableRow
    private List<String> germanHtoD;
    private LocalDate date;
    private JButton takeOutButton;
+   private Translator translator = Common.getTranslator();
    private DateTimeFormatter dateFormatter = DateTimeFormatter
-         .ofPattern("EEEE dd.MM.yyyy", Locale.GERMANY);
+         .ofPattern("EEEE "
+               + translator.realisticTranslate(Translation._DATE), Locale.GERMANY);
    int row;
    StatisticsTableModel model;
 

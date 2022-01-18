@@ -11,8 +11,11 @@ import javax.swing.JTabbedPane;
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.success.table.SuccessTable;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
@@ -36,8 +39,8 @@ public class LanguageTab extends JPanel
    private JTabbedPane register;
 
    private JPanel infoPanel;
-   private Language languageDirection; // German => German to Hebrew,
-                                       // Hebrew => Hebrew to German
+   private Language languageDirection; 
+   private Translator translator = Common.getTranslator();
 
    public LanguageTab(JPanel infoPanel, Language languageDirection)
    {
@@ -55,18 +58,18 @@ public class LanguageTab extends JPanel
       register = new JTabbedPane();
       register.setFont(Settings.getSecondaryToolBarButtonFont());
 
-      register.addTab("Richtung", infoPanel); // 0
-      register.addTab("Ungelernt", initNotStarted()); // 1
-      register.addTab("Start", initNow()); // 2
-      register.addTab("Einen Tag", initOneDay()); // 3
-      register.addTab("Zwei Tage", initTwoDays()); // 4
-      register.addTab("Vier Tage", initFourDays()); // 5
-      register.addTab("Eine Woche", initOneWeek()); // 6
-      register.addTab("Zwei Wochen", initTwoWeeks()); // 7
-      register.addTab("Einen Monat", initOneMonth()); // 8
-      register.addTab("Zwei Monate", initTwoMonths()); // 9
-      register.addTab("Vier Monate", initFourMonths()); // 10
-      register.addTab("fertig", initDone()); // 11
+      register.addTab(translator.realisticTranslate(Translation.RICHTUNG), infoPanel); // 0
+      register.addTab(translator.realisticTranslate(Translation.VORRAT), initNotStarted()); // 1
+      register.addTab(translator.realisticTranslate(Translation.HEUTE), initNow()); // 2
+      register.addTab(translator.realisticTranslate(Translation.MORGEN), initOneDay()); // 3
+      register.addTab(translator.realisticTranslate(Translation._2_TAGE), initTwoDays()); // 4
+      register.addTab(translator.realisticTranslate(Translation._4_TAGE), initFourDays()); // 5
+      register.addTab(translator.realisticTranslate(Translation._1_WOCHE), initOneWeek()); // 6
+      register.addTab(translator.realisticTranslate(Translation._2_WOCHEN), initTwoWeeks()); // 7
+      register.addTab(translator.realisticTranslate(Translation._1_MONAT), initOneMonth()); // 8
+      register.addTab(translator.realisticTranslate(Translation._2_MONATE), initTwoMonths()); // 9
+      register.addTab(translator.realisticTranslate(Translation._4_MONATE), initFourMonths()); // 10
+      register.addTab(translator.realisticTranslate(Translation.FERTIG), initDone()); // 11
 
       this.add(register, BorderLayout.CENTER);
 

@@ -37,7 +37,7 @@ public class ExpressionCellRenderer
       }
       else
       {
-         list.setListData(expression.toHebrewArray());
+         list.setListData(expression.toHebrewArrayForTableEntry());
       }
 
       if (isSelected)

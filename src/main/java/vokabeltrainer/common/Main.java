@@ -187,7 +187,8 @@ public final class Main
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
          window
-               .setTitle("Vokabeltrainer Cerebrummi Version "
+               .setTitle(Settings.getWindowTitle()
+                     + " "
                      + Settings.getVersion());
          window.setFont(germanFont.deriveFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
