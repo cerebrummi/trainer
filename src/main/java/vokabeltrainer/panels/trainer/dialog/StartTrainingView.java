@@ -13,6 +13,8 @@ import javax.swing.JTabbedPane;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.Language;
@@ -28,10 +30,11 @@ public class StartTrainingView extends JDialog
    private List<Expression> newExpressions;
    private List<Expression> oldExpressions;
    private boolean training;
+   private Translator translator = Common.getTranslator();
 
    public StartTrainingView(StartTrainingControllerConnector connector)
    {
-      super(Common.getjFrame(), "Cerebrummi",
+      super(Common.getjFrame(), Settings.getWindowTitle(),
             Dialog.ModalityType.APPLICATION_MODAL);
 
       training = false;
@@ -47,7 +50,7 @@ public class StartTrainingView extends JDialog
       tabbedPane.setFont(Settings.getToolBarButtonFont());
       layout.add(tabbedPane, BorderLayout.CENTER);
 
-      tabbedPane.addTab("GEBIET", new ImageIcon(ApplicationImages.getArrow()),
+      tabbedPane.addTab(translator.realisticTranslate(Translation.GEBIET), new ImageIcon(ApplicationImages.getArrow()),
             new FieldOfTrainingTab(this));
    }
 

@@ -15,6 +15,9 @@ import javax.swing.JRadioButton;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.FieldOfTraining;
 
 public class FieldOfTrainingTab extends BackgroundPanelTiled
@@ -26,12 +29,14 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
    private JRadioButton selectedButton;
    private JButton nextButton;
    private JButton cancelButton;
+   
+   private Translator translator = Common.getTranslator();
 
    public FieldOfTrainingTab(StartTrainingView dialog)
    {
       setLayout(new BorderLayout());
 
-      JLabel question = new JLabel("Woher sollen neue Vokabeln stammen?");
+      JLabel question = new JLabel(translator.realisticTranslate(Translation.WOHER_SOLLEN_DIE_VOKABELN_STAMMEN_));
       question.setFont(Settings.getButtonFont());
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -46,12 +51,12 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
       vertical.setLayout(new BoxLayout(vertical, 1));
       vertical.setOpaque(false);
 
-      chapterButton = new JRadioButton("Aus den Lektionen.");
+      chapterButton = new JRadioButton(translator.realisticTranslate(Translation.AUS_DEN_LEKTIONEN));
       chapterButton.setFont(Settings.getToolBarButtonFont());
       chapterButton.setActionCommand(FieldOfTraining.AREA_CHAPTER.name());
       areaGroup.add(chapterButton);
 
-      selectedButton = new JRadioButton("Aus den ausgewählten Wörtern.");
+      selectedButton = new JRadioButton(translator.realisticTranslate(Translation.AUS_DEN_AUSGEWAEHLTEN_WOERTERN));
       selectedButton.setFont(Settings.getToolBarButtonFont());
       selectedButton.setActionCommand(FieldOfTraining.AREA_SELECTED.name());
       areaGroup.add(selectedButton);
@@ -64,11 +69,11 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
 
       JPanel buttonWrapper = new JPanel(new FlowLayout());
       
-      cancelButton = new JButton("abbrechen");
+      cancelButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
       cancelButton.setFont(Settings.getButtonFont());
       cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
       
-      nextButton = new JButton("weiter");
+      nextButton = new JButton(translator.realisticTranslate(Translation.WEITER));
       nextButton.setFont(Settings.getButtonFont());
       nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));
       nextButton.setEnabled(false);
@@ -93,7 +98,7 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
 
          if (dialog.getTabbedPane().getTabCount() == 1)
          {
-            dialog.getTabbedPane().addTab("RICHTUNG",
+            dialog.getTabbedPane().addTab(translator.realisticTranslate(Translation.RICHTUNG),
                   new ImageIcon(ApplicationImages.getArrow()),
                   new DirectionTab(dialog));
          }

@@ -130,8 +130,7 @@ public class TrainerView extends BackgroundPanelTiled
                               + " >> "
                               + translator
                                     .realisticTranslate(Translation.DEUTSCH)
-                        : "Deutsch"
-                              + translator
+                        : translator
                                     .realisticTranslate(Translation.DEUTSCH)
                               + translator.realisticTranslate(
                                     Translation.HEBRAEISCH));

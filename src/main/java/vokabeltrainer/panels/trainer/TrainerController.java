@@ -26,6 +26,8 @@ import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.panels.TrainerView;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.Language;
@@ -42,9 +44,11 @@ public class TrainerController implements TrainerControllerConnector
    private int oldWordsToRepeat;
    private Set<Expression> allExpressions;
    private List<Expression> expressionsToBeTested;
+   private Translator translator = Common.getTranslator();
 
-   public TrainerController(Language languageDirection, FieldOfTraining fieldOfTraining,
-         List<Expression> newExpressions, List<Expression> oldExpressions)
+   public TrainerController(Language languageDirection,
+         FieldOfTraining fieldOfTraining, List<Expression> newExpressions,
+         List<Expression> oldExpressions)
    {
       this.languageDirection = languageDirection;
       this.fieldOfTraining = fieldOfTraining;
@@ -121,7 +125,7 @@ public class TrainerController implements TrainerControllerConnector
       if (trainerView.getAdditionalInfoField().getText().isEmpty())
       {
          trainerView.getAdditionalInfoField()
-         .setText(currentExpression.getAdditionalInfo());
+               .setText(currentExpression.getAdditionalInfo());
       }
       else
       {
@@ -130,14 +134,14 @@ public class TrainerController implements TrainerControllerConnector
       trainerView.getFocusTraversalPolicy().getFirstComponent(null)
             .requestFocus();
    }
-   
+
    @Override
    public void setGrammarInfo()
    {
       if (trainerView.getGrammarInfoField().getText().isEmpty())
       {
          trainerView.getGrammarInfoField()
-         .setText(currentExpression.getGrammarInfo(true));
+               .setText(currentExpression.getGrammarInfo(true));
       }
       else
       {
@@ -160,11 +164,12 @@ public class TrainerController implements TrainerControllerConnector
                .setText(currentExpression.getGerman());
          break;
       case HEBREW_TO_GERMAN:
-         if(currentExpression.getHebrew().isSimpleHebrew())
+         if (currentExpression.getHebrew().isSimpleHebrew())
          {
+            trainerView.getQuestionFieldHebrew().setHebrewFieldText(
+                  currentExpression.getHebrew().getHebrew());
             trainerView.getQuestionFieldHebrew()
-            .setHebrewFieldText(currentExpression.getHebrew().getHebrew());
-            trainerView.getQuestionFieldHebrew().setHebrewLayout(Selection.SIMPLE);
+                  .setHebrewLayout(Selection.SIMPLE);
          }
          else
          {
@@ -172,7 +177,8 @@ public class TrainerController implements TrainerControllerConnector
                   currentExpression.getHebrew().getHebrewPlene());
             trainerView.getQuestionFieldHebrew().setDefektivFieldText(
                   currentExpression.getHebrew().getHebrewDefektiv());
-            trainerView.getQuestionFieldHebrew().setHebrewLayout(Selection.PLENE_DEFEKTIV);
+            trainerView.getQuestionFieldHebrew()
+                  .setHebrewLayout(Selection.PLENE_DEFEKTIV);
          }
          break;
       }
@@ -196,18 +202,21 @@ public class TrainerController implements TrainerControllerConnector
             {
                JOptionPane.showMessageDialog(Common.getjFrame(), "",
                      Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                     new ImageIcon(TextImage
-                           .make("Bitte schreiben Sie eine Antwort.")));
+                     new ImageIcon(TextImage.make(translator.realisticTranslate(
+                           Translation.BITTE_SCHREIBEN_SIE_EINE_ANTWORT))));
                return;
             }
             else if (result.isDictionaryEmpty())
             {
                JOptionPane.showMessageDialog(Common.getjFrame(), "",
                      Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                     new ImageIcon(TextImage.make(
-                           "Ihr Trainingswort enthält keine Buchstaben.",
-                           "Bitte löschen Sie diesen Ausdruck",
-                           "aus Kapitel " + currentExpression.getChapter())));
+                     new ImageIcon(TextImage.make(translator.realisticTranslate(
+                           Translation.IHR_TRAININGSWORT_ENTHAELT_KEINE_BUCHSTABEN_),
+                           translator.realisticTranslate(
+                                 Translation.BITTE_LOESCHEN_SIE_DIESEN_AUSDRUCK),
+                           translator
+                                 .realisticTranslate(Translation.AUS_KAPITEL)
+                                 + " " + currentExpression.getChapter())));
                return;
             }
             trainerView.prepareDtoNikudFeedbackPanel(result);
@@ -419,59 +428,93 @@ public class TrainerController implements TrainerControllerConnector
          {
             JOptionPane.showMessageDialog(Common.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                  new ImageIcon(
-                        TextImageWithPicture.make(ApplicationImages.getReward(),
-                              "Wunderbar, sie haben diese",
-                              "Trainingseinheit erfolgreich", "beendet.",
-                              "Sie haben " + newWordsToLearn + " neue Wörter",
-                              "und " + oldWordsToRepeat
-                                    + " bekannte Wörter bearbeitet.")));
+                  new ImageIcon(TextImageWithPicture.make(
+                        ApplicationImages.getReward(),
+                        translator.realisticTranslate(
+                              Translation.WUNDERBAR__SIE_HABEN_DIESE),
+                        translator.realisticTranslate(
+                              Translation.TRAININGSEINHEIT_ERFOLGREICH),
+                        translator.realisticTranslate(Translation.BEENDET_),
+                        translator.realisticTranslate(Translation.SIE_HABEN)
+                              + " " + newWordsToLearn + " "
+                              + translator.realisticTranslate(
+                                    Translation.NEUE_WOERTER),
+                        translator.realisticTranslate(Translation.UND) + " "
+                              + oldWordsToRepeat + " "
+                              + translator.realisticTranslate(
+                                    Translation.BEKANNTE_WOERTER)
+                              + " " + translator.realisticTranslate(
+                                    Translation.BEARBEITET_))));
          }
          else if (newWordsToLearn > 0 && oldWordsToRepeat == 0)
          {
             JOptionPane.showMessageDialog(Common.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                  new ImageIcon(
-                        TextImageWithPicture.make(ApplicationImages.getReward(),
-                              "Wunderbar, sie haben diese",
-                              "Trainingseinheit erfolgreich", "beendet.",
-                              "Sie haben " + newWordsToLearn + " neue Wörter",
-                              "bearbeitet.")));
+                  new ImageIcon(TextImageWithPicture.make(
+                        ApplicationImages.getReward(),
+                        translator.realisticTranslate(
+                              Translation.WUNDERBAR__SIE_HABEN_DIESE),
+                        translator.realisticTranslate(
+                              Translation.TRAININGSEINHEIT_ERFOLGREICH),
+                        translator.realisticTranslate(Translation.BEENDET_),
+                        translator.realisticTranslate(Translation.SIE_HABEN)
+                              + " " + newWordsToLearn + " "
+                              + translator.realisticTranslate(
+                                    Translation.NEUE_WOERTER),
+                        translator
+                              .realisticTranslate(Translation.BEARBEITET_))));
          }
          else if (newWordsToLearn == 0 && oldWordsToRepeat > 0)
          {
             JOptionPane.showMessageDialog(Common.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                  new ImageIcon(
-                        TextImageWithPicture.make(ApplicationImages.getReward(),
-                              "Wunderbar, sie haben diese",
-                              "Trainingseinheit erfolgreich", "beendet.",
-                              "Sie haben " + oldWordsToRepeat
-                                    + " bekannte Wörter bearbeitet.")));
+                  new ImageIcon(TextImageWithPicture.make(
+                        ApplicationImages.getReward(),
+                        translator.realisticTranslate(
+                              Translation.WUNDERBAR__SIE_HABEN_DIESE),
+                        translator.realisticTranslate(
+                              Translation.TRAININGSEINHEIT_ERFOLGREICH),
+                        translator.realisticTranslate(Translation.BEENDET_),
+                        translator.realisticTranslate(Translation.SIE_HABEN)
+                              + " " + oldWordsToRepeat + " "
+                              + translator.realisticTranslate(
+                                    Translation.BEKANNTE_WOERTER)
+                              + " " + translator.realisticTranslate(
+                                    Translation.BEARBEITET_))));
          }
       }
       else if (trainerView.getWordsRight().getText().equals("0"))
       {
          JOptionPane.showMessageDialog(Common.getjFrame(), "",
                Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-               new ImageIcon(
-                     TextImage.make("Das Training wurde abgebrochen.")));
+               new ImageIcon(TextImage.make(translator.realisticTranslate(
+                     Translation.DAS_TRAINING_WURDE_ABGEBROCHEN_))));
       }
       else if (trainerView.getWordsRight().getText().equals("1"))
       {
          JOptionPane.showMessageDialog(Common.getjFrame(), "",
                Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-               new ImageIcon(TextImage.make("Das Training wurde abgebrochen.",
-                     "Sie haben 1ne richtige", "Antwort gegeben.")));
+               new ImageIcon(TextImage.make(
+                     translator.realisticTranslate(
+                           Translation.DAS_TRAINING_WURDE_ABGEBROCHEN_),
+                     translator.realisticTranslate(
+                           Translation.SIE_HABEN_1NE_RICHTIGE),
+                     translator
+                           .realisticTranslate(Translation.ANTWORT_GEGEBEN_))));
       }
       else
       {
          JOptionPane.showMessageDialog(Common.getjFrame(), "",
                Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-               new ImageIcon(TextImage.make("Das Training wurde abgebrochen.",
-                     "Sie haben " + trainerView.getWordsRight().getText()
-                           + " richtige",
-                     "Antworten gegeben.")));
+               new ImageIcon(TextImage.make(
+                     translator.realisticTranslate(
+                           Translation.DAS_TRAINING_WURDE_ABGEBROCHEN_),
+                     translator.realisticTranslate(Translation.SIE_HABEN) + " "
+                           + trainerView.getWordsRight().getText() + " "
+                           + translator
+                                 .realisticTranslate(Translation.RICHTIGE),
+                     translator.realisticTranslate(
+                           Translation.ANTWORTEN_GEGEBEN_))));
       }
 
       saveTraining();
@@ -502,7 +545,11 @@ public class TrainerController implements TrainerControllerConnector
             if (counter == 10)
             {
                JOptionPane.showMessageDialog(Common.getjFrame(),
-                     "Fehlermeldung\nDie Trainingsdaten konnten\nnicht gespeichert werden.",
+                     translator.realisticTranslate(Translation.FEHLERMELDUNG)
+                     + "\n"
+                     + translator.realisticTranslate(Translation.DIE_TRAININGSDATEN_KONTEN)
+                     + "\n"
+                     + translator.realisticTranslate(Translation.NICHT_GESPEICHERT_WERDEN_),
                      Settings.getWindowTitle(), JOptionPane.WARNING_MESSAGE);
             }
          }

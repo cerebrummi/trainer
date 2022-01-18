@@ -16,6 +16,9 @@ import javax.swing.JRadioButton;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Language;
 
 public class DirectionTab extends BackgroundPanelTiled
@@ -27,13 +30,15 @@ public class DirectionTab extends BackgroundPanelTiled
    private JRadioButton hebrewToGermanButton;
    private JButton nextButton;
    private JButton cancelButton;
+   
+   private Translator translator = Common.getTranslator();
 
    public DirectionTab(StartTrainingView dialog)
    {
 
       setLayout(new BorderLayout());
 
-      JLabel question = new JLabel("In welcher Richtung wollen Sie lernen?");
+      JLabel question = new JLabel(translator.realisticTranslate(Translation.IN_WELCHER_RICHTUNG_WOLLEN_SIE_LERNEN_));
       question.setFont(Settings.getButtonFont());
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -48,11 +53,15 @@ public class DirectionTab extends BackgroundPanelTiled
       vertical.setLayout(new BoxLayout(vertical, 1));
       vertical.setOpaque(false);
       
-      germanToNikudButton = new JRadioButton("Deutsch >> Hebräisch");
+      germanToNikudButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
+            + " >> "
+            + translator.realisticTranslate(Translation.HEBRAEISCH));
       germanToNikudButton.setFont(Settings.getToolBarButtonFont());
       directionGroup.add(germanToNikudButton);
 
-      hebrewToGermanButton = new JRadioButton("Hebräisch >> Deutsch");
+      hebrewToGermanButton = new JRadioButton(translator.realisticTranslate(Translation.HEBRAEISCH)
+            + " >> "
+            + translator.realisticTranslate(Translation.DEUTSCH));
       hebrewToGermanButton.setFont(Settings.getToolBarButtonFont());
       directionGroup.add(hebrewToGermanButton);
 
@@ -66,11 +75,11 @@ public class DirectionTab extends BackgroundPanelTiled
 
       JPanel buttonWrapper = new JPanel(new FlowLayout());
 
-      cancelButton = new JButton("abbrechen");
+      cancelButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
       cancelButton.setFont(Settings.getButtonFont());
       cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
 
-      nextButton = new JButton("weiter");
+      nextButton = new JButton(translator.realisticTranslate(Translation.WEITER));
       nextButton.setFont(Settings.getButtonFont());
       nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));
       nextButton.setEnabled(false);
@@ -94,7 +103,7 @@ public class DirectionTab extends BackgroundPanelTiled
       nextButton.addActionListener(event -> {
          if (dialog.getTabbedPane().getTabCount() == 2)
          {
-            dialog.getTabbedPane().addTab("WIE VIELE",
+            dialog.getTabbedPane().addTab(translator.realisticTranslate(Translation.WIE_VIELE),
                   new ImageIcon(ApplicationImages.getArrow()),
                   new AmountTab(dialog));
          }
