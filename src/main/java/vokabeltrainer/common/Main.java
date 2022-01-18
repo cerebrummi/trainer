@@ -19,6 +19,8 @@ import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.CerebrummiPreferences;
 import vokabeltrainer.Settings;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.resources.Blue;
 import vokabeltrainer.resources.Buchstabenbilder;
 import vokabeltrainer.resources.Fonts;
@@ -123,6 +125,7 @@ public final class Main
       Data.initDataBase();
       
       Common.loadAvailableTranslations();
+      Translator translator = Common.getTranslator();
 
       try
       {
@@ -147,15 +150,15 @@ public final class Main
          UIManager.put("List.opaque", false);
          UIManager.put("Table.cellRenderer", false);
          UIManager.put("OptionPane.buttonFont", Main.getGermanFont(16F));
-         UIManager.put("FileChooser.openButtonText", "Öffnen");
-         UIManager.put("FileChooser.cancelButtonText", "Abbrechen");
-         UIManager.put("FileChooser.saveButtonText", "Speichern");
+         UIManager.put("FileChooser.openButtonText", translator.realisticTranslate(Translation.OEFFNEN));
+         UIManager.put("FileChooser.cancelButtonText", translator.realisticTranslate(Translation.ABBRECHEN));
+         UIManager.put("FileChooser.saveButtonText", translator.realisticTranslate(Translation.SPEICHERN));
          UIManager
                .put("FileChooser.cancelButtonToolTipText",
                      "Abbrechen der Auswahl");
          UIManager
                .put("FileChooser.saveButtonToolTipText",
-                     "AusgewÃ¤hlte Datei speichern");
+                     "Ausgewählte Datei speichern");
          UIManager
                .put("FileChooser.openButtonToolTipText",
                      "Ausgewählte Datei öffnen");
@@ -173,8 +176,8 @@ public final class Main
                .put("FileChooser.acceptAllFileFilterText",
                      "Alle Dateien (*.*)");
          UIManager.put("FileChooser.folderNameLabelText", "Ordnername:");
-         UIManager.put("FileChooser.openDialogTitleText", "Öffnen");
-         UIManager.put("FileChooser.saveDialogTitleText", "Speichern");
+         UIManager.put("FileChooser.openDialogTitleText", translator.realisticTranslate(Translation.OEFFNEN));
+         UIManager.put("FileChooser.saveDialogTitleText", translator.realisticTranslate(Translation.SPEICHERN));
       }
       catch (UnsupportedLookAndFeelException e3)
       {

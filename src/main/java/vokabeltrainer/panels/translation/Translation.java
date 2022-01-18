@@ -203,6 +203,7 @@ public enum Translation
    ODER_EINfACH_LAUT_NENNEN_ODER_DENKEN("oder einfach laut nennen oder denken."),
    ODER_WAEHLEN_SIE_EINE_VORHANDENE_DATENBANK_AUS("oder wählen Sie eine vorhandene Datenbank aus."),
    ODER_WAEHLEN_SIE_EINE_VORHANDENE_LEKTION_AUS("oder wählen Sie eine vorhandene Lektion aus."),
+   OEFFNEN("Öffnen"),
    ORDNER("Ordner"),
    ORDNUNGSZAHL("Ordnungszahl"),
    
