@@ -42,9 +42,6 @@ public final class Main
 
    public static void main(String[] args)
    {
-      
-      
-      
       try
       {
          Fonts.read();
@@ -126,6 +123,7 @@ public final class Main
       Translator translator = Common.getTranslator();
       
       Data.initDataBase();
+      ImageData.initImageDataBase();
 
       try
       {

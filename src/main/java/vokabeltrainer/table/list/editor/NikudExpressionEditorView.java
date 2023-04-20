@@ -48,6 +48,7 @@ import vokabeltrainer.InputHebrewPanel.Selection;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
+import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.ExtraInformationDocument;
@@ -58,6 +59,7 @@ import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableMultiselect;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableRow;
+import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -154,6 +156,8 @@ public class NikudExpressionEditorView extends JDialog
    private JComboBox<String> databaseNameField;
 
    private JLabel lastModiefiedLabel;
+
+   private ImageButton imageButton;
 
    public NikudExpressionEditorView(
          NikudExpressionEditorControllerConnector connector)
@@ -641,10 +645,27 @@ public class NikudExpressionEditorView extends JDialog
 
       vertical.add(scrollPane2);
 
+      vertical.add(initImagePanel());
+      
       return vertical;
    }
 
-   private void resetAllBorders()
+   private Component initImagePanel() 
+   {
+	   JPanel vertical = new JPanel();
+	   vertical.setOpaque(false);
+	   vertical.setBackground(ApplicationColors.getTransparent());
+	   vertical.setLayout(new BullsEyeLayout(vertical));
+	   
+	   imageButton = new ImageButton();
+	   imageButton.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 40, WIDTH_INFO_PANEL - 40));
+	   imageButton.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 40, WIDTH_INFO_PANEL - 40));
+	   vertical.add(imageButton);
+	   
+	   return vertical;
+   }
+
+private void resetAllBorders()
    {
       chapter.setBorder(makeBorderBlank(this.chapterTitle));
       german.setBorder(makeBorderBlank(this.germanTitle));
@@ -1023,6 +1044,11 @@ public class NikudExpressionEditorView extends JDialog
                         .format(DateTimeFormatter.ofPattern(translator.saveTranslate(Translation._DATE_TIME)))
                   + " "
                   + translator.realisticTranslate(Translation.UHR));
+      
+      if(ImageData.isImageForExpressionAvailable(expression.getUuid()))
+      {
+    	  //imageButton.setIcon(new ImageIcon()); TODO
+      }
    }
 
    private DefaultComboBoxModel<String> getSearchwordsModelGerman()

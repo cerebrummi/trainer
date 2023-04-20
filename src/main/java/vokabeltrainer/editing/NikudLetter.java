@@ -426,7 +426,7 @@ public enum NikudLetter
          "\u05C5",
          " 05C5",
          "unterer Punkt",
-         null,
+         "",
          NikudLetterDistinction.LOWER_PUNKTATION,
          0,
          false),
