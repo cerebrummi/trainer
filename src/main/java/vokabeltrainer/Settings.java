@@ -106,6 +106,16 @@ public class Settings
       return getExpressionFolder() + "-training";
    }
    
+   public static String getImagePath()
+   {
+      return getExpressionPath() + File.separator + getImageFolder();
+   }
+
+   private static String getImageFolder()
+   {
+      return getExpressionFolder() + "-images";
+   }
+   
    public static String getTranslationPath()
    {
       return getExpressionPath() + File.separator + getTranslationFolder();

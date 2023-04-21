@@ -13,7 +13,7 @@ public class DirectoryHelper
 
    }
 
-   public static boolean makeExpressionDirectory(File customDir)
+   public static boolean makeDirectory(File customDir)
    {
       try
       {
@@ -21,6 +21,7 @@ public class DirectoryHelper
       }
       catch (Exception e)
       {
+    	  // TODO translation !!!
          JOptionPane.showMessageDialog(Common.getjFrame(),
                "Fehler beim Speichern.", "Fehlermeldung: \n" + e,
                JOptionPane.ERROR_MESSAGE);

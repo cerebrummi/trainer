@@ -665,7 +665,7 @@ public class NikudExpressionEditorView extends JDialog
 	   return vertical;
    }
 
-private void resetAllBorders()
+   private void resetAllBorders()
    {
       chapter.setBorder(makeBorderBlank(this.chapterTitle));
       german.setBorder(makeBorderBlank(this.germanTitle));
@@ -740,6 +740,9 @@ private void resetAllBorders()
          this.dispose();
       });
 
+      imageButton.addActionListener(event -> {
+    	 connector.chooseImageForExpression();
+      });
    }
 
    public void showGrammaticalParentEnums(
@@ -1047,7 +1050,8 @@ private void resetAllBorders()
       
       if(ImageData.isImageForExpressionAvailable(expression.getUuid()))
       {
-    	  //imageButton.setIcon(new ImageIcon()); TODO
+    	  System.out.println("Image vorhanden"); // TODO
+    	  //imageButton.setIcon(new ImageIcon(ImageData.loadImage()));
       }
    }
 
