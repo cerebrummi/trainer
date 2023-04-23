@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.TexturePaint;
 import java.awt.image.BufferedImage;
 
 import vokabeltrainer.common.Main;
@@ -40,8 +38,8 @@ public class TextImage
       BufferedImage finalImg = new BufferedImage(width, height,
             BufferedImage.TYPE_INT_RGB);
       g2d = finalImg.createGraphics();
-      g2d.setPaint(new TexturePaint(ApplicationImages.getTexturedBackground(),
-            new Rectangle(0, 0, 93, 72)));
+      /*g2d.setPaint(new TexturePaint(ApplicationImages.getTexturedBackground(),
+            new Rectangle(0, 0, 93, 72)));*/
       g2d.fillRect(0, 0, width, height);
       g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
             RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);

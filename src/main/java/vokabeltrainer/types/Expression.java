@@ -530,8 +530,13 @@ public class Expression
 
    public String getWordGermanForStatistics(Language language)
    {
-      if (Language.GERMAN_TO_HEBREW == language)
+      if (Language.GERMAN_TO_HEBREW.equals(language))
       {
+    	 if(this.getTrainingStatusDToH().getRepetition() == null)
+    	 {
+    		  return "Fehler bei " + german;
+    	 }
+    	 
          return german + "   [" + this.getTrainingStatusDToH().getTrys() + " "
                + translator.realisticTranslate(Translation.MAL) + " "
                + this.getTrainingStatusDToH().getRepetition().getTranslation()

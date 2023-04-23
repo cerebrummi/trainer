@@ -130,7 +130,7 @@ public final class Main
          NimbusLookAndFeel nimbus = new NimbusLookAndFeel();
          UIManager.setLookAndFeel(nimbus);
          UIManager
-               .put("control", ApplicationColors.getTexturedBackgroundColor());
+               .put("control", Color.WHITE);
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
          UIManager.put("nimbusBase", ApplicationColors.getDarkGold());
          UIManager.put("textForeground", Color.BLACK);
@@ -176,6 +176,7 @@ public final class Main
          UIManager.put("FileChooser.folderNameLabelText", "Ordnername:");
          UIManager.put("FileChooser.openDialogTitleText", translator.realisticTranslate(Translation.OEFFNEN));
          UIManager.put("FileChooser.saveDialogTitleText", translator.realisticTranslate(Translation.SPEICHERN));
+         UIManager.put("OptionPane.background", Color.WHITE);
       }
       catch (UnsupportedLookAndFeelException e3)
       {

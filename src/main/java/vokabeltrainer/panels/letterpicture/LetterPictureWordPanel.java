@@ -35,12 +35,15 @@ public class LetterPictureWordPanel extends JPanel
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
+      horizontal.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
+      vertical.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel displayPanel = new JPanel();
       displayPanel.setLayout(new TrainLayout(displayPanel));
+      displayPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       List<LetterForAnalysis> hebrewLettersCode = LetterHelper
             .findNikudLetterForAnalysisList(nikudWord);
@@ -55,6 +58,7 @@ public class LetterPictureWordPanel extends JPanel
 
       JPanel displayPanel2 = new JPanel();
       displayPanel2.setLayout(new TrainLayout(displayPanel2));
+      displayPanel2.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       for (LetterForAnalysis letter : hebrewLettersCode)
       {

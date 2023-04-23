@@ -44,9 +44,12 @@ public class AlefbetPanel extends BackgroundPanelTiled
    public AlefbetPanel()
    {
       setLayout(new BullsEyeLayout(this));
+      setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 165));
+      horizontal.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      
       this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel();
 
       horizontal.add(initLetterPanel());
@@ -65,10 +68,12 @@ public class AlefbetPanel extends BackgroundPanelTiled
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 14));
+      vertical.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel filler = new JPanel();
       filler.setMinimumSize(new Dimension(200, 1));
       filler.setMaximumSize(new Dimension(200, 1));
+      filler.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       resultButton = new JButton(translator.realisticTranslate(Translation.AUSWERTEN));
       resultButton.setFont(Settings.getButtonFont());
@@ -86,7 +91,8 @@ public class AlefbetPanel extends BackgroundPanelTiled
    {
       letterPanel = new JPanel();
       letterPanel.setLayout(new TotemLayout(letterPanel));
-      letterPanel.setOpaque(false);
+      letterPanel.setOpaque(true);
+      letterPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JLabel title = new JLabel(
             translator.realisticTranslate(Translation.ALEFBET_UEBEN));

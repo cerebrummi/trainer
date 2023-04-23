@@ -110,10 +110,12 @@ public class TrainerView extends BackgroundPanelTiled
       this.connector = connector;
       this.languageDirection = connector.getLanguageDirection();
       BullsEyeLayout trainerLayout = new BullsEyeLayout(this);
+      setBackground(ApplicationColors.getTexturedBackgroundColor());
       setLayout(trainerLayout);
       verticalTrainerPanel = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalTrainerPanel, 15);
       verticalTrainerPanel.setLayout(verticalLayout);
+      verticalTrainerPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
       setBorder(BorderFactory.createEmptyBorder());
       setOpaque(false);
       initGui();
@@ -149,19 +151,29 @@ public class TrainerView extends BackgroundPanelTiled
       verticalTrainerPanel.add(initTopPanel());
       pictureWordPanelPlene = new LetterPictureWordPanel();
       pictureWordPanelPlene.setPreferredSize(new Dimension(1200, 110));
+      pictureWordPanelPlene.setOpaque(true);
+      pictureWordPanelPlene.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      
       JScrollPane scroller = new JScrollPane(pictureWordPanelPlene);
       scroller.setMinimumSize(new Dimension(1200, 110));
       scroller.setMaximumSize(new Dimension(1200, 110));
       scroller.setBorder(BorderFactory.createEmptyBorder());
       scroller.setOpaque(true);
+      scroller.setBackground(ApplicationColors.getTexturedBackgroundColor());
       verticalTrainerPanel.add(scroller);
+      
       pictureWordPanelDefektiv = new LetterPictureWordPanel();
       pictureWordPanelDefektiv.setPreferredSize(new Dimension(1200, 110));
+      pictureWordPanelDefektiv.setOpaque(true);
+      pictureWordPanelDefektiv.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      
       JScrollPane scroller2 = new JScrollPane(pictureWordPanelDefektiv);
       scroller2.setMinimumSize(new Dimension(1200, 110));
       scroller2.setMaximumSize(new Dimension(1200, 110));
       scroller2.setBorder(BorderFactory.createEmptyBorder());
       scroller2.setOpaque(true);
+      scroller2.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      
       verticalTrainerPanel.add(scroller2);
    }
 
@@ -169,10 +181,12 @@ public class TrainerView extends BackgroundPanelTiled
    {
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
+      horizontal.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       questionPanel = new JPanel();
       questionPanel.setLayout(new TotemLayout(questionPanel, 10));
       questionPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
+      questionPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       horizontal.add(initLeftPanel());
       horizontal.add(questionPanel);
@@ -337,6 +351,7 @@ public class TrainerView extends BackgroundPanelTiled
    private void initQuestionPanel(Language languageDirection)
    {
       questionPanel.removeAll();
+      questionPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
       if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          questionFieldGerman = new JTextField();
@@ -371,6 +386,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       JPanel additionalInfoPanel = new JPanel();
       additionalInfoPanel.setLayout(new TrainLayout(additionalInfoPanel, 15));
+      additionalInfoPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       additionalInfo = new JCheckBox();
       additionalInfo.setFont(Settings.getButtonFont());
@@ -438,6 +454,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       answerPanel = new JPanel();
       answerPanel.setLayout(new TotemLayout(answerPanel));
+      answerPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       questionPanel.add(answerPanel);
 
@@ -511,6 +528,8 @@ public class TrainerView extends BackgroundPanelTiled
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 15));
+      vertical.setOpaque(true);
+      vertical.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       imageFieldGreen = new ImagePanelGreen();
       imageFieldGreen.setBorder(BorderFactory.createEmptyBorder());
@@ -541,6 +560,8 @@ public class TrainerView extends BackgroundPanelTiled
       swapPanel.setMinimumSize(new Dimension(501, 209));
       swapPanel.setMaximumSize(new Dimension(520, 209));
       swapPanel.setBorder(BorderFactory.createEmptyBorder());
+      swapPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      
       swapPanel.add("START", imageFieldStart);
       swapPanel.add("GREEN", imageFieldGreen);
       swapPanel.add("BLUE", imageFieldBlue);
@@ -567,6 +588,8 @@ public class TrainerView extends BackgroundPanelTiled
       feedbackPanel.setLayout(new TotemLayout(feedbackPanel, 15));
       feedbackPanel.setMinimumSize(new Dimension(501, 225));
       feedbackPanel.setMaximumSize(new Dimension(501, 225));
+      feedbackPanel.setOpaque(true);
+      feedbackPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       vertical.add(swapPanel);
       vertical.add(sendButton);
@@ -687,6 +710,7 @@ public class TrainerView extends BackgroundPanelTiled
    {
       JPanel answerPanel1 = new JPanel();
       answerPanel1.setLayout(new TotemLayout(answerPanel1, 5));
+      answerPanel1.setBackground(ApplicationColors.getTexturedBackgroundColor());
       JLabel correctAnswer = new JLabel(translator
             .realisticTranslate(Translation.DIE_RICHTIGE_ANTWORT_LAUTET_));
       correctAnswer.setFont(Main.getGermanFont(16F));
@@ -717,6 +741,7 @@ public class TrainerView extends BackgroundPanelTiled
       answerPanel2.setLayout(new GridLayout(1, 3));
       answerPanel2.setMinimumSize(new Dimension(501, 100));
       answerPanel2.setMaximumSize(new Dimension(501, 100));
+      answerPanel2.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       feedbackPanel.add(answerPanel1);
       feedbackPanel.add(answerPanel2);
@@ -876,15 +901,20 @@ public class TrainerView extends BackgroundPanelTiled
    public void prepareDtoNikudFeedbackPanel(Result result)
    {
       HebrewAnswerWordPanel answerPanel = new HebrewAnswerWordPanel(result);
+      
       JScrollPane scrollPane = new JScrollPane(answerPanel);
       scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       scrollPane.setBorder(BorderFactory.createEmptyBorder());
       scrollPane.setMinimumSize(new Dimension(501, 120));
       scrollPane.setMaximumSize(new Dimension(501, 120));
+      scrollPane.setOpaque(true);
+      scrollPane.getViewport().setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel fillerAnswerPanel = new JPanel();
       fillerAnswerPanel.setMinimumSize(new Dimension(501, 1));
       fillerAnswerPanel.setMaximumSize(new Dimension(501, 225));
+      fillerAnswerPanel.setOpaque(true);
+      fillerAnswerPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       feedbackPanel.add(scrollPane);
       feedbackPanel.add(fillerAnswerPanel);

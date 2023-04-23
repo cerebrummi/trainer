@@ -455,6 +455,11 @@ public final class Data
                LocalDate nextDate = LocalDate.of(Integer.valueOf(date[2]),
                      Integer.valueOf(date[1]), Integer.valueOf(date[0]));
                Repetition repetition = Repetition.valueOf(items[2]);
+               if(repetition == null)
+               {
+            	   //System.out.println("Repitiion " + uuid);
+            	   continue;
+               }
                int trys = Integer.valueOf(items[3]);
                if (trys < 1)
                {

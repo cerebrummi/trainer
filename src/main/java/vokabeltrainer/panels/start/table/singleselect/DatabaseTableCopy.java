@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
@@ -24,6 +25,7 @@ public class DatabaseTableCopy extends JTable
       super(model, new DatabaseTableCopyColumnModel(totalWidth));
       this.setShowVerticalLines(false);
       setOpaque(true);
+      setBackground(ApplicationColors.getBackgroundGold());
       setRowHeight(30);
       setShowHorizontalLines(true);
       this.setRowSelectionAllowed(true);

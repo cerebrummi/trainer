@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.text.JTextComponent;
 
+import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.ApplicationSpecialPanels;
 import vokabeltrainer.Settings;
@@ -134,7 +135,8 @@ public class LetterPictureAlphabetPanel extends JPanel
       textFields = new ArrayList<>();
       Map<NikudLetter, LetterPictureButtonPanel> panels = ApplicationSpecialPanels
             .getLetterPicturesPanelMap();
-      this.setOpaque(false);
+      this.setOpaque(true);
+      setBackground(ApplicationColors.getTexturedBackgroundColor());
       this.setLayout(new TotemLayout(this, 15));
       this.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 15));
 
@@ -146,6 +148,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          JPanel column = new JPanel();
          column.setLayout(new TotemLayout(column));
+         column.setBackground(ApplicationColors.getTexturedBackgroundColor());
          column.add(panels.get(keys1[i]));
          column.add(textFields1[i]);
          textFields.add(textFields1[i]);
@@ -161,6 +164,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          JPanel column = new JPanel();
          column.setLayout(new TotemLayout(column));
+         column.setBackground(ApplicationColors.getTexturedBackgroundColor());
          column.add(panels.get(keys2[i]));
          column.add(textFields2[i]);
          textFields.add(textFields2[i]);
@@ -176,6 +180,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          JPanel column = new JPanel();
          column.setLayout(new TotemLayout(column));
+         column.setBackground(ApplicationColors.getTexturedBackgroundColor());
          column.add(panels.get(keys3[i]));
          column.add(textFields3[i]);
          textFields.add(textFields3[i]);
@@ -211,6 +216,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          JPanel column = new JPanel();
          column.setLayout(new TotemLayout(column));
+         column.setBackground(ApplicationColors.getTexturedBackgroundColor());
          column.add(panels.get(keys4[i]));
          column.add(textFields4[i]);
          textFields.add(textFields4[i]);
@@ -228,11 +234,13 @@ public class LetterPictureAlphabetPanel extends JPanel
       }
 
       JPanel keyboardPrintPanel = new JPanel(new BorderLayout());
+      keyboardPrintPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
       keyboardPrint = new KeyboardHebrewStandard(null,
             textFields, 15, false);
       keyboardPrintPanel.add(keyboardPrint, BorderLayout.CENTER);
 
       JPanel keyboardHandwrittenPanel = new JPanel(new BorderLayout());
+      keyboardHandwrittenPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
       keyboardHandwritten = new KeyboardHebrewStandard(
             null, textFields, 15, true);
       keyboardHandwrittenPanel.add(keyboardHandwritten, BorderLayout.CENTER);

@@ -137,14 +137,17 @@ public class DictionaryView extends BackgroundPanelTiled
    {
       this.connector = connector;
       setLayout(new ExpanderLayout(this));
+      setBackground(ApplicationColors.getBackgroundGold());
 
       JPanel layout = new JPanel();
       TrainLayout layoutLayout = new TrainLayout(layout, 15);
       layout.setLayout(layoutLayout);
+      layout.setBackground(ApplicationColors.getBackgroundGold());
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 15));
       vertical.setOpaque(false);
+      vertical.setBackground(ApplicationColors.getBackgroundGold());
 
       horizontalLanguagePanel = new JPanel();
       horizontalLanguagePanel
@@ -222,6 +225,7 @@ public class DictionaryView extends BackgroundPanelTiled
       JPanel filler = new JPanel();
       filler.setMinimumSize(new Dimension(1, 1));
       filler.setMaximumSize(new Dimension(1000, 2000));
+      filler.setBackground(ApplicationColors.getBackgroundGold());
 
       vertical.add(horizontalLanguagePanel);
       vertical.add(tabbedPane);
@@ -235,10 +239,12 @@ public class DictionaryView extends BackgroundPanelTiled
       JPanel filler2 = new JPanel();
       filler2.setMinimumSize(new Dimension(1, 1));
       filler2.setMaximumSize(new Dimension(1000, 2000));
+      filler2.setBackground(ApplicationColors.getBackgroundGold());
 
       JPanel filler3 = new JPanel();
       filler3.setMinimumSize(new Dimension(1, 1));
       filler3.setMaximumSize(new Dimension(1000, 2000));
+      filler3.setBackground(ApplicationColors.getBackgroundGold());
 
       layout.add(vertical);
       layout.add(filler2);
@@ -610,7 +616,8 @@ public class DictionaryView extends BackgroundPanelTiled
       trashPanel.setMaximumSize(new Dimension(600, 120));
 
       JPanel trashIconPanel = new JPanel(new GridLayout(3, 2));
-      trashIconPanel.setOpaque(false);
+      trashIconPanel.setOpaque(true);
+      trashIconPanel.setBackground(ApplicationColors.getBackgroundGold());
 
       wasteBinButton = new JButton(
             new ImageIcon(ApplicationImages.getTrashcan()));
@@ -628,18 +635,31 @@ public class DictionaryView extends BackgroundPanelTiled
       shredderButton.setContentAreaFilled(false);
       shredderButton.setFocusPainted(false);
 
-      trashIconPanel.add(new JPanel());
-      trashIconPanel.add(new JPanel());
+      JPanel filler1 = new JPanel();
+      filler1.setBackground(ApplicationColors.getBackgroundGold());
+      
+      JPanel filler2 = new JPanel();
+      filler2.setBackground(ApplicationColors.getBackgroundGold());
+      
+      JPanel filler3 = new JPanel();
+      filler3.setBackground(ApplicationColors.getBackgroundGold());
+      
+      JPanel filler4 = new JPanel();
+      filler4.setBackground(ApplicationColors.getBackgroundGold());
+      
+      trashIconPanel.add(filler1);
+      trashIconPanel.add(filler2);
       trashIconPanel.add(wasteBinButton);
       trashIconPanel.add(shredderButton);
-      trashIconPanel.add(new JPanel());
-      trashIconPanel.add(new JPanel());
+      trashIconPanel.add(filler3);
+      trashIconPanel.add(filler4);
 
       trashPanel.add(trashIconPanel);
 
       JPanel filler = new JPanel();
       filler.setMinimumSize(new Dimension(1, 1));
       filler.setMaximumSize(new Dimension(800, 800));
+      filler.setBackground(ApplicationColors.getBackgroundGold());
 
       vertical.add(selectUnselectPanel);
       vertical.add(copyPanel);

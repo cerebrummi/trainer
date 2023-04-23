@@ -1,27 +1,25 @@
 package vokabeltrainer.panels.statistics;
 
+import java.awt.Component;
+import java.awt.LayoutManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
+import javax.swing.JPanel;
 
 import vokabeltrainer.ExpressionComparator;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
 public class StatisticsTableRow
 {
-   private List<String> germanDtoH;
-   private List<String> germanHtoD;
    private LocalDate date;
    private Translator translator = Common.getTranslator();
    private DateTimeFormatter dateFormatter = DateTimeFormatter
@@ -29,6 +27,8 @@ public class StatisticsTableRow
                + translator.realisticTranslate(Translation._DATE), Locale.GERMANY);
    int row;
    StatisticsTableModel model;
+private List<Expression> expressionsHtoD;
+private List<Expression> expressionsDtoH;
 
    public StatisticsTableRow(int row, LocalDate date,
          List<Expression> expressionsDtoH, List<Expression> expressionsHtoD,
@@ -36,32 +36,24 @@ public class StatisticsTableRow
    {
       this.row = row;
       this.date = date;
+      this.expressionsDtoH = expressionsDtoH;
+      this.expressionsHtoD = expressionsHtoD;
       
-      Collections.sort(expressionsDtoH, new ExpressionComparator(Language.GERMAN_TO_HEBREW));
-      germanDtoH = new ArrayList<>(expressionsDtoH.size());
-      for(Expression expression : expressionsDtoH)
-      {
-         germanDtoH.add(expression.getWordGermanForStatistics(Language.GERMAN_TO_HEBREW));
-      }
+      Collections.sort(this.expressionsDtoH, new ExpressionComparator(Language.GERMAN_TO_HEBREW));
       
-      Collections.sort(expressionsHtoD, new ExpressionComparator(Language.GERMAN_TO_HEBREW));
-      germanHtoD = new ArrayList<>(expressionsHtoD.size());
-      for(Expression expression : expressionsHtoD)
-      {
-         germanHtoD.add(expression.getWordGermanForStatistics(Language.HEBREW_TO_GERMAN));
-      }
+      Collections.sort(this.expressionsHtoD, new ExpressionComparator(Language.GERMAN_TO_HEBREW));
       
       this.model = model;
    }
 
    public int getExpressionsDtoHSize()
    {
-      return germanDtoH.size();
+      return expressionsDtoH.size();
    }
 
    public int getExpressionsHtoDSize()
    {
-      return germanHtoD.size();
+      return expressionsHtoD.size();
    }
 
    public String getDate()
@@ -74,27 +66,31 @@ public class StatisticsTableRow
       return date;
    }
 
-   public JList<String> getJListHtoD()
+   public Component getJListHtoD()
    {
-      DefaultListModel<String> listModel = new DefaultListModel<>();
-      for(String word : germanHtoD)
+	  JPanel list = new JPanel();
+	  LayoutManager layout = new TotemLayout(list);
+	  list.setLayout(layout);
+	  
+      for(Expression expression : expressionsHtoD)
       {
-         listModel.addElement(word);
+        list.add(new ListImageRow(expression, Language.HEBREW_TO_GERMAN));
       }
-      JList<String> list = new JList<>(listModel);
-      list.setFont(Settings.getButtonFont());
+
       return list;
    }
 
-   public JList<String> getJListDtoH()
+   public Component getJListDtoH()
    {
-      DefaultListModel<String> listModel = new DefaultListModel<>();
-      for(String word : germanDtoH)
-      {
-         listModel.addElement(word);
-      }
-      JList<String> list = new JList<>(listModel);
-      list.setFont(Settings.getButtonFont());
-      return list;
+	   JPanel list = new JPanel();
+		  LayoutManager layout = new TotemLayout(list);
+		  list.setLayout(layout);
+		  
+	      for(Expression expression : expressionsDtoH)
+	      {
+	        list.add(new ListImageRow(expression, Language.GERMAN_TO_HEBREW));
+	      }
+
+	   return list;
    }
 }

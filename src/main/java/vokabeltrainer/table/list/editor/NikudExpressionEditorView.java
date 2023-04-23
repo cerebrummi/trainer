@@ -179,13 +179,14 @@ public NikudExpressionEditorView(
             Math.min(screenSize.height - 60, 815));
 
       outerLayout = new JPanel();
-      outerLayout.setBackground(ApplicationColors.getBackgroundGold());
+      outerLayout.setBackground(ApplicationColors.getTexturedBackgroundColor());
       outerLayout.setBorder(BorderFactory
             .createLineBorder(ApplicationColors.getGreen(), 15, false));
       outerLayout.setLayout(new TotemLayout(outerLayout, 15));
 
       layout = new JPanel();
-      layout.setOpaque(false);
+      layout.setOpaque(true);
+      layout.setBackground(ApplicationColors.getTexturedBackgroundColor());
       layout.setLayout(new TrainLayout(layout, 15));
 
       initGuiFields();
@@ -543,6 +544,7 @@ public NikudExpressionEditorView(
    {
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
+      horizontal.setBackground(ApplicationColors.getTexturedBackgroundColor());
       horizontal.add(databaseNameField);
       horizontal.add(chapter);
       horizontal.add(indexField);
@@ -633,22 +635,24 @@ public NikudExpressionEditorView(
    private Component initInfosExtra()
    {
       JPanel vertical = new JPanel();
-      vertical.setOpaque(false);
-      vertical.setBackground(ApplicationColors.getTransparent());
+      vertical.setOpaque(true);
+      vertical.setBackground(ApplicationColors.getTexturedBackgroundColor());
       vertical.setLayout(new TotemLayout(vertical, 15));
 
       definitionPanel = new JPanel();
       TotemLayout definitionLayout = new TotemLayout(definitionPanel, 5);
       definitionPanel.setLayout(definitionLayout);
       definitionPanel.setBorder(BorderFactory.createEmptyBorder());
-      definitionPanel.setBackground(ApplicationColors.getTransparent());
-      definitionPanel.setOpaque(false);
+      definitionPanel.setOpaque(true);
+      definitionPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JScrollPane scrollPane2 = new JScrollPane(definitionPanel);
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 600));
       scrollPane2.setBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
+      scrollPane2.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      scrollPane2.getViewport().setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       vertical.add(scrollPane2);
 
@@ -814,6 +818,7 @@ public NikudExpressionEditorView(
       JPanel filler = new JPanel();
       filler.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 0));
       filler.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 700));
+      filler.setBackground(ApplicationColors.getTexturedBackgroundColor());
       definitionPanel.add(filler);
 
       definitionPanel.validate();

@@ -59,16 +59,25 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    public InputPanel()
    {
       setLayout(new TrainLayout(this));
-
+      setBackground(ApplicationColors.getBackgroundGold());
+      
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
+      vertical.setBackground(ApplicationColors.getBackgroundGold());
 
+      JPanel filler1 = new JPanel();
+      filler1.setBackground(ApplicationColors.getBackgroundGold());
+      
+      JPanel filler2 = new JPanel();
+      filler2.setBackground(ApplicationColors.getBackgroundGold());
+      
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
-      horizontal.add(new JPanel());
+      horizontal.add(filler1);
       horizontal.add(initLeftside());
-      horizontal.add(new JPanel());
+      horizontal.add(filler2);
       horizontal.add(initRightside());
+      horizontal.setBackground(ApplicationColors.getBackgroundGold());
 
       JPanel spanner = new JPanel();
       spanner.setMinimumSize(new Dimension(1550, 30));
@@ -206,8 +215,10 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
+      vertical.setBackground(ApplicationColors.getBackgroundGold());
 
       JPanel flow = new JPanel();
+      flow.setBackground(ApplicationColors.getBackgroundGold());
       tableInfoButton = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
       tableInfoButton.setBackground(new Color(0, 0, 0, 0));
@@ -237,6 +248,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    private Component initTablePanel()
    {
       tablePanel = new JPanel(new BorderLayout());
+      tablePanel.setBackground(ApplicationColors.getBackgroundGold());
       tablePanel.setMinimumSize(new Dimension(500, 700));
       tablePanel.setMaximumSize(new Dimension(500, 700));
       return tablePanel;
@@ -246,6 +258,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    {
       JPanel leftside = new JPanel();
       leftside.setLayout(new BullsEyeLayout(leftside));
+      leftside.setBackground(ApplicationColors.getBackgroundGold());
 
       newWordPunktationButton = new JButton(translator.realisticTranslate(Translation.NEUE_VOKABEL));
       newWordPunktationButton.setFont(Main.getGermanFont(16F));
