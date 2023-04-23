@@ -28,12 +28,12 @@ public class LanguageTab extends JPanel
    private JPanel nowPanel;
    private JPanel oneDayPanel;
    private JPanel twoDaysPanel;
-   private JPanel fourDaysPanel;
-   private JPanel oneWeekPanel;
-   private JPanel twoWeeksPanel;
+   private JPanel fiveDaysPanel;
+   private JPanel elevenDaysPanel;
+   private JPanel nineteenDaysPanel;
    private JPanel oneMonthPanel;
    private JPanel twoMonthsPanel;
-   private JPanel fourMonthsPanel;
+   private JPanel fiveMonthsPanel;
    private JPanel donePanel;
 
    private JTabbedPane register;
@@ -63,12 +63,12 @@ public class LanguageTab extends JPanel
       register.addTab(translator.realisticTranslate(Translation.HEUTE), initNow()); // 2
       register.addTab(translator.realisticTranslate(Translation.MORGEN), initOneDay()); // 3
       register.addTab(translator.realisticTranslate(Translation._2_TAGE), initTwoDays()); // 4
-      register.addTab(translator.realisticTranslate(Translation._4_TAGE), initFourDays()); // 5
-      register.addTab(translator.realisticTranslate(Translation._1_WOCHE), initOneWeek()); // 6
-      register.addTab(translator.realisticTranslate(Translation._2_WOCHEN), initTwoWeeks()); // 7
+      register.addTab(translator.realisticTranslate(Translation._5_TAGE), initFiveDays()); // 5
+      register.addTab(translator.realisticTranslate(Translation._11_TAGE), initElevenDays()); // 6
+      register.addTab(translator.realisticTranslate(Translation._19_TAGE), initNineteenDays()); // 7
       register.addTab(translator.realisticTranslate(Translation._1_MONAT), initOneMonth()); // 8
       register.addTab(translator.realisticTranslate(Translation._2_MONATE), initTwoMonths()); // 9
-      register.addTab(translator.realisticTranslate(Translation._4_MONATE), initFourMonths()); // 10
+      register.addTab(translator.realisticTranslate(Translation._5_MONATE), initFiveMonths()); // 10
       register.addTab(translator.realisticTranslate(Translation.FERTIG), initDone()); // 11
 
       this.add(register, BorderLayout.CENTER);
@@ -100,22 +100,22 @@ public class LanguageTab extends JPanel
       return SuccessHelper.makePanel(twoDaysPanel);
    }
 
-   private Component initFourDays()
+   private Component initFiveDays()
    {
-      fourDaysPanel = new JPanel();
-      return SuccessHelper.makePanel(fourDaysPanel);
+      fiveDaysPanel = new JPanel();
+      return SuccessHelper.makePanel(fiveDaysPanel);
    }
 
-   private Component initOneWeek()
+   private Component initElevenDays()
    {
-      oneWeekPanel = new JPanel();
-      return SuccessHelper.makePanel(oneWeekPanel);
+      elevenDaysPanel = new JPanel();
+      return SuccessHelper.makePanel(elevenDaysPanel);
    }
 
-   private Component initTwoWeeks()
+   private Component initNineteenDays()
    {
-      twoWeeksPanel = new JPanel();
-      return SuccessHelper.makePanel(twoWeeksPanel);
+      nineteenDaysPanel = new JPanel();
+      return SuccessHelper.makePanel(nineteenDaysPanel);
    }
 
    private Component initOneMonth()
@@ -130,10 +130,10 @@ public class LanguageTab extends JPanel
       return SuccessHelper.makePanel(twoMonthsPanel);
    }
 
-   private Component initFourMonths()
+   private Component initFiveMonths()
    {
-      fourMonthsPanel = new JPanel();
-      return SuccessHelper.makePanel(fourMonthsPanel);
+      fiveMonthsPanel = new JPanel();
+      return SuccessHelper.makePanel(fiveMonthsPanel);
    }
 
    private Component initDone()
@@ -184,15 +184,15 @@ public class LanguageTab extends JPanel
                   languageDirection);
             break;
          case 5:
-            SuccessHelper.addContent(Repetition.FOUR_DAYS, fourDaysPanel,
+            SuccessHelper.addContent(Repetition.FIVE_DAYS, fiveDaysPanel,
                   languageDirection);
             break;
          case 6:
-            SuccessHelper.addContent(Repetition.ONE_WEEK, oneWeekPanel,
+            SuccessHelper.addContent(Repetition.ELEVEN_DAYS, elevenDaysPanel,
                   languageDirection);
             break;
          case 7:
-            SuccessHelper.addContent(Repetition.TWO_WEEKS, twoWeeksPanel,
+            SuccessHelper.addContent(Repetition.NINETEEN_DAYS, nineteenDaysPanel,
                   languageDirection);
             break;
          case 8:
@@ -204,7 +204,7 @@ public class LanguageTab extends JPanel
                   languageDirection);
             break;
          case 10:
-            SuccessHelper.addContent(Repetition.FOUR_MONTHS, fourMonthsPanel,
+            SuccessHelper.addContent(Repetition.FIVE_MONTHS, fiveMonthsPanel,
                   languageDirection);
             break;
          case 11:

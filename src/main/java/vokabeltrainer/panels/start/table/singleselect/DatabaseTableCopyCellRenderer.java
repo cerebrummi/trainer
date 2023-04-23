@@ -15,15 +15,12 @@ import vokabeltrainer.types.DatabaseItem;
 public class DatabaseTableCopyCellRenderer
       implements TableCellRenderer, TableCellEditor
 {
-   private JLabel empty;
    private JLabel database;
    private JLabel authors;
    private JLabel company;
 
    public DatabaseTableCopyCellRenderer() // no multiple selection possible
    {
-      empty = new JLabel();
-
       database = new JLabel();
       database.setFont(Main.getGermanFont(14F));
 

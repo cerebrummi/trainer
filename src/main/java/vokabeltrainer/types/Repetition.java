@@ -14,18 +14,18 @@ public enum Repetition
          Period.ofDays(1), Translation.MORGEN),
    TWO_DAYS(
          Period.ofDays(2), Translation._2_TAGE),
-   FOUR_DAYS(
-         Period.ofDays(4), Translation._4_TAGE),
-   ONE_WEEK(
-         Period.ofWeeks(1), Translation._1_WOCHE),
-   TWO_WEEKS(
-         Period.ofWeeks(2), Translation._2_WOCHEN),
+   FIVE_DAYS(
+         Period.ofDays(4), Translation._5_TAGE),
+   ELEVEN_DAYS(
+         Period.ofWeeks(1), Translation._11_TAGE),
+   NINETEEN_DAYS(
+         Period.ofWeeks(2), Translation._19_TAGE),
    ONE_MONTH(
          Period.ofMonths(1), Translation._1_MONAT),
    TWO_MONTHS(
          Period.ofMonths(2), Translation._2_MONATE),
-   FOUR_MONTHS(
-         Period.ofMonths(4), Translation._4_MONATE),
+   FIVE_MONTHS(
+         Period.ofMonths(4), Translation._5_MONATE),
    DONE(
          Period.ofYears(100), Translation.FERTIG);
    

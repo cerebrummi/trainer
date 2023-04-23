@@ -7,14 +7,10 @@ public enum Translation
    _1_2_3_PERSON("1., 2. und 3. Person"),
    _1_MONAT("1 Monat"),
    _1_PERSON("1. Person"),
-   _1_WOCHE("1 Woche"),
    _2_MONATE("2 Monate"),
    _2_PERSON("2. Person"),
    _2_TAGE("2 Tage"),
-   _2_WOCHEN("2 Wochen"),
    _3_PERSON("3. Person"),
-   _4_MONATE("4 Monate"),
-   _4_TAGE("4 Tage"),
    
    _DATE("dd.MM.yyyy"),
    _DATE_TIME("dd.MM.yyyy HH:mm"),
@@ -312,7 +308,11 @@ public enum Translation
    ZURUECKSETZEN("zurücksetzen"),
    ZU_TUN("ZU TUN"),
    ZUKUNFT("Zukunft"),
-   ZWEIMAL_KLICKEN_WAEHLT_EINEN_EINTRAG_AUS__STECKNADEL_("zweimal klicken wählt einen Eintrag aus (Stecknadel)");
+   ZWEIMAL_KLICKEN_WAEHLT_EINEN_EINTRAG_AUS__STECKNADEL_("zweimal klicken wählt einen Eintrag aus (Stecknadel)"), 
+   _5_TAGE("5 Tage"), 
+   _11_TAGE("11 Tage"),
+   _19_TAGE("19 Tage"), 
+   _5_MONATE("5 Monate");
    
 
    private String german;

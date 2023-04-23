@@ -45,19 +45,19 @@ public class TrainingStatus
          break;
       case ONE_DAY: repetition = Repetition.TWO_DAYS;
          break;
-      case TWO_DAYS: repetition = Repetition.FOUR_DAYS;
+      case TWO_DAYS: repetition = Repetition.FIVE_DAYS;
          break;
-      case FOUR_DAYS: repetition = Repetition.ONE_WEEK;
+      case FIVE_DAYS: repetition = Repetition.ELEVEN_DAYS;
          break;
-      case ONE_WEEK: repetition = Repetition.TWO_WEEKS;
+      case ELEVEN_DAYS: repetition = Repetition.NINETEEN_DAYS;
          break;
-      case TWO_WEEKS: repetition = Repetition.ONE_MONTH;
+      case NINETEEN_DAYS: repetition = Repetition.ONE_MONTH;
          break;
       case ONE_MONTH: repetition = Repetition.TWO_MONTHS;
          break;
-      case TWO_MONTHS: repetition = Repetition.FOUR_MONTHS;
+      case TWO_MONTHS: repetition = Repetition.FIVE_MONTHS;
          break;
-      case FOUR_MONTHS: repetition = Repetition.DONE;
+      case FIVE_MONTHS: repetition = Repetition.DONE;
          break;
       case DONE:
          break; 
@@ -76,17 +76,17 @@ public class TrainingStatus
          break;
       case TWO_DAYS: repetition = Repetition.ONE_DAY;
          break;
-      case FOUR_DAYS: repetition = Repetition.TWO_DAYS;
+      case FIVE_DAYS: repetition = Repetition.TWO_DAYS;
          break;
-      case ONE_WEEK: repetition = Repetition.FOUR_DAYS;
+      case ELEVEN_DAYS: repetition = Repetition.FIVE_DAYS;
          break;
-      case TWO_WEEKS: repetition = Repetition.ONE_WEEK;
+      case NINETEEN_DAYS: repetition = Repetition.ELEVEN_DAYS;
          break;
-      case ONE_MONTH: repetition = Repetition.TWO_WEEKS;
+      case ONE_MONTH: repetition = Repetition.NINETEEN_DAYS;
          break;
       case TWO_MONTHS: repetition = Repetition.ONE_MONTH;
          break;
-      case FOUR_MONTHS: repetition = Repetition.TWO_MONTHS;
+      case FIVE_MONTHS: repetition = Repetition.TWO_MONTHS;
          break;
       case DONE:
          break;
