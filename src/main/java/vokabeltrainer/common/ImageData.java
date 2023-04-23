@@ -1,9 +1,16 @@
 package vokabeltrainer.common;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
@@ -11,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.prefs.Preferences;
+import javax.imageio.ImageIO;
 
 import vokabeltrainer.CerebrummiNodes;
 import vokabeltrainer.Settings;
@@ -90,6 +98,24 @@ public final class ImageData {
 		}
 		getDataBaseAtomic().saveImage(image, uuid);
 	}
+	
+	public static BufferedImage loadImage(UUID uuid) 
+	{
+		if (uuid == null)
+		{
+			return null;
+		}
+		return getDataBaseAtomic().loadImage(uuid);
+	}
+	
+	public static void deleteImage(UUID uuid) 
+	{
+		if (uuid == null)
+		{
+			return ;
+		}
+		getDataBaseAtomic().deleteImage(uuid);
+	}
 
 	// #########################################################
 	// #########################################################
@@ -119,7 +145,9 @@ public final class ImageData {
 
 	private static class ImageDataBase 
 	{
-		private final ConcurrentMap<UUID, String> imageMap = new ConcurrentHashMap<>(
+		private final ConcurrentMap<UUID, BufferedImage> imageMap = new ConcurrentHashMap<>(
+	            findNumberOfAllVocabulary() + 100);
+		private final ConcurrentMap<UUID, String> imageTypeMap = new ConcurrentHashMap<>(
 	            findNumberOfAllVocabulary() + 100);
 		
 		ImageDataBase()
@@ -131,6 +159,26 @@ public final class ImageData {
 			readImagesAvailable();
 		}
 		
+		public void deleteImage(UUID uuid) 
+		{			 
+			try 
+			{
+				Files.delete(Paths.get(Settings.getImagePath() + File.separator + uuid.toString() + imageTypeMap.get(uuid)));
+			} 
+			catch (IOException e) 
+			{
+				// nothing
+			}
+			
+			imageMap.remove(uuid);
+			imageTypeMap.remove(uuid);
+		}
+
+		private BufferedImage loadImage(UUID uuid) 
+		{
+			return imageMap.get(uuid);	
+		}
+
 		private boolean isImageForExpressionAvailable(UUID uuid) 
 		{
 			return imageMap.containsKey(uuid);
@@ -156,8 +204,10 @@ public final class ImageData {
 			} 
             catch (IOException e) 
             {
-				// nothing
+				return;
 			}
+            
+            addToImageMap(Paths.get(Settings.getImagePath() + File.separator + uuid.toString() + imageType));
 		}
 
 		private String findImageType(String image) 
@@ -230,12 +280,34 @@ public final class ImageData {
 		{
 			File image = file.toFile();
 			String imageType = findImageType(file.toString());
+
             if(imageType == null)
             {
             	return;
             }
             UUID uuid = UUID.fromString(image.getName().substring(0,image.getName().length() - imageType.length()));
-            imageMap.putIfAbsent(uuid, imageType);
+            
+            try 
+            {
+				imageMap.put(uuid, resize(ImageIO.read(
+						new FileInputStream(image.getAbsolutePath())), 200, 200) );
+				imageTypeMap.put(uuid, imageType);
+			} 
+            catch (IOException e) 
+            {
+				// nothing;
+			}
 		}
+		
+		private static BufferedImage resize(BufferedImage img, int newW, int newH) { 
+		    Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+		    BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+		    Graphics2D g2d = dimg.createGraphics();
+		    g2d.drawImage(tmp, 0, 0, null);
+		    g2d.dispose();
+
+		    return dimg;
+		}  
 	}
 }

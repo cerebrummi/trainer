@@ -1,6 +1,10 @@
 package vokabeltrainer.table.list.editor;
 
+import java.util.UUID;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import vokabeltrainer.Settings;
@@ -25,7 +29,7 @@ public class NikudExpressionEditorController implements NikudExpressionEditorCon
    {
 	   JFileChooser imageChooser = new JFileChooser(
 	            Settings.getExpressionPath());
-	   		//imageChooser.setAcceptAllFileFilterUsed(false);
+	   		imageChooser.setAcceptAllFileFilterUsed(false);
 	   		imageChooser.setFileFilter(new FileNameExtensionFilter("jpeg-Bild", "jpeg"));
 	   		imageChooser.setFileFilter(new FileNameExtensionFilter("jpg-Bild", "jpg"));
 	   		imageChooser.setFileFilter(new FileNameExtensionFilter("png-Bild", "png"));
@@ -36,7 +40,24 @@ public class NikudExpressionEditorController implements NikudExpressionEditorCon
 	   if (JFileChooser.APPROVE_OPTION == choice)
 	   {
 	      String image = imageChooser.getSelectedFile().getPath();
-          ImageData.saveImage(image, nikudExpressionEditorDialog.getExpression().getUuid());
+	      UUID uuid = nikudExpressionEditorDialog.getExpression().getUuid();
+          ImageData.saveImage(image, uuid);
+          nikudExpressionEditorDialog.getImageButton().setIcon(new ImageIcon(ImageData.loadImage(uuid)));
+          nikudExpressionEditorDialog.getImageButton().validate();
+          nikudExpressionEditorDialog.getImageButton().repaint();
 	  }
   }
+
+   @Override
+   public void deleteImageForExpression() 
+   {
+	   int answer = JOptionPane.showConfirmDialog(nikudExpressionEditorDialog, "Wollen Sie das Bild wirklich löschen?"); // TODO translation !!!
+	   if(answer == 0)
+	   {
+		   ImageData.deleteImage(nikudExpressionEditorDialog.getExpression().getUuid());
+		   nikudExpressionEditorDialog.getImageButton().setIcon(null);
+	       nikudExpressionEditorDialog.getImageButton().validate();
+	       nikudExpressionEditorDialog.getImageButton().repaint();
+	   }
+   }
 }

@@ -5,4 +5,6 @@ public interface NikudExpressionEditorControllerConnector
 
 	void chooseImageForExpression();
 
+	void deleteImageForExpression();
+
 }

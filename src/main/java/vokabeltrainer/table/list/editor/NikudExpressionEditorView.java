@@ -10,6 +10,8 @@ import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
@@ -159,7 +162,11 @@ public class NikudExpressionEditorView extends JDialog
 
    private ImageButton imageButton;
 
-   public NikudExpressionEditorView(
+   public ImageButton getImageButton() {
+	return imageButton;
+}
+
+public NikudExpressionEditorView(
          NikudExpressionEditorControllerConnector connector)
    {
       super(Common.getjFrame(), Settings.getWindowTitle(),
@@ -739,9 +746,20 @@ public class NikudExpressionEditorView extends JDialog
          save = false;
          this.dispose();
       });
-
-      imageButton.addActionListener(event -> {
-    	 connector.chooseImageForExpression();
+      
+      imageButton.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseClicked(MouseEvent e) 
+          {
+              if (SwingUtilities.isRightMouseButton(e)) 
+              {
+                  connector.deleteImageForExpression();
+              }
+              else
+              {
+            	  connector.chooseImageForExpression();
+              }
+          }
       });
    }
 
@@ -1050,9 +1068,14 @@ public class NikudExpressionEditorView extends JDialog
       
       if(ImageData.isImageForExpressionAvailable(expression.getUuid()))
       {
-    	  System.out.println("Image vorhanden"); // TODO
-    	  //imageButton.setIcon(new ImageIcon(ImageData.loadImage()));
+    	  imageButton.setIcon(new ImageIcon(ImageData.loadImage(expression.getUuid())));
       }
+      else
+      {
+    	  imageButton.setIcon(null);
+      }
+      imageButton.validate();
+	  imageButton.repaint();
    }
 
    private DefaultComboBoxModel<String> getSearchwordsModelGerman()
