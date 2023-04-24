@@ -38,7 +38,7 @@ public final class Main
    private static Font hebrewHandwrittenFont;
    private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
 
-   // -Dsun.java2d.uiScale=1
+   // -Dsun.java2d.uiScale=1 
 
    public static void main(String[] args)
    {

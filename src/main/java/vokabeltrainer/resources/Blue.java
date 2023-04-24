@@ -3,6 +3,7 @@ package vokabeltrainer.resources;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.imageio.ImageIO;
 
 import vokabeltrainer.ApplicationImages;
@@ -18,7 +19,7 @@ public class Blue
       {
 
          blueImagesList.add(ImageIO.read(
-               Blue.class.getResourceAsStream("blue/blue_" + i + ".jpg")));
+               Blue.class.getResourceAsStream("/blue/blue_" + i + ".jpg")));
 
       }
       ApplicationImages.setBlueImages(blueImagesList);

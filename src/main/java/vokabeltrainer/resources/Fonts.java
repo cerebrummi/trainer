@@ -11,19 +11,19 @@ public class Fonts
    {
       Main.setHebrewFont(
             Font.createFont(Font.TRUETYPE_FONT, Fonts.class.getResourceAsStream(
-                  "_1_fonts/Cardo-regular_104s.ttf")));
+                  "/_1_fonts/Cardo-regular_104s.ttf")));
       
       Main.setGermanFont(
             Font.createFont(Font.TRUETYPE_FONT, Fonts.class.getResourceAsStream(
-                 "_1_fonts/Orkney Light.ttf")));
+                 "/_1_fonts/Orkney Light.ttf")));
       
       Main.setGermanBoldFont(
             Font.createFont(Font.TRUETYPE_FONT, Fonts.class.getResourceAsStream(
-                  "_1_fonts/Orkney Medium.ttf")));
+                  "/_1_fonts/Orkney Medium.ttf")));
       
       Main.setHebrewHandwrittenFont(
             Font.createFont(Font.TRUETYPE_FONT, Fonts.class.getResourceAsStream(
-                  "_1_fonts/AdaAdama.ttf")));
+                  "/_1_fonts/AdaAdama.ttf")));
    }
 
 }

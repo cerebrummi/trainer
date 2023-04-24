@@ -25,7 +25,7 @@ public class LetterIconsHandwritten
          BufferedImage image = ImageIO
                .read(LetterIconsHandwritten.class
                      .getResourceAsStream(
-                           "letterIconsHandwritten/" + letter.name() + ".png"));
+                           "/letterIconsHandwritten/" + letter.name() + ".png"));
          if (image != null)
          {
             letterIconsNikudHandwrittenMap.put(letter, image);

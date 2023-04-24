@@ -1,5 +1,6 @@
 package vokabeltrainer.types;
 
+import java.io.File;
 import java.text.Collator;
 import java.util.Locale;
 import java.util.Vector;
@@ -146,7 +147,7 @@ public class Chapter implements Comparable<Chapter>
    public enum Database
    {
       GRUNDWORTSCHATZADAADAMA(
-            "grundwortschatz",
+    		"grundwortschatz",
             "Grundwortschatz",
             "630 Vokabeln",
             "Neuhebräisch"),

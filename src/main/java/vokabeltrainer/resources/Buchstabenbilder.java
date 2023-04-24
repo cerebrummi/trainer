@@ -36,7 +36,7 @@ public class Buchstabenbilder
          BufferedImage picture = ImageIO
                .read(Buchstabenbilder.class
                      .getResourceAsStream(
-                           "buchstabenbilder/" + letter.name() + ".png"));
+                           "/buchstabenbilder/" + letter.name() + ".png"));
 
          if (!(NikudLetter.SPACE == letter || NikudLetter.GERESCH == letter
                || NikudLetter.GERSCHAYIM == letter))
