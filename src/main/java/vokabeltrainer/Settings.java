@@ -1,4 +1,4 @@
-package vokabeltrainer;
+﻿package vokabeltrainer;
 
 import java.awt.Font;
 import java.awt.image.BufferedImage;
@@ -133,7 +133,7 @@ public class Settings
 
    public static String getWindowTitle()
    {
-      return "Cerebrummi�";
+      return "Cerebrummi©";
    }
 
    public static BufferedImage getSound()

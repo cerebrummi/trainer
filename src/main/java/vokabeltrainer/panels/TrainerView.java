@@ -732,6 +732,8 @@ public class TrainerView extends BackgroundPanelTiled
       scroller.setMinimumSize(new Dimension(490, 40));
       scroller.setMaximumSize(new Dimension(510, 40));
       scroller.setBorder(BorderFactory.createEmptyBorder());
+      scroller.getViewport().setBackground(ApplicationColors.getTexturedBackgroundColor());
+      scroller.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       answerPanel1.add(correctAnswer);
       answerPanel1.add(correctAnswer2);

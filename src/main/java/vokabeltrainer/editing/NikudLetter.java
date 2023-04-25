@@ -1,4 +1,4 @@
-package vokabeltrainer.editing;
+Ôªøpackage vokabeltrainer.editing;
 
 import java.util.StringJoiner;
 
@@ -65,7 +65,7 @@ public enum NikudLetter
    HAEI(
          "\u05D4",
          " 05D4",
-         "h‰i",
+         "h√§i",
          "Haus",
          NikudLetterDistinction.LETTER,
          18,
@@ -209,7 +209,7 @@ public enum NikudLetter
    PAEI(
          "\u05E4",
          " 05E4",
-         "p‰i",
+         "p√§i",
          "Post",
          NikudLetterDistinction.LETTER,
          17,
@@ -217,7 +217,7 @@ public enum NikudLetter
    FAEISSOFIT(
          "\u05E3",
          " 05E3",
-         "f‰issofit",
+         "f√§issofit",
          "Feder",
          NikudLetterDistinction.LETTER,
          18,
@@ -297,7 +297,7 @@ public enum NikudLetter
    TSERE(
          "\u05B5",
          " 05B5",
-         "zerÈ = e",
+         "zer√© = e",
          "",
          NikudLetterDistinction.LOWER_PUNKTATION,
          0,

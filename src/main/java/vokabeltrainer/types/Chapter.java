@@ -1,6 +1,5 @@
 package vokabeltrainer.types;
 
-import java.io.File;
 import java.text.Collator;
 import java.util.Locale;
 import java.util.Vector;

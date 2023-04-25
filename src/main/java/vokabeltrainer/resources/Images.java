@@ -101,7 +101,7 @@ public class Images
       // "/_2_images/jewish-1159704_1280.jpg":
 
       ApplicationImages.setL18n(ImageIO.read(
-            Images.class.getResourceAsStream("/_2_images/l18n.png")));
+            Images.class.getResourceAsStream("/_2_images/L18n.png")));
       
       ApplicationImages.setLanguages(ImageIO.read(
             Images.class.getResourceAsStream("/_2_images/languages.png")));
