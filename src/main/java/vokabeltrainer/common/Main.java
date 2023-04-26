@@ -39,9 +39,13 @@ public final class Main
    private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
 
    // -Dsun.java2d.uiScale=1 
+   
+   /*Run your application with the agent enabled:
+	mvn -Pnative -Dagent exec:exec@java-agent
+    */
 
    public static void main(String[] args)
-   {
+   {	  
       try
       {
          Fonts.read();
@@ -53,6 +57,8 @@ public final class Main
                      "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
+      
+	  new Settings();
 
       try
       {

@@ -18,10 +18,9 @@ import vokabeltrainer.types.LanguageSettings;
 
 public class Settings
 {
-   private final static Font buttonFont = Main.getGermanFont(16F);
-   private final static Font toolbarButtonFont = Main.getHeaderFont(26F);
-   private final static Font secondaryToolbarButtonFont = Main
-         .getHeaderFont(18F);
+   private static Font buttonFont;
+   private static Font toolbarButtonFont;
+   private static Font secondaryToolbarButtonFont;
 
    private static boolean soundOn = true;
    private static String chosenExpressionPath = null;
@@ -43,8 +42,11 @@ public class Settings
    private static UUID translationUUID = null;
    private static String anyName = null;
 
-   private Settings()
+   public Settings()
    {
+	  buttonFont = Main.getGermanFont(16F);
+	  toolbarButtonFont = Main.getHeaderFont(26F);
+	  secondaryToolbarButtonFont = Main.getHeaderFont(18F);
    }
 
    public static String getVersion()

@@ -1,4 +1,4 @@
-package vokabeltrainer.words;
+﻿package vokabeltrainer.words;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

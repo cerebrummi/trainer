@@ -15,17 +15,17 @@ public enum Repetition
    TWO_DAYS(
          Period.ofDays(2), Translation._2_TAGE),
    FIVE_DAYS(
-         Period.ofDays(4), Translation._5_TAGE),
+         Period.ofDays(5), Translation._5_TAGE),
    ELEVEN_DAYS(
-         Period.ofWeeks(1), Translation._11_TAGE),
+         Period.ofDays(11), Translation._11_TAGE),
    NINETEEN_DAYS(
-         Period.ofWeeks(2), Translation._19_TAGE),
+         Period.ofDays(19), Translation._19_TAGE),
    ONE_MONTH(
          Period.ofMonths(1), Translation._1_MONAT),
    TWO_MONTHS(
          Period.ofMonths(2), Translation._2_MONATE),
    FIVE_MONTHS(
-         Period.ofMonths(4), Translation._5_MONATE),
+         Period.ofMonths(5), Translation._5_MONATE),
    DONE(
          Period.ofYears(100), Translation.FERTIG);
    

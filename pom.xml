@@ -13,7 +13,7 @@
 		<maven.compiler.target>14</maven.compiler.target>
 		<maven.compiler.source>14</maven.compiler.source>
 		<imageName>cerebrummi</imageName>
-		<mainClass>vokabeltrainer.common.Main</mainClass>
+		<mainClass>src\main\java\vokabeltrainer.common.Main</mainClass>
 		<project.build.directory>C:\Users\heeren\Documents\cerebrummi</project.build.directory>
 	</properties>
 
