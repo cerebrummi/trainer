@@ -3,6 +3,8 @@ package vokabeltrainer.panels.trainer.dialog;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -38,8 +40,9 @@ public class StartTrainingView extends JDialog
             Dialog.ModalityType.APPLICATION_MODAL);
 
       training = false;
-
-      setSize(982, 480);
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      setSize(Math.min(screenSize.width - 60, 1600),
+              Math.min(screenSize.height - 60, 900));
       layout = new JPanel();
       layout.setBorder(BorderFactory.createLineBorder(new Color(169, 136, 103),
             15, false));

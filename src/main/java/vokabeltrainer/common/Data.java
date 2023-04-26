@@ -1434,7 +1434,7 @@ public final class Data
          TrainingTableRow chapterRow = new TrainingTableRow();
          chapterRow.setFieldOfTraining(fieldOfTraining);
          chapterRow.setChapter(chapter);
-         chapterRow.setField(chapter.getName());
+         chapterRow.setField(chapter.getDatabaseName() + " | "+chapter.getName());
          chapterRow.setExpressionListOldWords(
                findSetOfOldExpressionsToBeTestedPerChapter(chapter,
                      oldToBeTested));

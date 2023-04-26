@@ -22,7 +22,7 @@ public class TrainingTableColumnModel extends DefaultTableColumnModel
       column.setHeaderValue(translator.realisticTranslate(Translation.KAPITEL));
       column.setCellRenderer(rendererEditor);
       column.setCellEditor(rendererEditor);
-      column.setPreferredWidth(500);
+      column.setPreferredWidth(850);
       addColumn(column);
 
       TableColumn column1 = new TableColumn();
