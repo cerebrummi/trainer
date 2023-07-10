@@ -142,31 +142,8 @@ public class LetterHelper
             System.out.println("LetterHelper: " + codeList.get(i));
          }
       }
-
-      LinkedList<LetterForAnalysis> analysisListWithoutDoubleSpaceAndWithoutEndSpace = new LinkedList<>();
-
-      for (int i = 0; i < analysisList.size(); i++)
-      {
-         if (i > 0 && NikudLetter.SPACE == analysisList.get(i).getContent()
-               && NikudLetter.SPACE == analysisListWithoutDoubleSpaceAndWithoutEndSpace
-                     .get(i - 1)
-                     .getContent())
-         {
-            // nothing, this would lead to double space
-         }
-         else if (i == analysisList.size() - 1
-               && NikudLetter.SPACE == analysisList.get(i).getContent())
-         {
-            // nothing, this would lead to end space
-         }
-         else
-         {
-            analysisListWithoutDoubleSpaceAndWithoutEndSpace
-                  .add(analysisList.get(i));
-         }
-      }
-
-      return analysisListWithoutDoubleSpaceAndWithoutEndSpace;
+      
+      return analysisList;
    }
 
    public static boolean areLettersEqual(LetterForAnalysis one,

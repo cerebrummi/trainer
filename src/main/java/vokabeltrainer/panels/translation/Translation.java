@@ -187,6 +187,7 @@ public enum Translation
    NAECHSTES_WORT("nächstes Wort"),
    NEU_LERNEN("neu lernen"),
    NEUE_VOKABEL("neue Vokabel"),
+   NEUER_TEXT("neuer Text"),
    NEUE_WOERTER("neue Wörter"),
    NEUES_SUCHWORT_DEUTSCH("Neues Suchwort Deutsch"),
    NEUES_SUCHWORT_HEBRAEISCH("Neues Suchwort Hebräisch"),

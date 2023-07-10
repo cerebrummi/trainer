@@ -50,6 +50,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    private static final long serialVersionUID = 4956932074948450143L;
 
    private JButton newWordPunktationButton;
+   private JButton newTextPunktationButton;
    private JPanel tablePanel;
    private Chapter currentChapter;
    private ChapterComboBox chapterBox;
@@ -119,6 +120,10 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    {
       newWordPunktationButton
             .addActionListener(event -> openNewNikudExpressionDialog());
+      
+      // TODO
+      /*newTextPunktationButton
+      .addActionListener(event -> openNewNikudTextDialog());*/
 
       chapterBox.addActionListener(event -> {
          this.currentChapter = chapterBox
@@ -260,6 +265,10 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       leftside.setLayout(new BullsEyeLayout(leftside));
       leftside.setBackground(ApplicationColors.getBackgroundGold());
 
+      JPanel center = new JPanel();
+      center.setLayout(new TotemLayout(center));
+      center.setBackground(ApplicationColors.getBackgroundGold());
+      
       newWordPunktationButton = new JButton(translator.realisticTranslate(Translation.NEUE_VOKABEL));
       newWordPunktationButton.setFont(Main.getGermanFont(16F));
       newWordPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -270,7 +279,19 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       newWordPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
             10, 10, ApplicationColors.getGreen()));
 
-      leftside.add(newWordPunktationButton);
+      newTextPunktationButton = new JButton(translator.realisticTranslate(Translation.NEUER_TEXT));
+      newTextPunktationButton.setFont(Main.getGermanFont(16F));
+      newTextPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
+      newTextPunktationButton.setMinimumSize(new Dimension(300, 60));
+      newTextPunktationButton.setMaximumSize(new Dimension(300, 60));
+      newTextPunktationButton
+            .setIcon(new ImageIcon(ApplicationImages.getNewWord()));
+      newTextPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
+            10, 10, ApplicationColors.getGreen()));
+
+      center.add(newWordPunktationButton);
+      center.add(newTextPunktationButton);
+      leftside.add(center);
       return leftside;
    }
 

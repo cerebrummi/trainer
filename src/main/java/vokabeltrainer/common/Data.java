@@ -1036,7 +1036,7 @@ public final class Data
          else
          {
             System.out.println(
-                  "Data: Search: Es wurde eine nicht berÃ¼cksichtigte Kombination gefunden:\n"
+                  "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
                         + "Language = " + language + ", kind = " + kind
                         + ", search = " + search + "\n" + "chapter = " + chapter
                         + ", command = " + command + ", sortForDate = "

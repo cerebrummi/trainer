@@ -15,7 +15,7 @@ public class GermanDocument extends PlainDocument
 
    private String signPattern;
    private String numberPattern;
-   private int numberOfLettersAllowed = 100;
+   private int numberOfLettersAllowed = 300;
 
    public GermanDocument(boolean withComma)
    {
