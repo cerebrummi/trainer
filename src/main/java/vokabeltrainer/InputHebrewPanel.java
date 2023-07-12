@@ -26,7 +26,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.text.JTextComponent;
 
@@ -42,9 +41,9 @@ public class InputHebrewPanel extends JTextArea
 {
    private static final long serialVersionUID = 2787773393300243696L;
 
-   private JTextField hebrewField;
-   private JTextField pleneField;
-   private JTextField defektivField;
+   private JTextArea hebrewField;
+   private JTextArea pleneField;
+   private JTextArea defektivField;
 
    private JButton toggleButton;
 
@@ -326,7 +325,9 @@ public class InputHebrewPanel extends JTextArea
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
 
-      pleneField = new JTextField();
+      pleneField = new JTextArea();
+      pleneField.setLineWrap(true);
+      pleneField.setWrapStyleWord(true);
       pleneField.setDocument(new NikudDocument(true));
       pleneField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       pleneField.setFont(Main.getHebrewFont(29F));
@@ -338,7 +339,9 @@ public class InputHebrewPanel extends JTextArea
             .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__PLENE)));
       components.add(pleneField);
 
-      defektivField = new JTextField();
+      defektivField = new JTextArea();
+      defektivField.setLineWrap(true);
+      defektivField.setWrapStyleWord(true);
       defektivField.setDocument(new NikudDocument(true));
       defektivField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       defektivField.setFont(Main.getHebrewFont(29F));
@@ -363,14 +366,16 @@ public class InputHebrewPanel extends JTextArea
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
 
-      hebrewField = new JTextField();
+      hebrewField = new JTextArea();
+      hebrewField.setLineWrap(true);
+      hebrewField.setWrapStyleWord(true);
       hebrewField.setDocument(new NikudDocument(true));
       hebrewField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       hebrewField.setFont(Main.getHebrewFont(29F));
       hebrewField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 50,
-            (heightTotal - heightBorderTitel) / 2));
+            (heightTotal - heightBorderTitel)));
       hebrewField.setMaximumSize(new Dimension(Settings.getKeyboardWidth() - 50,
-            (heightTotal - heightBorderTitel) / 2));
+            (heightTotal - heightBorderTitel)));
       hebrewField.setBorder(BorderFactory
             .createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
 

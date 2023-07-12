@@ -268,7 +268,7 @@ public final class Main
 
    public static Font getHebrewFont(float size)
    {
-      return hebrewFont.deriveFont(size);
+      return hebrewFont.deriveFont(0, size);
    }
 
    public static Font getHebrewHandwrittenFont(float size)

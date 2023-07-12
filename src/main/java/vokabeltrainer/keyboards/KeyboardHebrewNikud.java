@@ -36,7 +36,7 @@ public class KeyboardHebrewNikud extends JPanel
 
    public KeyboardHebrewNikud(JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight,
-         boolean addTextField)
+         boolean addTextField, boolean addTextToTheRight)
    {
       scale = new Scale(BUTTON_SIZE);
       
@@ -65,14 +65,23 @@ public class KeyboardHebrewNikud extends JPanel
 
       this.components = arrayList;
 
-      setLayout(new TotemLayout(this, 10));
+      if(addTextToTheRight)
+      {
+    	  setLayout(new TrainLayout(this, 10));
+      }
+      else
+      {
+    	  setLayout(new TotemLayout(this, 10));
+      }
+      
+      
       this.setOpaque(false);
       this.setPreferredSize(new Dimension(Settings.getKeyboardWidth(),
             textFieldHeight + 10 + 218));
 
       if (textfield != null && addTextField)
       {
-         add(textfield);
+    	  add(textfield);
       }
       
       if (textfield != null && !(textfield instanceof InputHebrewPanel))

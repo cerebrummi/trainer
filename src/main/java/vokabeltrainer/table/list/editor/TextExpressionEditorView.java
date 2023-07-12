@@ -6,20 +6,17 @@ import java.awt.ComponentOrientation;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Vector;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -32,17 +29,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.ListCellRenderer;
-import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
-
 import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.InfoTextField;
@@ -51,18 +43,13 @@ import vokabeltrainer.InputHebrewPanel.Selection;
 import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
-import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Main;
-import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewNikud;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
-import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableMultiselect;
-import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableRow;
-import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -70,29 +57,25 @@ import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Hebrew;
 import vokabeltrainer.types.SortingIndex;
-import vokabeltrainer.types.grammatical.Binjan;
-import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
-import vokabeltrainer.types.grammatical.GrammaticalPerson;
-import vokabeltrainer.types.grammatical.Numerus;
-import vokabeltrainer.types.grammatical.VerbTimes;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
-import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
-public class NikudExpressionEditorView extends JDialog
+public class TextExpressionEditorView extends JDialog
       implements ExpressionEditorViewConnector
 {
    private static final int WIDTH_INFO_PANEL = 240;
 
    private static final int WIDTH_INPUT_PANEL = Settings.getKeyboardWidth();
+   
+   private static final int WIDTH_PANEL = 320;
 
    private static final long serialVersionUID = 5853498340870217732L;
    
    private Translator translator = Common.getTranslator();
    private Expression expression;
    private boolean newExpression;
-   private JTextField german;
+   private JTextArea german;
    private InputHebrewPanel hebrew;
 
    private JTextField indexField;
@@ -120,41 +103,15 @@ public class NikudExpressionEditorView extends JDialog
    private String searchwordsJListHebrewTitle = translator.realisticTranslate(Translation.HEBRAEISCHE_SUCHWOERTER);
    private String chapterTitle = translator.realisticTranslate(Translation.LEKTION);
    private JComboBox<String> chapter;
-   private JTextPane extraInfo;
-   private JScrollPane extraInfoScroller;
+
    private JButton pasteButton;
    private JButton cutButton;
    private JButton copyButton;
 
-   private ExpressionKindTableMultiselect expressionKindTable;
    private boolean frozen;
 
    @SuppressWarnings("unused")
    private NikudExpressionEditorControllerConnector connector;
-
-   private JPanel binjanBoxPanel;
-
-   private JPanel genderBoxPanel;
-
-   private JPanel grammaticalPersonBoxPanel;
-
-   private JPanel numerusBoxPanel;
-
-   private JPanel verbTimesBoxPanel;
-
-   private JComboBox<Binjan> binjanBox;
-
-   private JComboBox<Gender> genderBox;
-
-   private JComboBox<GrammaticalPerson> grammaticalPersonBox;
-
-   private JComboBox<Numerus> numerusBox;
-
-   private JComboBox<VerbTimes> verbTimesBox;
-
-   private JPanel definitionPanel;
-
-   private JScrollPane scrollPaneExpressionTable;
 
    private JComboBox<String> databaseNameField;
 
@@ -166,7 +123,7 @@ public class NikudExpressionEditorView extends JDialog
 	return imageButton;
 }
 
-public NikudExpressionEditorView(
+public TextExpressionEditorView(
          NikudExpressionEditorControllerConnector connector)
    {
       super(Common.getjFrame(), Settings.getWindowTitle(),
@@ -192,8 +149,6 @@ public NikudExpressionEditorView(
       initGuiFields();
       layout.add(initInput());
       layout.add(initInfosLeft());
-      layout.add(initInfosRight());
-      layout.add(initInfosExtra());
 
       outerLayout.add(initTopPanel());
       outerLayout.add(layout);
@@ -202,7 +157,7 @@ public NikudExpressionEditorView(
 
       initController();
       Component[] focusList = { german, hebrew, newSearchwordGerman,
-            newSearchwordHebrew, extraInfo };
+            newSearchwordHebrew };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
    }
@@ -212,20 +167,22 @@ public NikudExpressionEditorView(
       Font germanfont = Main.getGermanFont(16F);
       Font hebrewfont = Main.getHebrewFont(30F);
 
-      german = new JTextField();
+      german = new JTextArea();
+      german.setLineWrap(true);
+      german.setWrapStyleWord(true);
       german.setBorder(makeBorderBlank(germanTitle));
       german.setFont(germanfont);
-      german.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
-      german.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
+      german.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 150));
+      german.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 250));
       german.setDocument(new GermanDocument(true));
 
       if (Settings.isSimpleHebrewInput())
       {
-         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6, true, this);
+         hebrew = new InputHebrewPanel(Selection.SIMPLE, 415, 6, true, this);
       }
       else
       {
-         hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 152, 6, true,
+         hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 415, 6, true,
                this);
       }
       hebrew.setBlankBorder();
@@ -384,7 +341,7 @@ public NikudExpressionEditorView(
       chapter.setBorder(new TitledBorder(this.chapterTitle));
       chapter.setOpaque(false);
       chapter.setBackground(new Color(0, 0, 0, 0));
-      chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
+      chapter.setMinimumSize(new Dimension(WIDTH_PANEL, 70));
       chapter.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
 
       indexField = new JTextField();
@@ -397,32 +354,11 @@ public NikudExpressionEditorView(
 
       databaseNameField = new JComboBox<>();
       databaseNameField.setFont(Settings.getButtonFont());
-      databaseNameField.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
+      databaseNameField.setMinimumSize(new Dimension(WIDTH_PANEL, 70));
       databaseNameField.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       databaseNameField.setBorder(new TitledBorder(translator.realisticTranslate(Translation.DATENBANK)));
       databaseNameField.setEditable(true);
       databaseNameField.setMaximumRowCount(20);
-
-      extraInfo = new JTextPane();
-      extraInfo.setFont(Main.getHebrewFont(30));
-      extraInfo.setBorder(
-            BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.WEITERE_INFORMATIONEN)));
-      extraInfo.setDocument(new ExtraInformationDocument());
-      StyledDocument doc = extraInfo.getStyledDocument();
-      SimpleAttributeSet style = new SimpleAttributeSet();
-      StyleConstants.setForeground(style, ApplicationColors.getDarkGold());
-      StyleConstants.setFontSize(style, 20);
-      StyleConstants.setFontFamily(style, "Serif");
-      doc.setParagraphAttributes(0, doc.getLength(), style, true);
-      extraInfo.setFocusTraversalKeys(
-            KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
-      extraInfo.setFocusTraversalKeys(
-            KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
-
-      components.add(extraInfo);
-      extraInfoScroller = new JScrollPane(extraInfo);
-      extraInfoScroller.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
-      extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 240));
 
       pasteButton = new JButton(new DefaultEditorKit.PasteAction());
       pasteButton.setIcon(new ImageIcon(ApplicationImages.getPaste()));
@@ -447,86 +383,7 @@ public NikudExpressionEditorView(
       copyButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
       copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
-      expressionKindTable = new ExpressionKindTableMultiselect(
-            ExpressionKind.getModelForMultiselect(), WIDTH_INFO_PANEL, this);
-
-      binjanBox = new JComboBox<>(Binjan.values());
-      binjanBox.setFont(Main.getGermanFont(14F));
-      binjanBox.setEditable(false);
-      binjanBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      binjanBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      binjanBox.setMaximumRowCount(Binjan.values().length);
-      binjanBoxPanel = new JPanel();
-      TotemLayout binjanLayout = new TotemLayout(binjanBoxPanel);
-      binjanBoxPanel.setLayout(binjanLayout);
-      binjanBoxPanel.add(binjanBox);
-      binjanBoxPanel.setOpaque(false);
-      binjanBoxPanel.setBackground(ApplicationColors.getTransparent());
-      binjanBoxPanel.setBorder(new TitledBorder(translator.realisticTranslate(Translation.BINJAN___STAMM)));
-
-      genderBox = new JComboBox<>(Gender.values());
-      genderBox.setFont(Main.getGermanFont(14F));
-      genderBox.setEditable(false);
-      genderBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      genderBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      genderBox.setMaximumRowCount(Gender.values().length);
-      genderBoxPanel = new JPanel();
-      TotemLayout genderLayout = new TotemLayout(genderBoxPanel);
-      genderBoxPanel.setLayout(genderLayout);
-      genderBoxPanel.add(genderBox);
-      genderBoxPanel.setOpaque(false);
-      genderBoxPanel.setBackground(ApplicationColors.getTransparent());
-      genderBoxPanel.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.GESCHLECHT)));
-
-      grammaticalPersonBox = new JComboBox<>(GrammaticalPerson.values());
-      grammaticalPersonBox.setFont(Main.getGermanFont(14F));
-      grammaticalPersonBox.setEditable(false);
-      grammaticalPersonBox
-            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      grammaticalPersonBox
-            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      grammaticalPersonBox
-            .setMaximumRowCount(GrammaticalPerson.values().length);
-      grammaticalPersonBoxPanel = new JPanel();
-      TotemLayout grammaticalPersonLayout = new TotemLayout(
-            grammaticalPersonBoxPanel);
-      grammaticalPersonBoxPanel.setLayout(grammaticalPersonLayout);
-      grammaticalPersonBoxPanel.add(grammaticalPersonBox);
-      grammaticalPersonBoxPanel.setOpaque(false);
-      grammaticalPersonBoxPanel
-            .setBackground(ApplicationColors.getTransparent());
-      grammaticalPersonBoxPanel
-            .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.GRAMMATISCHE_PERSON)));
-
-      numerusBox = new JComboBox<>(Numerus.values());
-      numerusBox.setFont(Main.getGermanFont(14F));
-      numerusBox.setEditable(false);
-      numerusBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      numerusBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      numerusBox.setMaximumRowCount(Numerus.values().length);
-      numerusBoxPanel = new JPanel();
-      TotemLayout numerusLayout = new TotemLayout(numerusBoxPanel);
-      numerusBoxPanel.setLayout(numerusLayout);
-      numerusBoxPanel.add(numerusBox);
-      numerusBoxPanel.setOpaque(false);
-      numerusBoxPanel.setBackground(ApplicationColors.getTransparent());
-      numerusBoxPanel.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.NUMERUS)));
-
-      verbTimesBox = new JComboBox<>(VerbTimes.values());
-      verbTimesBox.setFont(Main.getGermanFont(14F));
-      verbTimesBox.setEditable(false);
-      verbTimesBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbTimesBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbTimesBox.setMaximumRowCount(VerbTimes.values().length);
-      verbTimesBoxPanel = new JPanel();
-      TotemLayout verbConjugationLayout = new TotemLayout(verbTimesBoxPanel);
-      verbTimesBoxPanel.setLayout(verbConjugationLayout);
-      verbTimesBoxPanel.add(verbTimesBox);
-      verbTimesBoxPanel.setOpaque(false);
-      verbTimesBoxPanel.setBackground(ApplicationColors.getTransparent());
-      verbTimesBoxPanel.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.ZEITFORM)));
-
-      keyboard = new KeyboardHebrewNikud(hebrew, components, 152, true, false);
+      keyboard = new KeyboardHebrewNikud(hebrew, components, 152, true, true);
    }
 
    private TitledBorder makeBorderBlank(String title)
@@ -548,6 +405,12 @@ public NikudExpressionEditorView(
       horizontal.add(databaseNameField);
       horizontal.add(chapter);
       horizontal.add(indexField);
+      horizontal.add(copyButton);
+      horizontal.add(cutButton);
+      horizontal.add(pasteButton);
+      lastModiefiedLabel = new JLabel();
+      lastModiefiedLabel.setFont(Settings.getButtonFont());
+      horizontal.add(lastModiefiedLabel);
       return horizontal;
    }
 
@@ -595,87 +458,6 @@ public NikudExpressionEditorView(
       return vertical;
    }
 
-   private Component initInfosRight()
-   {
-      JPanel vertical = new JPanel();
-      vertical.setOpaque(false);
-      vertical.setBackground(ApplicationColors.getTransparent());
-      vertical.setLayout(new TotemLayout(vertical, 15));
-
-      scrollPaneExpressionTable = new JScrollPane(expressionKindTable);
-      scrollPaneExpressionTable
-            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-      scrollPaneExpressionTable
-            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
-      scrollPaneExpressionTable.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory
-                  .createLineBorder(ApplicationColors.getLightGrayGold()),
-            translator.realisticTranslate(Translation.WORTARTEN__MEHRFACHAUSWAHL_)));
-
-      lastModiefiedLabel = new JLabel();
-      lastModiefiedLabel.setFont(Settings.getButtonFont());
-
-      JPanel horizontal = new JPanel();
-      horizontal.setOpaque(false);
-      horizontal.setBackground(ApplicationColors.getTransparent());
-      horizontal.setLayout(new TrainLayout(horizontal, 15));
-
-      horizontal.add(copyButton);
-      horizontal.add(cutButton);
-      horizontal.add(pasteButton);
-
-      vertical.add(scrollPaneExpressionTable);
-      vertical.add(lastModiefiedLabel);
-      vertical.add(extraInfoScroller);
-      vertical.add(horizontal);
-
-      return vertical;
-   }
-
-   private Component initInfosExtra()
-   {
-      JPanel vertical = new JPanel();
-      vertical.setOpaque(true);
-      vertical.setBackground(ApplicationColors.getTexturedBackgroundColor());
-      vertical.setLayout(new TotemLayout(vertical, 15));
-
-      definitionPanel = new JPanel();
-      TotemLayout definitionLayout = new TotemLayout(definitionPanel, 5);
-      definitionPanel.setLayout(definitionLayout);
-      definitionPanel.setBorder(BorderFactory.createEmptyBorder());
-      definitionPanel.setOpaque(true);
-      definitionPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
-
-      JScrollPane scrollPane2 = new JScrollPane(definitionPanel);
-      scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-      scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 600));
-      scrollPane2.setBorder(BorderFactory.createEmptyBorder());
-      scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
-      scrollPane2.setBackground(ApplicationColors.getTexturedBackgroundColor());
-      scrollPane2.getViewport().setBackground(ApplicationColors.getTexturedBackgroundColor());
-
-      vertical.add(scrollPane2);
-
-      vertical.add(initImagePanel());
-      
-      return vertical;
-   }
-
-   private Component initImagePanel() 
-   {
-	   JPanel vertical = new JPanel();
-	   vertical.setOpaque(false);
-	   vertical.setBackground(ApplicationColors.getTransparent());
-	   vertical.setLayout(new BullsEyeLayout(vertical));
-	   
-	   imageButton = new ImageButton();
-	   imageButton.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 40, WIDTH_INFO_PANEL - 40));
-	   imageButton.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 40, WIDTH_INFO_PANEL - 40));
-	   vertical.add(imageButton);
-	   
-	   return vertical;
-   }
-
    private void resetAllBorders()
    {
       chapter.setBorder(makeBorderBlank(this.chapterTitle));
@@ -685,12 +467,22 @@ public NikudExpressionEditorView(
 
    private void initController()
    {
-      german.addActionListener(event -> {
-         if (!german.getText().isEmpty())
-         {
-            german.setBorder(makeBorderBlank(this.germanTitle));
-         }
-      });
+      german.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (!german.getText().isEmpty())
+		         {
+		            german.setBorder(makeBorderBlank(germanTitle));
+		         }
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (!german.getText().isEmpty())
+		         {
+		            german.setBorder(makeBorderBlank(germanTitle));
+		         }
+			}
+    	});
 
       newSearchwordGerman.addActionListener(event -> {
          String add = newSearchwordGerman.getText().replaceAll(",", "");
@@ -750,79 +542,12 @@ public NikudExpressionEditorView(
          save = false;
          this.dispose();
       });
-      
-      imageButton.addMouseListener(new MouseAdapter() {
-          @Override
-          public void mouseClicked(MouseEvent e) 
-          {
-              if (SwingUtilities.isRightMouseButton(e)) 
-              {
-                  connector.deleteImageForExpression();
-              }
-              else
-              {
-            	  connector.chooseImageForExpression();
-              }
-          }
-      });
    }
 
    public void showGrammaticalParentEnums(
          Set<GrammaticalParentEnum> grammaticalParentEnumsToShow)
    {
-      definitionPanel.removeAll();
-      if (grammaticalParentEnumsToShow.contains(GrammaticalParentEnum.GENDER))
-      {
-         definitionPanel.add(this.genderBoxPanel);
-      }
-      else
-      {
-         this.genderBox.setSelectedItem(Gender.GENDER_NA);
-      }
-      if (grammaticalParentEnumsToShow.contains(GrammaticalParentEnum.NUMERUS))
-      {
-         definitionPanel.add(this.numerusBoxPanel);
-      }
-      else
-      {
-         this.numerusBox.setSelectedItem(Numerus.NUMERUS_NA);
-      }
-      if (grammaticalParentEnumsToShow
-            .contains(GrammaticalParentEnum.GRAMMATICAL_PERSON))
-      {
-         definitionPanel.add(this.grammaticalPersonBoxPanel);
-      }
-      else
-      {
-         this.grammaticalPersonBox
-               .setSelectedItem(GrammaticalPerson.GRAMMATICALPERSON_NA);
-      }
-      if (grammaticalParentEnumsToShow.contains(GrammaticalParentEnum.BINJAN))
-      {
-         definitionPanel.add(this.binjanBoxPanel);
-      }
-      else
-      {
-         this.binjanBox.setSelectedItem(Binjan.BINJAN_NA);
-      }
-      if (grammaticalParentEnumsToShow
-            .contains(GrammaticalParentEnum.VERB_TIMES))
-      {
-         definitionPanel.add(this.verbTimesBoxPanel);
-      }
-      else
-      {
-         this.verbTimesBox.setSelectedItem(VerbTimes.VERBTIMES_NA);
-      }
-
-      JPanel filler = new JPanel();
-      filler.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 0));
-      filler.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 700));
-      filler.setBackground(ApplicationColors.getTexturedBackgroundColor());
-      definitionPanel.add(filler);
-
-      definitionPanel.validate();
-      definitionPanel.repaint();
+      
    }
 
    private boolean testForCompletness()
@@ -860,33 +585,7 @@ public NikudExpressionEditorView(
             .getLetter(cleanTextLeaveComma(expression.getGerman())));
 
       Definitions definitions = new Definitions();
-      Vector<Vector<ExpressionKindTableRow>> vektorRows = expressionKindTable
-            .getModel().getData();
-      for (Vector<ExpressionKindTableRow> vektorRow : vektorRows)
-      {
-         ExpressionKindItem expressionKind = vektorRow.get(0)
-               .getExpressionKindItem();
-         if (expressionKind.isSelected())
-         {
-            definitions.addExpressionKind(expressionKind.getKind());
-            definitions.setGrammaticalEnum(expressionKind.getKind(),
-                  binjanBox.getItemAt(binjanBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind.getKind(),
-                  genderBox.getItemAt(genderBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind.getKind(),
-                  grammaticalPersonBox
-                        .getItemAt(grammaticalPersonBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind.getKind(),
-                  numerusBox.getItemAt(numerusBox.getSelectedIndex()));
-            definitions.setGrammaticalEnum(expressionKind.getKind(),
-                  verbTimesBox.getItemAt(verbTimesBox.getSelectedIndex()));
-         }
-      }
-      if (definitions.getExpressionKindSet().isEmpty())
-      {
-         definitions.addExpressionKind(ExpressionKind.EXPRESSIONKIND_UNKNOWN);
-      }
-
+      definitions.addExpressionKind(ExpressionKind.TEXT);
       expression.setDefinitions(definitions);
 
       List<String> wordsGerman = new ArrayList<>();
@@ -910,7 +609,7 @@ public NikudExpressionEditorView(
       Settings.setRememberChapterForInput(selfChapter.getName());
 
       expression
-            .setAdditionalInformation(cleanTextLeaveComma(extraInfo.getText()));
+            .setAdditionalInformation("");
 
       if (((String) databaseNameField.getSelectedItem()).isBlank())
       {
@@ -1001,48 +700,6 @@ public NikudExpressionEditorView(
       }
       this.searchwordsJListHebrew.setModel(getSearchwordsModelHebrew());
 
-      if (newExpression)
-      {
-         expressionKindTable.setModel(ExpressionKind.getModelForMultiselect());
-         binjanBox.setSelectedIndex(0);
-         genderBox.setSelectedIndex(0);
-         grammaticalPersonBox.setSelectedIndex(0);
-         numerusBox.setSelectedIndex(0);
-         verbTimesBox.setSelectedIndex(0);
-         extraInfo.setText("");
-      }
-      else
-      {
-         Definitions definitions = expression.getDefinitions();
-         Set<ExpressionKind> kinds = definitions.getExpressionKindSet();
-         expressionKindTable
-               .setModel(ExpressionKind.getModelForMultiselect(kinds));
-
-         ExpressionKind kind;
-         if (kinds.stream().findAny().isPresent())
-         {
-            kind = kinds.stream().findAny().get();
-            binjanBox.setSelectedItem(
-                  definitions.getGrammaticalEnum(kind, Binjan.class));
-            genderBox.setSelectedItem(
-                  definitions.getGrammaticalEnum(kind, Gender.class));
-            grammaticalPersonBox.setSelectedItem(definitions
-                  .getGrammaticalEnum(kind, GrammaticalPerson.class));
-            numerusBox.setSelectedItem(
-                  definitions.getGrammaticalEnum(kind, Numerus.class));
-            verbTimesBox.setSelectedItem(
-                  definitions.getGrammaticalEnum(kind, VerbTimes.class));
-            showGrammaticalParentEnums(
-                  ExpressionKind.getSetOfGrammaticalParentEnums(kinds));
-
-            scrollPaneExpressionTable.getVerticalScrollBar()
-                  .setMaximum(expressionKindTable.getMaxScrollValue());
-            scrollPaneExpressionTable.getVerticalScrollBar()
-                  .setValue(expressionKindTable.getScrollValue());
-         }
-         extraInfo.setText(expression.getAdditionalInformation());
-      }
-
       if (expression.isDoChange())
       {
          databaseNameField.setModel(Data.getOwnDatabasesComboBoxModel());
@@ -1070,17 +727,6 @@ public NikudExpressionEditorView(
                         .format(DateTimeFormatter.ofPattern(translator.saveTranslate(Translation._DATE_TIME)))
                   + " "
                   + translator.realisticTranslate(Translation.UHR));
-      
-      if(ImageData.isImageForExpressionAvailable(expression.getUuid()))
-      {
-    	  imageButton.setIcon(new ImageIcon(ImageData.loadImage(expression.getUuid())));
-      }
-      else
-      {
-    	  imageButton.setIcon(null);
-      }
-      imageButton.validate();
-	  imageButton.repaint();
    }
 
    private DefaultComboBoxModel<String> getSearchwordsModelGerman()
@@ -1141,21 +787,7 @@ public NikudExpressionEditorView(
          this.newSearchwordHebrew.setEditable(works);
          this.newSearchwordHebrew.setVisible(works);
          this.deleteSearchwordButtonHebrew.setVisible(works);
-         this.expressionKindTable.setFrozen(frozen);
          this.databaseNameField.setEditable(works);
-         this.extraInfo.setEditable(works);
-         this.binjanBox.setEditable(works);
-         this.genderBox.setEditable(works);
-         this.numerusBox.setEditable(works);
-         this.grammaticalPersonBox.setEditable(works);
-         this.binjanBox.setEditable(works);
-         this.verbTimesBox.setEditable(works);
-         this.binjanBox.setEnabled(works);
-         this.genderBox.setEnabled(works);
-         this.numerusBox.setEnabled(works);
-         this.grammaticalPersonBox.setEnabled(works);
-         this.binjanBox.setEnabled(works);
-         this.verbTimesBox.setEnabled(works);
          this.copyButton.setVisible(works);
          this.cutButton.setVisible(works);
          this.pasteButton.setVisible(works);

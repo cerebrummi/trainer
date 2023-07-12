@@ -83,6 +83,8 @@ public class ExpressionKindHelper
    public static GrammaticalParentEnum[] SUBSTANTIV_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
 
+   public static GrammaticalParentEnum[] TEXT_ENUMS = {};
+   
    public static GrammaticalParentEnum[] UHRZEIT_ENUMS = {};
 
    public static GrammaticalParentEnum[] UMGANGSSPRACHE_ENUMS = {};

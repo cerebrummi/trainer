@@ -252,6 +252,7 @@ public enum Translation
    TABELLENAUSWAHL_LOESCHEN("Tabellenauswahl löschen"),
    TASTATUR_REGULAER("Tastatur, regulär"),
    TASTATUR_VERMISCHT("Tastatur, vermischt"),
+   TEXT("Text"),
    TINTENSPRITZER("Tintenspritzer"),
    TRAININGSEINHEIT_ERFOLGREICH("Trainingseinheit erfolgreich"),
    TRAININGSUEBERSICHT("Trainingsübersicht"),

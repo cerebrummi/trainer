@@ -13,15 +13,22 @@ import vokabeltrainer.common.ImageData;
 public class NikudExpressionEditorController implements NikudExpressionEditorControllerConnector
 {
    private NikudExpressionEditorView nikudExpressionEditorDialog;
+   private TextExpressionEditorView textExpressionEditorDialog;
    
    public NikudExpressionEditorController()
    {
       nikudExpressionEditorDialog = new NikudExpressionEditorView(this);
+      textExpressionEditorDialog = new TextExpressionEditorView(this);
    }
 
    public NikudExpressionEditorView getNikudExpressionEditorDialog()
    {
       return nikudExpressionEditorDialog;
+   }
+   
+   public TextExpressionEditorView getTextExpressionEditorDialog()
+   {
+	   return textExpressionEditorDialog;
    }
 
    @Override

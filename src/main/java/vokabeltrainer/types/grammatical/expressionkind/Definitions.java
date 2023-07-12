@@ -128,6 +128,11 @@ public class Definitions
             .getGrammaticalEnum(clazz)
             .toInfo();
    }
+   
+   public boolean isExpressionKindText()
+   {
+	   return definitions.keySet().stream().anyMatch(kind -> kind.equals(ExpressionKind.TEXT));
+   }
 
    public String getExpressionKindDescriptions()
    {
