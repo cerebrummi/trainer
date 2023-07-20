@@ -1067,7 +1067,7 @@ public NikudExpressionEditorView(
             .setText(translator.realisticTranslate(Translation.VOM)
                   + " "
                   + expression.getLastModified()
-                        .format(DateTimeFormatter.ofPattern(translator.saveTranslate(Translation._DATE_TIME)))
+                        .format(DateTimeFormatter.ofPattern(translator.realisticTranslate(Translation._DATE_TIME)))
                   + " "
                   + translator.realisticTranslate(Translation.UHR));
       

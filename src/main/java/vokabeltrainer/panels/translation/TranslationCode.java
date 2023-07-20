@@ -2,7 +2,6 @@ package vokabeltrainer.panels.translation;
 
 import java.awt.ComponentOrientation;
 import java.util.Arrays;
-import vokabeltrainer.common.Common;
 
 public enum TranslationCode
 {
@@ -40,6 +39,7 @@ public enum TranslationCode
    cs_CZ("Czech (Czech Republic)", ComponentOrientation.LEFT_TO_RIGHT),
    cy("Welsh", ComponentOrientation.LEFT_TO_RIGHT),
    cy_GB("Welsh (United Kingdom)", ComponentOrientation.LEFT_TO_RIGHT),
+   
    da("Danish", ComponentOrientation.LEFT_TO_RIGHT),
    da_DK("Danish (Denmark)", ComponentOrientation.LEFT_TO_RIGHT),
    de("German", ComponentOrientation.LEFT_TO_RIGHT),
@@ -50,6 +50,7 @@ public enum TranslationCode
    de_LU("German (Luxembourg)", ComponentOrientation.LEFT_TO_RIGHT),
    de_original("German Original", ComponentOrientation.LEFT_TO_RIGHT),
    dv("Divehi", ComponentOrientation.LEFT_TO_RIGHT),
+   
    dv_MV("Divehi (Maldives)", ComponentOrientation.LEFT_TO_RIGHT),
    el("Greek", ComponentOrientation.LEFT_TO_RIGHT),
    el_GR("Greek (Greece)", ComponentOrientation.LEFT_TO_RIGHT),
@@ -268,26 +269,15 @@ public enum TranslationCode
    {
       return orientation;
    }
-   
-   public String toString()
-   {
-      return name;
-   }
 
-   public static TranslationCodeWrapper[] valuesAvailable()
+   public static TranslationCode[] valuesAvailable()
    {
-      return Common.getAvailableTranslations().stream()
-            .toArray(TranslationCodeWrapper[]::new);
+	   return Arrays
+	            .stream(TranslationCode.values())
+	            .filter(value -> TranslationCode.de_original == value || TranslationCode.en == value)
+	            .toArray(TranslationCode[]::new);
    }
    
-   public static TranslationCodeWrapper[] valuesNoOriginal()
-   {
-      return Arrays
-            .stream(TranslationCode.values())
-            .filter(value -> TranslationCode.de_original != value)
-            .map(code -> new TranslationCodeWrapper(code))
-            .toArray(TranslationCodeWrapper[]::new);
-   }
    
    public static String[] stringsNoOriginal()
    {
@@ -298,15 +288,4 @@ public enum TranslationCode
             .toArray(String[]::new);
    }
 
-   public static TranslationLanguage[]  anyLanguagesLeftToRight()
-   {
-      TranslationController controller = new TranslationController();
-      return controller.findTranslationLanguagesANY(TranslationCode.ANY_ltr_);
-   }
-   
-   public static TranslationLanguage[]  anyLanguagesRightToLeft()
-   {
-      TranslationController controller = new TranslationController();
-      return controller.findTranslationLanguagesANY(TranslationCode.ANY_rtl_);
-   }
 }

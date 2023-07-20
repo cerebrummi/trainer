@@ -1,10 +1,7 @@
 package vokabeltrainer.common;
 
-import java.util.List;
 import javax.swing.JFrame;
 import vokabeltrainer.panels.MainView;
-import vokabeltrainer.panels.translation.TranslationCodeWrapper;
-import vokabeltrainer.panels.translation.TranslationController;
 import vokabeltrainer.panels.translation.Translator;
 
 public final class Common
@@ -14,17 +11,10 @@ public final class Common
    private static boolean setMainJPanelOnlyOnce = false;
    private static boolean setJFrameOnlyOnce = false;
    private static Translator translator = new Translator();
-   private static List<TranslationCodeWrapper> availableTranslations;
 
    private Common()
    {
 
-   }
-
-   public static void loadAvailableTranslations()
-   {
-      TranslationController controller = new TranslationController();
-      controller.loadAvailableTranslations();
    }
    
    public static MainView getMainJPanel()
@@ -61,16 +51,5 @@ public final class Common
    public static void setTranslator(Translator translator)
    {
       Common.translator = translator;
-   }
-
-   public static List<TranslationCodeWrapper> getAvailableTranslations()
-   {
-      return availableTranslations;
-   }
-
-   public static void setAvailableTranslations(
-         List<TranslationCodeWrapper> availableTranslations)
-   {
-      Common.availableTranslations = availableTranslations;
    }
 }

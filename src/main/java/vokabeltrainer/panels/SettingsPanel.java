@@ -84,6 +84,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       }
       catch (IOException e1)
       {
+    	  e1.printStackTrace();
          // nothing
       }
       try
@@ -93,6 +94,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       }
       catch (IOException e)
       {
+    	  e.printStackTrace();
          // nothing
       }
 

@@ -59,6 +59,7 @@ public final class Main
       }
       
 	  new Settings();
+      CerebrummiPreferences.read();
 
       try
       {
@@ -122,10 +123,7 @@ public final class Main
                      "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-
-      CerebrummiPreferences.read();
       
-      Common.loadAvailableTranslations();
       Translator translator = Common.getTranslator();
       
       Data.initDataBase();
