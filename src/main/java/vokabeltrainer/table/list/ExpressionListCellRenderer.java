@@ -51,7 +51,12 @@ public class ExpressionListCellRenderer
          }
          return empty;
       }
-      if (index == 2 && language.equals(Language.GERMAN_TO_HEBREW))
+      if (index == 3)
+      {
+         label.setFont(Main.getHebrewHandwrittenFont(30));
+         label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+      }
+      else if (index == 2 && language.equals(Language.GERMAN_TO_HEBREW))
       {
          label.setFont(Main.getHebrewFont(20F));
          label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);

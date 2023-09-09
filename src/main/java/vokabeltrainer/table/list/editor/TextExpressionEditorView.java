@@ -21,6 +21,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -117,11 +118,7 @@ public class TextExpressionEditorView extends JDialog
 
    private JLabel lastModiefiedLabel;
 
-   private ImageButton imageButton;
-
-   public ImageButton getImageButton() {
-	return imageButton;
-}
+   private JCheckBox textBox;
 
 public TextExpressionEditorView(
          NikudExpressionEditorControllerConnector connector)
@@ -384,6 +381,9 @@ public TextExpressionEditorView(
       copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       keyboard = new KeyboardHebrewNikud(hebrew, components, 152, true, true);
+      
+      textBox = new JCheckBox("Text");
+      textBox.setSelected(true);
    }
 
    private TitledBorder makeBorderBlank(String title)
@@ -428,6 +428,7 @@ public TextExpressionEditorView(
       horizontal.add(saveButton);
       horizontal.add(restoreButton);
       horizontal.add(cancelButton);
+      horizontal.add(textBox);
 
       vertical.add(horizontal);
       return vertical;
@@ -585,7 +586,10 @@ public TextExpressionEditorView(
             .getLetter(cleanTextLeaveComma(expression.getGerman())));
 
       Definitions definitions = new Definitions();
-      definitions.addExpressionKind(ExpressionKind.TEXT);
+      if(textBox.isSelected())
+      {
+    	  definitions.addExpressionKind(ExpressionKind.TEXT);
+      }
       expression.setDefinitions(definitions);
 
       List<String> wordsGerman = new ArrayList<>();
@@ -792,6 +796,7 @@ public TextExpressionEditorView(
          this.cutButton.setVisible(works);
          this.pasteButton.setVisible(works);
          this.indexField.setEditable(works);
+         this.textBox.setEnabled(works);
          this.frozen = frozen;
          return true;
       }

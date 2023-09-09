@@ -107,7 +107,7 @@ public class ExpanderLayout
     */
    public ExpanderLayout(Container self, String testname)
    {
-      this(self, testname, LayoutMode.TEST_BULLS_EYE);
+      this(self, testname, LayoutMode.TEST_EXPANDER);
    }
 
    /**
@@ -345,7 +345,7 @@ public class ExpanderLayout
          Component comp = self.getComponent(0);
          comp.setBounds(x, y, w, h);
 
-         if (LayoutMode.TEST_BULLS_EYE == this.mode)
+         if (LayoutMode.TEST_EXPANDER == this.mode)
          {
             System.out.println("");
             System.out.println(testname + " with ExpanderLayout");

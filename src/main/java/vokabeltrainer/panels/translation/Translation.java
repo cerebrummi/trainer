@@ -41,7 +41,8 @@ public enum Translation {
 	APPLAUS("Applaus", "applause"), 
 	ARTIKEL("Artikel", "article"), 
 	AUCH_EINZELN_ANKLICKEN("auch einzeln anklicken.", "also click one by one."),
-	AUS_DEN_AUSGEWAEHLTEN_WOERTERN("Aus den ausgewählten Wörtern.", "From the selected words."), 
+	AUS_DEN_AUSGEWAEHLTEN_WOERTERN("Aus den ausgewählten Wörtern (zum Training hinzufügen).", "From the selected words (add to training)."),
+	AUS_DEN_AUSGEWAEHLTEN_WOERTERN_EINMAL("Aus den ausgewählten Wörtern (nicht zum Training hinzufügen).", "From the selected words (only once)."),
 	AUS_DEN_LEKTIONEN("Aus den Lektionen.", "From the lessons."),
 	AUF_DER_TASTATUR_DRUECKEN_("auf der Tastatur drücken.", "on the keyboard."), 
 	AUS_KAPITEL("aus Kapitel", "from chapter"),
@@ -152,6 +153,7 @@ public enum Translation {
 	HIF_IL("hif'il", "hif'il"),
 	HINWEIS__DIE_VOKABELN_EINGEBAUTER_DATENBANKEN("Hinweis: Die Vokabeln eingebauter Datenbanken", "Hint: The vocabulary of built-in databases"),
 	HITPA_EL("hitpa'el", "hitpa'el"), 
+	HOEFLICHKEITSFORMEL("Höflichkeitsformel", "courtesy formula"),
 	HUF_AL___HOFAL("huf'al / hofal", "huf'al / hofal"),
 
 	IGEL("Igel", "j"),
@@ -299,7 +301,7 @@ public enum Translation {
 	VOKABELN_ABFRAGEN("Vokabeln abfragen", "query vocabulary"),
 	VOKABELN_EINER_DATENBANK_EXPORTIEREN("Vokabeln einer Datenbank exportieren", "export vocabulary from a database"), 
 	VOKABELTRAINER("Vokabeltrainer", "Vokabeltrainer"),
-	VOM("vom", "from the"), 
+	VOM("vom", "date"), 
 	VORRAT("Vorrat", "stock"),
 
 	WAEHLEN_SIE_EINE_DATENBANK_FUER_DEN_EXPORT_AUS_("Wählen Sie eine Datenbank für den Export aus.", "Select a database for export."),

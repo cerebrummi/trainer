@@ -1,9 +1,12 @@
 package vokabeltrainer.panels.success;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 
+import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -58,6 +61,51 @@ public class InformationTab extends JPanel
       box.setHorizontalAlignment(SwingConstants.CENTER);
       boxWrapper.add(box);
       
+      JPanel checkWrapper = new JPanel();
+      TotemLayout checkLayout = new TotemLayout(checkWrapper);
+      checkWrapper.setLayout(checkLayout);
+      checkWrapper.setMinimumSize(new Dimension(355, 1000));
+      checkWrapper.setMaximumSize(new Dimension(355, 1000));
+      checkWrapper.setPreferredSize(new Dimension(355, 1000));
+      checkWrapper.setBackground(ApplicationColors.getDarkGold());
+      checkWrapper.setOpaque(true);
+      JCheckBox heuteCheck = new JCheckBox(translator.realisticTranslate(Translation.HEUTE));
+      heuteCheck.setFont(Main.getGermanFont(20F));
+      heuteCheck.setForeground(ApplicationColors.getWhite());
+      JCheckBox morgenCheck = new JCheckBox(translator.realisticTranslate(Translation.MORGEN));
+      morgenCheck.setFont(Main.getGermanFont(20F));
+      morgenCheck.setForeground(ApplicationColors.getWhite());
+      JCheckBox tage_2_Check = new JCheckBox(translator.realisticTranslate(Translation._2_TAGE));
+      tage_2_Check.setFont(Main.getGermanFont(20F));
+      tage_2_Check.setForeground(ApplicationColors.getWhite());
+      JCheckBox tage_5_Check = new JCheckBox(translator.realisticTranslate(Translation._5_TAGE));
+      tage_5_Check.setFont(Main.getGermanFont(20F));
+      tage_5_Check.setForeground(ApplicationColors.getWhite());
+      JCheckBox tage_11_Check = new JCheckBox(translator.realisticTranslate(Translation._11_TAGE));
+      tage_11_Check.setFont(Main.getGermanFont(20F));
+      tage_11_Check.setForeground(ApplicationColors.getWhite());
+      JCheckBox tage_19_Check = new JCheckBox(translator.realisticTranslate(Translation._19_TAGE));
+      tage_19_Check.setFont(Main.getGermanFont(20F));
+      tage_19_Check.setForeground(ApplicationColors.getWhite());
+      JCheckBox monate_1_Check = new JCheckBox(translator.realisticTranslate(Translation._1_MONAT));
+      monate_1_Check.setFont(Main.getGermanFont(20F));
+      monate_1_Check.setForeground(ApplicationColors.getWhite());
+      JCheckBox monate_2_Check = new JCheckBox(translator.realisticTranslate(Translation._2_MONATE));
+      monate_2_Check.setFont(Main.getGermanFont(20F));
+      monate_2_Check.setForeground(ApplicationColors.getWhite());
+      JCheckBox monate_5_Check = new JCheckBox(translator.realisticTranslate(Translation._5_MONATE));
+      monate_5_Check.setFont(Main.getGermanFont(20F));
+      monate_5_Check.setForeground(ApplicationColors.getWhite());
+      checkWrapper.add(heuteCheck);
+      checkWrapper.add(morgenCheck);
+      checkWrapper.add(tage_2_Check);
+      checkWrapper.add(tage_5_Check);
+      checkWrapper.add(tage_11_Check);
+      checkWrapper.add(tage_19_Check);
+      checkWrapper.add(monate_1_Check);
+      checkWrapper.add(monate_2_Check);
+      checkWrapper.add(monate_5_Check);
+      
       JPanel fillerRight = new JPanel(new FlowLayout());
       fillerRight.setMinimumSize(new Dimension(600, 500));
       fillerRight.setMaximumSize(new Dimension(900, 850));
@@ -65,6 +113,7 @@ public class InformationTab extends JPanel
       fillerRight.setBackground(ApplicationColors.getTransparent());
       
       leftSide.add(boxWrapper);
+      leftSide.add(checkWrapper);
       leftSide.add(fillerBottom);
       
       add(leftSide);

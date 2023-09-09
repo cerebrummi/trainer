@@ -3,6 +3,11 @@ package vokabeltrainer.panels.trainer.dialog;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -19,7 +24,11 @@ import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.Language;
+import vokabeltrainer.types.Repetition;
+import vokabeltrainer.types.TrainingStatus;
 
 public class DirectionTab extends BackgroundPanelTiled
 {
@@ -109,6 +118,7 @@ public class DirectionTab extends BackgroundPanelTiled
          }
          dialog.getTabbedPane().setSelectedIndex(2);
       });
+     
 
       cancelButton.addActionListener(event -> {
          dialog.cancelTrainingStart();
@@ -122,4 +132,5 @@ public class DirectionTab extends BackgroundPanelTiled
          dialog.getTabbedPane().remove(2);
       }
    }
+   
 }

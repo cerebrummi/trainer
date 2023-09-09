@@ -59,24 +59,35 @@ public class TrainerController implements TrainerControllerConnector
       trainerView = new TrainerView(this);
 
       newWordsToLearn = this.newExpressions.size();
-      oldWordsToRepeat = this.oldExpressions.size();
-      allExpressions.addAll(this.oldExpressions);
-      allExpressions.addAll(this.newExpressions);
-      expressionsToBeTested = new LinkedList<>();
-      expressionsToBeTested.addAll(allExpressions);
-      if (languageDirection == Language.GERMAN_TO_HEBREW)
+      
+      if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         expressionsToBeTested.forEach(expression -> {
-            expression.getTrainingStatusDToH()
-                  .setTotalTrys(expression.getTrainingStatusDToH().getTrys());
-         });
+         oldWordsToRepeat = this.oldExpressions.size();
+         allExpressions.addAll(this.oldExpressions);
       }
       else
       {
-         expressionsToBeTested.forEach(expression -> {
-            expression.getTrainingStatusHToD()
-                  .setTotalTrys(expression.getTrainingStatusHToD().getTrys());
-         });
+         oldWordsToRepeat = 0;
+      }
+      allExpressions.addAll(this.newExpressions);
+      expressionsToBeTested = new LinkedList<>();
+      expressionsToBeTested.addAll(allExpressions);
+      if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
+      {
+         if (languageDirection == Language.GERMAN_TO_HEBREW)
+         {
+            expressionsToBeTested.forEach(expression -> {
+               expression.getTrainingStatusDToH().setTotalTrys(
+                     expression.getTrainingStatusDToH().getTrys());
+            });
+         }
+         else
+         {
+            expressionsToBeTested.forEach(expression -> {
+               expression.getTrainingStatusHToD().setTotalTrys(
+                     expression.getTrainingStatusHToD().getTrys());
+            });
+         }
       }
 
       trainerView.getWordsToDo()
@@ -246,28 +257,51 @@ public class TrainerController implements TrainerControllerConnector
 
    private void resultDtoIsNotOkay()
    {
-      if (currentExpression.getTrainingStatusDToH().getTrys() < 4)
+      if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         currentExpression.getTrainingStatusDToH().setTrys(
-               currentExpression.getTrainingStatusDToH().getTrys() + 1);
-         currentExpression.getTrainingStatusDToH().setTotalTrys(
-               currentExpression.getTrainingStatusDToH().getTotalTrys() + 1);
-         expressionsToBeTested.add(currentExpression);
+         if (currentExpression.getTrainingStatusDToH().getTrys() < 4)
+         {
+            currentExpression.getTrainingStatusDToH().setTrys(
+                  currentExpression.getTrainingStatusDToH().getTrys() + 1);
+            currentExpression.getTrainingStatusDToH().setTotalTrys(
+                  currentExpression.getTrainingStatusDToH().getTotalTrys() + 1);
+            expressionsToBeTested.add(currentExpression);
+         }
+         else
+         {
+            currentExpression.getTrainingStatusDToH().previousRepetition();
+         }
       }
       else
       {
-         currentExpression.getTrainingStatusDToH().previousRepetition();
+         if (currentExpression.getTemporaryTrainingStatus().getTrys() < 4)
+         {
+            currentExpression.getTemporaryTrainingStatus().setTrys(
+                  currentExpression.getTemporaryTrainingStatus().getTrys() + 1);
+            currentExpression.getTemporaryTrainingStatus().setTotalTrys(
+                  currentExpression.getTemporaryTrainingStatus().getTotalTrys()
+                        + 1);
+            expressionsToBeTested.add(currentExpression);
+         }
       }
    }
 
    private void resultDtoIsOkay()
    {
-      currentExpression.getTrainingStatusDToH()
-            .setTrys(currentExpression.getTrainingStatusDToH().getTrys() - 1);
-      if (currentExpression.getTrainingStatusDToH().getTrys() == 0)
+      if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         currentExpression.getTrainingStatusDToH().nextRepetition();
-         currentExpression.getTrainingStatusDToH().setTrys(1);
+         currentExpression.getTrainingStatusDToH().setTrys(
+               currentExpression.getTrainingStatusDToH().getTrys() - 1);
+         if (currentExpression.getTrainingStatusDToH().getTrys() == 0)
+         {
+            currentExpression.getTrainingStatusDToH().nextRepetition();
+            currentExpression.getTrainingStatusDToH().setTrys(1);
+         }
+      }
+      else
+      {
+         currentExpression.getTemporaryTrainingStatus().setTrys(
+               currentExpression.getTemporaryTrainingStatus().getTrys() - 1);
       }
       expressionsToBeTested.remove(0);
    }
@@ -275,12 +309,20 @@ public class TrainerController implements TrainerControllerConnector
    @Override
    public void resultHtoDOkay()
    {
-      currentExpression.getTrainingStatusHToD()
-            .setTrys(currentExpression.getTrainingStatusHToD().getTrys() - 1);
-      if (currentExpression.getTrainingStatusHToD().getTrys() == 0)
+      if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         currentExpression.getTrainingStatusHToD().nextRepetition();
-         currentExpression.getTrainingStatusHToD().setTrys(1);
+         currentExpression.getTrainingStatusHToD().setTrys(
+               currentExpression.getTrainingStatusHToD().getTrys() - 1);
+         if (currentExpression.getTrainingStatusHToD().getTrys() == 0)
+         {
+            currentExpression.getTrainingStatusHToD().nextRepetition();
+            currentExpression.getTrainingStatusHToD().setTrys(1);
+         }
+      }
+      else
+      {
+         currentExpression.getTemporaryTrainingStatus().setTrys(
+               currentExpression.getTemporaryTrainingStatus().getTrys() - 1);
       }
       trainerView.enableHtoDAnswerButtons(false);
       expressionsToBeTested.remove(0);
@@ -297,17 +339,32 @@ public class TrainerController implements TrainerControllerConnector
    @Override
    public void resultHtoDFalse()
    {
-      if (currentExpression.getTrainingStatusHToD().getTotalTrys() < 4)
+      if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         currentExpression.getTrainingStatusHToD().setTrys(
-               currentExpression.getTrainingStatusHToD().getTrys() + 1);
-         currentExpression.getTrainingStatusHToD().setTotalTrys(
-               currentExpression.getTrainingStatusHToD().getTotalTrys() + 1);
-         expressionsToBeTested.add(currentExpression);
+         if (currentExpression.getTrainingStatusHToD().getTotalTrys() < 4)
+         {
+            currentExpression.getTrainingStatusHToD().setTrys(
+                  currentExpression.getTrainingStatusHToD().getTrys() + 1);
+            currentExpression.getTrainingStatusHToD().setTotalTrys(
+                  currentExpression.getTrainingStatusHToD().getTotalTrys() + 1);
+            expressionsToBeTested.add(currentExpression);
+         }
+         else
+         {
+            currentExpression.getTrainingStatusHToD().previousRepetition();
+         }
       }
       else
       {
-         currentExpression.getTrainingStatusHToD().previousRepetition();
+         if (currentExpression.getTemporaryTrainingStatus().getTrys() < 4)
+         {
+            currentExpression.getTemporaryTrainingStatus().setTrys(
+                  currentExpression.getTemporaryTrainingStatus().getTrys() + 1);
+            currentExpression.getTemporaryTrainingStatus().setTotalTrys(
+                  currentExpression.getTemporaryTrainingStatus().getTotalTrys()
+                        + 1);
+            expressionsToBeTested.add(currentExpression);
+         }
       }
       trainerView.enableHtoDAnswerButtons(false);
       reactToAnswer(false);
@@ -522,6 +579,10 @@ public class TrainerController implements TrainerControllerConnector
 
    private void saveTraining()
    {
+      if (FieldOfTraining.AREA_SELECTED_TEMPORARY == this.fieldOfTraining)
+      {
+         return;
+      }
       SaveTraining saveTraining = new SaveTraining();
       SwingUtilities.invokeLater(new Runnable()
       {
@@ -544,13 +605,18 @@ public class TrainerController implements TrainerControllerConnector
 
             if (counter == 10)
             {
-               JOptionPane.showMessageDialog(Common.getjFrame(),
-                     translator.realisticTranslate(Translation.FEHLERMELDUNG)
-                     + "\n"
-                     + translator.realisticTranslate(Translation.DIE_TRAININGSDATEN_KONTEN)
-                     + "\n"
-                     + translator.realisticTranslate(Translation.NICHT_GESPEICHERT_WERDEN_),
-                     Settings.getWindowTitle(), JOptionPane.WARNING_MESSAGE);
+               JOptionPane
+                     .showMessageDialog(Common.getjFrame(),
+                           translator
+                                 .realisticTranslate(Translation.FEHLERMELDUNG)
+                                 + "\n"
+                                 + translator.realisticTranslate(
+                                       Translation.DIE_TRAININGSDATEN_KONTEN)
+                                 + "\n"
+                                 + translator.realisticTranslate(
+                                       Translation.NICHT_GESPEICHERT_WERDEN_),
+                           Settings.getWindowTitle(),
+                           JOptionPane.WARNING_MESSAGE);
             }
          }
       });

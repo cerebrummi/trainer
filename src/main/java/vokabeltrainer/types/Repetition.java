@@ -8,6 +8,7 @@ import vokabeltrainer.panels.translation.Translator;
 
 public enum Repetition
 {
+   NONE(null,null),
    NOW(
          Period.ZERO, Translation.HEUTE),
    ONE_DAY(

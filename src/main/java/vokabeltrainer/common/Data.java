@@ -1401,6 +1401,14 @@ public final class Data
                   fieldOfTraining, oldToBeTested, listSelected);
             data = new TrainingTableRow[1][1];
             data[0][0] = selectedRow;
+            
+         case AREA_SELECTED_TEMPORARY:
+            List<Expression> listSelected2 = findAllSelectedExpressionsList(
+                  false);
+            TrainingTableRow selectedRow2 = makeSelectedRow(languageDirection,
+                  fieldOfTraining, null, listSelected2);
+            data = new TrainingTableRow[1][1];
+            data[0][0] = selectedRow2;
          }
 
          return new TrainingTableModel(data);
@@ -1414,7 +1422,14 @@ public final class Data
          selectedRow.setFieldOfTraining(fieldOfTraining);
          selectedRow.setField(translator.realisticTranslate(Translation.AUSGEWAEHLTE_WOERTER));
          selectedRow.setExpressionListOldWords(oldToBeTested);
-         selectedRow.setToBeRepeatedWords(oldToBeTested.size());
+         if(oldToBeTested != null)
+         {
+            selectedRow.setToBeRepeatedWords(oldToBeTested.size());
+         }
+         else
+         {
+            selectedRow.setToBeRepeatedWords(0);
+         }
          selectedRow.setExpressionListNewWords(
                findNotStudiedWords(languageDirection, listSelected));
          selectedRow.setNotStudiedWords(

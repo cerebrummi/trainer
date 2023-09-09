@@ -47,6 +47,8 @@ public class ExpressionKindHelper
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
 
    public static GrammaticalParentEnum[] GLUECKWUNSCH_ENUMS = {};
+   
+   public static GrammaticalParentEnum[] HOEFLICHKEITSFORMEL_ENUMS = {};
 
    public static GrammaticalParentEnum[] JAHRESZEIT_ENUMS = {
          GrammaticalParentEnum.GENDER };

@@ -21,6 +21,7 @@ import vokabeltrainer.panels.trainer.dialog.table.TrainingTable;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.types.FieldOfTraining;
 
 public class AmountTab extends BackgroundPanelTiled
 {
@@ -72,8 +73,11 @@ public class AmountTab extends BackgroundPanelTiled
       add(buttonWrapper, BorderLayout.SOUTH);
       
       nextButton.addActionListener(event -> {
-         dialog.setNewExpressions(table.findNewExpressions(dialog.getLanguageDirection()));
-         dialog.setOldExpressions(table.findOldToBeRepeatedExpressions());
+         dialog.setNewExpressions(table.findNewExpressions(dialog.getLanguageDirection(), dialog.getFieldOfTraining()));
+         if(dialog.getFieldOfTraining() != FieldOfTraining.AREA_SELECTED_TEMPORARY)
+         {
+            dialog.setOldExpressions(table.findOldToBeRepeatedExpressions());
+         }
          dialog.initTraining();
       });
       

@@ -152,6 +152,16 @@ public class Expression
       this.trainingStatusHToD = trainingStatusHToD;
    }
 
+   public TemporaryTrainingStatus getTemporaryTrainingStatus() 
+   {
+      return new TemporaryTrainingStatus();
+   }
+
+   public void setTemporaryTrainingStatus(TemporaryTrainingStatus temporaryTrainingStatus) 
+   {
+	 // nothing
+   }
+
    public Chapter getChapter()
    {
       return chapter;
@@ -263,10 +273,12 @@ public class Expression
    public String[] toGermanArrayForTableEntry()
    {
       int index = 0;
-      String[] result = new String[9];
+      String[] result = new String[10];
       result[index] = String.valueOf(selected);
       index++;
       result[index] = german;
+      index++;
+      result[index] = hebrew.toString();
       index++;
       result[index] = hebrew.toString();
       index++;
@@ -303,12 +315,14 @@ public class Expression
    public String[] toHebrewArrayForTableEntry()
    {
       int index = 0;
-      String[] result = new String[9];
+      String[] result = new String[10];
       result[index] = String.valueOf(selected);
       index++;
       result[index] = hebrew.toString();
       index++;
       result[index] = german;
+      index++;
+      result[index] = hebrew.toString();
       index++;
       result[index] = definitions.getGenderDescriptions();
       index++;

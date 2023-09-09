@@ -32,6 +32,7 @@ public enum ExpressionKind {
 	FRAGEWORT(Translation.FRAGEWORT, ExpressionKindHelper.FRAGEWORT_ENUMS),
 	PRONOM(Translation.PRONOM_FUERWORT, ExpressionKindHelper.PRONOM_ENUMS),
 	GLUECKWUNSCH(Translation.GLUECKWUNSCH_GRUSS, ExpressionKindHelper.GLUECKWUNSCH_ENUMS),
+	HOEFLICHKEITSFORMEL(Translation.HOEFLICHKEITSFORMEL, ExpressionKindHelper.HOEFLICHKEITSFORMEL_ENUMS),
 	JAHRESZEIT(Translation.JAHRESZEIT, ExpressionKindHelper.JAHRESZEIT_ENUMS),
 	KONSTRUKT(Translation.KONSTRUKT_SSMICHUT, ExpressionKindHelper.KONSTRUKT_ENUMS),
 	MODALVERB(Translation.MODALVERB, ExpressionKindHelper.MODALVERB_ENUMS),
@@ -82,6 +83,7 @@ public enum ExpressionKind {
 		case FARBE:
 		case FRAGEWORT:
 		case GLUECKWUNSCH:
+		case HOEFLICHKEITSFORMEL:
 		case JAHRESZEIT:
 		case KONSTRUKT:
 		case MODALVERB:

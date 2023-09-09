@@ -37,6 +37,7 @@ import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorView;
+import vokabeltrainer.table.list.editor.TextExpressionEditorView;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -121,9 +122,8 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       newWordPunktationButton
             .addActionListener(event -> openNewNikudExpressionDialog());
       
-      // TODO
-      /*newTextPunktationButton
-      .addActionListener(event -> openNewNikudTextDialog());*/
+      newTextPunktationButton
+      .addActionListener(event -> openNewTextExpressionDialog());
 
       chapterBox.addActionListener(event -> {
          this.currentChapter = chapterBox
@@ -183,6 +183,22 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    {
       NikudExpressionEditorView editor = new NikudExpressionEditorController()
             .getNikudExpressionEditorDialog();
+      editor.setExpression(new Expression(true, false), true);
+      editor.setLocationRelativeTo(Common.getjFrame());
+      editor.setVisible(true);
+      if (editor.isSave())
+      {
+         Expression expression = editor.getExpression();
+         Data.putExpressionInNewMap(expression.getUuid(), expression);
+         this.currentChapter = expression.getChapter();
+         save();
+      }
+   }
+   
+   private void openNewTextExpressionDialog()
+   {
+      TextExpressionEditorView editor = new NikudExpressionEditorController()
+            .getTextExpressionEditorDialog();
       editor.setExpression(new Expression(true, false), true);
       editor.setLocationRelativeTo(Common.getjFrame());
       editor.setVisible(true);

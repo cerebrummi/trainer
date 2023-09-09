@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.TrainingStatus;
@@ -35,7 +36,7 @@ public class TrainingTable extends JTable
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
    }
 
-   public List<Expression> findNewExpressions(Language languageDirection)
+   public List<Expression> findNewExpressions(Language languageDirection, FieldOfTraining fieldOfTraining)
    {
       TrainingTableModel model = (TrainingTableModel) getModel();
 
@@ -48,6 +49,10 @@ public class TrainingTable extends JTable
                   row[0].getAmountOfNewWords()));
          }
       }
+      if(FieldOfTraining.AREA_SELECTED_TEMPORARY == fieldOfTraining)
+      {
+         return new ArrayList<>(resultSet);
+      }
       return initTrainingStatus(resultSet, languageDirection);
    }
 
@@ -58,7 +63,10 @@ public class TrainingTable extends JTable
       Set<Expression> resultSet = new HashSet<>();
       for (TrainingTableRow[] row : model.getData())
       {
-         resultSet.addAll(row[0].getExpressionListOldWords());
+         if(row[0].getExpressionListOldWords() != null)
+         {
+            resultSet.addAll(row[0].getExpressionListOldWords());
+         }
       }
       return new ArrayList<Expression>(resultSet);
    }
