@@ -186,7 +186,7 @@ public class TrainerView extends BackgroundPanelTiled
    private Component initTextFieldPanel() 
    {
 	   textFieldPanel = new JPanel();
-	   ExpanderLayout textFieldPanelLayout = new ExpanderLayout(textFieldPanel);
+	   BullsEyeLayout textFieldPanelLayout = new BullsEyeLayout(textFieldPanel);
 	   textFieldPanel.setLayout(textFieldPanelLayout);
 	   textFieldPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 	   return textFieldPanel;
@@ -209,7 +209,7 @@ public class TrainerView extends BackgroundPanelTiled
 	         questionFieldGerman
 	               .setMinimumSize(new Dimension(600, 160));
 	         questionFieldGerman
-	               .setMaximumSize(new Dimension(1600, 160));
+	               .setMaximumSize(new Dimension(1200, 160));
 	         questionFieldGerman.setEditable(false);
 	         expandPanel.add(questionFieldGerman);
 	         textFieldPanel.add(expandPanel);
