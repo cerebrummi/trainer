@@ -67,4 +67,54 @@ public class CerebrummiNodes
    {
       return "anyname";
    }
+   
+   public static String getRepetitionNow()
+   {
+      return "repetition_now";
+   }
+   
+   public static String getRepetitionOneDay()
+   {
+      return "repetition_one_day";
+   }
+   
+   public static String getRepetitionTwoDays()
+   {
+      return "repetition_two_days";
+   }
+   
+   public static String getRepetitionFiveDays()
+   {
+      return "repetition_five_days";
+   }
+   
+   public static String getRepetitionElevenDays()
+   {
+      return "repetition_eleven_days";
+   }
+   
+   public static String getRepetitionNineteenDays()
+   {
+      return "repetition_nineteen_days";
+   }
+   
+   public static String getRepetitionOneMonth()
+   {
+      return "repetition_one_month";
+   }
+   
+   public static String getRepetitionTwoMonths()
+   {
+      return "repetition_two_months";
+   }
+   
+   public static String getRepetitionFiveMonths()
+   {
+      return "repetition_five_months";
+   }
+   
+   public static String getRepetitionDone()
+   {
+      return "repetition_five_done";
+   }
 }

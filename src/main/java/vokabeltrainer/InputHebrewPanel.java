@@ -330,9 +330,9 @@ public class InputHebrewPanel extends JTextArea
       pleneField.setDocument(new NikudDocument(true));
       pleneField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       pleneField.setFont(Main.getHebrewFont(29F));
-      pleneField.setMinimumSize(new Dimension(100,
+      pleneField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel) / 2));
-      pleneField.setMaximumSize(new Dimension(1600,
+      pleneField.setMaximumSize(new Dimension(1268,
             (heightTotal - heightBorderTitel) / 2));
       pleneField
             .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__PLENE)));
@@ -343,13 +343,14 @@ public class InputHebrewPanel extends JTextArea
       defektivField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       defektivField.setFont(Main.getHebrewFont(29F));
       defektivField
-            .setMinimumSize(new Dimension(100,
+            .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
                   (heightTotal - heightBorderTitel) / 2));
       defektivField
-            .setMaximumSize(new Dimension(1600,
+            .setMaximumSize(new Dimension(1268,
                   (heightTotal - heightBorderTitel) / 2));
       defektivField
             .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__DEFEKTIV)));
+
       components.add(defektivField);
 
       vertical.add(pleneField);
@@ -367,13 +368,13 @@ public class InputHebrewPanel extends JTextArea
       hebrewField.setDocument(new NikudDocument(true));
       hebrewField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       hebrewField.setFont(Main.getHebrewFont(29F));
-      hebrewField.setMinimumSize(new Dimension(100,
+      hebrewField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel)));
-      hebrewField.setMaximumSize(new Dimension(1600,
+      hebrewField.setMaximumSize(new Dimension(1268,
             (heightTotal - heightBorderTitel)));
       hebrewField.setBorder(BorderFactory
             .createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
-
+      
       components.add(hebrewField);
 
       vertical.add(hebrewField);

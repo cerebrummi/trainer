@@ -153,7 +153,7 @@ public class TrainerView extends BackgroundPanelTiled
 
    private void initGui()
    {
-	  verticalTrainerPanel.add(initTextFieldPanel()); 
+      verticalTrainerPanel.add(initTextFieldPanel()); 
       verticalTrainerPanel.add(initTopPanel());
       pictureWordPanelPlene = new LetterPictureWordPanel();
       pictureWordPanelPlene.setPreferredSize(new Dimension(1200, 110));
@@ -186,10 +186,15 @@ public class TrainerView extends BackgroundPanelTiled
    private Component initTextFieldPanel() 
    {
 	   textFieldPanel = new JPanel();
-	   BullsEyeLayout textFieldPanelLayout = new BullsEyeLayout(textFieldPanel);
+	   ExpanderLayout textFieldPanelLayout = new ExpanderLayout(textFieldPanel);
 	   textFieldPanel.setLayout(textFieldPanelLayout);
 	   textFieldPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
-	   return textFieldPanel;
+	   
+	   JPanel insideTextFieldPanel = new JPanel();
+	   BullsEyeLayout insideLayout = new BullsEyeLayout(insideTextFieldPanel);
+	   insideTextFieldPanel.setLayout(insideLayout);
+	   insideTextFieldPanel.add(textFieldPanel);
+	   return insideTextFieldPanel;
    }
    
    private void initTextField(Language languageDirection) 
@@ -225,7 +230,7 @@ public class TrainerView extends BackgroundPanelTiled
 	         questionFieldHebrew
 	               .setMinimumSize(new Dimension(600, 160));
 	         questionFieldHebrew
-	               .setMaximumSize(new Dimension(1600, 160));
+	               .setMaximumSize(new Dimension(1250, 160));
 	         questionFieldHebrew.setEditable(false);
 	         questionFieldHebrew.setEnabled(false);
 	         textFieldPanel.add(questionFieldHebrew);
