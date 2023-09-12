@@ -51,6 +51,7 @@ public class InputHebrewPanel extends JTextArea
    private CardLayout layout;
    private Selection selection;
    private int heightTotal;
+   private int widthTotal;
    private int heightBorderTitel;
    private List<JTextComponent> components = new ArrayList<>();
 
@@ -60,6 +61,8 @@ public class InputHebrewPanel extends JTextArea
    
    private Container parent;
    private Translator translator = Common.getTranslator();
+
+   private Color color;
 
    public enum Selection
    {
@@ -144,12 +147,14 @@ public class InputHebrewPanel extends JTextArea
    }
 
    public InputHebrewPanel(Selection selection, int heightTotal,
-         int heightBorderTitel, boolean canBeToggled, Container parent)
+         int heightBorderTitel, boolean canBeToggled, Container parent, int widthTotal, Color color)
    {
       this.selection = selection;
       this.heightTotal = heightTotal;
       this.heightBorderTitel = heightBorderTitel;
       this.parent = parent;
+      this.widthTotal = widthTotal;
+      this.color = color;
       
       this.setLayout(new BullsEyeLayout(this));
 
@@ -325,6 +330,8 @@ public class InputHebrewPanel extends JTextArea
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
+      vertical.setBackground(this.color);
+      vertical.setBorder(BorderFactory.createLineBorder(this.color));
 
       pleneField = new JTextField();
       pleneField.setDocument(new NikudDocument(true));
@@ -332,7 +339,7 @@ public class InputHebrewPanel extends JTextArea
       pleneField.setFont(Main.getHebrewFont(29F));
       pleneField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel) / 2));
-      pleneField.setMaximumSize(new Dimension(1268,
+      pleneField.setMaximumSize(new Dimension(this.widthTotal,
             (heightTotal - heightBorderTitel) / 2));
       pleneField
             .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__PLENE)));
@@ -346,7 +353,7 @@ public class InputHebrewPanel extends JTextArea
             .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
                   (heightTotal - heightBorderTitel) / 2));
       defektivField
-            .setMaximumSize(new Dimension(1268,
+            .setMaximumSize(new Dimension(this.widthTotal,
                   (heightTotal - heightBorderTitel) / 2));
       defektivField
             .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__DEFEKTIV)));
@@ -363,6 +370,8 @@ public class InputHebrewPanel extends JTextArea
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
+      vertical.setBackground(this.color);
+      vertical.setOpaque(true);
 
       hebrewField = new JTextField();
       hebrewField.setDocument(new NikudDocument(true));
@@ -370,15 +379,13 @@ public class InputHebrewPanel extends JTextArea
       hebrewField.setFont(Main.getHebrewFont(29F));
       hebrewField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel)));
-      hebrewField.setMaximumSize(new Dimension(1268,
+      hebrewField.setMaximumSize(new Dimension(this.widthTotal,
             (heightTotal - heightBorderTitel)));
-      hebrewField.setBorder(BorderFactory
-            .createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
+      hebrewField.setBorder(BorderFactory.createTitledBorder( translator.realisticTranslate(Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
       
       components.add(hebrewField);
 
       vertical.add(hebrewField);
-      vertical.add(new JPanel());
 
       return vertical;
    }

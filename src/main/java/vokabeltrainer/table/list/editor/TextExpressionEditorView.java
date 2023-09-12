@@ -175,12 +175,12 @@ public TextExpressionEditorView(
 
       if (Settings.isSimpleHebrewInput())
       {
-         hebrew = new InputHebrewPanel(Selection.SIMPLE, 415, 6, true, this);
+         hebrew = new InputHebrewPanel(Selection.SIMPLE, 415, 6, true, this,  WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
       else
       {
          hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 415, 6, true,
-               this);
+               this,  WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
       hebrew.setBlankBorder();
 

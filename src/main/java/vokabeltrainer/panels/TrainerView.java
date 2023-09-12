@@ -105,7 +105,7 @@ public class TrainerView extends BackgroundPanelTiled
    private JCheckBox pictureToggleBox;
    private JPanel verticalTrainerPanel;
    private Translator translator = Common.getTranslator();
-   private JPanel textFieldPanel;
+   private JPanel textFieldPanelWrapper;
 
    public TrainerView(TrainerControllerConnector connector)
    {
@@ -144,8 +144,8 @@ public class TrainerView extends BackgroundPanelTiled
 
       connector.setNextTest();
 
-      this.textFieldPanel.validate();
-      this.textFieldPanel.repaint();
+      this.textFieldPanelWrapper.validate();
+      this.textFieldPanelWrapper.repaint();
       this.questionPanel.validate();
       this.questionPanel.repaint();
       answerField.setRequestFocusEnabled(true);
@@ -184,22 +184,18 @@ public class TrainerView extends BackgroundPanelTiled
    }
 
    private Component initTextFieldPanel() 
-   {
-	   textFieldPanel = new JPanel();
-	   ExpanderLayout textFieldPanelLayout = new ExpanderLayout(textFieldPanel);
-	   textFieldPanel.setLayout(textFieldPanelLayout);
-	   textFieldPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+   {	   
+	   textFieldPanelWrapper = new JPanel();
+	   BullsEyeLayout wrapperLayout = new BullsEyeLayout(textFieldPanelWrapper);
+	   textFieldPanelWrapper.setLayout(wrapperLayout);
+	   textFieldPanelWrapper.setBackground(ApplicationColors.getLightBlue());
 	   
-	   JPanel insideTextFieldPanel = new JPanel();
-	   BullsEyeLayout insideLayout = new BullsEyeLayout(insideTextFieldPanel);
-	   insideTextFieldPanel.setLayout(insideLayout);
-	   insideTextFieldPanel.add(textFieldPanel);
-	   return insideTextFieldPanel;
+	   return textFieldPanelWrapper;
    }
    
    private void initTextField(Language languageDirection) 
    {
-	   textFieldPanel.removeAll();
+	   textFieldPanelWrapper.removeAll();
 	   if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
 	      {
 		     JPanel expandPanel = new JPanel();
@@ -217,12 +213,12 @@ public class TrainerView extends BackgroundPanelTiled
 	               .setMaximumSize(new Dimension(1200, 160));
 	         questionFieldGerman.setEditable(false);
 	         expandPanel.add(questionFieldGerman);
-	         textFieldPanel.add(expandPanel);
+	         textFieldPanelWrapper.add(expandPanel);
 	      }
 	      else
 	      {
 	         questionFieldHebrew = new InputHebrewPanel(Selection.SIMPLE, 160, 10,
-	               false, this);
+	               false, this, 1268, ApplicationColors.getLightBlue());
 	         questionFieldHebrew.setBackground(ApplicationColors.getLightBlue());
 	         questionFieldHebrew.setBorder(
 	               BorderFactory.createTitledBorder(translator.realisticTranslate(
@@ -230,10 +226,10 @@ public class TrainerView extends BackgroundPanelTiled
 	         questionFieldHebrew
 	               .setMinimumSize(new Dimension(600, 160));
 	         questionFieldHebrew
-	               .setMaximumSize(new Dimension(1250, 160));
+	               .setMaximumSize(new Dimension(1268, 160));
 	         questionFieldHebrew.setEditable(false);
 	         questionFieldHebrew.setEnabled(false);
-	         textFieldPanel.add(questionFieldHebrew);
+	         textFieldPanelWrapper.add(questionFieldHebrew);
 	      }
    }
 
@@ -245,7 +241,6 @@ private Component initTopPanel()
 
       questionPanel = new JPanel();
       questionPanel.setLayout(new TotemLayout(questionPanel, 10));
-      questionPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
       questionPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       horizontal.add(initLeftPanel());

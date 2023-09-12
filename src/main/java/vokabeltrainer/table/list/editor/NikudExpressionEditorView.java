@@ -221,12 +221,12 @@ public NikudExpressionEditorView(
 
       if (Settings.isSimpleHebrewInput())
       {
-         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6, true, this);
+         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6, true, this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
       else
       {
          hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 152, 6, true,
-               this);
+               this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
       hebrew.setBlankBorder();
 
