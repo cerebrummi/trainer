@@ -138,5 +138,106 @@ public class CerebrummiPreferences
       {
          // nothing
       }
+      
+
+      
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setRepetition_one_day(preferences.getBoolean(CerebrummiNodes.getRepetitionOneDay(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }  
+
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setRepetition_two_days(preferences.getBoolean(CerebrummiNodes.getRepetitionTwoDays(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+      
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setRepetition_five_days(preferences.getBoolean(CerebrummiNodes.getRepetitionFiveDays(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+      
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setRepetition_eleven_days(preferences.getBoolean(CerebrummiNodes.getRepetitionElevenDays(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }  
+
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setRepetition_eleven_days(preferences.getBoolean(CerebrummiNodes.getRepetitionElevenDays(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      } 
+      
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setRepetition_nineteen_days(preferences.getBoolean(CerebrummiNodes.getRepetitionNineteenDays(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }  
+      
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setRepetition_one_month(preferences.getBoolean(CerebrummiNodes.getRepetitionOneMonth(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      } 
+      
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setRepetition_two_months(preferences.getBoolean(CerebrummiNodes.getRepetitionTwoMonths(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+      
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setRepetition_five_months(preferences.getBoolean(CerebrummiNodes.getRepetitionFiveMonths(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
    }
 }

@@ -393,23 +393,17 @@ public class Settings
       return repetition_now;
    }
 
-   public void setRepetition_now(boolean repetition_now)
+   public static void setRepetition_now(boolean repetition_now)
    {
-      Preferences preferences = Preferences
-            .userRoot()
-            .node(CerebrummiNodes.getNode());
-      preferences
-            .putBoolean(CerebrummiNodes.getRepetitionNow(),
-                  repetition_now);
-      Settings.repetition_now = repetition_now;
+      // nothing
    }
 
-   public boolean isRepetition_one_day()
+   public static boolean isRepetition_one_day()
    {
       return repetition_one_day;
    }
 
-   public void setRepetition_one_day(boolean repetition_one_day)
+   public static void setRepetition_one_day(boolean repetition_one_day)
    {
       Preferences preferences = Preferences
             .userRoot()
@@ -420,12 +414,12 @@ public class Settings
       Settings.repetition_one_day = repetition_one_day;
    }
 
-   public boolean isRepetition_two_days()
+   public static boolean isRepetition_two_days()
    {
       return repetition_two_days;
    }
 
-   public void setRepetition_two_days(boolean repetition_two_days)
+   public static void setRepetition_two_days(boolean repetition_two_days)
    {
       Preferences preferences = Preferences
             .userRoot()
@@ -436,12 +430,12 @@ public class Settings
       Settings.repetition_two_days = repetition_two_days;
    }
 
-   public boolean isRepetition_five_days()
+   public static boolean isRepetition_five_days()
    {
       return repetition_five_days;
    }
 
-   public void setRepetition_five_days(boolean repetition_five_days)
+   public static void setRepetition_five_days(boolean repetition_five_days)
    {
       Preferences preferences = Preferences
             .userRoot()
@@ -452,12 +446,12 @@ public class Settings
       Settings.repetition_five_days = repetition_five_days;
    }
 
-   public boolean isRepetition_eleven_days()
+   public static boolean isRepetition_eleven_days()
    {
       return repetition_eleven_days;
    }
 
-   public void setRepetition_eleven_days(boolean repetition_eleven_days)
+   public static void setRepetition_eleven_days(boolean repetition_eleven_days)
    {
       Preferences preferences = Preferences
             .userRoot()
@@ -468,12 +462,12 @@ public class Settings
       Settings.repetition_eleven_days = repetition_eleven_days;
    }
 
-   public boolean isRepetition_nineteen_days()
+   public static boolean isRepetition_nineteen_days()
    {
       return repetition_nineteen_days;
    }
 
-   public void setRepetition_nineteen_days(boolean repetition_nineteen_days)
+   public static void setRepetition_nineteen_days(boolean repetition_nineteen_days)
    {
       Preferences preferences = Preferences
             .userRoot()
@@ -484,12 +478,12 @@ public class Settings
       Settings.repetition_nineteen_days = repetition_nineteen_days;
    }
 
-   public boolean isRepetition_one_month()
+   public static boolean isRepetition_one_month()
    {
       return repetition_one_month;
    }
 
-   public void setRepetition_one_month(boolean repetition_one_month)
+   public static void setRepetition_one_month(boolean repetition_one_month)
    {
       Preferences preferences = Preferences
             .userRoot()
@@ -500,12 +494,12 @@ public class Settings
       Settings.repetition_one_month = repetition_one_month;
    }
 
-   public boolean isRepetition_two_months()
+   public static boolean isRepetition_two_months()
    {
       return repetition_two_months;
    }
 
-   public void setRepetition_two_months(boolean repetition_two_months)
+   public static void setRepetition_two_months(boolean repetition_two_months)
    {
       Preferences preferences = Preferences
             .userRoot()
@@ -516,12 +510,12 @@ public class Settings
       Settings.repetition_two_months = repetition_two_months;
    }
 
-   public boolean isRepetition_five_months()
+   public static boolean isRepetition_five_months()
    {
       return repetition_five_months;
    }
 
-   public void setRepetition_five_months(boolean repetition_five_months)
+   public static void setRepetition_five_months(boolean repetition_five_months)
    {
       Preferences preferences = Preferences
             .userRoot()
@@ -532,19 +526,13 @@ public class Settings
       Settings.repetition_five_months = repetition_five_months;
    }
 
-   public boolean isRepetition_done()
+   public static boolean isRepetition_done()
    {
       return repetition_done;
    }
 
-   public void setRepetition_done(boolean repetition_done)
+   public static void setRepetition_done(boolean repetition_done)
    {
-      Preferences preferences = Preferences
-            .userRoot()
-            .node(CerebrummiNodes.getNode());
-      preferences
-            .putBoolean(CerebrummiNodes.getRepetitionDone(),
-                  repetition_done);
-      Settings.repetition_done = repetition_done;
+      // nothing
    }
 }
