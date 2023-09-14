@@ -40,14 +40,14 @@ public class Settings
    private static String anyName = null;
    
    private static boolean repetition_now = true;
-   private static boolean repetition_one_day = false;
-   private static boolean repetition_two_days = false;
-   private static boolean repetition_five_days = true;
-   private static boolean repetition_eleven_days = false;
-   private static boolean repetition_nineteen_days = false;
-   private static boolean repetition_one_month = true;
-   private static boolean repetition_two_months = false;
-   private static boolean repetition_five_months = false;
+   private static boolean repetition_one_day;
+   private static boolean repetition_two_days;
+   private static boolean repetition_five_days;
+   private static boolean repetition_eleven_days;
+   private static boolean repetition_nineteen_days;
+   private static boolean repetition_one_month;
+   private static boolean repetition_two_months;
+   private static boolean repetition_five_months;
    private static boolean repetition_done = true;
 
    public Settings()
@@ -400,7 +400,7 @@ public class Settings
 
    public static boolean isRepetition_one_day()
    {
-      return repetition_one_day;
+      return Settings.repetition_one_day;
    }
 
    public static void setRepetition_one_day(boolean repetition_one_day)
@@ -416,7 +416,7 @@ public class Settings
 
    public static boolean isRepetition_two_days()
    {
-      return repetition_two_days;
+      return Settings.repetition_two_days;
    }
 
    public static void setRepetition_two_days(boolean repetition_two_days)
@@ -432,7 +432,7 @@ public class Settings
 
    public static boolean isRepetition_five_days()
    {
-      return repetition_five_days;
+      return Settings.repetition_five_days;
    }
 
    public static void setRepetition_five_days(boolean repetition_five_days)
@@ -448,7 +448,7 @@ public class Settings
 
    public static boolean isRepetition_eleven_days()
    {
-      return repetition_eleven_days;
+      return Settings.repetition_eleven_days;
    }
 
    public static void setRepetition_eleven_days(boolean repetition_eleven_days)
@@ -464,7 +464,7 @@ public class Settings
 
    public static boolean isRepetition_nineteen_days()
    {
-      return repetition_nineteen_days;
+      return Settings.repetition_nineteen_days;
    }
 
    public static void setRepetition_nineteen_days(boolean repetition_nineteen_days)
@@ -480,7 +480,7 @@ public class Settings
 
    public static boolean isRepetition_one_month()
    {
-      return repetition_one_month;
+      return Settings.repetition_one_month;
    }
 
    public static void setRepetition_one_month(boolean repetition_one_month)
@@ -496,7 +496,7 @@ public class Settings
 
    public static boolean isRepetition_two_months()
    {
-      return repetition_two_months;
+      return Settings.repetition_two_months;
    }
 
    public static void setRepetition_two_months(boolean repetition_two_months)
@@ -512,7 +512,7 @@ public class Settings
 
    public static boolean isRepetition_five_months()
    {
-      return repetition_five_months;
+      return Settings.repetition_five_months;
    }
 
    public static void setRepetition_five_months(boolean repetition_five_months)
@@ -528,7 +528,7 @@ public class Settings
 
    public static boolean isRepetition_done()
    {
-      return repetition_done;
+      return Settings.repetition_done;
    }
 
    public static void setRepetition_done(boolean repetition_done)

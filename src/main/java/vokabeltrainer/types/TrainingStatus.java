@@ -60,6 +60,10 @@ public class TrainingStatus
       case FIVE_MONTHS: repetition = Repetition.DONE;
          break;
       case DONE:
+         break;
+      case NONE:
+         break;
+      default:
          break; 
       }
       this.nextDate = now.plus(repetition.getPeriod());
@@ -89,6 +93,10 @@ public class TrainingStatus
       case FIVE_MONTHS: repetition = Repetition.TWO_MONTHS;
          break;
       case DONE:
+         break;
+      case NONE:
+         break;
+      default:
          break;
       }
       this.nextDate = now.plus(repetition.getPeriod());

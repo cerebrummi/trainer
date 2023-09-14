@@ -139,13 +139,11 @@ public class CerebrummiPreferences
          // nothing
       }
       
-
-      
       try
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_one_day(preferences.getBoolean(CerebrummiNodes.getRepetitionOneDay(), true));
+         Settings.setRepetition_one_day(preferences.getBoolean(CerebrummiNodes.getRepetitionOneDay(), false));
       }
       catch (Exception e)
       {
@@ -178,23 +176,12 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_eleven_days(preferences.getBoolean(CerebrummiNodes.getRepetitionElevenDays(), true));
+         Settings.setRepetition_eleven_days(preferences.getBoolean(CerebrummiNodes.getRepetitionElevenDays(), false));
       }
       catch (Exception e)
       {
          // nothing
       }  
-
-      try
-      {
-         Preferences preferences = Preferences.userRoot()
-               .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_eleven_days(preferences.getBoolean(CerebrummiNodes.getRepetitionElevenDays(), true));
-      }
-      catch (Exception e)
-      {
-         // nothing
-      } 
       
       try
       {
@@ -211,7 +198,7 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_one_month(preferences.getBoolean(CerebrummiNodes.getRepetitionOneMonth(), true));
+         Settings.setRepetition_one_month(preferences.getBoolean(CerebrummiNodes.getRepetitionOneMonth(), false));
       }
       catch (Exception e)
       {
@@ -222,7 +209,7 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_two_months(preferences.getBoolean(CerebrummiNodes.getRepetitionTwoMonths(), true));
+         Settings.setRepetition_two_months(preferences.getBoolean(CerebrummiNodes.getRepetitionTwoMonths(), false));
       }
       catch (Exception e)
       {
@@ -233,7 +220,7 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_five_months(preferences.getBoolean(CerebrummiNodes.getRepetitionFiveMonths(), true));
+         Settings.setRepetition_five_months(preferences.getBoolean(CerebrummiNodes.getRepetitionFiveMonths(), false));
       }
       catch (Exception e)
       {

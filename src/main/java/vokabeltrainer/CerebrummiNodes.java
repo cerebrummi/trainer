@@ -68,11 +68,6 @@ public class CerebrummiNodes
       return "anyname";
    }
    
-   public static String getRepetitionNow()
-   {
-      return "repetition_now";
-   }
-   
    public static String getRepetitionOneDay()
    {
       return "repetition_one_day";
@@ -111,10 +106,5 @@ public class CerebrummiNodes
    public static String getRepetitionFiveMonths()
    {
       return "repetition_five_months";
-   }
-   
-   public static String getRepetitionDone()
-   {
-      return "repetition_five_done";
    }
 }
