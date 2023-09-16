@@ -380,7 +380,6 @@ public class Settings
    {
       return Settings.repetition_one_day;
    }
-
    public static void setRepetition_one_day(boolean repetition_one_day)
    {
       Preferences preferences = Preferences
@@ -391,12 +390,15 @@ public class Settings
                   repetition_one_day);
       Settings.repetition_one_day = repetition_one_day;
    }
+   public static void initRepetition_one_day(boolean repetition_one_day)
+   {
+      Settings.repetition_one_day = repetition_one_day;
+   }
 
    public static boolean isRepetition_two_days()
    {
       return Settings.repetition_two_days;
    }
-
    public static void setRepetition_two_days(boolean repetition_two_days)
    {
       Preferences preferences = Preferences
@@ -407,12 +409,15 @@ public class Settings
                   repetition_two_days);
       Settings.repetition_two_days = repetition_two_days;
    }
+   public static void initRepetition_two_days(boolean repetition_two_days)
+   {
+      Settings.repetition_two_days = repetition_two_days;
+   }
 
    public static boolean isRepetition_five_days()
    {
       return Settings.repetition_five_days;
    }
-
    public static void setRepetition_five_days(boolean repetition_five_days)
    {
       Preferences preferences = Preferences
@@ -423,12 +428,15 @@ public class Settings
                   repetition_five_days);
       Settings.repetition_five_days = repetition_five_days;
    }
+   public static void initRepetition_five_days(boolean repetition_five_days)
+   {
+      Settings.repetition_five_days = repetition_five_days;
+   }
 
    public static boolean isRepetition_eleven_days()
    {
       return Settings.repetition_eleven_days;
    }
-
    public static void setRepetition_eleven_days(boolean repetition_eleven_days)
    {
       Preferences preferences = Preferences
@@ -439,12 +447,15 @@ public class Settings
                   repetition_eleven_days);
       Settings.repetition_eleven_days = repetition_eleven_days;
    }
+   public static void initRepetition_eleven_days(boolean repetition_eleven_days)
+   {
+      Settings.repetition_eleven_days = repetition_eleven_days;
+   }
 
    public static boolean isRepetition_nineteen_days()
    {
       return Settings.repetition_nineteen_days;
    }
-
    public static void setRepetition_nineteen_days(boolean repetition_nineteen_days)
    {
       Preferences preferences = Preferences
@@ -455,12 +466,15 @@ public class Settings
                   repetition_nineteen_days);
       Settings.repetition_nineteen_days = repetition_nineteen_days;
    }
+   public static void initRepetition_nineteen_days(boolean repetition_nineteen_days)
+   {
+      Settings.repetition_nineteen_days = repetition_nineteen_days;
+   }
 
    public static boolean isRepetition_one_month()
    {
       return Settings.repetition_one_month;
    }
-
    public static void setRepetition_one_month(boolean repetition_one_month)
    {
       Preferences preferences = Preferences
@@ -471,12 +485,15 @@ public class Settings
                   repetition_one_month);
       Settings.repetition_one_month = repetition_one_month;
    }
+   public static void initRepetition_one_month(boolean repetition_one_month)
+   {
+      Settings.repetition_one_month = repetition_one_month;
+   }
 
    public static boolean isRepetition_two_months()
    {
       return Settings.repetition_two_months;
    }
-
    public static void setRepetition_two_months(boolean repetition_two_months)
    {
       Preferences preferences = Preferences
@@ -487,12 +504,15 @@ public class Settings
                   repetition_two_months);
       Settings.repetition_two_months = repetition_two_months;
    }
+   public static void initRepetition_two_months(boolean repetition_two_months)
+   {
+      Settings.repetition_two_months = repetition_two_months;
+   }
 
    public static boolean isRepetition_five_months()
    {
       return Settings.repetition_five_months;
    }
-
    public static void setRepetition_five_months(boolean repetition_five_months)
    {
       Preferences preferences = Preferences
@@ -503,12 +523,15 @@ public class Settings
                   repetition_five_months);
       Settings.repetition_five_months = repetition_five_months;
    }
-
+   public static void initRepetition_five_months(boolean repetition_five_months)
+   {
+      Settings.repetition_five_months = repetition_five_months;
+   }
+   
    public static boolean isRepetition_done()
    {
       return Settings.repetition_done;
    }
-
    public static void setRepetition_done(boolean repetition_done)
    {
       // nothing

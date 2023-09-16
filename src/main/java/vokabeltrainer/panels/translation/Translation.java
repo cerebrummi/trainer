@@ -49,7 +49,7 @@ public enum Translation {
 	AUSGEWAEHLTE_WOERTER("ausgewählte Wörter", "selected words"), 
 	AUSGEWAEHLTE_WOERTER_ZU("ausgewählte Wörter zu", "selected words"),
 	AUSSCNEIDEN("ausschneiden", "cut out"),
-	AUSWAHLEN__UM_DANN_DAS_TRAINING_ZU_STARTEN_("auswählen, um dann das Training zu starten.", "select, in order to start the training."), 
+	AUSWAHLEN__UM_DANN_DAS_TRAINING_ZU_STARTEN_("auswählen, um dann das Training zu starten.", "in order to start the training."), 
 	AUSWAHL("Auswahl", "selection"),
 	AUSWAHL_ZUR_DATENBANK_VERSCHIEBEN("Auswahl zur Datenbank verschieben", "move selection to database"),
 	AUSWAHL_ZUR_LEKTION_VERSCHIEBEN("Auswahl zur Lektion verschieben", "move selection to chapter"), 
@@ -71,7 +71,7 @@ public enum Translation {
 	BITTE_JE_EIN_WORT_EINGEBEN("Bitte je ein Wort eingeben", "Please enter one word each"),
 	BITTE_LOESCHEN_SIE_DIESEN_AUSDRUCK("Bitte löschen Sie diesen Ausdruck", "Please delete this expression"),
 	BITTE_SCHREIBEN_SIE_EINE_ANTWORT("Bitte schreiben Sie eine Antwort.", "Please write an answer."),
-	BITTE_NEUE_WORTE_DURCH_EINGABE_EINER_ANZAHL("Bitte neue Worte durch Eingabe einer Anzahl", "Request new words by entering a number"),
+	BITTE_NEUE_WORTE_DURCH_EINGABE_EINER_ANZAHL("Bitte neue Worte durch Eingabe einer Anzahl", "Choose (number of) words"),
 	BITTE_WAEHLEN("bitte wählen", "please choose"),
 	BITTE_WAEHLEN_SIE_EINEN_EXISTIERENDEN_ORDNER_("Bitte wählen Sie einen existierenden Ordner.", "Please choose an existing folder."),
 	BITTE_WAEHLEN_SIE_EINEN_EXISTIERENDEN_ORDNER_BZW__ZIP_DATEI_(
@@ -126,7 +126,7 @@ public enum Translation {
 	FEHLERMELDUNG("Fehlermeldung", "error message"), 
 	FEMININ("feminin", "feminine"),
 	FEMININ_UND_MASKULIN("feminin und maskulin", "feminine and masculine"), 
-	FERTIG("fertig", "complete"), 
+	FERTIG("fertig", "done"), 
 	FRAGE("Frage", "question"), 
 	FRAGEWORT("Fragewort", "question pronoun"),
 

@@ -88,6 +88,7 @@ public class InformationTab extends JPanel
       morgenCheck = new JCheckBox(translator.realisticTranslate(Translation.MORGEN));
       morgenCheck.setFont(checkBoxFont);
       morgenCheck.setForeground(ApplicationColors.getWhite());
+      morgenCheck.setSelected(Settings.isRepetition_one_day());
       tage_2_Check = new JCheckBox(translator.realisticTranslate(Translation._2_TAGE));
       tage_2_Check.setFont(checkBoxFont);
       tage_2_Check.setForeground(ApplicationColors.getWhite());
@@ -107,7 +108,7 @@ public class InformationTab extends JPanel
       monate_1_Check = new JCheckBox(translator.realisticTranslate(Translation._1_MONAT));
       monate_1_Check.setFont(checkBoxFont);
       monate_1_Check.setForeground(ApplicationColors.getWhite());
-      monate_1_Check.setSelected(Settings.isRepetition_eleven_days());
+      monate_1_Check.setSelected(Settings.isRepetition_one_month());
       monate_2_Check = new JCheckBox(translator.realisticTranslate(Translation._2_MONATE));
       monate_2_Check.setFont(checkBoxFont);
       monate_2_Check.setForeground(ApplicationColors.getWhite());

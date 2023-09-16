@@ -206,7 +206,7 @@ public class MainView extends JPanel
          
          if (dialog.isTraining())
          {
-            if(dialog.getNewExpressions().isEmpty() && dialog.getOldExpressions().isEmpty())
+            if(dialog.getNewExpressions().isEmpty() && (dialog.getOldExpressions() == null || dialog.getOldExpressions().isEmpty()))
             {
                this.showNoWordsForTraining();
                return;

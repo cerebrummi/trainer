@@ -143,7 +143,7 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_one_day(preferences.getBoolean(CerebrummiNodes.getRepetitionOneDay(), false));
+         Settings.initRepetition_one_day(preferences.getBoolean(CerebrummiNodes.getRepetitionOneDay(), false));
       }
       catch (Exception e)
       {
@@ -154,7 +154,7 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_two_days(preferences.getBoolean(CerebrummiNodes.getRepetitionTwoDays(), true));
+         Settings.initRepetition_two_days(preferences.getBoolean(CerebrummiNodes.getRepetitionTwoDays(), true));
       }
       catch (Exception e)
       {
@@ -165,7 +165,7 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_five_days(preferences.getBoolean(CerebrummiNodes.getRepetitionFiveDays(), true));
+         Settings.initRepetition_five_days(preferences.getBoolean(CerebrummiNodes.getRepetitionFiveDays(), true));
       }
       catch (Exception e)
       {
@@ -176,18 +176,7 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_eleven_days(preferences.getBoolean(CerebrummiNodes.getRepetitionElevenDays(), false));
-      }
-      catch (Exception e)
-      {
-         // nothing
-      }  
-      
-      try
-      {
-         Preferences preferences = Preferences.userRoot()
-               .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_nineteen_days(preferences.getBoolean(CerebrummiNodes.getRepetitionNineteenDays(), true));
+         Settings.initRepetition_eleven_days(preferences.getBoolean(CerebrummiNodes.getRepetitionElevenDays(), false));
       }
       catch (Exception e)
       {
@@ -198,7 +187,18 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_one_month(preferences.getBoolean(CerebrummiNodes.getRepetitionOneMonth(), false));
+         Settings.initRepetition_nineteen_days(preferences.getBoolean(CerebrummiNodes.getRepetitionNineteenDays(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }  
+      
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.initRepetition_one_month(preferences.getBoolean(CerebrummiNodes.getRepetitionOneMonth(), false));
       }
       catch (Exception e)
       {
@@ -209,7 +209,7 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_two_months(preferences.getBoolean(CerebrummiNodes.getRepetitionTwoMonths(), false));
+         Settings.initRepetition_two_months(preferences.getBoolean(CerebrummiNodes.getRepetitionTwoMonths(), false));
       }
       catch (Exception e)
       {
@@ -220,7 +220,7 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setRepetition_five_months(preferences.getBoolean(CerebrummiNodes.getRepetitionFiveMonths(), false));
+         Settings.initRepetition_five_months(preferences.getBoolean(CerebrummiNodes.getRepetitionFiveMonths(), false));
       }
       catch (Exception e)
       {
