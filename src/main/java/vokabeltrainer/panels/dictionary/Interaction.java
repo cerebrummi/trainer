@@ -2,6 +2,10 @@ package vokabeltrainer.panels.dictionary;
 
 import java.util.HashMap;
 
+import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.notifications.ErrorNotification;
+import vokabeltrainer.panels.translation.Translation;
+
 public class Interaction
 { 
    private static HashMap<Interaction, Command> interactions;
@@ -237,6 +241,15 @@ public class Interaction
    
    public static Command getCommand(Interaction interaction)
    {
+      if(interactions.get(interaction) == null)
+      {
+         ErrorNotification.display(
+               Common.getTranslator()
+                     .realisticTranslate(Translation.ENTSCHULDIGUNG),
+               interaction.getAction().name(), interaction.getStatus().name(),
+               Common.getTranslator().realisticTranslate(Translation.FEEDBACK));
+         return Command.ERROR;
+      }
       return interactions.get(interaction);
    }
    

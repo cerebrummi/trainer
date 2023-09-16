@@ -9,7 +9,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.ApplicationColors;
+import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.table.list.ExpressionList;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;

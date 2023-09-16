@@ -30,12 +30,13 @@ import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.PathAndFile;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.ApplicationSound;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.ImportExpressions;
@@ -74,7 +75,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JTabbedPane tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(false);
-      tabbedPane.setFont(Main.getGermanFont(16F));
+      tabbedPane.setFont(ApplicationFonts.getButtonFont());
       tabbedPane.addTab(translator.realisticTranslate(
             Translation.EINSTELLUNGEN_UND_SERVICE), initSettingsTab());
       try
@@ -110,7 +111,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       panel.setLayout(panelLayout);
 
       JEditorPane editorPane = new JEditorPane();
-      editorPane.setFont(Settings.getButtonFont());
+      editorPane.setFont(ApplicationFonts.getButtonFont());
       editorPane.setContentType("text/html");
       editorPane.setPage(Nachweise.class.getResource("Nachweise"));
       editorPane.setEditable(false);
@@ -159,7 +160,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       panel.setLayout(panelLayout);
 
       JEditorPane editorPane = new JEditorPane();
-      editorPane.setFont(Settings.getButtonFont());
+      editorPane.setFont(ApplicationFonts.getButtonFont());
       editorPane.setContentType("text/html");
       editorPane.setPage(Nachweise.class.getResource("lizenz.txt"));
       editorPane.setEditable(false);
@@ -248,12 +249,12 @@ public class SettingsPanel extends BackgroundPanelTiled
       
       JLabel deleteLabel = new JLabel(
             translator.realisticTranslate(Translation.LOESCHEN));
-      deleteLabel.setFont(Main.getGermanFont(30F));
+      deleteLabel.setFont(ApplicationFonts.getGermanFont(30F));
       deleteLabel.setForeground(ApplicationColors.getGold());
 
       deleteDatabaseButton = new JButton(translator
             .realisticTranslate(Translation.EIGENE_DATENBANK_LOESCHEN));
-      deleteDatabaseButton.setFont(Settings.getButtonFont());
+      deleteDatabaseButton.setFont(ApplicationFonts.getButtonFont());
       deleteDatabaseButton.setToolTipText(translator.realisticTranslate(
             Translation.VERSCHIEBT_ALLE_VOKABELN_EINER_DATENBANK_IN_DEN_PAPIERKORB_));
       deleteDatabaseButton.setMinimumSize(new Dimension(WIDTH, 30));
@@ -273,11 +274,11 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JLabel saverLabel = new JLabel(
             translator.realisticTranslate(Translation.SPEICHERORT));
-      saverLabel.setFont(Main.getGermanFont(30F));
+      saverLabel.setFont(ApplicationFonts.getGermanFont(30F));
       saverLabel.setForeground(ApplicationColors.getGold());
 
       folderLabel = new JTextArea(Settings.getExpressionPath());
-      folderLabel.setFont(Settings.getButtonFont());
+      folderLabel.setFont(ApplicationFonts.getButtonFont());
       folderLabel.setEditable(false);
       folderLabel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.ORDNER)));
@@ -286,7 +287,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       folderChooserButtonWithoutSaving = new JButton(
             translator.realisticTranslate(Translation.AENDERN));
-      folderChooserButtonWithoutSaving.setFont(Settings.getButtonFont());
+      folderChooserButtonWithoutSaving.setFont(ApplicationFonts.getButtonFont());
       folderChooserButtonWithoutSaving.setToolTipText(translator
             .realisticTranslate(
                   Translation.LAEDT_ALLE_VOKABELN__DIE_AM_NEUEN_ORT_SCHON_VORHANDEN_SIND_)
@@ -310,7 +311,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       exportButton = new JButton(translator
             .realisticTranslate(Translation.ALLE_VOKABELN_EXPORTIEREN));
-      exportButton.setFont(Settings.getButtonFont());
+      exportButton.setFont(ApplicationFonts.getButtonFont());
       exportButton.setToolTipText(
             translator.realisticTranslate(Translation.ALLE_VOKABELN_EXPORTIEREN)
                   + " " + translator.realisticTranslate(
@@ -318,7 +319,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       exportSelectedButton = new JButton(translator
             .realisticTranslate(Translation.MARKIERTE_VOKABELN_EXPORTIEREN));
-      exportSelectedButton.setFont(Settings.getButtonFont());
+      exportSelectedButton.setFont(ApplicationFonts.getButtonFont());
       exportSelectedButton.setToolTipText(translator
             .realisticTranslate(Translation.MARKIERTE_VOKABELN_EXPORTIEREN)
             + " " + translator
@@ -326,7 +327,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       exportDatabaseButton = new JButton(translator.realisticTranslate(
             Translation.VOKABELN_EINER_DATENBANK_EXPORTIEREN));
-      exportDatabaseButton.setFont(Settings.getButtonFont());
+      exportDatabaseButton.setFont(ApplicationFonts.getButtonFont());
       exportDatabaseButton.setToolTipText(translator.realisticTranslate(
             Translation.VOKABELN_EINER_DATENBANK_EXPORTIEREN) + " "
             + translator
@@ -336,12 +337,12 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JLabel exportLabel = new JLabel(
             translator.realisticTranslate(Translation.EXPORT));
-      exportLabel.setFont(Main.getGermanFont(30F));
+      exportLabel.setFont(ApplicationFonts.getGermanFont(30F));
       exportLabel.setForeground(ApplicationColors.getGold());
 
       JLabel exportExplanation = new JLabel(" " + translator.realisticTranslate(
             Translation.KEIN_EXPORT_VON_INTERNEN_DATENBANKEN_MOEGLICH));
-      exportExplanation.setFont(Main.getGermanFont(14F));
+      exportExplanation.setFont(ApplicationFonts.getGermanFont(14F));
       exportExplanation.setForeground(ApplicationColors.getGold());
 
       vertical.add(exportLabel);
@@ -361,12 +362,12 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JLabel importLabel = new JLabel(
             translator.realisticTranslate(Translation.IMPORT));
-      importLabel.setFont(Main.getGermanFont(30F));
+      importLabel.setFont(ApplicationFonts.getGermanFont(30F));
       importLabel.setForeground(ApplicationColors.getGold());
 
       importButton = new JButton(
             translator.realisticTranslate(Translation.DATENBANK_IMPORTIEREN));
-      importButton.setFont(Settings.getButtonFont());
+      importButton.setFont(ApplicationFonts.getButtonFont());
       importButton.setMinimumSize(new Dimension(WIDTH, 30));
       importButton.setMaximumSize(new Dimension(WIDTH, 30));
 
@@ -390,7 +391,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       JLabel soundLabel = new JLabel(
             translator.realisticTranslate(Translation.LAUTSTAERKE));
-      soundLabel.setFont(Main.getGermanFont(30F));
+      soundLabel.setFont(ApplicationFonts.getGermanFont(30F));
       soundLabel.setForeground(ApplicationColors.getDarkGold());
 
       soundButton = new JButton(new ImageIcon(Settings.getSound()));
@@ -412,19 +413,19 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       waveSoundButton = new JButton(
             translator.realisticTranslate(Translation.WELLEN));
-      waveSoundButton.setFont(Settings.getButtonFont());
+      waveSoundButton.setFont(ApplicationFonts.getButtonFont());
 
       clappingSoundButton = new JButton(
             translator.realisticTranslate(Translation.APPLAUS));
-      clappingSoundButton.setFont(Settings.getButtonFont());
+      clappingSoundButton.setFont(ApplicationFonts.getButtonFont());
 
       splotchSoundButton = new JButton(
             translator.realisticTranslate(Translation.TINTENSPRITZER));
-      splotchSoundButton.setFont(Settings.getButtonFont());
+      splotchSoundButton.setFont(ApplicationFonts.getButtonFont());
 
       shredderSoundButton = new JButton(
             translator.realisticTranslate(Translation.AKTENVERNICHTER));
-      shredderSoundButton.setFont(Settings.getButtonFont());
+      shredderSoundButton.setFont(ApplicationFonts.getButtonFont());
 
       vertical.add(soundLabel);
       vertical.add(soundButton);

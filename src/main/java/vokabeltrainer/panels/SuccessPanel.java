@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.success.LanguageTab;
@@ -31,7 +31,7 @@ public class SuccessPanel extends BackgroundPanelTiled
       setLayout(new BullsEyeLayout(this));
 
       germanHebrewRegister = new JTabbedPane();
-      germanHebrewRegister.setFont(Settings.getSecondaryToolBarButtonFont());
+      germanHebrewRegister.setFont(ApplicationFonts.getSecondaryToolbarButtonFont());
       germanHebrewRegister.setTabPlacement(JTabbedPane.LEFT);
       germanHebrewRegister.setMinimumSize(new Dimension(1254, 613));
       germanHebrewRegister.setMaximumSize(new Dimension(1500, 800));

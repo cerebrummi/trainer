@@ -20,14 +20,14 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.input.ChapterComboBox;
 import vokabeltrainer.panels.input.TableConnector;
@@ -262,7 +262,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       chapterBox.setPreferredSize(new Dimension(500, 30));
       chapterBox.setSize(new Dimension(500, 30));
       chapterBox.setMaximumRowCount(10);
-      chapterBox.setFont(Main.getGermanFont(14));
+      chapterBox.setFont(ApplicationFonts.getComboBoxFont());
       return chapterBox;
    }
 
@@ -286,7 +286,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       center.setBackground(ApplicationColors.getBackgroundGold());
       
       newWordPunktationButton = new JButton(translator.realisticTranslate(Translation.NEUE_VOKABEL));
-      newWordPunktationButton.setFont(Main.getGermanFont(16F));
+      newWordPunktationButton.setFont(ApplicationFonts.getButtonFont());
       newWordPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newWordPunktationButton.setMinimumSize(new Dimension(300, 60));
       newWordPunktationButton.setMaximumSize(new Dimension(300, 60));
@@ -296,7 +296,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
             10, 10, ApplicationColors.getGreen()));
 
       newTextPunktationButton = new JButton(translator.realisticTranslate(Translation.NEUER_TEXT));
-      newTextPunktationButton.setFont(Main.getGermanFont(16F));
+      newTextPunktationButton.setFont(ApplicationFonts.getButtonFont());
       newTextPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newTextPunktationButton.setMinimumSize(new Dimension(300, 60));
       newTextPunktationButton.setMaximumSize(new Dimension(300, 60));

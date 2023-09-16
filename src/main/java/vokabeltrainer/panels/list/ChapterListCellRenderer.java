@@ -7,8 +7,8 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.types.Chapter;
 
 public class ChapterListCellRenderer extends DefaultListCellRenderer
@@ -21,7 +21,7 @@ public class ChapterListCellRenderer extends DefaultListCellRenderer
    {
       label = new JLabel();
       label.setBackground(ApplicationColors.getLightGrayGold());
-      label.setFont(Main.getGermanFont(16F));
+      label.setFont(ApplicationFonts.getGermanFont(16F));
    }
 
    @Override

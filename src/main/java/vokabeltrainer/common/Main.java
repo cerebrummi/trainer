@@ -2,7 +2,6 @@ package vokabeltrainer.common;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,8 +14,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.CerebrummiPreferences;
 import vokabeltrainer.Settings;
 import vokabeltrainer.panels.translation.Translation;
@@ -32,10 +29,6 @@ import vokabeltrainer.resources.Sounds;
 
 public final class Main
 {
-   private static Font germanFont;
-   private static Font germanBoldFont;
-   private static Font hebrewFont;
-   private static Font hebrewHandwrittenFont;
    private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
 
    // -Dsun.java2d.uiScale=1 
@@ -46,6 +39,8 @@ public final class Main
 
    public static void main(String[] args)
    {	  
+      CerebrummiPreferences.read();
+      
       try
       {
          Fonts.read();
@@ -58,8 +53,17 @@ public final class Main
          System.exit(1);
       }
       
-	  new Settings();
-      CerebrummiPreferences.read();
+      try
+      {
+         Fonts.define();
+      }
+      catch (Exception e1)
+      {
+         JOptionPane
+               .showMessageDialog(null, message + "Schriftarten können nicht definiert werden",
+                     "Nachricht", JOptionPane.CLOSED_OPTION);
+         System.exit(1);
+      }
 
       try
       {
@@ -146,12 +150,12 @@ public final class Main
          UIManager.put("ComboBox.forceOpaque", false);
          UIManager.put("TitledBorder.border", new Insets(10, 10, 10, 10));
          UIManager.put("TitledBorder.position", TitledBorder.ABOVE_BOTTOM);
-         UIManager.put("TitledBorder.font", getGermanFont(16F));
+         UIManager.put("TitledBorder.font", ApplicationFonts.getGermanFont(16F));
          UIManager.put("TitledBorder.titleColor", Color.GRAY);
          UIManager.put("Table.opaque", false);
          UIManager.put("List.opaque", false);
          UIManager.put("Table.cellRenderer", false);
-         UIManager.put("OptionPane.buttonFont", Main.getGermanFont(16F));
+         UIManager.put("OptionPane.buttonFont", ApplicationFonts.getGermanFont(16F));
          UIManager.put("FileChooser.openButtonText", translator.realisticTranslate(Translation.OEFFNEN));
          UIManager.put("FileChooser.cancelButtonText", translator.realisticTranslate(Translation.ABBRECHEN));
          UIManager.put("FileChooser.saveButtonText", translator.realisticTranslate(Translation.SPEICHERN));
@@ -196,7 +200,7 @@ public final class Main
                .setTitle(Settings.getWindowTitle()
                      + " "
                      + Settings.getVersion());
-         window.setFont(germanFont.deriveFont(14F));
+         window.setFont(ApplicationFonts.getGermanFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
          ToolTipManager.sharedInstance().setInitialDelay(1000);
          vokabeltrainer.common.Common
@@ -247,51 +251,6 @@ public final class Main
          }
 
       }.execute();
-   }
-
-   public static Font getGermanFont(float size)
-   {
-      return germanFont.deriveFont(size);
-   }
-
-   public static Font getHeaderFont(float size)
-   {
-      return germanFont.deriveFont(size);
-   }
-
-   public static Font getGermanBoldFont(float size)
-   {
-      return germanBoldFont.deriveFont(size);
-   }
-
-   public static Font getHebrewFont(float size)
-   {
-      return hebrewFont.deriveFont(0, size);
-   }
-
-   public static Font getHebrewHandwrittenFont(float size)
-   {
-      return hebrewHandwrittenFont.deriveFont(size);
-   }
-
-   public static void setHebrewHandwrittenFont(Font hebrewHandwrittenFont)
-   {
-      Main.hebrewHandwrittenFont = hebrewHandwrittenFont;
-   }
-
-   public static void setGermanFont(Font germanFont)
-   {
-      Main.germanFont = germanFont;
-   }
-
-   public static void setGermanBoldFont(Font germanBoldFont)
-   {
-      Main.germanBoldFont = germanBoldFont;
-   }
-
-   public static void setHebrewFont(Font hebrewFont)
-   {
-      Main.hebrewFont = hebrewFont;
    }
 
    public static void initDatabase()

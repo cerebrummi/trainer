@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 
-import vokabeltrainer.ApplicationColors;
+import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;

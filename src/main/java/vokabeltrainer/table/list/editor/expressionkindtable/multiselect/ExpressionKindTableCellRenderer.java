@@ -10,9 +10,9 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
@@ -34,7 +34,7 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
       empty.setOpaque(false);
 
       expressionKind = new JLabel();
-      expressionKind.setFont(Main.getGermanFont(14F));
+      expressionKind.setFont(ApplicationFonts.getGermanFont(14F));
       expressionKind.setBackground(ApplicationColors.getTransparent());
       expressionKind.setOpaque(false);
    }

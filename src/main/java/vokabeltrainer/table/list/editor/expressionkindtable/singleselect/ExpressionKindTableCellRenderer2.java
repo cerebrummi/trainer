@@ -9,8 +9,9 @@ import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.common.Main;
+
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableCellRenderer2 extends DefaultTableCellRenderer
@@ -29,7 +30,7 @@ public class ExpressionKindTableCellRenderer2 extends DefaultTableCellRenderer
       empty = new JLabel();
 
       expressionKind = new JLabel();
-      expressionKind.setFont(Main.getGermanFont(14F));
+      expressionKind.setFont(ApplicationFonts.getGermanFont(14F));
    }
 
    @Override

@@ -12,6 +12,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JTextPane;
 
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+
 public class InfoTextPaneWithCheckbox extends JTextPane
 {
    private static final long serialVersionUID = -1004028916251440520L;
@@ -19,7 +22,7 @@ public class InfoTextPaneWithCheckbox extends JTextPane
 
    public InfoTextPaneWithCheckbox(String labeltext)
    {
-      box.setFont(Settings.getButtonFont());
+      box.setFont(ApplicationFonts.getButtonFont());
       box.setMargin(new Insets(-5, 5, -5, -20));
       box.setBackground(new Color(0, 0, 0, 0));
       box.setForeground(ApplicationColors.getGold());

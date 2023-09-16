@@ -1,4 +1,4 @@
-package vokabeltrainer;
+package vokabeltrainer.common;
 
 import java.awt.image.BufferedImage;
 import java.util.List;

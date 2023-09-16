@@ -14,11 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.InputHebrewPanel;
 import vokabeltrainer.Settings;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -52,7 +52,7 @@ public class KeyboardHebrewAllLetters extends JPanel
          }
          else
          {
-            textfield.setFont(Main.getHebrewFont(29F));
+            textfield.setFont(ApplicationFonts.getHebrewFont(30F));
             textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             textfield.setMinimumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
@@ -203,7 +203,7 @@ public class KeyboardHebrewAllLetters extends JPanel
       buttonCaption.add(jButton);
       JLabel captionLabel = new JLabel(" ");
 
-      captionLabel.setFont(Main.getGermanFont(8F));
+      captionLabel.setFont(ApplicationFonts.getGermanFont(8F));
       captionLabel.setMinimumSize(new Dimension(BUTTON_SIZE + 2, 5));
       captionLabel.setMaximumSize(new Dimension(BUTTON_SIZE + 2, 5));
 

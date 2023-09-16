@@ -7,7 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import vokabeltrainer.ApplicationColors;
+
+import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ImageData;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;

@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import vokabeltrainer.ApplicationColors;
+import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.types.Expression;
 
 public class SuccessTable extends JTable

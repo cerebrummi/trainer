@@ -4,7 +4,7 @@ package vokabeltrainer.table.list.editor;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-import vokabeltrainer.ApplicationColors;
+import vokabeltrainer.common.ApplicationColors;
 
 public class AntiFocusTextField extends JTextField
 {

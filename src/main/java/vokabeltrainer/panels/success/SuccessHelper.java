@@ -11,9 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveTraining;
@@ -95,7 +95,7 @@ public class SuccessHelper
       
       JButton selectAllButton = new JButton(translator.realisticTranslate(Translation.ALLE_AUSWAEHLEN));
       selectAllButton.setIcon(new ImageIcon(ApplicationImages.getSelect()));
-      selectAllButton.setFont(Settings.getButtonFont());
+      selectAllButton.setFont(ApplicationFonts.getButtonFont());
       selectAllButton.addActionListener(event -> {
 
          for (Vector<SuccessTableRow> row : model.getData())
@@ -107,7 +107,7 @@ public class SuccessHelper
       });
       JButton unselectAllButton = new JButton(translator.realisticTranslate(Translation.ALLE_NICHT_AUSWAEHLEN));
       unselectAllButton.setIcon(new ImageIcon(ApplicationImages.getClear()));
-      unselectAllButton.setFont(Settings.getButtonFont());
+      unselectAllButton.setFont(ApplicationFonts.getButtonFont());
       unselectAllButton.addActionListener(event -> {
 
          for (Vector<SuccessTableRow> row : model.getData())
@@ -124,7 +124,7 @@ public class SuccessHelper
             + "\" "
             + translator.realisticTranslate(Translation.VERSCHIEBEN));
       moveButton.setIcon(new ImageIcon(ApplicationImages.getBack()));
-      moveButton.setFont(Settings.getButtonFont());
+      moveButton.setFont(ApplicationFonts.getButtonFont());
       moveButton.addActionListener(event -> {
          List<Vector<SuccessTableRow>> rows = new ArrayList<>();
          for (Vector<SuccessTableRow> row : model.getData())

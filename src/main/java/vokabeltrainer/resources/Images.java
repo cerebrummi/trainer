@@ -2,7 +2,7 @@ package vokabeltrainer.resources;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.common.ApplicationImages;
 
 public class Images
 {

@@ -11,8 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
@@ -118,7 +118,7 @@ public class NikudPictureButtonPanel extends JPanel
       {
          germanButton = new JButton(
                letter.getContent().getGermanPictureName());
-         germanButton.setFont(Main.getGermanFont(10F));
+         germanButton.setFont(ApplicationFonts.getGermanFont(10F));
          germanButton.setContentAreaFilled(false);
       }
       germanButton.setBorder(BorderFactory.createEmptyBorder());
@@ -142,7 +142,7 @@ public class NikudPictureButtonPanel extends JPanel
       else
       {
          hebrewButton = new JButton(letter.getContent().getTranscript());
-         hebrewButton.setFont(Main.getGermanFont(10F));
+         hebrewButton.setFont(ApplicationFonts.getGermanFont(10F));
          hebrewButton.setContentAreaFilled(false); 
       }
       hebrewButton.setBorder(BorderFactory.createEmptyBorder());

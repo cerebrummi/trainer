@@ -11,9 +11,9 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.panels.success.table.list.SuccessList;
 import vokabeltrainer.types.Expression;
 
@@ -41,7 +41,7 @@ public class SuccessTableCellRenderer
       content.setOpaque(true);;
       
       chapter = new JLabel();
-      chapter.setFont(Main.getGermanFont(20));
+      chapter.setFont(ApplicationFonts.getGermanFont(20));
       chapter.setBackground(ApplicationColors.getVeryLightGold());
       chapter.setOpaque(true);
       chapter.setHorizontalAlignment(SwingConstants.CENTER);

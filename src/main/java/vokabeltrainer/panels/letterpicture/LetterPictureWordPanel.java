@@ -7,8 +7,8 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;

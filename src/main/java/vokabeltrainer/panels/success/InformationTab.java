@@ -2,6 +2,7 @@ package vokabeltrainer.panels.success;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.JCheckBox;
@@ -9,11 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -64,7 +65,7 @@ public class InformationTab extends JPanel
       box.setSize(new Dimension(355, 100));
       box.setForeground(ApplicationColors.getWhite());
       box.setBackground(ApplicationColors.getTransparent());
-      box.setFont(Main.getHebrewFont(30F));
+      box.setFont(ApplicationFonts.getHebrewFont(30F));
       box.setHorizontalAlignment(SwingConstants.CENTER);
       boxWrapper.add(box);
       
@@ -77,44 +78,46 @@ public class InformationTab extends JPanel
       checkWrapper.setBackground(ApplicationColors.getDarkGold());
       checkWrapper.setOpaque(true);
       
+      Font checkBoxFont = ApplicationFonts.getGermanFont(20F);
+      
       JCheckBox heuteCheck = new JCheckBox(translator.realisticTranslate(Translation.HEUTE));
-      heuteCheck.setFont(Main.getGermanFont(20F));
+      heuteCheck.setFont(checkBoxFont);
       heuteCheck.setForeground(ApplicationColors.getWhite());
       heuteCheck.setSelected(true);
       heuteCheck.setEnabled(false);
       morgenCheck = new JCheckBox(translator.realisticTranslate(Translation.MORGEN));
-      morgenCheck.setFont(Main.getGermanFont(20F));
+      morgenCheck.setFont(checkBoxFont);
       morgenCheck.setForeground(ApplicationColors.getWhite());
       tage_2_Check = new JCheckBox(translator.realisticTranslate(Translation._2_TAGE));
-      tage_2_Check.setFont(Main.getGermanFont(20F));
+      tage_2_Check.setFont(checkBoxFont);
       tage_2_Check.setForeground(ApplicationColors.getWhite());
       tage_2_Check.setSelected(Settings.isRepetition_two_days());
       tage_5_Check = new JCheckBox(translator.realisticTranslate(Translation._5_TAGE));
-      tage_5_Check.setFont(Main.getGermanFont(20F));
+      tage_5_Check.setFont(checkBoxFont);
       tage_5_Check.setForeground(ApplicationColors.getWhite());
       tage_5_Check.setSelected(Settings.isRepetition_five_days());
       tage_11_Check = new JCheckBox(translator.realisticTranslate(Translation._11_TAGE));
-      tage_11_Check.setFont(Main.getGermanFont(20F));
+      tage_11_Check.setFont(checkBoxFont);
       tage_11_Check.setForeground(ApplicationColors.getWhite());
       tage_11_Check.setSelected(Settings.isRepetition_eleven_days());
       tage_19_Check = new JCheckBox(translator.realisticTranslate(Translation._19_TAGE));
-      tage_19_Check.setFont(Main.getGermanFont(20F));
+      tage_19_Check.setFont(checkBoxFont);
       tage_19_Check.setForeground(ApplicationColors.getWhite());
       tage_19_Check.setSelected(Settings.isRepetition_nineteen_days());
       monate_1_Check = new JCheckBox(translator.realisticTranslate(Translation._1_MONAT));
-      monate_1_Check.setFont(Main.getGermanFont(20F));
+      monate_1_Check.setFont(checkBoxFont);
       monate_1_Check.setForeground(ApplicationColors.getWhite());
       monate_1_Check.setSelected(Settings.isRepetition_eleven_days());
       monate_2_Check = new JCheckBox(translator.realisticTranslate(Translation._2_MONATE));
-      monate_2_Check.setFont(Main.getGermanFont(20F));
+      monate_2_Check.setFont(checkBoxFont);
       monate_2_Check.setForeground(ApplicationColors.getWhite());
       monate_2_Check.setSelected(Settings.isRepetition_two_months());
       monate_5_Check = new JCheckBox(translator.realisticTranslate(Translation._5_MONATE));
-      monate_5_Check.setFont(Main.getGermanFont(20F));
+      monate_5_Check.setFont(checkBoxFont);
       monate_5_Check.setForeground(ApplicationColors.getWhite());
       monate_5_Check.setSelected(Settings.isRepetition_five_months());
       JCheckBox done_Check = new JCheckBox(translator.realisticTranslate(Translation.FERTIG));
-      done_Check.setFont(Main.getGermanFont(20F));
+      done_Check.setFont(checkBoxFont);
       done_Check.setForeground(ApplicationColors.getWhite());
       done_Check.setForeground(ApplicationColors.getWhite());
       done_Check.setSelected(true);

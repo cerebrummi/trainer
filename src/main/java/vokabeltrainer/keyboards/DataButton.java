@@ -5,7 +5,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationFonts;
 
 public class DataButton extends JButton
 {
@@ -24,7 +24,7 @@ public class DataButton extends JButton
       super(caption);
       this.data = data;
       this.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      this.setFont(Main.getHebrewFont(29F));
+      this.setFont(ApplicationFonts.getHebrewFont(30F));
    }
 
    public String getData()

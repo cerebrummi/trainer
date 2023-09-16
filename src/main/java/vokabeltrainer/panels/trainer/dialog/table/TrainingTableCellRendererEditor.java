@@ -15,9 +15,9 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.editing.IntegerSpinnerEditor;
 import vokabeltrainer.editing.IntegerSpinnerModel;
 
@@ -41,7 +41,7 @@ public class TrainingTableCellRendererEditor
 
    public TrainingTableCellRendererEditor()
    {
-      Font font = Main.getGermanFont(20F);
+      Font font = ApplicationFonts.getGermanFont(20F);
       field = new JLabel();
       field.setFont(font);
       toBeRepeatedWords = new JLabel();

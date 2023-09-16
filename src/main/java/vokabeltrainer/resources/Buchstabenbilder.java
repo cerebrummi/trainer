@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.ApplicationSpecialPanels;
+import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.ApplicationSpecialPanels;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.panels.letterpicture.Card;
 import vokabeltrainer.panels.letterpicture.LetterPictureButtonPanel;

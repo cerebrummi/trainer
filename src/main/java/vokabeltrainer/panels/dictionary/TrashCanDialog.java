@@ -18,12 +18,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import vokabeltrainer.Settings;
 import vokabeltrainer.TrashCanBackgroundPanel;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.notifications.EmptyNotification;
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -101,19 +100,19 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
 
       selectAllInTableButton = new JButton("Tabelle auswählen");
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
-      selectAllInTableButton.setFont(Settings.getButtonFont());
+      selectAllInTableButton.setFont(ApplicationFonts.getButtonFont());
       selectAllInTableButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
 
       clearInTableSelectedButton = new JButton("Tabellenauswahl aufheben");
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
-      clearInTableSelectedButton.setFont(Settings.getButtonFont());
+      clearInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
       clearInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
 
       restoreButton = new JButton("Auswahl wiederherstellen");
       restoreButton.setHorizontalAlignment(SwingConstants.LEFT);
-      restoreButton.setFont(Main.getGermanFont(16F));
+      restoreButton.setFont(ApplicationFonts.getButtonFont());
       restoreButton.setIcon(new ImageIcon(ApplicationImages.getRestore()));
 
       vertical.add(horizontal1);
@@ -178,7 +177,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
 
    private void initLanguageButtonGroup(ButtonGroup languageTypeGroup)
    {
-      Font font = Main.getGermanFont(20F);
+      Font font = ApplicationFonts.getGermanFont(20F);
 
       JRadioButton german = new JRadioButton("Deutsch");
       german.setActionCommand(Language.GERMAN_TO_HEBREW.name());

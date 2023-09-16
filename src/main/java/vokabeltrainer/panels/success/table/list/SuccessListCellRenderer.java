@@ -9,8 +9,8 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
 
 public class SuccessListCellRenderer implements ListCellRenderer<Object>, Serializable
 {
@@ -43,9 +43,9 @@ public class SuccessListCellRenderer implements ListCellRenderer<Object>, Serial
       hebrew.setBorder(BorderFactory.createEmptyBorder());
       grammar.setBorder(BorderFactory.createEmptyBorder());
       
-      german.setFont(Main.getGermanFont(16F));
-      hebrew.setFont(Main.getHebrewFont(20F));
-      grammar.setFont(Main.getGermanFont(16F));
+      german.setFont(ApplicationFonts.getGermanFont(16F));
+      hebrew.setFont(ApplicationFonts.getHebrewFont(20F));
+      grammar.setFont(ApplicationFonts.getGermanFont(16F));
       
       hebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
    }

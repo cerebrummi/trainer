@@ -43,17 +43,17 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputHebrewPanel;
 import vokabeltrainer.InputHebrewPanel.Selection;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.LetterForSaving;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
@@ -129,7 +129,6 @@ public class NikudExpressionEditorView extends JDialog
    private ExpressionKindTableMultiselect expressionKindTable;
    private boolean frozen;
 
-   @SuppressWarnings("unused")
    private NikudExpressionEditorControllerConnector connector;
 
    private JPanel binjanBoxPanel;
@@ -209,8 +208,8 @@ public NikudExpressionEditorView(
 
    private void initGuiFields()
    {
-      Font germanfont = Main.getGermanFont(16F);
-      Font hebrewfont = Main.getHebrewFont(30F);
+      Font germanfont = ApplicationFonts.getGermanFont(16F);
+      Font hebrewfont = ApplicationFonts.getHebrewFont(30F);
 
       german = new JTextField();
       german.setBorder(makeBorderBlank(germanTitle));
@@ -251,7 +250,7 @@ public NikudExpressionEditorView(
                boolean isSelected, boolean cellHasFocus)
          {
             AntiFocusTextField listComponent = new AntiFocusTextField(value);
-            listComponent.setFont(Main.getGermanFont(16F));
+            listComponent.setFont(ApplicationFonts.getGermanFont(16F));
             if (isSelected)
             {
                listComponent.setBackground(Color.WHITE);
@@ -348,7 +347,7 @@ public NikudExpressionEditorView(
 
       deleteSearchwordButtonHebrew = new JButton(translator
             .realisticTranslate(Translation.LOESCHE_SUCHWORT_HEBRAEISCH));
-      deleteSearchwordButtonHebrew.setFont(Main.getGermanFont(16F));
+      deleteSearchwordButtonHebrew.setFont(ApplicationFonts.getButtonFont());
       deleteSearchwordButtonHebrew
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 40));
       deleteSearchwordButtonHebrew
@@ -357,24 +356,24 @@ public NikudExpressionEditorView(
       deleteSearchwordButtonGerman = new JButton(translator
             .realisticTranslate(Translation.LOESCHE_SUCHWORT_DEUTSCH));
       deleteSearchwordButtonGerman.setFocusable(false);
-      deleteSearchwordButtonGerman.setFont(Main.getGermanFont(16F));
+      deleteSearchwordButtonGerman.setFont(ApplicationFonts.getButtonFont());
       deleteSearchwordButtonGerman
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 40));
       deleteSearchwordButtonGerman
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 40));
 
       saveButton = new JButton(translator.realisticTranslate(Translation.SPEICHERN));
-      saveButton.setFont(Main.getGermanFont(16F));
+      saveButton.setFont(ApplicationFonts.getButtonFont());
       saveButton.setMinimumSize(new Dimension(120, 40));
       saveButton.setMaximumSize(new Dimension(160, 40));
 
       restoreButton = new JButton(translator.realisticTranslate(Translation.ZURUECKSETZEN));
-      restoreButton.setFont(Main.getGermanFont(16F));
+      restoreButton.setFont(ApplicationFonts.getButtonFont());
       restoreButton.setMinimumSize(new Dimension(120, 40));
       restoreButton.setMaximumSize(new Dimension(160, 40));
 
       cancelButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
-      cancelButton.setFont(Main.getGermanFont(16F));
+      cancelButton.setFont(ApplicationFonts.getButtonFont());
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
@@ -396,7 +395,7 @@ public NikudExpressionEditorView(
       indexField.setMaximumSize(new Dimension(85, 70));
 
       databaseNameField = new JComboBox<>();
-      databaseNameField.setFont(Settings.getButtonFont());
+      databaseNameField.setFont(ApplicationFonts.getButtonFont());
       databaseNameField.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       databaseNameField.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       databaseNameField.setBorder(new TitledBorder(translator.realisticTranslate(Translation.DATENBANK)));
@@ -404,7 +403,7 @@ public NikudExpressionEditorView(
       databaseNameField.setMaximumRowCount(20);
 
       extraInfo = new JTextPane();
-      extraInfo.setFont(Main.getHebrewFont(30));
+      extraInfo.setFont(ApplicationFonts.getHebrewFont(30));
       extraInfo.setBorder(
             BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.WEITERE_INFORMATIONEN)));
       extraInfo.setDocument(new ExtraInformationDocument());
@@ -451,7 +450,7 @@ public NikudExpressionEditorView(
             ExpressionKind.getModelForMultiselect(), WIDTH_INFO_PANEL, this);
 
       binjanBox = new JComboBox<>(Binjan.values());
-      binjanBox.setFont(Main.getGermanFont(14F));
+      binjanBox.setFont(ApplicationFonts.getComboBoxFont());
       binjanBox.setEditable(false);
       binjanBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       binjanBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
@@ -465,7 +464,7 @@ public NikudExpressionEditorView(
       binjanBoxPanel.setBorder(new TitledBorder(translator.realisticTranslate(Translation.BINJAN___STAMM)));
 
       genderBox = new JComboBox<>(Gender.values());
-      genderBox.setFont(Main.getGermanFont(14F));
+      genderBox.setFont(ApplicationFonts.getComboBoxFont());
       genderBox.setEditable(false);
       genderBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       genderBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
@@ -479,7 +478,7 @@ public NikudExpressionEditorView(
       genderBoxPanel.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.GESCHLECHT)));
 
       grammaticalPersonBox = new JComboBox<>(GrammaticalPerson.values());
-      grammaticalPersonBox.setFont(Main.getGermanFont(14F));
+      grammaticalPersonBox.setFont(ApplicationFonts.getComboBoxFont());
       grammaticalPersonBox.setEditable(false);
       grammaticalPersonBox
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
@@ -499,7 +498,8 @@ public NikudExpressionEditorView(
             .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.GRAMMATISCHE_PERSON)));
 
       numerusBox = new JComboBox<>(Numerus.values());
-      numerusBox.setFont(Main.getGermanFont(14F));
+      numerusBox.setFont(ApplicationFonts.getComboBoxFont());
+
       numerusBox.setEditable(false);
       numerusBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       numerusBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
@@ -513,7 +513,7 @@ public NikudExpressionEditorView(
       numerusBoxPanel.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.NUMERUS)));
 
       verbTimesBox = new JComboBox<>(VerbTimes.values());
-      verbTimesBox.setFont(Main.getGermanFont(14F));
+      verbTimesBox.setFont(ApplicationFonts.getComboBoxFont());
       verbTimesBox.setEditable(false);
       verbTimesBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
       verbTimesBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
@@ -613,7 +613,7 @@ public NikudExpressionEditorView(
             translator.realisticTranslate(Translation.WORTARTEN__MEHRFACHAUSWAHL_)));
 
       lastModiefiedLabel = new JLabel();
-      lastModiefiedLabel.setFont(Settings.getButtonFont());
+      lastModiefiedLabel.setFont(ApplicationFonts.getGermanFont(14F));
 
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);

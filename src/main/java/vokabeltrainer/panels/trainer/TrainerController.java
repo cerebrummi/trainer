@@ -16,14 +16,15 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.ApplicationSound;
+
 import vokabeltrainer.InputHebrewPanel.Selection;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.TextImageWithPicture;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.ApplicationSound;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.panels.TrainerView;
 import vokabeltrainer.panels.translation.Translation;
@@ -207,7 +208,7 @@ public class TrainerController implements TrainerControllerConnector
             BestResult bestResult = NikudResultFactory.getBestResultPossible(
                   currentExpression,
                   trainerView.getAnswerField().getText().trim(),
-                  Main.getHebrewFont(30F));
+                  ApplicationFonts.getHebrewFont(30F));
             Result result = bestResult.getBestResult();
             if (result.isAnswerEmpty())
             {

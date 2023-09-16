@@ -1,6 +1,5 @@
 ﻿package vokabeltrainer;
 
-import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Arrays;
@@ -9,17 +8,13 @@ import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.LanguageSettings;
 
 public class Settings
 {
-   private static Font buttonFont;
-   private static Font toolbarButtonFont;
-   private static Font secondaryToolbarButtonFont;
-
    private static boolean soundOn = true;
    private static String chosenExpressionPath = null;
    private static float volume = -20;
@@ -50,11 +45,9 @@ public class Settings
    private static boolean repetition_five_months;
    private static boolean repetition_done = true;
 
-   public Settings()
+   private Settings()
    {
-	  buttonFont = Main.getGermanFont(16F);
-	  toolbarButtonFont = Main.getHeaderFont(26F);
-	  secondaryToolbarButtonFont = Main.getHeaderFont(18F);
+	  
    }
 
    public static String getVersion()
@@ -65,21 +58,6 @@ public class Settings
    public static int dictionaryTableRowHeight()
    {
       return 250;
-   }
-
-   public static Font getToolBarButtonFont()
-   {
-      return toolbarButtonFont;
-   }
-
-   public static Font getSecondaryToolBarButtonFont()
-   {
-      return secondaryToolbarButtonFont;
-   }
-
-   public static Font getButtonFont()
-   {
-      return buttonFont;
    }
 
    public static LanguageSettings getLanguage()

@@ -14,10 +14,10 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -45,7 +45,7 @@ public class KeyboardHebrewStandard extends JPanel
 
       if (textfield != null)
       {
-         textfield.setFont(Main.getHebrewFont(29F));
+         textfield.setFont(ApplicationFonts.getHebrewFont(30F));
          textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          textfield.setMinimumSize(
                new Dimension(Settings.getKeyboardWidth(), textFieldHeight));

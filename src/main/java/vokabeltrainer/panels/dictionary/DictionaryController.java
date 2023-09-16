@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
 
-import vokabeltrainer.ApplicationSound;
 import vokabeltrainer.Command;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationSound;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
@@ -287,6 +287,8 @@ public class DictionaryController implements DictionaryControllerConnector
             {
                switch (commando)
                {
+               case ERROR:
+                  break;
                case NOTHING:
                   break;
                case NO_TABLE:

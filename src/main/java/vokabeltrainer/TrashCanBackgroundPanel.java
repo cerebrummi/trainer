@@ -4,6 +4,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import vokabeltrainer.common.ApplicationImages;
+
 public class TrashCanBackgroundPanel extends JPanel
 {
 

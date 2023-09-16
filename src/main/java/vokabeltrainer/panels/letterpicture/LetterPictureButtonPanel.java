@@ -11,8 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
 
@@ -133,7 +133,7 @@ public class LetterPictureButtonPanel extends JPanel
       else
       {
          germanButton = new JButton(letter.getGermanPictureName());
-         germanButton.setFont(Main.getGermanFont(10F));
+         germanButton.setFont(ApplicationFonts.getGermanFont(10F));
          germanButton.setBorder(BorderFactory.createEmptyBorder());
          germanButton.setMargin(new Insets(0, 0, 0, 0));
          germanButton.setContentAreaFilled(false);
@@ -159,7 +159,7 @@ public class LetterPictureButtonPanel extends JPanel
          hebrewButton = new JButton(letter.getTranscript());
          hebrewButton.setBorder(BorderFactory.createEmptyBorder());
          hebrewButton.setMargin(new Insets(0, 0, 0, 0));
-         hebrewButton.setFont(Main.getGermanFont(10F));
+         hebrewButton.setFont(ApplicationFonts.getGermanFont(10F));
          hebrewButton.setContentAreaFilled(false);
          hebrewButton.setOpaque(false);
       }
@@ -184,7 +184,7 @@ public class LetterPictureButtonPanel extends JPanel
                new ImageIcon(ApplicationImages.getLetterIconsNikudMap().get(letter)
                      .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                            java.awt.Image.SCALE_SMOOTH)));
-         letterButton.setFont(Main.getHebrewFont(30F));
+         letterButton.setFont(ApplicationFonts.getHebrewFont(30F));
          letterButton.setBorder(BorderFactory.createEmptyBorder());
          letterButton.setContentAreaFilled(false);
          letterButton.setMargin(new Insets(-10, 0, 0, 0));
@@ -212,7 +212,7 @@ public class LetterPictureButtonPanel extends JPanel
                new ImageIcon(ApplicationImages.getLetterIconsNikudHandwrittenMap().get(letter)
                      .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                            java.awt.Image.SCALE_SMOOTH)));
-         letterHandwrittenButton.setFont(Main.getHebrewHandwrittenFont(30F));
+         letterHandwrittenButton.setFont(ApplicationFonts.getHebrewHandwrittenFont(30F));
          letterHandwrittenButton.setBorder(BorderFactory.createEmptyBorder());
          letterHandwrittenButton.setContentAreaFilled(false);
          letterHandwrittenButton.setMargin(new Insets(-10, 0, 0, 0));

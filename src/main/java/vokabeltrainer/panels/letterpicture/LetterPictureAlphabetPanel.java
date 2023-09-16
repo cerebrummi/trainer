@@ -19,12 +19,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.ApplicationSpecialPanels;
-import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.ApplicationSpecialPanels;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.editing.SingleLetterDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewStandard;
@@ -199,7 +198,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       filler.setMaximumSize(new Dimension(310, 50));
 
       JButton turnButton = new JButton(translator.realisticTranslate(Translation.ALLE_UMDREHEN));
-      turnButton.setFont(Settings.getButtonFont());
+      turnButton.setFont(ApplicationFonts.getButtonFont());
       turnButton.setIcon(new ImageIcon(ApplicationImages.getTurn()));
       turnButton.addActionListener(event -> {
          for (LetterPictureButtonPanel panel : panels.values())
@@ -316,7 +315,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          for (JTextComponent jtc : textFields)
          {
-            jtc.setFont(Main.getHebrewHandwrittenFont(30));
+            jtc.setFont(ApplicationFonts.getHebrewHandwrittenFont(30));
          }
          cardLayout.show(keyboardPanel, SCHREIBSCHRIFT);
       }
@@ -324,7 +323,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          for (JTextComponent jtc : textFields)
          {
-            jtc.setFont(Main.getHebrewFont(30));
+            jtc.setFont(ApplicationFonts.getHebrewFont(30));
          }
          cardLayout.show(keyboardPanel, DRUCKSCHRIFT);
       }  

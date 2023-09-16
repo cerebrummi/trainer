@@ -12,9 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTable;
@@ -37,7 +37,7 @@ public class AmountTab extends BackgroundPanelTiled
             Math.min(screenSize.height - 60, 900));
 
       JLabel question = new JLabel(translator.realisticTranslate(Translation.WIE_VIELE_NEUE_WOERTER_MOECHTEN_SIE_LERNEN_));
-      question.setFont(Settings.getButtonFont());
+      question.setFont(ApplicationFonts.getButtonFont());
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
       add(question, BorderLayout.NORTH);
@@ -61,11 +61,11 @@ public class AmountTab extends BackgroundPanelTiled
       JPanel buttonWrapper = new JPanel(new FlowLayout());
       
       JButton cancelButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
-      cancelButton.setFont(Settings.getButtonFont());
+      cancelButton.setFont(ApplicationFonts.getButtonFont());
       cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
       
       JButton nextButton = new JButton(translator.realisticTranslate(Translation.WEITER));
-      nextButton.setFont(Settings.getButtonFont());
+      nextButton.setFont(ApplicationFonts.getButtonFont());
       nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));
       
       buttonWrapper.add(cancelButton);

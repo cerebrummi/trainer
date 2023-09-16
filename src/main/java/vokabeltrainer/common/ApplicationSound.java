@@ -1,4 +1,4 @@
-package vokabeltrainer;
+package vokabeltrainer.common;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

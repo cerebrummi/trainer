@@ -14,10 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTable;
 import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopy;
 import vokabeltrainer.panels.translation.Translation;
@@ -48,7 +48,7 @@ public class StartPanel extends JPanel
       JLabel name = new JLabel("<html>Cerebrummi</html>");
       name.setPreferredSize(new Dimension(580, 120));
       name.setForeground(Color.WHITE);
-      name.setFont(Main.getHebrewFont(100F));
+      name.setFont(ApplicationFonts.getHebrewFont(100F));
       nameWrapper.add(name);
 
       JPanel trainerWrapper = new JPanel(new FlowLayout());
@@ -59,7 +59,7 @@ public class StartPanel extends JPanel
             + "</html>");
       trainer.setPreferredSize(new Dimension(355, 70));
       trainer.setForeground(Color.WHITE);
-      trainer.setFont(Main.getHebrewFont(55F));
+      trainer.setFont(ApplicationFonts.getHebrewFont(55F));
       trainerWrapper.add(trainer);
 
       titlePanel.add(nameWrapper);
@@ -117,7 +117,7 @@ public class StartPanel extends JPanel
 
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_ANSEHEN));
-      databaseLabel.setFont(Main.getGermanFont(30F));
+      databaseLabel.setFont(ApplicationFonts.getGermanFont(30F));
       databaseLabel.setForeground(ApplicationColors.getDarkGold());
 
       DatabaseTable databaseTable = new DatabaseTable(
@@ -131,7 +131,7 @@ public class StartPanel extends JPanel
             + translator.realisticTranslate(Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_SICHTBAR_MACHEN)
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
-      databaseLabel2.setFont(Main.getGermanFont(16F));
+      databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
       databaseLabel2.setForeground(ApplicationColors.getDarkGold());
       
       vertical.add(databaseLabel);
@@ -156,7 +156,7 @@ public class StartPanel extends JPanel
 
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_KOPIEREN));
-      databaseLabel.setFont(Main.getGermanFont(30F));
+      databaseLabel.setFont(ApplicationFonts.getGermanFont(30F));
       databaseLabel.setForeground(ApplicationColors.getDarkGold());
 
       DatabaseTableCopy databaseTable = new DatabaseTableCopy(
@@ -170,7 +170,7 @@ public class StartPanel extends JPanel
             + translator.realisticTranslate(Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_KOPIEREN)
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
-      databaseLabel2.setFont(Main.getGermanFont(16F));
+      databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
       databaseLabel2.setForeground(ApplicationColors.getDarkGold());
       
       vertical.add(databaseLabel);

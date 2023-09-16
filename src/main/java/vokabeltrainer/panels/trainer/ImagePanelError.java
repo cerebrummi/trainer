@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.common.ApplicationImages;
 
 public class ImagePanelError extends JPanel
 {

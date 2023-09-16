@@ -12,8 +12,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -50,7 +51,7 @@ public class StartTrainingView extends JDialog
       getContentPane().add(layout);
 
       tabbedPane = new JTabbedPane();
-      tabbedPane.setFont(Settings.getToolBarButtonFont());
+      tabbedPane.setFont(ApplicationFonts.getToolbarButtonFont());
       layout.add(tabbedPane, BorderLayout.CENTER);
 
       tabbedPane.addTab(translator.realisticTranslate(Translation.GEBIET), new ImageIcon(ApplicationImages.getArrow()),

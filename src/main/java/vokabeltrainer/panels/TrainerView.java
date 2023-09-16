@@ -30,8 +30,6 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.ComponentTitledBorder;
 import vokabeltrainer.InfoTextField;
@@ -39,8 +37,10 @@ import vokabeltrainer.InputHebrewPanel;
 import vokabeltrainer.InputHebrewPanel.Selection;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewAllLetters;
@@ -203,7 +203,7 @@ public class TrainerView extends BackgroundPanelTiled
 		     expandPanel.setLayout(expandLayout);
 	         questionFieldGerman = new JTextField("test");
 	         questionFieldGerman.setBackground(ApplicationColors.getLightBlue());
-	         questionFieldGerman.setFont(Main.getGermanFont(20F));
+	         questionFieldGerman.setFont(ApplicationFonts.getGermanFont(20F));
 	         questionFieldGerman.setBorder(BorderFactory.createTitledBorder(
 	               BorderFactory.createEmptyBorder(), translator.realisticTranslate(
 	                     Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
@@ -252,7 +252,7 @@ private Component initTopPanel()
 
    private JPanel initLeftPanel()
    {
-      Font labelFont = Main.getGermanBoldFont(15F);
+      Font labelFont = ApplicationFonts.getGermanBoldFont(15F);
 
       JPanel verticalLeftPanel = new JPanel();
       verticalLeftPanel.setLayout(new TotemLayout(verticalLeftPanel, 15));
@@ -413,14 +413,14 @@ private Component initTopPanel()
       additionalInfoPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       additionalInfo = new JCheckBox();
-      additionalInfo.setFont(Settings.getButtonFont());
+      additionalInfo.setFont(ApplicationFonts.getGermanFont(15F));
       additionalInfo.setMinimumSize(
             new Dimension(Settings.getKeyboardWidth() / 2 - 8, 30));
       additionalInfo.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() / 2 - 7, 30));
 
       additionalInfoField = new JTextPane();
-      additionalInfoField.setFont(Main.getGermanFont(15F));
+      additionalInfoField.setFont(ApplicationFonts.getGermanFont(15F));
       additionalInfoField.setBorder(
             new ComponentTitledBorder(additionalInfo, additionalInfoField,
                   new TitledBorder(translator
@@ -443,14 +443,14 @@ private Component initTopPanel()
       scrollerAdditionalInfo.getViewport().setOpaque(false);
 
       grammarInfo = new JCheckBox();
-      grammarInfo.setFont(Settings.getButtonFont());
+      grammarInfo.setFont(ApplicationFonts.getGermanFont(15F));
       grammarInfo.setMinimumSize(
             new Dimension(Settings.getKeyboardWidth() / 2 - 8, 30));
       grammarInfo.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() / 2 - 7, 30));
 
       grammarInfoField = new JTextPane();
-      grammarInfoField.setFont(Main.getGermanFont(15F));
+      grammarInfoField.setFont(ApplicationFonts.getGermanFont(15F));
       grammarInfoField
             .setBorder(new ComponentTitledBorder(grammarInfo, grammarInfoField,
                   new TitledBorder(
@@ -521,7 +521,7 @@ private Component initTopPanel()
                translator.realisticTranslate(
                      Translation.ODER_EINfACH_LAUT_NENNEN_ODER_DENKEN));
          answerField.setDocument(new GermanDocument(true));
-         answerField.setFont(Main.getGermanFont(20F));
+         answerField.setFont(ApplicationFonts.getGermanFont(20F));
          answerField
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 80));
          answerField
@@ -602,7 +602,7 @@ private Component initTopPanel()
          sendButton = new JButton(
                translator.realisticTranslate(Translation.ANTWORT_ANSCHAUEN));
       }
-      sendButton.setFont(Settings.getButtonFont());
+      sendButton.setFont(ApplicationFonts.getButtonFont());
       sendButton.setIcon(new ImageIcon(ApplicationImages.getSend()));
       sendButton.setMinimumSize(new Dimension(300, 40));
       sendButton.setMaximumSize(new Dimension(501, 40));
@@ -737,17 +737,17 @@ private Component initTopPanel()
       answerPanel1.setBackground(ApplicationColors.getTexturedBackgroundColor());
       JLabel correctAnswer = new JLabel(translator
             .realisticTranslate(Translation.DIE_RICHTIGE_ANTWORT_LAUTET_));
-      correctAnswer.setFont(Main.getGermanFont(16F));
+      correctAnswer.setFont(ApplicationFonts.getGermanFont(16F));
       correctAnswer.setMinimumSize(new Dimension(490, 30));
       correctAnswer.setMaximumSize(new Dimension(510, 30));
       JLabel correctAnswer2 = new JLabel(
             connector.getCurrentExpression().getGerman());
-      correctAnswer2.setFont(Main.getGermanFont(20F));
+      correctAnswer2.setFont(ApplicationFonts.getGermanFont(20F));
       correctAnswer2.setMinimumSize(new Dimension(490, 30));
       correctAnswer2.setMaximumSize(new Dimension(510, 30));
       JTextField correctAnswer3 = new JTextField(
             connector.getCurrentExpression().getGrammarInfo(false));
-      correctAnswer3.setFont(Main.getGermanFont(16F));
+      correctAnswer3.setFont(ApplicationFonts.getGermanFont(16F));
       correctAnswer3.setEditable(false);
       correctAnswer3.setBackground(ApplicationColors.getTransparent());
       correctAnswer3.setOpaque(false);

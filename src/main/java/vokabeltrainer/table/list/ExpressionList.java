@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JList;
 import javax.swing.KeyStroke;
 
-import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.types.Language;
 
 public class ExpressionList extends JList<String>

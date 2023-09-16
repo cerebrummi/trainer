@@ -1,6 +1,6 @@
 package vokabeltrainer.resources;
 
-import vokabeltrainer.ApplicationSound;
+import vokabeltrainer.common.ApplicationSound;
 
 public class Sounds
 {

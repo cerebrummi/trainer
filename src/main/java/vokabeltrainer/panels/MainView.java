@@ -12,10 +12,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
@@ -144,14 +145,14 @@ public class MainView extends JPanel
       successButton = new JButton(translator.realisticTranslate(Translation.KARTEIKASTEN));
       languageButton = new JButton(new ImageIcon(ApplicationImages.getL18n()));
 
-      startButton.setFont(Settings.getToolBarButtonFont());
-      inputButton.setFont(Settings.getToolBarButtonFont());
-      vocabularyCardsButton.setFont(Settings.getToolBarButtonFont());
-      dictionaryButton.setFont(Settings.getToolBarButtonFont());
-      statisticsButton.setFont(Settings.getToolBarButtonFont());
-      letterPicturesButton.setFont(Settings.getToolBarButtonFont());
-      successButton.setFont(Settings.getToolBarButtonFont());
-      languageButton.setFont(Settings.getToolBarButtonFont());
+      startButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      inputButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      vocabularyCardsButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      dictionaryButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      statisticsButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      letterPicturesButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      successButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      languageButton.setFont(ApplicationFonts.getToolbarButtonFont());
 
       menuBar.add(startButton);
       menuBar.add(inputButton);

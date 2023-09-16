@@ -36,16 +36,17 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
+
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputHebrewPanel;
 import vokabeltrainer.InputHebrewPanel.Selection;
 import vokabeltrainer.Settings;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.LetterForSaving;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewNikud;
@@ -161,8 +162,8 @@ public TextExpressionEditorView(
 
    private void initGuiFields()
    {
-      Font germanfont = Main.getGermanFont(16F);
-      Font hebrewfont = Main.getHebrewFont(30F);
+      Font germanfont = ApplicationFonts.getGermanFont(16F);
+      Font hebrewfont = ApplicationFonts.getHebrewFont(30F);
 
       german = new JTextArea();
       german.setLineWrap(true);
@@ -205,7 +206,7 @@ public TextExpressionEditorView(
                boolean isSelected, boolean cellHasFocus)
          {
             AntiFocusTextField listComponent = new AntiFocusTextField(value);
-            listComponent.setFont(Main.getGermanFont(16F));
+            listComponent.setFont(ApplicationFonts.getGermanFont(16F));
             if (isSelected)
             {
                listComponent.setBackground(Color.WHITE);
@@ -302,7 +303,7 @@ public TextExpressionEditorView(
 
       deleteSearchwordButtonHebrew = new JButton(translator
             .realisticTranslate(Translation.LOESCHE_SUCHWORT_HEBRAEISCH));
-      deleteSearchwordButtonHebrew.setFont(Main.getGermanFont(16F));
+      deleteSearchwordButtonHebrew.setFont(ApplicationFonts.getButtonFont());
       deleteSearchwordButtonHebrew
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 40));
       deleteSearchwordButtonHebrew
@@ -311,24 +312,24 @@ public TextExpressionEditorView(
       deleteSearchwordButtonGerman = new JButton(translator
             .realisticTranslate(Translation.LOESCHE_SUCHWORT_DEUTSCH));
       deleteSearchwordButtonGerman.setFocusable(false);
-      deleteSearchwordButtonGerman.setFont(Main.getGermanFont(16F));
+      deleteSearchwordButtonGerman.setFont(ApplicationFonts.getButtonFont());
       deleteSearchwordButtonGerman
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 40));
       deleteSearchwordButtonGerman
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 40));
 
       saveButton = new JButton(translator.realisticTranslate(Translation.SPEICHERN));
-      saveButton.setFont(Main.getGermanFont(16F));
+      saveButton.setFont(ApplicationFonts.getButtonFont());
       saveButton.setMinimumSize(new Dimension(120, 40));
       saveButton.setMaximumSize(new Dimension(160, 40));
 
       restoreButton = new JButton(translator.realisticTranslate(Translation.ZURUECKSETZEN));
-      restoreButton.setFont(Main.getGermanFont(16F));
+      restoreButton.setFont(ApplicationFonts.getButtonFont());
       restoreButton.setMinimumSize(new Dimension(120, 40));
       restoreButton.setMaximumSize(new Dimension(160, 40));
 
       cancelButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
-      cancelButton.setFont(Main.getGermanFont(16F));
+      cancelButton.setFont(ApplicationFonts.getButtonFont());
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
@@ -350,7 +351,7 @@ public TextExpressionEditorView(
       indexField.setMaximumSize(new Dimension(85, 70));
 
       databaseNameField = new JComboBox<>();
-      databaseNameField.setFont(Settings.getButtonFont());
+      databaseNameField.setFont(ApplicationFonts.getButtonFont());
       databaseNameField.setMinimumSize(new Dimension(WIDTH_PANEL, 70));
       databaseNameField.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       databaseNameField.setBorder(new TitledBorder(translator.realisticTranslate(Translation.DATENBANK)));
@@ -409,7 +410,7 @@ public TextExpressionEditorView(
       horizontal.add(cutButton);
       horizontal.add(pasteButton);
       lastModiefiedLabel = new JLabel();
-      lastModiefiedLabel.setFont(Settings.getButtonFont());
+      lastModiefiedLabel.setFont(ApplicationFonts.getGermanFont(16F));
       horizontal.add(lastModiefiedLabel);
       return horizontal;
    }

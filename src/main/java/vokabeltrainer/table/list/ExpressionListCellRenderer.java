@@ -11,9 +11,9 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.types.Language;
 
 public class ExpressionListCellRenderer
@@ -53,22 +53,22 @@ public class ExpressionListCellRenderer
       }
       if (index == 3)
       {
-         label.setFont(Main.getHebrewHandwrittenFont(30));
+         label.setFont(ApplicationFonts.getHebrewHandwrittenFont(30));
          label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       }
       else if (index == 2 && language.equals(Language.GERMAN_TO_HEBREW))
       {
-         label.setFont(Main.getHebrewFont(20F));
+         label.setFont(ApplicationFonts.getHebrewFont(20F));
          label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       }
       else if (index == 1 && language.equals(Language.HEBREW_TO_GERMAN))
       {
-         label.setFont(Main.getHebrewFont(20F));
+         label.setFont(ApplicationFonts.getHebrewFont(20F));
          label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       }
       else
       {
-         label.setFont(Main.getGermanFont(16F));
+         label.setFont(ApplicationFonts.getGermanFont(16F));
          label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
       }
       return label;

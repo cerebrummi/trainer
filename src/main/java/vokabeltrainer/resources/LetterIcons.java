@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.editing.NikudLetter;
 
 public class LetterIcons

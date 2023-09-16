@@ -30,8 +30,10 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.text.JTextComponent;
 
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -173,7 +175,7 @@ public class InputHebrewPanel extends JTextArea
 
       if (canBeToggled)
       {
-         toggleButton.setFont(Main.getGermanFont(30F));
+         toggleButton.setFont(ApplicationFonts.getGermanFont(30F));
          toggleButton.setMargin(new Insets(-5, 0, -5, 0));
          toggleButton.setBackground(new Color(0, 0, 0, 0));
          toggleButton.setForeground(ApplicationColors.getGold());
@@ -336,7 +338,7 @@ public class InputHebrewPanel extends JTextArea
       pleneField = new JTextField();
       pleneField.setDocument(new NikudDocument(true));
       pleneField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      pleneField.setFont(Main.getHebrewFont(29F));
+      pleneField.setFont(ApplicationFonts.getHebrewFont(30F));
       pleneField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel) / 2));
       pleneField.setMaximumSize(new Dimension(this.widthTotal,
@@ -348,7 +350,7 @@ public class InputHebrewPanel extends JTextArea
       defektivField = new JTextField();
       defektivField.setDocument(new NikudDocument(true));
       defektivField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      defektivField.setFont(Main.getHebrewFont(29F));
+      defektivField.setFont(ApplicationFonts.getHebrewFont(30F));
       defektivField
             .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
                   (heightTotal - heightBorderTitel) / 2));
@@ -376,7 +378,7 @@ public class InputHebrewPanel extends JTextArea
       hebrewField = new JTextField();
       hebrewField.setDocument(new NikudDocument(true));
       hebrewField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      hebrewField.setFont(Main.getHebrewFont(29F));
+      hebrewField.setFont(ApplicationFonts.getHebrewFont(30F));
       hebrewField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel)));
       hebrewField.setMaximumSize(new Dimension(this.widthTotal,

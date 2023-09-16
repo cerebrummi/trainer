@@ -9,7 +9,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.types.DatabaseItem;
 
 public class DatabaseTableCopyCellRenderer
@@ -22,13 +22,13 @@ public class DatabaseTableCopyCellRenderer
    public DatabaseTableCopyCellRenderer() // no multiple selection possible
    {
       database = new JLabel();
-      database.setFont(Main.getGermanFont(14F));
+      database.setFont(ApplicationFonts.getGermanFont(14F));
 
       authors = new JLabel();
-      authors.setFont(Main.getGermanFont(14F));
+      authors.setFont(ApplicationFonts.getGermanFont(14F));
 
       company = new JLabel();
-      company.setFont(Main.getGermanFont(14F));
+      company.setFont(ApplicationFonts.getGermanFont(14F));
    }
 
    @Override

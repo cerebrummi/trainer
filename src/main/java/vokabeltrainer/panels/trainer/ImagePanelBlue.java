@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.common.ApplicationImages;
 
 public class ImagePanelBlue extends JPanel
 {

@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.common.ApplicationImages;
 
 public class Blue
 {

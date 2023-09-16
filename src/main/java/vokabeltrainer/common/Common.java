@@ -1,6 +1,8 @@
 package vokabeltrainer.common;
 
 import javax.swing.JFrame;
+
+import vokabeltrainer.Settings;
 import vokabeltrainer.panels.MainView;
 import vokabeltrainer.panels.translation.Translator;
 
@@ -11,6 +13,7 @@ public final class Common
    private static boolean setMainJPanelOnlyOnce = false;
    private static boolean setJFrameOnlyOnce = false;
    private static Translator translator = new Translator();
+   private static Settings settings;
 
    private Common()
    {
@@ -52,4 +55,10 @@ public final class Common
    {
       Common.translator = translator;
    }
+
+   public static Settings getSettings()
+   {
+      return settings;
+   }
+
 }

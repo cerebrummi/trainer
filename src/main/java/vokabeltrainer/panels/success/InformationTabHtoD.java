@@ -7,10 +7,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -54,7 +54,7 @@ public class InformationTabHtoD extends JPanel
       box.setSize(new Dimension(355, 100));
       box.setForeground(ApplicationColors.getWhite());
       box.setBackground(ApplicationColors.getTransparent());
-      box.setFont(Main.getHebrewFont(30F));
+      box.setFont(ApplicationFonts.getHebrewFont(30F));
       box.setHorizontalAlignment(SwingConstants.CENTER);
       boxWrapper.add(box);
       

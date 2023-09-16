@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 
 public class InfoTextField extends JTextField
 {
@@ -27,7 +29,7 @@ public class InfoTextField extends JTextField
 
       button = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
-      button.setFont(Main.getGermanFont(30F));
+      button.setFont(ApplicationFonts.getGermanFont(30F));
       button.setMargin(new Insets(-5, -20, -5, -20));
       button.setBackground(new Color(0, 0, 0, 0));
       button.setForeground(ApplicationColors.getGold());

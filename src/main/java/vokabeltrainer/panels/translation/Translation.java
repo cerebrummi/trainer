@@ -346,7 +346,9 @@ public enum Translation {
 	_5_TAGE("5 Tage", "5 days"), 
 	_11_TAGE("11 Tage", "11 days"), 
 	_19_TAGE("19 Tage", "19 days"), 
-	_5_MONATE("5 Monate", "5 months");
+	_5_MONATE("5 Monate", "5 months"), 
+	ENTSCHULDIGUNG("Entschuldigung", "We are sorry!"), 
+	FEEDBACK("Rückmeldung erwünscht", "Please give feedback");
 
 	private String german;
 	private String english;

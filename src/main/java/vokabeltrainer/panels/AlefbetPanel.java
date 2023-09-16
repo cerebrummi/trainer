@@ -18,10 +18,10 @@ import javax.swing.text.JTextComponent;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Main;
-import vokabeltrainer.ApplicationColors;
-import vokabeltrainer.ApplicationImages;
 import vokabeltrainer.panels.letterpicture.LetterPictureAlphabetPanel;
 import vokabeltrainer.panels.letterpicture.LetterTextField;
 import vokabeltrainer.panels.translation.Translation;
@@ -76,10 +76,10 @@ public class AlefbetPanel extends BackgroundPanelTiled
       filler.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       resultButton = new JButton(translator.realisticTranslate(Translation.AUSWERTEN));
-      resultButton.setFont(Settings.getButtonFont());
+      resultButton.setFont(ApplicationFonts.getButtonFont());
       resetButton = new JButton(
             translator.realisticTranslate(Translation.ZURUECKSETZEN));
-      resetButton.setFont(Settings.getButtonFont());
+      resetButton.setFont(ApplicationFonts.getButtonFont());
 
       vertical.add(filler);
       vertical.add(resultButton);
@@ -96,7 +96,7 @@ public class AlefbetPanel extends BackgroundPanelTiled
 
       JLabel title = new JLabel(
             translator.realisticTranslate(Translation.ALEFBET_UEBEN));
-      title.setFont(Main.getGermanFont(24F));
+      title.setFont(ApplicationFonts.getGermanFont(24F));
       letterPanel.add(title);
 
       pictureInfoButton = new JButton(

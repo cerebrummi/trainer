@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import vokabeltrainer.common.ApplicationImages;
+
 public class BackgroundPanelTiled extends JPanel
 {
    private static final long serialVersionUID = 51778743171783453L;

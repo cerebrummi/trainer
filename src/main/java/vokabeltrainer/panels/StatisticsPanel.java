@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import vokabeltrainer.ApplicationColors;
 import vokabeltrainer.BackgroundPanelTiled;
+import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
-import vokabeltrainer.common.Main;
 import vokabeltrainer.panels.statistics.StatisticsTable;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.translation.Translation;
@@ -73,7 +73,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
       titlePanel.setMaximumSize(new Dimension(580, 50));
 
       JLabel title = new JLabel(translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
-      title.setFont(Main.getGermanFont(30F));
+      title.setFont(ApplicationFonts.getGermanFont(30F));
       titlePanel.add(title);
 
       StatisticsTable table = new StatisticsTable(Data.findStatisticsModel());

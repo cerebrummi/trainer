@@ -3,7 +3,7 @@ package vokabeltrainer.panels.statistics;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import vokabeltrainer.ApplicationColors;
+import vokabeltrainer.common.ApplicationColors;
 
 public class StatisticsTable extends JTable
 {
