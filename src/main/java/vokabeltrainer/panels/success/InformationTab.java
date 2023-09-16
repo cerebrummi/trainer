@@ -120,7 +120,6 @@ public class InformationTab extends JPanel
       JCheckBox done_Check = new JCheckBox(translator.realisticTranslate(Translation.FERTIG));
       done_Check.setFont(checkBoxFont);
       done_Check.setForeground(ApplicationColors.getWhite());
-      done_Check.setForeground(ApplicationColors.getWhite());
       done_Check.setSelected(true);
       done_Check.setEnabled(false);
       

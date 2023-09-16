@@ -38,12 +38,14 @@ public class LetterPictureWordPanel extends JPanel
       horizontal.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel vertical = new JPanel();
-      vertical.setLayout(new TotemLayout(vertical));
+      vertical.setLayout(new TotemLayout(vertical, "vertical"));
       vertical.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel displayPanel = new JPanel();
-      displayPanel.setLayout(new TrainLayout(displayPanel));
+      displayPanel.setLayout(new TrainLayout(displayPanel, "panel"));
       displayPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      displayPanel.setMinimumSize(new Dimension(1268, 200));
+      displayPanel.setMaximumSize(new Dimension(1268, 200));
 
       List<LetterForAnalysis> hebrewLettersCode = LetterHelper
             .findNikudLetterForAnalysisList(nikudWord);
@@ -57,8 +59,10 @@ public class LetterPictureWordPanel extends JPanel
       vertical.add(displayPanel);
 
       JPanel displayPanel2 = new JPanel();
-      displayPanel2.setLayout(new TrainLayout(displayPanel2));
+      displayPanel2.setLayout(new TrainLayout(displayPanel2, "panel2"));
       displayPanel2.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      displayPanel2.setMinimumSize(new Dimension(1268, 200));
+      displayPanel2.setMaximumSize(new Dimension(1268, 200));
 
       for (LetterForAnalysis letter : hebrewLettersCode)
       {
@@ -86,8 +90,8 @@ public class LetterPictureWordPanel extends JPanel
       removeAll();
 
       JLabel dummy = new JLabel();
-      dummy.setMinimumSize(new Dimension(1200, 100));
-      dummy.setMaximumSize(new Dimension(1200, 100));
+      dummy.setMinimumSize(new Dimension(1268, 200));
+      dummy.setMaximumSize(new Dimension(1268, 200));
       dummy.setBackground(ApplicationColors.getTransparent());
       dummy.setOpaque(false);
       add(dummy);

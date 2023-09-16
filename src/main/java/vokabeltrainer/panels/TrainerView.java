@@ -115,7 +115,7 @@ public class TrainerView extends BackgroundPanelTiled
       setBackground(ApplicationColors.getTexturedBackgroundColor());
       setLayout(trainerLayout);
       verticalTrainerPanel = new JPanel();
-      TotemLayout verticalLayout = new TotemLayout(verticalTrainerPanel, 15);
+      TotemLayout verticalLayout = new TotemLayout(verticalTrainerPanel);
       verticalTrainerPanel.setLayout(verticalLayout);
       verticalTrainerPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
       setBorder(BorderFactory.createEmptyBorder());
