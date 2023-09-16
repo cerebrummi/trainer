@@ -286,7 +286,7 @@ public enum Translation {
 
 	UHR("Uhr", "o'clock"), 
 	UHRZEIT("Uhrzeit", "time"), 
-	UM_EINE_VOKABEL_WIEDER_AUFZURUFEN__("Um eine Vokabel wieder aufzurufen,", "To recall a vocabulary"),
+	UM_EINE_VOKABEL_WIEDER_AUFZURUFEN__("Um eine Vokabel wieder aufzurufen,", "To recall an expression"),
 	UMGANGSSPRACHE("Umgangsprache", "slang"), 
 	UNBEKANNT("unbekannt", "unknown"), 
 	UND("und", "and"),

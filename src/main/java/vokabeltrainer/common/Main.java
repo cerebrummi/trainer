@@ -142,7 +142,7 @@ public final class Main
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
          UIManager.put("nimbusBase", ApplicationColors.getDarkGold());
          UIManager.put("textForeground", Color.BLACK);
-         UIManager.put("nimbusFocus", new Color(255, 220, 35));
+         UIManager.put("nimbusFocus", ApplicationColors.getSunflowerYellow());
          UIManager
                .put("ToolBar:Button.contentMargins", new Insets(5, 15, 5, 15));
          UIManager
@@ -184,7 +184,7 @@ public final class Main
          UIManager.put("FileChooser.folderNameLabelText", "Ordnername:");
          UIManager.put("FileChooser.openDialogTitleText", translator.realisticTranslate(Translation.OEFFNEN));
          UIManager.put("FileChooser.saveDialogTitleText", translator.realisticTranslate(Translation.SPEICHERN));
-         UIManager.put("OptionPane.background", Color.WHITE);
+         UIManager.put("OptionPane.background", ApplicationColors.getWhite());
       }
       catch (UnsupportedLookAndFeelException e3)
       {

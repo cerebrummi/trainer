@@ -104,4 +104,9 @@ public class ApplicationColors
    {
       return new Color(247, 215, 215);
    }
+
+   public static Color getSunflowerYellow()
+   {
+      return new Color(255, 220, 35);
+   }
 }

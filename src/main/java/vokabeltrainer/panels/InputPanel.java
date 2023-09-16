@@ -1,7 +1,6 @@
 package vokabeltrainer.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -20,7 +19,6 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
-import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
@@ -46,7 +44,7 @@ import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.SortingType;
 
-public class InputPanel extends BackgroundPanelTiled implements TableConnector
+public class InputPanel extends JPanel implements TableConnector
 {
    private static final long serialVersionUID = 4956932074948450143L;
 
@@ -60,18 +58,20 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
 
    public InputPanel()
    {
-      setLayout(new TrainLayout(this));
-      setBackground(ApplicationColors.getBackgroundGold());
+      setLayout(new BullsEyeLayout(this));
+      setOpaque(true);
+      setBackground(ApplicationColors.getTexturedBackgroundColor());
+      
       
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
-      vertical.setBackground(ApplicationColors.getBackgroundGold());
+      vertical.setOpaque(false);
 
       JPanel filler1 = new JPanel();
-      filler1.setBackground(ApplicationColors.getBackgroundGold());
+      filler1.setOpaque(false);
       
       JPanel filler2 = new JPanel();
-      filler2.setBackground(ApplicationColors.getBackgroundGold());
+      filler2.setOpaque(false);
       
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
@@ -79,7 +79,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
       horizontal.add(initLeftside());
       horizontal.add(filler2);
       horizontal.add(initRightside());
-      horizontal.setBackground(ApplicationColors.getBackgroundGold());
+      horizontal.setOpaque(false);
 
       JPanel spanner = new JPanel();
       spanner.setMinimumSize(new Dimension(1550, 30));
@@ -236,13 +236,13 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
-      vertical.setBackground(ApplicationColors.getBackgroundGold());
+      vertical.setOpaque(false);
 
       JPanel flow = new JPanel();
-      flow.setBackground(ApplicationColors.getBackgroundGold());
+      flow.setOpaque(false);
       tableInfoButton = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
-      tableInfoButton.setBackground(new Color(0, 0, 0, 0));
+      tableInfoButton.setBackground(ApplicationColors.getWhite());
       tableInfoButton.setMinimumSize(new Dimension(20, 50));
       tableInfoButton.setMaximumSize(new Dimension(20, 50));
       tableInfoButton.setMargin(new Insets(0, 0, 0, 0));
@@ -269,7 +269,7 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    private Component initTablePanel()
    {
       tablePanel = new JPanel(new BorderLayout());
-      tablePanel.setBackground(ApplicationColors.getBackgroundGold());
+      tablePanel.setOpaque(false);
       tablePanel.setMinimumSize(new Dimension(500, 700));
       tablePanel.setMaximumSize(new Dimension(500, 700));
       return tablePanel;
@@ -279,11 +279,11 @@ public class InputPanel extends BackgroundPanelTiled implements TableConnector
    {
       JPanel leftside = new JPanel();
       leftside.setLayout(new BullsEyeLayout(leftside));
-      leftside.setBackground(ApplicationColors.getBackgroundGold());
+      leftside.setOpaque(false);
 
       JPanel center = new JPanel();
       center.setLayout(new TotemLayout(center));
-      center.setBackground(ApplicationColors.getBackgroundGold());
+      center.setOpaque(false);
       
       newWordPunktationButton = new JButton(translator.realisticTranslate(Translation.NEUE_VOKABEL));
       newWordPunktationButton.setFont(ApplicationFonts.getButtonFont());

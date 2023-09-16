@@ -19,7 +19,7 @@ public class ErrorNotification
       dialog.setLocationRelativeTo(Common.getjFrame());
       dialog.setVisible(true);
 
-      new Timer(10000, event -> {
+      new Timer(50000, event -> {
          dialog.setVisible(false);
       }).start();
    }

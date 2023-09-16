@@ -65,7 +65,6 @@ import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableRow2;
 import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableSingleselect;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
-import vokabeltrainer.tonionlayout.ExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -136,13 +135,15 @@ public class DictionaryView extends BackgroundPanelTiled
    public DictionaryView(DictionaryControllerConnector connector)
    {
       this.connector = connector;
-      setLayout(new ExpanderLayout(this));
-      setBackground(ApplicationColors.getBackgroundGold());
+      setLayout(new BullsEyeLayout(this));
+      setOpaque(true);
+      setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel layout = new JPanel();
       TrainLayout layoutLayout = new TrainLayout(layout, 15);
       layout.setLayout(layoutLayout);
-      layout.setBackground(ApplicationColors.getBackgroundGold());
+      layout.setOpaque(false);
+      add(layout);
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 15));
@@ -171,7 +172,7 @@ public class DictionaryView extends BackgroundPanelTiled
       JPanel horizontalSortPanel = new JPanel();
       horizontalSortPanel.setLayout(new TrainLayout(horizontalSortPanel, 15));
       horizontalSortPanel.setOpaque(true);
-      horizontalSortPanel.setBackground(ApplicationColors.getLightGold());
+      horizontalSortPanel.setBackground(ApplicationColors.getSunflowerYellow());
       horizontalSortPanel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.TABELLE_SORTIEREN_NACH)));
 
@@ -222,14 +223,8 @@ public class DictionaryView extends BackgroundPanelTiled
       tabbedPane.setMinimumSize(new Dimension(420, 400));
       tabbedPane.setMaximumSize(new Dimension(600, 700));
 
-      JPanel filler = new JPanel();
-      filler.setMinimumSize(new Dimension(1, 1));
-      filler.setMaximumSize(new Dimension(1000, 2000));
-      filler.setBackground(ApplicationColors.getBackgroundGold());
-
       vertical.add(horizontalLanguagePanel);
       vertical.add(tabbedPane);
-      vertical.add(filler);
 
       tablePanel = new JPanel(new BorderLayout());
       tablePanel.setMinimumSize(new Dimension(420, 400));
@@ -239,20 +234,18 @@ public class DictionaryView extends BackgroundPanelTiled
       JPanel filler2 = new JPanel();
       filler2.setMinimumSize(new Dimension(1, 1));
       filler2.setMaximumSize(new Dimension(1000, 2000));
-      filler2.setBackground(ApplicationColors.getBackgroundGold());
+      filler2.setOpaque(false);
 
       JPanel filler3 = new JPanel();
       filler3.setMinimumSize(new Dimension(1, 1));
       filler3.setMaximumSize(new Dimension(1000, 2000));
-      filler3.setBackground(ApplicationColors.getBackgroundGold());
+      filler3.setOpaque(false);
 
       layout.add(vertical);
       layout.add(filler2);
       layout.add(tablePanel);
       layout.add(filler3);
       layout.add(initServicePanel());
-
-      add(layout);
 
       Tabulator.setTabShowing(Tabulator.CHAPTER_TAB);
 
@@ -288,7 +281,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
       JPanel germanSearch = new JPanel();
       germanSearch.setLayout(new TotemLayout(germanSearch, 5));
-      germanSearch.setBackground(Color.WHITE);
+      germanSearch.setBackground(ApplicationColors.getWhite());
       searchPhraseGerman = new JTextField();
       searchPhraseGerman.setBorder(new TitledBorder(
             translator.realisticTranslate(Translation.WORT_AUF_DEUTSCH_EINGEBEN)));
@@ -323,7 +316,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
       JPanel hebrewSearch = new JPanel();
       hebrewSearch.setLayout(new TotemLayout(hebrewSearch, 5));
-      hebrewSearch.setBackground(Color.WHITE);
+      hebrewSearch.setBackground(ApplicationColors.getWhite());
       searchPhraseHebrew = new JTextField();
       searchPhraseHebrew.setBorder(new TitledBorder(
             translator.realisticTranslate(Translation.WORT_AUF_HEBRAISCH_EINGEBEN)));
@@ -569,9 +562,9 @@ public class DictionaryView extends BackgroundPanelTiled
 
       JPanel selectUnselectPanel = new JPanel();
       selectUnselectPanel.setLayout(new TotemLayout(selectUnselectPanel, 10));
-      selectUnselectPanel.setBackground(Color.WHITE);
+      selectUnselectPanel.setBackground(ApplicationColors.getWhite());
       selectUnselectPanel.setBorder(
-            BorderFactory.createMatteBorder(5, 3, 5, 3, Color.WHITE));
+            BorderFactory.createMatteBorder(5, 3, 5, 3, ApplicationColors.getWhite()));
       selectUnselectPanel.add(selectAllInTableButton);
       selectUnselectPanel.add(clearInTableSelectedButton);
       selectUnselectPanel.add(clearAllSelectedButton);
@@ -614,8 +607,7 @@ public class DictionaryView extends BackgroundPanelTiled
       trashPanel.setMaximumSize(new Dimension(600, 120));
 
       JPanel trashIconPanel = new JPanel(new GridLayout(3, 2));
-      trashIconPanel.setOpaque(true);
-      trashIconPanel.setBackground(ApplicationColors.getBackgroundGold());
+      trashIconPanel.setOpaque(false);
 
       wasteBinButton = new JButton(
             new ImageIcon(ApplicationImages.getTrashcan()));
@@ -634,16 +626,16 @@ public class DictionaryView extends BackgroundPanelTiled
       shredderButton.setFocusPainted(false);
 
       JPanel filler1 = new JPanel();
-      filler1.setBackground(ApplicationColors.getBackgroundGold());
+      filler1.setOpaque(false);
       
       JPanel filler2 = new JPanel();
-      filler2.setBackground(ApplicationColors.getBackgroundGold());
+      filler2.setOpaque(false);
       
       JPanel filler3 = new JPanel();
-      filler3.setBackground(ApplicationColors.getBackgroundGold());
+      filler3.setOpaque(false);
       
       JPanel filler4 = new JPanel();
-      filler4.setBackground(ApplicationColors.getBackgroundGold());
+      filler4.setOpaque(false);
       
       trashIconPanel.add(filler1);
       trashIconPanel.add(filler2);
@@ -657,7 +649,7 @@ public class DictionaryView extends BackgroundPanelTiled
       JPanel filler = new JPanel();
       filler.setMinimumSize(new Dimension(1, 1));
       filler.setMaximumSize(new Dimension(800, 800));
-      filler.setBackground(ApplicationColors.getBackgroundGold());
+      filler.setOpaque(false);
 
       vertical.add(selectUnselectPanel);
       vertical.add(copyPanel);
