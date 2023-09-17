@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.text.JTextComponent;
 
+import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
@@ -131,6 +132,8 @@ public class LetterPictureAlphabetPanel extends JPanel
 
    public LetterPictureAlphabetPanel()
    {      
+      keyboardRegularButton.setForeground(ApplicationColors.getWhite());
+      keyboardShuffleButton.setForeground(ApplicationColors.getWhite());
       textFields = new ArrayList<>();
       Map<NikudLetter, LetterPictureButtonPanel> panels = ApplicationSpecialPanels
             .getLetterPicturesPanelMap();
@@ -233,12 +236,14 @@ public class LetterPictureAlphabetPanel extends JPanel
       }
 
       JPanel keyboardPrintPanel = new JPanel(new BorderLayout());
+      keyboardPrintPanel.setOpaque(true);
       keyboardPrintPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
       keyboardPrint = new KeyboardHebrewStandard(null,
             textFields, 15, false);
       keyboardPrintPanel.add(keyboardPrint, BorderLayout.CENTER);
 
       JPanel keyboardHandwrittenPanel = new JPanel(new BorderLayout());
+      keyboardHandwrittenPanel.setOpaque(true);
       keyboardHandwrittenPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
       keyboardHandwritten = new KeyboardHebrewStandard(
             null, textFields, 15, true);
@@ -248,8 +253,9 @@ public class LetterPictureAlphabetPanel extends JPanel
       keyboardPanel = new JPanel(cardLayout);
       keyboardPanel.add(DRUCKSCHRIFT, keyboardPrintPanel);
       keyboardPanel.add(SCHREIBSCHRIFT, keyboardHandwrittenPanel);
-      keyboardPanel.setMinimumSize(new Dimension(530, 150));
+      keyboardPanel.setMinimumSize(new Dimension(501, 150));
       keyboardPanel.setMaximumSize(new Dimension(530, 200));
+      keyboardPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       this.add(keyboardPanel);
 
@@ -264,15 +270,23 @@ public class LetterPictureAlphabetPanel extends JPanel
       keyboardButtonGroup.add(keyboardShuffleButton);
       
       JPanel buttonPanel = new JPanel();
-      TrainLayout buttonPanelLayout = new TrainLayout(buttonPanel, 15);
+      TrainLayout buttonPanelLayout = new TrainLayout(buttonPanel, 30);
+      buttonPanel.setOpaque(true);
+      buttonPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
       buttonPanel.setLayout(buttonPanelLayout);
       
       JPanel letterSwitchPanel = new JPanel();
       TotemLayout letterSwitchPanelLayout = new TotemLayout(letterSwitchPanel, 15);
+      letterSwitchPanel.setOpaque(true);
+      letterSwitchPanel.setBackground(ApplicationColors.getMediumBlue());
+      letterSwitchPanel.setBorder(BorderFactory.createLineBorder(ApplicationColors.getMediumBlue(), 5));
       letterSwitchPanel.setLayout(letterSwitchPanelLayout);
       
       JPanel keyboardShufflePanel = new JPanel();
       TotemLayout keyboardShufflePanelLayout = new TotemLayout(keyboardShufflePanel, 15);
+      keyboardShufflePanel.setOpaque(true);
+      keyboardShufflePanel.setBackground(ApplicationColors.getShadyBlue());
+      keyboardShufflePanel.setBorder(BorderFactory.createLineBorder(ApplicationColors.getShadyBlue(), 5));
       keyboardShufflePanel.setLayout(keyboardShufflePanelLayout);
       
       letterSwitchPanel.add(printLettersButton);
@@ -285,6 +299,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       
       buttonPanel.add(letterSwitchPanel);
       buttonPanel.add(keyboardShufflePanel);
+      buttonPanel.add(new BackgroundPanelTiled() );
       
       this.add(buttonPanel);
       
