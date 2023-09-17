@@ -112,8 +112,8 @@ public class TrainerView extends BackgroundPanelTiled
       this.connector = connector;
       this.languageDirection = connector.getLanguageDirection();
       BullsEyeLayout trainerLayout = new BullsEyeLayout(this);
-      setBackground(ApplicationColors.getTexturedBackgroundColor());
       setLayout(trainerLayout);
+      setBackground(ApplicationColors.getTexturedBackgroundColor());
       verticalTrainerPanel = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalTrainerPanel);
       verticalTrainerPanel.setLayout(verticalLayout);
@@ -199,8 +199,8 @@ public class TrainerView extends BackgroundPanelTiled
 	   if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
 	      {
 		     JPanel expandPanel = new JPanel();
-		     ExpanderLayout expandLayout = new ExpanderLayout(expandPanel);
-		     expandPanel.setLayout(expandLayout);
+		     TrainLayout beLayout = new TrainLayout(expandPanel);
+		     expandPanel.setLayout(beLayout);
 	         questionFieldGerman = new JTextField("test");
 	         questionFieldGerman.setBackground(ApplicationColors.getLightBlue());
 	         questionFieldGerman.setFont(ApplicationFonts.getGermanFont(20F));
@@ -208,9 +208,9 @@ public class TrainerView extends BackgroundPanelTiled
 	               BorderFactory.createEmptyBorder(), translator.realisticTranslate(
 	                     Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
 	         questionFieldGerman
-	               .setMinimumSize(new Dimension(600, 160));
+	               .setMinimumSize(new Dimension(1200, 160));
 	         questionFieldGerman
-	               .setMaximumSize(new Dimension(1200, 160));
+	               .setMaximumSize(new Dimension(1250, 160));
 	         questionFieldGerman.setEditable(false);
 	         expandPanel.add(questionFieldGerman);
 	         textFieldPanelWrapper.add(expandPanel);
@@ -551,7 +551,7 @@ private Component initTopPanel()
    private Component initRightPanel()
    {
       JPanel vertical = new JPanel();
-      vertical.setLayout(new TotemLayout(vertical, 15));
+      vertical.setLayout(new TotemLayout(vertical));
       vertical.setOpaque(true);
       vertical.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
@@ -609,9 +609,9 @@ private Component initTopPanel()
       sendButton.setEnabled(false);
 
       feedbackPanel = new JPanel();
-      feedbackPanel.setLayout(new TotemLayout(feedbackPanel, 15));
-      feedbackPanel.setMinimumSize(new Dimension(501, 225));
-      feedbackPanel.setMaximumSize(new Dimension(501, 225));
+      feedbackPanel.setLayout(new TotemLayout(feedbackPanel));
+      feedbackPanel.setMinimumSize(new Dimension(501, 230));
+      feedbackPanel.setMaximumSize(new Dimension(501, 230));
       feedbackPanel.setOpaque(true);
       feedbackPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
@@ -733,7 +733,7 @@ private Component initTopPanel()
    public void prepareHtoDFeedbackPanel()
    {
       JPanel answerPanel1 = new JPanel();
-      answerPanel1.setLayout(new TotemLayout(answerPanel1, 5));
+      answerPanel1.setLayout(new TotemLayout(answerPanel1));
       answerPanel1.setBackground(ApplicationColors.getTexturedBackgroundColor());
       JLabel correctAnswer = new JLabel(translator
             .realisticTranslate(Translation.DIE_RICHTIGE_ANTWORT_LAUTET_));
@@ -937,8 +937,10 @@ private Component initTopPanel()
       scrollPane.getViewport().setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel fillerAnswerPanel = new JPanel();
+      TotemLayout fillerAnswerLayout = new TotemLayout(fillerAnswerPanel);
+      fillerAnswerPanel.setLayout(fillerAnswerLayout);
       fillerAnswerPanel.setMinimumSize(new Dimension(501, 1));
-      fillerAnswerPanel.setMaximumSize(new Dimension(501, 225));
+      fillerAnswerPanel.setMaximumSize(new Dimension(501, 100));
       fillerAnswerPanel.setOpaque(true);
       fillerAnswerPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
 

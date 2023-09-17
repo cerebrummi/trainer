@@ -38,11 +38,11 @@ public class LetterPictureWordPanel extends JPanel
       horizontal.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel vertical = new JPanel();
-      vertical.setLayout(new TotemLayout(vertical, "vertical"));
+      vertical.setLayout(new TotemLayout(vertical));
       vertical.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel displayPanel = new JPanel();
-      displayPanel.setLayout(new TrainLayout(displayPanel, "panel"));
+      displayPanel.setLayout(new TrainLayout(displayPanel));
       displayPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
       displayPanel.setMinimumSize(new Dimension(1268, 200));
       displayPanel.setMaximumSize(new Dimension(1268, 200));
