@@ -59,7 +59,7 @@ public class LetterPictureWordPanel extends JPanel
       vertical.add(displayPanel);
 
       JPanel displayPanel2 = new JPanel();
-      displayPanel2.setLayout(new TrainLayout(displayPanel2, "panel2"));
+      displayPanel2.setLayout(new TrainLayout(displayPanel2));
       displayPanel2.setBackground(ApplicationColors.getTexturedBackgroundColor());
       displayPanel2.setMinimumSize(new Dimension(1268, 200));
       displayPanel2.setMaximumSize(new Dimension(1268, 200));
