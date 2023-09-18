@@ -29,11 +29,8 @@ public final class Main
 {
    private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
 
+   // run application with
    // -Dsun.java2d.uiScale=1 
-   
-   /*Run your application with the agent enabled:
-	mvn -Pnative -Dagent exec:exec@java-agent
-    */
 
    public static void main(String[] args)
    {	  

@@ -348,7 +348,12 @@ public enum Translation {
 	_19_TAGE("19 Tage", "19 days"), 
 	_5_MONATE("5 Monate", "5 months"), 
 	ENTSCHULDIGUNG("Entschuldigung", "We are sorry!"), 
-	FEEDBACK("Rückmeldung erwünscht", "Please give feedback");
+	FEEDBACK("Rückmeldung erwünscht", "Please give feedback"), 
+	BILD("Bild","Image"), 
+	FEHLER_BEIM_SPEICHERN("Fehler beim Speichern", "Error saving data"), 
+	WOLLEN_SIE_DAS_BILD_WIRKLICH_LOESCHEN_("Wollen Sie das Bild wirklich löschen?", "Do you want to delete the image?"), 
+	WAEHLEN_SIE_EIN_BILD_AUS_("Wählen Sie ein Bild aus.", "Please choose an image."),
+	DOPPELCLICK("Doppelclick!", "Click twice!");
 
 	private String german;
 	private String english;

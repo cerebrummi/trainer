@@ -1,5 +1,6 @@
 package vokabeltrainer.words;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -273,16 +274,20 @@ public class WordLetterMatching
    private static void cutOutCommonNewspace(List<LetterForAnalysis> dataT,
          List<LetterForAnalysis> dataD)
    {
-      // TODO Listen zu ändern, die man durchläuft ist böse !!! Hier ???
+      List<Integer> indexesToBeRemoved = new ArrayList<>();
       for (int i = 0; i < Math.min(dataT.size(), dataD.size()); i++)
       {
          if (dataT.get(i).getContent().isNewspace()
                && dataD.get(i).getContent().isNewspace())
          {
-            dataT.remove(i);
-            dataD.remove(i);
-            i--;
+            indexesToBeRemoved.add(i);
          }
+      }
+      
+      for(int index : indexesToBeRemoved)
+      {
+         dataT.remove(index);
+         dataD.remove(index);
       }
    }
 

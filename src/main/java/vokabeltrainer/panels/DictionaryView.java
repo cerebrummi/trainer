@@ -457,14 +457,15 @@ public class DictionaryView extends BackgroundPanelTiled
       JScrollPane scroller = new JScrollPane(expressionKindTable);
       scroller.setMinimumSize(new Dimension(300, 470));
       scroller.setMaximumSize(new Dimension(300, 470));
+      scroller.setBorder(BorderFactory.createTitledBorder(Common.getTranslator().realisticTranslate(Translation.DOPPELCLICK)));
 
       JPanel scrollerWrapper = new JPanel();
       BullsEyeLayout scrollerWrapperLayout = new BullsEyeLayout(
             scrollerWrapper);
       scrollerWrapper.setLayout(scrollerWrapperLayout);
-
+      
       scrollerWrapper.add(scroller);
-      vertical1.add(scrollerWrapper);
+      vertical1.add(scrollerWrapper, BorderLayout.CENTER);
 
       return vertical1;
    }

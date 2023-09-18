@@ -41,7 +41,6 @@ public class TrainingStatus
    public void nextRepetition()
    {
       LocalDate now = LocalDate.now();
-      System.out.println("repetition");
       switch (repetition)
       {
       case NOW:

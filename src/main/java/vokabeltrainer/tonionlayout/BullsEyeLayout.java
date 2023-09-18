@@ -58,10 +58,8 @@ import javax.swing.JViewport;
  *
  * @author Birke Heeren
  * @since private
- * @version BullsEyeLayout 3.0 (released 20. July 2020)
+ * @version BullsEyeLayout 3.1 (revised 18.September.2023, released 20. July 2020)
  */
-
-// TODO look for bug, stackoverflow, when this layout has no components
 
 public class BullsEyeLayout
       implements LayoutManager, LayoutManager2, java.io.Serializable
@@ -155,11 +153,15 @@ public class BullsEyeLayout
       {
          checkContainer(self);
          int ncomponents = self.getComponentCount();
+         if (ncomponents == 0)
+         {
+            throw new AWTError("BullsEyeLayout must hold exactly one component");
+         }
          if (ncomponents > 1)
          {
             throw new AWTError("BullsEyeLayout can hold only one component");
          }
-         if (ncomponents == 0)
+         if (ncomponents == 1)
          {
             if (self.getMinimumSize() != null)
             {

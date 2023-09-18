@@ -9,7 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.ImageData;
+import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 
@@ -26,7 +28,7 @@ public class ListImageRow extends JPanel
 	    setOpaque(true);
 	    setBackground(ApplicationColors.getWhite());
 	    
-	    imageButton = new JButton("Bild"); // TODO translate !!!
+	    imageButton = new JButton(Common.getTranslator().realisticTranslate(Translation.BILD));
 	    this.expression = expression;
 	    
 	    if(ImageData.isImageForExpressionAvailable(expression.getUuid()))

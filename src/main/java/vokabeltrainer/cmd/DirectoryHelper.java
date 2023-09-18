@@ -4,6 +4,7 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 import vokabeltrainer.common.Common;
+import vokabeltrainer.panels.translation.Translation;
 
 public class DirectoryHelper
 {
@@ -21,9 +22,8 @@ public class DirectoryHelper
       }
       catch (Exception e)
       {
-    	  // TODO translation !!!
          JOptionPane.showMessageDialog(Common.getjFrame(),
-               "Fehler beim Speichern.", "Fehlermeldung: \n" + e,
+               Common.getTranslator().realisticTranslate(Translation.FEHLER_BEIM_SPEICHERN), Common.getTranslator().realisticTranslate(Translation.FEHLERMELDUNG)+ " \n" + e,
                JOptionPane.ERROR_MESSAGE);
          return false;
       }

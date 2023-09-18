@@ -18,10 +18,12 @@ import java.awt.LayoutManager2;
 import javax.swing.JViewport;
 
 /**
- * The <code>BullsEyeLayout</code> class is a layout manager that lays out a
+ * The <code>ExpanderLayout</code> class is a layout manager that lays out a
  * container's component in the center.
  * <p>
  * Minimum and maximum sizes are taken into account.
+ * <p>
+ * <code>ExpanderLayout</code> must be the out most layer of a Java Swing Program.
  * <p>
  * <code>TotemLayout</code>, <code>TrainLayout</code> and
  * <code>BullsEyeLayout</code> work together like layers of an onion. They stack
@@ -58,7 +60,7 @@ import javax.swing.JViewport;
  *
  * @author Birke Heeren
  * @since private
- * @version BullsEyeLayout 3.0 (released 20. July 2020)
+ * @version ExpanderLayout 3.0 (released 20. July 2020)
  */
 
 public class ExpanderLayout

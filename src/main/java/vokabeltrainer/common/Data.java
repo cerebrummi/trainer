@@ -409,13 +409,13 @@ public final class Data
 
       private Chapter getChapterWithLastModifiedDate()
       {
-         if (chapterSet.isEmpty())
+         if (chapterSet.isEmpty() || alleMap.isEmpty())
          {
             return new Chapter();
          }
          return alleMap.values().stream()
                .sorted(new ExpressionComparator(SortingType.DATE)).findFirst()
-               .get() // TODO falls es keines gibt => Problem !!!
+               .get()
                .getChapter();
       }
 
@@ -455,7 +455,6 @@ public final class Data
                Repetition repetition = Repetition.valueOf(items[2]);
                if(repetition == null)
                {
-            	   //System.out.println("Repitiion " + uuid);
             	   continue;
                }
                int trys = Integer.valueOf(items[3]);

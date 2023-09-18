@@ -7,8 +7,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.panels.translation.Translation;
 
 public class NikudExpressionEditorController implements NikudExpressionEditorControllerConnector
 {
@@ -42,8 +44,7 @@ public class NikudExpressionEditorController implements NikudExpressionEditorCon
 	   		imageChooser.setFileFilter(new FileNameExtensionFilter("png-Bild", "png"));
 	   		imageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-	   int choice = imageChooser.showDialog(nikudExpressionEditorDialog, "Wählen Sie ein Bild aus."); // TODO translation !!!
-
+	   int choice = imageChooser.showDialog(nikudExpressionEditorDialog, Common.getTranslator().realisticTranslate(Translation.WAEHLEN_SIE_EIN_BILD_AUS_));
 	   if (JFileChooser.APPROVE_OPTION == choice)
 	   {
 	      String image = imageChooser.getSelectedFile().getPath();
@@ -58,7 +59,7 @@ public class NikudExpressionEditorController implements NikudExpressionEditorCon
    @Override
    public void deleteImageForExpression() 
    {
-	   int answer = JOptionPane.showConfirmDialog(nikudExpressionEditorDialog, "Wollen Sie das Bild wirklich löschen?"); // TODO translation !!!
+	   int answer = JOptionPane.showConfirmDialog(nikudExpressionEditorDialog, Common.getTranslator().realisticTranslate(Translation.WOLLEN_SIE_DAS_BILD_WIRKLICH_LOESCHEN_));
 	   if(answer == 0)
 	   {
 		   ImageData.deleteImage(nikudExpressionEditorDialog.getExpression().getUuid());
