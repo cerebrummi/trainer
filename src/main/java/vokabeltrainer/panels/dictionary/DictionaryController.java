@@ -15,11 +15,11 @@ import javax.swing.JTable;
 import javax.swing.SwingWorker;
 
 import vokabeltrainer.Command;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.ApplicationSound;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.DictionaryView;
 import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.table.ExpressionTableModel;

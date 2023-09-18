@@ -2,6 +2,8 @@ package vokabeltrainer.types;
 
 import java.time.LocalDate;
 
+import vokabeltrainer.common.Settings;
+
 public class TrainingStatus
 {
    private Repetition repetition;
@@ -39,78 +41,140 @@ public class TrainingStatus
    public void nextRepetition()
    {
       LocalDate now = LocalDate.now();
-      switch(repetition)
+      System.out.println("repetition");
+      switch (repetition)
       {
-      case NOW: repetition = Repetition.ONE_DAY;
-         break;
-      case ONE_DAY: repetition = Repetition.TWO_DAYS;
-         break;
-      case TWO_DAYS: repetition = Repetition.FIVE_DAYS;
-         break;
-      case FIVE_DAYS: repetition = Repetition.ELEVEN_DAYS;
-         break;
-      case ELEVEN_DAYS: repetition = Repetition.NINETEEN_DAYS;
-         break;
-      case NINETEEN_DAYS: repetition = Repetition.ONE_MONTH;
-         break;
-      case ONE_MONTH: repetition = Repetition.TWO_MONTHS;
-         break;
-      case TWO_MONTHS: repetition = Repetition.FIVE_MONTHS;
-         break;
-      case FIVE_MONTHS: repetition = Repetition.DONE;
+      case NOW:
+         repetition = Repetition.ONE_DAY;
+         if (Settings.isRepetition_one_day())
+         {
+            break;
+         }
+      case ONE_DAY:
+         repetition = Repetition.TWO_DAYS;
+         if (Settings.isRepetition_two_days())
+         {
+            break;
+         }
+      case TWO_DAYS:
+         repetition = Repetition.FIVE_DAYS;
+         if (Settings.isRepetition_five_days())
+         {
+            break;
+         }
+      case FIVE_DAYS:
+         repetition = Repetition.ELEVEN_DAYS;
+         if (Settings.isRepetition_eleven_days())
+         {
+            break;
+         }
+      case ELEVEN_DAYS:
+         repetition = Repetition.NINETEEN_DAYS;
+         if (Settings.isRepetition_nineteen_days())
+         {
+            break;
+         }
+      case NINETEEN_DAYS:
+         repetition = Repetition.ONE_MONTH;
+         if (Settings.isRepetition_one_month())
+         {
+            break;
+         }
+      case ONE_MONTH:
+         repetition = Repetition.TWO_MONTHS;
+         if (Settings.isRepetition_two_months())
+         {
+            break;
+         }
+      case TWO_MONTHS:
+         repetition = Repetition.FIVE_MONTHS;
+         if (Settings.isRepetition_five_months())
+         {
+            break;
+         }
+      case FIVE_MONTHS:
+         repetition = Repetition.DONE;
          break;
       case DONE:
          break;
       case NONE:
          break;
       default:
-         break; 
+         break;
       }
+
       this.nextDate = now.plus(repetition.getPeriod());
    }
-   
+
    public void previousRepetition()
    {
       LocalDate now = LocalDate.now();
-      switch(repetition)
+      switch (repetition)
       {
-      case NOW:
-         break;
-      case ONE_DAY: repetition = Repetition.NOW;
-         break;
-      case TWO_DAYS: repetition = Repetition.ONE_DAY;
-         break;
-      case FIVE_DAYS: repetition = Repetition.TWO_DAYS;
-         break;
-      case ELEVEN_DAYS: repetition = Repetition.FIVE_DAYS;
-         break;
-      case NINETEEN_DAYS: repetition = Repetition.ELEVEN_DAYS;
-         break;
-      case ONE_MONTH: repetition = Repetition.NINETEEN_DAYS;
-         break;
-      case TWO_MONTHS: repetition = Repetition.ONE_MONTH;
-         break;
-      case FIVE_MONTHS: repetition = Repetition.TWO_MONTHS;
-         break;
       case DONE:
          break;
       case NONE:
          break;
-      default:
+      case FIVE_MONTHS:
+         repetition = Repetition.TWO_MONTHS;
+         if (Settings.isRepetition_two_months())
+         {
+            break;
+         }
+      case TWO_MONTHS:
+         repetition = Repetition.ONE_MONTH;
+         if (Settings.isRepetition_one_month())
+         {
+            break;
+         }
+      case ONE_MONTH:
+         repetition = Repetition.NINETEEN_DAYS;
+         if (Settings.isRepetition_nineteen_days())
+         {
+            break;
+         }
+      case NINETEEN_DAYS:
+         repetition = Repetition.ELEVEN_DAYS;
+         if (Settings.isRepetition_eleven_days())
+         {
+            break;
+         }
+      case ELEVEN_DAYS:
+         repetition = Repetition.FIVE_DAYS;
+         if (Settings.isRepetition_five_days())
+         {
+            break;
+         }
+      case FIVE_DAYS:
+         repetition = Repetition.TWO_DAYS;
+         if (Settings.isRepetition_two_days())
+         {
+            break;
+         }
+      case TWO_DAYS:
+         repetition = Repetition.ONE_DAY;
+         if (Settings.isRepetition_one_day())
+         {
+            break;
+         }
+      case ONE_DAY:
+         repetition = Repetition.NOW;
+         break;
+      case NOW:
          break;
       }
       this.nextDate = now.plus(repetition.getPeriod());
    }
-   
+
    public boolean isTrainingDone()
    {
-      if(Repetition.DONE == this.repetition)
+      if (Repetition.DONE == this.repetition)
       {
          return true;
       }
       return false;
    }
-   
+
    public boolean isTrainingStarted()
    {
       return trainingStarted;

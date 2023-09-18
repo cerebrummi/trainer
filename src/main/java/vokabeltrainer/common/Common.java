@@ -2,7 +2,6 @@ package vokabeltrainer.common;
 
 import javax.swing.JFrame;
 
-import vokabeltrainer.Settings;
 import vokabeltrainer.panels.MainView;
 import vokabeltrainer.panels.translation.Translator;
 

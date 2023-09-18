@@ -8,9 +8,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.resources.Buchstabenbilder;

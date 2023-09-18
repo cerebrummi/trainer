@@ -14,8 +14,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
-import vokabeltrainer.CerebrummiPreferences;
-import vokabeltrainer.Settings;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.resources.Blue;

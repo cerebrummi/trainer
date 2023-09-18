@@ -15,8 +15,6 @@ import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 
-import vokabeltrainer.CerebrummiNodes;
-import vokabeltrainer.Settings;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.Language;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;

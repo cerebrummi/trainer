@@ -36,11 +36,9 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-import vokabeltrainer.CerebrummiNodes;
 import vokabeltrainer.ChapterDatabaseComparator;
 import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
-import vokabeltrainer.Settings;
 import vokabeltrainer.cmd.DirectoryHelper;
 import vokabeltrainer.editing.ExchangeLetter;
 import vokabeltrainer.editing.LetterForAnalysis;

@@ -14,10 +14,10 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;

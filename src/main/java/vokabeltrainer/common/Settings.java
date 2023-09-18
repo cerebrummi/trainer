@@ -1,4 +1,4 @@
-﻿package vokabeltrainer;
+﻿package vokabeltrainer.common;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.LanguageSettings;
@@ -537,3 +536,22 @@ public class Settings
       // nothing
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

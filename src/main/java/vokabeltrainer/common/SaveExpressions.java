@@ -17,9 +17,7 @@ import java.util.zip.ZipOutputStream;
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 
-import vokabeltrainer.CerebrummiNodes;
 import vokabeltrainer.PathAndFile;
-import vokabeltrainer.Settings;
 import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.cmd.DirectoryHelper;

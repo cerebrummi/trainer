@@ -42,13 +42,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.keyboards.KeyboardHebrewAllLetters;
 import vokabeltrainer.panels.dictionary.Action;
 import vokabeltrainer.panels.dictionary.DataButton;

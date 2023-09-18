@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import vokabeltrainer.InputHebrewPanel.Selection;
-import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.TextImageWithPicture;
 import vokabeltrainer.common.ApplicationFonts;
@@ -26,6 +25,7 @@ import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.ApplicationSound;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.SaveTraining;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.TrainerView;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;

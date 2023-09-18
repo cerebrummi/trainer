@@ -7,8 +7,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.ImageData;
+import vokabeltrainer.common.Settings;
 
 public class NikudExpressionEditorController implements NikudExpressionEditorControllerConnector
 {

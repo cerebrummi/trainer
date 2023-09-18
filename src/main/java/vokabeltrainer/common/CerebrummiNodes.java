@@ -1,4 +1,4 @@
-package vokabeltrainer;
+package vokabeltrainer.common;
 
 public class CerebrummiNodes
 {

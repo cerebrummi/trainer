@@ -9,10 +9,10 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 import vokabeltrainer.types.Chapter.Database;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Letter;
 import vokabeltrainer.common.LetterForSaving;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;

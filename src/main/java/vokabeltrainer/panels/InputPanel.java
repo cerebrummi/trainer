@@ -19,7 +19,6 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
-import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
@@ -27,6 +26,7 @@ import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.input.ChapterComboBox;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.panels.translation.Translation;

@@ -9,8 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.types.DatabaseItem;
 
 public class DatabaseTable extends JTable

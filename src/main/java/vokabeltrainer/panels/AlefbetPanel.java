@@ -16,12 +16,12 @@ import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.Settings;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.letterpicture.LetterPictureAlphabetPanel;
 import vokabeltrainer.panels.letterpicture.LetterTextField;
 import vokabeltrainer.panels.translation.Translation;

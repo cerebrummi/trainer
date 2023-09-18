@@ -32,7 +32,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.PathAndFile;
-import vokabeltrainer.Settings;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
@@ -42,6 +41,7 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.ImportExpressions;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;

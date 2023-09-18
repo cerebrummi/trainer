@@ -17,8 +17,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.prefs.Preferences;
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.CerebrummiNodes;
-import vokabeltrainer.Settings;
 import vokabeltrainer.cmd.DirectoryHelper;
 
 public final class ImageData {
