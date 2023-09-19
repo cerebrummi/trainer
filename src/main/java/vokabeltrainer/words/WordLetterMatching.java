@@ -12,7 +12,6 @@ import vokabeltrainer.editing.NikudLetter;
 
 public class WordLetterMatching
 {
-
    private WordLetterMatching()
    {
 
@@ -45,8 +44,6 @@ public class WordLetterMatching
          result.setCompletelyFalse(true);
          return result;
       }
-          
-      final NikudLetter NEWSPACE = NikudLetter.NEWSPACE;
 
       result.setSimilarity(calculateSamenessPunish(dictionary, answer));
 
@@ -130,7 +127,7 @@ public class WordLetterMatching
       {
          if (letter == null)
          {
-            dataDic.add(new LetterForAnalysis(NEWSPACE));
+            dataDic.add(new LetterForAnalysis(NikudLetter.NEWSPACE));
          }
          else
          {
@@ -142,7 +139,7 @@ public class WordLetterMatching
       {
          if (letter == null)
          {
-            dataTest.add(new LetterForAnalysis(NEWSPACE));
+            dataTest.add(new LetterForAnalysis(NikudLetter.NEWSPACE));
          }
          else
          {
@@ -197,7 +194,7 @@ public class WordLetterMatching
       if (result.isPartlyFalse())
       {
          dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
-               dataDic, dataTest, NEWSPACE, Math.min(sizeDic, sizeTest));
+               dataDic, dataTest, NikudLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
 
          if (dataDic.size() != dataTest.size())
          {
@@ -205,7 +202,7 @@ public class WordLetterMatching
          }
 
          dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
-               dataTest, dataDic, NEWSPACE, Math.min(sizeDic, sizeTest));
+               dataTest, dataDic, NikudLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
 
          if (dataDic.size() != dataTest.size())
          {
@@ -233,7 +230,7 @@ public class WordLetterMatching
       {
          throw new IllegalStateException("Längen unterschiedlich 6");
       }
-
+      
       result.setDictionary(dataDic);
       result.setAnswer(dataTest);
 
@@ -274,7 +271,7 @@ public class WordLetterMatching
    private static void cutOutCommonNewspace(List<LetterForAnalysis> dataT,
          List<LetterForAnalysis> dataD)
    {
-      List<Integer> indexesToBeRemoved = new ArrayList<>();
+      List<Integer> indexesToBeRemoved = new ArrayList<Integer>();
       for (int i = 0; i < Math.min(dataT.size(), dataD.size()); i++)
       {
          if (dataT.get(i).getContent().isNewspace()
@@ -283,11 +280,17 @@ public class WordLetterMatching
             indexesToBeRemoved.add(i);
          }
       }
+
+      int[] indexes = indexesToBeRemoved.stream().mapToInt(i->i).toArray();
       
-      for(int index : indexesToBeRemoved)
+      for(int i = indexes.length-1; i>=0; i--)
       {
-         dataT.remove(index);
-         dataD.remove(index);
+         dataT.remove(indexes[i]);
+      }
+      
+      for(int i = indexes.length-1; i>=0; i--)
+      {
+         dataD.remove(indexes[i]);
       }
    }
 
