@@ -185,5 +185,19 @@ public class LetterHelper
             .map(word -> findNikudLetterForAnalysisList(word))
             .collect(Collectors.toList());
    }
+   
+   public static String findHebrewWithoutPunctation(String hebrew)
+   {
+      LinkedList<LetterForAnalysis> list = LetterHelper.findNikudLetterForAnalysisList(hebrew);
+      
+      StringBuilder result = new StringBuilder();
+      
+      for(LetterForAnalysis letter : list)
+      {
+         result.append(letter.getContent().getUnicode());
+      }
+      
+      return result.toString();
+   }
 
 }

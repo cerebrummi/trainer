@@ -1,5 +1,7 @@
 package vokabeltrainer.types;
 
+import vokabeltrainer.editing.LetterHelper;
+
 public class Hebrew
 {
    private boolean simpleHebrew = true;
@@ -79,6 +81,16 @@ public class Hebrew
          return hebrew;
       }
       return hebrewPlene + " | " + hebrewDefektiv;
+   }
+   
+   public String toTableEntry()
+   {
+      if (this.simpleHebrew)
+      {  
+         return LetterHelper.findHebrewWithoutPunctation(hebrew);
+      }      
+      
+      return LetterHelper.findHebrewWithoutPunctation(hebrewPlene) + " | " + LetterHelper.findHebrewWithoutPunctation(hebrewDefektiv);
    }
 
    public String getHewbrewAccordingToType(SelectionHebrewType selectionType)

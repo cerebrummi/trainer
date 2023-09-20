@@ -280,7 +280,7 @@ public class Expression
       index++;
       result[index] = hebrew.toString();
       index++;
-      result[index] = hebrew.toString();
+      result[index] = hebrew.toTableEntry();
       index++;
       result[index] = definitions.getGenderDescriptions();
       index++;
@@ -322,7 +322,7 @@ public class Expression
       index++;
       result[index] = german;
       index++;
-      result[index] = hebrew.toString();
+      result[index] = hebrew.toTableEntry();
       index++;
       result[index] = definitions.getGenderDescriptions();
       index++;
