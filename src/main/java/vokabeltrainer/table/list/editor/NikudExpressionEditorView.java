@@ -26,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
@@ -35,7 +36,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListCellRenderer;
-import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
@@ -62,7 +63,7 @@ import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableMultiselect;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableRow;
-import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.ExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -88,7 +89,7 @@ public class NikudExpressionEditorView extends JDialog
    private static final int WIDTH_INPUT_PANEL = Settings.getKeyboardWidth();
 
    private static final long serialVersionUID = 5853498340870217732L;
-   
+
    private Translator translator = Common.getTranslator();
    private Expression expression;
    private boolean newExpression;
@@ -115,10 +116,14 @@ public class NikudExpressionEditorView extends JDialog
    private JButton restoreButton;
    private JButton cancelButton;
    private List<JTextComponent> components = new ArrayList<>();
-   private String germanTitle = translator.realisticTranslate(Translation.DEUTSCH);
-   private String searchwordJListGermanTitle = translator.realisticTranslate(Translation.DEUTSCHE_SUCHWOERTER);
-   private String searchwordsJListHebrewTitle = translator.realisticTranslate(Translation.HEBRAEISCHE_SUCHWOERTER);
-   private String chapterTitle = translator.realisticTranslate(Translation.LEKTION);
+   private String germanTitle = translator
+         .realisticTranslate(Translation.DEUTSCH);
+   private String searchwordJListGermanTitle = translator
+         .realisticTranslate(Translation.DEUTSCHE_SUCHWOERTER);
+   private String searchwordsJListHebrewTitle = translator
+         .realisticTranslate(Translation.HEBRAEISCHE_SUCHWOERTER);
+   private String chapterTitle = translator
+         .realisticTranslate(Translation.LEKTION);
    private JComboBox<String> chapter;
    private JTextPane extraInfo;
    private JScrollPane extraInfoScroller;
@@ -161,11 +166,16 @@ public class NikudExpressionEditorView extends JDialog
 
    private ImageButton imageButton;
 
-   public ImageButton getImageButton() {
-	return imageButton;
-}
+   private JButton loadImageButton;
 
-public NikudExpressionEditorView(
+   private JButton removeImageButton;
+
+   public ImageButton getImageButton()
+   {
+      return imageButton;
+   }
+
+   public NikudExpressionEditorView(
          NikudExpressionEditorControllerConnector connector)
    {
       super(Common.getjFrame(), Settings.getWindowTitle(),
@@ -220,7 +230,8 @@ public NikudExpressionEditorView(
 
       if (Settings.isSimpleHebrewInput())
       {
-         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6, true, this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
+         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6, true, this,
+               WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
       else
       {
@@ -362,17 +373,20 @@ public NikudExpressionEditorView(
       deleteSearchwordButtonGerman
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 40));
 
-      saveButton = new JButton(translator.realisticTranslate(Translation.SPEICHERN));
+      saveButton = new JButton(
+            translator.realisticTranslate(Translation.SPEICHERN));
       saveButton.setFont(ApplicationFonts.getButtonFont());
       saveButton.setMinimumSize(new Dimension(120, 40));
       saveButton.setMaximumSize(new Dimension(160, 40));
 
-      restoreButton = new JButton(translator.realisticTranslate(Translation.ZURUECKSETZEN));
+      restoreButton = new JButton(
+            translator.realisticTranslate(Translation.ZURUECKSETZEN));
       restoreButton.setFont(ApplicationFonts.getButtonFont());
       restoreButton.setMinimumSize(new Dimension(120, 40));
       restoreButton.setMaximumSize(new Dimension(160, 40));
 
-      cancelButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
+      cancelButton = new JButton(
+            translator.realisticTranslate(Translation.ABBRECHEN));
       cancelButton.setFont(ApplicationFonts.getButtonFont());
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
@@ -387,7 +401,8 @@ public NikudExpressionEditorView(
       chapter.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
 
       indexField = new JTextField();
-      indexField.setBorder(makeBorderBlank(translator.realisticTranslate(Translation.INDEX)));
+      indexField.setBorder(
+            makeBorderBlank(translator.realisticTranslate(Translation.INDEX)));
       indexField.setFont(germanfont);
       indexField.setOpaque(false);
       indexField.setBackground(ApplicationColors.getTransparent());
@@ -398,14 +413,15 @@ public NikudExpressionEditorView(
       databaseNameField.setFont(ApplicationFonts.getButtonFont());
       databaseNameField.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       databaseNameField.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
-      databaseNameField.setBorder(new TitledBorder(translator.realisticTranslate(Translation.DATENBANK)));
+      databaseNameField.setBorder(new TitledBorder(
+            translator.realisticTranslate(Translation.DATENBANK)));
       databaseNameField.setEditable(true);
       databaseNameField.setMaximumRowCount(20);
 
       extraInfo = new JTextPane();
       extraInfo.setFont(ApplicationFonts.getHebrewFont(30));
-      extraInfo.setBorder(
-            BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.WEITERE_INFORMATIONEN)));
+      extraInfo.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.WEITERE_INFORMATIONEN)));
       extraInfo.setDocument(new ExtraInformationDocument());
       StyledDocument doc = extraInfo.getStyledDocument();
       SimpleAttributeSet style = new SimpleAttributeSet();
@@ -426,7 +442,8 @@ public NikudExpressionEditorView(
       pasteButton = new JButton(new DefaultEditorKit.PasteAction());
       pasteButton.setIcon(new ImageIcon(ApplicationImages.getPaste()));
       pasteButton.setText("");
-      pasteButton.setToolTipText(translator.realisticTranslate(Translation.EINFUEGEN));
+      pasteButton.setToolTipText(
+            translator.realisticTranslate(Translation.EINFUEGEN));
       pasteButton
             .setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
       pasteButton
@@ -435,14 +452,16 @@ public NikudExpressionEditorView(
       cutButton = new JButton(new DefaultEditorKit.CutAction());
       cutButton.setIcon(new ImageIcon(ApplicationImages.getCut()));
       cutButton.setText("");
-      cutButton.setToolTipText(translator.realisticTranslate(Translation.AUSSCNEIDEN));
+      cutButton.setToolTipText(
+            translator.realisticTranslate(Translation.AUSSCNEIDEN));
       cutButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
       cutButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       copyButton = new JButton(new DefaultEditorKit.CopyAction());
       copyButton.setIcon(new ImageIcon(ApplicationImages.getCopy2()));
       copyButton.setText("");
-      copyButton.setToolTipText(translator.realisticTranslate(Translation.KOPIEREN));
+      copyButton.setToolTipText(
+            translator.realisticTranslate(Translation.KOPIEREN));
       copyButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
       copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
@@ -461,7 +480,8 @@ public NikudExpressionEditorView(
       binjanBoxPanel.add(binjanBox);
       binjanBoxPanel.setOpaque(false);
       binjanBoxPanel.setBackground(ApplicationColors.getTransparent());
-      binjanBoxPanel.setBorder(new TitledBorder(translator.realisticTranslate(Translation.BINJAN___STAMM)));
+      binjanBoxPanel.setBorder(new TitledBorder(
+            translator.realisticTranslate(Translation.BINJAN___STAMM)));
 
       genderBox = new JComboBox<>(Gender.values());
       genderBox.setFont(ApplicationFonts.getComboBoxFont());
@@ -475,7 +495,8 @@ public NikudExpressionEditorView(
       genderBoxPanel.add(genderBox);
       genderBoxPanel.setOpaque(false);
       genderBoxPanel.setBackground(ApplicationColors.getTransparent());
-      genderBoxPanel.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.GESCHLECHT)));
+      genderBoxPanel.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.GESCHLECHT)));
 
       grammaticalPersonBox = new JComboBox<>(GrammaticalPerson.values());
       grammaticalPersonBox.setFont(ApplicationFonts.getComboBoxFont());
@@ -494,8 +515,8 @@ public NikudExpressionEditorView(
       grammaticalPersonBoxPanel.setOpaque(false);
       grammaticalPersonBoxPanel
             .setBackground(ApplicationColors.getTransparent());
-      grammaticalPersonBoxPanel
-            .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.GRAMMATISCHE_PERSON)));
+      grammaticalPersonBoxPanel.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.GRAMMATISCHE_PERSON)));
 
       numerusBox = new JComboBox<>(Numerus.values());
       numerusBox.setFont(ApplicationFonts.getComboBoxFont());
@@ -510,7 +531,8 @@ public NikudExpressionEditorView(
       numerusBoxPanel.add(numerusBox);
       numerusBoxPanel.setOpaque(false);
       numerusBoxPanel.setBackground(ApplicationColors.getTransparent());
-      numerusBoxPanel.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.NUMERUS)));
+      numerusBoxPanel.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.NUMERUS)));
 
       verbTimesBox = new JComboBox<>(VerbTimes.values());
       verbTimesBox.setFont(ApplicationFonts.getComboBoxFont());
@@ -524,7 +546,8 @@ public NikudExpressionEditorView(
       verbTimesBoxPanel.add(verbTimesBox);
       verbTimesBoxPanel.setOpaque(false);
       verbTimesBoxPanel.setBackground(ApplicationColors.getTransparent());
-      verbTimesBoxPanel.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.ZEITFORM)));
+      verbTimesBoxPanel.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.ZEITFORM)));
 
       keyboard = new KeyboardHebrewNikud(hebrew, components, 152, true, false);
    }
@@ -610,7 +633,8 @@ public NikudExpressionEditorView(
       scrollPaneExpressionTable.setBorder(BorderFactory.createTitledBorder(
             BorderFactory
                   .createLineBorder(ApplicationColors.getLightGrayGold()),
-            translator.realisticTranslate(Translation.WORTARTEN__MEHRFACHAUSWAHL_)));
+            translator.realisticTranslate(
+                  Translation.WORTARTEN__MEHRFACHAUSWAHL_)));
 
       lastModiefiedLabel = new JLabel();
       lastModiefiedLabel.setFont(ApplicationFonts.getGermanFont(14F));
@@ -644,7 +668,8 @@ public NikudExpressionEditorView(
       definitionPanel.setLayout(definitionLayout);
       definitionPanel.setBorder(BorderFactory.createEmptyBorder());
       definitionPanel.setOpaque(true);
-      definitionPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      definitionPanel
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JScrollPane scrollPane2 = new JScrollPane(definitionPanel);
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
@@ -652,28 +677,37 @@ public NikudExpressionEditorView(
       scrollPane2.setBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setBackground(ApplicationColors.getTexturedBackgroundColor());
-      scrollPane2.getViewport().setBackground(ApplicationColors.getTexturedBackgroundColor());
+      scrollPane2.getViewport()
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       vertical.add(scrollPane2);
 
       vertical.add(initImagePanel());
-      
+
       return vertical;
    }
 
-   private Component initImagePanel() 
+   private Component initImagePanel()
    {
-	   JPanel vertical = new JPanel();
-	   vertical.setOpaque(false);
-	   vertical.setBackground(ApplicationColors.getTransparent());
-	   vertical.setLayout(new BullsEyeLayout(vertical));
-	   
-	   imageButton = new ImageButton();
-	   imageButton.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 40, WIDTH_INFO_PANEL - 40));
-	   imageButton.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 40, WIDTH_INFO_PANEL - 40));
-	   vertical.add(imageButton);
-	   
-	   return vertical;
+      JPanel vertical = new JPanel();
+      vertical.setOpaque(false);
+      vertical.setBackground(ApplicationColors.getTransparent());
+      vertical.setLayout(new TotemLayout(vertical, 5));
+
+      this.loadImageButton = new JButton("Bild laden");
+      loadImageButton.setFont(ApplicationFonts.getButtonFont());
+      this.removeImageButton = new JButton("Bild löschen");
+      removeImageButton.setFont(ApplicationFonts.getButtonFont());
+
+      imageButton = new ImageButton();
+      imageButton.setMinimumSize(new Dimension(230, 125));
+      imageButton.setMaximumSize(new Dimension(230, 125));
+
+      vertical.add(loadImageButton);
+      vertical.add(removeImageButton);
+      vertical.add(imageButton);
+
+      return vertical;
    }
 
    private void resetAllBorders()
@@ -750,20 +784,36 @@ public NikudExpressionEditorView(
          save = false;
          this.dispose();
       });
-      
-      imageButton.addMouseListener(new MouseAdapter() {
-          @Override
-          public void mouseClicked(MouseEvent e) 
-          {
-              if (SwingUtilities.isRightMouseButton(e)) 
-              {
-                  connector.deleteImageForExpression();
-              }
-              else
-              {
-            	  connector.chooseImageForExpression();
-              }
-          }
+
+      loadImageButton.addActionListener(event -> {
+         connector.chooseImageForExpression();
+      });
+
+      removeImageButton.addActionListener(event -> {
+         connector.deleteImageForExpression();
+      });
+
+      imageButton.addMouseListener(new MouseAdapter()
+      {
+         @Override
+         public void mouseClicked(MouseEvent event)
+         {      
+            JDialog frame = new JDialog(Common.getjFrame());
+            frame.setModal(true);
+            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            JPanel panel = new JPanel();
+            ExpanderLayout layout = new ExpanderLayout(panel);
+            panel.setLayout(layout);
+            if(ImageData.loadImage(expression.getUuid()) == null)
+            {
+               return;
+            }
+            panel.add(new JLabel(
+                  new ImageIcon(ImageData.loadImageOriginal(expression.getUuid()))));
+            frame.add(panel);
+            frame.pack();
+            frame.setVisible(true);
+         }
       });
    }
 
@@ -1063,24 +1113,24 @@ public NikudExpressionEditorView(
                .setSelectedItem(expression.getChapter().getDatabaseName());
       }
 
-      lastModiefiedLabel
-            .setText(translator.realisticTranslate(Translation.VOM)
-                  + " "
-                  + expression.getLastModified()
-                        .format(DateTimeFormatter.ofPattern(translator.realisticTranslate(Translation._DATE_TIME)))
-                  + " "
-                  + translator.realisticTranslate(Translation.UHR));
-      
-      if(ImageData.isImageForExpressionAvailable(expression.getUuid()))
+      lastModiefiedLabel.setText(translator.realisticTranslate(Translation.VOM)
+            + " "
+            + expression.getLastModified()
+                  .format(DateTimeFormatter.ofPattern(
+                        translator.realisticTranslate(Translation._DATE_TIME)))
+            + " " + translator.realisticTranslate(Translation.UHR));
+
+      if (ImageData.isImageForExpressionAvailable(expression.getUuid()))
       {
-    	  imageButton.setIcon(new ImageIcon(ImageData.loadImage(expression.getUuid())));
+         imageButton.setIcon(
+               new ImageIcon(ImageData.loadImage(expression.getUuid())));
       }
       else
       {
-    	  imageButton.setIcon(null);
+         imageButton.setIcon(null);
       }
       imageButton.validate();
-	  imageButton.repaint();
+      imageButton.repaint();
    }
 
    private DefaultComboBoxModel<String> getSearchwordsModelGerman()
