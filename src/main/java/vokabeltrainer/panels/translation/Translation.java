@@ -356,7 +356,9 @@ public enum Translation {
 	DOPPELCLICK("Doppelclick!", "Click twice!"), 
 	JA("Ja", "Yes"), 
 	NEIN("Nein", "No"), 
-	BILD_LOESCHEN("Bild löschen", "Delete image");
+	BILD_LOESCHEN("Bild löschen", "Delete image"), 
+	ABBRECHEN_DER_AUSWAHL("Abbrechen der Auswahl", "canceling choice"), 
+	AUSGEWAEHLTE_DATEI_SPEICHERN("Ausgewählte Datei speichern", "save file selected");
 
 	private String german;
 	private String english;

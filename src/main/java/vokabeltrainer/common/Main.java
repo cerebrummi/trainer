@@ -160,12 +160,10 @@ public final class Main
          UIManager.put("FileChooser.openButtonText", translator.realisticTranslate(Translation.OEFFNEN));
          UIManager.put("FileChooser.cancelButtonText", translator.realisticTranslate(Translation.ABBRECHEN));
          UIManager.put("FileChooser.saveButtonText", translator.realisticTranslate(Translation.SPEICHERN));
-         UIManager
-               .put("FileChooser.cancelButtonToolTipText",
-                     "Abbrechen der Auswahl");
+         UIManager.put("FileChooser.cancelButtonToolTipText", translator.realisticTranslate(Translation.ABBRECHEN_DER_AUSWAHL));
          UIManager
                .put("FileChooser.saveButtonToolTipText",
-                     "Ausgewählte Datei speichern");
+                     translator.realisticTranslate(Translation.AUSGEWAEHLTE_DATEI_SPEICHERN));
          UIManager
                .put("FileChooser.openButtonToolTipText",
                      "Ausgewählte Datei öffnen");
