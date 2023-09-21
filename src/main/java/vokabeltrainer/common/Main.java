@@ -151,6 +151,12 @@ public final class Main
          UIManager.put("List.opaque", false);
          UIManager.put("Table.cellRenderer", false);
          UIManager.put("OptionPane.buttonFont", ApplicationFonts.getGermanFont(16F));
+
+         UIManager.put("OptionPane.cancelButtonText", translator.realisticTranslate(Translation.ABBRECHEN));
+         UIManager.put("OptionPane.yesButtonText", translator.realisticTranslate(Translation.JA));
+         UIManager.put("OptionPane.noButtonText", translator.realisticTranslate(Translation.NEIN));
+         UIManager.put("OptionPane.openDialogTitleText", translator.realisticTranslate(Translation.BILD_LOESCHEN));
+         
          UIManager.put("FileChooser.openButtonText", translator.realisticTranslate(Translation.OEFFNEN));
          UIManager.put("FileChooser.cancelButtonText", translator.realisticTranslate(Translation.ABBRECHEN));
          UIManager.put("FileChooser.saveButtonText", translator.realisticTranslate(Translation.SPEICHERN));

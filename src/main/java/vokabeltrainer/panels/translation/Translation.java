@@ -353,7 +353,10 @@ public enum Translation {
 	FEHLER_BEIM_SPEICHERN("Fehler beim Speichern", "Error saving data"), 
 	WOLLEN_SIE_DAS_BILD_WIRKLICH_LOESCHEN_("Wollen Sie das Bild wirklich löschen?", "Do you want to delete the image?"), 
 	WAEHLEN_SIE_EIN_BILD_AUS_("Wählen Sie ein Bild aus.", "Please choose an image."),
-	DOPPELCLICK("Doppelclick!", "Click twice!");
+	DOPPELCLICK("Doppelclick!", "Click twice!"), 
+	JA("Ja", "Yes"), 
+	NEIN("Nein", "No"), 
+	BILD_LOESCHEN("Bild löschen", "Delete image");
 
 	private String german;
 	private String english;
