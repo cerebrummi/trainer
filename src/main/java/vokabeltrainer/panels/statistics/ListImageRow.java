@@ -50,7 +50,7 @@ public class ListImageRow extends JPanel
 	private void initController() 
 	{		
 		imageButton.addActionListener(event -> {
-			JOptionPane.showMessageDialog(imageButton, null, null, JOptionPane.PLAIN_MESSAGE, new ImageIcon(ImageData.loadImage(expression.getUuid())));
+			JOptionPane.showMessageDialog(imageButton, null, null, JOptionPane.PLAIN_MESSAGE, new ImageIcon(ImageData.loadImageOriginal(expression.getUuid())));
 		});
 	}
 

@@ -7,7 +7,6 @@ import javax.swing.JTabbedPane;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.panels.success.LanguageTab;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -63,12 +62,10 @@ public class SuccessPanel extends BackgroundPanelTiled
       germanHebrewRegister.addChangeListener(event -> {
          if (germanHebrewRegister.getSelectedIndex() == 1)
          {
-            Data.unselectAllExpressions();
             languageDtoHcard.loadBoxes();
          }
          else if (germanHebrewRegister.getSelectedIndex() == 2)
          {
-            Data.unselectAllExpressions();
             languageHtoDcard.loadBoxes();
          }
       });
