@@ -292,8 +292,8 @@ public class MainView extends JPanel
       {
          remove(activeComponent);
       }
-      activeComponent = statisticsPanel;
       statisticsPanel.setValues();
+      activeComponent = statisticsPanel;
       add(activeComponent);
       validate();
       repaint();

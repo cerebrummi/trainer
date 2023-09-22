@@ -187,7 +187,7 @@ public final class Main
       }
       catch (UnsupportedLookAndFeelException e3)
       {
-         e3.printStackTrace();
+         // nothing
       }
 
       SwingUtilities.invokeLater(() -> {

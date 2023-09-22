@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.Common;
@@ -24,7 +23,7 @@ import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
-public class StatisticsPanel extends BackgroundPanelTiled
+public class StatisticsPanel extends JPanel
 {
    private static final long serialVersionUID = -3937351898121564812L;
 
@@ -35,8 +34,6 @@ public class StatisticsPanel extends BackgroundPanelTiled
 
    public StatisticsPanel()
    {
-      setLayout(new BullsEyeLayout(this));
-
       horizontalPanel = new JPanel();
       TrainLayout horizontalPanelLayout = new TrainLayout(horizontalPanel);
       horizontalPanel.setLayout(horizontalPanelLayout);
@@ -59,6 +56,7 @@ public class StatisticsPanel extends BackgroundPanelTiled
       horizontalPanel.add(wordPanel);
       
       add(horizontalPanel);
+      setLayout(new BullsEyeLayout(this));
    }
 
    public void setValues()

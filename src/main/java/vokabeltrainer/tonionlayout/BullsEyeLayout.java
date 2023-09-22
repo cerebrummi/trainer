@@ -155,7 +155,8 @@ public class BullsEyeLayout
          int ncomponents = self.getComponentCount();
          if (ncomponents == 0)
          {
-            throw new AWTError("BullsEyeLayout must hold exactly one component");
+            dimMin = null;
+            return null;
          }
          if (ncomponents > 1)
          {
@@ -333,12 +334,22 @@ public class BullsEyeLayout
       synchronized (self.getTreeLock())
       {
          checkContainer(self);
+         int ncomponents = self.getComponentCount();
+         if (ncomponents == 0)
+         {
+            dimMin = null;
+            return null;
+         }
+         if (ncomponents > 1)
+         {
+            throw new AWTError("BullsEyeLayout can hold only one component");
+         }
          if (dimMin != null)
             return dimMin;
          Insets insets = self.getInsets();
          int h = 0;
          int w = 0;
-         int ncomponents = self.getComponentCount();
+         ncomponents = self.getComponentCount();
          if (ncomponents > 1)
          {
             throw new AWTError("BullsEyeLayout can hold only one component");
@@ -417,6 +428,16 @@ public class BullsEyeLayout
       synchronized (self.getTreeLock())
       {
          checkContainer(self);
+         int ncomponents = self.getComponentCount();
+         if (ncomponents == 0)
+         {
+            dimMin = null;
+            return null;
+         }
+         if (ncomponents > 1)
+         {
+            throw new AWTError("BullsEyeLayout can hold only one component");
+         }
          double h = self.getSize().getHeight()
                - (self.getInsets().top + self.getInsets().bottom);
          double w = self.getSize().getWidth()
@@ -466,6 +487,16 @@ public class BullsEyeLayout
       {
          checkContainer(self);
          int ncomponents = self.getComponentCount();
+         if (ncomponents == 0)
+         {
+            dimMin = null;
+            return;
+         }
+         if (ncomponents > 1)
+         {
+            throw new AWTError("BullsEyeLayout can hold only one component");
+         }
+         ncomponents = self.getComponentCount();
          if (ncomponents > 1)
          {
             throw new AWTError("BullsEyeLayout can hold only one component");

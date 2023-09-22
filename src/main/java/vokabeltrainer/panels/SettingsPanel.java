@@ -78,6 +78,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       tabbedPane.setFont(ApplicationFonts.getButtonFont());
       tabbedPane.addTab(translator.realisticTranslate(
             Translation.EINSTELLUNGEN_UND_SERVICE), initSettingsTab());
+      
       try
       {
          tabbedPane.addTab(translator.realisticTranslate(Translation.INFO),
@@ -85,7 +86,6 @@ public class SettingsPanel extends BackgroundPanelTiled
       }
       catch (IOException e1)
       {
-    	  e1.printStackTrace();
          // nothing
       }
       try
@@ -95,13 +95,25 @@ public class SettingsPanel extends BackgroundPanelTiled
       }
       catch (IOException e)
       {
-    	  e.printStackTrace();
          // nothing
       }
+      
+      tabbedPane.addTab(translator.realisticTranslate(
+            Translation.SICHERHEITSKOPIEN), initBackupsTab());
 
       add(tabbedPane);
 
       initController();
+   }
+
+   private Component initBackupsTab()
+   {
+      JPanel panel = new JPanel();
+      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
+      panel.setLayout(panelLayout);
+      
+      panel.add(new JLabel("work in progress"));
+      return panel;
    }
 
    private Component initLicencingTab() throws IOException

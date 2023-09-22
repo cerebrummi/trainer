@@ -358,7 +358,8 @@ public enum Translation {
 	NEIN("Nein", "No"), 
 	BILD_LOESCHEN("Bild löschen", "Delete image"), 
 	ABBRECHEN_DER_AUSWAHL("Abbrechen der Auswahl", "canceling choice"), 
-	AUSGEWAEHLTE_DATEI_SPEICHERN("Ausgewählte Datei speichern", "save file selected");
+	AUSGEWAEHLTE_DATEI_SPEICHERN("Ausgewählte Datei speichern", "save file selected"), 
+	SICHERHEITSKOPIEN("Sicherheitskopien","Backups");
 
 	private String german;
 	private String english;
