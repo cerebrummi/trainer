@@ -57,6 +57,8 @@ public class StatisticsPanel extends JPanel
       
       add(horizontalPanel);
       setLayout(new BullsEyeLayout(this));
+      setOpaque(true);
+      setBackground(ApplicationColors.getTexturedBackgroundColor());
    }
 
    public void setValues()
