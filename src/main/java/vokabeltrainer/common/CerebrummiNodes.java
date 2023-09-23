@@ -107,4 +107,9 @@ public class CerebrummiNodes
    {
       return "repetition_five_months";
    }
+
+   public static String getSchabbatModus()
+   {
+      return "schabbat_modus";
+   }
 }

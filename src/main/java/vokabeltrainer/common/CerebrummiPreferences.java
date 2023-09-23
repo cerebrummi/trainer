@@ -226,5 +226,16 @@ public class CerebrummiPreferences
       {
          // nothing
       }
+      
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.initSchabbat_modus(preferences.getBoolean(CerebrummiNodes.getSchabbatModus(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
    }
 }

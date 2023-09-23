@@ -16,6 +16,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -68,6 +69,7 @@ public class SettingsPanel extends BackgroundPanelTiled
    private JButton exportDatabaseButton;
    private JButton deleteDatabaseButton;
    private Translator translator = Common.getTranslator();
+   private JCheckBox modus;
 
    public SettingsPanel()
    {
@@ -100,10 +102,33 @@ public class SettingsPanel extends BackgroundPanelTiled
       
       tabbedPane.addTab(translator.realisticTranslate(
             Translation.SICHERHEITSKOPIEN), initBackupsTab());
+      
+      tabbedPane.addTab(translator.realisticTranslate(
+            Translation.SCHABBAT_MODUS), initSchabbatTab());
 
       add(tabbedPane);
 
       initController();
+   }
+
+   private Component initSchabbatTab()
+   {
+      JPanel panel = new JPanel();
+      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
+      panel.setLayout(panelLayout);
+      panel.setBackground(ApplicationColors.getShadyBlue());
+      
+      modus = new JCheckBox(Common.getTranslator().realisticTranslate(Translation.SCHABBAT_MODUS));
+      modus.setFont(ApplicationFonts.getButtonFont());
+      modus.setForeground(ApplicationColors.getWhite());
+      modus.setSelected(Settings.isSchabbat_modus());
+      if(Common.isSchabbat())
+      {
+         modus.setEnabled(false);
+      }
+      
+      panel.add(modus);
+      return panel;
    }
 
    private Component initBackupsTab()
@@ -768,6 +793,13 @@ public class SettingsPanel extends BackgroundPanelTiled
             }
 
          }.execute();
+      });
+      
+      this.modus.addActionListener(event -> {
+         if(!Common.isSchabbat())
+         {
+            Settings.setSchabbat_modus(modus.isSelected());
+         }
       });
    }
 

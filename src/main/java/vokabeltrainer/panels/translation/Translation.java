@@ -359,7 +359,8 @@ public enum Translation {
 	BILD_LOESCHEN("Bild löschen", "Delete image"), 
 	ABBRECHEN_DER_AUSWAHL("Abbrechen der Auswahl", "canceling choice"), 
 	AUSGEWAEHLTE_DATEI_SPEICHERN("Ausgewählte Datei speichern", "save file selected"), 
-	SICHERHEITSKOPIEN("Sicherheitskopien","Backups");
+	SICHERHEITSKOPIEN("Sicherheitskopien","backups"), 
+	SCHABBAT_MODUS("Schabbat Modus, kein Vokabel Training", "Shabbat Modus, no training");
 
 	private String german;
 	private String english;

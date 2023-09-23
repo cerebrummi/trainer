@@ -1,7 +1,9 @@
 package vokabeltrainer.types;
 
 import java.time.LocalDate;
+import java.time.Period;
 
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
 
 public class TrainingStatus
@@ -47,49 +49,81 @@ public class TrainingStatus
          repetition = Repetition.ONE_DAY;
          if (Settings.isRepetition_one_day())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case ONE_DAY:
          repetition = Repetition.TWO_DAYS;
          if (Settings.isRepetition_two_days())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case TWO_DAYS:
          repetition = Repetition.FIVE_DAYS;
          if (Settings.isRepetition_five_days())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case FIVE_DAYS:
          repetition = Repetition.ELEVEN_DAYS;
          if (Settings.isRepetition_eleven_days())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case ELEVEN_DAYS:
          repetition = Repetition.NINETEEN_DAYS;
          if (Settings.isRepetition_nineteen_days())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case NINETEEN_DAYS:
          repetition = Repetition.ONE_MONTH;
          if (Settings.isRepetition_one_month())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case ONE_MONTH:
          repetition = Repetition.TWO_MONTHS;
          if (Settings.isRepetition_two_months())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case TWO_MONTHS:
          repetition = Repetition.FIVE_MONTHS;
          if (Settings.isRepetition_five_months())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case FIVE_MONTHS:
          repetition = Repetition.DONE;
@@ -118,43 +152,71 @@ public class TrainingStatus
          repetition = Repetition.TWO_MONTHS;
          if (Settings.isRepetition_two_months())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case TWO_MONTHS:
          repetition = Repetition.ONE_MONTH;
          if (Settings.isRepetition_one_month())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case ONE_MONTH:
          repetition = Repetition.NINETEEN_DAYS;
          if (Settings.isRepetition_nineteen_days())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case NINETEEN_DAYS:
          repetition = Repetition.ELEVEN_DAYS;
          if (Settings.isRepetition_eleven_days())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case ELEVEN_DAYS:
          repetition = Repetition.FIVE_DAYS;
          if (Settings.isRepetition_five_days())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case FIVE_DAYS:
          repetition = Repetition.TWO_DAYS;
          if (Settings.isRepetition_two_days())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case TWO_DAYS:
          repetition = Repetition.ONE_DAY;
          if (Settings.isRepetition_one_day())
          {
-            break;
+            LocalDate future = now.plus(Period.ofDays(1));
+            if(!Settings.isSchabbat_modus() ^ !Common.isSchabbatPossible(future))
+            {
+               break;
+            }
          }
       case ONE_DAY:
          repetition = Repetition.NOW;

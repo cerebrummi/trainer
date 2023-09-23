@@ -43,6 +43,8 @@ public class Settings
    private static boolean repetition_two_months;
    private static boolean repetition_five_months;
    private static boolean repetition_done = true;
+   
+   private static boolean schabbat_modus = true;
 
    private Settings()
    {
@@ -534,6 +536,27 @@ public class Settings
    public static void setRepetition_done(boolean repetition_done)
    {
       // nothing
+   }
+
+   public static boolean isSchabbat_modus()
+   {
+      return Settings.schabbat_modus;
+   }
+
+   public static void setSchabbat_modus(boolean schabbat_modus)
+   {
+      Preferences preferences = Preferences
+            .userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences
+            .putBoolean(CerebrummiNodes.getSchabbatModus(),
+                  schabbat_modus);
+      Settings.schabbat_modus = schabbat_modus;
+   }
+   
+   public static void initSchabbat_modus(boolean schabbat_modus)
+   {
+      Settings.schabbat_modus = schabbat_modus;
    }
 }
 

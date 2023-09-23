@@ -8,8 +8,10 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,6 +20,7 @@ import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTable;
 import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopy;
 import vokabeltrainer.panels.translation.Translation;
@@ -31,6 +34,7 @@ public class StartPanel extends JPanel
 {
    private static final long serialVersionUID = -4928761869820144146L;
    private Translator translator = Common.getTranslator();
+   private JCheckBox modus;
 
    public StartPanel()
    {
@@ -77,6 +81,7 @@ public class StartPanel extends JPanel
       center.setLayout(new TotemLayout(center, 15));
       center.setOpaque(false);
       center.setBackground(ApplicationColors.getTransparent());
+      center.add(initSchabbatModus());
       center.add(initDatabaseTablePanel());
       center.add(initCopyTablePanel());
       
@@ -102,6 +107,17 @@ public class StartPanel extends JPanel
       horizontal.add(schalom);
 
       add(horizontal, BorderLayout.SOUTH);
+   }
+
+   private Component initSchabbatModus()
+   {
+      modus = new JCheckBox(Common.getTranslator().realisticTranslate(Translation.SCHABBAT_MODUS));
+      modus.setFont(ApplicationFonts.getButtonFont());
+      modus.setSelected(Settings.isSchabbat_modus());
+      modus.setEnabled(false);
+      modus.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+      modus.setForeground(ApplicationColors.getWhite());
+      return modus;
    }
 
    private Component initDatabaseTablePanel()
@@ -208,5 +224,10 @@ public class StartPanel extends JPanel
          }
 
       }
+   }
+
+   public void setValues()
+   {
+      modus.setSelected(Settings.isSchabbat_modus());
    }
 }

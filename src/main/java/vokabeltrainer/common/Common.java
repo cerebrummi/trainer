@@ -1,5 +1,8 @@
 package vokabeltrainer.common;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import javax.swing.JFrame;
 
 import vokabeltrainer.panels.MainView;
@@ -60,4 +63,32 @@ public final class Common
       return settings;
    }
 
+   public static boolean isSchabbat()
+   {
+      ZonedDateTime now = ZonedDateTime.now();
+      DayOfWeek day = now.getDayOfWeek();
+      int hour = now.getHour();
+      if(day.equals(DayOfWeek.FRIDAY) && hour > 18)
+      {
+         return true;
+      }
+      else if (day.equals(DayOfWeek.SATURDAY) && hour < 18)
+      {
+         return true;
+      }
+      
+      return false;
+   }
+   
+   public static boolean isSchabbatPossible(LocalDate date)
+   {
+      ZonedDateTime now = ZonedDateTime.now();
+      DayOfWeek day = now.getDayOfWeek();
+      if(day.equals(DayOfWeek.FRIDAY) || day.equals(DayOfWeek.SATURDAY))
+      {
+         return true;
+      }
+      
+      return false;
+   }
 }

@@ -183,7 +183,7 @@ public class NikudExpressionEditorView extends JDialog
       save = false;
       setResizable(true);
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-      setSize(Math.min(screenSize.width - 60, 1301),
+      setSize(Math.min(screenSize.width - 60, 1310),
             Math.min(screenSize.height - 60, 815));
 
       outerLayout = new JPanel();

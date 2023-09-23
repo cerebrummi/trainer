@@ -197,6 +197,12 @@ public class MainView extends JPanel
       });
 
       vocabularyCardsButton.addActionListener(event -> {
+         
+         if(Settings.isSchabbat_modus() && Common.isSchabbat())
+         {
+            return;
+         }
+         
          Data.determineReloadDatabases();
          StartTrainingView dialog = new StartTrainingController()
                .getStartTrainingView();
@@ -280,6 +286,7 @@ public class MainView extends JPanel
       {
          remove(activeComponent);
       }
+      startPanel.setValues();
       activeComponent = startPanel;
       add(activeComponent);
       validate();
