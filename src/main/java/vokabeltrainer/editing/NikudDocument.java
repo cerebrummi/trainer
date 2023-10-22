@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class NikudDocument extends PlainDocument
 {
-   private static final int NUMBER_OF_LETTERS_ALLOWED = 300;
+   private static final int NUMBER_OF_LETTERS_ALLOWED = 500;
 
    private static final long serialVersionUID = -9186425449349376170L;
 

@@ -565,11 +565,6 @@ public TextExpressionEditorView(
          german.setBorder(makeBorderRed(this.germanTitle));
          result = false;
       }
-      if (!hebrew.isFilledOut())
-      {
-         hebrew.setRedBorder();
-         result = false;
-      }
       return result;
    }
 
