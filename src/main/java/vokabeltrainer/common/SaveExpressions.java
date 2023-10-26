@@ -71,12 +71,12 @@ public final class SaveExpressions
 
    public boolean save()
    {
-      ProgressMonitor bar = new ProgressMonitor(null,
-            "Die Daten werden gespeichert.", "", 0, 100);
+      ProgressMonitor bar = new ProgressMonitor(Common.getjFrame(),
+            "Die Daten werden gespeichert.", "", 0, 2900);
       int progress = 0;
       bar.setProgress(progress);
-      bar.setMillisToPopup(1000);
-      bar.setMillisToDecideToPopup(1000);
+      bar.setMillisToPopup(1);
+      bar.setMillisToDecideToPopup(1);
 
       UUID uuidSearchLock = UUID.randomUUID();
       if (Data.lockDataBase(uuidSearchLock))
@@ -105,16 +105,33 @@ public final class SaveExpressions
             for (LetterForSaving letter : LetterForSaving.values())
             {
                save(letter);
-               progress += 100 / LetterForSaving.values().length;
-               bar.setProgress(progress);
+               synchronized (bar)
+               {
+                  progress += 100;
+                  bar.setProgress(progress);
+                  bar.notify();
+                  Common.getjFrame().validate();
+                  Common.getjFrame().repaint();
+               }
             }
+
             Preferences preferences = Preferences.userRoot()
                   .node(CerebrummiNodes.getNode());
             preferences.putInt(CerebrummiNodes.getExpressionNode(), counter);
             saveDeletedExpressions();
             Data.integrateNewExpressions();
-            progress = 100;
-            bar.setProgress(progress);
+            synchronized (bar)
+            {
+               progress += 100;
+               bar.setProgress(progress);
+               bar.notify();
+               Common.getjFrame().validate();
+               Common.getjFrame().repaint();
+               bar.close();
+               bar.notify();
+               Common.getjFrame().validate();
+               Common.getjFrame().repaint();
+            }
             OkayExpressionsSavedNotification.display();
             return true;
          }
