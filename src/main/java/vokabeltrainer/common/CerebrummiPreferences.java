@@ -7,6 +7,7 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
+import vokabeltrainer.common.Settings.LanguageStored;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
@@ -138,100 +139,122 @@ public class CerebrummiPreferences
       {
          // nothing
       }
-      
-      try
-      {
-         Preferences preferences = Preferences.userRoot()
-               .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_one_day(preferences.getBoolean(CerebrummiNodes.getRepetitionOneDay(), false));
-      }
-      catch (Exception e)
-      {
-         // nothing
-      }  
 
       try
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_two_days(preferences.getBoolean(CerebrummiNodes.getRepetitionTwoDays(), true));
+         Settings.initRepetition_one_day(preferences
+               .getBoolean(CerebrummiNodes.getRepetitionOneDay(), false));
       }
       catch (Exception e)
       {
          // nothing
       }
-      
+
       try
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_five_days(preferences.getBoolean(CerebrummiNodes.getRepetitionFiveDays(), true));
+         Settings.initRepetition_two_days(preferences
+               .getBoolean(CerebrummiNodes.getRepetitionTwoDays(), true));
       }
       catch (Exception e)
       {
          // nothing
       }
-      
+
       try
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_eleven_days(preferences.getBoolean(CerebrummiNodes.getRepetitionElevenDays(), false));
-      }
-      catch (Exception e)
-      {
-         // nothing
-      }  
-      
-      try
-      {
-         Preferences preferences = Preferences.userRoot()
-               .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_nineteen_days(preferences.getBoolean(CerebrummiNodes.getRepetitionNineteenDays(), true));
-      }
-      catch (Exception e)
-      {
-         // nothing
-      }  
-      
-      try
-      {
-         Preferences preferences = Preferences.userRoot()
-               .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_one_month(preferences.getBoolean(CerebrummiNodes.getRepetitionOneMonth(), false));
-      }
-      catch (Exception e)
-      {
-         // nothing
-      } 
-      
-      try
-      {
-         Preferences preferences = Preferences.userRoot()
-               .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_two_months(preferences.getBoolean(CerebrummiNodes.getRepetitionTwoMonths(), false));
+         Settings.initRepetition_five_days(preferences
+               .getBoolean(CerebrummiNodes.getRepetitionFiveDays(), true));
       }
       catch (Exception e)
       {
          // nothing
       }
-      
+
       try
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_five_months(preferences.getBoolean(CerebrummiNodes.getRepetitionFiveMonths(), false));
+         Settings.initRepetition_eleven_days(preferences
+               .getBoolean(CerebrummiNodes.getRepetitionElevenDays(), false));
       }
       catch (Exception e)
       {
          // nothing
       }
-      
+
       try
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initSchabbat_modus(preferences.getBoolean(CerebrummiNodes.getSchabbatModus(), true));
+         Settings.initRepetition_nineteen_days(preferences
+               .getBoolean(CerebrummiNodes.getRepetitionNineteenDays(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.initRepetition_one_month(preferences
+               .getBoolean(CerebrummiNodes.getRepetitionOneMonth(), false));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.initRepetition_two_months(preferences
+               .getBoolean(CerebrummiNodes.getRepetitionTwoMonths(), false));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.initRepetition_five_months(preferences
+               .getBoolean(CerebrummiNodes.getRepetitionFiveMonths(), false));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.initSchabbat_modus(preferences
+               .getBoolean(CerebrummiNodes.getSchabbatModus(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
+         Settings.setLanguageInput(LanguageStored
+               .valueOf(preferences.get(CerebrummiNodes.getLanguageNode(),
+                     LanguageStored.SWEDISH.name())));
       }
       catch (Exception e)
       {

@@ -36,18 +36,21 @@ import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.NikudDocument;
+import vokabeltrainer.editing.SwedishDocument;
+import vokabeltrainer.keyboards.KeyboardLanguage;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 
-public class InputHebrewPanel extends JTextArea
+public class InputLanguagePanel extends JTextArea
 {
    private static final long serialVersionUID = 2787773393300243696L;
 
    private JTextField hebrewField;
    private JTextField pleneField;
    private JTextField defektivField;
+   private JTextField swedishField;
 
    private JButton toggleButton;
 
@@ -61,16 +64,22 @@ public class InputHebrewPanel extends JTextArea
    private ComponentTitledBorder toggleBorder;
 
    private JPanel cards;
-   
+
    private Container parent;
    private Translator translator = Common.getTranslator();
 
    private Color color;
 
+   private KeyboardLanguage keyboard;
+
+   public void setKeyboard(KeyboardLanguage keyboard)
+   {
+      this.keyboard = keyboard;
+   }
+
    public enum Selection
    {
-      SIMPLE,
-      PLENE_DEFEKTIV
+      SIMPLE, PLENE_DEFEKTIV, SWEDISH
    }
 
    class FocusForwardAction extends AbstractAction
@@ -87,16 +96,15 @@ public class InputHebrewPanel extends JTextArea
          else if (Selection.PLENE_DEFEKTIV == selection
                && pleneField.isFocusOwner())
          {
-            forwardInside();
+            forwardPleneDefectiv();
          }
-         else if (Selection.PLENE_DEFEKTIV == selection
-               && defektivField.isFocusOwner())
+         else if (Selection.SWEDISH == selection && swedishField.isFocusOwner())
          {
             forwardToOutsideTraversalCycle();
          }
       }
 
-      private void forwardInside()
+      private void forwardPleneDefectiv()
       {
          defektivField.requestFocusInWindow();
       }
@@ -104,13 +112,12 @@ public class InputHebrewPanel extends JTextArea
       private void forwardToOutsideTraversalCycle()
       {
          parent.getFocusTraversalPolicy()
-         .getComponentAfter(parent,
-               InputHebrewPanel.this)
-         .requestFocusInWindow(Cause.TRAVERSAL_FORWARD);
+               .getComponentAfter(parent, InputLanguagePanel.this)
+               .requestFocusInWindow(Cause.TRAVERSAL_FORWARD);
       }
 
    }
-   
+
    class FocusBackwardAction extends AbstractAction
    {
       private static final long serialVersionUID = -8790050293258845388L;
@@ -127,8 +134,7 @@ public class InputHebrewPanel extends JTextArea
          {
             backwardInside();
          }
-         else if (Selection.PLENE_DEFEKTIV == selection
-               && pleneField.isFocusOwner())
+         else if (Selection.SWEDISH == selection && swedishField.isFocusOwner())
          {
             backwardToOutsideTraversalCycle();
          }
@@ -142,23 +148,24 @@ public class InputHebrewPanel extends JTextArea
       private void backwardToOutsideTraversalCycle()
       {
          parent.getFocusTraversalPolicy()
-         .getComponentBefore(parent,
-               InputHebrewPanel.this)
-         .requestFocusInWindow(Cause.TRAVERSAL_FORWARD);
+               .getComponentBefore(parent, InputLanguagePanel.this)
+               .requestFocusInWindow(Cause.TRAVERSAL_FORWARD);
       }
 
    }
 
-   public InputHebrewPanel(Selection selection, int heightTotal,
-         int heightBorderTitel, boolean canBeToggled, Container parent, int widthTotal, Color color)
+   public InputLanguagePanel(Selection selection, int heightTotal,
+         int heightBorderTitel, boolean canBeToggled, Container parent,
+         int widthTotal, Color color)
    {
       this.selection = selection;
+
       this.heightTotal = heightTotal;
       this.heightBorderTitel = heightBorderTitel;
       this.parent = parent;
       this.widthTotal = widthTotal;
       this.color = color;
-      
+
       this.setLayout(new BullsEyeLayout(this));
 
       cards = new JPanel();
@@ -191,26 +198,25 @@ public class InputHebrewPanel extends JTextArea
          cards.setBorder(BorderFactory.createEmptyBorder());
       }
 
-      cards.add("simple", initSimpleHebrew());
-      cards.add("pleneDefektiv", initPleneDefektivHebrew());
+      cards.add(Selection.SWEDISH.name(), initSwedish());
+      cards.add(Selection.PLENE_DEFEKTIV.name(), initPleneDefektivHebrew());
+      cards.add(Selection.SIMPLE.name(), initSimpleHebrew());
 
       this.add(cards);
       initController();
-      if (Selection.PLENE_DEFEKTIV == selection)
-      {
-         layout.next(cards);
-      }
+      this.toggleLayout();
 
       String focusCommand = "focus_forward";
       KeyStroke tab = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0);
-      getInputMap(InputHebrewPanel.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(tab,
-            focusCommand);
+      getInputMap(InputLanguagePanel.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+            .put(tab, focusCommand);
       getActionMap().put(focusCommand, new FocusForwardAction());
-      
+
       String focusBackwardCommand = "focus_backward";
-      KeyStroke tabBack = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, InputEvent.SHIFT_DOWN_MASK);
-      getInputMap(InputHebrewPanel.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(tabBack,
-            focusBackwardCommand);
+      KeyStroke tabBack = KeyStroke.getKeyStroke(KeyEvent.VK_TAB,
+            InputEvent.SHIFT_DOWN_MASK);
+      getInputMap(InputLanguagePanel.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+            .put(tabBack, focusBackwardCommand);
       getActionMap().put(focusBackwardCommand, new FocusBackwardAction());
    }
 
@@ -220,7 +226,7 @@ public class InputHebrewPanel extends JTextArea
       {
          @Override
          public void focusGained(FocusEvent e)
-         {          
+         {
             fromOutsideToInside(e);
          }
 
@@ -232,9 +238,13 @@ public class InputHebrewPanel extends JTextArea
                {
                   hebrewField.requestFocusInWindow();
                }
-               else
+               else if (Selection.PLENE_DEFEKTIV == selection)
                {
                   pleneField.requestFocusInWindow();
+               }
+               else
+               {
+                  swedishField.requestFocusInWindow();
                }
             }
             else if (e.getCause() == Cause.TRAVERSAL_BACKWARD)
@@ -243,9 +253,13 @@ public class InputHebrewPanel extends JTextArea
                {
                   hebrewField.requestFocusInWindow();
                }
-               else
+               else if (Selection.PLENE_DEFEKTIV == selection)
                {
                   defektivField.requestFocusInWindow();
+               }
+               else
+               {
+                  swedishField.requestFocusInWindow();
                }
             }
          }
@@ -276,8 +290,14 @@ public class InputHebrewPanel extends JTextArea
             setBlankBorder();
          }
       });
+      swedishField.addCaretListener(event -> {
+         if (!swedishField.getText().isEmpty())
+         {
+            setBlankBorder();
+         }
+      });
 
-      toggleButton.addActionListener(event -> toggleLayout());
+      toggleButton.addActionListener(event -> toggleNext());
 
       toggleButton.addMouseListener(new MouseAdapter()
       {
@@ -294,9 +314,13 @@ public class InputHebrewPanel extends JTextArea
             {
                hebrewField.requestFocusInWindow();
             }
-            else
+            else if (Selection.PLENE_DEFEKTIV == selection)
             {
                pleneField.requestFocusInWindow();
+            }
+            else
+            {
+               swedishField.requestFocusInWindow();
             }
          }
 
@@ -344,8 +368,8 @@ public class InputHebrewPanel extends JTextArea
             (heightTotal - heightBorderTitel) / 2));
       pleneField.setMaximumSize(new Dimension(this.widthTotal,
             (heightTotal - heightBorderTitel) / 2));
-      pleneField
-            .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__PLENE)));
+      pleneField.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.HEBRAEISCH__PLENE)));
       components.add(pleneField);
 
       defektivField = new JTextField();
@@ -355,11 +379,10 @@ public class InputHebrewPanel extends JTextArea
       defektivField
             .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
                   (heightTotal - heightBorderTitel) / 2));
-      defektivField
-            .setMaximumSize(new Dimension(this.widthTotal,
-                  (heightTotal - heightBorderTitel) / 2));
-      defektivField
-            .setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.HEBRAEISCH__DEFEKTIV)));
+      defektivField.setMaximumSize(new Dimension(this.widthTotal,
+            (heightTotal - heightBorderTitel) / 2));
+      defektivField.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.HEBRAEISCH__DEFEKTIV)));
 
       components.add(defektivField);
 
@@ -382,10 +405,12 @@ public class InputHebrewPanel extends JTextArea
       hebrewField.setFont(ApplicationFonts.getHebrewFont(30F));
       hebrewField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel)));
-      hebrewField.setMaximumSize(new Dimension(this.widthTotal,
-            (heightTotal - heightBorderTitel)));
-      hebrewField.setBorder(BorderFactory.createTitledBorder( translator.realisticTranslate(Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
-      
+      hebrewField.setMaximumSize(
+            new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
+      hebrewField.setBorder(
+            BorderFactory.createTitledBorder(translator.realisticTranslate(
+                  Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
+
       components.add(hebrewField);
 
       vertical.add(hebrewField);
@@ -393,25 +418,99 @@ public class InputHebrewPanel extends JTextArea
       return vertical;
    }
 
-   private void toggleLayout()
+   private Component initSwedish()
+   {
+      JPanel vertical = new JPanel();
+      vertical.setLayout(new TotemLayout(vertical));
+      vertical.setBackground(this.color);
+      vertical.setOpaque(true);
+
+      swedishField = new JTextField();
+      swedishField.setDocument(new SwedishDocument(true));
+      swedishField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+      swedishField.setFont(ApplicationFonts.getGermanFont(20F));
+      swedishField
+            .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
+                  (heightTotal - heightBorderTitel)));
+      swedishField.setMaximumSize(
+            new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
+      swedishField.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.SVENSKA)));
+
+      components.add(swedishField);
+
+      vertical.add(swedishField);
+
+      return vertical;
+   }
+
+   public void toggle(Selection selection)
+   {
+      this.selection = selection;
+      layout.show(cards, selection.name());
+      Settings.toggleLanguageInput(selection);
+      keyboard.toggleKeyboard(selection);
+   }
+
+   private void toggleNext()
    {
       switch (selection)
       {
       case SIMPLE:
          selection = Selection.PLENE_DEFEKTIV;
-         layout.next(cards);
+         layout.show(cards, Selection.PLENE_DEFEKTIV.name());
          this.hebrewField.setText("");
          break;
       case PLENE_DEFEKTIV:
-         selection = Selection.SIMPLE;
-         layout.first(cards);
+         selection = Selection.SWEDISH;
+         layout.show(cards, Selection.SWEDISH.name());
          this.pleneField.setText("");
          this.defektivField.setText("");
+         break;
+      case SWEDISH:
+         selection = Selection.SIMPLE;
+         layout.show(cards, Selection.SIMPLE.name());
+         this.swedishField.setText("");
+         break;
       }
-      Settings.toggleSimpleHebrewInput();
+
+      Settings.toggleLanguageInput(selection);
+      keyboard.toggleKeyboard();
+   }
+
+   private void toggleLayout()
+   {
+      switch (selection)
+      {
+      case SIMPLE:
+         layout.show(cards, Selection.SIMPLE.name());
+         break;
+      case PLENE_DEFEKTIV:
+         layout.show(cards, Selection.PLENE_DEFEKTIV.name());
+         break;
+      case SWEDISH:
+         layout.show(cards, Selection.SWEDISH.name());
+         break;
+      }
+
+      Settings.toggleLanguageInput(selection);
+      
+      if (keyboard != null)
+      {
+         keyboard.toggleKeyboard();
+      }
    }
 
    public void setHebrewLayout(Selection newSelection)
+   {
+      if (selection == newSelection)
+      {
+         return;
+      }
+      toggleLayout();
+   }
+
+   public void setSwedishLayout(Selection newSelection)
    {
       if (selection == newSelection)
       {
@@ -440,6 +539,11 @@ public class InputHebrewPanel extends JTextArea
       return defektivField.getText();
    }
 
+   public String getSwedishFieldText()
+   {
+      return swedishField.getText();
+   }
+
    public void setHebrewFieldText(String hebrewText)
    {
       hebrewField.setText(hebrewText);
@@ -455,6 +559,11 @@ public class InputHebrewPanel extends JTextArea
       defektivField.setText(defektiveText);
    }
 
+   public void setSwedishFieldText(String swedishText)
+   {
+      swedishField.setText(swedishText);
+   }
+
    public boolean isFilledOut()
    {
       switch (selection)
@@ -464,6 +573,8 @@ public class InputHebrewPanel extends JTextArea
       case PLENE_DEFEKTIV:
          return !pleneField.getText().strip().isBlank()
                && !defektivField.getText().strip().isBlank();
+      case SWEDISH:
+         return !swedishField.getText().strip().isBlank();
       }
       return false;
    }
@@ -494,6 +605,10 @@ public class InputHebrewPanel extends JTextArea
       {
          defektivField.setBackground(color);
       }
+      if (swedishField != null)
+      {
+         swedishField.setBackground(color);
+      }
    }
 
    @Override
@@ -519,6 +634,10 @@ public class InputHebrewPanel extends JTextArea
       if (defektivField != null)
       {
          this.defektivField.setEditable(editable);
+      }
+      if (swedishField != null)
+      {
+         this.swedishField.setEditable(editable);
       }
    }
 

@@ -43,9 +43,9 @@ public class CerebrummiNodes
       return "letterpictures";
    }
    
-   public static String getSimpleHebrewNode()
+   public static String getLanguageNode()
    {
-      return "simplehebrew";
+      return "language";
    }
    
    public static String getChoosenDatabases()

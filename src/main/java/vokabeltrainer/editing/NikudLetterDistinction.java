@@ -7,3 +7,4 @@ public enum NikudLetterDistinction
    MIDDLE_PUNKTATION,
    LOWER_PUNKTATION;
 }
+

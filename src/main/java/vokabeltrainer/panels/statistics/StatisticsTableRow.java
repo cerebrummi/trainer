@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.types.Expression;
@@ -22,9 +24,7 @@ public class StatisticsTableRow
 {
    private LocalDate date;
    private Translator translator = Common.getTranslator();
-   private DateTimeFormatter dateFormatter = DateTimeFormatter
-         .ofPattern("EEEE "
-               + translator.realisticTranslate(Translation._DATE), Locale.GERMANY);
+   private DateTimeFormatter dateFormatter;
    int row;
    StatisticsTableModel model;
 private List<Expression> expressionsHtoD;
@@ -38,6 +38,18 @@ private List<Expression> expressionsDtoH;
       this.date = date;
       this.expressionsDtoH = expressionsDtoH;
       this.expressionsHtoD = expressionsHtoD;
+      if (TranslationCode.de_original == Settings.getTranslationCode())
+      {
+         dateFormatter = DateTimeFormatter
+               .ofPattern("EEEE "
+                     + translator.realisticTranslate(Translation._DATE), Locale.GERMANY);
+      }
+      else if (TranslationCode.en == Settings.getTranslationCode())
+      {
+         dateFormatter = DateTimeFormatter
+               .ofPattern("EEEE "
+                     + translator.realisticTranslate(Translation._DATE), Locale.US);
+      }
       
       Collections.sort(this.expressionsDtoH, new ExpressionComparator(Language.GERMAN_TO_HEBREW));
       

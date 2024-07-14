@@ -14,7 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.InputHebrewPanel;
+import vokabeltrainer.InputLanguagePanel;
+import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
@@ -24,7 +25,7 @@ import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
-public class KeyboardHebrewNikud extends JPanel
+public class KeyboardLanguage extends JPanel
 {
    private static final long serialVersionUID = -7532952398298332087L;
 
@@ -33,22 +34,30 @@ public class KeyboardHebrewNikud extends JPanel
 
    private Scale scale;
    private List<JButton> buttons = new ArrayList<>();
+   
+   private Component hebrewKeyboard;
+   private Component swedishKeyboard;
 
-   public KeyboardHebrewNikud(JTextComponent textfield,
+   private KeyboardSwedishStandard swedishKeyboardMaker;
+   private JTextComponent textfield;
+
+   public KeyboardLanguage(JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight,
          boolean addTextField, boolean addTextToTheRight)
    {
+      this.textfield = textfield;
       scale = new Scale(BUTTON_SIZE);
       
       if (textfield != null)
       {
-         if(textfield instanceof InputHebrewPanel)
+         if(textfield instanceof InputLanguagePanel)
          {
             textfield.setMinimumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
             textfield.setMaximumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
-            arrayList.addAll(((InputHebrewPanel)textfield).getTextComponents());
+            arrayList.addAll(((InputLanguagePanel)textfield).getTextComponents());
+            ((InputLanguagePanel)textfield).setKeyboard(this);
          }
          else
          {
@@ -81,15 +90,68 @@ public class KeyboardHebrewNikud extends JPanel
 
       if (textfield != null && addTextField)
       {
-    	  add(textfield);
+    	  this.add(textfield);
       }
       
-      if (textfield != null && !(textfield instanceof InputHebrewPanel))
+      if (textfield != null && !(textfield instanceof InputLanguagePanel))
       {
          setFocusTraversalPolicy(new OneFocusTraversalPolicy(textfield));
          textfield.grabFocus();
       }
+      swedishKeyboardMaker = new KeyboardSwedishStandard(this.textfield,
+            this.components, textFieldHeight);
+      this.swedishKeyboard = swedishKeyboardMaker.makeRegularKeyboard();
+      this.swedishKeyboard.addMouseListener(new KeyboardListener());
+      this.hebrewKeyboard = this.makeHebrewKeyboard();
+      this.add(textfield);
+      if(Settings.isSimpleHebrewInput() || Settings.isHebrewPleneDefektivInput())
+      {
 
+         this.add(hebrewKeyboard);
+      }
+      else
+      {
+         this.add(swedishKeyboard);
+      }
+   }
+   
+   public void toggleKeyboard(Selection selection)
+   {
+      this.removeAll();
+      this.add(textfield);
+      switch(selection)
+      {
+      case PLENE_DEFEKTIV:
+      case SIMPLE:
+         this.add(hebrewKeyboard);
+         break;
+      case SWEDISH:
+         this.add(swedishKeyboard);
+         break;
+      }
+      this.validate();
+      this.repaint();
+   }
+   
+   public void toggleKeyboard()
+   {
+      this.removeAll();
+      this.add(textfield);
+      if(Settings.isSimpleHebrewInput() || Settings.isHebrewPleneDefektivInput())
+      {
+
+         this.add(hebrewKeyboard);
+      }
+      else
+      {
+         this.add(swedishKeyboard);
+      }
+      this.validate();
+      this.repaint();
+   }
+
+   private Component makeHebrewKeyboard()
+   {
       JPanel keyboard = new JPanel();
       keyboard.setOpaque(false);
       keyboard.setLayout(new TotemLayout(keyboard));
@@ -215,7 +277,7 @@ public class KeyboardHebrewNikud extends JPanel
       keyboard.add(row5);
       keyboard.add(row6);
       keyboard.add(row7);
-      add(keyboard);
+      return keyboard;
    }
 
    private Component makeSpaceButton()
@@ -255,7 +317,7 @@ public class KeyboardHebrewNikud extends JPanel
       return buttonCaption;
    }
 
-   class KeyboardListener implements MouseListener
+   private class KeyboardListener implements MouseListener
    {
 
       public void mouseClicked(MouseEvent e)

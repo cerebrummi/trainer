@@ -149,7 +149,7 @@ public class Chapter implements Comparable<Chapter>
     		"grundwortschatz",
             "Grundwortschatz",
             "630 Vokabeln",
-            "Neuhebr‰isch"),
+            "Neuhebr√§isch"),
       SELF(
             "",
             "",

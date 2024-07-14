@@ -31,9 +31,8 @@ public class ExtraInformationDocument extends DefaultStyledDocument
       {
          if (getLength() + text.length() - length > NUMBER_OF_LETTERS_ALLOWED)
          {
-            text = text
-                  .substring(0,
-                        NUMBER_OF_LETTERS_ALLOWED - (getLength() - length));
+            text = text.substring(0,
+                  NUMBER_OF_LETTERS_ALLOWED - (getLength() - length));
             if (text.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();
@@ -41,7 +40,8 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             }
          }
 
-         List<String> list = LetterHelper.findLetterCodes(text);
+         List<String> list = LetterHelper.findLetterCodes(text,
+               LetterType.NONE);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -73,7 +73,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             }
          }
 
-         List<String> list = LetterHelper.findLetterCodes(str);
+         List<String> list = LetterHelper.findLetterCodes(str, LetterType.NONE);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -93,9 +93,14 @@ public class ExtraInformationDocument extends DefaultStyledDocument
    {
       for (int i = 0; i < list.size(); i++)
       {
-         Letter germanLetter = LetterHelper
-               .getLetterFromCode(list.get(i), LetterType.GERMAN);
-         Letter nikudLetter = LetterHelper.getLetterFromCode(list.get(i), LetterType.HEBREW);
+         Letter germanLetter = LetterHelper.getLetterFromCode(
+               list.get(i) + LetterType.GERMAN.getRealm(), LetterType.GERMAN);
+         Letter nikudLetter = LetterHelper.getLetterFromCode(
+               list.get(i) + LetterType.HEBREW.getRealm(), LetterType.HEBREW);
+         Letter swedishLetter = LetterHelper.getLetterFromCode(
+               list.get(i) + LetterType.SWEDISH.getRealm(), LetterType.SWEDISH);
+         String signcode = list.get(i) + LetterType.SIGN.getRealm();
+         String numbercode = list.get(i) + LetterType.SIGN.getRealm();
          if (germanLetter != null && germanLetter instanceof GermanLetter)
          {
             // okay
@@ -106,20 +111,22 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             // okay
             builder.append(nikudLetter.getUnicode());
          }
-         else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
+         else if (swedishLetter != null && swedishLetter instanceof SwedishLetter)
          {
             // okay
-            builder
-                  .append(LetterHelper
-                        .getLetterFromCode(list.get(i), LetterType.SIGN)
-                        .getUnicode());
+            builder.append(swedishLetter.getUnicode());
          }
-         else if (StringUtils.containsIgnoreCase(numberPattern, list.get(i)))
+         else if (StringUtils.containsIgnoreCase(signPattern, signcode))
          {
             // okay
-            builder
-                  .append(LetterHelper
-                        .getLetterFromCode(list.get(i), LetterType.NUMBER)
+            builder.append(LetterHelper
+                  .getLetterFromCode(signcode, LetterType.SIGN).getUnicode());
+         }
+         else if (StringUtils.containsIgnoreCase(numberPattern, numbercode))
+         {
+            // okay
+            builder.append(
+                  LetterHelper.getLetterFromCode(numbercode, LetterType.NUMBER)
                         .getUnicode());
          }
          else

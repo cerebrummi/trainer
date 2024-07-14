@@ -2,22 +2,21 @@ package vokabeltrainer.editing;
 
 import java.awt.Toolkit;
 import java.util.List;
-
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class GermanDocument extends PlainDocument
+public class SwedishDocument extends PlainDocument
 {
-   private static final long serialVersionUID = 7089213677826493757L;
+   private static final int NUMBER_OF_LETTERS_ALLOWED = 500;
+
+   private static final long serialVersionUID = -9186425449349376170L;
 
    private String signPattern;
-   private String numberPattern;
-   private int numberOfLettersAllowed = 800;
 
-   public GermanDocument(boolean withComma)
+   public SwedishDocument(boolean withComma)
    {
       if (withComma)
       {
@@ -27,13 +26,6 @@ public class GermanDocument extends PlainDocument
       {
          signPattern = SignLetter.getPatternStringGerman();
       }
-      numberPattern = NumberLetter.getPatternString();
-   }
-
-   public GermanDocument(int size)
-   {
-      numberOfLettersAllowed = size;
-      signPattern = SignLetter.getPatternStringForFileNames();
    }
 
    @Override
@@ -42,10 +34,11 @@ public class GermanDocument extends PlainDocument
    {
       if (text != null && !text.isEmpty())
       {
-         if (getLength() + text.length() - length > numberOfLettersAllowed)
+         if (getLength() + text.length() - length > NUMBER_OF_LETTERS_ALLOWED)
          {
-            text = text.substring(0,
-                  numberOfLettersAllowed - (getLength() - length));
+            text = text
+                  .substring(0,
+                        NUMBER_OF_LETTERS_ALLOWED - (getLength() - length));
             if (text.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();
@@ -53,8 +46,7 @@ public class GermanDocument extends PlainDocument
             }
          }
 
-         List<String> list = LetterHelper.findLetterCodes(text,
-               LetterType.GERMAN);
+         List<String> list = LetterHelper.findLetterCodes(text, LetterType.SWEDISH);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -70,15 +62,14 @@ public class GermanDocument extends PlainDocument
       super.replace(offset, length, text, attrs);
    }
 
-   @Override
    public void insertString(int offset, String str, AttributeSet attr)
          throws BadLocationException
    {
       if (str != null && !str.isEmpty())
       {
-         if (getLength() + str.length() > numberOfLettersAllowed)
+         if (getLength() + str.length() > NUMBER_OF_LETTERS_ALLOWED)
          {
-            str = str.substring(0, numberOfLettersAllowed - getLength());
+            str = str.substring(0, NUMBER_OF_LETTERS_ALLOWED - getLength());
             if (str.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();
@@ -86,8 +77,7 @@ public class GermanDocument extends PlainDocument
             }
          }
 
-         List<String> list = LetterHelper.findLetterCodes(str,
-               LetterType.GERMAN);
+         List<String> list = LetterHelper.findLetterCodes(str, LetterType.SWEDISH);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -107,12 +97,9 @@ public class GermanDocument extends PlainDocument
    {
       for (int i = 0; i < list.size(); i++)
       {
-         Letter letter = LetterHelper.getLetterFromCode(list.get(i),
-               LetterType.GERMAN);
-         String signcode = list.get(i).replace(LetterType.GERMAN.getRealm(), LetterType.SIGN.getRealm());
-         String numbercode = list.get(i).replace(LetterType.GERMAN.getRealm(), LetterType.NUMBER.getRealm());
-         //
-         if (letter != null && letter instanceof GermanLetter)
+         Letter letter = LetterHelper.getLetterFromCode(list.get(i), LetterType.SWEDISH);
+         String signcode = list.get(i).replace(LetterType.SWEDISH.getRealm(), LetterType.SIGN.getRealm());
+         if (letter != null && letter instanceof SwedishLetter)
          {
             // okay
             builder.append(letter.getUnicode());
@@ -121,18 +108,9 @@ public class GermanDocument extends PlainDocument
          {
             // okay
             builder
-            .append(LetterHelper
-                  .getLetterFromCode(signcode, LetterType.SIGN)
-                  .getUnicode());
-         }
-         else if (StringUtils
-               .containsIgnoreCase(numberPattern, numbercode))
-         {
-            // okay
-            builder
-            .append(LetterHelper
-                  .getLetterFromCode(numbercode, LetterType.NUMBER)
-                  .getUnicode());
+                  .append(LetterHelper
+                        .getLetterFromCode(signcode, LetterType.SIGN)
+                        .getUnicode());
          }
          else
          {

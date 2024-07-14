@@ -60,6 +60,7 @@ import vokabeltrainer.types.DatabaseDescription;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LLType;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.SortingIndex;
@@ -479,6 +480,7 @@ public final class Data
                {
                   expression.setTrainingStatusHToD(trainingstatus);
                }
+               
             }
 
          }
@@ -808,37 +810,46 @@ public final class Data
                index++;
                expression.setGerman(entries[index]);
                index++;
-               expression.getHebrew()
+               expression.getLL()
                      .setSimpleHebrew(Boolean.valueOf(entries[index]));
                index++;
-               expression.getHebrew().setHebrew(entries[index]);
-               if (expression.getHebrew().getHebrew()
+               expression.getLL().setHebrew(entries[index]);
+               if (expression.getLL().getHebrew()
                      .contains(ExchangeLetter.SSIN.getUnicode()))
                {
-                  expression.getHebrew()
+                  expression.getLL()
                         .setHebrew(LetterHelper.turnExchangeSsinIntoNikudSsin(
-                              expression.getHebrew().getHebrew()));
+                              expression.getLL().getHebrew()));
                }
                index++;
-               expression.getHebrew().setHebrewPlene(entries[index]);
-               if (expression.getHebrew().getHebrewPlene()
+               expression.getLL().setHebrewPlene(entries[index]);
+               if (expression.getLL().getHebrewPlene()
                      .contains(ExchangeLetter.SSIN.getUnicode()))
                {
-                  expression.getHebrew().setHebrewPlene(
+                  expression.getLL().setHebrewPlene(
                         LetterHelper.turnExchangeSsinIntoNikudSsin(
-                              expression.getHebrew().getHebrew()));
+                              expression.getLL().getHebrew()));
                }
                index++;
-               expression.getHebrew().setHebrewDefektiv(entries[index]);
-               if (expression.getHebrew().getHebrewDefektiv()
+               expression.getLL().setHebrewDefektiv(entries[index]);
+               if (expression.getLL().getHebrewDefektiv()
                      .contains(ExchangeLetter.SSIN.getUnicode()))
                {
-                  expression.getHebrew().setHebrewDefektiv(
+                  expression.getLL().setHebrewDefektiv(
                         LetterHelper.turnExchangeSsinIntoNikudSsin(
-                              expression.getHebrew().getHebrew()));
+                              expression.getLL().getHebrew()));
                }
                index++;
-
+               expression.getLL().setSwedish(entries[index]);
+               if(!entries[index].isBlank())
+               {
+                  expression.getLL().setLltype(LLType.SWEDISH);
+               }
+               else
+               {
+                  expression.getLL().setLltype(LLType.HEBREW);
+               }
+               index++;
                Definitions definitions = new Definitions();
                List<ExpressionKind> kinds = new ArrayList<>();
                String[] expressionKinds = entries[index].split(",");
@@ -972,6 +983,19 @@ public final class Data
                {
                   chapterSet.add(expression.getChapter());
                }
+               index++;
+               try
+               {
+                  if(expression.getDefinitions().isExpressionKindText())
+                  {
+                     expression.setLevel(Integer.valueOf(entries[index]));
+                  }
+                  // nothing: level is automatically 0
+               }
+               catch (Exception e)
+               {
+                  // nothing: level is automatically 0
+               }
             }
             catch (Exception e1)
             {
@@ -1033,7 +1057,7 @@ public final class Data
          else
          {
             System.out.println(
-                  "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
+                  "Data: Search: Es wurde eine nicht berÃ¼cksichtigte Kombination gefunden:\n"
                         + "Language = " + language + ", kind = " + kind
                         + ", search = " + search + "\n" + "chapter = " + chapter
                         + ", command = " + command + ", sortForDate = "
@@ -1168,11 +1192,11 @@ public final class Data
          List<LetterForAnalysis> textList = LetterHelper
                .findNikudLetterForAnalysisList(text);
 
-         if (expression.getHebrew().isSimpleHebrew())
+         if (expression.getLL().isSimpleHebrew())
          {
             List<LetterForAnalysis> expressionList = LetterHelper
                   .findNikudLetterForAnalysisList(
-                        expression.getHebrew().getHebrew());
+                        expression.getLL().getHebrew());
             if (textList.size() > expressionList.size())
             {
                return false;
@@ -1184,7 +1208,7 @@ public final class Data
 
          List<LetterForAnalysis> expressionListPlene = LetterHelper
                .findNikudLetterForAnalysisList(
-                     expression.getHebrew().getHebrewPlene());
+                     expression.getLL().getHebrewPlene());
          if (textList.size() <= expressionListPlene.size())
          {
             if (IntStream.range(0, textList.size())
@@ -1197,7 +1221,7 @@ public final class Data
 
          List<LetterForAnalysis> expressionListDefektiv = LetterHelper
                .findNikudLetterForAnalysisList(
-                     expression.getHebrew().getHebrewDefektiv());
+                     expression.getLL().getHebrewDefektiv());
          if (textList.size() <= expressionListDefektiv.size())
          {
             if (IntStream.range(0, textList.size())

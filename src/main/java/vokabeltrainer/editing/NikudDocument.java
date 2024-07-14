@@ -46,7 +46,7 @@ public class NikudDocument extends PlainDocument
             }
          }
 
-         List<String> list = LetterHelper.findLetterCodes(text);
+         List<String> list = LetterHelper.findLetterCodes(text, LetterType.HEBREW);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -77,7 +77,7 @@ public class NikudDocument extends PlainDocument
             }
          }
 
-         List<String> list = LetterHelper.findLetterCodes(str);
+         List<String> list = LetterHelper.findLetterCodes(str, LetterType.HEBREW);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -98,17 +98,18 @@ public class NikudDocument extends PlainDocument
       for (int i = 0; i < list.size(); i++)
       {
          Letter letter = LetterHelper.getLetterFromCode(list.get(i), LetterType.HEBREW);
+         String signcode = list.get(i).replace(LetterType.HEBREW.getRealm(), LetterType.SIGN.getRealm());
          if (letter != null && letter instanceof NikudLetter)
          {
             // okay
             builder.append(letter.getUnicode());
          }
-         else if (StringUtils.containsIgnoreCase(signPattern, list.get(i)))
+         else if (StringUtils.containsIgnoreCase(signPattern, signcode))
          {
             // okay
             builder
                   .append(LetterHelper
-                        .getLetterFromCode(list.get(i), LetterType.SIGN)
+                        .getLetterFromCode(signcode, LetterType.SIGN)
                         .getUnicode());
          }
          else

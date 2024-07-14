@@ -2,30 +2,57 @@ package vokabeltrainer.types;
 
 import vokabeltrainer.editing.LetterHelper;
 
-public class Hebrew
+public class LearningLanguage
 {
    private boolean simpleHebrew = true;
    private String hebrew = "";
    private String hebrewPlene = "";
    private String hebrewDefektiv = "";
+   private String swedish = "";
+   private LLType lltype = LLType.UNKOWN;
 
-   public Hebrew()
+   public LearningLanguage()
    {
       
    }
 
-   public Hebrew(String hebrew, String hebrewPlene, String hebrewDefektiv,
-         boolean simpleHebrew)
+   public LearningLanguage(String hebrew, String hebrewPlene, String hebrewDefektiv,
+         boolean simpleHebrew, String swedish)
    {
       this.hebrew = hebrew;
       this.hebrewPlene = hebrewPlene;
       this.hebrewDefektiv = hebrewDefektiv;
       this.simpleHebrew = simpleHebrew;
+      this.swedish = swedish;
+      if(!this.swedish.isBlank())
+      {
+         System.out.println("LearningLanguage 29 SWEDISCH!!!");
+         this.lltype = LLType.SWEDISH;
+      }
+      else
+      {
+         this.lltype = LLType.HEBREW;
+      }
+   }
+
+   public LLType getLltype()
+   {
+      return lltype;
+   }
+
+   public void setLltype(LLType lltype)
+   {
+      this.lltype = lltype;
    }
 
    public boolean isSimpleHebrew()
    {
       return simpleHebrew;
+   }
+   
+   public boolean isSwedish()
+   {
+      return LLType.SWEDISH == this.lltype;
    }
 
    public void setSimpleHebrew(boolean simpleHebrew)
@@ -73,18 +100,39 @@ public class Hebrew
       this.hebrew = hebrew;
    }
 
+   public String getSwedish()
+   {
+      return swedish;
+   }
+
+   public void setSwedish(String swedish)
+   {
+      this.swedish = swedish;
+   }
+
    @Override
    public String toString()
    {
+      if (!this.swedish.isBlank())
+      {
+         return swedish;
+      }
+      
       if (this.simpleHebrew)
       {
          return hebrew;
       }
+      
       return hebrewPlene + " | " + hebrewDefektiv;
    }
    
    public String toTableEntry()
    {
+      if(this.isSwedish())
+      {
+         return swedish;
+      }
+      
       if (this.simpleHebrew)
       {  
          return LetterHelper.findHebrewWithoutPunctation(hebrew);
@@ -93,7 +141,7 @@ public class Hebrew
       return LetterHelper.findHebrewWithoutPunctation(hebrewPlene) + " | " + LetterHelper.findHebrewWithoutPunctation(hebrewDefektiv);
    }
 
-   public String getHewbrewAccordingToType(SelectionHebrewType selectionType)
+   public String getHewbrewAccordingToType(HebrewType selectionType)
    {
       switch (selectionType)
       {

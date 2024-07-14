@@ -8,17 +8,25 @@ import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.LanguageSettings;
 
 public class Settings
 {
+   public enum LanguageStored
+   {
+      HEBREW_SIMPLE,
+      HEBREW_PLENE_DEFEKTIV,
+      SWEDISH
+   }
+   
    private static boolean soundOn = true;
    private static String chosenExpressionPath = null;
    private static float volume = -20;
    private static boolean letterImagesOn = true;
-   private static boolean simpleHebrewInput = true;
+   private static LanguageStored languageInput = LanguageStored.SWEDISH;
    private static String version = "4.0";
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
@@ -322,29 +330,46 @@ public class Settings
 
    public static boolean isSimpleHebrewInput()
    {
-      return simpleHebrewInput;
+      return languageInput == LanguageStored.HEBREW_SIMPLE;
+   }
+   
+   public static boolean isHebrewPleneDefektivInput()
+   {
+      return languageInput == LanguageStored.HEBREW_PLENE_DEFEKTIV;
    }
 
-   public static void setSimpleHebrewInput(boolean simpleHebrewInput)
+   public static void setLanguageInput(LanguageStored languageInput)
    {
       Preferences preferences = Preferences
             .userRoot()
             .node(CerebrummiNodes.getNode());
       preferences
-            .putBoolean(CerebrummiNodes.getSimpleHebrewNode(),
-                  simpleHebrewInput);
-      Settings.simpleHebrewInput = simpleHebrewInput;
+            .put(CerebrummiNodes.getLanguageNode(),
+                  languageInput.name());
+      Settings.languageInput = languageInput;
    }
 
-   public static void toggleSimpleHebrewInput()
+   public static void toggleLanguageInput(Selection selection)
    {
-      simpleHebrewInput = !simpleHebrewInput;
+      switch(selection)
+      {
+      case SIMPLE:
+         languageInput = LanguageStored.HEBREW_SIMPLE;
+         break;
+      case PLENE_DEFEKTIV:
+         languageInput = LanguageStored.HEBREW_PLENE_DEFEKTIV;
+         break;
+      case SWEDISH:
+         languageInput = LanguageStored.SWEDISH;
+         break;      
+      }
+
       Preferences preferences = Preferences
             .userRoot()
             .node(CerebrummiNodes.getNode());
       preferences
-            .putBoolean(CerebrummiNodes.getSimpleHebrewNode(),
-                  simpleHebrewInput);
+            .put(CerebrummiNodes.getLanguageNode(),
+                  languageInput.name());
    }
 
    public static String getRememberDatabaseForInput()

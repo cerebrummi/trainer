@@ -7,14 +7,14 @@ import javax.swing.AbstractAction;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
-import vokabeltrainer.table.list.editor.NikudExpressionEditorView;
+import vokabeltrainer.table.list.editor.LanguageExpressionEditorView;
 import vokabeltrainer.table.list.editor.TextExpressionEditorView;
 import vokabeltrainer.types.Expression;
 
 public class EnterAction extends AbstractAction
 {
    private ExpressionTable table;
-   private NikudExpressionEditorView editorPunktation;
+   private LanguageExpressionEditorView editorPunktation;
    private TextExpressionEditorView editorText;
    private TableConnector connector;
 

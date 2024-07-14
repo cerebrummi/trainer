@@ -33,11 +33,25 @@ public class ExpressionCellRenderer
       Expression expression = (Expression) value;
       if (Language.GERMAN_TO_HEBREW.equals(language))
       {
-         list.setListData(expression.toGermanArrayForTableEntry());
+         if(expression.getLL().isSwedish())
+         {
+            list.setListData(expression.toSwedishArrayForTableEntry2());
+         }
+         else
+         {
+            list.setListData(expression.toGermanArrayForTableEntry());
+         }
       }
       else
       {
-         list.setListData(expression.toHebrewArrayForTableEntry());
+         if(expression.getLL().isSwedish())
+         {
+            list.setListData(expression.toSwedishArrayForTableEntry());
+         }
+         else
+         {
+            list.setListData(expression.toHebrewArrayForTableEntry());
+         }
       }
 
       if (isSelected)

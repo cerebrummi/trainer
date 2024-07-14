@@ -25,6 +25,11 @@ public class LetterHelper
          codeMap.put(nikud.getCode().toLowerCase(), nikud);
          codeMap.put(nikud.getCode().toUpperCase(), nikud);
       }
+      for (Letter swedish : SwedishLetter.values())
+      {
+         codeMap.put(swedish.getCode().toLowerCase(), swedish);
+         codeMap.put(swedish.getCode().toUpperCase(), swedish);
+      }
       for (Letter sign : SignLetter.values())
       {
          codeMap.put(sign.getCode().toLowerCase(), sign);
@@ -44,22 +49,39 @@ public class LetterHelper
 
    public static Letter getLetterFromCode(String code, LetterType type)
    {
-      if (LetterType.GERMAN == type
-            && GermanLetter.SPACE.getCode().equalsIgnoreCase(code))
+      if (LetterType.GERMAN == type && codeMap.containsKey(code))
       {
-         return GermanLetter.SPACE;
+         return codeMap.get(code);
       }
-      return codeMap.get(code);
+      if (LetterType.SWEDISH == type && codeMap.containsKey(code))
+      {
+         return codeMap.get(code);
+      }
+      if (LetterType.HEBREW == type && codeMap.containsKey(code))
+      {
+         return codeMap.get(code);
+      }
+      if (LetterType.NUMBER == type && codeMap.containsKey(code))
+      {
+         return codeMap.get(code);
+      }
+      if (LetterType.SIGN == type && codeMap.containsKey(code))
+      {
+         return codeMap.get(code);
+      }
+
+      return null;
    }
 
    public static List<NikudLetter> findNikudLetters(String hebrewWord)
    {
-      List<String> letterCodes = LetterHelper.findLetterCodes(hebrewWord);
+      List<String> letterCodes = LetterHelper.findLetterCodes(hebrewWord,
+            LetterType.HEBREW);
       List<NikudLetter> hebrewLetters = new ArrayList<>();
       for (String code : letterCodes)
       {
-         Letter hebrewLetter = LetterHelper
-               .getLetterFromCode(code, LetterType.HEBREW);
+         Letter hebrewLetter = LetterHelper.getLetterFromCode(code,
+               LetterType.HEBREW);
          if (hebrewLetter != null && hebrewLetter instanceof NikudLetter)
          {
             hebrewLetters.add((NikudLetter) hebrewLetter);
@@ -68,7 +90,30 @@ public class LetterHelper
       return hebrewLetters;
    }
 
-   public static List<String> findLetterCodes(String word)
+   public static LetterType findLetterTypeLanguages(String text)
+   {
+      List<String> codelist = findLetterCodes(text, LetterType.NONE);
+      
+      for (String code : codelist)
+      {
+         if(getLetterFromCode(code + "_de", LetterType.GERMAN) != null)
+         {
+            return LetterType.GERMAN;
+         }
+         if(getLetterFromCode(code + "_se", LetterType.SWEDISH) != null)
+         {
+            return LetterType.SWEDISH;
+         }
+         if(getLetterFromCode(code + "_il", LetterType.HEBREW) != null)
+         {
+            return LetterType.HEBREW;
+         }
+      }
+      
+      return LetterType.NONE;
+   }
+   
+   public static List<String> findLetterCodes(String word, LetterType type)
    {
       List<String> letterCodes = new LinkedList<>();
       if (word == null)
@@ -79,7 +124,8 @@ public class LetterHelper
       {
          try
          {
-            String code = String.format(" %04x", (int) word.charAt(c));
+            String code = String.format(" %04x", (int) word.charAt(c))
+                  + type.getRealm();
 
             letterCodes.add(code);
          }
@@ -109,7 +155,7 @@ public class LetterHelper
    {
       LinkedList<LetterForAnalysis> analysisList = new LinkedList<>();
 
-      List<String> codeList = findLetterCodes(word);
+      List<String> codeList = findLetterCodes(word, LetterType.HEBREW);
 
       LetterForAnalysis currentLetterForAnalysis = new LetterForAnalysis(
             NikudLetter.SPACE);
@@ -137,12 +183,8 @@ public class LetterHelper
                break;
             }
          }
-         else if (letter == null)
-         {
-            System.out.println("LetterHelper: " + codeList.get(i));
-         }
       }
-      
+
       return analysisList;
    }
 
@@ -160,7 +202,8 @@ public class LetterHelper
    public static String turnExchangeSsinIntoNikudSsin(String hebrew)
    {
       List<String> nikudCodeList = new ArrayList<>();
-      List<String> hebrewCodeList = LetterHelper.findLetterCodes(hebrew);
+      List<String> hebrewCodeList = LetterHelper.findLetterCodes(hebrew,
+            LetterType.HEBREW);
       for (String hebrewCode : hebrewCodeList)
       {
          if (ExchangeLetter.SSIN.getCode().equalsIgnoreCase(hebrewCode))
@@ -179,24 +222,23 @@ public class LetterHelper
    public static List<List<LetterForAnalysis>> findListofNikudLetterForAnalysisListsHebrewSearchwords(
          Expression expression)
    {
-      return expression
-            .getSearchwordsHebrew()
-            .stream()
+      return expression.getSearchwordsHebrew().stream()
             .map(word -> findNikudLetterForAnalysisList(word))
             .collect(Collectors.toList());
    }
-   
+
    public static String findHebrewWithoutPunctation(String hebrew)
    {
-      LinkedList<LetterForAnalysis> list = LetterHelper.findNikudLetterForAnalysisList(hebrew);
-      
+      LinkedList<LetterForAnalysis> list = LetterHelper
+            .findNikudLetterForAnalysisList(hebrew);
+
       StringBuilder result = new StringBuilder();
-      
-      for(LetterForAnalysis letter : list)
+
+      for (LetterForAnalysis letter : list)
       {
          result.append(letter.getContent().getUnicode());
       }
-      
+
       return result.toString();
    }
 

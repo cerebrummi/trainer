@@ -34,7 +34,7 @@ import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
-import vokabeltrainer.table.list.editor.NikudExpressionEditorView;
+import vokabeltrainer.table.list.editor.LanguageExpressionEditorView;
 import vokabeltrainer.table.list.editor.TextExpressionEditorView;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -181,7 +181,7 @@ public class InputPanel extends JPanel implements TableConnector
 
    private void openNewNikudExpressionDialog()
    {
-      NikudExpressionEditorView editor = new NikudExpressionEditorController()
+      LanguageExpressionEditorView editor = new NikudExpressionEditorController()
             .getNikudExpressionEditorDialog();
       editor.setExpression(new Expression(true, false), true);
       editor.setLocationRelativeTo(Common.getjFrame());

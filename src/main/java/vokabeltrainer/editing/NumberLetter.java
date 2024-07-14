@@ -4,16 +4,16 @@ import java.util.StringJoiner;
 
 public enum NumberLetter implements Letter
 {
-   ZERO(" 0030","\u0030"),
-   ONE(" 0031","\u0031"),
-   TWO(" 0032","\u0032"),
-   THREE(" 0033","\u0033"),
-   FOUR(" 0034","\u0034"),
-   FIVE(" 0035","\u0035"),
-   SIX(" 0036","\u0036"),
-   SEVEN(" 0037","\u0037"),
-   EIGHT(" 0038","\u0038"),
-   NINE(" 0039","\u0039");
+   ZERO(" 0030_##","\u0030"),
+   ONE(" 0031_##","\u0031"),
+   TWO(" 0032_##","\u0032"),
+   THREE(" 0033_##","\u0033"),
+   FOUR(" 0034_##","\u0034"),
+   FIVE(" 0035_##","\u0035"),
+   SIX(" 0036_##","\u0036"),
+   SEVEN(" 0037_##","\u0037"),
+   EIGHT(" 0038_##","\u0038"),
+   NINE(" 0039_##","\u0039");
    
    private String code;
    private String unicode;

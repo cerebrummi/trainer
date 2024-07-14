@@ -152,14 +152,14 @@ public class WordLetterMatching
 
       if (dataDic.size() != dataTest.size())
       {
-         throw new IllegalStateException("Längen unterschiedlich 1");
+         throw new IllegalStateException("LÃ¤ngen unterschiedlich 1");
       }
 
       cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
 
       if (dataDic.size() != dataTest.size())
       {
-         throw new IllegalStateException("Längen unterschiedlich 2");
+         throw new IllegalStateException("LÃ¤ngen unterschiedlich 2");
       }
 
       if (deltaCol > 0) // dataTest moved to the left of dataDic
@@ -169,7 +169,7 @@ public class WordLetterMatching
          moveBeginningLettersToTheRightIfPossible(dataDic, dataTest, deltaCol);
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("Längen unterschiedlich 3a");
+            throw new IllegalStateException("LÃ¤ngen unterschiedlich 3a");
          }
       }
       else if (deltaCol < 0) // dataTest moved to the right of dataDic
@@ -179,7 +179,7 @@ public class WordLetterMatching
          moveBeginningLettersToTheRightIfPossible(dataTest, dataDic, deltaCol);
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("Längen unterschiedlich 3b");
+            throw new IllegalStateException("Lï¿½ngen unterschiedlich 3b");
          }
       }
       // else // not moved
@@ -188,7 +188,7 @@ public class WordLetterMatching
 
       if (dataDic.size() != dataTest.size())
       {
-         throw new IllegalStateException("Längen unterschiedlich 3");
+         throw new IllegalStateException("Lï¿½ngen unterschiedlich 3");
       }
 
       if (result.isPartlyFalse())
@@ -198,7 +198,7 @@ public class WordLetterMatching
 
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("Längen unterschiedlich 4");
+            throw new IllegalStateException("LÃ¤ngen unterschiedlich 4");
          }
 
          dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
@@ -206,21 +206,21 @@ public class WordLetterMatching
 
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("Längen unterschiedlich 5");
+            throw new IllegalStateException("LÃ¤ngen unterschiedlich 5");
          }
 
          lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
          
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("Längen unterschiedlich 5a");
+            throw new IllegalStateException("LÃ¤ngen unterschiedlich 5a");
          }
          
          lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
          
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("Längen unterschiedlich 5b");
+            throw new IllegalStateException("LÃ¤ngen unterschiedlich 5b");
          }
       }
 
@@ -228,7 +228,7 @@ public class WordLetterMatching
 
       if (dataDic.size() != dataTest.size())
       {
-         throw new IllegalStateException("Längen unterschiedlich 6");
+         throw new IllegalStateException("LÃ¤ngen unterschiedlich 6");
       }
       
       result.setDictionary(dataDic);

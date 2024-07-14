@@ -13,7 +13,7 @@ public class ExpressionComparator implements Comparator<Expression>
 
    private Language language;
    private SortingType sortingType;
-
+   
    public ExpressionComparator(Language language, SortingType sortingType)
    {
       this.language = language;
@@ -71,11 +71,17 @@ public class ExpressionComparator implements Comparator<Expression>
             return coll2.compare(o1.getGerman(), o2.getGerman());
          }
          else
-         {
+         {    
+            if(o1.getLL().isSwedish())
+            {
+               Collator coll2 = Collator.getInstance(Locale.GERMAN);
+               coll2.setStrength(Collator.PRIMARY);
+               return coll2.compare(o1.getGerman(), o2.getGerman());
+            }
             return o1
-                  .getHebrew()
+                  .getLL()
                   .getHebrewNoMatterWhichKind()
-                  .compareTo(o2.getHebrew().getHebrewNoMatterWhichKind());
+                  .compareTo(o2.getLL().getHebrewNoMatterWhichKind());
          }
       }
    }

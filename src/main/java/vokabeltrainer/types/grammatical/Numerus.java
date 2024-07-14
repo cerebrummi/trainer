@@ -6,18 +6,14 @@ import vokabeltrainer.panels.translation.Translator;
 
 public enum Numerus implements GrammaticalEnum
 {
-   PLEASE_CHOOSE(
-         Translation.BITTE_WAEHLEN),
-   NUMERUS_UNKNOWN(
-         Translation.UNBEKANNT),
-   SINGULAR(
-         Translation.SINGULAR),
-   DUAL(
-         Translation.DUAL),
-   PLURAL(
-         Translation.PLURAL),
-   NUMERUS_NA(
-         Translation.NICHT_ANWENDBAR);
+   PLEASE_CHOOSE(Translation.BITTE_WAEHLEN), 
+   NUMERUS_UNKNOWN(Translation.UNBEKANNT), 
+   SINGULAR(Translation.SINGULAR), 
+   DUAL(Translation.DUAL), 
+   PLURAL(Translation.PLURAL), 
+   BASE(Translation.GRUNDFORM), 
+   T_FORM(Translation.T_FORM), 
+   NUMERUS_NA(Translation.NICHT_ANWENDBAR);
 
    private Translation description;
 
@@ -41,16 +37,18 @@ public enum Numerus implements GrammaticalEnum
       case DUAL:
       case PLURAL:
       case SINGULAR:
+      case BASE:
+      case T_FORM:
          return translator.realisticTranslate(description);
       case NUMERUS_UNKNOWN:
-         return translator.realisticTranslate(Translation.NUMERUS)
-               + " " + translator.realisticTranslate(description);
+         return translator.realisticTranslate(Translation.NUMERUS) + " "
+               + translator.realisticTranslate(description);
       case NUMERUS_NA:
       default:
          return "";
       }
    }
-   
+
    public String toInfo()
    {
       Translator translator = Common.getTranslator();
@@ -59,6 +57,8 @@ public enum Numerus implements GrammaticalEnum
       case DUAL:
       case PLURAL:
       case SINGULAR:
+      case BASE:
+      case T_FORM:
          return translator.realisticTranslate(description);
       case NUMERUS_UNKNOWN:
       case NUMERUS_NA:
@@ -66,7 +66,7 @@ public enum Numerus implements GrammaticalEnum
          return "";
       }
    }
-   
+
    @Override
    public Numerus fromEnumName(String name)
    {
@@ -78,7 +78,7 @@ public enum Numerus implements GrammaticalEnum
    {
       return GrammaticalParentEnum.NUMERUS;
    }
-   
+
    @Override
    public int getPrintOrderNumber()
    {

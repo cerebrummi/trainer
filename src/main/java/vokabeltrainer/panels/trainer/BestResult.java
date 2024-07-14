@@ -1,6 +1,6 @@
 package vokabeltrainer.panels.trainer;
 
-import vokabeltrainer.InputHebrewPanel.Selection;
+import vokabeltrainer.InputLanguagePanel.Selection;
 
 public class BestResult
 {

@@ -182,8 +182,7 @@ public class StartPanel extends JPanel
       scroller.setMinimumSize(new Dimension(990, 120));
       scroller.setMaximumSize(new Dimension(990, 120));
 
-      JLabel databaseLabel2 = new JLabel(" "
-            + translator.realisticTranslate(Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_KOPIEREN)
+      JLabel databaseLabel2 = new JLabel(" "  + translator.realisticTranslate(Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_KOPIEREN)
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));

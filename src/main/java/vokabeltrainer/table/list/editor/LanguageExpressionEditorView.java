@@ -44,8 +44,8 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import vokabeltrainer.InfoTextField;
-import vokabeltrainer.InputHebrewPanel;
-import vokabeltrainer.InputHebrewPanel.Selection;
+import vokabeltrainer.InputLanguagePanel;
+import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
@@ -57,7 +57,7 @@ import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
-import vokabeltrainer.keyboards.KeyboardHebrewNikud;
+import vokabeltrainer.keyboards.KeyboardLanguage;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableMultiselect;
@@ -68,7 +68,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Hebrew;
+import vokabeltrainer.types.LearningLanguage;
 import vokabeltrainer.types.SortingIndex;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
@@ -80,7 +80,7 @@ import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
-public class NikudExpressionEditorView extends JDialog
+public class LanguageExpressionEditorView extends JDialog
       implements ExpressionEditorViewConnector
 {
    private static final int WIDTH_INFO_PANEL = 240;
@@ -93,7 +93,7 @@ public class NikudExpressionEditorView extends JDialog
    private Expression expression;
    private boolean newExpression;
    private JTextField german;
-   private InputHebrewPanel hebrew;
+   private InputLanguagePanel language;
 
    private JTextField indexField;
 
@@ -107,7 +107,8 @@ public class NikudExpressionEditorView extends JDialog
    private Set<String> searchwordsSetHebrew;
    private JButton deleteSearchwordButtonHebrew;
 
-   private KeyboardHebrewNikud keyboard;
+   private KeyboardLanguage keyboard;
+
    private JPanel outerLayout;
    private JPanel layout;
    private boolean save;
@@ -174,7 +175,7 @@ public class NikudExpressionEditorView extends JDialog
       return imageButton;
    }
 
-   public NikudExpressionEditorView(
+   public LanguageExpressionEditorView(
          NikudExpressionEditorControllerConnector connector)
    {
       super(Common.getjFrame(), Settings.getWindowTitle(),
@@ -209,7 +210,7 @@ public class NikudExpressionEditorView extends JDialog
       getContentPane().add(new JScrollPane(outerLayout));
 
       initController();
-      Component[] focusList = { german, hebrew, newSearchwordGerman,
+      Component[] focusList = { german, language, newSearchwordGerman,
             newSearchwordHebrew, extraInfo };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
@@ -229,15 +230,21 @@ public class NikudExpressionEditorView extends JDialog
 
       if (Settings.isSimpleHebrewInput())
       {
-         hebrew = new InputHebrewPanel(Selection.SIMPLE, 152, 6, true, this,
+         language = new InputLanguagePanel(Selection.SIMPLE, 152, 6, true, this,
                WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
+      }
+      else if (Settings.isHebrewPleneDefektivInput())
+      {
+         language = new InputLanguagePanel(Selection.PLENE_DEFEKTIV, 152, 6,
+               true, this, WIDTH_INPUT_PANEL,
+               ApplicationColors.getLightYellow());
       }
       else
       {
-         hebrew = new InputHebrewPanel(Selection.PLENE_DEFEKTIV, 152, 6, true,
+         language = new InputLanguagePanel(Selection.SWEDISH, 152, 6, true,
                this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
-      hebrew.setBlankBorder();
+      language.setBlankBorder();
 
       newSearchwordGerman = new InfoTextField(
             translator.realisticTranslate(Translation.NEUES_SUCHWORT_DEUTSCH)
@@ -548,7 +555,7 @@ public class NikudExpressionEditorView extends JDialog
       verbTimesBoxPanel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.ZEITFORM)));
 
-      keyboard = new KeyboardHebrewNikud(hebrew, components, 152, true, false);
+      keyboard = new KeyboardLanguage(language, components, 152, true, false);
    }
 
    private TitledBorder makeBorderBlank(String title)
@@ -695,7 +702,7 @@ public class NikudExpressionEditorView extends JDialog
 
       this.loadImageButton = new JButton("Bild laden");
       loadImageButton.setFont(ApplicationFonts.getButtonFont());
-      this.removeImageButton = new JButton("Bild löschen");
+      this.removeImageButton = new JButton("Bild lÃ¶schen");
       removeImageButton.setFont(ApplicationFonts.getButtonFont());
 
       imageButton = new ImageButton();
@@ -713,7 +720,7 @@ public class NikudExpressionEditorView extends JDialog
    {
       chapter.setBorder(makeBorderBlank(this.chapterTitle));
       german.setBorder(makeBorderBlank(this.germanTitle));
-      hebrew.setBlankBorder();
+      language.setBlankBorder();
    }
 
    private void initController()
@@ -796,19 +803,19 @@ public class NikudExpressionEditorView extends JDialog
       {
          @Override
          public void mouseClicked(MouseEvent event)
-         {      
+         {
             JDialog frame = new JDialog(Common.getjFrame());
             frame.setModal(true);
             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             JPanel panel = new JPanel();
             ExpanderLayout layout = new ExpanderLayout(panel);
             panel.setLayout(layout);
-            if(ImageData.loadImage(expression.getUuid()) == null)
+            if (ImageData.loadImage(expression.getUuid()) == null)
             {
                return;
             }
-            panel.add(new JLabel(
-                  new ImageIcon(ImageData.loadImageOriginal(expression.getUuid()))));
+            panel.add(new JLabel(new ImageIcon(
+                  ImageData.loadImageOriginal(expression.getUuid()))));
             frame.add(panel);
             frame.pack();
             frame.setVisible(true);
@@ -887,9 +894,9 @@ public class NikudExpressionEditorView extends JDialog
          german.setBorder(makeBorderRed(this.germanTitle));
          result = false;
       }
-      if (!hebrew.isFilledOut())
+      if (!language.isFilledOut())
       {
-         hebrew.setRedBorder();
+         language.setRedBorder();
          result = false;
       }
       return result;
@@ -899,11 +906,11 @@ public class NikudExpressionEditorView extends JDialog
    {
       expression.setGerman(cleanTextLeaveComma(german.getText()));
 
-      expression.setHebrew(
-            new Hebrew(cleanTextLeaveComma(hebrew.getHebrewFieldText()),
-                  cleanTextLeaveComma(hebrew.getPleneFieldText()),
-                  cleanTextLeaveComma(hebrew.getDefektivFieldText()),
-                  hebrew.isSimple()));
+      expression.setLearningLanguage(
+            new LearningLanguage(cleanTextLeaveComma(language.getHebrewFieldText()),
+                  cleanTextLeaveComma(language.getPleneFieldText()),
+                  cleanTextLeaveComma(language.getDefektivFieldText()),
+                  language.isSimple(), cleanTextLeaveComma(language.getSwedishFieldText())));
 
       expression.setLetterForSaving(LetterForSaving
             .getLetter(cleanTextLeaveComma(expression.getGerman())));
@@ -1003,6 +1010,7 @@ public class NikudExpressionEditorView extends JDialog
       setExpression(this.expression, this.newExpression);
    }
 
+   
    public void setExpression(Expression expression, boolean newExpression)
    {
       this.save = false;
@@ -1023,17 +1031,27 @@ public class NikudExpressionEditorView extends JDialog
 
       this.german.setText(expression.getGerman());
 
-      if (expression.getHebrew().isSimpleHebrew())
+      if(expression.getLL().isSwedish())
       {
-         this.hebrew.setHebrewLayout(Selection.SIMPLE);
-         this.hebrew.setHebrewFieldText(expression.getHebrew().getHebrew());
+         this.language.setHebrewLayout(Selection.SWEDISH);
+         this.language.setSwedishFieldText(expression.getLL().getSwedish());
+         this.language.toggle(Selection.SWEDISH);
+      }
+      else
+      if (expression.getLL().isSimpleHebrew())
+      {
+         this.language.setHebrewLayout(Selection.SIMPLE);
+         this.language.setHebrewFieldText(expression.getLL().getHebrew());
+         this.language.toggle(Selection.SIMPLE);
       }
       else
       {
-         this.hebrew.setHebrewLayout(Selection.PLENE_DEFEKTIV);
-         this.hebrew.setPleneFieldText(expression.getHebrew().getHebrewPlene());
-         this.hebrew.setDefektivFieldText(
-               expression.getHebrew().getHebrewDefektiv());
+         this.language.setHebrewLayout(Selection.PLENE_DEFEKTIV);
+         this.language
+               .setPleneFieldText(expression.getLL().getHebrewPlene());
+         this.language.setDefektivFieldText(
+               expression.getLL().getHebrewDefektiv());
+         this.language.toggle(Selection.PLENE_DEFEKTIV);
       }
 
       this.searchwordsSetGerman = new HashSet<>();
@@ -1178,7 +1196,7 @@ public class NikudExpressionEditorView extends JDialog
       try
       {
          this.german.setEditable(works);
-         this.hebrew.setEditable(works);
+         this.language.setEditable(works);
          this.keyboard.setFrozen(frozen);
          this.saveButton.setEnabled(works);
          this.saveButton.setVisible(works);
@@ -1218,5 +1236,10 @@ public class NikudExpressionEditorView extends JDialog
          return false;
       }
 
+   }
+
+   public KeyboardLanguage getKeyboard()
+   {
+      return keyboard;
    }
 }

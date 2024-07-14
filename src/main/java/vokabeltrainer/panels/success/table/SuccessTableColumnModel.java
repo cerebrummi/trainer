@@ -14,7 +14,7 @@ public class SuccessTableColumnModel extends DefaultTableColumnModel
       renderer = new SuccessTableCellRenderer();
       
       TableColumn column = new TableColumn();
-      column.setHeaderValue("ausgew‰hlt");
+      column.setHeaderValue("ausgew√§hlt");
       column.setCellRenderer(renderer);
       column.setCellEditor(renderer);
       column.setPreferredWidth(100);

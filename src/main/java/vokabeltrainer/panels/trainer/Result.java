@@ -7,7 +7,7 @@ import java.util.List;
 
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.SelectionHebrewType;
+import vokabeltrainer.types.HebrewType;
 
 public class Result
 {
@@ -15,7 +15,7 @@ public class Result
    private boolean dictionaryEmpty;
    private boolean answerEmpty;
    private Expression expression;
-   private SelectionHebrewType selectionType;
+   private HebrewType selectionType;
    private int similarity;
    
    private List<LetterForAnalysis> dictionary = new LinkedList<>(); // for unit testing
@@ -23,7 +23,7 @@ public class Result
    
    private List<BufferedImage> feedbackImageList = new ArrayList<BufferedImage>();
 
-   public Result(SelectionHebrewType selectionType)
+   public Result(HebrewType selectionType)
    {
       this.selectionType = selectionType;
    }
@@ -138,7 +138,7 @@ public class Result
       this.answer.add(space);
    }
 
-   public SelectionHebrewType getSelectionType()
+   public HebrewType getSelectionType()
    {
       return selectionType;
    }

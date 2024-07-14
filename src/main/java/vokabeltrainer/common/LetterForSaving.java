@@ -40,7 +40,7 @@ public enum LetterForSaving
 
    public static LetterForSaving getLetter(String german)
    {
-      List<String> codeList = LetterHelper.findLetterCodes(german);
+      List<String> codeList = LetterHelper.findLetterCodes(german, LetterType.GERMAN);
       vokabeltrainer.editing.Letter first = LetterHelper
             .getLetterFromCode(codeList.get(0), LetterType.GERMAN);
       if (first == null || !(first instanceof GermanLetter))

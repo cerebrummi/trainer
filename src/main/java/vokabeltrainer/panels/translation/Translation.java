@@ -12,7 +12,7 @@ public enum Translation {
 	_2_TAGE("2 Tage", "2 days"), 
 	_3_PERSON("3. Person", "3rd person"),
 
-	_DATE("dd.MM.yyyy", "MM.dd.yyyy"), 
+	_DATE("dd.MM.yyyy", "yyyy.MM.dd"), 
 	_DATE_TIME("dd.MM.yyyy HH:mm", "yyyy.MM.dd HH:mm"), 
 	_OHNE_PUNKTIERUNG_("(ohne Punktierung)", "(without punctation)"),
 
@@ -305,7 +305,7 @@ public enum Translation {
 	VORRAT("Vorrat", "stock"),
 
 	WAEHLEN_SIE_EINE_DATENBANK_FUER_DEN_EXPORT_AUS_("Wählen Sie eine Datenbank für den Export aus.", "Select a database for export."),
-	WAEHLEN_SIE_EINE_DATENBANK_ZUM_LOESCHEN_AUS("Wählen Sie eine Datenbank zum Löschen aus.", "Select a database to delete."), 
+	WAEHLEN_SIE_EINE_DATENBANK_ZUM_LOESCHEN_AUS("Wählen Sie eine Datenbank zum Löschen aus.", "Select a database for deletion."), 
 	WEITER("weiter", "next"),
 	WEITERE_INFORMATIONEN("weitere Informationen", "further information"),
 	WELLE("Welle", "v"),
@@ -360,7 +360,19 @@ public enum Translation {
 	ABBRECHEN_DER_AUSWAHL("Abbrechen der Auswahl", "canceling choice"), 
 	AUSGEWAEHLTE_DATEI_SPEICHERN("Ausgewählte Datei speichern", "save file selected"), 
 	SICHERHEITSKOPIEN("Sicherheitskopien","backups"), 
-	SCHABBAT_MODUS("Schabbat Modus, kein Vokabeln abfragen", "Shabbat Modus, no query vocabulary");
+	SCHABBAT_MODUS("Schabbat Modus, kein Vokabeln abfragen", "Shabbat Modus, no querying of vocabulary"),
+	ES_IST_SCHABBAT("Es ist Schabbat", "It is Shabbat."), 
+	DAS_TRAINING_IST_ABGESCHALTET("Das Training ist abgeschaltet.","Training mode is off."), 
+	SAETZE("Texte","texts"), 
+	SCHWIEGIGKEITSGRAD("Schwierigkeitsgrad","level of difficulty"), 
+	SVENSKA("Schwedisch", "swedisch"), 
+	MEINE_SPRACHE("meine","my"),
+	NEUE_SPRACHE("neue","new"), 
+	EN("en", "en"),
+	ETT("ett", "ett"), 
+	GRUNDFORM("Grundform", "base form"),
+	T_FORM("t-Form", "t-form"),
+	SUPINUM("Supinum", "supinum");
 
 	private String german;
 	private String english;

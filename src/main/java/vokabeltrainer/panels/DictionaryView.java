@@ -106,30 +106,19 @@ public class DictionaryView extends BackgroundPanelTiled
    private JButton germanSearchButton;
    private JButton tableInfoButton;
    private JPanel horizontalLanguagePanel;
-
    private DictionaryControllerConnector connector;
-
    private ChapterListSelectionModel listSelectionModel;
-
    private ListSelectionListener listSelectionListener;
-
    private JScrollPane tableScroller;
-
    private ExpressionKindTableSingleselect expressionKindTable;
-
    private JRadioButton sortForDateBox;
    private JRadioButton sortForIndexBox;
    private JRadioButton sortForAlphabetBox;
    private ButtonGroup sortingGroup;
-
    private JButton moveToChapterButton;
-
    private JComboBox<String> chapterChoiceBox;
-
    private JComboBox<String> databaseChoiceBox;
-
    private JButton moveToDatabaseButton;
-
    private Translator translator = Common.getTranslator();
 
    public DictionaryView(DictionaryControllerConnector connector)
@@ -283,8 +272,8 @@ public class DictionaryView extends BackgroundPanelTiled
       germanSearch.setLayout(new TotemLayout(germanSearch, 5));
       germanSearch.setBackground(ApplicationColors.getWhite());
       searchPhraseGerman = new JTextField();
-      searchPhraseGerman.setBorder(new TitledBorder(
-            translator.realisticTranslate(Translation.WORT_AUF_DEUTSCH_EINGEBEN)));
+      searchPhraseGerman.setBorder(new TitledBorder(translator
+            .realisticTranslate(Translation.WORT_AUF_DEUTSCH_EINGEBEN)));
       germanSearch.add(searchPhraseGerman);
       searchPhraseGerman
             .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 70));
@@ -318,8 +307,8 @@ public class DictionaryView extends BackgroundPanelTiled
       hebrewSearch.setLayout(new TotemLayout(hebrewSearch, 5));
       hebrewSearch.setBackground(ApplicationColors.getWhite());
       searchPhraseHebrew = new JTextField();
-      searchPhraseHebrew.setBorder(new TitledBorder(
-            translator.realisticTranslate(Translation.WORT_AUF_HEBRAISCH_EINGEBEN)));
+      searchPhraseHebrew.setBorder(new TitledBorder(translator
+            .realisticTranslate(Translation.WORT_AUF_HEBRAISCH_EINGEBEN)));
 
       KeyboardHebrewAllLetters keyboard = new KeyboardHebrewAllLetters(
             searchPhraseHebrew, new ArrayList<JTextComponent>(), 70, true);
@@ -410,8 +399,8 @@ public class DictionaryView extends BackgroundPanelTiled
       chapterChoiceBox.setEditable(true);
       chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
 
-      moveToChapterButton = new JButton(
-            translator.realisticTranslate(Translation.AUSWAHL_ZUR_LEKTION_VERSCHIEBEN));
+      moveToChapterButton = new JButton(translator
+            .realisticTranslate(Translation.AUSWAHL_ZUR_LEKTION_VERSCHIEBEN));
       moveToChapterButton.setFont(ApplicationFonts.getButtonFont());
 
       horizontalMoveToChapterPanel.add(chapterChoiceBox);
@@ -457,13 +446,14 @@ public class DictionaryView extends BackgroundPanelTiled
       JScrollPane scroller = new JScrollPane(expressionKindTable);
       scroller.setMinimumSize(new Dimension(300, 470));
       scroller.setMaximumSize(new Dimension(300, 470));
-      scroller.setBorder(BorderFactory.createTitledBorder(Common.getTranslator().realisticTranslate(Translation.DOPPELCLICK)));
+      scroller.setBorder(BorderFactory.createTitledBorder(Common.getTranslator()
+            .realisticTranslate(Translation.DOPPELCLICK)));
 
       JPanel scrollerWrapper = new JPanel();
       BullsEyeLayout scrollerWrapperLayout = new BullsEyeLayout(
             scrollerWrapper);
       scrollerWrapper.setLayout(scrollerWrapperLayout);
-      
+
       scrollerWrapper.add(scroller);
       vertical1.add(scrollerWrapper, BorderLayout.CENTER);
 
@@ -486,8 +476,8 @@ public class DictionaryView extends BackgroundPanelTiled
       copyAllSelectedButton.setMinimumSize(new Dimension(200, 40));
       copyAllSelectedButton.setMaximumSize(new Dimension(600, 40));
 
-      copyInTableSelectedButton = new JButton(
-            translator.realisticTranslate(Translation.TABELLENAUSWAHL_KOPIEREN));
+      copyInTableSelectedButton = new JButton(translator
+            .realisticTranslate(Translation.TABELLENAUSWAHL_KOPIEREN));
       copyInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
       copyInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyInTableSelectedButton
@@ -525,8 +515,8 @@ public class DictionaryView extends BackgroundPanelTiled
       clearAllSelectedButton.setMinimumSize(new Dimension(200, 40));
       clearAllSelectedButton.setMaximumSize(new Dimension(600, 40));
 
-      clearInTableSelectedButton = new JButton(
-            translator.realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
+      clearInTableSelectedButton = new JButton(translator
+            .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
       clearInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearInTableSelectedButton
@@ -534,8 +524,8 @@ public class DictionaryView extends BackgroundPanelTiled
       clearInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
       clearInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
 
-      deleteInTableSelectedButton = new JButton(
-            translator.realisticTranslate(Translation.TABELLENAUSWAHL_LOESCHEN));
+      deleteInTableSelectedButton = new JButton(translator
+            .realisticTranslate(Translation.TABELLENAUSWAHL_LOESCHEN));
       deleteInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
       deleteInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteInTableSelectedButton
@@ -564,8 +554,8 @@ public class DictionaryView extends BackgroundPanelTiled
       JPanel selectUnselectPanel = new JPanel();
       selectUnselectPanel.setLayout(new TotemLayout(selectUnselectPanel, 10));
       selectUnselectPanel.setBackground(ApplicationColors.getWhite());
-      selectUnselectPanel.setBorder(
-            BorderFactory.createMatteBorder(5, 3, 5, 3, ApplicationColors.getWhite()));
+      selectUnselectPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
+            ApplicationColors.getWhite()));
       selectUnselectPanel.add(selectAllInTableButton);
       selectUnselectPanel.add(clearInTableSelectedButton);
       selectUnselectPanel.add(clearAllSelectedButton);
@@ -628,16 +618,16 @@ public class DictionaryView extends BackgroundPanelTiled
 
       JPanel filler1 = new JPanel();
       filler1.setOpaque(false);
-      
+
       JPanel filler2 = new JPanel();
       filler2.setOpaque(false);
-      
+
       JPanel filler3 = new JPanel();
       filler3.setOpaque(false);
-      
+
       JPanel filler4 = new JPanel();
       filler4.setOpaque(false);
-      
+
       trashIconPanel.add(filler1);
       trashIconPanel.add(filler2);
       trashIconPanel.add(wasteBinButton);
@@ -866,9 +856,10 @@ public class DictionaryView extends BackgroundPanelTiled
       }
       else
       {
-         message = translator.realisticTranslate(Translation.WOLLEN_SIE_WIRKLICH) + " "
-               + number + " "
-               + translator.realisticTranslate(Translation.EINTRAEGE_LOESCHEN__);
+         message = translator
+               .realisticTranslate(Translation.WOLLEN_SIE_WIRKLICH) + " "
+               + number + " " + translator
+                     .realisticTranslate(Translation.EINTRAEGE_LOESCHEN__);
       }
 
       message += "\n";
@@ -884,9 +875,11 @@ public class DictionaryView extends BackgroundPanelTiled
 
    public void notifyNothingWasSelectedForDeletion()
    {
-      String message = translator.realisticTranslate(Translation.ES_WURDEN_KEINE_EINTRAEGE);
+      String message = translator
+            .realisticTranslate(Translation.ES_WURDEN_KEINE_EINTRAEGE);
       message += "\n";
-      message += translator.realisticTranslate(Translation.ZUM_LOESCHEN_AUSGEWAEHLT);
+      message += translator
+            .realisticTranslate(Translation.ZUM_LOESCHEN_AUSGEWAEHLT);
       message += "\n";
       message += translator.realisticTranslate(
             Translation.HINWEIS__DIE_VOKABELN_EINGEBAUTER_DATENBANKEN);
@@ -949,11 +942,14 @@ public class DictionaryView extends BackgroundPanelTiled
 
       JTextField scrollsearchField = new JTextField();
       scrollsearchField.setOpaque(false);
-      scrollsearchField.setBorder(BorderFactory.createTitledBorder(translator.realisticTranslate(Translation.SUCHWORT)));
-      DataButton scrollsearchButton = new DataButton(translator.realisticTranslate(Translation.SUCHE_WORT_IN_TABELLE));
+      scrollsearchField.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.SUCHWORT)));
+      DataButton scrollsearchButton = new DataButton(
+            translator.realisticTranslate(Translation.SUCHE_WORT_IN_TABELLE));
       scrollsearchButton.setOpaque(false);
       scrollsearchButton.setFont(ApplicationFonts.getButtonFont());
-      DataButton scrollsearchPinButton = new DataButton(translator.realisticTranslate(Translation.NAECHSTE_AUSWAHL));
+      DataButton scrollsearchPinButton = new DataButton(
+            translator.realisticTranslate(Translation.NAECHSTE_AUSWAHL));
       scrollsearchPinButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
       scrollsearchPinButton.setOpaque(false);
@@ -1029,8 +1025,8 @@ public class DictionaryView extends BackgroundPanelTiled
       TrainLayout infotablePanelLayout = new TrainLayout(infotablePanel, 15);
       infotablePanel.setLayout(infotablePanelLayout);
       JLabel numberOfEntriesLabel = new JLabel(
-            " " + tableModel.getRowCount() + " "
-                  + translator.realisticTranslate(Translation.EINTRAEGE_IN_DIESER_TABELLE));
+            " " + tableModel.getRowCount() + " " + translator
+                  .realisticTranslate(Translation.EINTRAEGE_IN_DIESER_TABELLE));
       numberOfEntriesLabel.setFont(ApplicationFonts.getButtonFont());
       infotablePanel.add(numberOfEntriesLabel);
 
@@ -1053,7 +1049,8 @@ public class DictionaryView extends BackgroundPanelTiled
    private void initLanguageButtonGroup(ButtonGroup languageTypeGroup)
    {
       Font font = ApplicationFonts.getGermanFont(20F);
-      JRadioButton german = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH));
+      JRadioButton german = new JRadioButton(
+            translator.realisticTranslate(Translation.MEINE_SPRACHE));
       german.setActionCommand(Action.GERMAN_TO_HEBREW.name());
       german.setFont(font);
       german.setSelected(true);
@@ -1061,7 +1058,8 @@ public class DictionaryView extends BackgroundPanelTiled
       german.setMinimumSize(new Dimension(100, 26));
       german.setMaximumSize(new Dimension(205, 32));
 
-      JRadioButton hebrew = new JRadioButton(translator.realisticTranslate(Translation.HEBRAEISCH));
+      JRadioButton hebrew = new JRadioButton(
+            translator.realisticTranslate(Translation.NEUE_SPRACHE));
       hebrew.setActionCommand(Action.HEBREW_TO_GERMAN.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);

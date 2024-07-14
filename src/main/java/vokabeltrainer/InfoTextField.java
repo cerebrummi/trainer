@@ -16,6 +16,7 @@ import javax.swing.border.TitledBorder;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.Settings;
 
 public class InfoTextField extends JTextField
 {
@@ -37,7 +38,7 @@ public class InfoTextField extends JTextField
 
       button.addActionListener(event -> {
          JOptionPane.showMessageDialog(this, "",
-               "Cerebrummi©", JOptionPane.INFORMATION_MESSAGE,
+               Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(infoText)));
       });
       

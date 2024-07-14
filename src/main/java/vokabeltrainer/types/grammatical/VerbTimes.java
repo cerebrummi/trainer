@@ -22,6 +22,7 @@ public enum VerbTimes
          Translation.GEGENWART),
    FUTURE(
          Translation.ZUKUNFT),
+   SUPINUM(Translation.SUPINUM),
    IMPERARTIVE(
          Translation.BEFEHLSFORM),
    VERBTIMES_NA(

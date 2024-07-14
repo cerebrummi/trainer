@@ -3,15 +3,20 @@ package vokabeltrainer.common;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import vokabeltrainer.panels.MainView;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.table.list.editor.LanguageExpressionEditorView;
 
 public final class Common
 {
    private static MainView mainJPanel;
    private static JFrame jFrame;
+   private static LanguageExpressionEditorView languageExpressionEditor;
+
    private static boolean setMainJPanelOnlyOnce = false;
    private static boolean setJFrameOnlyOnce = false;
    private static Translator translator = new Translator();
@@ -46,6 +51,16 @@ public final class Common
       {
          Common.jFrame = jFrame;
       }
+   }
+   
+   public static LanguageExpressionEditorView getLanguageExpressionEditor()
+   {
+      return languageExpressionEditor;
+   }
+
+   public static void setLanguageExpressionEditor(LanguageExpressionEditorView languageExpressionEditor)
+   {
+      Common.languageExpressionEditor = languageExpressionEditor;
    }
 
    public static Translator getTranslator()

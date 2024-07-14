@@ -26,7 +26,7 @@ public class SingleLetterDocument extends PlainDocument
    {
       if (text != null && !text.isEmpty())
       {
-         List<String> list = LetterHelper.findLetterCodes(text);
+         List<String> list = LetterHelper.findLetterCodes(text, LetterType.HEBREW);
 
          if (list == null || list.isEmpty())
          {
@@ -62,7 +62,7 @@ public class SingleLetterDocument extends PlainDocument
    {
       if (str != null && !str.isEmpty())
       {
-         List<String> list = LetterHelper.findLetterCodes(str);
+         List<String> list = LetterHelper.findLetterCodes(str, LetterType.HEBREW);
 
          if (list == null || list.isEmpty())
          {

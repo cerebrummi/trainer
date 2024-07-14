@@ -24,7 +24,7 @@ import vokabeltrainer.cmd.DirectoryHelper;
 
 public final class SaveExpressions
 {
-   private static final String HEADER_CSV = "UUID\tUrsprung\tDatenbank\tchapter\tGerman\teinfach\tHebrew\tPlene\tDefektiv\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb time\tzusätzliche Informationen\tsearchwords German\tsearchwords Hebrew\tletzte Änderung\tSortierindex";
+   private static final String HEADER_CSV = "UUID\tUrsprung\tDatenbank\tchapter\tGerman\teinfach\tHebrew\tPlene\tDefektiv\tSwedish\texpression kinds\tgender\tnumerus\tgrammatical person\tbinjan\tverb time\tzusï¿½tzliche Informationen\tsearchwords German\tsearchwords Hebrew\tletzte ï¿½nderung\tSortierindex";
    private int counter;
    private PathAndFile exportpath;
    private boolean takeSelectedOnlyIntoAccount;
@@ -93,7 +93,7 @@ public final class SaveExpressions
                   {
                      JOptionPane.showMessageDialog(Common.getjFrame(),
                            "Es hat beim Speichern einen Fehler gegeben.\n"
-                                 + "Wählen Sie einen anderen Speicherort.",
+                                 + "Wï¿½hlen Sie einen anderen Speicherort.",
                            "Fehler", JOptionPane.ERROR_MESSAGE);
                   }
                }

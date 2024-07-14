@@ -49,12 +49,39 @@ public class MainView extends JPanel
    private AlefbetPanel letterPicturesPanel;
    private SuccessPanel successPanel;
    private JButton languageButton;
+   
+   private JButton sentencesButton;
+   private JButton sentences_1_Button;
+   private JButton sentences_2_Button;
+   private JButton sentences_3_Button;
+   private JButton sentences_4_Button;
+   private JButton sentences_5_Button;
+   private JButton sentences_6_Button;
+   private JButton sentences_7_Button;
+   private JButton sentences_8_Button;
+   private JButton sentences_9_Button;
+   private JButton sentences_10_Button;
+   private JButton sentences_11_Button;
+   private JButton sentences_12_Button;
+   private JButton sentences_13_Button;
+   private JButton sentences_14_Button;
+   private JButton sentences_15_Button;
+   private JButton sentences_16_Button;
+   private JButton sentences_17_Button;
+   private JButton sentences_18_Button;
+   private JButton sentences_19_Button;
+   private JButton sentences_20_Button;
+   private JButton sentences_21_Button;
+   private JButton sentences_22_Button;
+   private JButton sentences_23_Button;
+   private JButton sentences_24_Button;
 
    private JMenuBar menuBar;
-   
+
    private JButton backButton;
    private TranslationPanel languagePanel;
-   
+   private JPanel sentencesPanel;
+
    private Translator translator;
 
    public MainView()
@@ -69,7 +96,7 @@ public class MainView extends JPanel
    {
       setLayout(new BorderLayout());
       setBackground(ApplicationColors.getBackgroundGold());
-      
+
       translator = Common.getTranslator();
 
       initToolBar();
@@ -82,16 +109,30 @@ public class MainView extends JPanel
       settingsPanel = new SettingsPanel();
       successPanel = new SuccessPanel();
    }
-   
+
    private void initLanguageContent()
    {
       this.removeAll();
-      
+
       initLanguageToolBar();
       languagePanel = new TranslationPanel();
       add(languagePanel);
       initLanguageController();
-      
+
+      Main.resetMenuBar();
+      this.validate();
+      this.repaint();
+   }
+   
+   private void initSentencesContent()
+   {
+      this.removeAll();
+
+      initSentencesToolBar();
+      sentencesPanel = new SentencesPanel();
+      this.add(sentencesPanel);
+      initSentencesController();
+
       Main.resetMenuBar();
       this.validate();
       this.repaint();
@@ -109,7 +150,20 @@ public class MainView extends JPanel
          Common.getjFrame().validate();
          Common.getjFrame().repaint();
       });
-      
+   }
+   
+   private void initSentencesController()
+   {
+      backButton.addActionListener(event -> {
+         this.removeAll();
+         initContent();
+         initController();
+         activeComponent = startPanel;
+         add(activeComponent);
+         Main.resetMenuBar();
+         Common.getjFrame().validate();
+         Common.getjFrame().repaint();
+      });
    }
 
    private void initLanguageToolBar()
@@ -118,12 +172,98 @@ public class MainView extends JPanel
       menuBar.setOpaque(true);
       menuBar.setBackground(ApplicationColors.getLightGold());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-      menuBar.setMinimumSize(new Dimension(1200,80));
-      menuBar.setMaximumSize(new Dimension(6000,80));
-      
+      menuBar.setMinimumSize(new Dimension(1200, 80));
+      menuBar.setMaximumSize(new Dimension(6000, 80));
+
       backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
+
+      menuBar.add(backButton);
+   }
+   
+   private void initSentencesToolBar()
+   {
+      menuBar = new JMenuBar();
+      menuBar.setOpaque(true);
+      menuBar.setBackground(ApplicationColors.getLightGold());
+      menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+      menuBar.setMinimumSize(new Dimension(1200, 80));
+      menuBar.setMaximumSize(new Dimension(6000, 80));
+
+      backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
+      sentences_1_Button = new JButton("1");
+      sentences_2_Button = new JButton("2");
+      sentences_3_Button = new JButton("3");
+      sentences_4_Button = new JButton("4");
+      sentences_5_Button = new JButton("5");
+      sentences_6_Button = new JButton("6");
+      sentences_7_Button = new JButton("7");
+      sentences_8_Button = new JButton("8");
+      sentences_9_Button = new JButton("9");
+      sentences_10_Button = new JButton("10");
+      sentences_11_Button = new JButton("11");
+      sentences_12_Button = new JButton("12");
+      sentences_13_Button = new JButton("13");
+      sentences_14_Button = new JButton("14");
+      sentences_15_Button = new JButton("15");
+      sentences_16_Button = new JButton("16");
+      sentences_17_Button = new JButton("17");
+      sentences_18_Button = new JButton("18");
+      sentences_19_Button = new JButton("19");
+      sentences_20_Button = new JButton("20");
+      sentences_21_Button = new JButton("21");
+      sentences_22_Button = new JButton("22");
+      sentences_23_Button = new JButton("23");
+      sentences_24_Button = new JButton("24");
+      sentences_1_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_2_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_3_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_4_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_5_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_6_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_7_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_8_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_9_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_10_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_11_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_12_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_13_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_14_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_15_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_16_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_17_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_18_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_19_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_20_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_21_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_22_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_23_Button.setFont(ApplicationFonts.getToolbarButtonFont());
+      sentences_24_Button.setFont(ApplicationFonts.getToolbarButtonFont());
       
       menuBar.add(backButton);
+      menuBar.add(sentences_1_Button);
+      menuBar.add(sentences_2_Button);
+      menuBar.add(sentences_3_Button);
+      menuBar.add(sentences_4_Button);
+      menuBar.add(sentences_5_Button);
+      menuBar.add(sentences_6_Button);
+      menuBar.add(sentences_7_Button);
+      menuBar.add(sentences_8_Button);
+      menuBar.add(sentences_9_Button);
+      menuBar.add(sentences_10_Button);
+      menuBar.add(sentences_11_Button);
+      menuBar.add(sentences_12_Button);
+      menuBar.add(sentences_13_Button);
+      menuBar.add(sentences_14_Button);
+      menuBar.add(sentences_15_Button);
+      menuBar.add(sentences_16_Button);
+      menuBar.add(sentences_17_Button);
+      menuBar.add(sentences_18_Button);
+      menuBar.add(sentences_19_Button);
+      menuBar.add(sentences_20_Button);
+      menuBar.add(sentences_21_Button);
+      menuBar.add(sentences_22_Button);
+      menuBar.add(sentences_23_Button);
+      menuBar.add(sentences_24_Button);
    }
 
    private void initToolBar()
@@ -132,18 +272,26 @@ public class MainView extends JPanel
       menuBar.setOpaque(true);
       menuBar.setBackground(ApplicationColors.getLightGold());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-      menuBar.setMinimumSize(new Dimension(1200,80));
-      menuBar.setMaximumSize(new Dimension(6000,80));
+      menuBar.setMinimumSize(new Dimension(1200, 80));
+      menuBar.setMaximumSize(new Dimension(6000, 80));
 
-      startButton = new JButton(translator.realisticTranslate(Translation.START));
-      inputButton = new JButton(translator.realisticTranslate(Translation.EINGABE));
-      vocabularyCardsButton = new JButton(translator.realisticTranslate(Translation.VOKABELN_ABFRAGEN));
-      dictionaryButton = new JButton(translator.realisticTranslate(Translation.WOERTERBUCH));
-      statisticsButton = new JButton(translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
+      startButton = new JButton(
+            translator.realisticTranslate(Translation.START));
+      inputButton = new JButton(
+            translator.realisticTranslate(Translation.EINGABE));
+      vocabularyCardsButton = new JButton(
+            translator.realisticTranslate(Translation.VOKABELN_ABFRAGEN));
+      dictionaryButton = new JButton(
+            translator.realisticTranslate(Translation.WOERTERBUCH));
+      statisticsButton = new JButton(
+            translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
       aboutButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
-      letterPicturesButton = new JButton(translator.realisticTranslate(Translation.ALEFBET));
-      successButton = new JButton(translator.realisticTranslate(Translation.KARTEIKASTEN));
+      letterPicturesButton = new JButton(
+            translator.realisticTranslate(Translation.ALEFBET));
+      successButton = new JButton(
+            translator.realisticTranslate(Translation.KARTEIKASTEN));
       languageButton = new JButton(new ImageIcon(ApplicationImages.getL18n()));
+      sentencesButton = new JButton(translator.realisticTranslate(Translation.SAETZE));
 
       startButton.setFont(ApplicationFonts.getToolbarButtonFont());
       inputButton.setFont(ApplicationFonts.getToolbarButtonFont());
@@ -153,7 +301,8 @@ public class MainView extends JPanel
       letterPicturesButton.setFont(ApplicationFonts.getToolbarButtonFont());
       successButton.setFont(ApplicationFonts.getToolbarButtonFont());
       languageButton.setFont(ApplicationFonts.getToolbarButtonFont());
-
+      sentencesButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      
       menuBar.add(startButton);
       menuBar.add(inputButton);
       menuBar.add(dictionaryButton);
@@ -161,6 +310,7 @@ public class MainView extends JPanel
       menuBar.add(letterPicturesButton);
       menuBar.add(statisticsButton);
       menuBar.add(successButton);
+      menuBar.add(sentencesButton);
       menuBar.add(languageButton);
       menuBar.add(Box.createHorizontalGlue());
       menuBar.add(aboutButton);
@@ -171,7 +321,7 @@ public class MainView extends JPanel
       startButton.addActionListener(event -> {
          moveToStartPanel();
       });
-      
+
       inputButton.addActionListener(event -> {
          if (activeComponent != null)
          {
@@ -197,27 +347,34 @@ public class MainView extends JPanel
       });
 
       vocabularyCardsButton.addActionListener(event -> {
-         
-         if(Settings.isSchabbat_modus() && Common.isSchabbat())
+
+         if (Settings.isSchabbat_modus() && Common.isSchabbat())
          {
+            JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
+                  JOptionPane.INFORMATION_MESSAGE,
+                  new ImageIcon(TextImage.make(translator
+                        .realisticTranslate(Translation.ES_IST_SCHABBAT),
+                        translator
+                        .realisticTranslate(Translation.DAS_TRAINING_IST_ABGESCHALTET))));
             return;
          }
-         
+
          Data.determineReloadDatabases();
          StartTrainingView dialog = new StartTrainingController()
                .getStartTrainingView();
          dialog.setLocationRelativeTo(null);
          dialog.setVisible(true);
 
-         
          if (dialog.isTraining())
          {
-            if(dialog.getNewExpressions().isEmpty() && (dialog.getOldExpressions() == null || dialog.getOldExpressions().isEmpty()))
+            if (dialog.getNewExpressions().isEmpty()
+                  && (dialog.getOldExpressions() == null
+                        || dialog.getOldExpressions().isEmpty()))
             {
                this.showNoWordsForTraining();
                return;
             }
-            
+
             if (activeComponent != null)
             {
                remove(activeComponent);
@@ -225,7 +382,8 @@ public class MainView extends JPanel
 
             TrainerView trainerPanel = new TrainerController(
                   dialog.getLanguageDirection(), dialog.getFieldOfTraining(),
-                  dialog.getNewExpressions(), dialog.getOldExpressions()).getTrainerView();
+                  dialog.getNewExpressions(), dialog.getOldExpressions())
+                        .getTrainerView();
 
             activeComponent = trainerPanel;
             add(activeComponent);
@@ -249,7 +407,7 @@ public class MainView extends JPanel
          Data.determineReloadDatabases();
          moveToStatisticsPanel();
       });
-      
+
       successButton.addActionListener(event -> {
          Data.determineReloadDatabases();
          if (activeComponent != null)
@@ -274,9 +432,13 @@ public class MainView extends JPanel
          validate();
          repaint();
       });
-      
+
       languageButton.addActionListener(event -> {
          initLanguageContent();
+      });
+      
+      sentencesButton.addActionListener(event -> {
+         initSentencesContent();
       });
    }
 
@@ -292,7 +454,7 @@ public class MainView extends JPanel
       validate();
       repaint();
    }
-   
+
    public void moveToStatisticsPanel()
    {
       if (activeComponent != null)
@@ -305,14 +467,18 @@ public class MainView extends JPanel
       validate();
       repaint();
    }
-   
+
    private void showNoWordsForTraining()
    {
-      JOptionPane.showMessageDialog(Common.getjFrame(), "", Settings.getWindowTitle(),
-            JOptionPane.PLAIN_MESSAGE,
-            new ImageIcon(TextImage.make(translator.realisticTranslate(Translation.KEINE_WORTE_ZUM_UEBEN_AUSGEWAEHLT),
-                  translator.realisticTranslate(Translation.BITTE_NEUE_WORTE_DURCH_EINGABE_EINER_ANZAHL),
-                  translator.realisticTranslate(Translation.AUSWAHLEN__UM_DANN_DAS_TRAINING_ZU_STARTEN_))));
+      JOptionPane.showMessageDialog(Common.getjFrame(), "",
+            Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+            new ImageIcon(TextImage.make(
+                  translator.realisticTranslate(
+                        Translation.KEINE_WORTE_ZUM_UEBEN_AUSGEWAEHLT),
+                  translator.realisticTranslate(
+                        Translation.BITTE_NEUE_WORTE_DURCH_EINGABE_EINER_ANZAHL),
+                  translator.realisticTranslate(
+                        Translation.AUSWAHLEN__UM_DANN_DAS_TRAINING_ZU_STARTEN_))));
    }
 
    public JButton getVocabularyCardsButton()

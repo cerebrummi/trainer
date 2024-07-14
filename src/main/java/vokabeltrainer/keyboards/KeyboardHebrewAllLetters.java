@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.InputHebrewPanel;
+import vokabeltrainer.InputLanguagePanel;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
@@ -42,13 +42,13 @@ public class KeyboardHebrewAllLetters extends JPanel
       
       if (textfield != null)
       {
-         if(textfield instanceof InputHebrewPanel)
+         if(textfield instanceof InputLanguagePanel)
          {
             textfield.setMinimumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
             textfield.setMaximumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
-            arrayList.addAll(((InputHebrewPanel)textfield).getTextComponents());
+            arrayList.addAll(((InputLanguagePanel)textfield).getTextComponents());
          }
          else
          {
@@ -75,7 +75,7 @@ public class KeyboardHebrewAllLetters extends JPanel
          add(textfield);
       }
       
-      if (textfield != null && !(textfield instanceof InputHebrewPanel))
+      if (textfield != null && !(textfield instanceof InputLanguagePanel))
       {
          setFocusTraversalPolicy(new OneFocusTraversalPolicy(textfield));
          textfield.grabFocus();

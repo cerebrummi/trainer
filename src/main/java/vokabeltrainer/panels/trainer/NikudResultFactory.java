@@ -5,12 +5,12 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import vokabeltrainer.InputHebrewPanel.Selection;
+import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.SelectionHebrewType;
+import vokabeltrainer.types.HebrewType;
 import vokabeltrainer.words.WordLetterMatching;
 import vokabeltrainer.words.WordLetterMatchingResult;
 
@@ -26,26 +26,26 @@ public class NikudResultFactory
          String answer, Font hebrewFont)
 
    {
-      if (expression.getHebrew().isSimpleHebrew())
+      if (expression.getLL().isSimpleHebrew())
       {
          BestResult bestResult = new BestResult(Selection.SIMPLE);
          bestResult.setResultHebrew(getResultDtoNikudSentence(expression,
-               answer, hebrewFont, SelectionHebrewType.SIMPLE));
+               answer, hebrewFont, HebrewType.SIMPLE));
          return bestResult;
       }
 
       BestResult bestResult = new BestResult(Selection.PLENE_DEFEKTIV);
       bestResult.setResultPlene(getResultDtoNikudSentence(expression, answer,
-            hebrewFont, SelectionHebrewType.PLENE));
+            hebrewFont, HebrewType.PLENE));
       bestResult.setResultDefektiv(getResultDtoNikudSentence(expression, answer,
-            hebrewFont, SelectionHebrewType.DEFEKTIV));
+            hebrewFont, HebrewType.DEFEKTIV));
       return bestResult;
    }
 
    public static Result getResultDtoNikudSentence(Expression expression,
-         String answer, Font hebrewFont, SelectionHebrewType selectionType)
+         String answer, Font hebrewFont, HebrewType selectionType)
    {
-      String[] expressionArray = expression.getHebrew()
+      String[] expressionArray = expression.getLL()
             .getHewbrewAccordingToType(selectionType)
             .split(NikudLetter.SPACE.getUnicode());
 
@@ -99,13 +99,13 @@ public class NikudResultFactory
    }
 
    private static Result getResultDtoNikud(Expression expression, String answer,
-         Font hebrewFont, SelectionHebrewType selectionType)
+         Font hebrewFont, HebrewType selectionType)
    {
       Result result = new Result(selectionType);
       result.setExpression(expression);
 
       return getResultDtoNikudString(
-            expression.getHebrew().getHewbrewAccordingToType(selectionType),
+            expression.getLL().getHewbrewAccordingToType(selectionType),
             answer, result, hebrewFont);
    }
 

@@ -33,8 +33,8 @@ import javax.swing.text.JTextComponent;
 import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.ComponentTitledBorder;
 import vokabeltrainer.InfoTextField;
-import vokabeltrainer.InputHebrewPanel;
-import vokabeltrainer.InputHebrewPanel.Selection;
+import vokabeltrainer.InputLanguagePanel;
+import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
@@ -74,7 +74,7 @@ public class TrainerView extends BackgroundPanelTiled
    private CardLayout cardLayout;
    private JPanel questionPanel;
    private JTextField questionFieldGerman;
-   private InputHebrewPanel questionFieldHebrew;
+   private InputLanguagePanel questionFieldHebrew;
    private JTextPane grammarInfoField;
    private JTextPane additionalInfoField;
    private InfoTextField answerField;
@@ -216,7 +216,7 @@ public class TrainerView extends BackgroundPanelTiled
 	      }
 	      else
 	      {
-	         questionFieldHebrew = new InputHebrewPanel(Selection.SIMPLE, 160, 10,
+	         questionFieldHebrew = new InputLanguagePanel(Selection.SIMPLE, 160, 10,
 	               false, this, 1268, ApplicationColors.getLightBlue());
 	         questionFieldHebrew.setBackground(ApplicationColors.getLightBlue());
 	         questionFieldHebrew.setBorder(
@@ -833,7 +833,7 @@ private Component initTopPanel()
       return questionFieldGerman;
    }
 
-   public InputHebrewPanel getQuestionFieldHebrew()
+   public InputLanguagePanel getQuestionFieldHebrew()
    {
       return questionFieldHebrew;
    }
@@ -945,17 +945,17 @@ private Component initTopPanel()
 
       feedbackPanel.add(scrollPane);
       feedbackPanel.add(fillerAnswerPanel);
-      if (result.getExpression().getHebrew().isSimpleHebrew())
+      if (result.getExpression().getLL().isSimpleHebrew())
       {
          pictureWordPanelPlene.displayNikudWord(
-               result.getExpression().getHebrew().getHebrew());
+               result.getExpression().getLL().getHebrew());
       }
       else
       {
          pictureWordPanelPlene.displayNikudWord(
-               result.getExpression().getHebrew().getHebrewPlene());
+               result.getExpression().getLL().getHebrewPlene());
          pictureWordPanelDefektiv.displayNikudWord(
-               result.getExpression().getHebrew().getHebrewDefektiv());
+               result.getExpression().getLL().getHebrewDefektiv());
       }
    }
 }

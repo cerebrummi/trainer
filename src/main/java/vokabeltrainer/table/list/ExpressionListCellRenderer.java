@@ -14,6 +14,8 @@ import javax.swing.ListCellRenderer;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.editing.LetterHelper;
+import vokabeltrainer.editing.LetterType;
 import vokabeltrainer.types.Language;
 
 public class ExpressionListCellRenderer
@@ -58,13 +60,27 @@ public class ExpressionListCellRenderer
       }
       else if (index == 2 && language.equals(Language.GERMAN_TO_HEBREW))
       {
-         label.setFont(ApplicationFonts.getHebrewFont(20F));
-         label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         if(LetterHelper.findLetterTypeLanguages((String)value) == LetterType.HEBREW)
+         {
+            label.setFont(ApplicationFonts.getHebrewFont(20F));
+            label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         }
+         else
+         {
+            label.setFont(ApplicationFonts.getGermanBoldFont(20F));
+         }
       }
       else if (index == 1 && language.equals(Language.HEBREW_TO_GERMAN))
       {
-         label.setFont(ApplicationFonts.getHebrewFont(20F));
-         label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         if(LetterHelper.findLetterTypeLanguages((String)value) == LetterType.HEBREW)
+         {
+            label.setFont(ApplicationFonts.getHebrewFont(20F));
+            label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         }
+         else
+         {
+            label.setFont(ApplicationFonts.getGermanBoldFont(20F));
+         }
       }
       else
       {

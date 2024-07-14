@@ -96,7 +96,7 @@ public class NumberCodeFormatterFactory extends DefaultFormatterFactory
             {
                return text;
             }
-            List<String> list = LetterHelper.findLetterCodes(text);
+            List<String> list = LetterHelper.findLetterCodes(text, LetterType.NUMBER);
             for (String letter : list)
             {
                if (!StringUtils.containsIgnoreCase(pattern, letter))

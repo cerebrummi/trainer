@@ -55,7 +55,7 @@ public final class Main
       catch (Exception e1)
       {
          JOptionPane
-               .showMessageDialog(null, message + "Schriftarten können nicht definiert werden",
+               .showMessageDialog(null, message + "Schriftarten kï¿½nnen nicht definiert werden",
                      "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
@@ -118,7 +118,7 @@ public final class Main
       catch (Exception e1)
       {
          JOptionPane
-               .showMessageDialog(null, message + "Geräusche fehlen",
+               .showMessageDialog(null, message + "Gerï¿½usche fehlen",
                      "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
@@ -166,8 +166,8 @@ public final class Main
                      translator.realisticTranslate(Translation.AUSGEWAEHLTE_DATEI_SPEICHERN));
          UIManager
                .put("FileChooser.openButtonToolTipText",
-                     "Ausgewählte Datei öffnen");
-         UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene höher");
+                     "Ausgewï¿½hlte Datei Ã¶ffnen");
+         UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene hï¿½her");
          UIManager.put("FileChooser.homeFolderToolTipText", "Home");
          UIManager
                .put("FileChooser.newFolderToolTipText",
@@ -219,7 +219,6 @@ public final class Main
 
       new SwingWorker<Void, Void>()
       {
-
          @Override
          protected Void doInBackground() throws Exception
          {
@@ -242,7 +241,7 @@ public final class Main
             catch (Exception e)
             {
                JOptionPane
-                     .showMessageDialog(null, message + "Grüne Bilder fehlen",
+                     .showMessageDialog(null, message + "Grï¿½ne Bilder fehlen",
                            "Nachricht", JOptionPane.CLOSED_OPTION);
                System.exit(1);
             }

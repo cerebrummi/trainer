@@ -14,16 +14,17 @@ import vokabeltrainer.panels.translation.Translation;
 
 public class NikudExpressionEditorController implements NikudExpressionEditorControllerConnector
 {
-   private NikudExpressionEditorView nikudExpressionEditorDialog;
+   private LanguageExpressionEditorView nikudExpressionEditorDialog;
    private TextExpressionEditorView textExpressionEditorDialog;
    
    public NikudExpressionEditorController()
    {
-      nikudExpressionEditorDialog = new NikudExpressionEditorView(this);
+      nikudExpressionEditorDialog = new LanguageExpressionEditorView(this);
+      Common.setLanguageExpressionEditor(nikudExpressionEditorDialog);
       textExpressionEditorDialog = new TextExpressionEditorView(this);
    }
 
-   public NikudExpressionEditorView getNikudExpressionEditorDialog()
+   public LanguageExpressionEditorView getNikudExpressionEditorDialog()
    {
       return nikudExpressionEditorDialog;
    }
