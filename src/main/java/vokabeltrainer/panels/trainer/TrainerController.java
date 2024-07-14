@@ -181,7 +181,7 @@ public class TrainerController implements TrainerControllerConnector
             trainerView.getQuestionFieldHebrew().setHebrewFieldText(
                   currentExpression.getLL().getHebrew());
             trainerView.getQuestionFieldHebrew()
-                  .setHebrewLayout(Selection.SIMPLE);
+                  .setLayoutNoKeyboard(Selection.SIMPLE);
          }
          else
          {
@@ -190,7 +190,7 @@ public class TrainerController implements TrainerControllerConnector
             trainerView.getQuestionFieldHebrew().setDefektivFieldText(
                   currentExpression.getLL().getHebrewDefektiv());
             trainerView.getQuestionFieldHebrew()
-                  .setHebrewLayout(Selection.PLENE_DEFEKTIV);
+                  .setLayoutNoKeyboard(Selection.PLENE_DEFEKTIV);
          }
          break;
       }

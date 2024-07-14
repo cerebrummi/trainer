@@ -12,6 +12,10 @@ public enum Binjan
          Translation.BITTE_WAEHLEN),
    BINJAN_UNKNOWN(
          Translation.UNBEKANNT),
+   GRUPPE_1(Translation.GRUPPE_1),
+   GRUPPE_2(Translation.GRUPPE_2),
+   GRUPPE_3(Translation.GRUPPE_3),
+   GRUPPE_4(Translation.GRUPPE_4),
    PAAL(
          Translation.PA_AL___QAL),
    NIFAL(
@@ -55,6 +59,10 @@ public enum Binjan
       case PAAL:
       case PIEL:
       case PUAL:
+      case GRUPPE_1:
+      case GRUPPE_2:
+      case GRUPPE_3:
+      case GRUPPE_4:
          return translator.realisticTranslate(description);
       case BINJAN_UNKNOWN:
          return translator.realisticTranslate(Translation.BINJAN___STAMM)
@@ -84,6 +92,10 @@ public enum Binjan
       case PAAL:
       case PIEL:
       case PUAL:
+      case GRUPPE_1:
+      case GRUPPE_2:
+      case GRUPPE_3:
+      case GRUPPE_4:
          return translator.realisticTranslate(description);
       case BINJAN_UNKNOWN:
       case BINJAN_NA:

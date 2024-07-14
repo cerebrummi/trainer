@@ -7,6 +7,7 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
+import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.common.Settings.LanguageStored;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.types.Chapter;
@@ -252,9 +253,9 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setLanguageInput(LanguageStored
+         Settings.setLanguageInput(Selection
                .valueOf(preferences.get(CerebrummiNodes.getLanguageNode(),
-                     LanguageStored.SWEDISH.name())));
+                     Selection.SWEDISH.name())));
       }
       catch (Exception e)
       {

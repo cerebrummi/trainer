@@ -47,7 +47,12 @@ public class LearningLanguage
 
    public boolean isSimpleHebrew()
    {
-      return simpleHebrew;
+      return this.lltype == LLType.HEBREW && simpleHebrew;
+   }
+   
+   public boolean isPleneDefektiv()
+   {
+      return this.lltype == LLType.HEBREW && !simpleHebrew;
    }
    
    public boolean isSwedish()
@@ -154,4 +159,6 @@ public class LearningLanguage
       }
       return null;
    }
+
+
 }

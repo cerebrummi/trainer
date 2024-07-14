@@ -1033,26 +1033,23 @@ public class LanguageExpressionEditorView extends JDialog
 
       if(expression.getLL().isSwedish())
       {
-         this.language.setHebrewLayout(Selection.SWEDISH);
+         this.keyboard.setKeyboard(Selection.SWEDISH);
          this.language.setSwedishFieldText(expression.getLL().getSwedish());
-         this.language.toggle(Selection.SWEDISH);
       }
-      else
-      if (expression.getLL().isSimpleHebrew())
+      else if(expression.getLL().isPleneDefektiv())
       {
-         this.language.setHebrewLayout(Selection.SIMPLE);
-         this.language.setHebrewFieldText(expression.getLL().getHebrew());
-         this.language.toggle(Selection.SIMPLE);
-      }
-      else
-      {
-         this.language.setHebrewLayout(Selection.PLENE_DEFEKTIV);
+         this.keyboard.setKeyboard(Selection.PLENE_DEFEKTIV);
          this.language
                .setPleneFieldText(expression.getLL().getHebrewPlene());
          this.language.setDefektivFieldText(
                expression.getLL().getHebrewDefektiv());
-         this.language.toggle(Selection.PLENE_DEFEKTIV);
       }
+      else
+         if (expression.getLL().isSimpleHebrew())
+         {
+            this.keyboard.setKeyboard(Selection.SIMPLE);
+            this.language.setHebrewFieldText(expression.getLL().getHebrew());
+         }
 
       this.searchwordsSetGerman = new HashSet<>();
       for (String word : expression.getSearchwordsGerman())

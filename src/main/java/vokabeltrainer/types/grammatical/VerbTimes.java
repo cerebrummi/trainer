@@ -53,6 +53,7 @@ public enum VerbTimes
       case PAST:
       case PRESENT:
       case ROOT:
+      case SUPINUM:
          return translator.realisticTranslate(description);
       case VERBTIMES_UNKNOWN:
          return translator.realisticTranslate(Translation.ZEITFORM)
@@ -81,6 +82,7 @@ public enum VerbTimes
       case PAST:
       case PRESENT:
       case ROOT:
+      case SUPINUM:
          return translator.realisticTranslate(description);
       case VERBTIMES_UNKNOWN:
       case VERBTIMES_NA:

@@ -372,7 +372,14 @@ public enum Translation {
 	ETT("ett", "ett"), 
 	GRUNDFORM("Grundform", "base form"),
 	T_FORM("t-Form", "t-form"),
-	SUPINUM("Supinum", "supinum");
+	SUPINUM("Supinum", "supinum"), 
+	SINGULAR_SPECIFIC("Singular, bestimmt", "singular, specific"),
+	SINGULAR_INDEFINITE("Singular, unbestimmt", "singular, indefinite"),
+	SINGULAR_PLURAL("Singlar und Plural", "singular and plural"), 
+	GRUPPE_1("Gruppe 1", "group 1"),
+	GRUPPE_2("Gruppe 2", "group 2"),
+	GRUPPE_3("Gruppe 3", "group 3"),
+	GRUPPE_4("Gruppe 4", "group 4");
 
 	private String german;
 	private String english;

@@ -715,24 +715,21 @@ public class TextExpressionEditorView extends JDialog
 
       if(expression.getLL().isSwedish())
       {
-         this.hebrew.setHebrewLayout(Selection.SWEDISH);
+         this.keyboard.setKeyboard(Selection.SWEDISH);
          this.hebrew.setSwedishFieldText(expression.getLL().getSwedish());
-         this.hebrew.toggle(Selection.SWEDISH);
       }
       else
       if (expression.getLL().isSimpleHebrew())
       {
-         this.hebrew.setHebrewLayout(Selection.SIMPLE);
+         this.keyboard.setKeyboard(Selection.SIMPLE);
          this.hebrew.setHebrewFieldText(expression.getLL().getHebrew());
-         this.hebrew.toggle(Selection.SIMPLE);
       }
-      else
+      else if (expression.getLL().isPleneDefektiv())
       {
-         this.hebrew.setHebrewLayout(Selection.PLENE_DEFEKTIV);
+         this.keyboard.setKeyboard(Selection.PLENE_DEFEKTIV);
          this.hebrew.setPleneFieldText(expression.getLL().getHebrewPlene());
          this.hebrew.setDefektivFieldText(
                expression.getLL().getHebrewDefektiv());
-         this.hebrew.toggle(Selection.PLENE_DEFEKTIV);
       }
 
       this.searchwordsSetGerman = new HashSet<>();

@@ -204,7 +204,6 @@ public class InputLanguagePanel extends JTextArea
 
       this.add(cards);
       initController();
-      this.toggleLayout();
 
       String focusCommand = "focus_forward";
       KeyStroke tab = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0);
@@ -444,14 +443,6 @@ public class InputLanguagePanel extends JTextArea
       return vertical;
    }
 
-   public void toggle(Selection selection)
-   {
-      this.selection = selection;
-      layout.show(cards, selection.name());
-      Settings.toggleLanguageInput(selection);
-      keyboard.toggleKeyboard(selection);
-   }
-
    private void toggleNext()
    {
       switch (selection)
@@ -474,49 +465,19 @@ public class InputLanguagePanel extends JTextArea
          break;
       }
 
-      Settings.toggleLanguageInput(selection);
-      keyboard.toggleKeyboard();
+      Settings.setLanguageInput(selection);
+      keyboard.setKeyboardNoTextfield(selection);
    }
+   
 
-   private void toggleLayout()
+   public void setLayoutNoKeyboard(Selection newselection)
    {
-      switch (selection)
-      {
-      case SIMPLE:
-         layout.show(cards, Selection.SIMPLE.name());
-         break;
-      case PLENE_DEFEKTIV:
-         layout.show(cards, Selection.PLENE_DEFEKTIV.name());
-         break;
-      case SWEDISH:
-         layout.show(cards, Selection.SWEDISH.name());
-         break;
-      }
-
-      Settings.toggleLanguageInput(selection);
-      
-      if (keyboard != null)
-      {
-         keyboard.toggleKeyboard();
-      }
-   }
-
-   public void setHebrewLayout(Selection newSelection)
-   {
-      if (selection == newSelection)
+      if(this.selection == newselection)
       {
          return;
       }
-      toggleLayout();
-   }
-
-   public void setSwedishLayout(Selection newSelection)
-   {
-      if (selection == newSelection)
-      {
-         return;
-      }
-      toggleLayout();
+      this.selection = newselection;
+      layout.show(cards, selection.name());
    }
 
    public boolean isSimple()
@@ -655,4 +616,5 @@ public class InputLanguagePanel extends JTextArea
    {
       this.selection = selection;
    }
+
 }

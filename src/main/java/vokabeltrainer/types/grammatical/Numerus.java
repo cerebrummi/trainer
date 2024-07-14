@@ -9,6 +9,9 @@ public enum Numerus implements GrammaticalEnum
    PLEASE_CHOOSE(Translation.BITTE_WAEHLEN), 
    NUMERUS_UNKNOWN(Translation.UNBEKANNT), 
    SINGULAR(Translation.SINGULAR), 
+   SINGULAR_SPECIFIC(Translation.SINGULAR_SPECIFIC),
+   SINGULAR_INDEFINITE(Translation.SINGULAR_INDEFINITE),
+   SINGULAR_PLURAL(Translation.SINGULAR_PLURAL),
    DUAL(Translation.DUAL), 
    PLURAL(Translation.PLURAL), 
    BASE(Translation.GRUNDFORM), 
@@ -39,6 +42,9 @@ public enum Numerus implements GrammaticalEnum
       case SINGULAR:
       case BASE:
       case T_FORM:
+      case SINGULAR_SPECIFIC:
+      case SINGULAR_INDEFINITE:
+      case SINGULAR_PLURAL:
          return translator.realisticTranslate(description);
       case NUMERUS_UNKNOWN:
          return translator.realisticTranslate(Translation.NUMERUS) + " "
@@ -59,6 +65,9 @@ public enum Numerus implements GrammaticalEnum
       case SINGULAR:
       case BASE:
       case T_FORM:
+      case SINGULAR_SPECIFIC:
+      case SINGULAR_INDEFINITE:
+      case SINGULAR_PLURAL:
          return translator.realisticTranslate(description);
       case NUMERUS_UNKNOWN:
       case NUMERUS_NA:

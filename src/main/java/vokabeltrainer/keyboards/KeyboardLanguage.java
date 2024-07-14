@@ -103,21 +103,13 @@ public class KeyboardLanguage extends JPanel
       this.swedishKeyboard = swedishKeyboardMaker.makeRegularKeyboard();
       this.swedishKeyboard.addMouseListener(new KeyboardListener());
       this.hebrewKeyboard = this.makeHebrewKeyboard();
-      this.add(textfield);
-      if(Settings.isSimpleHebrewInput() || Settings.isHebrewPleneDefektivInput())
-      {
-
-         this.add(hebrewKeyboard);
-      }
-      else
-      {
-         this.add(swedishKeyboard);
-      }
+      setKeyboard(Settings.getLanguageInput());
    }
    
-   public void toggleKeyboard(Selection selection)
+   public void setKeyboard(Selection selection)
    {
       this.removeAll();
+      ((InputLanguagePanel)textfield).setLayoutNoKeyboard(selection);
       this.add(textfield);
       switch(selection)
       {
@@ -133,18 +125,19 @@ public class KeyboardLanguage extends JPanel
       this.repaint();
    }
    
-   public void toggleKeyboard()
+   public void setKeyboardNoTextfield(Selection selection)
    {
       this.removeAll();
       this.add(textfield);
-      if(Settings.isSimpleHebrewInput() || Settings.isHebrewPleneDefektivInput())
+      switch(selection)
       {
-
+      case PLENE_DEFEKTIV:
+      case SIMPLE:
          this.add(hebrewKeyboard);
-      }
-      else
-      {
+         break;
+      case SWEDISH:
          this.add(swedishKeyboard);
+         break;
       }
       this.validate();
       this.repaint();

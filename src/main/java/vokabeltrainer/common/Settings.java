@@ -26,7 +26,7 @@ public class Settings
    private static String chosenExpressionPath = null;
    private static float volume = -20;
    private static boolean letterImagesOn = true;
-   private static LanguageStored languageInput = LanguageStored.SWEDISH;
+   private static Selection languageInput = Selection.SWEDISH;
    private static String version = "4.0";
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
@@ -330,46 +330,34 @@ public class Settings
 
    public static boolean isSimpleHebrewInput()
    {
-      return languageInput == LanguageStored.HEBREW_SIMPLE;
+      return languageInput == Selection.SIMPLE;
    }
    
    public static boolean isHebrewPleneDefektivInput()
    {
-      return languageInput == LanguageStored.HEBREW_PLENE_DEFEKTIV;
+      return languageInput == Selection.PLENE_DEFEKTIV;
+   }
+   
+   public static boolean isSwedishInput()
+   {
+      return languageInput == Selection.SWEDISH;
    }
 
-   public static void setLanguageInput(LanguageStored languageInput)
+   public static void setLanguageInput(Selection selection)
    {
+      Settings.languageInput = selection;
+      
       Preferences preferences = Preferences
             .userRoot()
             .node(CerebrummiNodes.getNode());
       preferences
             .put(CerebrummiNodes.getLanguageNode(),
-                  languageInput.name());
-      Settings.languageInput = languageInput;
+                  Settings.languageInput.name());
    }
 
-   public static void toggleLanguageInput(Selection selection)
+   public static Selection getLanguageInput()
    {
-      switch(selection)
-      {
-      case SIMPLE:
-         languageInput = LanguageStored.HEBREW_SIMPLE;
-         break;
-      case PLENE_DEFEKTIV:
-         languageInput = LanguageStored.HEBREW_PLENE_DEFEKTIV;
-         break;
-      case SWEDISH:
-         languageInput = LanguageStored.SWEDISH;
-         break;      
-      }
-
-      Preferences preferences = Preferences
-            .userRoot()
-            .node(CerebrummiNodes.getNode());
-      preferences
-            .put(CerebrummiNodes.getLanguageNode(),
-                  languageInput.name());
+      return languageInput;
    }
 
    public static String getRememberDatabaseForInput()
