@@ -117,7 +117,7 @@ public class DictionaryController implements DictionaryControllerConnector
       {
          JOptionPane
                .showMessageDialog(Common.getjFrame(),
-                     "Nur selbst eingegebene Vokabeln\nkönnen kopiert werden.");
+                     "Nur selbst eingegebene Vokabeln\nkï¿½nnen kopiert werden.");
          return false;
       }
       return true;

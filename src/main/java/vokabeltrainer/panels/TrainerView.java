@@ -58,7 +58,7 @@ import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class TrainerView extends BackgroundPanelTiled
 {
@@ -83,7 +83,7 @@ public class TrainerView extends BackgroundPanelTiled
    private JCheckBox grammarInfo;
    private JPanel answerPanel;
    private JButton sendButton;
-   private Language languageDirection;
+   private LanguageDirection languageDirection;
    private JPanel feedbackPanel;
    private JButton nextWordButton;
    private JLabel wordsRight;
@@ -128,7 +128,7 @@ public class TrainerView extends BackgroundPanelTiled
    {
       languageDirectionLabel
             .setText(
-                  languageDirection.equals(Language.HEBREW_TO_GERMAN)
+                  languageDirection.equals(LanguageDirection.HEBREW_TO_GERMAN)
                         ? translator.realisticTranslate(Translation.HEBRAEISCH)
                               + " >> "
                               + translator
@@ -192,10 +192,10 @@ public class TrainerView extends BackgroundPanelTiled
 	   return textFieldPanelWrapper;
    }
    
-   private void initTextField(Language languageDirection) 
+   private void initTextField(LanguageDirection languageDirection) 
    {
 	   textFieldPanelWrapper.removeAll();
-	   if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
+	   if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
 	      {
 		     JPanel expandPanel = new JPanel();
 		     TrainLayout beLayout = new TrainLayout(expandPanel);
@@ -402,7 +402,7 @@ private Component initTopPanel()
       return verticalLeftPanel;
    }
 
-   private void initQuestionPanel(Language languageDirection)
+   private void initQuestionPanel(LanguageDirection languageDirection)
    {
       questionPanel.removeAll();
       questionPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
@@ -481,7 +481,7 @@ private Component initTopPanel()
 
       questionPanel.add(answerPanel);
 
-      if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
+      if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          answerPanel.removeAll();
          answerPanel
@@ -537,7 +537,7 @@ private Component initTopPanel()
 
       questionPanel.validate();
       questionPanel.repaint();
-      if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
+      if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          this.pictureToggleBox.setVisible(true);
       }
@@ -591,7 +591,7 @@ private Component initTopPanel()
       swapPanel.add("RED", imageFieldError);
       cardLayout.show(swapPanel, "START");
 
-      if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
+      if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          sendButton = new JButton(
                translator.realisticTranslate(Translation.ANTWORT_ABSENDEN));

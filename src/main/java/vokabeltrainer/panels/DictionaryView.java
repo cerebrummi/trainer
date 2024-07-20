@@ -69,7 +69,7 @@ import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.SortingType;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
@@ -142,7 +142,7 @@ public class DictionaryView extends BackgroundPanelTiled
       horizontalLanguagePanel = new JPanel();
       horizontalLanguagePanel
             .setLayout(new TrainLayout(horizontalLanguagePanel, 15));
-      horizontalLanguagePanel.setBackground(ApplicationColors.getShadyBlue());
+      horizontalLanguagePanel.setBackground(ApplicationColors.getGold());
       horizontalLanguagePanel.setBorder(BorderFactory.createTitledBorder(
              "Sprachen"));
       languageGroup = new ButtonGroup();
@@ -290,7 +290,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
       searchTypeGroupGerman = new ButtonGroup();
       germanSearch.add(initSearchRadioButtonPanel(searchTypeGroupGerman,
-            Language.GERMAN_TO_HEBREW));
+            LanguageDirection.GERMAN_TO_HEBREW));
 
       germanSearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
@@ -325,7 +325,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
       searchTypeGroupHebrew = new ButtonGroup();
       hebrewSearch.add(initSearchRadioButtonPanel(searchTypeGroupHebrew,
-            Language.HEBREW_TO_GERMAN));
+            LanguageDirection.HEBREW_TO_GERMAN));
 
       hebrewSearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
@@ -347,8 +347,8 @@ public class DictionaryView extends BackgroundPanelTiled
             new Dimension(Settings.getKeyboardWidth() + 50, 620));
       germanSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
       hebrewSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
-      swapPanel.add(Language.GERMAN_TO_HEBREW.name(), germanSearch);
-      swapPanel.add(Language.HEBREW_TO_GERMAN.name(), hebrewSearch);
+      swapPanel.add(LanguageDirection.GERMAN_TO_HEBREW.name(), germanSearch);
+      swapPanel.add(LanguageDirection.HEBREW_TO_GERMAN.name(), hebrewSearch);
 
       vertical1.add(swapPanel);
 
@@ -356,7 +356,7 @@ public class DictionaryView extends BackgroundPanelTiled
    }
 
    private JPanel initSearchRadioButtonPanel(ButtonGroup group,
-         Language language)
+         LanguageDirection language)
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 5));
@@ -1091,9 +1091,9 @@ public class DictionaryView extends BackgroundPanelTiled
    }
 
    @Override
-   public Language getSelectedLanguage()
+   public LanguageDirection getSelectedLanguage()
    {
-      return Language.valueOf(languageGroup.getSelection().getActionCommand());
+      return LanguageDirection.valueOf(languageGroup.getSelection().getActionCommand());
    }
 
    @Override

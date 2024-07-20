@@ -12,15 +12,15 @@ import javax.swing.table.TableCellRenderer;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.table.list.ExpressionList;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class ExpressionCellRenderer
       implements TableCellRenderer, TableCellEditor
 {
    private ExpressionList list;
-   private Language language;
+   private LanguageDirection language;
 
-   public ExpressionCellRenderer(Language language)
+   public ExpressionCellRenderer(LanguageDirection language)
    {
       this.language = language;
       list = new ExpressionList(language);
@@ -31,7 +31,7 @@ public class ExpressionCellRenderer
          boolean isSelected, boolean hasFocus, int row, int column)
    {
       Expression expression = (Expression) value;
-      if (Language.GERMAN_TO_HEBREW.equals(language))
+      if (LanguageDirection.GERMAN_TO_HEBREW.equals(language))
       {
          if(expression.getLL().isSwedish())
          {

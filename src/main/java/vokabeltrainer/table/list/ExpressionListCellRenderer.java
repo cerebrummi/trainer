@@ -16,7 +16,7 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class ExpressionListCellRenderer
       implements ListCellRenderer<Object>, Serializable
@@ -24,11 +24,11 @@ public class ExpressionListCellRenderer
    private static final long serialVersionUID = -631988254932147508L;
 
    private JTextField label;
-   private Language language;
+   private LanguageDirection language;
    private JLabel selected;
    private JLabel empty;
 
-   public ExpressionListCellRenderer(Language language)
+   public ExpressionListCellRenderer(LanguageDirection language)
    {
       label = new JTextField();
       label.setOpaque(false);
@@ -58,7 +58,7 @@ public class ExpressionListCellRenderer
          label.setFont(ApplicationFonts.getHebrewHandwrittenFont(30));
          label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       }
-      else if (index == 2 && language.equals(Language.GERMAN_TO_HEBREW))
+      else if (index == 2 && language.equals(LanguageDirection.GERMAN_TO_HEBREW))
       {
          if(LetterHelper.findLetterTypeLanguages((String)value) == LetterType.HEBREW)
          {
@@ -70,7 +70,7 @@ public class ExpressionListCellRenderer
             label.setFont(ApplicationFonts.getGermanBoldFont(20F));
          }
       }
-      else if (index == 1 && language.equals(Language.HEBREW_TO_GERMAN))
+      else if (index == 1 && language.equals(LanguageDirection.HEBREW_TO_GERMAN))
       {
          if(LetterHelper.findLetterTypeLanguages((String)value) == LetterType.HEBREW)
          {

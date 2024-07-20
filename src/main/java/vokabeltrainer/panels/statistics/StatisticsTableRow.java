@@ -18,7 +18,7 @@ import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class StatisticsTableRow
 {
@@ -51,9 +51,9 @@ private List<Expression> expressionsDtoH;
                      + translator.realisticTranslate(Translation._DATE), Locale.US);
       }
       
-      Collections.sort(this.expressionsDtoH, new ExpressionComparator(Language.GERMAN_TO_HEBREW));
+      Collections.sort(this.expressionsDtoH, new ExpressionComparator(LanguageDirection.GERMAN_TO_HEBREW));
       
-      Collections.sort(this.expressionsHtoD, new ExpressionComparator(Language.GERMAN_TO_HEBREW));
+      Collections.sort(this.expressionsHtoD, new ExpressionComparator(LanguageDirection.GERMAN_TO_HEBREW));
       
       this.model = model;
    }
@@ -86,7 +86,7 @@ private List<Expression> expressionsDtoH;
 	  
       for(Expression expression : expressionsHtoD)
       {
-        list.add(new ListImageRow(expression, Language.HEBREW_TO_GERMAN));
+        list.add(new ListImageRow(expression, LanguageDirection.HEBREW_TO_GERMAN));
       }
 
       return list;
@@ -100,7 +100,7 @@ private List<Expression> expressionsDtoH;
 		  
 	      for(Expression expression : expressionsDtoH)
 	      {
-	        list.add(new ListImageRow(expression, Language.GERMAN_TO_HEBREW));
+	        list.add(new ListImageRow(expression, LanguageDirection.GERMAN_TO_HEBREW));
 	      }
 
 	   return list;

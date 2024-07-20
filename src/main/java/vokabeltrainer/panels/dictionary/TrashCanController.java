@@ -9,7 +9,7 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class TrashCanController implements TrashCanControllerConnector
 {
@@ -17,7 +17,7 @@ public class TrashCanController implements TrashCanControllerConnector
    private DictionaryControllerConnector connector;
 
    public TrashCanController(DictionaryControllerConnector connector,
-         Language initialLanguage)
+         LanguageDirection initialLanguage)
    {
       this.connector = connector;
       trashCanDialog = new TrashCanDialog(this, initialLanguage);
@@ -37,7 +37,7 @@ public class TrashCanController implements TrashCanControllerConnector
    }
 
    @Override
-   public ExpressionTableModel loadTableModel(Language language)
+   public ExpressionTableModel loadTableModel(LanguageDirection language)
    {
       return Data.findTranslationsDeletedWords(language);
    }

@@ -26,7 +26,7 @@ import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.TrainingStatus;
 
@@ -54,7 +54,7 @@ public class SuccessHelper
    }
 
    static void addContent(Repetition repetition, JPanel panel,
-         Language direction)
+         LanguageDirection direction)
    {
       Translator translator = Common.getTranslator();
       panel.removeAll();
@@ -130,13 +130,13 @@ public class SuccessHelper
          for (Vector<SuccessTableRow> row : model.getData())
          {
             Expression expression = row.get(0).getExpression();
-            if (expression.isSelected() && Language.GERMAN_TO_HEBREW == direction)
+            if (expression.isSelected() && LanguageDirection.GERMAN_TO_HEBREW == direction)
             {
                expression.setTrainingStatusDToH(new TrainingStatus());
                expression.setSelected(false);
                rows.add(row);
             }
-            else if (expression.isSelected() && Language.HEBREW_TO_GERMAN == direction)
+            else if (expression.isSelected() && LanguageDirection.HEBREW_TO_GERMAN == direction)
             {
                expression.setTrainingStatusHToD(new TrainingStatus());
                expression.setSelected(false);

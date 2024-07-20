@@ -17,7 +17,7 @@ public enum SearchType
       this.meaning = meaning;
    }
 
-   public String getMeaning(Language language)
+   public String getMeaning(LanguageDirection language)
    {
       Translator translator = Common.getTranslator();
       switch (language)

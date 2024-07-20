@@ -3,11 +3,11 @@ package vokabeltrainer.panels.trainer;
 import java.util.List;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public interface TrainerControllerConnector
 {
-   public Language getLanguageDirection();
+   public LanguageDirection getLanguageDirection();
    public FieldOfTraining getFieldOfTraining();
    public List<Expression> getNewExpressions();
    public List<Expression> getOldExpressions();

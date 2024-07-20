@@ -17,15 +17,15 @@ import javax.swing.ListSelectionModel;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class ExpressionTable extends JTable
 {
    private static final long serialVersionUID = -9006217392935409400L;
-   private Language language;
+   private LanguageDirection language;
    private ExpressionTableModel model;
 
-   public ExpressionTable(ExpressionTableModel dm, Language language,
+   public ExpressionTable(ExpressionTableModel dm, LanguageDirection language,
          TableConnector connector, boolean editable)
    {
       super(dm, new ExpressionColumnModel(language));

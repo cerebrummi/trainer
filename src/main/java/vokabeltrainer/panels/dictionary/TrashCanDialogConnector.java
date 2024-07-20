@@ -1,6 +1,6 @@
 package vokabeltrainer.panels.dictionary;
 
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public interface TrashCanDialogConnector
 {
@@ -9,7 +9,7 @@ public interface TrashCanDialogConnector
 
    void tableValidateRepaint();
 
-   Language getSelectedLanguage();
+   LanguageDirection getSelectedLanguage();
 
    boolean isTableNotNull();
 

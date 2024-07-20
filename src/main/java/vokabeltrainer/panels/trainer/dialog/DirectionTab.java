@@ -19,7 +19,7 @@ import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class DirectionTab extends BackgroundPanelTiled
 {
@@ -28,6 +28,8 @@ public class DirectionTab extends BackgroundPanelTiled
    private ButtonGroup directionGroup;
    private JRadioButton germanToNikudButton;
    private JRadioButton hebrewToGermanButton;
+   private JRadioButton germanToSwedishButton;
+   private JRadioButton swedishToGermanButton;
    private JButton nextButton;
    private JButton cancelButton;
    
@@ -64,9 +66,24 @@ public class DirectionTab extends BackgroundPanelTiled
             + translator.realisticTranslate(Translation.DEUTSCH));
       hebrewToGermanButton.setFont(ApplicationFonts.getToolbarButtonFont());
       directionGroup.add(hebrewToGermanButton);
+      
+      germanToSwedishButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
+            + " >> "
+            + translator.realisticTranslate(Translation.SWEDISH));
+      germanToSwedishButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      directionGroup.add(germanToSwedishButton);
+      
+      swedishToGermanButton = new JRadioButton(translator.realisticTranslate(Translation.SWEDISH)
+            + " >> "
+            + translator.realisticTranslate(Translation.DEUTSCH));
+      swedishToGermanButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      directionGroup.add(swedishToGermanButton);
 
       vertical.add(germanToNikudButton);
+      vertical.add(germanToSwedishButton);
+      vertical.add(Box.createRigidArea(new Dimension(30, 30)));
       vertical.add(hebrewToGermanButton);
+      vertical.add(swedishToGermanButton);
       vertical.add(Box.createRigidArea(new Dimension(30, 30)));
 
       center.add(vertical);
@@ -90,13 +107,25 @@ public class DirectionTab extends BackgroundPanelTiled
       
       germanToNikudButton.addActionListener(event -> {
          removeTabsToTheRight(dialog);
-         dialog.setLanguageDirection(Language.GERMAN_TO_HEBREW);
+         dialog.setLanguageDirection(LanguageDirection.GERMAN_TO_HEBREW);
+         nextButton.setEnabled(true);
+      });
+      
+      germanToSwedishButton.addActionListener(event -> {
+         removeTabsToTheRight(dialog);
+         dialog.setLanguageDirection(LanguageDirection.GERMAN_TO_SWEDISH);
          nextButton.setEnabled(true);
       });
 
       hebrewToGermanButton.addActionListener(event -> {
          removeTabsToTheRight(dialog);
-         dialog.setLanguageDirection(Language.HEBREW_TO_GERMAN);
+         dialog.setLanguageDirection(LanguageDirection.HEBREW_TO_GERMAN);
+         nextButton.setEnabled(true);
+      });
+      
+      swedishToGermanButton.addActionListener(event -> {
+         removeTabsToTheRight(dialog);
+         dialog.setLanguageDirection(LanguageDirection.SWEDISH_TO_GERMAN);
          nextButton.setEnabled(true);
       });
 

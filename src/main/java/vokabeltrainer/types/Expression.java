@@ -553,10 +553,10 @@ public class Expression
       return joiner.toString();
    }
 
-   public String getCopyLines(Language language)
+   public String getCopyLines(LanguageDirection language)
    {
       StringJoiner joiner = new StringJoiner("\t");
-      if (Language.GERMAN_TO_HEBREW.equals(language))
+      if (LanguageDirection.GERMAN_TO_HEBREW.equals(language))
       {
          joiner.add(german);
          joiner.add(ll.toString());
@@ -594,13 +594,13 @@ public class Expression
       return joiner.toString();
    }
 
-   public String getTrainingPrintLine(Language languageDirection)
+   public String getTrainingPrintLine(LanguageDirection languageDirection)
    {
       DateTimeFormatter dateTimeFormatter = DateTimeFormatter
             .ofPattern("dd.MM.yyyy");
       StringJoiner joiner = new StringJoiner("\t");
       joiner.add(this.uuid.toString());
-      if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
+      if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          joiner.add(
                this.trainingStatusDToH.getNextDate().format(dateTimeFormatter));
@@ -617,9 +617,9 @@ public class Expression
       return joiner.toString();
    }
 
-   public TrainingStatus getTrainingStatus(Language languageDirection)
+   public TrainingStatus getTrainingStatus(LanguageDirection languageDirection)
    {
-      if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
+      if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          return this.getTrainingStatusDToH();
       }
@@ -640,9 +640,9 @@ public class Expression
       return joiner.toString();
    }
 
-   public String getWordGermanForStatistics(Language language)
+   public String getWordGermanForStatistics(LanguageDirection language)
    {
-      if (Language.GERMAN_TO_HEBREW.equals(language))
+      if (LanguageDirection.GERMAN_TO_HEBREW.equals(language))
       {
     	 if(this.getTrainingStatusDToH().getRepetition() == null)
     	 {

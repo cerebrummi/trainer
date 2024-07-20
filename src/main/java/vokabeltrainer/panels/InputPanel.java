@@ -41,7 +41,7 @@ import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.SortingType;
 
 public class InputPanel extends JPanel implements TableConnector
@@ -214,11 +214,11 @@ public class InputPanel extends JPanel implements TableConnector
    private void doShowTable()
    {
       ExpressionTableModel tableModel = Data.findTranslations(
-            Language.GERMAN_TO_HEBREW, null, null, null, currentChapter, null,
+            LanguageDirection.GERMAN_TO_HEBREW, null, null, null, currentChapter, null,
             SortingType.DATE);
       tablePanel.removeAll();
       ExpressionTable table = new ExpressionTable(tableModel,
-            Language.GERMAN_TO_HEBREW, this, true);
+            LanguageDirection.GERMAN_TO_HEBREW, this, true);
       JScrollPane tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);
       tableScroller.getViewport().setOpaque(false);

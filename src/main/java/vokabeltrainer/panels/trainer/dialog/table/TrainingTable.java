@@ -13,7 +13,7 @@ import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.TrainingStatus;
 
@@ -36,7 +36,7 @@ public class TrainingTable extends JTable
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
    }
 
-   public List<Expression> findNewExpressions(Language languageDirection, FieldOfTraining fieldOfTraining)
+   public List<Expression> findNewExpressions(LanguageDirection languageDirection, FieldOfTraining fieldOfTraining)
    {
       TrainingTableModel model = (TrainingTableModel) getModel();
 
@@ -72,7 +72,7 @@ public class TrainingTable extends JTable
    }
 
    private List<Expression> initTrainingStatus(Set<Expression> resultSet,
-         Language languageDirection)
+         LanguageDirection languageDirection)
    {
       List<Expression> list = new ArrayList<>(resultSet.size());
       switch (languageDirection)

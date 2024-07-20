@@ -3,13 +3,13 @@ package vokabeltrainer.table;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class ExpressionColumnModel extends DefaultTableColumnModel
 {
    private static final long serialVersionUID = 2275832088905828369L;
 
-   public ExpressionColumnModel(Language language)
+   public ExpressionColumnModel(LanguageDirection language)
    {
       TableColumn column = new TableColumn();
       column.setHeaderRenderer(null);

@@ -20,7 +20,7 @@ import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class StartTrainingView extends JDialog
 {
@@ -28,7 +28,7 @@ public class StartTrainingView extends JDialog
 
    private JPanel layout;
    private JTabbedPane tabbedPane;
-   private Language languageDirection;
+   private LanguageDirection languageDirection;
    private FieldOfTraining fieldOfTraining;
    private List<Expression> newExpressions;
    private List<Expression> oldExpressions;
@@ -70,12 +70,12 @@ public class StartTrainingView extends JDialog
       this.setVisible(false);
    }
 
-   public Language getLanguageDirection()
+   public LanguageDirection getLanguageDirection()
    {
       return languageDirection;
    }
 
-   public void setLanguageDirection(Language languageDirection)
+   public void setLanguageDirection(LanguageDirection languageDirection)
    {
       this.languageDirection = languageDirection;
    }

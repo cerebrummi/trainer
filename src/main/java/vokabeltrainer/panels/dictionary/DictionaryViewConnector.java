@@ -8,7 +8,7 @@ import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.SortingType;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
@@ -18,7 +18,7 @@ public interface DictionaryViewConnector
    public void loadChapters();
    public void unselectExpressionKind();
    public void selectTab(Tabulator caller);
-   public Language getSelectedLanguage();
+   public LanguageDirection getSelectedLanguage();
    public boolean isTableNotNull();
    public String getTableDataToString();
    public String getSelectedTableDataToString();

@@ -17,7 +17,7 @@ import vokabeltrainer.panels.success.table.SuccessTable;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.Repetition;
 
 public class LanguageTab extends JPanel
@@ -39,10 +39,10 @@ public class LanguageTab extends JPanel
    private JTabbedPane register;
 
    private JPanel infoPanel;
-   private Language languageDirection; 
+   private LanguageDirection languageDirection; 
    private Translator translator = Common.getTranslator();
 
-   public LanguageTab(JPanel infoPanel, Language languageDirection)
+   public LanguageTab(JPanel infoPanel, LanguageDirection languageDirection)
    {
       this.infoPanel = infoPanel;
       this.languageDirection = languageDirection;

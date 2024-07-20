@@ -16,6 +16,7 @@ public class Chapter implements Comparable<Chapter>
 {
    private String name = "";
    private DatabaseDescription databaseDescription = new DatabaseDescription();
+   private LLType llType = LLType.UNKOWN;
 
    public Chapter()
    {
@@ -38,6 +39,16 @@ public class Chapter implements Comparable<Chapter>
       databaseDescription.setDatabaseName(databaseName.strip());
       this.name = name;
       databaseDescription.setDatabase(origin);
+   }
+
+   public LLType getLlType()
+   {
+      return llType;
+   }
+
+   public void setLlType(LLType llType)
+   {
+      this.llType = llType;
    }
 
    public String getName()

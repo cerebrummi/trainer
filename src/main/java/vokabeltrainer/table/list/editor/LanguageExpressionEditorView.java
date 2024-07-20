@@ -29,6 +29,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -1022,6 +1023,32 @@ public class LanguageExpressionEditorView extends JDialog
       {
          language.setRedBorder();
          result = false;
+      }
+      for (Chapter c :Data.getChapterArray())
+      {
+         if(c.getName() == (String) chapter.getSelectedItem())
+         {
+            if((c.getLlType() == LLType.SWEDISH && language.getSelection() == Selection.SWEDISH)
+                  || (c.getLlType() == LLType.HEBREW && language.getSelection() == Selection.SIMPLE)
+                  || (c.getLlType() == LLType.HEBREW && language.getSelection() == Selection.PLENE_DEFEKTIV))
+            {
+               // okay
+            }
+            else
+            {
+               chapter.setBorder(makeBorderRed(this.chapterTitle));
+               if(language.getSelection() == Selection.SWEDISH)
+               {
+                  JOptionPane.showMessageDialog(Common.getjFrame(), "Der Lektionsname ist vergeben für Hebräisch!");
+               }
+               else
+               {
+                  JOptionPane.showMessageDialog(Common.getjFrame(), "Der Lektionsname ist vergeben für Schwedisch!");
+               }
+               result = false;
+            }
+            break;
+         }
       }
       return result;
    }

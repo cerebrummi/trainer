@@ -13,7 +13,7 @@ import vokabeltrainer.common.Common;
 import vokabeltrainer.common.ImageData;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class ListImageRow extends JPanel
 {
@@ -22,7 +22,7 @@ public class ListImageRow extends JPanel
 	private JButton imageButton;
 	private Expression expression;
 	
-	public ListImageRow(Expression expression, Language language) 
+	public ListImageRow(Expression expression, LanguageDirection language) 
 	{
 		setLayout(new FlowLayout());
 	    setOpaque(true);
@@ -35,13 +35,13 @@ public class ListImageRow extends JPanel
 	    {
 	    	add(imageButton);
 	    }
-	    if(Language.GERMAN_TO_HEBREW.equals(language))
+	    if(LanguageDirection.GERMAN_TO_HEBREW.equals(language))
 	    {
-	    	add(new JLabel(expression.getWordGermanForStatistics(Language.GERMAN_TO_HEBREW)));
+	    	add(new JLabel(expression.getWordGermanForStatistics(LanguageDirection.GERMAN_TO_HEBREW)));
 	    }
 	    else
 	    {
-	    	add(new JLabel(expression.getWordGermanForStatistics(Language.HEBREW_TO_GERMAN)));
+	    	add(new JLabel(expression.getWordGermanForStatistics(LanguageDirection.HEBREW_TO_GERMAN)));
 	    }
 	    
 	    initController();

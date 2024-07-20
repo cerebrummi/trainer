@@ -5,14 +5,14 @@ import java.util.List;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public interface TrashCanControllerConnector extends TableConnector
 {
 
    public DictionaryControllerConnector getDictionaryControllerConnector();
 
-   public ExpressionTableModel loadTableModel(Language language);
+   public ExpressionTableModel loadTableModel(LanguageDirection language);
 
    public void restoreSelectedExpressions(
          List<Expression> selectedExpressions);

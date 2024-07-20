@@ -27,7 +27,7 @@ import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
 {
@@ -36,7 +36,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    private JPanel layout;
    private ButtonGroup languageGroup;
    private ExpressionTable table;
-   private Language initialLanguage;
+   private LanguageDirection initialLanguage;
    private JPanel tablePanel;
    private JButton restoreButton;
    private JButton selectAllInTableButton;
@@ -45,7 +45,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    private TrashCanControllerConnector connector;
 
    public TrashCanDialog(TrashCanControllerConnector connector,
-         Language initialLanguage)
+         LanguageDirection initialLanguage)
    {
       super(Common.getjFrame(), "Papierkorb",
             Dialog.ModalityType.APPLICATION_MODAL);
@@ -98,7 +98,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
          horizontal1.add(button);
       }
 
-      selectAllInTableButton = new JButton("Tabelle auswählen");
+      selectAllInTableButton = new JButton("Tabelle auswï¿½hlen");
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       selectAllInTableButton.setFont(ApplicationFonts.getButtonFont());
       selectAllInTableButton
@@ -149,7 +149,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       else
       {
          table = new ExpressionTable(tableModel,
-               Language
+               LanguageDirection
                      .valueOf(languageGroup.getSelection().getActionCommand()),
                connector, false);
          JScrollPane scrollPane = new JScrollPane(table);
@@ -180,16 +180,16 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       Font font = ApplicationFonts.getGermanFont(20F);
 
       JRadioButton german = new JRadioButton("Deutsch");
-      german.setActionCommand(Language.GERMAN_TO_HEBREW.name());
+      german.setActionCommand(LanguageDirection.GERMAN_TO_HEBREW.name());
       german.setFont(font);
       languageTypeGroup.add(german);
 
-      JRadioButton hebrew = new JRadioButton("Hebräisch");
-      hebrew.setActionCommand(Language.HEBREW_TO_GERMAN.name());
+      JRadioButton hebrew = new JRadioButton("Hebrï¿½isch");
+      hebrew.setActionCommand(LanguageDirection.HEBREW_TO_GERMAN.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
 
-      if (Language.GERMAN_TO_HEBREW.equals(initialLanguage))
+      if (LanguageDirection.GERMAN_TO_HEBREW.equals(initialLanguage))
       {
          german.setSelected(true);
       }
@@ -213,9 +213,9 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    }
 
    @Override
-   public Language getSelectedLanguage()
+   public LanguageDirection getSelectedLanguage()
    {
-      return Language.valueOf(languageGroup.getSelection().getActionCommand());
+      return LanguageDirection.valueOf(languageGroup.getSelection().getActionCommand());
    }
 
    @Override

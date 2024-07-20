@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public final class SaveTraining
@@ -54,7 +54,7 @@ public final class SaveTraining
                }
             }
 
-            for (Language languageDirection : Language.values())
+            for (LanguageDirection languageDirection : LanguageDirection.values())
             {
                save(languageDirection);
                progress += 100 / ExpressionKind.values().length;
@@ -85,7 +85,7 @@ public final class SaveTraining
       return false;
    }
 
-   private void save(Language languageDirection) throws IOException
+   private void save(LanguageDirection languageDirection) throws IOException
    {
       File file = new File(Settings.getTrainingPath() + File.separator
             + languageDirection.name() + ".txt");

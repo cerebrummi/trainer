@@ -5,22 +5,22 @@ import java.util.Comparator;
 import java.util.Locale;
 
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.SortingType;
 
 public class ExpressionComparator implements Comparator<Expression>
 {
 
-   private Language language;
+   private LanguageDirection language;
    private SortingType sortingType;
    
-   public ExpressionComparator(Language language, SortingType sortingType)
+   public ExpressionComparator(LanguageDirection language, SortingType sortingType)
    {
       this.language = language;
       this.sortingType = sortingType;
    }
 
-   public ExpressionComparator(Language language)
+   public ExpressionComparator(LanguageDirection language)
    {
       this.language = language;
       this.sortingType = SortingType.ALPHABET;
@@ -64,7 +64,7 @@ public class ExpressionComparator implements Comparator<Expression>
          coll.setStrength(Collator.PRIMARY);
          return coll.compare(o1.getSortingIndex(), o2.getSortingIndex());
       default:
-         if (Language.GERMAN_TO_HEBREW.equals(language))
+         if (LanguageDirection.GERMAN_TO_HEBREW.equals(language))
          {
             Collator coll2 = Collator.getInstance(Locale.GERMAN);
             coll2.setStrength(Collator.PRIMARY);

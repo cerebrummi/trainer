@@ -31,12 +31,12 @@ import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
-import vokabeltrainer.types.Language;
+import vokabeltrainer.types.LanguageDirection;
 
 public class TrainerController implements TrainerControllerConnector
 {
    private TrainerView trainerView;
-   private Language languageDirection;
+   private LanguageDirection languageDirection;
    private FieldOfTraining fieldOfTraining;
    private List<Expression> newExpressions;
    private List<Expression> oldExpressions;
@@ -47,7 +47,7 @@ public class TrainerController implements TrainerControllerConnector
    private List<Expression> expressionsToBeTested;
    private Translator translator = Common.getTranslator();
 
-   public TrainerController(Language languageDirection,
+   public TrainerController(LanguageDirection languageDirection,
          FieldOfTraining fieldOfTraining, List<Expression> newExpressions,
          List<Expression> oldExpressions)
    {
@@ -75,7 +75,7 @@ public class TrainerController implements TrainerControllerConnector
       expressionsToBeTested.addAll(allExpressions);
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         if (languageDirection == Language.GERMAN_TO_HEBREW)
+         if (languageDirection == LanguageDirection.GERMAN_TO_HEBREW)
          {
             expressionsToBeTested.forEach(expression -> {
                expression.getTrainingStatusDToH().setTotalTrys(
@@ -112,7 +112,7 @@ public class TrainerController implements TrainerControllerConnector
       return trainerView;
    }
 
-   public Language getLanguageDirection()
+   public LanguageDirection getLanguageDirection()
    {
       return languageDirection;
    }
@@ -203,7 +203,7 @@ public class TrainerController implements TrainerControllerConnector
    {
       try
       {
-         if (Language.GERMAN_TO_HEBREW.equals(languageDirection))
+         if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
          {
             BestResult bestResult = NikudResultFactory.getBestResultPossible(
                   currentExpression,
