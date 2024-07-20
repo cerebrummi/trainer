@@ -1,30 +1,37 @@
 package vokabeltrainer.types.grammatical;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.LLType;
 
 public enum GrammaticalPerson implements GrammaticalEnum
 {
    PLEASE_CHOOSE(
-         Translation.BITTE_WAEHLEN),
+         Translation.BITTE_WAEHLEN, LLType.ALL),
    GRAMMATICALPERSON_UNKNOWN(
-         Translation.UNBEKANNT),
+         Translation.UNBEKANNT, LLType.ALL),
    ERSTE_PERSON(
-         Translation._1_PERSON),
+         Translation._1_PERSON, LLType.ALL),
    ZWEITE_PERSON(
-         Translation._2_PERSON),
+         Translation._2_PERSON, LLType.ALL),
    DRITTE_PERSON(
-         Translation._3_PERSON),
-   ALL_PERSON(Translation._1_2_3_PERSON),
+         Translation._3_PERSON, LLType.ALL),
+   ALL_PERSON(Translation._1_2_3_PERSON, LLType.ALL),
    GRAMMATICALPERSON_NA(
-         Translation.NICHT_ANWENDBAR);
+         Translation.NICHT_ANWENDBAR, LLType.ALL);
 
    private Translation description;
-
-   GrammaticalPerson(Translation description)
+   private LLType[] llType;
+   
+   GrammaticalPerson(Translation description, LLType[] llType)
    {
       this.description = description;
+      this.llType = llType;
    }
 
    @Override
@@ -93,5 +100,29 @@ public enum GrammaticalPerson implements GrammaticalEnum
    public GrammaticalEnum getUnkown()
    {
       return GrammaticalPerson.GRAMMATICALPERSON_UNKNOWN;
+   }
+   
+   public static GrammaticalPerson[] values(Expression expression)
+   {
+      LLType learningLanguageType = expression.getLL().getLltype();
+      return values(learningLanguageType);  
+   }
+
+   public static GrammaticalPerson[] values(LLType learningLanguageType)
+   {
+      List<GrammaticalPerson> list = new ArrayList<>();
+      for(GrammaticalPerson g: GrammaticalPerson.values())
+      {
+         innerloop:
+         for(LLType l : g.llType)
+         {
+            if(l == learningLanguageType)
+            {
+               list.add(g);
+               break innerloop;
+            }
+         }
+      }
+      return list.toArray(new GrammaticalPerson[0]);
    }
 }

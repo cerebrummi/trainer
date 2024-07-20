@@ -1,5 +1,6 @@
 package vokabeltrainer.types;
 
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.LetterHelper;
 
 public class LearningLanguage
@@ -9,11 +10,20 @@ public class LearningLanguage
    private String hebrewPlene = "";
    private String hebrewDefektiv = "";
    private String swedish = "";
-   private LLType lltype = LLType.UNKOWN;
+   private LLType lltype;
 
    public LearningLanguage()
    {
-      
+      switch (Settings.getLanguageInput())
+      {
+      case PLENE_DEFEKTIV:
+      case SIMPLE:
+         this.lltype = LLType.HEBREW;
+         break;
+      case SWEDISH:
+         this.lltype = LLType.SWEDISH;
+         break;
+      }
    }
 
    public LearningLanguage(String hebrew, String hebrewPlene, String hebrewDefektiv,
@@ -26,7 +36,6 @@ public class LearningLanguage
       this.swedish = swedish;
       if(!this.swedish.isBlank())
       {
-         System.out.println("LearningLanguage 29 SWEDISCH!!!");
          this.lltype = LLType.SWEDISH;
       }
       else

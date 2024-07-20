@@ -379,7 +379,9 @@ public enum Translation {
 	GRUPPE_1("Gruppe 1", "group 1"),
 	GRUPPE_2("Gruppe 2", "group 2"),
 	GRUPPE_3("Gruppe 3", "group 3"),
-	GRUPPE_4("Gruppe 4", "group 4");
+	GRUPPE_4("Gruppe 4", "group 4"), 
+	PLURAL_SPECIFIC("Plural bestimmt", "plural specific"),
+	PLURAL_INDEFINITE("Plural unbestimmt", "plural indefinite");
 
 	private String german;
 	private String english;

@@ -142,15 +142,16 @@ public class DictionaryView extends BackgroundPanelTiled
       horizontalLanguagePanel = new JPanel();
       horizontalLanguagePanel
             .setLayout(new TrainLayout(horizontalLanguagePanel, 15));
-      horizontalLanguagePanel.setOpaque(false);
-      horizontalLanguagePanel
-            .setBorder(BorderFactory.createEmptyBorder(15, 15, 0, 15));
+      horizontalLanguagePanel.setBackground(ApplicationColors.getShadyBlue());
+      horizontalLanguagePanel.setBorder(BorderFactory.createTitledBorder(
+             "Sprachen"));
       languageGroup = new ButtonGroup();
       initLanguageButtonGroup(languageGroup);
       Enumeration<AbstractButton> enumeration1 = languageGroup.getElements();
       while (enumeration1.hasMoreElements())
       {
          AbstractButton button = enumeration1.nextElement();
+         button.setForeground(ApplicationColors.getSunflowerYellow());
          button.setMinimumSize(new Dimension(90, 30));
          button.setMaximumSize(new Dimension(120, 60));
          button.addActionListener(event -> this.connector

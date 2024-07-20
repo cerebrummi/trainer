@@ -68,6 +68,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.LLType;
 import vokabeltrainer.types.LearningLanguage;
 import vokabeltrainer.types.SortingIndex;
 import vokabeltrainer.types.grammatical.Binjan;
@@ -474,12 +475,8 @@ public class LanguageExpressionEditorView extends JDialog
       expressionKindTable = new ExpressionKindTableMultiselect(
             ExpressionKind.getModelForMultiselect(), WIDTH_INFO_PANEL, this);
 
-      binjanBox = new JComboBox<>(Binjan.values());
-      binjanBox.setFont(ApplicationFonts.getComboBoxFont());
-      binjanBox.setEditable(false);
-      binjanBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      binjanBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      binjanBox.setMaximumRowCount(Binjan.values().length);
+      makeAllBoxes();
+
       binjanBoxPanel = new JPanel();
       TotemLayout binjanLayout = new TotemLayout(binjanBoxPanel);
       binjanBoxPanel.setLayout(binjanLayout);
@@ -489,12 +486,6 @@ public class LanguageExpressionEditorView extends JDialog
       binjanBoxPanel.setBorder(new TitledBorder(
             translator.realisticTranslate(Translation.BINJAN___STAMM)));
 
-      genderBox = new JComboBox<>(Gender.values());
-      genderBox.setFont(ApplicationFonts.getComboBoxFont());
-      genderBox.setEditable(false);
-      genderBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      genderBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      genderBox.setMaximumRowCount(Gender.values().length);
       genderBoxPanel = new JPanel();
       TotemLayout genderLayout = new TotemLayout(genderBoxPanel);
       genderBoxPanel.setLayout(genderLayout);
@@ -504,15 +495,6 @@ public class LanguageExpressionEditorView extends JDialog
       genderBoxPanel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.GESCHLECHT)));
 
-      grammaticalPersonBox = new JComboBox<>(GrammaticalPerson.values());
-      grammaticalPersonBox.setFont(ApplicationFonts.getComboBoxFont());
-      grammaticalPersonBox.setEditable(false);
-      grammaticalPersonBox
-            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      grammaticalPersonBox
-            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      grammaticalPersonBox
-            .setMaximumRowCount(GrammaticalPerson.values().length);
       grammaticalPersonBoxPanel = new JPanel();
       TotemLayout grammaticalPersonLayout = new TotemLayout(
             grammaticalPersonBoxPanel);
@@ -524,13 +506,6 @@ public class LanguageExpressionEditorView extends JDialog
       grammaticalPersonBoxPanel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.GRAMMATISCHE_PERSON)));
 
-      numerusBox = new JComboBox<>(Numerus.values());
-      numerusBox.setFont(ApplicationFonts.getComboBoxFont());
-
-      numerusBox.setEditable(false);
-      numerusBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      numerusBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      numerusBox.setMaximumRowCount(Numerus.values().length);
       numerusBoxPanel = new JPanel();
       TotemLayout numerusLayout = new TotemLayout(numerusBoxPanel);
       numerusBoxPanel.setLayout(numerusLayout);
@@ -540,12 +515,6 @@ public class LanguageExpressionEditorView extends JDialog
       numerusBoxPanel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.NUMERUS)));
 
-      verbTimesBox = new JComboBox<>(VerbTimes.values());
-      verbTimesBox.setFont(ApplicationFonts.getComboBoxFont());
-      verbTimesBox.setEditable(false);
-      verbTimesBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbTimesBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbTimesBox.setMaximumRowCount(VerbTimes.values().length);
       verbTimesBoxPanel = new JPanel();
       TotemLayout verbConjugationLayout = new TotemLayout(verbTimesBoxPanel);
       verbTimesBoxPanel.setLayout(verbConjugationLayout);
@@ -556,6 +525,161 @@ public class LanguageExpressionEditorView extends JDialog
             translator.realisticTranslate(Translation.ZEITFORM)));
 
       keyboard = new KeyboardLanguage(language, components, 152, true, false);
+   }
+
+   private void makeAllBoxes()
+   {
+      switch (Settings.getLanguageInput())
+      {
+      case PLENE_DEFEKTIV:
+      case SIMPLE:
+         makeAllBoxes(LLType.HEBREW);
+         break;
+      case SWEDISH:
+         makeAllBoxes(LLType.SWEDISH);
+         break;
+      }
+   }
+
+   private void makeAllBoxes(LLType llType)
+   {
+      makeVerbTimesBox(VerbTimes.values(llType));
+      makeNumerusBox(Numerus.values(llType));
+      makeGrammaticalPersonBox(GrammaticalPerson.values(llType));
+      makeGenderBox(Gender.values(llType));
+      makeBinjanBox(Binjan.values(llType));
+   }
+
+   private void makeVerbTimesBox(VerbTimes[] values)
+   {
+      verbTimesBox = new JComboBox<>(values);
+      verbTimesBox.setFont(ApplicationFonts.getComboBoxFont());
+      verbTimesBox.setEditable(false);
+      verbTimesBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      verbTimesBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      verbTimesBox.setMaximumRowCount(VerbTimes.values().length);
+   }
+
+   private void makeNumerusBox(Numerus[] values)
+   {
+      numerusBox = new JComboBox<>(values);
+      numerusBox.setFont(ApplicationFonts.getComboBoxFont());
+      numerusBox.setEditable(false);
+      numerusBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      numerusBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      numerusBox.setMaximumRowCount(Numerus.values().length);
+   }
+
+   private void makeGrammaticalPersonBox(GrammaticalPerson[] values)
+   {
+      grammaticalPersonBox = new JComboBox<>(values);
+      grammaticalPersonBox.setFont(ApplicationFonts.getComboBoxFont());
+      grammaticalPersonBox.setEditable(false);
+      grammaticalPersonBox
+            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      grammaticalPersonBox
+            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      grammaticalPersonBox
+            .setMaximumRowCount(GrammaticalPerson.values().length);
+   }
+
+   private void makeGenderBox(Gender[] values)
+   {
+      genderBox = new JComboBox<>(values);
+      genderBox.setFont(ApplicationFonts.getComboBoxFont());
+      genderBox.setEditable(false);
+      genderBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      genderBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      genderBox.setMaximumRowCount(Gender.values().length);
+   }
+
+   private void makeBinjanBox(Binjan[] values)
+   {
+      binjanBox = new JComboBox<>(values);
+      binjanBox.setFont(ApplicationFonts.getComboBoxFont());
+      binjanBox.setEditable(false);
+      binjanBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      binjanBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      binjanBox.setMaximumRowCount(Binjan.values().length);
+   }
+   
+   private void remakeAllBoxes(Expression expression)
+   {
+      remakeVerbTimesBox(VerbTimes.values(expression));
+      remakeNumerusBox(Numerus.values(expression));
+      remakeGrammaticalPersonBox(GrammaticalPerson.values(expression));
+      remakeGenderBox(Gender.values(expression));
+      remakeBinjanBox(Binjan.values(expression));
+   }
+   
+   public void remakeAllBoxes(LLType llType)
+   {
+      remakeVerbTimesBox(VerbTimes.values(llType));
+      remakeNumerusBox(Numerus.values(llType));
+      remakeGrammaticalPersonBox(GrammaticalPerson.values(llType));
+      remakeGenderBox(Gender.values(llType));
+      remakeBinjanBox(Binjan.values(llType));
+   }
+   
+   private void remakeVerbTimesBox(VerbTimes[] values)
+   {
+      verbTimesBox.removeAllItems();
+      for(VerbTimes verbTimes : values)
+      {
+         verbTimesBox.addItem(verbTimes);
+      }
+      verbTimesBox.setMaximumRowCount(values.length);
+      verbTimesBox.validate();
+      verbTimesBox.repaint();
+   }
+
+   private void remakeNumerusBox(Numerus[] values)
+   {
+      numerusBox.removeAllItems();
+      for(Numerus numerus : values)
+      {
+         numerusBox.addItem(numerus);
+      }
+      numerusBox.setMaximumRowCount(values.length);
+      numerusBox.validate();
+      numerusBox.repaint();
+   }
+
+   private void remakeGrammaticalPersonBox(GrammaticalPerson[] values)
+   {
+      grammaticalPersonBox.removeAllItems();
+      for(GrammaticalPerson person : values)
+      {
+         grammaticalPersonBox.addItem(person);
+      }
+      grammaticalPersonBox
+            .setMaximumRowCount(values.length);
+      grammaticalPersonBox.validate();
+      grammaticalPersonBox.repaint();
+   }
+
+   private void remakeGenderBox(Gender[] values)
+   {
+      genderBox.removeAllItems();
+      for(Gender gender : values)
+      {
+         genderBox.addItem(gender);
+      }
+      genderBox.setMaximumRowCount(values.length);
+      genderBox.validate();
+      genderBox.repaint();
+   }
+
+   private void remakeBinjanBox(Binjan[] values)
+   {
+      binjanBox.removeAllItems();
+      for(Binjan binjan : values)
+      {
+         binjanBox.addItem(binjan);
+      }
+      binjanBox.setMaximumRowCount(values.length);
+      binjanBox.validate();
+      binjanBox.repaint();
    }
 
    private TitledBorder makeBorderBlank(String title)
@@ -906,11 +1030,12 @@ public class LanguageExpressionEditorView extends JDialog
    {
       expression.setGerman(cleanTextLeaveComma(german.getText()));
 
-      expression.setLearningLanguage(
-            new LearningLanguage(cleanTextLeaveComma(language.getHebrewFieldText()),
-                  cleanTextLeaveComma(language.getPleneFieldText()),
-                  cleanTextLeaveComma(language.getDefektivFieldText()),
-                  language.isSimple(), cleanTextLeaveComma(language.getSwedishFieldText())));
+      expression.setLearningLanguage(new LearningLanguage(
+            cleanTextLeaveComma(language.getHebrewFieldText()),
+            cleanTextLeaveComma(language.getPleneFieldText()),
+            cleanTextLeaveComma(language.getDefektivFieldText()),
+            language.isSimple(),
+            cleanTextLeaveComma(language.getSwedishFieldText())));
 
       expression.setLetterForSaving(LetterForSaving
             .getLetter(cleanTextLeaveComma(expression.getGerman())));
@@ -1010,12 +1135,33 @@ public class LanguageExpressionEditorView extends JDialog
       setExpression(this.expression, this.newExpression);
    }
 
-   
    public void setExpression(Expression expression, boolean newExpression)
    {
       this.save = false;
       this.expression = expression;
       this.newExpression = newExpression;
+      this.language.setEditorView(this);
+      if (!newExpression)
+      {
+         this.remakeAllBoxes(expression);
+         if (expression.getLL().isSwedish())
+         {
+            this.keyboard.setKeyboard(Selection.SWEDISH);
+            this.language.setSwedishFieldText(expression.getLL().getSwedish());
+         }
+         else if (expression.getLL().isPleneDefektiv())
+         {
+            this.keyboard.setKeyboard(Selection.PLENE_DEFEKTIV);
+            this.language.setPleneFieldText(expression.getLL().getHebrewPlene());
+            this.language
+                  .setDefektivFieldText(expression.getLL().getHebrewDefektiv());
+         }
+         else if (expression.getLL().isSimpleHebrew())
+         {
+            this.keyboard.setKeyboard(Selection.SIMPLE);
+            this.language.setHebrewFieldText(expression.getLL().getHebrew());
+         }
+      }
 
       this.chapter.setModel(Data.getChapterComboBoxModel());
       if (newExpression)
@@ -1030,26 +1176,6 @@ public class LanguageExpressionEditorView extends JDialog
       this.indexField.setText(expression.getSortingIndex());
 
       this.german.setText(expression.getGerman());
-
-      if(expression.getLL().isSwedish())
-      {
-         this.keyboard.setKeyboard(Selection.SWEDISH);
-         this.language.setSwedishFieldText(expression.getLL().getSwedish());
-      }
-      else if(expression.getLL().isPleneDefektiv())
-      {
-         this.keyboard.setKeyboard(Selection.PLENE_DEFEKTIV);
-         this.language
-               .setPleneFieldText(expression.getLL().getHebrewPlene());
-         this.language.setDefektivFieldText(
-               expression.getLL().getHebrewDefektiv());
-      }
-      else
-         if (expression.getLL().isSimpleHebrew())
-         {
-            this.keyboard.setKeyboard(Selection.SIMPLE);
-            this.language.setHebrewFieldText(expression.getLL().getHebrew());
-         }
 
       this.searchwordsSetGerman = new HashSet<>();
       for (String word : expression.getSearchwordsGerman())
@@ -1096,6 +1222,7 @@ public class LanguageExpressionEditorView extends JDialog
                   definitions.getGrammaticalEnum(kind, Numerus.class));
             verbTimesBox.setSelectedItem(
                   definitions.getGrammaticalEnum(kind, VerbTimes.class));
+            
             showGrammaticalParentEnums(
                   ExpressionKind.getSetOfGrammaticalParentEnums(kinds));
 

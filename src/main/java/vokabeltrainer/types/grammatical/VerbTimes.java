@@ -1,38 +1,45 @@
 package vokabeltrainer.types.grammatical;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.LLType;
 
 public enum VerbTimes
       implements
       GrammaticalEnum
 {
    PLEASE_CHOOSE(
-         Translation.BITTE_WAEHLEN),
+         Translation.BITTE_WAEHLEN, LLType.ALL),
    VERBTIMES_UNKNOWN(
-         Translation.UNBEKANNT),
+         Translation.UNBEKANNT, LLType.ALL),
    ROOT(
-         Translation.WURZEL),
+         Translation.WURZEL, LLType.HEBREW_ONLY),
    INFINITIVE(
-         Translation.INFINITIV),
+         Translation.INFINITIV, LLType.ALL),
    PAST(
-         Translation.VERGANGENHEIT),
+         Translation.VERGANGENHEIT, LLType.ALL),
    PRESENT(
-         Translation.GEGENWART),
+         Translation.GEGENWART, LLType.ALL),
    FUTURE(
-         Translation.ZUKUNFT),
-   SUPINUM(Translation.SUPINUM),
+         Translation.ZUKUNFT, LLType.ALL),
+   SUPINUM(Translation.SUPINUM, LLType.SWEDISH_ONLY),
    IMPERARTIVE(
-         Translation.BEFEHLSFORM),
+         Translation.BEFEHLSFORM, LLType.ALL),
    VERBTIMES_NA(
-         Translation.NICHT_ANWENDBAR);
+         Translation.NICHT_ANWENDBAR, LLType.ALL);
 
    private Translation description;
+   private LLType[] llType;
 
-   VerbTimes(Translation description)
+   VerbTimes(Translation description, LLType[] llType)
    {
       this.description = description;
+      this.llType = llType;
    }
 
    @Override
@@ -107,5 +114,29 @@ public enum VerbTimes
    public GrammaticalEnum getUnkown()
    {
       return VerbTimes.VERBTIMES_UNKNOWN;
+   }
+   
+   public static VerbTimes[] values(Expression expression)
+   {
+      LLType learningLanguageType = expression.getLL().getLltype();
+      return values(learningLanguageType);  
+   }
+
+   public static VerbTimes[] values(LLType learningLanguageType)
+   {
+      List<VerbTimes> list = new ArrayList<>();
+      for(VerbTimes v: VerbTimes.values())
+      {
+         innerloop:
+         for(LLType l : v.llType)
+         {
+            if(l == learningLanguageType)
+            {
+               list.add(v);
+               break innerloop;
+            }
+         }
+      }
+      return list.toArray(new VerbTimes[0]);
    }
 }

@@ -1,43 +1,50 @@
 package vokabeltrainer.types.grammatical;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.LLType;
 
 public enum Binjan
       implements
       GrammaticalEnum
 {
    PLEASE_CHOOSE(
-         Translation.BITTE_WAEHLEN),
+         Translation.BITTE_WAEHLEN, LLType.ALL),
    BINJAN_UNKNOWN(
-         Translation.UNBEKANNT),
-   GRUPPE_1(Translation.GRUPPE_1),
-   GRUPPE_2(Translation.GRUPPE_2),
-   GRUPPE_3(Translation.GRUPPE_3),
-   GRUPPE_4(Translation.GRUPPE_4),
+         Translation.UNBEKANNT, LLType.ALL),
+   GRUPPE_1(Translation.GRUPPE_1, LLType.SWEDISH_ONLY),
+   GRUPPE_2(Translation.GRUPPE_2, LLType.SWEDISH_ONLY),
+   GRUPPE_3(Translation.GRUPPE_3, LLType.SWEDISH_ONLY),
+   GRUPPE_4(Translation.GRUPPE_4, LLType.SWEDISH_ONLY),
    PAAL(
-         Translation.PA_AL___QAL),
+         Translation.PA_AL___QAL, LLType.HEBREW_ONLY),
    NIFAL(
-         Translation.NIF_AL),
+         Translation.NIF_AL, LLType.HEBREW_ONLY),
    HIFIL(
-         Translation.HIF_IL),
+         Translation.HIF_IL, LLType.HEBREW_ONLY),
    HUFAL(
-         Translation.HUF_AL___HOFAL),
+         Translation.HUF_AL___HOFAL, LLType.HEBREW_ONLY),
    PIEL(
-         Translation.PI_EL),
+         Translation.PI_EL, LLType.HEBREW_ONLY),
    PUAL(
-         Translation.PU_AL),
+         Translation.PU_AL, LLType.HEBREW_ONLY),
    HITPAEL(
-         Translation.HITPA_EL),
+         Translation.HITPA_EL, LLType.HEBREW_ONLY),
    BINJAN_NA(
-         Translation.NICHT_ANWENDBAR);
+         Translation.NICHT_ANWENDBAR, LLType.ALL);
 
    private Translation description;
+   private LLType[] llType;
 
-   Binjan(Translation description)
+   Binjan(Translation description, LLType[] lltype)
    {
       this.description = description;
+      this.llType = lltype;
    }
 
    @Override
@@ -120,5 +127,29 @@ public enum Binjan
    public GrammaticalEnum getUnkown()
    {
       return Binjan.BINJAN_UNKNOWN;
+   }
+   
+   public static Binjan[] values(Expression expression)
+   {
+      LLType learningLanguageType = expression.getLL().getLltype();
+      return values(learningLanguageType);  
+   }
+
+   public static Binjan[] values(LLType learningLanguageType)
+   {
+      List<Binjan> list = new ArrayList<>();
+      for(Binjan b: Binjan.values())
+      {
+         innerloop:
+         for(LLType l : b.llType)
+         {
+            if(l == learningLanguageType)
+            {
+               list.add(b);
+               break innerloop;
+            }
+         }
+      }
+      return list.toArray(new Binjan[0]);
    }
 }

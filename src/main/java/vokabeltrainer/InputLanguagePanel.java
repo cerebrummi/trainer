@@ -40,8 +40,10 @@ import vokabeltrainer.editing.SwedishDocument;
 import vokabeltrainer.keyboards.KeyboardLanguage;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.table.list.editor.LanguageExpressionEditorView;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
+import vokabeltrainer.types.LLType;
 
 public class InputLanguagePanel extends JTextArea
 {
@@ -71,10 +73,17 @@ public class InputLanguagePanel extends JTextArea
    private Color color;
 
    private KeyboardLanguage keyboard;
+   
+   private LanguageExpressionEditorView editorView;
 
    public void setKeyboard(KeyboardLanguage keyboard)
    {
       this.keyboard = keyboard;
+   }
+   
+   public void setEditorView(LanguageExpressionEditorView editorView)
+   {
+      this.editorView = editorView;
    }
 
    public enum Selection
@@ -451,17 +460,20 @@ public class InputLanguagePanel extends JTextArea
          selection = Selection.PLENE_DEFEKTIV;
          layout.show(cards, Selection.PLENE_DEFEKTIV.name());
          this.hebrewField.setText("");
+         // is already hebrew
          break;
       case PLENE_DEFEKTIV:
          selection = Selection.SWEDISH;
          layout.show(cards, Selection.SWEDISH.name());
          this.pleneField.setText("");
          this.defektivField.setText("");
+         if(editorView != null) editorView.remakeAllBoxes(LLType.SWEDISH);
          break;
       case SWEDISH:
          selection = Selection.SIMPLE;
          layout.show(cards, Selection.SIMPLE.name());
          this.swedishField.setText("");
+         if(editorView != null) editorView.remakeAllBoxes(LLType.HEBREW);
          break;
       }
 
