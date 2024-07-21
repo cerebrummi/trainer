@@ -52,18 +52,18 @@ public class ExpressionKindTableMultiselect extends JTable
             JTable table = (JTable) mouseEvent.getSource();
             Point point = mouseEvent.getPoint();
             int row = table.rowAtPoint(point);
-            if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1
+            if (mouseEvent.getClickCount() == 2 && row != -1
                   && row == table.getSelectedRow())
             {
                ExpressionKindTableRow tableRow = ((ExpressionKindTableRow) table
-                     .getValueAt(table.getSelectedRow(), 0));
+                     .getValueAt(row, 0));
 
                ExpressionKindItem expressionKind = tableRow.getExpressionKindItem();
 
                expressionKind.toggleSelected();
 
                ((ExpressionKindTableModel) table.getModel())
-                     .fireTableCellUpdated(table.getSelectedRow(), 0);
+                     .fireTableCellUpdated(row, 0);
 
                new SwingWorker<Void, Void>()
                {

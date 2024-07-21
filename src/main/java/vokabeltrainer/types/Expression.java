@@ -24,8 +24,8 @@ public class Expression
    private LearningLanguage ll = new LearningLanguage();
    private List<String> searchwordsGerman = new ArrayList<>();
    private List<String> searchwordsHebrew = new ArrayList<>();
-   private TrainingStatus trainingStatusDToH = new TrainingStatus();
-   private TrainingStatus trainingStatusHToD = new TrainingStatus();
+   private TrainingStatus trainingStatusDToLL = new TrainingStatus();
+   private TrainingStatus trainingStatusLLToD = new TrainingStatus();
    private Chapter chapter;
    private boolean selected;
    private boolean doNotChange;
@@ -135,22 +135,22 @@ public class Expression
 
    public TrainingStatus getTrainingStatusDToH()
    {
-      return trainingStatusDToH;
+      return trainingStatusDToLL;
    }
 
    public void setTrainingStatusDToH(TrainingStatus trainingStatusDToH)
    {
-      this.trainingStatusDToH = trainingStatusDToH;
+      this.trainingStatusDToLL = trainingStatusDToH;
    }
 
    public TrainingStatus getTrainingStatusHToD()
    {
-      return trainingStatusHToD;
+      return trainingStatusLLToD;
    }
 
    public void setTrainingStatusHToD(TrainingStatus trainingStatusHToD)
    {
-      this.trainingStatusHToD = trainingStatusHToD;
+      this.trainingStatusLLToD = trainingStatusHToD;
    }
 
    public TemporaryTrainingStatus getTemporaryTrainingStatus() 
@@ -506,6 +506,12 @@ public class Expression
       joiner.add(lastModified.toString());
       joiner.add(sortingIndex);
       joiner.add(level.toString());
+      
+      if(joiner.toString().length()< 10)
+      {
+         System.out.println(joiner.toString());
+      }
+      
       return joiner.toString();
    }
 
@@ -530,6 +536,10 @@ public class Expression
       joiner.add(getSearchWordsHebrewForSaving());
       joiner.add(lastModified.toString());
       joiner.add(sortingIndex);
+      if(joiner.toString().length()< 10)
+      {
+         System.out.println(joiner.toString());
+      }
       return joiner.toString();
    }
 
@@ -603,16 +613,16 @@ public class Expression
       if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          joiner.add(
-               this.trainingStatusDToH.getNextDate().format(dateTimeFormatter));
-         joiner.add(this.trainingStatusDToH.getRepetition().name());
-         joiner.add(String.valueOf(this.trainingStatusDToH.getTrys()));
+               this.trainingStatusDToLL.getNextDate().format(dateTimeFormatter));
+         joiner.add(this.trainingStatusDToLL.getRepetition().name());
+         joiner.add(String.valueOf(this.trainingStatusDToLL.getTrys()));
       }
       else
       {
          joiner.add(
-               this.trainingStatusHToD.getNextDate().format(dateTimeFormatter));
-         joiner.add(this.trainingStatusHToD.getRepetition().name());
-         joiner.add(String.valueOf(this.trainingStatusHToD.getTrys()));
+               this.trainingStatusLLToD.getNextDate().format(dateTimeFormatter));
+         joiner.add(this.trainingStatusLLToD.getRepetition().name());
+         joiner.add(String.valueOf(this.trainingStatusLLToD.getTrys()));
       }
       return joiner.toString();
    }

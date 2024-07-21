@@ -328,7 +328,7 @@ public class KeyboardSwedishStandard extends JPanel
       row5.add(dataButtons.get(SwedishLetter.a));
       row5.add(dataButtons.get(SwedishLetter.s));
       row5.add(dataButtons.get(SwedishLetter.d));
-      row5.add(dataButtons.get(SwedishLetter.e));
+      row5.add(dataButtons.get(SwedishLetter.f));
       row5.add(dataButtons.get(SwedishLetter.g));
       row5.add(dataButtons.get(SwedishLetter.h));
       row5.add(dataButtons.get(SwedishLetter.j));

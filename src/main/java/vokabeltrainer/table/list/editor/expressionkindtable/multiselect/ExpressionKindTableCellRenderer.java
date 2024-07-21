@@ -103,32 +103,11 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
             table.setValueAt(rowValue, i, 1);
          }
       }
-      else if(row >  0 && expressionKind.isSelected() && expressionKind.getKind().equals(ExpressionKind.TEXT))
-      {
-    	  for (int i = 0; i < table.getRowCount(); i++)
-          {
-             ExpressionKindTableRow rowValue = (ExpressionKindTableRow) table.getValueAt(i, 1);
-             if(!rowValue.getExpressionKindItem().getKind().equals(ExpressionKind.TEXT))
-             {
-            	 rowValue.getExpressionKindItem().setSelected(false);
-             }
-             table.setValueAt(rowValue, i, 1);
-          }
-      }
       else if(row >  0 && expressionKind.isSelected())
       {
          ExpressionKindTableRow rowValue = (ExpressionKindTableRow) table.getValueAt(0, 1);
          rowValue.getExpressionKindItem().setSelected(false);
          table.setValueAt(rowValue, 0, 1);
-         for (int i = 0; i < table.getRowCount(); i++)
-         {
-            rowValue = (ExpressionKindTableRow) table.getValueAt(i, 1);
-            if(rowValue.getExpressionKindItem().getKind().equals(ExpressionKind.TEXT))
-            {
-           	 rowValue.getExpressionKindItem().setSelected(false);
-            }
-            table.setValueAt(rowValue, i, 1);
-         }
       }
       
       if (column == 0)
