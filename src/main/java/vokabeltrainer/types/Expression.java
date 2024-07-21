@@ -133,22 +133,22 @@ public class Expression
       this.searchwordsHebrew = searchwordsHebrew;
    }
 
-   public TrainingStatus getTrainingStatusDToH()
+   public TrainingStatus getTrainingStatusDToLL()
    {
       return trainingStatusDToLL;
    }
 
-   public void setTrainingStatusDToH(TrainingStatus trainingStatusDToH)
+   public void setTrainingStatusDToLL(TrainingStatus trainingStatusDToH)
    {
       this.trainingStatusDToLL = trainingStatusDToH;
    }
 
-   public TrainingStatus getTrainingStatusHToD()
+   public TrainingStatus getTrainingStatusLLToD()
    {
       return trainingStatusLLToD;
    }
 
-   public void setTrainingStatusHToD(TrainingStatus trainingStatusHToD)
+   public void setTrainingStatusLLToD(TrainingStatus trainingStatusHToD)
    {
       this.trainingStatusLLToD = trainingStatusHToD;
    }
@@ -631,9 +631,9 @@ public class Expression
    {
       if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
       {
-         return this.getTrainingStatusDToH();
+         return this.getTrainingStatusDToLL();
       }
-      return this.getTrainingStatusHToD();
+      return this.getTrainingStatusLLToD();
    }
 
    public String getAdditionalInfoGermanForStatistics()
@@ -654,22 +654,22 @@ public class Expression
    {
       if (LanguageDirection.GERMAN_TO_HEBREW.equals(language))
       {
-    	 if(this.getTrainingStatusDToH().getRepetition() == null)
+    	 if(this.getTrainingStatusDToLL().getRepetition() == null)
     	 {
     		  return "Fehler bei " + german;
     	 }
     	 
-         return german + "   [" + this.getTrainingStatusDToH().getTrys() + " "
+         return german + "   [" + this.getTrainingStatusDToLL().getTrys() + " "
                + translator.realisticTranslate(Translation.MAL) + " "
-               + this.getTrainingStatusDToH().getRepetition().getTranslation()
+               + this.getTrainingStatusDToLL().getRepetition().getTranslation()
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }
       else
       {
-         return german + "   [" + this.getTrainingStatusHToD().getTrys() + " "
+         return german + "   [" + this.getTrainingStatusLLToD().getTrys() + " "
                + translator.realisticTranslate(Translation.MAL) + " "
-               + this.getTrainingStatusHToD().getRepetition().getTranslation()
+               + this.getTrainingStatusLLToD().getRepetition().getTranslation()
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }

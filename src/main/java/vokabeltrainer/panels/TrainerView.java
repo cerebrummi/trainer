@@ -43,7 +43,9 @@ import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
+import vokabeltrainer.editing.SwedishDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewAllLetters;
+import vokabeltrainer.keyboards.KeyboardSwedishStandard;
 import vokabeltrainer.keyboards.OneFocusTraversalPolicy;
 import vokabeltrainer.panels.letterpicture.LetterPictureWordPanel;
 import vokabeltrainer.panels.trainer.HebrewAnswerWordPanel;
@@ -74,7 +76,7 @@ public class TrainerView extends BackgroundPanelTiled
    private CardLayout cardLayout;
    private JPanel questionPanel;
    private JTextField questionFieldGerman;
-   private InputLanguagePanel questionFieldHebrew;
+   private InputLanguagePanel questionFieldLL;
    private JTextPane grammarInfoField;
    private JTextPane additionalInfoField;
    private InfoTextField answerField;
@@ -97,6 +99,7 @@ public class TrainerView extends BackgroundPanelTiled
    private JButton stopTrainingButton;
    private JButton soundButton;
    private KeyboardHebrewAllLetters keyboardNikud;
+   private KeyboardSwedishStandard keyboardSwedish;
    private TrainerControllerConnector connector;
    private JButton infoStopTrainingButton;
    private JPanel infoStopTrainingPanel;
@@ -116,7 +119,8 @@ public class TrainerView extends BackgroundPanelTiled
       verticalTrainerPanel = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalTrainerPanel);
       verticalTrainerPanel.setLayout(verticalLayout);
-      verticalTrainerPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      verticalTrainerPanel
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
       setBorder(BorderFactory.createEmptyBorder());
       setOpaque(false);
       initGui();
@@ -126,17 +130,29 @@ public class TrainerView extends BackgroundPanelTiled
 
    public void init()
    {
-      languageDirectionLabel
-            .setText(
-                  languageDirection.equals(LanguageDirection.HEBREW_TO_GERMAN)
-                        ? translator.realisticTranslate(Translation.HEBRAEISCH)
-                              + " >> "
-                              + translator
-                                    .realisticTranslate(Translation.DEUTSCH)
-                        : translator
-                                    .realisticTranslate(Translation.DEUTSCH)
-                              + translator.realisticTranslate(
-                                    Translation.HEBRAEISCH));
+      switch (languageDirection)
+      {
+      case GERMAN_TO_HEBREW:
+         languageDirectionLabel
+               .setText(translator.realisticTranslate(Translation.DEUTSCH)
+                     + translator.realisticTranslate(Translation.HEBRAEISCH));
+         break;
+      case GERMAN_TO_SWEDISH:
+         languageDirectionLabel
+         .setText(translator.realisticTranslate(Translation.DEUTSCH)
+               + translator.realisticTranslate(Translation.SCHWEDISCH));
+         break;
+      case HEBREW_TO_GERMAN:
+         languageDirectionLabel.setText(
+               translator.realisticTranslate(Translation.HEBRAEISCH) + " >> "
+                     + translator.realisticTranslate(Translation.DEUTSCH));
+         break;
+      case SWEDISH_TO_GERMAN:
+         languageDirectionLabel.setText(
+               translator.realisticTranslate(Translation.SCHWEDISCH) + " >> "
+                     + translator.realisticTranslate(Translation.DEUTSCH));
+         break;
+      }
 
       initTextField(languageDirection);
       initQuestionPanel(languageDirection);
@@ -152,13 +168,14 @@ public class TrainerView extends BackgroundPanelTiled
 
    private void initGui()
    {
-      verticalTrainerPanel.add(initTextFieldPanel()); 
+      verticalTrainerPanel.add(initTextFieldPanel());
       verticalTrainerPanel.add(initTopPanel());
       pictureWordPanelPlene = new LetterPictureWordPanel();
       pictureWordPanelPlene.setPreferredSize(new Dimension(1200, 110));
       pictureWordPanelPlene.setOpaque(true);
-      pictureWordPanelPlene.setBackground(ApplicationColors.getTexturedBackgroundColor());
-      
+      pictureWordPanelPlene
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
+
       JScrollPane scroller = new JScrollPane(pictureWordPanelPlene);
       scroller.setMinimumSize(new Dimension(1200, 110));
       scroller.setMaximumSize(new Dimension(1200, 110));
@@ -166,73 +183,87 @@ public class TrainerView extends BackgroundPanelTiled
       scroller.setOpaque(true);
       scroller.setBackground(ApplicationColors.getTexturedBackgroundColor());
       verticalTrainerPanel.add(scroller);
-      
+
       pictureWordPanelDefektiv = new LetterPictureWordPanel();
       pictureWordPanelDefektiv.setPreferredSize(new Dimension(1200, 110));
       pictureWordPanelDefektiv.setOpaque(true);
-      pictureWordPanelDefektiv.setBackground(ApplicationColors.getTexturedBackgroundColor());
-      
+      pictureWordPanelDefektiv
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
+
       JScrollPane scroller2 = new JScrollPane(pictureWordPanelDefektiv);
       scroller2.setMinimumSize(new Dimension(1200, 110));
       scroller2.setMaximumSize(new Dimension(1200, 110));
       scroller2.setBorder(BorderFactory.createEmptyBorder());
       scroller2.setOpaque(true);
       scroller2.setBackground(ApplicationColors.getTexturedBackgroundColor());
-      
+
       verticalTrainerPanel.add(scroller2);
    }
 
-   private Component initTextFieldPanel() 
-   {	   
-	   textFieldPanelWrapper = new JPanel();
-	   BullsEyeLayout wrapperLayout = new BullsEyeLayout(textFieldPanelWrapper);
-	   textFieldPanelWrapper.setLayout(wrapperLayout);
-	   textFieldPanelWrapper.setBackground(ApplicationColors.getLightBlue());
-	   
-	   return textFieldPanelWrapper;
-   }
-   
-   private void initTextField(LanguageDirection languageDirection) 
+   private Component initTextFieldPanel()
    {
-	   textFieldPanelWrapper.removeAll();
-	   if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
-	      {
-		     JPanel expandPanel = new JPanel();
-		     TrainLayout beLayout = new TrainLayout(expandPanel);
-		     expandPanel.setLayout(beLayout);
-	         questionFieldGerman = new JTextField("test");
-	         questionFieldGerman.setBackground(ApplicationColors.getLightBlue());
-	         questionFieldGerman.setFont(ApplicationFonts.getGermanFont(20F));
-	         questionFieldGerman.setBorder(BorderFactory.createTitledBorder(
-	               BorderFactory.createEmptyBorder(), translator.realisticTranslate(
-	                     Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
-	         questionFieldGerman
-	               .setMinimumSize(new Dimension(1200, 160));
-	         questionFieldGerman
-	               .setMaximumSize(new Dimension(1250, 160));
-	         questionFieldGerman.setEditable(false);
-	         expandPanel.add(questionFieldGerman);
-	         textFieldPanelWrapper.add(expandPanel);
-	      }
-	      else
-	      {
-	         questionFieldHebrew = new InputLanguagePanel(Selection.SIMPLE, 160, 10,
-	               false, this, 1268, ApplicationColors.getLightBlue());
-	         questionFieldHebrew.setBackground(ApplicationColors.getLightBlue());
-	         questionFieldHebrew.setBorder(
-	               BorderFactory.createTitledBorder(translator.realisticTranslate(
-	                     Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
-	         questionFieldHebrew
-	               .setMinimumSize(new Dimension(600, 160));
-	         questionFieldHebrew
-	               .setMaximumSize(new Dimension(1268, 160));
-	         questionFieldHebrew.setEditable(false);
-	         questionFieldHebrew.setEnabled(false);
-	         textFieldPanelWrapper.add(questionFieldHebrew);
-	      }
+      textFieldPanelWrapper = new JPanel();
+      BullsEyeLayout wrapperLayout = new BullsEyeLayout(textFieldPanelWrapper);
+      textFieldPanelWrapper.setLayout(wrapperLayout);
+      textFieldPanelWrapper.setBackground(ApplicationColors.getLightBlue());
+
+      return textFieldPanelWrapper;
    }
 
-private Component initTopPanel()
+   private void initTextField(LanguageDirection languageDirection)
+   {
+      textFieldPanelWrapper.removeAll();
+      switch(languageDirection)
+      {
+      case GERMAN_TO_SWEDISH:
+      case GERMAN_TO_HEBREW:
+         JPanel expandPanel = new JPanel();
+         TrainLayout beLayout = new TrainLayout(expandPanel);
+         expandPanel.setLayout(beLayout);
+         questionFieldGerman = new JTextField("test");
+         questionFieldGerman.setBackground(ApplicationColors.getLightBlue());
+         questionFieldGerman.setFont(ApplicationFonts.getGermanFont(20F));
+         questionFieldGerman.setBorder(BorderFactory.createTitledBorder(
+               BorderFactory.createEmptyBorder(), translator.realisticTranslate(
+                     Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
+         questionFieldGerman.setMinimumSize(new Dimension(1200, 160));
+         questionFieldGerman.setMaximumSize(new Dimension(1250, 160));
+         questionFieldGerman.setEditable(false);
+         expandPanel.add(questionFieldGerman);
+         textFieldPanelWrapper.add(expandPanel);
+         break;
+      case HEBREW_TO_GERMAN:
+         questionFieldLL = new InputLanguagePanel(Selection.SIMPLE, 160, 10,
+               false, this, 1268, ApplicationColors.getLightBlue());
+         questionFieldLL.setBackground(ApplicationColors.getLightBlue());
+         questionFieldLL.setBorder(
+               BorderFactory.createTitledBorder(translator.realisticTranslate(
+                     Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
+         questionFieldLL.setMinimumSize(new Dimension(600, 160));
+         questionFieldLL.setMaximumSize(new Dimension(1268, 160));
+         questionFieldLL.setEditable(false);
+         questionFieldLL.setEnabled(false);
+         questionFieldLL.setLayoutNoKeyboard(Selection.SIMPLE);
+         textFieldPanelWrapper.add(questionFieldLL);
+         break;
+      case SWEDISH_TO_GERMAN:
+         questionFieldLL = new InputLanguagePanel(Selection.SIMPLE, 160, 10,
+               false, this, 1268, ApplicationColors.getLightBlue());
+         questionFieldLL.setBackground(ApplicationColors.getLightBlue());
+         questionFieldLL.setBorder(
+               BorderFactory.createTitledBorder(translator.realisticTranslate(
+                     Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
+         questionFieldLL.setMinimumSize(new Dimension(600, 160));
+         questionFieldLL.setMaximumSize(new Dimension(1268, 160));
+         questionFieldLL.setEditable(false);
+         questionFieldLL.setEnabled(false);
+         questionFieldLL.setLayoutNoKeyboard(Selection.SWEDISH);
+         textFieldPanelWrapper.add(questionFieldLL);
+         break;
+      }
+   }
+
+   private Component initTopPanel()
    {
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
@@ -240,7 +271,8 @@ private Component initTopPanel()
 
       questionPanel = new JPanel();
       questionPanel.setLayout(new TotemLayout(questionPanel, 10));
-      questionPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      questionPanel
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       horizontal.add(initLeftPanel());
       horizontal.add(questionPanel);
@@ -405,11 +437,13 @@ private Component initTopPanel()
    private void initQuestionPanel(LanguageDirection languageDirection)
    {
       questionPanel.removeAll();
-      questionPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      questionPanel
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel additionalInfoPanel = new JPanel();
       additionalInfoPanel.setLayout(new TrainLayout(additionalInfoPanel, 15));
-      additionalInfoPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      additionalInfoPanel
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       additionalInfo = new JCheckBox();
       additionalInfo.setFont(ApplicationFonts.getGermanFont(15F));
@@ -481,8 +515,9 @@ private Component initTopPanel()
 
       questionPanel.add(answerPanel);
 
-      if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
+      switch(languageDirection)
       {
+      case GERMAN_TO_HEBREW:
          answerPanel.removeAll();
          answerPanel
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
@@ -504,9 +539,32 @@ private Component initTopPanel()
 
          answerPanel.add(answerField);
          answerPanel.add(keyboardNikud);
-      }
-      else
-      {
+         break;
+      case GERMAN_TO_SWEDISH:
+         answerPanel.removeAll();
+         answerPanel
+               .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
+         answerPanel
+               .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 444));
+         answerField = new InfoTextField(
+               translator.realisticTranslate(Translation.ANTWORTFELD),
+               translator.realisticTranslate(Translation.ANTWORTFELD) + ":",
+               translator.realisticTranslate(
+                     Translation.MIT_DER_HEBRAEISCHEN_TASTATUR),
+               translator.realisticTranslate(
+                     Translation.BITTE_DIE_ANTWORT_SCHREIBEN));
+         answerField.setDocument(new SwedishDocument(true));
+         answerField
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+
+         keyboardSwedish = new KeyboardSwedishStandard(answerField,
+               new ArrayList<JTextComponent>(), 80);
+
+         answerPanel.add(answerField);
+         answerPanel.add(keyboardSwedish.makeRegularKeyboard());
+         break;
+      case SWEDISH_TO_GERMAN:
+      case HEBREW_TO_GERMAN:
          answerPanel.removeAll();
          answerPanel
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 80));
@@ -526,6 +584,7 @@ private Component initTopPanel()
          answerField
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 80));
          answerPanel.add(answerField);
+         break;    
       }
 
       this.setFocusCycleRoot(true);
@@ -537,6 +596,7 @@ private Component initTopPanel()
 
       questionPanel.validate();
       questionPanel.repaint();
+      
       if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
       {
          this.pictureToggleBox.setVisible(true);
@@ -584,7 +644,7 @@ private Component initTopPanel()
       swapPanel.setMaximumSize(new Dimension(520, 209));
       swapPanel.setBorder(BorderFactory.createEmptyBorder());
       swapPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
-      
+
       swapPanel.add("START", imageFieldStart);
       swapPanel.add("GREEN", imageFieldGreen);
       swapPanel.add("BLUE", imageFieldBlue);
@@ -612,7 +672,8 @@ private Component initTopPanel()
       feedbackPanel.setMinimumSize(new Dimension(501, 230));
       feedbackPanel.setMaximumSize(new Dimension(501, 230));
       feedbackPanel.setOpaque(true);
-      feedbackPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      feedbackPanel
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       vertical.add(swapPanel);
       vertical.add(sendButton);
@@ -733,7 +794,8 @@ private Component initTopPanel()
    {
       JPanel answerPanel1 = new JPanel();
       answerPanel1.setLayout(new TotemLayout(answerPanel1));
-      answerPanel1.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      answerPanel1
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
       JLabel correctAnswer = new JLabel(translator
             .realisticTranslate(Translation.DIE_RICHTIGE_ANTWORT_LAUTET_));
       correctAnswer.setFont(ApplicationFonts.getGermanFont(16F));
@@ -755,7 +817,8 @@ private Component initTopPanel()
       scroller.setMinimumSize(new Dimension(490, 40));
       scroller.setMaximumSize(new Dimension(510, 40));
       scroller.setBorder(BorderFactory.createEmptyBorder());
-      scroller.getViewport().setBackground(ApplicationColors.getTexturedBackgroundColor());
+      scroller.getViewport()
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
       scroller.setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       answerPanel1.add(correctAnswer);
@@ -766,7 +829,8 @@ private Component initTopPanel()
       answerPanel2.setLayout(new GridLayout(1, 3));
       answerPanel2.setMinimumSize(new Dimension(501, 100));
       answerPanel2.setMaximumSize(new Dimension(501, 100));
-      answerPanel2.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      answerPanel2
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       feedbackPanel.add(answerPanel1);
       feedbackPanel.add(answerPanel2);
@@ -833,9 +897,9 @@ private Component initTopPanel()
       return questionFieldGerman;
    }
 
-   public InputLanguagePanel getQuestionFieldHebrew()
+   public InputLanguagePanel getQuestionFieldLL()
    {
-      return questionFieldHebrew;
+      return questionFieldLL;
    }
 
    public LetterPictureWordPanel getWordPanelPlene()
@@ -926,14 +990,15 @@ private Component initTopPanel()
    public void prepareDtoNikudFeedbackPanel(Result result)
    {
       HebrewAnswerWordPanel answerPanel = new HebrewAnswerWordPanel(result);
-      
+
       JScrollPane scrollPane = new JScrollPane(answerPanel);
       scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       scrollPane.setBorder(BorderFactory.createEmptyBorder());
       scrollPane.setMinimumSize(new Dimension(501, 120));
       scrollPane.setMaximumSize(new Dimension(501, 120));
       scrollPane.setOpaque(true);
-      scrollPane.getViewport().setBackground(ApplicationColors.getTexturedBackgroundColor());
+      scrollPane.getViewport()
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       JPanel fillerAnswerPanel = new JPanel();
       TotemLayout fillerAnswerLayout = new TotemLayout(fillerAnswerPanel);
@@ -941,14 +1006,15 @@ private Component initTopPanel()
       fillerAnswerPanel.setMinimumSize(new Dimension(501, 1));
       fillerAnswerPanel.setMaximumSize(new Dimension(501, 100));
       fillerAnswerPanel.setOpaque(true);
-      fillerAnswerPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      fillerAnswerPanel
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       feedbackPanel.add(scrollPane);
       feedbackPanel.add(fillerAnswerPanel);
       if (result.getExpression().getLL().isSimpleHebrew())
       {
-         pictureWordPanelPlene.displayNikudWord(
-               result.getExpression().getLL().getHebrew());
+         pictureWordPanelPlene
+               .displayNikudWord(result.getExpression().getLL().getHebrew());
       }
       else
       {

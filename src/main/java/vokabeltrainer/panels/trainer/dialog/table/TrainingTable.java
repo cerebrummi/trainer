@@ -36,20 +36,23 @@ public class TrainingTable extends JTable
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
    }
 
-   public List<Expression> findNewExpressions(LanguageDirection languageDirection, FieldOfTraining fieldOfTraining)
+   public List<Expression> findNewExpressions(
+         LanguageDirection languageDirection, FieldOfTraining fieldOfTraining)
    {
       TrainingTableModel model = (TrainingTableModel) getModel();
 
       Set<Expression> resultSet = new HashSet<>();
       for (TrainingTableRow[] row : model.getData())
       {
+System.out.println("TrainingTable 47");
          if (row[0].getAmountOfNewWords() > 0)
          {
+System.out.println("TrainingTable 50 " + row[0].getAmountOfNewWords());
             resultSet.addAll(findRandomWords(row[0].getExpressionListNewWords(),
                   row[0].getAmountOfNewWords()));
          }
       }
-      if(FieldOfTraining.AREA_SELECTED_TEMPORARY == fieldOfTraining)
+      if (FieldOfTraining.AREA_SELECTED_TEMPORARY == fieldOfTraining)
       {
          return new ArrayList<>(resultSet);
       }
@@ -63,7 +66,7 @@ public class TrainingTable extends JTable
       Set<Expression> resultSet = new HashSet<>();
       for (TrainingTableRow[] row : model.getData())
       {
-         if(row[0].getExpressionListOldWords() != null)
+         if (row[0].getExpressionListOldWords() != null)
          {
             resultSet.addAll(row[0].getExpressionListOldWords());
          }
@@ -77,28 +80,31 @@ public class TrainingTable extends JTable
       List<Expression> list = new ArrayList<>(resultSet.size());
       switch (languageDirection)
       {
+      case GERMAN_TO_SWEDISH:
       case GERMAN_TO_HEBREW:
          for (Expression expression : resultSet)
          {
-            if (!expression.getTrainingStatusDToH().isTrainingStarted())
+            if (!expression.getTrainingStatusDToLL().isTrainingStarted())
             {
-               expression
-                     .setTrainingStatusDToH(new TrainingStatus(Repetition.NOW));
+               expression.setTrainingStatusDToLL(
+                     new TrainingStatus(Repetition.NOW));
             }
 
             list.add(expression);
          }
          break;
+      case SWEDISH_TO_GERMAN:
       case HEBREW_TO_GERMAN:
          for (Expression expression : resultSet)
          {
-            if (!expression.getTrainingStatusHToD().isTrainingStarted())
+            if (!expression.getTrainingStatusLLToD().isTrainingStarted())
             {
-               expression
-                     .setTrainingStatusHToD(new TrainingStatus(Repetition.NOW));
+               expression.setTrainingStatusLLToD(
+                     new TrainingStatus(Repetition.NOW));
             }
             list.add(expression);
          }
+         break;
       }
       return list;
    }

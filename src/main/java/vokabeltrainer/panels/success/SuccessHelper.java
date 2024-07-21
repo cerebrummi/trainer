@@ -132,13 +132,13 @@ public class SuccessHelper
             Expression expression = row.get(0).getExpression();
             if (expression.isSelected() && LanguageDirection.GERMAN_TO_HEBREW == direction)
             {
-               expression.setTrainingStatusDToH(new TrainingStatus());
+               expression.setTrainingStatusDToLL(new TrainingStatus());
                expression.setSelected(false);
                rows.add(row);
             }
             else if (expression.isSelected() && LanguageDirection.HEBREW_TO_GERMAN == direction)
             {
-               expression.setTrainingStatusHToD(new TrainingStatus());
+               expression.setTrainingStatusLLToD(new TrainingStatus());
                expression.setSelected(false);
                rows.add(row);
             }

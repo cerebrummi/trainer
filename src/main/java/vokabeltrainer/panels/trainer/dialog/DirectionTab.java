@@ -69,11 +69,11 @@ public class DirectionTab extends BackgroundPanelTiled
       
       germanToSwedishButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
             + " >> "
-            + translator.realisticTranslate(Translation.SWEDISH));
+            + translator.realisticTranslate(Translation.SCHWEDISCH));
       germanToSwedishButton.setFont(ApplicationFonts.getToolbarButtonFont());
       directionGroup.add(germanToSwedishButton);
       
-      swedishToGermanButton = new JRadioButton(translator.realisticTranslate(Translation.SWEDISH)
+      swedishToGermanButton = new JRadioButton(translator.realisticTranslate(Translation.SCHWEDISCH)
             + " >> "
             + translator.realisticTranslate(Translation.DEUTSCH));
       swedishToGermanButton.setFont(ApplicationFonts.getToolbarButtonFont());

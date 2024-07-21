@@ -470,12 +470,12 @@ public final class Data
                if (expression != null
                      && LanguageDirection.GERMAN_TO_HEBREW == languageDirection)
                {
-                  expression.setTrainingStatusDToH(trainingstatus);
+                  expression.setTrainingStatusDToLL(trainingstatus);
                }
                else if (expression != null
                      && LanguageDirection.HEBREW_TO_GERMAN == languageDirection)
                {
-                  expression.setTrainingStatusHToD(trainingstatus);
+                  expression.setTrainingStatusLLToD(trainingstatus);
                }
 
             }
@@ -1536,25 +1536,25 @@ public final class Data
             return list
                   .stream().filter(hebrew)
                   .filter(expression -> !expression
-                        .getTrainingStatusDToH().isTrainingStarted())
+                        .getTrainingStatusDToLL().isTrainingStarted())
                   .collect(Collectors.toList());
          case HEBREW_TO_GERMAN:
             return list
                   .stream().filter(hebrew)
                   .filter(expression -> !expression
-                        .getTrainingStatusHToD().isTrainingStarted())
+                        .getTrainingStatusLLToD().isTrainingStarted())
                   .collect(Collectors.toList());
          case GERMAN_TO_SWEDISH:
-            list
+            return list
             .stream().filter(swedish)
             .filter(expression -> !expression
-                  .getTrainingStatusDToH().isTrainingStarted())
+                  .getTrainingStatusDToLL().isTrainingStarted())
             .collect(Collectors.toList());
          case SWEDISH_TO_GERMAN:
             return list
                   .stream().filter(swedish)
                   .filter(expression -> !expression
-                        .getTrainingStatusHToD().isTrainingStarted())
+                        .getTrainingStatusLLToD().isTrainingStarted())
                   .collect(Collectors.toList());
          default:
             return new ArrayList<>();
@@ -1576,7 +1576,7 @@ public final class Data
             return alleMap.values().stream()
                   .filter(expression -> expression.isSelected())
                   .filter(hebrew)
-                  .filter(expression -> expression.getTrainingStatusDToH()
+                  .filter(expression -> expression.getTrainingStatusDToLL()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
          }
@@ -1587,7 +1587,7 @@ public final class Data
             return alleMap.values().stream()
                   .filter(expression -> expression.isSelected())
                   .filter(hebrew)
-                  .filter(expression -> expression.getTrainingStatusHToD()
+                  .filter(expression -> expression.getTrainingStatusLLToD()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
          }
@@ -1598,7 +1598,7 @@ public final class Data
             return alleMap.values().stream()
                   .filter(expression -> expression.isSelected())
                   .filter(swedish)
-                  .filter(expression -> expression.getTrainingStatusDToH()
+                  .filter(expression -> expression.getTrainingStatusDToLL()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
          }
@@ -1609,7 +1609,7 @@ public final class Data
             return alleMap.values().stream()
                   .filter(expression -> expression.isSelected())
                   .filter(swedish)
-                  .filter(expression -> expression.getTrainingStatusHToD()
+                  .filter(expression -> expression.getTrainingStatusLLToD()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
          }
@@ -1619,12 +1619,12 @@ public final class Data
          if (LanguageDirection.GERMAN_TO_HEBREW == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
-            Predicate<Expression> started = e -> e.getTrainingStatusDToH()
+            Predicate<Expression> started = e -> e.getTrainingStatusDToLL()
                   .isTrainingStarted();
             Predicate<Expression> isDueNow = e -> now
-                  .isEqual(e.getTrainingStatusDToH().getNextDate());
+                  .isEqual(e.getTrainingStatusDToLL().getNextDate());
             Predicate<Expression> wasDueBefore = e -> now
-                  .isAfter(e.getTrainingStatusDToH().getNextDate());
+                  .isAfter(e.getTrainingStatusDToLL().getNextDate());
             return alleMap.values().stream().filter(started)
                   .filter(isDueNow.or(wasDueBefore))
                   .filter(hebrew)
@@ -1634,12 +1634,12 @@ public final class Data
          if (LanguageDirection.HEBREW_TO_GERMAN == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
-            Predicate<Expression> started = e -> e.getTrainingStatusHToD()
+            Predicate<Expression> started = e -> e.getTrainingStatusLLToD()
                   .isTrainingStarted();
             Predicate<Expression> isDueNow = e -> now
-                  .isEqual(e.getTrainingStatusHToD().getNextDate());
+                  .isEqual(e.getTrainingStatusLLToD().getNextDate());
             Predicate<Expression> wasDueBefore = e -> now
-                  .isAfter(e.getTrainingStatusHToD().getNextDate());
+                  .isAfter(e.getTrainingStatusLLToD().getNextDate());
             return alleMap.values().stream().filter(started)
                   .filter(isDueNow.or(wasDueBefore))
                   .filter(hebrew)
@@ -1649,12 +1649,12 @@ public final class Data
          if (LanguageDirection.GERMAN_TO_SWEDISH == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
-            Predicate<Expression> started = e -> e.getTrainingStatusDToH()
+            Predicate<Expression> started = e -> e.getTrainingStatusDToLL()
                   .isTrainingStarted();
             Predicate<Expression> isDueNow = e -> now
-                  .isEqual(e.getTrainingStatusDToH().getNextDate());
+                  .isEqual(e.getTrainingStatusDToLL().getNextDate());
             Predicate<Expression> wasDueBefore = e -> now
-                  .isAfter(e.getTrainingStatusDToH().getNextDate());
+                  .isAfter(e.getTrainingStatusDToLL().getNextDate());
             return alleMap.values().stream().filter(started)
                   .filter(isDueNow.or(wasDueBefore))
                   .filter(swedish)
@@ -1664,12 +1664,12 @@ public final class Data
          if (LanguageDirection.SWEDISH_TO_GERMAN == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
-            Predicate<Expression> started = e -> e.getTrainingStatusHToD()
+            Predicate<Expression> started = e -> e.getTrainingStatusLLToD()
                   .isTrainingStarted();
             Predicate<Expression> isDueNow = e -> now
-                  .isEqual(e.getTrainingStatusHToD().getNextDate());
+                  .isEqual(e.getTrainingStatusLLToD().getNextDate());
             Predicate<Expression> wasDueBefore = e -> now
-                  .isAfter(e.getTrainingStatusHToD().getNextDate());
+                  .isAfter(e.getTrainingStatusLLToD().getNextDate());
             return alleMap.values().stream().filter(started)
                   .filter(isDueNow.or(wasDueBefore))
                   .filter(swedish)
@@ -1710,24 +1710,24 @@ public final class Data
       private StatisticsTableModel findStatisticsModel()
       {
          Predicate<Expression> trainingDToHStarted = e -> e
-               .getTrainingStatusDToH().isTrainingStarted();
+               .getTrainingStatusDToLL().isTrainingStarted();
          Predicate<Expression> trainingDToHNotDone = e -> !e
-               .getTrainingStatusDToH().isTrainingDone();
+               .getTrainingStatusDToLL().isTrainingDone();
 
          final Map<LocalDate, List<Expression>> mapDtoH = alleMap.values()
                .stream().filter(trainingDToHStarted).filter(trainingDToHNotDone)
                .collect(Collectors.groupingBy(expression -> expression
-                     .getTrainingStatusDToH().getNextDate()));
+                     .getTrainingStatusDToLL().getNextDate()));
 
          Predicate<Expression> trainingHToDStarted = e -> e
-               .getTrainingStatusHToD().isTrainingStarted();
+               .getTrainingStatusLLToD().isTrainingStarted();
          Predicate<Expression> trainingHToDNotDone = e -> !e
-               .getTrainingStatusHToD().isTrainingDone();
+               .getTrainingStatusLLToD().isTrainingDone();
 
          final Map<LocalDate, List<Expression>> mapHtoD = alleMap.values()
                .stream().filter(trainingHToDStarted).filter(trainingHToDNotDone)
                .collect(Collectors.groupingBy(expression -> expression
-                     .getTrainingStatusHToD().getNextDate()));
+                     .getTrainingStatusLLToD().getNextDate()));
 
          Set<LocalDate> unsortedAllDates = new HashSet<>();
          unsortedAllDates.addAll(mapDtoH.keySet());

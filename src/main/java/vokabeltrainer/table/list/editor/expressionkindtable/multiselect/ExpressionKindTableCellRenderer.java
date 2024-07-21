@@ -13,7 +13,6 @@ import javax.swing.table.TableCellRenderer;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableCellRenderer implements TableCellRenderer, TableCellEditor

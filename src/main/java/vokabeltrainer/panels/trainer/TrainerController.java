@@ -78,15 +78,15 @@ public class TrainerController implements TrainerControllerConnector
          if (languageDirection == LanguageDirection.GERMAN_TO_HEBREW)
          {
             expressionsToBeTested.forEach(expression -> {
-               expression.getTrainingStatusDToH().setTotalTrys(
-                     expression.getTrainingStatusDToH().getTrys());
+               expression.getTrainingStatusDToLL().setTotalTrys(
+                     expression.getTrainingStatusDToLL().getTrys());
             });
          }
          else
          {
             expressionsToBeTested.forEach(expression -> {
-               expression.getTrainingStatusHToD().setTotalTrys(
-                     expression.getTrainingStatusHToD().getTrys());
+               expression.getTrainingStatusLLToD().setTotalTrys(
+                     expression.getTrainingStatusLLToD().getTrys());
             });
          }
       }
@@ -172,26 +172,33 @@ public class TrainerController implements TrainerControllerConnector
       switch (languageDirection)
       {
       case GERMAN_TO_HEBREW:
+      case GERMAN_TO_SWEDISH:
          trainerView.getQuestionFieldGerman()
                .setText(currentExpression.getGerman());
          break;
       case HEBREW_TO_GERMAN:
          if (currentExpression.getLL().isSimpleHebrew())
          {
-            trainerView.getQuestionFieldHebrew().setHebrewFieldText(
+            trainerView.getQuestionFieldLL().setHebrewFieldText(
                   currentExpression.getLL().getHebrew());
-            trainerView.getQuestionFieldHebrew()
+            trainerView.getQuestionFieldLL()
                   .setLayoutNoKeyboard(Selection.SIMPLE);
          }
          else
          {
-            trainerView.getQuestionFieldHebrew().setPleneFieldText(
+            trainerView.getQuestionFieldLL().setPleneFieldText(
                   currentExpression.getLL().getHebrewPlene());
-            trainerView.getQuestionFieldHebrew().setDefektivFieldText(
+            trainerView.getQuestionFieldLL().setDefektivFieldText(
                   currentExpression.getLL().getHebrewDefektiv());
-            trainerView.getQuestionFieldHebrew()
+            trainerView.getQuestionFieldLL()
                   .setLayoutNoKeyboard(Selection.PLENE_DEFEKTIV);
          }
+         break;
+      case SWEDISH_TO_GERMAN:
+         trainerView.getQuestionFieldLL().setSwedishFieldText(
+               currentExpression.getLL().getSwedish());
+         trainerView.getQuestionFieldLL()
+               .setLayoutNoKeyboard(Selection.SWEDISH);
          break;
       }
 
@@ -260,17 +267,17 @@ public class TrainerController implements TrainerControllerConnector
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         if (currentExpression.getTrainingStatusDToH().getTrys() < 4)
+         if (currentExpression.getTrainingStatusDToLL().getTrys() < 4)
          {
-            currentExpression.getTrainingStatusDToH().setTrys(
-                  currentExpression.getTrainingStatusDToH().getTrys() + 1);
-            currentExpression.getTrainingStatusDToH().setTotalTrys(
-                  currentExpression.getTrainingStatusDToH().getTotalTrys() + 1);
+            currentExpression.getTrainingStatusDToLL().setTrys(
+                  currentExpression.getTrainingStatusDToLL().getTrys() + 1);
+            currentExpression.getTrainingStatusDToLL().setTotalTrys(
+                  currentExpression.getTrainingStatusDToLL().getTotalTrys() + 1);
             expressionsToBeTested.add(currentExpression);
          }
          else
          {
-            currentExpression.getTrainingStatusDToH().previousRepetition();
+            currentExpression.getTrainingStatusDToLL().previousRepetition();
          }
       }
       else
@@ -291,12 +298,12 @@ public class TrainerController implements TrainerControllerConnector
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         currentExpression.getTrainingStatusDToH().setTrys(
-               currentExpression.getTrainingStatusDToH().getTrys() - 1);
-         if (currentExpression.getTrainingStatusDToH().getTrys() == 0)
+         currentExpression.getTrainingStatusDToLL().setTrys(
+               currentExpression.getTrainingStatusDToLL().getTrys() - 1);
+         if (currentExpression.getTrainingStatusDToLL().getTrys() == 0)
          {
-            currentExpression.getTrainingStatusDToH().nextRepetition();
-            currentExpression.getTrainingStatusDToH().setTrys(1);
+            currentExpression.getTrainingStatusDToLL().nextRepetition();
+            currentExpression.getTrainingStatusDToLL().setTrys(1);
          }
       }
       else
@@ -312,12 +319,12 @@ public class TrainerController implements TrainerControllerConnector
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         currentExpression.getTrainingStatusHToD().setTrys(
-               currentExpression.getTrainingStatusHToD().getTrys() - 1);
-         if (currentExpression.getTrainingStatusHToD().getTrys() == 0)
+         currentExpression.getTrainingStatusLLToD().setTrys(
+               currentExpression.getTrainingStatusLLToD().getTrys() - 1);
+         if (currentExpression.getTrainingStatusLLToD().getTrys() == 0)
          {
-            currentExpression.getTrainingStatusHToD().nextRepetition();
-            currentExpression.getTrainingStatusHToD().setTrys(1);
+            currentExpression.getTrainingStatusLLToD().nextRepetition();
+            currentExpression.getTrainingStatusLLToD().setTrys(1);
          }
       }
       else
@@ -342,17 +349,17 @@ public class TrainerController implements TrainerControllerConnector
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         if (currentExpression.getTrainingStatusHToD().getTotalTrys() < 4)
+         if (currentExpression.getTrainingStatusLLToD().getTotalTrys() < 4)
          {
-            currentExpression.getTrainingStatusHToD().setTrys(
-                  currentExpression.getTrainingStatusHToD().getTrys() + 1);
-            currentExpression.getTrainingStatusHToD().setTotalTrys(
-                  currentExpression.getTrainingStatusHToD().getTotalTrys() + 1);
+            currentExpression.getTrainingStatusLLToD().setTrys(
+                  currentExpression.getTrainingStatusLLToD().getTrys() + 1);
+            currentExpression.getTrainingStatusLLToD().setTotalTrys(
+                  currentExpression.getTrainingStatusLLToD().getTotalTrys() + 1);
             expressionsToBeTested.add(currentExpression);
          }
          else
          {
-            currentExpression.getTrainingStatusHToD().previousRepetition();
+            currentExpression.getTrainingStatusLLToD().previousRepetition();
          }
       }
       else
