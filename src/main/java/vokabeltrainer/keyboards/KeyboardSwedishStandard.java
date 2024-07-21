@@ -30,7 +30,6 @@ public class KeyboardSwedishStandard extends JPanel
 
    private JPanel keyboardPanel;
 
-
    public KeyboardSwedishStandard(JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight)
    {
@@ -124,7 +123,7 @@ public class KeyboardSwedishStandard extends JPanel
       dataButtons.put(SwedishLetter.ae, makeButton(SwedishLetter.ae));
       dataButtons.put(SwedishLetter.oe, makeButton(SwedishLetter.oe));
       makeRegularKeyboard();
-      
+
       add(keyboardPanel);
    }
 
@@ -144,8 +143,24 @@ public class KeyboardSwedishStandard extends JPanel
       buttonPanel.add(dataButton);
 
       dataButton.addMouseListener(new KeyboardListener());
-      
+
       return buttonPanel;
+   }
+
+   private Component makeSpaceButton()
+   {
+      DataButtonSwedish jButton = new DataButtonSwedish(
+            SwedishLetter.SPACE.getPronunciation(),
+            SwedishLetter.SPACE.getUnicode());
+      jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE + 10));
+      jButton.setMaximumSize(new Dimension(9 * BUTTON_SIZE, BUTTON_SIZE + 10));
+      jButton.addMouseListener(new KeyboardListener());
+      JPanel buttonPanel = new JPanel();
+      buttonPanel.setOpaque(false);
+      buttonPanel.setLayout(new TotemLayout(buttonPanel));
+      buttonPanel.add(jButton);
+      dataButtons.put(SwedishLetter.SPACE, (Component)buttonPanel);
+      return jButton;
    }
 
    private class KeyboardListener implements MouseListener
@@ -201,11 +216,11 @@ public class KeyboardSwedishStandard extends JPanel
       }
 
    }
-   
+
    public Component makeRegularKeyboard()
    {
       keyboardPanel.removeAll();
-      
+
       JPanel row1 = new JPanel();
       row1.setOpaque(false);
       row1.setLayout(new TrainLayout(row1, 4));
@@ -270,12 +285,11 @@ public class KeyboardSwedishStandard extends JPanel
       row3.add(dataButtons.get(SwedishLetter.B));
       row3.add(dataButtons.get(SwedishLetter.N));
       row3.add(dataButtons.get(SwedishLetter.M));
-      
+
       JPanel bigFiller1 = new JPanel();
       bigFiller1.setOpaque(false);
       bigFiller1.setBackground(ApplicationColors.getTransparent());
-      bigFiller1.setMaximumSize(new Dimension(300, 50));
-      keyboardPanel.add(bigFiller1);
+      bigFiller1.setMaximumSize(new Dimension(300, 32));      
       
       JPanel row4 = new JPanel();
       row4.setOpaque(false);
@@ -341,25 +355,32 @@ public class KeyboardSwedishStandard extends JPanel
       row6.add(dataButtons.get(SwedishLetter.b));
       row6.add(dataButtons.get(SwedishLetter.n));
       row6.add(dataButtons.get(SwedishLetter.m));
+
+      JPanel bigFiller2 = new JPanel();
+      bigFiller2.setOpaque(false);
+      bigFiller2.setBackground(ApplicationColors.getTransparent());
+      bigFiller2.setMaximumSize(new Dimension(300, 32));
       
       keyboardPanel.add(row1);
       keyboardPanel.add(row2);
       keyboardPanel.add(row3);
       keyboardPanel.add(bigFiller1);
+      keyboardPanel.add(makeSpaceButton());
+      keyboardPanel.add(bigFiller2);
       keyboardPanel.add(row4);
       keyboardPanel.add(row5);
       keyboardPanel.add(row6);
-      
-      JPanel bigFiller2 = new JPanel();
-      bigFiller2.setOpaque(false);
-      bigFiller2.setBackground(ApplicationColors.getTransparent());
-      bigFiller2.setMaximumSize(new Dimension(300, 64));
-      
-      keyboardPanel.add(bigFiller2);
-      
+
+      JPanel bigFiller3 = new JPanel();
+      bigFiller3.setOpaque(false);
+      bigFiller3.setBackground(ApplicationColors.getTransparent());
+      bigFiller3.setMaximumSize(new Dimension(300, 32));
+
+      keyboardPanel.add(bigFiller3);
+
       keyboardPanel.validate();
       keyboardPanel.repaint();
-      
+
       return keyboardPanel;
    }
 }
