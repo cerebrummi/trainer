@@ -44,10 +44,8 @@ public class TrainingTable extends JTable
       Set<Expression> resultSet = new HashSet<>();
       for (TrainingTableRow[] row : model.getData())
       {
-System.out.println("TrainingTable 47");
          if (row[0].getAmountOfNewWords() > 0)
          {
-System.out.println("TrainingTable 50 " + row[0].getAmountOfNewWords());
             resultSet.addAll(findRandomWords(row[0].getExpressionListNewWords(),
                   row[0].getAmountOfNewWords()));
          }

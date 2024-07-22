@@ -150,15 +150,23 @@ public class LetterHelper
       return builder.toString();
    }
 
-   public static LinkedList<LetterForAnalysis> findNikudLetterForAnalysisList(
-         String word)
+   public static LinkedList<LetterForAnalysis> findLetterForAnalysisList(
+         String word, LetterType letterType)
    {
       LinkedList<LetterForAnalysis> analysisList = new LinkedList<>();
 
-      List<String> codeList = findLetterCodes(word, LetterType.HEBREW);
-
-      LetterForAnalysis currentLetterForAnalysis = new LetterForAnalysis(
-            NikudLetter.SPACE);
+      List<String> codeList = findLetterCodes(word, letterType);
+      LetterForAnalysis currentLetterForAnalysis;
+      if (LetterType.HEBREW == letterType)
+      {
+         currentLetterForAnalysis = new LetterForAnalysis(
+               NikudLetter.SPACE);
+      }
+      else
+      {
+         currentLetterForAnalysis = new LetterForAnalysis(
+               SwedishLetter.SPACE);
+      }
 
       for (int i = 0; i < codeList.size(); i++)
       {
@@ -183,6 +191,12 @@ public class LetterHelper
                break;
             }
          }
+         else if (letter != null && LetterType.SWEDISH == letter.isType())
+         {
+            SwedishLetter swedishLetter = (SwedishLetter) letter;
+            currentLetterForAnalysis = new LetterForAnalysis(swedishLetter);
+            analysisList.add(currentLetterForAnalysis);
+         }
       }
 
       return analysisList;
@@ -191,9 +205,27 @@ public class LetterHelper
    public static boolean areLettersEqual(LetterForAnalysis one,
          LetterForAnalysis two)
    {
-      if (one.getContent() != two.getContent())
+      if(one.isNikud() && two.isSwedish())
       {
          return false;
+      }
+      if(one.isSwedish() && two.isNikud())
+      {
+         return false;
+      }
+      if(one.isNikud() && two.isNikud())
+      {
+         if (one.getContent() != two.getContent())
+         {
+            return false;
+         }
+      }
+      if(one.isSwedish() && two.isSwedish())
+      {
+         if (one.getSwedishContent() != two.getSwedishContent())
+         {
+            return false;
+         }
       }
 
       return true;
@@ -223,14 +255,14 @@ public class LetterHelper
          Expression expression)
    {
       return expression.getSearchwordsHebrew().stream()
-            .map(word -> findNikudLetterForAnalysisList(word))
+            .map(word -> findLetterForAnalysisList(word, LetterType.HEBREW))
             .collect(Collectors.toList());
    }
 
    public static String findHebrewWithoutPunctation(String hebrew)
    {
       LinkedList<LetterForAnalysis> list = LetterHelper
-            .findNikudLetterForAnalysisList(hebrew);
+            .findLetterForAnalysisList(hebrew, LetterType.HEBREW);
 
       StringBuilder result = new StringBuilder();
 

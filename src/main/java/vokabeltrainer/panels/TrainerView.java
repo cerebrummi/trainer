@@ -651,16 +651,20 @@ public class TrainerView extends BackgroundPanelTiled
       swapPanel.add("RED", imageFieldError);
       cardLayout.show(swapPanel, "START");
 
-      if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
+      switch(languageDirection)
       {
+      case GERMAN_TO_SWEDISH:
+      case GERMAN_TO_HEBREW:
          sendButton = new JButton(
                translator.realisticTranslate(Translation.ANTWORT_ABSENDEN));
-      }
-      else
-      {
+         break;
+      case HEBREW_TO_GERMAN:
+      case SWEDISH_TO_GERMAN:
          sendButton = new JButton(
                translator.realisticTranslate(Translation.ANTWORT_ANSCHAUEN));
+         break;
       }
+
       sendButton.setFont(ApplicationFonts.getButtonFont());
       sendButton.setIcon(new ImageIcon(ApplicationImages.getSend()));
       sendButton.setMinimumSize(new Dimension(300, 40));

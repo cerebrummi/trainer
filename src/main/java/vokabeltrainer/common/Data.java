@@ -43,6 +43,7 @@ import vokabeltrainer.cmd.DirectoryHelper;
 import vokabeltrainer.editing.ExchangeLetter;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
+import vokabeltrainer.editing.LetterType;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
@@ -1177,7 +1178,7 @@ public final class Data
          final String trimmedText = text.trim();
 
          List<LetterForAnalysis> textList = LetterHelper
-               .findNikudLetterForAnalysisList(trimmedText);
+               .findLetterForAnalysisList(trimmedText, LetterType.HEBREW);
 
          List<List<LetterForAnalysis>> searchWordListofLists = LetterHelper
                .findListofNikudLetterForAnalysisListsHebrewSearchwords(
@@ -1195,20 +1196,20 @@ public final class Data
             List<LetterForAnalysis> list1, List<LetterForAnalysis> list2)
       {
          return IntStream.range(0, list1.size()).allMatch(
-               (i) -> LetterForAnalysis.isEqual(list1.get(i), list2.get(i)));
+               (i) -> LetterForAnalysis.isEqual(list1.get(i), list2.get(i), LetterType.HEBREW));
       }
 
       private boolean equalsHebrewWordStart(String text, Expression expression)
       {
          text = text.trim();
          List<LetterForAnalysis> textList = LetterHelper
-               .findNikudLetterForAnalysisList(text);
+               .findLetterForAnalysisList(text, LetterType.HEBREW);
 
          if (expression.getLL().isSimpleHebrew())
          {
             List<LetterForAnalysis> expressionList = LetterHelper
-                  .findNikudLetterForAnalysisList(
-                        expression.getLL().getHebrew());
+                  .findLetterForAnalysisList(
+                        expression.getLL().getHebrew(), LetterType.HEBREW);
             if (textList.size() > expressionList.size())
             {
                return false;
@@ -1219,26 +1220,26 @@ public final class Data
          }
 
          List<LetterForAnalysis> expressionListPlene = LetterHelper
-               .findNikudLetterForAnalysisList(
-                     expression.getLL().getHebrewPlene());
+               .findLetterForAnalysisList(
+                     expression.getLL().getHebrewPlene(), LetterType.HEBREW);
          if (textList.size() <= expressionListPlene.size())
          {
             if (IntStream.range(0, textList.size())
                   .allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
-                        expressionListPlene.get(i))))
+                        expressionListPlene.get(i), LetterType.HEBREW)))
             {
                return true;
             }
          }
 
          List<LetterForAnalysis> expressionListDefektiv = LetterHelper
-               .findNikudLetterForAnalysisList(
-                     expression.getLL().getHebrewDefektiv());
+               .findLetterForAnalysisList(
+                     expression.getLL().getHebrewDefektiv(), LetterType.HEBREW);
          if (textList.size() <= expressionListDefektiv.size())
          {
             if (IntStream.range(0, textList.size())
                   .allMatch((i) -> LetterForAnalysis.isEqual(textList.get(i),
-                        expressionListDefektiv.get(i))))
+                        expressionListDefektiv.get(i), LetterType.HEBREW)))
             {
                return true;
             }

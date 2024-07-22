@@ -89,7 +89,7 @@ public enum SwedishLetter implements Letter
    @Override
    public boolean isNewspace()
    {
-      return false;
+      return SwedishLetter.NEWSPACE == this;
    }
 
    @Override
@@ -107,13 +107,13 @@ public enum SwedishLetter implements Letter
    @Override
    public Letter getNewspace()
    {
-      return null;
+      return SwedishLetter.NEWSPACE;
    }
 
    @Override
    public int getPixelWidth()
    {
-      return -1;
+      return 18;
    }
 
    @Override

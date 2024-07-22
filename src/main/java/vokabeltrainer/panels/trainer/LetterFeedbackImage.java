@@ -65,35 +65,42 @@ public class LetterFeedbackImage
       g2d.setColor(ApplicationColors.getGreen());
       g2d.drawString(letterDic.getContent().getUnicode(), 0,
             fm.getAscent() + 9);
-      for (NikudLetter nikudLetter : letterDic.getSetUpperPunktation())
+      if(letterDic.isNikud())
       {
-         g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9);
-      }
-      if (letterDic.getDagesh() != null)
-      {
-         g2d.drawString(letterDic.getDagesh().getUnicode(), 0,
-               fm.getAscent() + 9);
-      }
-      for (NikudLetter nikudLetter : letterDic.getListLowerPunktation())
-      {
-         g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9);
+         for (NikudLetter nikudLetter : letterDic.getSetUpperPunktation())
+         {
+            g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9);
+         }
+         if (letterDic.getDagesh() != null)
+         {
+            g2d.drawString(letterDic.getDagesh().getUnicode(), 0,
+                  fm.getAscent() + 9);
+         }
+         for (NikudLetter nikudLetter : letterDic.getListLowerPunktation())
+         {
+            g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9);
+         }
       }
       g2d.setColor(Color.BLACK);
       g2d.drawString(letterAnswer.getContent().getUnicode(), 0,
             fm.getAscent() + 9 + 50);
-      for (NikudLetter nikudLetter : letterAnswer.getSetUpperPunktation())
+      if(letterAnswer.isNikud())
       {
-         g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9 + 50);
+         for (NikudLetter nikudLetter : letterAnswer.getSetUpperPunktation())
+         {
+            g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9 + 50);
+         }
+         if (letterAnswer.getDagesh() != null)
+         {
+            g2d.drawString(letterAnswer.getDagesh().getUnicode(), 0,
+                  fm.getAscent() + 9 + 50);
+         }
+         for (NikudLetter nikudLetter : letterAnswer.getListLowerPunktation())
+         {
+            g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9 + 50);
+         }
       }
-      if (letterAnswer.getDagesh() != null)
-      {
-         g2d.drawString(letterAnswer.getDagesh().getUnicode(), 0,
-               fm.getAscent() + 9 + 50);
-      }
-      for (NikudLetter nikudLetter : letterAnswer.getListLowerPunktation())
-      {
-         g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9 + 50);
-      }
+      
       g2d.dispose();
       return finalImg;
    }

@@ -210,12 +210,25 @@ public class TrainerController implements TrainerControllerConnector
    {
       try
       {
-         if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
+         switch(languageDirection)
          {
-            BestResult bestResult = NikudResultFactory.getBestResultPossible(
-                  currentExpression,
-                  trainerView.getAnswerField().getText().trim(),
-                  ApplicationFonts.getHebrewFont(30F));
+         case GERMAN_TO_SWEDISH:
+         case GERMAN_TO_HEBREW:
+            BestResult bestResult;
+            if(LanguageDirection.GERMAN_TO_HEBREW == languageDirection)
+            {
+               bestResult = NikudResultFactory.getBestResultPossible(
+                     currentExpression,
+                     trainerView.getAnswerField().getText().trim(),
+                     ApplicationFonts.getHebrewFont(30F));
+            }
+            else
+            {
+               bestResult = SwedishResultFactory.getBestResultPossible(
+                     currentExpression,
+                     trainerView.getAnswerField().getText().trim(),
+                     ApplicationFonts.getHebrewFont(24F));
+            }
             Result result = bestResult.getBestResult();
             if (result.isAnswerEmpty())
             {
@@ -248,11 +261,13 @@ public class TrainerController implements TrainerControllerConnector
                resultDtoIsNotOkay();
             }
             reactToAnswer(result.isOkay());
-         }
-         else
-         {
+            break;
+         case HEBREW_TO_GERMAN:
+         case SWEDISH_TO_GERMAN:
             trainerView.prepareHtoDFeedbackPanel();
+            break;
          }
+
          trainerView.getFeedbackPanel().validate();
          trainerView.getFeedbackPanel().repaint();
          trainerView.disableSendButton();

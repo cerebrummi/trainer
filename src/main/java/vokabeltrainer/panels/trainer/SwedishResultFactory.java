@@ -3,70 +3,58 @@ package vokabeltrainer.panels.trainer;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
-import vokabeltrainer.editing.NikudLetter;
+import vokabeltrainer.editing.SwedishLetter;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.HebrewType;
 import vokabeltrainer.words.WordLetterMatching;
 import vokabeltrainer.words.WordLetterMatchingResult;
 
-public class NikudResultFactory
+public class SwedishResultFactory
 {
-
-   private NikudResultFactory()
+   private SwedishResultFactory()
    {
       // nothing
    }
-
+   
    public static BestResult getBestResultPossible(Expression expression,
-         String answer, Font hebrewFont)
+         String answer, Font swedishFont)
 
    {
-      if (expression.getLL().isSimpleHebrew())
-      {
-         BestResult bestResult = new BestResult(Selection.SIMPLE);
-         bestResult.setResultHebrew(getResultDtoNikudSentence(expression,
-               answer, hebrewFont, HebrewType.SIMPLE));
-         return bestResult;
-      }
-
-      BestResult bestResult = new BestResult(Selection.PLENE_DEFEKTIV);
-      bestResult.setResultPlene(getResultDtoNikudSentence(expression, answer,
-            hebrewFont, HebrewType.PLENE));
-      bestResult.setResultDefektiv(getResultDtoNikudSentence(expression, answer,
-            hebrewFont, HebrewType.DEFEKTIV));
+      BestResult bestResult = new BestResult(Selection.SWEDISH);
+      bestResult.setResultSwedish(getResultDtoSwedishSentence(expression,
+            answer, swedishFont));
       return bestResult;
    }
 
-   public static Result getResultDtoNikudSentence(Expression expression,
-         String answer, Font hebrewFont, HebrewType selectionType)
+   public static Result getResultDtoSwedishSentence(Expression expression,
+         String answer, Font swedishFont)
    {
       String[] expressionArray = expression.getLL()
-            .getHewbrewAccordingToType(selectionType)
-            .split(NikudLetter.SPACE.getUnicode());
+            .getSwedish()
+            .split(SwedishLetter.SPACE.getUnicode());
 
-      String[] answerArray = answer.split(NikudLetter.SPACE.getUnicode());
+      String[] answerArray = answer.split(SwedishLetter.SPACE.getUnicode());
 
       if (expressionArray.length == 1 && answerArray.length == 1)
       {
-         return getResultDtoNikud(expression, answer, hebrewFont,
-               selectionType);
+         return getResultDtoSwedish(expression, answer, swedishFont);
       }
 
       if (expressionArray.length == answerArray.length)
       {
-         Result result = new Result(selectionType);
+         Result result = new Result();
          result.setExpression(expression);
          List<Result> resultList = new ArrayList<>(expressionArray.length);
-         for (int i = expressionArray.length - 1; i >= 0; i--)
+         for (int i = 0; i < expressionArray.length; i++)
          {
-            resultList.add(getResultDtoNikudString(expressionArray[i],
-                  answerArray[i], new Result(selectionType), hebrewFont));
+            resultList.add(getResultDtoSwedishString(expressionArray[i],
+                  answerArray[i], new Result(), swedishFont));
          }
 
          result.setOkay(true);
@@ -84,8 +72,8 @@ public class NikudResultFactory
             if (index > 0)
             {
                result.addFeedbackImage(LetterFeedbackImage.makeSpace());
-               result.addAnswerSpace(new LetterForAnalysis(NikudLetter.SPACE));
-               result.addDictionarySpace(new LetterForAnalysis(NikudLetter.SPACE));
+               result.addAnswerSpace(new LetterForAnalysis(SwedishLetter.SPACE));
+               result.addDictionarySpace(new LetterForAnalysis(SwedishLetter.SPACE));
             }
             result.addFeedbackImageList(singleResult.getFeedbackImageList());
             result.addAnswer(singleResult.getAnswer()); // for unit testing
@@ -96,28 +84,27 @@ public class NikudResultFactory
          return result;
       }
 
-      return getResultDtoNikud(expression, answer, hebrewFont, selectionType);
+      return getResultDtoSwedish(expression, answer, swedishFont);
    }
 
-   private static Result getResultDtoNikud(Expression expression, String answer,
-         Font hebrewFont, HebrewType selectionType)
+   private static Result getResultDtoSwedish(Expression expression, String answer,
+         Font swedishFont)
    {
-      Result result = new Result(selectionType);
+      Result result = new Result();
       result.setExpression(expression);
 
-      return getResultDtoNikudString(
-            expression.getLL().getHewbrewAccordingToType(selectionType),
-            answer, result, hebrewFont);
+      return getResultDtoSwedishString(
+            expression.getLL().getSwedish(),
+            answer, result, swedishFont);
    }
 
-   private static Result getResultDtoNikudString(String dictionary,
-         String answer, Result result, Font hebrewFont)
+   private static Result getResultDtoSwedishString(String dictionary,
+         String answer, Result result, Font swedishFont)
    {
-
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
-            LetterHelper.findLetterForAnalysisList(dictionary, LetterType.HEBREW),
-            LetterHelper.findLetterForAnalysisList(answer, LetterType.HEBREW),
-            LetterType.HEBREW);
+            LetterHelper.findLetterForAnalysisList(dictionary, LetterType.SWEDISH),
+            LetterHelper.findLetterForAnalysisList(answer, LetterType.SWEDISH),
+            LetterType.SWEDISH);
 
       result.setAnswerEmpty(matchingResult.isAnswerEmpty());
       result.setDictionaryEmpty(matchingResult.isDictionaryEmpty());
@@ -125,7 +112,9 @@ public class NikudResultFactory
       result.setSimilarity(matchingResult.getSimilarity());
 
       List<LetterForAnalysis> dictionaryList = matchingResult.getDictionary();
+      Collections.reverse(dictionaryList);
       List<LetterForAnalysis> answerList = matchingResult.getAnswer();
+      Collections.reverse(answerList);
 
       result.setDictionary(matchingResult.getDictionary()); // for unit testing
       result.setAnswer(matchingResult.getAnswer()); // for unit testing
@@ -137,7 +126,7 @@ public class NikudResultFactory
                .areLettersEqual(dictionaryList.get(i), answerList.get(i));
 
          feedbackImageList.add(LetterFeedbackImage.make(dictionaryList.get(i),
-               answerList.get(i), letterresult, hebrewFont));
+               answerList.get(i), letterresult, swedishFont));
          result.setOkay(result.isOkay() && letterresult);
       }
       result.setFeedbackImageList(feedbackImageList);

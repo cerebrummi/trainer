@@ -11,6 +11,7 @@ import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
+import vokabeltrainer.editing.LetterType;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -48,7 +49,7 @@ public class LetterPictureWordPanel extends JPanel
       displayPanel.setMaximumSize(new Dimension(1268, 200));
 
       List<LetterForAnalysis> hebrewLettersCode = LetterHelper
-            .findNikudLetterForAnalysisList(nikudWord);
+            .findLetterForAnalysisList(nikudWord, LetterType.HEBREW);
       Collections.reverse(hebrewLettersCode);
 
       for (LetterForAnalysis letter : hebrewLettersCode)

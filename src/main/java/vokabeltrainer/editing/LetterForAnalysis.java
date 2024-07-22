@@ -12,33 +12,107 @@ public class LetterForAnalysis
    private List<NikudLetter> listLowerPunktation = new ArrayList<>();
    private NikudLetter dagesh;
    private Set<NikudLetter> setUpperPunktation = new HashSet<>();
+   private SwedishLetter swedishContent;
+   private LetterType type;
+   private boolean swedish;
+   private boolean nikud;
 
    public LetterForAnalysis(NikudLetter content)
    {
       this.content = content;
+      type = LetterType.HEBREW;
+      nikud = true;
+      swedish = false;
    }
-
-   public NikudLetter getContent()
+   
+   public LetterForAnalysis(SwedishLetter content)
+   {
+      this.swedishContent = content;
+      type = LetterType.SWEDISH;
+      nikud = false;
+      swedish = true;
+   }
+   
+   public LetterForAnalysis(Letter content)
+   {
+      if(content instanceof NikudLetter)
+      {
+         this.content = (NikudLetter)content;
+         type = LetterType.HEBREW;
+         nikud = true;
+         swedish = false;
+      }
+      else
+      {
+         this.swedishContent = (SwedishLetter)content;
+         type = LetterType.SWEDISH;
+         nikud = false;
+         swedish = true;
+      }
+   }
+   
+   public NikudLetter getNikudContent()
    {
       return content;
    }
 
+   public Letter getContent()
+   {
+      if(isNikud())
+      {
+         return content;
+      }
+      else
+      {
+         return swedishContent;
+      }
+   }
+
+   public SwedishLetter getSwedishContent()
+   {
+      return swedishContent;
+   }
+
+   public boolean isSwedish()
+   {
+      return swedish;
+   }
+
+   public boolean isNikud()
+   {
+      return nikud;
+   }
+
    public LetterForAnalysis clone()
    {
-      LetterForAnalysis duplicate = new LetterForAnalysis(content);
-      duplicate.setListLowerPunktation(
-            Collections.nCopies(1, listLowerPunktation).get(0));
-      duplicate.setDagesh(dagesh);
-      duplicate.getSetUpperPunktation().addAll(setUpperPunktation);
-      return duplicate;
+      if(this.type == LetterType.HEBREW)
+      {
+         LetterForAnalysis duplicate = new LetterForAnalysis(content);
+         duplicate.setListLowerPunktation(
+               Collections.nCopies(1, listLowerPunktation).get(0));
+         duplicate.setDagesh(dagesh);
+         duplicate.getSetUpperPunktation().addAll(setUpperPunktation);
+         return duplicate;
+      }
+
+      return new LetterForAnalysis(swedishContent);
    }
    
-   public static boolean isEqual(LetterForAnalysis letter1,LetterForAnalysis letter2)
+   public static boolean isEqual(LetterForAnalysis letter1,LetterForAnalysis letter2, LetterType type)
    {
-      if(letter1.getContent() == letter2.getContent())
+      if(type == LetterType.HEBREW)
+      {
+         if(letter1.getContent() == letter2.getContent())
+         {
+            return true;
+         }
+      }
+      
+      if(letter1.getSwedishContent() == letter2.getSwedishContent())
       {
          return true;
       }
+      
       return false;
    }
 
@@ -89,6 +163,10 @@ public class LetterForAnalysis
 
    public int getPixelWidth()
    {
-      return content.getPixelWidth();
+      if(isNikud())
+      {
+         return content.getPixelWidth();
+      }
+      return 18;
    }
 }

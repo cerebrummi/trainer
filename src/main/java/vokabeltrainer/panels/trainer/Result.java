@@ -28,6 +28,11 @@ public class Result
       this.selectionType = selectionType;
    }
    
+   public Result()
+   {
+      
+   }
+   
    public boolean isOkay()
    {
       return okay;

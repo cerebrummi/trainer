@@ -8,7 +8,8 @@ public class BestResult
    private Result resultHebrew;
    private Result resultPlene;
    private Result resultDefektiv;
-   
+   private Result resultSwedish;
+
    public BestResult(Selection selection)
    {
       this.selection = selection;
@@ -19,7 +20,7 @@ public class BestResult
       return selection;
    }
 
-  public void setResultHebrew(Result resultHebrew)
+   public void setResultHebrew(Result resultHebrew)
    {
       this.resultHebrew = resultHebrew;
    }
@@ -34,19 +35,29 @@ public class BestResult
       this.resultDefektiv = resultDefektiv;
    }
 
-public Result getBestResult()
-  {
-     if(Selection.SIMPLE == selection)
-     {
-        return resultHebrew;
-     }
-     
-     if(resultPlene.getSimilarity() >= resultDefektiv.getSimilarity())
-     {
-        return resultPlene;
-     }
-     
-     return resultDefektiv;
-  }
+   public void setResultSwedish(Result resultSwedish)
+   {
+      this.resultSwedish = resultSwedish;
+   }
+
+   public Result getBestResult()
+   {
+      if(Selection.SWEDISH == selection)
+      {
+         return resultSwedish;
+      }
+      
+      if (Selection.SIMPLE == selection)
+      {
+         return resultHebrew;
+      }
+
+      if (resultPlene.getSimilarity() >= resultDefektiv.getSimilarity())
+      {
+         return resultPlene;
+      }
+
+      return resultDefektiv;
+   }
 
 }

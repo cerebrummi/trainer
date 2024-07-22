@@ -7,8 +7,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import vokabeltrainer.editing.Letter;
 import vokabeltrainer.editing.LetterForAnalysis;
+import vokabeltrainer.editing.LetterType;
 import vokabeltrainer.editing.NikudLetter;
+import vokabeltrainer.editing.SwedishLetter;
 
 public class WordLetterMatching
 {
@@ -19,7 +22,8 @@ public class WordLetterMatching
 
    public static WordLetterMatchingResult matchLetters(
          LinkedList<LetterForAnalysis> dictionary,
-         LinkedList<LetterForAnalysis> answer)
+         LinkedList<LetterForAnalysis> answer,
+         LetterType type)
    {
       WordLetterMatchingResult result = new WordLetterMatchingResult();
       
@@ -127,7 +131,14 @@ public class WordLetterMatching
       {
          if (letter == null)
          {
-            dataDic.add(new LetterForAnalysis(NikudLetter.NEWSPACE));
+            if(LetterType.HEBREW == type)
+            {
+               dataDic.add(new LetterForAnalysis(NikudLetter.NEWSPACE));
+            }
+            else
+            {
+               dataDic.add(new LetterForAnalysis(SwedishLetter.NEWSPACE));
+            }
          }
          else
          {
@@ -139,7 +150,14 @@ public class WordLetterMatching
       {
          if (letter == null)
          {
-            dataTest.add(new LetterForAnalysis(NikudLetter.NEWSPACE));
+            if(LetterType.HEBREW == type)
+            {
+               dataTest.add(new LetterForAnalysis(NikudLetter.NEWSPACE));
+            }
+            else
+            {
+               dataTest.add(new LetterForAnalysis(SwedishLetter.NEWSPACE));
+            }
          }
          else
          {
@@ -179,7 +197,7 @@ public class WordLetterMatching
          moveBeginningLettersToTheRightIfPossible(dataTest, dataDic, deltaCol);
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("L�ngen unterschiedlich 3b");
+            throw new IllegalStateException("Längen unterschiedlich 3b");
          }
       }
       // else // not moved
@@ -188,21 +206,37 @@ public class WordLetterMatching
 
       if (dataDic.size() != dataTest.size())
       {
-         throw new IllegalStateException("L�ngen unterschiedlich 3");
+         throw new IllegalStateException("Längen unterschiedlich 3");
       }
 
       if (result.isPartlyFalse())
       {
-         dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
-               dataDic, dataTest, NikudLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+         if(LetterType.HEBREW == type)
+         {
+            dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
+                  dataDic, dataTest, NikudLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+         }
+         else
+         {
+            dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
+                  dataDic, dataTest, SwedishLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+         }
 
          if (dataDic.size() != dataTest.size())
          {
             throw new IllegalStateException("Längen unterschiedlich 4");
          }
 
-         dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
-               dataTest, dataDic, NikudLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+         if(LetterType.HEBREW == type)
+         {
+            dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
+                  dataTest, dataDic, NikudLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+         }
+         else
+         {
+            dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
+                  dataTest, dataDic, SwedishLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+         }
 
          if (dataDic.size() != dataTest.size())
          {
@@ -296,7 +330,7 @@ public class WordLetterMatching
 
    private static List<LetterForAnalysis> lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
          List<LetterForAnalysis> dataT, List<LetterForAnalysis> dataD,
-         NikudLetter NEWSPACE, int maxSameness)
+         Letter NEWSPACE, int maxSameness)
    {
       // for example
       // nnnnnnnnnndddddddddddddddd
@@ -355,7 +389,7 @@ public class WordLetterMatching
 
    private static void makeBothTheSameSize(
          List<LetterForAnalysis> other, List<LetterForAnalysis> list,
-         NikudLetter NEWSPACE)
+         Letter NEWSPACE)
    {
       if(other.size() == list.size())
       {
