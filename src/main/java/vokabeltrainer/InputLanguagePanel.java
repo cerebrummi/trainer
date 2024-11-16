@@ -226,6 +226,8 @@ public class InputLanguagePanel extends JTextArea
       getInputMap(InputLanguagePanel.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
             .put(tabBack, focusBackwardCommand);
       getActionMap().put(focusBackwardCommand, new FocusBackwardAction());
+      
+      layout.show(cards, selection.name());
    }
 
    private void initController()
@@ -622,6 +624,19 @@ public class InputLanguagePanel extends JTextArea
    public Selection getSelection()
    {
       return selection;
+   }
+   
+   public LLType getLLType()
+   {
+      switch(selection)
+      {
+      case PLENE_DEFEKTIV:
+      case SIMPLE:
+         return LLType.HEBREW;
+      case SWEDISH:
+         return LLType.SWEDISH;
+      }
+      return LLType.UNKOWN;
    }
 
    public void setSelection(Selection selection)

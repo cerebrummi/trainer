@@ -26,7 +26,7 @@ public class StatisticsTableColumnModel extends DefaultTableColumnModel
       addColumn(column);
       
       TableColumn column1 = new TableColumn();
-      column1.setHeaderValue(translator.realisticTranslate(Translation.HEBRAEISCH)
+      column1.setHeaderValue(translator.realisticTranslate(Translation.NEUE_SPRACHE)
             + " >> "
             + translator.realisticTranslate(Translation.DEUTSCH));
       column1.setCellRenderer(renderer);
@@ -37,7 +37,7 @@ public class StatisticsTableColumnModel extends DefaultTableColumnModel
       TableColumn column2 = new TableColumn();
       column2.setHeaderValue(translator.realisticTranslate(Translation.DEUTSCH)
             + " >> "
-            + translator.realisticTranslate(Translation.HEBRAEISCH));
+            + translator.realisticTranslate(Translation.NEUE_SPRACHE));
       column2.setCellRenderer(renderer);
       column2.setCellEditor(renderer);
       column2.setPreferredWidth(150);

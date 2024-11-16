@@ -1,5 +1,7 @@
 package vokabeltrainer.types;
 
+import java.util.Objects;
+
 import vokabeltrainer.types.Chapter.Database;
 
 public class DatabaseDescription implements Comparable<DatabaseDescription>
@@ -8,6 +10,7 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
    private String databaseName = "";
    private String authors = "";
    private String company = "";
+   private LLType llType = LLType.UNKOWN;
 
    public DatabaseDescription()
    {
@@ -20,6 +23,7 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       databaseName = database.getName();
       authors = database.getAuthors();
       company = database.getCompany();
+      llType = database.getLlType();
    }
    
    public Database getDatabase()
@@ -62,17 +66,20 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       this.company = company;
    }
 
+   public LLType getLlType()
+   {
+      return llType;
+   }
+
+   public void setLlType(LLType llType)
+   {
+      this.llType = llType;
+   }
+
    @Override
    public int hashCode()
    {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((authors == null) ? 0 : authors.hashCode());
-      result = prime * result + ((company == null) ? 0 : company.hashCode());
-      result = prime * result + ((database == null) ? 0 : database.hashCode());
-      result = prime * result
-            + ((databaseName == null) ? 0 : databaseName.hashCode());
-      return result;
+      return Objects.hash(authors, company, database, databaseName, llType);
    }
 
    @Override
@@ -85,30 +92,11 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       if (getClass() != obj.getClass())
          return false;
       DatabaseDescription other = (DatabaseDescription) obj;
-      if (authors == null)
-      {
-         if (other.authors != null)
-            return false;
-      }
-      else if (!authors.equals(other.authors))
-         return false;
-      if (company == null)
-      {
-         if (other.company != null)
-            return false;
-      }
-      else if (!company.equals(other.company))
-         return false;
-      if (database != other.database)
-         return false;
-      if (databaseName == null)
-      {
-         if (other.databaseName != null)
-            return false;
-      }
-      else if (!databaseName.equals(other.databaseName))
-         return false;
-      return true;
+      return Objects.equals(authors, other.authors)
+            && Objects.equals(company, other.company)
+            && database == other.database
+            && Objects.equals(databaseName, other.databaseName)
+            && llType == other.llType;
    }
 
    @Override

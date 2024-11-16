@@ -14,10 +14,13 @@ public class ApplicationSound
    private static byte[] clappingSound = {};
    private static byte[] waveSound = {};
 
-   private static AudioFormat audioFormat = new AudioFormat(44100, 16, 2, true,
+   public static AudioFormat audioFormat = new AudioFormat(44100, 16, 2, true,
+         false);
+   
+   public static AudioFormat audioFormat2 = new AudioFormat(48000, 16, 2, true,
          false);
 
-   private static String message = "Cerebrummi© konnte keine Ger‰usche laden.\\nFehler: ";
+   private static String message = Settings.getWindowTitle()+" konnte keine Ger√§usche laden.\\nFehler: ";
 
    public static void setShredderSound(InputStream in)
    {
@@ -32,7 +35,7 @@ public class ApplicationSound
 
       if (shredderSound.length == 0)
       {
-         exitWithMessage("Shredder Ger‰usch fehlt.");
+         exitWithMessage("Shredder Ger√§usch fehlt.");
       }
    }
 
@@ -55,7 +58,7 @@ public class ApplicationSound
 
       if (splotchSound.length == 0)
       {
-         exitWithMessage("Splotch Ger‰usch fehlt.");
+         exitWithMessage("Splotch Ger√§usch fehlt.");
       }
    }
 
@@ -78,7 +81,7 @@ public class ApplicationSound
 
       if (clappingSound.length == 0)
       {
-         exitWithMessage("Clapping Ger‰usch fehlt.");
+         exitWithMessage("Clapping GerÔøΩusch fehlt.");
       }
    }
 
@@ -101,7 +104,7 @@ public class ApplicationSound
 
       if (waveSound.length == 0)
       {
-         exitWithMessage("Wave Ger‰usch fehlt.");
+         exitWithMessage("Wave Ger√§usch fehlt.");
       }
    }
 

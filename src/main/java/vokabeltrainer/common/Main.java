@@ -117,8 +117,9 @@ public final class Main
       }
       catch (Exception e1)
       {
+         e1.printStackTrace();
          JOptionPane
-               .showMessageDialog(null, message + "Gerï¿½usche fehlen",
+               .showMessageDialog(null, message + "Geräusche fehlen",
                      "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }

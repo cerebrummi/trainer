@@ -23,6 +23,7 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.notifications.EmptyNotification;
+import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -98,19 +99,21 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
          horizontal1.add(button);
       }
 
-      selectAllInTableButton = new JButton("Tabelle ausw�hlen");
+      selectAllInTableButton = new JButton(Common.getTranslator()
+            .realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       selectAllInTableButton.setFont(ApplicationFonts.getButtonFont());
       selectAllInTableButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
 
-      clearInTableSelectedButton = new JButton("Tabellenauswahl aufheben");
+      clearInTableSelectedButton = new JButton(Common.getTranslator()
+            .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
       clearInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
 
-      restoreButton = new JButton("Auswahl wiederherstellen");
+      restoreButton = new JButton(Common.getTranslator().realisticTranslate(Translation.AUSWAHL_WIEDER_HERSTELLEN));
       restoreButton.setHorizontalAlignment(SwingConstants.LEFT);
       restoreButton.setFont(ApplicationFonts.getButtonFont());
       restoreButton.setIcon(new ImageIcon(ApplicationImages.getRestore()));
@@ -125,9 +128,10 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    private void initController()
    {
       this.restoreButton.addActionListener(event -> {
-         if(isTableNotNull())
+         if (isTableNotNull())
          {
-            connector.restoreSelectedExpressions(table.getSelectedExpressions(false));
+            connector.restoreSelectedExpressions(
+                  table.getSelectedExpressions(false));
          }
       });
 
@@ -179,12 +183,12 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    {
       Font font = ApplicationFonts.getGermanFont(20F);
 
-      JRadioButton german = new JRadioButton("Deutsch");
+      JRadioButton german = new JRadioButton(Common.getTranslator().realisticTranslate(Translation.DEUTSCH));
       german.setActionCommand(LanguageDirection.GERMAN_TO_HEBREW.name());
       german.setFont(font);
       languageTypeGroup.add(german);
 
-      JRadioButton hebrew = new JRadioButton("Hebr�isch");
+      JRadioButton hebrew = new JRadioButton(Common.getTranslator().realisticTranslate(Translation.NEUE_SPRACHE));
       hebrew.setActionCommand(LanguageDirection.HEBREW_TO_GERMAN.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
@@ -215,7 +219,8 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    @Override
    public LanguageDirection getSelectedLanguage()
    {
-      return LanguageDirection.valueOf(languageGroup.getSelection().getActionCommand());
+      return LanguageDirection
+            .valueOf(languageGroup.getSelection().getActionCommand());
    }
 
    @Override

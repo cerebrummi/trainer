@@ -6,11 +6,14 @@ import javax.swing.JOptionPane;
 
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.panels.letterpicture.LetterPictureButtonPanel;
+import vokabeltrainer.panels.translation.Translation;
 
 public class ApplicationSpecialPanels
 {
    private static Map<NikudLetter, LetterPictureButtonPanel> letterPicturesPanelMap;
-   private static String message = "Cerebrummi© konnte Resourcen nicht laden.\nFehler: ";
+   private static String message = Settings.getWindowTitle()
+         + Common.getTranslator().realisticTranslate(
+               Translation.KONNTE_RESOURCEN_NICHT_LADEN_FEHLER);
 
    public static Map<NikudLetter, LetterPictureButtonPanel> getLetterPicturesPanelMap()
    {
@@ -20,20 +23,23 @@ public class ApplicationSpecialPanels
    public static void setLetterPicturesPanelMap(
          Map<NikudLetter, LetterPictureButtonPanel> letterPicturesPanelMap)
    {
-      if(letterPicturesPanelMap.size() < 27)
+      if (letterPicturesPanelMap.size() < 27)
       {
-         exitWithMessage("Es fehlen Buchstabenbilder Panels.");
+         exitWithMessage(Common.getTranslator()
+               .realisticTranslate(Translation.ES_FEHLEN_BUCHSTABENBILDER));
       }
-      else if(letterPicturesPanelMap.size() > 27)
+      else if (letterPicturesPanelMap.size() > 27)
       {
-         exitWithMessage("Es gibt zuviele Buchstabenbilder Panels.");
+         exitWithMessage(Common.getTranslator()
+               .realisticTranslate(Translation.ZUVIELE_BUCHSTABENBILDER));
       }
       ApplicationSpecialPanels.letterPicturesPanelMap = letterPicturesPanelMap;
    }
 
    private static void exitWithMessage(String localMessage)
    {
-      JOptionPane.showMessageDialog(null, message + localMessage, "Nachricht",
+      JOptionPane.showMessageDialog(null, message + localMessage,
+            Common.getTranslator().realisticTranslate(Translation.NACHRICHT),
             JOptionPane.CLOSED_OPTION);
       System.exit(1);
    }

@@ -29,7 +29,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -825,9 +824,9 @@ public class LanguageExpressionEditorView extends JDialog
       vertical.setBackground(ApplicationColors.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 5));
 
-      this.loadImageButton = new JButton("Bild laden");
+      this.loadImageButton = new JButton(translator.realisticTranslate(Translation.BILD_LADEN));
       loadImageButton.setFont(ApplicationFonts.getButtonFont());
-      this.removeImageButton = new JButton("Bild löschen");
+      this.removeImageButton = new JButton(translator.realisticTranslate(Translation.BILD_LOESCHEN));
       removeImageButton.setFont(ApplicationFonts.getButtonFont());
 
       imageButton = new ImageButton();
@@ -1024,32 +1023,7 @@ public class LanguageExpressionEditorView extends JDialog
          language.setRedBorder();
          result = false;
       }
-      for (Chapter c :Data.getChapterArray())
-      {
-         if(c.getName() == (String) chapter.getSelectedItem())
-         {
-            if((c.getLlType() == LLType.SWEDISH && language.getSelection() == Selection.SWEDISH)
-                  || (c.getLlType() == LLType.HEBREW && language.getSelection() == Selection.SIMPLE)
-                  || (c.getLlType() == LLType.HEBREW && language.getSelection() == Selection.PLENE_DEFEKTIV))
-            {
-               // okay
-            }
-            else
-            {
-               chapter.setBorder(makeBorderRed(this.chapterTitle));
-               if(language.getSelection() == Selection.SWEDISH)
-               {
-                  JOptionPane.showMessageDialog(Common.getjFrame(), "Der Lektionsname ist vergeben für Hebräisch!");
-               }
-               else
-               {
-                  JOptionPane.showMessageDialog(Common.getjFrame(), "Der Lektionsname ist vergeben für Schwedisch!");
-               }
-               result = false;
-            }
-            break;
-         }
-      }
+      
       return result;
    }
 
@@ -1113,6 +1087,7 @@ public class LanguageExpressionEditorView extends JDialog
       selfChapter.setOrigin(Database.SELF);
       selfChapter
             .setName(cleanTextLeaveComma((String) chapter.getSelectedItem()));
+      selfChapter.getDatabaseDescription().setLlType(this.language.getLLType());
       expression.setChapter(selfChapter);
 
       Settings.setRememberChapterForInput(selfChapter.getName());

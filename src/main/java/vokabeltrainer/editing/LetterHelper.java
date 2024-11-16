@@ -73,6 +73,23 @@ public class LetterHelper
       return null;
    }
 
+   public static List<SwedishLetter> findSwedishLetters(String swedishWord)
+   {
+      List<String> letterCodes = LetterHelper.findLetterCodes(swedishWord,
+            LetterType.SWEDISH);
+      List<SwedishLetter> swedishLetters = new ArrayList<>();
+      for (String code : letterCodes)
+      {
+         Letter swedishLetter = LetterHelper.getLetterFromCode(code,
+               LetterType.SWEDISH);
+         if (swedishLetter != null && swedishLetter instanceof SwedishLetter)
+         {
+            swedishLetters.add((SwedishLetter) swedishLetter);
+         }
+      }
+      return swedishLetters;
+   }
+   
    public static List<NikudLetter> findNikudLetters(String hebrewWord)
    {
       List<String> letterCodes = LetterHelper.findLetterCodes(hebrewWord,

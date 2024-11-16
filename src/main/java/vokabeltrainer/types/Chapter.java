@@ -16,7 +16,6 @@ public class Chapter implements Comparable<Chapter>
 {
    private String name = "";
    private DatabaseDescription databaseDescription = new DatabaseDescription();
-   private LLType llType = LLType.UNKOWN;
 
    public Chapter()
    {
@@ -39,16 +38,6 @@ public class Chapter implements Comparable<Chapter>
       databaseDescription.setDatabaseName(databaseName.strip());
       this.name = name;
       databaseDescription.setDatabase(origin);
-   }
-
-   public LLType getLlType()
-   {
-      return llType;
-   }
-
-   public void setLlType(LLType llType)
-   {
-      this.llType = llType;
    }
 
    public String getName()
@@ -160,44 +149,57 @@ public class Chapter implements Comparable<Chapter>
     		"grundwortschatz",
             "Grundwortschatz",
             "630 Vokabeln",
-            "Neuhebr√§isch"),
+            "Neuhebr‰isch",
+            LLType.HEBREW),
       SELF(
             "",
             "",
             "",
-            ""),
+            "",
+            LLType.UNKOWN),
       COPY(
             "",
             "Kopie",
             "",
-            ""),
+            "",
+            LLType.UNKOWN),
       IMPORTED(
             "",
             "importiert",
             "",
-            ""),
+            "",
+            LLType.UNKOWN),
       UNKNOWN(
             "",
             "unbekannt",
             "",
-            ""),
+            "",
+            LLType.UNKOWN),
       TO_BE_DETERMINED(
             "",
             "soll bestimmt werden",
             "",
-            "");
+            "",
+            LLType.UNKOWN);
+
+            public void setLlType(LLType llType)
+            {
+               this.llType = llType;
+            }
 
       private String folder;
       private String name;
       private String authors;
       private String company;
+      private LLType llType;
 
-      Database(String folder, String name, String authors, String company)
+      Database(String folder, String name, String authors, String company, LLType llType)
       {
          this.folder = folder;
          this.name = name;
          this.authors = authors;
          this.company = company;
+         this.llType = llType;
       }
 
       public String getFolder()
@@ -251,6 +253,12 @@ public class Chapter implements Comparable<Chapter>
       public String getCompany()
       {
          return company;
+      }
+
+      LLType getLlType()
+      {
+         // TODO Auto-generated method stub
+         return null;
       }
    }
 

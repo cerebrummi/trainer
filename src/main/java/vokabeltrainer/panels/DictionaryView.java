@@ -144,7 +144,7 @@ public class DictionaryView extends BackgroundPanelTiled
             .setLayout(new TrainLayout(horizontalLanguagePanel, 15));
       horizontalLanguagePanel.setBackground(ApplicationColors.getGold());
       horizontalLanguagePanel.setBorder(BorderFactory.createTitledBorder(
-             "Sprachen"));
+            translator.realisticTranslate(Translation.SPRACHEN)));
       languageGroup = new ButtonGroup();
       initLanguageButtonGroup(languageGroup);
       Enumeration<AbstractButton> enumeration1 = languageGroup.getElements();

@@ -54,6 +54,12 @@ public class ExpressionTable extends JTable
       getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
             .put(select, selectCommand);
       getActionMap().put(selectCommand, new SelectAction(this));
+      
+      String soundCommand = "sound";
+      KeyStroke sound = KeyStroke.getKeyStroke(KeyEvent.VK_B, 0);
+      getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+      .put(sound, soundCommand);
+      getActionMap().put(soundCommand, new SoundAction(this));
 
       addMouseListener(new MouseAdapter()
       {

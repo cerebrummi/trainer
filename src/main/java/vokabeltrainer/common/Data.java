@@ -60,8 +60,8 @@ import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.DatabaseDescription;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
-import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.LLType;
+import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.Repetition;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.SortingIndex;
@@ -708,7 +708,7 @@ public final class Data
       }
 
       // #########################################################
-      // #########################################################
+      // ################# read Data #############################
       // #########################################################
       private ConcurrentMap<UUID, Expression> readData(String filename,
             Reader reader, Database origin, Letter letter, boolean overwrite,
@@ -844,12 +844,12 @@ public final class Data
                if (!entries[index].isBlank())
                {
                   expression.getLL().setLltype(LLType.SWEDISH);
-                  expression.getChapter().setLlType(LLType.SWEDISH);
+                  expression.getChapter().getDatabaseDescription().setLlType(LLType.SWEDISH);
                }
                else
                {
                   expression.getLL().setLltype(LLType.HEBREW);
-                  expression.getChapter().setLlType(LLType.HEBREW);
+                  expression.getChapter().getDatabaseDescription().setLlType(LLType.HEBREW);
                }
                index++;
                Definitions definitions = new Definitions();
@@ -1139,20 +1139,9 @@ public final class Data
 
       private List<Expression> findExpressionsChapter(Chapter chapter)
       {
-         if(chapter.getLlType() == LLType.HEBREW)
-         {
-            return alleMap.values().stream()
-                  .filter(expression -> expression.getLL().isSimpleHebrew() 
-                        || expression.getLL().isPleneDefektiv())
-                  .filter(expression -> chapter.equals(expression.getChapter()))
-                  .collect(Collectors.toList());
-         }
-         
          return alleMap.values().stream()
-               .filter(expression -> expression.getLL().isSwedish())
                .filter(expression -> chapter.equals(expression.getChapter()))
                .collect(Collectors.toList());
-         
       }
 
       private List<Expression> findSortedExpressionsOfKind(ExpressionKind kind,
@@ -1195,8 +1184,9 @@ public final class Data
       private boolean allLettersMatchingInEqualSizedLists(
             List<LetterForAnalysis> list1, List<LetterForAnalysis> list2)
       {
-         return IntStream.range(0, list1.size()).allMatch(
-               (i) -> LetterForAnalysis.isEqual(list1.get(i), list2.get(i), LetterType.HEBREW));
+         return IntStream.range(0, list1.size())
+               .allMatch((i) -> LetterForAnalysis.isEqual(list1.get(i),
+                     list2.get(i), LetterType.HEBREW));
       }
 
       private boolean equalsHebrewWordStart(String text, Expression expression)
@@ -1208,8 +1198,8 @@ public final class Data
          if (expression.getLL().isSimpleHebrew())
          {
             List<LetterForAnalysis> expressionList = LetterHelper
-                  .findLetterForAnalysisList(
-                        expression.getLL().getHebrew(), LetterType.HEBREW);
+                  .findLetterForAnalysisList(expression.getLL().getHebrew(),
+                        LetterType.HEBREW);
             if (textList.size() > expressionList.size())
             {
                return false;
@@ -1220,8 +1210,8 @@ public final class Data
          }
 
          List<LetterForAnalysis> expressionListPlene = LetterHelper
-               .findLetterForAnalysisList(
-                     expression.getLL().getHebrewPlene(), LetterType.HEBREW);
+               .findLetterForAnalysisList(expression.getLL().getHebrewPlene(),
+                     LetterType.HEBREW);
          if (textList.size() <= expressionListPlene.size())
          {
             if (IntStream.range(0, textList.size())
@@ -1419,19 +1409,17 @@ public final class Data
          TrainingTableRow[][] data = null;
          final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
                languageDirection, fieldOfTraining);
-         
-         Predicate<Chapter> swedish = c -> c.getLlType() == LLType.SWEDISH;
-         Predicate<Chapter> hebrew = c -> c.getLlType() == LLType.HEBREW;
-         
+
+         Predicate<Chapter> swedish = c -> c.getDatabaseDescription().getLlType() == LLType.SWEDISH;
+         Predicate<Chapter> hebrew = c -> c.getDatabaseDescription().getLlType() == LLType.HEBREW;
+
          switch (fieldOfTraining)
          {
          case AREA_CHAPTER:
-            if(LanguageDirection.GERMAN_TO_HEBREW == languageDirection 
-            || LanguageDirection.HEBREW_TO_GERMAN == languageDirection)
+            if (LanguageDirection.GERMAN_TO_HEBREW == languageDirection
+                  || LanguageDirection.HEBREW_TO_GERMAN == languageDirection)
             {
-               data = chapterSet.stream()
-                     .filter(hebrew)
-                     .sorted()
+               data = chapterSet.stream().filter(hebrew).sorted()
                      .map(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter))
                      .map(trainingTableRow -> new TrainingTableRow[] {
@@ -1440,9 +1428,7 @@ public final class Data
             }
             else
             {
-               data = chapterSet.stream()
-                     .filter(swedish)
-                     .sorted()
+               data = chapterSet.stream().filter(swedish).sorted()
                      .map(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter))
                      .map(trainingTableRow -> new TrainingTableRow[] {
@@ -1525,36 +1511,34 @@ public final class Data
          return chapterRow;
       }
 
-      private List<Expression> findNotStudiedWords(LanguageDirection languageDirection,
-            List<Expression> list)
+      private List<Expression> findNotStudiedWords(
+            LanguageDirection languageDirection, List<Expression> list)
       {
-         Predicate<Expression> hebrew = e -> e.getLL().getLltype() == LLType.HEBREW;
-         Predicate<Expression> swedish = e -> e.getLL().getLltype() == LLType.SWEDISH;
-         
+         Predicate<Expression> hebrew = e -> e.getLL()
+               .getLltype() == LLType.HEBREW;
+         Predicate<Expression> swedish = e -> e.getLL()
+               .getLltype() == LLType.SWEDISH;
+
          switch (languageDirection)
          {
          case GERMAN_TO_HEBREW:
             return list
-                  .stream().filter(hebrew)
-                  .filter(expression -> !expression
+                  .stream().filter(hebrew).filter(expression -> !expression
                         .getTrainingStatusDToLL().isTrainingStarted())
                   .collect(Collectors.toList());
          case HEBREW_TO_GERMAN:
             return list
-                  .stream().filter(hebrew)
-                  .filter(expression -> !expression
+                  .stream().filter(hebrew).filter(expression -> !expression
                         .getTrainingStatusLLToD().isTrainingStarted())
                   .collect(Collectors.toList());
          case GERMAN_TO_SWEDISH:
             return list
-            .stream().filter(swedish)
-            .filter(expression -> !expression
-                  .getTrainingStatusDToLL().isTrainingStarted())
-            .collect(Collectors.toList());
+                  .stream().filter(swedish).filter(expression -> !expression
+                        .getTrainingStatusDToLL().isTrainingStarted())
+                  .collect(Collectors.toList());
          case SWEDISH_TO_GERMAN:
             return list
-                  .stream().filter(swedish)
-                  .filter(expression -> !expression
+                  .stream().filter(swedish).filter(expression -> !expression
                         .getTrainingStatusLLToD().isTrainingStarted())
                   .collect(Collectors.toList());
          default:
@@ -1562,21 +1546,20 @@ public final class Data
          }
       }
 
-      
-      
       private Set<Expression> findOldExpressionsToBeTested(
             LanguageDirection languageDirection,
             FieldOfTraining fieldOfTraining)
       {
-         Predicate<Expression> hebrew = e -> e.getLL().getLltype() == LLType.HEBREW;
-         Predicate<Expression> swedish = e -> e.getLL().getLltype() == LLType.SWEDISH;
-         
+         Predicate<Expression> hebrew = e -> e.getLL()
+               .getLltype() == LLType.HEBREW;
+         Predicate<Expression> swedish = e -> e.getLL()
+               .getLltype() == LLType.SWEDISH;
+
          if (LanguageDirection.GERMAN_TO_HEBREW == languageDirection
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
             return alleMap.values().stream()
-                  .filter(expression -> expression.isSelected())
-                  .filter(hebrew)
+                  .filter(expression -> expression.isSelected()).filter(hebrew)
                   .filter(expression -> expression.getTrainingStatusDToLL()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
@@ -1586,8 +1569,7 @@ public final class Data
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
             return alleMap.values().stream()
-                  .filter(expression -> expression.isSelected())
-                  .filter(hebrew)
+                  .filter(expression -> expression.isSelected()).filter(hebrew)
                   .filter(expression -> expression.getTrainingStatusLLToD()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
@@ -1597,8 +1579,7 @@ public final class Data
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
             return alleMap.values().stream()
-                  .filter(expression -> expression.isSelected())
-                  .filter(swedish)
+                  .filter(expression -> expression.isSelected()).filter(swedish)
                   .filter(expression -> expression.getTrainingStatusDToLL()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
@@ -1608,8 +1589,7 @@ public final class Data
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
             return alleMap.values().stream()
-                  .filter(expression -> expression.isSelected())
-                  .filter(swedish)
+                  .filter(expression -> expression.isSelected()).filter(swedish)
                   .filter(expression -> expression.getTrainingStatusLLToD()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
@@ -1627,8 +1607,7 @@ public final class Data
             Predicate<Expression> wasDueBefore = e -> now
                   .isAfter(e.getTrainingStatusDToLL().getNextDate());
             return alleMap.values().stream().filter(started)
-                  .filter(isDueNow.or(wasDueBefore))
-                  .filter(hebrew)
+                  .filter(isDueNow.or(wasDueBefore)).filter(hebrew)
                   .collect(Collectors.toSet());
          }
 
@@ -1642,11 +1621,10 @@ public final class Data
             Predicate<Expression> wasDueBefore = e -> now
                   .isAfter(e.getTrainingStatusLLToD().getNextDate());
             return alleMap.values().stream().filter(started)
-                  .filter(isDueNow.or(wasDueBefore))
-                  .filter(hebrew)
+                  .filter(isDueNow.or(wasDueBefore)).filter(hebrew)
                   .collect(Collectors.toSet());
          }
-         
+
          if (LanguageDirection.GERMAN_TO_SWEDISH == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
@@ -1657,11 +1635,10 @@ public final class Data
             Predicate<Expression> wasDueBefore = e -> now
                   .isAfter(e.getTrainingStatusDToLL().getNextDate());
             return alleMap.values().stream().filter(started)
-                  .filter(isDueNow.or(wasDueBefore))
-                  .filter(swedish)
+                  .filter(isDueNow.or(wasDueBefore)).filter(swedish)
                   .collect(Collectors.toSet());
          }
-         
+
          if (LanguageDirection.SWEDISH_TO_GERMAN == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
@@ -1672,16 +1649,13 @@ public final class Data
             Predicate<Expression> wasDueBefore = e -> now
                   .isAfter(e.getTrainingStatusLLToD().getNextDate());
             return alleMap.values().stream().filter(started)
-                  .filter(isDueNow.or(wasDueBefore))
-                  .filter(swedish)
+                  .filter(isDueNow.or(wasDueBefore)).filter(swedish)
                   .collect(Collectors.toSet());
          }
 
          return Collections.emptySet();
       }
 
-      
-      
       private int findNumberOfOldToBeTestedPerChapter(Chapter chapter,
             Set<Expression> allOldToBeTestedExpressions)
       {

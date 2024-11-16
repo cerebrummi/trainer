@@ -18,8 +18,7 @@ public class EnterAction extends AbstractAction
    private TextExpressionEditorView editorText;
    private TableConnector connector;
 
-   public EnterAction(ExpressionTable table,
-         TableConnector connector)
+   public EnterAction(ExpressionTable table, TableConnector connector)
    {
       this.table = table;
       this.connector = connector;
@@ -37,36 +36,39 @@ public class EnterAction extends AbstractAction
       if (selectedRow >= 0)
       {
          Expression expression = (Expression) table.getValueAt(selectedRow, 0);
-         if(expression.getDefinitions().isExpressionKindText())
+         if (expression.getDefinitions().isExpressionKindText())
          {
-        	 showEditorText(expression);
+            showEditorText(expression);
          }
          else
          {
-        	 showEditorPunktation(expression);
+            showEditorPunktation(expression);
          }
       }
    }
 
    private void showEditorText(Expression expression)
    {
-		editorText.setFrozen(expression.isDoNotChange());
-		editorText.setExpression(expression, false);
-		editorText.setLocationRelativeTo(Common.getjFrame());
-		editorText.setVisible(true);
-		if (editorText.isSave())
-	      {
-	         connector.save();
-	      }
-	      editorText.dispose();
+      editorText.setFrozen(expression.isDoNotChange());
+      editorText.setExpression(expression, false);
+      editorText.setLocationRelativeTo(Common.getjFrame());
+      editorText.setVisible(true);
+      // editor is open
+      if (editorText.isSave())
+      {
+         connector.save();
+      }
+      
+      editorText.dispose();
    }
 
-private void showEditorPunktation(Expression expression)
+   private void showEditorPunktation(Expression expression)
    {
       editorPunktation.setFrozen(expression.isDoNotChange());
       editorPunktation.setExpression(expression, false);
       editorPunktation.setLocationRelativeTo(Common.getjFrame());
       editorPunktation.setVisible(true);
+      // editor is open
       if (editorPunktation.isSave())
       {
          connector.save();

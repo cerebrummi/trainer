@@ -57,11 +57,11 @@ public class DirectionTab extends BackgroundPanelTiled
       
       germanToNikudButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
             + " >> "
-            + translator.realisticTranslate(Translation.HEBRAEISCH));
+            + translator.realisticTranslate(Translation.HEBRAEISCH_));
       germanToNikudButton.setFont(ApplicationFonts.getToolbarButtonFont());
       directionGroup.add(germanToNikudButton);
 
-      hebrewToGermanButton = new JRadioButton(translator.realisticTranslate(Translation.HEBRAEISCH)
+      hebrewToGermanButton = new JRadioButton(translator.realisticTranslate(Translation.HEBRAEISCH_)
             + " >> "
             + translator.realisticTranslate(Translation.DEUTSCH));
       hebrewToGermanButton.setFont(ApplicationFonts.getToolbarButtonFont());
