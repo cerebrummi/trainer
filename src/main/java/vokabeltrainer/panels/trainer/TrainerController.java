@@ -174,7 +174,7 @@ public class TrainerController implements TrainerControllerConnector
       case GERMAN_TO_HEBREW:
       case GERMAN_TO_SWEDISH:
          trainerView.getQuestionFieldGerman()
-               .setText(currentExpression.getGerman());
+               .setText(currentExpression.getOwnLanguage());
          break;
       case HEBREW_TO_GERMAN:
          if (currentExpression.getLL().isSimpleHebrew())

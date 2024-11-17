@@ -1,34 +1,35 @@
 package vokabeltrainer.panels;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DragSource;
-import java.awt.dnd.DropTarget;
-
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.panels.sentences.DragButton;
-import vokabeltrainer.panels.sentences.DragGestureHandler;
-import vokabeltrainer.panels.sentences.DropTargetHandler;
+import vokabeltrainer.common.Data;
+import vokabeltrainer.panels.input.TableConnector;
+import vokabeltrainer.panels.sentences.table.ExpressionColumnModel;
+import vokabeltrainer.table.ExpressionTable;
+import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
-import vokabeltrainer.types.Word;
+import vokabeltrainer.types.LanguageDirection;
+import vokabeltrainer.types.SortingType;
+import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
-public class SentencesPanel extends JPanel
+public class SentencesPanel extends JPanel implements TableConnector
 {
    private static final long serialVersionUID = -3678970123371154151L;
+   Integer levelOfDifficulty;
+   private ExpressionTable table;
+   private JPanel tablePanel;
 
-   public SentencesPanel()
+   public SentencesPanel(Integer levelOfDifficulty)
    {
-      setLayout(new BorderLayout());
-
-      add(new JScrollPane(initGui()), BorderLayout.CENTER);
+      this.levelOfDifficulty = levelOfDifficulty;
+      setLayout(new BullsEyeLayout(this));
+      add(initGui());
 
       initController();
    }
@@ -40,40 +41,46 @@ public class SentencesPanel extends JPanel
 
    private Component initGui()
    {
-      JPanel panel = new JPanel();
-      TotemLayout layout = new TotemLayout(panel);
-      panel.setLayout(layout);
-      panel.setBackground(ApplicationColors.getBackgroundGold());
+      tablePanel = new JPanel();
+      TotemLayout layout = new TotemLayout(tablePanel);
+      
+      tablePanel.setLayout(layout);
+      tablePanel.setMinimumSize(new Dimension(1400, 800));
+      tablePanel.setMaximumSize(new Dimension(1400, 800));
+      tablePanel.setBackground(ApplicationColors.getBackgroundGold());
 
-      String[] items = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5",
-            "Item 6", "Item 7", "Item 8", "Item 9", "Item 10" };
+      ExpressionTableModel tableModel = Data.findTranslations(LanguageDirection.HEBREW_TO_GERMAN, null, ExpressionKind.TEXT,
+            null, null, null,
+            SortingType.ALPHABET, levelOfDifficulty);
+      tablePanel.removeAll();
+      table = new ExpressionTable(tableModel,
+            LanguageDirection.GERMAN_TO_HEBREW, this, true, new ExpressionColumnModel(LanguageDirection.GERMAN_TO_HEBREW));
 
-      JList<String> questionList = new JList<>(items);
-      questionList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-      questionList.setVisibleRowCount(1);
-      questionList.setMinimumSize(new Dimension(1800, 100));
-      questionList.setMaximumSize(new Dimension(1800, 100));
+      tablePanel.add(new JScrollPane(table));
+      return tablePanel;
+   }
 
-      JList<String> resultList = new JList<>();
-      resultList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-      resultList.setVisibleRowCount(1);
-      resultList.setMinimumSize(new Dimension(1800, 100));
-      resultList.setMaximumSize(new Dimension(1800, 100));
+   @Override
+   public void save()
+   {
+      ExpressionTableModel tableModel = Data.findTranslations(LanguageDirection.HEBREW_TO_GERMAN, null, ExpressionKind.TEXT,
+            null, null, null,
+            SortingType.ALPHABET, levelOfDifficulty);
+      tablePanel.removeAll();
+      table = new ExpressionTable(tableModel,
+            LanguageDirection.GERMAN_TO_HEBREW, this, true, new ExpressionColumnModel(LanguageDirection.GERMAN_TO_HEBREW));
 
-      DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(
-            questionList, DnDConstants.ACTION_COPY_OR_MOVE,
-            new DragGestureHandler(questionList));
+      tablePanel.add(new JScrollPane(table));
+      tablePanel.validate();
+      tablePanel.repaint();
+      
+   }
 
-      new DropTarget(resultList, DnDConstants.ACTION_COPY_OR_MOVE,
-            new DropTargetHandler(resultList), true);
-
-      panel.add(new JLabel("oben"));
-      panel.add(questionList);
-      panel.add(new JLabel("mitte"));
-      panel.add(resultList);
-      panel.add(new JLabel("unten"));
-
-      return panel;
+   @Override
+   public void fireTableCellUpdated(JTable table, int selectedRow, int i)
+   {
+      ((ExpressionTableModel) table.getModel())
+      .fireTableCellUpdated(table.getSelectedRow(), 0);
    }
 
 }

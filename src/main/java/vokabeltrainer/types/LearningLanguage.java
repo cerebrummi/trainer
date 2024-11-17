@@ -10,6 +10,7 @@ public class LearningLanguage
    private String hebrewPlene = "";
    private String hebrewDefektiv = "";
    private String swedish = "";
+   private String german = "";
    private LLType lltype;
 
    public LearningLanguage()
@@ -23,20 +24,28 @@ public class LearningLanguage
       case SWEDISH:
          this.lltype = LLType.SWEDISH;
          break;
+      case GERMAN:
+         this.lltype = LLType.GERMAN;
+         break;
       }
    }
 
    public LearningLanguage(String hebrew, String hebrewPlene, String hebrewDefektiv,
-         boolean simpleHebrew, String swedish)
+         boolean simpleHebrew, String swedish, String german)
    {
       this.hebrew = hebrew;
       this.hebrewPlene = hebrewPlene;
       this.hebrewDefektiv = hebrewDefektiv;
       this.simpleHebrew = simpleHebrew;
       this.swedish = swedish;
+      this.german = german;
       if(!this.swedish.isBlank())
       {
          this.lltype = LLType.SWEDISH;
+      }
+      else if(!this.german.isBlank())
+      {
+         this.lltype = LLType.GERMAN;
       }
       else
       {
@@ -69,6 +78,11 @@ public class LearningLanguage
       return LLType.SWEDISH == this.lltype;
    }
 
+   public boolean isGerman()
+   {
+      return LLType.GERMAN == this.lltype;
+   }
+   
    public void setSimpleHebrew(boolean simpleHebrew)
    {
       this.simpleHebrew = simpleHebrew;
@@ -124,6 +138,16 @@ public class LearningLanguage
       this.swedish = swedish;
    }
 
+   public String getGerman()
+   {
+      return german;
+   }
+
+   public void setGerman(String german)
+   {
+      this.german = german;
+   }
+
    @Override
    public String toString()
    {
@@ -150,7 +174,12 @@ public class LearningLanguage
       if (this.simpleHebrew)
       {  
          return LetterHelper.findHebrewWithoutPunctation(hebrew);
-      }      
+      }
+      
+      if(this.isGerman())
+      {
+         return german;
+      }
       
       return LetterHelper.findHebrewWithoutPunctation(hebrewPlene) + " | " + LetterHelper.findHebrewWithoutPunctation(hebrewDefektiv);
    }

@@ -56,6 +56,7 @@ import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.GermanDocument;
+import vokabeltrainer.editing.InternationalDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.keyboards.KeyboardLanguage;
 import vokabeltrainer.panels.translation.Translation;
@@ -93,7 +94,7 @@ public class LanguageExpressionEditorView extends JDialog
    private Translator translator = Common.getTranslator();
    private Expression expression;
    private boolean newExpression;
-   private JTextField german;
+   private JTextField ownLanguage;
    private InputLanguagePanel language;
 
    private JTextField indexField;
@@ -211,7 +212,7 @@ public class LanguageExpressionEditorView extends JDialog
       getContentPane().add(new JScrollPane(outerLayout));
 
       initController();
-      Component[] focusList = { german, language, newSearchwordGerman,
+      Component[] focusList = { ownLanguage, language, newSearchwordGerman,
             newSearchwordHebrew, extraInfo };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
@@ -222,12 +223,12 @@ public class LanguageExpressionEditorView extends JDialog
       Font germanfont = ApplicationFonts.getGermanFont(16F);
       Font hebrewfont = ApplicationFonts.getHebrewFont(30F);
 
-      german = new JTextField();
-      german.setBorder(makeBorderBlank(germanTitle));
-      german.setFont(germanfont);
-      german.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
-      german.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
-      german.setDocument(new GermanDocument(true));
+      ownLanguage = new JTextField();
+      ownLanguage.setBorder(makeBorderBlank(germanTitle));
+      ownLanguage.setFont(germanfont);
+      ownLanguage.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
+      ownLanguage.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
+      ownLanguage.setDocument(new InternationalDocument());
 
       if (Settings.isSimpleHebrewInput())
       {
@@ -240,9 +241,14 @@ public class LanguageExpressionEditorView extends JDialog
                true, this, WIDTH_INPUT_PANEL,
                ApplicationColors.getLightYellow());
       }
-      else
+      else if (Settings.isSwedishInput())
       {
          language = new InputLanguagePanel(Selection.SWEDISH, 152, 6, true,
+               this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
+      }
+      else 
+      {
+         language = new InputLanguagePanel(Selection.GERMAN, 152, 6, true,
                this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
       language.setBlankBorder();
@@ -538,6 +544,8 @@ public class LanguageExpressionEditorView extends JDialog
       case SWEDISH:
          makeAllBoxes(LLType.SWEDISH);
          break;
+      case GERMAN:
+         makeAllBoxes(LLType.GERMAN);
       }
    }
 
@@ -709,7 +717,7 @@ public class LanguageExpressionEditorView extends JDialog
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
       vertical.setLayout(new TotemLayout(vertical, 15));
-      vertical.add(german);
+      vertical.add(ownLanguage);
       vertical.add(keyboard);
 
       JPanel horizontal = new JPanel();
@@ -843,16 +851,16 @@ public class LanguageExpressionEditorView extends JDialog
    private void resetAllBorders()
    {
       chapter.setBorder(makeBorderBlank(this.chapterTitle));
-      german.setBorder(makeBorderBlank(this.germanTitle));
+      ownLanguage.setBorder(makeBorderBlank(this.germanTitle));
       language.setBlankBorder();
    }
 
    private void initController()
    {
-      german.addActionListener(event -> {
-         if (!german.getText().isEmpty())
+      ownLanguage.addActionListener(event -> {
+         if (!ownLanguage.getText().isEmpty())
          {
-            german.setBorder(makeBorderBlank(this.germanTitle));
+            ownLanguage.setBorder(makeBorderBlank(this.germanTitle));
          }
       });
 
@@ -1013,9 +1021,9 @@ public class LanguageExpressionEditorView extends JDialog
          chapter.setBorder(makeBorderRed(this.chapterTitle));
          result = false;
       }
-      if (german.getText().isEmpty())
+      if (ownLanguage.getText().isEmpty())
       {
-         german.setBorder(makeBorderRed(this.germanTitle));
+         ownLanguage.setBorder(makeBorderRed(this.germanTitle));
          result = false;
       }
       if (!language.isFilledOut())
@@ -1029,17 +1037,18 @@ public class LanguageExpressionEditorView extends JDialog
 
    private void saveExpression()
    {
-      expression.setGerman(cleanTextLeaveComma(german.getText()));
+      expression.setOwnLanguage(cleanTextLeaveComma(ownLanguage.getText()));
 
       expression.setLearningLanguage(new LearningLanguage(
             cleanTextLeaveComma(language.getHebrewFieldText()),
             cleanTextLeaveComma(language.getPleneFieldText()),
             cleanTextLeaveComma(language.getDefektivFieldText()),
             language.isSimple(),
-            cleanTextLeaveComma(language.getSwedishFieldText())));
+            cleanTextLeaveComma(language.getSwedishFieldText()),
+            cleanTextLeaveComma(language.getGermanFieldText())));
 
       expression.setLetterForSaving(LetterForSaving
-            .getLetter(cleanTextLeaveComma(expression.getGerman())));
+            .getLetter(cleanTextLeaveComma(expression.getOwnLanguage())));
 
       Definitions definitions = new Definitions();
       Vector<Vector<ExpressionKindTableRow>> vektorRows = expressionKindTable
@@ -1067,6 +1076,10 @@ public class LanguageExpressionEditorView extends JDialog
       if (definitions.getExpressionKindSet().isEmpty())
       {
          definitions.addExpressionKind(ExpressionKind.EXPRESSIONKIND_UNKNOWN);
+      }
+      else if(definitions.getExpressionKindSet().contains(ExpressionKind.TEXT))
+      {         
+         expression.setLevel(1);
       }
 
       expression.setDefinitions(definitions);
@@ -1163,6 +1176,11 @@ public class LanguageExpressionEditorView extends JDialog
             this.keyboard.setKeyboard(Selection.SIMPLE);
             this.language.setHebrewFieldText(expression.getLL().getHebrew());
          }
+         else if (expression.getLL().isGerman())
+         {
+            this.keyboard.setKeyboard(Selection.GERMAN);
+            this.language.setGermanFieldText(expression.getLL().getGerman());
+         }
       }
 
       this.chapter.setModel(Data.getChapterComboBoxModel());
@@ -1177,7 +1195,7 @@ public class LanguageExpressionEditorView extends JDialog
 
       this.indexField.setText(expression.getSortingIndex());
 
-      this.german.setText(expression.getGerman());
+      this.ownLanguage.setText(expression.getOwnLanguage());
 
       this.searchwordsSetGerman = new HashSet<>();
       for (String word : expression.getSearchwordsGerman())
@@ -1321,7 +1339,7 @@ public class LanguageExpressionEditorView extends JDialog
       boolean works = !frozen;
       try
       {
-         this.german.setEditable(works);
+         this.ownLanguage.setEditable(works);
          this.language.setEditable(works);
          this.keyboard.setFrozen(frozen);
          this.saveButton.setEnabled(works);

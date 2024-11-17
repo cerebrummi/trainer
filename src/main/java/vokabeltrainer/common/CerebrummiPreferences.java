@@ -255,7 +255,7 @@ public class CerebrummiPreferences
                .node(CerebrummiNodes.getNode());
          Settings.setLanguageInput(Selection
                .valueOf(preferences.get(CerebrummiNodes.getLanguageNode(),
-                     Selection.SWEDISH.name())));
+                     Selection.GERMAN.name())));
       }
       catch (Exception e)
       {

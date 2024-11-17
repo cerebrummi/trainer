@@ -37,8 +37,10 @@ public class KeyboardLanguage extends JPanel
    
    private Component hebrewKeyboard;
    private Component swedishKeyboard;
+   private Component germanKeyboard;
 
    private KeyboardSwedishStandard swedishKeyboardMaker;
+   private KeyboardGermanStandard germanKeyboardMaker;
    private JTextComponent textfield;
 
    public KeyboardLanguage(JTextComponent textfield,
@@ -102,6 +104,12 @@ public class KeyboardLanguage extends JPanel
             this.components, textFieldHeight);
       this.swedishKeyboard = swedishKeyboardMaker.makeRegularKeyboard();
       this.swedishKeyboard.addMouseListener(new KeyboardListener());
+      
+      germanKeyboardMaker = new KeyboardGermanStandard(this.textfield,
+            this.components, textFieldHeight);
+      this.germanKeyboard = germanKeyboardMaker.makeRegularKeyboard();
+      this.germanKeyboard.addMouseListener(new KeyboardListener());
+      
       this.hebrewKeyboard = this.makeHebrewKeyboard();
       setKeyboard(Settings.getLanguageInput());
    }
@@ -120,6 +128,9 @@ public class KeyboardLanguage extends JPanel
       case SWEDISH:
          this.add(swedishKeyboard);
          break;
+      case GERMAN:
+         this.add(germanKeyboard);
+         break;
       }
       this.validate();
       this.repaint();
@@ -137,6 +148,9 @@ public class KeyboardLanguage extends JPanel
          break;
       case SWEDISH:
          this.add(swedishKeyboard);
+         break;
+      case GERMAN:
+         this.add(germanKeyboard);
          break;
       }
       this.validate();

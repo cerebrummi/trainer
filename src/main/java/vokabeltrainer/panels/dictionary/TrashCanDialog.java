@@ -24,6 +24,7 @@ import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.table.ExpressionColumnModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -155,7 +156,8 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
          table = new ExpressionTable(tableModel,
                LanguageDirection
                      .valueOf(languageGroup.getSelection().getActionCommand()),
-               connector, false);
+               connector, false, new ExpressionColumnModel(LanguageDirection
+                     .valueOf(languageGroup.getSelection().getActionCommand())));
          JScrollPane scrollPane = new JScrollPane(table);
          scrollPane.setOpaque(false);
          scrollPane.getViewport().setOpaque(false);

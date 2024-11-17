@@ -16,9 +16,10 @@ public enum Gender implements GrammaticalEnum
    GENDER_UNKNOWN(
          Translation.UNBEKANNT, LLType.ALL),
    FEMALE(
-         Translation.FEMININ, LLType.HEBREW_ONLY),
+         Translation.FEMININ, LLType.ALL_BUT_SWEDISH),
    MALE(
-         Translation.MASKULIN, LLType.HEBREW_ONLY),
+         Translation.MASKULIN, LLType.ALL_BUT_SWEDISH),
+   NEUTRUM(Translation.NEUTRUM, LLType.GERMAN_ONLY),
    BOTH_FEMALE_MALE(
          Translation.FEMININ_UND_MASKULIN, LLType.HEBREW_ONLY),
    EN(Translation.EN, LLType.SWEDISH_ONLY),
@@ -52,6 +53,7 @@ public enum Gender implements GrammaticalEnum
       case MALE:
       case EN:
       case ETT:
+      case NEUTRUM:
          return translator.realisticTranslate(description);
       case GENDER_UNKNOWN:
          return translator.realisticTranslate(Translation.GESCHLECHT)
@@ -72,6 +74,7 @@ public enum Gender implements GrammaticalEnum
       case MALE:
       case EN:
       case ETT:
+      case NEUTRUM:
          return translator.realisticTranslate(description);
       case GENDER_UNKNOWN:
       case GENDER_NA:

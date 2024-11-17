@@ -20,7 +20,7 @@ import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 public class Expression
 {
    private UUID uuid;
-   private String german;
+   private String ownLanguage;
    private LearningLanguage ll = new LearningLanguage();
    private List<String> searchwordsGerman = new ArrayList<>();
    private List<String> searchwordsHebrew = new ArrayList<>();
@@ -36,7 +36,7 @@ public class Expression
    private LocalDateTime lastModified;
    private String sortingIndex = "";
    private Translator translator = Common.getTranslator();
-   private Integer level = 0;
+   private Integer level = null;
 
    public Expression(boolean preset) // for unit testing
    {
@@ -45,7 +45,7 @@ public class Expression
       if (preset)
       {
          uuid = UUID.randomUUID();
-         german = "";
+         ownLanguage = "";
          chapter = new Chapter(Database.SELF);
          definitions = new Definitions();
          lastModified = LocalDateTime.now();
@@ -59,7 +59,7 @@ public class Expression
       if (preset)
       {
          uuid = UUID.randomUUID();
-         german = "";
+         ownLanguage = "";
          chapter = new Chapter(Database.SELF);
          definitions = new Definitions();
          lastModified = LocalDateTime.now();
@@ -93,14 +93,14 @@ public class Expression
       this.uuid = uuid;
    }
 
-   public String getGerman()
+   public String getOwnLanguage()
    {
-      return german;
+      return ownLanguage;
    }
 
-   public void setGerman(String german)
+   public void setOwnLanguage(String german)
    {
-      this.german = german;
+      this.ownLanguage = german;
    }
 
    public LearningLanguage getLL()
@@ -175,7 +175,7 @@ public class Expression
 
    public String getChapterGermanComparison()
    {
-      return chapter.getName() + " " + german;
+      return chapter.getName() + " " + ownLanguage;
    }
 
    public boolean isSelected()
@@ -287,7 +287,7 @@ public class Expression
       String[] result = new String[10];
       result[index] = String.valueOf(selected);
       index++;
-      result[index] = german;
+      result[index] = ownLanguage;
       index++;
       result[index] = ll.toString();
       index++;
@@ -331,7 +331,49 @@ public class Expression
       index++;
       result[index] = ll.toString();
       index++;
-      result[index] = german;
+      result[index] = ownLanguage;
+      index++;
+      result[index] = ll.toTableEntry();
+      index++;
+      result[index] = definitions.getGenderDescriptions();
+      index++;
+      result[index] = definitions.getNumerusDescriptions() + " "
+            + definitions.getGrammaticalPersonDescriptions();
+      index++;
+      StringJoiner joiner = new StringJoiner(", ");
+      if (!definitions.getBinjanDescriptions().isBlank())
+      {
+         joiner.add(definitions.getBinjanDescriptions());
+      }
+      if (!definitions.getVerbTimeDescriptions().isBlank())
+      {
+         joiner.add(definitions.getVerbTimeDescriptions());
+      }
+      result[index] = joiner.toString();
+      index++;
+      result[index] = definitions.getExpressionKindDescriptions();
+      index++;
+      result[index] = translator.realisticTranslate(Translation.KAPITEL) + ": "
+            + chapter.getName() + ", "
+            + translator.realisticTranslate(Translation.INDEX) + ": "
+            + sortingIndex;
+      index++;
+      result[index] = chapter.getDatabaseName() + " "
+            + translator.realisticTranslate(Translation.VOM) + " "
+            + lastModified.format(DateTimeFormatter.ofPattern(
+                  translator.realisticTranslate(Translation._DATE_TIME)));
+      return result;
+   }
+   
+   public String[] toHebrewArrayForTableEntry2()
+   {
+      int index = 0;
+      String[] result = new String[10];
+      result[index] = String.valueOf(selected);
+      index++;
+      result[index] = ll.toString();
+      index++;
+      result[index] = ownLanguage;
       index++;
       result[index] = ll.toTableEntry();
       index++;
@@ -373,7 +415,7 @@ public class Expression
       index++;
       result[index] = ll.toString();
       index++;
-      result[index] = german;
+      result[index] = ownLanguage;
       index++;
       result[index] = "";
       index++;
@@ -413,7 +455,7 @@ public class Expression
       String[] result = new String[10];
       result[index] = String.valueOf(selected);
       index++;
-      result[index] = german;
+      result[index] = ownLanguage;
       index++;
       result[index] = ll.toString();
       index++;
@@ -446,6 +488,18 @@ public class Expression
             + translator.realisticTranslate(Translation.VOM) + " "
             + lastModified.format(DateTimeFormatter.ofPattern(
                   translator.realisticTranslate(Translation._DATE_TIME)));
+      return result;
+   }
+   
+   public String[] toArrayForTableEntry()
+   {
+      int index = 0;
+      String[] result = new String[3];
+      result[index] = String.valueOf(selected);
+      index++;
+      result[index] = ll.toString();
+      index++;
+      result[index] = ownLanguage;
       return result;
    }
 
@@ -487,32 +541,7 @@ public class Expression
 
    public String getExpressionPrintLineForSaving()
    {
-      StringJoiner joiner = new StringJoiner("\t");
-      joiner.add(uuid.toString());
-      joiner.add(chapter.getOrigin().name());
-      joiner.add(chapter.getDatabaseName());
-      joiner.add(chapter.getName());
-      joiner.add(german);
-      joiner.add(String.valueOf(ll.isSimpleHebrew()));
-      joiner.add(ll.getHebrew());
-      joiner.add(ll.getHebrewPlene());
-      joiner.add(ll.getHebrewDefektiv());
-      joiner.add(ll.getSwedish());
-      joiner.add(definitions.getExpressionKindsForSaving());
-      joiner.add(definitions.getGrammaticalEnumsForSaving());
-      joiner.add(additionalInformation);
-      joiner.add(getSearchWordsGermanForSaving());
-      joiner.add(getSearchWordsHebrewForSaving());
-      joiner.add(lastModified.toString());
-      joiner.add(sortingIndex);
-      joiner.add(level.toString());
-      
-      if(joiner.toString().length()< 10)
-      {
-         System.out.println(joiner.toString());
-      }
-      
-      return joiner.toString();
+      return getExpressionPrintLineForSaving(chapter.getDatabaseName());
    }
 
    public String getExpressionPrintLineForSaving(String databaseName)
@@ -523,12 +552,13 @@ public class Expression
       joiner.add(db.name());
       joiner.add(databaseName);
       joiner.add(chapter.getName());
-      joiner.add(german);
+      joiner.add(ownLanguage);
       joiner.add(String.valueOf(ll.isSimpleHebrew()));
       joiner.add(ll.getHebrew());
       joiner.add(ll.getHebrewPlene());
       joiner.add(ll.getHebrewDefektiv());
       joiner.add(ll.getSwedish());
+      joiner.add(ll.getGerman());
       joiner.add(definitions.getExpressionKindsForSaving());
       joiner.add(definitions.getGrammaticalEnumsForSaving());
       joiner.add(additionalInformation);
@@ -536,10 +566,6 @@ public class Expression
       joiner.add(getSearchWordsHebrewForSaving());
       joiner.add(lastModified.toString());
       joiner.add(sortingIndex);
-      if(joiner.toString().length()< 10)
-      {
-         System.out.println(joiner.toString());
-      }
       return joiner.toString();
    }
 
@@ -568,13 +594,13 @@ public class Expression
       StringJoiner joiner = new StringJoiner("\t");
       if (LanguageDirection.GERMAN_TO_HEBREW.equals(language))
       {
-         joiner.add(german);
+         joiner.add(ownLanguage);
          joiner.add(ll.toString());
       }
       else
       {
          joiner.add(ll.toString());
-         joiner.add(german);
+         joiner.add(ownLanguage);
       }
       joiner.add(chapter.getName());
       joiner.add(definitions.addExpressionKindsForCopy(", "));
@@ -656,10 +682,10 @@ public class Expression
       {
     	 if(this.getTrainingStatusDToLL().getRepetition() == null)
     	 {
-    		  return "Fehler bei " + german;
+    		  return "Fehler bei " + ownLanguage;
     	 }
     	 
-         return german + "   [" + this.getTrainingStatusDToLL().getTrys() + " "
+         return ownLanguage + "   [" + this.getTrainingStatusDToLL().getTrys() + " "
                + translator.realisticTranslate(Translation.MAL) + " "
                + this.getTrainingStatusDToLL().getRepetition().getTranslation()
                + "]  [" + chapter.getName() + "]   "
@@ -667,7 +693,7 @@ public class Expression
       }
       else
       {
-         return german + "   [" + this.getTrainingStatusLLToD().getTrys() + " "
+         return ownLanguage + "   [" + this.getTrainingStatusLLToD().getTrys() + " "
                + translator.realisticTranslate(Translation.MAL) + " "
                + this.getTrainingStatusLLToD().getRepetition().getTranslation()
                + "]  [" + chapter.getName() + "]   "
@@ -678,7 +704,7 @@ public class Expression
    public String[] getGermanHebrewGrammarArrayForSuccess()
    {
       String[] content = new String[3];
-      content[0] = german;
+      content[0] = ownLanguage;
       content[1] = ll.toString();
       content[2] = getGrammarInfo(true);
       return content;
@@ -686,7 +712,7 @@ public class Expression
 
    public boolean findPattern(Pattern pattern)
    {
-      if (pattern.matcher(german).find())
+      if (pattern.matcher(ownLanguage).find())
       {
          return true;
       }

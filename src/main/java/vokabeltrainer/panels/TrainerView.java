@@ -806,7 +806,7 @@ public class TrainerView extends BackgroundPanelTiled
       correctAnswer.setMinimumSize(new Dimension(490, 30));
       correctAnswer.setMaximumSize(new Dimension(510, 30));
       JLabel correctAnswer2 = new JLabel(
-            connector.getCurrentExpression().getGerman());
+            connector.getCurrentExpression().getOwnLanguage());
       correctAnswer2.setFont(ApplicationFonts.getGermanFont(20F));
       correctAnswer2.setMinimumSize(new Dimension(490, 30));
       correctAnswer2.setMaximumSize(new Dimension(510, 30));

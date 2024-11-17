@@ -22,11 +22,21 @@ public enum VerbTimes
    INFINITIVE(
          Translation.INFINITIV, LLType.ALL),
    PAST(
-         Translation.VERGANGENHEIT, LLType.ALL),
+         Translation.VERGANGENHEIT, LLType.ALL_BUT_GERMAN),
+   PRAETERITUM(
+         Translation.PRAETERITUM, LLType.GERMAN_ONLY),
+   PERFEKT(
+         Translation.PERFEKT, LLType.GERMAN_ONLY),
+   PLUSQUANPERFEKT(
+         Translation.PLUSQUAMPERFEKT, LLType.GERMAN_ONLY),
    PRESENT(
          Translation.GEGENWART, LLType.ALL),
    FUTURE(
-         Translation.ZUKUNFT, LLType.ALL),
+         Translation.ZUKUNFT, LLType.ALL_BUT_GERMAN),
+   FUTUR1(
+         Translation.FUTUR1, LLType.GERMAN_ONLY),
+   FUTUR2(
+         Translation.FUTUR1, LLType.GERMAN_ONLY),
    SUPINUM(Translation.SUPINUM, LLType.SWEDISH_ONLY),
    IMPERARTIVE(
          Translation.BEFEHLSFORM, LLType.ALL),
@@ -61,6 +71,11 @@ public enum VerbTimes
       case PRESENT:
       case ROOT:
       case SUPINUM:
+      case PRAETERITUM:
+      case PERFEKT:
+      case PLUSQUANPERFEKT:
+      case FUTUR1:
+      case FUTUR2:
          return translator.realisticTranslate(description);
       case VERBTIMES_UNKNOWN:
          return translator.realisticTranslate(Translation.ZEITFORM)
@@ -90,6 +105,11 @@ public enum VerbTimes
       case PRESENT:
       case ROOT:
       case SUPINUM:
+      case PRAETERITUM:
+      case PERFEKT:
+      case PLUSQUANPERFEKT:
+      case FUTUR1:
+      case FUTUR2:
          return translator.realisticTranslate(description);
       case VERBTIMES_UNKNOWN:
       case VERBTIMES_NA:

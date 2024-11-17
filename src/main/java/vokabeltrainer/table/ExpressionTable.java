@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableColumnModel;
 
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.input.TableConnector;
@@ -26,9 +27,9 @@ public class ExpressionTable extends JTable
    private ExpressionTableModel model;
 
    public ExpressionTable(ExpressionTableModel dm, LanguageDirection language,
-         TableConnector connector, boolean editable)
+         TableConnector connector, boolean editable, DefaultTableColumnModel columnModel)
    {
-      super(dm, new ExpressionColumnModel(language));
+      super(dm, columnModel);
       this.model = dm;
       this.language = language;
       setRowHeight(Settings.dictionaryTableRowHeight());

@@ -31,6 +31,7 @@ import vokabeltrainer.panels.input.ChapterComboBox;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.table.ExpressionColumnModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
@@ -215,10 +216,10 @@ public class InputPanel extends JPanel implements TableConnector
    {
       ExpressionTableModel tableModel = Data.findTranslations(
             LanguageDirection.GERMAN_TO_HEBREW, null, null, null, currentChapter, null,
-            SortingType.DATE);
+            SortingType.DATE, null);
       tablePanel.removeAll();
       ExpressionTable table = new ExpressionTable(tableModel,
-            LanguageDirection.GERMAN_TO_HEBREW, this, true);
+            LanguageDirection.GERMAN_TO_HEBREW, this, true, new ExpressionColumnModel(LanguageDirection.GERMAN_TO_HEBREW));
       JScrollPane tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);
       tableScroller.getViewport().setOpaque(false);

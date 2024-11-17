@@ -68,7 +68,7 @@ public class ExpressionComparator implements Comparator<Expression>
          {
             Collator coll2 = Collator.getInstance(Locale.GERMAN);
             coll2.setStrength(Collator.PRIMARY);
-            return coll2.compare(o1.getGerman(), o2.getGerman());
+            return coll2.compare(o1.getOwnLanguage(), o2.getOwnLanguage());
          }
          else
          {    

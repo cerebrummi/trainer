@@ -4,6 +4,7 @@ import java.util.StringJoiner;
 
 public enum SignLetter implements Letter
 {
+   TAB(" 0009_","\u0009"),
    QUESTION_MARK(" 003f_**", "\u003f"),            // ?
    EXCLAMATION_MARK(" 0021_**", "\u0021"),         // !
    FULL_STOP(" 002e_**", "\u002e"),                // .
@@ -83,11 +84,23 @@ public enum SignLetter implements Letter
          GREATER_THAN_SIGN, VERTICAL_LINE, AMPERSAND };
    
    private static SignLetter[] forFileNames = {HYPHEN_MINUS, LOW_LINE};
+   
+   private static SignLetter[] forbiddenSigns = {TAB, REVERSE_SOLIDUS};
 
    SignLetter(String code, String unicode)
    {
       this.code = code;
       this.unicode = unicode;
+   }
+   
+   public static String getInternationalExclusionPattern()
+   {
+      StringJoiner joiner = new StringJoiner(",");
+      for (SignLetter letter : forbiddenSigns)
+      {
+         joiner.add(letter.getCode());
+      }
+      return joiner.toString();
    }
 
    public static String getPatternStringGerman()

@@ -26,15 +26,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.text.JTextComponent;
-
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.editing.SwedishDocument;
 import vokabeltrainer.keyboards.KeyboardLanguage;
@@ -49,10 +48,11 @@ public class InputLanguagePanel extends JTextArea
 {
    private static final long serialVersionUID = 2787773393300243696L;
 
-   private JTextField hebrewField;
-   private JTextField pleneField;
-   private JTextField defektivField;
-   private JTextField swedishField;
+   private JTextArea hebrewField;
+   private JTextArea pleneField;
+   private JTextArea defektivField;
+   private JTextArea swedishField;
+   private JTextArea germanField;
 
    private JButton toggleButton;
 
@@ -88,7 +88,7 @@ public class InputLanguagePanel extends JTextArea
 
    public enum Selection
    {
-      SIMPLE, PLENE_DEFEKTIV, SWEDISH
+      SIMPLE, PLENE_DEFEKTIV, SWEDISH, GERMAN;
    }
 
    class FocusForwardAction extends AbstractAction
@@ -108,6 +108,10 @@ public class InputLanguagePanel extends JTextArea
             forwardPleneDefectiv();
          }
          else if (Selection.SWEDISH == selection && swedishField.isFocusOwner())
+         {
+            forwardToOutsideTraversalCycle();
+         }
+         else if (Selection.GERMAN == selection && germanField.isFocusOwner())
          {
             forwardToOutsideTraversalCycle();
          }
@@ -144,6 +148,10 @@ public class InputLanguagePanel extends JTextArea
             backwardInside();
          }
          else if (Selection.SWEDISH == selection && swedishField.isFocusOwner())
+         {
+            backwardToOutsideTraversalCycle();
+         }
+         else if (Selection.GERMAN == selection && germanField.isFocusOwner())
          {
             backwardToOutsideTraversalCycle();
          }
@@ -207,6 +215,7 @@ public class InputLanguagePanel extends JTextArea
          cards.setBorder(BorderFactory.createEmptyBorder());
       }
 
+      cards.add(Selection.GERMAN.name(), initGerman());
       cards.add(Selection.SWEDISH.name(), initSwedish());
       cards.add(Selection.PLENE_DEFEKTIV.name(), initPleneDefektivHebrew());
       cards.add(Selection.SIMPLE.name(), initSimpleHebrew());
@@ -252,9 +261,13 @@ public class InputLanguagePanel extends JTextArea
                {
                   pleneField.requestFocusInWindow();
                }
-               else
+               else if(Selection.SWEDISH == selection)
                {
                   swedishField.requestFocusInWindow();
+               }
+               else if(Selection.GERMAN == selection)
+               {
+                  germanField.requestFocusInWindow();
                }
             }
             else if (e.getCause() == Cause.TRAVERSAL_BACKWARD)
@@ -267,9 +280,13 @@ public class InputLanguagePanel extends JTextArea
                {
                   defektivField.requestFocusInWindow();
                }
-               else
+               else if(Selection.SWEDISH == selection)
                {
                   swedishField.requestFocusInWindow();
+               }
+               else if(Selection.GERMAN == selection)
+               {
+                  germanField.requestFocusInWindow();
                }
             }
          }
@@ -306,6 +323,12 @@ public class InputLanguagePanel extends JTextArea
             setBlankBorder();
          }
       });
+      germanField.addCaretListener(event -> {
+         if (!germanField.getText().isEmpty())
+         {
+            setBlankBorder();
+         }
+      });
 
       toggleButton.addActionListener(event -> toggleNext());
 
@@ -328,9 +351,13 @@ public class InputLanguagePanel extends JTextArea
             {
                pleneField.requestFocusInWindow();
             }
-            else
+            else if(Selection.SWEDISH == selection)
             {
                swedishField.requestFocusInWindow();
+            }
+            else if(Selection.GERMAN == selection)
+            {
+               germanField.requestFocusInWindow();
             }
          }
 
@@ -370,7 +397,9 @@ public class InputLanguagePanel extends JTextArea
       vertical.setBackground(this.color);
       vertical.setBorder(BorderFactory.createLineBorder(this.color));
 
-      pleneField = new JTextField();
+      pleneField = new JTextArea();
+      pleneField.setWrapStyleWord(true);
+      pleneField.setLineWrap(true);
       pleneField.setDocument(new NikudDocument(true));
       pleneField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       pleneField.setFont(ApplicationFonts.getHebrewFont(30F));
@@ -382,7 +411,9 @@ public class InputLanguagePanel extends JTextArea
             translator.realisticTranslate(Translation.HEBRAEISCH__PLENE)));
       components.add(pleneField);
 
-      defektivField = new JTextField();
+      defektivField = new JTextArea();
+      defektivField.setWrapStyleWord(true);
+      defektivField.setLineWrap(true);
       defektivField.setDocument(new NikudDocument(true));
       defektivField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       defektivField.setFont(ApplicationFonts.getHebrewFont(30F));
@@ -409,7 +440,9 @@ public class InputLanguagePanel extends JTextArea
       vertical.setBackground(this.color);
       vertical.setOpaque(true);
 
-      hebrewField = new JTextField();
+      hebrewField = new JTextArea();
+      hebrewField.setWrapStyleWord(true);
+      hebrewField.setLineWrap(true);
       hebrewField.setDocument(new NikudDocument(true));
       hebrewField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       hebrewField.setFont(ApplicationFonts.getHebrewFont(30F));
@@ -435,7 +468,9 @@ public class InputLanguagePanel extends JTextArea
       vertical.setBackground(this.color);
       vertical.setOpaque(true);
 
-      swedishField = new JTextField();
+      swedishField = new JTextArea();
+      swedishField.setWrapStyleWord(true);
+      swedishField.setLineWrap(true);
       swedishField.setDocument(new SwedishDocument(true));
       swedishField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
       swedishField.setFont(ApplicationFonts.getGermanFont(20F));
@@ -450,6 +485,34 @@ public class InputLanguagePanel extends JTextArea
       components.add(swedishField);
 
       vertical.add(swedishField);
+
+      return vertical;
+   }
+   
+   private Component initGerman()
+   {
+      JPanel vertical = new JPanel();
+      vertical.setLayout(new TotemLayout(vertical));
+      vertical.setBackground(this.color);
+      vertical.setOpaque(true);
+
+      germanField = new JTextArea();
+      germanField.setWrapStyleWord(true);
+      germanField.setLineWrap(true);
+      germanField.setDocument(new GermanDocument(true));
+      germanField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+      germanField.setFont(ApplicationFonts.getGermanFont(20F));
+      germanField
+            .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
+                  (heightTotal - heightBorderTitel)));
+      germanField.setMaximumSize(
+            new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
+      germanField.setBorder(BorderFactory.createTitledBorder(
+            translator.realisticTranslate(Translation.GERMAN)));
+
+      components.add(germanField);
+
+      vertical.add(germanField);
 
       return vertical;
    }
@@ -472,9 +535,15 @@ public class InputLanguagePanel extends JTextArea
          if(editorView != null) editorView.remakeAllBoxes(LLType.SWEDISH);
          break;
       case SWEDISH:
+         selection = Selection.GERMAN;
+         layout.show(cards, Selection.GERMAN.name());
+         this.swedishField.setText("");
+         if(editorView != null) editorView.remakeAllBoxes(LLType.GERMAN);
+         break;
+      case GERMAN:
          selection = Selection.SIMPLE;
          layout.show(cards, Selection.SIMPLE.name());
-         this.swedishField.setText("");
+         this.germanField.setText("");
          if(editorView != null) editorView.remakeAllBoxes(LLType.HEBREW);
          break;
       }
@@ -518,6 +587,11 @@ public class InputLanguagePanel extends JTextArea
    {
       return swedishField.getText();
    }
+   
+   public String getGermanFieldText()
+   {
+      return germanField.getText();
+   }
 
    public void setHebrewFieldText(String hebrewText)
    {
@@ -538,6 +612,11 @@ public class InputLanguagePanel extends JTextArea
    {
       swedishField.setText(swedishText);
    }
+   
+   public void setGermanFieldText(String germanText)
+   {
+      germanField.setText(germanText);
+   }
 
    public boolean isFilledOut()
    {
@@ -550,6 +629,8 @@ public class InputLanguagePanel extends JTextArea
                && !defektivField.getText().strip().isBlank();
       case SWEDISH:
          return !swedishField.getText().strip().isBlank();
+      case GERMAN:
+         return !germanField.getText().strip().isBlank();
       }
       return false;
    }
@@ -584,6 +665,10 @@ public class InputLanguagePanel extends JTextArea
       {
          swedishField.setBackground(color);
       }
+      if (germanField != null)
+      {
+         germanField.setBackground(color);
+      }
    }
 
    @Override
@@ -614,6 +699,10 @@ public class InputLanguagePanel extends JTextArea
       {
          this.swedishField.setEditable(editable);
       }
+      if (germanField != null)
+      {
+         this.germanField.setEditable(editable);
+      }
    }
 
    public Collection<? extends JTextComponent> getTextComponents()
@@ -635,6 +724,8 @@ public class InputLanguagePanel extends JTextArea
          return LLType.HEBREW;
       case SWEDISH:
          return LLType.SWEDISH;
+      case GERMAN:
+         return LLType.GERMAN;
       }
       return LLType.UNKOWN;
    }

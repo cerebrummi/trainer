@@ -60,6 +60,7 @@ import vokabeltrainer.panels.list.ChapterList;
 import vokabeltrainer.panels.list.ChapterListSelectionModel;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.table.ExpressionColumnModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.expressionkindtable.singleselect.ExpressionKindTableRow2;
@@ -957,7 +958,7 @@ public class DictionaryView extends BackgroundPanelTiled
       scrollsearchPinButton.setFont(ApplicationFonts.getButtonFont());
 
       table = new ExpressionTable(tableModel, this.getSelectedLanguage(),
-            connector, true);
+            connector, true, new ExpressionColumnModel(this.getSelectedLanguage()));
       tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);
       tableScroller.getViewport().setOpaque(false);

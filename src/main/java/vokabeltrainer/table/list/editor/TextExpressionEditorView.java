@@ -48,6 +48,7 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.GermanDocument;
+import vokabeltrainer.editing.InternationalDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.keyboards.KeyboardLanguage;
 import vokabeltrainer.panels.translation.Translation;
@@ -78,7 +79,7 @@ public class TextExpressionEditorView extends JDialog
    private Expression expression;
    private boolean newExpression;
    private JTextArea german;
-   private InputLanguagePanel hebrew;
+   private InputLanguagePanel learningLanguage;
 
    private JTextField indexField;
 
@@ -128,7 +129,7 @@ public class TextExpressionEditorView extends JDialog
 
    private JCheckBox textBox;
 
-   private Integer[] levels = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+   private Integer[] levels = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
          14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
 
    public TextExpressionEditorView(
@@ -164,7 +165,7 @@ public class TextExpressionEditorView extends JDialog
       getContentPane().add(new JScrollPane(outerLayout));
 
       initController();
-      Component[] focusList = { german, hebrew, newSearchwordGerman,
+      Component[] focusList = { german, learningLanguage, newSearchwordGerman,
             newSearchwordHebrew };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
@@ -182,24 +183,29 @@ public class TextExpressionEditorView extends JDialog
       german.setFont(germanfont);
       german.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 150));
       german.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 250));
-      german.setDocument(new GermanDocument(true));
+      german.setDocument(new InternationalDocument());
 
       if (Settings.isSimpleHebrewInput())
       {
-         hebrew = new InputLanguagePanel(Selection.SIMPLE, 400, 6, true, this,
+         learningLanguage = new InputLanguagePanel(Selection.SIMPLE, 400, 6, true, this,
                WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
       else if (Settings.isHebrewPleneDefektivInput())
       {
-         hebrew = new InputLanguagePanel(Selection.PLENE_DEFEKTIV, 400, 6, true,
+         learningLanguage = new InputLanguagePanel(Selection.PLENE_DEFEKTIV, 400, 6, true,
                this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
-      else
+      else if (Settings.isSwedishInput())
       {
-         hebrew = new InputLanguagePanel(Selection.SWEDISH, 400, 6, true,
+         learningLanguage = new InputLanguagePanel(Selection.SWEDISH, 400, 6, true,
                this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
-      hebrew.setBlankBorder();
+      else // German
+      {
+         learningLanguage = new InputLanguagePanel(Selection.GERMAN, 400, 6, true,
+               this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
+      }
+      learningLanguage.setBlankBorder();
 
       newSearchwordGerman = new InfoTextField(
             translator.realisticTranslate(Translation.NEUES_SUCHWORT_DEUTSCH)
@@ -363,7 +369,7 @@ public class TextExpressionEditorView extends JDialog
 
       level = new JComboBox<Integer>();
       level.setEditable(true);
-      level.setMaximumRowCount(25);
+      level.setMaximumRowCount(24);
       level.setBorder(new TitledBorder(this.levelTitle));
       level.setOpaque(false);
       level.setBackground(new Color(0, 0, 0, 0));
@@ -415,7 +421,7 @@ public class TextExpressionEditorView extends JDialog
       copyButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
       copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
-      keyboard = new KeyboardLanguage(hebrew, components, 152, true, true);
+      keyboard = new KeyboardLanguage(learningLanguage, components, 152, true, true);
 
       textBox = new JCheckBox("Text");
       textBox.setSelected(true);
@@ -499,7 +505,7 @@ public class TextExpressionEditorView extends JDialog
    {
       chapter.setBorder(makeBorderBlank(this.chapterTitle));
       german.setBorder(makeBorderBlank(this.germanTitle));
-      hebrew.setBlankBorder();
+      learningLanguage.setBlankBorder();
    }
 
    private void initController()
@@ -609,21 +615,26 @@ public class TextExpressionEditorView extends JDialog
 
    private void saveExpression()
    {
-      expression.setGerman(cleanTextLeaveComma(german.getText()));
+      expression.setOwnLanguage(cleanTextLeaveComma(german.getText()));
 
       expression.setLearningLanguage(
-            new LearningLanguage(cleanTextLeaveComma(hebrew.getHebrewFieldText()),
-                  cleanTextLeaveComma(hebrew.getPleneFieldText()),
-                  cleanTextLeaveComma(hebrew.getDefektivFieldText()),
-                  hebrew.isSimple(), cleanTextLeaveComma(hebrew.getSwedishFieldText())));
+            new LearningLanguage(cleanTextLeaveComma(learningLanguage.getHebrewFieldText()),
+                  cleanTextLeaveComma(learningLanguage.getPleneFieldText()),
+                  cleanTextLeaveComma(learningLanguage.getDefektivFieldText()),
+                  learningLanguage.isSimple(), cleanTextLeaveComma(learningLanguage.getSwedishFieldText()),
+                  cleanTextLeaveComma(learningLanguage.getGermanFieldText())));
 
       expression.setLetterForSaving(LetterForSaving
-            .getLetter(cleanTextLeaveComma(expression.getGerman())));
+            .getLetter(cleanTextLeaveComma(expression.getOwnLanguage())));
 
       Definitions definitions = new Definitions();
       if (textBox.isSelected())
       {
          definitions.addExpressionKind(ExpressionKind.TEXT);
+      }
+      else
+      {
+         expression.setLevel(null);
       }
       expression.setDefinitions(definitions);
 
@@ -711,24 +722,29 @@ public class TextExpressionEditorView extends JDialog
 
       this.indexField.setText(expression.getSortingIndex());
 
-      this.german.setText(expression.getGerman());
+      this.german.setText(expression.getOwnLanguage());
 
       if(expression.getLL().isSwedish())
       {
          this.keyboard.setKeyboard(Selection.SWEDISH);
-         this.hebrew.setSwedishFieldText(expression.getLL().getSwedish());
+         this.learningLanguage.setSwedishFieldText(expression.getLL().getSwedish());
+      }
+      else if(expression.getLL().isGerman())
+      {
+         this.keyboard.setKeyboard(Selection.GERMAN);
+         this.learningLanguage.setGermanFieldText(expression.getLL().getGerman());
       }
       else
       if (expression.getLL().isSimpleHebrew())
       {
          this.keyboard.setKeyboard(Selection.SIMPLE);
-         this.hebrew.setHebrewFieldText(expression.getLL().getHebrew());
+         this.learningLanguage.setHebrewFieldText(expression.getLL().getHebrew());
       }
       else if (expression.getLL().isPleneDefektiv())
       {
          this.keyboard.setKeyboard(Selection.PLENE_DEFEKTIV);
-         this.hebrew.setPleneFieldText(expression.getLL().getHebrewPlene());
-         this.hebrew.setDefektivFieldText(
+         this.learningLanguage.setPleneFieldText(expression.getLL().getHebrewPlene());
+         this.learningLanguage.setDefektivFieldText(
                expression.getLL().getHebrewDefektiv());
       }
 
@@ -772,8 +788,18 @@ public class TextExpressionEditorView extends JDialog
                   .format(DateTimeFormatter.ofPattern(
                         translator.realisticTranslate(Translation._DATE_TIME)))
             + " " + translator.realisticTranslate(Translation.UHR));
-      
-      this.level.setSelectedIndex(expression.getLevel());
+      if (newExpression)
+      {
+         this.level.setSelectedIndex(0);
+      }
+      else if(expression.getLevel()== null)
+      {
+         this.level.setSelectedIndex(0);
+      }
+      else
+      {
+         this.level.setSelectedIndex(expression.getLevel()-1);
+      }
    }
 
    private DefaultComboBoxModel<String> getSearchwordsModelGerman()
@@ -822,7 +848,7 @@ public class TextExpressionEditorView extends JDialog
       try
       {
          this.german.setEditable(works);
-         this.hebrew.setEditable(works);
+         this.learningLanguage.setEditable(works);
          this.keyboard.setFrozen(frozen);
          this.saveButton.setEnabled(works);
          this.saveButton.setVisible(works);

@@ -129,8 +129,6 @@ public class MainView extends JPanel
       this.removeAll();
 
       initSentencesToolBar();
-      sentencesPanel = new SentencesPanel();
-      this.add(sentencesPanel);
       initSentencesController();
 
       Main.resetMenuBar();
@@ -191,29 +189,197 @@ public class MainView extends JPanel
 
       backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
       sentences_1_Button = new JButton("1");
+      sentences_1_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(1);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_2_Button = new JButton("2");
+      sentences_2_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(2);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_3_Button = new JButton("3");
+      sentences_3_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(3);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_4_Button = new JButton("4");
+      sentences_4_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(4);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_5_Button = new JButton("5");
+      sentences_5_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(5);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_6_Button = new JButton("6");
+      sentences_6_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(6);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_7_Button = new JButton("7");
+      sentences_7_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(7);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_8_Button = new JButton("8");
+      sentences_8_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(8);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_9_Button = new JButton("9");
+      sentences_9_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(9);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_10_Button = new JButton("10");
+      sentences_10_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(10);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_11_Button = new JButton("11");
+      sentences_11_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(11);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_12_Button = new JButton("12");
+      sentences_12_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(12);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_13_Button = new JButton("13");
+      sentences_13_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(13);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_14_Button = new JButton("14");
+      sentences_14_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(14);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_15_Button = new JButton("15");
+      sentences_15_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(15);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_16_Button = new JButton("16");
+      sentences_16_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(16);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_17_Button = new JButton("17");
+      sentences_17_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(17);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_18_Button = new JButton("18");
+      sentences_18_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(18);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_19_Button = new JButton("19");
+      sentences_19_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(19);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_20_Button = new JButton("20");
+      sentences_20_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(20);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_21_Button = new JButton("21");
+      sentences_21_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(21);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_22_Button = new JButton("22");
+      sentences_22_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(22);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_23_Button = new JButton("23");
+      sentences_23_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(23);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_24_Button = new JButton("24");
+      sentences_24_Button.addActionListener(event -> {
+         this.removeAll();
+         sentencesPanel = new SentencesPanel(24);
+         this.add(sentencesPanel);
+         validate();
+         repaint();
+      });
       sentences_1_Button.setFont(ApplicationFonts.getToolbarButtonFont());
       sentences_2_Button.setFont(ApplicationFonts.getToolbarButtonFont());
       sentences_3_Button.setFont(ApplicationFonts.getToolbarButtonFont());

@@ -185,10 +185,10 @@ public final class Data
    public static ExpressionTableModel findTranslations(
          LanguageDirection language, String text, ExpressionKind kind,
          SearchType search, Chapter chapter, Command command,
-         SortingType sortingType)
+         SortingType sortingType, Integer levelOfDifficulty)
    {
       return getDataBaseAtomic().findTranslations(language, text, kind, search,
-            chapter, command, sortingType);
+            chapter, command, sortingType, levelOfDifficulty);
    }
 
    public static ExpressionTableModel findTranslationsDeletedWords(
@@ -808,7 +808,7 @@ public final class Data
                }
 
                index++;
-               expression.setGerman(entries[index]);
+               expression.setOwnLanguage(entries[index]);
                index++;
                expression.getLL()
                      .setSimpleHebrew(Boolean.valueOf(entries[index]));
@@ -841,10 +841,18 @@ public final class Data
                }
                index++;
                expression.getLL().setSwedish(entries[index]);
-               if (!entries[index].isBlank())
+               index++;
+               expression.getLL().setGerman(entries[index]);
+               
+               if (!expression.getLL().getSwedish().isBlank())
                {
                   expression.getLL().setLltype(LLType.SWEDISH);
                   expression.getChapter().getDatabaseDescription().setLlType(LLType.SWEDISH);
+               }
+               else if (!expression.getLL().getGerman().isBlank())
+               {
+                  expression.getLL().setLltype(LLType.GERMAN);
+                  expression.getChapter().getDatabaseDescription().setLlType(LLType.GERMAN);
                }
                else
                {
@@ -968,7 +976,7 @@ public final class Data
                else
                {
                   expression.setLetterForSaving(
-                        LetterForSaving.getLetter(expression.getGerman()));
+                        LetterForSaving.getLetter(expression.getOwnLanguage()));
                }
 
                if (!DELETED_CSV.equals(filename))
@@ -992,11 +1000,11 @@ public final class Data
                   {
                      expression.setLevel(Integer.valueOf(entries[index]));
                   }
-                  // nothing: level is automatically 0
+                  // nothing: level is automatically 1
                }
                catch (Exception e)
                {
-                  // nothing: level is automatically 0
+                  // nothing: level is automatically 1
                }
             }
             catch (Exception e1)
@@ -1012,11 +1020,20 @@ public final class Data
 
       private ExpressionTableModel findTranslations(LanguageDirection language,
             String text, ExpressionKind kind, SearchType search,
-            Chapter chapter, Command command, SortingType sortingType)
+            Chapter chapter, Command command, SortingType sortingType, Integer levelOfDifficulty)
       {
          Collection<Expression> expressions = null;
 
-         if (text == null && kind == null && search == null && chapter == null
+         if(levelOfDifficulty != null)
+         {
+            List<Expression> selectedExpressions = findAllLevelOfDifficultyExpressionList(levelOfDifficulty);
+            Collections.sort(selectedExpressions,
+                  new ExpressionComparator(language, sortingType));
+            return new ExpressionTableModel(
+                  convertToExpressionModelArray(selectedExpressions),
+                  COLUMNAMES);
+         }
+         else if (text == null && kind == null && search == null && chapter == null
                && command != null)
          {
             if (Command.ALL_SELECTED.equals(command))
@@ -1059,7 +1076,7 @@ public final class Data
          else
          {
             System.out.println(
-                  "Data: Search: Es wurde eine nicht berÃ¼cksichtigte Kombination gefunden:\n"
+                  "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
                         + "Language = " + language + ", kind = " + kind
                         + ", search = " + search + "\n" + "chapter = " + chapter
                         + ", command = " + command + ", sortForDate = "
@@ -1070,6 +1087,14 @@ public final class Data
                convertToExpressionModelArray(filterExpressions(text, language,
                      search, expressions, sortingType)),
                COLUMNAMES);
+      }
+
+      private List<Expression> findAllLevelOfDifficultyExpressionList(
+            Integer levelOfDifficulty)
+      {
+         return alleMap.values().stream()
+               .filter(expression -> levelOfDifficulty.equals(expression.getLevel()))
+               .collect(Collectors.toList());
       }
 
       private ExpressionTableModel findTranslationsDeletedWords(
@@ -1241,7 +1266,7 @@ public final class Data
       private boolean equalsGermanWordStart(String text, Expression expression)
       {
          text = text.trim();
-         return expression.getGerman().startsWith(text);
+         return expression.getOwnLanguage().startsWith(text);
       }
 
       private Expression[][] convertToExpressionModelArray(

@@ -34,6 +34,7 @@ public enum SearchType
             return translator.realisticTranslate(meaning) + " " + translator
                   .realisticTranslate(Translation._OHNE_PUNKTIERUNG_);
          }
+         // TODO search for other languages
       }
       return "";
    }

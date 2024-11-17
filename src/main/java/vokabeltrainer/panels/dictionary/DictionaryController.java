@@ -275,8 +275,6 @@ public class DictionaryController implements DictionaryControllerConnector
          protected Void doInBackground() throws Exception
          {
             Status status = Status.pop();
-            System.out.println("DictionaryController AKTION "+ action);
-            System.out.println("DictionaryController status "+ status);
 
             if(dictionaryView.getTable() != null)
             {
@@ -290,8 +288,6 @@ public class DictionaryController implements DictionaryControllerConnector
 
             vokabeltrainer.panels.dictionary.Command commando = Interaction
                   .getCommand(new Interaction(action, status));
-            
-            System.out.println("DictionaryController COMMAND "+ commando);
 
             if (commando == null)
             {
@@ -321,7 +317,7 @@ public class DictionaryController implements DictionaryControllerConnector
                   dictionaryView.clearTable();
                   tableModel = Data.findTranslations(
                         dictionaryView.getSelectedLanguage(), null, null, null,
-                        currentChapter, null, dictionaryView.getSortNow());
+                        currentChapter, null, dictionaryView.getSortNow(), null);
                   dictionaryView.removeChapterListSelectionListener();
                   dictionaryView.selectChapter(currentChapter);
                   dictionaryView.addChapterListSelectionListener();
@@ -335,7 +331,7 @@ public class DictionaryController implements DictionaryControllerConnector
                      tableModel = Data.findTranslations(
                            dictionaryView.getSelectedLanguage(), null,
                            expressionKind, null, null, null,
-                           dictionaryView.getSortNow());
+                           dictionaryView.getSortNow(), null);
                   }
                   break;
                case TABLE_SEARCH_WHICH_GERMAN:
@@ -344,7 +340,7 @@ public class DictionaryController implements DictionaryControllerConnector
                         dictionaryView.getSelectedLanguage(),
                         dictionaryView.getSearchPhraseGerman(), null,
                         dictionaryView.getSelectedSearchTypeGerman(), null,
-                        null, dictionaryView.getSortNow());
+                        null, dictionaryView.getSortNow(), null);
                   break;
                case TABLE_SEARCH_WHICH_HEBREW:
                   dictionaryView.clearTable();
@@ -352,14 +348,14 @@ public class DictionaryController implements DictionaryControllerConnector
                         dictionaryView.getSelectedLanguage(),
                         dictionaryView.getSearchPhraseHebrew(), null,
                         dictionaryView.getSelectedSearchTypeHebrew(), null,
-                        null, dictionaryView.getSortNow());
+                        null, dictionaryView.getSortNow(), null);
                   break;
                case TABLE_SELECTED_EXPRESSIONS:
                   dictionaryView.clearTable();
                   tableModel = Data.findTranslations(
                         dictionaryView.getSelectedLanguage(), null, null, null,
                         null, Command.ALL_SELECTED,
-                        dictionaryView.getSortNow());
+                        dictionaryView.getSortNow(), null);
                   break;
                }
             }

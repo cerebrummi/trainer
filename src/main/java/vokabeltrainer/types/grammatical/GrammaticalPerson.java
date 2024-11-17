@@ -21,7 +21,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
          Translation._2_PERSON, LLType.ALL),
    DRITTE_PERSON(
          Translation._3_PERSON, LLType.ALL),
-   ALL_PERSON(Translation._1_2_3_PERSON, LLType.ALL),
+   ALL_PERSON(Translation._1_2_3_PERSON, LLType.HEBREW_ONLY),
    GRAMMATICALPERSON_NA(
          Translation.NICHT_ANWENDBAR, LLType.ALL);
 

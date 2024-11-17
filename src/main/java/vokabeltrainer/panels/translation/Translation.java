@@ -389,7 +389,17 @@ public enum Translation {
 	AUSWAHL_WIEDER_HERSTELLEN("Auswahl wiederherstellen","undelete selection"), 
 	BILD_LADEN("Bild laden","load image"), 
 	SPRACHEN("Sprachen","languages"),
-	HEBRAEISCH_("Hebr‰isch","hebrew");
+	HEBRAEISCH_("Hebr‰isch","hebrew"),
+	PRAETERITUM("Pr‰teritum","past"),
+	PERFEKT("Perfekt", "perfect"),
+	PLUSQUAMPERFEKT("Plusquamperfekt","pluperfect"),
+	FUTUR1("Futur 1","future 1 "),
+	FUTUR2("Futur 2","future 2"),
+	NEUTRUM("Neutrum","neuter"),
+	STARKES_VERB("starkes Verb", "strong verb"),
+	SCHWACHES_VERB("schwaches Verb", "weak verb"),
+	UNREGELMAESSIG_VERB("unregelm‰ﬂiges Verb", "irregular verb"),
+	GERMAN("Deutsch","German");
 
 	private String german;
 	private String english;

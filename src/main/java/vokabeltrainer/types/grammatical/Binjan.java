@@ -21,6 +21,9 @@ public enum Binjan
    GRUPPE_2(Translation.GRUPPE_2, LLType.SWEDISH_ONLY),
    GRUPPE_3(Translation.GRUPPE_3, LLType.SWEDISH_ONLY),
    GRUPPE_4(Translation.GRUPPE_4, LLType.SWEDISH_ONLY),
+   STARK(Translation.STARKES_VERB, LLType.GERMAN_ONLY),
+   SCHWACH(Translation.SCHWACHES_VERB, LLType.GERMAN_ONLY),
+   UNREGELMAESSIG(Translation.UNREGELMAESSIG_VERB, LLType.GERMAN_ONLY),
    PAAL(
          Translation.PA_AL___QAL, LLType.HEBREW_ONLY),
    NIFAL(
@@ -70,6 +73,9 @@ public enum Binjan
       case GRUPPE_2:
       case GRUPPE_3:
       case GRUPPE_4:
+      case STARK:
+      case SCHWACH:
+      case UNREGELMAESSIG:
          return translator.realisticTranslate(description);
       case BINJAN_UNKNOWN:
          return translator.realisticTranslate(Translation.BINJAN___STAMM)
@@ -103,6 +109,9 @@ public enum Binjan
       case GRUPPE_2:
       case GRUPPE_3:
       case GRUPPE_4:
+      case STARK:
+      case SCHWACH:
+      case UNREGELMAESSIG:
          return translator.realisticTranslate(description);
       case BINJAN_UNKNOWN:
       case BINJAN_NA:
