@@ -100,8 +100,8 @@ public class SettingsPanel extends BackgroundPanelTiled
          // nothing
       }
       
-      tabbedPane.addTab(translator.realisticTranslate(
-            Translation.SICHERHEITSKOPIEN), initBackupsTab());
+ //     tabbedPane.addTab(translator.realisticTranslate(
+ //           Translation.SICHERHEITSKOPIEN), initBackupsTab());
       
       tabbedPane.addTab(translator.realisticTranslate(
             Translation.SCHABBAT_MODUS), initSchabbatTab());

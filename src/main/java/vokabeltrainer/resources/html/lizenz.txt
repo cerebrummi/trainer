@@ -1,6 +1,6 @@
-Vokabeltrainer Cerebrummi Version 4.0
+Vokabeltrainer Cerebrummi Version 5.0
 
-©2023 Birke Heeren, Franz-Mehring-Straﬂe 65, 17489 Greifswald.
+©2024 Birke Heeren, Franz-Mehring-Straﬂe 65, 17489 Greifswald.
 
 
 Alle Rechte vorbehalten./Copyright by Birke Heeren.
@@ -10,8 +10,8 @@ Installieren und Nutzen Sie den Vokabeltrainer Cerebrummi nur auf EIGENES RISIKO
 Install and use Cerebrummi only on YOUR OWN RISK!
 
 
-Vokabeltrainer Cerebrummi Version 4.0 darf nur als KOSTENFREIE Privatlizenz genutzt werden!
-Vokabeltrainer Cerebrummi Version 4.0 is only to be used as FREE OF CHARGE private license!
+Vokabeltrainer Cerebrummi Version 5.0 darf nur als KOSTENFREIE Privatlizenz genutzt werden!
+Vokabeltrainer Cerebrummi Version 5.0 is only to be used as FREE OF CHARGE private license!
 
 Produktentwicklung, Programmentwicklung, Programmierung, Projektleitung, Konzeption und Screendesign/product development, software development, programming, project manager, conceptual design, and screen design:
 Birke Heeren.
@@ -26,4 +26,4 @@ Requests for exceptions are to be directed at Birke Heeren only: cerebrummi@dorn
 All code and data was checked and tested. BUT: No warenty is given for any technical errors. And no warenty is given for any information or data given.
 
 
-Greifswald, den/the 18. September 2023
+Greifswald, den/the 14. Nov. 2024
