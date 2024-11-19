@@ -95,7 +95,7 @@ public final class SaveTraining
       StringJoiner joiner = new StringJoiner("\n");
       for (Expression expression : getAllValues())
       {
-         if (expression.getTrainingStatus(languageDirection)
+         if (expression.getTrainingStatus(languageDirection.getDirection())
                .isTrainingStarted())
          {
             joiner.add(expression.getTrainingPrintLine(languageDirection));

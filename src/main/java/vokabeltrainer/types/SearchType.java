@@ -17,14 +17,14 @@ public enum SearchType
       this.meaning = meaning;
    }
 
-   public String getMeaning(LanguageDirection language)
+   public String getMeaning(Direction language)
    {
       Translator translator = Common.getTranslator();
       switch (language)
       {
-      case GERMAN_TO_HEBREW:
+      case OWN_TO_NEW:
          return translator.realisticTranslate(meaning);
-      case HEBREW_TO_GERMAN:
+      case NEW_TO_OWN:
          switch (this)
          {
          case SEARCHWORD:
@@ -34,7 +34,6 @@ public enum SearchType
             return translator.realisticTranslate(meaning) + " " + translator
                   .realisticTranslate(Translation._OHNE_PUNKTIERUNG_);
          }
-         // TODO search for other languages
       }
       return "";
    }

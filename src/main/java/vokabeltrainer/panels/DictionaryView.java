@@ -69,8 +69,8 @@ import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
+import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.SearchType;
 import vokabeltrainer.types.SortingType;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
@@ -291,7 +291,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
       searchTypeGroupGerman = new ButtonGroup();
       germanSearch.add(initSearchRadioButtonPanel(searchTypeGroupGerman,
-            LanguageDirection.GERMAN_TO_HEBREW));
+           Direction.OWN_TO_NEW));
 
       germanSearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
@@ -326,7 +326,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
       searchTypeGroupHebrew = new ButtonGroup();
       hebrewSearch.add(initSearchRadioButtonPanel(searchTypeGroupHebrew,
-            LanguageDirection.HEBREW_TO_GERMAN));
+            Direction.NEW_TO_OWN));
 
       hebrewSearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
@@ -348,8 +348,8 @@ public class DictionaryView extends BackgroundPanelTiled
             new Dimension(Settings.getKeyboardWidth() + 50, 620));
       germanSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
       hebrewSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
-      swapPanel.add(LanguageDirection.GERMAN_TO_HEBREW.name(), germanSearch);
-      swapPanel.add(LanguageDirection.HEBREW_TO_GERMAN.name(), hebrewSearch);
+      swapPanel.add(Direction.OWN_TO_NEW.name(), germanSearch);
+      swapPanel.add(Direction.NEW_TO_OWN.name(), hebrewSearch);
 
       vertical1.add(swapPanel);
 
@@ -357,7 +357,7 @@ public class DictionaryView extends BackgroundPanelTiled
    }
 
    private JPanel initSearchRadioButtonPanel(ButtonGroup group,
-         LanguageDirection language)
+         Direction language)
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 5));
@@ -1053,7 +1053,7 @@ public class DictionaryView extends BackgroundPanelTiled
       Font font = ApplicationFonts.getGermanFont(20F);
       JRadioButton german = new JRadioButton(
             translator.realisticTranslate(Translation.MEINE_SPRACHE));
-      german.setActionCommand(Action.GERMAN_TO_HEBREW.name());
+      german.setActionCommand(Action.OWN_TO_NEW.name());
       german.setFont(font);
       german.setSelected(true);
       languageTypeGroup.add(german);
@@ -1062,7 +1062,7 @@ public class DictionaryView extends BackgroundPanelTiled
 
       JRadioButton hebrew = new JRadioButton(
             translator.realisticTranslate(Translation.NEUE_SPRACHE));
-      hebrew.setActionCommand(Action.HEBREW_TO_GERMAN.name());
+      hebrew.setActionCommand(Action.NEW_TO_OWN.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
       hebrew.setMinimumSize(new Dimension(100, 26));
@@ -1092,9 +1092,9 @@ public class DictionaryView extends BackgroundPanelTiled
    }
 
    @Override
-   public LanguageDirection getSelectedLanguage()
+   public Direction getSelectedLanguage()
    {
-      return LanguageDirection.valueOf(languageGroup.getSelection().getActionCommand());
+      return Direction.valueOf(languageGroup.getSelection().getActionCommand());
    }
 
    @Override

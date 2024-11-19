@@ -281,48 +281,6 @@ public class Expression
       this.level = level;
    }
 
-   public String[] toGermanArrayForTableEntry()
-   {
-      int index = 0;
-      String[] result = new String[10];
-      result[index] = String.valueOf(selected);
-      index++;
-      result[index] = ownLanguage;
-      index++;
-      result[index] = ll.toString();
-      index++;
-      result[index] = ll.toTableEntry();
-      index++;
-      result[index] = definitions.getGenderDescriptions();
-      index++;
-      result[index] = definitions.getNumerusDescriptions() + " "
-            + definitions.getGrammaticalPersonDescriptions();
-      index++;
-      StringJoiner joiner = new StringJoiner(", ");
-      if (!definitions.getBinjanDescriptions().isBlank())
-      {
-         joiner.add(definitions.getBinjanDescriptions());
-      }
-      if (!definitions.getVerbTimeDescriptions().isBlank())
-      {
-         joiner.add(definitions.getVerbTimeDescriptions());
-      }
-      result[index] = joiner.toString();
-      index++;
-      result[index] = definitions.getExpressionKindDescriptions();
-      index++;
-      result[index] = translator.realisticTranslate(Translation.KAPITEL) + ": "
-            + chapter.getName() + ", "
-            + translator.realisticTranslate(Translation.INDEX) + ": "
-            + sortingIndex;
-      index++;
-      result[index] = chapter.getDatabaseName() + " "
-            + translator.realisticTranslate(Translation.VOM) + " "
-            + lastModified.format(DateTimeFormatter.ofPattern(
-                  translator.realisticTranslate(Translation._DATE_TIME)));
-      return result;
-   }
-
    public String[] toHebrewArrayForTableEntry()
    {
       int index = 0;
@@ -589,10 +547,10 @@ public class Expression
       return joiner.toString();
    }
 
-   public String getCopyLines(LanguageDirection language)
+   public String getCopyLines(Direction language)
    {
       StringJoiner joiner = new StringJoiner("\t");
-      if (LanguageDirection.GERMAN_TO_HEBREW.equals(language))
+      if (Direction.OWN_TO_NEW.equals(language))
       {
          joiner.add(ownLanguage);
          joiner.add(ll.toString());
@@ -636,7 +594,7 @@ public class Expression
             .ofPattern("dd.MM.yyyy");
       StringJoiner joiner = new StringJoiner("\t");
       joiner.add(this.uuid.toString());
-      if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
+      if (Direction.OWN_TO_NEW.equals(languageDirection.getDirection()))
       {
          joiner.add(
                this.trainingStatusDToLL.getNextDate().format(dateTimeFormatter));
@@ -653,9 +611,9 @@ public class Expression
       return joiner.toString();
    }
 
-   public TrainingStatus getTrainingStatus(LanguageDirection languageDirection)
+   public TrainingStatus getTrainingStatus(Direction languageDirection)
    {
-      if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
+      if (Direction.OWN_TO_NEW.equals(languageDirection))
       {
          return this.getTrainingStatusDToLL();
       }
@@ -676,9 +634,9 @@ public class Expression
       return joiner.toString();
    }
 
-   public String getWordGermanForStatistics(LanguageDirection language)
+   public String getWordGermanForStatistics(Direction language)
    {
-      if (LanguageDirection.GERMAN_TO_HEBREW.equals(language))
+      if (Direction.OWN_TO_NEW.equals(language))
       {
     	 if(this.getTrainingStatusDToLL().getRepetition() == null)
     	 {

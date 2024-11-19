@@ -17,16 +17,16 @@ import javax.swing.table.DefaultTableColumnModel;
 
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.input.TableConnector;
+import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.LanguageDirection;
 
 public class ExpressionTable extends JTable
 {
    private static final long serialVersionUID = -9006217392935409400L;
-   private LanguageDirection language;
+   private Direction language;
    private ExpressionTableModel model;
 
-   public ExpressionTable(ExpressionTableModel dm, LanguageDirection language,
+   public ExpressionTable(ExpressionTableModel dm, Direction language,
          TableConnector connector, boolean editable, DefaultTableColumnModel columnModel)
    {
       super(dm, columnModel);

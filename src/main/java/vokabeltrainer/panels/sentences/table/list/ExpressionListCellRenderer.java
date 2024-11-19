@@ -18,7 +18,6 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
-import vokabeltrainer.types.LanguageDirection;
 
 public class ExpressionListCellRenderer
       implements ListCellRenderer<Object>, Serializable
@@ -29,7 +28,7 @@ public class ExpressionListCellRenderer
    private JLabel selected;
    private JLabel empty;
 
-   public ExpressionListCellRenderer(LanguageDirection language)
+   public ExpressionListCellRenderer()
    {
       label = new JTextArea();
       label.setWrapStyleWord(true);

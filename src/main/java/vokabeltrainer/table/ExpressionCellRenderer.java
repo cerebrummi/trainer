@@ -11,16 +11,16 @@ import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.table.list.ExpressionList;
+import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.LanguageDirection;
 
 public class ExpressionCellRenderer
       implements TableCellRenderer, TableCellEditor
 {
    private ExpressionList list;
-   private LanguageDirection language;
+   private Direction language;
 
-   public ExpressionCellRenderer(LanguageDirection language)
+   public ExpressionCellRenderer(Direction language)
    {
       this.language = language;
       list = new ExpressionList(language);
@@ -31,20 +31,20 @@ public class ExpressionCellRenderer
          boolean isSelected, boolean hasFocus, int row, int column)
    {
       Expression expression = (Expression) value;
-      if (LanguageDirection.GERMAN_TO_HEBREW.equals(language))
+      if (Direction.OWN_TO_NEW.equals(language))
       {
-         if(expression.getLL().isSwedish())
+         if(expression.getLL().isSwedish() || expression.getLL().isGerman())
          {
             list.setListData(expression.toSwedishArrayForTableEntry2());
          }
          else
          {
-            list.setListData(expression.toGermanArrayForTableEntry());
+            list.setListData(expression.toHebrewArrayForTableEntry2());
          }
       }
       else
       {
-         if(expression.getLL().isSwedish())
+         if(expression.getLL().isSwedish() || expression.getLL().isGerman())
          {
             list.setListData(expression.toSwedishArrayForTableEntry());
          }

@@ -129,7 +129,7 @@ public class TextExpressionEditorView extends JDialog
 
    private JCheckBox textBox;
 
-   private Integer[] levels = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+   private Integer[] levels = { 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
          14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
 
    public TextExpressionEditorView(
@@ -788,6 +788,7 @@ public class TextExpressionEditorView extends JDialog
                   .format(DateTimeFormatter.ofPattern(
                         translator.realisticTranslate(Translation._DATE_TIME)))
             + " " + translator.realisticTranslate(Translation.UHR));
+      
       if (newExpression)
       {
          this.level.setSelectedIndex(0);
@@ -798,7 +799,7 @@ public class TextExpressionEditorView extends JDialog
       }
       else
       {
-         this.level.setSelectedIndex(expression.getLevel()-1);
+         this.level.setSelectedIndex(expression.getLevel());
       }
    }
 

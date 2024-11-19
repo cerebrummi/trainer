@@ -9,7 +9,6 @@ import javax.swing.JList;
 import javax.swing.KeyStroke;
 
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.types.LanguageDirection;
 
 public class ExpressionList extends JList<String>
 {
@@ -18,7 +17,7 @@ public class ExpressionList extends JList<String>
    
    private boolean withLock;
 
-   public ExpressionList(LanguageDirection language)
+   public ExpressionList()
    {
       setSelectionModel(new ExpressionListSelectionModel());
       setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
@@ -29,7 +28,7 @@ public class ExpressionList extends JList<String>
             new Object());
       getActionMap().get("clearSelection").setEnabled(true);
 
-      setCellRenderer(new ExpressionListCellRenderer(language));
+      setCellRenderer(new ExpressionListCellRenderer());
    }
    
    @Override

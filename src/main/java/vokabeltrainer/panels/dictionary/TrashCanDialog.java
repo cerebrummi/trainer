@@ -29,6 +29,7 @@ import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
+import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.LanguageDirection;
 
 public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
@@ -38,7 +39,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    private JPanel layout;
    private ButtonGroup languageGroup;
    private ExpressionTable table;
-   private LanguageDirection initialLanguage;
+   private Direction initialLanguage;
    private JPanel tablePanel;
    private JButton restoreButton;
    private JButton selectAllInTableButton;
@@ -47,7 +48,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    private TrashCanControllerConnector connector;
 
    public TrashCanDialog(TrashCanControllerConnector connector,
-         LanguageDirection initialLanguage)
+         Direction initialLanguage)
    {
       super(Common.getjFrame(), "Papierkorb",
             Dialog.ModalityType.APPLICATION_MODAL);
@@ -155,8 +156,8 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       {
          table = new ExpressionTable(tableModel,
                LanguageDirection
-                     .valueOf(languageGroup.getSelection().getActionCommand()),
-               connector, false, new ExpressionColumnModel(LanguageDirection
+                     .valueOf(languageGroup.getSelection().getActionCommand()).getDirection(),
+               connector, false, new ExpressionColumnModel(Direction
                      .valueOf(languageGroup.getSelection().getActionCommand())));
          JScrollPane scrollPane = new JScrollPane(table);
          scrollPane.setOpaque(false);
@@ -186,16 +187,16 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       Font font = ApplicationFonts.getGermanFont(20F);
 
       JRadioButton german = new JRadioButton(Common.getTranslator().realisticTranslate(Translation.DEUTSCH));
-      german.setActionCommand(LanguageDirection.GERMAN_TO_HEBREW.name());
+      german.setActionCommand(Direction.OWN_TO_NEW.name());
       german.setFont(font);
       languageTypeGroup.add(german);
 
       JRadioButton hebrew = new JRadioButton(Common.getTranslator().realisticTranslate(Translation.NEUE_SPRACHE));
-      hebrew.setActionCommand(LanguageDirection.HEBREW_TO_GERMAN.name());
+      hebrew.setActionCommand(Direction.NEW_TO_OWN.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
 
-      if (LanguageDirection.GERMAN_TO_HEBREW.equals(initialLanguage))
+      if (LanguageDirection.OWN_TO_HEBREW.equals(initialLanguage))
       {
          german.setSelected(true);
       }

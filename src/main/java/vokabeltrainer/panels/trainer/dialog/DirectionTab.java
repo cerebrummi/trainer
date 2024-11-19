@@ -26,10 +26,12 @@ public class DirectionTab extends BackgroundPanelTiled
    private static final long serialVersionUID = -5986907667521647559L;
 
    private ButtonGroup directionGroup;
-   private JRadioButton germanToNikudButton;
-   private JRadioButton hebrewToGermanButton;
-   private JRadioButton germanToSwedishButton;
-   private JRadioButton swedishToGermanButton;
+   private JRadioButton ownToNikudButton;
+   private JRadioButton hebrewToOwnButton;
+   private JRadioButton ownToSwedishButton;
+   private JRadioButton swedishToOwnButton;
+   private JRadioButton ownToGermanButton;
+   private JRadioButton germanToOwnButton;
    private JButton nextButton;
    private JButton cancelButton;
    
@@ -55,35 +57,49 @@ public class DirectionTab extends BackgroundPanelTiled
       vertical.setLayout(new BoxLayout(vertical, 1));
       vertical.setOpaque(false);
       
-      germanToNikudButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
+      ownToNikudButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
             + " >> "
             + translator.realisticTranslate(Translation.HEBRAEISCH_));
-      germanToNikudButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      directionGroup.add(germanToNikudButton);
+      ownToNikudButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      directionGroup.add(ownToNikudButton);
 
-      hebrewToGermanButton = new JRadioButton(translator.realisticTranslate(Translation.HEBRAEISCH_)
+      hebrewToOwnButton = new JRadioButton(translator.realisticTranslate(Translation.HEBRAEISCH_)
             + " >> "
             + translator.realisticTranslate(Translation.DEUTSCH));
-      hebrewToGermanButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      directionGroup.add(hebrewToGermanButton);
+      hebrewToOwnButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      directionGroup.add(hebrewToOwnButton);
       
-      germanToSwedishButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
+      ownToSwedishButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
             + " >> "
             + translator.realisticTranslate(Translation.SCHWEDISCH));
-      germanToSwedishButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      directionGroup.add(germanToSwedishButton);
+      ownToSwedishButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      directionGroup.add(ownToSwedishButton);
       
-      swedishToGermanButton = new JRadioButton(translator.realisticTranslate(Translation.SCHWEDISCH)
+      swedishToOwnButton = new JRadioButton(translator.realisticTranslate(Translation.SCHWEDISCH)
             + " >> "
             + translator.realisticTranslate(Translation.DEUTSCH));
-      swedishToGermanButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      directionGroup.add(swedishToGermanButton);
+      swedishToOwnButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      directionGroup.add(swedishToOwnButton);
+      
+      ownToGermanButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
+            + " >> "
+            + translator.realisticTranslate(Translation.GERMAN));
+      ownToGermanButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      directionGroup.add(ownToGermanButton);
+      
+      germanToOwnButton = new JRadioButton(translator.realisticTranslate(Translation.GERMAN)
+            + " >> "
+            + translator.realisticTranslate(Translation.DEUTSCH));
+      germanToOwnButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      directionGroup.add(germanToOwnButton);
 
-      vertical.add(germanToNikudButton);
-      vertical.add(germanToSwedishButton);
+      vertical.add(ownToNikudButton);
+      vertical.add(ownToSwedishButton);
+      vertical.add(ownToGermanButton);
       vertical.add(Box.createRigidArea(new Dimension(30, 30)));
-      vertical.add(hebrewToGermanButton);
-      vertical.add(swedishToGermanButton);
+      vertical.add(hebrewToOwnButton);
+      vertical.add(swedishToOwnButton);
+      vertical.add(germanToOwnButton);
       vertical.add(Box.createRigidArea(new Dimension(30, 30)));
 
       center.add(vertical);
@@ -105,27 +121,39 @@ public class DirectionTab extends BackgroundPanelTiled
       buttonWrapper.add(nextButton);
       add(buttonWrapper, BorderLayout.SOUTH);
       
-      germanToNikudButton.addActionListener(event -> {
+      ownToNikudButton.addActionListener(event -> {
          removeTabsToTheRight(dialog);
-         dialog.setLanguageDirection(LanguageDirection.GERMAN_TO_HEBREW);
+         dialog.setLanguageDirection(LanguageDirection.OWN_TO_HEBREW);
          nextButton.setEnabled(true);
       });
       
-      germanToSwedishButton.addActionListener(event -> {
+      ownToSwedishButton.addActionListener(event -> {
          removeTabsToTheRight(dialog);
-         dialog.setLanguageDirection(LanguageDirection.GERMAN_TO_SWEDISH);
+         dialog.setLanguageDirection(LanguageDirection.OWN_TO_SWEDISH);
+         nextButton.setEnabled(true);
+      });
+      
+      ownToGermanButton.addActionListener(event -> {
+         removeTabsToTheRight(dialog);
+         dialog.setLanguageDirection(LanguageDirection.OWN_TO_GERMAN);
          nextButton.setEnabled(true);
       });
 
-      hebrewToGermanButton.addActionListener(event -> {
+      hebrewToOwnButton.addActionListener(event -> {
          removeTabsToTheRight(dialog);
-         dialog.setLanguageDirection(LanguageDirection.HEBREW_TO_GERMAN);
+         dialog.setLanguageDirection(LanguageDirection.HEBREW_TO_OWN);
          nextButton.setEnabled(true);
       });
       
-      swedishToGermanButton.addActionListener(event -> {
+      swedishToOwnButton.addActionListener(event -> {
          removeTabsToTheRight(dialog);
-         dialog.setLanguageDirection(LanguageDirection.SWEDISH_TO_GERMAN);
+         dialog.setLanguageDirection(LanguageDirection.SWEDISH_TO_OWN);
+         nextButton.setEnabled(true);
+      });
+      
+      germanToOwnButton.addActionListener(event -> {
+         removeTabsToTheRight(dialog);
+         dialog.setLanguageDirection(LanguageDirection.GERMAN_TO_OWN);
          nextButton.setEnabled(true);
       });
 

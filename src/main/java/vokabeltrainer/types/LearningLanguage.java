@@ -156,6 +156,11 @@ public class LearningLanguage
          return swedish;
       }
       
+      if (!this.german.isBlank())
+      {
+         return german;
+      }
+      
       if (this.simpleHebrew)
       {
          return hebrew;

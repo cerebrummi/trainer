@@ -12,18 +12,15 @@ import javax.swing.table.TableCellRenderer;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.panels.sentences.table.list.ExpressionList;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.LanguageDirection;
 
 public class ExpressionCellRenderer
       implements TableCellRenderer, TableCellEditor
 {
    private ExpressionList list;
-   private LanguageDirection language;
 
-   public ExpressionCellRenderer(LanguageDirection language)
+   public ExpressionCellRenderer()
    {
-      this.language = language;
-      list = new ExpressionList(language);
+      list = new ExpressionList();
    }
 
    @Override

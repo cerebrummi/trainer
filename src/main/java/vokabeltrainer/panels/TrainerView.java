@@ -44,6 +44,7 @@ import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.editing.SwedishDocument;
+import vokabeltrainer.keyboards.KeyboardGermanStandard;
 import vokabeltrainer.keyboards.KeyboardHebrewAllLetters;
 import vokabeltrainer.keyboards.KeyboardSwedishStandard;
 import vokabeltrainer.keyboards.OneFocusTraversalPolicy;
@@ -100,6 +101,7 @@ public class TrainerView extends BackgroundPanelTiled
    private JButton soundButton;
    private KeyboardHebrewAllLetters keyboardNikud;
    private KeyboardSwedishStandard keyboardSwedish;
+   private KeyboardGermanStandard keyboardGerman;
    private TrainerControllerConnector connector;
    private JButton infoStopTrainingButton;
    private JPanel infoStopTrainingPanel;
@@ -132,24 +134,34 @@ public class TrainerView extends BackgroundPanelTiled
    {
       switch (languageDirection)
       {
-      case GERMAN_TO_HEBREW:
+      case OWN_TO_HEBREW:
          languageDirectionLabel
                .setText(translator.realisticTranslate(Translation.DEUTSCH)
                      + translator.realisticTranslate(Translation.HEBRAEISCH));
          break;
-      case GERMAN_TO_SWEDISH:
+      case OWN_TO_SWEDISH:
          languageDirectionLabel
          .setText(translator.realisticTranslate(Translation.DEUTSCH)
                + translator.realisticTranslate(Translation.SCHWEDISCH));
          break;
-      case HEBREW_TO_GERMAN:
+      case OWN_TO_GERMAN:
+         languageDirectionLabel
+         .setText(translator.realisticTranslate(Translation.DEUTSCH)
+               + translator.realisticTranslate(Translation.GERMAN));
+         break;
+      case HEBREW_TO_OWN:
          languageDirectionLabel.setText(
                translator.realisticTranslate(Translation.HEBRAEISCH) + " >> "
                      + translator.realisticTranslate(Translation.DEUTSCH));
          break;
-      case SWEDISH_TO_GERMAN:
+      case SWEDISH_TO_OWN:
          languageDirectionLabel.setText(
                translator.realisticTranslate(Translation.SCHWEDISCH) + " >> "
+                     + translator.realisticTranslate(Translation.DEUTSCH));
+         break;
+      case GERMAN_TO_OWN:
+         languageDirectionLabel.setText(
+               translator.realisticTranslate(Translation.GERMAN) + " >> "
                      + translator.realisticTranslate(Translation.DEUTSCH));
          break;
       }
@@ -215,8 +227,9 @@ public class TrainerView extends BackgroundPanelTiled
       textFieldPanelWrapper.removeAll();
       switch(languageDirection)
       {
-      case GERMAN_TO_SWEDISH:
-      case GERMAN_TO_HEBREW:
+      case OWN_TO_SWEDISH:
+      case OWN_TO_HEBREW:
+      case OWN_TO_GERMAN:
          JPanel expandPanel = new JPanel();
          TrainLayout beLayout = new TrainLayout(expandPanel);
          expandPanel.setLayout(beLayout);
@@ -232,7 +245,7 @@ public class TrainerView extends BackgroundPanelTiled
          expandPanel.add(questionFieldGerman);
          textFieldPanelWrapper.add(expandPanel);
          break;
-      case HEBREW_TO_GERMAN:
+      case HEBREW_TO_OWN:
          questionFieldLL = new InputLanguagePanel(Selection.SIMPLE, 160, 10,
                false, this, 1268, ApplicationColors.getLightBlue());
          questionFieldLL.setBackground(ApplicationColors.getLightBlue());
@@ -246,7 +259,7 @@ public class TrainerView extends BackgroundPanelTiled
          questionFieldLL.setLayoutNoKeyboard(Selection.SIMPLE);
          textFieldPanelWrapper.add(questionFieldLL);
          break;
-      case SWEDISH_TO_GERMAN:
+      case SWEDISH_TO_OWN:
          questionFieldLL = new InputLanguagePanel(Selection.SIMPLE, 160, 10,
                false, this, 1268, ApplicationColors.getLightBlue());
          questionFieldLL.setBackground(ApplicationColors.getLightBlue());
@@ -258,6 +271,20 @@ public class TrainerView extends BackgroundPanelTiled
          questionFieldLL.setEditable(false);
          questionFieldLL.setEnabled(false);
          questionFieldLL.setLayoutNoKeyboard(Selection.SWEDISH);
+         textFieldPanelWrapper.add(questionFieldLL);
+         break;
+      case GERMAN_TO_OWN:
+         questionFieldLL = new InputLanguagePanel(Selection.SIMPLE, 160, 10,
+               false, this, 1268, ApplicationColors.getLightBlue());
+         questionFieldLL.setBackground(ApplicationColors.getLightBlue());
+         questionFieldLL.setBorder(
+               BorderFactory.createTitledBorder(translator.realisticTranslate(
+                     Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
+         questionFieldLL.setMinimumSize(new Dimension(600, 160));
+         questionFieldLL.setMaximumSize(new Dimension(1268, 160));
+         questionFieldLL.setEditable(false);
+         questionFieldLL.setEnabled(false);
+         questionFieldLL.setLayoutNoKeyboard(Selection.GERMAN);
          textFieldPanelWrapper.add(questionFieldLL);
          break;
       }
@@ -517,7 +544,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       switch(languageDirection)
       {
-      case GERMAN_TO_HEBREW:
+      case OWN_TO_HEBREW:
          answerPanel.removeAll();
          answerPanel
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
@@ -540,7 +567,7 @@ public class TrainerView extends BackgroundPanelTiled
          answerPanel.add(answerField);
          answerPanel.add(keyboardNikud);
          break;
-      case GERMAN_TO_SWEDISH:
+      case OWN_TO_SWEDISH:
          answerPanel.removeAll();
          answerPanel
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
@@ -550,7 +577,7 @@ public class TrainerView extends BackgroundPanelTiled
                translator.realisticTranslate(Translation.ANTWORTFELD),
                translator.realisticTranslate(Translation.ANTWORTFELD) + ":",
                translator.realisticTranslate(
-                     Translation.MIT_DER_HEBRAEISCHEN_TASTATUR),
+                     Translation.MIT_DER_SCHWEDISCHEN_TASTATUR),
                translator.realisticTranslate(
                      Translation.BITTE_DIE_ANTWORT_SCHREIBEN));
          answerField.setDocument(new SwedishDocument(true));
@@ -563,8 +590,32 @@ public class TrainerView extends BackgroundPanelTiled
          answerPanel.add(answerField);
          answerPanel.add(keyboardSwedish.makeRegularKeyboard());
          break;
-      case SWEDISH_TO_GERMAN:
-      case HEBREW_TO_GERMAN:
+      case OWN_TO_GERMAN:
+         answerPanel.removeAll();
+         answerPanel
+               .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
+         answerPanel
+               .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 444));
+         answerField = new InfoTextField(
+               translator.realisticTranslate(Translation.ANTWORTFELD),
+               translator.realisticTranslate(Translation.ANTWORTFELD) + ":",
+               translator.realisticTranslate(
+                     Translation.MIT_DER_DEUTSCHEN_TASTATUR),
+               translator.realisticTranslate(
+                     Translation.BITTE_DIE_ANTWORT_SCHREIBEN));
+         answerField.setDocument(new SwedishDocument(true));
+         answerField
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+
+         keyboardGerman = new KeyboardGermanStandard(answerField,
+               new ArrayList<JTextComponent>(), 80);
+
+         answerPanel.add(answerField);
+         answerPanel.add(keyboardGerman.makeRegularKeyboard());
+         break;
+      case SWEDISH_TO_OWN:
+      case HEBREW_TO_OWN:
+      case GERMAN_TO_OWN:
          answerPanel.removeAll();
          answerPanel
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 80));
@@ -597,7 +648,7 @@ public class TrainerView extends BackgroundPanelTiled
       questionPanel.validate();
       questionPanel.repaint();
       
-      if (LanguageDirection.GERMAN_TO_HEBREW.equals(languageDirection))
+      if (LanguageDirection.OWN_TO_HEBREW.equals(languageDirection))
       {
          this.pictureToggleBox.setVisible(true);
       }
@@ -653,13 +704,15 @@ public class TrainerView extends BackgroundPanelTiled
 
       switch(languageDirection)
       {
-      case GERMAN_TO_SWEDISH:
-      case GERMAN_TO_HEBREW:
+      case OWN_TO_SWEDISH:
+      case OWN_TO_HEBREW:
+      case OWN_TO_GERMAN:
          sendButton = new JButton(
                translator.realisticTranslate(Translation.ANTWORT_ABSENDEN));
          break;
-      case HEBREW_TO_GERMAN:
-      case SWEDISH_TO_GERMAN:
+      case HEBREW_TO_OWN:
+      case SWEDISH_TO_OWN:
+      case GERMAN_TO_OWN:
          sendButton = new JButton(
                translator.realisticTranslate(Translation.ANTWORT_ANSCHAUEN));
          break;

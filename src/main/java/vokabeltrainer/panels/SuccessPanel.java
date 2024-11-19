@@ -14,7 +14,7 @@ import vokabeltrainer.panels.success.InformationTab;
 import vokabeltrainer.panels.success.InformationTabDtoH;
 import vokabeltrainer.panels.success.InformationTabHtoD;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
-import vokabeltrainer.types.LanguageDirection;
+import vokabeltrainer.types.Direction;
 
 public class SuccessPanel extends BackgroundPanelTiled
 {
@@ -37,9 +37,9 @@ public class SuccessPanel extends BackgroundPanelTiled
 
       infoCard = new InformationTab();
       languageDtoHcard = new LanguageTab(new InformationTabDtoH(),
-            LanguageDirection.GERMAN_TO_HEBREW);
+            Direction.OWN_TO_NEW);
       languageHtoDcard = new LanguageTab(new InformationTabHtoD(),
-            LanguageDirection.HEBREW_TO_GERMAN);
+            Direction.NEW_TO_OWN);
 
       germanHebrewRegister.addTab(
             translator.realisticTranslate(Translation.KARTEIKASTEN), infoCard);

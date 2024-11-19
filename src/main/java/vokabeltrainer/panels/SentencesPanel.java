@@ -14,7 +14,7 @@ import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
-import vokabeltrainer.types.LanguageDirection;
+import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.SortingType;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
@@ -49,12 +49,12 @@ public class SentencesPanel extends JPanel implements TableConnector
       tablePanel.setMaximumSize(new Dimension(1400, 800));
       tablePanel.setBackground(ApplicationColors.getBackgroundGold());
 
-      ExpressionTableModel tableModel = Data.findTranslations(LanguageDirection.HEBREW_TO_GERMAN, null, ExpressionKind.TEXT,
+      ExpressionTableModel tableModel = Data.findTranslations(null, ExpressionKind.TEXT,
             null, null, null,
-            SortingType.ALPHABET, levelOfDifficulty);
+            SortingType.ALPHABET, levelOfDifficulty, Direction.NEW_TO_OWN);
       tablePanel.removeAll();
       table = new ExpressionTable(tableModel,
-            LanguageDirection.GERMAN_TO_HEBREW, this, true, new ExpressionColumnModel(LanguageDirection.GERMAN_TO_HEBREW));
+            Direction.NEW_TO_OWN, this, true, new ExpressionColumnModel());
 
       tablePanel.add(new JScrollPane(table));
       return tablePanel;
@@ -63,12 +63,12 @@ public class SentencesPanel extends JPanel implements TableConnector
    @Override
    public void save()
    {
-      ExpressionTableModel tableModel = Data.findTranslations(LanguageDirection.HEBREW_TO_GERMAN, null, ExpressionKind.TEXT,
+      ExpressionTableModel tableModel = Data.findTranslations(null, ExpressionKind.TEXT,
             null, null, null,
-            SortingType.ALPHABET, levelOfDifficulty);
+            SortingType.ALPHABET, levelOfDifficulty, Direction.NEW_TO_OWN);
       tablePanel.removeAll();
       table = new ExpressionTable(tableModel,
-            LanguageDirection.GERMAN_TO_HEBREW, this, true, new ExpressionColumnModel(LanguageDirection.GERMAN_TO_HEBREW));
+            Direction.NEW_TO_OWN, this, true, new ExpressionColumnModel());
 
       tablePanel.add(new JScrollPane(table));
       tablePanel.validate();

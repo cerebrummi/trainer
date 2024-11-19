@@ -58,6 +58,7 @@ import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.DatabaseDescription;
+import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.LLType;
@@ -183,16 +184,16 @@ public final class Data
    }
 
    public static ExpressionTableModel findTranslations(
-         LanguageDirection language, String text, ExpressionKind kind,
+         String text, ExpressionKind kind,
          SearchType search, Chapter chapter, Command command,
-         SortingType sortingType, Integer levelOfDifficulty)
+         SortingType sortingType, Integer levelOfDifficulty, Direction direction)
    {
-      return getDataBaseAtomic().findTranslations(language, text, kind, search,
-            chapter, command, sortingType, levelOfDifficulty);
+      return getDataBaseAtomic().findTranslations(text, kind, search,
+            chapter, command, sortingType, levelOfDifficulty, direction);
    }
 
    public static ExpressionTableModel findTranslationsDeletedWords(
-         LanguageDirection language)
+         Direction language)
    {
       return getDataBaseAtomic().findTranslationsDeletedWords(language);
    }
@@ -213,7 +214,7 @@ public final class Data
    }
 
    public static String getAllSelectedExpressionsAsString(
-         LanguageDirection language)
+         Direction language)
    {
       return getDataBaseAtomic().getAllSelectedExpressionsAsString(language);
    }
@@ -272,7 +273,7 @@ public final class Data
       return getDataBaseAtomic().findStatisticsModel();
    }
 
-   public static SuccessTableModel findSuccessModel(LanguageDirection direction,
+   public static SuccessTableModel findSuccessModel(Direction direction,
          Repetition repetition)
    {
       return getDataBaseAtomic().findSuccessModel(direction, repetition);
@@ -389,19 +390,48 @@ public final class Data
          }
          else
          {
-            File german = new File(Settings.getTrainingPath() + File.separator
-                  + LanguageDirection.GERMAN_TO_HEBREW.name() + ".txt");
-            File hebrew = new File(Settings.getTrainingPath() + File.separator
-                  + LanguageDirection.HEBREW_TO_GERMAN.name() + ".txt");
+            File ownToGerman = new File(Settings.getTrainingPath() + File.separator
+                  + LanguageDirection.OWN_TO_GERMAN.name() + ".txt");
+            File ownToHebrew = new File(Settings.getTrainingPath() + File.separator
+                  + LanguageDirection.OWN_TO_HEBREW.name() + ".txt");
+            File ownToSwedish = new File(Settings.getTrainingPath() + File.separator
+                  + LanguageDirection.OWN_TO_SWEDISH.name() + ".txt");
+            
+            File germanToOwn = new File(Settings.getTrainingPath() + File.separator
+                  + LanguageDirection.GERMAN_TO_OWN.name() + ".txt");
+            File hebrewToOwn = new File(Settings.getTrainingPath() + File.separator
+                  + LanguageDirection.HEBREW_TO_OWN.name() + ".txt");
+            File swedishToOwn = new File(Settings.getTrainingPath() + File.separator
+                  + LanguageDirection.SWEDISH_TO_OWN.name() + ".txt");
 
-            if (german.exists())
+            if (ownToGerman.exists())
             {
-               readTrainingFile(german, LanguageDirection.GERMAN_TO_HEBREW);
+               readTrainingFile(ownToGerman, LanguageDirection.OWN_TO_GERMAN);
             }
 
-            if (hebrew.exists())
+            if (ownToHebrew.exists())
             {
-               readTrainingFile(hebrew, LanguageDirection.HEBREW_TO_GERMAN);
+               readTrainingFile(ownToHebrew, LanguageDirection.OWN_TO_HEBREW);
+            }
+            
+            if (ownToSwedish.exists())
+            {
+               readTrainingFile(ownToSwedish, LanguageDirection.OWN_TO_SWEDISH);
+            }
+            
+            if (germanToOwn.exists())
+            {
+               readTrainingFile(ownToGerman, LanguageDirection.GERMAN_TO_OWN);
+            }
+
+            if (hebrewToOwn.exists())
+            {
+               readTrainingFile(ownToHebrew, LanguageDirection.HEBREW_TO_OWN);
+            }
+            
+            if (swedishToOwn.exists())
+            {
+               readTrainingFile(ownToSwedish, LanguageDirection.SWEDISH_TO_OWN);
             }
          }
       }
@@ -469,12 +499,16 @@ public final class Data
                      trys, nextDate);
                Expression expression = alleMap.get(uuid);
                if (expression != null
-                     && LanguageDirection.GERMAN_TO_HEBREW == languageDirection)
+                     && (LanguageDirection.OWN_TO_GERMAN == languageDirection ||
+                           LanguageDirection.OWN_TO_SWEDISH == languageDirection ||
+                           LanguageDirection.OWN_TO_HEBREW == languageDirection))
                {
                   expression.setTrainingStatusDToLL(trainingstatus);
                }
                else if (expression != null
-                     && LanguageDirection.HEBREW_TO_GERMAN == languageDirection)
+                     && (LanguageDirection.GERMAN_TO_OWN == languageDirection ||
+                     LanguageDirection.SWEDISH_TO_OWN == languageDirection ||
+                     LanguageDirection.HEBREW_TO_OWN == languageDirection))
                {
                   expression.setTrainingStatusLLToD(trainingstatus);
                }
@@ -968,6 +1002,15 @@ public final class Data
                   expression.setSortingIndex(
                         String.valueOf(SortingIndex.getCounter()));
                }
+               index++;
+               try
+               {
+                  expression.setLevel(Integer.valueOf(entries[index].strip()));
+               }
+               catch (Exception e)
+               {
+                  // nothing: level is automatically 1
+               }
 
                if (LetterForLoading.DELETED != letter)
                {
@@ -993,19 +1036,7 @@ public final class Data
                {
                   chapterSet.add(expression.getChapter());
                }
-               index++;
-               try
-               {
-                  if (expression.getDefinitions().isExpressionKindText())
-                  {
-                     expression.setLevel(Integer.valueOf(entries[index]));
-                  }
-                  // nothing: level is automatically 1
-               }
-               catch (Exception e)
-               {
-                  // nothing: level is automatically 1
-               }
+               
             }
             catch (Exception e1)
             {
@@ -1018,47 +1049,44 @@ public final class Data
 
       // ############################################################
 
-      private ExpressionTableModel findTranslations(LanguageDirection language,
+      private ExpressionTableModel findTranslations(
             String text, ExpressionKind kind, SearchType search,
-            Chapter chapter, Command command, SortingType sortingType, Integer levelOfDifficulty)
-      {
+            Chapter chapter, Command command, SortingType sortingType, Integer levelOfDifficulty,
+            Direction direction)
+      {        
          Collection<Expression> expressions = null;
 
          if(levelOfDifficulty != null)
          {
             List<Expression> selectedExpressions = findAllLevelOfDifficultyExpressionList(levelOfDifficulty);
             Collections.sort(selectedExpressions,
-                  new ExpressionComparator(language, sortingType));
+                  new ExpressionComparator(direction, sortingType));
             return new ExpressionTableModel(
                   convertToExpressionModelArray(selectedExpressions),
                   COLUMNAMES);
          }
-         else if (text == null && kind == null && search == null && chapter == null
-               && command != null)
+         else if (Command.ALL_SELECTED == command)
          {
-            if (Command.ALL_SELECTED.equals(command))
-            {
-               List<Expression> selectedExpressions = findAllSelectedExpressionsList(
-                     false);
-               Collections.sort(selectedExpressions,
-                     new ExpressionComparator(language, sortingType));
-               return new ExpressionTableModel(
-                     convertToExpressionModelArray(selectedExpressions),
-                     COLUMNAMES);
-            }
+            List<Expression> selectedExpressions = findAllSelectedExpressionsList(
+                  false);
+            Collections.sort(selectedExpressions,
+                  new ExpressionComparator(direction, sortingType));
+            return new ExpressionTableModel(
+                  convertToExpressionModelArray(selectedExpressions),
+                  COLUMNAMES);
          }
          else if (text == null && kind == null && search == null
                && chapter != null && command == null)
          {
             return new ExpressionTableModel(convertToExpressionModelArray(
-                  findExpressionsChapterSorted(chapter, language, sortingType)),
+                  findExpressionsChapterSorted(chapter, direction, sortingType)),
                   COLUMNAMES);
          }
          else if (text == null && kind != null && search == null
                && chapter == null && command == null)
          {
             return new ExpressionTableModel(convertToExpressionModelArray(
-                  findSortedExpressionsOfKind(kind, language, sortingType)),
+                  findSortedExpressionsOfKind(kind, direction, sortingType)),
                   COLUMNAMES);
          }
          else if (text != null && kind == null && search != null
@@ -1077,14 +1105,14 @@ public final class Data
          {
             System.out.println(
                   "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
-                        + "Language = " + language + ", kind = " + kind
+                        + "Direction = " + direction + ", kind = " + kind
                         + ", search = " + search + "\n" + "chapter = " + chapter
                         + ", command = " + command + ", sortForDate = "
                         + sortingType);
          }
 
          return new ExpressionTableModel(
-               convertToExpressionModelArray(filterExpressions(text, language,
+               convertToExpressionModelArray(filterExpressions(text, direction,
                      search, expressions, sortingType)),
                COLUMNAMES);
       }
@@ -1098,7 +1126,7 @@ public final class Data
       }
 
       private ExpressionTableModel findTranslationsDeletedWords(
-            LanguageDirection language)
+            Direction language)
       {
          Collection<Expression> expressions = deletedMap.values();
          Expression[] expressionArray = expressions
@@ -1110,7 +1138,7 @@ public final class Data
       }
 
       private List<Expression> filterExpressions(String text,
-            LanguageDirection language, SearchType search,
+            Direction language, SearchType search,
             Collection<Expression> expressions, SortingType sortingType)
       {
          if (expressions == null)
@@ -1118,18 +1146,18 @@ public final class Data
             return Collections.emptyList();
          }
 
-         Predicate<Expression> germanSearchword = expression -> equalsGermanSearchWord(
+         Predicate<Expression> ownSearchword = expression -> equalsGermanSearchWord(
                text, expression);
-         Predicate<Expression> germanWordstart = expression -> equalsGermanWordStart(
+         Predicate<Expression> ownWordstart = expression -> equalsGermanWordStart(
                text, expression);
          Predicate<Expression> hebrewSearchword = expression -> equalsHebrewSearchWord(
                text, expression);
          Predicate<Expression> hebrewWordstart = expression -> equalsHebrewWordStart(
                text, expression);
 
-         Predicate<Expression> germanToHebrew = expression -> LanguageDirection.GERMAN_TO_HEBREW
+         Predicate<Expression> ownToHebrew = expression -> Direction.OWN_TO_NEW
                .equals(language);
-         Predicate<Expression> hebrewToGerman = expression -> LanguageDirection.HEBREW_TO_GERMAN
+         Predicate<Expression> hebrewToOwn = expression -> Direction.NEW_TO_OWN
                .equals(language);
 
          Predicate<Expression> searchWord = expression -> SearchType.SEARCHWORD
@@ -1137,13 +1165,13 @@ public final class Data
          Predicate<Expression> wordStart = expression -> SearchType.WORDSTART
                .equals(search);
 
-         Predicate<Expression> germanToHebrewSearchword = germanToHebrew
-               .and(searchWord).and(germanSearchword);
-         Predicate<Expression> germanToHebrewWordstart = germanToHebrew
-               .and(wordStart).and(germanWordstart);
-         Predicate<Expression> hebrewToGermanSearchword = hebrewToGerman
+         Predicate<Expression> germanToHebrewSearchword = ownToHebrew
+               .and(searchWord).and(ownSearchword);
+         Predicate<Expression> germanToHebrewWordstart = ownToHebrew
+               .and(wordStart).and(ownWordstart);
+         Predicate<Expression> hebrewToGermanSearchword = hebrewToOwn
                .and(searchWord).and(hebrewSearchword);
-         Predicate<Expression> hebrewToGermanWordstart = hebrewToGerman
+         Predicate<Expression> hebrewToGermanWordstart = hebrewToOwn
                .and(wordStart).and(hebrewWordstart);
 
          return expressions.stream()
@@ -1154,7 +1182,7 @@ public final class Data
       }
 
       private List<Expression> findExpressionsChapterSorted(Chapter chapter,
-            LanguageDirection language, SortingType sortingType)
+            Direction language, SortingType sortingType)
       {
          List<Expression> list = findExpressionsChapter(chapter);
          Collections.sort(list,
@@ -1170,7 +1198,7 @@ public final class Data
       }
 
       private List<Expression> findSortedExpressionsOfKind(ExpressionKind kind,
-            LanguageDirection language, SortingType sortingType)
+            Direction language, SortingType sortingType)
       {
          return alleMap.values().stream()
                .filter(expression -> expression.getDefinitions()
@@ -1346,7 +1374,7 @@ public final class Data
       }
 
       private String getAllSelectedExpressionsAsString(
-            LanguageDirection language)
+            Direction language)
       {
          return alleMap.values().stream()
                .filter(expression -> expression.isSelected())
@@ -1441,8 +1469,8 @@ public final class Data
          switch (fieldOfTraining)
          {
          case AREA_CHAPTER:
-            if (LanguageDirection.GERMAN_TO_HEBREW == languageDirection
-                  || LanguageDirection.HEBREW_TO_GERMAN == languageDirection)
+            if (Direction.OWN_TO_NEW == languageDirection.getDirection()
+                  || Direction.NEW_TO_OWN == languageDirection.getDirection())
             {
                data = chapterSet.stream().filter(hebrew).sorted()
                      .map(chapter -> makeChapterRow(languageDirection,
@@ -1543,25 +1571,37 @@ public final class Data
                .getLltype() == LLType.HEBREW;
          Predicate<Expression> swedish = e -> e.getLL()
                .getLltype() == LLType.SWEDISH;
+         Predicate<Expression> german = e -> e.getLL()
+               .getLltype() == LLType.GERMAN;
 
          switch (languageDirection)
          {
-         case GERMAN_TO_HEBREW:
+         case OWN_TO_HEBREW:
             return list
                   .stream().filter(hebrew).filter(expression -> !expression
                         .getTrainingStatusDToLL().isTrainingStarted())
                   .collect(Collectors.toList());
-         case HEBREW_TO_GERMAN:
+         case HEBREW_TO_OWN:
             return list
                   .stream().filter(hebrew).filter(expression -> !expression
                         .getTrainingStatusLLToD().isTrainingStarted())
                   .collect(Collectors.toList());
-         case GERMAN_TO_SWEDISH:
+         case OWN_TO_SWEDISH:
             return list
                   .stream().filter(swedish).filter(expression -> !expression
                         .getTrainingStatusDToLL().isTrainingStarted())
                   .collect(Collectors.toList());
-         case SWEDISH_TO_GERMAN:
+         case SWEDISH_TO_OWN:
+            return list
+                  .stream().filter(swedish).filter(expression -> !expression
+                        .getTrainingStatusLLToD().isTrainingStarted())
+                  .collect(Collectors.toList());
+         case OWN_TO_GERMAN:
+            return list
+                  .stream().filter(german).filter(expression -> !expression
+                        .getTrainingStatusDToLL().isTrainingStarted())
+                  .collect(Collectors.toList());
+         case GERMAN_TO_OWN:
             return list
                   .stream().filter(swedish).filter(expression -> !expression
                         .getTrainingStatusLLToD().isTrainingStarted())
@@ -1579,8 +1619,10 @@ public final class Data
                .getLltype() == LLType.HEBREW;
          Predicate<Expression> swedish = e -> e.getLL()
                .getLltype() == LLType.SWEDISH;
+         Predicate<Expression> german = e -> e.getLL()
+               .getLltype() == LLType.GERMAN;
 
-         if (LanguageDirection.GERMAN_TO_HEBREW == languageDirection
+         if (LanguageDirection.OWN_TO_HEBREW == languageDirection
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
             return alleMap.values().stream()
@@ -1590,7 +1632,7 @@ public final class Data
                   .collect(Collectors.toSet());
          }
 
-         if (LanguageDirection.HEBREW_TO_GERMAN == languageDirection
+         if (LanguageDirection.HEBREW_TO_OWN == languageDirection
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
             return alleMap.values().stream()
@@ -1600,7 +1642,7 @@ public final class Data
                   .collect(Collectors.toSet());
          }
 
-         if (LanguageDirection.GERMAN_TO_SWEDISH == languageDirection
+         if (LanguageDirection.OWN_TO_SWEDISH == languageDirection
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
             return alleMap.values().stream()
@@ -1610,11 +1652,31 @@ public final class Data
                   .collect(Collectors.toSet());
          }
 
-         if (LanguageDirection.SWEDISH_TO_GERMAN == languageDirection
+         if (LanguageDirection.SWEDISH_TO_OWN == languageDirection
                && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
          {
             return alleMap.values().stream()
                   .filter(expression -> expression.isSelected()).filter(swedish)
+                  .filter(expression -> expression.getTrainingStatusLLToD()
+                        .isTrainingStarted())
+                  .collect(Collectors.toSet());
+         }
+         
+         if (LanguageDirection.OWN_TO_GERMAN == languageDirection
+               && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
+         {
+            return alleMap.values().stream()
+                  .filter(expression -> expression.isSelected()).filter(german)
+                  .filter(expression -> expression.getTrainingStatusDToLL()
+                        .isTrainingStarted())
+                  .collect(Collectors.toSet());
+         }
+
+         if (LanguageDirection.GERMAN_TO_OWN == languageDirection
+               && FieldOfTraining.AREA_SELECTED == fieldOfTraining)
+         {
+            return alleMap.values().stream()
+                  .filter(expression -> expression.isSelected()).filter(german)
                   .filter(expression -> expression.getTrainingStatusLLToD()
                         .isTrainingStarted())
                   .collect(Collectors.toSet());
@@ -1622,7 +1684,7 @@ public final class Data
 
          final LocalDate now = LocalDate.now();
 
-         if (LanguageDirection.GERMAN_TO_HEBREW == languageDirection
+         if (LanguageDirection.OWN_TO_HEBREW == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
             Predicate<Expression> started = e -> e.getTrainingStatusDToLL()
@@ -1636,7 +1698,7 @@ public final class Data
                   .collect(Collectors.toSet());
          }
 
-         if (LanguageDirection.HEBREW_TO_GERMAN == languageDirection
+         if (LanguageDirection.HEBREW_TO_OWN == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
             Predicate<Expression> started = e -> e.getTrainingStatusLLToD()
@@ -1650,7 +1712,7 @@ public final class Data
                   .collect(Collectors.toSet());
          }
 
-         if (LanguageDirection.GERMAN_TO_SWEDISH == languageDirection
+         if (LanguageDirection.OWN_TO_SWEDISH == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
             Predicate<Expression> started = e -> e.getTrainingStatusDToLL()
@@ -1664,7 +1726,7 @@ public final class Data
                   .collect(Collectors.toSet());
          }
 
-         if (LanguageDirection.SWEDISH_TO_GERMAN == languageDirection
+         if (LanguageDirection.SWEDISH_TO_OWN == languageDirection
                && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
          {
             Predicate<Expression> started = e -> e.getTrainingStatusLLToD()
@@ -1675,6 +1737,34 @@ public final class Data
                   .isAfter(e.getTrainingStatusLLToD().getNextDate());
             return alleMap.values().stream().filter(started)
                   .filter(isDueNow.or(wasDueBefore)).filter(swedish)
+                  .collect(Collectors.toSet());
+         }
+         
+         if (LanguageDirection.OWN_TO_GERMAN == languageDirection
+               && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
+         {
+            Predicate<Expression> started = e -> e.getTrainingStatusDToLL()
+                  .isTrainingStarted();
+            Predicate<Expression> isDueNow = e -> now
+                  .isEqual(e.getTrainingStatusDToLL().getNextDate());
+            Predicate<Expression> wasDueBefore = e -> now
+                  .isAfter(e.getTrainingStatusDToLL().getNextDate());
+            return alleMap.values().stream().filter(started)
+                  .filter(isDueNow.or(wasDueBefore)).filter(german)
+                  .collect(Collectors.toSet());
+         }
+
+         if (LanguageDirection.GERMAN_TO_OWN == languageDirection
+               && FieldOfTraining.AREA_CHAPTER == fieldOfTraining)
+         {
+            Predicate<Expression> started = e -> e.getTrainingStatusLLToD()
+                  .isTrainingStarted();
+            Predicate<Expression> isDueNow = e -> now
+                  .isEqual(e.getTrainingStatusLLToD().getNextDate());
+            Predicate<Expression> wasDueBefore = e -> now
+                  .isAfter(e.getTrainingStatusLLToD().getNextDate());
+            return alleMap.values().stream().filter(started)
+                  .filter(isDueNow.or(wasDueBefore)).filter(german)
                   .collect(Collectors.toSet());
          }
 
@@ -1760,7 +1850,7 @@ public final class Data
          return model;
       }
 
-      private SuccessTableModel findSuccessModel(LanguageDirection direction,
+      private SuccessTableModel findSuccessModel(Direction direction,
             Repetition repetition)
       {
          Vector<Vector<SuccessTableRow>> data = new Vector<>();

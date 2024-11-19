@@ -4,23 +4,23 @@ import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
 
+import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.SortingType;
 
 public class ExpressionComparator implements Comparator<Expression>
 {
 
-   private LanguageDirection language;
+   private Direction language;
    private SortingType sortingType;
    
-   public ExpressionComparator(LanguageDirection language, SortingType sortingType)
+   public ExpressionComparator(Direction language, SortingType sortingType)
    {
       this.language = language;
       this.sortingType = sortingType;
    }
 
-   public ExpressionComparator(LanguageDirection language)
+   public ExpressionComparator(Direction language)
    {
       this.language = language;
       this.sortingType = SortingType.ALPHABET;
@@ -64,7 +64,7 @@ public class ExpressionComparator implements Comparator<Expression>
          coll.setStrength(Collator.PRIMARY);
          return coll.compare(o1.getSortingIndex(), o2.getSortingIndex());
       default:
-         if (LanguageDirection.GERMAN_TO_HEBREW.equals(language))
+         if (Direction.OWN_TO_NEW.equals(language))
          {
             Collator coll2 = Collator.getInstance(Locale.GERMAN);
             coll2.setStrength(Collator.PRIMARY);
@@ -78,6 +78,13 @@ public class ExpressionComparator implements Comparator<Expression>
                coll2.setStrength(Collator.PRIMARY);
                return coll2.compare(o1.getLL().getSwedish(), o2.getLL().getSwedish());
             }
+            else
+               if(o1.getLL().isGerman())
+               {
+                  Collator coll2 = Collator.getInstance(Locale.GERMAN);
+                  coll2.setStrength(Collator.PRIMARY);
+                  return coll2.compare(o1.getLL().getGerman(), o2.getLL().getGerman());
+               }
             return o1
                   .getLL()
                   .getHebrewNoMatterWhichKind()

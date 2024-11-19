@@ -399,7 +399,9 @@ public enum Translation {
 	STARKES_VERB("starkes Verb", "strong verb"),
 	SCHWACHES_VERB("schwaches Verb", "weak verb"),
 	UNREGELMAESSIG_VERB("unregelm‰ﬂiges Verb", "irregular verb"),
-	GERMAN("Deutsch","German");
+	GERMAN("Deutsch","German"),
+	MIT_DER_SCHWEDISCHEN_TASTATUR("mit der schwedischen Tastatur","with the swedish keyboard"),
+	MIT_DER_DEUTSCHEN_TASTATUR("mit der deutschen Tastatur","with the german keyboard");
 
 	private String german;
 	private String english;

@@ -29,6 +29,7 @@ import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.TrainerView;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.LanguageDirection;
@@ -75,7 +76,7 @@ public class TrainerController implements TrainerControllerConnector
       expressionsToBeTested.addAll(allExpressions);
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
-         if (languageDirection == LanguageDirection.GERMAN_TO_HEBREW)
+         if (Direction.OWN_TO_NEW == languageDirection.getDirection())
          {
             expressionsToBeTested.forEach(expression -> {
                expression.getTrainingStatusDToLL().setTotalTrys(
@@ -171,12 +172,13 @@ public class TrainerController implements TrainerControllerConnector
 
       switch (languageDirection)
       {
-      case GERMAN_TO_HEBREW:
-      case GERMAN_TO_SWEDISH:
+      case OWN_TO_HEBREW:
+      case OWN_TO_SWEDISH:
+      case OWN_TO_GERMAN:
          trainerView.getQuestionFieldGerman()
                .setText(currentExpression.getOwnLanguage());
          break;
-      case HEBREW_TO_GERMAN:
+      case HEBREW_TO_OWN:
          if (currentExpression.getLL().isSimpleHebrew())
          {
             trainerView.getQuestionFieldLL().setHebrewFieldText(
@@ -194,11 +196,17 @@ public class TrainerController implements TrainerControllerConnector
                   .setLayoutNoKeyboard(Selection.PLENE_DEFEKTIV);
          }
          break;
-      case SWEDISH_TO_GERMAN:
+      case SWEDISH_TO_OWN:
          trainerView.getQuestionFieldLL().setSwedishFieldText(
                currentExpression.getLL().getSwedish());
          trainerView.getQuestionFieldLL()
                .setLayoutNoKeyboard(Selection.SWEDISH);
+         break;
+      case GERMAN_TO_OWN:
+         trainerView.getQuestionFieldLL().setGermanFieldText(
+               currentExpression.getLL().getGerman());
+         trainerView.getQuestionFieldLL()
+               .setLayoutNoKeyboard(Selection.GERMAN);
          break;
       }
 
@@ -212,10 +220,11 @@ public class TrainerController implements TrainerControllerConnector
       {
          switch(languageDirection)
          {
-         case GERMAN_TO_SWEDISH:
-         case GERMAN_TO_HEBREW:
+         case OWN_TO_SWEDISH:
+         case OWN_TO_HEBREW:
+         case OWN_TO_GERMAN:
             BestResult bestResult;
-            if(LanguageDirection.GERMAN_TO_HEBREW == languageDirection)
+            if(Direction.OWN_TO_NEW == languageDirection.getDirection())
             {
                bestResult = NikudResultFactory.getBestResultPossible(
                      currentExpression,
@@ -227,7 +236,7 @@ public class TrainerController implements TrainerControllerConnector
                bestResult = SwedishResultFactory.getBestResultPossible(
                      currentExpression,
                      trainerView.getAnswerField().getText().trim(),
-                     ApplicationFonts.getHebrewFont(24F));
+                     ApplicationFonts.getGermanFont(24F));
             }
             Result result = bestResult.getBestResult();
             if (result.isAnswerEmpty())
@@ -262,8 +271,9 @@ public class TrainerController implements TrainerControllerConnector
             }
             reactToAnswer(result.isOkay());
             break;
-         case HEBREW_TO_GERMAN:
-         case SWEDISH_TO_GERMAN:
+         case HEBREW_TO_OWN:
+         case SWEDISH_TO_OWN:
+         case GERMAN_TO_OWN:
             trainerView.prepareHtoDFeedbackPanel();
             break;
          }

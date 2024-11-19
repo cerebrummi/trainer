@@ -31,6 +31,7 @@ public final class Main
 
    // run application with
    // -Dsun.java2d.uiScale=1 
+   // JAVA_TOOL_OPTIONS = -Dfile.encoding=UTF8
 
    public static void main(String[] args)
    {	  

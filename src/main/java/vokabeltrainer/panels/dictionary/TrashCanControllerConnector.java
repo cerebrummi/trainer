@@ -4,15 +4,13 @@ import java.util.List;
 
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.ExpressionTableModel;
+import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.LanguageDirection;
 
 public interface TrashCanControllerConnector extends TableConnector
 {
 
    public DictionaryControllerConnector getDictionaryControllerConnector();
-
-   public ExpressionTableModel loadTableModel(LanguageDirection language);
 
    public void restoreSelectedExpressions(
          List<Expression> selectedExpressions);
@@ -22,4 +20,6 @@ public interface TrashCanControllerConnector extends TableConnector
    public void unselectAllExpressionsInTable();
 
    public void switchLanguage();
+
+   public ExpressionTableModel loadTableModel(Direction language);
 }
