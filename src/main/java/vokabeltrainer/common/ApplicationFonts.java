@@ -8,6 +8,7 @@ public class ApplicationFonts
    private static Font hebrewHandwrittenFont;
    private static Font germanFont;
    private static Font germanBoldFont;
+   private static Font internationalFont;
    
    private static Font buttonFont;
    private static Font toolbarButtonFont;
@@ -77,7 +78,20 @@ public class ApplicationFonts
       return germanBoldFont.deriveFont(size);
    }
 
+   public static Font getInternationalFont()
+   {
+      return internationalFont;
+   }
    
+   public static Font getInternationalFont(float size)
+   {
+      return internationalFont.deriveFont(size);
+   }
+
+   public static void setInternationalFont(Font internationalFont)
+   {
+      ApplicationFonts.internationalFont = internationalFont;
+   }
    
    public static void setButtonFont(Font font)
    {

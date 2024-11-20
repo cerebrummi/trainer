@@ -220,12 +220,12 @@ public class LanguageExpressionEditorView extends JDialog
 
    private void initGuiFields()
    {
-      Font germanfont = ApplicationFonts.getGermanFont(16F);
+      Font internationalfont = ApplicationFonts.getHebrewFont(16F);
       Font hebrewfont = ApplicationFonts.getHebrewFont(30F);
 
       ownLanguage = new JTextField();
       ownLanguage.setBorder(makeBorderBlank(germanTitle));
-      ownLanguage.setFont(germanfont);
+      ownLanguage.setFont(internationalfont);
       ownLanguage.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       ownLanguage.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       ownLanguage.setDocument(new InternationalDocument());
@@ -260,7 +260,7 @@ public class LanguageExpressionEditorView extends JDialog
                   Translation.BITTE_JE_EIN_WORT_EINGEBEN) + "  ",
             translator.realisticTranslate(Translation.UND_DANN_ENTER_DRUECKEN_)
                   + "  ");
-      newSearchwordGerman.setFont(germanfont);
+      newSearchwordGerman.setFont(internationalfont);
       newSearchwordGerman.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
       newSearchwordGerman.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
       newSearchwordGerman.setDocument(new GermanDocument(false));
@@ -416,7 +416,7 @@ public class LanguageExpressionEditorView extends JDialog
       indexField = new JTextField();
       indexField.setBorder(
             makeBorderBlank(translator.realisticTranslate(Translation.INDEX)));
-      indexField.setFont(germanfont);
+      indexField.setFont(internationalfont);
       indexField.setOpaque(false);
       indexField.setBackground(ApplicationColors.getTransparent());
       indexField.setMinimumSize(new Dimension(85, 70));
