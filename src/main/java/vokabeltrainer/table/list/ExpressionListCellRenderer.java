@@ -64,7 +64,8 @@ public class ExpressionListCellRenderer
          }
          else
          {
-            label.setFont(ApplicationFonts.getGermanBoldFont(20F));
+            label.setFont(ApplicationFonts.getGermanFont(20F));
+            label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          }
       }
       else if (index == 1)

@@ -20,7 +20,7 @@ public class LetterFeedbackImage
    }
    
    public static BufferedImage make(LetterForAnalysis letterDic,
-         LetterForAnalysis letterAnswer, boolean okay, Font hebrewFont)
+         LetterForAnalysis letterAnswer, boolean okay, Font font)
    {
       BufferedImage finalImg = new BufferedImage(
             Math.max(letterDic.getPixelWidth(), letterAnswer.getPixelWidth()),
@@ -59,7 +59,7 @@ public class LetterFeedbackImage
             RenderingHints.VALUE_RENDER_QUALITY);
       g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
             RenderingHints.VALUE_STROKE_PURE);
-      g2d.setFont(hebrewFont);
+      g2d.setFont(font);
       FontMetrics fm = g2d.getFontMetrics();
       fm = g2d.getFontMetrics();
       g2d.setColor(ApplicationColors.getGreen());
@@ -82,8 +82,17 @@ public class LetterFeedbackImage
          }
       }
       g2d.setColor(Color.BLACK);
-      g2d.drawString(letterAnswer.getContent().getUnicode(), 0,
-            fm.getAscent() + 9 + 50);
+      if(letterAnswer.getContent().isSpace() || letterAnswer.getContent().isNewspace())
+      {
+         g2d.drawString("", 0,
+               fm.getAscent() + 9 + 50);
+      }
+      else
+      {
+         g2d.drawString(letterAnswer.getContent().getUnicode(), 0,
+               fm.getAscent() + 9 + 50);
+      }
+      
       if(letterAnswer.isNikud())
       {
          for (NikudLetter nikudLetter : letterAnswer.getSetUpperPunktation())

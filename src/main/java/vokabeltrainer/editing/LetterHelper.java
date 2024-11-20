@@ -179,10 +179,15 @@ public class LetterHelper
          currentLetterForAnalysis = new LetterForAnalysis(
                NikudLetter.SPACE);
       }
-      else
+      else if(LetterType.SWEDISH == letterType)
       {
          currentLetterForAnalysis = new LetterForAnalysis(
                SwedishLetter.SPACE);
+      }
+      else
+      {
+         currentLetterForAnalysis = new LetterForAnalysis(
+               GermanLetter.SPACE);
       }
 
       for (int i = 0; i < codeList.size(); i++)
@@ -212,6 +217,12 @@ public class LetterHelper
          {
             SwedishLetter swedishLetter = (SwedishLetter) letter;
             currentLetterForAnalysis = new LetterForAnalysis(swedishLetter);
+            analysisList.add(currentLetterForAnalysis);
+         }
+         else if (letter != null && LetterType.GERMAN == letter.isType())
+         {
+            GermanLetter germanLetter = (GermanLetter) letter;
+            currentLetterForAnalysis = new LetterForAnalysis(germanLetter);
             analysisList.add(currentLetterForAnalysis);
          }
       }

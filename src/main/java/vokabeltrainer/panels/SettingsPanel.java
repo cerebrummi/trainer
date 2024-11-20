@@ -131,7 +131,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       return panel;
    }
 
-   private Component initBackupsTab()
+   /*private Component initBackupsTab()
    {
       JPanel panel = new JPanel();
       BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
@@ -139,7 +139,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       
       panel.add(new JLabel("work in progress"));
       return panel;
-   }
+   }*/
 
    private Component initLicencingTab() throws IOException
    {

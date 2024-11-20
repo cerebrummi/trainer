@@ -18,7 +18,6 @@ import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.types.Direction;
-import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.Repetition;
 
 public class LanguageTab extends JPanel

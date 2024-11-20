@@ -603,7 +603,7 @@ public class TrainerView extends BackgroundPanelTiled
                      Translation.MIT_DER_DEUTSCHEN_TASTATUR),
                translator.realisticTranslate(
                      Translation.BITTE_DIE_ANTWORT_SCHREIBEN));
-         answerField.setDocument(new SwedishDocument(true));
+         answerField.setDocument(new GermanDocument(true));
          answerField
                .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
@@ -1072,6 +1072,14 @@ public class TrainerView extends BackgroundPanelTiled
       {
          pictureWordPanelPlene
                .displayNikudWord(result.getExpression().getLL().getHebrew());
+      }
+      else if (result.getExpression().getLL().isSwedish())
+      {
+         // nothing
+      }
+      else if (result.getExpression().getLL().isGerman())
+      {
+         // nothing
       }
       else
       {

@@ -13,9 +13,11 @@ public class LetterForAnalysis
    private NikudLetter dagesh;
    private Set<NikudLetter> setUpperPunktation = new HashSet<>();
    private SwedishLetter swedishContent;
+   private GermanLetter germanContent;
    private LetterType type;
    private boolean swedish;
    private boolean nikud;
+   private boolean german;
 
    public LetterForAnalysis(NikudLetter content)
    {
@@ -23,6 +25,7 @@ public class LetterForAnalysis
       type = LetterType.HEBREW;
       nikud = true;
       swedish = false;
+      german = false;
    }
    
    public LetterForAnalysis(SwedishLetter content)
@@ -31,6 +34,16 @@ public class LetterForAnalysis
       type = LetterType.SWEDISH;
       nikud = false;
       swedish = true;
+      german = false;
+   }
+   
+   public LetterForAnalysis(GermanLetter content)
+   {
+      this.germanContent = content;
+      type = LetterType.GERMAN;
+      nikud = false;
+      swedish = false;
+      german = true;
    }
    
    public LetterForAnalysis(Letter content)
@@ -41,13 +54,23 @@ public class LetterForAnalysis
          type = LetterType.HEBREW;
          nikud = true;
          swedish = false;
+         german = false;
       }
-      else
+      else if(content instanceof SwedishLetter)
       {
          this.swedishContent = (SwedishLetter)content;
          type = LetterType.SWEDISH;
          nikud = false;
          swedish = true;
+         german = false;
+      }
+      else if(content instanceof GermanLetter)
+      {
+         this.germanContent = (GermanLetter)content;
+         type = LetterType.GERMAN;
+         nikud = false;
+         swedish = false;
+         german = true;
       }
    }
    
@@ -62,15 +85,29 @@ public class LetterForAnalysis
       {
          return content;
       }
-      else
+      else if(isSwedish())
       {
          return swedishContent;
+      }
+      else
+      {
+         return germanContent;
       }
    }
 
    public SwedishLetter getSwedishContent()
    {
       return swedishContent;
+   }
+   
+   public GermanLetter getGermanContent()
+   {
+      return germanContent;
+   }
+   
+   public boolean isGerman()
+   {
+      return german;
    }
 
    public boolean isSwedish()
@@ -94,8 +131,11 @@ public class LetterForAnalysis
          duplicate.getSetUpperPunktation().addAll(setUpperPunktation);
          return duplicate;
       }
-
-      return new LetterForAnalysis(swedishContent);
+      if(this.type == LetterType.SWEDISH)
+      {
+         return new LetterForAnalysis(swedishContent);
+      }
+      return new LetterForAnalysis(germanContent);
    }
    
    public static boolean isEqual(LetterForAnalysis letter1,LetterForAnalysis letter2, LetterType type)
@@ -109,6 +149,11 @@ public class LetterForAnalysis
       }
       
       if(letter1.getSwedishContent() == letter2.getSwedishContent())
+      {
+         return true;
+      }
+      
+      if(letter1.getGermanContent() == letter2.getGermanContent())
       {
          return true;
       }

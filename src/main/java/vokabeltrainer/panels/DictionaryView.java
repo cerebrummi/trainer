@@ -725,7 +725,8 @@ public class DictionaryView extends BackgroundPanelTiled
                      translator.realisticTranslate(
                            Translation.ENTER_DRUECKEN_OEFFNET_DEN_MARKIERTEN_EINTRAG),
                      translator.realisticTranslate(
-                           Translation.ZWEIMAL_KLICKEN_WAEHLT_EINEN_EINTRAG_AUS__STECKNADEL_))));
+                           Translation.ZWEIMAL_KLICKEN_WAEHLT_EINEN_EINTRAG_AUS__STECKNADEL_),
+                     translator.realisticTranslate(Translation.SCHWEDISCH_TASTE_B_STARTET_DAS_BUCHSTABIEREN))));
       });
 
       tableInfoButton.addMouseListener(new MouseListener()

@@ -14,7 +14,6 @@ import vokabeltrainer.common.ImageData;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.LanguageDirection;
 
 public class ListImageRow extends JPanel
 {

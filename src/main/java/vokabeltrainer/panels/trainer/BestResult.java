@@ -9,6 +9,7 @@ public class BestResult
    private Result resultPlene;
    private Result resultDefektiv;
    private Result resultSwedish;
+   private Result resultGerman;
 
    public BestResult(Selection selection)
    {
@@ -39,9 +40,19 @@ public class BestResult
    {
       this.resultSwedish = resultSwedish;
    }
+   
+   public void setResultGerman(Result resultGerman)
+   {
+      this.resultGerman = resultGerman;
+   }
 
    public Result getBestResult()
    {
+      if(Selection.GERMAN == selection)
+      {
+         return resultGerman;
+      }
+      
       if(Selection.SWEDISH == selection)
       {
          return resultSwedish;

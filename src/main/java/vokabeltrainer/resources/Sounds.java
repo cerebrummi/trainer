@@ -1,8 +1,5 @@
 package vokabeltrainer.resources;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import java.io.File;
 import vokabeltrainer.common.ApplicationSound;
 import vokabeltrainer.editing.SwedishLetter;
 

@@ -8,7 +8,6 @@ import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
 import vokabeltrainer.InputLanguagePanel.Selection;
-import vokabeltrainer.common.Settings.LanguageStored;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;

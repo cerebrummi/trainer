@@ -206,7 +206,11 @@ public enum GermanLetter
    SPACE(
          " 0020_de",
          "\u0020"
-   );
+   ), 
+   NEWSPACE(
+         " u00A0_de",
+         "\u00A0"
+         );
 
    private String code;
    private String unicode;
@@ -232,7 +236,7 @@ public enum GermanLetter
    @Override
    public boolean isNewspace()
    {
-      return false;
+      return GermanLetter.NEWSPACE == this;
    }
 
    @Override

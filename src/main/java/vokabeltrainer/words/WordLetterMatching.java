@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import vokabeltrainer.editing.GermanLetter;
 import vokabeltrainer.editing.Letter;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterType;
@@ -135,9 +136,13 @@ public class WordLetterMatching
             {
                dataDic.add(new LetterForAnalysis(NikudLetter.NEWSPACE));
             }
-            else
+            else if(LetterType.SWEDISH == type)
             {
                dataDic.add(new LetterForAnalysis(SwedishLetter.NEWSPACE));
+            }
+            else
+            {
+               dataDic.add(new LetterForAnalysis(GermanLetter.NEWSPACE));
             }
          }
          else
@@ -154,9 +159,13 @@ public class WordLetterMatching
             {
                dataTest.add(new LetterForAnalysis(NikudLetter.NEWSPACE));
             }
-            else
+            else if(LetterType.SWEDISH == type)
             {
                dataTest.add(new LetterForAnalysis(SwedishLetter.NEWSPACE));
+            }
+            else
+            {
+               dataTest.add(new LetterForAnalysis(GermanLetter.NEWSPACE));
             }
          }
          else
@@ -170,14 +179,14 @@ public class WordLetterMatching
 
       if (dataDic.size() != dataTest.size())
       {
-         throw new IllegalStateException("LÃ¤ngen unterschiedlich 1");
+         throw new IllegalStateException("Längen unterschiedlich 1");
       }
 
       cutOfUnnecessaryDataToTheRight(dataDic, dataTest);
 
       if (dataDic.size() != dataTest.size())
       {
-         throw new IllegalStateException("LÃ¤ngen unterschiedlich 2");
+         throw new IllegalStateException("Längen unterschiedlich 2");
       }
 
       if (deltaCol > 0) // dataTest moved to the left of dataDic
@@ -187,7 +196,7 @@ public class WordLetterMatching
          moveBeginningLettersToTheRightIfPossible(dataDic, dataTest, deltaCol);
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("LÃ¤ngen unterschiedlich 3a");
+            throw new IllegalStateException("Längen unterschiedlich 3a");
          }
       }
       else if (deltaCol < 0) // dataTest moved to the right of dataDic
@@ -197,7 +206,7 @@ public class WordLetterMatching
          moveBeginningLettersToTheRightIfPossible(dataTest, dataDic, deltaCol);
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("LÃ¤ngen unterschiedlich 3b");
+            throw new IllegalStateException("Längen unterschiedlich 3b");
          }
       }
       // else // not moved
@@ -206,7 +215,7 @@ public class WordLetterMatching
 
       if (dataDic.size() != dataTest.size())
       {
-         throw new IllegalStateException("LÃ¤ngen unterschiedlich 3");
+         throw new IllegalStateException("Längen unterschiedlich 3");
       }
 
       if (result.isPartlyFalse())
@@ -216,15 +225,20 @@ public class WordLetterMatching
             dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
                   dataDic, dataTest, NikudLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
          }
-         else
+         else if(LetterType.SWEDISH == type)
          {
             dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
                   dataDic, dataTest, SwedishLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
          }
+         else
+         {
+            dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
+                  dataDic, dataTest, GermanLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+         }
 
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("LÃ¤ngen unterschiedlich 4");
+            throw new IllegalStateException("Längen unterschiedlich 4");
          }
 
          if(LetterType.HEBREW == type)
@@ -232,29 +246,34 @@ public class WordLetterMatching
             dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
                   dataTest, dataDic, NikudLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
          }
-         else
+         else if(LetterType.SWEDISH == type)
          {
             dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
                   dataTest, dataDic, SwedishLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
          }
+         else 
+         {
+            dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
+                  dataTest, dataDic, GermanLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+         }
 
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("LÃ¤ngen unterschiedlich 5");
+            throw new IllegalStateException("Längen unterschiedlich 5");
          }
 
          lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
          
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("LÃ¤ngen unterschiedlich 5a");
+            throw new IllegalStateException("Längen unterschiedlich 5a");
          }
          
          lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
          
          if (dataDic.size() != dataTest.size())
          {
-            throw new IllegalStateException("LÃ¤ngen unterschiedlich 5b");
+            throw new IllegalStateException("Längen unterschiedlich 5b");
          }
       }
 
@@ -262,7 +281,7 @@ public class WordLetterMatching
 
       if (dataDic.size() != dataTest.size())
       {
-         throw new IllegalStateException("LÃ¤ngen unterschiedlich 6");
+         throw new IllegalStateException("Längen unterschiedlich 6");
       }
       
       result.setDictionary(dataDic);

@@ -4,7 +4,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import vokabeltrainer.panels.MainView;

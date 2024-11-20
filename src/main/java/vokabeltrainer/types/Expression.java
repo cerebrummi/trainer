@@ -36,7 +36,7 @@ public class Expression
    private LocalDateTime lastModified;
    private String sortingIndex = "";
    private Translator translator = Common.getTranslator();
-   private Integer level = null;
+   private Integer level = 0;
 
    public Expression(boolean preset) // for unit testing
    {

@@ -1009,7 +1009,7 @@ public final class Data
                }
                catch (Exception e)
                {
-                  // nothing: level is automatically 1
+                  // nothing
                }
 
                if (LetterForLoading.DELETED != letter)
@@ -1463,14 +1463,15 @@ public final class Data
          final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
                languageDirection, fieldOfTraining);
 
+         Predicate<Chapter> german = c -> c.getDatabaseDescription().getLlType() == LLType.GERMAN;
          Predicate<Chapter> swedish = c -> c.getDatabaseDescription().getLlType() == LLType.SWEDISH;
          Predicate<Chapter> hebrew = c -> c.getDatabaseDescription().getLlType() == LLType.HEBREW;
 
          switch (fieldOfTraining)
          {
          case AREA_CHAPTER:
-            if (Direction.OWN_TO_NEW == languageDirection.getDirection()
-                  || Direction.NEW_TO_OWN == languageDirection.getDirection())
+            if (LanguageDirection.OWN_TO_HEBREW == languageDirection
+                  || LanguageDirection.HEBREW_TO_OWN == languageDirection)
             {
                data = chapterSet.stream().filter(hebrew).sorted()
                      .map(chapter -> makeChapterRow(languageDirection,
@@ -1479,9 +1480,19 @@ public final class Data
                            trainingTableRow })
                      .toArray(size -> new TrainingTableRow[size][1]);
             }
-            else
+            else if (LanguageDirection.OWN_TO_SWEDISH == languageDirection
+                  || LanguageDirection.SWEDISH_TO_OWN == languageDirection)
             {
                data = chapterSet.stream().filter(swedish).sorted()
+                     .map(chapter -> makeChapterRow(languageDirection,
+                           fieldOfTraining, oldToBeTested, chapter))
+                     .map(trainingTableRow -> new TrainingTableRow[] {
+                           trainingTableRow })
+                     .toArray(size -> new TrainingTableRow[size][1]);
+            }
+            else
+            {
+               data = chapterSet.stream().filter(german).sorted()
                      .map(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter))
                      .map(trainingTableRow -> new TrainingTableRow[] {

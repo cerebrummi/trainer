@@ -149,7 +149,7 @@ public class Chapter implements Comparable<Chapter>
     		"grundwortschatz",
             "Grundwortschatz",
             "630 Vokabeln",
-            "Neuhebräisch",
+            "Neuhebrï¿½isch",
             LLType.HEBREW),
       SELF(
             "",
@@ -255,11 +255,12 @@ public class Chapter implements Comparable<Chapter>
          return company;
       }
 
-      LLType getLlType()
+      public LLType getLlType()
       {
-         // TODO Auto-generated method stub
-         return null;
+         return llType;
       }
+
+      
    }
 
    public static Database findOrigin(String databaseName)

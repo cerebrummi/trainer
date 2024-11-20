@@ -224,16 +224,23 @@ public class TrainerController implements TrainerControllerConnector
          case OWN_TO_HEBREW:
          case OWN_TO_GERMAN:
             BestResult bestResult;
-            if(Direction.OWN_TO_NEW == languageDirection.getDirection())
+            if(LanguageDirection.OWN_TO_HEBREW == languageDirection)
             {
                bestResult = NikudResultFactory.getBestResultPossible(
                      currentExpression,
                      trainerView.getAnswerField().getText().trim(),
                      ApplicationFonts.getHebrewFont(30F));
             }
-            else
+            else if(LanguageDirection.OWN_TO_SWEDISH == languageDirection)
             {
                bestResult = SwedishResultFactory.getBestResultPossible(
+                     currentExpression,
+                     trainerView.getAnswerField().getText().trim(),
+                     ApplicationFonts.getGermanFont(24F));
+            }
+            else
+            {
+               bestResult = GermanResultFactory.getBestResultPossible(
                      currentExpression,
                      trainerView.getAnswerField().getText().trim(),
                      ApplicationFonts.getGermanFont(24F));
@@ -257,7 +264,7 @@ public class TrainerController implements TrainerControllerConnector
                                  Translation.BITTE_LOESCHEN_SIE_DIESEN_AUSDRUCK),
                            translator
                                  .realisticTranslate(Translation.AUS_KAPITEL)
-                                 + " " + currentExpression.getChapter())));
+                                 + " " + currentExpression.getChapter().getName())));
                return;
             }
             trainerView.prepareDtoNikudFeedbackPanel(result);
