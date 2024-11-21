@@ -404,7 +404,9 @@ public enum Translation {
 	MIT_DER_DEUTSCHEN_TASTATUR("mit der deutschen Tastatur","with the german keyboard"),
 	SCHWEDISCH_TASTE_B_STARTET_DAS_BUCHSTABIEREN("Schwedisch: Taste b: Buchstabieren","Swedish: Key b: starts spelling"),
 	AUSGEWAEHLT("ausgewählt","selected"),
-	WORT("Wort","word");
+	WORT("Wort","word"),
+	MEINE_SPRACHE_("Meine Sprache", "my own language"),
+	NEUE_SPRACHE_("Lernsprache", "language to be learned");
 
 	private String german;
 	private String english;

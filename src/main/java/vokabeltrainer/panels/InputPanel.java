@@ -1,6 +1,7 @@
 package vokabeltrainer.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -11,6 +12,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
+import javax.swing.border.TitledBorder;
 
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
@@ -27,6 +30,7 @@ import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.Settings.LanguageStored;
 import vokabeltrainer.panels.input.ChapterComboBox;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.panels.translation.Translation;
@@ -43,6 +47,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.Languages;
 import vokabeltrainer.types.SortingType;
 
 public class InputPanel extends JPanel implements TableConnector
@@ -283,8 +288,27 @@ public class InputPanel extends JPanel implements TableConnector
       leftside.setOpaque(false);
 
       JPanel center = new JPanel();
-      center.setLayout(new TotemLayout(center));
+      center.setLayout(new TotemLayout(center, 15));
       center.setOpaque(false);
+      
+      JPanel horizontal = new JPanel();
+      horizontal.setLayout(new TrainLayout(horizontal, 15));
+      
+      JComboBox<String> myLanguage = new JComboBox<>(Languages.fullValues());
+      myLanguage.setBorder(new TitledBorder(translator.realisticTranslate(Translation.MEINE_SPRACHE_)));
+      myLanguage.setOpaque(false);
+      myLanguage.setBackground(ApplicationColors.getTransparent());
+      myLanguage.setMinimumSize(new Dimension(250,50));
+      myLanguage.setMaximumSize(new Dimension(250,50));
+      myLanguage.setMaximumRowCount(8);
+      
+      JComboBox<LanguageStored> otherLanguage = new JComboBox<>(LanguageStored.values());
+      otherLanguage.setBorder(new TitledBorder(translator.realisticTranslate(Translation.NEUE_SPRACHE_)));
+      otherLanguage.setOpaque(false);
+      otherLanguage.setBackground(ApplicationColors.getTransparent());
+      otherLanguage.setMinimumSize(new Dimension(250,50));
+      otherLanguage.setMaximumSize(new Dimension(250,50));
+      otherLanguage.setMaximumRowCount(4);
       
       newWordPunktationButton = new JButton(translator.realisticTranslate(Translation.NEUE_VOKABEL));
       newWordPunktationButton.setFont(ApplicationFonts.getButtonFont());
@@ -306,6 +330,10 @@ public class InputPanel extends JPanel implements TableConnector
       newTextPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
             10, 10, ApplicationColors.getGreen()));
 
+      horizontal.add(myLanguage);
+      horizontal.add(otherLanguage);
+      
+      center.add(horizontal);
       center.add(newWordPunktationButton);
       center.add(newTextPunktationButton);
       leftside.add(center);

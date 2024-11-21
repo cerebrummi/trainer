@@ -409,7 +409,7 @@ public class LanguageExpressionEditorView extends JDialog
       chapter.setMaximumRowCount(20);
       chapter.setBorder(new TitledBorder(this.chapterTitle));
       chapter.setOpaque(false);
-      chapter.setBackground(new Color(0, 0, 0, 0));
+      chapter.setBackground(ApplicationColors.getTransparent());
       chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       chapter.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
 

@@ -19,7 +19,8 @@ public class Settings
    {
       HEBREW_SIMPLE,
       HEBREW_PLENE_DEFEKTIV,
-      SWEDISH
+      SWEDISH,
+      GERMAN
    }
    
    private static boolean soundOn = true;
@@ -341,6 +342,11 @@ public class Settings
    public static boolean isSwedishInput()
    {
       return languageInput == Selection.SWEDISH;
+   }
+   
+   public static boolean isGermanInput()
+   {
+      return languageInput == Selection.GERMAN;
    }
 
    public static void setLanguageInput(Selection selection)

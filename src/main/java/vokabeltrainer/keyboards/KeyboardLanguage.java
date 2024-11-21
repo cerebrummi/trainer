@@ -284,6 +284,12 @@ public class KeyboardLanguage extends JPanel
       keyboard.add(row5);
       keyboard.add(row6);
       keyboard.add(row7);
+      
+      JPanel filler = new JPanel();
+      filler.setOpaque(false);
+      filler.setBackground(ApplicationColors.getTransparent());
+      
+      keyboard.add(filler);
       return keyboard;
    }
 
