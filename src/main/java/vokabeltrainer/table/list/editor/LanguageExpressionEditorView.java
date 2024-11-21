@@ -225,10 +225,18 @@ public class LanguageExpressionEditorView extends JDialog
 
       ownLanguage = new JTextField();
       ownLanguage.setBorder(makeBorderBlank(germanTitle));
-      ownLanguage.setFont(internationalfont);
       ownLanguage.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       ownLanguage.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       ownLanguage.setDocument(new InternationalDocument());
+      switch(Settings.getMyWritingDirection())
+      {
+      case LEFT_TO_RIGHT:
+         ownLanguage.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         break;
+      case RIGHT_TO_LEFT:
+         ownLanguage.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         break;      
+      }
 
       if (Settings.isSimpleHebrewInput())
       {

@@ -406,7 +406,8 @@ public enum Translation {
 	AUSGEWAEHLT("ausgewählt","selected"),
 	WORT("Wort","word"),
 	MEINE_SPRACHE_("Meine Sprache", "my own language"),
-	NEUE_SPRACHE_("Lernsprache", "language to be learned");
+	NEUE_SPRACHE_("Lernsprache", "language to be learned"),
+	SCHREIBRICHTUNG("meine Schreibrichtung", "direction of writing my language ");
 
 	private String german;
 	private String english;

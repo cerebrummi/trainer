@@ -12,6 +12,7 @@ import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.LanguageSettings;
+import vokabeltrainer.types.WritingDirection;
 
 public class Settings
 {
@@ -54,6 +55,10 @@ public class Settings
    private static boolean repetition_done = true;
    
    private static boolean schabbat_modus = true;
+   
+   private static WritingDirection myWritingDirection = readMyWritingDirection();
+
+   
 
    private Settings()
    {
@@ -366,6 +371,41 @@ public class Settings
       return languageInput;
    }
    
+   public static WritingDirection getMyWritingDirection()
+   {
+      return myWritingDirection;
+   }
+
+   public static void setMyWritingDirection(WritingDirection myWritingDirection)
+   {
+      Settings.myWritingDirection = myWritingDirection;
+      
+      Preferences preferences = Preferences
+            .userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences
+            .put(CerebrummiNodes.getWritingDirectionNode(),
+                  Settings.myWritingDirection.name());
+   }
+   
+   public static WritingDirection readMyWritingDirection()
+   {     
+      Preferences preferences = Preferences
+            .userRoot()
+            .node(CerebrummiNodes.getNode());
+      String s = preferences
+            .get(CerebrummiNodes.getWritingDirectionNode(),
+                  WritingDirection.LEFT_TO_RIGHT.name());
+      
+      if(s == null)
+      {
+         setMyWritingDirection(WritingDirection.LEFT_TO_RIGHT);
+         return WritingDirection.LEFT_TO_RIGHT;
+      }
+System.out.println("Setting 405 " + s);
+      return WritingDirection.valueOf(s);
+   }
+   
    public static Selection readLanaguageInput()
    {
       Preferences preferences = Preferences
@@ -374,6 +414,12 @@ public class Settings
       String s = preferences
             .get(CerebrummiNodes.getLanguageNode(),
                   Selection.GERMAN.name());
+      
+      if(s == null)
+      {
+         setLanguageInput(Selection.GERMAN);
+         return Selection.GERMAN;
+      }
 
       return Selection.valueOf(s);
    }

@@ -31,6 +31,7 @@ public class NikudExpressionEditorController implements NikudExpressionEditorCon
    
    public TextExpressionEditorView getTextExpressionEditorDialog()
    {
+   
 	   return textExpressionEditorDialog;
    }
 

@@ -47,8 +47,8 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.types.Languages;
 import vokabeltrainer.types.SortingType;
+import vokabeltrainer.types.WritingDirection;
 
 public class InputPanel extends JPanel implements TableConnector
 {
@@ -62,9 +62,9 @@ public class InputPanel extends JPanel implements TableConnector
    private JButton tableInfoButton;
    private Translator translator = Common.getTranslator();
 
-   private JComboBox<String> myLanguage;
-
    private JComboBox<LanguageStored> otherLanguage;
+
+   private JComboBox<WritingDirection> myWritingDirection;
 
    public InputPanel()
    {
@@ -108,6 +108,7 @@ public class InputPanel extends JPanel implements TableConnector
 
       initController();
       
+      setWritingDirection();
       setLernsprache(false);
    }
 
@@ -141,9 +142,19 @@ public class InputPanel extends JPanel implements TableConnector
                .getItemAt(chapterBox.getSelectedIndex());
          this.doShowTable();
       });
-
-      myLanguage.addActionListener(event -> {
-         
+      
+      myWritingDirection.addActionListener(event -> {
+         WritingDirection writingDirection = WritingDirection.LEFT_TO_RIGHT;
+         switch((WritingDirection)myWritingDirection.getSelectedItem())
+         {
+         case LEFT_TO_RIGHT:
+            writingDirection = WritingDirection.LEFT_TO_RIGHT;
+            break;
+         case RIGHT_TO_LEFT:
+            writingDirection = WritingDirection.RIGHT_TO_LEFT;
+            break;         
+         }
+         Settings.setMyWritingDirection(writingDirection);
       });
 
       otherLanguage.addActionListener(event -> {
@@ -327,15 +338,15 @@ public class InputPanel extends JPanel implements TableConnector
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
 
-      myLanguage = new JComboBox<>(Languages.fullValues());
-      myLanguage.setBorder(new TitledBorder(
-            translator.realisticTranslate(Translation.MEINE_SPRACHE_)));
-      myLanguage.setOpaque(false);
-      myLanguage.setBackground(ApplicationColors.getTransparent());
-      myLanguage.setMinimumSize(new Dimension(250, 50));
-      myLanguage.setMaximumSize(new Dimension(250, 50));
-      myLanguage.setMaximumRowCount(8);
-
+      myWritingDirection = new JComboBox<>(WritingDirection.values());
+      myWritingDirection.setBorder(new TitledBorder(
+            translator.realisticTranslate(Translation.SCHREIBRICHTUNG)));
+      myWritingDirection.setOpaque(false);
+      myWritingDirection.setBackground(ApplicationColors.getTransparent());
+      myWritingDirection.setMinimumSize(new Dimension(250, 50));
+      myWritingDirection.setMaximumSize(new Dimension(250, 50));
+      myWritingDirection.setMaximumRowCount(2);
+      
       otherLanguage = new JComboBox<>(LanguageStored.values());
       otherLanguage.setBorder(new TitledBorder(
             translator.realisticTranslate(Translation.NEUE_SPRACHE_)));
@@ -367,7 +378,7 @@ public class InputPanel extends JPanel implements TableConnector
       newTextPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
             10, 10, ApplicationColors.getGreen()));
 
-      horizontal.add(myLanguage);
+      horizontal.add(myWritingDirection);
       horizontal.add(otherLanguage);
 
       center.add(horizontal);
@@ -375,6 +386,20 @@ public class InputPanel extends JPanel implements TableConnector
       center.add(newTextPunktationButton);
       leftside.add(center);
       return leftside;
+   }
+   
+   private void setWritingDirection()
+   {
+      switch(Settings.getMyWritingDirection())
+      {
+      case LEFT_TO_RIGHT:
+         myWritingDirection.setSelectedItem(WritingDirection.LEFT_TO_RIGHT);
+         break;
+      case RIGHT_TO_LEFT:
+         myWritingDirection.setSelectedItem(WritingDirection.RIGHT_TO_LEFT);
+         break;      
+      }
+      
    }
 
    public void setLernsprache(boolean update)

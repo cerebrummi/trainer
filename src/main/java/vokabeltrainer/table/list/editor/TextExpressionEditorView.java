@@ -78,7 +78,7 @@ public class TextExpressionEditorView extends JDialog
    private Translator translator = Common.getTranslator();
    private Expression expression;
    private boolean newExpression;
-   private JTextArea german;
+   private JTextArea ownLanguage;
    private InputLanguagePanel learningLanguage;
 
    private JTextField indexField;
@@ -165,7 +165,7 @@ public class TextExpressionEditorView extends JDialog
       getContentPane().add(new JScrollPane(outerLayout));
 
       initController();
-      Component[] focusList = { german, learningLanguage, newSearchwordGerman,
+      Component[] focusList = { ownLanguage, learningLanguage, newSearchwordGerman,
             newSearchwordHebrew };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
@@ -176,14 +176,23 @@ public class TextExpressionEditorView extends JDialog
       Font germanfont = ApplicationFonts.getGermanFont(16F);
       Font hebrewfont = ApplicationFonts.getHebrewFont(30F);
 
-      german = new JTextArea();
-      german.setLineWrap(true);
-      german.setWrapStyleWord(true);
-      german.setBorder(makeBorderBlank(germanTitle));
-      german.setFont(germanfont);
-      german.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 150));
-      german.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 250));
-      german.setDocument(new InternationalDocument());
+      ownLanguage = new JTextArea();
+      ownLanguage.setLineWrap(true);
+      ownLanguage.setWrapStyleWord(true);
+      ownLanguage.setBorder(makeBorderBlank(germanTitle));
+      ownLanguage.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 150));
+      ownLanguage.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 250));
+      ownLanguage.setDocument(new InternationalDocument());
+      
+      switch(Settings.getMyWritingDirection())
+      {
+      case LEFT_TO_RIGHT:
+         ownLanguage.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         break;
+      case RIGHT_TO_LEFT:
+         ownLanguage.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         break;      
+      }
 
       if (Settings.isSimpleHebrewInput())
       {
@@ -460,7 +469,7 @@ public class TextExpressionEditorView extends JDialog
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
       vertical.setLayout(new TotemLayout(vertical, 15));
-      vertical.add(german);
+      vertical.add(ownLanguage);
       vertical.add(keyboard);
 
       JPanel horizontal = new JPanel();
@@ -504,29 +513,29 @@ public class TextExpressionEditorView extends JDialog
    private void resetAllBorders()
    {
       chapter.setBorder(makeBorderBlank(this.chapterTitle));
-      german.setBorder(makeBorderBlank(this.germanTitle));
+      ownLanguage.setBorder(makeBorderBlank(this.germanTitle));
       learningLanguage.setBlankBorder();
    }
 
    private void initController()
    {
-      german.addFocusListener(new FocusListener()
+      ownLanguage.addFocusListener(new FocusListener()
       {
          @Override
          public void focusGained(FocusEvent e)
          {
-            if (!german.getText().isEmpty())
+            if (!ownLanguage.getText().isEmpty())
             {
-               german.setBorder(makeBorderBlank(germanTitle));
+               ownLanguage.setBorder(makeBorderBlank(germanTitle));
             }
          }
 
          @Override
          public void focusLost(FocusEvent e)
          {
-            if (!german.getText().isEmpty())
+            if (!ownLanguage.getText().isEmpty())
             {
-               german.setBorder(makeBorderBlank(germanTitle));
+               ownLanguage.setBorder(makeBorderBlank(germanTitle));
             }
          }
       });
@@ -605,9 +614,9 @@ public class TextExpressionEditorView extends JDialog
          chapter.setBorder(makeBorderRed(this.chapterTitle));
          result = false;
       }
-      if (german.getText().isEmpty())
+      if (ownLanguage.getText().isEmpty())
       {
-         german.setBorder(makeBorderRed(this.germanTitle));
+         ownLanguage.setBorder(makeBorderRed(this.germanTitle));
          result = false;
       }
       return result;
@@ -615,7 +624,7 @@ public class TextExpressionEditorView extends JDialog
 
    private void saveExpression()
    {
-      expression.setOwnLanguage(cleanTextLeaveComma(german.getText()));
+      expression.setOwnLanguage(cleanTextLeaveComma(ownLanguage.getText()));
 
       expression.setLearningLanguage(
             new LearningLanguage(cleanTextLeaveComma(learningLanguage.getHebrewFieldText()),
@@ -722,7 +731,7 @@ public class TextExpressionEditorView extends JDialog
 
       this.indexField.setText(expression.getSortingIndex());
 
-      this.german.setText(expression.getOwnLanguage());
+      this.ownLanguage.setText(expression.getOwnLanguage());
 
       if(expression.getLL().isSwedish())
       {
@@ -848,7 +857,7 @@ public class TextExpressionEditorView extends JDialog
       boolean works = !frozen;
       try
       {
-         this.german.setEditable(works);
+         this.ownLanguage.setEditable(works);
          this.learningLanguage.setEditable(works);
          this.keyboard.setFrozen(frozen);
          this.saveButton.setEnabled(works);

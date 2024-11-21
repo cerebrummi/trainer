@@ -2,6 +2,7 @@ package vokabeltrainer.table.list;
 
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.awt.Font;
 import java.io.Serializable;
 
 import javax.swing.BorderFactory;
@@ -41,7 +42,7 @@ public class ExpressionListCellRenderer
    public Component getListCellRendererComponent(JList<? extends Object> list,
          Object value, int index, boolean isSelected, boolean cellHasFocus)
    {
-      label.setText((String) value);
+      
       if (index == 0)
       {
          if (Boolean.valueOf((String) value))
@@ -57,27 +58,34 @@ public class ExpressionListCellRenderer
       }
       else if (index == 2)
       {
+         label = new JTextField();
+         label.setOpaque(false);
+         label.setEditable(false);
+         label.setBackground(ApplicationColors.getTransparent());
+         label.setBorder(BorderFactory.createEmptyBorder());
          if(LetterHelper.findLetterTypeLanguages((String)value) == LetterType.HEBREW)
          {
-            label.setFont(ApplicationFonts.getHebrewFont(20F));
             label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          }
          else
          {
-            label.setFont(ApplicationFonts.getGermanFont(20F));
             label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          }
       }
       else if (index == 1)
       {
+         label = new JTextField();
+         label.setOpaque(false);
+         label.setEditable(false);
+         label.setBackground(ApplicationColors.getTransparent());
+         label.setBorder(BorderFactory.createEmptyBorder());
          if(LetterHelper.findLetterTypeLanguages((String)value) == LetterType.HEBREW)
          {
-            label.setFont(ApplicationFonts.getHebrewFont(20F));
             label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          }
          else
          {
-            label.setFont(ApplicationFonts.getGermanBoldFont(20F));
+            label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          }
       }
       else
@@ -85,6 +93,7 @@ public class ExpressionListCellRenderer
          label.setFont(ApplicationFonts.getGermanFont(16F));
          label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
       }
+      label.setText((String) value);
       return label;
    }
 }

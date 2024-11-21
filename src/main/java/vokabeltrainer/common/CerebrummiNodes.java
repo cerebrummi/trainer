@@ -112,4 +112,9 @@ public class CerebrummiNodes
    {
       return "schabbat_modus";
    }
+
+   public static String getWritingDirectionNode()
+   {
+      return "my_writing_direction";
+   }
 }

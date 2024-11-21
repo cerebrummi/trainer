@@ -94,14 +94,14 @@ public class StartPanel extends JPanel
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
-      filler.setMinimumSize(new Dimension(600, 200));
-      filler.setMaximumSize(new Dimension(800, 200));
+      filler.setMinimumSize(new Dimension(400, 200));
+      filler.setMaximumSize(new Dimension(600, 200));
 
       JLabel schalom = new JLabel(
             new ImageIcon(ApplicationImages.getLogo150()));
 
-      schalom.setMinimumSize(new Dimension(400, 200));
-      schalom.setMaximumSize(new Dimension(600, 200));
+      schalom.setMinimumSize(new Dimension(670, 200));
+      schalom.setMaximumSize(new Dimension(670, 200));
 
       horizontal.add(filler);
       horizontal.add(schalom);
