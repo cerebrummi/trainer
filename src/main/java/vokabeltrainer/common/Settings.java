@@ -27,7 +27,7 @@ public class Settings
    private static String chosenExpressionPath = null;
    private static float volume = -20;
    private static boolean letterImagesOn = true;
-   private static Selection languageInput = Selection.SWEDISH;
+   private static Selection languageInput = readLanaguageInput();
    private static String version = "5.0";
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
@@ -364,6 +364,18 @@ public class Settings
    public static Selection getLanguageInput()
    {
       return languageInput;
+   }
+   
+   public static Selection readLanaguageInput()
+   {
+      Preferences preferences = Preferences
+            .userRoot()
+            .node(CerebrummiNodes.getNode());
+      String s = preferences
+            .get(CerebrummiNodes.getLanguageNode(),
+                  Selection.GERMAN.name());
+
+      return Selection.valueOf(s);
    }
 
    public static String getRememberDatabaseForInput()

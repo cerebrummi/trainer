@@ -1,7 +1,6 @@
 package vokabeltrainer.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -22,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.border.TitledBorder;
 
+import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
@@ -62,23 +62,26 @@ public class InputPanel extends JPanel implements TableConnector
    private JButton tableInfoButton;
    private Translator translator = Common.getTranslator();
 
+   private JComboBox<String> myLanguage;
+
+   private JComboBox<LanguageStored> otherLanguage;
+
    public InputPanel()
    {
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
       setBackground(ApplicationColors.getTexturedBackgroundColor());
-      
-      
+
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
       vertical.setOpaque(false);
 
       JPanel filler1 = new JPanel();
       filler1.setOpaque(false);
-      
+
       JPanel filler2 = new JPanel();
       filler2.setOpaque(false);
-      
+
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
       horizontal.add(filler1);
@@ -104,6 +107,8 @@ public class InputPanel extends JPanel implements TableConnector
       this.add(vertical);
 
       initController();
+      
+      setLernsprache(false);
    }
 
    public void reset()
@@ -127,14 +132,38 @@ public class InputPanel extends JPanel implements TableConnector
    {
       newWordPunktationButton
             .addActionListener(event -> openNewNikudExpressionDialog());
-      
+
       newTextPunktationButton
-      .addActionListener(event -> openNewTextExpressionDialog());
+            .addActionListener(event -> openNewTextExpressionDialog());
 
       chapterBox.addActionListener(event -> {
          this.currentChapter = chapterBox
                .getItemAt(chapterBox.getSelectedIndex());
          this.doShowTable();
+      });
+
+      myLanguage.addActionListener(event -> {
+         
+      });
+
+      otherLanguage.addActionListener(event -> {
+         Selection selection = Selection.GERMAN;
+         switch((LanguageStored)otherLanguage.getSelectedItem())
+         {
+         case HEBREW_SIMPLE:
+            selection = Selection.SIMPLE;
+            break;
+         case HEBREW_PLENE_DEFEKTIV:
+            selection = Selection.PLENE_DEFEKTIV;
+         break;
+         case SWEDISH:
+            selection = Selection.SWEDISH;
+            break;
+         case GERMAN:
+            selection = Selection.GERMAN;
+            break;
+         }
+         Settings.setLanguageInput(selection);
       });
 
       tableInfoButton.addActionListener(event -> {
@@ -192,6 +221,7 @@ public class InputPanel extends JPanel implements TableConnector
       editor.setExpression(new Expression(true, false), true);
       editor.setLocationRelativeTo(Common.getjFrame());
       editor.setVisible(true);
+
       if (editor.isSave())
       {
          Expression expression = editor.getExpression();
@@ -199,8 +229,9 @@ public class InputPanel extends JPanel implements TableConnector
          this.currentChapter = expression.getChapter();
          save();
       }
+      setLernsprache(true);
    }
-   
+
    private void openNewTextExpressionDialog()
    {
       TextExpressionEditorView editor = new NikudExpressionEditorController()
@@ -208,6 +239,7 @@ public class InputPanel extends JPanel implements TableConnector
       editor.setExpression(new Expression(true, false), true);
       editor.setLocationRelativeTo(Common.getjFrame());
       editor.setVisible(true);
+
       if (editor.isSave())
       {
          Expression expression = editor.getExpression();
@@ -215,16 +247,17 @@ public class InputPanel extends JPanel implements TableConnector
          this.currentChapter = expression.getChapter();
          save();
       }
+      setLernsprache(true);
    }
 
    private void doShowTable()
    {
-      ExpressionTableModel tableModel = Data.findTranslations(
-            null, null, null, currentChapter, null,
-            SortingType.DATE, null, Direction.OWN_TO_NEW);
+      ExpressionTableModel tableModel = Data.findTranslations(null, null, null,
+            currentChapter, null, SortingType.DATE, null, Direction.OWN_TO_NEW);
       tablePanel.removeAll();
       ExpressionTable table = new ExpressionTable(tableModel,
-            Direction.OWN_TO_NEW, this, true, new ExpressionColumnModel(Direction.OWN_TO_NEW));
+            Direction.OWN_TO_NEW, this, true,
+            new ExpressionColumnModel(Direction.OWN_TO_NEW));
       JScrollPane tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);
       tableScroller.getViewport().setOpaque(false);
@@ -290,27 +323,30 @@ public class InputPanel extends JPanel implements TableConnector
       JPanel center = new JPanel();
       center.setLayout(new TotemLayout(center, 15));
       center.setOpaque(false);
-      
+
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
-      
-      JComboBox<String> myLanguage = new JComboBox<>(Languages.fullValues());
-      myLanguage.setBorder(new TitledBorder(translator.realisticTranslate(Translation.MEINE_SPRACHE_)));
+
+      myLanguage = new JComboBox<>(Languages.fullValues());
+      myLanguage.setBorder(new TitledBorder(
+            translator.realisticTranslate(Translation.MEINE_SPRACHE_)));
       myLanguage.setOpaque(false);
       myLanguage.setBackground(ApplicationColors.getTransparent());
-      myLanguage.setMinimumSize(new Dimension(250,50));
-      myLanguage.setMaximumSize(new Dimension(250,50));
+      myLanguage.setMinimumSize(new Dimension(250, 50));
+      myLanguage.setMaximumSize(new Dimension(250, 50));
       myLanguage.setMaximumRowCount(8);
-      
-      JComboBox<LanguageStored> otherLanguage = new JComboBox<>(LanguageStored.values());
-      otherLanguage.setBorder(new TitledBorder(translator.realisticTranslate(Translation.NEUE_SPRACHE_)));
+
+      otherLanguage = new JComboBox<>(LanguageStored.values());
+      otherLanguage.setBorder(new TitledBorder(
+            translator.realisticTranslate(Translation.NEUE_SPRACHE_)));
       otherLanguage.setOpaque(false);
       otherLanguage.setBackground(ApplicationColors.getTransparent());
-      otherLanguage.setMinimumSize(new Dimension(250,50));
-      otherLanguage.setMaximumSize(new Dimension(250,50));
+      otherLanguage.setMinimumSize(new Dimension(250, 50));
+      otherLanguage.setMaximumSize(new Dimension(250, 50));
       otherLanguage.setMaximumRowCount(4);
-      
-      newWordPunktationButton = new JButton(translator.realisticTranslate(Translation.NEUE_VOKABEL));
+
+      newWordPunktationButton = new JButton(
+            translator.realisticTranslate(Translation.NEUE_VOKABEL));
       newWordPunktationButton.setFont(ApplicationFonts.getButtonFont());
       newWordPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newWordPunktationButton.setMinimumSize(new Dimension(300, 60));
@@ -320,7 +356,8 @@ public class InputPanel extends JPanel implements TableConnector
       newWordPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
             10, 10, ApplicationColors.getGreen()));
 
-      newTextPunktationButton = new JButton(translator.realisticTranslate(Translation.NEUER_TEXT));
+      newTextPunktationButton = new JButton(
+            translator.realisticTranslate(Translation.NEUER_TEXT));
       newTextPunktationButton.setFont(ApplicationFonts.getButtonFont());
       newTextPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newTextPunktationButton.setMinimumSize(new Dimension(300, 60));
@@ -332,12 +369,38 @@ public class InputPanel extends JPanel implements TableConnector
 
       horizontal.add(myLanguage);
       horizontal.add(otherLanguage);
-      
+
       center.add(horizontal);
       center.add(newWordPunktationButton);
       center.add(newTextPunktationButton);
       leftside.add(center);
       return leftside;
+   }
+
+   public void setLernsprache(boolean update)
+   {
+      switch(Settings.getLanguageInput())
+      {
+      case GERMAN:
+         otherLanguage.setSelectedItem(LanguageStored.GERMAN);
+         break;
+      case PLENE_DEFEKTIV:
+         otherLanguage.setSelectedItem(LanguageStored.HEBREW_PLENE_DEFEKTIV);
+         break;
+      case SIMPLE:
+         otherLanguage.setSelectedItem(LanguageStored.HEBREW_SIMPLE);
+         break;
+      case SWEDISH:
+         otherLanguage.setSelectedItem(LanguageStored.SWEDISH);
+         break;      
+         default:
+            otherLanguage.setSelectedItem(LanguageStored.GERMAN); 
+      }
+      if(update)
+      {
+         otherLanguage.revalidate();
+         otherLanguage.repaint();
+      }
    }
 
    @Override
