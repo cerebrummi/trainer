@@ -1591,19 +1591,28 @@ public final class Data
          if (oldToBeTested != null)
          {
             selectedRow.setToBeRepeatedWords(oldToBeTested.size());
+            selectedRow.setExpressionListNewWords(
+                  findNotStudiedWords(languageDirection, listSelected));
+            selectedRow.setNotStudiedWords(
+                  selectedRow.getExpressionListNewWords().size());
+            selectedRow.setAmountOfNewWords(selectedRow.getNotStudiedWords());
+            selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0
+                  && selectedRow.getToBeRepeatedWords() == 0);
+            selectedRow.setStarted(selectedRow.getToBeRepeatedWords() > 0);
          }
          else
          {
             selectedRow.setToBeRepeatedWords(0);
+            selectedRow.setExpressionListNewWords(
+                   listSelected);
+            selectedRow.setNotStudiedWords(
+                  selectedRow.getExpressionListNewWords().size());
+            selectedRow.setAmountOfNewWords(selectedRow.getNotStudiedWords());
+            selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0
+                  && selectedRow.getToBeRepeatedWords() == 0);
+            selectedRow.setStarted(selectedRow.getToBeRepeatedWords() > 0);
          }
-         selectedRow.setExpressionListNewWords(
-               findNotStudiedWords(languageDirection, listSelected));
-         selectedRow.setNotStudiedWords(
-               selectedRow.getExpressionListNewWords().size());
-         selectedRow.setAmountOfNewWords(selectedRow.getNotStudiedWords());
-         selectedRow.setFieldDone(selectedRow.getNotStudiedWords() == 0
-               && selectedRow.getToBeRepeatedWords() == 0);
-         selectedRow.setStarted(selectedRow.getToBeRepeatedWords() > 0);
+
          return selectedRow;
       }
 

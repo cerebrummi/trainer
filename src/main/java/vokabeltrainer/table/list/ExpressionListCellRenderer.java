@@ -2,7 +2,6 @@ package vokabeltrainer.table.list;
 
 import java.awt.Component;
 import java.awt.ComponentOrientation;
-import java.awt.Font;
 import java.io.Serializable;
 
 import javax.swing.BorderFactory;
@@ -90,7 +89,11 @@ public class ExpressionListCellRenderer
       }
       else
       {
-         label.setFont(ApplicationFonts.getGermanFont(16F));
+         label = new JTextField();
+         label.setOpaque(false);
+         label.setEditable(false);
+         label.setBackground(ApplicationColors.getTransparent());
+         label.setBorder(BorderFactory.createEmptyBorder());
          label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
       }
       label.setText((String) value);

@@ -64,7 +64,7 @@ public class FieldOfTrainingTab extends BackgroundPanelTiled
       
       onceButton = new JRadioButton(translator.realisticTranslate(Translation.AUS_DEN_AUSGEWAEHLTEN_WOERTERN_EINMAL));
       onceButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      onceButton.setActionCommand(FieldOfTraining.AREA_SELECTED.name());
+      onceButton.setActionCommand(FieldOfTraining.AREA_SELECTED_TEMPORARY.name());
       areaGroup.add(onceButton);
 
       vertical.add(chapterButton);
