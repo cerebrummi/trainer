@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -55,9 +54,7 @@ import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.ExtraInformationDocument;
-import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.InternationalDocument;
-import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.keyboards.KeyboardLanguage;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -99,13 +96,13 @@ public class LanguageExpressionEditorView extends JDialog
 
    private JTextField indexField;
 
-   private InfoTextField newSearchwordGerman;
-   private JList<String> searchwordsJListGerman;
+   private InfoTextField newSearchwordOwn;
+   private JList<String> searchwordsJListOwn;
    private Set<String> searchwordsSetGerman;
    private JButton deleteSearchwordButtonGerman;
 
-   private InfoTextField newSearchwordHebrew;
-   private JList<String> searchwordsJListHebrew;
+   private InfoTextField newSearchwordNew;
+   private JList<String> searchwordsJListNew;
    private Set<String> searchwordsSetHebrew;
    private JButton deleteSearchwordButtonHebrew;
 
@@ -212,17 +209,14 @@ public class LanguageExpressionEditorView extends JDialog
       getContentPane().add(new JScrollPane(outerLayout));
 
       initController();
-      Component[] focusList = { ownLanguage, language, newSearchwordGerman,
-            newSearchwordHebrew, extraInfo };
+      Component[] focusList = { ownLanguage, language, newSearchwordOwn,
+            newSearchwordNew, extraInfo };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
    }
 
    private void initGuiFields()
    {
-      Font internationalfont = ApplicationFonts.getHebrewFont(16F);
-      Font hebrewfont = ApplicationFonts.getHebrewFont(30F);
-
       ownLanguage = new JTextField();
       ownLanguage.setBorder(makeBorderBlank(germanTitle));
       ownLanguage.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
@@ -261,20 +255,20 @@ public class LanguageExpressionEditorView extends JDialog
       }
       language.setBlankBorder();
 
-      newSearchwordGerman = new InfoTextField(
+      newSearchwordOwn = new InfoTextField(
             translator.realisticTranslate(Translation.NEUES_SUCHWORT_DEUTSCH)
                   + "  ",
             translator.realisticTranslate(
                   Translation.BITTE_JE_EIN_WORT_EINGEBEN) + "  ",
             translator.realisticTranslate(Translation.UND_DANN_ENTER_DRUECKEN_)
                   + "  ");
-      newSearchwordGerman.setFont(internationalfont);
-      newSearchwordGerman.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      newSearchwordGerman.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      newSearchwordGerman.setDocument(new GermanDocument(false));
 
-      searchwordsJListGerman = new JList<>();
-      searchwordsJListGerman.setCellRenderer(new ListCellRenderer<String>()
+      newSearchwordOwn.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      newSearchwordOwn.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      newSearchwordOwn.setDocument(new InternationalDocument());
+
+      searchwordsJListOwn = new JList<>();
+      searchwordsJListOwn.setCellRenderer(new ListCellRenderer<String>()
       {
          @Override
          public Component getListCellRendererComponent(
@@ -282,7 +276,6 @@ public class LanguageExpressionEditorView extends JDialog
                boolean isSelected, boolean cellHasFocus)
          {
             AntiFocusTextField listComponent = new AntiFocusTextField(value);
-            listComponent.setFont(ApplicationFonts.getGermanFont(16F));
             if (isSelected)
             {
                listComponent.setBackground(Color.WHITE);
@@ -295,27 +288,27 @@ public class LanguageExpressionEditorView extends JDialog
             return listComponent;
          }
       });
-      searchwordsJListGerman.setFocusable(false);
-      searchwordsJListGerman
+      searchwordsJListOwn.setFocusable(false);
+      searchwordsJListOwn
             .setBorder(makeBorderBlank(this.searchwordJListGermanTitle));
-      searchwordsJListGerman.setBackground(new Color(223, 210, 198));
-      searchwordsJListGerman
+      searchwordsJListOwn.setBackground(new Color(223, 210, 198));
+      searchwordsJListOwn
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
-      searchwordsJListGerman
+      searchwordsJListOwn
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
       JPopupMenu popupGerman = new JPopupMenu();
       JMenuItem copyMenuGerman = new JMenuItem(
             translator.realisticTranslate(Translation.KOPIEREN));
       copyMenuGerman.addActionListener(event -> {
          StringSelection stringSelection = new StringSelection(
-               searchwordsJListGerman.getSelectedValue());
+               searchwordsJListOwn.getSelectedValue());
          Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
          clipboard.setContents(stringSelection, null);
       });
       popupGerman.add(copyMenuGerman);
-      searchwordsJListGerman.setComponentPopupMenu(popupGerman);
+      searchwordsJListOwn.setComponentPopupMenu(popupGerman);
 
-      newSearchwordHebrew = new InfoTextField(
+      newSearchwordNew = new InfoTextField(
             translator.realisticTranslate(Translation.NEUES_SUCHWORT_HEBRAEISCH)
                   + "  ",
             translator.realisticTranslate(Translation.BITTE_HINEINKLICKEN_),
@@ -323,16 +316,16 @@ public class LanguageExpressionEditorView extends JDialog
                   Translation.HEBRAEISCHE_TASTATUR_BENUTZEN),
             translator.realisticTranslate(Translation.DANACH_ENTER_DRUECKEN_)
                   + "  ");
-      newSearchwordHebrew.setFont(hebrewfont);
-      newSearchwordHebrew
-            .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      newSearchwordHebrew.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      newSearchwordHebrew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      newSearchwordHebrew.setDocument(new NikudDocument(false));
-      this.components.add(newSearchwordHebrew);
 
-      searchwordsJListHebrew = new JList<>();
-      searchwordsJListHebrew.setCellRenderer(new ListCellRenderer<String>()
+      newSearchwordNew
+            .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+      newSearchwordNew.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      newSearchwordNew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      newSearchwordNew.setDocument(new InternationalDocument());
+      this.components.add(newSearchwordNew);
+
+      searchwordsJListNew = new JList<>();
+      searchwordsJListNew.setCellRenderer(new ListCellRenderer<String>()
       {
          @Override
          public Component getListCellRendererComponent(
@@ -340,7 +333,6 @@ public class LanguageExpressionEditorView extends JDialog
                boolean isSelected, boolean cellHasFocus)
          {
             AntiFocusTextField listComponent = new AntiFocusTextField(value);
-            listComponent.setFont(hebrewfont);
             listComponent
                   .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             if (isSelected)
@@ -355,27 +347,27 @@ public class LanguageExpressionEditorView extends JDialog
             return listComponent;
          }
       });
-      searchwordsJListHebrew.setFocusable(false);
-      searchwordsJListHebrew.setFixedCellHeight(50);
-      searchwordsJListHebrew
+      searchwordsJListNew.setFocusable(false);
+      searchwordsJListNew.setFixedCellHeight(50);
+      searchwordsJListNew
             .setBorder(makeBorderBlank(this.searchwordsJListHebrewTitle));
-      searchwordsJListHebrew
+      searchwordsJListNew
             .setBackground(ApplicationColors.getBackgroundGold());
-      searchwordsJListHebrew
+      searchwordsJListNew
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
-      searchwordsJListHebrew
+      searchwordsJListNew
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
       JPopupMenu popupHebrew = new JPopupMenu();
       JMenuItem copyMenuHebrew = new JMenuItem(
             translator.realisticTranslate(Translation.KOPIEREN));
       copyMenuHebrew.addActionListener(event -> {
          StringSelection stringSelection = new StringSelection(
-               searchwordsJListHebrew.getSelectedValue());
+               searchwordsJListNew.getSelectedValue());
          Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
          clipboard.setContents(stringSelection, null);
       });
       popupHebrew.add(copyMenuHebrew);
-      searchwordsJListHebrew.setComponentPopupMenu(popupHebrew);
+      searchwordsJListNew.setComponentPopupMenu(popupHebrew);
 
       deleteSearchwordButtonHebrew = new JButton(translator
             .realisticTranslate(Translation.LOESCHE_SUCHWORT_HEBRAEISCH));
@@ -424,9 +416,9 @@ public class LanguageExpressionEditorView extends JDialog
       indexField = new JTextField();
       indexField.setBorder(
             makeBorderBlank(translator.realisticTranslate(Translation.INDEX)));
-      indexField.setFont(internationalfont);
       indexField.setOpaque(false);
       indexField.setBackground(ApplicationColors.getTransparent());
+      indexField.setDocument(new InternationalDocument());
       indexField.setMinimumSize(new Dimension(85, 70));
       indexField.setMaximumSize(new Dimension(85, 70));
 
@@ -440,7 +432,6 @@ public class LanguageExpressionEditorView extends JDialog
       databaseNameField.setMaximumRowCount(20);
 
       extraInfo = new JTextPane();
-      extraInfo.setFont(ApplicationFonts.getHebrewFont(30));
       extraInfo.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.WEITERE_INFORMATIONEN)));
       extraInfo.setDocument(new ExtraInformationDocument());
@@ -745,19 +736,19 @@ public class LanguageExpressionEditorView extends JDialog
       vertical.setOpaque(false);
       vertical.setLayout(new TotemLayout(vertical, 15));
 
-      JScrollPane scrollPane = new JScrollPane(searchwordsJListGerman);
+      JScrollPane scrollPane = new JScrollPane(searchwordsJListOwn);
       scrollPane.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
       scrollPane.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
 
-      JScrollPane scrollPane2 = new JScrollPane(searchwordsJListHebrew);
+      JScrollPane scrollPane2 = new JScrollPane(searchwordsJListNew);
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
       scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
 
-      vertical.add(newSearchwordGerman);
+      vertical.add(newSearchwordOwn);
       vertical.add(scrollPane);
       vertical.add(deleteSearchwordButtonGerman);
 
-      vertical.add(newSearchwordHebrew);
+      vertical.add(newSearchwordNew);
       vertical.add(scrollPane2);
       vertical.add(deleteSearchwordButtonHebrew);
 
@@ -872,43 +863,43 @@ public class LanguageExpressionEditorView extends JDialog
          }
       });
 
-      newSearchwordGerman.addActionListener(event -> {
-         String add = newSearchwordGerman.getText().replaceAll(",", "");
+      newSearchwordOwn.addActionListener(event -> {
+         String add = newSearchwordOwn.getText().replaceAll(",", "");
          if (!add.isEmpty())
          {
             searchwordsSetGerman.add(add);
-            searchwordsJListGerman.setModel(getSearchwordsModelGerman());
-            newSearchwordGerman.setText("");
-            newSearchwordGerman.requestFocus();
+            searchwordsJListOwn.setModel(getSearchwordsModelGerman());
+            newSearchwordOwn.setText("");
+            newSearchwordOwn.requestFocus();
          }
       });
 
       deleteSearchwordButtonGerman.addActionListener(event -> {
-         if (searchwordsJListGerman.getSelectedValue() != null)
+         if (searchwordsJListOwn.getSelectedValue() != null)
          {
             searchwordsSetGerman
-                  .remove(searchwordsJListGerman.getSelectedValue());
-            searchwordsJListGerman.setModel(getSearchwordsModelGerman());
+                  .remove(searchwordsJListOwn.getSelectedValue());
+            searchwordsJListOwn.setModel(getSearchwordsModelGerman());
          }
       });
 
-      newSearchwordHebrew.addActionListener(event -> {
-         String add = newSearchwordHebrew.getText().replaceAll(",", "");
+      newSearchwordNew.addActionListener(event -> {
+         String add = newSearchwordNew.getText().replaceAll(",", "");
          if (!add.isEmpty())
          {
             searchwordsSetHebrew.add(add);
-            searchwordsJListHebrew.setModel(getSearchwordsModelHebrew());
-            newSearchwordHebrew.setText("");
-            newSearchwordHebrew.requestFocus();
+            searchwordsJListNew.setModel(getSearchwordsModelHebrew());
+            newSearchwordNew.setText("");
+            newSearchwordNew.requestFocus();
          }
       });
 
       deleteSearchwordButtonHebrew.addActionListener(event -> {
-         if (searchwordsJListHebrew.getSelectedValue() != null)
+         if (searchwordsJListNew.getSelectedValue() != null)
          {
             searchwordsSetHebrew
-                  .remove(searchwordsJListHebrew.getSelectedValue());
-            searchwordsJListHebrew.setModel(getSearchwordsModelHebrew());
+                  .remove(searchwordsJListNew.getSelectedValue());
+            searchwordsJListNew.setModel(getSearchwordsModelHebrew());
          }
       });
 
@@ -1210,14 +1201,14 @@ public class LanguageExpressionEditorView extends JDialog
       {
          this.searchwordsSetGerman.add(word);
       }
-      this.searchwordsJListGerman.setModel(getSearchwordsModelGerman());
+      this.searchwordsJListOwn.setModel(getSearchwordsModelGerman());
 
       this.searchwordsSetHebrew = new HashSet<>();
       for (String word : expression.getSearchwordsHebrew())
       {
          this.searchwordsSetHebrew.add(word);
       }
-      this.searchwordsJListHebrew.setModel(getSearchwordsModelHebrew());
+      this.searchwordsJListNew.setModel(getSearchwordsModelHebrew());
 
       if (newExpression)
       {
@@ -1354,11 +1345,11 @@ public class LanguageExpressionEditorView extends JDialog
          this.saveButton.setVisible(works);
          this.restoreButton.setEnabled(works);
          this.restoreButton.setVisible(works);
-         this.newSearchwordGerman.setEditable(works);
-         this.newSearchwordGerman.setVisible(works);
+         this.newSearchwordOwn.setEditable(works);
+         this.newSearchwordOwn.setVisible(works);
          this.deleteSearchwordButtonGerman.setVisible(works);
-         this.newSearchwordHebrew.setEditable(works);
-         this.newSearchwordHebrew.setVisible(works);
+         this.newSearchwordNew.setEditable(works);
+         this.newSearchwordNew.setVisible(works);
          this.deleteSearchwordButtonHebrew.setVisible(works);
          this.expressionKindTable.setFrozen(frozen);
          this.databaseNameField.setEditable(works);

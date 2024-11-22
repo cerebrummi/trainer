@@ -45,7 +45,7 @@ public class InternationalDocument extends PlainDocument
          }
 
          List<String> list = LetterHelper.findLetterCodes(text,
-               LetterType.GERMAN);
+               LetterType.NONE);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -81,7 +81,7 @@ public class InternationalDocument extends PlainDocument
          }
 
          List<String> list = LetterHelper.findLetterCodes(str,
-               LetterType.GERMAN);
+               LetterType.NONE);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())

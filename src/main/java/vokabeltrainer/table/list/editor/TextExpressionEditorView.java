@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -47,9 +46,7 @@ import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Settings;
-import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.InternationalDocument;
-import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.keyboards.KeyboardLanguage;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -173,9 +170,6 @@ public class TextExpressionEditorView extends JDialog
 
    private void initGuiFields()
    {
-      Font germanfont = ApplicationFonts.getGermanFont(16F);
-      Font hebrewfont = ApplicationFonts.getHebrewFont(30F);
-
       ownLanguage = new JTextArea();
       ownLanguage.setLineWrap(true);
       ownLanguage.setWrapStyleWord(true);
@@ -223,10 +217,9 @@ public class TextExpressionEditorView extends JDialog
                   Translation.BITTE_JE_EIN_WORT_EINGEBEN) + "  ",
             translator.realisticTranslate(Translation.UND_DANN_ENTER_DRUECKEN_)
                   + "  ");
-      newSearchwordGerman.setFont(germanfont);
       newSearchwordGerman.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
       newSearchwordGerman.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      newSearchwordGerman.setDocument(new GermanDocument(false));
+      newSearchwordGerman.setDocument(new InternationalDocument());
 
       searchwordsJListGerman = new JList<>();
       searchwordsJListGerman.setCellRenderer(new ListCellRenderer<String>()
@@ -237,7 +230,6 @@ public class TextExpressionEditorView extends JDialog
                boolean isSelected, boolean cellHasFocus)
          {
             AntiFocusTextField listComponent = new AntiFocusTextField(value);
-            listComponent.setFont(ApplicationFonts.getGermanFont(16F));
             if (isSelected)
             {
                listComponent.setBackground(Color.WHITE);
@@ -278,12 +270,11 @@ public class TextExpressionEditorView extends JDialog
                   Translation.HEBRAEISCHE_TASTATUR_BENUTZEN),
             translator.realisticTranslate(Translation.DANACH_ENTER_DRUECKEN_)
                   + "  ");
-      newSearchwordHebrew.setFont(hebrewfont);
       newSearchwordHebrew
             .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       newSearchwordHebrew.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
       newSearchwordHebrew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      newSearchwordHebrew.setDocument(new NikudDocument(false));
+      newSearchwordHebrew.setDocument(new InternationalDocument());
       this.components.add(newSearchwordHebrew);
 
       searchwordsJListHebrew = new JList<>();
@@ -295,7 +286,6 @@ public class TextExpressionEditorView extends JDialog
                boolean isSelected, boolean cellHasFocus)
          {
             AntiFocusTextField listComponent = new AntiFocusTextField(value);
-            listComponent.setFont(hebrewfont);
             listComponent
                   .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             if (isSelected)
@@ -389,7 +379,7 @@ public class TextExpressionEditorView extends JDialog
       indexField = new JTextField();
       indexField.setBorder(
             makeBorderBlank(translator.realisticTranslate(Translation.INDEX)));
-      indexField.setFont(germanfont);
+      indexField.setDocument(new InternationalDocument());
       indexField.setOpaque(false);
       indexField.setBackground(ApplicationColors.getTransparent());
       indexField.setMinimumSize(new Dimension(85, 70));

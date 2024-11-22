@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Settings;
 
@@ -30,7 +29,6 @@ public class InfoTextField extends JTextField
 
       button = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
-      button.setFont(ApplicationFonts.getGermanFont(30F));
       button.setMargin(new Insets(-5, -20, -5, -20));
       button.setBackground(new Color(0, 0, 0, 0));
       button.setForeground(ApplicationColors.getGold());

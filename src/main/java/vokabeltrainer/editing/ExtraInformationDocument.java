@@ -12,15 +12,18 @@ public class ExtraInformationDocument extends DefaultStyledDocument
 {
    private static final long serialVersionUID = 216678564395494689L;
 
-   private static final int NUMBER_OF_LETTERS_ALLOWED = 600;
-
-   private String signPattern;
-   private String numberPattern;
+   private String exclusionPattern;
+   private int numberOfLettersAllowed = 8000;
 
    public ExtraInformationDocument()
    {
-      signPattern = SignLetter.getPatternStringExtraInformation();
-      numberPattern = NumberLetter.getPatternString();
+      exclusionPattern = SignLetter.getInternationalExclusionPattern();
+   }
+
+   public ExtraInformationDocument(int size)
+   {
+      numberOfLettersAllowed = size;
+      exclusionPattern = SignLetter.getInternationalExclusionPattern();
    }
 
    @Override
@@ -29,10 +32,10 @@ public class ExtraInformationDocument extends DefaultStyledDocument
    {
       if (text != null && !text.isEmpty())
       {
-         if (getLength() + text.length() - length > NUMBER_OF_LETTERS_ALLOWED)
+         if (getLength() + text.length() - length > numberOfLettersAllowed)
          {
             text = text.substring(0,
-                  NUMBER_OF_LETTERS_ALLOWED - (getLength() - length));
+                  numberOfLettersAllowed - (getLength() - length));
             if (text.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();
@@ -50,8 +53,11 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             return;
          }
 
-         checking(list, builder);
-         super.replace(offset, length, builder.toString(), attrs);
+         if (checking(list, builder))
+         {
+            super.replace(offset, length, text, attrs);
+         }
+         
          return;
       }
       super.replace(offset, length, text, attrs);
@@ -63,9 +69,9 @@ public class ExtraInformationDocument extends DefaultStyledDocument
    {
       if (str != null && !str.isEmpty())
       {
-         if (getLength() + str.length() > NUMBER_OF_LETTERS_ALLOWED)
+         if (getLength() + str.length() > numberOfLettersAllowed)
          {
-            str = str.substring(0, NUMBER_OF_LETTERS_ALLOWED - getLength());
+            str = str.substring(0, numberOfLettersAllowed - getLength());
             if (str.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();
@@ -73,7 +79,8 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             }
          }
 
-         List<String> list = LetterHelper.findLetterCodes(str, LetterType.NONE);
+         List<String> list = LetterHelper.findLetterCodes(str,
+               LetterType.NONE);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -82,57 +89,27 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             return;
          }
 
-         checking(list, builder);
-         super.insertString(offset, builder.toString(), attr);
+         if(checking(list, builder))
+         {
+            super.insertString(offset, str, attr);
+         }
+         
          return;
       }
       super.insertString(offset, str, attr);
    }
 
-   private void checking(List<String> list, StringBuilder builder)
+   private boolean checking(List<String> list, StringBuilder builder)
    {
       for (int i = 0; i < list.size(); i++)
       {
-         Letter germanLetter = LetterHelper.getLetterFromCode(
-               list.get(i) + LetterType.GERMAN.getRealm(), LetterType.GERMAN);
-         Letter nikudLetter = LetterHelper.getLetterFromCode(
-               list.get(i) + LetterType.HEBREW.getRealm(), LetterType.HEBREW);
-         Letter swedishLetter = LetterHelper.getLetterFromCode(
-               list.get(i) + LetterType.SWEDISH.getRealm(), LetterType.SWEDISH);
-         String signcode = list.get(i) + LetterType.SIGN.getRealm();
-         String numbercode = list.get(i) + LetterType.SIGN.getRealm();
-         if (germanLetter != null && germanLetter instanceof GermanLetter)
-         {
-            // okay
-            builder.append(germanLetter.getUnicode());
-         }
-         else if (nikudLetter != null && nikudLetter instanceof NikudLetter)
-         {
-            // okay
-            builder.append(nikudLetter.getUnicode());
-         }
-         else if (swedishLetter != null && swedishLetter instanceof SwedishLetter)
-         {
-            // okay
-            builder.append(swedishLetter.getUnicode());
-         }
-         else if (StringUtils.containsIgnoreCase(signPattern, signcode))
-         {
-            // okay
-            builder.append(LetterHelper
-                  .getLetterFromCode(signcode, LetterType.SIGN).getUnicode());
-         }
-         else if (StringUtils.containsIgnoreCase(numberPattern, numbercode))
-         {
-            // okay
-            builder.append(
-                  LetterHelper.getLetterFromCode(numbercode, LetterType.NUMBER)
-                        .getUnicode());
-         }
-         else
-         {
-            // remove letter
+         String code = list.get(i);
+         //
+         if (StringUtils.containsIgnoreCase(exclusionPattern, code))
+         { 
+            return false;
          }
       }
+      return true;
    }
 }
