@@ -250,15 +250,15 @@ public class DictionaryController implements DictionaryControllerConnector
    }
 
    @Override
-   public void searchHebrew()
+   public void searchOtherLanguage()
    {
       dictionaryView.clearTable();
-      Status.push(Status.SEARCH_WHICH_HEBREW);
+      Status.push(Status.SEARCH_WHICH_NEW);
       decideOnTableInteraction(Action.SEARCH_WHICH_NEW);
    }
 
    @Override
-   public void searchGerman()
+   public void searchMyLanguage()
    {
       dictionaryView.clearTable();
       Status.push(Status.SEARCH_WHICH_GERMAN);
@@ -308,10 +308,10 @@ public class DictionaryController implements DictionaryControllerConnector
                   dictionaryView.selectChapter(currentChapter);
                   break;
                case RESTORE_WHICH_SEARCH_OWN:
-                  searchGerman();
+                  searchMyLanguage();
                   break;
                case RESTORE_WHICH_SEARCH_NEW:
-                  searchHebrew();
+                  searchOtherLanguage();
                   break;
                case TABLE_CHAPTER_WHICH:
                   dictionaryView.clearTable();
@@ -344,7 +344,7 @@ public class DictionaryController implements DictionaryControllerConnector
                case TABLE_SEARCH_WHICH_NEW:
                   dictionaryView.clearTable();
                   tableModel = Data.findTranslations(
-                        dictionaryView.getSearchPhraseHebrew(), null,
+                        dictionaryView.getSearchPhraseOther(), null,
                         dictionaryView.getSelectedSearchTypeHebrew(), null,
                         null, dictionaryView.getSortNow(), null, dictionaryView.getSelectedLanguage());
                   break;

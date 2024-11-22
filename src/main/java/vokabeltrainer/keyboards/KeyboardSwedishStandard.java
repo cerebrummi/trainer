@@ -216,6 +216,12 @@ public class KeyboardSwedishStandard extends JPanel
       }
 
    }
+   
+   public Component makeTextfieldWithRegularKeyboard()
+   {
+      makeRegularKeyboard();
+      return this;
+   }
 
    public Component makeRegularKeyboard()
    {

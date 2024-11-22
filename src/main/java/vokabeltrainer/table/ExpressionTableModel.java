@@ -14,7 +14,6 @@ public class ExpressionTableModel extends DefaultTableModel
    {
       super(data, columnNames);
       this.data = data;
-      System.out.println("ExpressionTableModel 17 data" + data.length);
    }
 
    @Override

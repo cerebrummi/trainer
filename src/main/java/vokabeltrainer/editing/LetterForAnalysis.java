@@ -147,17 +147,21 @@ public class LetterForAnalysis
             return true;
          }
       }
-      
-      if(letter1.getSwedishContent() == letter2.getSwedishContent())
+      else if(type == LetterType.SWEDISH)
       {
-         return true;
+         if(letter1.getSwedishContent() == letter2.getSwedishContent())
+         {
+            return true;
+         }
       }
-      
-      if(letter1.getGermanContent() == letter2.getGermanContent())
+      else if(type == LetterType.GERMAN)
       {
-         return true;
+         if(letter1.getGermanContent() == letter2.getGermanContent())
+         {
+            return true;
+         }
       }
-      
+
       return false;
    }
 

@@ -402,7 +402,7 @@ public class Settings
          setMyWritingDirection(WritingDirection.LEFT_TO_RIGHT);
          return WritingDirection.LEFT_TO_RIGHT;
       }
-System.out.println("Setting 405 " + s);
+
       return WritingDirection.valueOf(s);
    }
    

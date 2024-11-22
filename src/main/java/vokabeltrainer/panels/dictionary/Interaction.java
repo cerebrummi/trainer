@@ -18,7 +18,7 @@ public class Interaction
       interactions.put(new Interaction(Action.OPENED_PAGE, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.OPENED_PAGE, Status.OPENED_PAGE), Command.NO_TABLE);
       interactions.put(new Interaction(Action.OPENED_PAGE, Status.SEARCH_WHICH_GERMAN), Command.RESTORE_WHICH_SEARCH_OWN);
-      interactions.put(new Interaction(Action.OPENED_PAGE, Status.SEARCH_WHICH_HEBREW), Command.RESTORE_WHICH_SEARCH_NEW);
+      interactions.put(new Interaction(Action.OPENED_PAGE, Status.SEARCH_WHICH_NEW), Command.RESTORE_WHICH_SEARCH_NEW);
       interactions.put(new Interaction(Action.OPENED_PAGE, Status.TAB_CHAPTER), Command.NO_TABLE);
       interactions.put(new Interaction(Action.OPENED_PAGE, Status.TAB_EXPRESSIONKIND), Command.NO_TABLE);
       interactions.put(new Interaction(Action.OPENED_PAGE, Status.TAB_SEARCH), Command.NO_TABLE);
@@ -42,10 +42,10 @@ public class Interaction
       interactions.put(new Interaction(Action.OWN_TO_NEW, Status.TAB_SEARCH), Command.NO_TABLE);
       interactions.put(new Interaction(Action.NEW_TO_OWN, Status.TAB_SEARCH), Command.NO_TABLE);
       
-      interactions.put(new Interaction(Action.OWN_TO_NEW, Status.SEARCH_WHICH_HEBREW), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.OWN_TO_NEW, Status.SEARCH_WHICH_NEW), Command.NO_TABLE);
       interactions.put(new Interaction(Action.OWN_TO_NEW, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_OWN);
       interactions.put(new Interaction(Action.NEW_TO_OWN, Status.SEARCH_WHICH_GERMAN), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.NEW_TO_OWN, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_NEW);
+      interactions.put(new Interaction(Action.NEW_TO_OWN, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_NEW);
       
       interactions.put(new Interaction(Action.OWN_TO_NEW, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.NEW_TO_OWN, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
@@ -55,7 +55,7 @@ public class Interaction
       interactions.put(new Interaction(Action.TAB_CHAPTER, Status.EXPRESSIONKIND_WHICH), Command.NO_TABLE);    
       interactions.put(new Interaction(Action.TAB_CHAPTER, Status.TAB_SEARCH), Command.NO_TABLE);
       interactions.put(new Interaction(Action.TAB_CHAPTER, Status.SEARCH_WHICH_GERMAN), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.TAB_CHAPTER, Status.SEARCH_WHICH_HEBREW), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.TAB_CHAPTER, Status.SEARCH_WHICH_NEW), Command.NO_TABLE);
       interactions.put(new Interaction(Action.TAB_CHAPTER, Status.TAB_SELECTED_EXPRESSIONS), Command.NO_TABLE);
       
       interactions.put(new Interaction(Action.TAB_EXPRESSIONKIND, Status.OPENED_PAGE), Command.NO_TABLE);
@@ -63,7 +63,7 @@ public class Interaction
       interactions.put(new Interaction(Action.TAB_EXPRESSIONKIND, Status.CHAPTER_WHICH), Command.NO_TABLE);
       interactions.put(new Interaction(Action.TAB_EXPRESSIONKIND, Status.TAB_SEARCH), Command.NO_TABLE);
       interactions.put(new Interaction(Action.TAB_EXPRESSIONKIND, Status.SEARCH_WHICH_GERMAN), Command.NO_TABLE);
-      interactions.put(new Interaction(Action.TAB_EXPRESSIONKIND, Status.SEARCH_WHICH_HEBREW), Command.NO_TABLE);
+      interactions.put(new Interaction(Action.TAB_EXPRESSIONKIND, Status.SEARCH_WHICH_NEW), Command.NO_TABLE);
       interactions.put(new Interaction(Action.TAB_EXPRESSIONKIND, Status.TAB_SELECTED_EXPRESSIONS), Command.NO_TABLE);
       
       interactions.put(new Interaction(Action.TAB_SEARCH, Status.OPENED_PAGE), Command.NO_TABLE);
@@ -80,7 +80,7 @@ public class Interaction
       interactions.put(new Interaction(Action.TAB_SELECTED_EXPRESSIONS, Status.EXPRESSIONKIND_WHICH), Command.TABLE_SELECTED_EXPRESSIONS);  
       interactions.put(new Interaction(Action.TAB_SELECTED_EXPRESSIONS, Status.TAB_SEARCH), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.TAB_SELECTED_EXPRESSIONS, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SELECTED_EXPRESSIONS);
-      interactions.put(new Interaction(Action.TAB_SELECTED_EXPRESSIONS, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.TAB_SELECTED_EXPRESSIONS, Status.SEARCH_WHICH_NEW), Command.TABLE_SELECTED_EXPRESSIONS);
       
       interactions.put(new Interaction(Action.OPENED_PAGE, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       interactions.put(new Interaction(Action.CHAPTER_WHICH, Status.TAB_CHAPTER), Command.TABLE_CHAPTER_WHICH);
@@ -95,11 +95,11 @@ public class Interaction
       
       interactions.put(new Interaction(Action.SEARCH_WHICH_OWN, Status.TAB_SEARCH), Command.TABLE_SEARCH_WHICH_OWN);
       interactions.put(new Interaction(Action.SEARCH_WHICH_OWN, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_OWN);
-      interactions.put(new Interaction(Action.SEARCH_WHICH_OWN, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_OWN);
+      interactions.put(new Interaction(Action.SEARCH_WHICH_OWN, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_OWN);
       interactions.put(new Interaction(Action.SEARCH_WHICH_OWN, Status.OPENED_PAGE), Command.TABLE_SEARCH_WHICH_NEW);
       
       interactions.put(new Interaction(Action.SEARCH_WHICH_NEW, Status.TAB_SEARCH), Command.TABLE_SEARCH_WHICH_NEW);
-      interactions.put(new Interaction(Action.SEARCH_WHICH_NEW, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_NEW);
+      interactions.put(new Interaction(Action.SEARCH_WHICH_NEW, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_NEW);
       interactions.put(new Interaction(Action.SEARCH_WHICH_NEW, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_NEW);
       interactions.put(new Interaction(Action.SEARCH_WHICH_NEW, Status.OPENED_PAGE), Command.TABLE_SEARCH_WHICH_NEW);
       
@@ -111,7 +111,7 @@ public class Interaction
       interactions.put(new Interaction(Action.COPY, Status.CHAPTER_WHICH), Command.NOTHING);
       interactions.put(new Interaction(Action.COPY, Status.EXPRESSIONKIND_WHICH), Command.NOTHING);
       interactions.put(new Interaction(Action.COPY, Status.SEARCH_WHICH_GERMAN), Command.NOTHING);
-      interactions.put(new Interaction(Action.COPY, Status.SEARCH_WHICH_HEBREW), Command.NOTHING);
+      interactions.put(new Interaction(Action.COPY, Status.SEARCH_WHICH_NEW), Command.NOTHING);
       
       interactions.put(new Interaction(Action.SELECT_TABLE, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.SELECT_TABLE, Status.TAB_CHAPTER), Command.NOTHING);
@@ -121,7 +121,7 @@ public class Interaction
       interactions.put(new Interaction(Action.SELECT_TABLE, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       interactions.put(new Interaction(Action.SELECT_TABLE, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.SELECT_TABLE, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_OWN);
-      interactions.put(new Interaction(Action.SELECT_TABLE, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_NEW);
+      interactions.put(new Interaction(Action.SELECT_TABLE, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_NEW);
       
       interactions.put(new Interaction(Action.UNSELECT_TABLE, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.UNSELECT_TABLE, Status.TAB_CHAPTER), Command.NOTHING);
@@ -131,7 +131,7 @@ public class Interaction
       interactions.put(new Interaction(Action.UNSELECT_TABLE, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       interactions.put(new Interaction(Action.UNSELECT_TABLE, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.UNSELECT_TABLE, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_OWN);
-      interactions.put(new Interaction(Action.UNSELECT_TABLE, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_NEW);
+      interactions.put(new Interaction(Action.UNSELECT_TABLE, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_NEW);
     
       interactions.put(new Interaction(Action.UNSELECT_ALL, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.UNSELECT_ALL, Status.TAB_CHAPTER), Command.NOTHING);
@@ -141,7 +141,7 @@ public class Interaction
       interactions.put(new Interaction(Action.UNSELECT_ALL, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       interactions.put(new Interaction(Action.UNSELECT_ALL, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.UNSELECT_ALL, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_OWN);
-      interactions.put(new Interaction(Action.UNSELECT_ALL, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_NEW);
+      interactions.put(new Interaction(Action.UNSELECT_ALL, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_NEW);
       
       interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.TAB_CHAPTER), Command.NOTHING);
@@ -151,7 +151,7 @@ public class Interaction
       interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.CHAPTER_WHICH), Command.NOTHING);
       interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.EXPRESSIONKIND_WHICH), Command.NOTHING);
       interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.SEARCH_WHICH_GERMAN), Command.NOTHING);
-      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.SEARCH_WHICH_HEBREW), Command.NOTHING);
+      interactions.put(new Interaction(Action.UNSELECT_EXPRESSION, Status.SEARCH_WHICH_NEW), Command.NOTHING);
       
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.OPENED_PAGE), Command.NOTHING); // must be nothing, because it is always followed by Action "save"
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.TAB_CHAPTER), Command.NOTHING);
@@ -161,7 +161,7 @@ public class Interaction
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.CHAPTER_WHICH), Command.NOTHING);
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.EXPRESSIONKIND_WHICH), Command.NOTHING);
       interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.SEARCH_WHICH_GERMAN), Command.NOTHING);
-      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.SEARCH_WHICH_HEBREW), Command.NOTHING);
+      interactions.put(new Interaction(Action.NEW_EXPRESSION, Status.SEARCH_WHICH_NEW), Command.NOTHING);
       
       interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.OPENED_PAGE), Command.NO_TABLE);
       interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.TAB_CHAPTER), Command.NO_TABLE);
@@ -171,7 +171,7 @@ public class Interaction
       interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.CHAPTER_WHICH), Command.RESTORE_WHICH_CHAPTER);
       interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_OWN);
-      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_NEW);
+      interactions.put(new Interaction(Action.WORK_WASTEBIN, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_NEW);
       
       interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.TAB_CHAPTER), Command.NOTHING);
@@ -181,7 +181,7 @@ public class Interaction
       interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_OWN);
-      interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_NEW);
+      interactions.put(new Interaction(Action.DELETE_SELECTED_IN_TABLE, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_NEW);
       
       interactions.put(new Interaction(Action.DELETE_ALL_SELECTED, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.DELETE_ALL_SELECTED, Status.TAB_CHAPTER), Command.NOTHING);
@@ -191,7 +191,7 @@ public class Interaction
       interactions.put(new Interaction(Action.DELETE_ALL_SELECTED, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       interactions.put(new Interaction(Action.DELETE_ALL_SELECTED, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.DELETE_ALL_SELECTED, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_OWN);
-      interactions.put(new Interaction(Action.DELETE_ALL_SELECTED, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_NEW);
+      interactions.put(new Interaction(Action.DELETE_ALL_SELECTED, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_NEW);
       
       interactions.put(new Interaction(Action.SAVE, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.SAVE, Status.TAB_CHAPTER), Command.NOTHING);
@@ -201,7 +201,7 @@ public class Interaction
       interactions.put(new Interaction(Action.SAVE, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       interactions.put(new Interaction(Action.SAVE, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.SAVE, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_OWN);
-      interactions.put(new Interaction(Action.SAVE, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_NEW);
+      interactions.put(new Interaction(Action.SAVE, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_NEW);
       
       interactions.put(new Interaction(Action.WORK_SHREDDER, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.WORK_SHREDDER, Status.TAB_CHAPTER), Command.NOTHING);
@@ -211,7 +211,7 @@ public class Interaction
       interactions.put(new Interaction(Action.WORK_SHREDDER, Status.CHAPTER_WHICH), Command.NOTHING);
       interactions.put(new Interaction(Action.WORK_SHREDDER, Status.EXPRESSIONKIND_WHICH), Command.NOTHING);
       interactions.put(new Interaction(Action.WORK_SHREDDER, Status.SEARCH_WHICH_GERMAN), Command.NOTHING);
-      interactions.put(new Interaction(Action.WORK_SHREDDER, Status.SEARCH_WHICH_HEBREW), Command.NOTHING);
+      interactions.put(new Interaction(Action.WORK_SHREDDER, Status.SEARCH_WHICH_NEW), Command.NOTHING);
       
       interactions.put(new Interaction(Action.SORT_NOW, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.SORT_NOW, Status.TAB_CHAPTER), Command.NOTHING);
@@ -221,7 +221,7 @@ public class Interaction
       interactions.put(new Interaction(Action.SORT_NOW, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
       interactions.put(new Interaction(Action.SORT_NOW, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.SORT_NOW, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SEARCH_WHICH_OWN);
-      interactions.put(new Interaction(Action.SORT_NOW, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SEARCH_WHICH_NEW);
+      interactions.put(new Interaction(Action.SORT_NOW, Status.SEARCH_WHICH_NEW), Command.TABLE_SEARCH_WHICH_NEW);
       
       interactions.put(new Interaction(Action.MOVE_TO_CHAPTER, Status.OPENED_PAGE), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.MOVE_TO_CHAPTER, Status.TAB_CHAPTER), Command.TABLE_SELECTED_EXPRESSIONS);
@@ -231,7 +231,7 @@ public class Interaction
       interactions.put(new Interaction(Action.MOVE_TO_CHAPTER, Status.TAB_SEARCH), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.MOVE_TO_CHAPTER, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.MOVE_TO_CHAPTER, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SELECTED_EXPRESSIONS);
-      interactions.put(new Interaction(Action.MOVE_TO_CHAPTER, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.MOVE_TO_CHAPTER, Status.SEARCH_WHICH_NEW), Command.TABLE_SELECTED_EXPRESSIONS);
       
       interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.OPENED_PAGE), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.TAB_CHAPTER), Command.TABLE_SELECTED_EXPRESSIONS);
@@ -241,7 +241,7 @@ public class Interaction
       interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.TAB_SEARCH), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
       interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.SEARCH_WHICH_GERMAN), Command.TABLE_SELECTED_EXPRESSIONS);
-      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.SEARCH_WHICH_HEBREW), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.MOVE_TO_DATABASE, Status.SEARCH_WHICH_NEW), Command.TABLE_SELECTED_EXPRESSIONS);
    }
    
    public static Command getCommand(Interaction interaction)

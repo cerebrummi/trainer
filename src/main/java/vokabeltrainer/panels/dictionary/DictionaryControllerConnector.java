@@ -17,8 +17,8 @@ public interface DictionaryControllerConnector extends TableConnector
    public void deleteInTableSelectedExpressions();
    public void openTrashCanDialog();
    public void shredderDeletedExpressions();
-   public void searchHebrew();
-   public void searchGerman();
+   public void searchOtherLanguage();
+   public void searchMyLanguage();
    public void decideOnTableInteraction(Action action);
    public void switchLanguage(String actionCommand);
    public void displayChapterWhich(Chapter chapter);

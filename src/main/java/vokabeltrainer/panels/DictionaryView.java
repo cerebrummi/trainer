@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -49,7 +50,9 @@ import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.keyboards.KeyboardGermanStandard;
 import vokabeltrainer.keyboards.KeyboardHebrewAllLetters;
+import vokabeltrainer.keyboards.KeyboardSwedishStandard;
 import vokabeltrainer.panels.dictionary.Action;
 import vokabeltrainer.panels.dictionary.DataButton;
 import vokabeltrainer.panels.dictionary.Tabulator;
@@ -101,10 +104,10 @@ public class DictionaryView extends BackgroundPanelTiled
    private JPanel chapterPanel;
    private JPanel swapPanel;
    private CardLayout cardLayout;
-   private JTextField searchPhraseGerman;
-   private JTextField searchPhraseHebrew;
-   private JButton hebrewSearchButton;
-   private JButton germanSearchButton;
+   private JTextField searchPhraseMy;
+   private JTextField searchPhraseOther;
+   private JButton otherSearchButton;
+   private JButton mySearchButton;
    private JButton tableInfoButton;
    private JPanel horizontalLanguagePanel;
    private DictionaryControllerConnector connector;
@@ -121,6 +124,12 @@ public class DictionaryView extends BackgroundPanelTiled
    private JComboBox<String> databaseChoiceBox;
    private JButton moveToDatabaseButton;
    private Translator translator = Common.getTranslator();
+
+   private Component keyboard;
+
+   private JPanel otherSearch;
+
+   private JPanel searchVertical;
 
    public DictionaryView(DictionaryControllerConnector connector)
    {
@@ -266,79 +275,102 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private Component initSearchTab()
    {
-      JPanel vertical1 = new JPanel();
-      vertical1.setLayout(new TotemLayout(vertical1));
-      vertical1.setOpaque(false);
+      searchVertical = new JPanel();
+      searchVertical.setLayout(new TotemLayout(searchVertical));
+      searchVertical.setOpaque(false);
 
-      JPanel germanSearch = new JPanel();
-      germanSearch.setLayout(new TotemLayout(germanSearch, 5));
-      germanSearch.setBackground(ApplicationColors.getWhite());
-      searchPhraseGerman = new JTextField();
-      searchPhraseGerman.setBorder(new TitledBorder(translator
+      initSearchPanel(Direction.OWN_TO_NEW);
+
+      return searchVertical;
+   }
+
+   public void initSearchPanel(Direction selectedLanguage)
+   {
+      JPanel mySearch = new JPanel();
+      mySearch.setLayout(new TotemLayout(mySearch, 5));
+      mySearch.setBackground(ApplicationColors.getWhite());
+      searchPhraseMy = new JTextField();
+      searchPhraseMy.setBorder(new TitledBorder(translator
             .realisticTranslate(Translation.WORT_AUF_DEUTSCH_EINGEBEN)));
-      germanSearch.add(searchPhraseGerman);
-      searchPhraseGerman
+      mySearch.add(searchPhraseMy);
+      searchPhraseMy
             .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 70));
-      searchPhraseGerman.setMaximumSize(
+      searchPhraseMy.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() + 50, 70));
+      setWritingDirection();
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
       filler.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 100));
       filler.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() + 50, 270));
-      germanSearch.add(filler);
+      mySearch.add(filler);
 
       searchTypeGroupGerman = new ButtonGroup();
-      germanSearch.add(initSearchRadioButtonPanel(searchTypeGroupGerman,
-           Direction.OWN_TO_NEW));
+      mySearch.add(initSearchRadioButtonPanel(searchTypeGroupGerman,
+            Direction.OWN_TO_NEW));
 
-      germanSearchButton = new JButton(
+      mySearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
-      germanSearchButton.setFont(ApplicationFonts.getButtonFont());
-      germanSearchButton.setIcon(new ImageIcon(ApplicationImages.getSearch()));
+      mySearchButton.setFont(ApplicationFonts.getButtonFont());
+      mySearchButton.setIcon(new ImageIcon(ApplicationImages.getSearch()));
       JPanel wrapper = new JPanel(new FlowLayout());
       wrapper.setOpaque(false);
       wrapper.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
       wrapper.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() + 50, 50));
-      wrapper.add(germanSearchButton);
-      germanSearch.add(wrapper);
+      wrapper.add(mySearchButton);
+      mySearch.add(wrapper);
 
-      JPanel hebrewSearch = new JPanel();
-      hebrewSearch.setLayout(new TotemLayout(hebrewSearch, 5));
-      hebrewSearch.setBackground(ApplicationColors.getWhite());
-      searchPhraseHebrew = new JTextField();
-      searchPhraseHebrew.setBorder(new TitledBorder(translator
+      otherSearch = new JPanel();
+      otherSearch.setLayout(new TotemLayout(otherSearch, 5));
+      otherSearch.setBackground(ApplicationColors.getWhite());
+      searchPhraseOther = new JTextField();
+      searchPhraseOther.setBorder(new TitledBorder(translator
             .realisticTranslate(Translation.WORT_AUF_HEBRAISCH_EINGEBEN)));
-
-      KeyboardHebrewAllLetters keyboard = new KeyboardHebrewAllLetters(
-            searchPhraseHebrew, new ArrayList<JTextComponent>(), 70, true);
-
-      hebrewSearch.add(keyboard);
 
       JPanel filler2 = new JPanel();
       filler2.setOpaque(false);
       filler2.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 5));
       filler2.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() + 50, 14));
-      hebrewSearch.add(filler2);
+      otherSearch.add(filler2);
 
       searchTypeGroupHebrew = new ButtonGroup();
-      hebrewSearch.add(initSearchRadioButtonPanel(searchTypeGroupHebrew,
+      otherSearch.add(initSearchRadioButtonPanel(searchTypeGroupHebrew,
             Direction.NEW_TO_OWN));
 
-      hebrewSearchButton = new JButton(
+      switch (Settings.getLanguageInput())
+      {
+      case GERMAN:
+         KeyboardGermanStandard germanKeyboardMaker = new KeyboardGermanStandard(
+               searchPhraseOther, new ArrayList<JTextComponent>(), 70);
+         keyboard = germanKeyboardMaker.makeTextfieldWithRegularKeyboard();
+         break;
+      case PLENE_DEFEKTIV:
+      case SIMPLE:
+         keyboard = new KeyboardHebrewAllLetters(searchPhraseOther,
+               new ArrayList<JTextComponent>(), 70, true);
+         break;
+      case SWEDISH:
+         KeyboardSwedishStandard swedishKeyboardMaker = new KeyboardSwedishStandard(
+               searchPhraseOther, new ArrayList<JTextComponent>(), 70);
+         keyboard = swedishKeyboardMaker.makeTextfieldWithRegularKeyboard();
+         break;
+      }
+      otherSearch.add(keyboard);
+
+      otherSearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
-      hebrewSearchButton.setFont(ApplicationFonts.getButtonFont());
-      hebrewSearchButton.setIcon(new ImageIcon(ApplicationImages.getSearch()));
+      otherSearchButton.setFont(ApplicationFonts.getButtonFont());
+      otherSearchButton.setIcon(new ImageIcon(ApplicationImages.getSearch()));
       JPanel wrapper1 = new JPanel(new FlowLayout());
       wrapper1.setOpaque(false);
       wrapper1.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
       wrapper1.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() + 50, 50));
-      wrapper1.add(hebrewSearchButton);
-      hebrewSearch.add(wrapper1);
+      wrapper1.add(otherSearchButton);
+      otherSearch.add(wrapper1);
 
       cardLayout = new CardLayout();
       swapPanel = new JPanel(cardLayout);
@@ -346,14 +378,34 @@ public class DictionaryView extends BackgroundPanelTiled
       swapPanel.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 420));
       swapPanel.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() + 50, 620));
-      germanSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
-      hebrewSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
-      swapPanel.add(Direction.OWN_TO_NEW.name(), germanSearch);
-      swapPanel.add(Direction.NEW_TO_OWN.name(), hebrewSearch);
+      mySearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
+      otherSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
+      swapPanel.add(Direction.OWN_TO_NEW.name(), mySearch);
+      swapPanel.add(Direction.NEW_TO_OWN.name(), otherSearch);
 
-      vertical1.add(swapPanel);
+      cardLayout.show(swapPanel, selectedLanguage.name());
 
-      return vertical1;
+      searchVertical.add(swapPanel);
+
+      otherSearchButton
+            .addActionListener(event -> connector.searchOtherLanguage());
+
+      mySearchButton.addActionListener(event -> connector.searchMyLanguage());
+   }
+
+   public void setWritingDirection()
+   {
+      switch (Settings.getMyWritingDirection())
+      {
+      case LEFT_TO_RIGHT:
+         searchPhraseMy
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         break;
+      case RIGHT_TO_LEFT:
+         searchPhraseMy
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         break;
+      }
    }
 
    private JPanel initSearchRadioButtonPanel(ButtonGroup group,
@@ -687,30 +739,26 @@ public class DictionaryView extends BackgroundPanelTiled
       shredderButton
             .addActionListener(event -> connector.shredderDeletedExpressions());
 
-      hebrewSearchButton.addActionListener(event -> connector.searchHebrew());
-
-      germanSearchButton.addActionListener(event -> connector.searchGerman());
-
-      searchPhraseGerman.addKeyListener(new KeyAdapter()
+      searchPhraseMy.addKeyListener(new KeyAdapter()
       {
          @Override
          public void keyPressed(KeyEvent e)
          {
             if (e.getKeyCode() == KeyEvent.VK_ENTER)
             {
-               connector.searchGerman();
+               connector.searchMyLanguage();
             }
          }
       });
 
-      searchPhraseHebrew.addKeyListener(new KeyAdapter()
+      searchPhraseOther.addKeyListener(new KeyAdapter()
       {
          @Override
          public void keyPressed(KeyEvent e)
          {
             if (e.getKeyCode() == KeyEvent.VK_ENTER)
             {
-               connector.searchHebrew();
+               connector.searchOtherLanguage();
             }
          }
       });
@@ -726,7 +774,8 @@ public class DictionaryView extends BackgroundPanelTiled
                            Translation.ENTER_DRUECKEN_OEFFNET_DEN_MARKIERTEN_EINTRAG),
                      translator.realisticTranslate(
                            Translation.ZWEIMAL_KLICKEN_WAEHLT_EINEN_EINTRAG_AUS__STECKNADEL_),
-                     translator.realisticTranslate(Translation.SCHWEDISCH_TASTE_B_STARTET_DAS_BUCHSTABIEREN))));
+                     translator.realisticTranslate(
+                           Translation.SCHWEDISCH_TASTE_B_STARTET_DAS_BUCHSTABIEREN))));
       });
 
       tableInfoButton.addMouseListener(new MouseListener()
@@ -959,7 +1008,8 @@ public class DictionaryView extends BackgroundPanelTiled
       scrollsearchPinButton.setFont(ApplicationFonts.getButtonFont());
 
       table = new ExpressionTable(tableModel, this.getSelectedLanguage(),
-            connector, true, new ExpressionColumnModel(this.getSelectedLanguage()));
+            connector, true,
+            new ExpressionColumnModel(this.getSelectedLanguage()));
       tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);
       tableScroller.getViewport().setOpaque(false);
@@ -1178,13 +1228,13 @@ public class DictionaryView extends BackgroundPanelTiled
    @Override
    public String getSearchPhraseGerman()
    {
-      return searchPhraseGerman.getText().trim();
+      return searchPhraseMy.getText().trim();
    }
 
    @Override
-   public String getSearchPhraseHebrew()
+   public String getSearchPhraseOther()
    {
-      return searchPhraseHebrew.getText().trim();
+      return searchPhraseOther.getText().trim();
    }
 
    @Override
@@ -1220,6 +1270,12 @@ public class DictionaryView extends BackgroundPanelTiled
       Data.determineReloadDatabases();
       this.loadChapters();
       this.displayNoTable();
+      setWritingDirection();
+      this.searchVertical.removeAll();
+      Direction selectedLanguage = this.getSelectedLanguage();
+      this.initSearchPanel(selectedLanguage);
+      this.searchVertical.validate();
+      this.searchVertical.repaint();
       connector.displayTableAfterOpeningPage();
    }
 

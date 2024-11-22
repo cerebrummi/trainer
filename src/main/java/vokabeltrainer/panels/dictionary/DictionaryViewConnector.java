@@ -34,7 +34,7 @@ public interface DictionaryViewConnector
    public SearchType getSelectedSearchTypeHebrew();
    public void tablePanelValidateRepaint();
    public String getSearchPhraseGerman();
-   public String getSearchPhraseHebrew();
+   public String getSearchPhraseOther();
    public void switchSearchLanguagePanel(String actionCommand);
    public void selectChapter(Chapter currentChapter);
    public ExpressionTable getTable();
