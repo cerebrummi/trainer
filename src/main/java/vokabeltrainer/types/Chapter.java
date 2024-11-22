@@ -2,6 +2,7 @@ package vokabeltrainer.types;
 
 import java.text.Collator;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Vector;
 
 import vokabeltrainer.common.Common;
@@ -82,12 +83,7 @@ public class Chapter implements Comparable<Chapter>
    @Override
    public int hashCode()
    {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((databaseDescription == null) ? 0
-            : databaseDescription.hashCode());
-      result = prime * result + ((name == null) ? 0 : name.hashCode());
-      return result;
+      return Objects.hash(databaseDescription.getDatabaseName(), name);
    }
 
    @Override
@@ -100,21 +96,8 @@ public class Chapter implements Comparable<Chapter>
       if (getClass() != obj.getClass())
          return false;
       Chapter other = (Chapter) obj;
-      if (databaseDescription == null)
-      {
-         if (other.databaseDescription != null)
-            return false;
-      }
-      else if (!databaseDescription.equals(other.databaseDescription))
-         return false;
-      if (name == null)
-      {
-         if (other.name != null)
-            return false;
-      }
-      else if (!name.equals(other.name))
-         return false;
-      return true;
+      return Objects.equals(databaseDescription.getDatabaseName(), other.databaseDescription.getDatabaseName())
+            && Objects.equals(name, other.name);
    }
 
    public String getDatabaseFolder(Database database)
