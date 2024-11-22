@@ -1155,6 +1155,7 @@ public class LanguageExpressionEditorView extends JDialog
       this.expression = expression;
       this.newExpression = newExpression;
       this.language.setEditorView(this);
+      setWritingDirection(expression.getLL().getLltype());
       if (!newExpression)
       {
          this.remakeAllBoxes(expression);
@@ -1384,5 +1385,50 @@ public class LanguageExpressionEditorView extends JDialog
    public KeyboardLanguage getKeyboard()
    {
       return keyboard;
+   }
+   
+   public void setWritingDirection(LLType llType)
+   {
+      switch (Settings.getMyWritingDirection())
+      {
+      case LEFT_TO_RIGHT:
+         ownLanguage.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         newSearchwordOwn.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         searchwordsJListOwn.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         this.indexField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         break;
+      case RIGHT_TO_LEFT:
+         ownLanguage.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         newSearchwordOwn.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         searchwordsJListOwn.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         this.indexField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         break;
+      }
+      
+      switch (llType)
+      {
+      case GERMAN:
+      case SWEDISH:
+         this.newSearchwordNew.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         this.searchwordsJListNew.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         break;
+      case HEBREW:
+         this.newSearchwordNew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         this.searchwordsJListNew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         break;
+      case UNKOWN:
+         switch (Settings.getLanguageInput())
+         {
+         case GERMAN:
+         case SWEDISH:
+            this.newSearchwordOwn.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            this.searchwordsJListOwn.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            break;
+         case PLENE_DEFEKTIV:
+         case SIMPLE:
+            this.newSearchwordNew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            this.searchwordsJListNew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         }
+      }
    }
 }

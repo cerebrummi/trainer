@@ -55,6 +55,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.LLType;
 import vokabeltrainer.types.LearningLanguage;
 import vokabeltrainer.types.SortingIndex;
 import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
@@ -708,7 +709,8 @@ public class TextExpressionEditorView extends JDialog
       this.save = false;
       this.expression = expression;
       this.newExpression = newExpression;
-
+      setWritingDirection(expression.getLL().getLltype());
+      
       this.chapter.setModel(Data.getChapterComboBoxModel());
       if (newExpression)
       {
@@ -875,5 +877,50 @@ public class TextExpressionEditorView extends JDialog
          return false;
       }
 
+   }
+   
+   public void setWritingDirection(LLType llType)
+   {
+      switch (Settings.getMyWritingDirection())
+      {
+      case LEFT_TO_RIGHT:
+         ownLanguage.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         newSearchwordGerman.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         searchwordsJListGerman.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         this.indexField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         break;
+      case RIGHT_TO_LEFT:
+         ownLanguage.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         newSearchwordHebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         searchwordsJListHebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         this.indexField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         break;
+      }
+      
+      switch (llType)
+      {
+      case GERMAN:
+      case SWEDISH:
+         this.newSearchwordHebrew.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         this.searchwordsJListHebrew.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         break;
+      case HEBREW:
+         this.newSearchwordHebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         this.searchwordsJListHebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         break;
+      case UNKOWN:
+         switch (Settings.getLanguageInput())
+         {
+         case GERMAN:
+         case SWEDISH:
+            this.newSearchwordGerman.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            this.searchwordsJListGerman.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            break;
+         case PLENE_DEFEKTIV:
+         case SIMPLE:
+            this.newSearchwordGerman.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            this.searchwordsJListGerman.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         }
+      }
    }
 }
