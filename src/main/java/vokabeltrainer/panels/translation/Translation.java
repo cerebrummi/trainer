@@ -112,7 +112,7 @@ public enum Translation {
 	EINMAL_KLICKEN_MARKIERT_EINEN_EINTRAG("einmal klicken markiert einen Eintrag", "clicking once marks an entry"),
 	EINSTELLUNGEN_UND_SERVICE("Einstellungen und Service", "settings and services"), 
 	EINTRAEGE_IN_DIESER_TABELLE("Einträge in dieser Tabelle", "entries in this table"),
-	EINTRAEGE_LOESCHEN__("Eintr�ge löschen?", "Delete postings?"),
+	EINTRAEGE_LOESCHEN__("Einträge löschen?", "Delete postings?"),
 	ENTER_DRUECKEN_OEFFNET_DEN_MARKIERTEN_EINTRAG("Enter drücken öffnet den markierten Eintrag", "Pressing Enter opens the highlighted entry"),
 	ES_WURDEN_KEINE_EINTRAEGE("Es wurden keine Einträge", "There were no entries"), 
 	EXPORT("Export", "export"),
@@ -300,7 +300,7 @@ public enum Translation {
 			"Verschiebt alle Vokabeln einer Datenbank in den Papierkorb.", "Moves all vocabulary in a database to the trash."),
 	VOKABELN_ABFRAGEN("Vokabeln abfragen", "query vocabulary"),
 	VOKABELN_EINER_DATENBANK_EXPORTIEREN("Vokabeln einer Datenbank exportieren", "export vocabulary from a database"), 
-	VOKABELTRAINER("Vokabeltrainer", "Vokabeltrainer"),
+	VOKABELTRAINER("Vokabeltrainer", "Vocabulary Trainer"),
 	VOM("vom", "date"), 
 	VORRAT("Vorrat", "stock"),
 
@@ -407,7 +407,14 @@ public enum Translation {
 	WORT("Wort","word"),
 	MEINE_SPRACHE_("Meine Sprache", "my own language"),
 	NEUE_SPRACHE_("Lernsprache", "language to be learned"),
-	SCHREIBRICHTUNG("meine Schreibrichtung", "direction of writing my language ");
+	SCHREIBRICHTUNG("meine Schreibrichtung", "direction of writing my language "),
+	AUTOREN("Autoren", "authors"),
+	VERLAG("Verlag", "company"),
+	EXPORT_INTERNE_DATENBANK("Export interne Datenbank", "export internal database"),
+	VORHANDENEN_DATENBANKNAMEN_NICHT_UEBERSCHREIBEN("vorhandenen Datenbanknamen NICHT überschreiben", "do NOT change original database name"),
+	VORHANDENEN_DATENBANKNAMEN_UEBERSCHREIBEN("vorhandenen Datenbanknamen überschreiben", "do change database name"),
+	OK("OK", "ok"),
+	NAME_FUER_DIE_DATENBANK("Name für die Datenbank", "new database name");
 
 	private String german;
 	private String english;

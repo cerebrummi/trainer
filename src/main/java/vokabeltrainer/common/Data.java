@@ -665,7 +665,7 @@ public final class Data
       private void readFileAvailable(LetterForSaving letter, Database origin)
       {
          try (InputStream fis = Vocabulary.class
-               .getResourceAsStream("/vocabulary/" + origin.getFolder() + "/"
+               .getResourceAsStream(origin.getFolder() + "/"
                      + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
@@ -687,7 +687,7 @@ public final class Data
             boolean overwriteDatabaseName, String databaseName)
       {
          try (InputStream fis = Vocabulary.class
-               .getResourceAsStream("/vocabulary/" + origin.getFolder() + "/"
+               .getResourceAsStream(origin.getFolder() + "/"
                      + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);

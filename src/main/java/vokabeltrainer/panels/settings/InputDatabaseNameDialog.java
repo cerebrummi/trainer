@@ -15,6 +15,8 @@ import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.editing.GermanDocument;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -32,6 +34,7 @@ public class InputDatabaseNameDialog extends JDialog
    private JRadioButton overwriteYes;
    private ButtonGroup overwriteGroup;
    private JRadioButton overwriteNo;
+   private Translator translator = Common.getTranslator();
 
    public InputDatabaseNameDialog(String title)
    {
@@ -59,14 +62,14 @@ public class InputDatabaseNameDialog extends JDialog
       inputImportField.setEnabled(false);
       
       overwriteGroup = new ButtonGroup();
-      overwriteNo = new JRadioButton("vorhandenen Datenbanknamen NICHT überschreiben");
-      overwriteYes = new JRadioButton("vorhandenen Datenbanknamen überschreiben");
+      overwriteNo = new JRadioButton(translator.realisticTranslate(Translation.VORHANDENEN_DATENBANKNAMEN_NICHT_UEBERSCHREIBEN));
+      overwriteYes = new JRadioButton(translator.realisticTranslate(Translation.VORHANDENEN_DATENBANKNAMEN_UEBERSCHREIBEN));
       overwriteGroup.add(overwriteNo);
       overwriteGroup.add(overwriteYes);
       overwriteNo.setSelected(true);
       
-      okButton = new JButton("OK");
-      stopButton = new JButton("abbrechen");
+      okButton = new JButton(translator.realisticTranslate(Translation.OK));
+      stopButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
       
       JPanel buttonPanel = new JPanel();
       TrainLayout buttonPanelLayout = new TrainLayout(buttonPanel, 15);
@@ -77,7 +80,7 @@ public class InputDatabaseNameDialog extends JDialog
       
       vertical.add(overwriteNo);
       vertical.add(overwriteYes);
-      vertical.add(new JLabel("Namen für die Datenbank"));
+      vertical.add(new JLabel(translator.realisticTranslate(Translation.NAME_FUER_DIE_DATENBANK)));
       vertical.add(inputImportField);
       vertical.add(buttonPanel);
       

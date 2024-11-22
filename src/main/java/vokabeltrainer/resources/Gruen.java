@@ -18,7 +18,7 @@ public class Gruen
       for (int i = 0; i < 72; i++)
       {
          greenImagesList.add(ImageIO.read(
-               Gruen.class.getResourceAsStream("/gruen/green_" + i + ".jpg")));
+               Gruen.class.getResourceAsStream("gruen/green_" + i + ".jpg")));
       }
       ApplicationImages.setGreenImages(greenImagesList);
    }

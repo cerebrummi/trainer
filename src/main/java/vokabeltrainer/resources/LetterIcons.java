@@ -23,7 +23,7 @@ public class LetterIcons
             continue;
          }
          BufferedImage image = ImageIO.read(
-               LetterIcons.class.getResourceAsStream("/letterIcons/"+letter.name()+".png"));
+               LetterIcons.class.getResourceAsStream("letterIcons/"+letter.name()+".png"));
          if(image != null)
          {
             letterIconsNikudMap.put(letter, image);

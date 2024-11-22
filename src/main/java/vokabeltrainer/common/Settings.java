@@ -34,7 +34,7 @@ public class Settings
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
    private static Database[] availableDatabases = {
-         Database.GRUNDWORTSCHATZADAADAMA 
+         Database.GRUNDWORTSCHATZ 
          };
    
    private static String rememberDatabaseForInput = "";
@@ -136,7 +136,7 @@ public class Settings
 
    public static String getWindowTitle()
    {
-      return "Cerebrummi©";
+      return "Cerebrummi";
    }
 
    public static BufferedImage getSound()

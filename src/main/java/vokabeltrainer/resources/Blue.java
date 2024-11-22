@@ -19,7 +19,7 @@ public class Blue
       {
 
          blueImagesList.add(ImageIO.read(
-               Blue.class.getResourceAsStream("/blue/blue_" + i + ".jpg")));
+               Blue.class.getResourceAsStream("blue/blue_" + i + ".jpg")));
 
       }
       ApplicationImages.setBlueImages(blueImagesList);

@@ -11,14 +11,19 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 
 import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
+import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 
 public class DatabaseTableCopy extends JTable
 {
    private static final long serialVersionUID = 4815287371476856952L;
    private MouseListener mouseListener;
+   
+   private Translator translator = Common.getTranslator();
 
    public DatabaseTableCopy(DatabaseTableCopyModel model, int totalWidth)
    {
@@ -55,7 +60,7 @@ public class DatabaseTableCopy extends JTable
                      .getValueAt(table.getSelectedRow(), 0));
 
                InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
-                     "Export interne Datenbank");
+                     translator.realisticTranslate(Translation.EXPORT_INTERNE_DATENBANK));
                dialog.setVisible(true);
 
                final String databaseName;

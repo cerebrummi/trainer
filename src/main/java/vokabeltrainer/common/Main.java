@@ -56,7 +56,7 @@ public final class Main
       catch (Exception e1)
       {
          JOptionPane
-               .showMessageDialog(null, message + "Schriftarten k�nnen nicht definiert werden",
+               .showMessageDialog(null, message + "Schriftarten können nicht definiert werden",
                      "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
@@ -120,7 +120,7 @@ public final class Main
       {
          e1.printStackTrace();
          JOptionPane
-               .showMessageDialog(null, message + "Ger�usche fehlen",
+               .showMessageDialog(null, message + "Geräusche fehlen",
                      "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }

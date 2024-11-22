@@ -76,7 +76,7 @@ public class TrainerView extends BackgroundPanelTiled
    private ImagePanelBlue imageFieldBlue;
    private CardLayout cardLayout;
    private JPanel questionPanel;
-   private JTextField questionFieldGerman;
+   private JTextField questionField;
    private InputLanguagePanel questionFieldLL;
    private JTextPane grammarInfoField;
    private JTextPane additionalInfoField;
@@ -132,42 +132,122 @@ public class TrainerView extends BackgroundPanelTiled
 
    public void init()
    {
+      initTextField(languageDirection);
+      initQuestionPanel(languageDirection);
+      
       switch (languageDirection)
       {
       case OWN_TO_HEBREW:
          languageDirectionLabel
                .setText(translator.realisticTranslate(Translation.DEUTSCH)
                      + translator.realisticTranslate(Translation.HEBRAEISCH));
+         switch (Settings.getMyWritingDirection())
+         {
+         case LEFT_TO_RIGHT:
+            questionField
+                  .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            break;
+         case RIGHT_TO_LEFT:
+            questionField
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            break;
+         }
+         answerField
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          break;
       case OWN_TO_SWEDISH:
          languageDirectionLabel
-         .setText(translator.realisticTranslate(Translation.DEUTSCH)
-               + translator.realisticTranslate(Translation.SCHWEDISCH));
+               .setText(translator.realisticTranslate(Translation.DEUTSCH)
+                     + translator.realisticTranslate(Translation.SCHWEDISCH));
+         switch (Settings.getMyWritingDirection())
+         {
+         case LEFT_TO_RIGHT:
+            questionField
+                  .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            break;
+         case RIGHT_TO_LEFT:
+            questionField
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            break;
+         }
+         answerField
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          break;
       case OWN_TO_GERMAN:
          languageDirectionLabel
-         .setText(translator.realisticTranslate(Translation.DEUTSCH)
-               + translator.realisticTranslate(Translation.GERMAN));
+               .setText(translator.realisticTranslate(Translation.DEUTSCH)
+                     + translator.realisticTranslate(Translation.GERMAN));
+         switch (Settings.getMyWritingDirection())
+         {
+         case LEFT_TO_RIGHT:
+            questionField
+                  .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            break;
+         case RIGHT_TO_LEFT:
+            questionField
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            break;
+         }
+         answerField
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          break;
       case HEBREW_TO_OWN:
          languageDirectionLabel.setText(
                translator.realisticTranslate(Translation.HEBRAEISCH) + " >> "
                      + translator.realisticTranslate(Translation.DEUTSCH));
+         questionField
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         switch (Settings.getMyWritingDirection())
+         {
+         case LEFT_TO_RIGHT:
+            answerField
+                  .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            break;
+         case RIGHT_TO_LEFT:
+            answerField
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            break;
+         }
          break;
       case SWEDISH_TO_OWN:
          languageDirectionLabel.setText(
                translator.realisticTranslate(Translation.SCHWEDISCH) + " >> "
                      + translator.realisticTranslate(Translation.DEUTSCH));
+         questionField
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         switch (Settings.getMyWritingDirection())
+         {
+         case LEFT_TO_RIGHT:
+            answerField
+                  .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            break;
+         case RIGHT_TO_LEFT:
+            answerField
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            break;
+         }
          break;
       case GERMAN_TO_OWN:
          languageDirectionLabel.setText(
                translator.realisticTranslate(Translation.GERMAN) + " >> "
                      + translator.realisticTranslate(Translation.DEUTSCH));
+         questionField
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         switch (Settings.getMyWritingDirection())
+         {
+         case LEFT_TO_RIGHT:
+            answerField
+                  .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            break;
+         case RIGHT_TO_LEFT:
+            answerField
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            break;
+         }
          break;
       }
 
-      initTextField(languageDirection);
-      initQuestionPanel(languageDirection);
+
 
       connector.setNextTest();
 
@@ -225,7 +305,7 @@ public class TrainerView extends BackgroundPanelTiled
    private void initTextField(LanguageDirection languageDirection)
    {
       textFieldPanelWrapper.removeAll();
-      switch(languageDirection)
+      switch (languageDirection)
       {
       case OWN_TO_SWEDISH:
       case OWN_TO_HEBREW:
@@ -233,16 +313,16 @@ public class TrainerView extends BackgroundPanelTiled
          JPanel expandPanel = new JPanel();
          TrainLayout beLayout = new TrainLayout(expandPanel);
          expandPanel.setLayout(beLayout);
-         questionFieldGerman = new JTextField("test");
-         questionFieldGerman.setBackground(ApplicationColors.getLightBlue());
-         questionFieldGerman.setFont(ApplicationFonts.getGermanFont(20F));
-         questionFieldGerman.setBorder(BorderFactory.createTitledBorder(
+         questionField = new JTextField("test");
+         questionField.setBackground(ApplicationColors.getLightBlue());
+         questionField.setFont(ApplicationFonts.getGermanFont(20F));
+         questionField.setBorder(BorderFactory.createTitledBorder(
                BorderFactory.createEmptyBorder(), translator.realisticTranslate(
                      Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
-         questionFieldGerman.setMinimumSize(new Dimension(1200, 160));
-         questionFieldGerman.setMaximumSize(new Dimension(1250, 160));
-         questionFieldGerman.setEditable(false);
-         expandPanel.add(questionFieldGerman);
+         questionField.setMinimumSize(new Dimension(1200, 160));
+         questionField.setMaximumSize(new Dimension(1250, 160));
+         questionField.setEditable(false);
+         expandPanel.add(questionField);
          textFieldPanelWrapper.add(expandPanel);
          break;
       case HEBREW_TO_OWN:
@@ -542,7 +622,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       questionPanel.add(answerPanel);
 
-      switch(languageDirection)
+      switch (languageDirection)
       {
       case OWN_TO_HEBREW:
          answerPanel.removeAll();
@@ -635,7 +715,7 @@ public class TrainerView extends BackgroundPanelTiled
          answerField
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 80));
          answerPanel.add(answerField);
-         break;    
+         break;
       }
 
       this.setFocusCycleRoot(true);
@@ -647,7 +727,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       questionPanel.validate();
       questionPanel.repaint();
-      
+
       if (LanguageDirection.OWN_TO_HEBREW.equals(languageDirection))
       {
          this.pictureToggleBox.setVisible(true);
@@ -702,7 +782,7 @@ public class TrainerView extends BackgroundPanelTiled
       swapPanel.add("RED", imageFieldError);
       cardLayout.show(swapPanel, "START");
 
-      switch(languageDirection)
+      switch (languageDirection)
       {
       case OWN_TO_SWEDISH:
       case OWN_TO_HEBREW:
@@ -951,7 +1031,7 @@ public class TrainerView extends BackgroundPanelTiled
 
    public JTextField getQuestionFieldGerman()
    {
-      return questionFieldGerman;
+      return questionField;
    }
 
    public InputLanguagePanel getQuestionFieldLL()

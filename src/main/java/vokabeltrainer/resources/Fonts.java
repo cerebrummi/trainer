@@ -11,20 +11,17 @@ public class Fonts
    {
       ApplicationFonts
             .setHebrewFont(Font.createFont(Font.TRUETYPE_FONT, Fonts.class
-                  .getResourceAsStream("/_1_fonts/Cardo-regular_104s.ttf")));
+                  .getResourceAsStream("_1_fonts/Cardo-regular_104s.ttf")));
 
       ApplicationFonts.setGermanFont(Font.createFont(Font.TRUETYPE_FONT,
-            Fonts.class.getResourceAsStream("/_1_fonts/Orkney Light.ttf")));
+            Fonts.class.getResourceAsStream("_1_fonts/Orkney Light.ttf")));
 
       ApplicationFonts.setGermanBoldFont(Font.createFont(Font.TRUETYPE_FONT,
-            Fonts.class.getResourceAsStream("/_1_fonts/Orkney Medium.ttf")));
+            Fonts.class.getResourceAsStream("_1_fonts/Orkney Medium.ttf")));
 
       ApplicationFonts
             .setHebrewHandwrittenFont(Font.createFont(Font.TRUETYPE_FONT,
-                  Fonts.class.getResourceAsStream("/_1_fonts/AdaAdama.ttf")));
-
-      ApplicationFonts.setInternationalFont(Font.createFont(Font.TRUETYPE_FONT,
-            Fonts.class.getResourceAsStream("/_1_fonts/NotoSans.ttf")));
+                  Fonts.class.getResourceAsStream("_1_fonts/AdaAdama.ttf")));
    }
 
    public static void define() throws Exception

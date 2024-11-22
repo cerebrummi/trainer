@@ -74,6 +74,7 @@ public class ExpressionListCellRenderer
       else if (index == 1)
       {
          label = new JTextField();
+         label.setFont(label.getFont().deriveFont(24F));
          label.setOpaque(false);
          label.setEditable(false);
          label.setBackground(ApplicationColors.getTransparent());

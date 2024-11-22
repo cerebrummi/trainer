@@ -9,7 +9,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <project.reporting.outputEncoding>UTF-16</project.reporting.outputEncoding>
 		<native.maven.plugin.version>0.9.21</native.maven.plugin.version>
 		<junit.jupiter.version>5.8.1</junit.jupiter.version>
 		<maven.compiler.target>14</maven.compiler.target>
@@ -85,7 +85,48 @@
 					</descriptorRefs>
 				</configuration>
 			</plugin>
-
+<!-- LAUNCH4J -->
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>2.1.2</version>
+                <executions>
+                    <execution>
+                        <id>l4j-cerebrummi</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                            <configuration>
+                            <headerType>gui</headerType>
+                            <jar>target/vokabeltrainer-3.1-SNAPSHOT-jar-with-dependencies.jar</jar>
+                            <outfile>target/Cerebrummi.exe</outfile>
+                            <downloadUrl>http://java.com/download</downloadUrl>
+                            <classPath>
+                                <mainClass>vokabeltrainer.common.Main</mainClass>
+                            </classPath>
+                            <jre>
+                                <bundledJre64Bit>false</bundledJre64Bit>
+                                <bundledJreAsFallback>false</bundledJreAsFallback>
+                                <minVersion>21.0</minVersion>
+                                <jdkPreference>preferJre</jdkPreference>
+                                <runtimeBits>64</runtimeBits>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>5.0.0.0</fileVersion>
+                                <txtFileVersion>5.0.0.0</txtFileVersion>
+                                <fileDescription>de.birkeheeren.cerebrummi</fileDescription>
+                                <copyright>C</copyright>
+                                <productVersion>5.0.0.0</productVersion>
+                                <txtProductVersion>5.0.0.0</txtProductVersion>
+                                <productName>cerebrummi</productName>
+                                <internalName>Cerebrummi</internalName>
+                                <originalFilename>Cerebrummi.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 

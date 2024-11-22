@@ -49,10 +49,10 @@ public class StartPanel extends JPanel
       JPanel nameWrapper = new JPanel(new FlowLayout());
       nameWrapper.setOpaque(false);
       nameWrapper.setPreferredSize(new Dimension(580, 130));
-      JLabel name = new JLabel("<html>Cerebrummi</html>");
+      JLabel name = new JLabel("<html>"+Settings.getWindowTitle()+"</html>");
       name.setPreferredSize(new Dimension(580, 120));
       name.setForeground(Color.WHITE);
-      name.setFont(ApplicationFonts.getHebrewFont(100F));
+      name.setFont(ApplicationFonts.getHebrewFont(90F));
       nameWrapper.add(name);
 
       JPanel trainerWrapper = new JPanel(new FlowLayout());
@@ -63,7 +63,7 @@ public class StartPanel extends JPanel
             + "</html>");
       trainer.setPreferredSize(new Dimension(355, 70));
       trainer.setForeground(Color.WHITE);
-      trainer.setFont(ApplicationFonts.getHebrewFont(55F));
+      trainer.setFont(ApplicationFonts.getHebrewFont(40F));
       trainerWrapper.add(trainer);
 
       titlePanel.add(nameWrapper);

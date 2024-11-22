@@ -128,7 +128,7 @@ public class Chapter implements Comparable<Chapter>
 
    public enum Database
    {
-      GRUNDWORTSCHATZADAADAMA(
+      GRUNDWORTSCHATZ(
     		"grundwortschatz",
             "Grundwortschatz",
             "630 Vokabeln",
@@ -248,9 +248,9 @@ public class Chapter implements Comparable<Chapter>
 
    public static Database findOrigin(String databaseName)
    {
-      if (Database.GRUNDWORTSCHATZADAADAMA.getName().equals(databaseName))
+      if (Database.GRUNDWORTSCHATZ.getName().equals(databaseName))
       {
-         return Database.GRUNDWORTSCHATZADAADAMA;
+         return Database.GRUNDWORTSCHATZ;
       }
       return Database.SELF;
    }
