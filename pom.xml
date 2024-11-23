@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.copepod</groupId>
@@ -9,7 +11,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-16</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-16</project.reporting.outputEncoding>
 		<native.maven.plugin.version>0.9.21</native.maven.plugin.version>
 		<junit.jupiter.version>5.8.1</junit.jupiter.version>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -85,49 +87,54 @@
 					</descriptorRefs>
 				</configuration>
 			</plugin>
-<!-- LAUNCH4J -->
-            <plugin>
-                <groupId>com.akathist.maven.plugins.launch4j</groupId>
-                <artifactId>launch4j-maven-plugin</artifactId>
-                <version>2.1.2</version>
-                <executions>
-                    <execution>
-                        <id>l4j-cerebrummi</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>launch4j</goal>
-                        </goals>
-                            <configuration>
-							<icon>C:\Users\heeren\Documents\building_cerebrummi\output\Cerebrummi.ico</icon>
-                            <headerType>gui</headerType>
-                            <jar>target/vokabeltrainer-3.1-SNAPSHOT-jar-with-dependencies.jar</jar>
-                            <outfile>target/Cerebrummi.exe</outfile>
-                            <downloadUrl>http://java.com/download</downloadUrl>
-                            <classPath>
-                                <mainClass>vokabeltrainer.common.Main</mainClass>
-                            </classPath>
-                            <jre>
-                                <bundledJre64Bit>false</bundledJre64Bit>
-                                <bundledJreAsFallback>false</bundledJreAsFallback>
-                                <minVersion>21.0</minVersion>
-                                <jdkPreference>preferJre</jdkPreference>
-                                <runtimeBits>64</runtimeBits>
-                            </jre>
-                            <versionInfo>
-                                <fileVersion>5.0.0.0</fileVersion>
-                                <txtFileVersion>5.0.0.0</txtFileVersion>
-                                <fileDescription>de.birkeheeren.cerebrummi</fileDescription>
-                                <copyright>C</copyright>
-                                <productVersion>5.0.0.0</productVersion>
-                                <txtProductVersion>5.0.0.0</txtProductVersion>
-                                <productName>cerebrummi</productName>
-                                <internalName>Cerebrummi</internalName>
-                                <originalFilename>Cerebrummi.exe</originalFilename>
-                            </versionInfo>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+			<!-- LAUNCH4J -->
+			<plugin>
+				<groupId>com.akathist.maven.plugins.launch4j</groupId>
+				<artifactId>launch4j-maven-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>l4j-cerebrummi</id>
+						<phase>package</phase>
+						<goals>
+							<goal>launch4j</goal>
+						</goals>
+						<configuration>
+							<icon>
+								C:\Users\heeren\Documents\building_cerebrummi\output\Cerebrummi.ico</icon>
+							<headerType>gui</headerType>
+							<jar>
+								target/vokabeltrainer-3.1-SNAPSHOT-jar-with-dependencies.jar</jar>
+							<outfile>target/Cerebrummi.exe</outfile>
+							<downloadUrl>http://java.com/download</downloadUrl>
+							<classPath>
+								<mainClass>vokabeltrainer.common.Main</mainClass>
+							</classPath>
+							<jre>
+								<bundledJre64Bit>false</bundledJre64Bit>
+								<bundledJreAsFallback>false</bundledJreAsFallback>
+								<minVersion>21.0</minVersion>
+								<jdkPreference>preferJre</jdkPreference>
+								<runtimeBits>64</runtimeBits>
+								<opts>
+									<opt>-Dsun.java2d.uiScale=1</opt>
+								</opts>
+							</jre>
+							<versionInfo>
+								<fileVersion>5.0.0.0</fileVersion>
+								<txtFileVersion>5.0.0.0</txtFileVersion>
+								<fileDescription>de.birkeheeren.cerebrummi</fileDescription>
+								<copyright>C</copyright>
+								<productVersion>5.0.0.0</productVersion>
+								<txtProductVersion>5.0.0.0</txtProductVersion>
+								<productName>cerebrummi</productName>
+								<internalName>Cerebrummi</internalName>
+								<originalFilename>Cerebrummi.exe</originalFilename>
+							</versionInfo>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -202,7 +209,8 @@
 									<goal>exec</goal>
 								</goals>
 								<configuration>
-									<executable>${project.build.directory}/${imageName}</executable>
+									<executable>
+										${project.build.directory}/${imageName}</executable>
 									<workingDirectory>${project.build.directory}</workingDirectory>
 								</configuration>
 							</execution>
