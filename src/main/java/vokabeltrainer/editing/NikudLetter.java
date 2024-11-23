@@ -1,4 +1,4 @@
-﻿package vokabeltrainer.editing;
+package vokabeltrainer.editing;
 
 import java.util.StringJoiner;
 

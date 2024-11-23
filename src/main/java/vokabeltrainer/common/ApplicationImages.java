@@ -75,7 +75,7 @@ public class ApplicationImages
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    private static Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap;
 
-   private static String message = "Bitte neu starten.\nCerebrummi© konnte keine Bilder laden.\nFehler: ";
+   private static String message = "Bitte neu starten.\nCerebrummiÂ© konnte keine Bilder laden.\nFehler: ";
 
    public static void setImage(BufferedImage image)
    {
@@ -96,7 +96,7 @@ public class ApplicationImages
    {
       if (greenImages.size() < 72)
       {
-         exitWithMessage("Es fehlen grüne Bilder.");
+         exitWithMessage("Es fehlen grÃ¼ne Bilder.");
       }
       ApplicationImages.greenImages = greenImages;
    }
@@ -831,7 +831,7 @@ public class ApplicationImages
    {
       if (hebrewLetters == null)
       {
-         exitWithMessage("kein Hebräische Buchstaben Bild");
+         exitWithMessage("kein HebrÃ¤ische Buchstaben Bild");
       }
       ApplicationImages.hebrewLetters = hebrewLetters;
    }
@@ -845,7 +845,7 @@ public class ApplicationImages
    {
       if (back == null)
       {
-         exitWithMessage("kein Zurück Icon");
+         exitWithMessage("kein ZurÃ¼ck Icon");
       }
       ApplicationImages.back = back;
    }
@@ -859,7 +859,7 @@ public class ApplicationImages
    {
       if (selectDone == null)
       {
-         exitWithMessage("kein Häckchen Icon");
+         exitWithMessage("kein HÃ¤ckchen Icon");
       }
       ApplicationImages.selectDone = selectDone;
    }
@@ -886,7 +886,7 @@ public class ApplicationImages
    {
       if (paste == null)
       {
-         exitWithMessage("kein Einfügen Icon");
+         exitWithMessage("kein EinfÃ¼gen Icon");
       }
       ApplicationImages.paste = paste;
    }

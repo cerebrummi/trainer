@@ -261,7 +261,7 @@ public class DictionaryController implements DictionaryControllerConnector
    public void searchMyLanguage()
    {
       dictionaryView.clearTable();
-      Status.push(Status.SEARCH_WHICH_GERMAN);
+      Status.push(Status.SEARCH_WHICH_OWN);
       decideOnTableInteraction(Action.SEARCH_WHICH_OWN);
    }
 

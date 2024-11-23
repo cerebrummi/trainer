@@ -1274,6 +1274,7 @@ public class DictionaryView extends BackgroundPanelTiled
       this.searchVertical.removeAll();
       Direction selectedLanguage = this.getSelectedLanguage();
       this.initSearchPanel(selectedLanguage);
+      chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
       this.searchVertical.validate();
       this.searchVertical.repaint();
       connector.displayTableAfterOpeningPage();

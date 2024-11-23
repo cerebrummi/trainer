@@ -12,8 +12,8 @@
     <project.reporting.outputEncoding>UTF-16</project.reporting.outputEncoding>
 		<native.maven.plugin.version>0.9.21</native.maven.plugin.version>
 		<junit.jupiter.version>5.8.1</junit.jupiter.version>
-		<maven.compiler.target>14</maven.compiler.target>
-		<maven.compiler.source>14</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.source>21</maven.compiler.source>
 		<imageName>cerebrummi</imageName>
 		<mainClass>src\main\java\vokabeltrainer.common.Main</mainClass>
 		<project.build.directory>C:\Users\heeren\Documents\cerebrummi</project.build.directory>
@@ -98,6 +98,7 @@
                             <goal>launch4j</goal>
                         </goals>
                             <configuration>
+							<icon>C:\Users\heeren\Documents\building_cerebrummi\output\Cerebrummi.ico</icon>
                             <headerType>gui</headerType>
                             <jar>target/vokabeltrainer-3.1-SNAPSHOT-jar-with-dependencies.jar</jar>
                             <outfile>target/Cerebrummi.exe</outfile>

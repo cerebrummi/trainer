@@ -11,7 +11,7 @@ public enum Status
    TAB_SELECTED_EXPRESSIONS,
    CHAPTER_WHICH,
    EXPRESSIONKIND_WHICH,
-   SEARCH_WHICH_GERMAN,
+   SEARCH_WHICH_OWN,
    SEARCH_WHICH_NEW;
    
    private static ArrayDeque<Status> status = new ArrayDeque<>();
