@@ -11,24 +11,18 @@ import vokabeltrainer.types.SortingType;
 public class ExpressionComparator implements Comparator<Expression>
 {
 
-   private Direction language;
    private SortingType sortingType;
-   
-   public ExpressionComparator(Direction language, SortingType sortingType)
-   {
-      this.language = language;
-      this.sortingType = sortingType;
-   }
-
-   public ExpressionComparator(Direction language)
-   {
-      this.language = language;
-      this.sortingType = SortingType.ALPHABET;
-   }
+   private Direction direction = Direction.NEW_TO_OWN;
    
    public ExpressionComparator(SortingType sortingType)
    {
       this.sortingType = sortingType;
+   }
+   
+   public ExpressionComparator(SortingType sortingType, Direction direction)
+   {
+      this.sortingType = sortingType;
+      this.direction = direction;
    }
 
    @Override
@@ -63,15 +57,9 @@ public class ExpressionComparator implements Comparator<Expression>
          Collator coll = Collator.getInstance(Locale.GERMAN);
          coll.setStrength(Collator.PRIMARY);
          return coll.compare(o1.getSortingIndex(), o2.getSortingIndex());
-      default:
-         if (Direction.OWN_TO_NEW.equals(language))
+      case ALPHABET:
+         if(Direction.NEW_TO_OWN == direction)
          {
-            Collator coll2 = Collator.getInstance(Locale.GERMAN);
-            coll2.setStrength(Collator.PRIMARY);
-            return coll2.compare(o1.getOwnLanguage(), o2.getOwnLanguage());
-         }
-         else
-         {    
             if(o1.getLL().isSwedish())
             {
                Collator coll2 = Collator.getInstance(Locale.GERMAN);
@@ -90,7 +78,14 @@ public class ExpressionComparator implements Comparator<Expression>
                   .getHebrewNoMatterWhichKind()
                   .compareTo(o2.getLL().getHebrewNoMatterWhichKind());
          }
+         else
+         {
+            Collator coll2 = Collator.getInstance(Locale.GERMAN);
+            coll2.setStrength(Collator.PRIMARY);
+            return coll2.compare(o1.getOwnLanguage(), o2.getOwnLanguage());
+         }
       }
+      return 0;
    }
 
 }

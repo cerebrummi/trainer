@@ -192,10 +192,9 @@ public final class Data
             command, sortingType, levelOfDifficulty, direction);
    }
 
-   public static ExpressionTableModel findTranslationsDeletedWords(
-         Direction language)
+   public static ExpressionTableModel findTranslationsDeletedWords()
    {
-      return getDataBaseAtomic().findTranslationsDeletedWords(language);
+      return getDataBaseAtomic().findTranslationsDeletedWords();
    }
 
    public static ComboBoxModel<String> getChapterComboBoxModel()
@@ -213,9 +212,9 @@ public final class Data
       return getDataBaseAtomic().getOwnDatabasesComboBoxModel();
    }
 
-   public static String getAllSelectedExpressionsAsString(Direction language)
+   public static String getAllSelectedExpressionsAsString(SortingType sortingType, Direction language)
    {
-      return getDataBaseAtomic().getAllSelectedExpressionsAsString(language);
+      return getDataBaseAtomic().getAllSelectedExpressionsAsString(sortingType, language);
    }
 
    public static void clearAllSelectedExpressions()
@@ -1069,7 +1068,7 @@ public final class Data
             List<Expression> selectedExpressions = findAllLevelOfDifficultyExpressionList(
                   levelOfDifficulty);
             Collections.sort(selectedExpressions,
-                  new ExpressionComparator(direction, sortingType));
+                  new ExpressionComparator(sortingType));
             return new ExpressionTableModel(
                   convertToExpressionModelArray(selectedExpressions),
                   COLUMNAMES);
@@ -1079,7 +1078,7 @@ public final class Data
             List<Expression> selectedExpressions = findAllSelectedExpressionsList(
                   false);
             Collections.sort(selectedExpressions,
-                  new ExpressionComparator(direction, sortingType));
+                  new ExpressionComparator(sortingType));
             return new ExpressionTableModel(
                   convertToExpressionModelArray(selectedExpressions),
                   COLUMNAMES);
@@ -1135,13 +1134,12 @@ public final class Data
                .collect(Collectors.toList());
       }
 
-      private ExpressionTableModel findTranslationsDeletedWords(
-            Direction language)
+      private ExpressionTableModel findTranslationsDeletedWords()
       {
          Collection<Expression> expressions = deletedMap.values();
          Expression[] expressionArray = expressions
                .toArray(new Expression[expressions.size()]);
-         Arrays.sort(expressionArray, new ExpressionComparator(language));
+         Arrays.sort(expressionArray, new ExpressionComparator(SortingType.DATE));
 
          return new ExpressionTableModel(
                convertToExpressionModelArray(expressionArray), COLUMNAMES);
@@ -1187,7 +1185,7 @@ public final class Data
          return expressions.stream()
                .filter(germanToHebrewSearchword.or(germanToHebrewWordstart)
                      .or(hebrewToGermanSearchword).or(hebrewToGermanWordstart))
-               .sorted(new ExpressionComparator(language, sortingType))
+               .sorted(new ExpressionComparator(sortingType))
                .collect(Collectors.toList());
       }
 
@@ -1196,7 +1194,7 @@ public final class Data
       {
          List<Expression> list = findExpressionsChapter(chapter);
          Collections.sort(list,
-               new ExpressionComparator(language, sortingType));
+               new ExpressionComparator(sortingType, language));
          return list;
       }
 
@@ -1213,7 +1211,7 @@ public final class Data
          return alleMap.values().stream()
                .filter(expression -> expression.getDefinitions()
                      .getExpressionKindSet().contains(kind))
-               .sorted(new ExpressionComparator(language, sortingType))
+               .sorted(new ExpressionComparator(sortingType))
                .collect(Collectors.toList());
       }
 
@@ -1430,12 +1428,12 @@ public final class Data
                .toArray(Chapter[]::new);
       }
 
-      private String getAllSelectedExpressionsAsString(Direction language)
+      private String getAllSelectedExpressionsAsString(SortingType sortingType, Direction language)
       {
          return alleMap.values().stream()
                .filter(expression -> expression.isSelected())
                .filter(expression -> expression.isDoChange())
-               .sorted(new ExpressionComparator(language))
+               .sorted(new ExpressionComparator(sortingType))
                .map(expression -> expression.getCopyLines(language))
                .collect(Collectors.joining("\n\n"));
       }

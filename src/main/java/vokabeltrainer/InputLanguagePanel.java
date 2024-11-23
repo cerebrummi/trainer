@@ -26,15 +26,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.text.JTextComponent;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.GermanDocument;
-import vokabeltrainer.editing.NikudDocument;
+import vokabeltrainer.editing.NikudStyledDocument;
 import vokabeltrainer.editing.SwedishDocument;
 import vokabeltrainer.keyboards.KeyboardLanguage;
 import vokabeltrainer.panels.translation.Translation;
@@ -48,9 +52,9 @@ public class InputLanguagePanel extends JTextArea
 {
    private static final long serialVersionUID = 2787773393300243696L;
 
-   private JTextArea hebrewField;
-   private JTextArea pleneField;
-   private JTextArea defektivField;
+   private JTextPane hebrewField;
+   private JTextPane pleneField;
+   private JTextPane defektivField;
    private JTextArea swedishField;
    private JTextArea germanField;
 
@@ -397,10 +401,8 @@ public class InputLanguagePanel extends JTextArea
       vertical.setBackground(this.color);
       vertical.setBorder(BorderFactory.createLineBorder(this.color));
 
-      pleneField = new JTextArea();
-      pleneField.setWrapStyleWord(true);
-      pleneField.setLineWrap(true);
-      pleneField.setDocument(new NikudDocument(true));
+      pleneField = new JTextPane();
+      pleneField.setDocument(new NikudStyledDocument(true));
       pleneField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       pleneField.setFont(ApplicationFonts.getHebrewFont(30F));
       pleneField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
@@ -409,12 +411,11 @@ public class InputLanguagePanel extends JTextArea
             (heightTotal - heightBorderTitel) / 2));
       pleneField.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.HEBRAEISCH__PLENE)));
+      this.changeLineSpacing(pleneField);
       components.add(pleneField);
 
-      defektivField = new JTextArea();
-      defektivField.setWrapStyleWord(true);
-      defektivField.setLineWrap(true);
-      defektivField.setDocument(new NikudDocument(true));
+      defektivField = new JTextPane();
+      defektivField.setDocument(new NikudStyledDocument(true));
       defektivField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       defektivField.setFont(ApplicationFonts.getHebrewFont(30F));
       defektivField
@@ -424,7 +425,7 @@ public class InputLanguagePanel extends JTextArea
             (heightTotal - heightBorderTitel) / 2));
       defektivField.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.HEBRAEISCH__DEFEKTIV)));
-
+      this.changeLineSpacing(defektivField);
       components.add(defektivField);
 
       vertical.add(pleneField);
@@ -440,12 +441,10 @@ public class InputLanguagePanel extends JTextArea
       vertical.setBackground(this.color);
       vertical.setOpaque(true);
 
-      hebrewField = new JTextArea();
-      hebrewField.setWrapStyleWord(true);
-      hebrewField.setLineWrap(true);
-      hebrewField.setDocument(new NikudDocument(true));
-      hebrewField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+      hebrewField = new JTextPane();
       hebrewField.setFont(ApplicationFonts.getHebrewFont(30F));
+      hebrewField.setDocument(new NikudStyledDocument(true));
+      hebrewField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);     
       hebrewField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel)));
       hebrewField.setMaximumSize(
@@ -453,13 +452,20 @@ public class InputLanguagePanel extends JTextArea
       hebrewField.setBorder(
             BorderFactory.createTitledBorder(translator.realisticTranslate(
                   Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
-
+      changeLineSpacing(hebrewField);
+      
       components.add(hebrewField);
 
       vertical.add(hebrewField);
 
       return vertical;
    }
+   
+   private void changeLineSpacing(JTextPane pane) {
+      SimpleAttributeSet set = new SimpleAttributeSet(pane.getParagraphAttributes());
+      StyleConstants.setLineSpacing(set, 0.5F);
+      pane.setParagraphAttributes(set, true);
+  }
 
    private Component initSwedish()
    {

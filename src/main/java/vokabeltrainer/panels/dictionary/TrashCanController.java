@@ -20,8 +20,8 @@ public class TrashCanController implements TrashCanControllerConnector
          Direction initialLanguage)
    {
       this.connector = connector;
-      trashCanDialog = new TrashCanDialog(this, initialLanguage);
-      trashCanDialog.doShowTable(loadTableModel(initialLanguage));
+      trashCanDialog = new TrashCanDialog(this);
+      trashCanDialog.doShowTable(loadTableModel());
       trashCanDialog.pack();
    }
 
@@ -37,9 +37,9 @@ public class TrashCanController implements TrashCanControllerConnector
    }
 
    @Override
-   public ExpressionTableModel loadTableModel(Direction language)
+   public ExpressionTableModel loadTableModel()
    {
-      return Data.findTranslationsDeletedWords(language);
+      return Data.findTranslationsDeletedWords();
    }
 
    @Override
@@ -51,7 +51,7 @@ public class TrashCanController implements TrashCanControllerConnector
          Data.restoreExpressions(selectedExpressions);
          trashCanDialog.clearTable();
          trashCanDialog.doShowTable(
-               loadTableModel(trashCanDialog.getSelectedLanguage().getDirection()));
+               loadTableModel());
          trashCanDialog.tableValidateRepaint();
          save();
       }
@@ -65,7 +65,7 @@ public class TrashCanController implements TrashCanControllerConnector
          trashCanDialog.selectAllExpressionsInTable();
          trashCanDialog.clearTable();
          trashCanDialog.doShowTable(
-               loadTableModel(trashCanDialog.getSelectedLanguage().getDirection()));
+               loadTableModel());
          trashCanDialog.tableValidateRepaint();
       }
    }
@@ -78,7 +78,7 @@ public class TrashCanController implements TrashCanControllerConnector
          trashCanDialog.unselectAllExpressionsInTable();
          trashCanDialog.clearTable();
          trashCanDialog.doShowTable(
-               loadTableModel(trashCanDialog.getSelectedLanguage().getDirection()));
+               loadTableModel());
          trashCanDialog.tableValidateRepaint();
       }
    }
@@ -88,7 +88,7 @@ public class TrashCanController implements TrashCanControllerConnector
    {
       trashCanDialog.clearTable();
       trashCanDialog
-            .doShowTable(loadTableModel(trashCanDialog.getSelectedLanguage().getDirection()));
+            .doShowTable(loadTableModel());
       trashCanDialog.tableValidateRepaint();
    }
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.ExpressionTableModel;
-import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
 
 public interface TrashCanControllerConnector extends TableConnector
@@ -21,5 +20,5 @@ public interface TrashCanControllerConnector extends TableConnector
 
    public void switchLanguage();
 
-   public ExpressionTableModel loadTableModel(Direction language);
+   public ExpressionTableModel loadTableModel();
 }

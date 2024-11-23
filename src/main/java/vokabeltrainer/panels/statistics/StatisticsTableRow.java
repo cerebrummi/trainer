@@ -19,6 +19,7 @@ import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.SortingType;
 
 public class StatisticsTableRow
 {
@@ -51,9 +52,9 @@ private List<Expression> expressionsDtoH;
                      + translator.realisticTranslate(Translation._DATE), Locale.US);
       }
       
-      Collections.sort(this.expressionsDtoH, new ExpressionComparator(Direction.OWN_TO_NEW));
+      Collections.sort(this.expressionsDtoH, new ExpressionComparator(SortingType.DATE));
       
-      Collections.sort(this.expressionsHtoD, new ExpressionComparator(Direction.NEW_TO_OWN));
+      Collections.sort(this.expressionsHtoD, new ExpressionComparator(SortingType.DATE));
       
       this.model = model;
    }

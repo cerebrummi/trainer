@@ -711,7 +711,7 @@ public class DictionaryView extends BackgroundPanelTiled
             .tabbedPaneChanged(tabbedPane.getSelectedIndex()));
 
       copyAllSelectedButton
-            .addActionListener(event -> connector.copyAllSelectedExpressions());
+            .addActionListener(event -> connector.copyAllSelectedExpressions(SortingType.valueOf(sortingGroup.getSelection().getActionCommand())));
 
       copyTableButton
             .addActionListener(event -> connector.copyExpressionsOfTable());

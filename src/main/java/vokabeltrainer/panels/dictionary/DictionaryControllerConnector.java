@@ -2,12 +2,12 @@ package vokabeltrainer.panels.dictionary;
 
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.types.Chapter;
+import vokabeltrainer.types.SortingType;
 
 public interface DictionaryControllerConnector extends TableConnector
 {
    public void save();
    public void tabbedPaneChanged(int selectedIndex);
-   public void copyAllSelectedExpressions();
    public void copyExpressionsOfTable();
    public void copyInTableSelectedExpressions();
    public void unselectTableExpressions();
@@ -28,4 +28,5 @@ public interface DictionaryControllerConnector extends TableConnector
    public void displayTableAfterOpeningPage();
    public void moveExpressionsToChapter(String toChapter);
    public void moveExpressionsToDatabase(String databaseAim);
+   void copyAllSelectedExpressions(SortingType sortingType);
 }

@@ -25,6 +25,7 @@ import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Expression;
+import vokabeltrainer.types.SortingType;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class DictionaryController implements DictionaryControllerConnector
@@ -78,9 +79,9 @@ public class DictionaryController implements DictionaryControllerConnector
    }
 
    @Override
-   public void copyAllSelectedExpressions()
+   public void copyAllSelectedExpressions(SortingType sortingType)
    {
-      copyStringToClipboard(Data.getAllSelectedExpressionsAsString(
+      copyStringToClipboard(Data.getAllSelectedExpressionsAsString(sortingType,
             dictionaryView.getSelectedLanguage()));
    }
 
@@ -492,4 +493,5 @@ public class DictionaryController implements DictionaryControllerConnector
                .fireTableCellUpdated(table.getSelectedRow(), 0);
       }
    }
+
 }

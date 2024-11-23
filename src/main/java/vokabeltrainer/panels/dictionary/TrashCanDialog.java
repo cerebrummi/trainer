@@ -5,16 +5,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.util.Enumeration;
-import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
@@ -30,16 +25,13 @@ import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Direction;
-import vokabeltrainer.types.LanguageDirection;
 
 public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
 {
    private static final long serialVersionUID = 5581839704958393075L;
 
    private JPanel layout;
-   private ButtonGroup languageGroup;
    private ExpressionTable table;
-   private Direction initialLanguage;
    private JPanel tablePanel;
    private JButton restoreButton;
    private JButton selectAllInTableButton;
@@ -47,13 +39,11 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    private boolean restore;
    private TrashCanControllerConnector connector;
 
-   public TrashCanDialog(TrashCanControllerConnector connector,
-         Direction initialLanguage)
+   public TrashCanDialog(TrashCanControllerConnector connector)
    {
       super(Common.getjFrame(), "Papierkorb",
             Dialog.ModalityType.APPLICATION_MODAL);
       this.connector = connector;
-      this.initialLanguage = initialLanguage;
       restore = false;
       setSize(1000, 620);
       getContentPane().setPreferredSize(new Dimension(1000, 620));
@@ -87,20 +77,6 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       vertical.setOpaque(false);
       vertical.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
 
-      JPanel horizontal1 = new JPanel();
-      horizontal1.setLayout(new TrainLayout(horizontal1, 15));
-      horizontal1.setOpaque(false);
-      horizontal1.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
-      languageGroup = new ButtonGroup();
-      initLanguageButtonGroup(languageGroup);
-      Enumeration<AbstractButton> enumeration1 = languageGroup.getElements();
-      while (enumeration1.hasMoreElements())
-      {
-         AbstractButton button = enumeration1.nextElement();
-         button.addActionListener(event -> connector.switchLanguage());
-         horizontal1.add(button);
-      }
-
       selectAllInTableButton = new JButton(Common.getTranslator()
             .realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -120,7 +96,6 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       restoreButton.setFont(ApplicationFonts.getButtonFont());
       restoreButton.setIcon(new ImageIcon(ApplicationImages.getRestore()));
 
-      vertical.add(horizontal1);
       vertical.add(selectAllInTableButton);
       vertical.add(clearInTableSelectedButton);
       vertical.add(restoreButton);
@@ -155,10 +130,10 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       else
       {
          table = new ExpressionTable(tableModel,
-               LanguageDirection
-                     .valueOf(languageGroup.getSelection().getActionCommand()).getDirection(),
-               connector, false, new ExpressionColumnModel(Direction
-                     .valueOf(languageGroup.getSelection().getActionCommand())));
+               Direction
+                     .NEW_TO_OWN,
+               connector, false, new ExpressionColumnModel(Direction.NEW_TO_OWN
+                     ));
          JScrollPane scrollPane = new JScrollPane(table);
          scrollPane.setOpaque(false);
          scrollPane.getViewport().setOpaque(false);
@@ -182,30 +157,6 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       }
    }
 
-   private void initLanguageButtonGroup(ButtonGroup languageTypeGroup)
-   {
-      Font font = ApplicationFonts.getGermanFont(20F);
-
-      JRadioButton german = new JRadioButton(Common.getTranslator().realisticTranslate(Translation.DEUTSCH));
-      german.setActionCommand(Direction.OWN_TO_NEW.name());
-      german.setFont(font);
-      languageTypeGroup.add(german);
-
-      JRadioButton hebrew = new JRadioButton(Common.getTranslator().realisticTranslate(Translation.NEUE_SPRACHE));
-      hebrew.setActionCommand(Direction.NEW_TO_OWN.name());
-      hebrew.setFont(font);
-      languageTypeGroup.add(hebrew);
-
-      if (LanguageDirection.OWN_TO_HEBREW.equals(initialLanguage))
-      {
-         german.setSelected(true);
-      }
-      else
-      {
-         hebrew.setSelected(true);
-      }
-   }
-
    @Override
    public boolean isRestore()
    {
@@ -217,13 +168,6 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    {
       tablePanel.validate();
       tablePanel.repaint();
-   }
-
-   @Override
-   public LanguageDirection getSelectedLanguage()
-   {
-      return LanguageDirection
-            .valueOf(languageGroup.getSelection().getActionCommand());
    }
 
    @Override
