@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
-import org.apache.commons.lang3.StringUtils;
 
 public class NikudStyledDocument extends DefaultStyledDocument
 {
@@ -103,7 +102,7 @@ public class NikudStyledDocument extends DefaultStyledDocument
             // okay
             builder.append(letter.getUnicode());
          }
-         else if (StringUtils.containsIgnoreCase(signPattern, signcode))
+         else if (signPattern.contains(signcode))
          {
             // okay
             builder

@@ -7,8 +7,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class GermanDocument extends PlainDocument
 {
    private static final long serialVersionUID = 7089213677826493757L;
@@ -117,7 +115,7 @@ public class GermanDocument extends PlainDocument
             // okay
             builder.append(letter.getUnicode());
          }
-         else if (StringUtils.containsIgnoreCase(signPattern, signcode))
+         else if (signPattern.contains(signcode))
          {
             // okay
             builder
@@ -125,8 +123,7 @@ public class GermanDocument extends PlainDocument
                   .getLetterFromCode(signcode, LetterType.SIGN)
                   .getUnicode());
          }
-         else if (StringUtils
-               .containsIgnoreCase(numberPattern, numbercode))
+         else if (numberPattern.contains(numbercode))
          {
             // okay
             builder

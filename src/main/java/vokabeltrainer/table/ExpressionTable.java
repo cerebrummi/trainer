@@ -43,7 +43,7 @@ public class ExpressionTable extends JTable
 
       if (editable && connector != null)
       {
-         String editCommand = "edit";
+         String editCommand = "enter";
          KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
          getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
                .put(enter, editCommand);

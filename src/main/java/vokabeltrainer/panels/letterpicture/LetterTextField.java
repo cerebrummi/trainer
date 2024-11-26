@@ -2,8 +2,6 @@ package vokabeltrainer.panels.letterpicture;
 
 import javax.swing.JTextField;
 
-import org.apache.commons.lang3.StringUtils;
-
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.editing.LetterHelper;
 
@@ -25,9 +23,9 @@ public class LetterTextField extends JTextField
    
    public boolean isOkay()
    {
-      if(!StringUtils.strip(this.getText()).isEmpty())
+      if(!this.getText().strip().isEmpty())
       {
-         return letter == LetterHelper.findNikudLetters(StringUtils.strip(this.getText())).get(0);
+         return letter == LetterHelper.findNikudLetters(this.getText().strip()).get(0);
       }
       return false;
    }

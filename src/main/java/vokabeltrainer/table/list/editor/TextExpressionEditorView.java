@@ -685,7 +685,7 @@ public class TextExpressionEditorView extends JDialog
 
       expression.setLastModified(LocalDateTime.now());
       
-      expression.setLevel((Integer)level.getSelectedItem());
+      expression.setLevel(level.getSelectedIndex());
    }
 
    private String cleanTextAndNoComma(String text)

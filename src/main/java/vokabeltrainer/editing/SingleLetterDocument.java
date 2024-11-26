@@ -7,8 +7,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class SingleLetterDocument extends PlainDocument
 {
    private static final long serialVersionUID = -6914168959814651195L;
@@ -42,7 +40,7 @@ public class SingleLetterDocument extends PlainDocument
 
          for (int i = 0; i < list.size(); i++)
          {
-            if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+            if (pattern.contains(list.get(i)))
             {
                // okay
             }
@@ -78,7 +76,7 @@ public class SingleLetterDocument extends PlainDocument
 
          for (int i = 0; i < list.size(); i++)
          {
-            if (StringUtils.containsIgnoreCase(pattern, list.get(i)))
+            if (pattern.contains(list.get(i)))
             {
                // okay
             }

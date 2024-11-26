@@ -11,7 +11,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-16</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<native.maven.plugin.version>0.9.21</native.maven.plugin.version>
 		<junit.jupiter.version>5.8.1</junit.jupiter.version>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -87,63 +87,11 @@
 					</descriptorRefs>
 				</configuration>
 			</plugin>
-			<!-- LAUNCH4J -->
-			<plugin>
-				<groupId>com.akathist.maven.plugins.launch4j</groupId>
-				<artifactId>launch4j-maven-plugin</artifactId>
-				<version>2.1.2</version>
-				<executions>
-					<execution>
-						<id>l4j-cerebrummi</id>
-						<phase>package</phase>
-						<goals>
-							<goal>launch4j</goal>
-						</goals>
-						<configuration>
-							<icon>
-								C:\Users\heeren\Documents\building_cerebrummi\output\Cerebrummi.ico</icon>
-							<headerType>gui</headerType>
-							<jar>
-								target/vokabeltrainer-3.1-SNAPSHOT-jar-with-dependencies.jar</jar>
-							<outfile>target/Cerebrummi.exe</outfile>
-							<downloadUrl>http://java.com/download</downloadUrl>
-							<classPath>
-								<mainClass>vokabeltrainer.common.Main</mainClass>
-							</classPath>
-							<jre>
-								<bundledJre64Bit>false</bundledJre64Bit>
-								<bundledJreAsFallback>false</bundledJreAsFallback>
-								<minVersion>21.0</minVersion>
-								<jdkPreference>preferJre</jdkPreference>
-								<runtimeBits>64</runtimeBits>
-								<opts>
-									<opt>-Dsun.java2d.uiScale=1</opt>
-								</opts>
-							</jre>
-							<versionInfo>
-								<fileVersion>5.0.0.0</fileVersion>
-								<txtFileVersion>5.0.0.0</txtFileVersion>
-								<fileDescription>de.birkeheeren.cerebrummi</fileDescription>
-								<copyright>C</copyright>
-								<productVersion>5.0.0.0</productVersion>
-								<txtProductVersion>5.0.0.0</txtProductVersion>
-								<productName>cerebrummi</productName>
-								<internalName>Cerebrummi</internalName>
-								<originalFilename>Cerebrummi.exe</originalFilename>
-							</versionInfo>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.8.1</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -158,31 +106,6 @@
 			<id>native</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.graalvm.buildtools</groupId>
-						<artifactId>native-maven-plugin</artifactId>
-						<version>0.9.20</version>
-						<extensions>true</extensions>
-						<executions>
-							<execution>
-								<id>build-native</id>
-								<goals>
-									<goal>build</goal>
-								</goals>
-								<phase>package</phase>
-							</execution>
-							<execution>
-								<id>test-native</id>
-								<goals>
-									<goal>test</goal>
-								</goals>
-								<phase>test</phase>
-							</execution>
-						</executions>
-						<configuration>
-							<fallback>false</fallback>
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>

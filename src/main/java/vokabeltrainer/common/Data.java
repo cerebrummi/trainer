@@ -425,17 +425,17 @@ public final class Data
 
             if (germanToOwn.exists())
             {
-               readTrainingFile(ownToGerman, LanguageDirection.GERMAN_TO_OWN);
+               readTrainingFile(germanToOwn, LanguageDirection.GERMAN_TO_OWN);
             }
 
             if (hebrewToOwn.exists())
             {
-               readTrainingFile(ownToHebrew, LanguageDirection.HEBREW_TO_OWN);
+               readTrainingFile(hebrewToOwn, LanguageDirection.HEBREW_TO_OWN);
             }
 
             if (swedishToOwn.exists())
             {
-               readTrainingFile(ownToSwedish, LanguageDirection.SWEDISH_TO_OWN);
+               readTrainingFile(swedishToOwn, LanguageDirection.SWEDISH_TO_OWN);
             }
          }
       }

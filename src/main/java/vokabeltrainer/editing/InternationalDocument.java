@@ -7,8 +7,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class InternationalDocument extends PlainDocument
 {
    private static final long serialVersionUID = 7089213677826493757L;
@@ -106,7 +104,7 @@ public class InternationalDocument extends PlainDocument
       {
          String code = list.get(i);
          //
-         if (StringUtils.containsIgnoreCase(exclusionPattern, code))
+         if (exclusionPattern.contains(code))
          { 
             return false;
          }

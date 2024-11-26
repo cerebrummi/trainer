@@ -8,8 +8,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.text.DefaultFormatterFactory;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class NumberCodeFormatterFactory extends DefaultFormatterFactory
 {
    private static final long serialVersionUID = -5068274823185920930L;
@@ -99,7 +97,7 @@ public class NumberCodeFormatterFactory extends DefaultFormatterFactory
             List<String> list = LetterHelper.findLetterCodes(text, LetterType.NUMBER);
             for (String letter : list)
             {
-               if (!StringUtils.containsIgnoreCase(pattern, letter))
+               if (!pattern.contains(letter))
                {
                   Toolkit.getDefaultToolkit().beep();
                   return "";

@@ -6,7 +6,6 @@ import java.util.List;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
-import org.apache.commons.lang3.StringUtils;
 
 public class ExtraInformationDocument extends DefaultStyledDocument
 {
@@ -105,7 +104,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
       {
          String code = list.get(i);
          //
-         if (StringUtils.containsIgnoreCase(exclusionPattern, code))
+         if (exclusionPattern.contains(code))
          { 
             return false;
          }

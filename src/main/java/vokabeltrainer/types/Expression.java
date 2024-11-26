@@ -524,6 +524,7 @@ public class Expression
       joiner.add(getSearchWordsHebrewForSaving());
       joiner.add(lastModified.toString());
       joiner.add(sortingIndex);
+      joiner.add(String.valueOf(level));
       return joiner.toString();
    }
 

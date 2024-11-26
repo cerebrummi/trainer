@@ -6,8 +6,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class SwedishDocument extends PlainDocument
 {
    private static final int NUMBER_OF_LETTERS_ALLOWED = 500;
@@ -104,7 +102,7 @@ public class SwedishDocument extends PlainDocument
             // okay
             builder.append(letter.getUnicode());
          }
-         else if (StringUtils.containsIgnoreCase(signPattern, signcode))
+         else if (signPattern.contains(signcode))
          {
             // okay
             builder
