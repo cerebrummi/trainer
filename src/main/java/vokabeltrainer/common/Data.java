@@ -664,7 +664,7 @@ public final class Data
       private void readFileAvailable(LetterForSaving letter, Database origin)
       {
          try (InputStream fis = Vocabulary.class
-               .getResourceAsStream(origin.getFolder() + "/"
+               .getResourceAsStream(origin.getFolder() + File.separator
                      + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
@@ -686,7 +686,7 @@ public final class Data
             boolean overwriteDatabaseName, String databaseName)
       {
          try (InputStream fis = Vocabulary.class
-               .getResourceAsStream(origin.getFolder() + "/"
+               .getResourceAsStream(origin.getFolder() + File.separator
                      + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
@@ -1113,7 +1113,7 @@ public final class Data
          else
          {
             System.out.println(
-                  "Data: Search: Es wurde eine nicht ber�cksichtigte Kombination gefunden:\n"
+                  "Data: Search: Es wurde eine nicht berücksichtigte Kombination gefunden:\n"
                         + "Direction = " + direction + ", kind = " + kind
                         + ", search = " + search + "\n" + "chapter = " + chapter
                         + ", command = " + command + ", sortForDate = "

@@ -1,6 +1,7 @@
 package vokabeltrainer.resources;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,25 +12,26 @@ import vokabeltrainer.editing.NikudLetter;
 
 public class LetterIcons
 {
-   
+
    public static void readNikud() throws Exception
    {
       Map<NikudLetter, BufferedImage> letterIconsNikudMap = new HashMap<>();
-      
-      for(NikudLetter letter : NikudLetter.values())
+
+      for (NikudLetter letter : NikudLetter.values())
       {
-         if(letter == NikudLetter.NEWSPACE || letter == NikudLetter.SPACE)
+         if (letter == NikudLetter.NEWSPACE || letter == NikudLetter.SPACE)
          {
             continue;
          }
-         BufferedImage image = ImageIO.read(
-               LetterIcons.class.getResourceAsStream("letterIcons/"+letter.name()+".png"));
-         if(image != null)
+         BufferedImage image = ImageIO
+               .read(LetterIcons.class.getResourceAsStream(
+                     "letterIcons" + File.separator + letter.name() + ".png"));
+         if (image != null)
          {
             letterIconsNikudMap.put(letter, image);
          }
       }
-      
+
       ApplicationImages.setLetterIconsNikudMap(letterIconsNikudMap);
    }
 }

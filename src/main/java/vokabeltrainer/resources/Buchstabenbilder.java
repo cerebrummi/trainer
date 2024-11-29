@@ -1,6 +1,7 @@
 package vokabeltrainer.resources;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -33,17 +34,15 @@ public class Buchstabenbilder
          {
             continue;
          }
-         BufferedImage picture = ImageIO
-               .read(Buchstabenbilder.class
-                     .getResourceAsStream(
-                           "buchstabenbilder/" + letter.name() + ".png"));
+         BufferedImage picture = ImageIO.read(
+               Buchstabenbilder.class.getResourceAsStream("buchstabenbilder"
+                     + File.separator + letter.name() + ".png"));
 
          if (!(NikudLetter.SPACE == letter || NikudLetter.GERESCH == letter
                || NikudLetter.GERSCHAYIM == letter))
          {
-            letterPicturesPanelMap
-                  .put(letter,
-                        new LetterPictureButtonPanel(picture, letter, cards));
+            letterPicturesPanelMap.put(letter,
+                  new LetterPictureButtonPanel(picture, letter, cards));
          }
 
          letterPicturesMap.put(letter, picture);

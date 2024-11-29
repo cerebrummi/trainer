@@ -243,7 +243,7 @@ public final class Main
             catch (Exception e)
             {
                JOptionPane
-                     .showMessageDialog(null, message + "Gr�ne Bilder fehlen",
+                     .showMessageDialog(null, message + "Grüne Bilder fehlen",
                            "Nachricht", JOptionPane.CLOSED_OPTION);
                System.exit(1);
             }
