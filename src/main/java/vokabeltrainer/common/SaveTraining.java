@@ -54,9 +54,10 @@ public final class SaveTraining
                }
             }
 
-            for (LanguageDirection languageDirection : LanguageDirection.values())
+            for (LanguageDirection languageDirection : LanguageDirection
+                  .values())
             {
-               save(languageDirection);
+               doSave(languageDirection);
                progress += 100 / ExpressionKind.values().length;
                bar.setProgress(progress);
             }
@@ -85,7 +86,7 @@ public final class SaveTraining
       return false;
    }
 
-   private void save(LanguageDirection languageDirection) throws IOException
+   private void doSave(LanguageDirection languageDirection) throws IOException
    {
       File file = new File(Settings.getTrainingPath() + File.separator
             + languageDirection.name() + ".txt");
@@ -95,11 +96,15 @@ public final class SaveTraining
       StringJoiner joiner = new StringJoiner("\n");
       for (Expression expression : getAllValues())
       {
-         if (expression.getTrainingStatus(languageDirection.getDirection())
-               .isTrainingStarted())
+         if (languageDirection.name()
+               .contains(expression.getLL().getLltype().name()))
          {
-            joiner.add(expression.getTrainingPrintLine(languageDirection));
-            counter++;
+            if (expression.getTrainingStatus(languageDirection.getDirection())
+                  .isTrainingStarted())
+            {
+               joiner.add(expression.getTrainingPrintLine(languageDirection));
+               counter++;
+            }
          }
       }
       writer.write(joiner.toString());
