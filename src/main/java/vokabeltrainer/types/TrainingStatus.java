@@ -229,15 +229,15 @@ public class TrainingStatus
 
    private boolean checkOnBreak(LocalDate future)
    {
-      if(!Settings.isSchabbat_modus())
+      if(Settings.isSchabbat_modus())
       {
+         if(Common.isSchabbatPossible(future))
+         {
+            return false;
+         }
          return true;
       }
-      else if(!Common.isSchabbatPossible(future))
-      {
-         return true;
-      }
-      return false;
+      return true;
    }
 
    public boolean isTrainingDone()
