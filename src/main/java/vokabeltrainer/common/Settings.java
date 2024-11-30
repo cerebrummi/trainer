@@ -24,7 +24,7 @@ public class Settings
       GERMAN
    }
    
-   private static boolean soundOn = true;
+   private static boolean soundOn = false;
    private static String chosenExpressionPath = null;
    private static float volume = -20;
    private static boolean letterImagesOn = true;
@@ -54,7 +54,7 @@ public class Settings
    private static boolean repetition_five_months;
    private static boolean repetition_done = true;
    
-   private static boolean schabbat_modus = true;
+   private static boolean schabbat_modus = false;
    
    private static WritingDirection myWritingDirection = readMyWritingDirection();
 
