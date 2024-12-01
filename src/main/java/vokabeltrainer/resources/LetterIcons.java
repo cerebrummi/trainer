@@ -1,7 +1,6 @@
 package vokabeltrainer.resources;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +24,7 @@ public class LetterIcons
          }
          BufferedImage image = ImageIO
                .read(LetterIcons.class.getResourceAsStream(
-                     "letterIcons" + File.separator + letter.name() + ".png"));
+                     "letterIcons/" + letter.name() + ".png"));
          if (image != null)
          {
             letterIconsNikudMap.put(letter, image);

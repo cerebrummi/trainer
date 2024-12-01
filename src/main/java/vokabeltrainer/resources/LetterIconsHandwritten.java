@@ -1,7 +1,6 @@
 package vokabeltrainer.resources;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +23,7 @@ public class LetterIconsHandwritten
             continue;
          }
          BufferedImage image = ImageIO.read(LetterIconsHandwritten.class
-               .getResourceAsStream("letterIconsHandwritten" + File.separator
+               .getResourceAsStream("letterIconsHandwritten/"
                      + letter.name() + ".png"));
          if (image != null)
          {
