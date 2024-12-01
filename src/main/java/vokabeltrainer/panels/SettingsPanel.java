@@ -862,7 +862,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       if (JFileChooser.APPROVE_OPTION == choice)
       {
-         String splitter = "\\" + File.separator;
+         String splitter = File.separator + File.separator;
          String[] foldersAndFile = folderChooser.getSelectedFile().getPath()
                .split(splitter);
          PathAndFile pathAndFile = new PathAndFile();
