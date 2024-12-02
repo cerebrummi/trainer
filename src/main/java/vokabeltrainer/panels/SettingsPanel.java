@@ -501,10 +501,19 @@ public class SettingsPanel extends BackgroundPanelTiled
                      .getControl(FloatControl.Type.MASTER_GAIN);
                volume.setValue(Settings.getVolume());
                clip.start();
+               do {
+                  Thread.sleep(100);
+              } while (clip.isRunning());
+               clip.close();
             }
             catch (LineUnavailableException | IOException e)
             {
                // nothing
+            }
+            catch (InterruptedException e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
             }
          }
       });
@@ -520,8 +529,16 @@ public class SettingsPanel extends BackgroundPanelTiled
                      .getControl(FloatControl.Type.MASTER_GAIN);
                volume.setValue(Settings.getVolume());
                clip.start();
+               do {
+                  Thread.sleep(100);
+              } while (clip.isRunning());
+               clip.close();
             }
             catch (LineUnavailableException | IOException e)
+            {
+               // nothing
+            }
+            catch (InterruptedException e)
             {
                // nothing
             }
@@ -539,10 +556,19 @@ public class SettingsPanel extends BackgroundPanelTiled
                      .getControl(FloatControl.Type.MASTER_GAIN);
                volume.setValue(Settings.getVolume());
                clip.start();
+               do {
+                  Thread.sleep(100);
+              } while (clip.isRunning());
+               clip.close();
             }
             catch (LineUnavailableException | IOException e)
             {
                // nothing
+            }
+            catch (InterruptedException e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
             }
          }
       });
@@ -558,10 +584,19 @@ public class SettingsPanel extends BackgroundPanelTiled
                      .getControl(FloatControl.Type.MASTER_GAIN);
                volume.setValue(Settings.getVolume());
                clip.start();
+               do {
+                  Thread.sleep(100);
+              } while (clip.isRunning());
+               clip.close();
             }
             catch (LineUnavailableException | IOException e)
             {
                // nothing
+            }
+            catch (InterruptedException e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
             }
          }
       });

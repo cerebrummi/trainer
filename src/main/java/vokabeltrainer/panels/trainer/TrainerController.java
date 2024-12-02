@@ -61,7 +61,7 @@ public class TrainerController implements TrainerControllerConnector
       trainerView = new TrainerView(this);
 
       newWordsToLearn = this.newExpressions.size();
-      
+
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
          oldWordsToRepeat = this.oldExpressions.size();
@@ -181,8 +181,8 @@ public class TrainerController implements TrainerControllerConnector
       case HEBREW_TO_OWN:
          if (currentExpression.getLL().isSimpleHebrew())
          {
-            trainerView.getQuestionFieldLL().setHebrewFieldText(
-                  currentExpression.getLL().getHebrew());
+            trainerView.getQuestionFieldLL()
+                  .setHebrewFieldText(currentExpression.getLL().getHebrew());
             trainerView.getQuestionFieldLL()
                   .setLayoutNoKeyboard(Selection.SIMPLE);
          }
@@ -197,16 +197,15 @@ public class TrainerController implements TrainerControllerConnector
          }
          break;
       case SWEDISH_TO_OWN:
-         trainerView.getQuestionFieldLL().setSwedishFieldText(
-               currentExpression.getLL().getSwedish());
+         trainerView.getQuestionFieldLL()
+               .setSwedishFieldText(currentExpression.getLL().getSwedish());
          trainerView.getQuestionFieldLL()
                .setLayoutNoKeyboard(Selection.SWEDISH);
          break;
       case GERMAN_TO_OWN:
-         trainerView.getQuestionFieldLL().setGermanFieldText(
-               currentExpression.getLL().getGerman());
          trainerView.getQuestionFieldLL()
-               .setLayoutNoKeyboard(Selection.GERMAN);
+               .setGermanFieldText(currentExpression.getLL().getGerman());
+         trainerView.getQuestionFieldLL().setLayoutNoKeyboard(Selection.GERMAN);
          break;
       }
 
@@ -218,20 +217,20 @@ public class TrainerController implements TrainerControllerConnector
    {
       try
       {
-         switch(languageDirection)
+         switch (languageDirection)
          {
          case OWN_TO_SWEDISH:
          case OWN_TO_HEBREW:
          case OWN_TO_GERMAN:
             BestResult bestResult;
-            if(LanguageDirection.OWN_TO_HEBREW == languageDirection)
+            if (LanguageDirection.OWN_TO_HEBREW == languageDirection)
             {
                bestResult = NikudResultFactory.getBestResultPossible(
                      currentExpression,
                      trainerView.getAnswerField().getText().trim(),
                      ApplicationFonts.getHebrewFont(30F));
             }
-            else if(LanguageDirection.OWN_TO_SWEDISH == languageDirection)
+            else if (LanguageDirection.OWN_TO_SWEDISH == languageDirection)
             {
                bestResult = SwedishResultFactory.getBestResultPossible(
                      currentExpression,
@@ -262,9 +261,9 @@ public class TrainerController implements TrainerControllerConnector
                            Translation.IHR_TRAININGSWORT_ENTHAELT_KEINE_BUCHSTABEN_),
                            translator.realisticTranslate(
                                  Translation.BITTE_LOESCHEN_SIE_DIESEN_AUSDRUCK),
-                           translator
-                                 .realisticTranslate(Translation.AUS_KAPITEL)
-                                 + " " + currentExpression.getChapter().getName())));
+                           translator.realisticTranslate(
+                                 Translation.AUS_KAPITEL) + " "
+                                 + currentExpression.getChapter().getName())));
                return;
             }
             trainerView.prepareDtoNikudFeedbackPanel(result);
@@ -304,7 +303,8 @@ public class TrainerController implements TrainerControllerConnector
             currentExpression.getTrainingStatusDToLL().setTrys(
                   currentExpression.getTrainingStatusDToLL().getTrys() + 1);
             currentExpression.getTrainingStatusDToLL().setTotalTrys(
-                  currentExpression.getTrainingStatusDToLL().getTotalTrys() + 1);
+                  currentExpression.getTrainingStatusDToLL().getTotalTrys()
+                        + 1);
             expressionsToBeTested.add(currentExpression);
          }
          else
@@ -386,7 +386,8 @@ public class TrainerController implements TrainerControllerConnector
             currentExpression.getTrainingStatusLLToD().setTrys(
                   currentExpression.getTrainingStatusLLToD().getTrys() + 1);
             currentExpression.getTrainingStatusLLToD().setTotalTrys(
-                  currentExpression.getTrainingStatusLLToD().getTotalTrys() + 1);
+                  currentExpression.getTrainingStatusLLToD().getTotalTrys()
+                        + 1);
             expressionsToBeTested.add(currentExpression);
          }
          else
@@ -468,8 +469,17 @@ public class TrainerController implements TrainerControllerConnector
                .getControl(FloatControl.Type.MASTER_GAIN);
          volume.setValue(Settings.getVolume());
          clip.start();
+         do
+         {
+            Thread.sleep(100);
+         } while (clip.isRunning());
+         clip.close();
       }
       catch (LineUnavailableException | IOException e)
+      {
+         // nothing
+      }
+      catch (InterruptedException e)
       {
          // nothing
       }
@@ -487,8 +497,17 @@ public class TrainerController implements TrainerControllerConnector
                .getControl(FloatControl.Type.MASTER_GAIN);
          volume.setValue(Settings.getVolume());
          clip.start();
+         do
+         {
+            Thread.sleep(100);
+         } while (clip.isRunning());
+         clip.close();
       }
       catch (LineUnavailableException | IOException e)
+      {
+         // nothing
+      }
+      catch (InterruptedException e)
       {
          // nothing
       }
@@ -506,8 +525,17 @@ public class TrainerController implements TrainerControllerConnector
                .getControl(FloatControl.Type.MASTER_GAIN);
          volume.setValue(Settings.getVolume());
          clip.start();
+         do
+         {
+            Thread.sleep(100);
+         } while (clip.isRunning());
+         clip.close();
       }
       catch (LineUnavailableException | IOException e)
+      {
+         // nothing
+      }
+      catch (InterruptedException e)
       {
          // nothing
       }
