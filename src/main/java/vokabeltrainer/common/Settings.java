@@ -87,9 +87,9 @@ public class Settings
 
    public static String getExpressionPath()
    {
-      if (chosenExpressionPath == null)
+      if (chosenExpressionPath == null || chosenExpressionPath.isBlank())
       {
-         return System.getProperty("user.home");
+         chosenExpressionPath = System.getProperty("user.home");
       }
       return chosenExpressionPath;
    }

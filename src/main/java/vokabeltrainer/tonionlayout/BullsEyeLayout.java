@@ -12,7 +12,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 import java.awt.LayoutManager2;
 
 import javax.swing.JViewport;
@@ -62,7 +61,7 @@ import javax.swing.JViewport;
  */
 
 public class BullsEyeLayout
-      implements LayoutManager, LayoutManager2, java.io.Serializable
+      implements LayoutManager2, java.io.Serializable
 {
 
    /*
