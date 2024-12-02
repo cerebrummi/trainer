@@ -93,7 +93,7 @@ public final class SaveExpressions
                   {
                      JOptionPane.showMessageDialog(Common.getjFrame(),
                            "Es hat beim Speichern einen Fehler gegeben.\n"
-                                 + "W�hlen Sie einen anderen Speicherort.",
+                                 + "Wählen Sie einen anderen Speicherort.",
                            "Fehler", JOptionPane.ERROR_MESSAGE);
                   }
                }
