@@ -24,6 +24,12 @@ public class Settings
       GERMAN
    }
    
+   public enum OperatingSystem
+   {
+      WINDOWS,
+      LINUX
+   }
+   
    private static boolean soundOn = false;
    private static String chosenExpressionPath = null;
    private static float volume = -20;
@@ -58,11 +64,27 @@ public class Settings
    
    private static WritingDirection myWritingDirection = readMyWritingDirection();
 
+   private static OperatingSystem operatingSystem = figureBetriebssystem();
+
    
 
    private Settings()
    {
 	  
+   }
+
+   private static OperatingSystem figureBetriebssystem()
+   {
+      if("\\".equalsIgnoreCase(File.separator))
+      {
+         return OperatingSystem.WINDOWS;
+      }
+      return OperatingSystem.LINUX;
+   }
+   
+   public static OperatingSystem getOperatingSystem()
+   {
+      return operatingSystem;
    }
 
    public static String getVersion()

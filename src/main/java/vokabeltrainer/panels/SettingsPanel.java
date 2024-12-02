@@ -43,6 +43,7 @@ import vokabeltrainer.common.ImportExpressions;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.Settings.OperatingSystem;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -862,7 +863,16 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       if (JFileChooser.APPROVE_OPTION == choice)
       {
-         String splitter = File.separator + File.separator;
+         String splitter = null;
+         if(OperatingSystem.WINDOWS == Settings.getOperatingSystem())
+         {
+            splitter = File.separator + File.separator;
+         }
+         else
+         {
+            splitter = File.separator;
+         }
+         
          String[] foldersAndFile = folderChooser.getSelectedFile().getPath()
                .split(splitter);
          PathAndFile pathAndFile = new PathAndFile();
