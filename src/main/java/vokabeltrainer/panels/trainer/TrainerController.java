@@ -461,9 +461,8 @@ public class TrainerController implements TrainerControllerConnector
 
    private void reactFalseWithSoundOn()
    {
-      try
+      try(Clip clip = AudioSystem.getClip())
       {
-         Clip clip = AudioSystem.getClip();
          clip.open(ApplicationSound.getSplotchSound());
          FloatControl volume = (FloatControl) clip
                .getControl(FloatControl.Type.MASTER_GAIN);
@@ -473,7 +472,6 @@ public class TrainerController implements TrainerControllerConnector
          {
             Thread.sleep(100);
          } while (clip.isRunning());
-         clip.close();
       }
       catch (LineUnavailableException | IOException e)
       {
@@ -489,9 +487,8 @@ public class TrainerController implements TrainerControllerConnector
 
    private void reactOkayWithSoundOn()
    {
-      try
+      try(Clip clip = AudioSystem.getClip())
       {
-         Clip clip = AudioSystem.getClip();
          clip.open(ApplicationSound.getClappingSound());
          FloatControl volume = (FloatControl) clip
                .getControl(FloatControl.Type.MASTER_GAIN);
@@ -501,7 +498,6 @@ public class TrainerController implements TrainerControllerConnector
          {
             Thread.sleep(100);
          } while (clip.isRunning());
-         clip.close();
       }
       catch (LineUnavailableException | IOException e)
       {
@@ -517,9 +513,8 @@ public class TrainerController implements TrainerControllerConnector
 
    private void reactUndecidedWithSoundOn()
    {
-      try
+      try(Clip clip = AudioSystem.getClip())
       {
-         Clip clip = AudioSystem.getClip();
          clip.open(ApplicationSound.getWaveSound());
          FloatControl volume = (FloatControl) clip
                .getControl(FloatControl.Type.MASTER_GAIN);
@@ -529,7 +524,6 @@ public class TrainerController implements TrainerControllerConnector
          {
             Thread.sleep(100);
          } while (clip.isRunning());
-         clip.close();
       }
       catch (LineUnavailableException | IOException e)
       {

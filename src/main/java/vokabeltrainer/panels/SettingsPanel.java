@@ -493,9 +493,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       waveSoundButton.addActionListener(event -> {
          if (Settings.isSoundOn())
          {
-            try
+            try(Clip clip = AudioSystem.getClip())
             {
-               Clip clip = AudioSystem.getClip();
                clip.open(ApplicationSound.getWaveSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
@@ -504,7 +503,6 @@ public class SettingsPanel extends BackgroundPanelTiled
                do {
                   Thread.sleep(100);
               } while (clip.isRunning());
-               clip.close();
             }
             catch (LineUnavailableException | IOException e)
             {
@@ -512,8 +510,7 @@ public class SettingsPanel extends BackgroundPanelTiled
             }
             catch (InterruptedException e)
             {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
+               // nothing
             }
          }
       });
@@ -521,9 +518,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       clappingSoundButton.addActionListener(event -> {
          if (Settings.isSoundOn())
          {
-            try
+            try(Clip clip = AudioSystem.getClip())
             {
-               Clip clip = AudioSystem.getClip();
                clip.open(ApplicationSound.getClappingSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
@@ -532,7 +528,6 @@ public class SettingsPanel extends BackgroundPanelTiled
                do {
                   Thread.sleep(100);
               } while (clip.isRunning());
-               clip.close();
             }
             catch (LineUnavailableException | IOException e)
             {
@@ -548,9 +543,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       splotchSoundButton.addActionListener(event -> {
          if (Settings.isSoundOn())
          {
-            try
+            try(Clip clip = AudioSystem.getClip())
             {
-               Clip clip = AudioSystem.getClip();
                clip.open(ApplicationSound.getSplotchSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
@@ -559,7 +553,6 @@ public class SettingsPanel extends BackgroundPanelTiled
                do {
                   Thread.sleep(100);
               } while (clip.isRunning());
-               clip.close();
             }
             catch (LineUnavailableException | IOException e)
             {
@@ -567,8 +560,7 @@ public class SettingsPanel extends BackgroundPanelTiled
             }
             catch (InterruptedException e)
             {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
+               // nothing
             }
          }
       });
@@ -576,9 +568,8 @@ public class SettingsPanel extends BackgroundPanelTiled
       shredderSoundButton.addActionListener(event -> {
          if (Settings.isSoundOn())
          {
-            try
+            try(Clip clip = AudioSystem.getClip())
             {
-               Clip clip = AudioSystem.getClip();
                clip.open(ApplicationSound.getShredderSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
@@ -587,7 +578,6 @@ public class SettingsPanel extends BackgroundPanelTiled
                do {
                   Thread.sleep(100);
               } while (clip.isRunning());
-               clip.close();
             }
             catch (LineUnavailableException | IOException e)
             {
@@ -595,8 +585,7 @@ public class SettingsPanel extends BackgroundPanelTiled
             }
             catch (InterruptedException e)
             {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
+               // nothing
             }
          }
       });

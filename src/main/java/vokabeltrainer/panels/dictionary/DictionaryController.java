@@ -230,16 +230,23 @@ public class DictionaryController implements DictionaryControllerConnector
       {
          if (Settings.isSoundOn())
          {
-            try
+            try(Clip clip = AudioSystem.getClip())
             {
-               Clip clip = AudioSystem.getClip();
                clip.open(ApplicationSound.getShredderSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
                volume.setValue(Settings.getVolume());
                clip.start();
+               do
+               {
+                  Thread.sleep(100);
+               } while (clip.isRunning());
             }
             catch (LineUnavailableException | IOException e)
+            {
+               // nothing
+            }
+            catch (InterruptedException e)
             {
                // nothing
             }
