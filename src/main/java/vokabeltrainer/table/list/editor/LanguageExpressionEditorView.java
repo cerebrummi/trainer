@@ -42,6 +42,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import vokabeltrainer.InfoComboBox;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputLanguagePanel;
 import vokabeltrainer.InputLanguagePanel.Selection;
@@ -123,7 +124,7 @@ public class LanguageExpressionEditorView extends JDialog
          .realisticTranslate(Translation.HEBRAEISCHE_SUCHWOERTER);
    private String chapterTitle = translator
          .realisticTranslate(Translation.LEKTION);
-   private JComboBox<String> chapter;
+   private InfoComboBox chapter;
    private JTextPane extraInfo;
    private JScrollPane extraInfoScroller;
    private JButton pasteButton;
@@ -159,7 +160,7 @@ public class LanguageExpressionEditorView extends JDialog
 
    private JScrollPane scrollPaneExpressionTable;
 
-   private JComboBox<String> databaseNameField;
+   private InfoComboBox databaseNameField;
 
    private JLabel lastModiefiedLabel;
 
@@ -404,10 +405,11 @@ public class LanguageExpressionEditorView extends JDialog
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
-      chapter = new JComboBox<String>();
+      chapter = new InfoComboBox(this.chapterTitle, 
+            translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM), 
+            translator.realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
       chapter.setEditable(true);
       chapter.setMaximumRowCount(20);
-      chapter.setBorder(new TitledBorder(this.chapterTitle));
       chapter.setOpaque(false);
       chapter.setBackground(ApplicationColors.getTransparent());
       chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
@@ -422,12 +424,12 @@ public class LanguageExpressionEditorView extends JDialog
       indexField.setMinimumSize(new Dimension(85, 70));
       indexField.setMaximumSize(new Dimension(85, 70));
 
-      databaseNameField = new JComboBox<>();
+      databaseNameField = new InfoComboBox(translator.realisticTranslate(Translation.DATENBANK), 
+            translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM), 
+            translator.realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
       databaseNameField.setFont(ApplicationFonts.getButtonFont());
       databaseNameField.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       databaseNameField.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
-      databaseNameField.setBorder(new TitledBorder(
-            translator.realisticTranslate(Translation.DATENBANK)));
       databaseNameField.setEditable(true);
       databaseNameField.setMaximumRowCount(20);
 

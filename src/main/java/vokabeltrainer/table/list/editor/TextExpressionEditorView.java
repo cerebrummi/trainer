@@ -36,6 +36,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
 
+import vokabeltrainer.InfoComboBox;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputLanguagePanel;
 import vokabeltrainer.InputLanguagePanel.Selection;
@@ -119,8 +120,8 @@ public class TextExpressionEditorView extends JDialog
    @SuppressWarnings("unused")
    private NikudExpressionEditorControllerConnector connector;
 
-   private JComboBox<String> databaseNameField;
-   private JComboBox<String> chapter;
+   private InfoComboBox databaseNameField;
+   private InfoComboBox chapter;
    private JComboBox<Integer> level;
 
    private JLabel lastModiefiedLabel;
@@ -358,10 +359,11 @@ public class TextExpressionEditorView extends JDialog
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
-      chapter = new JComboBox<String>();
+      chapter = new InfoComboBox(this.chapterTitle,
+            translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM), 
+            translator.realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
       chapter.setEditable(true);
       chapter.setMaximumRowCount(20);
-      chapter.setBorder(new TitledBorder(this.chapterTitle));
       chapter.setOpaque(false);
       chapter.setBackground(new Color(0, 0, 0, 0));
       chapter.setMinimumSize(new Dimension(WIDTH_PANEL, 70));
@@ -386,12 +388,12 @@ public class TextExpressionEditorView extends JDialog
       indexField.setMinimumSize(new Dimension(85, 70));
       indexField.setMaximumSize(new Dimension(85, 70));
 
-      databaseNameField = new JComboBox<>();
+      databaseNameField = new InfoComboBox(translator.realisticTranslate(Translation.DATENBANK),
+            translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM), 
+            translator.realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
       databaseNameField.setFont(ApplicationFonts.getButtonFont());
       databaseNameField.setMinimumSize(new Dimension(WIDTH_PANEL, 70));
       databaseNameField.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
-      databaseNameField.setBorder(new TitledBorder(
-            translator.realisticTranslate(Translation.DATENBANK)));
       databaseNameField.setEditable(true);
       databaseNameField.setMaximumRowCount(20);
 

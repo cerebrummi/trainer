@@ -414,7 +414,9 @@ public enum Translation {
 	VORHANDENEN_DATENBANKNAMEN_NICHT_UEBERSCHREIBEN("vorhandenen Datenbanknamen NICHT überschreiben", "do NOT change original database name"),
 	VORHANDENEN_DATENBANKNAMEN_UEBERSCHREIBEN("vorhandenen Datenbanknamen überschreiben", "do change database name"),
 	OK("OK", "ok"),
-	NAME_FUER_DIE_DATENBANK("Name für die Datenbank", "new database name");
+	NAME_FUER_DIE_DATENBANK("Name für die Datenbank", "new database name"),
+	ENTER_DRUECKEN__UM("Enter drücken, um", "Hit enter, to"),
+	EINEN_EINTRAG_ZU_AENDERN("einen Eintrag zu ändern.", "change content.");
 
 	private String german;
 	private String english;
