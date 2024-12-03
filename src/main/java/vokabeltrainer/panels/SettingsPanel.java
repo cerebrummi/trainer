@@ -81,7 +81,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       tabbedPane.setFont(ApplicationFonts.getButtonFont());
       tabbedPane.addTab(translator.realisticTranslate(
             Translation.EINSTELLUNGEN_UND_SERVICE), initSettingsTab());
-      
+
       try
       {
          tabbedPane.addTab(translator.realisticTranslate(Translation.INFO),
@@ -100,12 +100,13 @@ public class SettingsPanel extends BackgroundPanelTiled
       {
          // nothing
       }
-      
- //     tabbedPane.addTab(translator.realisticTranslate(
- //           Translation.SICHERHEITSKOPIEN), initBackupsTab());
-      
-      tabbedPane.addTab(translator.realisticTranslate(
-            Translation.SCHABBAT_MODUS), initSchabbatTab());
+
+      // tabbedPane.addTab(translator.realisticTranslate(
+      // Translation.SICHERHEITSKOPIEN), initBackupsTab());
+
+      tabbedPane.addTab(
+            translator.realisticTranslate(Translation.SCHABBAT_MODUS),
+            initSchabbatTab());
 
       add(tabbedPane);
 
@@ -118,29 +119,28 @@ public class SettingsPanel extends BackgroundPanelTiled
       BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
       panel.setLayout(panelLayout);
       panel.setBackground(ApplicationColors.getShadyBlue());
-      
-      modus = new JCheckBox(Common.getTranslator().realisticTranslate(Translation.SCHABBAT_MODUS));
+
+      modus = new JCheckBox(Common.getTranslator()
+            .realisticTranslate(Translation.SCHABBAT_MODUS));
       modus.setFont(ApplicationFonts.getButtonFont());
       modus.setForeground(ApplicationColors.getWhite());
       modus.setSelected(Settings.isSchabbat_modus());
-      if(Common.isSchabbat())
+      if (Common.isSchabbat())
       {
          modus.setEnabled(false);
       }
-      
+
       panel.add(modus);
       return panel;
    }
 
-   /*private Component initBackupsTab()
-   {
-      JPanel panel = new JPanel();
-      BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
-      panel.setLayout(panelLayout);
-      
-      panel.add(new JLabel("work in progress"));
-      return panel;
-   }*/
+   /*
+    * private Component initBackupsTab() { JPanel panel = new JPanel();
+    * BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
+    * panel.setLayout(panelLayout);
+    * 
+    * panel.add(new JLabel("work in progress")); return panel; }
+    */
 
    private Component initLicencingTab() throws IOException
    {
@@ -266,7 +266,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       vertical2.add(initSavePanel());
       vertical2.add(initDeletePanel());
-      
+
       vertical3.add(initImportPanel());
       vertical3.add(initExportPanel());
 
@@ -284,7 +284,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
-      
+
       JLabel deleteLabel = new JLabel(
             translator.realisticTranslate(Translation.LOESCHEN));
       deleteLabel.setFont(ApplicationFonts.getGermanFont(30F));
@@ -297,10 +297,10 @@ public class SettingsPanel extends BackgroundPanelTiled
             Translation.VERSCHIEBT_ALLE_VOKABELN_EINER_DATENBANK_IN_DEN_PAPIERKORB_));
       deleteDatabaseButton.setMinimumSize(new Dimension(WIDTH, 30));
       deleteDatabaseButton.setMaximumSize(new Dimension(WIDTH, 30));
-      
+
       vertical.add(deleteLabel);
       vertical.add(deleteDatabaseButton);
-      
+
       return vertical;
    }
 
@@ -325,14 +325,13 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       folderChooserButtonWithoutSaving = new JButton(
             translator.realisticTranslate(Translation.AENDERN));
-      folderChooserButtonWithoutSaving.setFont(ApplicationFonts.getButtonFont());
+      folderChooserButtonWithoutSaving
+            .setFont(ApplicationFonts.getButtonFont());
       folderChooserButtonWithoutSaving.setToolTipText(translator
             .realisticTranslate(
                   Translation.LAEDT_ALLE_VOKABELN__DIE_AM_NEUEN_ORT_SCHON_VORHANDEN_SIND_)
             + " " + translator.realisticTranslate(
                   Translation.BELAESST_DIE_AKTUELLEN_VOKABELN_AM_ALTEN_ORT));
-
-     
 
       vertical.add(saverLabel);
       vertical.add(folderLabel);
@@ -493,100 +492,136 @@ public class SettingsPanel extends BackgroundPanelTiled
       waveSoundButton.addActionListener(event -> {
          if (Settings.isSoundOn())
          {
-            try(Clip clip = AudioSystem.getClip())
+            new SwingWorker<Void, Void>()
             {
-               clip.open(ApplicationSound.getWaveSound());
-               FloatControl volume = (FloatControl) clip
-                     .getControl(FloatControl.Type.MASTER_GAIN);
-               volume.setValue(Settings.getVolume());
-               clip.start();
-               do {
-                  Thread.sleep(100);
-              } while (clip.isRunning());
-            }
-            catch (LineUnavailableException | IOException e)
-            {
-               // nothing
-            }
-            catch (InterruptedException e)
-            {
-               // nothing
-            }
+               @Override
+               protected Void doInBackground() throws Exception
+               {
+                  try (Clip clip = AudioSystem.getClip())
+                  {
+                     clip.open(ApplicationSound.getWaveSound());
+                     FloatControl volume = (FloatControl) clip
+                           .getControl(FloatControl.Type.MASTER_GAIN);
+                     volume.setValue(Settings.getVolume());
+                     clip.start();
+                     do
+                     {
+                        Thread.sleep(100);
+                     } while (clip.isRunning());
+                  }
+                  catch (LineUnavailableException | IOException e)
+                  {
+                     // nothing
+                  }
+                  catch (InterruptedException e)
+                  {
+                     // nothing
+                  }
+                  return null;
+               }
+            }.execute();
          }
       });
 
       clappingSoundButton.addActionListener(event -> {
          if (Settings.isSoundOn())
          {
-            try(Clip clip = AudioSystem.getClip())
+            new SwingWorker<Void, Void>()
             {
-               clip.open(ApplicationSound.getClappingSound());
-               FloatControl volume = (FloatControl) clip
-                     .getControl(FloatControl.Type.MASTER_GAIN);
-               volume.setValue(Settings.getVolume());
-               clip.start();
-               do {
-                  Thread.sleep(100);
-              } while (clip.isRunning());
-            }
-            catch (LineUnavailableException | IOException e)
-            {
-               // nothing
-            }
-            catch (InterruptedException e)
-            {
-               // nothing
-            }
+               @Override
+               protected Void doInBackground() throws Exception
+               {
+                  try (Clip clip = AudioSystem.getClip())
+                  {
+                     clip.open(ApplicationSound.getClappingSound());
+                     FloatControl volume = (FloatControl) clip
+                           .getControl(FloatControl.Type.MASTER_GAIN);
+                     volume.setValue(Settings.getVolume());
+                     clip.start();
+                     do
+                     {
+                        Thread.sleep(100);
+                     } while (clip.isRunning());
+                  }
+                  catch (LineUnavailableException | IOException e)
+                  {
+                     // nothing
+                  }
+                  catch (InterruptedException e)
+                  {
+                     // nothing
+                  }
+                  return null;
+               }
+            }.execute();
          }
       });
 
       splotchSoundButton.addActionListener(event -> {
          if (Settings.isSoundOn())
          {
-            try(Clip clip = AudioSystem.getClip())
+            new SwingWorker<Void, Void>()
             {
-               clip.open(ApplicationSound.getSplotchSound());
-               FloatControl volume = (FloatControl) clip
-                     .getControl(FloatControl.Type.MASTER_GAIN);
-               volume.setValue(Settings.getVolume());
-               clip.start();
-               do {
-                  Thread.sleep(100);
-              } while (clip.isRunning());
-            }
-            catch (LineUnavailableException | IOException e)
-            {
-               // nothing
-            }
-            catch (InterruptedException e)
-            {
-               // nothing
-            }
+               @Override
+               protected Void doInBackground() throws Exception
+               {
+                  try (Clip clip = AudioSystem.getClip())
+                  {
+                     clip.open(ApplicationSound.getSplotchSound());
+                     FloatControl volume = (FloatControl) clip
+                           .getControl(FloatControl.Type.MASTER_GAIN);
+                     volume.setValue(Settings.getVolume());
+                     clip.start();
+                     do
+                     {
+                        Thread.sleep(100);
+                     } while (clip.isRunning());
+                  }
+                  catch (LineUnavailableException | IOException e)
+                  {
+                     // nothing
+                  }
+                  catch (InterruptedException e)
+                  {
+                     // nothing
+                  }
+                  return null;
+               }
+            }.execute();
          }
       });
 
       shredderSoundButton.addActionListener(event -> {
          if (Settings.isSoundOn())
          {
-            try(Clip clip = AudioSystem.getClip())
+            new SwingWorker<Void, Void>()
             {
-               clip.open(ApplicationSound.getShredderSound());
-               FloatControl volume = (FloatControl) clip
-                     .getControl(FloatControl.Type.MASTER_GAIN);
-               volume.setValue(Settings.getVolume());
-               clip.start();
-               do {
-                  Thread.sleep(100);
-              } while (clip.isRunning());
-            }
-            catch (LineUnavailableException | IOException e)
-            {
-               // nothing
-            }
-            catch (InterruptedException e)
-            {
-               // nothing
-            }
+               @Override
+               protected Void doInBackground() throws Exception
+               {
+                  try (Clip clip = AudioSystem.getClip())
+                  {
+                     clip.open(ApplicationSound.getShredderSound());
+                     FloatControl volume = (FloatControl) clip
+                           .getControl(FloatControl.Type.MASTER_GAIN);
+                     volume.setValue(Settings.getVolume());
+                     clip.start();
+                     do
+                     {
+                        Thread.sleep(100);
+                     } while (clip.isRunning());
+                  }
+                  catch (LineUnavailableException | IOException e)
+                  {
+                     // nothing
+                  }
+                  catch (InterruptedException e)
+                  {
+                     // nothing
+                  }
+                  return null;
+               }
+            }.execute();
          }
       });
 
@@ -819,9 +854,9 @@ public class SettingsPanel extends BackgroundPanelTiled
 
          }.execute();
       });
-      
+
       this.modus.addActionListener(event -> {
-         if(!Common.isSchabbat())
+         if (!Common.isSchabbat())
          {
             Settings.setSchabbat_modus(modus.isSelected());
          }
@@ -888,7 +923,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       if (JFileChooser.APPROVE_OPTION == choice)
       {
          String splitter = null;
-         if(OperatingSystem.WINDOWS == Settings.getOperatingSystem())
+         if (OperatingSystem.WINDOWS == Settings.getOperatingSystem())
          {
             splitter = File.separator + File.separator;
          }
@@ -896,7 +931,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          {
             splitter = File.separator;
          }
-         
+
          String[] foldersAndFile = folderChooser.getSelectedFile().getPath()
                .split(splitter);
          PathAndFile pathAndFile = new PathAndFile();

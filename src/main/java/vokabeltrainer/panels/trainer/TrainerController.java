@@ -16,6 +16,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 
 import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
@@ -461,78 +462,102 @@ public class TrainerController implements TrainerControllerConnector
 
    private void reactFalseWithSoundOn()
    {
-      try(Clip clip = AudioSystem.getClip())
+      new SwingWorker<Void, Void>()
       {
-         clip.open(ApplicationSound.getSplotchSound());
-         FloatControl volume = (FloatControl) clip
-               .getControl(FloatControl.Type.MASTER_GAIN);
-         volume.setValue(Settings.getVolume());
-         clip.start();
-         do
+         @Override
+         protected Void doInBackground() throws Exception
          {
-            Thread.sleep(100);
-         } while (clip.isRunning());
-      }
-      catch (LineUnavailableException | IOException e)
-      {
-         // nothing
-      }
-      catch (InterruptedException e)
-      {
-         // nothing
-      }
+            try (Clip clip = AudioSystem.getClip())
+            {
+               clip.open(ApplicationSound.getSplotchSound());
+               FloatControl volume = (FloatControl) clip
+                     .getControl(FloatControl.Type.MASTER_GAIN);
+               volume.setValue(Settings.getVolume());
+               clip.start();
+               do
+               {
+                  Thread.sleep(100);
+               } while (clip.isRunning());
+            }
+            catch (LineUnavailableException | IOException e)
+            {
+               // nothing
+            }
+            catch (InterruptedException e)
+            {
+               // nothing
+            }
+            return null;
+         }
+      }.execute();
 
       trainerView.showResultRed();
    }
 
    private void reactOkayWithSoundOn()
    {
-      try(Clip clip = AudioSystem.getClip())
+      new SwingWorker<Void, Void>()
       {
-         clip.open(ApplicationSound.getClappingSound());
-         FloatControl volume = (FloatControl) clip
-               .getControl(FloatControl.Type.MASTER_GAIN);
-         volume.setValue(Settings.getVolume());
-         clip.start();
-         do
+         @Override
+         protected Void doInBackground() throws Exception
          {
-            Thread.sleep(100);
-         } while (clip.isRunning());
-      }
-      catch (LineUnavailableException | IOException e)
-      {
-         // nothing
-      }
-      catch (InterruptedException e)
-      {
-         // nothing
-      }
+            try (Clip clip = AudioSystem.getClip())
+            {
+               clip.open(ApplicationSound.getClappingSound());
+               FloatControl volume = (FloatControl) clip
+                     .getControl(FloatControl.Type.MASTER_GAIN);
+               volume.setValue(Settings.getVolume());
+               clip.start();
+               do
+               {
+                  Thread.sleep(100);
+               } while (clip.isRunning());
+            }
+            catch (LineUnavailableException | IOException e)
+            {
+               // nothing
+            }
+            catch (InterruptedException e)
+            {
+               // nothing
+            }
+            return null;
+         }
+      }.execute();
 
       trainerView.showResultGreen();
    }
 
    private void reactUndecidedWithSoundOn()
    {
-      try(Clip clip = AudioSystem.getClip())
+      new SwingWorker<Void, Void>()
       {
-         clip.open(ApplicationSound.getWaveSound());
-         FloatControl volume = (FloatControl) clip
-               .getControl(FloatControl.Type.MASTER_GAIN);
-         volume.setValue(Settings.getVolume());
-         clip.start();
-         do
+         @Override
+         protected Void doInBackground() throws Exception
          {
-            Thread.sleep(100);
-         } while (clip.isRunning());
-      }
-      catch (LineUnavailableException | IOException e)
-      {
-         // nothing
-      }
-      catch (InterruptedException e)
-      {
-         // nothing
-      }
+            try(Clip clip = AudioSystem.getClip())
+            {
+               clip.open(ApplicationSound.getWaveSound());
+               FloatControl volume = (FloatControl) clip
+                     .getControl(FloatControl.Type.MASTER_GAIN);
+               volume.setValue(Settings.getVolume());
+               clip.start();
+               do {
+                  Thread.sleep(100);
+              } while (clip.isRunning());
+            }
+            catch (LineUnavailableException | IOException e)
+            {
+               // nothing
+            }
+            catch (InterruptedException e)
+            {
+               // nothing
+            }
+            return null;
+         }
+
+      }.execute();
 
       trainerView.showResultBlue();
    }

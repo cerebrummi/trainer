@@ -34,7 +34,7 @@ public class KeyboardLanguage extends JPanel
 
    private Scale scale;
    private List<JButton> buttons = new ArrayList<>();
-   
+
    private Component hebrewKeyboard;
    private Component swedishKeyboard;
    private Component germanKeyboard;
@@ -49,52 +49,53 @@ public class KeyboardLanguage extends JPanel
    {
       this.textfield = textfield;
       scale = new Scale(BUTTON_SIZE);
-      
+
       if (textfield != null)
       {
-         if(textfield instanceof InputLanguagePanel)
+         if (textfield instanceof InputLanguagePanel)
          {
             textfield.setMinimumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
             textfield.setMaximumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
-            arrayList.addAll(((InputLanguagePanel)textfield).getTextComponents());
-            ((InputLanguagePanel)textfield).setKeyboard(this);
+            arrayList
+                  .addAll(((InputLanguagePanel) textfield).getTextComponents());
+            ((InputLanguagePanel) textfield).setKeyboard(this);
          }
          else
          {
             textfield.setFont(ApplicationFonts.getHebrewFont(30F));
-            textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            textfield
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             textfield.setMinimumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
             textfield.setMaximumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
             arrayList.add(textfield);
          }
-         
+
       }
 
       this.components = arrayList;
 
-      if(addTextToTheRight)
+      if (addTextToTheRight)
       {
-    	  setLayout(new TrainLayout(this, 10));
+         setLayout(new TrainLayout(this, 10));
       }
       else
       {
-    	  setLayout(new TotemLayout(this, 10));
+         setLayout(new TotemLayout(this, 10));
       }
-      
-      
+
       this.setOpaque(false);
       this.setPreferredSize(new Dimension(Settings.getKeyboardWidth(),
             textFieldHeight + 10 + 218));
 
       if (textfield != null && addTextField)
       {
-    	  this.add(textfield);
+         this.add(textfield);
       }
-      
+
       if (textfield != null && !(textfield instanceof InputLanguagePanel))
       {
          setFocusTraversalPolicy(new OneFocusTraversalPolicy(textfield));
@@ -104,22 +105,22 @@ public class KeyboardLanguage extends JPanel
             this.components, textFieldHeight);
       this.swedishKeyboard = swedishKeyboardMaker.makeRegularKeyboard();
       this.swedishKeyboard.addMouseListener(new KeyboardListener());
-      
+
       germanKeyboardMaker = new KeyboardGermanStandard(this.textfield,
             this.components, textFieldHeight);
       this.germanKeyboard = germanKeyboardMaker.makeRegularKeyboard();
       this.germanKeyboard.addMouseListener(new KeyboardListener());
-      
+
       this.hebrewKeyboard = this.makeHebrewKeyboard();
       setKeyboard(Settings.getLanguageInput());
    }
-   
+
    public void setKeyboard(Selection selection)
    {
       this.removeAll();
-      ((InputLanguagePanel)textfield).setLayoutNoKeyboard(selection);
+      ((InputLanguagePanel) textfield).setLayoutNoKeyboard(selection);
       this.add(textfield);
-      switch(selection)
+      switch (selection)
       {
       case PLENE_DEFEKTIV:
       case SIMPLE:
@@ -135,12 +136,12 @@ public class KeyboardLanguage extends JPanel
       this.validate();
       this.repaint();
    }
-   
+
    public void setKeyboardNoTextfield(Selection selection)
    {
       this.removeAll();
       this.add(textfield);
-      switch(selection)
+      switch (selection)
       {
       case PLENE_DEFEKTIV:
       case SIMPLE:
@@ -226,7 +227,6 @@ public class KeyboardLanguage extends JPanel
       row3.add(makeButton(NikudLetter.TAW));
       row3.add(makeButton(NikudLetter.ZADISSOFIT));
 
-
       JPanel row4 = new JPanel();
       row4.setOpaque(false);
       row4.setLayout(new TrainLayout(row4, 8));
@@ -254,7 +254,7 @@ public class KeyboardLanguage extends JPanel
       row5.add(makeButton(NikudLetter.HOLAM));
       row5.add(makeButton(NikudLetter.QAMATS));
       row5.add(makeButton(NikudLetter.PATAH));
-      
+
       JPanel row6 = new JPanel();
       row6.setOpaque(false);
       row6.setLayout(new TrainLayout(row6, 8));
@@ -268,7 +268,7 @@ public class KeyboardLanguage extends JPanel
       row6.add(makeButton(NikudLetter.SIN_DOT));
       row6.add(makeButton(NikudLetter.SHIN_DOT));
       row6.add(makeButton(NikudLetter.PASEQ));
-      
+
       JPanel row7 = new JPanel();
       row7.setOpaque(false);
       row7.setLayout(new TrainLayout(row7, 8));
@@ -284,11 +284,11 @@ public class KeyboardLanguage extends JPanel
       keyboard.add(row5);
       keyboard.add(row6);
       keyboard.add(row7);
-      
+
       JPanel filler = new JPanel();
       filler.setOpaque(false);
       filler.setBackground(ApplicationColors.getTransparent());
-      
+
       keyboard.add(filler);
       return keyboard;
    }
@@ -305,8 +305,10 @@ public class KeyboardLanguage extends JPanel
 
    private Component makeButton(NikudLetter letter)
    {
-      DataButton jButton = new DataButton(ApplicationImages.getLetterIconsNikudMap()
-            .get(letter).getScaledInstance(scale.getScaleX(), scale.getScaleY(), java.awt.Image.SCALE_SMOOTH),
+      DataButton jButton = new DataButton(
+            ApplicationImages.getLetterIconsNikudMap().get(letter)
+                  .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
+                        java.awt.Image.SCALE_SMOOTH),
             letter.getUnicode());
       jButton.setMargin(new Insets(3, -5, 0, -5));
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
@@ -352,6 +354,7 @@ public class KeyboardLanguage extends JPanel
             String after = text.substring(position);
             focusElement.setText(before + caption + after);
             focusElement.requestFocus();
+            focusElement.setCaretPosition(position + 1);
          }
       }
 
