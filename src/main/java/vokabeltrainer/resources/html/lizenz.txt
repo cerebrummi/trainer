@@ -7,7 +7,7 @@ Alle Rechte vorbehalten./Copyright by Birke Heeren.
 
 
 Installieren und Nutzen Sie den Vokabeltrainer Cerebrummi nur auf EIGENES RISIKO !
-Install and use Cerebrummi only on YOUR OWN RISK!
+Install and use Cerebrummi only at YOUR OWN RISK!
 
 
 Vokabeltrainer Cerebrummi Version 5.0 darf nur als KOSTENFREIE Privatlizenz genutzt werden!
@@ -17,13 +17,13 @@ Produktentwicklung, Programmentwicklung, Programmierung, Projektleitung, Konzept
 Birke Heeren.
 
 Die Software Cerebrummi und das digitalisierte Datenmaterial sind urheberrechtlich geschuetzt und duerfen grundsaetzlich nur privat genutzt werden. Insbesondere Vermietung, Tausch, Sendung, Vervielfaeltigung, Kopieren, Verarbeitung in elektronischen Systemen sind grundsaetzlich unzulaessig. 
-Rueckfragen fuer Ausnahmen sind direkt an Birke Heeren zu richten: dornrose.art@birkeheeren.de
-Aller Code, Daten und Angaben wurden ueberprueft und getestet. ABER: Eine Garantie fuer technische Fehlerfreiheit oder fuer die Richtigkeit der gemachten Angaben wird nicht gegeben.
-/
+Rueckfragen fuer Ausnahmen sind direkt an Birke Heeren zu richten: info@birkeheeren.de
+Aller Code, Daten und Angaben wurden ueberprueft und getestet. ABER: Eine Garantie fuer technische Fehlerfreiheit oder fuer die Richtigkeit der gemachten Angaben und Daten wird nicht gegeben.
+
 The software Cerebrummi and the digital data are copyrighted and only private use is permitted.
 Especially but not limited to rental, exchange, broadcasting, duplication, making copies, and processing in electronic systems are forbidden expressively.
-Requests for exceptions are to be directed at Birke Heeren only: dornrose.art@birkeheeren.de
+Requests for exceptions are to be directed at Birke Heeren only: info@birkeheeren.de
 All code and data was checked and tested. BUT: No warenty is given for any technical errors. And no warenty is given for any information or data given.
 
 
-Greifswald, den/the 14. Nov. 2024
+Greifswald, den/the 04. Dez. 2024
