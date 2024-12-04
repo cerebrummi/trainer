@@ -71,6 +71,9 @@ public class ApplicationImages
    private static BufferedImage languages;
    private static BufferedImage newWordSmall;
    private static BufferedImage l18n;
+   
+   private static BufferedImage questionsAndAnswers;
+   private static BufferedImage questionsAndAnswers2;
 
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    private static Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap;
@@ -920,4 +923,33 @@ public class ApplicationImages
       ApplicationImages.lock = lock;
    }
 
+   public static BufferedImage getQuestionsAndAnswers()
+   {
+      return questionsAndAnswers;
+   }
+
+   public static void setQuestionsAndAnswers(BufferedImage questionsAndAnswers)
+   {
+      if (questionsAndAnswers == null)
+      {
+         exitWithMessage("kein Frage und Antwort Icon");
+      }
+      ApplicationImages.questionsAndAnswers = questionsAndAnswers;
+   }
+
+   public static BufferedImage getQuestionsAndAnswers2()
+   {
+      return questionsAndAnswers2;
+   }
+
+   public static void setQuestionsAndAnswers2(BufferedImage questionsAndAnswers2)
+   {
+      if (questionsAndAnswers2 == null)
+      {
+         exitWithMessage("kein Frage und Antwort Icon Nr.2");
+      }
+      ApplicationImages.questionsAndAnswers2 = questionsAndAnswers2;
+   }
+
+   
 }

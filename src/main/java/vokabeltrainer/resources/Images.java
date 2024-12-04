@@ -191,6 +191,12 @@ public class Images
 
       ApplicationImages.setWork(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/work.png")));
+      
+      ApplicationImages.setQuestionsAndAnswers(ImageIO.read(Images.class
+            .getResourceAsStream("_2_images/questions-and-answers.png")));
+      
+      ApplicationImages.setQuestionsAndAnswers2(ImageIO.read(Images.class
+            .getResourceAsStream("_2_images/questions-and-answers2.png")));
    }
 
 }
