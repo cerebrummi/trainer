@@ -260,7 +260,7 @@ public class TrainerView extends BackgroundPanelTiled
       questionField.setBackground(ApplicationColors.getLightBlue());
       questionField.setFont(ApplicationFonts.getGermanFont(20F));
       questionField.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createEmptyBorder(), translator.realisticTranslate(
+            BorderFactory.createLineBorder(ApplicationColors.getLightBlue()), translator.realisticTranslate(
                   Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
       questionField.setMinimumSize(new Dimension(1200, 160));
       questionField.setMaximumSize(new Dimension(1250, 160));

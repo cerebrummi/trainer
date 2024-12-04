@@ -178,6 +178,8 @@ public class TrainerController implements TrainerControllerConnector
       case OWN_TO_GERMAN:
          trainerView.getQuestionFieldGerman()
                .setText(currentExpression.getOwnLanguage());
+         trainerView.getQuestionFieldGerman().revalidate();
+         trainerView.getQuestionFieldGerman().repaint();
          break;
       case HEBREW_TO_OWN:
          if (currentExpression.getLL().isSimpleHebrew())
@@ -196,17 +198,23 @@ public class TrainerController implements TrainerControllerConnector
             trainerView.getQuestionFieldLL()
                   .setLayoutNoKeyboard(Selection.PLENE_DEFEKTIV);
          }
+         trainerView.getQuestionFieldLL().revalidate();
+         trainerView.getQuestionFieldLL().repaint();
          break;
       case SWEDISH_TO_OWN:
          trainerView.getQuestionFieldLL()
                .setSwedishFieldText(currentExpression.getLL().getSwedish());
          trainerView.getQuestionFieldLL()
                .setLayoutNoKeyboard(Selection.SWEDISH);
+         trainerView.getQuestionFieldLL().revalidate();
+         trainerView.getQuestionFieldLL().repaint();
          break;
       case GERMAN_TO_OWN:
          trainerView.getQuestionFieldLL()
                .setGermanFieldText(currentExpression.getLL().getGerman());
          trainerView.getQuestionFieldLL().setLayoutNoKeyboard(Selection.GERMAN);
+         trainerView.getQuestionFieldLL().revalidate();
+         trainerView.getQuestionFieldLL().repaint();
          break;
       }
 
