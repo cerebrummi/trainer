@@ -56,6 +56,7 @@ public class InputPanel extends JPanel implements TableConnector
 
    private JButton newWordPunktationButton;
    private JButton newTextPunktationButton;
+   private JButton newQuestionsAndAnswersButton;
    private JPanel tablePanel;
    private Chapter currentChapter;
    private ChapterComboBox chapterBox;
@@ -377,6 +378,17 @@ public class InputPanel extends JPanel implements TableConnector
             .setIcon(new ImageIcon(ApplicationImages.getNewWord()));
       newTextPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
             10, 10, ApplicationColors.getGreen()));
+      
+      newQuestionsAndAnswersButton = new JButton(
+            translator.realisticTranslate(Translation.NEUE_FRAGE_UND_ANTWORT));
+      newQuestionsAndAnswersButton.setFont(ApplicationFonts.getButtonFont());
+      newQuestionsAndAnswersButton.setHorizontalAlignment(SwingConstants.LEFT);
+      newQuestionsAndAnswersButton.setMinimumSize(new Dimension(300, 60));
+      newQuestionsAndAnswersButton.setMaximumSize(new Dimension(300, 60));
+      newQuestionsAndAnswersButton
+            .setIcon(new ImageIcon(ApplicationImages.getQuestionsAndAnswers()));
+      newQuestionsAndAnswersButton.setBorder(BorderFactory.createMatteBorder(10, 10,
+            10, 10, ApplicationColors.getGreen()));
 
       horizontal.add(myWritingDirection);
       horizontal.add(otherLanguage);
@@ -384,6 +396,7 @@ public class InputPanel extends JPanel implements TableConnector
       center.add(horizontal);
       center.add(newWordPunktationButton);
       center.add(newTextPunktationButton);
+      center.add(newQuestionsAndAnswersButton);
       leftside.add(center);
       return leftside;
    }

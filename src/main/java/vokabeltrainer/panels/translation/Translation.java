@@ -416,7 +416,8 @@ public enum Translation {
 	OK("OK", "ok"),
 	NAME_FUER_DIE_DATENBANK("Name für die Datenbank", "new database name"),
 	ENTER_DRUECKEN__UM("Enter drücken, um", "Hit enter, to"),
-	EINEN_EINTRAG_ZU_AENDERN("einen Eintrag zu ändern.", "change content.");
+	EINEN_EINTRAG_ZU_AENDERN("einen Eintrag zu ändern.", "change content."),
+	NEUE_FRAGE_UND_ANTWORT("Neues Frage- und Antwortpaar","new Pair of question and answer");
 
 	private String german;
 	private String english;
