@@ -241,7 +241,7 @@ public class CerebrummiPreferences
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
          Settings.initSchabbat_modus(preferences
-               .getBoolean(CerebrummiNodes.getSchabbatModus(), true));
+               .getBoolean(CerebrummiNodes.getSchabbatModus(), false));
       }
       catch (Exception e)
       {

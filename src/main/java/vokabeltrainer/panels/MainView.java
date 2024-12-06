@@ -495,7 +495,7 @@ public class MainView extends JPanel
       menuBar.add(statisticsButton);
       menuBar.add(successButton);
       menuBar.add(sentencesButton);
-      menuBar.add(questionsAndAnswersButton);
+      //menuBar.add(questionsAndAnswersButton);
       menuBar.add(languageButton);
       menuBar.add(Box.createHorizontalGlue());
       menuBar.add(aboutButton);

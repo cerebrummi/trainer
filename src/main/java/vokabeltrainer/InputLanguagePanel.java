@@ -709,6 +709,7 @@ public class InputLanguagePanel extends JTextArea
       {
          this.germanField.setEditable(editable);
       }
+      setEnabled(editable);
    }
 
    public Collection<? extends JTextComponent> getTextComponents()

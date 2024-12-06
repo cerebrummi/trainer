@@ -96,8 +96,7 @@ public final class Common
    
    public static boolean isSchabbatPossible(LocalDate date)
    {
-      ZonedDateTime now = ZonedDateTime.now();
-      DayOfWeek day = now.getDayOfWeek();
+      DayOfWeek day = date.getDayOfWeek();
       if(day.equals(DayOfWeek.FRIDAY) || day.equals(DayOfWeek.SATURDAY))
       {
          return true;
