@@ -704,8 +704,11 @@ public class BullsEyeLayout
                   || self.getParent().getLayout() instanceof TrainLayout
                   || self.getParent().getLayout() instanceof BullsEyeLayout))
       {
-         ((LayoutManager2) self.getParent().getLayout())
-               .invalidateLayout(self.getParent());
+         if(self.getParent() != null)
+         {
+            ((LayoutManager2) self.getParent().getLayout())
+            .invalidateLayout(self.getParent());
+         }
       }
    }
 

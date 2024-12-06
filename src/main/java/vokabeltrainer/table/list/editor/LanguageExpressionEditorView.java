@@ -42,6 +42,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import vokabeltrainer.InfoCheckBox;
 import vokabeltrainer.InfoComboBox;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputLanguagePanel;
@@ -169,6 +170,8 @@ public class LanguageExpressionEditorView extends JDialog
    private JButton loadImageButton;
 
    private JButton removeImageButton;
+
+   private InfoCheckBox visible;
 
    public ImageButton getImageButton()
    {
@@ -819,8 +822,9 @@ public class LanguageExpressionEditorView extends JDialog
       scrollPane2.getViewport()
             .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
+      
+      
       vertical.add(scrollPane2);
-
       vertical.add(initImagePanel());
 
       return vertical;
@@ -832,6 +836,13 @@ public class LanguageExpressionEditorView extends JDialog
       vertical.setOpaque(false);
       vertical.setBackground(ApplicationColors.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 5));
+      
+      visible = new InfoCheckBox(translator.realisticTranslate(Translation.SICHTBAR),
+            translator.realisticTranslate(Translation.BEIM_VOKABEL_ABFRAGEN),
+            translator.realisticTranslate(Translation.GRAMMATIK_SICHTBAR_MACHEN));
+      visible.setFont(ApplicationFonts.getButtonFont());
+      visible.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      visible.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
 
       this.loadImageButton = new JButton(translator.realisticTranslate(Translation.BILD_LADEN));
       loadImageButton.setFont(ApplicationFonts.getButtonFont());
@@ -842,6 +853,7 @@ public class LanguageExpressionEditorView extends JDialog
       imageButton.setMinimumSize(new Dimension(230, 125));
       imageButton.setMaximumSize(new Dimension(230, 125));
 
+      vertical.add(visible);
       vertical.add(loadImageButton);
       vertical.add(removeImageButton);
       vertical.add(imageButton);
