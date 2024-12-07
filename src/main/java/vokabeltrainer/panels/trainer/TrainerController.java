@@ -164,6 +164,14 @@ public class TrainerController implements TrainerControllerConnector
       trainerView.getFocusTraversalPolicy().getFirstComponent(null)
             .requestFocus();
    }
+   
+   private void setGrammarInfo(boolean show)
+   {
+      if(show)
+      {
+         setGrammarInfo();
+      }
+   }
 
    public void setNextTest()
    {
@@ -178,8 +186,10 @@ public class TrainerController implements TrainerControllerConnector
       case OWN_TO_GERMAN:
          trainerView.getQuestionFieldGerman()
                .setText(currentExpression.getOwnLanguage());
-         trainerView.getQuestionFieldGerman().revalidate();
+         trainerView.getQuestionFieldGerman().validate();
          trainerView.getQuestionFieldGerman().repaint();
+         trainerView.getGrammarInfo().setSelected(currentExpression.isVisible()); // only in this languageDirection
+         this.setGrammarInfo(currentExpression.isVisible());
          break;
       case HEBREW_TO_OWN:
          if (currentExpression.getLL().isSimpleHebrew())

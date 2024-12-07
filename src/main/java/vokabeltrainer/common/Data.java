@@ -1018,7 +1018,16 @@ public final class Data
                {
                   // nothing
                }
-
+               index++;
+               try
+               {
+                  expression.setVisible(Boolean.valueOf(entries[index].strip()));
+               }
+               catch (Exception e)
+               {
+                  // nothing
+               }
+               
                if (LetterForLoading.DELETED != letter)
                {
                   expression.setLetterForSaving(letter);

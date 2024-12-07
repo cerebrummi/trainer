@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
@@ -76,7 +77,7 @@ public class TrainerView extends BackgroundPanelTiled
    private ImagePanelBlue imageFieldBlue;
    private CardLayout cardLayout;
    private JPanel questionPanel;
-   private JTextField questionField;
+   private JTextArea questionField;
    private InputLanguagePanel questionFieldLL;
    private JTextPane grammarInfoField;
    private JTextPane additionalInfoField;
@@ -134,21 +135,23 @@ public class TrainerView extends BackgroundPanelTiled
    {
       initTextField(languageDirection);
       initQuestionPanel(languageDirection);
-      
+
       switch (Settings.getMyWritingDirection())
       {
       case LEFT_TO_RIGHT:
          questionField
                .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-         questionFieldLL.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         questionFieldLL
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          break;
       case RIGHT_TO_LEFT:
          questionField
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-         questionFieldLL.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         questionFieldLL
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          break;
       }
-      
+
       switch (languageDirection)
       {
       case OWN_TO_HEBREW:
@@ -194,8 +197,6 @@ public class TrainerView extends BackgroundPanelTiled
                .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          break;
       }
-
-
 
       connector.setNextTest();
 
@@ -253,37 +254,38 @@ public class TrainerView extends BackgroundPanelTiled
    private void initTextField(LanguageDirection languageDirection)
    {
       textFieldPanelWrapper.removeAll();
-      JPanel expandPanel = new JPanel();
-      TrainLayout beLayout = new TrainLayout(expandPanel);
-      expandPanel.setLayout(beLayout);
-      questionField = new JTextField();
-      questionField.setBackground(ApplicationColors.getLightBlue());
-      questionField.setFont(ApplicationFonts.getGermanFont(20F));
-      questionField.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(ApplicationColors.getLightBlue()), translator.realisticTranslate(
-                  Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
-      questionField.setMinimumSize(new Dimension(1200, 160));
-      questionField.setMaximumSize(new Dimension(1250, 160));
-      questionField.setEditable(false);
       
-      questionFieldLL = new InputLanguagePanel(Selection.SIMPLE, 160, 10,
-            false, this, 1268, ApplicationColors.getLightBlue());
-      questionFieldLL.setBackground(ApplicationColors.getLightBlue());
-      questionFieldLL.setBorder(
+      questionField = new JTextArea();
+      questionField.setLineWrap(true);
+      questionField.setWrapStyleWord(true);
+      questionField.setOpaque(false);
+      questionField.setBackground(ApplicationColors.getTransparent());
+      questionField.setForeground(ApplicationColors.getShadyBlue());
+      questionField.setBorder(
             BorderFactory.createTitledBorder(translator.realisticTranslate(
+                  Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
+      questionField.setMinimumSize(new Dimension(600, 160));
+      questionField.setMaximumSize(new Dimension(1268, 160));
+      questionField.setEditable(false);
+
+      questionFieldLL = new InputLanguagePanel(Selection.SIMPLE, 160, 10, false,
+            this, 1268, ApplicationColors.getLightBlue());
+      questionFieldLL.setBackground(ApplicationColors.getLightBlue());
+      questionFieldLL.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(ApplicationColors.getLightBlue()),
+            translator.realisticTranslate(
                   Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
       questionFieldLL.setMinimumSize(new Dimension(600, 160));
       questionFieldLL.setMaximumSize(new Dimension(1268, 160));
       questionFieldLL.setEditable(false);
       questionFieldLL.setEnabled(false);
-      
+
       switch (languageDirection)
       {
       case OWN_TO_SWEDISH:
       case OWN_TO_HEBREW:
       case OWN_TO_GERMAN:
-         expandPanel.add(questionField);
-         textFieldPanelWrapper.add(expandPanel);
+         textFieldPanelWrapper.add(questionField);
          break;
       case HEBREW_TO_OWN:
          questionFieldLL.setLayoutNoKeyboard(Selection.SIMPLE);
@@ -490,7 +492,6 @@ public class TrainerView extends BackgroundPanelTiled
             new Dimension(Settings.getKeyboardWidth() / 2 - 7, 30));
 
       additionalInfoField = new JTextPane();
-      additionalInfoField.setFont(ApplicationFonts.getGermanFont(15F));
       additionalInfoField.setBorder(
             new ComponentTitledBorder(additionalInfo, additionalInfoField,
                   new TitledBorder(translator
@@ -528,7 +529,10 @@ public class TrainerView extends BackgroundPanelTiled
                   35));
       grammarInfoField.setEditable(false);
 
-      grammarInfo.addActionListener(event -> connector.setGrammarInfo());
+      grammarInfo.addActionListener(event -> connector.setGrammarInfo()); // needs
+                                                                          // to
+                                                                          // be
+                                                                          // here!
 
       JScrollPane scrollerGrammarInfo = new JScrollPane(grammarInfoField);
       scrollerGrammarInfo.setMinimumSize(
@@ -939,6 +943,16 @@ public class TrainerView extends BackgroundPanelTiled
       return additionalInfoField;
    }
 
+   public JCheckBox getAdditionalInfo()
+   {
+      return additionalInfo;
+   }
+
+   public JCheckBox getGrammarInfo()
+   {
+      return grammarInfo;
+   }
+
    public JButton getAnswerOkay()
    {
       return answerOkay;
@@ -959,7 +973,7 @@ public class TrainerView extends BackgroundPanelTiled
       return wordsToDo;
    }
 
-   public JTextField getQuestionFieldGerman()
+   public JTextArea getQuestionFieldGerman()
    {
       return questionField;
    }

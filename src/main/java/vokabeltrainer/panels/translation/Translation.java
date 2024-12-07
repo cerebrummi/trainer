@@ -420,7 +420,7 @@ public enum Translation {
 	NEUE_FRAGE_UND_ANTWORT("Neues Frage- und Antwortpaar","new Pair of question and answer"),
 	SICHTBAR("sichtbar", "visible"),
 	BEIM_VOKABEL_ABFRAGEN("Beim Vokabeln abfragen", "When vocabulary is being querried"),
-	GRAMMATIK_SICHTBAR_MACHEN("Grammatik Info sichtbar machen.", "the grammatical infos are visible.");
+	GRAMMATIK_SICHTBAR_MACHEN("sind die Grammatik Infos sichtbar.", "the grammar info is visible.");
 
 	private String german;
 	private String english;

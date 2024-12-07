@@ -771,12 +771,19 @@ public class LanguageExpressionEditorView extends JDialog
       scrollPaneExpressionTable
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       scrollPaneExpressionTable
-            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       scrollPaneExpressionTable.setBorder(BorderFactory.createTitledBorder(
             BorderFactory
                   .createLineBorder(ApplicationColors.getLightGrayGold()),
             translator.realisticTranslate(
                   Translation.WORTARTEN__MEHRFACHAUSWAHL_)));
+      
+      visible = new InfoCheckBox(translator.realisticTranslate(Translation.SICHTBAR),
+            translator.realisticTranslate(Translation.BEIM_VOKABEL_ABFRAGEN),
+            translator.realisticTranslate(Translation.GRAMMATIK_SICHTBAR_MACHEN));
+      visible.setFont(ApplicationFonts.getButtonFont());
+      visible.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      visible.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
 
       lastModiefiedLabel = new JLabel();
       lastModiefiedLabel.setFont(ApplicationFonts.getGermanFont(14F));
@@ -791,6 +798,7 @@ public class LanguageExpressionEditorView extends JDialog
       horizontal.add(pasteButton);
 
       vertical.add(scrollPaneExpressionTable);
+      vertical.add(visible);
       vertical.add(lastModiefiedLabel);
       vertical.add(extraInfoScroller);
       vertical.add(horizontal);
@@ -836,13 +844,6 @@ public class LanguageExpressionEditorView extends JDialog
       vertical.setOpaque(false);
       vertical.setBackground(ApplicationColors.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 5));
-      
-      visible = new InfoCheckBox(translator.realisticTranslate(Translation.SICHTBAR),
-            translator.realisticTranslate(Translation.BEIM_VOKABEL_ABFRAGEN),
-            translator.realisticTranslate(Translation.GRAMMATIK_SICHTBAR_MACHEN));
-      visible.setFont(ApplicationFonts.getButtonFont());
-      visible.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      visible.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
 
       this.loadImageButton = new JButton(translator.realisticTranslate(Translation.BILD_LADEN));
       loadImageButton.setFont(ApplicationFonts.getButtonFont());
@@ -853,7 +854,6 @@ public class LanguageExpressionEditorView extends JDialog
       imageButton.setMinimumSize(new Dimension(230, 125));
       imageButton.setMaximumSize(new Dimension(230, 125));
 
-      vertical.add(visible);
       vertical.add(loadImageButton);
       vertical.add(removeImageButton);
       vertical.add(imageButton);
@@ -1145,6 +1145,8 @@ public class LanguageExpressionEditorView extends JDialog
       SortingIndex.setCounter(expression.getSortingIndex());
 
       expression.setLastModified(LocalDateTime.now());
+      
+      expression.setVisible(visible.isSelected());
    }
 
    private String cleanTextAndNoComma(String text)
@@ -1294,6 +1296,8 @@ public class LanguageExpressionEditorView extends JDialog
                   .format(DateTimeFormatter.ofPattern(
                         translator.realisticTranslate(Translation._DATE_TIME)))
             + " " + translator.realisticTranslate(Translation.UHR));
+      
+      visible.setSelected(expression.isVisible());
 
       if (ImageData.isImageForExpressionAvailable(expression.getUuid()))
       {
@@ -1385,6 +1389,7 @@ public class LanguageExpressionEditorView extends JDialog
          this.cutButton.setVisible(works);
          this.pasteButton.setVisible(works);
          this.indexField.setEditable(works);
+         this.visible.setEnabled(works);
          this.frozen = frozen;
          return true;
       }

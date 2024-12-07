@@ -37,6 +37,7 @@ public class Expression
    private String sortingIndex = "";
    private Translator translator = Common.getTranslator();
    private Integer level = 0;
+   private boolean visible;
 
    public Expression(boolean preset) // for unit testing
    {
@@ -279,6 +280,16 @@ public class Expression
    public void setLevel(Integer level)
    {
       this.level = level;
+   }
+
+   public boolean isVisible()
+   {
+      return visible;
+   }
+
+   public void setVisible(boolean visible)
+   {
+      this.visible = visible;
    }
 
    public String[] toHebrewArrayForTableEntry()
@@ -525,6 +536,7 @@ public class Expression
       joiner.add(lastModified.toString());
       joiner.add(sortingIndex);
       joiner.add(String.valueOf(level));
+      joiner.add(String.valueOf(visible));
       return joiner.toString();
    }
 
