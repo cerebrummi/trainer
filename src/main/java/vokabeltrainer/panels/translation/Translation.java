@@ -418,9 +418,12 @@ public enum Translation {
 	ENTER_DRUECKEN__UM("Enter drücken, um", "Hit enter, to"),
 	EINEN_EINTRAG_ZU_AENDERN("einen Eintrag zu ändern.", "change content."),
 	NEUE_FRAGE_UND_ANTWORT("Neues Frage- und Antwortpaar","new Pair of question and answer"),
-	SICHTBAR("sichtbar", "visible"),
+	SICHTBAR("einblenden", "make visible"),
 	BEIM_VOKABEL_ABFRAGEN("Beim Vokabeln abfragen", "When vocabulary is being querried"),
-	GRAMMATIK_SICHTBAR_MACHEN("sind die Grammatik Infos sichtbar.", "the grammar info is visible.");
+	GRAMMATIK_SICHTBAR_MACHEN("sind die Grammatik Infos sichtbar.", "the grammar info is visible."),
+	KOMPARATIV("Komparativ/Steigerungsform","comparative"),
+	SUPERLATIV("Superlativ", "superlative");
+   
 
 	private String german;
 	private String english;

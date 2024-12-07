@@ -82,6 +82,7 @@ public class Interaction
    {
       if(interactions.get(interaction) == null)
       {
+         System.out.println("Interaction 85: "+ interaction);
          switch(interaction.getAction())
          {
          case CHAPTER_WHICH:
@@ -190,6 +191,12 @@ public class Interaction
       if (status != other.status)
          return false;
       return true;
+   }
+
+   @Override
+   public String toString()
+   {
+      return "Interaction [status=" + status + ", action=" + action + "]";
    }
 
 

@@ -53,6 +53,8 @@ public class ExpressionKindHelper
    public static GrammaticalParentEnum[] JAHRESZEIT_ENUMS = {
          GrammaticalParentEnum.GENDER };
 
+   public static GrammaticalParentEnum[] KOMPARATIV_ENUMS = {};
+   
    public static GrammaticalParentEnum[] KONSTRUKT_ENUMS = {};
 
    public static GrammaticalParentEnum[] MODALVERB_ENUMS = {
@@ -87,6 +89,8 @@ public class ExpressionKindHelper
 
    public static GrammaticalParentEnum[] SUBSTANTIV_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
+   
+   public static GrammaticalParentEnum[] SUPERLATIV_ENUMS = {};
 
    public static GrammaticalParentEnum[] TEXT_ENUMS = {};
    
