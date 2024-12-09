@@ -778,12 +778,22 @@ public class LanguageExpressionEditorView extends JDialog
             translator.realisticTranslate(
                   Translation.WORTARTEN__MEHRFACHAUSWAHL_)));
       
+      JPanel horizontalEye = new JPanel();
+      horizontalEye.setBackground(ApplicationColors.getLightGrayBlue());
+      horizontalEye.setLayout(new TrainLayout(horizontalEye, 15));
+      
       visible = new InfoCheckBox(translator.realisticTranslate(Translation.SICHTBAR),
             translator.realisticTranslate(Translation.BEIM_VOKABEL_ABFRAGEN),
             translator.realisticTranslate(Translation.GRAMMATIK_SICHTBAR_MACHEN));
       visible.setFont(ApplicationFonts.getButtonFont());
-      visible.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      visible.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
+      visible.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 85, 70));
+      visible.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 85, 70));
+      
+      JLabel labelEye = new JLabel(new ImageIcon(ApplicationImages.getEye()));
+      labelEye.setMinimumSize(new Dimension(70, 70));
+      labelEye.setMaximumSize(new Dimension(70, 70));
+      labelEye.setOpaque(false);
+      labelEye.setBackground(ApplicationColors.getMediumBlue());
 
       lastModiefiedLabel = new JLabel();
       lastModiefiedLabel.setFont(ApplicationFonts.getGermanFont(14F));
@@ -793,12 +803,15 @@ public class LanguageExpressionEditorView extends JDialog
       horizontal.setBackground(ApplicationColors.getTransparent());
       horizontal.setLayout(new TrainLayout(horizontal, 15));
 
+      horizontalEye.add(visible);
+      horizontalEye.add(labelEye);
+      
       horizontal.add(copyButton);
       horizontal.add(cutButton);
       horizontal.add(pasteButton);
 
       vertical.add(scrollPaneExpressionTable);
-      vertical.add(visible);
+      vertical.add(horizontalEye);
       vertical.add(lastModiefiedLabel);
       vertical.add(extraInfoScroller);
       vertical.add(horizontal);

@@ -32,7 +32,8 @@ public class InfoCheckBox extends JCheckBox
       button = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
       button.setMargin(new Insets(-5, -20, -5, -20));
-      button.setBackground(new Color(0, 0, 0, 0));
+      button.setOpaque(false);
+      button.setBackground(ApplicationColors.getTransparent());
       button.setForeground(ApplicationColors.getGold());
       button.setPreferredSize(new Dimension(14, 32));
 
@@ -80,9 +81,10 @@ public class InfoCheckBox extends JCheckBox
 
       ComponentTitledBorder border = new ComponentTitledBorder(button, this,
             BorderFactory.createTitledBorder(borderTitle), 25);
-      setOpaque(true);
+      
+      setOpaque(false);
+      setBackground(ApplicationColors.getTransparent());
       this.setBorder(border);
       this.setBorderPainted(true);
-      this.setBackground(ApplicationColors.getLightGrayBlue());
    }
 }

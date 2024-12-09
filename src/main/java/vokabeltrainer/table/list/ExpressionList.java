@@ -17,6 +17,7 @@ public class ExpressionList extends JList<String>
    private static final long serialVersionUID = -8585511215166225268L;
    
    private boolean withLock;
+   private boolean withEye;
 
    public ExpressionList(Direction language)
    {
@@ -37,14 +38,27 @@ public class ExpressionList extends JList<String>
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);
-      if (withLock)
+      if (withLock && withEye)
+      {
+         g.drawImage(ApplicationImages.getLockEye(), 0, 0, this);
+      }
+      else if (withLock)
       {
          g.drawImage(ApplicationImages.getLock(), 0, 0, this);
+      }
+      else if (withEye)
+      {
+         g.drawImage(ApplicationImages.getEyeOnly(), 0, 0, this);
       }
    }
    
    public void setLock(boolean lock)
    {
       this.withLock = lock;
+   }
+
+   public void setWithEye(boolean withEye)
+   {
+      this.withEye = withEye;
    }
 }

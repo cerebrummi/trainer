@@ -73,6 +73,7 @@ public class ExpressionCellRenderer
       }
       
       list.setLock(expression.isDoNotChange());
+      list.setWithEye(expression.isVisible());
 
       return list;
    }

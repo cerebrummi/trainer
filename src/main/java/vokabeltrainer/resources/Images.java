@@ -124,6 +124,15 @@ public class Images
 
       ApplicationImages.setLock(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/lock.png")));
+      
+      ApplicationImages.setLockEye(ImageIO.read(Images.class
+            .getResourceAsStream("_2_images/lock_eye.png")));
+      
+      ApplicationImages.setEye(ImageIO.read(Images.class
+            .getResourceAsStream("_2_images/eye.png")));
+      
+      ApplicationImages.setEyeOnly(ImageIO.read(Images.class
+            .getResourceAsStream("_2_images/eye_only.png")));
 
       ApplicationImages
             .setStartImage(ImageIO.read(Images.class.getResourceAsStream(
