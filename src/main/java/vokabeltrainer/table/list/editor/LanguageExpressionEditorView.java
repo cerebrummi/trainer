@@ -3,6 +3,7 @@ package vokabeltrainer.table.list.editor;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.awt.Cursor;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.KeyboardFocusManager;
@@ -28,6 +29,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -46,6 +48,7 @@ import vokabeltrainer.InfoCheckBox;
 import vokabeltrainer.InfoComboBox;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputLanguagePanel;
+import vokabeltrainer.TextImage;
 import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
@@ -782,18 +785,58 @@ public class LanguageExpressionEditorView extends JDialog
       horizontalEye.setBackground(ApplicationColors.getLightGrayBlue());
       horizontalEye.setLayout(new TrainLayout(horizontalEye, 15));
       
-      visible = new InfoCheckBox(translator.realisticTranslate(Translation.SICHTBAR),
-            translator.realisticTranslate(Translation.BEIM_VOKABEL_ABFRAGEN),
-            translator.realisticTranslate(Translation.GRAMMATIK_SICHTBAR_MACHEN));
+      visible = new InfoCheckBox(translator.realisticTranslate(Translation.SICHTBAR));
       visible.setFont(ApplicationFonts.getButtonFont());
       visible.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 85, 70));
       visible.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 85, 70));
       
-      JLabel labelEye = new JLabel(new ImageIcon(ApplicationImages.getEye()));
+      JButton labelEye = new JButton(new ImageIcon(ApplicationImages.getEye()));
       labelEye.setMinimumSize(new Dimension(70, 70));
       labelEye.setMaximumSize(new Dimension(70, 70));
       labelEye.setOpaque(false);
-      labelEye.setBackground(ApplicationColors.getMediumBlue());
+      labelEye.setBackground(ApplicationColors.getLightGrayBlue());
+      labelEye.setBorder(BorderFactory.createEmptyBorder());
+      
+      labelEye.addActionListener(event -> {
+         JOptionPane.showMessageDialog(this, "",
+               Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
+               new ImageIcon(TextImage.make(translator.realisticTranslate(Translation.BEIM_VOKABEL_ABFRAGEN),
+                     translator.realisticTranslate(Translation.IHRE_SPRACHE_LERNSPRACHE),
+                     translator.realisticTranslate(Translation.GRAMMATIK_SICHTBAR_MACHEN)
+                     )));
+      });
+      
+      labelEye.addMouseListener(new MouseAdapter()
+      {
+
+         @Override
+         public void mouseClicked(MouseEvent e)
+         {
+         }
+
+         @Override
+         public void mousePressed(MouseEvent e)
+         {
+         }
+
+         @Override
+         public void mouseReleased(MouseEvent e)
+         {
+         }
+
+         @Override
+         public void mouseEntered(MouseEvent e)
+         {  
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+         }
+
+         @Override
+         public void mouseExited(MouseEvent e)
+         {
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+         }
+
+      });
 
       lastModiefiedLabel = new JLabel();
       lastModiefiedLabel.setFont(ApplicationFonts.getGermanFont(14F));

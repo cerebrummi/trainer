@@ -422,7 +422,8 @@ public enum Translation {
 	BEIM_VOKABEL_ABFRAGEN("Beim Vokabeln abfragen", "When vocabulary is being querried"),
 	GRAMMATIK_SICHTBAR_MACHEN("sind die Grammatik Infos sichtbar.", "the grammar info is visible."),
 	KOMPARATIV("Komparativ/Steigerungsform","comparative"),
-	SUPERLATIV("Superlativ", "superlative");
+	SUPERLATIV("Superlativ", "superlative"),
+	IHRE_SPRACHE_LERNSPRACHE("Ihre Sprache > Lernsprache","your language > new language");
    
 
 	private String german;
