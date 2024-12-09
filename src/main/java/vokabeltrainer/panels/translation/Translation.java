@@ -128,7 +128,7 @@ public enum Translation {
 	FEMININ_UND_MASKULIN("feminin und maskulin", "feminine and masculine"), 
 	FERTIG("fertig", "done"), 
 	FRAGE("Frage", "question"), 
-	FRAGEWORT("Fragewort", "question pronoun"),
+	FRAGEWORT("Interrogativpronomen/fragendes Fürwort", "question pronoun"),
 
 	GANS("Gans", "goose"),
 	GEBIET("Gebiet", "area"), 

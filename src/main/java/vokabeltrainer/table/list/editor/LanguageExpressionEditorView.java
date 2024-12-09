@@ -187,8 +187,8 @@ public class LanguageExpressionEditorView extends JDialog
       save = false;
       setResizable(true);
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-      setSize(Math.min(screenSize.width - 60, 1310),
-            Math.min(screenSize.height - 60, 815));
+      setSize(Math.min(screenSize.width - 60, 1320),
+            Math.min(screenSize.height - 60, 825));
 
       outerLayout = new JPanel();
       outerLayout.setBackground(ApplicationColors.getTexturedBackgroundColor());
