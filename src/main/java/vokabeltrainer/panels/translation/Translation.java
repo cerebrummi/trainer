@@ -63,7 +63,7 @@ public enum Translation {
 	BERUF("Beruf", "profession"),
 	BETT("Bett", "bed"),
 	BILDERBUCHSTABEN("Bilderbuchstaben", "picture letters"), 
-	BINJAN___STAMM("Binjan / Stamm", "Binjan / stem"),
+	BINJAN___STAMM("Binjan/Stamm/Verflexion", "Binjan/stem/verb inflection"),
 	BITTE_DIE_ANTWORT_SCHREIBEN("bitte die Antwort schreiben.", "please write the answer."),
 	BITTE_GEBEN_SIE_EINEN_NEUEN_DATENBANKNAMEN_EIN("Bitte geben Sie einen neuen Datenbanknamen ein", "Please enter a new database name"),
 	BITTE_GEBEN_SIE_EINEN_NEUEN_LEKTIONSNAMEN_EIN("Bitte geben Sie einen neuen Lektionsnamen ein", "Please enter a new chapter name"),

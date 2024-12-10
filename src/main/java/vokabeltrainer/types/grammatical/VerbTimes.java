@@ -36,7 +36,7 @@ public enum VerbTimes
    FUTUR1(
          Translation.FUTUR1, LLType.GERMAN_ONLY),
    FUTUR2(
-         Translation.FUTUR1, LLType.GERMAN_ONLY),
+         Translation.FUTUR2, LLType.GERMAN_ONLY),
    SUPINUM(Translation.SUPINUM, LLType.SWEDISH_ONLY),
    IMPERARTIVE(
          Translation.BEFEHLSFORM, LLType.ALL),
