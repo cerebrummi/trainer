@@ -229,6 +229,7 @@ public class TrainLayout
     *         specified container
     * @see java.awt.Container#getPreferredSize()
     */
+   @Override
    public Dimension preferredLayoutSize(Container self)
    {
       synchronized (self.getTreeLock())
@@ -456,6 +457,7 @@ public class TrainLayout
     *         specified container
     * @see java.awt.Container#doLayout
     */
+   @Override
    public Dimension minimumLayoutSize(Container self)
    {
       synchronized (self.getTreeLock())

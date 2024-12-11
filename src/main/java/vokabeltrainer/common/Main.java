@@ -29,12 +29,10 @@ public final class Main
 {
    private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
 
-   // run application with
-   // -Dsun.java2d.uiScale=1 
-   // JAVA_TOOL_OPTIONS = -Dfile.encoding=UTF8
-
    public static void main(String[] args)
    {	  
+      System.setProperty("sun.java2d.uiScale", "1");
+      
       CerebrummiPreferences.read();
       
       try
@@ -169,7 +167,7 @@ public final class Main
          UIManager
                .put("FileChooser.openButtonToolTipText",
                      "Ausgew�hlte Datei öffnen");
-         UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene h�her");
+         UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene höher");
          UIManager.put("FileChooser.homeFolderToolTipText", "Home");
          UIManager
                .put("FileChooser.newFolderToolTipText",
