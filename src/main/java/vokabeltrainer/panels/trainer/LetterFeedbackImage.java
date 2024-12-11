@@ -1,13 +1,13 @@
 package vokabeltrainer.panels.trainer;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
 
@@ -20,7 +20,7 @@ public class LetterFeedbackImage
    }
    
    public static BufferedImage make(LetterForAnalysis letterDic,
-         LetterForAnalysis letterAnswer, boolean okay, Font font)
+         LetterForAnalysis letterAnswer, boolean okay)
    {
       BufferedImage finalImg = new BufferedImage(
             Math.max(letterDic.getPixelWidth(), letterAnswer.getPixelWidth()),
@@ -59,7 +59,7 @@ public class LetterFeedbackImage
             RenderingHints.VALUE_RENDER_QUALITY);
       g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
             RenderingHints.VALUE_STROKE_PURE);
-      g2d.setFont(font);
+      g2d.setFont(ApplicationFonts.getHebrewFont(24F));
       FontMetrics fm = g2d.getFontMetrics();
       fm = g2d.getFontMetrics();
       g2d.setColor(ApplicationColors.getGreen());

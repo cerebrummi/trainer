@@ -1,6 +1,5 @@
 package vokabeltrainer.panels.trainer;
 
-import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,17 +22,17 @@ public class SwedishResultFactory
    }
    
    public static BestResult getBestResultPossible(Expression expression,
-         String answer, Font swedishFont)
+         String answer)
 
    {
       BestResult bestResult = new BestResult(Selection.SWEDISH);
       bestResult.setResultSwedish(getResultDtoSwedishSentence(expression,
-            answer, swedishFont));
+            answer));
       return bestResult;
    }
 
    public static Result getResultDtoSwedishSentence(Expression expression,
-         String answer, Font swedishFont)
+         String answer)
    {
       String[] expressionArray = expression.getLL()
             .getSwedish()
@@ -43,7 +42,7 @@ public class SwedishResultFactory
 
       if (expressionArray.length == 1 && answerArray.length == 1)
       {
-         return getResultDtoSwedish(expression, answer, swedishFont);
+         return getResultDtoSwedish(expression, answer);
       }
 
       if (expressionArray.length == answerArray.length)
@@ -54,7 +53,7 @@ public class SwedishResultFactory
          for (int i = 0; i < expressionArray.length; i++)
          {
             resultList.add(getResultDtoSwedishString(expressionArray[i],
-                  answerArray[i], new Result(), swedishFont));
+                  answerArray[i], new Result()));
          }
 
          result.setOkay(true);
@@ -84,22 +83,21 @@ public class SwedishResultFactory
          return result;
       }
 
-      return getResultDtoSwedish(expression, answer, swedishFont);
+      return getResultDtoSwedish(expression, answer);
    }
 
-   private static Result getResultDtoSwedish(Expression expression, String answer,
-         Font swedishFont)
+   private static Result getResultDtoSwedish(Expression expression, String answer)
    {
       Result result = new Result();
       result.setExpression(expression);
 
       return getResultDtoSwedishString(
             expression.getLL().getSwedish(),
-            answer, result, swedishFont);
+            answer, result);
    }
 
    private static Result getResultDtoSwedishString(String dictionary,
-         String answer, Result result, Font swedishFont)
+         String answer, Result result)
    {
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
             LetterHelper.findLetterForAnalysisList(dictionary, LetterType.SWEDISH),
@@ -126,7 +124,7 @@ public class SwedishResultFactory
                .areLettersEqual(dictionaryList.get(i), answerList.get(i));
 
          feedbackImageList.add(LetterFeedbackImage.make(dictionaryList.get(i),
-               answerList.get(i), letterresult, swedishFont));
+               answerList.get(i), letterresult));
          result.setOkay(result.isOkay() && letterresult);
       }
       result.setFeedbackImageList(feedbackImageList);

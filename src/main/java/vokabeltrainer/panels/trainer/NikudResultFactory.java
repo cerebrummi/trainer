@@ -66,7 +66,7 @@ public class NikudResultFactory
          for (int i = expressionArray.length - 1; i >= 0; i--)
          {
             resultList.add(getResultDtoNikudString(expressionArray[i],
-                  answerArray[i], new Result(selectionType), hebrewFont));
+                  answerArray[i], new Result(selectionType)));
          }
 
          result.setOkay(true);
@@ -107,11 +107,11 @@ public class NikudResultFactory
 
       return getResultDtoNikudString(
             expression.getLL().getHewbrewAccordingToType(selectionType),
-            answer, result, hebrewFont);
+            answer, result);
    }
 
    private static Result getResultDtoNikudString(String dictionary,
-         String answer, Result result, Font hebrewFont)
+         String answer, Result result)
    {
 
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
@@ -137,7 +137,7 @@ public class NikudResultFactory
                .areLettersEqual(dictionaryList.get(i), answerList.get(i));
 
          feedbackImageList.add(LetterFeedbackImage.make(dictionaryList.get(i),
-               answerList.get(i), letterresult, hebrewFont));
+               answerList.get(i), letterresult));
          result.setOkay(result.isOkay() && letterresult);
       }
       result.setFeedbackImageList(feedbackImageList);

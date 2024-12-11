@@ -208,7 +208,7 @@ public enum GermanLetter
          "\u0020"
    ), 
    NEWSPACE(
-         " u00A0_de",
+         " 00A0_de",
          "\u00A0"
          );
 
@@ -254,13 +254,13 @@ public enum GermanLetter
    @Override
    public Letter getNewspace()
    {
-      return null;
+      return GermanLetter.NEWSPACE;
    }
 
    @Override
    public int getPixelWidth()
    {
-      return -1;
+      return 18;
    }
 
    @Override

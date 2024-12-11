@@ -109,15 +109,30 @@ public class LetterForAnalysis
    {
       return german;
    }
+   
+   public boolean isNotGerman()
+   {
+      return nikud || swedish;
+   }
 
    public boolean isSwedish()
    {
       return swedish;
    }
+   
+   public boolean isNotSwedish()
+   {
+      return nikud || german;
+   }
 
    public boolean isNikud()
    {
       return nikud;
+   }
+   
+   public boolean isNotNikud()
+   {
+      return german || swedish;
    }
 
    public LetterForAnalysis clone()
@@ -212,7 +227,7 @@ public class LetterForAnalysis
 
    public int getPixelWidth()
    {
-      if(isNikud())
+      if(content != null)
       {
          return content.getPixelWidth();
       }

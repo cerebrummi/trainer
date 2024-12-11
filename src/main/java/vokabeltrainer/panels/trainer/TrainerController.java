@@ -253,15 +253,13 @@ public class TrainerController implements TrainerControllerConnector
             {
                bestResult = SwedishResultFactory.getBestResultPossible(
                      currentExpression,
-                     trainerView.getAnswerField().getText().trim(),
-                     ApplicationFonts.getGermanFont(24F));
+                     trainerView.getAnswerField().getText().trim());
             }
             else
             {
                bestResult = GermanResultFactory.getBestResultPossible(
                      currentExpression,
-                     trainerView.getAnswerField().getText().trim(),
-                     ApplicationFonts.getGermanFont(24F));
+                     trainerView.getAnswerField().getText().trim());
             }
             Result result = bestResult.getBestResult();
             if (result.isAnswerEmpty())

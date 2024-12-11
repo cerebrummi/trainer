@@ -1,6 +1,5 @@
 package vokabeltrainer.panels.trainer;
 
-import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,17 +22,17 @@ public class GermanResultFactory
    }
    
    public static BestResult getBestResultPossible(Expression expression,
-         String answer, Font germanFont)
+         String answer)
 
    {
       BestResult bestResult = new BestResult(Selection.GERMAN);
       bestResult.setResultGerman(getResultDtoGermanSentence(expression,
-            answer, germanFont));
+            answer));
       return bestResult;
    }
 
    public static Result getResultDtoGermanSentence(Expression expression,
-         String answer, Font germanFont)
+         String answer)
    {
       String[] expressionArray = expression.getLL()
             .getGerman()
@@ -43,7 +42,7 @@ public class GermanResultFactory
 
       if (expressionArray.length == 1 && answerArray.length == 1)
       {
-         return getResultDtoGerman(expression, answer, germanFont);
+         return getResultDtoGerman(expression, answer);
       }
 
       if (expressionArray.length == answerArray.length)
@@ -54,7 +53,7 @@ public class GermanResultFactory
          for (int i = 0; i < expressionArray.length; i++)
          {
             resultList.add(getResultDtoGermanString(expressionArray[i],
-                  answerArray[i], new Result(), germanFont));
+                  answerArray[i], new Result()));
          }
 
          result.setOkay(true);
@@ -84,22 +83,21 @@ public class GermanResultFactory
          return result;
       }
 
-      return getResultDtoGerman(expression, answer, germanFont);
+      return getResultDtoGerman(expression, answer);
    }
 
-   private static Result getResultDtoGerman(Expression expression, String answer,
-         Font germanFont)
+   private static Result getResultDtoGerman(Expression expression, String answer)
    {
       Result result = new Result();
       result.setExpression(expression);
 
       return getResultDtoGermanString(
             expression.getLL().getGerman(),
-            answer, result, germanFont);
+            answer, result);
    }
 
    private static Result getResultDtoGermanString(String dictionary,
-         String answer, Result result, Font germanFont)
+         String answer, Result result)
    {
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
             LetterHelper.findLetterForAnalysisList(dictionary, LetterType.GERMAN),
@@ -126,7 +124,7 @@ public class GermanResultFactory
                .areLettersEqual(dictionaryList.get(i), answerList.get(i));
 
          feedbackImageList.add(LetterFeedbackImage.make(dictionaryList.get(i),
-               answerList.get(i), letterresult, germanFont));
+               answerList.get(i), letterresult));
          result.setOkay(result.isOkay() && letterresult);
       }
       result.setFeedbackImageList(feedbackImageList);

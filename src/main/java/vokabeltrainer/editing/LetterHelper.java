@@ -233,11 +233,15 @@ public class LetterHelper
    public static boolean areLettersEqual(LetterForAnalysis one,
          LetterForAnalysis two)
    {
-      if(one.isNikud() && two.isSwedish())
+      if(one.isNikud() && two.isNotNikud())
       {
          return false;
       }
-      if(one.isSwedish() && two.isNikud())
+      if(one.isSwedish() && two.isNotSwedish())
+      {
+         return false;
+      }
+      if(one.isGerman() && two.isNotGerman())
       {
          return false;
       }
@@ -251,6 +255,13 @@ public class LetterHelper
       if(one.isSwedish() && two.isSwedish())
       {
          if (one.getSwedishContent() != two.getSwedishContent())
+         {
+            return false;
+         }
+      }
+      if(one.isGerman() && two.isGerman())
+      {
+         if (one.getGermanContent() != two.getGermanContent())
          {
             return false;
          }
