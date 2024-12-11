@@ -643,7 +643,6 @@ public class TrainerView extends BackgroundPanelTiled
                translator.realisticTranslate(
                      Translation.ODER_EINfACH_LAUT_NENNEN_ODER_DENKEN));
          answerField.setDocument(new GermanDocument(true));
-         answerField.setFont(ApplicationFonts.getGermanFont(20F));
          answerField
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 80));
          answerField

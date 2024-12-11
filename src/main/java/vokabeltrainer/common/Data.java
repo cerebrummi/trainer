@@ -1689,7 +1689,7 @@ public final class Data
                   .collect(Collectors.toList());
          case GERMAN_TO_OWN:
             return list
-                  .stream().filter(swedish).filter(expression -> !expression
+                  .stream().filter(german).filter(expression -> !expression
                         .getTrainingStatusLLToD().isTrainingStarted())
                   .collect(Collectors.toList());
          default:
