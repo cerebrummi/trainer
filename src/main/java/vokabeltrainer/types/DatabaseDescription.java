@@ -10,7 +10,6 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
    private String databaseName = "";
    private String authors = "";
    private String company = "";
-   private LLType llType = LLType.UNKOWN;
 
    public DatabaseDescription()
    {
@@ -23,7 +22,6 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       databaseName = database.getName();
       authors = database.getAuthors();
       company = database.getCompany();
-      llType = database.getLlType();
    }
    
    public Database getDatabase()
@@ -66,20 +64,10 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       this.company = company;
    }
 
-   public LLType getLlType()
-   {
-      return llType;
-   }
-
-   public void setLlType(LLType llType)
-   {
-      this.llType = llType;
-   }
-
    @Override
    public int hashCode()
    {
-      return Objects.hash(authors, company, database, databaseName, llType);
+      return Objects.hash(authors, company, database, databaseName);
    }
 
    @Override
@@ -95,8 +83,7 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       return Objects.equals(authors, other.authors)
             && Objects.equals(company, other.company)
             && database == other.database
-            && Objects.equals(databaseName, other.databaseName)
-            && llType == other.llType;
+            && Objects.equals(databaseName, other.databaseName);
    }
 
    @Override

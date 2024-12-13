@@ -1169,7 +1169,6 @@ public class LanguageExpressionEditorView extends JDialog
       selfChapter.setOrigin(Database.SELF);
       selfChapter
             .setName(cleanTextLeaveComma((String) chapter.getSelectedItem()));
-      selfChapter.getDatabaseDescription().setLlType(this.language.getLLType());
       expression.setChapter(selfChapter);
 
       Settings.setRememberChapterForInput(selfChapter.getName());

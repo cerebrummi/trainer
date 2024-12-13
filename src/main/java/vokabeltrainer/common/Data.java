@@ -886,20 +886,14 @@ public final class Data
                if (!expression.getLL().getSwedish().isBlank())
                {
                   expression.getLL().setLltype(LLType.SWEDISH);
-                  expression.getChapter().getDatabaseDescription()
-                        .setLlType(LLType.SWEDISH);
                }
                else if (!expression.getLL().getGerman().isBlank())
                {
                   expression.getLL().setLltype(LLType.GERMAN);
-                  expression.getChapter().getDatabaseDescription()
-                        .setLlType(LLType.GERMAN);
                }
                else
                {
                   expression.getLL().setLltype(LLType.HEBREW);
-                  expression.getChapter().getDatabaseDescription()
-                        .setLlType(LLType.HEBREW);
                }
                index++;
                Definitions definitions = new Definitions();
@@ -1524,15 +1518,6 @@ public final class Data
             FieldOfTraining fieldOfTraining)
       {
          TrainingTableRow[][] data = null;
-         final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
-               languageDirection, fieldOfTraining);
-
-         Predicate<Chapter> german = c -> c.getDatabaseDescription()
-               .getLlType() == LLType.GERMAN;
-         Predicate<Chapter> swedish = c -> c.getDatabaseDescription()
-               .getLlType() == LLType.SWEDISH;
-         Predicate<Chapter> hebrew = c -> c.getDatabaseDescription()
-               .getLlType() == LLType.HEBREW;
 
          switch (fieldOfTraining)
          {
@@ -1540,7 +1525,10 @@ public final class Data
             if (LanguageDirection.OWN_TO_HEBREW == languageDirection
                   || LanguageDirection.HEBREW_TO_OWN == languageDirection)
             {
-               data = chapterSet.stream().filter(hebrew).sorted()
+               final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
+                     languageDirection, fieldOfTraining);
+               
+               data = chapterSet.stream()
                      .map(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter))
                      .map(trainingTableRow -> new TrainingTableRow[] {
@@ -1550,7 +1538,10 @@ public final class Data
             else if (LanguageDirection.OWN_TO_SWEDISH == languageDirection
                   || LanguageDirection.SWEDISH_TO_OWN == languageDirection)
             {
-               data = chapterSet.stream().filter(swedish).sorted()
+               final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
+                     languageDirection, fieldOfTraining);
+               
+               data = chapterSet.stream()
                      .map(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter))
                      .map(trainingTableRow -> new TrainingTableRow[] {
@@ -1559,7 +1550,10 @@ public final class Data
             }
             else
             {
-               data = chapterSet.stream().filter(german).sorted()
+               final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
+                     languageDirection, fieldOfTraining);
+               
+               data = chapterSet.stream()
                      .map(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter))
                      .map(trainingTableRow -> new TrainingTableRow[] {
@@ -1568,12 +1562,16 @@ public final class Data
             }
             break;
          case AREA_SELECTED:
+            final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
+                  languageDirection, fieldOfTraining);
+            
             List<Expression> listSelected = findAllSelectedExpressionsList(
                   false);
             TrainingTableRow selectedRow = makeSelectedRow(languageDirection,
                   fieldOfTraining, oldToBeTested, listSelected);
             data = new TrainingTableRow[1][1];
             data[0][0] = selectedRow;
+            break;
          case AREA_SELECTED_TEMPORARY:
             List<Expression> listSelected2 = findAllSelectedExpressionsList(
                   false);
@@ -1654,12 +1652,9 @@ public final class Data
       private List<Expression> findNotStudiedWords(
             LanguageDirection languageDirection, List<Expression> list)
       {
-         Predicate<Expression> hebrew = e -> e.getLL()
-               .getLltype() == LLType.HEBREW;
-         Predicate<Expression> swedish = e -> e.getLL()
-               .getLltype() == LLType.SWEDISH;
-         Predicate<Expression> german = e -> e.getLL()
-               .getLltype() == LLType.GERMAN;
+         Predicate<Expression> hebrew = e -> e.getLL().isSimpleHebrew() || e.getLL().isPleneDefektiv();
+         Predicate<Expression> swedish = e -> e.getLL().isSwedish();
+         Predicate<Expression> german = e -> e.getLL().isGerman();
 
          switch (languageDirection)
          {

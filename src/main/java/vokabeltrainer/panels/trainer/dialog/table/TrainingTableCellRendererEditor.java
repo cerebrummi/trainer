@@ -71,7 +71,7 @@ public class TrainingTableCellRendererEditor
          table.editCellAt(row, column);
       });
 
-      fieldDone = new JLabel(new ImageIcon(ApplicationImages.getDone()));
+      fieldDone = new JLabel(); //new ImageIcon(ApplicationImages.getDone()));
       fieldWork = new JLabel(new ImageIcon(ApplicationImages.getWork()));
       fieldNotStarted = new JLabel(new ImageIcon(ApplicationImages.getEmptyList()));
    }
