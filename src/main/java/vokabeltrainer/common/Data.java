@@ -622,7 +622,7 @@ public final class Data
       private void readFileImport(String path, LetterForSaving letter,
             String databaseName, boolean overwrite)
       {
-         File file = new File(path + File.separator + letter.name() + ".csv");
+         File file = new File(path + "/" + letter.name() + ".csv");
          if (!file.exists())
          {
             return;
@@ -664,7 +664,7 @@ public final class Data
       private void readFileAvailable(LetterForSaving letter, Database origin)
       {
          try (InputStream fis = Vocabulary.class
-               .getResourceAsStream(origin.getFolder() + File.separator
+               .getResourceAsStream(origin.getFolder() + "/"
                      + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
@@ -673,9 +673,10 @@ public final class Data
             readData(letter.name() + ".csv", reader, origin, letter, false,
                   origin.getName(), true);
          }
-         catch (IOException e)
+         catch (Exception e)
          {
             // nothing
+            e.printStackTrace();
          }
       }
 
@@ -686,7 +687,7 @@ public final class Data
             boolean overwriteDatabaseName, String databaseName)
       {
          try (InputStream fis = Vocabulary.class
-               .getResourceAsStream(origin.getFolder() + File.separator
+               .getResourceAsStream(origin.getFolder() + "/"
                      + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
@@ -723,7 +724,7 @@ public final class Data
          }
 
          file = new File(
-               Settings.getExpressionPathFolder() + File.separator + filename);
+               Settings.getExpressionPathFolder() + "/" + filename);
          if (!file.exists())
          {
             return new ConcurrentHashMap<UUID, Expression>(100);

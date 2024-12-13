@@ -92,8 +92,8 @@ public class InputPanel extends JPanel implements TableConnector
       horizontal.setOpaque(false);
 
       JPanel spanner = new JPanel();
-      spanner.setMinimumSize(new Dimension(1550, 30));
-      spanner.setMaximumSize(new Dimension(1550, 30));
+      spanner.setMinimumSize(new Dimension(1500, 30));
+      spanner.setMaximumSize(new Dimension(1536, 30));
       spanner.add(new JLabel(translator
             .realisticTranslate(Translation.UM_EINE_VOKABEL_WIEDER_AUFZURUFEN__)
             + " "

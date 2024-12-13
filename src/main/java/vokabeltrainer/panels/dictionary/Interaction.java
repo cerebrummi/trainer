@@ -14,7 +14,8 @@ public class Interaction
       interactions.put(new Interaction(Action.OPENED_PAGE, Status.EXPRESSIONKIND_WHICH), Command.TABLE_EXPRESSIONKIND_WHICH);
       interactions.put(new Interaction(Action.OPENED_PAGE, Status.SEARCH_WHICH_OWN), Command.RESTORE_WHICH_SEARCH_OWN);
       interactions.put(new Interaction(Action.OPENED_PAGE, Status.SEARCH_WHICH_NEW), Command.RESTORE_WHICH_SEARCH_NEW);
-      interactions.put(new Interaction(Action.OPENED_PAGE, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS); 
+      interactions.put(new Interaction(Action.OPENED_PAGE, Status.TAB_SELECTED_EXPRESSIONS), Command.TABLE_SELECTED_EXPRESSIONS);
+      interactions.put(new Interaction(Action.OPENED_PAGE, Status.TAB_CHAPTER), Command.NO_TABLE);
       
       interactions.put(new Interaction(Action.NEW_TO_OWN, Status.OPENED_PAGE), Command.NOTHING);
       interactions.put(new Interaction(Action.NEW_TO_OWN, Status.CHAPTER_WHICH), Command.TABLE_CHAPTER_WHICH);
@@ -82,7 +83,7 @@ public class Interaction
    {
       if(interactions.get(interaction) == null)
       {
-         System.out.println("Interaction 85: "+ interaction);
+         //System.out.println("Interaction 85: "+ interaction);
          switch(interaction.getAction())
          {
          case CHAPTER_WHICH:

@@ -31,7 +31,8 @@ public final class Main
 
    public static void main(String[] args)
    {	  
-      System.setProperty("sun.java2d.uiScale", "1");
+      System.setProperty("sun.java2d.uiScale.enabled", "false");
+      System.setProperty("ide.ui.scale", "1.0");
       
       CerebrummiPreferences.read();
       
@@ -211,8 +212,8 @@ public final class Main
                      vokabeltrainer.common.Common.getMainJPanel()));
          window.setJMenuBar(Common.getMainJPanel().getMenuBar());
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-         window.setSize(new Dimension(1600, 1020));
-         // window.setExtendedState(JFrame. MAXIMIZED_BOTH);
+         window.setSize(new Dimension(1536, 960));
+         //window.setExtendedState(JFrame. MAXIMIZED_BOTH);
          window.setLocationRelativeTo(null);
          window.setVisible(true);
       });

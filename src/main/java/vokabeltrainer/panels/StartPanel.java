@@ -140,8 +140,8 @@ public class StartPanel extends JPanel
             Chapter.Database.getModelAvailableDatabases(), 990);
 
       JScrollPane scroller = new JScrollPane(databaseTable);
-      scroller.setMinimumSize(new Dimension(990, 120));
-      scroller.setMaximumSize(new Dimension(990, 120));
+      scroller.setMinimumSize(new Dimension(990, 80));
+      scroller.setMaximumSize(new Dimension(990, 80));
 
       JLabel databaseLabel2 = new JLabel(" "
             + translator.realisticTranslate(Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_SICHTBAR_MACHEN)
@@ -179,8 +179,8 @@ public class StartPanel extends JPanel
             Chapter.Database.getModelCopyAvailableDatabases(), 990);
 
       JScrollPane scroller = new JScrollPane(databaseTable);
-      scroller.setMinimumSize(new Dimension(990, 120));
-      scroller.setMaximumSize(new Dimension(990, 120));
+      scroller.setMinimumSize(new Dimension(990, 80));
+      scroller.setMaximumSize(new Dimension(990, 80));
 
       JLabel databaseLabel2 = new JLabel(" "  + translator.realisticTranslate(Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_KOPIEREN)
             + " => "
