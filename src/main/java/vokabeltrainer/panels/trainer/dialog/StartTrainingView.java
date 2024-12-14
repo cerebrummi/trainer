@@ -42,8 +42,8 @@ public class StartTrainingView extends JDialog
 
       training = false;
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-      setSize(Math.min(screenSize.width - 60, 1600),
-              Math.min(screenSize.height - 60, 900));
+      setSize(Math.min(screenSize.width - 60, 1500),
+              Math.min(screenSize.height - 60, 700));
       layout = new JPanel();
       layout.setBorder(BorderFactory.createLineBorder(new Color(169, 136, 103),
             15, false));

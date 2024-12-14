@@ -1,10 +1,7 @@
 package vokabeltrainer.panels.trainer.dialog;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,9 +29,6 @@ public class AmountTab extends BackgroundPanelTiled
    public AmountTab(StartTrainingView dialog)
    {
       setLayout(new BorderLayout());
-      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-      setSize(Math.min(screenSize.width - 60, 1600),
-            Math.min(screenSize.height - 60, 900));
 
       JLabel question = new JLabel(translator.realisticTranslate(
             Translation.WIE_VIELE_NEUE_WOERTER_MOECHTEN_SIE_LERNEN_));
@@ -45,22 +39,13 @@ public class AmountTab extends BackgroundPanelTiled
 
       JPanel center = new JPanel();
       center.setOpaque(false);
-      center.setLayout(new FlowLayout());
+      center.setLayout(new BorderLayout());
 
       TrainingTableModel model = Data.findTrainingModel(
             dialog.getLanguageDirection(), dialog.getFieldOfTraining());
       TrainingTable table = new TrainingTable(model);
 
       JScrollPane scroller = new JScrollPane(table);
-      scroller
-            .setMinimumSize(new Dimension(Math.min(screenSize.width - 60, 1550),
-                  Math.min(screenSize.height - 60, 650)));
-      scroller.setPreferredSize(
-            new Dimension(Math.min(screenSize.width - 60, 1550),
-                  Math.min(screenSize.height - 60, 650)));
-      scroller
-            .setMaximumSize(new Dimension(Math.min(screenSize.width - 60, 1550),
-                  Math.min(screenSize.height - 60, 650)));
       center.add(scroller);
 
       add(center, BorderLayout.CENTER);
