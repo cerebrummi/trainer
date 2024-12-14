@@ -1208,6 +1208,14 @@ public final class Data
                .filter(expression -> chapter.equals(expression.getChapter()))
                .collect(Collectors.toList());
       }
+      
+      private List<Expression> findExpressionsChapter(Chapter chapter, LLType llType)
+      {
+         return alleMap.values().stream()
+               .filter(expression -> expression.getLL().getLltype() == llType)
+               .filter(expression -> chapter.equals(expression.getChapter()))
+               .collect(Collectors.toList());
+      }
 
       private List<Expression> findSortedExpressionsOfKind(ExpressionKind kind,
             Direction language, SortingType sortingType)
@@ -1529,8 +1537,11 @@ public final class Data
                      languageDirection, fieldOfTraining);
                
                data = chapterSet.stream()
+                     .filter(chapter -> makeChapterRow(languageDirection,
+                           fieldOfTraining, oldToBeTested, chapter, LLType.HEBREW) != null)
+                     .sorted()
                      .map(chapter -> makeChapterRow(languageDirection,
-                           fieldOfTraining, oldToBeTested, chapter))
+                           fieldOfTraining, oldToBeTested, chapter, LLType.HEBREW))
                      .map(trainingTableRow -> new TrainingTableRow[] {
                            trainingTableRow })
                      .toArray(size -> new TrainingTableRow[size][1]);
@@ -1542,8 +1553,11 @@ public final class Data
                      languageDirection, fieldOfTraining);
                
                data = chapterSet.stream()
+                     .filter(chapter -> makeChapterRow(languageDirection,
+                           fieldOfTraining, oldToBeTested, chapter, LLType.SWEDISH) != null)
+                     .sorted()
                      .map(chapter -> makeChapterRow(languageDirection,
-                           fieldOfTraining, oldToBeTested, chapter))
+                           fieldOfTraining, oldToBeTested, chapter, LLType.SWEDISH))
                      .map(trainingTableRow -> new TrainingTableRow[] {
                            trainingTableRow })
                      .toArray(size -> new TrainingTableRow[size][1]);
@@ -1554,8 +1568,11 @@ public final class Data
                      languageDirection, fieldOfTraining);
                
                data = chapterSet.stream()
+                     .filter(chapter -> makeChapterRow(languageDirection,
+                           fieldOfTraining, oldToBeTested, chapter, LLType.GERMAN) != null)
+                     .sorted()
                      .map(chapter -> makeChapterRow(languageDirection,
-                           fieldOfTraining, oldToBeTested, chapter))
+                           fieldOfTraining, oldToBeTested, chapter, LLType.GERMAN))
                      .map(trainingTableRow -> new TrainingTableRow[] {
                            trainingTableRow })
                      .toArray(size -> new TrainingTableRow[size][1]);
@@ -1625,9 +1642,13 @@ public final class Data
       private TrainingTableRow makeChapterRow(
             LanguageDirection languageDirection,
             FieldOfTraining fieldOfTraining,
-            final Set<Expression> oldToBeTested, Chapter chapter)
+            final Set<Expression> oldToBeTested, Chapter chapter, LLType llType)
       {
-         List<Expression> listChapter = this.findExpressionsChapter(chapter);
+         List<Expression> listChapter = this.findExpressionsChapter(chapter, llType);
+         if(listChapter.size() == 0)
+         {
+            return null;
+         }
          TrainingTableRow chapterRow = new TrainingTableRow();
          chapterRow.setFieldOfTraining(fieldOfTraining);
          chapterRow.setChapter(chapter);

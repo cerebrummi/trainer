@@ -75,7 +75,7 @@ public class Chapter implements Comparable<Chapter>
       }
       Collator coll = Collator.getInstance(Locale.GERMAN);
       coll.setStrength(Collator.PRIMARY);
-      return coll.compare(this.name, o.name);
+      return coll.compare(this.getDatabaseName()+this.name, o.getDatabaseName()+o.name);
    }
 
    

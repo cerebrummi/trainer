@@ -1,5 +1,6 @@
 package vokabeltrainer.panels.trainer.dialog.table;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
-public class TrainingTableRow
+public class TrainingTableRow implements Comparator<TrainingTableRow>
 {
    private String field;
    private int toBeRepeatedWords;
@@ -130,5 +131,11 @@ public class TrainingTableRow
    public void setStarted(boolean started)
    {
       this.started = started;
+   }
+
+   @Override
+   public int compare(TrainingTableRow o1, TrainingTableRow o2)
+   {
+      return o1.getChapter().getName().compareTo(o2.getChapter().getName());
    }
 }

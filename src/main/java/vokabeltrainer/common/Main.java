@@ -167,7 +167,7 @@ public final class Main
                      translator.realisticTranslate(Translation.AUSGEWAEHLTE_DATEI_SPEICHERN));
          UIManager
                .put("FileChooser.openButtonToolTipText",
-                     "Ausgew�hlte Datei öffnen");
+                     "Ausgewählte Datei öffnen");
          UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene höher");
          UIManager.put("FileChooser.homeFolderToolTipText", "Home");
          UIManager
@@ -214,6 +214,7 @@ public final class Main
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
          window.setSize(new Dimension(1536, 960));
          //window.setExtendedState(JFrame. MAXIMIZED_BOTH);
+         //window.pack();
          window.setLocationRelativeTo(null);
          window.setVisible(true);
       });

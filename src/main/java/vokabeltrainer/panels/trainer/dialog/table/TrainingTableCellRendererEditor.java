@@ -159,6 +159,11 @@ public class TrainingTableCellRendererEditor
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
    {
+      if (value == null)
+      {
+         return null;
+      }
+      
       TrainingTableRow renderedTrainingCellRow = (TrainingTableRow) value;
 
       if (column == 0)
