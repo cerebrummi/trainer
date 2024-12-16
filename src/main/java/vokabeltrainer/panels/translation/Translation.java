@@ -423,7 +423,8 @@ public enum Translation {
 	GRAMMATIK_SICHTBAR_MACHEN("sind die Grammatik Infos sichtbar.", "the grammar info is visible."),
 	KOMPARATIV("Komparativ/Steigerungsform","comparative"),
 	SUPERLATIV("Superlativ", "superlative"),
-	IHRE_SPRACHE_LERNSPRACHE("Ihre Sprache > Lernsprache","your language > new language");
+	IHRE_SPRACHE_LERNSPRACHE("Ihre Sprache > Lernsprache","your language > new language"),
+	PROSOMINALSUFFIX("Prosominalsuffix","prosominal suffix");
    
 
 	private String german;
