@@ -2,6 +2,7 @@ package vokabeltrainer.common;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -133,6 +134,9 @@ public final class Main
       {
          NimbusLookAndFeel nimbus = new NimbusLookAndFeel();
          UIManager.setLookAndFeel(nimbus);
+         nimbus.getDefaults().put("internationalFont",
+               new Font(Font.SANS_SERIF, Font.PLAIN, 22));
+         Common.setNimbus(nimbus);
          UIManager
                .put("control", Color.WHITE);
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());

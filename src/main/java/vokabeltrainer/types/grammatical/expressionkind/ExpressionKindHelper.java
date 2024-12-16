@@ -81,7 +81,8 @@ public class ExpressionKindHelper
    public static GrammaticalParentEnum[] PRAEPOSITION_ENUMS = {};
    
    public static GrammaticalParentEnum[] PRONOMINALSUFFIX_ENUMS = {
-         GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
+         GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS,
+         GrammaticalParentEnum.GRAMMATICAL_PERSON };
 
    public static GrammaticalParentEnum[] REDEWENDUNG_ENUMS = {
          GrammaticalParentEnum.GENDER

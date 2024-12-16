@@ -225,6 +225,7 @@ public class LanguageExpressionEditorView extends JDialog
    private void initGuiFields()
    {
       ownLanguage = new JTextField();
+      ownLanguage.setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
       ownLanguage.setBorder(makeBorderBlank(germanTitle));
       ownLanguage.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       ownLanguage.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));

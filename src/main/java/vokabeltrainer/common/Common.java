@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 import javax.swing.JFrame;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import vokabeltrainer.panels.MainView;
 import vokabeltrainer.panels.translation.Translator;
@@ -20,6 +21,9 @@ public final class Common
    private static boolean setJFrameOnlyOnce = false;
    private static Translator translator = new Translator();
    private static Settings settings;
+   
+   private static NimbusLookAndFeel nimbus;
+   
 
    private Common()
    {
@@ -75,6 +79,16 @@ public final class Common
    public static Settings getSettings()
    {
       return settings;
+   }
+
+   public static NimbusLookAndFeel getNimbus()
+   {
+      return nimbus;
+   }
+
+   public static void setNimbus(NimbusLookAndFeel nimbus)
+   {
+      Common.nimbus = nimbus;
    }
 
    public static boolean isSchabbat()

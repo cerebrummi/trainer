@@ -255,7 +255,8 @@ public class TrainerView extends BackgroundPanelTiled
    {
       textFieldPanelWrapper.removeAll();
       
-      questionField = new JTextArea();
+      questionField = new JTextArea(); 
+      questionField.setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
       questionField.setLineWrap(true);
       questionField.setWrapStyleWord(true);
       questionField.setOpaque(false);

@@ -173,6 +173,7 @@ public class TextExpressionEditorView extends JDialog
    private void initGuiFields()
    {
       ownLanguage = new JTextArea();
+      ownLanguage.setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
       ownLanguage.setLineWrap(true);
       ownLanguage.setWrapStyleWord(true);
       ownLanguage.setBorder(makeBorderBlank(germanTitle));
