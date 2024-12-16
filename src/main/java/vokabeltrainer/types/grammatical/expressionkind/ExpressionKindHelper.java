@@ -80,7 +80,7 @@ public class ExpressionKindHelper
 
    public static GrammaticalParentEnum[] PRAEPOSITION_ENUMS = {};
    
-   public static GrammaticalParentEnum[] PROSOMINALSUFFIX_ENUMS = {
+   public static GrammaticalParentEnum[] PRONOMINALSUFFIX_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
 
    public static GrammaticalParentEnum[] REDEWENDUNG_ENUMS = {

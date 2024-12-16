@@ -450,7 +450,7 @@ public class InputLanguagePanel extends JTextArea
       hebrewField.setMaximumSize(
             new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
       hebrewField.setBorder(
-            BorderFactory.createTitledBorder(translator.realisticTranslate(
+            BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(0,0,0,10), translator.realisticTranslate(
                   Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
       changeLineSpacing(hebrewField);
       

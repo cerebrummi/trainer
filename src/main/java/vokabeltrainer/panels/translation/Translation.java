@@ -424,7 +424,7 @@ public enum Translation {
 	KOMPARATIV("Komparativ/Steigerungsform","comparative"),
 	SUPERLATIV("Superlativ", "superlative"),
 	IHRE_SPRACHE_LERNSPRACHE("Ihre Sprache > Lernsprache","your language > new language"),
-	PROSOMINALSUFFIX("Prosominalsuffix","prosominal suffix");
+	PRONOMINALSUFFIX("Pronominalsuffix","pronominal suffix");
    
 
 	private String german;
