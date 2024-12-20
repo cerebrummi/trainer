@@ -31,10 +31,7 @@ public final class Main
    private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
 
    public static void main(String[] args)
-   {	  
-      System.setProperty("sun.java2d.uiScale.enabled", "false");
-      System.setProperty("ide.ui.scale", "1.0");
-      
+   {	       
       CerebrummiPreferences.read();
       
       try
