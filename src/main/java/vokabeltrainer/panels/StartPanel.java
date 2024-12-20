@@ -81,9 +81,10 @@ public class StartPanel extends JPanel
       center.setLayout(new TotemLayout(center, 15));
       center.setOpaque(false);
       center.setBackground(ApplicationColors.getTransparent());
-      center.add(initSchabbatModus());
+      
       center.add(initDatabaseTablePanel());
       center.add(initCopyTablePanel());
+      center.add(initSchabbatModus());
       
       centerWrapper.add(center);
       add(centerWrapper, BorderLayout.CENTER);
@@ -202,8 +203,8 @@ public class StartPanel extends JPanel
       super.paintComponent(g);
       if (ApplicationImages.getImage() != null)
       {
-         float factorWidth = getParent().getWidth() / 1280F;
-         float factorHeight = getParent().getHeight() / 859F;
+         float factorWidth = 1536 / 1280F;
+         float factorHeight = 960 / 859F;
          if (factorWidth < factorHeight)
          {
             int width = (int) (1280F * factorHeight);

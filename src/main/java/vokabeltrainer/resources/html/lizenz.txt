@@ -1,4 +1,4 @@
-Vokabeltrainer Cerebrummi Version 5.0
+Vokabeltrainer Cerebrummi
 
 Birke Heeren, Franz-Mehring-Strasse 65, 17489 Greifswald.
 
@@ -10,8 +10,8 @@ Installieren und Nutzen Sie den Vokabeltrainer Cerebrummi nur auf EIGENES RISIKO
 Install and use Cerebrummi only at YOUR OWN RISK!
 
 
-Vokabeltrainer Cerebrummi Version 5.0 darf nur als KOSTENFREIE Privatlizenz genutzt werden!
-Vokabeltrainer Cerebrummi Version 5.0 is only to be used as FREE OF CHARGE private license!
+Vokabeltrainer Cerebrummi darf nur als KOSTENFREIE Privatlizenz genutzt werden!
+Vokabeltrainer Cerebrummi  is only to be used as FREE OF CHARGE private license!
 
 Produktentwicklung, Programmentwicklung, Programmierung, Projektleitung, Konzeption und Screendesign/product development, software development, programming, project manager, conceptual design, and screen design:
 Birke Heeren.
@@ -26,4 +26,4 @@ Requests for exceptions are to be directed at Birke Heeren only: info@birkeheere
 All code and data was checked and tested. BUT: No warenty is given for any technical errors. And no warenty is given for any information or data given.
 
 
-Greifswald, den/the 04. Dez. 2024
+Greifswald, den/the 20. Dez. 2024
