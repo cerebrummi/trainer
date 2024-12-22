@@ -88,6 +88,7 @@ public enum ExpressionKind {
 		case GLUECKWUNSCH:
 		case HOEFLICHKEITSFORMEL:
 		case JAHRESZEIT:
+		case KOMPARATIV:
 		case KONSTRUKT:
 		case MODALVERB:
 		case ORDNUNGSZAHL:
@@ -98,9 +99,11 @@ public enum ExpressionKind {
 		case POSSESSIVPRONOM:
 		case PRAEPOSITION:
 		case PRONOM:
+		case PRONOMINALSUFFIX:
 		case REDEWENDUNG:
 		case RELATIVPRONOM:
 		case SUBSTANTIV:
+		case SUPERLATIV:
 		case TEXT:
 		case UHRZEIT:
 		case UMGANGSPRACHE:
