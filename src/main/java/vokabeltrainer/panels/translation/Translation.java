@@ -335,7 +335,7 @@ public enum Translation {
 	WUNDERBAR__SIE_HABEN_DIESE("Wunderbar, sie haben diese", "Wonderful they have these"), 
 	WURZEL("Wurzel", "root"),
 
-	ZAHL("Zahl", "number"), 
+	ZAHL("Zahlwort", "number"), 
 	ZEITFORM("Zeitform", "tense"),
 	ZITRONE("Zitrone", "z"),
 	ZUM_LOESCHEN_AUSGEWAEHLT("zum Löschen ausgewählt.", "selected for deletion."),

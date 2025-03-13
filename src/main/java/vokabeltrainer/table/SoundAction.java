@@ -43,7 +43,7 @@ public class SoundAction extends AbstractAction
          }
          else if (expression.getLL().isSwedish())
          {
-            buchstabieren(expression);
+            //buchstabieren(expression);
          }
          // else nothing
       }
