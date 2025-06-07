@@ -1,5 +1,9 @@
 package vokabeltrainer.common;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -69,7 +73,7 @@ public final class SaveExpressions
       exportAsZip();
    }
 
-   public boolean save()
+   public boolean save(boolean isWeb)
    {
       ProgressMonitor bar = new ProgressMonitor(Common.getjFrame(),
             "Die Daten werden gespeichert.", "", 0, 2900);
@@ -166,6 +170,7 @@ public final class SaveExpressions
          try
          {
             File f = new File(this.exportpath.getPathFileWithZipTest());
+           
             try (ZipOutputStream out = new ZipOutputStream(
                   new FileOutputStream(f), StandardCharsets.UTF_8))
             {
@@ -181,6 +186,26 @@ public final class SaveExpressions
                   progress += 100 / LetterForSaving.values().length;
                   bar.setProgress(progress);
                }
+               Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
+                     new Transferable() {
+                         @Override
+                         public DataFlavor[] getTransferDataFlavors() {
+                             return new DataFlavor[] { DataFlavor.javaFileListFlavor };
+                         }
+
+                         @Override
+                         public boolean isDataFlavorSupported(DataFlavor flavor) {
+                             return DataFlavor.javaFileListFlavor.equals(flavor);
+                         }
+
+                         @Override
+                         public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+                             List<File> list = new ArrayList<>();
+                             list.add(new File(f.getPath()));
+                             return list;
+                         }
+                     }, null
+                 );
             }
             catch (Exception e)
             {

@@ -133,37 +133,49 @@ public class Chapter implements Comparable<Chapter>
             "Grundwortschatz",
             "630 Vokabeln",
             "Neuhebräisch",
-            LLType.HEBREW),
+            LLType.HEBREW,
+            false),
+      ROSENGARTENLOOS("rosengartenloos",
+            "Rosengarten & Loos",
+            "IVRIT Schritt für Schritt: Die ersten 12 Kapitel.",
+            "COPYRIGHT S. Marix Verlag: Es ist nicht gestattet Texte zu speichern.",
+            LLType.HEBREW,
+            true),
       SELF(
             "",
             "",
             "",
             "",
-            LLType.UNKOWN),
+            LLType.UNKOWN,
+            false),
       COPY(
             "",
             "Kopie",
             "",
             "",
-            LLType.UNKOWN),
+            LLType.UNKOWN,
+            false),
       IMPORTED(
             "",
             "importiert",
             "",
             "",
-            LLType.UNKOWN),
+            LLType.UNKOWN,
+            false),
       UNKNOWN(
             "",
             "unbekannt",
             "",
             "",
-            LLType.UNKOWN),
+            LLType.UNKOWN,
+            false),
       TO_BE_DETERMINED(
             "",
             "soll bestimmt werden",
             "",
             "",
-            LLType.UNKOWN);
+            LLType.UNKOWN,
+            false);
 
             public void setLlType(LLType llType)
             {
@@ -175,14 +187,16 @@ public class Chapter implements Comparable<Chapter>
       private String authors;
       private String company;
       private LLType llType;
-
-      Database(String folder, String name, String authors, String company, LLType llType)
+      private boolean copyrighted;
+      
+      Database(String folder, String name, String authors, String company, LLType llType, boolean copyrighted)
       {
          this.folder = folder;
          this.name = name;
          this.authors = authors;
          this.company = company;
          this.llType = llType;
+         this.copyrighted = copyrighted;
       }
 
       public String getFolder()
@@ -198,6 +212,11 @@ public class Chapter implements Comparable<Chapter>
             return translator.realisticTranslate(Translation.SELBST_EINGEGEBEN);
          }
          return name;
+      }
+
+      public boolean isCopyrighted()
+      {
+         return copyrighted;
       }
 
       public static DatabaseTableModel getModelAvailableDatabases()
@@ -219,6 +238,10 @@ public class Chapter implements Comparable<Chapter>
          Vector<Vector<DatabaseTableCopyRow>> data = new Vector<>();
          for (DatabaseItem item : DatabaseItem.getAllAvailableDatabaseItems())
          {
+            if(item.getDatabase().isCopyrighted())
+            {
+               continue;
+            }
             Vector<DatabaseTableCopyRow> row = new Vector<>();
             row.add(new DatabaseTableCopyRow(item));
             data.add(row);

@@ -34,13 +34,13 @@ public class Settings
    private static String chosenExpressionPath = null;
    private static float volume = -20;
    private static boolean letterImagesOn = true;
-   private static Selection languageInput = readLanaguageInput();
-   private static String version = "6.0";
+   private static Selection languageInput = readLanguageInput();
+   private static String version = "6.2";
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
    private static Database[] availableDatabases = {
-         Database.GRUNDWORTSCHATZ 
+         Database.GRUNDWORTSCHATZ //, Database.ROSENGARTENLOOS
          };
    
    private static String rememberDatabaseForInput = "";
@@ -105,6 +105,16 @@ public class Settings
    public static String getExpressionFolder()
    {
       return "cerebrummi-hebrewtrainer";
+   }
+   
+   public static String getWebExportFolder()
+   {
+      return ""; // The server sets the folder
+   }
+   
+   public static String getWebExportPath()
+   {
+      return getWebExportFolder(); // The server sets the path ?
    }
 
    public static String getExpressionPath()
@@ -428,7 +438,7 @@ public class Settings
       return WritingDirection.valueOf(s);
    }
    
-   public static Selection readLanaguageInput()
+   public static Selection readLanguageInput()
    {
       Preferences preferences = Preferences
             .userRoot()
@@ -657,6 +667,8 @@ public class Settings
    {
       Settings.schabbat_modus = schabbat_modus;
    }
+
+
 }
 
 

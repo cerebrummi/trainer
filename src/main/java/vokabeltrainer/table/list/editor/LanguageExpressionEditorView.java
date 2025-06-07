@@ -1207,13 +1207,12 @@ public class LanguageExpressionEditorView extends JDialog
 
    private String cleanTextAndNoComma(String text)
    {
-      return text.replaceAll("\t", "").replaceAll("\n", "").replaceAll(",", "")
-            .strip();
+      return cleanTextLeaveComma(text).replaceAll(",", "");
    }
 
    private String cleanTextLeaveComma(String text)
    {
-      return text.replaceAll("\t", "").replaceAll("\n", "").strip();
+      return text.replaceAll("\\t", " ").replaceAll("\\n", " ").replaceAll("\\r", " ").strip();
    }
 
    private void setExpressionForReset()

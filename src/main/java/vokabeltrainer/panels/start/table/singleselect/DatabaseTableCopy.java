@@ -86,7 +86,7 @@ public class DatabaseTableCopy extends JTable
                      @Override
                      protected Void doInBackground() throws Exception
                      {
-                        new SaveExpressions().save();
+                        new SaveExpressions().save(false);
                         return null;
                      }
 

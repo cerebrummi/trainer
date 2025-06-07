@@ -32,7 +32,7 @@ private DatabaseTableCellRenderer renderer;
       column1.setHeaderValue(translator.realisticTranslate(Translation.DATENBANK));
       column1.setCellRenderer(renderer);
       column1.setCellEditor(renderer);
-      column1.setPreferredWidth(width);
+      column1.setPreferredWidth(width-150);
       addColumn(column1);
       
       TableColumn column2 = new TableColumn();
@@ -46,7 +46,7 @@ private DatabaseTableCellRenderer renderer;
       column3.setHeaderValue(translator.realisticTranslate(Translation.VERLAG));
       column3.setCellRenderer(renderer);
       column3.setCellEditor(renderer);
-      column3.setPreferredWidth(width);
+      column3.setPreferredWidth(width+150);
       addColumn(column3);
    }
 

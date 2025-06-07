@@ -449,7 +449,7 @@ public class InputPanel extends JPanel implements TableConnector
          @Override
          protected Void doInBackground() throws Exception
          {
-            if (new SaveExpressions().save())
+            if (new SaveExpressions().save(false))
             {
                chapterBox.setModel(Data.getChapterComboBoxModelAsChapter());
                chapterBox.setSelectedItem(currentChapter);

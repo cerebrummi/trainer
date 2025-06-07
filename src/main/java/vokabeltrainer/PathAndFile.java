@@ -30,6 +30,18 @@ public class PathAndFile
 
    public String getPathFile()
    {
+      if(path.isBlank() && file.isBlank())
+      {
+         return "";
+      }
+      if(path.isBlank())
+      {
+         return file;
+      }
+      if(file.isBlank())
+      {
+         return path;
+      }
       return path + File.separator + file;
    }
 
@@ -37,9 +49,9 @@ public class PathAndFile
    {
       if (file.endsWith(".zip") || file.endsWith(".ZIP"))
       {
-         return path + File.separator + file;
+         return getPathFile();
       }
-      return path + File.separator + file + ".zip";
+      return getPathFile() + ".zip";
    }
 
 }

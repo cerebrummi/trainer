@@ -450,7 +450,7 @@ public class DictionaryController implements DictionaryControllerConnector
          Data.moveSelectedExpressionsToChapter(toChapter);
 
          SaveExpressions saver = new SaveExpressions();
-         saver.save();
+         saver.save(false);
 
          Status.push(Status.peek());
          decideOnTableInteraction(Action.MOVE_TO_CHAPTER);
@@ -465,7 +465,7 @@ public class DictionaryController implements DictionaryControllerConnector
          Data.moveSelectedExpressionsToDatabase(toDatabase);
 
          SaveExpressions saver = new SaveExpressions();
-         saver.save();
+         saver.save(false);
 
          Status.push(Status.peek());
          decideOnTableInteraction(Action.MOVE_TO_DATABASE);
@@ -480,7 +480,7 @@ public class DictionaryController implements DictionaryControllerConnector
          @Override
          protected Void doInBackground() throws Exception
          {
-            if (new SaveExpressions().save())
+            if (new SaveExpressions().save(false))
             {
                if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
                {

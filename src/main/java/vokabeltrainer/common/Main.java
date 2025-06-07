@@ -32,6 +32,8 @@ public final class Main
 
    public static void main(String[] args)
    {	       
+      
+      
       CerebrummiPreferences.read();
       
       try
@@ -193,7 +195,9 @@ public final class Main
       }
 
       SwingUtilities.invokeLater(() -> {
+         System.setProperty("java.awt.headless", "true");
          javax.swing.JFrame window = new JFrame();
+         window.setUndecorated(true);
          window.setResizable(true);
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
@@ -213,7 +217,7 @@ public final class Main
                      vokabeltrainer.common.Common.getMainJPanel()));
          window.setJMenuBar(Common.getMainJPanel().getMenuBar());
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-         window.setSize(new Dimension(1536, 960));
+         window.setSize(new Dimension(1536, 900));
          //window.setExtendedState(JFrame. MAXIMIZED_BOTH);
          //window.pack();
          window.setLocationRelativeTo(null);
