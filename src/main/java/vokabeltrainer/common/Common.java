@@ -7,6 +7,7 @@ import java.time.ZonedDateTime;
 import javax.swing.JFrame;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
+import vokabeltrainer.cmd.Mode;
 import vokabeltrainer.panels.MainView;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.list.editor.LanguageExpressionEditorView;
@@ -23,13 +24,18 @@ public final class Common
    private static Settings settings;
    
    private static NimbusLookAndFeel nimbus;
-   
+   private static Mode mode = Mode.LOCAL_MARIX;
 
    private Common()
    {
 
    }
    
+   public static Mode getMode()
+   {
+      return mode;
+   }
+
    public static MainView getMainJPanel()
    {
       return mainJPanel;

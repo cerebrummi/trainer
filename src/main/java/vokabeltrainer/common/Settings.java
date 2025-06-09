@@ -39,10 +39,19 @@ public class Settings
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
-   private static Database[] availableDatabases = {
-         Database.GRUNDWORTSCHATZ //, Database.ROSENGARTENLOOS
-         };
-   
+   private static Database[] availableDatabases;
+   private static Database[] availableDatabasesOriginal = {Database.GRUNDWORTSCHATZ};
+   private static Database[] availableDatabasesMarix = {Database.GRUNDWORTSCHATZ, Database.ROSENGARTENLOOS};
+   static {
+     if(Common.getMode().isMarix())
+     {
+        availableDatabases = availableDatabasesMarix;
+     }
+     else
+     {
+        availableDatabases = availableDatabasesOriginal;
+     }
+   }
    private static String rememberDatabaseForInput = "";
    private static String rememberChapterForInput = "";
    
