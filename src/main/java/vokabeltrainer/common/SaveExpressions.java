@@ -73,7 +73,7 @@ public final class SaveExpressions
       exportAsZip();
    }
 
-   public boolean save(boolean isWeb)
+   public boolean save()
    {
       ProgressMonitor bar = new ProgressMonitor(Common.getjFrame(),
             "Die Daten werden gespeichert.", "", 0, 2900);

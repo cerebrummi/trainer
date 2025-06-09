@@ -100,7 +100,7 @@ public class TrashCanController implements TrashCanControllerConnector
          @Override
          protected Void doInBackground() throws Exception
          {
-            new SaveExpressions().save(false);
+            new SaveExpressions().save();
             return null;
          }
       }.execute();
