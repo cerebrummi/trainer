@@ -257,7 +257,7 @@ public enum Translation {
 	SONNE("Sonne", "sun"),
 	SPEICHERN("speichern", "save"),
 	SPEICHERORT("Speicherort", "location"), 
-	START("Start", "home"), 
+	START("Daten", "data"), 
 	SUBSTANTIV_HAUPTWORT("Substantiv/Hauptwort", "noun"), 
 	SUCHE("Suche", "search"),
 	SUCHE_NACH_SUCHWORT("Suche nach Suchwort", "search by keyword"), 
@@ -360,7 +360,7 @@ public enum Translation {
 	ABBRECHEN_DER_AUSWAHL("Abbrechen der Auswahl", "canceling choice"), 
 	AUSGEWAEHLTE_DATEI_SPEICHERN("Ausgewählte Datei speichern", "save file selected"), 
 	SICHERHEITSKOPIEN("Sicherheitskopien","backups"), 
-	SCHABBAT_MODUS("Schabbat Modus, kein Vokabeln abfragen - kann am Schabbat nicht geändert werden.", "Shabbat Modus, no querying of vocabulary - can not be changed on shabbat."),
+	SCHABBAT_MODUS("Schabbat Modus, kein Vokabeln abfragen.", "Shabbat Modus, no querying of vocabulary."),
 	ES_IST_SCHABBAT("Es ist Schabbat", "It is Shabbat."), 
 	DAS_TRAINING_IST_ABGESCHALTET("Das Training ist abgeschaltet.","Training mode is off."), 
 	SAETZE("Texte","texts"), 
@@ -424,7 +424,10 @@ public enum Translation {
 	KOMPARATIV("Komparativ/Steigerungsform","comparative"),
 	SUPERLATIV("Superlativ", "superlative"),
 	IHRE_SPRACHE_LERNSPRACHE("Ihre Sprache > Lernsprache","your language > new language"),
-	PRONOMINALSUFFIX("Pronominalsuffix","pronominal suffix");
+	PRONOMINALSUFFIX("Pronominalsuffix","pronominal suffix"),
+	HINEINKLICKEN_UND_SCHREIBEN("Hineinklicken und schreiben!","Click into field and write!"),
+	INFORMATION_ANKLICKEN("Information anklicken!","Information, do click!"), 
+	ERKLAEHR_VIDEO("Erklärvideo über Cerebrummi im Internet", "video about Cerebrummi to watch on the internet");
    
 
 	private String german;

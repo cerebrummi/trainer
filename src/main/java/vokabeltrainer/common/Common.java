@@ -24,13 +24,18 @@ public final class Common
    private static Settings settings;
    
    private static NimbusLookAndFeel nimbus;
-   private static Mode mode = Mode.LOCAL_MARIX;
+   private static Mode mode;
 
    private Common()
    {
 
    }
    
+   public static void setMode(Mode mode)
+   {
+      Common.mode = mode;
+   }
+
    public static Mode getMode()
    {
       return mode;

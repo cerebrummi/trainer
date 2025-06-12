@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.StringJoiner;
 
 import javax.sound.sampled.AudioSystem;
@@ -26,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.SwingWorker;
 import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.filechooser.FileFilter;
@@ -125,10 +128,6 @@ public class SettingsPanel extends BackgroundPanelTiled
       modus.setFont(ApplicationFonts.getButtonFont());
       modus.setForeground(ApplicationColors.getWhite());
       modus.setSelected(Settings.isSchabbat_modus());
-      if (Common.isSchabbat())
-      {
-         modus.setEnabled(false);
-      }
 
       panel.add(modus);
       return panel;
@@ -246,6 +245,10 @@ public class SettingsPanel extends BackgroundPanelTiled
       BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
       panel.setLayout(panelLayout);
 
+      JPanel verticalInfo = new JPanel();
+      TotemLayout verticalInfoLayout = new TotemLayout(verticalInfo, 60);
+      verticalInfo.setLayout(verticalInfoLayout);
+
       JPanel horizontal = new JPanel();
       TrainLayout horizontalLayout = new TrainLayout(horizontal, 60);
       horizontal.setLayout(horizontalLayout);
@@ -273,8 +276,27 @@ public class SettingsPanel extends BackgroundPanelTiled
       horizontal.add(vertical1);
       horizontal.add(vertical2);
       horizontal.add(vertical3);
+      
+      JButton link = new JButton(translator.realisticTranslate(Translation.ERKLAEHR_VIDEO));
+      link.setBackground(ApplicationColors.getGreen());
+      link.setFont(ApplicationFonts.getButtonFont());
+      link.addActionListener(event -> {
+         Desktop desktop = Desktop.getDesktop();
+         try
+         {
+            URI uri = new URI("https://youtu.be/qxvUVM_j8no");
+            desktop.browse(uri);
+         }
+         catch (URISyntaxException | IOException e)
+         {
+            e.printStackTrace();
+         }
+      });
 
-      panel.add(horizontal);
+      verticalInfo.add(link);
+      verticalInfo.add(horizontal);
+
+      panel.add(verticalInfo);
 
       return panel;
    }

@@ -413,12 +413,11 @@ public class LanguageExpressionEditorView extends JDialog
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
       chapter = new InfoComboBox(this.chapterTitle, 
+            translator.realisticTranslate(Translation.HINEINKLICKEN_UND_SCHREIBEN),
             translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM), 
             translator.realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
       chapter.setEditable(true);
       chapter.setMaximumRowCount(20);
-      chapter.setOpaque(false);
-      chapter.setBackground(ApplicationColors.getTransparent());
       chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       chapter.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
 
@@ -432,6 +431,7 @@ public class LanguageExpressionEditorView extends JDialog
       indexField.setMaximumSize(new Dimension(85, 70));
 
       databaseNameField = new InfoComboBox(translator.realisticTranslate(Translation.DATENBANK), 
+            translator.realisticTranslate(Translation.HINEINKLICKEN_UND_SCHREIBEN),
             translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM), 
             translator.realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
       databaseNameField.setFont(ApplicationFonts.getButtonFont());
@@ -920,7 +920,7 @@ public class LanguageExpressionEditorView extends JDialog
 
    private void resetAllBorders()
    {
-      chapter.setBorder(makeBorderBlank(this.chapterTitle));
+      chapter.setBlankBorder();
       ownLanguage.setBorder(makeBorderBlank(this.germanTitle));
       language.setBlankBorder();
    }
@@ -1088,7 +1088,7 @@ public class LanguageExpressionEditorView extends JDialog
       boolean result = true;
       if (((String) chapter.getSelectedItem()).isBlank())
       {
-         chapter.setBorder(makeBorderRed(this.chapterTitle));
+         chapter.setRedBorder();
          result = false;
       }
       if (ownLanguage.getText().isEmpty())

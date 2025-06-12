@@ -15,6 +15,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
+import vokabeltrainer.cmd.Mode;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.resources.Blue;
@@ -26,8 +27,14 @@ import vokabeltrainer.resources.LetterIcons;
 import vokabeltrainer.resources.LetterIconsHandwritten;
 import vokabeltrainer.resources.Sounds;
 
+
 public final class Main
 {
+   static 
+   {
+      Common.setMode(Mode.LOCAL_ORIGINAL);
+   }
+   
    private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
 
    public static void main(String[] args)
@@ -197,7 +204,15 @@ public final class Main
       SwingUtilities.invokeLater(() -> {
          System.setProperty("java.awt.headless", "true");
          javax.swing.JFrame window = new JFrame();
-         window.setUndecorated(true);
+         if(Common.getMode().isWeb())
+         {
+            window.setUndecorated(true);  
+            window.setSize(new Dimension(1536, 900));
+         }
+         else
+         {
+            window.setSize(new Dimension(1536, 980));
+         }
          window.setResizable(true);
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
@@ -217,7 +232,6 @@ public final class Main
                      vokabeltrainer.common.Common.getMainJPanel()));
          window.setJMenuBar(Common.getMainJPanel().getMenuBar());
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-         window.setSize(new Dimension(1536, 900));
          //window.setExtendedState(JFrame. MAXIMIZED_BOTH);
          //window.pack();
          window.setLocationRelativeTo(null);

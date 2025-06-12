@@ -30,7 +30,7 @@ public class DatabaseTableCopy extends JTable
       super(model, new DatabaseTableCopyColumnModel(totalWidth));
       this.setShowVerticalLines(false);
       setOpaque(true);
-      setBackground(ApplicationColors.getBackgroundGold());
+      setBackground(ApplicationColors.getGreen());
       setRowHeight(30);
       setShowHorizontalLines(true);
       this.setRowSelectionAllowed(true);

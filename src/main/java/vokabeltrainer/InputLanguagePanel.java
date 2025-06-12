@@ -643,8 +643,7 @@ public class InputLanguagePanel extends JTextArea
 
    public void setBlankBorder()
    {
-      BorderFactory.createEmptyBorder(3, 3, 3, 3);
-
+      this.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
    }
 
    public void setRedBorder()
