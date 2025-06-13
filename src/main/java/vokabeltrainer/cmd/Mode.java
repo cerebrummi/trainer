@@ -2,18 +2,20 @@ package vokabeltrainer.cmd;
 
 public enum Mode
 {
-   LOCAL_ORIGINAL(false, false),
-   LOCAL_MARIX(true, false),
-   WEB_ORIGINAL(false, true),
-   WEB_MARIX(true, true);
+   LOCAL_ORIGINAL(false, false, true),
+   LOCAL_MARIX(true, false, false),
+   WEB_ORIGINAL(false, true, true),
+   WEB_MARIX(true, true, false);
    
    private boolean marix;
    private boolean web;
+   private boolean free;
    
-   Mode(boolean marix, boolean web)
+   Mode(boolean marix, boolean web, boolean free)
    {
       this.marix = marix;
       this.web = web;
+      this.free = free;
    }
 
    public boolean isMarix()
@@ -25,6 +27,9 @@ public enum Mode
    {
       return web;
    }
-   
-   
+
+   public boolean isFree()
+   {
+      return free;
+   }
 }

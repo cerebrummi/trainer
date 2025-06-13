@@ -99,7 +99,15 @@ public class CerebrummiPreferences
             {
                if (preferences.getBoolean(name, false))
                {
-                  choosenDatabases.add(Database.valueOf(name.toUpperCase()));
+                  Database database = Database.valueOf(name.toUpperCase());
+                  if (Common.getMode().isFree() && !database.isCopyrighted())
+                  {
+                     choosenDatabases.add(database);
+                  }
+                  else if (!Common.getMode().isFree())
+                  {
+                     choosenDatabases.add(database);
+                  }
                }
             }
             catch (Exception e)
@@ -252,9 +260,8 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setLanguageInput(Selection
-               .valueOf(preferences.get(CerebrummiNodes.getLanguageNode(),
-                     Selection.GERMAN.name())));
+         Settings.setLanguageInput(Selection.valueOf(preferences.get(
+               CerebrummiNodes.getLanguageNode(), Selection.GERMAN.name())));
       }
       catch (Exception e)
       {

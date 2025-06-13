@@ -28,7 +28,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.SwingWorker;
 import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.filechooser.FileFilter;

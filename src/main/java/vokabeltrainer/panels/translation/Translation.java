@@ -427,7 +427,8 @@ public enum Translation {
 	PRONOMINALSUFFIX("Pronominalsuffix","pronominal suffix"),
 	HINEINKLICKEN_UND_SCHREIBEN("Hineinklicken und schreiben!","Click into field and write!"),
 	INFORMATION_ANKLICKEN("Information anklicken!","Information, do click!"), 
-	ERKLAEHR_VIDEO("Erklärvideo über Cerebrummi im Internet", "video about Cerebrummi to watch on the internet");
+	ERKLAEHR_VIDEO("Erklärvideo über Cerebrummi im Internet", "video about Cerebrummi to watch on the internet"),
+	KONSTRUKTION("Konstruktion", "construction");
    
 
 	private String german;

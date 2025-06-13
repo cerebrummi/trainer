@@ -19,6 +19,8 @@ public enum VerbTimes
          Translation.UNBEKANNT, LLType.ALL),
    ROOT(
          Translation.WURZEL, LLType.HEBREW_ONLY),
+   CONSTRUCTION(
+         Translation.KONSTRUKTION, LLType.HEBREW_ONLY),
    INFINITIVE(
          Translation.INFINITIV, LLType.ALL),
    PAST(
@@ -76,6 +78,7 @@ public enum VerbTimes
       case PLUSQUANPERFEKT:
       case FUTUR1:
       case FUTUR2:
+      case CONSTRUCTION:
          return translator.realisticTranslate(description);
       case VERBTIMES_UNKNOWN:
          return translator.realisticTranslate(Translation.ZEITFORM)
@@ -110,6 +113,7 @@ public enum VerbTimes
       case PLUSQUANPERFEKT:
       case FUTUR1:
       case FUTUR2:
+      case CONSTRUCTION:
          return translator.realisticTranslate(description);
       case VERBTIMES_UNKNOWN:
       case VERBTIMES_NA:
