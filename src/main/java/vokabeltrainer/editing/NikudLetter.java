@@ -486,8 +486,8 @@ public enum NikudLetter
          Translation germanPictureName, NikudLetterDistinction distinction,
          int pixelWidth, boolean handwritten)
    {
-      this.unicode = unicode;
-      this.code = code;
+      this.unicode = unicode.toUpperCase();
+      this.code = code.toUpperCase();
       this.transcript = transcript;
       this.germanPictureName = germanPictureName;
       this.distinction = distinction;
@@ -534,8 +534,7 @@ public enum NikudLetter
                && letter != GERSCHAYIM && letter != GERESCH
                && letter != NEWSPACE && letter != SPACE)
          {
-            joiner.add(letter.code);
-            joiner.add(letter.code.toLowerCase());
+            joiner.add(letter.code.toUpperCase());
          }
       }
       return joiner.toString();

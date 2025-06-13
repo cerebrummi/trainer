@@ -3,8 +3,8 @@ package vokabeltrainer.editing;
 public enum ExchangeLetter
 {
    SSIN(
-         "\uFb2B",
-         " Fb2B");
+         "\uFB2B",
+         " FB2B");
    
    private String unicode;
    private String code;

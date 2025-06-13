@@ -5,9 +5,9 @@ import java.util.StringJoiner;
 public enum SignLetter implements Letter
 {
    TAB(" 0009_","\u0009"),
-   QUESTION_MARK(" 003f_**", "\u003f"),            // ?
+   QUESTION_MARK(" 003F_**", "\u003F"),            // ?
    EXCLAMATION_MARK(" 0021_**", "\u0021"),         // !
-   FULL_STOP(" 002e_**", "\u002e"),                // .
+   FULL_STOP(" 002E_**", "\u002E"),                // .
    APOSTROPHE(" 0027_**", "\u0027"),               // '
    LEFT_PARENTHESIS(" 0028_**", "\u0028"),         // (
    RIGHT_PARENTHESIS(" 0029_**", "\u0029"),        // )
@@ -89,8 +89,8 @@ public enum SignLetter implements Letter
 
    SignLetter(String code, String unicode)
    {
-      this.code = code;
-      this.unicode = unicode;
+      this.code = code.toUpperCase();
+      this.unicode = unicode.toUpperCase();
    }
    
    public static String getInternationalExclusionPattern()

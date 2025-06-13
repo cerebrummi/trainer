@@ -103,9 +103,8 @@ public class InternationalDocument extends PlainDocument
       for (int i = 0; i < list.size(); i++)
       {
          String code = list.get(i);
-         //
          if (exclusionPattern.contains(code))
-         { 
+         {          
             return false;
          }
       }

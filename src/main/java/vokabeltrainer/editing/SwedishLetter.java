@@ -72,8 +72,8 @@ public enum SwedishLetter implements Letter
 
    SwedishLetter(String code, String unicode, String pronunciation)
    {
-      this.code = code;
-      this.unicode = unicode;
+      this.code = code.toUpperCase();
+      this.unicode = unicode.toUpperCase();
       this.pronunciation = pronunciation;
    }
 

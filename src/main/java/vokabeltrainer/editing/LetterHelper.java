@@ -113,15 +113,15 @@ public class LetterHelper
       
       for (String code : codelist)
       {
-         if(getLetterFromCode(code + "_de", LetterType.GERMAN) != null)
+         if(getLetterFromCode(code + "_DE", LetterType.GERMAN) != null)
          {
             return LetterType.GERMAN;
          }
-         if(getLetterFromCode(code + "_se", LetterType.SWEDISH) != null)
+         if(getLetterFromCode(code + "_SE", LetterType.SWEDISH) != null)
          {
             return LetterType.SWEDISH;
          }
-         if(getLetterFromCode(code + "_il", LetterType.HEBREW) != null)
+         if(getLetterFromCode(code + "_IL", LetterType.HEBREW) != null)
          {
             return LetterType.HEBREW;
          }
@@ -143,7 +143,7 @@ public class LetterHelper
          {
             String code = String.format(" %04x", (int) word.charAt(c))
                   + type.getRealm();
-
+            code = code.toUpperCase();
             letterCodes.add(code);
          }
          catch (Exception e)

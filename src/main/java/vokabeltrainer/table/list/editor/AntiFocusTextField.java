@@ -5,6 +5,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
 import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.Common;
 
 public class AntiFocusTextField extends JTextField
 {
@@ -18,6 +19,7 @@ public class AntiFocusTextField extends JTextField
       setBackground(ApplicationColors.getBackgroundGold());
       setBorder(BorderFactory.createEmptyBorder());
       setEnabled(true);
+      setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
    }
    
    public AntiFocusTextField()
@@ -27,6 +29,7 @@ public class AntiFocusTextField extends JTextField
       setBackground(ApplicationColors.getBackgroundGold());
       setBorder(BorderFactory.createEmptyBorder());
       setEnabled(true);
+      setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
    }
 
    @Override

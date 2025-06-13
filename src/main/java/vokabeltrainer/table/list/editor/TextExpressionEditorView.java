@@ -40,6 +40,7 @@ import vokabeltrainer.InfoComboBox;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputLanguagePanel;
 import vokabeltrainer.InputLanguagePanel.Selection;
+import vokabeltrainer.cmd.TextHelper;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
@@ -222,7 +223,6 @@ public class TextExpressionEditorView extends JDialog
                   + "  ");
       newSearchwordGerman.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
       newSearchwordGerman.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
-      newSearchwordGerman.setDocument(new InternationalDocument());
 
       searchwordsJListGerman = new JList<>();
       searchwordsJListGerman.setCellRenderer(new ListCellRenderer<String>()
@@ -538,6 +538,7 @@ public class TextExpressionEditorView extends JDialog
 
       newSearchwordGerman.addActionListener(event -> {
          String add = newSearchwordGerman.getText().replaceAll(",", "");
+         add = TextHelper.cleanText(add);
          if (!add.isEmpty())
          {
             searchwordsSetGerman.add(add);
@@ -558,6 +559,7 @@ public class TextExpressionEditorView extends JDialog
 
       newSearchwordHebrew.addActionListener(event -> {
          String add = newSearchwordHebrew.getText().replaceAll(",", "");
+         add = TextHelper.cleanText(add);       
          if (!add.isEmpty())
          {
             searchwordsSetHebrew.add(add);
@@ -620,17 +622,17 @@ public class TextExpressionEditorView extends JDialog
 
    private void saveExpression()
    {
-      expression.setOwnLanguage(cleanTextLeaveComma(ownLanguage.getText()));
+      expression.setOwnLanguage(cleanText(ownLanguage.getText()));
 
       expression.setLearningLanguage(
-            new LearningLanguage(cleanTextLeaveComma(learningLanguage.getHebrewFieldText()),
-                  cleanTextLeaveComma(learningLanguage.getPleneFieldText()),
-                  cleanTextLeaveComma(learningLanguage.getDefektivFieldText()),
-                  learningLanguage.isSimple(), cleanTextLeaveComma(learningLanguage.getSwedishFieldText()),
-                  cleanTextLeaveComma(learningLanguage.getGermanFieldText())));
+            new LearningLanguage(cleanText(learningLanguage.getHebrewFieldText()),
+                  cleanText(learningLanguage.getPleneFieldText()),
+                  cleanText(learningLanguage.getDefektivFieldText()),
+                  learningLanguage.isSimple(), cleanText(learningLanguage.getSwedishFieldText()),
+                  cleanText(learningLanguage.getGermanFieldText())));
 
       expression.setLetterForSaving(LetterForSaving
-            .getLetter(cleanTextLeaveComma(expression.getOwnLanguage())));
+            .getLetter(cleanText(expression.getOwnLanguage())));
 
       Definitions definitions = new Definitions();
       if (textBox.isSelected())
@@ -658,7 +660,7 @@ public class TextExpressionEditorView extends JDialog
       Chapter selfChapter = new Chapter();
       selfChapter.setOrigin(Database.SELF);
       selfChapter
-            .setName(cleanTextLeaveComma((String) chapter.getSelectedItem()));
+            .setName(cleanText((String) chapter.getSelectedItem()));
       expression.setChapter(selfChapter);
 
       Settings.setRememberChapterForInput(selfChapter.getName());
@@ -671,7 +673,7 @@ public class TextExpressionEditorView extends JDialog
       }
       else
       {
-         expression.getChapter().setDatabaseName(cleanTextLeaveComma(
+         expression.getChapter().setDatabaseName(cleanText(
                (String) databaseNameField.getSelectedItem()));
       }
 
@@ -695,13 +697,12 @@ public class TextExpressionEditorView extends JDialog
 
    private String cleanTextAndNoComma(String text)
    {
-      return text.replaceAll("\t", "").replaceAll("\n", "").replaceAll(",", "")
-            .strip();
+      return TextHelper.cleanText(text).replaceAll(",", "");
    }
 
-   private String cleanTextLeaveComma(String text)
+   private String cleanText(String text)
    {
-      return text.replaceAll("\t", "").replaceAll("\n", "").strip();
+      return TextHelper.cleanText(text);
    }
 
    private void setExpressionForReset()

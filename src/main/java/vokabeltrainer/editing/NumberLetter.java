@@ -20,8 +20,8 @@ public enum NumberLetter implements Letter
    
    NumberLetter(String code, String unicode)
    {
-      this.code = code;
-      this.unicode = unicode;
+      this.code = code.toUpperCase();
+      this.unicode = unicode.toUpperCase();
    }
 
    public static String getPatternString()
