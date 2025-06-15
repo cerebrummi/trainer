@@ -366,7 +366,7 @@ public class InputPanel extends JPanel implements TableConnector
       newWordPunktationButton
             .setIcon(new ImageIcon(ApplicationImages.getNewWord()));
       newWordPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
-            10, 10, ApplicationColors.getGreen()));
+            10, 10, ApplicationColors.getMediumSilverBlue()));
 
       newTextPunktationButton = new JButton(
             translator.realisticTranslate(Translation.NEUER_TEXT));

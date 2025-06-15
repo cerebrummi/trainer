@@ -50,7 +50,7 @@ public class SoundAction extends AbstractAction
 
    }
 
-   private void buchstabieren(Expression expression)
+   public void buchstabieren(Expression expression)
    {
       Vector<AudioInputStream> inputStreams = new Vector<>();
       long frameLength = 0;

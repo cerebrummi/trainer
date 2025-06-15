@@ -48,9 +48,9 @@ import vokabeltrainer.InfoCheckBox;
 import vokabeltrainer.InfoComboBox;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputLanguagePanel;
+import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.cmd.TextHelper;
-import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
@@ -195,14 +195,14 @@ public class LanguageExpressionEditorView extends JDialog
             Math.min(screenSize.height - 60, 825));
 
       outerLayout = new JPanel();
-      outerLayout.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      outerLayout.setBackground(ApplicationColors.getMediumSilverBlue());
       outerLayout.setBorder(BorderFactory
-            .createLineBorder(ApplicationColors.getGreen(), 15, false));
+            .createLineBorder(ApplicationColors.getMediumSilverBlue(), 15, false));
       outerLayout.setLayout(new TotemLayout(outerLayout, 15));
 
       layout = new JPanel();
-      layout.setOpaque(true);
-      layout.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      layout.setOpaque(false);
+      layout.setBackground(ApplicationColors.getTransparent());
       layout.setLayout(new TrainLayout(layout, 15));
 
       initGuiFields();
@@ -714,7 +714,8 @@ public class LanguageExpressionEditorView extends JDialog
    {
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
-      horizontal.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      horizontal.setOpaque(false);
+      horizontal.setBackground(ApplicationColors.getTransparent());
       horizontal.add(databaseNameField);
       horizontal.add(chapter);
       horizontal.add(indexField);
@@ -725,12 +726,14 @@ public class LanguageExpressionEditorView extends JDialog
    {
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
+      vertical.setBackground(ApplicationColors.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 15));
       vertical.add(ownLanguage);
       vertical.add(keyboard);
 
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);
+      horizontal.setBackground(ApplicationColors.getTransparent());
       horizontal.setLayout(new TrainLayout(horizontal, 15));
       horizontal.add(saveButton);
       horizontal.add(restoreButton);
@@ -784,7 +787,7 @@ public class LanguageExpressionEditorView extends JDialog
                   Translation.WORTARTEN__MEHRFACHAUSWAHL_)));
       
       JPanel horizontalEye = new JPanel();
-      horizontalEye.setBackground(ApplicationColors.getLightGrayBlue());
+      horizontalEye.setBackground(ApplicationColors.getMediumBlue());
       horizontalEye.setLayout(new TrainLayout(horizontalEye, 15));
       
       visible = new InfoCheckBox(translator.realisticTranslate(Translation.SICHTBAR));
@@ -866,57 +869,52 @@ public class LanguageExpressionEditorView extends JDialog
 
    private Component initInfosExtra()
    {
-      JPanel vertical = new JPanel();
-      vertical.setOpaque(true);
-      vertical.setBackground(ApplicationColors.getTexturedBackgroundColor());
-      vertical.setLayout(new TotemLayout(vertical, 15));
-
       definitionPanel = new JPanel();
       TotemLayout definitionLayout = new TotemLayout(definitionPanel, 5);
       definitionPanel.setLayout(definitionLayout);
       definitionPanel.setBorder(BorderFactory.createEmptyBorder());
-      definitionPanel.setOpaque(true);
+      definitionPanel.setOpaque(false);
       definitionPanel
-            .setBackground(ApplicationColors.getTexturedBackgroundColor());
+            .setBackground(ApplicationColors.getTransparent());
 
-      JScrollPane scrollPane2 = new JScrollPane(definitionPanel);
+      this.loadImageButton = new JButton(translator.realisticTranslate(Translation.BILD_LADEN));
+      loadImageButton.setFont(ApplicationFonts.getButtonFont());
+      
+      this.removeImageButton = new JButton(translator.realisticTranslate(Translation.BILD_LOESCHEN));
+      removeImageButton.setFont(ApplicationFonts.getButtonFont());
+
+      JPanel wrapper = new JPanel(null);
+      wrapper.setOpaque(false);
+      wrapper.setBackground(ApplicationColors.getTransparent());
+      wrapper.setMinimumSize(new Dimension(230, 60));
+      wrapper.setMaximumSize(new Dimension(230, 60));
+     
+      imageButton = new ImageButton();
+      imageButton.setLocation(86, 0);
+      imageButton.setSize(60, 60);
+      wrapper.add(imageButton);
+      
+      JPanel innerScroll = new JPanel();
+      innerScroll.setOpaque(false);
+      innerScroll.setBackground(ApplicationColors.getTransparent());
+      innerScroll.setLayout(new TotemLayout(innerScroll, 15));
+      
+      innerScroll.add(definitionPanel);
+      innerScroll.add(loadImageButton);
+      innerScroll.add(removeImageButton);
+      innerScroll.add(wrapper);
+      
+      JScrollPane scrollPane2 = new JScrollPane(innerScroll);
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
       scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 600));
       scrollPane2.setBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
-      scrollPane2.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      scrollPane2.setOpaque(true);
+      scrollPane2.setBackground(ApplicationColors.getMediumSilverBlue());
       scrollPane2.getViewport()
-            .setBackground(ApplicationColors.getTexturedBackgroundColor());
-
+            .setBackground(ApplicationColors.getMediumSilverBlue());
       
-      
-      vertical.add(scrollPane2);
-      vertical.add(initImagePanel());
-
-      return vertical;
-   }
-
-   private Component initImagePanel()
-   {
-      JPanel vertical = new JPanel();
-      vertical.setOpaque(false);
-      vertical.setBackground(ApplicationColors.getTransparent());
-      vertical.setLayout(new TotemLayout(vertical, 5));
-
-      this.loadImageButton = new JButton(translator.realisticTranslate(Translation.BILD_LADEN));
-      loadImageButton.setFont(ApplicationFonts.getButtonFont());
-      this.removeImageButton = new JButton(translator.realisticTranslate(Translation.BILD_LOESCHEN));
-      removeImageButton.setFont(ApplicationFonts.getButtonFont());
-
-      imageButton = new ImageButton();
-      imageButton.setMinimumSize(new Dimension(230, 125));
-      imageButton.setMaximumSize(new Dimension(230, 125));
-
-      vertical.add(loadImageButton);
-      vertical.add(removeImageButton);
-      vertical.add(imageButton);
-
-      return vertical;
+      return scrollPane2;
    }
 
    private void resetAllBorders()
@@ -1079,7 +1077,8 @@ public class LanguageExpressionEditorView extends JDialog
       JPanel filler = new JPanel();
       filler.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 0));
       filler.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 700));
-      filler.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      filler.setOpaque(false);
+      filler.setBackground(ApplicationColors.getTransparent());
       definitionPanel.add(filler);
 
       definitionPanel.validate();

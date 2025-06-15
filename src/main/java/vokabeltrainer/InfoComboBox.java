@@ -11,21 +11,25 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.editing.InternationalDocument;
 
 public class InfoComboBox extends JComboBox<String>
 {
    private static final long serialVersionUID = -7410473175857005564L;
    private JButton button;
    private String title;
+   private JTextField textField;
 
    public InfoComboBox(String borderTitle, String... infoText)
    {
       this.title = borderTitle;
+      textField = ((JTextField) this.getEditor().getEditorComponent());
+      textField.setDocument(new InternationalDocument(50));
 
       button = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
@@ -35,11 +39,11 @@ public class InfoComboBox extends JComboBox<String>
       button.setPreferredSize(new Dimension(14, 32));
 
       button.addActionListener(event -> {
-         JOptionPane.showMessageDialog(this, "",
-               Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
+         JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
+               JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(infoText)));
       });
-      
+
       button.addMouseListener(new MouseAdapter()
       {
 
@@ -63,7 +67,7 @@ public class InfoComboBox extends JComboBox<String>
 
          @Override
          public void mouseEntered(MouseEvent e)
-         {  
+         {
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
          }
 
@@ -81,12 +85,11 @@ public class InfoComboBox extends JComboBox<String>
 
       this.setBorder(border);
    }
-   
 
    public void setBlankBorder()
    {
       ComponentTitledBorder border = new ComponentTitledBorder(button, this,
-            BorderFactory.createTitledBorder(title),025);
+            BorderFactory.createTitledBorder(title), 025);
 
       this.setBorder(border);
    }
@@ -94,11 +97,10 @@ public class InfoComboBox extends JComboBox<String>
    public void setRedBorder()
    {
       ComponentTitledBorder border = new ComponentTitledBorder(button, this,
-            new TitledBorder(BorderFactory.createLineBorder(Color.RED),
-                  title), 25);
+            new TitledBorder(BorderFactory.createLineBorder(Color.RED), title),
+            25);
 
       this.setBorder(border);
    }
 
- 
 }

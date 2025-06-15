@@ -12,11 +12,12 @@ import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.translation.Translation;
 
-public class NikudExpressionEditorController implements NikudExpressionEditorControllerConnector
+public class NikudExpressionEditorController
+      implements NikudExpressionEditorControllerConnector
 {
    private LanguageExpressionEditorView nikudExpressionEditorDialog;
    private TextExpressionEditorView textExpressionEditorDialog;
-   
+
    public NikudExpressionEditorController()
    {
       nikudExpressionEditorDialog = new LanguageExpressionEditorView(this);
@@ -28,46 +29,62 @@ public class NikudExpressionEditorController implements NikudExpressionEditorCon
    {
       return nikudExpressionEditorDialog;
    }
-   
+
    public TextExpressionEditorView getTextExpressionEditorDialog()
    {
-   
-	   return textExpressionEditorDialog;
+
+      return textExpressionEditorDialog;
    }
 
    @Override
-   public void chooseImageForExpression() 
+   public void chooseImageForExpression()
    {
-	   JFileChooser imageChooser = new JFileChooser(
-	            Settings.getExpressionPath());
-	   		imageChooser.setAcceptAllFileFilterUsed(false);
-	   		imageChooser.setFileFilter(new FileNameExtensionFilter("jpeg-Bild", "jpeg"));
-	   		imageChooser.setFileFilter(new FileNameExtensionFilter("jpg-Bild", "jpg"));
-	   		imageChooser.setFileFilter(new FileNameExtensionFilter("png-Bild", "png"));
-	   		imageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+      JFileChooser imageChooser = new JFileChooser(
+            Settings.getExpressionPath());
+      imageChooser.setAcceptAllFileFilterUsed(false);
+      imageChooser
+            .setFileFilter(new FileNameExtensionFilter("jpeg-Bild", "jpeg"));
+      imageChooser
+            .setFileFilter(new FileNameExtensionFilter("jpg-Bild", "jpg"));
+      imageChooser
+            .setFileFilter(new FileNameExtensionFilter("png-Bild", "png"));
+      imageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-	   int choice = imageChooser.showDialog(nikudExpressionEditorDialog, Common.getTranslator().realisticTranslate(Translation.WAEHLEN_SIE_EIN_BILD_AUS_));
-	   if (JFileChooser.APPROVE_OPTION == choice)
-	   {
-	      String image = imageChooser.getSelectedFile().getPath();
-	      UUID uuid = nikudExpressionEditorDialog.getExpression().getUuid();
-          ImageData.saveImage(image, uuid);
-          nikudExpressionEditorDialog.getImageButton().setIcon(new ImageIcon(ImageData.loadImage(uuid)));
-          nikudExpressionEditorDialog.getImageButton().validate();
-          nikudExpressionEditorDialog.getImageButton().repaint();
-	  }
-  }
+      int choice = imageChooser.showDialog(nikudExpressionEditorDialog,
+            Common.getTranslator()
+                  .realisticTranslate(Translation.WAEHLEN_SIE_EIN_BILD_AUS_));
+      if (JFileChooser.APPROVE_OPTION == choice)
+      {
+         String image = imageChooser.getSelectedFile().getPath();
+         UUID uuid = nikudExpressionEditorDialog.getExpression().getUuid();
+         ImageData.saveImage(image, uuid);
+         try
+         {
+            nikudExpressionEditorDialog.getImageButton()
+                  .setIcon(new ImageIcon(ImageData.loadImage(uuid)));
+         }
+         catch (Exception e)
+         {
+            // nothing
+         }
+         nikudExpressionEditorDialog.getImageButton().validate();
+         nikudExpressionEditorDialog.getImageButton().repaint();
+      }
+   }
 
    @Override
-   public void deleteImageForExpression() 
+   public void deleteImageForExpression()
    {
-	   int answer = JOptionPane.showConfirmDialog(nikudExpressionEditorDialog, Common.getTranslator().realisticTranslate(Translation.WOLLEN_SIE_DAS_BILD_WIRKLICH_LOESCHEN_));
-	   if(answer == 0)
-	   {
-		   ImageData.deleteImage(nikudExpressionEditorDialog.getExpression().getUuid());
-		   nikudExpressionEditorDialog.getImageButton().setIcon(null);
-	       nikudExpressionEditorDialog.getImageButton().validate();
-	       nikudExpressionEditorDialog.getImageButton().repaint();
-	   }
+      int answer = JOptionPane.showConfirmDialog(nikudExpressionEditorDialog,
+            Common.getTranslator().realisticTranslate(
+                  Translation.WOLLEN_SIE_DAS_BILD_WIRKLICH_LOESCHEN_));
+      if (answer == 0)
+      {
+         ImageData.deleteImage(
+               nikudExpressionEditorDialog.getExpression().getUuid());
+         nikudExpressionEditorDialog.getImageButton().setIcon(null);
+         nikudExpressionEditorDialog.getImageButton().validate();
+         nikudExpressionEditorDialog.getImageButton().repaint();
+      }
    }
 }

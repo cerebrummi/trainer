@@ -32,7 +32,7 @@ public final class Main
 {
    static 
    {
-      Common.setMode(Mode.LOCAL_ORIGINAL);
+      Common.setMode(Mode.LOCAL_MARIX);
    }
    
    private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
@@ -146,18 +146,20 @@ public final class Main
          UIManager
                .put("control", Color.WHITE);
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
-         UIManager.put("nimbusBase", ApplicationColors.getDarkGold());
-         UIManager.put("textForeground", Color.BLACK);
+         UIManager.put("nimbusBase", ApplicationColors.getGold());
+         UIManager.put("textForeground", Color.GRAY);
          UIManager.put("nimbusFocus", ApplicationColors.getSunflowerYellow());
          UIManager
                .put("ToolBar:Button.contentMargins", new Insets(5, 15, 5, 15));
          UIManager
                .put("TextField.background", ApplicationColors.getLightYellow());
+         UIManager.put("ComboBox.textField.background", ApplicationColors.getLightYellow());
          UIManager.put("ComboBox.forceOpaque", false);
+         
          UIManager.put("TitledBorder.border", new Insets(10, 10, 10, 10));
          UIManager.put("TitledBorder.position", TitledBorder.ABOVE_BOTTOM);
          UIManager.put("TitledBorder.font", ApplicationFonts.getGermanFont(16F));
-         UIManager.put("TitledBorder.titleColor", Color.GRAY);
+         UIManager.put("TitledBorder.titleColor", ApplicationColors.getGold());
          UIManager.put("Table.opaque", false);
          UIManager.put("List.opaque", false);
          UIManager.put("Table.cellRenderer", false);

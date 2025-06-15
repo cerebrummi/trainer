@@ -193,7 +193,7 @@ public class InputLanguagePanel extends JTextArea
       layout = new CardLayout();
       cards.setLayout(layout);
       cards.setOpaque(true);
-      cards.setBackground(ApplicationColors.getWhite());
+      cards.setBackground(ApplicationColors.getLightGrayBlue());
       cards.setBorder(BorderFactory.createEmptyBorder());
 
       this.setOpaque(true);

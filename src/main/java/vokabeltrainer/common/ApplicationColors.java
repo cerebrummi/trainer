@@ -24,6 +24,11 @@ public class ApplicationColors
    {
       return new Color(164, 190, 217);
    }
+   
+   public static Color getMediumSilverBlue()
+   {
+      return new Color(162, 180, 202);
+   }
 
    public static Color getShadyBlue()
    {
