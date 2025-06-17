@@ -10,6 +10,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -31,6 +33,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
@@ -52,6 +55,7 @@ import vokabeltrainer.editing.InternationalDocument;
 import vokabeltrainer.keyboards.KeyboardLanguage;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.table.EscapeAction;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -129,7 +133,7 @@ public class TextExpressionEditorView extends JDialog
 
    private JCheckBox textBox;
 
-   private Integer[] levels = { 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+   private Integer[] levels = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
          14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
 
    public TextExpressionEditorView(
@@ -165,8 +169,8 @@ public class TextExpressionEditorView extends JDialog
       getContentPane().add(new JScrollPane(outerLayout));
 
       initController();
-      Component[] focusList = { ownLanguage, learningLanguage, newSearchwordGerman,
-            newSearchwordHebrew };
+      Component[] focusList = { ownLanguage, learningLanguage,
+            newSearchwordGerman, newSearchwordHebrew };
       this.setFocusTraversalPolicy(
             new CerebrummiFocusTraversalPolicy(focusList));
    }
@@ -174,43 +178,50 @@ public class TextExpressionEditorView extends JDialog
    private void initGuiFields()
    {
       ownLanguage = new JTextArea();
-      ownLanguage.setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
+      ownLanguage.setFont(
+            Common.getNimbus().getDefaults().getFont("internationalFont"));
       ownLanguage.setLineWrap(true);
       ownLanguage.setWrapStyleWord(true);
       ownLanguage.setBorder(makeBorderBlank(germanTitle));
       ownLanguage.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 150));
       ownLanguage.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 250));
       ownLanguage.setDocument(new InternationalDocument());
-      
-      switch(Settings.getMyWritingDirection())
+
+      switch (Settings.getMyWritingDirection())
       {
       case LEFT_TO_RIGHT:
-         ownLanguage.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         ownLanguage
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          break;
       case RIGHT_TO_LEFT:
-         ownLanguage.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-         break;      
+         ownLanguage
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         break;
       }
 
       if (Settings.isSimpleHebrewInput())
       {
-         learningLanguage = new InputLanguagePanel(Selection.SIMPLE, 400, 6, true, this,
-               WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
+         learningLanguage = new InputLanguagePanel(Selection.SIMPLE, 400, 6,
+               true, this, WIDTH_INPUT_PANEL,
+               ApplicationColors.getLightYellow());
       }
       else if (Settings.isHebrewPleneDefektivInput())
       {
-         learningLanguage = new InputLanguagePanel(Selection.PLENE_DEFEKTIV, 400, 6, true,
-               this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
+         learningLanguage = new InputLanguagePanel(Selection.PLENE_DEFEKTIV,
+               400, 6, true, this, WIDTH_INPUT_PANEL,
+               ApplicationColors.getLightYellow());
       }
       else if (Settings.isSwedishInput())
       {
-         learningLanguage = new InputLanguagePanel(Selection.SWEDISH, 400, 6, true,
-               this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
+         learningLanguage = new InputLanguagePanel(Selection.SWEDISH, 400, 6,
+               true, this, WIDTH_INPUT_PANEL,
+               ApplicationColors.getLightYellow());
       }
       else // German
       {
-         learningLanguage = new InputLanguagePanel(Selection.GERMAN, 400, 6, true,
-               this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
+         learningLanguage = new InputLanguagePanel(Selection.GERMAN, 400, 6,
+               true, this, WIDTH_INPUT_PANEL,
+               ApplicationColors.getLightYellow());
       }
       learningLanguage.setBlankBorder();
 
@@ -361,9 +372,11 @@ public class TextExpressionEditorView extends JDialog
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
       chapter = new InfoComboBox(this.chapterTitle,
-            translator.realisticTranslate(Translation.HINEINKLICKEN_UND_SCHREIBEN),
-            translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM), 
-            translator.realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
+            translator
+                  .realisticTranslate(Translation.HINEINKLICKEN_UND_SCHREIBEN),
+            translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM),
+            translator
+                  .realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
       chapter.setEditable(true);
       chapter.setMaximumRowCount(20);
       chapter.setOpaque(false);
@@ -390,10 +403,13 @@ public class TextExpressionEditorView extends JDialog
       indexField.setMinimumSize(new Dimension(85, 70));
       indexField.setMaximumSize(new Dimension(85, 70));
 
-      databaseNameField = new InfoComboBox(translator.realisticTranslate(Translation.DATENBANK),
-            translator.realisticTranslate(Translation.HINEINKLICKEN_UND_SCHREIBEN),
-            translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM), 
-            translator.realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
+      databaseNameField = new InfoComboBox(
+            translator.realisticTranslate(Translation.DATENBANK),
+            translator
+                  .realisticTranslate(Translation.HINEINKLICKEN_UND_SCHREIBEN),
+            translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM),
+            translator
+                  .realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
       databaseNameField.setFont(ApplicationFonts.getButtonFont());
       databaseNameField.setMinimumSize(new Dimension(WIDTH_PANEL, 70));
       databaseNameField.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
@@ -426,7 +442,8 @@ public class TextExpressionEditorView extends JDialog
       copyButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
       copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
-      keyboard = new KeyboardLanguage(learningLanguage, components, 152, true, true);
+      keyboard = new KeyboardLanguage(learningLanguage, components, 152, true,
+            true);
 
       textBox = new JCheckBox("Text");
       textBox.setSelected(true);
@@ -559,7 +576,7 @@ public class TextExpressionEditorView extends JDialog
 
       newSearchwordHebrew.addActionListener(event -> {
          String add = newSearchwordHebrew.getText().replaceAll(",", "");
-         add = TextHelper.cleanText(add);       
+         add = TextHelper.cleanText(add);
          if (!add.isEmpty())
          {
             searchwordsSetHebrew.add(add);
@@ -593,15 +610,18 @@ public class TextExpressionEditorView extends JDialog
       });
 
       cancelButton.addActionListener(event -> {
-         save = false;
-         this.dispose();
+         this.disposeDialog();
       });
+
+      getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+            .put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "ESCAPE_KEY");
+      getRootPane().getActionMap().put("ESCAPE_KEY", new EscapeAction(this));
    }
 
    public void showGrammaticalParentEnums(
          Set<GrammaticalParentEnum> grammaticalParentEnumsToShow)
    {
-
+      // nothing
    }
 
    private boolean testForCompletness()
@@ -624,15 +644,16 @@ public class TextExpressionEditorView extends JDialog
    {
       expression.setOwnLanguage(cleanText(ownLanguage.getText()));
 
-      expression.setLearningLanguage(
-            new LearningLanguage(cleanText(learningLanguage.getHebrewFieldText()),
-                  cleanText(learningLanguage.getPleneFieldText()),
-                  cleanText(learningLanguage.getDefektivFieldText()),
-                  learningLanguage.isSimple(), cleanText(learningLanguage.getSwedishFieldText()),
-                  cleanText(learningLanguage.getGermanFieldText())));
+      expression.setLearningLanguage(new LearningLanguage(
+            cleanText(learningLanguage.getHebrewFieldText()),
+            cleanText(learningLanguage.getPleneFieldText()),
+            cleanText(learningLanguage.getDefektivFieldText()),
+            learningLanguage.isSimple(),
+            cleanText(learningLanguage.getSwedishFieldText()),
+            cleanText(learningLanguage.getGermanFieldText())));
 
-      expression.setLetterForSaving(LetterForSaving
-            .getLetter(cleanText(expression.getOwnLanguage())));
+      expression.setLetterForSaving(
+            LetterForSaving.getLetter(cleanText(expression.getOwnLanguage())));
 
       Definitions definitions = new Definitions();
       if (textBox.isSelected())
@@ -659,8 +680,7 @@ public class TextExpressionEditorView extends JDialog
       expression.setSearchwordsHebrew(wordsHebrew);
       Chapter selfChapter = new Chapter();
       selfChapter.setOrigin(Database.SELF);
-      selfChapter
-            .setName(cleanText((String) chapter.getSelectedItem()));
+      selfChapter.setName(cleanText((String) chapter.getSelectedItem()));
       expression.setChapter(selfChapter);
 
       Settings.setRememberChapterForInput(selfChapter.getName());
@@ -673,8 +693,8 @@ public class TextExpressionEditorView extends JDialog
       }
       else
       {
-         expression.getChapter().setDatabaseName(cleanText(
-               (String) databaseNameField.getSelectedItem()));
+         expression.getChapter().setDatabaseName(
+               cleanText((String) databaseNameField.getSelectedItem()));
       }
 
       Settings.setRememberDatabaseForInput(
@@ -691,7 +711,7 @@ public class TextExpressionEditorView extends JDialog
       SortingIndex.setCounter(expression.getSortingIndex());
 
       expression.setLastModified(LocalDateTime.now());
-      
+
       expression.setLevel(level.getSelectedIndex());
    }
 
@@ -716,7 +736,7 @@ public class TextExpressionEditorView extends JDialog
       this.expression = expression;
       this.newExpression = newExpression;
       setWritingDirection(expression.getLL().getLltype());
-      
+
       this.chapter.setModel(Data.getChapterComboBoxModel());
       if (newExpression)
       {
@@ -731,28 +751,31 @@ public class TextExpressionEditorView extends JDialog
 
       this.ownLanguage.setText(expression.getOwnLanguage());
 
-      if(expression.getLL().isSwedish())
+      if (expression.getLL().isSwedish())
       {
          this.keyboard.setKeyboard(Selection.SWEDISH);
-         this.learningLanguage.setSwedishFieldText(expression.getLL().getSwedish());
+         this.learningLanguage
+               .setSwedishFieldText(expression.getLL().getSwedish());
       }
-      else if(expression.getLL().isGerman())
+      else if (expression.getLL().isGerman())
       {
          this.keyboard.setKeyboard(Selection.GERMAN);
-         this.learningLanguage.setGermanFieldText(expression.getLL().getGerman());
+         this.learningLanguage
+               .setGermanFieldText(expression.getLL().getGerman());
       }
-      else
-      if (expression.getLL().isSimpleHebrew())
+      else if (expression.getLL().isSimpleHebrew())
       {
          this.keyboard.setKeyboard(Selection.SIMPLE);
-         this.learningLanguage.setHebrewFieldText(expression.getLL().getHebrew());
+         this.learningLanguage
+               .setHebrewFieldText(expression.getLL().getHebrew());
       }
       else if (expression.getLL().isPleneDefektiv())
       {
          this.keyboard.setKeyboard(Selection.PLENE_DEFEKTIV);
-         this.learningLanguage.setPleneFieldText(expression.getLL().getHebrewPlene());
-         this.learningLanguage.setDefektivFieldText(
-               expression.getLL().getHebrewDefektiv());
+         this.learningLanguage
+               .setPleneFieldText(expression.getLL().getHebrewPlene());
+         this.learningLanguage
+               .setDefektivFieldText(expression.getLL().getHebrewDefektiv());
       }
 
       this.searchwordsSetGerman = new HashSet<>();
@@ -795,12 +818,12 @@ public class TextExpressionEditorView extends JDialog
                   .format(DateTimeFormatter.ofPattern(
                         translator.realisticTranslate(Translation._DATE_TIME)))
             + " " + translator.realisticTranslate(Translation.UHR));
-      
+
       if (newExpression)
       {
          this.level.setSelectedIndex(0);
       }
-      else if(expression.getLevel()== null)
+      else if (expression.getLevel() == null)
       {
          this.level.setSelectedIndex(0);
       }
@@ -884,49 +907,71 @@ public class TextExpressionEditorView extends JDialog
       }
 
    }
-   
+
    public void setWritingDirection(LLType llType)
    {
       switch (Settings.getMyWritingDirection())
       {
       case LEFT_TO_RIGHT:
-         ownLanguage.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-         newSearchwordGerman.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-         searchwordsJListGerman.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-         this.indexField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         ownLanguage
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         newSearchwordGerman
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         searchwordsJListGerman
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         this.indexField
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          break;
       case RIGHT_TO_LEFT:
-         ownLanguage.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-         newSearchwordHebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-         searchwordsJListHebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-         this.indexField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         ownLanguage
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         newSearchwordHebrew
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         searchwordsJListHebrew
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         this.indexField
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          break;
       }
-      
+
       switch (llType)
       {
       case GERMAN:
       case SWEDISH:
-         this.newSearchwordHebrew.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-         this.searchwordsJListHebrew.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         this.newSearchwordHebrew
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         this.searchwordsJListHebrew
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          break;
       case HEBREW:
-         this.newSearchwordHebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-         this.searchwordsJListHebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         this.newSearchwordHebrew
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         this.searchwordsJListHebrew
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          break;
       case UNKOWN:
          switch (Settings.getLanguageInput())
          {
          case GERMAN:
          case SWEDISH:
-            this.newSearchwordGerman.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-            this.searchwordsJListGerman.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            this.newSearchwordGerman
+                  .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            this.searchwordsJListGerman
+                  .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
             break;
          case PLENE_DEFEKTIV:
          case SIMPLE:
-            this.newSearchwordGerman.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-            this.searchwordsJListGerman.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            this.newSearchwordGerman
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            this.searchwordsJListGerman
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          }
       }
+   }
+
+   public void disposeDialog()
+   {
+      save = false;
+      this.dispose();
    }
 }
