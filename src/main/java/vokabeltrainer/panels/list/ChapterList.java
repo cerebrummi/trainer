@@ -15,5 +15,4 @@ public class ChapterList extends JList<Chapter>
       getActionMap().get("clearSelection").setEnabled(true);
       setCellRenderer(new ChapterListCellRenderer());
    }
-
 }

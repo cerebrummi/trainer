@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.editing.GermanDocument;
+import vokabeltrainer.editing.InternationalDocument;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
@@ -54,7 +54,7 @@ public class InputDatabaseNameDialog extends JDialog
       vertical.setLayout(verticalLayout);
       
       inputImportField = new JTextField();
-      inputImportField.setDocument(new GermanDocument(60));
+      inputImportField.setDocument(new InternationalDocument(30));
       inputImportField.setMinimumSize(new Dimension(200, 30));
       inputImportField.setMaximumSize(new Dimension(300, 30));
       inputImportField.setColumns(20);

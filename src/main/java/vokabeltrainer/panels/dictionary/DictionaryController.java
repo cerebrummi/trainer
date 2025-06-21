@@ -57,6 +57,14 @@ public class DictionaryController implements DictionaryControllerConnector
          decideOnTableInteraction(Action.TAB_CHAPTER);
          dictionaryView.loadChapters();
       }
+      else if (selectedIndex == Tabulator.DATA_TAB.getIndex())
+      {
+         Tabulator.setTabShowing(Tabulator.DATA_TAB);
+         dictionaryView.unselectExpressionKind();
+         Status.push(Status.DATA_CHAPTER);
+         decideOnTableInteraction(Action.DATA_CHAPTER);
+         dictionaryView.loadDatabases();
+      }
       else if (selectedIndex == Tabulator.SELECTED_TAB.getIndex())
       {
          Tabulator.setTabShowing(Tabulator.SELECTED_TAB);
@@ -163,6 +171,10 @@ public class DictionaryController implements DictionaryControllerConnector
       {
          dictionaryView.loadChapters();
       }
+      if (Tabulator.DATA_TAB.equals(Tabulator.getTabShowing()))
+      {
+         dictionaryView.loadDatabases();
+      }
       Status.push(Status.peek());
       decideOnTableInteraction(Action.DELETE_ALL_SELECTED);
       save();
@@ -187,6 +199,10 @@ public class DictionaryController implements DictionaryControllerConnector
          if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
          {
             dictionaryView.loadChapters();
+         }
+         if (Tabulator.DATA_TAB.equals(Tabulator.getTabShowing()))
+         {
+            dictionaryView.loadDatabases();
          }
          Status.push(Status.peek());
          decideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
@@ -313,7 +329,8 @@ public class DictionaryController implements DictionaryControllerConnector
             {
                switch (commando)
                {
-               case ERROR:
+               case ERROR: // default
+                  dictionaryView.displayNoTable();
                   break;
                case NOTHING:
                   break;
@@ -485,6 +502,10 @@ public class DictionaryController implements DictionaryControllerConnector
                if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
                {
                   dictionaryView.loadChapters();
+               }
+               else if(Tabulator.DATA_TAB.equals(Tabulator.getTabShowing()))
+               {
+                  dictionaryView.loadDatabases();
                }
                Status.push(Status.peek());
                decideOnTableInteraction(Action.SAVE);

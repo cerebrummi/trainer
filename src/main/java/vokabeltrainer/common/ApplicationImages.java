@@ -52,6 +52,7 @@ public class ApplicationImages
    private static BufferedImage logo24;
    private static BufferedImage logo150;
    private static BufferedImage logo;
+   private static BufferedImage logoFolder;
 
    private static BufferedImage turn;
    private static BufferedImage answerOkay;
@@ -994,6 +995,20 @@ public class ApplicationImages
          exitWithMessage("kein Frage und Antwort Icon Nr.2");
       }
       ApplicationImages.questionsAndAnswers2 = questionsAndAnswers2;
+   }
+
+   public static BufferedImage getLogoFolder()
+   {
+      return logoFolder;
+   }
+
+   public static void setLogoFolder(BufferedImage logoFolder)
+   {
+      if (logoFolder == null)
+      {
+         exitWithMessage("kein Logo Folder Icon");
+      }
+      ApplicationImages.logoFolder = logoFolder;
    }
 
    

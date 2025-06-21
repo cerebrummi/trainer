@@ -61,9 +61,11 @@ public class GermanDocument extends PlainDocument
             return;
          }
 
-         checking(list, builder);
-         super.replace(offset, length, builder.toString(), attrs);
-         return;
+         if(!checking(list, builder))
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
       }
       super.replace(offset, length, text, attrs);
    }
@@ -94,14 +96,16 @@ public class GermanDocument extends PlainDocument
             return;
          }
 
-         checking(list, builder);
-         super.insertString(offset, builder.toString(), attr);
-         return;
+         if(!checking(list, builder))
+         {
+            Toolkit.getDefaultToolkit().beep();
+            return;
+         }
       }
       super.insertString(offset, str, attr);
    }
 
-   private void checking(List<String> list, StringBuilder builder)
+   private boolean checking(List<String> list, StringBuilder builder)
    {
       for (int i = 0; i < list.size(); i++)
       {
@@ -113,28 +117,20 @@ public class GermanDocument extends PlainDocument
          if (letter != null && letter instanceof GermanLetter)
          {
             // okay
-            builder.append(letter.getUnicode());
          }
          else if (signPattern.contains(signcode))
          {
             // okay
-            builder
-            .append(LetterHelper
-                  .getLetterFromCode(signcode, LetterType.SIGN)
-                  .getUnicode());
          }
          else if (numberPattern.contains(numbercode))
          {
             // okay
-            builder
-            .append(LetterHelper
-                  .getLetterFromCode(numbercode, LetterType.NUMBER)
-                  .getUnicode());
          }
          else
          {
-            // remove letter
+            return false;
          }
       }
+      return true;
    }
 }

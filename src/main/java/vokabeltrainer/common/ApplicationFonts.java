@@ -16,6 +16,12 @@ public class ApplicationFonts
    private static Font radioButtonFont;
    private static Font comboBoxFont;
 
+   
+   public static void setInternationalFont(Font internationalFont)
+   {
+      ApplicationFonts.internationalFont = internationalFont;
+   }
+
    public static void setHebrewFont(Font font)
    {
       hebrewFont = font;
@@ -86,11 +92,6 @@ public class ApplicationFonts
    public static Font getInternationalFont(float size)
    {
       return internationalFont.deriveFont(size);
-   }
-
-   public static void setInternationalFont(Font internationalFont)
-   {
-      ApplicationFonts.internationalFont = internationalFont;
    }
    
    public static void setButtonFont(Font font)

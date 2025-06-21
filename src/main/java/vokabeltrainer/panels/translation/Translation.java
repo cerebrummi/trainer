@@ -257,7 +257,7 @@ public enum Translation {
 	SONNE("Sonne", "sun"),
 	SPEICHERN("speichern", "save"),
 	SPEICHERORT("Speicherort", "location"), 
-	START("Daten", "data"), 
+	DATEN("Daten", "data"), 
 	SUBSTANTIV_HAUPTWORT("Substantiv/Hauptwort", "noun"), 
 	SUCHE("Suche", "search"),
 	SUCHE_NACH_SUCHWORT("Suche nach Suchwort", "search by keyword"), 
@@ -428,7 +428,8 @@ public enum Translation {
 	HINEINKLICKEN_UND_SCHREIBEN("Hineinklicken und schreiben!","Click into field and write!"),
 	INFORMATION_ANKLICKEN("Information anklicken!","Information, do click!"), 
 	ERKLAEHR_VIDEO("Erklärvideo über Cerebrummi im Internet", "video about Cerebrummi to watch on the internet"),
-	KONSTRUKTION("Konstruktion", "construction");
+	KONSTRUKTION("Konstruktion", "construction"), 
+	AKTIVIEREN("keine Daten aktiviert", "no data activated");
    
 
 	private String german;

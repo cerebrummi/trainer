@@ -49,9 +49,9 @@ public class MainView extends JPanel
    private AlefbetPanel letterPicturesPanel;
    private SuccessPanel successPanel;
    private JButton languageButton;
-   
+
    private JButton questionsAndAnswersButton;
-   
+
    private JButton sentencesButton;
    private JButton sentences_1_Button;
    private JButton sentences_2_Button;
@@ -125,7 +125,7 @@ public class MainView extends JPanel
       this.validate();
       this.repaint();
    }
-   
+
    private void initSentencesContent()
    {
       this.removeAll();
@@ -137,7 +137,7 @@ public class MainView extends JPanel
       this.validate();
       this.repaint();
    }
-   
+
    private void initQuestionsAndAnswersContent()
    {
       this.removeAll();
@@ -163,8 +163,6 @@ public class MainView extends JPanel
          Common.getjFrame().repaint();
       });
    }
-   
-  
 
    private void initLanguageToolBar()
    {
@@ -179,7 +177,7 @@ public class MainView extends JPanel
 
       menuBar.add(backButton);
    }
-   
+
    private void initSentencesToolBar()
    {
       menuBar = new JMenuBar();
@@ -406,7 +404,7 @@ public class MainView extends JPanel
       sentences_22_Button.setFont(ApplicationFonts.getToolbarButtonFont());
       sentences_23_Button.setFont(ApplicationFonts.getToolbarButtonFont());
       sentences_24_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      
+
       menuBar.add(backButton);
       menuBar.add(sentences_1_Button);
       menuBar.add(sentences_2_Button);
@@ -433,7 +431,7 @@ public class MainView extends JPanel
       menuBar.add(sentences_23_Button);
       menuBar.add(sentences_24_Button);
    }
-   
+
    private void initQuestionsAndAnswersToolBar()
    {
       menuBar = new JMenuBar();
@@ -444,7 +442,7 @@ public class MainView extends JPanel
       menuBar.setMaximumSize(new Dimension(6000, 80));
 
       backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
-      
+
       menuBar.add(backButton);
    }
 
@@ -458,7 +456,8 @@ public class MainView extends JPanel
       menuBar.setMaximumSize(new Dimension(6000, 80));
 
       startButton = new JButton(
-            translator.realisticTranslate(Translation.START));
+            translator.realisticTranslate(Translation.DATEN),
+            new ImageIcon(ApplicationImages.getLogoFolder()));
       inputButton = new JButton(
             translator.realisticTranslate(Translation.EINGABE));
       vocabularyCardsButton = new JButton(
@@ -473,8 +472,10 @@ public class MainView extends JPanel
       successButton = new JButton(
             translator.realisticTranslate(Translation.KARTEIKASTEN));
       languageButton = new JButton(new ImageIcon(ApplicationImages.getL18n()));
-      sentencesButton = new JButton(translator.realisticTranslate(Translation.SAETZE));
-      questionsAndAnswersButton = new JButton(new ImageIcon(ApplicationImages.getQuestionsAndAnswers2()));
+      sentencesButton = new JButton(
+            translator.realisticTranslate(Translation.SAETZE));
+      questionsAndAnswersButton = new JButton(
+            new ImageIcon(ApplicationImages.getQuestionsAndAnswers2()));
 
       startButton.setFont(ApplicationFonts.getToolbarButtonFont());
       inputButton.setFont(ApplicationFonts.getToolbarButtonFont());
@@ -485,8 +486,9 @@ public class MainView extends JPanel
       successButton.setFont(ApplicationFonts.getToolbarButtonFont());
       languageButton.setFont(ApplicationFonts.getToolbarButtonFont());
       sentencesButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      questionsAndAnswersButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      
+      questionsAndAnswersButton
+            .setFont(ApplicationFonts.getToolbarButtonFont());
+
       menuBar.add(startButton);
       menuBar.add(inputButton);
       menuBar.add(dictionaryButton);
@@ -495,7 +497,7 @@ public class MainView extends JPanel
       menuBar.add(statisticsButton);
       menuBar.add(successButton);
       menuBar.add(sentencesButton);
-      //menuBar.add(questionsAndAnswersButton);
+      // menuBar.add(questionsAndAnswersButton);
       menuBar.add(languageButton);
       menuBar.add(Box.createHorizontalGlue());
       menuBar.add(aboutButton);
@@ -537,10 +539,11 @@ public class MainView extends JPanel
          {
             JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
                   JOptionPane.INFORMATION_MESSAGE,
-                  new ImageIcon(TextImage.make(translator
-                        .realisticTranslate(Translation.ES_IST_SCHABBAT),
+                  new ImageIcon(TextImage.make(
                         translator
-                        .realisticTranslate(Translation.DAS_TRAINING_IST_ABGESCHALTET))));
+                              .realisticTranslate(Translation.ES_IST_SCHABBAT),
+                        translator.realisticTranslate(
+                              Translation.DAS_TRAINING_IST_ABGESCHALTET))));
             return;
          }
 
@@ -621,11 +624,11 @@ public class MainView extends JPanel
       languageButton.addActionListener(event -> {
          initLanguageContent();
       });
-      
+
       sentencesButton.addActionListener(event -> {
          initSentencesContent();
       });
-      
+
       this.questionsAndAnswersButton.addActionListener(event -> {
          this.initQuestionsAndAnswersContent();
       });

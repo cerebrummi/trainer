@@ -61,6 +61,8 @@ import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.dictionary.SearchAction;
 import vokabeltrainer.panels.list.ChapterList;
 import vokabeltrainer.panels.list.ChapterListSelectionModel;
+import vokabeltrainer.panels.list.DatabaseList;
+import vokabeltrainer.panels.list.DatabaseListSelectionModel;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.ExpressionColumnModel;
@@ -130,6 +132,8 @@ public class DictionaryView extends BackgroundPanelTiled
    private JPanel otherSearch;
 
    private JPanel searchVertical;
+
+   private JPanel dataPanel;
 
    public DictionaryView(DictionaryControllerConnector connector)
    {
@@ -212,6 +216,9 @@ public class DictionaryView extends BackgroundPanelTiled
       tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(false);
       tabbedPane.setFont(ApplicationFonts.getButtonFont());
+      tabbedPane.addTab(translator.realisticTranslate(Translation.DATEN),
+            new ImageIcon(ApplicationImages.getLogoFolder()),
+            initDatabaseTab());
       tabbedPane.addTab(translator.realisticTranslate(Translation.LEKTIONEN),
             initChaptersTab());
       tabbedPane.addTab(translator.realisticTranslate(Translation.SUCHE),
@@ -252,7 +259,7 @@ public class DictionaryView extends BackgroundPanelTiled
       initChapterController();
 
       loadChapters();
-
+      loadDatabases();
       initController();
    }
 
@@ -480,6 +487,14 @@ public class DictionaryView extends BackgroundPanelTiled
       vertical.add(horizontalMoveToDatabasePanel);
 
       return vertical;
+   }
+   
+   private JPanel initDatabaseTab()
+   {
+      dataPanel = new JPanel();
+      dataPanel.setLayout(new BorderLayout());
+      dataPanel.setOpaque(false);
+      return dataPanel;
    }
 
    private JPanel initChaptersTab()
@@ -944,6 +959,25 @@ public class DictionaryView extends BackgroundPanelTiled
             JOptionPane.CLOSED_OPTION);
 
    }
+   
+   public void loadDatabases()
+   {
+      dataPanel.removeAll();
+      DatabaseListSelectionModel databaseListSelectionModel = new DatabaseListSelectionModel();
+      DatabaseList databaseList = new DatabaseList(databaseListSelectionModel);
+      databaseList.setListData(Data.getDatabaseArray());
+      databaseList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
+
+      JScrollPane scroller = new JScrollPane(databaseList);
+      scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
+      scroller.setMaximumSize(
+            new Dimension(Settings.getKeyboardWidth() + 50, 700));
+      scroller.setBorder(BorderFactory.createEmptyBorder());
+
+      dataPanel.add(scroller);
+      dataPanel.validate();
+      dataPanel.repaint();
+   }
 
    public void loadChapters()
    {
@@ -1271,6 +1305,7 @@ public class DictionaryView extends BackgroundPanelTiled
    {
       Data.determineReloadDatabases();
       this.loadChapters();
+      this.loadDatabases();
       this.displayNoTable();
       setWritingDirection();
       this.searchVertical.removeAll();

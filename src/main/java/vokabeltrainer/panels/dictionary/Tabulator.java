@@ -2,7 +2,7 @@ package vokabeltrainer.panels.dictionary;
 
 public enum Tabulator
 {
-   CHAPTER_TAB(0), SEARCH_TAB(1), KIND_TAB(2), SELECTED_TAB(3);
+   DATA_TAB(0), CHAPTER_TAB(1), SEARCH_TAB(2), KIND_TAB(3), SELECTED_TAB(4);
 
    private int index;
    private static Tabulator tabShowing;

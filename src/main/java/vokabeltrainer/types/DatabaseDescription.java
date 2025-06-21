@@ -16,6 +16,17 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       
    }
    
+   public DatabaseDescription(String databaseName)
+   {
+      this.databaseName = databaseName;
+   }
+   
+   @Override
+   public String toString()
+   {
+      return databaseName;
+   }
+   
    public DatabaseDescription(Database database)
    {
       this.database = database;
@@ -89,14 +100,14 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
    @Override
    public int compareTo(DatabaseDescription o)
    {
-      if(this.getDatabaseName().equals(Database.SELF.getName()))
-      {
-         return 1;
-      }
-      if(o.getDatabaseName().equals(Database.SELF.getName()))
-      {
-         return -1;
-      }
+//      if(this.getDatabaseName().equals(Database.SELF.getName()))
+//      {
+//         return 1;
+//      }
+//      if(o.getDatabaseName().equals(Database.SELF.getName()))
+//      {
+//         return -1;
+//      }
       return this.databaseName.compareTo(o.databaseName);
    }
 

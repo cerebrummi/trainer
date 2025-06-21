@@ -11,7 +11,7 @@ public enum NikudLetter
 {
    AIN(
          "\u05E2",
-         " 05E2_il",
+         " 05E2",
          "ain",
          Translation.AMEISE,
          NikudLetterDistinction.LETTER,
@@ -19,7 +19,7 @@ public enum NikudLetter
          true),
    ALEF(
          "\u05D0",
-         " 05D0_il",
+         " 05D0",
          "alef",
          Translation.APFEL,
          NikudLetterDistinction.LETTER,
@@ -27,7 +27,7 @@ public enum NikudLetter
          true),
    CHET(
          "\u05D7",
-         " 05D7_il",
+         " 05D7",
          "chet",
          Translation.CHINA,
          NikudLetterDistinction.LETTER,
@@ -35,7 +35,7 @@ public enum NikudLetter
          true),
    DALET(
          "\u05D3",
-         " 05D3_il",
+         " 05D3",
          "dalet",
          Translation.DOMINO,
          NikudLetterDistinction.LETTER,
@@ -43,7 +43,7 @@ public enum NikudLetter
          true),
    GIMEL(
          "\u05D2",
-         " 05D2_il",
+         " 05D2",
          "gimel",
          Translation.GANS,
          NikudLetterDistinction.LETTER,
@@ -51,7 +51,7 @@ public enum NikudLetter
          true),
    GERESCH(
          "\u05F3",
-         " 05F3_il",
+         " 05F3",
          "geresch",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -59,7 +59,7 @@ public enum NikudLetter
          false),
    GERSCHAYIM(
          "\u05F4",
-         " 05F4_il",
+         " 05F4",
          "gerschayim",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -67,7 +67,7 @@ public enum NikudLetter
          false),
    HAEI(
          "\u05D4",
-         " 05D4_il",
+         " 05D4",
          "häi",
          Translation.HAUS,
          NikudLetterDistinction.LETTER,
@@ -75,7 +75,7 @@ public enum NikudLetter
          true),
    JOD(
          "\u05D9",
-         " 05D9_il",
+         " 05D9",
          "jod",
          Translation.IGEL,
          NikudLetterDistinction.LETTER,
@@ -83,7 +83,7 @@ public enum NikudLetter
          true),
    KUF(
          "\u05E7",
-         " 05E7_il",
+         " 05E7",
          "kuf",
          Translation.KUH,
          NikudLetterDistinction.LETTER,
@@ -91,7 +91,7 @@ public enum NikudLetter
          true),
    LAMED(
          "\u05DC",
-         " 05DC_il",
+         " 05DC",
          "lamed",
          Translation.LATERNE,
          NikudLetterDistinction.LETTER,
@@ -99,7 +99,7 @@ public enum NikudLetter
          true),
    RESCH(
          "\u05E8",
-         " 05E8_il",
+         " 05E8",
          "resch",
          Translation.RAD,
          NikudLetterDistinction.LETTER,
@@ -107,7 +107,7 @@ public enum NikudLetter
          true),
    SSAIN(
          "\u05D6",
-         " 05D6_il",
+         " 05D6",
          "ssain",
          Translation.SAND,
          NikudLetterDistinction.LETTER,
@@ -115,7 +115,7 @@ public enum NikudLetter
          true),
    SCHIN(
          "\u05E9",
-         " 05E9_il",
+         " 05E9",
          "schin",
          Translation.SCHAUKEL,
          NikudLetterDistinction.LETTER,
@@ -123,7 +123,7 @@ public enum NikudLetter
          true),
    SSAMECH(
          "\u05E1",
-         " 05E1_il",
+         " 05E1",
          "ssamech",
          Translation.SONNE,
          NikudLetterDistinction.LETTER,
@@ -131,7 +131,7 @@ public enum NikudLetter
          true),
    SPACE(
          "\u0020",
-         " 0020_il",
+         " 0020",
          "space",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -139,7 +139,7 @@ public enum NikudLetter
          false),
    NEWSPACE(
          "\u00A0",
-         " 00A0_il",
+         " 00A0",
          "newspace",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -147,7 +147,7 @@ public enum NikudLetter
          false),
    TAW(
          "\u05EA",
-         " 05EA_il",
+         " 05EA",
          "taw",
          Translation.TANNEN,
          NikudLetterDistinction.LETTER,
@@ -155,7 +155,7 @@ public enum NikudLetter
          true),
    TET(
          "\u05D8",
-         " 05D8_il",
+         " 05D8",
          "tet",
          Translation.TANZ,
          NikudLetterDistinction.LETTER,
@@ -163,7 +163,7 @@ public enum NikudLetter
          true),
    BET(
          "\u05D1",
-         " 05D1_il",
+         " 05D1",
          "bet",
          Translation.BETT,
          NikudLetterDistinction.LETTER,
@@ -171,7 +171,7 @@ public enum NikudLetter
          true),
    WAW(
          "\u05D5",
-         " 05D5_il",
+         " 05D5",
          "waw",
          Translation.WELLE,
          NikudLetterDistinction.LETTER,
@@ -179,7 +179,7 @@ public enum NikudLetter
          true),
    ZADI(
          "\u05E6",
-         " 05E6_il",
+         " 05E6",
          "zadi",
          Translation.ZITRONE,
          NikudLetterDistinction.LETTER,
@@ -187,7 +187,7 @@ public enum NikudLetter
          true),
    ZADISSOFIT(
          "\u05E5",
-         " 05E5_il",
+         " 05E5",
          "zadissofit",
          Translation.ZITRONE,
          NikudLetterDistinction.LETTER,
@@ -195,7 +195,7 @@ public enum NikudLetter
          true),
    KAF(
          "\u05DB",
-         " 05DB_il",
+         " 05DB",
          "kaf",
          Translation.KUCHEN,
          NikudLetterDistinction.LETTER,
@@ -203,7 +203,7 @@ public enum NikudLetter
          true),
    CHAFSSOFIT(
          "\u05DA",
-         " 05DA_il",
+         " 05DA",
          "chafssofit",
          Translation.CHEMIE,
          NikudLetterDistinction.LETTER,
@@ -211,7 +211,7 @@ public enum NikudLetter
          true),
    PAEI(
          "\u05E4",
-         " 05E4_il",
+         " 05E4",
          "päi",
          Translation.POST,
          NikudLetterDistinction.LETTER,
@@ -219,7 +219,7 @@ public enum NikudLetter
          true),
    FAEISSOFIT(
          "\u05E3",
-         " 05E3_il",
+         " 05E3",
          "fäissofit",
          Translation.FEDER,
          NikudLetterDistinction.LETTER,
@@ -227,7 +227,7 @@ public enum NikudLetter
          true),
    MEM(
          "\u05DE",
-         " 05DE_il",
+         " 05DE",
          "mem",
          Translation.MAUS,
          NikudLetterDistinction.LETTER,
@@ -235,7 +235,7 @@ public enum NikudLetter
          true),
    MEMSSOFIT(
          "\u05DD",
-         " 05DD_il",
+         " 05DD",
          "memssofit",
          Translation.MAUS,
          NikudLetterDistinction.LETTER,
@@ -243,7 +243,7 @@ public enum NikudLetter
          true),
    NUN(
          "\u05E0",
-         " 05E0_il",
+         " 05E0",
          "nun",
          Translation.NONNE,
          NikudLetterDistinction.LETTER,
@@ -251,7 +251,7 @@ public enum NikudLetter
          true),
    NUNSSOFIT(
          "\u05DF",
-         " 05DF_il",
+         " 05DF",
          "nunssofit",
          Translation.NONNE,
          NikudLetterDistinction.LETTER,
@@ -259,7 +259,7 @@ public enum NikudLetter
          true),
    SHEVA(
          "\u05B0",
-         " 05B0_il",
+         " 05B0",
          "schwa = e",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -267,7 +267,7 @@ public enum NikudLetter
          false),
    HATAF_SEGOL(
          "\u05B1",
-         " 05B1_il",
+         " 05B1",
          "chataf szegol = e",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -275,7 +275,7 @@ public enum NikudLetter
          false),
    HATAF_PATAH(
          "\u05B2",
-         " 05B2_il",
+         " 05B2",
          "chataf patach = a",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -283,7 +283,7 @@ public enum NikudLetter
          false),
    HATAF_QAMATS(
          "\u05B3",
-         " 05B3_il",
+         " 05B3",
          "chataf kamatz = o",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -291,7 +291,7 @@ public enum NikudLetter
          false),
    HIRIQ(
          "\u05B4",
-         " 05B4_il",
+         " 05B4",
          "chirik = i",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -299,7 +299,7 @@ public enum NikudLetter
          false),
    TSERE(
          "\u05B5",
-         " 05B5_il",
+         " 05B5",
          "zeré = e",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -307,7 +307,7 @@ public enum NikudLetter
          false),
    SEGOL(
          "\u05B6",
-         " 05B6_il",
+         " 05B6",
          "szegol = e",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -315,7 +315,7 @@ public enum NikudLetter
          false),
    PATAH(
          "\u05B7",
-         " 05B7_il",
+         " 05B7",
          "patach = a",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -323,7 +323,7 @@ public enum NikudLetter
          false),
    QAMATS(
          "\u05B8",
-         " 05B8_il",
+         " 05B8",
          "kamatz = a",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -331,7 +331,7 @@ public enum NikudLetter
          false),
    HOLAM(
          "\u05B9",
-         " 05B9_il",
+         " 05B9",
          "cholam = o",
          Translation._NONE_,
          NikudLetterDistinction.UPPER_PUNKTATION,
@@ -339,7 +339,7 @@ public enum NikudLetter
          false),
    HOLAM_HASER(
          "\u05BA",
-         " 05BA_il",
+         " 05BA",
          "cholam chaser",
          Translation._NONE_,
          NikudLetterDistinction.UPPER_PUNKTATION,
@@ -347,7 +347,7 @@ public enum NikudLetter
          false),
    QUBUTS(
          "\u05BB",
-         " 05BB_il",
+         " 05BB",
          "kubutz = u",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -355,7 +355,7 @@ public enum NikudLetter
          false),
    DAGESH(
          "\u05BC",
-         " 05BC_il",
+         " 05BC",
          "dagesch/schuruk",
          Translation._NONE_,
          NikudLetterDistinction.MIDDLE_PUNKTATION,
@@ -363,7 +363,7 @@ public enum NikudLetter
          false),
    METEG(
          "\u05BD",
-         " 05BD_il",
+         " 05BD",
          "meteg",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -371,7 +371,7 @@ public enum NikudLetter
          false),
    MAQAF(
          "\u05BE",
-         " 05BE_il",
+         " 05BE",
          "makaf",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -379,7 +379,7 @@ public enum NikudLetter
          false),
    RAFE(
          "\u05BF",
-         " 05BF_il",
+         " 05BF",
          "rafi",
          Translation._NONE_,
          NikudLetterDistinction.UPPER_PUNKTATION,
@@ -387,7 +387,7 @@ public enum NikudLetter
          false),
    PASEQ(
          "\u05C0",
-         " 05C0_il",
+         " 05C0",
          "pasek",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -395,7 +395,7 @@ public enum NikudLetter
          false),
    SHIN_DOT(
          "\u05C1",
-         " 05C1_il",
+         " 05C1",
          "schin Punkt",
          Translation._NONE_,
          NikudLetterDistinction.UPPER_PUNKTATION,
@@ -403,7 +403,7 @@ public enum NikudLetter
          false),
    SIN_DOT(
          "\u05C2",
-         " 05C2_il",
+         " 05C2",
          "sin Punkt",
          Translation._NONE_,
          NikudLetterDistinction.UPPER_PUNKTATION,
@@ -411,7 +411,7 @@ public enum NikudLetter
          false),
    SOF_PASUQ(
          "\u05C3",
-         " 05C3_il",
+         " 05C3",
          "sof pasuk",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -419,7 +419,7 @@ public enum NikudLetter
          false),
    UPPER_DOT(
          "\u05C4",
-         " 05C4_il",
+         " 05C4",
          "oberer Punkt",
          Translation._NONE_,
          NikudLetterDistinction.UPPER_PUNKTATION,
@@ -427,7 +427,7 @@ public enum NikudLetter
          false),
    LOWER_DOT(
          "\u05C5",
-         " 05C5_il",
+         " 05C5",
          "unterer Punkt",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -435,7 +435,7 @@ public enum NikudLetter
          false),
    HAFUKAH(
          "\u05C6",
-         " 05C6_il",
+         " 05C6",
          "chafukach",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -443,7 +443,7 @@ public enum NikudLetter
          false),
    QAMATS_QATAN(
          "\u05C7",
-         " 05C7_il",
+         " 05C7",
          "kamatz katan",
          Translation._NONE_,
          NikudLetterDistinction.LOWER_PUNKTATION,
@@ -451,7 +451,7 @@ public enum NikudLetter
          false),
    JIDDISH_DOUBLE_WAW(
          "\u05F0",
-         " 05F0_il",
+         " 05F0",
          "waw waw",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -459,7 +459,7 @@ public enum NikudLetter
          false),
    JIDDISH_WAW_JOD(
          "\u05F1",
-         " 05F1_il",
+         " 05F1",
          "waw jod",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -467,7 +467,7 @@ public enum NikudLetter
          false),
    JIDDISH_DOUBLE_JOD(
          "\u05F2",
-         " 05F2_il",
+         " 05F2",
          "jod jod",
          Translation._NONE_,
          NikudLetterDistinction.LETTER,
@@ -486,8 +486,8 @@ public enum NikudLetter
          Translation germanPictureName, NikudLetterDistinction distinction,
          int pixelWidth, boolean handwritten)
    {
-      this.unicode = unicode.toUpperCase();
-      this.code = code.toUpperCase();
+      this.unicode = unicode;
+      this.code = code.toUpperCase() + "_IL";
       this.transcript = transcript;
       this.germanPictureName = germanPictureName;
       this.distinction = distinction;

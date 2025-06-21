@@ -12,7 +12,7 @@ public enum Status
    CHAPTER_WHICH,
    EXPRESSIONKIND_WHICH,
    SEARCH_WHICH_OWN,
-   SEARCH_WHICH_NEW;
+   SEARCH_WHICH_NEW, DATA_CHAPTER;
    
    private static ArrayDeque<Status> status = new ArrayDeque<>();
    
