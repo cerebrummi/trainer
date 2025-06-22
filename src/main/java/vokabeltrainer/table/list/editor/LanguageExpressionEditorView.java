@@ -1212,7 +1212,7 @@ public class LanguageExpressionEditorView extends JDialog
       }
       else
       {
-         expression.setSortingIndex(indexField.getText());
+         expression.setSortingIndex(cleanText(indexField.getText()));
       }
       SortingIndex.setCounter(expression.getSortingIndex());
 

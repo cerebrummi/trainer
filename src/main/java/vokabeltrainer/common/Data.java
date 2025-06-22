@@ -40,6 +40,7 @@ import vokabeltrainer.ChapterDatabaseComparator;
 import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.cmd.DirectoryHelper;
+import vokabeltrainer.cmd.TextHelper;
 import vokabeltrainer.editing.ExchangeLetter;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
@@ -1000,8 +1001,17 @@ public final class Data
                index++;
                try
                {
-                  expression.setSortingIndex(entries[index]);
-                  SortingIndex.setCounter(expression.getSortingIndex());
+                  String cleaned = TextHelper.cleanText(entries[index]);
+                  if(cleaned.trim().isBlank())
+                  {
+                     expression.setSortingIndex(
+                           String.valueOf(SortingIndex.getCounter()));
+                  }
+                  else
+                  {
+                     expression.setSortingIndex(cleaned);
+                     SortingIndex.setCounter(expression.getSortingIndex());
+                  }
                }
                catch (Exception e)
                {
