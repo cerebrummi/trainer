@@ -16,8 +16,8 @@ public class DatabaseList extends JList<DatabaseDescription>
    public DatabaseList(DatabaseListSelectionModel selectionModel)
    {
       setSelectionModel(selectionModel);
-      setFixedCellHeight(30);
-      setBackground(ApplicationColors.getShadyBlue());
+      setFixedCellHeight(40);
+      setBackground(ApplicationColors.getLightBlue());
       
       getActionMap().get("clearSelection").setEnabled(true);
       setCellRenderer(new DatabaseListCellRenderer());

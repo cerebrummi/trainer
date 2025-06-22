@@ -34,7 +34,7 @@ public class InfoComboBox extends JComboBox<String>
       button = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
       button.setMargin(new Insets(-5, -20, -5, -20));
-      button.setBackground(new Color(0, 0, 0, 0));
+      button.setBackground(ApplicationColors.getTransparent());
       button.setForeground(ApplicationColors.getGold());
       button.setPreferredSize(new Dimension(14, 32));
 

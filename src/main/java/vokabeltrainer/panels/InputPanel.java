@@ -338,12 +338,14 @@ public class InputPanel extends JPanel implements TableConnector
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
+      horizontal.setOpaque(false);
 
       myWritingDirection = new JComboBox<>(WritingDirection.values());
       myWritingDirection.setBorder(new TitledBorder(
             translator.realisticTranslate(Translation.SCHREIBRICHTUNG)));
-      myWritingDirection.setOpaque(false);
-      myWritingDirection.setBackground(ApplicationColors.getTransparent());
+      myWritingDirection.setOpaque(true);
+      myWritingDirection.setBackground(ApplicationColors.getRose());
+      myWritingDirection.setForeground(ApplicationColors.getLightGrayGold());
       myWritingDirection.setMinimumSize(new Dimension(250, 50));
       myWritingDirection.setMaximumSize(new Dimension(250, 50));
       myWritingDirection.setMaximumRowCount(2);
@@ -351,8 +353,9 @@ public class InputPanel extends JPanel implements TableConnector
       otherLanguage = new JComboBox<>(LanguageStored.values());
       otherLanguage.setBorder(new TitledBorder(
             translator.realisticTranslate(Translation.NEUE_SPRACHE_)));
-      otherLanguage.setOpaque(false);
-      otherLanguage.setBackground(ApplicationColors.getTransparent());
+      otherLanguage.setOpaque(true);
+      otherLanguage.setBackground(ApplicationColors.getRose());
+      otherLanguage.setForeground(ApplicationColors.getLightGrayGold());
       otherLanguage.setMinimumSize(new Dimension(250, 50));
       otherLanguage.setMaximumSize(new Dimension(250, 50));
       otherLanguage.setMaximumRowCount(4);

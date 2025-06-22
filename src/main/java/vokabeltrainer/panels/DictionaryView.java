@@ -149,14 +149,14 @@ public class DictionaryView extends BackgroundPanelTiled
       add(layout);
 
       JPanel vertical = new JPanel();
-      vertical.setLayout(new TotemLayout(vertical, 15));
+      vertical.setLayout(new TotemLayout(vertical));
       vertical.setOpaque(false);
-      vertical.setBackground(ApplicationColors.getBackgroundGold());
+      vertical.setBackground(ApplicationColors.getLightBlue());
 
       horizontalLanguagePanel = new JPanel();
       horizontalLanguagePanel
             .setLayout(new TrainLayout(horizontalLanguagePanel, 15));
-      horizontalLanguagePanel.setBackground(ApplicationColors.getGold());
+      horizontalLanguagePanel.setBackground(ApplicationColors.getGreen());
       horizontalLanguagePanel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.SPRACHEN)));
       languageGroup = new ButtonGroup();
@@ -165,7 +165,7 @@ public class DictionaryView extends BackgroundPanelTiled
       while (enumeration1.hasMoreElements())
       {
          AbstractButton button = enumeration1.nextElement();
-         button.setForeground(ApplicationColors.getSunflowerYellow());
+         button.setForeground(ApplicationColors.getDarkGold());
          button.setMinimumSize(new Dimension(90, 30));
          button.setMaximumSize(new Dimension(120, 60));
          button.addActionListener(event -> this.connector
@@ -214,11 +214,13 @@ public class DictionaryView extends BackgroundPanelTiled
       horizontalLanguagePanel.add(horizontalSortPanel);
 
       tabbedPane = new JTabbedPane();
-      tabbedPane.setOpaque(false);
+      tabbedPane.setOpaque(true);
+      tabbedPane.setBackground(ApplicationColors.getGreen());
       tabbedPane.setFont(ApplicationFonts.getButtonFont());
       tabbedPane.addTab(translator.realisticTranslate(Translation.DATEN),
-            new ImageIcon(ApplicationImages.getLogoFolder()),
-            initDatabaseTab());
+            new ImageIcon(ApplicationImages.getArrow()),
+            initDatabaseTab(),
+            translator.realisticTranslate(Translation.HOLE_DATEN));
       tabbedPane.addTab(translator.realisticTranslate(Translation.LEKTIONEN),
             initChaptersTab());
       tabbedPane.addTab(translator.realisticTranslate(Translation.SUCHE),
@@ -282,35 +284,43 @@ public class DictionaryView extends BackgroundPanelTiled
 
    private Component initSearchTab()
    {
+      JPanel outerWrapper = new JPanel();
+      BullsEyeLayout outerLayout = new BullsEyeLayout(outerWrapper);
+      outerWrapper.setLayout(outerLayout);
+      outerWrapper.setOpaque(true);
+      outerWrapper.setBackground(ApplicationColors.getMediumBlue());
+      
       searchVertical = new JPanel();
       searchVertical.setLayout(new TotemLayout(searchVertical));
       searchVertical.setOpaque(false);
 
       initSearchPanel(Direction.OWN_TO_NEW);
 
-      return searchVertical;
+      outerWrapper.add(searchVertical);
+      return outerWrapper;
    }
 
    public void initSearchPanel(Direction selectedLanguage)
-   {
+   {      
       JPanel mySearch = new JPanel();
       mySearch.setLayout(new TotemLayout(mySearch, 5));
-      mySearch.setBackground(ApplicationColors.getWhite());
+      mySearch.setOpaque(false);
+      
       searchPhraseMy = new JTextField();
       searchPhraseMy.setBorder(new TitledBorder(translator
             .realisticTranslate(Translation.WORT_AUF_DEUTSCH_EINGEBEN)));
       mySearch.add(searchPhraseMy);
       searchPhraseMy
-            .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 70));
+            .setMinimumSize(new Dimension(Settings.getKeyboardWidth() + 50, 70));
       searchPhraseMy.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 70));
+            new Dimension(Settings.getKeyboardWidth() + 250, 70));
       setWritingDirection();
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
-      filler.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 100));
+      filler.setMinimumSize(new Dimension(Settings.getKeyboardWidth() + 50, 100));
       filler.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 270));
+            new Dimension(Settings.getKeyboardWidth() + 250, 270));
       mySearch.add(filler);
 
       searchTypeGroupGerman = new ButtonGroup();
@@ -331,7 +341,8 @@ public class DictionaryView extends BackgroundPanelTiled
 
       otherSearch = new JPanel();
       otherSearch.setLayout(new TotemLayout(otherSearch, 5));
-      otherSearch.setBackground(ApplicationColors.getWhite());
+      otherSearch.setOpaque(false);
+      
       searchPhraseOther = new JTextField();
       searchPhraseOther.setBorder(new TitledBorder(translator
             .realisticTranslate(Translation.WORT_AUF_HEBRAISCH_EINGEBEN)));
@@ -426,6 +437,7 @@ public class DictionaryView extends BackgroundPanelTiled
       {
          JRadioButton radioButton = new JRadioButton(type.getMeaning(language));
          radioButton.setActionCommand(type.name());
+         radioButton.setForeground(ApplicationColors.getWhite());
          if (SearchType.WORDSTART.equals(type))
          {
             radioButton.setSelected(true);
@@ -452,6 +464,7 @@ public class DictionaryView extends BackgroundPanelTiled
       vertical.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
       JPanel horizontalMoveToChapterPanel = new JPanel();
+      horizontalMoveToChapterPanel.setOpaque(false);
       TrainLayout horizontalMoveToChapterLayout = new TrainLayout(
             horizontalMoveToChapterPanel, 15);
       horizontalMoveToChapterPanel.setLayout(horizontalMoveToChapterLayout);
@@ -459,6 +472,8 @@ public class DictionaryView extends BackgroundPanelTiled
       chapterChoiceBox = new JComboBox<>();
       chapterChoiceBox.setEditable(true);
       chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
+      chapterChoiceBox.setMinimumSize(new Dimension(250,30));
+      chapterChoiceBox.setMaximumSize(new Dimension(250,30));
 
       moveToChapterButton = new JButton(translator
             .realisticTranslate(Translation.AUSWAHL_ZUR_LEKTION_VERSCHIEBEN));
@@ -468,6 +483,7 @@ public class DictionaryView extends BackgroundPanelTiled
       horizontalMoveToChapterPanel.add(moveToChapterButton);
 
       JPanel horizontalMoveToDatabasePanel = new JPanel();
+      horizontalMoveToDatabasePanel.setOpaque(false);
       TrainLayout horizontalMoveToDatabaseLayout = new TrainLayout(
             horizontalMoveToDatabasePanel, 15);
       horizontalMoveToDatabasePanel.setLayout(horizontalMoveToDatabaseLayout);
@@ -475,6 +491,8 @@ public class DictionaryView extends BackgroundPanelTiled
       databaseChoiceBox = new JComboBox<>();
       databaseChoiceBox.setEditable(true);
       databaseChoiceBox.setModel(Data.getOwnDatabasesComboBoxModel());
+      databaseChoiceBox.setMinimumSize(new Dimension(250,30));
+      databaseChoiceBox.setMaximumSize(new Dimension(250,30));
 
       moveToDatabaseButton = new JButton(translator
             .realisticTranslate(Translation.AUSWAHL_ZUR_DATENBANK_VERSCHIEBEN));
@@ -508,17 +526,19 @@ public class DictionaryView extends BackgroundPanelTiled
    private JPanel initExpressionKindsTab()
    {
       JPanel vertical1 = new JPanel(new BorderLayout());
-      vertical1.setOpaque(false);
-
+      vertical1.setOpaque(true);
+      vertical1.setBackground(ApplicationColors.getLightBlue());
       expressionKindTable = new ExpressionKindTableSingleselect(
             ExpressionKind.getModelForSingleselect(), 300, connector);
       JScrollPane scroller = new JScrollPane(expressionKindTable);
-      scroller.setMinimumSize(new Dimension(300, 470));
-      scroller.setMaximumSize(new Dimension(300, 470));
+      scroller.setMinimumSize(new Dimension(400, 470));
+      scroller.setMaximumSize(new Dimension(400, 470));
       scroller.setBorder(BorderFactory.createTitledBorder(Common.getTranslator()
             .realisticTranslate(Translation.DOPPELCLICK)));
 
       JPanel scrollerWrapper = new JPanel();
+      scrollerWrapper.setOpaque(false);
+      scrollerWrapper.setBackground(ApplicationColors.getTransparent());
       BullsEyeLayout scrollerWrapperLayout = new BullsEyeLayout(
             scrollerWrapper);
       scrollerWrapper.setLayout(scrollerWrapperLayout);

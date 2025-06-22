@@ -429,7 +429,8 @@ public enum Translation {
 	INFORMATION_ANKLICKEN("Information anklicken!","Information, do click!"), 
 	ERKLAEHR_VIDEO("Erklärvideo über Cerebrummi im Internet", "video about Cerebrummi to watch on the internet"),
 	KONSTRUKTION("Konstruktion", "construction"), 
-	AKTIVIEREN("keine Daten aktiviert", "no data activated");
+	AKTIVIEREN("keine Daten aktiviert", "no data activated"),
+	HOLE_DATEN("Keine Daten? Gebe Daten ein oder aktiviere Datenbank.", "No data? Input data or activate database.");
    
 
 	private String german;

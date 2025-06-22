@@ -14,7 +14,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-
 import vokabeltrainer.cmd.Mode;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -27,83 +26,92 @@ import vokabeltrainer.resources.LetterIcons;
 import vokabeltrainer.resources.LetterIconsHandwritten;
 import vokabeltrainer.resources.Sounds;
 
-
 public final class Main
 {
-   static 
+   static
    {
       Common.setMode(Mode.LOCAL_ORIGINAL);
    }
-   
+
    private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
 
    public static void main(String[] args)
-   {	
+   {
       Translator translator = Common.getTranslator();
-      
+
       try
       {
          NimbusLookAndFeel nimbus = new NimbusLookAndFeel();
          Common.setNimbus(nimbus);
          UIManager.setLookAndFeel(nimbus);
-         
+
          nimbus.getDefaults().put("internationalFont",
                new Font(Font.SANS_SERIF, Font.PLAIN, 16));
-         ApplicationFonts.setInternationalFont(nimbus.getDefaults().getFont("internationalFont"));
-         
-         UIManager
-               .put("control", Color.WHITE);
+         ApplicationFonts.setInternationalFont(
+               nimbus.getDefaults().getFont("internationalFont"));
+
+         UIManager.put("control", ApplicationColors.getWhite());
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
          UIManager.put("nimbusBase", ApplicationColors.getGold());
          UIManager.put("textForeground", Color.GRAY);
+         UIManager.put("nimbusSelectionBackground", ApplicationColors.getRose());
+         UIManager.put("nimbusLightBackground", ApplicationColors.getWhite());
          UIManager.put("nimbusFocus", ApplicationColors.getSunflowerYellow());
-         UIManager
-               .put("ToolBar:Button.contentMargins", new Insets(5, 15, 5, 15));
-         UIManager
-               .put("TextField.background", ApplicationColors.getLightYellow());
-         UIManager.put("ComboBox.textField.background", ApplicationColors.getLightYellow());
+         UIManager.put("ToolBar:Button.contentMargins",
+               new Insets(5, 15, 5, 15));
+         UIManager.put("TextField.background",
+               ApplicationColors.getLightYellow());
+
          UIManager.put("ComboBox.forceOpaque", false);
-         
+
          UIManager.put("TitledBorder.border", new Insets(10, 10, 10, 10));
          UIManager.put("TitledBorder.position", TitledBorder.ABOVE_BOTTOM);
-         UIManager.put("TitledBorder.font", nimbus.getDefaults().getFont("internationalFont"));
+         UIManager.put("TitledBorder.font",
+               nimbus.getDefaults().getFont("internationalFont"));
          UIManager.put("TitledBorder.titleColor", ApplicationColors.getGold());
          UIManager.put("Table.opaque", false);
          UIManager.put("List.opaque", false);
          UIManager.put("Table.cellRenderer", false);
-         UIManager.put("OptionPane.buttonFont", nimbus.getDefaults().getFont("internationalFont"));
+         UIManager.put("OptionPane.buttonFont",
+               nimbus.getDefaults().getFont("internationalFont"));
 
-         UIManager.put("OptionPane.cancelButtonText", translator.realisticTranslate(Translation.ABBRECHEN));
-         UIManager.put("OptionPane.yesButtonText", translator.realisticTranslate(Translation.JA));
-         UIManager.put("OptionPane.noButtonText", translator.realisticTranslate(Translation.NEIN));
-         UIManager.put("OptionPane.titleText", translator.realisticTranslate(Translation.BILD_LOESCHEN));
-         
-         UIManager.put("FileChooser.openButtonText", translator.realisticTranslate(Translation.OEFFNEN));
-         UIManager.put("FileChooser.cancelButtonText", translator.realisticTranslate(Translation.ABBRECHEN));
-         UIManager.put("FileChooser.saveButtonText", translator.realisticTranslate(Translation.SPEICHERN));
-         UIManager.put("FileChooser.cancelButtonToolTipText", translator.realisticTranslate(Translation.ABBRECHEN_DER_AUSWAHL));
-         UIManager
-               .put("FileChooser.saveButtonToolTipText",
-                     translator.realisticTranslate(Translation.AUSGEWAEHLTE_DATEI_SPEICHERN));
-         UIManager
-               .put("FileChooser.openButtonToolTipText",
-                     "Ausgewählte Datei öffnen");
+         UIManager.put("OptionPane.cancelButtonText",
+               translator.realisticTranslate(Translation.ABBRECHEN));
+         UIManager.put("OptionPane.yesButtonText",
+               translator.realisticTranslate(Translation.JA));
+         UIManager.put("OptionPane.noButtonText",
+               translator.realisticTranslate(Translation.NEIN));
+         UIManager.put("OptionPane.titleText",
+               translator.realisticTranslate(Translation.BILD_LOESCHEN));
+
+         UIManager.put("FileChooser.openButtonText",
+               translator.realisticTranslate(Translation.OEFFNEN));
+         UIManager.put("FileChooser.cancelButtonText",
+               translator.realisticTranslate(Translation.ABBRECHEN));
+         UIManager.put("FileChooser.saveButtonText",
+               translator.realisticTranslate(Translation.SPEICHERN));
+         UIManager.put("FileChooser.cancelButtonToolTipText", translator
+               .realisticTranslate(Translation.ABBRECHEN_DER_AUSWAHL));
+         UIManager.put("FileChooser.saveButtonToolTipText", translator
+               .realisticTranslate(Translation.AUSGEWAEHLTE_DATEI_SPEICHERN));
+         UIManager.put("FileChooser.openButtonToolTipText",
+               "Ausgewählte Datei öffnen");
          UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene höher");
          UIManager.put("FileChooser.homeFolderToolTipText", "Home");
-         UIManager
-               .put("FileChooser.newFolderToolTipText",
-                     "Neuen Ordner erstellen");
+         UIManager.put("FileChooser.newFolderToolTipText",
+               "Neuen Ordner erstellen");
          UIManager.put("FileChooser.listViewButtonToolTipText", "Liste");
          UIManager.put("FileChooser.detailsViewButtonToolTipText", "Details");
          UIManager.put("FileChooser.lookInLabelText", "Suchen in:");
          UIManager.put("FileChooser.fileNameLabelText", "Dateiname:");
          UIManager.put("FileChooser.filesOfTypeLabelText", "Dateityp:");
-         UIManager
-               .put("FileChooser.acceptAllFileFilterText",
-                     "Alle Dateien (*.*)");
+         UIManager.put("FileChooser.acceptAllFileFilterText",
+               "Alle Dateien (*.*)");
          UIManager.put("FileChooser.folderNameLabelText", "Ordnername:");
-         UIManager.put("FileChooser.openDialogTitleText", translator.realisticTranslate(Translation.OEFFNEN));
-         UIManager.put("FileChooser.saveDialogTitleText", translator.realisticTranslate(Translation.SPEICHERN));
+         UIManager.put("FileChooser.openDialogTitleText",
+               translator.realisticTranslate(Translation.OEFFNEN));
+         UIManager.put("FileChooser.saveDialogTitleText",
+               translator.realisticTranslate(Translation.SPEICHERN));
          UIManager.put("OptionPane.background", ApplicationColors.getWhite());
       }
       catch (UnsupportedLookAndFeelException e3)
@@ -111,29 +119,28 @@ public final class Main
          // nothing
       }
 
-      CerebrummiPreferences.read();      
-      
+      CerebrummiPreferences.read();
+
       try
       {
          Fonts.read();
       }
       catch (Exception e1)
       {
-         JOptionPane
-               .showMessageDialog(null, message + "Schriftarten fehlen",
-                     "Nachricht", JOptionPane.CLOSED_OPTION);
+         JOptionPane.showMessageDialog(null, message + "Schriftarten fehlen",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-      
+
       try
       {
          Fonts.define();
       }
       catch (Exception e1)
       {
-         JOptionPane
-               .showMessageDialog(null, message + "Schriftarten können nicht definiert werden",
-                     "Nachricht", JOptionPane.CLOSED_OPTION);
+         JOptionPane.showMessageDialog(null,
+               message + "Schriftarten können nicht definiert werden",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
 
@@ -143,9 +150,8 @@ public final class Main
       }
       catch (Exception e1)
       {
-         JOptionPane
-               .showMessageDialog(null, message + "Bilder fehlen", "Nachricht",
-                     JOptionPane.CLOSED_OPTION);
+         JOptionPane.showMessageDialog(null, message + "Bilder fehlen",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
 
@@ -155,10 +161,9 @@ public final class Main
       }
       catch (Exception e1)
       {
-         JOptionPane
-               .showMessageDialog(null,
-                     message + "Buchstaben Nikud Icons fehlen", "Nachricht",
-                     JOptionPane.CLOSED_OPTION);
+         JOptionPane.showMessageDialog(null,
+               message + "Buchstaben Nikud Icons fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
 
@@ -168,10 +173,9 @@ public final class Main
       }
       catch (Exception e1)
       {
-         JOptionPane
-               .showMessageDialog(null,
-                     message + "Buchstaben Nikud Handwritten Icons fehlen",
-                     "Nachricht", JOptionPane.CLOSED_OPTION);
+         JOptionPane.showMessageDialog(null,
+               message + "Buchstaben Nikud Handwritten Icons fehlen",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
 
@@ -181,9 +185,9 @@ public final class Main
       }
       catch (Exception e)
       {
-         JOptionPane
-               .showMessageDialog(null, message + "Buchstabenbilder fehlen",
-                     "Nachricht", JOptionPane.CLOSED_OPTION);
+         JOptionPane.showMessageDialog(null,
+               message + "Buchstabenbilder fehlen", "Nachricht",
+               JOptionPane.CLOSED_OPTION);
          e.printStackTrace();
          System.exit(1);
       }
@@ -195,22 +199,20 @@ public final class Main
       catch (Exception e1)
       {
          e1.printStackTrace();
-         JOptionPane
-               .showMessageDialog(null, message + "Geräusche fehlen",
-                     "Nachricht", JOptionPane.CLOSED_OPTION);
+         JOptionPane.showMessageDialog(null, message + "Geräusche fehlen",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
-      
+
       Data.initDataBase();
       ImageData.initImageDataBase();
 
-      
       SwingUtilities.invokeLater(() -> {
          System.setProperty("java.awt.headless", "true");
          javax.swing.JFrame window = new JFrame();
-         if(Common.getMode().isWeb())
+         if (Common.getMode().isWeb())
          {
-            window.setUndecorated(true);  
+            window.setUndecorated(true);
             window.setSize(new Dimension(1536, 900));
          }
          else
@@ -220,24 +222,19 @@ public final class Main
          window.setResizable(true);
          window.setIconImage(ApplicationImages.getLogo());
          vokabeltrainer.common.Common.setjFrame(window);
-         window
-               .setTitle(Settings.getWindowTitle()
-                     + " "
-                     + Settings.getVersion());
+         window.setTitle(
+               Settings.getWindowTitle() + " " + Settings.getVersion());
          window.setFont(ApplicationFonts.getGermanFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
          ToolTipManager.sharedInstance().setInitialDelay(1000);
-         vokabeltrainer.common.Common
-               .setMainJPanel(
-                     new vokabeltrainer.common.MainController().getMainView());
-         window
-               .getContentPane()
-               .add(new JScrollPane(
-                     vokabeltrainer.common.Common.getMainJPanel()));
+         vokabeltrainer.common.Common.setMainJPanel(
+               new vokabeltrainer.common.MainController().getMainView());
+         window.getContentPane().add(
+               new JScrollPane(vokabeltrainer.common.Common.getMainJPanel()));
          window.setJMenuBar(Common.getMainJPanel().getMenuBar());
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-         //window.setExtendedState(JFrame. MAXIMIZED_BOTH);
-         //window.pack();
+         // window.setExtendedState(JFrame. MAXIMIZED_BOTH);
+         // window.pack();
          window.setLocationRelativeTo(null);
          window.setVisible(true);
       });
@@ -253,9 +250,9 @@ public final class Main
             }
             catch (Exception e)
             {
-               JOptionPane
-                     .showMessageDialog(null, message + "Blaue Bilder fehlen",
-                           "Nachricht", JOptionPane.CLOSED_OPTION);
+               JOptionPane.showMessageDialog(null,
+                     message + "Blaue Bilder fehlen", "Nachricht",
+                     JOptionPane.CLOSED_OPTION);
                System.exit(1);
             }
 
@@ -265,9 +262,9 @@ public final class Main
             }
             catch (Exception e)
             {
-               JOptionPane
-                     .showMessageDialog(null, message + "Grüne Bilder fehlen",
-                           "Nachricht", JOptionPane.CLOSED_OPTION);
+               JOptionPane.showMessageDialog(null,
+                     message + "Grüne Bilder fehlen", "Nachricht",
+                     JOptionPane.CLOSED_OPTION);
                System.exit(1);
             }
             return null;
@@ -280,11 +277,12 @@ public final class Main
    {
       Data.initDataBase();
    }
-   
+
    public static void resetMenuBar()
    {
-      SwingUtilities.invokeLater(() -> { 
-         vokabeltrainer.common.Common.getjFrame().setJMenuBar(Common.getMainJPanel().getMenuBar());
+      SwingUtilities.invokeLater(() -> {
+         vokabeltrainer.common.Common.getjFrame()
+               .setJMenuBar(Common.getMainJPanel().getMenuBar());
          vokabeltrainer.common.Common.getjFrame().validate();
          vokabeltrainer.common.Common.getjFrame().repaint();
       });
