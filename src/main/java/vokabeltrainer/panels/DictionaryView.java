@@ -306,6 +306,8 @@ public class DictionaryView extends BackgroundPanelTiled
       mySearch.setLayout(new TotemLayout(mySearch, 5));
       mySearch.setOpaque(false);
       
+      mySearch.add(new JLabel(translator.realisticTranslate(Translation.STELLEN_SIE_UM)));
+      
       searchPhraseMy = new JTextField();
       searchPhraseMy.setBorder(new TitledBorder(translator
             .realisticTranslate(Translation.WORT_AUF_DEUTSCH_EINGEBEN)));
@@ -352,11 +354,9 @@ public class DictionaryView extends BackgroundPanelTiled
       filler2.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 5));
       filler2.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() + 50, 14));
-      otherSearch.add(filler2);
 
       searchTypeGroupHebrew = new ButtonGroup();
-      otherSearch.add(initSearchRadioButtonPanel(searchTypeGroupHebrew,
-            Direction.NEW_TO_OWN));
+      
 
       switch (Settings.getLanguageInput())
       {
@@ -376,7 +376,7 @@ public class DictionaryView extends BackgroundPanelTiled
          keyboard = swedishKeyboardMaker.makeTextfieldWithRegularKeyboard();
          break;
       }
-      otherSearch.add(keyboard);
+      
 
       otherSearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
@@ -388,7 +388,17 @@ public class DictionaryView extends BackgroundPanelTiled
       wrapper1.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() + 50, 50));
       wrapper1.add(otherSearchButton);
+      
+      
+      otherSearch.add(filler2);
+      otherSearch.add(new JLabel(translator.realisticTranslate(Translation.SPRACHE_UMSTELLEN)));
+      otherSearch.add(keyboard);
+      otherSearch.add(initSearchRadioButtonPanel(searchTypeGroupHebrew,
+            Direction.NEW_TO_OWN));
       otherSearch.add(wrapper1);
+      
+      
+      
 
       cardLayout = new CardLayout();
       swapPanel = new JPanel(cardLayout);

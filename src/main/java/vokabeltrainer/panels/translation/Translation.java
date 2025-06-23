@@ -430,7 +430,9 @@ public enum Translation {
 	ERKLAEHR_VIDEO("Erklärvideo über Cerebrummi im Internet", "video about Cerebrummi to watch on the internet"),
 	KONSTRUKTION("Konstruktion", "construction"), 
 	AKTIVIEREN("keine Daten aktiviert", "no data activated"),
-	HOLE_DATEN("Keine Daten? Gebe Daten ein oder aktiviere Datenbank.", "No data? Input data or activate database.");
+	HOLE_DATEN("Keine Daten? Gebe Daten ein oder aktiviere eine Datenbank.", "No data? Input data or activate database."),
+	STELLEN_SIE_UM("Schreibrichtung ändern unter 'Eingabe'.", "change writing direction at 'input'."),
+	SPRACHE_UMSTELLEN("Sprache ändern unter 'Eingabe'.","change language at 'input'.");
    
 
 	private String german;
