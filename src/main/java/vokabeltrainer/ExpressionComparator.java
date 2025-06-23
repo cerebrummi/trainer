@@ -12,12 +12,7 @@ public class ExpressionComparator implements Comparator<Expression>
 {
 
    private SortingType sortingType;
-   private Direction direction = Direction.NEW_TO_OWN;
-   
-   public ExpressionComparator(SortingType sortingType)
-   {
-      this.sortingType = sortingType;
-   }
+   private Direction direction;
    
    public ExpressionComparator(SortingType sortingType, Direction direction)
    {

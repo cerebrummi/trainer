@@ -135,7 +135,10 @@ public class Interaction
             return Command.NOTHING;
          case WORK_WASTEBIN:
             return Command.NO_TABLE;
+         case DATA_CHAPTER:
+            return Command.NO_TABLE;
          default:
+            System.out.println("Interaction "+ interaction + Command.ERROR);
             return Command.ERROR;
          }
       }

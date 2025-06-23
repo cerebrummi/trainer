@@ -455,7 +455,7 @@ public final class Data
             return new Chapter();
          }
          return alleMap.values().stream()
-               .sorted(new ExpressionComparator(SortingType.DATE)).findFirst()
+               .sorted(new ExpressionComparator(SortingType.DATE, null)).findFirst()
                .get().getChapter();
       }
 
@@ -1087,7 +1087,7 @@ public final class Data
             List<Expression> selectedExpressions = findAllLevelOfDifficultyExpressionList(
                   levelOfDifficulty);
             Collections.sort(selectedExpressions,
-                  new ExpressionComparator(sortingType));
+                  new ExpressionComparator(sortingType, direction));
             return new ExpressionTableModel(
                   convertToExpressionModelArray(selectedExpressions),
                   COLUMNAMES);
@@ -1097,7 +1097,7 @@ public final class Data
             List<Expression> selectedExpressions = findAllSelectedExpressionsList(
                   false);
             Collections.sort(selectedExpressions,
-                  new ExpressionComparator(sortingType));
+                  new ExpressionComparator(sortingType, direction));
             return new ExpressionTableModel(
                   convertToExpressionModelArray(selectedExpressions),
                   COLUMNAMES);
@@ -1159,7 +1159,7 @@ public final class Data
          Expression[] expressionArray = expressions
                .toArray(new Expression[expressions.size()]);
          Arrays.sort(expressionArray,
-               new ExpressionComparator(SortingType.DATE));
+               new ExpressionComparator(SortingType.DATE, null));
 
          return new ExpressionTableModel(
                convertToExpressionModelArray(expressionArray), COLUMNAMES);
@@ -1205,7 +1205,7 @@ public final class Data
          return expressions.stream()
                .filter(germanToHebrewSearchword.or(germanToHebrewWordstart)
                      .or(hebrewToGermanSearchword).or(hebrewToGermanWordstart))
-               .sorted(new ExpressionComparator(sortingType))
+               .sorted(new ExpressionComparator(sortingType, null))
                .collect(Collectors.toList());
       }
 
@@ -1240,7 +1240,7 @@ public final class Data
          return alleMap.values().stream()
                .filter(expression -> expression.getDefinitions()
                      .getExpressionKindSet().contains(kind))
-               .sorted(new ExpressionComparator(sortingType))
+               .sorted(new ExpressionComparator(sortingType, language))
                .collect(Collectors.toList());
       }
 
@@ -1464,7 +1464,7 @@ public final class Data
          return alleMap.values().stream()
                .filter(expression -> expression.isSelected())
                .filter(expression -> expression.isDoChange())
-               .sorted(new ExpressionComparator(sortingType))
+               .sorted(new ExpressionComparator(sortingType, language))
                .map(expression -> expression.getCopyLines(language))
                .collect(Collectors.joining("\n\n"));
       }

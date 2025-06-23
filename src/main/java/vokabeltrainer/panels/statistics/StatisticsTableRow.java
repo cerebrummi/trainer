@@ -52,9 +52,9 @@ private List<Expression> expressionsDtoH;
                      + translator.realisticTranslate(Translation._DATE), Locale.US);
       }
       
-      Collections.sort(this.expressionsDtoH, new ExpressionComparator(SortingType.DATE));
+      Collections.sort(this.expressionsDtoH, new ExpressionComparator(SortingType.DATE, null));
       
-      Collections.sort(this.expressionsHtoD, new ExpressionComparator(SortingType.DATE));
+      Collections.sort(this.expressionsHtoD, new ExpressionComparator(SortingType.DATE, null));
       
       this.model = model;
    }
