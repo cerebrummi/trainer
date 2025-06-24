@@ -417,14 +417,15 @@ public class TrainerView extends BackgroundPanelTiled
       horizontal.setLayout(new TrainLayout(horizontal));
 
       JPanel soundFiller = new JPanel(new FlowLayout());
+      soundFiller.setOpaque(true);
       soundFiller.setBackground(ApplicationColors.getGold());
       soundFiller.setMinimumSize(new Dimension(60, 60));
-      soundFiller.setMaximumSize(new Dimension(280, 100));
+      soundFiller.setMaximumSize(new Dimension(350, 100));
 
       soundButton = new JButton(new ImageIcon(Settings.getSound()));
       soundButton.setBorder(BorderFactory.createEmptyBorder());
       soundButton.setOpaque(false);
-      soundButton.setBackground(new Color(0, 0, 0, 0));
+      soundButton.setBackground(ApplicationColors.getTransparent());
 
       soundFiller.add(soundButton);
       horizontal.add(soundFiller);
