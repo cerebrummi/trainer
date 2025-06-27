@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.border.TitledBorder;
@@ -342,12 +341,10 @@ public class InputPanel extends JPanel implements TableConnector
       horizontal.setOpaque(false);
 
       myWritingDirection = new JComboBox<>(WritingDirection.values());
-      JTextField textField = ((JTextField) myWritingDirection.getEditor().getEditorComponent());
-      textField.setOpaque(true);
-      textField.setBackground(ApplicationColors.getLightBlue());
+      myWritingDirection.setEditable(false);
       myWritingDirection.setBorder(new TitledBorder(
             translator.realisticTranslate(Translation.SCHREIBRICHTUNG)));
-      myWritingDirection.setOpaque(false);
+      myWritingDirection.setOpaque(true);
       myWritingDirection.setBackground(ApplicationColors.getRose());
       myWritingDirection.setForeground(ApplicationColors.getLightGrayGold());
       myWritingDirection.setMinimumSize(new Dimension(250, 50));
@@ -355,9 +352,10 @@ public class InputPanel extends JPanel implements TableConnector
       myWritingDirection.setMaximumRowCount(2);
       
       otherLanguage = new JComboBox<>(LanguageStored.values());
+      otherLanguage.setEditable(false);
       otherLanguage.setBorder(new TitledBorder(
             translator.realisticTranslate(Translation.NEUE_SPRACHE_)));
-      otherLanguage.setOpaque(false);
+      otherLanguage.setOpaque(true);
       otherLanguage.setBackground(ApplicationColors.getRose());
       otherLanguage.setForeground(ApplicationColors.getLightGrayGold());
       otherLanguage.setMinimumSize(new Dimension(250, 50));

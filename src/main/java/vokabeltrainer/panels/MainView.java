@@ -11,7 +11,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
@@ -51,7 +50,7 @@ public class MainView extends JPanel
    private JButton languageButton;
 
    private JButton questionsAndAnswersButton;
-   
+
    private JButton darkmodeButton;
 
    private JButton sentencesButton;
@@ -478,9 +477,9 @@ public class MainView extends JPanel
             translator.realisticTranslate(Translation.SAETZE));
       questionsAndAnswersButton = new JButton(
             new ImageIcon(ApplicationImages.getQuestionsAndAnswers2()));
-      darkmodeButton = new JButton(new ImageIcon(ApplicationImages.getDarkmode()));
-      
-      
+      darkmodeButton = new JButton(
+            new ImageIcon(ApplicationImages.getDarkmode()));
+      darkmodeButton.setToolTipText(translator.realisticTranslate(Translation.NEUSTART));
 
       startButton.setFont(ApplicationFonts.getToolbarButtonFont());
       inputButton.setFont(ApplicationFonts.getToolbarButtonFont());
@@ -634,12 +633,9 @@ public class MainView extends JPanel
 
       darkmodeButton.addActionListener(event -> {
          Settings.toggleDarkmodeOn();
-         Common.getjFrame().revalidate();
-         Common.getjFrame().repaint();
-         Common.getMainJPanel().revalidate();
-         Common.getMainJPanel().repaint();
+         System.exit(0);
       });
-      
+
       sentencesButton.addActionListener(event -> {
          initSentencesContent();
       });

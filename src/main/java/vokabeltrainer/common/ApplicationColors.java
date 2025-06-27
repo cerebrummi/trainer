@@ -35,7 +35,7 @@ public class ApplicationColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return mediumBlue;
+         return Color.DARK_GRAY; // list background color A
       }
       return lightBlue;
    }
@@ -71,7 +71,7 @@ public class ApplicationColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return lightBlue;
+         return white;
       }
       return shadyBlue;
    }
@@ -134,7 +134,7 @@ public class ApplicationColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return mediumSilverBlue;
+         return darkGreen; // list background color B
       }
       return veryLightGold;
    }
@@ -175,7 +175,7 @@ public class ApplicationColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return mediumBlue;
+         return shadyBlue;
       }
       return white;
    }
@@ -217,12 +217,22 @@ public class ApplicationColors
    }
 
 
-   public static Object getGray()
+   public static Color getGray()
    {
       if(Settings.isDarkmodeOn())
       {
-         return white;
+         return mediumSilverBlue;
       }
       return Color.GRAY;
    }
+
+   public static Color getBlack()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return mediumBlue;
+      }
+      return Color.BLACK;
+   }
 }
+

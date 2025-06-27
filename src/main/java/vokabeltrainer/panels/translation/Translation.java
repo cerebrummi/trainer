@@ -432,7 +432,8 @@ public enum Translation {
 	AKTIVIEREN("keine Daten aktiviert", "no data activated"),
 	HOLE_DATEN("Keine Daten? Gebe Daten ein oder aktiviere eine Datenbank.", "No data? Input data or activate database."),
 	STELLEN_SIE_UM("Schreibrichtung ändern unter 'Eingabe'.", "change writing direction at 'input'."),
-	SPRACHE_UMSTELLEN("Sprache ändern unter 'Eingabe'.","change language at 'input'.");
+	SPRACHE_UMSTELLEN("Sprache ändern unter 'Eingabe'.","change language at 'input'."),
+	NEUSTART("Programm schließt und muss neu gestartet werden.","app closes and restart needed");
    
 
 	private String german;

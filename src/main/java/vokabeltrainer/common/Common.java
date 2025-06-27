@@ -51,18 +51,27 @@ public final class Common
          ApplicationFonts.setInternationalFont(
                nimbus.getDefaults().getFont("internationalFont"));
 
+         UIManager.put("List.foreground", ApplicationColors.getBlack());
          UIManager.put("control", ApplicationColors.getWhite());
+         UIManager.put("controlHighlight", ApplicationColors.getLightGrayBlue());
+         UIManager.put("info", ApplicationColors.getWhite());
+         UIManager.put("text", ApplicationColors.getBlack());
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
          UIManager.put("nimbusBase", ApplicationColors.getGold());
          UIManager.put("textForeground", ApplicationColors.getGray());
+         UIManager.put("Button.textForeground", ApplicationColors.getShadyBlue());
+         UIManager.put("textBackground", ApplicationColors.getWhite());
          UIManager.put("nimbusSelectionBackground", ApplicationColors.getRose());
          UIManager.put("nimbusLightBackground", ApplicationColors.getWhite());
-         UIManager.put("textHighlightText", ApplicationColors.getDarkGold());
+         UIManager.put("textHighlightText", ApplicationColors.getSunflowerYellow());
+         UIManager.put("textLHighlightText", ApplicationColors.getSunflowerYellow());
          UIManager.put("nimbusFocus", ApplicationColors.getSunflowerYellow());
-         UIManager.put("ToolBar:Button.contentMargins",
-               new Insets(5, 15, 5, 15));
          UIManager.put("TextField.background",
                ApplicationColors.getLightYellow());
+         UIManager.put("TitledBorder.titleColor", ApplicationColors.getGold());
+         UIManager.put("OptionPane.background", ApplicationColors.getWhite());
+         UIManager.put("ToolBar:Button.contentMargins",
+               new Insets(5, 15, 5, 15));
 
          UIManager.put("ComboBox.forceOpaque", false);
 
@@ -70,7 +79,7 @@ public final class Common
          UIManager.put("TitledBorder.position", TitledBorder.ABOVE_BOTTOM);
          UIManager.put("TitledBorder.font",
                nimbus.getDefaults().getFont("internationalFont"));
-         UIManager.put("TitledBorder.titleColor", ApplicationColors.getGold());
+
          UIManager.put("Table.opaque", false);
          UIManager.put("List.opaque", false);
          UIManager.put("Table.cellRenderer", false);
@@ -114,7 +123,7 @@ public final class Common
                translator.realisticTranslate(Translation.OEFFNEN));
          UIManager.put("FileChooser.saveDialogTitleText",
                translator.realisticTranslate(Translation.SPEICHERN));
-         UIManager.put("OptionPane.background", ApplicationColors.getWhite());
+         
       }
       catch (UnsupportedLookAndFeelException e3)
       {
