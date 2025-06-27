@@ -126,6 +126,21 @@ public class MainView extends JPanel
       this.validate();
       this.repaint();
    }
+   
+   private void initColormodeContent()
+   {
+      this.removeAll();
+
+      initColorToolBar();
+      ColorPanel colorPanel = new ColorPanel();
+      add(colorPanel);
+      initBackController();
+
+      Main.resetMenuBar();
+      this.validate();
+      this.repaint();
+      
+   }
 
    private void initSentencesContent()
    {
@@ -177,6 +192,21 @@ public class MainView extends JPanel
       backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
 
       menuBar.add(backButton);
+   }
+   
+   private void initColorToolBar()
+   {
+      menuBar = new JMenuBar();
+      menuBar.setOpaque(true);
+      menuBar.setBackground(ApplicationColors.getLightGold());
+      menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+      menuBar.setMinimumSize(new Dimension(1200, 80));
+      menuBar.setMaximumSize(new Dimension(6000, 80));
+
+      backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
+
+      menuBar.add(backButton);
+      
    }
 
    private void initSentencesToolBar()
@@ -479,7 +509,7 @@ public class MainView extends JPanel
             new ImageIcon(ApplicationImages.getQuestionsAndAnswers2()));
       darkmodeButton = new JButton(
             new ImageIcon(ApplicationImages.getDarkmode()));
-      darkmodeButton.setToolTipText(translator.realisticTranslate(Translation.NEUSTART));
+      //darkmodeButton.setToolTipText(translator.realisticTranslate(Translation.NEUSTART));
 
       startButton.setFont(ApplicationFonts.getToolbarButtonFont());
       inputButton.setFont(ApplicationFonts.getToolbarButtonFont());
@@ -632,8 +662,7 @@ public class MainView extends JPanel
       });
 
       darkmodeButton.addActionListener(event -> {
-         Settings.toggleDarkmodeOn();
-         System.exit(0);
+         initColormodeContent();
       });
 
       sentencesButton.addActionListener(event -> {

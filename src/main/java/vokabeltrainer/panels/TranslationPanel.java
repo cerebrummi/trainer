@@ -27,47 +27,49 @@ public class TranslationPanel extends JPanel
    TranslationPanel()
    {
       setLayout(new BullsEyeLayout(this));
-      
+
       add(initChooseLanguage());
 
       initController();
    }
 
    private Component initChooseLanguage()
-   {      
+   {
       JPanel horizontal = new JPanel();
       TrainLayout horizontalLayout = new TrainLayout(horizontal, 15);
       horizontal.setLayout(horizontalLayout);
-      
+
       JLabel appTranslation = new JLabel();
-      
+
       chooseLanguage = new JComboBox<>(TranslationCode.valuesAvailable());
-      chooseLanguage.setMinimumSize(new Dimension(300,30));
-      chooseLanguage.setMaximumSize(new Dimension(300,50));
-      
-      applyButton = new JButton(new ImageIcon(ApplicationImages.getSelectDone()));
-      
+      chooseLanguage.setMinimumSize(new Dimension(300, 30));
+      chooseLanguage.setMaximumSize(new Dimension(300, 50));
+
+      applyButton = new JButton(
+            new ImageIcon(ApplicationImages.getSelectDone()));
+
       horizontal.add(appTranslation);
       horizontal.add(chooseLanguage);
       horizontal.add(applyButton);
-      
+
       return horizontal;
    }
 
    private void initController()
-   {   
+   {
       applyButton.addActionListener(event -> {
-         TranslationCode choosen = chooseLanguage.getItemAt(chooseLanguage.getSelectedIndex());
+         TranslationCode choosen = chooseLanguage
+               .getItemAt(chooseLanguage.getSelectedIndex());
          Settings.setTranslationCode(choosen);
          Common.setTranslator(new Translator());
-         try 
+         try
          {
-			Buchstabenbilder.read();
-		 } 
-         catch (Exception e) 
+            Buchstabenbilder.read();
+         }
+         catch (Exception e)
          {
-			// nothing
-		 }
+            // nothing
+         }
       });
    }
 }
