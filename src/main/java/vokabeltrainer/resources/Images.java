@@ -9,6 +9,8 @@ public class Images
 
    public static void read() throws Exception
    {
+      ApplicationImages.setDarkmode(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/darkmode.png")));
       ApplicationImages.setAnswerNotOkay(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/answer-not-okay.png")));
 
@@ -28,7 +30,7 @@ public class Images
             Images.class.getResourceAsStream("_2_images/baerlohnung.png")));
 
       ApplicationImages.setImage(ImageIO.read(Images.class
-            .getResourceAsStream("_2_images/book-2878724_1280.jpg")));
+            .getResourceAsStream("_2_images/book-2878724_1280.png")));
 
       ApplicationImages.setCancel(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/cancel.png")));

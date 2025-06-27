@@ -26,6 +26,18 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
+         Settings.setDarkmodeOn(
+               preferences.getBoolean(CerebrummiNodes.getDarkmodeNode(), true));
+      }
+      catch (Exception e)
+      {
+         // nothing
+      }
+      
+      try
+      {
+         Preferences preferences = Preferences.userRoot()
+               .node(CerebrummiNodes.getNode());
          Settings.setSoundOn(
                preferences.getBoolean(CerebrummiNodes.getSoundNode(), true));
       }

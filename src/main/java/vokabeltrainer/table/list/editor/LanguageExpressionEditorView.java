@@ -306,7 +306,7 @@ public class LanguageExpressionEditorView extends JDialog
       searchwordsJListOwn.setFocusable(false);
       searchwordsJListOwn
             .setBorder(makeBorderBlank(this.searchwordJListGermanTitle));
-      searchwordsJListOwn.setBackground(new Color(223, 210, 198));
+      searchwordsJListOwn.setBackground(ApplicationColors.getBackgroundGold());
       searchwordsJListOwn.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       searchwordsJListOwn.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
       JPopupMenu popupGerman = new JPopupMenu();
@@ -350,7 +350,7 @@ public class LanguageExpressionEditorView extends JDialog
                   .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             if (isSelected)
             {
-               listComponent.setBackground(Color.WHITE);
+               listComponent.setBackground(ApplicationColors.getWhite());
             }
             else
             {

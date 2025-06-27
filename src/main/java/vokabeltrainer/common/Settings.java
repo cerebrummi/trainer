@@ -71,6 +71,8 @@ public class Settings
    
    private static boolean schabbat_modus = false;
    
+   private static boolean darkmodeOn = false;
+   
    private static WritingDirection myWritingDirection = readMyWritingDirection();
 
    private static OperatingSystem operatingSystem = figureBetriebssystem();
@@ -210,6 +212,29 @@ public class Settings
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getSoundNode(), soundOn);
       Settings.soundOn = soundOn;
+   }
+
+   public static boolean isDarkmodeOn()
+   {
+      return darkmodeOn;
+   }
+
+   public static void setDarkmodeOn(boolean darkmodeOn)
+   {
+      Preferences preferences = Preferences
+            .userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.putBoolean(CerebrummiNodes.getDarkmodeNode(), darkmodeOn);
+      Settings.darkmodeOn = darkmodeOn;
+   }
+   
+   public static void toggleDarkmodeOn()
+   {
+      darkmodeOn = !darkmodeOn;
+      Preferences preferences = Preferences
+            .userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.putBoolean(CerebrummiNodes.getDarkmodeNode(), darkmodeOn);
    }
 
    public static void setTranslationCode(TranslationCode translationCode)

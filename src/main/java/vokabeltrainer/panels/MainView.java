@@ -51,6 +51,8 @@ public class MainView extends JPanel
    private JButton languageButton;
 
    private JButton questionsAndAnswersButton;
+   
+   private JButton darkmodeButton;
 
    private JButton sentencesButton;
    private JButton sentences_1_Button;
@@ -476,6 +478,9 @@ public class MainView extends JPanel
             translator.realisticTranslate(Translation.SAETZE));
       questionsAndAnswersButton = new JButton(
             new ImageIcon(ApplicationImages.getQuestionsAndAnswers2()));
+      darkmodeButton = new JButton(new ImageIcon(ApplicationImages.getDarkmode()));
+      
+      
 
       startButton.setFont(ApplicationFonts.getToolbarButtonFont());
       inputButton.setFont(ApplicationFonts.getToolbarButtonFont());
@@ -488,6 +493,7 @@ public class MainView extends JPanel
       sentencesButton.setFont(ApplicationFonts.getToolbarButtonFont());
       questionsAndAnswersButton
             .setFont(ApplicationFonts.getToolbarButtonFont());
+      darkmodeButton.setFont(ApplicationFonts.getToolbarButtonFont());
 
       menuBar.add(startButton);
       menuBar.add(inputButton);
@@ -499,6 +505,7 @@ public class MainView extends JPanel
       menuBar.add(sentencesButton);
       // menuBar.add(questionsAndAnswersButton);
       menuBar.add(languageButton);
+      menuBar.add(darkmodeButton);
       menuBar.add(Box.createHorizontalGlue());
       menuBar.add(aboutButton);
    }
@@ -625,6 +632,14 @@ public class MainView extends JPanel
          initLanguageContent();
       });
 
+      darkmodeButton.addActionListener(event -> {
+         Settings.toggleDarkmodeOn();
+         Common.getjFrame().revalidate();
+         Common.getjFrame().repaint();
+         Common.getMainJPanel().revalidate();
+         Common.getMainJPanel().repaint();
+      });
+      
       sentencesButton.addActionListener(event -> {
          initSentencesContent();
       });

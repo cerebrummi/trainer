@@ -117,4 +117,9 @@ public class CerebrummiNodes
    {
       return "my_writing_direction";
    }
+
+   public static String getDarkmodeNode()
+   {
+      return "darkmode";
+   }
 }

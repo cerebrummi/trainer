@@ -4,7 +4,28 @@ import java.awt.Color;
 
 public class ApplicationColors
 {
-
+   private static Color lightBlue = new Color(215, 231, 247);
+   private static Color lightGrayBlue = new Color(150, 165, 180);
+   private static Color mediumBlue = new Color(164, 190, 217);
+   private static Color mediumSilverBlue = new Color(162, 180, 202);
+   private static Color shadyBlue = new Color(44, 51, 73);
+   private static Color gold = new Color(169, 136, 103);
+   private static Color darkgold = new Color(143, 101, 58);
+   private static Color lightgold = new Color(209, 191, 173);
+   private static Color lightGrayGold = new Color(203, 191, 180);
+   private static Color mediumGold = new Color(228, 213, 197);
+   private static Color backgroundGold = new Color(223, 210, 198);
+   private static Color veryLightGold = new Color(247, 240, 232);
+   private static Color green = new Color(181, 192, 81);
+   private static Color texturedBackgroundColor = new Color(225, 216, 211);
+   private static Color texturedBackgroundColorLight = new Color(230, 221, 217);
+   private static Color white = new Color(255, 255, 255);
+   private static Color lightYellow = new Color(255, 255, 235);
+   private static Color darkRed = new Color(216, 0, 0);
+   private static Color rose = new Color(247, 215, 215);
+   private static Color sunflowerYellow = new Color(255, 220, 35);
+   private static Color darkGreen = new Color(110,110,70);
+   
    private ApplicationColors()
    {
       // nothing
@@ -12,67 +33,119 @@ public class ApplicationColors
 
    public static Color getLightBlue()
    {
-      return new Color(215, 231, 247);
+      if(Settings.isDarkmodeOn())
+      {
+         return mediumBlue;
+      }
+      return lightBlue;
    }
    
    public static Color getLightGrayBlue()
    {
-      return new Color(150, 165, 180);
+      if(Settings.isDarkmodeOn())
+      {
+         return shadyBlue;
+      }
+      return lightGrayBlue;
    }
 
    public static Color getMediumBlue()
    {
-      return new Color(164, 190, 217);
+      if(Settings.isDarkmodeOn())
+      {
+         return shadyBlue;
+      }
+      return mediumBlue;
    }
    
    public static Color getMediumSilverBlue()
    {
-      return new Color(162, 180, 202);
+      if(Settings.isDarkmodeOn())
+      {
+         return darkGreen;
+      }
+      return mediumSilverBlue;
    }
 
    public static Color getShadyBlue()
    {
-      return new Color(44, 51, 73);
+      if(Settings.isDarkmodeOn())
+      {
+         return lightBlue;
+      }
+      return shadyBlue;
    }
 
    public static Color getGold()
    {
-      return new Color(169, 136, 103);
+      if(Settings.isDarkmodeOn())
+      {
+         return darkGreen;
+      }
+      return gold;
    }
 
    public static Color getDarkGold()
    {
-      return new Color(143, 101, 58);
+      if(Settings.isDarkmodeOn())
+      {
+         return white;
+      }
+      return darkgold;
    }
 
    public static Color getLightGold()
    {
-      return new Color(209, 191, 173);
+      if(Settings.isDarkmodeOn())
+      {
+         return shadyBlue;
+      }
+      return lightgold;
    }
 
    public static Color getLightGrayGold()
    {
-      return new Color(203, 191, 180);
+      if(Settings.isDarkmodeOn())
+      {
+         return shadyBlue;
+      }
+      return lightGrayGold;
    }
 
    public static Color getMediumGold()
    {
-      return new Color(228, 213, 197);
+      if(Settings.isDarkmodeOn())
+      {
+         return mediumBlue;
+      }
+      return mediumGold;
    }
 
    public static Color getBackgroundGold()
    {
-      return new Color(223, 210, 198);
+      if(Settings.isDarkmodeOn())
+      {
+         return shadyBlue;
+      }
+      return backgroundGold;
    }
 
    public static Color getVeryLightGold()
    {
-      return new Color(247, 240, 232);
+      if(Settings.isDarkmodeOn())
+      {
+         return mediumSilverBlue;
+      }
+      return veryLightGold;
    }
 
    public static Color getGreen()
    {
-      return new Color(181, 192, 81);
+      if(Settings.isDarkmodeOn())
+      {
+         return darkGreen;
+      }
+      return green;
    }
 
    public static Color getTransparent()
@@ -82,36 +155,74 @@ public class ApplicationColors
 
    public static Color getTexturedBackgroundColor()
    {
-      return new Color(225, 216, 211);
+      if(Settings.isDarkmodeOn())
+      {
+         return shadyBlue;
+      }
+      return texturedBackgroundColor;
    }
 
    public static Color getTexturedBackgroundColorLight()
    {
-      return new Color(230, 221, 217);
+      if(Settings.isDarkmodeOn())
+      {
+         return shadyBlue;
+      }
+      return texturedBackgroundColorLight;
    }
 
    public static Color getWhite()
    {
-      return Color.WHITE;
+      if(Settings.isDarkmodeOn())
+      {
+         return mediumBlue;
+      }
+      return white;
    }
 
    public static Color getLightYellow()
    {
-      return new Color(255, 255, 235);
+      if(Settings.isDarkmodeOn())
+      {
+         return mediumSilverBlue;
+      }
+      return lightYellow;
    }
    
    public static Color getDarkRed()
    {
-      return new Color(216, 0, 0);
+      if(Settings.isDarkmodeOn())
+      {
+         return shadyBlue;
+      }
+      return darkRed;
    }
 
    public static Color getRose()
    {
-      return new Color(247, 215, 215);
+      if(Settings.isDarkmodeOn())
+      {
+         return texturedBackgroundColor;
+      }
+      return rose;
    }
 
    public static Color getSunflowerYellow()
    {
-      return new Color(255, 220, 35);
+      if(Settings.isDarkmodeOn())
+      {
+         return mediumBlue;
+      }
+      return sunflowerYellow;
+   }
+
+
+   public static Object getGray()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return white;
+      }
+      return Color.GRAY;
    }
 }

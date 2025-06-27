@@ -36,6 +36,8 @@ public class StartPanel extends JPanel
    public StartPanel()
    {
       setLayout(new BorderLayout());
+      setOpaque(true);
+      setBackground(ApplicationColors.getBackgroundGold());
 
       JPanel north = new JPanel(new FlowLayout());
       north.setOpaque(false);

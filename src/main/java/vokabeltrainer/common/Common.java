@@ -1,14 +1,20 @@
 package vokabeltrainer.common;
 
+import java.awt.Font;
+import java.awt.Insets;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import vokabeltrainer.cmd.Mode;
 import vokabeltrainer.panels.MainView;
+import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.list.editor.LanguageExpressionEditorView;
 
@@ -28,6 +34,92 @@ public final class Common
 
    private Common()
    {
+
+   }
+   
+      
+   public static void setUI()
+   {
+      try
+      {
+         NimbusLookAndFeel nimbus = new NimbusLookAndFeel();
+         Common.setNimbus(nimbus);
+         UIManager.setLookAndFeel(nimbus);
+
+         nimbus.getDefaults().put("internationalFont",
+               new Font(Font.SANS_SERIF, Font.PLAIN, 16));
+         ApplicationFonts.setInternationalFont(
+               nimbus.getDefaults().getFont("internationalFont"));
+
+         UIManager.put("control", ApplicationColors.getWhite());
+         UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
+         UIManager.put("nimbusBase", ApplicationColors.getGold());
+         UIManager.put("textForeground", ApplicationColors.getGray());
+         UIManager.put("nimbusSelectionBackground", ApplicationColors.getRose());
+         UIManager.put("nimbusLightBackground", ApplicationColors.getWhite());
+         UIManager.put("textHighlightText", ApplicationColors.getDarkGold());
+         UIManager.put("nimbusFocus", ApplicationColors.getSunflowerYellow());
+         UIManager.put("ToolBar:Button.contentMargins",
+               new Insets(5, 15, 5, 15));
+         UIManager.put("TextField.background",
+               ApplicationColors.getLightYellow());
+
+         UIManager.put("ComboBox.forceOpaque", false);
+
+         UIManager.put("TitledBorder.border", new Insets(10, 10, 10, 10));
+         UIManager.put("TitledBorder.position", TitledBorder.ABOVE_BOTTOM);
+         UIManager.put("TitledBorder.font",
+               nimbus.getDefaults().getFont("internationalFont"));
+         UIManager.put("TitledBorder.titleColor", ApplicationColors.getGold());
+         UIManager.put("Table.opaque", false);
+         UIManager.put("List.opaque", false);
+         UIManager.put("Table.cellRenderer", false);
+         UIManager.put("OptionPane.buttonFont",
+               nimbus.getDefaults().getFont("internationalFont"));
+
+         UIManager.put("OptionPane.cancelButtonText",
+               translator.realisticTranslate(Translation.ABBRECHEN));
+         UIManager.put("OptionPane.yesButtonText",
+               translator.realisticTranslate(Translation.JA));
+         UIManager.put("OptionPane.noButtonText",
+               translator.realisticTranslate(Translation.NEIN));
+         UIManager.put("OptionPane.titleText",
+               translator.realisticTranslate(Translation.BILD_LOESCHEN));
+
+         UIManager.put("FileChooser.openButtonText",
+               translator.realisticTranslate(Translation.OEFFNEN));
+         UIManager.put("FileChooser.cancelButtonText",
+               translator.realisticTranslate(Translation.ABBRECHEN));
+         UIManager.put("FileChooser.saveButtonText",
+               translator.realisticTranslate(Translation.SPEICHERN));
+         UIManager.put("FileChooser.cancelButtonToolTipText", translator
+               .realisticTranslate(Translation.ABBRECHEN_DER_AUSWAHL));
+         UIManager.put("FileChooser.saveButtonToolTipText", translator
+               .realisticTranslate(Translation.AUSGEWAEHLTE_DATEI_SPEICHERN));
+         UIManager.put("FileChooser.openButtonToolTipText",
+               "Ausgewählte Datei öffnen");
+         UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene höher");
+         UIManager.put("FileChooser.homeFolderToolTipText", "Home");
+         UIManager.put("FileChooser.newFolderToolTipText",
+               "Neuen Ordner erstellen");
+         UIManager.put("FileChooser.listViewButtonToolTipText", "Liste");
+         UIManager.put("FileChooser.detailsViewButtonToolTipText", "Details");
+         UIManager.put("FileChooser.lookInLabelText", "Suchen in:");
+         UIManager.put("FileChooser.fileNameLabelText", "Dateiname:");
+         UIManager.put("FileChooser.filesOfTypeLabelText", "Dateityp:");
+         UIManager.put("FileChooser.acceptAllFileFilterText",
+               "Alle Dateien (*.*)");
+         UIManager.put("FileChooser.folderNameLabelText", "Ordnername:");
+         UIManager.put("FileChooser.openDialogTitleText",
+               translator.realisticTranslate(Translation.OEFFNEN));
+         UIManager.put("FileChooser.saveDialogTitleText",
+               translator.realisticTranslate(Translation.SPEICHERN));
+         UIManager.put("OptionPane.background", ApplicationColors.getWhite());
+      }
+      catch (UnsupportedLookAndFeelException e3)
+      {
+         // nothing
+      }
 
    }
    

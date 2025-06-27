@@ -42,7 +42,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
@@ -81,7 +80,7 @@ import vokabeltrainer.types.SortingType;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
-public class DictionaryView extends BackgroundPanelTiled
+public class DictionaryView extends JPanel
       implements DictionaryViewConnector
 {
    private static final long serialVersionUID = 9130321171813967337L;

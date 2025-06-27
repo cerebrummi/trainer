@@ -78,11 +78,23 @@ public class ApplicationImages
    
    private static BufferedImage questionsAndAnswers;
    private static BufferedImage questionsAndAnswers2;
+   
+   private static BufferedImage darkmode;
 
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    private static Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap;
 
    private static String message = "Bitte neu starten.\nCerebrummi© konnte keine Bilder laden.\nFehler: ";
+
+   public static BufferedImage getDarkmode()
+   {
+      return darkmode;
+   }
+
+   public static void setDarkmode(BufferedImage darkmode)
+   {
+      ApplicationImages.darkmode = darkmode;
+   }
 
    public static void setImage(BufferedImage image)
    {
