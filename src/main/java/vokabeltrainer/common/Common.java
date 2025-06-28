@@ -34,7 +34,7 @@ public final class Common
 
    private Common()
    {
-
+      // nothing
    }
    
       
@@ -59,7 +59,7 @@ public final class Common
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
          UIManager.put("nimbusBase", ApplicationColors.getGold());
          UIManager.put("textForeground", ApplicationColors.getGray());
-         UIManager.put("Button.textForeground", ApplicationColors.getShadyBlue());
+         UIManager.put("Button.textForeground", ApplicationColors.getMediumSilverBlue());
          UIManager.put("textBackground", ApplicationColors.getWhite());
          UIManager.put("nimbusSelectionBackground", ApplicationColors.getRose());
          UIManager.put("nimbusLightBackground", ApplicationColors.getWhite());
@@ -70,6 +70,8 @@ public final class Common
                ApplicationColors.getLightYellow());
          UIManager.put("TitledBorder.titleColor", ApplicationColors.getGold());
          UIManager.put("OptionPane.background", ApplicationColors.getWhite());
+         
+         
          UIManager.put("ToolBar:Button.contentMargins",
                new Insets(5, 15, 5, 15));
 

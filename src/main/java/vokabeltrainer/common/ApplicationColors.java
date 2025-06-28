@@ -234,5 +234,23 @@ public class ApplicationColors
       }
       return Color.BLACK;
    }
+
+   public static Color getBackgroundGold_start()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.mediumSilverBlue;
+      }
+      return getBackgroundGold();
+   }
+
+   public static Color getDarkGold_start()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.white;
+      }
+      return getDarkGold();
+   }
 }
 

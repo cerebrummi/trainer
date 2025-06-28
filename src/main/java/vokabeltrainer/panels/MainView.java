@@ -98,7 +98,8 @@ public class MainView extends JPanel
    private void initContent()
    {
       setLayout(new BorderLayout());
-      setBackground(ApplicationColors.getBackgroundGold());
+      this.setOpaque(false);
+      this.setBackground(ApplicationColors.getTransparent());
 
       translator = Common.getTranslator();
 

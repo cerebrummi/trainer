@@ -4,11 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,39 +35,59 @@ public class StartPanel extends JPanel
    {
       setLayout(new BorderLayout());
       setOpaque(true);
-      setBackground(ApplicationColors.getBackgroundGold());
+      setBackground(ApplicationColors.getBackgroundGold_start());
 
-      JPanel north = new JPanel(new FlowLayout());
+      JPanel northWrapper = new JPanel();
+      northWrapper.setOpaque(false);
+      northWrapper.setBackground(ApplicationColors.getTransparent());
+      BullsEyeLayout northWrapperLayout = new BullsEyeLayout(northWrapper);
+      northWrapper.setLayout(northWrapperLayout);
+      
+      JPanel north = new JPanel();
+      TotemLayout northLayout = new TotemLayout(north);
+      north.setLayout(northLayout);
       north.setOpaque(false);
-      JPanel titlePanel = new JPanel();
-      titlePanel.setLayout(new BoxLayout(titlePanel, 1));
-      titlePanel.setOpaque(false);
 
-      JPanel nameWrapper = new JPanel(new FlowLayout());
+      JPanel nameWrapper = new JPanel();
+      BullsEyeLayout nameWrapperLayout = new BullsEyeLayout(nameWrapper);
+      nameWrapper.setLayout(nameWrapperLayout);
       nameWrapper.setOpaque(false);
-      nameWrapper.setPreferredSize(new Dimension(580, 100));
+      nameWrapper.setMinimumSize(new Dimension(580, 100));
+      nameWrapper.setMaximumSize(new Dimension(580, 100));
       JLabel name = new JLabel("<html>"+Settings.getWindowTitle()+"</html>");
-      name.setPreferredSize(new Dimension(580, 90));
+      name.setMinimumSize(new Dimension(580, 120));
+      name.setMaximumSize(new Dimension(580, 120));
+      name.setPreferredSize(new Dimension(580, 120));
       name.setForeground(Color.WHITE);
       name.setFont(ApplicationFonts.getHebrewFont(90F));
       nameWrapper.add(name);
 
-      JPanel trainerWrapper = new JPanel(new FlowLayout());
+      JPanel trainerWrapper = new JPanel();
+      BullsEyeLayout trainerWrapperLayout = new BullsEyeLayout(trainerWrapper);
+      trainerWrapper.setLayout(trainerWrapperLayout);
       trainerWrapper.setOpaque(false);
-      trainerWrapper.setPreferredSize(new Dimension(400, 80));
+      trainerWrapper.setMinimumSize(new Dimension(400, 80));
+      trainerWrapper.setMaximumSize(new Dimension(400, 80));
       JLabel trainer = new JLabel("<html>"
             + translator.realisticTranslate(Translation.VOKABELTRAINER)
             + "</html>");
-      trainer.setPreferredSize(new Dimension(355, 70));
+      trainer.setMinimumSize(new Dimension(355, 90));
+      trainer.setMaximumSize(new Dimension(355, 90));
+      trainer.setPreferredSize(new Dimension(355, 90));
       trainer.setForeground(Color.WHITE);
       trainer.setFont(ApplicationFonts.getHebrewFont(40F));
       trainerWrapper.add(trainer);
 
-      titlePanel.add(nameWrapper);
-      titlePanel.add(trainerWrapper);
-
-      north.add(titlePanel);
-      add(north, BorderLayout.NORTH);
+      JPanel filler1 = new JPanel();
+      filler1.setOpaque(false);
+      filler1.setMinimumSize(new Dimension(400, 50));
+      filler1.setMaximumSize(new Dimension(600, 100));
+      
+      north.add(filler1);
+      north.add(nameWrapper);
+      north.add(trainerWrapper);
+      northWrapper.add(north);
+      add(northWrapper, BorderLayout.NORTH);
       
       JPanel centerWrapper = new JPanel();
       centerWrapper.setOpaque(false);
@@ -93,8 +111,8 @@ public class StartPanel extends JPanel
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
-      filler.setMinimumSize(new Dimension(400, 200));
-      filler.setMaximumSize(new Dimension(600, 200));
+      filler.setMinimumSize(new Dimension(400, 50));
+      filler.setMaximumSize(new Dimension(600, 100));
 
       JLabel schalom = new JLabel(
             new ImageIcon(ApplicationImages.getLogo150()));
@@ -122,7 +140,7 @@ public class StartPanel extends JPanel
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_ANSEHEN));
       databaseLabel.setFont(ApplicationFonts.getGermanFont(30F));
-      databaseLabel.setForeground(ApplicationColors.getDarkGold());
+      databaseLabel.setForeground(ApplicationColors.getDarkGold_start());
 
       DatabaseTable databaseTable = new DatabaseTable(
             Chapter.Database.getModelAvailableDatabases(), 990);
@@ -136,7 +154,7 @@ public class StartPanel extends JPanel
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
-      databaseLabel2.setForeground(ApplicationColors.getDarkGold());
+      databaseLabel2.setForeground(ApplicationColors.getDarkGold_start());
       
       vertical.add(databaseLabel);
       vertical.add(scroller);
@@ -161,7 +179,7 @@ public class StartPanel extends JPanel
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_KOPIEREN));
       databaseLabel.setFont(ApplicationFonts.getGermanFont(30F));
-      databaseLabel.setForeground(ApplicationColors.getDarkGold());
+      databaseLabel.setForeground(ApplicationColors.getDarkGold_start());
 
       DatabaseTableCopy databaseTable = new DatabaseTableCopy(
             Chapter.Database.getModelCopyAvailableDatabases(), 990);
@@ -174,7 +192,7 @@ public class StartPanel extends JPanel
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
-      databaseLabel2.setForeground(ApplicationColors.getDarkGold());
+      databaseLabel2.setForeground(ApplicationColors.getDarkGold_start());
       
       vertical.add(databaseLabel);
       vertical.add(scroller);

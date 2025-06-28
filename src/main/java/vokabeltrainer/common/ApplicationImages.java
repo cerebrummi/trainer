@@ -623,6 +623,7 @@ public class ApplicationImages
    {
       if (letterIconsNikudMap.size() < 56)
       {
+         System.out.println("ApplicationImages: "+letterIconsNikudMap.size());
          exitWithMessage("Buchstaben Nikud Icons fehlen");
       }
       else if (letterIconsNikudMap.size() > 56)

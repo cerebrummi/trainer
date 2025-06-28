@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.NikudLetter;
 
 public class LetterIcons
@@ -15,6 +16,11 @@ public class LetterIcons
    public static void readNikud() throws Exception
    {
       Map<NikudLetter, BufferedImage> letterIconsNikudMap = new HashMap<>();
+      String type = "";
+      if (Settings.isDarkmodeOn())
+      {
+         type = "_white";
+      }
 
       for (NikudLetter letter : NikudLetter.values())
       {
@@ -24,7 +30,7 @@ public class LetterIcons
          }
          BufferedImage image = ImageIO
                .read(LetterIcons.class.getResourceAsStream(
-                     "letterIcons/" + letter.name() + ".png"));
+                     "letterIcons" + type + "/" + letter.name() + ".png"));
          if (image != null)
          {
             letterIconsNikudMap.put(letter, image);

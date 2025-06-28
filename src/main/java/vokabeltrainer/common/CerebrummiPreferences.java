@@ -27,7 +27,7 @@ public class CerebrummiPreferences
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
          Settings.setDarkmodeOn(
-               preferences.getBoolean(CerebrummiNodes.getDarkmodeNode(), true));
+               preferences.getBoolean(CerebrummiNodes.getDarkmodeNode(), false));
       }
       catch (Exception e)
       {

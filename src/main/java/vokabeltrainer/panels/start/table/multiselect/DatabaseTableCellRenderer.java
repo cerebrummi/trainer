@@ -10,6 +10,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.types.DatabaseItem;
@@ -31,12 +32,15 @@ public class DatabaseTableCellRenderer
 
       database = new JLabel();
       database.setFont(ApplicationFonts.getGermanFont(14F));
+      database.setForeground(ApplicationColors.getShadyBlue());
 
       authors = new JLabel();
       authors.setFont(ApplicationFonts.getGermanFont(14F));
+      authors.setForeground(ApplicationColors.getShadyBlue());
 
       company = new JLabel();
       company.setFont(ApplicationFonts.getGermanFont(14F));
+      company.setForeground(ApplicationColors.getShadyBlue());
    }
 
    @Override

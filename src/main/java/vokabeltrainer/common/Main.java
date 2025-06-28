@@ -24,14 +24,15 @@ public final class Main
       Common.setMode(Mode.LOCAL_ORIGINAL);
    }
 
-   private static String message = "Cerebrummi bitte neu starten.\nFehler: ";
+   private static String message = Settings.getWindowTitle()
+         + " bitte neu starten.\nFehler: ";
 
    public static void main(String[] args)
    {
       CerebrummiPreferences.read();
-      
+
       Common.setUI();
-      
+
       try
       {
          Fonts.read();
