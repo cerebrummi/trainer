@@ -32,7 +32,7 @@ public class DatabaseTable extends JTable
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       this.setBorder(BorderFactory.createEmptyBorder());
       this.setTableHeader(null);
-      setBackground(StartColors.getBackgroundGold_start());
+      setBackground(StartColors.getDatabase_Item());
 
       mouseListener = getMultiselectMouseListener();
       addMouseListener(mouseListener);

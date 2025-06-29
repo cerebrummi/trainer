@@ -4,27 +4,28 @@ import java.awt.Color;
 
 public class ApplicationColors
 {
-   private static Color lightBlue = new Color(215, 231, 247);
-   private static Color lightGrayBlue = new Color(150, 165, 180);
+   public static Color lightBlue = new Color(215, 231, 247);
+   public static Color lightGrayBlue = new Color(150, 165, 180);
    public static Color mediumBlue = new Color(164, 190, 217);
    public static Color mediumSilverBlue = new Color(162, 180, 202);
-   private static Color shadyBlue = new Color(44, 51, 73);
+   public static Color shadyBlue = new Color(44, 51, 73);
+   public static Color shadyBlueLight = new Color(55, 65, 110);
    public static Color gold = new Color(169, 136, 103);
    public static Color darkGold = new Color(143, 101, 58);
-   private static Color lightgold = new Color(209, 191, 173);
-   private static Color lightGrayGold = new Color(203, 191, 180);
-   private static Color mediumGold = new Color(228, 213, 197);
+   public static Color lightgold = new Color(209, 191, 173);
+   public static Color lightGrayGold = new Color(203, 191, 180);
+   public static Color mediumGold = new Color(228, 213, 197);
    public static Color backgroundGold = new Color(223, 210, 198);
-   private static Color veryLightGold = new Color(247, 240, 232);
-   private static Color green = new Color(181, 192, 81);
-   private static Color texturedBackgroundColor = new Color(225, 216, 211);
-   private static Color texturedBackgroundColorLight = new Color(230, 221, 217);
+   public static Color veryLightGold = new Color(247, 240, 232);
+   public static Color green = new Color(181, 192, 81);
+   public static Color texturedBackgroundColor = new Color(225, 216, 211);
+   public static Color texturedBackgroundColorLight = new Color(230, 221, 217);
    public static Color white = new Color(255, 255, 255);
-   private static Color lightYellow = new Color(255, 255, 235);
-   private static Color darkRed = new Color(216, 0, 0);
-   private static Color rose = new Color(247, 215, 215);
-   private static Color sunflowerYellow = new Color(255, 220, 35);
-   private static Color darkGreen = new Color(110,110,70);
+   public static Color lightYellow = new Color(255, 255, 235);
+   public static Color darkRed = new Color(216, 0, 0);
+   public static Color rose = new Color(247, 215, 215);
+   public static Color sunflowerYellow = new Color(255, 220, 35);
+   public static Color darkGreen = new Color(110,110,70);
    public static Color transparent = new Color(0,0,0,0);
    
    private ApplicationColors()
@@ -176,7 +177,7 @@ public class ApplicationColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return shadyBlue;
+         return mediumSilverBlue;
       }
       return white;
    }

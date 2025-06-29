@@ -17,12 +17,12 @@ public class StartColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return ApplicationColors.gold;
+         return ApplicationColors.shadyBlueLight;
       }
       return ApplicationColors.mediumSilverBlue;
    }
 
-   public static Color getBackgroundGold_start()
+   public static Color getPanelBackground()
    {
       if(Settings.isDarkmodeOn())
       {
@@ -31,7 +31,7 @@ public class StartColors
       return ApplicationColors.backgroundGold;
    }
 
-   public static Color getDarkGold_start()
+   public static Color getDatabase_HeaderText()
    {
       if(Settings.isDarkmodeOn())
       {
@@ -43,6 +43,15 @@ public class StartColors
    public static Color getTransparent()
    {
       return ApplicationColors.transparent;
+   }
+
+   public static Color getDatabase_Item()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.gold;
+      }
+      return ApplicationColors.lightBlue;
    }
    
 }

@@ -36,7 +36,7 @@ public class StartPanel extends JPanel
    {
       setLayout(new BorderLayout());
       setOpaque(true);
-      setBackground(StartColors.getBackgroundGold_start());
+      setBackground(StartColors.getPanelBackground());
 
       JPanel northWrapper = new JPanel();
       northWrapper.setOpaque(false);
@@ -139,7 +139,7 @@ public class StartPanel extends JPanel
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_ANSEHEN));
       databaseLabel.setFont(ApplicationFonts.getGermanFont(30F));
-      databaseLabel.setForeground(StartColors.getDarkGold_start());
+      databaseLabel.setForeground(StartColors.getDatabase_HeaderText());
       databaseLabel.setOpaque(true);
       databaseLabel.setBackground(StartColors.getDatabase_Header());
 
@@ -155,7 +155,7 @@ public class StartPanel extends JPanel
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
-      databaseLabel2.setForeground(StartColors.getDarkGold_start());
+      databaseLabel2.setForeground(StartColors.getDatabase_HeaderText());
       
       vertical.add(databaseLabel);
       vertical.add(scroller);
@@ -180,7 +180,7 @@ public class StartPanel extends JPanel
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_KOPIEREN));
       databaseLabel.setFont(ApplicationFonts.getGermanFont(30F));
-      databaseLabel.setForeground(StartColors.getDarkGold_start());
+      databaseLabel.setForeground(StartColors.getDatabase_HeaderText());
       databaseLabel.setOpaque(true);
       databaseLabel.setBackground(StartColors.getDatabase_Header());
 
@@ -195,7 +195,7 @@ public class StartPanel extends JPanel
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
-      databaseLabel2.setForeground(StartColors.getDarkGold_start());
+      databaseLabel2.setForeground(StartColors.getDatabase_HeaderText());
       
       vertical.add(databaseLabel);
       vertical.add(scroller);
