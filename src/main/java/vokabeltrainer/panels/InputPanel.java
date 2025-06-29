@@ -108,7 +108,7 @@ public class InputPanel extends JPanel implements TableConnector
       this.add(vertical);
 
       initController();
-      
+
       setWritingDirection();
       setLernsprache(false);
    }
@@ -143,31 +143,31 @@ public class InputPanel extends JPanel implements TableConnector
                .getItemAt(chapterBox.getSelectedIndex());
          this.doShowTable();
       });
-      
+
       myWritingDirection.addActionListener(event -> {
          WritingDirection writingDirection = WritingDirection.LEFT_TO_RIGHT;
-         switch((WritingDirection)myWritingDirection.getSelectedItem())
+         switch ((WritingDirection) myWritingDirection.getSelectedItem())
          {
          case LEFT_TO_RIGHT:
             writingDirection = WritingDirection.LEFT_TO_RIGHT;
             break;
          case RIGHT_TO_LEFT:
             writingDirection = WritingDirection.RIGHT_TO_LEFT;
-            break;         
+            break;
          }
          Settings.setMyWritingDirection(writingDirection);
       });
 
       otherLanguage.addActionListener(event -> {
          Selection selection = Selection.GERMAN;
-         switch((LanguageStored)otherLanguage.getSelectedItem())
+         switch ((LanguageStored) otherLanguage.getSelectedItem())
          {
          case HEBREW_SIMPLE:
             selection = Selection.SIMPLE;
             break;
          case HEBREW_PLENE_DEFEKTIV:
             selection = Selection.PLENE_DEFEKTIV;
-         break;
+            break;
          case SWEDISH:
             selection = Selection.SWEDISH;
             break;
@@ -350,7 +350,7 @@ public class InputPanel extends JPanel implements TableConnector
       myWritingDirection.setMinimumSize(new Dimension(250, 50));
       myWritingDirection.setMaximumSize(new Dimension(250, 50));
       myWritingDirection.setMaximumRowCount(2);
-      
+
       otherLanguage = new JComboBox<>(LanguageStored.values());
       otherLanguage.setEditable(false);
       otherLanguage.setBorder(new TitledBorder(
@@ -383,7 +383,7 @@ public class InputPanel extends JPanel implements TableConnector
             .setIcon(new ImageIcon(ApplicationImages.getNewWord()));
       newTextPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
             10, 10, ApplicationColors.getGreen()));
-      
+
       newQuestionsAndAnswersButton = new JButton(
             translator.realisticTranslate(Translation.NEUE_FRAGE_UND_ANTWORT));
       newQuestionsAndAnswersButton.setFont(ApplicationFonts.getButtonFont());
@@ -392,8 +392,8 @@ public class InputPanel extends JPanel implements TableConnector
       newQuestionsAndAnswersButton.setMaximumSize(new Dimension(300, 60));
       newQuestionsAndAnswersButton
             .setIcon(new ImageIcon(ApplicationImages.getQuestionsAndAnswers()));
-      newQuestionsAndAnswersButton.setBorder(BorderFactory.createMatteBorder(10, 10,
-            10, 10, ApplicationColors.getGreen()));
+      newQuestionsAndAnswersButton.setBorder(BorderFactory.createMatteBorder(10,
+            10, 10, 10, ApplicationColors.getGreen()));
 
       horizontal.add(myWritingDirection);
       horizontal.add(otherLanguage);
@@ -401,28 +401,28 @@ public class InputPanel extends JPanel implements TableConnector
       center.add(horizontal);
       center.add(newWordPunktationButton);
       center.add(newTextPunktationButton);
-      //center.add(newQuestionsAndAnswersButton);
+      // center.add(newQuestionsAndAnswersButton);
       leftside.add(center);
       return leftside;
    }
-   
+
    private void setWritingDirection()
    {
-      switch(Settings.getMyWritingDirection())
+      switch (Settings.getMyWritingDirection())
       {
       case LEFT_TO_RIGHT:
          myWritingDirection.setSelectedItem(WritingDirection.LEFT_TO_RIGHT);
          break;
       case RIGHT_TO_LEFT:
          myWritingDirection.setSelectedItem(WritingDirection.RIGHT_TO_LEFT);
-         break;      
+         break;
       }
-      
+
    }
 
    public void setLernsprache(boolean update)
    {
-      switch(Settings.getLanguageInput())
+      switch (Settings.getLanguageInput())
       {
       case GERMAN:
          otherLanguage.setSelectedItem(LanguageStored.GERMAN);
@@ -435,11 +435,11 @@ public class InputPanel extends JPanel implements TableConnector
          break;
       case SWEDISH:
          otherLanguage.setSelectedItem(LanguageStored.SWEDISH);
-         break;      
-         default:
-            otherLanguage.setSelectedItem(LanguageStored.GERMAN); 
+         break;
+      default:
+         otherLanguage.setSelectedItem(LanguageStored.GERMAN);
       }
-      if(update)
+      if (update)
       {
          otherLanguage.revalidate();
          otherLanguage.repaint();

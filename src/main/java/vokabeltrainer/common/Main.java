@@ -121,7 +121,7 @@ public final class Main
 
       SwingUtilities.invokeLater(() -> {
          System.setProperty("java.awt.headless", "true");
-         javax.swing.JFrame window = new JFrame();
+         JFrame window = new JFrame();
          if (Common.getMode().isWeb())
          {
             window.setUndecorated(true);
@@ -133,16 +133,19 @@ public final class Main
          }
          window.setResizable(true);
          window.setIconImage(ApplicationImages.getLogo());
-         vokabeltrainer.common.Common.setjFrame(window);
+         Common.setjFrame(window);
+         Common.getjFrame().getContentPane().setBackground(ApplicationColors.getBackgroundGold());
+         Common.getjFrame().getContentPane().validate();
+         Common.getjFrame().getContentPane().repaint();
          window.setTitle(
                Settings.getWindowTitle() + " " + Settings.getVersion());
          window.setFont(ApplicationFonts.getGermanFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
          ToolTipManager.sharedInstance().setInitialDelay(1000);
-         vokabeltrainer.common.Common.setMainJPanel(
+         Common.setMainJPanel(
                new vokabeltrainer.common.MainController().getMainView());
          window.getContentPane().add(
-               new JScrollPane(vokabeltrainer.common.Common.getMainJPanel()));
+               new JScrollPane(Common.getMainJPanel()));
          window.setJMenuBar(Common.getMainJPanel().getMenuBar());
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
          // window.setExtendedState(JFrame. MAXIMIZED_BOTH);

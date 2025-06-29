@@ -100,7 +100,7 @@ public class ApplicationColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return shadyBlue;
+         return mediumSilverBlue;
       }
       return lightgold;
    }

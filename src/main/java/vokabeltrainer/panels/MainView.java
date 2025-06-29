@@ -510,7 +510,6 @@ public class MainView extends JPanel
             new ImageIcon(ApplicationImages.getQuestionsAndAnswers2()));
       darkmodeButton = new JButton(
             new ImageIcon(ApplicationImages.getDarkmode()));
-      //darkmodeButton.setToolTipText(translator.realisticTranslate(Translation.NEUSTART));
 
       startButton.setFont(ApplicationFonts.getToolbarButtonFont());
       inputButton.setFont(ApplicationFonts.getToolbarButtonFont());
@@ -524,6 +523,19 @@ public class MainView extends JPanel
       questionsAndAnswersButton
             .setFont(ApplicationFonts.getToolbarButtonFont());
       darkmodeButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      
+      startButton.setBackground(ApplicationColors.getLightGold());
+      inputButton.setBackground(ApplicationColors.getLightGold());
+      vocabularyCardsButton.setBackground(ApplicationColors.getLightGold());
+      dictionaryButton.setBackground(ApplicationColors.getLightGold());
+      statisticsButton.setBackground(ApplicationColors.getLightGold());
+      letterPicturesButton.setBackground(ApplicationColors.getLightGold());
+      successButton.setBackground(ApplicationColors.getLightGold());
+      languageButton.setBackground(ApplicationColors.getLightGold());
+      sentencesButton.setBackground(ApplicationColors.getLightGold());
+      questionsAndAnswersButton.setBackground(ApplicationColors.getLightGold());
+      darkmodeButton.setBackground(ApplicationColors.getLightGold());
+      aboutButton.setBackground(ApplicationColors.getLightGold());
 
       menuBar.add(startButton);
       menuBar.add(inputButton);

@@ -53,8 +53,13 @@ public final class Common
 
          UIManager.put("nimbusFocus", ApplicationColors.getSunflowerYellow());
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
-         UIManager.put("control", ApplicationColors.getWhite());
-         UIManager.put("text", ApplicationColors.getBlack());
+         
+         UIManager.put("Button.foreground", ApplicationColors.getBlack());
+         
+//         UIManager.put("control", ApplicationColors.getWhite());
+//         UIManager.put("ComboBox.background", ApplicationColors.getDarkGold());
+//         UIManager.put("text", ApplicationColors.getBlack());
+//         UIManager.put("ComboBox.textField", ApplicationColors.getWhite());
          
          
          /*UIManager.put("List.foreground", ApplicationColors.getBlack());
