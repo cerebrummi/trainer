@@ -8,11 +8,12 @@ public class ApplicationColors
    public static Color lightGrayBlue = new Color(150, 165, 180);
    public static Color mediumBlue = new Color(164, 190, 217);
    public static Color mediumSilverBlue = new Color(162, 180, 202);
+   public static Color darkSilverBlue = new Color(62, 80, 102);
    public static Color shadyBlue = new Color(44, 51, 73);
-   public static Color shadyBlueLight = new Color(55, 65, 110);
+   public static Color shadyBlueLight = new Color(70, 85, 130);
    public static Color gold = new Color(169, 136, 103);
    public static Color darkGold = new Color(143, 101, 58);
-   public static Color lightgold = new Color(209, 191, 173);
+   public static Color lightGold = new Color(209, 191, 173);
    public static Color lightGrayGold = new Color(203, 191, 180);
    public static Color mediumGold = new Color(228, 213, 197);
    public static Color backgroundGold = new Color(223, 210, 198);
@@ -102,7 +103,7 @@ public class ApplicationColors
       {
          return mediumSilverBlue;
       }
-      return lightgold;
+      return lightGold;
    }
 
    public static Color getLightGrayGold()

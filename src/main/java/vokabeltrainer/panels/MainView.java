@@ -19,6 +19,7 @@ import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Main;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.colors.MainColors;
 import vokabeltrainer.panels.dictionary.DictionaryController;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
@@ -482,7 +483,7 @@ public class MainView extends JPanel
    {
       menuBar = new JMenuBar();
       menuBar.setOpaque(true);
-      menuBar.setBackground(ApplicationColors.getLightGold());
+      menuBar.setBackground(MainColors.getToolbarBackground());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
       menuBar.setMinimumSize(new Dimension(1200, 80));
       menuBar.setMaximumSize(new Dimension(6000, 80));
@@ -524,18 +525,18 @@ public class MainView extends JPanel
             .setFont(ApplicationFonts.getToolbarButtonFont());
       darkmodeButton.setFont(ApplicationFonts.getToolbarButtonFont());
       
-      startButton.setBackground(ApplicationColors.getLightGold());
-      inputButton.setBackground(ApplicationColors.getLightGold());
-      vocabularyCardsButton.setBackground(ApplicationColors.getLightGold());
-      dictionaryButton.setBackground(ApplicationColors.getLightGold());
-      statisticsButton.setBackground(ApplicationColors.getLightGold());
-      letterPicturesButton.setBackground(ApplicationColors.getLightGold());
-      successButton.setBackground(ApplicationColors.getLightGold());
-      languageButton.setBackground(ApplicationColors.getLightGold());
-      sentencesButton.setBackground(ApplicationColors.getLightGold());
-      questionsAndAnswersButton.setBackground(ApplicationColors.getLightGold());
-      darkmodeButton.setBackground(ApplicationColors.getLightGold());
-      aboutButton.setBackground(ApplicationColors.getLightGold());
+      startButton.setBackground(MainColors.getButtonBackground());
+      inputButton.setBackground(MainColors.getButtonBackground());
+      vocabularyCardsButton.setBackground(MainColors.getButtonBackground());
+      dictionaryButton.setBackground(MainColors.getButtonBackground());
+      statisticsButton.setBackground(MainColors.getButtonBackground());
+      letterPicturesButton.setBackground(MainColors.getButtonBackground());
+      successButton.setBackground(MainColors.getButtonBackground());
+      languageButton.setBackground(MainColors.getButtonBackground());
+      sentencesButton.setBackground(MainColors.getButtonBackground());
+      questionsAndAnswersButton.setBackground(MainColors.getButtonBackground());
+      darkmodeButton.setBackground(MainColors.getButtonBackground());
+      aboutButton.setBackground(MainColors.getButtonBackground());
 
       menuBar.add(startButton);
       menuBar.add(inputButton);

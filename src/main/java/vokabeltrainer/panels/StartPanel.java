@@ -155,7 +155,7 @@ public class StartPanel extends JPanel
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
-      databaseLabel2.setForeground(StartColors.getDatabase_HeaderText());
+      databaseLabel2.setForeground(StartColors.getDatabase_Tipp());
       
       vertical.add(databaseLabel);
       vertical.add(scroller);
@@ -195,7 +195,7 @@ public class StartPanel extends JPanel
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
-      databaseLabel2.setForeground(StartColors.getDatabase_HeaderText());
+      databaseLabel2.setForeground(StartColors.getDatabase_Tipp());
       
       vertical.add(databaseLabel);
       vertical.add(scroller);

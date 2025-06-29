@@ -17,7 +17,7 @@ public class StartColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return ApplicationColors.shadyBlueLight;
+         return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.mediumSilverBlue;
    }
@@ -26,7 +26,7 @@ public class StartColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return ApplicationColors.mediumSilverBlue;
+         return ApplicationColors.shadyBlueLight;
       }
       return ApplicationColors.backgroundGold;
    }
@@ -52,6 +52,15 @@ public class StartColors
          return ApplicationColors.gold;
       }
       return ApplicationColors.lightBlue;
+   }
+
+   public static Color getDatabase_Tipp()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.gold;
+      }
+      return ApplicationColors.shadyBlue;
    }
    
 }

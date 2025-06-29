@@ -10,6 +10,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.colors.TableColors;
 import vokabeltrainer.table.list.ExpressionList;
 import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
@@ -65,11 +66,11 @@ public class ExpressionCellRenderer
 
       if (row % 2 == 1)
       {
-         list.setBackground(ApplicationColors.getLightBlue());
+         list.setBackground(TableColors.getRow1());
       }
       else
       {
-         list.setBackground(ApplicationColors.getVeryLightGold());
+         list.setBackground(TableColors.getRow2());
       }
       
       list.setLock(expression.isDoNotChange());

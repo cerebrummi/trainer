@@ -31,6 +31,7 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.Settings.LanguageStored;
+import vokabeltrainer.common.colors.InputColors;
 import vokabeltrainer.panels.input.ChapterComboBox;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.panels.translation.Translation;
@@ -71,7 +72,7 @@ public class InputPanel extends JPanel implements TableConnector
    {
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(ApplicationColors.getTexturedBackgroundColor());
+      setBackground(InputColors.getPanelBackground());
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
@@ -342,10 +343,11 @@ public class InputPanel extends JPanel implements TableConnector
 
       myWritingDirection = new JComboBox<>(WritingDirection.values());
       myWritingDirection.setEditable(false);
-      myWritingDirection.setBorder(new TitledBorder(
-            translator.realisticTranslate(Translation.SCHREIBRICHTUNG)));
+      myWritingDirection.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createEmptyBorder(), translator.realisticTranslate(Translation.SCHREIBRICHTUNG), 0,
+            0, ApplicationFonts.getButtonFont(), InputColors.getPanelBackground()));
       myWritingDirection.setOpaque(true);
-      myWritingDirection.setBackground(ApplicationColors.getRose());
+      myWritingDirection.setBackground(InputColors.getPanelBackground());
       myWritingDirection.setForeground(ApplicationColors.getLightGrayGold());
       myWritingDirection.setMinimumSize(new Dimension(250, 50));
       myWritingDirection.setMaximumSize(new Dimension(250, 50));
@@ -353,10 +355,11 @@ public class InputPanel extends JPanel implements TableConnector
 
       otherLanguage = new JComboBox<>(LanguageStored.values());
       otherLanguage.setEditable(false);
-      otherLanguage.setBorder(new TitledBorder(
-            translator.realisticTranslate(Translation.NEUE_SPRACHE_)));
+      otherLanguage.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createEmptyBorder(), translator.realisticTranslate(Translation.NEUE_SPRACHE), 0,
+            0, ApplicationFonts.getButtonFont(), InputColors.getPanelBackground()));
       otherLanguage.setOpaque(true);
-      otherLanguage.setBackground(ApplicationColors.getRose());
+      otherLanguage.setBackground(InputColors.getPanelBackground());
       otherLanguage.setForeground(ApplicationColors.getLightGrayGold());
       otherLanguage.setMinimumSize(new Dimension(250, 50));
       otherLanguage.setMaximumSize(new Dimension(250, 50));
@@ -370,8 +373,9 @@ public class InputPanel extends JPanel implements TableConnector
       newWordPunktationButton.setMaximumSize(new Dimension(300, 60));
       newWordPunktationButton
             .setIcon(new ImageIcon(ApplicationImages.getNewWord()));
+      newWordPunktationButton.setBackground(InputColors.getButton());
       newWordPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
-            10, 10, ApplicationColors.getMediumSilverBlue()));
+            10, 10, InputColors.getButtonBorder()));
 
       newTextPunktationButton = new JButton(
             translator.realisticTranslate(Translation.NEUER_TEXT));
@@ -381,8 +385,9 @@ public class InputPanel extends JPanel implements TableConnector
       newTextPunktationButton.setMaximumSize(new Dimension(300, 60));
       newTextPunktationButton
             .setIcon(new ImageIcon(ApplicationImages.getNewWord()));
+      newTextPunktationButton.setBackground(InputColors.getButton());
       newTextPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
-            10, 10, ApplicationColors.getGreen()));
+            10, 10, InputColors.getButtonBorder()));
 
       newQuestionsAndAnswersButton = new JButton(
             translator.realisticTranslate(Translation.NEUE_FRAGE_UND_ANTWORT));
