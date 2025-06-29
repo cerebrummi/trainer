@@ -62,6 +62,7 @@ import vokabeltrainer.common.Data;
 import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.colors.InputColors;
 import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.InternationalDocument;
 import vokabeltrainer.keyboards.KeyboardLanguage;
@@ -199,9 +200,9 @@ public class LanguageExpressionEditorView extends JDialog
             Math.min(screenSize.height - 60, 825));
 
       outerLayout = new JPanel();
-      outerLayout.setBackground(ApplicationColors.getMediumSilverBlue());
+      outerLayout.setBackground(InputColors.getEditorBackground());
       outerLayout.setBorder(BorderFactory.createLineBorder(
-            ApplicationColors.getMediumSilverBlue(), 15, false));
+            InputColors.getEditorBackground(), 15, false));
       outerLayout.setLayout(new TotemLayout(outerLayout, 15));
 
       layout = new JPanel();
@@ -283,6 +284,7 @@ public class LanguageExpressionEditorView extends JDialog
       newSearchwordOwn.setDocument(new InternationalDocument());
 
       searchwordsJListOwn = new JList<>();
+      searchwordsJListOwn.setBackground(InputColors.getTextBackground());
       searchwordsJListOwn.setCellRenderer(new ListCellRenderer<String>()
       {
          @Override
@@ -293,12 +295,14 @@ public class LanguageExpressionEditorView extends JDialog
             AntiFocusTextField listComponent = new AntiFocusTextField(value);
             if (isSelected)
             {
-               listComponent.setBackground(ApplicationColors.getWhite());
+               listComponent.setBackground(InputColors.getTextForeground());
+               listComponent.setForeground(InputColors.getTextBackground());
             }
             else
             {
                listComponent
-                     .setBackground(ApplicationColors.getBackgroundGold());
+                     .setBackground(InputColors.getTextBackground());
+               listComponent.setForeground(InputColors.getTextForeground());
             }
             return listComponent;
          }
@@ -306,7 +310,6 @@ public class LanguageExpressionEditorView extends JDialog
       searchwordsJListOwn.setFocusable(false);
       searchwordsJListOwn
             .setBorder(makeBorderBlank(this.searchwordJListGermanTitle));
-      searchwordsJListOwn.setBackground(ApplicationColors.getBackgroundGold());
       searchwordsJListOwn.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       searchwordsJListOwn.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
       JPopupMenu popupGerman = new JPopupMenu();
@@ -338,6 +341,7 @@ public class LanguageExpressionEditorView extends JDialog
       this.components.add(newSearchwordNew);
 
       searchwordsJListNew = new JList<>();
+      searchwordsJListNew.setBackground(InputColors.getTextBackground());
       searchwordsJListNew.setCellRenderer(new ListCellRenderer<String>()
       {
          @Override
@@ -346,16 +350,16 @@ public class LanguageExpressionEditorView extends JDialog
                boolean isSelected, boolean cellHasFocus)
          {
             AntiFocusTextField listComponent = new AntiFocusTextField(value);
-            listComponent
-                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             if (isSelected)
             {
-               listComponent.setBackground(ApplicationColors.getWhite());
+               listComponent.setBackground(InputColors.getTextForeground());
+               listComponent.setForeground(InputColors.getTextBackground());
             }
             else
             {
                listComponent
-                     .setBackground(ApplicationColors.getBackgroundGold());
+                     .setBackground(InputColors.getTextBackground());
+               listComponent.setForeground(InputColors.getTextForeground());
             }
             return listComponent;
          }
@@ -364,7 +368,6 @@ public class LanguageExpressionEditorView extends JDialog
       searchwordsJListNew.setFixedCellHeight(50);
       searchwordsJListNew
             .setBorder(makeBorderBlank(this.searchwordsJListHebrewTitle));
-      searchwordsJListNew.setBackground(ApplicationColors.getBackgroundGold());
       searchwordsJListNew.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       searchwordsJListNew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
       JPopupMenu popupHebrew = new JPopupMenu();
@@ -382,6 +385,7 @@ public class LanguageExpressionEditorView extends JDialog
       deleteSearchwordButtonHebrew = new JButton(translator
             .realisticTranslate(Translation.LOESCHE_SUCHWORT_HEBRAEISCH));
       deleteSearchwordButtonHebrew.setFont(ApplicationFonts.getButtonFont());
+      deleteSearchwordButtonHebrew.setForeground(InputColors.getTextForeground());
       deleteSearchwordButtonHebrew
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 40));
       deleteSearchwordButtonHebrew
@@ -391,6 +395,7 @@ public class LanguageExpressionEditorView extends JDialog
             .realisticTranslate(Translation.LOESCHE_SUCHWORT_DEUTSCH));
       deleteSearchwordButtonGerman.setFocusable(false);
       deleteSearchwordButtonGerman.setFont(ApplicationFonts.getButtonFont());
+      deleteSearchwordButtonGerman.setForeground(InputColors.getTextForeground());
       deleteSearchwordButtonGerman
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 40));
       deleteSearchwordButtonGerman
@@ -399,18 +404,21 @@ public class LanguageExpressionEditorView extends JDialog
       saveButton = new JButton(
             translator.realisticTranslate(Translation.SPEICHERN));
       saveButton.setFont(ApplicationFonts.getButtonFont());
+      saveButton.setForeground(InputColors.getTextForeground());
       saveButton.setMinimumSize(new Dimension(120, 40));
       saveButton.setMaximumSize(new Dimension(160, 40));
 
       restoreButton = new JButton(
             translator.realisticTranslate(Translation.ZURUECKSETZEN));
       restoreButton.setFont(ApplicationFonts.getButtonFont());
+      restoreButton.setForeground(InputColors.getTextForeground());
       restoreButton.setMinimumSize(new Dimension(120, 40));
       restoreButton.setMaximumSize(new Dimension(160, 40));
 
       cancelButton = new JButton(
             translator.realisticTranslate(Translation.ABBRECHEN));
       cancelButton.setFont(ApplicationFonts.getButtonFont());
+      cancelButton.setForeground(InputColors.getTextForeground());
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
@@ -453,7 +461,7 @@ public class LanguageExpressionEditorView extends JDialog
       extraInfo.setDocument(new ExtraInformationDocument());
       StyledDocument doc = extraInfo.getStyledDocument();
       SimpleAttributeSet style = new SimpleAttributeSet();
-      StyleConstants.setForeground(style, ApplicationColors.getDarkGold());
+      StyleConstants.setForeground(style, InputColors.getInfoTextForeground());
       StyleConstants.setFontSize(style, 20);
       StyleConstants.setFontFamily(style, "Serif");
       doc.setParagraphAttributes(0, doc.getLength(), style, true);
@@ -468,6 +476,7 @@ public class LanguageExpressionEditorView extends JDialog
       extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 240));
 
       pasteButton = new JButton(new DefaultEditorKit.PasteAction());
+      pasteButton.setForeground(InputColors.getTextForeground());
       pasteButton.setIcon(new ImageIcon(ApplicationImages.getPaste()));
       pasteButton.setText("");
       pasteButton.setToolTipText(
@@ -478,6 +487,7 @@ public class LanguageExpressionEditorView extends JDialog
             .setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       cutButton = new JButton(new DefaultEditorKit.CutAction());
+      cutButton.setForeground(InputColors.getTextForeground());
       cutButton.setIcon(new ImageIcon(ApplicationImages.getCut()));
       cutButton.setText("");
       cutButton.setToolTipText(
@@ -486,6 +496,7 @@ public class LanguageExpressionEditorView extends JDialog
       cutButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       copyButton = new JButton(new DefaultEditorKit.CopyAction());
+      copyButton.setForeground(InputColors.getTextForeground());
       copyButton.setIcon(new ImageIcon(ApplicationImages.getCopy2()));
       copyButton.setText("");
       copyButton.setToolTipText(
@@ -755,12 +766,19 @@ public class LanguageExpressionEditorView extends JDialog
       vertical.setLayout(new TotemLayout(vertical, 15));
 
       JScrollPane scrollPane = new JScrollPane(searchwordsJListOwn);
+      scrollPane.setBorder(BorderFactory.createEmptyBorder());
+      scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
+      scrollPane.setOpaque(false);    
+      
       scrollPane.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
       scrollPane.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
 
       JScrollPane scrollPane2 = new JScrollPane(searchwordsJListNew);
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
       scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+      scrollPane2.setBorder(BorderFactory.createEmptyBorder());
+      scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
+      scrollPane2.setOpaque(false);
 
       vertical.add(newSearchwordOwn);
       vertical.add(scrollPane);
@@ -885,12 +903,20 @@ public class LanguageExpressionEditorView extends JDialog
       definitionPanel.setOpaque(false);
       definitionPanel.setBackground(ApplicationColors.getTransparent());
 
+      JPanel filler = new JPanel();
+      filler.setOpaque(false);
+      filler.setBackground(InputColors.getTransparent());
+      filler.setMinimumSize( new Dimension(230,50));
+      filler.setMaximumSize(new Dimension(230,650));
+      
       this.loadImageButton = new JButton(
             translator.realisticTranslate(Translation.BILD_LADEN));
+      loadImageButton.setForeground(InputColors.getTextForeground());
       loadImageButton.setFont(ApplicationFonts.getButtonFont());
 
       this.removeImageButton = new JButton(
             translator.realisticTranslate(Translation.BILD_LOESCHEN));
+      removeImageButton.setForeground(InputColors.getTextForeground());
       removeImageButton.setFont(ApplicationFonts.getButtonFont());
 
       JPanel wrapper = new JPanel(null);
@@ -900,6 +926,7 @@ public class LanguageExpressionEditorView extends JDialog
       wrapper.setMaximumSize(new Dimension(230, 60));
 
       imageButton = new ImageButton();
+      imageButton.setForeground(InputColors.getTextForeground());
       imageButton.setLocation(86, 0);
       imageButton.setSize(60, 60);
       wrapper.add(imageButton);
@@ -908,21 +935,22 @@ public class LanguageExpressionEditorView extends JDialog
       innerScroll.setOpaque(false);
       innerScroll.setBackground(ApplicationColors.getTransparent());
       innerScroll.setLayout(new TotemLayout(innerScroll, 15));
-
+      
       innerScroll.add(definitionPanel);
+      innerScroll.add(filler);
       innerScroll.add(loadImageButton);
       innerScroll.add(removeImageButton);
       innerScroll.add(wrapper);
 
       JScrollPane scrollPane2 = new JScrollPane(innerScroll);
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-      scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 600));
+      scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 800));
       scrollPane2.setBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setOpaque(true);
-      scrollPane2.setBackground(ApplicationColors.getMediumSilverBlue());
+      scrollPane2.setBackground(InputColors.getEditorBackground());
       scrollPane2.getViewport()
-            .setBackground(ApplicationColors.getMediumSilverBlue());
+            .setBackground(InputColors.getEditorBackground());
 
       return scrollPane2;
    }

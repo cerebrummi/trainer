@@ -13,6 +13,15 @@ public class InputColors
       // nothing
    }
 
+   public static Color getEditorBackground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.rose;
+      }
+      return ApplicationColors.mediumSilverBlue;
+   }
+   
    public static Color getPanelBackground()
    {
       if(Settings.isDarkmodeOn())
@@ -38,5 +47,37 @@ public class InputColors
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.backgroundGold;
+   }
+
+   public static Color getTransparent()
+   {
+      return new Color(0, 0, 0, 0);
+   }
+
+   public static Color getTextBackground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.mediumSilverBlue;
+      }
+      return ApplicationColors.backgroundGold;
+   }
+   
+   public static Color getTextForeground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.white;
+      }
+      return ApplicationColors.darkGold;
+   }
+
+   public static Color getInfoTextForeground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.shadyBlue;
+      }
+      return ApplicationColors.darkGold;
    }
 }
