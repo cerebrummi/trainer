@@ -59,7 +59,7 @@ public final class Common
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
          UIManager.put("nimbusBase", ApplicationColors.getGold());
          UIManager.put("textForeground", ApplicationColors.getGray());
-         UIManager.put("Button.textForeground", ApplicationColors.getMediumSilverBlue());
+         UIManager.put("Button.textForeground", ApplicationColors.getBlack());
          UIManager.put("textBackground", ApplicationColors.getWhite());
          UIManager.put("nimbusSelectionBackground", ApplicationColors.getRose());
          UIManager.put("nimbusLightBackground", ApplicationColors.getWhite());

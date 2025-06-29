@@ -9,8 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.colors.StartColors;
 import vokabeltrainer.types.DatabaseItem;
 
 public class DatabaseTable extends JTable
@@ -32,7 +32,7 @@ public class DatabaseTable extends JTable
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       this.setBorder(BorderFactory.createEmptyBorder());
       this.setTableHeader(null);
-      setBackground(ApplicationColors.getBackgroundGold_start());
+      setBackground(StartColors.getBackgroundGold_start());
 
       mouseListener = getMultiselectMouseListener();
       addMouseListener(mouseListener);

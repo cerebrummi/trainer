@@ -1,0 +1,1 @@
+package vokabeltrainer.common.colors;

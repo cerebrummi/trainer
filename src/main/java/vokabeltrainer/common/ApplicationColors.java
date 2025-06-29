@@ -6,25 +6,26 @@ public class ApplicationColors
 {
    private static Color lightBlue = new Color(215, 231, 247);
    private static Color lightGrayBlue = new Color(150, 165, 180);
-   private static Color mediumBlue = new Color(164, 190, 217);
-   private static Color mediumSilverBlue = new Color(162, 180, 202);
+   public static Color mediumBlue = new Color(164, 190, 217);
+   public static Color mediumSilverBlue = new Color(162, 180, 202);
    private static Color shadyBlue = new Color(44, 51, 73);
-   private static Color gold = new Color(169, 136, 103);
-   private static Color darkgold = new Color(143, 101, 58);
+   public static Color gold = new Color(169, 136, 103);
+   public static Color darkGold = new Color(143, 101, 58);
    private static Color lightgold = new Color(209, 191, 173);
    private static Color lightGrayGold = new Color(203, 191, 180);
    private static Color mediumGold = new Color(228, 213, 197);
-   private static Color backgroundGold = new Color(223, 210, 198);
+   public static Color backgroundGold = new Color(223, 210, 198);
    private static Color veryLightGold = new Color(247, 240, 232);
    private static Color green = new Color(181, 192, 81);
    private static Color texturedBackgroundColor = new Color(225, 216, 211);
    private static Color texturedBackgroundColorLight = new Color(230, 221, 217);
-   private static Color white = new Color(255, 255, 255);
+   public static Color white = new Color(255, 255, 255);
    private static Color lightYellow = new Color(255, 255, 235);
    private static Color darkRed = new Color(216, 0, 0);
    private static Color rose = new Color(247, 215, 215);
    private static Color sunflowerYellow = new Color(255, 220, 35);
    private static Color darkGreen = new Color(110,110,70);
+   public static Color transparent = new Color(0,0,0,0);
    
    private ApplicationColors()
    {
@@ -91,7 +92,7 @@ public class ApplicationColors
       {
          return white;
       }
-      return darkgold;
+      return darkGold;
    }
 
    public static Color getLightGold()
@@ -230,27 +231,11 @@ public class ApplicationColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return mediumBlue;
+         return white;
       }
       return Color.BLACK;
    }
 
-   public static Color getBackgroundGold_start()
-   {
-      if(Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.mediumSilverBlue;
-      }
-      return getBackgroundGold();
-   }
-
-   public static Color getDarkGold_start()
-   {
-      if(Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.white;
-      }
-      return getDarkGold();
-   }
+   
 }
 

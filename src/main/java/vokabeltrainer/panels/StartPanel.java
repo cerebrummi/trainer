@@ -17,6 +17,7 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.colors.StartColors;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTable;
 import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopy;
 import vokabeltrainer.panels.translation.Translation;
@@ -35,7 +36,7 @@ public class StartPanel extends JPanel
    {
       setLayout(new BorderLayout());
       setOpaque(true);
-      setBackground(ApplicationColors.getBackgroundGold_start());
+      setBackground(StartColors.getBackgroundGold_start());
 
       JPanel northWrapper = new JPanel();
       northWrapper.setOpaque(false);
@@ -130,8 +131,6 @@ public class StartPanel extends JPanel
    {
       JPanel center = new JPanel();
       center.setLayout(new BullsEyeLayout(center));
-      center.setOpaque(false);
-      center.setBackground(ApplicationColors.getTransparent());
       
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
@@ -140,7 +139,9 @@ public class StartPanel extends JPanel
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_ANSEHEN));
       databaseLabel.setFont(ApplicationFonts.getGermanFont(30F));
-      databaseLabel.setForeground(ApplicationColors.getDarkGold_start());
+      databaseLabel.setForeground(StartColors.getDarkGold_start());
+      databaseLabel.setOpaque(true);
+      databaseLabel.setBackground(StartColors.getDatabase_Header());
 
       DatabaseTable databaseTable = new DatabaseTable(
             Chapter.Database.getModelAvailableDatabases(), 990);
@@ -154,7 +155,7 @@ public class StartPanel extends JPanel
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
-      databaseLabel2.setForeground(ApplicationColors.getDarkGold_start());
+      databaseLabel2.setForeground(StartColors.getDarkGold_start());
       
       vertical.add(databaseLabel);
       vertical.add(scroller);
@@ -179,7 +180,9 @@ public class StartPanel extends JPanel
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_KOPIEREN));
       databaseLabel.setFont(ApplicationFonts.getGermanFont(30F));
-      databaseLabel.setForeground(ApplicationColors.getDarkGold_start());
+      databaseLabel.setForeground(StartColors.getDarkGold_start());
+      databaseLabel.setOpaque(true);
+      databaseLabel.setBackground(StartColors.getDatabase_Header());
 
       DatabaseTableCopy databaseTable = new DatabaseTableCopy(
             Chapter.Database.getModelCopyAvailableDatabases(), 990);
@@ -192,7 +195,7 @@ public class StartPanel extends JPanel
             + " => "
             + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
-      databaseLabel2.setForeground(ApplicationColors.getDarkGold_start());
+      databaseLabel2.setForeground(StartColors.getDarkGold_start());
       
       vertical.add(databaseLabel);
       vertical.add(scroller);
