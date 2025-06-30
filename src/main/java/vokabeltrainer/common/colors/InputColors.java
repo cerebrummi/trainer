@@ -17,7 +17,7 @@ public class InputColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return ApplicationColors.rose;
+         return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.mediumSilverBlue;
    }

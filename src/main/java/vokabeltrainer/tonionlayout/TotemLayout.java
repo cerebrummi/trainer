@@ -110,7 +110,7 @@ public class TotemLayout
    /**
     * This determines test mode or not.
     */
-   private LayoutMode mode;
+   final private LayoutMode mode;
 
    /**
     * Creates a totem layout with no vertical gap.
@@ -135,7 +135,7 @@ public class TotemLayout
     */
    public TotemLayout(Container self, String testname)
    {
-      this(self, 0, testname , LayoutMode.TEST_TOTEM);
+      this(self, 0, testname , LayoutMode.TEST);
    }
 
    /**
@@ -169,7 +169,7 @@ public class TotemLayout
     */
    public TotemLayout(Container self, int vgap, String testname)
    {
-      this(self, vgap, testname, LayoutMode.TEST_TOTEM);
+      this(self, vgap, testname, LayoutMode.TEST);
    }
    
    /**
@@ -807,7 +807,7 @@ public class TotemLayout
             y += hfinal[i] + vgap;
          }
          
-         if (LayoutMode.TEST_TOTEM == this.mode)
+         if (LayoutMode.TEST == this.mode)
          {
             System.out.println("");
             System.out.println(testname + " with TotemLayout");

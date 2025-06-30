@@ -91,7 +91,7 @@ public class BullsEyeLayout
    /**
     * This determines test mode or not.
     */
-   private LayoutMode mode;
+   final private LayoutMode mode;
 
    /**
     * Creates a BullsEyeLayout.
@@ -115,7 +115,7 @@ public class BullsEyeLayout
     */
    public BullsEyeLayout(Container self, String testname)
    {
-      this(self, testname, LayoutMode.TEST_BULLS_EYE);
+      this(self, testname, LayoutMode.TEST);
    }
 
    /**
@@ -628,7 +628,7 @@ public class BullsEyeLayout
 
          comp.setBounds(Math.max(x, deltaX), Math.max(y, deltaY), w, h);
 
-         if (LayoutMode.TEST_BULLS_EYE == this.mode)
+         if (LayoutMode.TEST == this.mode)
          {
             System.out.println("");
             System.out.println(testname + " with BullsEyeLayout");

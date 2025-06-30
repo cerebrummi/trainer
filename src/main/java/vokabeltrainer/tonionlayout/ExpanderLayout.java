@@ -84,7 +84,7 @@ public class ExpanderLayout
    /**
     * This determines test mode or not.
     */
-   private LayoutMode mode;
+   final private LayoutMode mode;
 
    /**
     * Creates a BullsEyeLayout.
@@ -108,7 +108,7 @@ public class ExpanderLayout
     */
    public ExpanderLayout(Container self, String testname)
    {
-      this(self, testname, LayoutMode.TEST_EXPANDER);
+      this(self, testname, LayoutMode.TEST);
    }
 
    /**
@@ -346,7 +346,7 @@ public class ExpanderLayout
          Component comp = self.getComponent(0);
          comp.setBounds(x, y, w, h);
 
-         if (LayoutMode.TEST_EXPANDER == this.mode)
+         if (LayoutMode.TEST == this.mode)
          {
             System.out.println("");
             System.out.println(testname + " with ExpanderLayout");

@@ -110,7 +110,7 @@ public class TrainLayout
    /**
     * This determines test mode or not.
     */
-   private LayoutMode mode;
+   final private LayoutMode mode;
 
    /**
     * Creates a train layout with no horizontal gap.
@@ -135,7 +135,7 @@ public class TrainLayout
     */
    public TrainLayout(Container self, String testname)
    {
-      this(self, 0, testname, LayoutMode.TEST_TRAIN);
+      this(self, 0, testname, LayoutMode.TEST);
    }
 
    /**
@@ -169,7 +169,7 @@ public class TrainLayout
     */
    public TrainLayout(Container self, int hgap, String testname)
    {
-      this(self, hgap, testname, LayoutMode.TEST_TRAIN);
+      this(self, hgap, testname, LayoutMode.TEST);
    }
    
    /**
@@ -821,7 +821,7 @@ public class TrainLayout
             x += wfinal[i] + hgap;
          }
          
-         if (LayoutMode.TEST_TRAIN == this.mode)
+         if (LayoutMode.TEST == this.mode)
          {
             System.out.println("");
             System.out.println(testname + " with TrainLayout");
