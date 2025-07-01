@@ -261,12 +261,12 @@ public class LanguageExpressionEditorView extends JDialog
       }
       else if (Settings.isSwedishInput())
       {
-         language = new InputLanguagePanel(Selection.SWEDISH, 152, 6, true,
+         language = new InputLanguagePanel(Selection.SWEDISH, 152, 6, false,
                this, WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
       else
       {
-         language = new InputLanguagePanel(Selection.GERMAN, 152, 6, true, this,
+         language = new InputLanguagePanel(Selection.GERMAN, 152, 6, false, this,
                WIDTH_INPUT_PANEL, ApplicationColors.getLightYellow());
       }
       language.setBlankBorder();
@@ -769,7 +769,6 @@ public class LanguageExpressionEditorView extends JDialog
       scrollPane.setBorder(BorderFactory.createEmptyBorder());
       scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
       scrollPane.setOpaque(false);    
-      
       scrollPane.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
       scrollPane.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
 
@@ -1269,11 +1268,11 @@ public class LanguageExpressionEditorView extends JDialog
       this.save = false;
       this.expression = expression;
       this.newExpression = newExpression;
-      this.language.setEditorView(this);
       setWritingDirection(expression.getLL().getLltype());
       if (!newExpression)
       {
          this.remakeAllBoxes(expression);
+         
          if (expression.getLL().isSwedish())
          {
             this.keyboard.setKeyboard(Selection.SWEDISH);
@@ -1552,9 +1551,9 @@ public class LanguageExpressionEditorView extends JDialog
          {
          case GERMAN:
          case SWEDISH:
-            this.newSearchwordOwn
+            this.newSearchwordNew
                   .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-            this.searchwordsJListOwn
+            this.searchwordsJListNew
                   .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
             break;
          case PLENE_DEFEKTIV:

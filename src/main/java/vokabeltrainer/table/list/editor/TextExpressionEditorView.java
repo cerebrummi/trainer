@@ -34,7 +34,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
@@ -51,6 +50,7 @@ import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.colors.InputColors;
 import vokabeltrainer.editing.InternationalDocument;
 import vokabeltrainer.keyboards.KeyboardLanguage;
 import vokabeltrainer.panels.translation.Translation;
@@ -136,6 +136,12 @@ public class TextExpressionEditorView extends JDialog
    private Integer[] levels = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
          14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
 
+   private SearchwordListCellRenderer searchwordHebrewCellRenderer;
+
+   private SearchwordListCellRenderer searchwordGermanCellRenderer;
+   
+   private List<Component> componentsToBeToggled = new ArrayList<>();
+
    public TextExpressionEditorView(
          NikudExpressionEditorControllerConnector connector)
    {
@@ -149,14 +155,14 @@ public class TextExpressionEditorView extends JDialog
             Math.min(screenSize.height - 60, 825));
 
       outerLayout = new JPanel();
-      outerLayout.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      outerLayout.setBackground(InputColors.getEditorBackground());
       outerLayout.setBorder(BorderFactory
-            .createLineBorder(ApplicationColors.getGreen(), 15, false));
+            .createLineBorder(InputColors.getEditorBackground(), 15, false));
       outerLayout.setLayout(new TotemLayout(outerLayout, 15));
 
       layout = new JPanel();
-      layout.setOpaque(true);
-      layout.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      layout.setOpaque(false);
+      layout.setBackground(ApplicationColors.getTransparent());
       layout.setLayout(new TrainLayout(layout, 15));
 
       initGuiFields();
@@ -236,30 +242,12 @@ public class TextExpressionEditorView extends JDialog
       newSearchwordGerman.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
 
       searchwordsJListGerman = new JList<>();
-      searchwordsJListGerman.setCellRenderer(new ListCellRenderer<String>()
-      {
-         @Override
-         public Component getListCellRendererComponent(
-               JList<? extends String> list, String value, int index,
-               boolean isSelected, boolean cellHasFocus)
-         {
-            AntiFocusTextField listComponent = new AntiFocusTextField(value);
-            if (isSelected)
-            {
-               listComponent.setBackground(Color.WHITE);
-            }
-            else
-            {
-               listComponent
-                     .setBackground(ApplicationColors.getBackgroundGold());
-            }
-            return listComponent;
-         }
-      });
+      searchwordsJListGerman.setBackground(InputColors.getTextBackground());
+      searchwordGermanCellRenderer = new SearchwordListCellRenderer();
+      searchwordsJListGerman.setCellRenderer(searchwordGermanCellRenderer);
       searchwordsJListGerman.setFocusable(false);
       searchwordsJListGerman
             .setBorder(makeBorderBlank(this.searchwordJListGermanTitle));
-      searchwordsJListGerman.setBackground(new Color(223, 210, 198));
       searchwordsJListGerman
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       searchwordsJListGerman
@@ -292,34 +280,15 @@ public class TextExpressionEditorView extends JDialog
       this.components.add(newSearchwordHebrew);
 
       searchwordsJListHebrew = new JList<>();
-      searchwordsJListHebrew.setCellRenderer(new ListCellRenderer<String>()
-      {
-         @Override
-         public Component getListCellRendererComponent(
-               JList<? extends String> list, String value, int index,
-               boolean isSelected, boolean cellHasFocus)
-         {
-            AntiFocusTextField listComponent = new AntiFocusTextField(value);
-            listComponent
-                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-            if (isSelected)
-            {
-               listComponent.setBackground(Color.WHITE);
-            }
-            else
-            {
-               listComponent
-                     .setBackground(ApplicationColors.getBackgroundGold());
-            }
-            return listComponent;
-         }
-      });
+      searchwordsJListHebrew.setBackground(InputColors.getTextBackground());
+      this.componentsToBeToggled.add(searchwordsJListHebrew);
+      searchwordHebrewCellRenderer = new SearchwordListCellRenderer();
+      this.componentsToBeToggled.add(searchwordHebrewCellRenderer.getComponent());
+      searchwordsJListHebrew.setCellRenderer(searchwordHebrewCellRenderer);
       searchwordsJListHebrew.setFocusable(false);
       searchwordsJListHebrew.setFixedCellHeight(50);
       searchwordsJListHebrew
             .setBorder(makeBorderBlank(this.searchwordsJListHebrewTitle));
-      searchwordsJListHebrew
-            .setBackground(ApplicationColors.getBackgroundGold());
       searchwordsJListHebrew
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       searchwordsJListHebrew
@@ -338,6 +307,8 @@ public class TextExpressionEditorView extends JDialog
 
       deleteSearchwordButtonHebrew = new JButton(translator
             .realisticTranslate(Translation.LOESCHE_SUCHWORT_HEBRAEISCH));
+      deleteSearchwordButtonHebrew
+            .setForeground(InputColors.getTextForeground());
       deleteSearchwordButtonHebrew.setFont(ApplicationFonts.getButtonFont());
       deleteSearchwordButtonHebrew
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 40));
@@ -346,6 +317,8 @@ public class TextExpressionEditorView extends JDialog
 
       deleteSearchwordButtonGerman = new JButton(translator
             .realisticTranslate(Translation.LOESCHE_SUCHWORT_DEUTSCH));
+      deleteSearchwordButtonGerman
+            .setForeground(InputColors.getTextForeground());
       deleteSearchwordButtonGerman.setFocusable(false);
       deleteSearchwordButtonGerman.setFont(ApplicationFonts.getButtonFont());
       deleteSearchwordButtonGerman
@@ -355,18 +328,21 @@ public class TextExpressionEditorView extends JDialog
 
       saveButton = new JButton(
             translator.realisticTranslate(Translation.SPEICHERN));
+      saveButton.setForeground(InputColors.getTextForeground());
       saveButton.setFont(ApplicationFonts.getButtonFont());
       saveButton.setMinimumSize(new Dimension(120, 40));
       saveButton.setMaximumSize(new Dimension(160, 40));
 
       restoreButton = new JButton(
             translator.realisticTranslate(Translation.ZURUECKSETZEN));
+      restoreButton.setForeground(InputColors.getTextForeground());
       restoreButton.setFont(ApplicationFonts.getButtonFont());
       restoreButton.setMinimumSize(new Dimension(120, 40));
       restoreButton.setMaximumSize(new Dimension(160, 40));
 
       cancelButton = new JButton(
             translator.realisticTranslate(Translation.ABBRECHEN));
+      cancelButton.setForeground(InputColors.getTextForeground());
       cancelButton.setFont(ApplicationFonts.getButtonFont());
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
@@ -417,6 +393,7 @@ public class TextExpressionEditorView extends JDialog
       databaseNameField.setMaximumRowCount(20);
 
       pasteButton = new JButton(new DefaultEditorKit.PasteAction());
+      pasteButton.setForeground(InputColors.getTextForeground());
       pasteButton.setIcon(new ImageIcon(ApplicationImages.getPaste()));
       pasteButton.setText("");
       pasteButton.setToolTipText(
@@ -427,6 +404,7 @@ public class TextExpressionEditorView extends JDialog
             .setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       cutButton = new JButton(new DefaultEditorKit.CutAction());
+      cutButton.setForeground(InputColors.getTextForeground());
       cutButton.setIcon(new ImageIcon(ApplicationImages.getCut()));
       cutButton.setText("");
       cutButton.setToolTipText(
@@ -435,6 +413,7 @@ public class TextExpressionEditorView extends JDialog
       cutButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       copyButton = new JButton(new DefaultEditorKit.CopyAction());
+      copyButton.setForeground(InputColors.getTextForeground());
       copyButton.setIcon(new ImageIcon(ApplicationImages.getCopy2()));
       copyButton.setText("");
       copyButton.setToolTipText(
@@ -464,7 +443,7 @@ public class TextExpressionEditorView extends JDialog
    {
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
-      horizontal.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      horizontal.setBackground(InputColors.getEditorBackground());
       horizontal.add(databaseNameField);
       horizontal.add(chapter);
       horizontal.add(indexField);
@@ -505,12 +484,18 @@ public class TextExpressionEditorView extends JDialog
       vertical.setLayout(new TotemLayout(vertical, 15));
 
       JScrollPane scrollPane = new JScrollPane(searchwordsJListGerman);
+      scrollPane.setBorder(BorderFactory.createEmptyBorder());
+      scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
+      scrollPane.setOpaque(false);
       scrollPane.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
       scrollPane.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
 
       JScrollPane scrollPane2 = new JScrollPane(searchwordsJListHebrew);
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 100));
       scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
+      scrollPane2.setBorder(BorderFactory.createEmptyBorder());
+      scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
+      scrollPane2.setOpaque(false);
 
       vertical.add(newSearchwordGerman);
       vertical.add(scrollPane);
@@ -925,9 +910,9 @@ public class TextExpressionEditorView extends JDialog
       case RIGHT_TO_LEFT:
          ownLanguage
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-         newSearchwordHebrew
+         newSearchwordGerman
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-         searchwordsJListHebrew
+         searchwordsJListGerman
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          this.indexField
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -942,11 +927,15 @@ public class TextExpressionEditorView extends JDialog
                .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          this.searchwordsJListHebrew
                .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+         this.searchwordHebrewCellRenderer
+               .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          break;
       case HEBREW:
          this.newSearchwordHebrew
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          this.searchwordsJListHebrew
+               .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+         this.searchwordHebrewCellRenderer
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          break;
       case UNKOWN:
@@ -954,16 +943,20 @@ public class TextExpressionEditorView extends JDialog
          {
          case GERMAN:
          case SWEDISH:
-            this.newSearchwordGerman
+            this.newSearchwordHebrew
                   .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-            this.searchwordsJListGerman
+            this.searchwordsJListHebrew
+                  .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            this.searchwordGermanCellRenderer
                   .setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
             break;
          case PLENE_DEFEKTIV:
          case SIMPLE:
-            this.newSearchwordGerman
+            this.newSearchwordHebrew
                   .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-            this.searchwordsJListGerman
+            this.searchwordsJListHebrew
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            this.searchwordGermanCellRenderer
                   .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          }
       }
