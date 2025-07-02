@@ -49,6 +49,7 @@ import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.colors.DictionaryColors;
 import vokabeltrainer.keyboards.KeyboardGermanStandard;
 import vokabeltrainer.keyboards.KeyboardHebrewAllLetters;
 import vokabeltrainer.keyboards.KeyboardSwedishStandard;
@@ -139,7 +140,7 @@ public class DictionaryView extends JPanel
       this.connector = connector;
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(ApplicationColors.getTexturedBackgroundColor());
+      setBackground(DictionaryColors.getPanelBackground());
 
       JPanel layout = new JPanel();
       TrainLayout layoutLayout = new TrainLayout(layout, 15);
@@ -150,12 +151,12 @@ public class DictionaryView extends JPanel
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
       vertical.setOpaque(false);
-      vertical.setBackground(ApplicationColors.getLightBlue());
+      vertical.setBackground(DictionaryColors.getBackground());
 
       horizontalLanguagePanel = new JPanel();
       horizontalLanguagePanel
             .setLayout(new TrainLayout(horizontalLanguagePanel, 15));
-      horizontalLanguagePanel.setBackground(ApplicationColors.getGreen());
+      horizontalLanguagePanel.setBackground(DictionaryColors.getBackground());
       horizontalLanguagePanel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.SPRACHEN)));
       languageGroup = new ButtonGroup();
@@ -287,7 +288,7 @@ public class DictionaryView extends JPanel
       BullsEyeLayout outerLayout = new BullsEyeLayout(outerWrapper);
       outerWrapper.setLayout(outerLayout);
       outerWrapper.setOpaque(true);
-      outerWrapper.setBackground(ApplicationColors.getMediumBlue());
+      outerWrapper.setBackground(DictionaryColors.getBackground());
       
       searchVertical = new JPanel();
       searchVertical.setLayout(new TotemLayout(searchVertical));
@@ -536,7 +537,7 @@ public class DictionaryView extends JPanel
    {
       JPanel vertical1 = new JPanel(new BorderLayout());
       vertical1.setOpaque(true);
-      vertical1.setBackground(ApplicationColors.getLightBlue());
+      vertical1.setBackground(DictionaryColors.getBackground());
       expressionKindTable = new ExpressionKindTableSingleselect(
             ExpressionKind.getModelForSingleselect(), 300, connector);
       JScrollPane scroller = new JScrollPane(expressionKindTable);
@@ -651,7 +652,7 @@ public class DictionaryView extends JPanel
 
       JPanel selectUnselectPanel = new JPanel();
       selectUnselectPanel.setLayout(new TotemLayout(selectUnselectPanel, 10));
-      selectUnselectPanel.setBackground(ApplicationColors.getWhite());
+      selectUnselectPanel.setBackground(DictionaryColors.getBackground());
       selectUnselectPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
             ApplicationColors.getWhite()));
       selectUnselectPanel.add(selectAllInTableButton);
@@ -668,7 +669,7 @@ public class DictionaryView extends JPanel
 
       JPanel infoPanel = new JPanel();
       infoPanel.setLayout(new TrainLayout(infoPanel, 10));
-      infoPanel.setBackground(ApplicationColors.getDarkGold());
+      infoPanel.setBackground(DictionaryColors.getBackground());
       infoPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
             ApplicationColors.getDarkGold()));
 
