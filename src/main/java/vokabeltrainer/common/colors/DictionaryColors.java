@@ -30,4 +30,25 @@ public class DictionaryColors
       }
       return ApplicationColors.mediumSilverBlue;
    }
+   
+   public static Color getButton()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.mediumSilverBlue;
+      }
+      return ApplicationColors.backgroundGold;
+   }
+   
+   public static Color getButtonForeground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.shadyBlue;
+      }
+      return ApplicationColors.darkGold;
+   }
+
 }
+
+

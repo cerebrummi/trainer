@@ -11,6 +11,7 @@ import javax.swing.JList;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.colors.DictionaryColors;
 import vokabeltrainer.types.DatabaseDescription;
 
 public class DatabaseListCellRenderer extends DefaultListCellRenderer
@@ -27,7 +28,7 @@ public class DatabaseListCellRenderer extends DefaultListCellRenderer
    {
       label = new JLabel();
       label.setOpaque(true);
-      label.setBackground(ApplicationColors.getLightBlue());
+      label.setBackground(DictionaryColors.getBackground());
       label.setFont(ApplicationFonts.getInternationalFont(20.0F));
       label.setIcon(new ImageIcon(ApplicationImages.getLogoFolder()));
       label.setBorder(BorderFactory.createEmptyBorder());

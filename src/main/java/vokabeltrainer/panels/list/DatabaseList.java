@@ -3,6 +3,7 @@ package vokabeltrainer.panels.list;
 import javax.swing.JList;
 
 import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.colors.DictionaryColors;
 import vokabeltrainer.types.DatabaseDescription;
 
 public class DatabaseList extends JList<DatabaseDescription>
@@ -17,7 +18,7 @@ public class DatabaseList extends JList<DatabaseDescription>
    {
       setSelectionModel(selectionModel);
       setFixedCellHeight(40);
-      setBackground(ApplicationColors.getLightBlue());
+      setBackground(DictionaryColors.getBackground());
       
       getActionMap().get("clearSelection").setEnabled(true);
       setCellRenderer(new DatabaseListCellRenderer());

@@ -165,6 +165,8 @@ public class DictionaryView extends JPanel
       while (enumeration1.hasMoreElements())
       {
          AbstractButton button = enumeration1.nextElement();
+         button.setBackground(DictionaryColors.getButton());
+         button.setForeground(DictionaryColors.getButtonForeground());
          button.setForeground(ApplicationColors.getDarkGold());
          button.setMinimumSize(new Dimension(90, 30));
          button.setMaximumSize(new Dimension(120, 60));
@@ -176,7 +178,7 @@ public class DictionaryView extends JPanel
       JPanel horizontalSortPanel = new JPanel();
       horizontalSortPanel.setLayout(new TrainLayout(horizontalSortPanel, 15));
       horizontalSortPanel.setOpaque(true);
-      horizontalSortPanel.setBackground(ApplicationColors.getSunflowerYellow());
+      horizontalSortPanel.setBackground(DictionaryColors.getBackground());
       horizontalSortPanel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.TABELLE_SORTIEREN_NACH)));
 
@@ -215,7 +217,7 @@ public class DictionaryView extends JPanel
 
       tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(true);
-      tabbedPane.setBackground(ApplicationColors.getGreen());
+      tabbedPane.setBackground(DictionaryColors.getBackground());
       tabbedPane.setFont(ApplicationFonts.getButtonFont());
       tabbedPane.addTab(translator.realisticTranslate(Translation.DATEN),
             new ImageIcon(ApplicationImages.getArrow()),
@@ -331,6 +333,8 @@ public class DictionaryView extends JPanel
 
       mySearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
+      mySearchButton.setBackground(DictionaryColors.getButton());
+      mySearchButton.setForeground(DictionaryColors.getButtonForeground());
       mySearchButton.setFont(ApplicationFonts.getButtonFont());
       mySearchButton.setIcon(new ImageIcon(ApplicationImages.getSearch()));
       JPanel wrapper = new JPanel(new FlowLayout());
@@ -380,6 +384,8 @@ public class DictionaryView extends JPanel
 
       otherSearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
+      otherSearchButton.setBackground(DictionaryColors.getButton());
+      otherSearchButton.setForeground(DictionaryColors.getButtonForeground());
       otherSearchButton.setFont(ApplicationFonts.getButtonFont());
       otherSearchButton.setIcon(new ImageIcon(ApplicationImages.getSearch()));
       JPanel wrapper1 = new JPanel(new FlowLayout());
@@ -487,6 +493,8 @@ public class DictionaryView extends JPanel
 
       moveToChapterButton = new JButton(translator
             .realisticTranslate(Translation.AUSWAHL_ZUR_LEKTION_VERSCHIEBEN));
+      moveToChapterButton.setBackground(DictionaryColors.getButton());
+      moveToChapterButton.setForeground(DictionaryColors.getButtonForeground());
       moveToChapterButton.setFont(ApplicationFonts.getButtonFont());
 
       horizontalMoveToChapterPanel.add(chapterChoiceBox);
@@ -506,6 +514,8 @@ public class DictionaryView extends JPanel
 
       moveToDatabaseButton = new JButton(translator
             .realisticTranslate(Translation.AUSWAHL_ZUR_DATENBANK_VERSCHIEBEN));
+      moveToDatabaseButton.setBackground(DictionaryColors.getButton());
+      moveToDatabaseButton.setForeground(DictionaryColors.getButtonForeground());
       moveToDatabaseButton.setFont(ApplicationFonts.getButtonFont());
 
       horizontalMoveToDatabasePanel.add(databaseChoiceBox);
@@ -567,6 +577,8 @@ public class DictionaryView extends JPanel
 
       copyAllSelectedButton = new JButton(
             translator.realisticTranslate(Translation.GESAMTAUSWAHL_KOPIEREN));
+      copyAllSelectedButton.setBackground(DictionaryColors.getButton());
+      copyAllSelectedButton.setForeground(DictionaryColors.getButtonForeground());
       copyAllSelectedButton.setFont(ApplicationFonts.getButtonFont());
       copyAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyAllSelectedButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
