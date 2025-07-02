@@ -22,6 +22,15 @@ public class InputColors
       return ApplicationColors.mediumSilverBlue;
    }
    
+   public static Color getTextEditorBackground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.lightGold;
+      }
+      return ApplicationColors.veryLightGold;
+   }
+   
    public static Color getPanelBackground()
    {
       if(Settings.isDarkmodeOn())
@@ -45,6 +54,15 @@ public class InputColors
       if(Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
+      }
+      return ApplicationColors.backgroundGold;
+   }
+   
+   public static Color getButton2()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.lightGold;
       }
       return ApplicationColors.backgroundGold;
    }

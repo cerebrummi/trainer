@@ -15,6 +15,7 @@ import javax.swing.text.JTextComponent;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.colors.InputColors;
 import vokabeltrainer.editing.SwedishLetter;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -132,6 +133,7 @@ public class KeyboardSwedishStandard extends JPanel
       DataButtonSwedish dataButton;
       dataButton = new DataButtonSwedish(letter.getUnicode(),
             letter.getUnicode());
+      dataButton.setForeground(InputColors.getTextForeground());
       dataButton.setMargin(new Insets(3, -5, 0, -5));
       dataButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
       dataButton.setMaximumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
@@ -139,6 +141,7 @@ public class KeyboardSwedishStandard extends JPanel
 
       JPanel buttonPanel = new JPanel();
       buttonPanel.setOpaque(false);
+      buttonPanel.setBackground(ApplicationColors.getTransparent());
       buttonPanel.setLayout(new TotemLayout(buttonPanel));
       buttonPanel.add(dataButton);
 

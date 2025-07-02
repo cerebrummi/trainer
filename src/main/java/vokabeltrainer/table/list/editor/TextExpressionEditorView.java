@@ -155,9 +155,9 @@ public class TextExpressionEditorView extends JDialog
             Math.min(screenSize.height - 60, 825));
 
       outerLayout = new JPanel();
-      outerLayout.setBackground(InputColors.getEditorBackground());
+      outerLayout.setBackground(InputColors.getTextEditorBackground());
       outerLayout.setBorder(BorderFactory
-            .createLineBorder(InputColors.getEditorBackground(), 15, false));
+            .createLineBorder(InputColors.getTextEditorBackground(), 15, false));
       outerLayout.setLayout(new TotemLayout(outerLayout, 15));
 
       layout = new JPanel();
@@ -242,7 +242,7 @@ public class TextExpressionEditorView extends JDialog
       newSearchwordGerman.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 70));
 
       searchwordsJListGerman = new JList<>();
-      searchwordsJListGerman.setBackground(InputColors.getTextBackground());
+      searchwordsJListGerman.setBackground(InputColors.getTextEditorBackground());
       searchwordGermanCellRenderer = new SearchwordListCellRenderer();
       searchwordsJListGerman.setCellRenderer(searchwordGermanCellRenderer);
       searchwordsJListGerman.setFocusable(false);
@@ -280,7 +280,7 @@ public class TextExpressionEditorView extends JDialog
       this.components.add(newSearchwordHebrew);
 
       searchwordsJListHebrew = new JList<>();
-      searchwordsJListHebrew.setBackground(InputColors.getTextBackground());
+      searchwordsJListHebrew.setBackground(InputColors.getTextEditorBackground());
       this.componentsToBeToggled.add(searchwordsJListHebrew);
       searchwordHebrewCellRenderer = new SearchwordListCellRenderer();
       this.componentsToBeToggled.add(searchwordHebrewCellRenderer.getComponent());
@@ -443,7 +443,7 @@ public class TextExpressionEditorView extends JDialog
    {
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
-      horizontal.setBackground(InputColors.getEditorBackground());
+      horizontal.setBackground(InputColors.getTextEditorBackground());
       horizontal.add(databaseNameField);
       horizontal.add(chapter);
       horizontal.add(indexField);

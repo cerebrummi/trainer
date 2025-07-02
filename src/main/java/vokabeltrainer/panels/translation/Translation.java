@@ -367,7 +367,7 @@ public enum Translation {
 	SCHWIEGIGKEITSGRAD("Schwierigkeitsgrad","level of difficulty"), 
 	SVENSKA("Schwedisch", "swedisch"), 
 	MEINE_SPRACHE("meine","my"),
-	NEUE_SPRACHE("neue","new"), 
+	NEUE_SPRACHE("Lernsprache","new"), 
 	EN("en", "en"),
 	ETT("ett", "ett"), 
 	GRUNDFORM("Grundform", "base form"),
