@@ -589,6 +589,8 @@ public class DictionaryView extends JPanel
 
       copyInTableSelectedButton = new JButton(translator
             .realisticTranslate(Translation.TABELLENAUSWAHL_KOPIEREN));
+      copyInTableSelectedButton.setBackground(DictionaryColors.getButton());
+      copyInTableSelectedButton.setForeground(DictionaryColors.getButtonForeground());
       copyInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
       copyInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyInTableSelectedButton
@@ -600,6 +602,8 @@ public class DictionaryView extends JPanel
 
       copyTableButton = new JButton(
             translator.realisticTranslate(Translation.TABELLE_KOPIEREN));
+      copyTableButton.setBackground(DictionaryColors.getButton());
+      copyTableButton.setForeground(DictionaryColors.getButtonForeground());
       copyTableButton.setFont(ApplicationFonts.getButtonFont());
       copyTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyTableButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
