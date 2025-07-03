@@ -453,7 +453,8 @@ public class DictionaryView extends JPanel
       {
          JRadioButton radioButton = new JRadioButton(type.getMeaning(language));
          radioButton.setActionCommand(type.name());
-         radioButton.setForeground(ApplicationColors.getWhite());
+         radioButton.setBackground(DictionaryColors.getButton());
+         radioButton.setForeground(DictionaryColors.getButtonForeground());
          if (SearchType.WORDSTART.equals(type))
          {
             radioButton.setSelected(true);
@@ -614,6 +615,8 @@ public class DictionaryView extends JPanel
 
       selectAllInTableButton = new JButton(
             translator.realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
+      selectAllInTableButton.setBackground(DictionaryColors.getButton());
+      selectAllInTableButton.setForeground(DictionaryColors.getButtonForeground());
       selectAllInTableButton.setFont(ApplicationFonts.getButtonFont());
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       selectAllInTableButton
@@ -623,6 +626,8 @@ public class DictionaryView extends JPanel
 
       clearAllSelectedButton = new JButton(
             translator.realisticTranslate(Translation.GESAMTAUSWAHL_AUFHEBEN));
+      clearAllSelectedButton.setBackground(DictionaryColors.getButton());
+      clearAllSelectedButton.setForeground(DictionaryColors.getButtonForeground());
       clearAllSelectedButton.setFont(ApplicationFonts.getButtonFont());
       clearAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearAllSelectedButton
@@ -632,6 +637,8 @@ public class DictionaryView extends JPanel
 
       clearInTableSelectedButton = new JButton(translator
             .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
+      clearInTableSelectedButton.setBackground(DictionaryColors.getButton());
+      clearInTableSelectedButton.setForeground(DictionaryColors.getButtonForeground());
       clearInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearInTableSelectedButton
@@ -641,6 +648,8 @@ public class DictionaryView extends JPanel
 
       deleteInTableSelectedButton = new JButton(translator
             .realisticTranslate(Translation.TABELLENAUSWAHL_LOESCHEN));
+      deleteInTableSelectedButton.setBackground(DictionaryColors.getButton());
+      deleteInTableSelectedButton.setForeground(DictionaryColors.getButtonForeground());
       deleteInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
       deleteInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteInTableSelectedButton
@@ -650,6 +659,8 @@ public class DictionaryView extends JPanel
 
       deleteAllSelectedButton = new JButton(
             translator.realisticTranslate(Translation.GESAMTAUSWAHL_LOESCHEN));
+      deleteAllSelectedButton.setBackground(DictionaryColors.getButton());
+      deleteAllSelectedButton.setForeground(DictionaryColors.getButtonForeground());
       deleteAllSelectedButton.setFont(ApplicationFonts.getButtonFont());
       deleteAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteAllSelectedButton
@@ -691,8 +702,8 @@ public class DictionaryView extends JPanel
 
       JLabel infoLabel = new JLabel(
             translator.realisticTranslate(Translation.TABELLE_BEDIENEN));
+      infoLabel.setForeground(DictionaryColors.getInfoTextForeground());
       infoLabel.setFont(ApplicationFonts.getButtonFont());
-      infoLabel.setForeground(ApplicationColors.getWhite());
       infoLabel.setMinimumSize(new Dimension(200, 40));
       infoLabel.setMaximumSize(new Dimension(600, 40));
 
@@ -1080,13 +1091,17 @@ public class DictionaryView extends JPanel
             translator.realisticTranslate(Translation.SUCHWORT)));
       DataButton scrollsearchButton = new DataButton(
             translator.realisticTranslate(Translation.SUCHE_WORT_IN_TABELLE));
-      scrollsearchButton.setOpaque(false);
+      scrollsearchButton.setOpaque(true);
+      scrollsearchButton.setBackground(DictionaryColors.getButton());
+      scrollsearchButton.setForeground(DictionaryColors.getButtonForeground());
       scrollsearchButton.setFont(ApplicationFonts.getButtonFont());
       DataButton scrollsearchPinButton = new DataButton(
             translator.realisticTranslate(Translation.NAECHSTE_AUSWAHL));
       scrollsearchPinButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
-      scrollsearchPinButton.setOpaque(false);
+      scrollsearchPinButton.setOpaque(true);
+      scrollsearchPinButton.setBackground(DictionaryColors.getBackground());
+      scrollsearchPinButton.setForeground(DictionaryColors.getButtonForeground());
       scrollsearchPinButton.setFont(ApplicationFonts.getButtonFont());
 
       table = new ExpressionTable(tableModel, this.getSelectedLanguage(),

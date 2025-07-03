@@ -12,7 +12,16 @@ public class DictionaryColors
    {
       // nothing
    }
-
+   
+   public static Color getInfoTextForeground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.shadyBlue;
+      }
+      return ApplicationColors.darkGold;
+   }
+   
    public static Color getPanelBackground()
    {
       if(Settings.isDarkmodeOn())
