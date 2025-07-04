@@ -130,7 +130,6 @@ public class LetterPictureButtonPanel extends JPanel
          germanButton = new JButton(new ImageIcon(picture));
          germanButton.setBorder(BorderFactory.createEmptyBorder());
          germanButton.setMargin(new Insets(0, 0, 0, 0));
-         germanButton.setOpaque(false);
       }
       else
       {
@@ -139,8 +138,10 @@ public class LetterPictureButtonPanel extends JPanel
          germanButton.setBorder(BorderFactory.createEmptyBorder());
          germanButton.setMargin(new Insets(0, 0, 0, 0));
          germanButton.setContentAreaFilled(false);
-         germanButton.setOpaque(false);
       }
+      germanButton.setOpaque(true);
+      germanButton.setBackground(AlefbetColors.getButton2());
+      germanButton.setForeground(AlefbetColors.getButtonForeground());
       germanCard.add(germanButton, BorderLayout.CENTER);
    }
 
@@ -154,7 +155,6 @@ public class LetterPictureButtonPanel extends JPanel
          hebrewButton = new JButton(new ImageIcon(picture));
          hebrewButton.setBorder(BorderFactory.createEmptyBorder());
          hebrewButton.setMargin(new Insets(0, 0, 0, 0));
-         hebrewButton.setOpaque(false);
       }
       else
       {
@@ -163,8 +163,10 @@ public class LetterPictureButtonPanel extends JPanel
          hebrewButton.setMargin(new Insets(0, 0, 0, 0));
          hebrewButton.setFont(ApplicationFonts.getGermanFont(10F));
          hebrewButton.setContentAreaFilled(false);
-         hebrewButton.setOpaque(false);
       }
+      hebrewButton.setOpaque(true);
+      hebrewButton.setBackground(AlefbetColors.getButton2());
+      hebrewButton.setForeground(AlefbetColors.getButtonForeground());
       hebrewCard.add(hebrewButton, BorderLayout.CENTER);
    }
 

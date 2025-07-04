@@ -19,8 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.BackgroundPanelTiled;
-import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.ApplicationSpecialPanels;
@@ -149,7 +147,8 @@ public class LetterPictureAlphabetPanel extends JPanel
       Map<NikudLetter, LetterPictureButtonPanel> panels = ApplicationSpecialPanels
             .getLetterPicturesPanelMap();
       this.setOpaque(true);
-      setBackground(ApplicationColors.getTexturedBackgroundColor());
+      setBackground(AlefbetColors.getButton());
+      setForeground(AlefbetColors.getButtonForeground());
       this.setLayout(new TotemLayout(this, 15));
       this.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 15));
 
@@ -161,7 +160,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          JPanel column = new JPanel();
          column.setLayout(new TotemLayout(column));
-         column.setBackground(ApplicationColors.getTexturedBackgroundColor());
+         column.setBackground(AlefbetColors.getPanelBackground());
          column.add(panels.get(keys1[i]));
          column.add(textFields1[i]);
          textFields.add(textFields1[i]);

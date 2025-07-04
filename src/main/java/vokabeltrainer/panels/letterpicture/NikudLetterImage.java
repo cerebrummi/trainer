@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.colors.AlefbetColors;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
 
@@ -24,7 +25,7 @@ public class NikudLetterImage
       BufferedImage finalImg = new BufferedImage(50, 50,
             BufferedImage.TYPE_INT_RGB);
       Graphics2D g2d = finalImg.createGraphics();
-      g2d.setColor(ApplicationColors.getTexturedBackgroundColor());
+      g2d.setColor(AlefbetColors.getButton());
       g2d.fillRect(0, 0, 50, 50);
       g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
             RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
@@ -45,7 +46,7 @@ public class NikudLetterImage
       g2d.setFont(ApplicationFonts.getHebrewFont(36));
       FontMetrics fm = g2d.getFontMetrics();
       fm = g2d.getFontMetrics();
-      g2d.setColor(Color.BLACK);
+      g2d.setColor(AlefbetColors.getButtonForeground());
       g2d.drawString(letter.getContent().getUnicode(), 10, fm.getAscent() + 4);
       for (NikudLetter nikudLetter : letter.getSetUpperPunktation())
       {

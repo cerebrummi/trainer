@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.colors.AlefbetColors;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
@@ -108,7 +109,9 @@ public class NikudPictureButtonPanel extends JPanel
    private void initGermanCard()
    {
       germanCard = new JPanel(new BorderLayout());
-      germanCard.setOpaque(false);
+      germanCard.setBackground(AlefbetColors.getButton());
+      germanCard.setForeground(AlefbetColors.getButtonForeground());
+      germanCard.setOpaque(true);
       germanCard.setPreferredSize(new Dimension(50, 50));
       if (letter.getContent() == NikudLetter.SPACE)
       {
@@ -142,6 +145,8 @@ public class NikudPictureButtonPanel extends JPanel
       else
       {
          hebrewButton = new JButton(letter.getContent().getTranscript());
+         hebrewButton.setBackground(AlefbetColors.getButton());
+         hebrewButton.setForeground(AlefbetColors.getButtonForeground());
          hebrewButton.setFont(ApplicationFonts.getGermanFont(10F));
          hebrewButton.setContentAreaFilled(false); 
       }

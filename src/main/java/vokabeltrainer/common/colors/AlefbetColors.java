@@ -40,6 +40,16 @@ public class AlefbetColors
       return ApplicationColors.darkGold;
    }
    
+   public static Color getButton2()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.white;
+      }
+      return ApplicationColors.backgroundGold;
+   }
+
+   
    public static Color getTextForeground()
    {
       if(Settings.isDarkmodeOn())
