@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.colors.AlefbetColors;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
 
@@ -53,7 +54,8 @@ public class LetterPictureButtonPanel extends JPanel
       this.picture = picture;
       layout = new CardLayout();
       this.setLayout(layout);
-      this.setOpaque(false);
+      this.setOpaque(true);
+      this.setBackground(AlefbetColors.getPanelBackground());
 
       initPictureCard();
       initLetterCard();
