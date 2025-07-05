@@ -67,4 +67,13 @@ public class AlefbetColors
       }
       return ApplicationColors.backgroundGold;
    }
+
+   public static Color getTextBackground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.mediumSilverBlue;
+      }
+      return ApplicationColors.white;
+   }
 }

@@ -53,4 +53,32 @@ public class Buchstabenbilder
       ApplicationImages.setLetterPicturesMap(letterPicturesMap);
    }
 
+   public static void reRead() throws Exception
+   {
+      ApplicationSpecialPanels.getLetterPicturesPanelMap().clear();
+      
+      for (NikudLetter letter : NikudLetter.values())
+      {
+         if (NikudLetter.SPACE == letter || NikudLetter.GERESCH == letter
+               || NikudLetter.GERSCHAYIM == letter)
+         {
+            // !continue
+         }
+         else if (!letter.isHandwritten())
+         {
+            continue;
+         }
+         BufferedImage picture = letterPicturesMap.get(letter);
+
+         if (!(NikudLetter.SPACE == letter || NikudLetter.GERESCH == letter
+               || NikudLetter.GERSCHAYIM == letter))
+         {
+            letterPicturesPanelMap.put(letter,
+                  new LetterPictureButtonPanel(picture, letter, cards));
+         }
+      }
+
+      ApplicationSpecialPanels
+            .setLetterPicturesPanelMap(letterPicturesPanelMap);
+   }
 }

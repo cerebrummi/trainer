@@ -15,8 +15,8 @@ public class LetterTextField extends JTextField
    public LetterTextField(NikudLetter letter)
    {
       this.letter = letter;
-      this.setBackground(AlefbetColors.getButton());
-      this.setForeground(AlefbetColors.getButtonForeground());
+      this.setBackground(AlefbetColors.getTextBackground());
+      this.setForeground(AlefbetColors.getTextForeground());
    }
 
    public NikudLetter getLetter()

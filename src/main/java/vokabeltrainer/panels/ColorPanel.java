@@ -10,7 +10,9 @@ import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.resources.Buchstabenbilder;
 import vokabeltrainer.resources.LetterIcons;
+import vokabeltrainer.resources.LetterIconsHandwritten;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
@@ -79,17 +81,30 @@ public class ColorPanel extends JPanel
             System.exit(1);
          }
 
-//         try
-//         {
-//            LetterIconsHandwritten.readNikud();
-//         }
-//         catch (Exception e1)
-//         {
-//            JOptionPane.showMessageDialog(null,
-//                  message + "Buchstaben Nikud Handwritten Icons fehlen",
-//                  "Nachricht", JOptionPane.CLOSED_OPTION);
-//            System.exit(1);
-//         }
+         try
+         {
+            LetterIconsHandwritten.readNikud();
+         }
+         catch (Exception e1)
+         {
+            JOptionPane.showMessageDialog(null,
+                  message + "Buchstaben Nikud Handwritten Icons fehlen",
+                  "Nachricht", JOptionPane.CLOSED_OPTION);
+            System.exit(1);
+         }
+         
+         try
+         {
+            Buchstabenbilder.reRead();
+         }
+         catch (Exception e)
+         {
+            JOptionPane.showMessageDialog(null,
+                  message + "Buchstabenbilder fehlen", "Nachricht",
+                  JOptionPane.CLOSED_OPTION);
+            e.printStackTrace();
+            System.exit(1);
+         }
          
          initController();
          applyButton.setEnabled(true);
