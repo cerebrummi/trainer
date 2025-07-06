@@ -12,8 +12,8 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.colors.StatisticsColors;
 
 public class StatisticsTableCellRenderer
       implements TableCellRenderer, TableCellEditor
@@ -51,15 +51,15 @@ public class StatisticsTableCellRenderer
          date.setText(renderedRow.getDate());
          if(now.isBefore(renderedRow.getLocalDate()))
          {
-            date.setBackground(ApplicationColors.getLightBlue());
+            date.setBackground(StatisticsColors.getFuture());
          }
          else if(now.isAfter(renderedRow.getLocalDate()))
          {
-            date.setBackground(ApplicationColors.getRose());
+            date.setBackground(StatisticsColors.getToLate());
          }
          else
          {
-            date.setBackground(ApplicationColors.getGreen());
+            date.setBackground(StatisticsColors.getToday());
          }
          return date;
       }
@@ -68,11 +68,11 @@ public class StatisticsTableCellRenderer
       {
          if (isSelected)
          {
-            expressionsHtoD.setBackground(ApplicationColors.getLightGold());
+            expressionsHtoD.setBackground(StatisticsColors.getTableCellHighlightBackground());
          }
          else
          {
-            expressionsHtoD.setBackground(ApplicationColors.getVeryLightGold());
+            expressionsHtoD.setBackground(StatisticsColors.getTableCellBackground());
          }
          expressionsHtoD
                .setText(String.valueOf(renderedRow.getExpressionsHtoDSize()));
@@ -82,11 +82,11 @@ public class StatisticsTableCellRenderer
       // column == 2
       if (isSelected)
       {
-         expressionsDtoH.setBackground(ApplicationColors.getLightGold());
+         expressionsDtoH.setBackground(StatisticsColors.getTableCellHighlightBackground());
       }
       else
       {
-         expressionsDtoH.setBackground(ApplicationColors.getVeryLightGold());
+         expressionsDtoH.setBackground(StatisticsColors.getTableCellBackground());
       }
       expressionsDtoH
             .setText(String.valueOf(renderedRow.getExpressionsDtoHSize()));

@@ -41,6 +41,7 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.editing.SwedishDocument;
@@ -117,14 +118,12 @@ public class TrainerView extends BackgroundPanelTiled
       this.languageDirection = connector.getLanguageDirection();
       BullsEyeLayout trainerLayout = new BullsEyeLayout(this);
       setLayout(trainerLayout);
-      setBackground(ApplicationColors.getTexturedBackgroundColor());
+      setBackground(TrainerColors.getPanelBackground());
       verticalTrainerPanel = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalTrainerPanel);
       verticalTrainerPanel.setLayout(verticalLayout);
-      verticalTrainerPanel
-            .setBackground(ApplicationColors.getTexturedBackgroundColor());
+      verticalTrainerPanel.setOpaque(false);
       setBorder(BorderFactory.createEmptyBorder());
-      setOpaque(false);
       initGui();
       this.add(verticalTrainerPanel);
       initController();

@@ -48,16 +48,6 @@ public class AlefbetColors
       }
       return ApplicationColors.backgroundGold;
    }
-
-   
-   public static Color getTextForeground()
-   {
-      if(Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.white;
-      }
-      return ApplicationColors.darkGold;
-   }
    
    public static Color getKeyboardBackground()
    {
@@ -66,6 +56,15 @@ public class AlefbetColors
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.backgroundGold;
+   }
+   
+   public static Color getTextForeground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.white;
+      }
+      return ApplicationColors.darkGold;
    }
 
    public static Color getTextBackground()
