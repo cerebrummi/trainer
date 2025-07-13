@@ -13,15 +13,33 @@ public class TrainerColors
       // nothing
    }
    
-   public static Color getToday()
+   public static Color getTextForeground()
    {
       if(Settings.isDarkmodeOn())
       {
-         return ApplicationColors.green;
+         return ApplicationColors.white;
       }
-      return ApplicationColors.green;
+      return ApplicationColors.darkGold;
    }
 
+   public static Color getTextBackground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.lightBlue;
+      }
+      return ApplicationColors.white;
+   }
+   
+   public static Color getInfoTextForeground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.shadyBlue;
+      }
+      return ApplicationColors.darkGold;
+   }
+   
    public static Color getPanelBackground()
    {
       if(Settings.isDarkmodeOn())
@@ -29,5 +47,32 @@ public class TrainerColors
          return ApplicationColors.shadyBlueLight;
       }
       return ApplicationColors.backgroundGold;
+   }
+   
+   public static Color getBackground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.mediumSilverBlue;
+      }
+      return ApplicationColors.mediumSilverBlue;
+   }
+   
+   public static Color getButton()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.mediumSilverBlue;
+      }
+      return ApplicationColors.backgroundGold;
+   }
+   
+   public static Color getButtonForeground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.shadyBlue;
+      }
+      return ApplicationColors.darkGold;
    }
 }

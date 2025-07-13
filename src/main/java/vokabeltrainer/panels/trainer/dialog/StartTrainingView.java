@@ -1,7 +1,6 @@
 package vokabeltrainer.panels.trainer.dialog;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -16,6 +15,7 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
@@ -45,7 +45,8 @@ public class StartTrainingView extends JDialog
       setSize(Math.min(screenSize.width - 60, 1500),
               Math.min(screenSize.height - 60, 700));
       layout = new JPanel();
-      layout.setBorder(BorderFactory.createLineBorder(new Color(169, 136, 103),
+      layout.setBackground(TrainerColors.getPanelBackground());
+      layout.setBorder(BorderFactory.createLineBorder(TrainerColors.getPanelBackground(),
             15, false));
       layout.setLayout(new BorderLayout());
       getContentPane().add(layout);
