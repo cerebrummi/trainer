@@ -37,7 +37,7 @@ public class InfoTextField extends JTextField
       button.setForeground(ApplicationColors.getGold());
       button.setPreferredSize(new Dimension(14, 32));
 
-      button.addActionListener(event -> {
+      button.addActionListener(_ -> {
          JOptionPane.showMessageDialog(this, "",
                Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(infoText)));

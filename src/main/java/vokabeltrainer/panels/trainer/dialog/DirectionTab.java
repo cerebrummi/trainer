@@ -121,43 +121,43 @@ public class DirectionTab extends BackgroundPanelTiled
       buttonWrapper.add(nextButton);
       add(buttonWrapper, BorderLayout.SOUTH);
       
-      ownToNikudButton.addActionListener(event -> {
+      ownToNikudButton.addActionListener(_ -> {
          removeTabsToTheRight(dialog);
          dialog.setLanguageDirection(LanguageDirection.OWN_TO_HEBREW);
          nextButton.setEnabled(true);
       });
       
-      ownToSwedishButton.addActionListener(event -> {
+      ownToSwedishButton.addActionListener(_ -> {
          removeTabsToTheRight(dialog);
          dialog.setLanguageDirection(LanguageDirection.OWN_TO_SWEDISH);
          nextButton.setEnabled(true);
       });
       
-      ownToGermanButton.addActionListener(event -> {
+      ownToGermanButton.addActionListener(_ -> {
          removeTabsToTheRight(dialog);
          dialog.setLanguageDirection(LanguageDirection.OWN_TO_GERMAN);
          nextButton.setEnabled(true);
       });
 
-      hebrewToOwnButton.addActionListener(event -> {
+      hebrewToOwnButton.addActionListener(_ -> {
          removeTabsToTheRight(dialog);
          dialog.setLanguageDirection(LanguageDirection.HEBREW_TO_OWN);
          nextButton.setEnabled(true);
       });
       
-      swedishToOwnButton.addActionListener(event -> {
+      swedishToOwnButton.addActionListener(_ -> {
          removeTabsToTheRight(dialog);
          dialog.setLanguageDirection(LanguageDirection.SWEDISH_TO_OWN);
          nextButton.setEnabled(true);
       });
       
-      germanToOwnButton.addActionListener(event -> {
+      germanToOwnButton.addActionListener(_ -> {
          removeTabsToTheRight(dialog);
          dialog.setLanguageDirection(LanguageDirection.GERMAN_TO_OWN);
          nextButton.setEnabled(true);
       });
 
-      nextButton.addActionListener(event -> {
+      nextButton.addActionListener(_ -> {
          if (dialog.getTabbedPane().getTabCount() == 2)
          {
             dialog.getTabbedPane().addTab(translator.realisticTranslate(Translation.WIE_VIELE),
@@ -168,7 +168,7 @@ public class DirectionTab extends BackgroundPanelTiled
       });
      
 
-      cancelButton.addActionListener(event -> {
+      cancelButton.addActionListener(_ -> {
          dialog.cancelTrainingStart();
       });
    }

@@ -56,7 +56,7 @@ public class TrainingTableCellRendererEditor
       amountOfNewWordsSpinner.setModel(spinnerNumberModel);
       amountOfNewWordsSpinner
             .setEditor(new IntegerSpinnerEditor(amountOfNewWordsSpinner));
-      amountOfNewWordsSpinner.addChangeListener(event -> {
+      amountOfNewWordsSpinner.addChangeListener(_ -> {
          trainingCellRow.setAmountOfNewWords(
                Integer.valueOf((String) amountOfNewWordsSpinner.getValue()));
          ((TrainingTableModel) table.getModel()).fireTableCellUpdated(row,
@@ -67,7 +67,7 @@ public class TrainingTableCellRendererEditor
       amountOfNewWordsButton.setFont(font);
       amountOfNewWordsButton.setBorder(BorderFactory.createEmptyBorder());
       amountOfNewWordsButton.setBackground(ApplicationColors.getGreen());
-      amountOfNewWordsButton.addActionListener(event -> {
+      amountOfNewWordsButton.addActionListener(_ -> {
          table.editCellAt(row, column);
       });
 

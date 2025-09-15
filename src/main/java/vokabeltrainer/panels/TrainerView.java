@@ -499,7 +499,7 @@ public class TrainerView extends BackgroundPanelTiled
                   35));
       additionalInfoField.setEditable(false);
 
-      additionalInfo.addActionListener(event -> connector.setAdditionalInfo());
+      additionalInfo.addActionListener(_ -> connector.setAdditionalInfo());
 
       JScrollPane scrollerAdditionalInfo = new JScrollPane(additionalInfoField);
       scrollerAdditionalInfo.setMinimumSize(
@@ -529,7 +529,7 @@ public class TrainerView extends BackgroundPanelTiled
                   35));
       grammarInfoField.setEditable(false);
 
-      grammarInfo.addActionListener(event -> connector.setGrammarInfo()); // needs
+      grammarInfo.addActionListener(_ -> connector.setGrammarInfo()); // needs
                                                                           // to
                                                                           // be
                                                                           // here!
@@ -753,12 +753,12 @@ public class TrainerView extends BackgroundPanelTiled
 
    private void initController()
    {
-      sendButton.addActionListener(event -> connector.send());
+      sendButton.addActionListener(_ -> connector.send());
 
-      nextWordButton.addActionListener(event -> nextWord());
+      nextWordButton.addActionListener(_ -> nextWord());
 
       infoStopTrainingButton.addActionListener(
-            event -> JOptionPane.showMessageDialog(infoStopTrainingPanel, "",
+            _ -> JOptionPane.showMessageDialog(infoStopTrainingPanel, "",
                   Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
                   new ImageIcon(TextImage.make(
                         translator.realisticTranslate(
@@ -803,13 +803,13 @@ public class TrainerView extends BackgroundPanelTiled
 
       });
 
-      stopTrainingButton.addActionListener(event -> {
+      stopTrainingButton.addActionListener(_ -> {
          connector.stopTraining(false);
       });
 
-      this.soundButton.addActionListener(event -> connector.toggleSound());
+      this.soundButton.addActionListener(_ -> connector.toggleSound());
 
-      soundslider.addChangeListener(event -> {
+      soundslider.addChangeListener(_ -> {
          if (!soundslider.getValueIsAdjusting())
          {
             Settings.setVolume(soundslider.getValue());
@@ -817,14 +817,14 @@ public class TrainerView extends BackgroundPanelTiled
       });
 
       pictureToggleBox
-            .addActionListener(event -> connector.toggleLetterPictures());
+            .addActionListener(_ -> connector.toggleLetterPictures());
    }
 
    public void setHtoDanswerButtons()
    {
       answerOkay = new JButton(
             new ImageIcon(ApplicationImages.getAnswerOkay()));
-      answerOkay.addActionListener(event2 -> {
+      answerOkay.addActionListener(_ -> {
          connector.resultHtoDOkay();
       });
       answerOkay.setMinimumSize(new Dimension(150, 110));
@@ -834,7 +834,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       answerUndecided = new JButton(
             new ImageIcon(ApplicationImages.getAnswerUndecided()));
-      answerUndecided.addActionListener(event2 -> {
+      answerUndecided.addActionListener(_ -> {
          connector.resultHtoDUndecided();
       });
       answerUndecided.setMinimumSize(new Dimension(150, 110));
@@ -844,7 +844,7 @@ public class TrainerView extends BackgroundPanelTiled
 
       answerNotOkay = new JButton(
             new ImageIcon(ApplicationImages.getAnswerNotOkay()));
-      answerNotOkay.addActionListener(event2 -> {
+      answerNotOkay.addActionListener(_ -> {
          connector.resultHtoDFalse();
       });
       answerNotOkay.setMinimumSize(new Dimension(150, 110));

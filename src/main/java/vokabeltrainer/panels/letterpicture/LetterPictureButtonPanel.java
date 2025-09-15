@@ -94,27 +94,27 @@ public class LetterPictureButtonPanel extends JPanel
 
    private void initController()
    {
-      pictureButton.addActionListener(event -> {
+      pictureButton.addActionListener(_ -> {
          layout.next(this);
       });
 
-      letterButton.addActionListener(event -> {
+      letterButton.addActionListener(_ -> {
          layout.next(this);
       });
       
-      letterHandwrittenButton.addActionListener(event -> {
+      letterHandwrittenButton.addActionListener(_ -> {
          layout.next(this);
       });
 
-      germanButton.addActionListener(event -> {
+      germanButton.addActionListener(_ -> {
          layout.next(this);
       });
 
-      hebrewButton.addActionListener(event -> {
+      hebrewButton.addActionListener(_ -> {
          layout.next(this);
       });
 
-      blankButton.addActionListener(event -> {
+      blankButton.addActionListener(_ -> {
          layout.next(this);
       });
 

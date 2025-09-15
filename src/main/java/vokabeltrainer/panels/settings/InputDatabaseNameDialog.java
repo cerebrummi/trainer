@@ -92,7 +92,7 @@ public class InputDatabaseNameDialog extends JDialog
 
    private void initController()
    {
-      okButton.addActionListener(event -> {
+      okButton.addActionListener(_ -> {
          databaseName = inputImportField.getText();
          overwrite = overwriteYes.isSelected();
          if (overwrite && databaseName.isBlank())
@@ -107,12 +107,12 @@ public class InputDatabaseNameDialog extends JDialog
          this.setVisible(false);
       });
       
-      stopButton.addActionListener(event -> {
+      stopButton.addActionListener(_ -> {
          startImport = false;
          this.setVisible(false);
       });
       
-      overwriteYes.addActionListener(event -> {
+      overwriteYes.addActionListener(_ -> {
          if(overwriteYes.isSelected())
          {
             inputImportField.setEditable(true);
@@ -120,7 +120,7 @@ public class InputDatabaseNameDialog extends JDialog
          }
       });
       
-      overwriteNo.addActionListener(event -> {
+      overwriteNo.addActionListener(_ -> {
          if(overwriteNo.isSelected())
          {
             inputImportField.setEditable(false);

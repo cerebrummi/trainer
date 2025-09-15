@@ -293,40 +293,40 @@ public class InputLanguagePanel extends JTextArea
          }
       });
 
-      hebrewField.addCaretListener(event -> {
+      hebrewField.addCaretListener(_ -> {
          if (!hebrewField.getText().isEmpty())
          {
             setBlankBorder();
          }
       });
-      pleneField.addCaretListener(event -> {
+      pleneField.addCaretListener(_ -> {
          if (!pleneField.getText().isBlank()
                && !defektivField.getText().isBlank())
          {
             setBlankBorder();
          }
       });
-      defektivField.addCaretListener(event -> {
+      defektivField.addCaretListener(_ -> {
          if (!pleneField.getText().isBlank()
                && !defektivField.getText().isBlank())
          {
             setBlankBorder();
          }
       });
-      swedishField.addCaretListener(event -> {
+      swedishField.addCaretListener(_ -> {
          if (!swedishField.getText().isEmpty())
          {
             setBlankBorder();
          }
       });
-      germanField.addCaretListener(event -> {
+      germanField.addCaretListener(_ -> {
          if (!germanField.getText().isEmpty())
          {
             setBlankBorder();
          }
       });
 
-      toggleButton.addActionListener(event -> toggleNext());
+      toggleButton.addActionListener(_ -> toggleNext());
 
       toggleButton.addMouseListener(new MouseAdapter()
       {

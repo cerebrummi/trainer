@@ -62,7 +62,7 @@ public class SuccessPanel extends JPanel
 
    private void initController()
    {
-      germanHebrewRegister.addChangeListener(event -> {
+      germanHebrewRegister.addChangeListener(_ -> {
          if (germanHebrewRegister.getSelectedIndex() == 1)
          {
             languageDtoHcard.loadBoxes();

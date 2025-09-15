@@ -53,7 +53,7 @@ public class ColorPanel extends JPanel
 
    private void initController()
    {
-      applyButton.addActionListener(event -> {
+      applyButton.addActionListener(_ -> {
          applyButton.setEnabled(false);
          Settings.toggleDarkmodeOn();
 

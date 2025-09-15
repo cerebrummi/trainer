@@ -121,7 +121,7 @@ public class AlefbetPanel extends JPanel
 
    private void initController()
    {
-      resultButton.addActionListener(event -> {
+      resultButton.addActionListener(_ -> {
          for (JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
          {
             if (((LetterTextField) jtc).isOkay())
@@ -139,7 +139,7 @@ public class AlefbetPanel extends JPanel
          }
       });
 
-      resetButton.addActionListener(event -> {
+      resetButton.addActionListener(_ -> {
          for (JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
          {
             jtc.setBackground(AlefbetColors.getButton());
@@ -148,7 +148,7 @@ public class AlefbetPanel extends JPanel
          }
       });
 
-      pictureInfoButton.addActionListener(event -> {
+      pictureInfoButton.addActionListener(_ -> {
          JOptionPane.showMessageDialog(letterPanel, "",
                Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(

@@ -57,7 +57,7 @@ public class TranslationPanel extends JPanel
 
    private void initController()
    {
-      applyButton.addActionListener(event -> {
+      applyButton.addActionListener(_ -> {
          TranslationCode choosen = chooseLanguage
                .getItemAt(chooseLanguage.getSelectedIndex());
          Settings.setTranslationCode(choosen);

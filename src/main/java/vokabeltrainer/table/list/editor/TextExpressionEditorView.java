@@ -255,7 +255,7 @@ public class TextExpressionEditorView extends JDialog
       JPopupMenu popupGerman = new JPopupMenu();
       JMenuItem copyMenuGerman = new JMenuItem(
             translator.realisticTranslate(Translation.KOPIEREN));
-      copyMenuGerman.addActionListener(event -> {
+      copyMenuGerman.addActionListener(_ -> {
          StringSelection stringSelection = new StringSelection(
                searchwordsJListGerman.getSelectedValue());
          Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -296,7 +296,7 @@ public class TextExpressionEditorView extends JDialog
       JPopupMenu popupHebrew = new JPopupMenu();
       JMenuItem copyMenuHebrew = new JMenuItem(
             translator.realisticTranslate(Translation.KOPIEREN));
-      copyMenuHebrew.addActionListener(event -> {
+      copyMenuHebrew.addActionListener(_ -> {
          StringSelection stringSelection = new StringSelection(
                searchwordsJListHebrew.getSelectedValue());
          Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -538,7 +538,7 @@ public class TextExpressionEditorView extends JDialog
          }
       });
 
-      newSearchwordGerman.addActionListener(event -> {
+      newSearchwordGerman.addActionListener(_ -> {
          String add = newSearchwordGerman.getText().replaceAll(",", "");
          add = TextHelper.cleanText(add);
          if (!add.isEmpty())
@@ -550,7 +550,7 @@ public class TextExpressionEditorView extends JDialog
          }
       });
 
-      deleteSearchwordButtonGerman.addActionListener(event -> {
+      deleteSearchwordButtonGerman.addActionListener(_ -> {
          if (searchwordsJListGerman.getSelectedValue() != null)
          {
             searchwordsSetGerman
@@ -559,7 +559,7 @@ public class TextExpressionEditorView extends JDialog
          }
       });
 
-      newSearchwordHebrew.addActionListener(event -> {
+      newSearchwordHebrew.addActionListener(_ -> {
          String add = newSearchwordHebrew.getText().replaceAll(",", "");
          add = TextHelper.cleanText(add);
          if (!add.isEmpty())
@@ -571,7 +571,7 @@ public class TextExpressionEditorView extends JDialog
          }
       });
 
-      deleteSearchwordButtonHebrew.addActionListener(event -> {
+      deleteSearchwordButtonHebrew.addActionListener(_ -> {
          if (searchwordsJListHebrew.getSelectedValue() != null)
          {
             searchwordsSetHebrew
@@ -580,7 +580,7 @@ public class TextExpressionEditorView extends JDialog
          }
       });
 
-      saveButton.addActionListener(event -> {
+      saveButton.addActionListener(_ -> {
          if (testForCompletness())
          {
             save = true;
@@ -589,12 +589,12 @@ public class TextExpressionEditorView extends JDialog
          }
       });
 
-      restoreButton.addActionListener(event -> {
+      restoreButton.addActionListener(_ -> {
          setExpressionForReset();
          resetAllBorders();
       });
 
-      cancelButton.addActionListener(event -> {
+      cancelButton.addActionListener(_ -> {
          this.disposeDialog();
       });
 

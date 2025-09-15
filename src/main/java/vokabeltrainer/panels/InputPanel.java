@@ -132,18 +132,18 @@ public class InputPanel extends JPanel implements TableConnector
    private void initController()
    {
       newWordPunktationButton
-            .addActionListener(event -> openNewNikudExpressionDialog());
+            .addActionListener(_ -> openNewNikudExpressionDialog());
 
       newTextPunktationButton
-            .addActionListener(event -> openNewTextExpressionDialog());
+            .addActionListener(_ -> openNewTextExpressionDialog());
 
-      chapterBox.addActionListener(event -> {
+      chapterBox.addActionListener(_ -> {
          this.currentChapter = chapterBox
                .getItemAt(chapterBox.getSelectedIndex());
          this.doShowTable();
       });
 
-      myWritingDirection.addActionListener(event -> {
+      myWritingDirection.addActionListener(_ -> {
          WritingDirection writingDirection = WritingDirection.LEFT_TO_RIGHT;
          switch ((WritingDirection) myWritingDirection.getSelectedItem())
          {
@@ -157,7 +157,7 @@ public class InputPanel extends JPanel implements TableConnector
          Settings.setMyWritingDirection(writingDirection);
       });
 
-      otherLanguage.addActionListener(event -> {
+      otherLanguage.addActionListener(_ -> {
          Selection selection = Selection.GERMAN;
          switch ((LanguageStored) otherLanguage.getSelectedItem())
          {
@@ -177,7 +177,7 @@ public class InputPanel extends JPanel implements TableConnector
          Settings.setLanguageInput(selection);
       });
 
-      tableInfoButton.addActionListener(event -> {
+      tableInfoButton.addActionListener(_ -> {
          JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
                JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(

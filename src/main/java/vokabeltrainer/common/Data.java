@@ -1183,14 +1183,14 @@ public final class Data
          Predicate<Expression> hebrewWordstart = expression -> equalsNewWordStart(
                text, expression);
 
-         Predicate<Expression> ownToNew = expression -> Direction.OWN_TO_NEW
+         Predicate<Expression> ownToNew = _ -> Direction.OWN_TO_NEW
                .equals(language);
-         Predicate<Expression> newToOwn = expression -> Direction.NEW_TO_OWN
+         Predicate<Expression> newToOwn = _ -> Direction.NEW_TO_OWN
                .equals(language);
 
-         Predicate<Expression> searchWord = expression -> SearchType.SEARCHWORD
+         Predicate<Expression> searchWord = _ -> SearchType.SEARCHWORD
                .equals(search);
-         Predicate<Expression> wordStart = expression -> SearchType.WORDSTART
+         Predicate<Expression> wordStart = _ -> SearchType.WORDSTART
                .equals(search);
 
          Predicate<Expression> germanToHebrewSearchword = ownToNew
@@ -1905,7 +1905,7 @@ public final class Data
       {
          return allOldToBeTestedExpressions.stream()
                .filter(expression -> chapter.equals(expression.getChapter()))
-               .mapToInt(expression -> 1).sum();
+               .mapToInt(_ -> 1).sum();
       }
 
       private Set<Expression> findSetOfOldExpressionsToBeTestedPerChapter(
@@ -1986,7 +1986,7 @@ public final class Data
          Vector<String> columnNames = new Vector<>();
          columnNames.add("eins");
 
-         alleMap.forEach((uuid, expression) -> {
+         alleMap.forEach((_, expression) -> {
             Expression e = ((Expression) expression);
 
             if (repetition == null
@@ -2010,7 +2010,7 @@ public final class Data
 
       private void unselectAllExpressions()
       {
-         alleMap.forEach((uuid, expression) -> {
+         alleMap.forEach((_, expression) -> {
             expression.setSelected(false);
          });
       }

@@ -215,7 +215,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       turnButton.setForeground(AlefbetColors.getButtonForeground());
       turnButton.setFont(ApplicationFonts.getButtonFont());
       turnButton.setIcon(new ImageIcon(ApplicationImages.getTurn()));
-      turnButton.addActionListener(event -> {
+      turnButton.addActionListener(_ -> {
          for (LetterPictureButtonPanel panel : panels.values())
          {
             panel.nextCard();
@@ -271,22 +271,22 @@ public class LetterPictureAlphabetPanel extends JPanel
 
       this.add(keyboardPanel);
 
-      printLettersButton.addActionListener(event -> setWriting(DRUCKSCHRIFT));
+      printLettersButton.addActionListener(_ -> setWriting(DRUCKSCHRIFT));
       printLettersButton.setBackground(AlefbetColors.getButton());
       printLettersButton.setForeground(AlefbetColors.getTextForeground());
       
-      handwrittenLettersButton.addActionListener(event -> setWriting(SCHREIBSCHRIFT));
+      handwrittenLettersButton.addActionListener(_ -> setWriting(SCHREIBSCHRIFT));
       handwrittenLettersButton.setBackground(AlefbetColors.getButton());
       handwrittenLettersButton.setForeground(AlefbetColors.getTextForeground());
       
       switchButtonGroup.add(printLettersButton);
       switchButtonGroup.add(handwrittenLettersButton);
       
-      keyboardRegularButton.addActionListener(event -> setKeyboard(REGULAR));
+      keyboardRegularButton.addActionListener(_ -> setKeyboard(REGULAR));
       keyboardRegularButton.setBackground(AlefbetColors.getButton());
       keyboardRegularButton.setForeground(AlefbetColors.getTextForeground());
       
-      keyboardShuffleButton.addActionListener(event -> setKeyboard(SHUFFLE));
+      keyboardShuffleButton.addActionListener(_ -> setKeyboard(SHUFFLE));
       keyboardShuffleButton.setBackground(AlefbetColors.getButton());
       keyboardShuffleButton.setForeground(AlefbetColors.getTextForeground());
       

@@ -2,7 +2,6 @@ package vokabeltrainer.panels.list;
 
 import javax.swing.JList;
 
-import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.colors.DictionaryColors;
 import vokabeltrainer.types.DatabaseDescription;
 

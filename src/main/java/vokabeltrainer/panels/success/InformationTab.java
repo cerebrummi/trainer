@@ -152,28 +152,28 @@ public class InformationTab extends JPanel
 
    private void initController()
    {
-      morgenCheck.addActionListener(event -> {
+      morgenCheck.addActionListener(_ -> {
          Settings.setRepetition_one_day(morgenCheck.isSelected());
       });
-      tage_2_Check.addActionListener(event -> {
+      tage_2_Check.addActionListener(_ -> {
          Settings.setRepetition_two_days(tage_2_Check.isSelected());
       });
-      tage_5_Check.addActionListener(event -> {
+      tage_5_Check.addActionListener(_ -> {
          Settings.setRepetition_five_days(tage_5_Check.isSelected());
       });
-      tage_11_Check.addActionListener(event -> {
+      tage_11_Check.addActionListener(_ -> {
          Settings.setRepetition_eleven_days(tage_11_Check.isSelected());
       });
-      tage_19_Check.addActionListener(event -> {
+      tage_19_Check.addActionListener(_ -> {
          Settings.setRepetition_nineteen_days(tage_19_Check.isSelected());
       });
-      monate_1_Check.addActionListener(event -> {
+      monate_1_Check.addActionListener(_ -> {
          Settings.setRepetition_one_month(monate_1_Check.isSelected());
       });
-      monate_2_Check.addActionListener(event -> {
+      monate_2_Check.addActionListener(_ -> {
          Settings.setRepetition_two_months(monate_2_Check.isSelected());
       });
-      monate_5_Check.addActionListener(event -> {
+      monate_5_Check.addActionListener(_ -> {
          Settings.setRepetition_five_months(monate_5_Check.isSelected());
       });
    }

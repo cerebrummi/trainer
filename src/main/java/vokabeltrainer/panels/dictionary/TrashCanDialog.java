@@ -104,7 +104,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
 
    private void initController()
    {
-      this.restoreButton.addActionListener(event -> {
+      this.restoreButton.addActionListener(_ -> {
          if (isTableNotNull())
          {
             connector.restoreSelectedExpressions(
@@ -112,11 +112,11 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
          }
       });
 
-      this.selectAllInTableButton.addActionListener(event -> {
+      this.selectAllInTableButton.addActionListener(_ -> {
          connector.selectAllExpressionsInTable();
       });
 
-      clearInTableSelectedButton.addActionListener(event -> {
+      clearInTableSelectedButton.addActionListener(_ -> {
          connector.unselectAllExpressionsInTable();
       });
    }

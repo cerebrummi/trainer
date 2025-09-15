@@ -102,25 +102,25 @@ public class FieldOfTrainingTab extends JPanel
       buttonWrapper.add(nextButton);
       add(buttonWrapper, BorderLayout.SOUTH);
 
-      chapterButton.addActionListener(event -> {
+      chapterButton.addActionListener(_ -> {
          dialog.setFieldOfTraining(FieldOfTraining.AREA_CHAPTER);
          removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });
 
-      selectedButton.addActionListener(event -> {
+      selectedButton.addActionListener(_ -> {
          dialog.setFieldOfTraining(FieldOfTraining.AREA_SELECTED);
          removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });
       
-      onceButton.addActionListener(event -> {
+      onceButton.addActionListener(_ -> {
          dialog.setFieldOfTraining(FieldOfTraining.AREA_SELECTED_TEMPORARY);
          removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });
 
-      nextButton.addActionListener(event -> {
+      nextButton.addActionListener(_ -> {
 
          if (dialog.getTabbedPane().getTabCount() == 1)
          {
@@ -131,7 +131,7 @@ public class FieldOfTrainingTab extends JPanel
          dialog.getTabbedPane().setSelectedIndex(1);
       });
       
-      cancelButton.addActionListener(event -> {
+      cancelButton.addActionListener(_ -> {
          dialog.cancelTrainingStart();
       });
    }

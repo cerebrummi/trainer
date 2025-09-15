@@ -315,7 +315,7 @@ public class LanguageExpressionEditorView extends JDialog
       JPopupMenu popupGerman = new JPopupMenu();
       JMenuItem copyMenuGerman = new JMenuItem(
             translator.realisticTranslate(Translation.KOPIEREN));
-      copyMenuGerman.addActionListener(event -> {
+      copyMenuGerman.addActionListener(_ -> {
          StringSelection stringSelection = new StringSelection(
                searchwordsJListOwn.getSelectedValue());
          Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -373,7 +373,7 @@ public class LanguageExpressionEditorView extends JDialog
       JPopupMenu popupHebrew = new JPopupMenu();
       JMenuItem copyMenuHebrew = new JMenuItem(
             translator.realisticTranslate(Translation.KOPIEREN));
-      copyMenuHebrew.addActionListener(event -> {
+      copyMenuHebrew.addActionListener(_ -> {
          StringSelection stringSelection = new StringSelection(
                searchwordsJListNew.getSelectedValue());
          Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -825,7 +825,7 @@ public class LanguageExpressionEditorView extends JDialog
       labelEye.setBackground(ApplicationColors.getLightGrayBlue());
       labelEye.setBorder(BorderFactory.createEmptyBorder());
 
-      labelEye.addActionListener(event -> {
+      labelEye.addActionListener(_ -> {
          JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
                JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(
@@ -963,14 +963,14 @@ public class LanguageExpressionEditorView extends JDialog
 
    private void initController()
    {
-      ownLanguage.addActionListener(event -> {
+      ownLanguage.addActionListener(_ -> {
          if (!ownLanguage.getText().isEmpty())
          {
             ownLanguage.setBorder(makeBorderBlank(this.germanTitle));
          }
       });
 
-      newSearchwordOwn.addActionListener(event -> {
+      newSearchwordOwn.addActionListener(_ -> {
          String add = newSearchwordOwn.getText().replaceAll(",", "");
          add = TextHelper.cleanText(add);
          if (!add.isEmpty())
@@ -982,7 +982,7 @@ public class LanguageExpressionEditorView extends JDialog
          }
       });
 
-      deleteSearchwordButtonGerman.addActionListener(event -> {
+      deleteSearchwordButtonGerman.addActionListener(_ -> {
          if (searchwordsJListOwn.getSelectedValue() != null)
          {
             searchwordsSetGerman.remove(searchwordsJListOwn.getSelectedValue());
@@ -990,7 +990,7 @@ public class LanguageExpressionEditorView extends JDialog
          }
       });
 
-      newSearchwordNew.addActionListener(event -> {
+      newSearchwordNew.addActionListener(_ -> {
          String add = newSearchwordNew.getText().replaceAll(",", "");
          add = TextHelper.cleanText(add);
          if (!add.isEmpty())
@@ -1002,7 +1002,7 @@ public class LanguageExpressionEditorView extends JDialog
          }
       });
 
-      deleteSearchwordButtonHebrew.addActionListener(event -> {
+      deleteSearchwordButtonHebrew.addActionListener(_ -> {
          if (searchwordsJListNew.getSelectedValue() != null)
          {
             searchwordsSetHebrew.remove(searchwordsJListNew.getSelectedValue());
@@ -1010,7 +1010,7 @@ public class LanguageExpressionEditorView extends JDialog
          }
       });
 
-      saveButton.addActionListener(event -> {
+      saveButton.addActionListener(_ -> {
          if (testForCompletness())
          {
             save = true;
@@ -1019,20 +1019,20 @@ public class LanguageExpressionEditorView extends JDialog
          }
       });
 
-      restoreButton.addActionListener(event -> {
+      restoreButton.addActionListener(_ -> {
          setExpressionForReset();
          resetAllBorders();
       });
 
-      cancelButton.addActionListener(event -> {
+      cancelButton.addActionListener(_ -> {
          this.disposeDialog();
       });
 
-      loadImageButton.addActionListener(event -> {
+      loadImageButton.addActionListener(_ -> {
          connector.chooseImageForExpression();
       });
 
-      removeImageButton.addActionListener(event -> {
+      removeImageButton.addActionListener(_ -> {
          connector.deleteImageForExpression();
       });
 

@@ -144,7 +144,7 @@ public class LanguageTab extends JPanel
 
    private void initController()
    {
-      register.addChangeListener(event -> {
+      register.addChangeListener(_ -> {
          switch (register.getSelectedIndex())
          {
          case 0:

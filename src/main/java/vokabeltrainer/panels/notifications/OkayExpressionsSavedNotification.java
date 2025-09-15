@@ -19,7 +19,7 @@ public class OkayExpressionsSavedNotification
       dialog.setLocationRelativeTo(Common.getjFrame());
       dialog.setVisible(true);
 
-      new Timer(1000, event -> {
+      new Timer(1000, _ -> {
          dialog.setVisible(false);
       }).start();
    }

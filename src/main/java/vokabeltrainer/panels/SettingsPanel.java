@@ -279,7 +279,7 @@ public class SettingsPanel extends BackgroundPanelTiled
       JButton link = new JButton(translator.realisticTranslate(Translation.ERKLAEHR_VIDEO));
       link.setBackground(ApplicationColors.getGreen());
       link.setFont(ApplicationFonts.getButtonFont());
-      link.addActionListener(event -> {
+      link.addActionListener(_ -> {
          Desktop desktop = Desktop.getDesktop();
          try
          {
@@ -498,19 +498,19 @@ public class SettingsPanel extends BackgroundPanelTiled
 
    private void initController()
    {
-      soundslider.addChangeListener(event -> {
+      soundslider.addChangeListener(_ -> {
          if (!soundslider.getValueIsAdjusting())
          {
             Settings.setVolume(soundslider.getValue());
          }
       });
 
-      soundButton.addActionListener(event -> {
+      soundButton.addActionListener(_ -> {
          Settings.toggleSoundOnOff();
          soundButton.setIcon(new ImageIcon(Settings.getSound()));
       });
 
-      waveSoundButton.addActionListener(event -> {
+      waveSoundButton.addActionListener(_ -> {
          if (Settings.isSoundOn())
          {
             new SwingWorker<Void, Void>()
@@ -544,7 +544,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
       });
 
-      clappingSoundButton.addActionListener(event -> {
+      clappingSoundButton.addActionListener(_ -> {
          if (Settings.isSoundOn())
          {
             new SwingWorker<Void, Void>()
@@ -578,7 +578,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
       });
 
-      splotchSoundButton.addActionListener(event -> {
+      splotchSoundButton.addActionListener(_ -> {
          if (Settings.isSoundOn())
          {
             new SwingWorker<Void, Void>()
@@ -612,7 +612,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
       });
 
-      shredderSoundButton.addActionListener(event -> {
+      shredderSoundButton.addActionListener(_ -> {
          if (Settings.isSoundOn())
          {
             new SwingWorker<Void, Void>()
@@ -646,7 +646,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
       });
 
-      folderChooserButtonWithoutSaving.addActionListener(event -> {
+      folderChooserButtonWithoutSaving.addActionListener(_ -> {
 
          String pathOfFolder = choosesFolderForSave();
          if (pathOfFolder != null)
@@ -658,7 +658,7 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       });
 
-      importButton.addActionListener(event -> {
+      importButton.addActionListener(_ -> {
 
          InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
                translator.realisticTranslate(Translation.IMPORT));
@@ -702,7 +702,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
       });
 
-      exportButton.addActionListener(event -> {
+      exportButton.addActionListener(_ -> {
 
          InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(translator
                .realisticTranslate(Translation.EXPORT_ALLER_VOKABELN));
@@ -742,7 +742,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
       });
 
-      this.exportSelectedButton.addActionListener(event -> {
+      this.exportSelectedButton.addActionListener(_ -> {
          InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(translator
                .realisticTranslate(Translation.EXPORT_MARKIERTER_VOKABELN));
          dialog.setVisible(true);
@@ -781,7 +781,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
       });
 
-      exportDatabaseButton.addActionListener(event -> {
+      exportDatabaseButton.addActionListener(_ -> {
 
          String databaseChoosen = (String) JOptionPane.showInputDialog(
                Common.getMainJPanel(),
@@ -835,7 +835,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }
       });
 
-      this.deleteDatabaseButton.addActionListener(event -> {
+      this.deleteDatabaseButton.addActionListener(_ -> {
          String databaseChoosen = (String) JOptionPane.showInputDialog(
                Common.getMainJPanel(),
                translator.realisticTranslate(
@@ -876,7 +876,7 @@ public class SettingsPanel extends BackgroundPanelTiled
          }.execute();
       });
 
-      this.modus.addActionListener(event -> {
+      this.modus.addActionListener(_ -> {
          if (!Common.isSchabbat())
          {
             Settings.setSchabbat_modus(modus.isSelected());

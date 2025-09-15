@@ -170,7 +170,7 @@ public class DictionaryView extends JPanel
          button.setForeground(ApplicationColors.getDarkGold());
          button.setMinimumSize(new Dimension(90, 30));
          button.setMaximumSize(new Dimension(120, 60));
-         button.addActionListener(event -> this.connector
+         button.addActionListener(_ -> this.connector
                .switchLanguage(button.getActionCommand()));
          horizontalLanguagePanel.add(button);
       }
@@ -422,9 +422,9 @@ public class DictionaryView extends JPanel
       searchVertical.add(swapPanel);
 
       otherSearchButton
-            .addActionListener(event -> connector.searchOtherLanguage());
+            .addActionListener(_ -> connector.searchOtherLanguage());
 
-      mySearchButton.addActionListener(event -> connector.searchMyLanguage());
+      mySearchButton.addActionListener(_ -> connector.searchMyLanguage());
    }
 
    public void setWritingDirection()
@@ -779,37 +779,37 @@ public class DictionaryView extends JPanel
 
    private void initController()
    {
-      tabbedPane.addChangeListener(event -> connector
+      tabbedPane.addChangeListener(_ -> connector
             .tabbedPaneChanged(tabbedPane.getSelectedIndex()));
 
       copyAllSelectedButton
-            .addActionListener(event -> connector.copyAllSelectedExpressions(SortingType.valueOf(sortingGroup.getSelection().getActionCommand())));
+            .addActionListener(_ -> connector.copyAllSelectedExpressions(SortingType.valueOf(sortingGroup.getSelection().getActionCommand())));
 
       copyTableButton
-            .addActionListener(event -> connector.copyExpressionsOfTable());
+            .addActionListener(_ -> connector.copyExpressionsOfTable());
 
       copyInTableSelectedButton.addActionListener(
-            event -> connector.copyInTableSelectedExpressions());
+            _ -> connector.copyInTableSelectedExpressions());
 
       clearInTableSelectedButton
-            .addActionListener(event -> connector.unselectTableExpressions());
+            .addActionListener(_ -> connector.unselectTableExpressions());
 
       clearAllSelectedButton
-            .addActionListener(event -> connector.unselectAllExpressions());
+            .addActionListener(_ -> connector.unselectAllExpressions());
 
       deleteAllSelectedButton.addActionListener(
-            event -> connector.deleteAllSelectedExpressions());
+            _ -> connector.deleteAllSelectedExpressions());
 
       deleteInTableSelectedButton.addActionListener(
-            event -> connector.deleteInTableSelectedExpressions());
+            _ -> connector.deleteInTableSelectedExpressions());
 
-      wasteBinButton.addActionListener(event -> connector.openTrashCanDialog());
+      wasteBinButton.addActionListener(_ -> connector.openTrashCanDialog());
 
       selectAllInTableButton
-            .addActionListener(event -> connector.selectTableExpressions());
+            .addActionListener(_ -> connector.selectTableExpressions());
 
       shredderButton
-            .addActionListener(event -> connector.shredderDeletedExpressions());
+            .addActionListener(_ -> connector.shredderDeletedExpressions());
 
       searchPhraseMy.addKeyListener(new KeyAdapter()
       {
@@ -835,7 +835,7 @@ public class DictionaryView extends JPanel
          }
       });
 
-      tableInfoButton.addActionListener(event -> {
+      tableInfoButton.addActionListener(_ -> {
          JOptionPane.showMessageDialog(horizontalLanguagePanel, "",
                Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(
@@ -886,19 +886,19 @@ public class DictionaryView extends JPanel
          }
       });
 
-      sortForDateBox.addActionListener(event -> {
+      sortForDateBox.addActionListener(_ -> {
          connector.sortTableNow();
       });
 
-      sortForAlphabetBox.addActionListener(event -> {
+      sortForAlphabetBox.addActionListener(_ -> {
          connector.sortTableNow();
       });
 
-      sortForIndexBox.addActionListener(event -> {
+      sortForIndexBox.addActionListener(_ -> {
          connector.sortTableNow();
       });
 
-      moveToChapterButton.addActionListener(event -> {
+      moveToChapterButton.addActionListener(_ -> {
          String chapterAim = (String) chapterChoiceBox.getSelectedItem();
          chapterAim = cleanTextLeaveComma(chapterAim);
          if (chapterAim.isBlank())
@@ -919,7 +919,7 @@ public class DictionaryView extends JPanel
          }
       });
 
-      moveToDatabaseButton.addActionListener(event -> {
+      moveToDatabaseButton.addActionListener(_ -> {
          String databaseAim = (String) databaseChoiceBox.getSelectedItem();
          databaseAim = cleanTextLeaveComma(databaseAim);
          if (databaseAim.isBlank())
@@ -1152,7 +1152,7 @@ public class DictionaryView extends JPanel
          }
       });
 
-      scrollsearchButton.addActionListener(event -> {
+      scrollsearchButton.addActionListener(_ -> {
          table.scrollToExpression(scrollsearchButton.getIndexExpression());
          scrollsearchButton.nextIndex();
       });
@@ -1165,7 +1165,7 @@ public class DictionaryView extends JPanel
       scrollsearchField.getActionMap().put(searchCommand,
             new SearchAction(scrollsearchButton));
 
-      scrollsearchPinButton.addActionListener(event -> {
+      scrollsearchPinButton.addActionListener(_ -> {
          scrollsearchPinButton.setData(table.getSelectedExpressions(false));
          table.scrollToExpression(scrollsearchPinButton.getCurrentExpression());
          scrollsearchPinButton.nextExpression();

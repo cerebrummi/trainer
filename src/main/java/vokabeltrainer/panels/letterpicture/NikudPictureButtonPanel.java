@@ -88,19 +88,19 @@ public class NikudPictureButtonPanel extends JPanel
 
    private void initController()
    {
-      pictureButton.addActionListener(event -> {
+      pictureButton.addActionListener(_ -> {
          layout.next(this);
       });
 
-      letterButton.addActionListener(event -> {
+      letterButton.addActionListener(_ -> {
          layout.next(this);
       });
 
-      germanButton.addActionListener(event -> {
+      germanButton.addActionListener(_ -> {
          layout.next(this);
       });
 
-      hebrewButton.addActionListener(event -> {
+      hebrewButton.addActionListener(_ -> {
          layout.next(this);
       });
       

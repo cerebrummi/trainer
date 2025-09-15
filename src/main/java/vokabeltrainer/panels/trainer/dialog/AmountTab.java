@@ -66,7 +66,7 @@ public class AmountTab extends BackgroundPanelTiled
       buttonWrapper.add(nextButton);
       add(buttonWrapper, BorderLayout.SOUTH);
 
-      nextButton.addActionListener(event -> {
+      nextButton.addActionListener(_ -> {
          dialog.setNewExpressions(table.findNewExpressions(
                dialog.getLanguageDirection(), dialog.getFieldOfTraining()));
          if (dialog
@@ -77,7 +77,7 @@ public class AmountTab extends BackgroundPanelTiled
          dialog.initTraining();
       });
 
-      cancelButton.addActionListener(event -> {
+      cancelButton.addActionListener(_ -> {
          dialog.cancelTrainingStart();
       });
    }
