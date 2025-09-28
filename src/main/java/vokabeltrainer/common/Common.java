@@ -55,6 +55,7 @@ public final class Common
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
          
          UIManager.put("Button.foreground", ApplicationColors.getBlack());
+         UIManager.put("List.foreground", ApplicationColors.getBlack());
          
 //         UIManager.put("control", ApplicationColors.getWhite());
 //         UIManager.put("ComboBox.background", ApplicationColors.getDarkGold());
@@ -62,7 +63,7 @@ public final class Common
 //         UIManager.put("ComboBox.textField", ApplicationColors.getWhite());
          
          
-         /*UIManager.put("List.foreground", ApplicationColors.getBlack());
+         /*
          
          UIManager.put("controlHighlight", ApplicationColors.getLightGrayBlue());
          UIManager.put("info", ApplicationColors.getWhite());

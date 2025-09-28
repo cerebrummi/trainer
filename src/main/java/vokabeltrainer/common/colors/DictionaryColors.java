@@ -58,6 +58,15 @@ public class DictionaryColors
       return ApplicationColors.darkGold;
    }
 
+   public static Color getLightGrayGold()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.lightGrayGold;
+      }
+      return ApplicationColors.lightGrayGold;
+   }
+
 }
 
 

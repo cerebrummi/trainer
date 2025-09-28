@@ -9,6 +9,7 @@ import javax.swing.JList;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.colors.DictionaryColors;
 import vokabeltrainer.types.Chapter;
 
 public class ChapterListCellRenderer extends DefaultListCellRenderer
@@ -20,7 +21,7 @@ public class ChapterListCellRenderer extends DefaultListCellRenderer
    public ChapterListCellRenderer()
    {
       label = new JLabel();
-      label.setBackground(ApplicationColors.getLightGrayGold());
+      label.setBackground(DictionaryColors.getLightGrayGold());
       label.setFont(ApplicationFonts.getInternationalFont());
    }
 

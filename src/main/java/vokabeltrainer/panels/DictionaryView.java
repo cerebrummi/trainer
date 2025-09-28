@@ -670,9 +670,9 @@ public class DictionaryView extends JPanel
 
       JPanel copyPanel = new JPanel();
       copyPanel.setLayout(new TotemLayout(copyPanel, 10));
-      copyPanel.setBackground(ApplicationColors.getLightBlue());
+      copyPanel.setBackground(DictionaryColors.getBackground());
       copyPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
-            new Color(215, 231, 247)));
+            DictionaryColors.getBackground()));
       copyPanel.add(copyInTableSelectedButton);
       copyPanel.add(copyTableButton);
       copyPanel.add(copyAllSelectedButton);
@@ -681,7 +681,7 @@ public class DictionaryView extends JPanel
       selectUnselectPanel.setLayout(new TotemLayout(selectUnselectPanel, 10));
       selectUnselectPanel.setBackground(DictionaryColors.getBackground());
       selectUnselectPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
-            ApplicationColors.getWhite()));
+            DictionaryColors.getBackground()));
       selectUnselectPanel.add(selectAllInTableButton);
       selectUnselectPanel.add(clearInTableSelectedButton);
       selectUnselectPanel.add(clearAllSelectedButton);
@@ -698,7 +698,7 @@ public class DictionaryView extends JPanel
       infoPanel.setLayout(new TrainLayout(infoPanel, 10));
       infoPanel.setBackground(DictionaryColors.getBackground());
       infoPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
-            ApplicationColors.getDarkGold()));
+            DictionaryColors.getBackground()));
 
       JLabel infoLabel = new JLabel(
             translator.realisticTranslate(Translation.TABELLE_BEDIENEN));
@@ -709,7 +709,7 @@ public class DictionaryView extends JPanel
 
       tableInfoButton = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
-      tableInfoButton.setBackground(new Color(0, 0, 0, 0));
+      tableInfoButton.setBackground(ApplicationColors.getTransparent());
       tableInfoButton.setMinimumSize(new Dimension(20, 40));
       tableInfoButton.setMaximumSize(new Dimension(20, 40));
       tableInfoButton.setMargin(new Insets(0, 0, 0, 0));

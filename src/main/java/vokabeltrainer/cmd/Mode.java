@@ -2,7 +2,7 @@ package vokabeltrainer.cmd;
 
 public enum Mode
 {
-   LOCAL_ORIGINAL(false, false, true),
+   LOCAL_ORIGINAL(false, false, true), // Standard
    LOCAL_MARIX(true, false, false),
    WEB_ORIGINAL(false, true, true),
    WEB_MARIX(true, true, false);
