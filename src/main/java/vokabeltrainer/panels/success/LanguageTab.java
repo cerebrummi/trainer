@@ -8,11 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
+import vokabeltrainer.common.colors.SuccessColors;
 import vokabeltrainer.panels.success.table.SuccessTable;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -47,8 +47,8 @@ public class LanguageTab extends JPanel
       this.infoPanel = infoPanel;
       this.languageDirection = languageDirection;
       this.setLayout(new BorderLayout());
-      this.setOpaque(false);
-      this.setBackground(ApplicationColors.getTransparent());
+      this.setOpaque(true);
+      this.setBackground(SuccessColors.getPanelBackground());
    }
 
    public void loadBoxes()
@@ -56,6 +56,8 @@ public class LanguageTab extends JPanel
       this.removeAll();
 
       register = new JTabbedPane();
+      register.setOpaque(true);
+      register.setBackground(SuccessColors.getPanelBackground());
       register.setFont(ApplicationFonts.getSecondaryToolbarButtonFont());
 
       register.addTab(translator.realisticTranslate(Translation.RICHTUNG), infoPanel); // 0
@@ -78,7 +80,9 @@ public class LanguageTab extends JPanel
 
    private Component initNotStarted()
    {
-      notStartedPanel = new BackgroundPanelTiled(new BorderLayout());
+      notStartedPanel = new JPanel(new BorderLayout());
+      notStartedPanel.setOpaque(true);
+      notStartedPanel.setBackground(SuccessColors.getPanelBackground());
       return notStartedPanel;
    }
 
@@ -154,7 +158,7 @@ public class LanguageTab extends JPanel
             JPanel wrapper = new JPanel();
             BullsEyeLayout wrapperLayout = new BullsEyeLayout(wrapper);
             wrapper.setLayout(wrapperLayout);
-            wrapper.setBackground(ApplicationColors.getDarkGold());
+            wrapper.setBackground(SuccessColors.getPanelBackgroundLight());
             wrapper.setOpaque(true);         
             
             SuccessTable table = new SuccessTable(
@@ -162,7 +166,7 @@ public class LanguageTab extends JPanel
             JScrollPane scroller = new JScrollPane(table);
             scroller.setMinimumSize(new Dimension(1017,508));
             scroller.setMaximumSize(new Dimension(1200,655));
-            scroller.setBackground(ApplicationColors.getDarkGold());
+            scroller.setBackground(SuccessColors.getPanelBackground());
             scroller.setOpaque(true);
             scroller.getViewport().setBackground(ApplicationColors.getLightBlue());
             scroller.getViewport().setOpaque(true);

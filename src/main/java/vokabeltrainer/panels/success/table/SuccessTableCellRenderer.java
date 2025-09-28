@@ -14,6 +14,7 @@ import javax.swing.table.TableCellRenderer;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.colors.SuccessColors;
 import vokabeltrainer.panels.success.table.list.SuccessList;
 import vokabeltrainer.types.Expression;
 
@@ -29,21 +30,24 @@ public class SuccessTableCellRenderer
    public SuccessTableCellRenderer()
    {
       selected = new JLabel(new ImageIcon(ApplicationImages.getSelect()));
-      selected.setBackground(ApplicationColors.getVeryLightGold());
+      selected.setBackground(SuccessColors.getTableBackground());
       selected.setOpaque(true);
       
       empty = new JLabel();
-      empty.setBackground(ApplicationColors.getVeryLightGold());
+      empty.setBackground(SuccessColors.getTableBackground());
       empty.setOpaque(true);
+      empty.setForeground(SuccessColors.getTextForeground());
 
       content = new SuccessList();
-      content.setBackground(ApplicationColors.getVeryLightGold());
+      content.setBackground(SuccessColors.getTableBackground());
+      content.setForeground(SuccessColors.getTextForeground());
       content.setOpaque(true);;
       
       chapter = new JLabel();
       chapter.setFont(ApplicationFonts.getGermanFont(20));
-      chapter.setBackground(ApplicationColors.getVeryLightGold());
+      chapter.setBackground(SuccessColors.getTableBackground());
       chapter.setOpaque(true);
+      chapter.setForeground(SuccessColors.getTextForeground());
       chapter.setHorizontalAlignment(SwingConstants.CENTER);
    }
 

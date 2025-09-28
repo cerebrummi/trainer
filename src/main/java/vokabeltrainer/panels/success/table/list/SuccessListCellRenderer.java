@@ -11,6 +11,7 @@ import javax.swing.ListCellRenderer;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.colors.SuccessColors;
 
 public class SuccessListCellRenderer implements ListCellRenderer<Object>, Serializable
 {
@@ -46,6 +47,10 @@ public class SuccessListCellRenderer implements ListCellRenderer<Object>, Serial
       german.setFont(ApplicationFonts.getGermanFont(16F));
       hebrew.setFont(ApplicationFonts.getHebrewFont(20F));
       grammar.setFont(ApplicationFonts.getGermanFont(16F));
+      
+      german.setForeground(SuccessColors.getTextForeground());
+      hebrew.setForeground(SuccessColors.getTextForeground());
+      grammar.setForeground(SuccessColors.getTextForeground());
       
       hebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
    }

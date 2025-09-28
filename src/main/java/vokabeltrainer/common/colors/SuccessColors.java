@@ -30,4 +30,22 @@ public class SuccessColors
       }
       return ApplicationColors.backgroundGold;
    }
+   
+   public static Color getPanelBackgroundLight()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.mediumSilverBlue;
+      }
+      return ApplicationColors.backgroundGold;
+   }
+
+   public static Color getTableBackground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.slategray;
+      }
+      return ApplicationColors.backgroundGold;
+   }
 }
