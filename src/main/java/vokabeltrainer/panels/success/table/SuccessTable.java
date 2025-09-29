@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import vokabeltrainer.common.colors.SuccessColors;
 import vokabeltrainer.types.Expression;
@@ -17,7 +18,7 @@ public class SuccessTable extends JTable
    public SuccessTable(SuccessTableModel model)
    {
       super(model, new SuccessTableColumnModel());
-      this.setShowVerticalLines(false);
+      this.setShowVerticalLines(true);
       setOpaque(true);
       setRowHeight(75);
       setShowHorizontalLines(true);
@@ -26,6 +27,10 @@ public class SuccessTable extends JTable
       this.setColumnSelectionAllowed(false);
       this.setCellSelectionEnabled(false);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+      DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer(); 
+      headerRenderer.setForeground(SuccessColors.getTextForeground());
+      headerRenderer.setBackground(SuccessColors.getPanelBackgroundLight());
+      this.getTableHeader().setDefaultRenderer(headerRenderer);
       
       addMouseListener(new MouseAdapter()
       {
