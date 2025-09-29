@@ -39,7 +39,7 @@ public class ApplicationColors
    {
       if(Settings.isDarkmodeOn())
       {
-         return Color.DARK_GRAY; // list background color A
+         return slategray;
       }
       return lightBlue;
    }

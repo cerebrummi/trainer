@@ -83,12 +83,14 @@ public class LanguageTab extends JPanel
       notStartedPanel = new JPanel(new BorderLayout());
       notStartedPanel.setOpaque(true);
       notStartedPanel.setBackground(SuccessColors.getPanelBackground());
-      return notStartedPanel;
+      return SuccessHelper.makePanel(notStartedPanel);
    }
 
    private Component initNow()
    {
       nowPanel = new JPanel();
+      nowPanel.setOpaque(true);
+      nowPanel.setBackground(SuccessColors.getPanelBackground());
       return SuccessHelper.makePanel(nowPanel);
    }
 
@@ -154,26 +156,8 @@ public class LanguageTab extends JPanel
          case 0:
             break;
          case 1:
-            notStartedPanel.removeAll();
-            JPanel wrapper = new JPanel();
-            BullsEyeLayout wrapperLayout = new BullsEyeLayout(wrapper);
-            wrapper.setLayout(wrapperLayout);
-            wrapper.setBackground(SuccessColors.getPanelBackgroundLight());
-            wrapper.setOpaque(true);         
-            
-            SuccessTable table = new SuccessTable(
-                  Data.findSuccessModel(languageDirection, null));
-            JScrollPane scroller = new JScrollPane(table);
-            scroller.setMinimumSize(new Dimension(1017,508));
-            scroller.setMaximumSize(new Dimension(1200,655));
-            scroller.setBackground(SuccessColors.getPanelBackground());
-            scroller.setOpaque(true);
-            scroller.getViewport().setBackground(ApplicationColors.getLightBlue());
-            scroller.getViewport().setOpaque(true);
-            
-            wrapper.add(scroller);
-            
-            notStartedPanel.add(wrapper, BorderLayout.CENTER);
+            SuccessHelper.addContent(null, notStartedPanel,
+                  languageDirection);
             break;
          case 2:
             SuccessHelper.addContent(Repetition.NOW, nowPanel,
