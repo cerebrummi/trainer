@@ -68,11 +68,13 @@ public class StatisticsTableCellRenderer
       {
          if (isSelected)
          {
-            expressionsHtoD.setBackground(StatisticsColors.getTableCellHighlightBackground());
+            expressionsHtoD.setBackground(StatisticsColors.getSelectedBackground());
+            expressionsHtoD.setForeground(StatisticsColors.getTextForeground());
          }
          else
          {
             expressionsHtoD.setBackground(StatisticsColors.getTableCellBackground());
+            expressionsHtoD.setForeground(StatisticsColors.getTextForegroundInvers());
          }
          expressionsHtoD
                .setText(String.valueOf(renderedRow.getExpressionsHtoDSize()));
@@ -82,11 +84,13 @@ public class StatisticsTableCellRenderer
       // column == 2
       if (isSelected)
       {
-         expressionsDtoH.setBackground(StatisticsColors.getTableCellHighlightBackground());
+         expressionsDtoH.setBackground(StatisticsColors.getSelectedBackground());
+         expressionsDtoH.setForeground(StatisticsColors.getTextForeground());
       }
       else
       {
          expressionsDtoH.setBackground(StatisticsColors.getTableCellBackground());
+         expressionsDtoH.setForeground(StatisticsColors.getTextForegroundInvers());
       }
       expressionsDtoH
             .setText(String.valueOf(renderedRow.getExpressionsDtoHSize()));

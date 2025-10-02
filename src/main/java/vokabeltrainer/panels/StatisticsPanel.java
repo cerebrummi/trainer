@@ -51,7 +51,7 @@ public class StatisticsPanel extends JPanel
       wordPanel.setMinimumSize(new Dimension(500, 160));
       wordPanel.setMaximumSize(new Dimension(700, 800));
       wordPanel.setOpaque(true);
-      wordPanel.setBackground(StatisticsColors.getTextBackground());
+      wordPanel.setBackground(StatisticsColors.getSelectedBackground());
 
       horizontalPanel.add(tablePanel);
       horizontalPanel.add(wordPanel);
@@ -99,11 +99,11 @@ public class StatisticsPanel extends JPanel
                   JScrollPane scroller = new JScrollPane(
                         statisticsTableRow.getJListHtoD());
                   scroller.setOpaque(true);
-                  scroller.setBackground(StatisticsColors.getTextBackground());
+                  scroller.setBackground(StatisticsColors.getSelectedBackground());
                   scroller.setBorder(BorderFactory.createEmptyBorder());
                   scroller.getViewport().setOpaque(true);
                   scroller.getViewport()
-                        .setBackground(StatisticsColors.getTextBackground());
+                        .setBackground(StatisticsColors.getSelectedBackground());
                   scroller.setViewportBorder(BorderFactory.createEmptyBorder());
                   wordPanel.add(scroller);
                }
@@ -114,11 +114,11 @@ public class StatisticsPanel extends JPanel
                   JScrollPane scroller = new JScrollPane(
                         statisticsTableRow.getJListDtoH());
                   scroller.setOpaque(true);
-                  scroller.setBackground(StatisticsColors.getTextBackground());
+                  scroller.setBackground(StatisticsColors.getSelectedBackground());
                   scroller.setBorder(BorderFactory.createEmptyBorder());
                   scroller.getViewport().setOpaque(true);
                   scroller.getViewport()
-                        .setBackground(StatisticsColors.getTextBackground());
+                        .setBackground(StatisticsColors.getSelectedBackground());
                   scroller.setViewportBorder(BorderFactory.createEmptyBorder());
                   wordPanel.add(scroller);
                }

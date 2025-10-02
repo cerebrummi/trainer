@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.colors.StatisticsColors;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.Translator;
@@ -28,8 +29,8 @@ public class StatisticsTableRow
    private DateTimeFormatter dateFormatter;
    int row;
    StatisticsTableModel model;
-private List<Expression> expressionsHtoD;
-private List<Expression> expressionsDtoH;
+   private List<Expression> expressionsHtoD;
+   private List<Expression> expressionsDtoH;
 
    public StatisticsTableRow(int row, LocalDate date,
          List<Expression> expressionsDtoH, List<Expression> expressionsHtoD,
@@ -41,21 +42,23 @@ private List<Expression> expressionsDtoH;
       this.expressionsHtoD = expressionsHtoD;
       if (TranslationCode.de_original == Settings.getTranslationCode())
       {
-         dateFormatter = DateTimeFormatter
-               .ofPattern("EEEE "
-                     + translator.realisticTranslate(Translation._DATE), Locale.GERMANY);
+         dateFormatter = DateTimeFormatter.ofPattern(
+               "EEEE " + translator.realisticTranslate(Translation._DATE),
+               Locale.GERMANY);
       }
       else if (TranslationCode.en == Settings.getTranslationCode())
       {
-         dateFormatter = DateTimeFormatter
-               .ofPattern("EEEE "
-                     + translator.realisticTranslate(Translation._DATE), Locale.US);
+         dateFormatter = DateTimeFormatter.ofPattern(
+               "EEEE " + translator.realisticTranslate(Translation._DATE),
+               Locale.US);
       }
-      
-      Collections.sort(this.expressionsDtoH, new ExpressionComparator(SortingType.DATE, null));
-      
-      Collections.sort(this.expressionsHtoD, new ExpressionComparator(SortingType.DATE, null));
-      
+
+      Collections.sort(this.expressionsDtoH,
+            new ExpressionComparator(SortingType.DATE, null));
+
+      Collections.sort(this.expressionsHtoD,
+            new ExpressionComparator(SortingType.DATE, null));
+
       this.model = model;
    }
 
@@ -73,7 +76,7 @@ private List<Expression> expressionsDtoH;
    {
       return date.format(dateFormatter);
    }
-   
+
    public LocalDate getLocalDate()
    {
       return date;
@@ -81,13 +84,15 @@ private List<Expression> expressionsDtoH;
 
    public Component getJListHtoD()
    {
-	  JPanel list = new JPanel();
-	  LayoutManager layout = new TotemLayout(list);
-	  list.setLayout(layout);
-	  
-      for(Expression expression : expressionsHtoD)
+      JPanel list = new JPanel();
+      list.setOpaque(true);
+      list.setBackground(StatisticsColors.getSelectedBackground());
+      LayoutManager layout = new TotemLayout(list);
+      list.setLayout(layout);
+
+      for (Expression expression : expressionsHtoD)
       {
-        list.add(new ListImageRow(expression, Direction.NEW_TO_OWN));
+         list.add(new ListImageRow(expression, Direction.NEW_TO_OWN));
       }
 
       return list;
@@ -95,15 +100,17 @@ private List<Expression> expressionsDtoH;
 
    public Component getJListDtoH()
    {
-	   JPanel list = new JPanel();
-		  LayoutManager layout = new TotemLayout(list);
-		  list.setLayout(layout);
-		  
-	      for(Expression expression : expressionsDtoH)
-	      {
-	        list.add(new ListImageRow(expression, Direction.OWN_TO_NEW));
-	      }
+      JPanel list = new JPanel();
+      list.setOpaque(true);
+      list.setBackground(StatisticsColors.getSelectedBackground());
+      LayoutManager layout = new TotemLayout(list);
+      list.setLayout(layout);
 
-	   return list;
+      for (Expression expression : expressionsDtoH)
+      {
+         list.add(new ListImageRow(expression, Direction.OWN_TO_NEW));
+      }
+
+      return list;
    }
 }

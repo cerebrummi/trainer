@@ -2,21 +2,14 @@ package vokabeltrainer.panels.success;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
-
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.common.colors.SuccessColors;
-import vokabeltrainer.panels.success.table.SuccessTable;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
-import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Repetition;
 

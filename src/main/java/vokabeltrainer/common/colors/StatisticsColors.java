@@ -93,4 +93,22 @@ public class StatisticsColors
       }
       return ApplicationColors.veryLightGold;
    }
+
+   public static Color getSelectedBackground()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.slategray;
+      }
+      return ApplicationColors.backgroundGold;
+   }
+
+   public static Color getTextForegroundInvers()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.black;
+      }
+      return ApplicationColors.white;
+   }
 }
