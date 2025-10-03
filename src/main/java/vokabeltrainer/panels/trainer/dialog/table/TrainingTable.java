@@ -1,6 +1,5 @@
 package vokabeltrainer.panels.trainer.dialog.table;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,6 +10,7 @@ import java.util.Set;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.LanguageDirection;
@@ -29,7 +29,7 @@ public class TrainingTable extends JTable
       setOpaque(false);
       setRowHeight(50);
       setShowHorizontalLines(false);
-      setBackground(new Color(0, 0, 0, 0));
+      setBackground(TrainerColors.getPanelBackgroundDark());
       this.setRowSelectionAllowed(true);
       this.setColumnSelectionAllowed(true);
       this.setCellSelectionEnabled(true);

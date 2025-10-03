@@ -36,7 +36,8 @@ public class FieldOfTrainingTab extends JPanel
    public FieldOfTrainingTab(StartTrainingView dialog)
    {
       setLayout(new BorderLayout());
-      setBackground(TrainerColors.getPanelBackground());
+      setBackground(TrainerColors.getPanelBackgroundDark());
+      setOpaque(true);
 
       JLabel question = new JLabel(translator.realisticTranslate(Translation.WOHER_SOLLEN_DIE_VOKABELN_STAMMEN_));
       question.setForeground(TrainerColors.getTextForeground());

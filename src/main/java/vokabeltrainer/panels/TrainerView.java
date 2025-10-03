@@ -30,7 +30,6 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.ComponentTitledBorder;
 import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputLanguagePanel;
@@ -64,7 +63,7 @@ import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.LanguageDirection;
 
-public class TrainerView extends BackgroundPanelTiled
+public class TrainerView extends JPanel
 {
    private static final long serialVersionUID = -6552073033311684589L;
 
@@ -118,7 +117,7 @@ public class TrainerView extends BackgroundPanelTiled
       this.languageDirection = connector.getLanguageDirection();
       BullsEyeLayout trainerLayout = new BullsEyeLayout(this);
       setLayout(trainerLayout);
-      setBackground(TrainerColors.getPanelBackground());
+      setBackground(TrainerColors.getPanelBackgroundDark());
       verticalTrainerPanel = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalTrainerPanel);
       verticalTrainerPanel.setLayout(verticalLayout);
@@ -244,7 +243,7 @@ public class TrainerView extends BackgroundPanelTiled
       textFieldPanelWrapper = new JPanel();
       BullsEyeLayout wrapperLayout = new BullsEyeLayout(textFieldPanelWrapper);
       textFieldPanelWrapper.setLayout(wrapperLayout);
-      textFieldPanelWrapper.setBackground(ApplicationColors.getLightBlue());
+      textFieldPanelWrapper.setBackground(TrainerColors.getTextBackground());
 
       return textFieldPanelWrapper;
    }
@@ -257,9 +256,9 @@ public class TrainerView extends BackgroundPanelTiled
       questionField.setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
       questionField.setLineWrap(true);
       questionField.setWrapStyleWord(true);
-      questionField.setOpaque(false);
-      questionField.setBackground(ApplicationColors.getTransparent());
-      questionField.setForeground(ApplicationColors.getShadyBlue());
+      questionField.setOpaque(true);
+      questionField.setBackground(TrainerColors.getTextBackground());
+      questionField.setForeground(TrainerColors.getInfoTextForeground());
       questionField.setBorder(
             BorderFactory.createTitledBorder(translator.realisticTranslate(
                   Translation.WIE_LAUTET_DIE_UEBERSETZUNG_DIESES_BEGRIFFES_)));
@@ -268,8 +267,8 @@ public class TrainerView extends BackgroundPanelTiled
       questionField.setEditable(false);
 
       questionFieldLL = new InputLanguagePanel(Selection.SIMPLE, 160, 10, false,
-            this, 1268, ApplicationColors.getLightBlue());
-      questionFieldLL.setBackground(ApplicationColors.getLightBlue());
+            this, 1268, TrainerColors.getInfoTextForeground());
+      questionFieldLL.setBackground(TrainerColors.getTextBackground());
       questionFieldLL.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(ApplicationColors.getLightBlue()),
             translator.realisticTranslate(
@@ -410,6 +409,7 @@ public class TrainerView extends BackgroundPanelTiled
             translator.realisticTranslate(Translation.NAECHSTES_WORT));
       nextWordButton.setIcon(new ImageIcon(ApplicationImages.getStart()));
       nextWordButton.setEnabled(false);
+      nextWordButton.setForeground(TrainerColors.getTextForeground());
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
@@ -459,6 +459,7 @@ public class TrainerView extends BackgroundPanelTiled
       stopTrainingButton = new JButton(
             translator.realisticTranslate(Translation.ABBRECHEN));
       stopTrainingButton.setIcon(new ImageIcon(ApplicationImages.getStop()));
+      stopTrainingButton.setForeground(TrainerColors.getTextForeground());
 
       verticalLeftPanel.add(choices);
       verticalLeftPanel.add(numbers);
@@ -732,6 +733,7 @@ public class TrainerView extends BackgroundPanelTiled
       }
 
       sendButton.setFont(ApplicationFonts.getButtonFont());
+      sendButton.setForeground(TrainerColors.getTextForeground());
       sendButton.setIcon(new ImageIcon(ApplicationImages.getSend()));
       sendButton.setMinimumSize(new Dimension(300, 40));
       sendButton.setMaximumSize(new Dimension(501, 40));
@@ -865,10 +867,11 @@ public class TrainerView extends BackgroundPanelTiled
       JPanel answerPanel1 = new JPanel();
       answerPanel1.setLayout(new TotemLayout(answerPanel1));
       answerPanel1
-            .setBackground(ApplicationColors.getTexturedBackgroundColor());
+            .setBackground(TrainerColors.getBackground());
       JLabel correctAnswer = new JLabel(translator
             .realisticTranslate(Translation.DIE_RICHTIGE_ANTWORT_LAUTET_));
       correctAnswer.setFont(ApplicationFonts.getGermanFont(16F));
+      correctAnswer.setForeground(TrainerColors.getTextForeground());
       correctAnswer.setMinimumSize(new Dimension(490, 30));
       correctAnswer.setMaximumSize(new Dimension(510, 30));
       JLabel correctAnswer2 = new JLabel(
@@ -880,7 +883,7 @@ public class TrainerView extends BackgroundPanelTiled
             connector.getCurrentExpression().getGrammarInfo(false));
       correctAnswer3.setFont(ApplicationFonts.getGermanFont(16F));
       correctAnswer3.setEditable(false);
-      correctAnswer3.setBackground(ApplicationColors.getTransparent());
+      correctAnswer3.setBackground(TrainerColors.getTransparent());
       correctAnswer3.setOpaque(false);
       correctAnswer3.setBorder(BorderFactory.createEmptyBorder());
       JScrollPane scroller = new JScrollPane(correctAnswer3);
@@ -888,8 +891,8 @@ public class TrainerView extends BackgroundPanelTiled
       scroller.setMaximumSize(new Dimension(510, 40));
       scroller.setBorder(BorderFactory.createEmptyBorder());
       scroller.getViewport()
-            .setBackground(ApplicationColors.getTexturedBackgroundColor());
-      scroller.setBackground(ApplicationColors.getTexturedBackgroundColor());
+            .setBackground(TrainerColors.getPanelBackground());
+      scroller.setBackground(TrainerColors.getPanelBackground());
 
       answerPanel1.add(correctAnswer);
       answerPanel1.add(correctAnswer2);
@@ -900,7 +903,7 @@ public class TrainerView extends BackgroundPanelTiled
       answerPanel2.setMinimumSize(new Dimension(501, 100));
       answerPanel2.setMaximumSize(new Dimension(501, 100));
       answerPanel2
-            .setBackground(ApplicationColors.getTexturedBackgroundColor());
+            .setBackground(TrainerColors.getPanelBackground());
 
       feedbackPanel.add(answerPanel1);
       feedbackPanel.add(answerPanel2);
@@ -1078,7 +1081,7 @@ public class TrainerView extends BackgroundPanelTiled
       scrollPane.setMaximumSize(new Dimension(501, 120));
       scrollPane.setOpaque(true);
       scrollPane.getViewport()
-            .setBackground(ApplicationColors.getTexturedBackgroundColor());
+            .setBackground(TrainerColors.getPanelBackground());
 
       JPanel fillerAnswerPanel = new JPanel();
       TotemLayout fillerAnswerLayout = new TotemLayout(fillerAnswerPanel);
@@ -1087,7 +1090,7 @@ public class TrainerView extends BackgroundPanelTiled
       fillerAnswerPanel.setMaximumSize(new Dimension(501, 100));
       fillerAnswerPanel.setOpaque(true);
       fillerAnswerPanel
-            .setBackground(ApplicationColors.getTexturedBackgroundColor());
+            .setBackground(TrainerColors.getPanelBackground());
 
       feedbackPanel.add(scrollPane);
       feedbackPanel.add(fillerAnswerPanel);

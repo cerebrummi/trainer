@@ -75,4 +75,18 @@ public class TrainerColors
       }
       return ApplicationColors.darkGold;
    }
+
+   public static Color getPanelBackgroundDark()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return ApplicationColors.slategray;
+      }
+      return ApplicationColors.backgroundGold;
+   }
+
+   public static Color getTransparent()
+   {
+      return ApplicationColors.transparent;
+   }
 }

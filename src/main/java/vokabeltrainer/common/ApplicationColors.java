@@ -30,6 +30,7 @@ public class ApplicationColors
    public static Color transparent = new Color(0,0,0,0);
    public static Color slategray = new Color(81,81,91);
    public static Color black = Color.BLACK;
+   public static Color red = Color.RED;
    
    private ApplicationColors()
    {

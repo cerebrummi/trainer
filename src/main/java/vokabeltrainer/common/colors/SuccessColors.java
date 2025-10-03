@@ -37,7 +37,7 @@ public class SuccessColors
       {
          return ApplicationColors.mediumSilverBlue;
       }
-      return ApplicationColors.backgroundGold;
+      return ApplicationColors.mediumSilverBlue;
    }
 
    public static Color getTableBackground()
@@ -46,6 +46,6 @@ public class SuccessColors
       {
          return ApplicationColors.slategray;
       }
-      return ApplicationColors.backgroundGold;
+      return ApplicationColors.white;
    }
 }

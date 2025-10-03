@@ -46,6 +46,7 @@ import vokabeltrainer.common.Main;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.Settings.OperatingSystem;
+import vokabeltrainer.common.colors.SettingsColors;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -112,7 +113,23 @@ public class SettingsPanel extends BackgroundPanelTiled
 
       add(tabbedPane);
 
+      initColors();
+      
       initController();
+   }
+
+   private void initColors()
+   {
+      waveSoundButton.setForeground(SettingsColors.getTextForeground());
+      clappingSoundButton.setForeground(SettingsColors.getTextForeground());
+      splotchSoundButton.setForeground(SettingsColors.getTextForeground());
+      shredderSoundButton.setForeground(SettingsColors.getTextForeground());
+      importButton.setForeground(SettingsColors.getTextForeground());
+      exportButton.setForeground(SettingsColors.getTextForeground());
+      exportSelectedButton.setForeground(SettingsColors.getTextForeground());
+      exportDatabaseButton.setForeground(SettingsColors.getTextForeground());
+      deleteDatabaseButton.setForeground(SettingsColors.getTextForeground());
+      folderChooserButtonWithoutSaving.setForeground(SettingsColors.getTextForeground());
    }
 
    private Component initSchabbatTab()

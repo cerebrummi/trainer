@@ -9,18 +9,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
+import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTable;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.FieldOfTraining;
 
-public class AmountTab extends BackgroundPanelTiled
+public class AmountTab extends JPanel
 {
    private static final long serialVersionUID = -5609291190819549709L;
 
@@ -29,9 +29,12 @@ public class AmountTab extends BackgroundPanelTiled
    public AmountTab(StartTrainingView dialog)
    {
       setLayout(new BorderLayout());
+      setBackground(TrainerColors.getPanelBackground());
+      setOpaque(true);
 
       JLabel question = new JLabel(translator.realisticTranslate(
             Translation.WIE_VIELE_NEUE_WOERTER_MOECHTEN_SIE_LERNEN_));
+      question.setForeground(TrainerColors.getTextForeground());
       question.setFont(ApplicationFonts.getButtonFont());
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -46,20 +49,27 @@ public class AmountTab extends BackgroundPanelTiled
       TrainingTable table = new TrainingTable(model);
 
       JScrollPane scroller = new JScrollPane(table);
+      scroller.setForeground(TrainerColors.getTextForeground());
+      scroller.setBackground(TrainerColors.getTextBackground());
       center.add(scroller);
 
       add(center, BorderLayout.CENTER);
 
       JPanel buttonWrapper = new JPanel(new FlowLayout());
+      buttonWrapper.setOpaque(false);
 
       JButton cancelButton = new JButton(
             translator.realisticTranslate(Translation.ABBRECHEN));
       cancelButton.setFont(ApplicationFonts.getButtonFont());
+      cancelButton.setBackground(TrainerColors.getButton());
+      cancelButton.setForeground(TrainerColors.getButtonForeground());
       cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
 
       JButton nextButton = new JButton(
             translator.realisticTranslate(Translation.WEITER));
       nextButton.setFont(ApplicationFonts.getButtonFont());
+      nextButton.setBackground(TrainerColors.getButton());
+      nextButton.setForeground(TrainerColors.getButtonForeground());
       nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));
 
       buttonWrapper.add(cancelButton);

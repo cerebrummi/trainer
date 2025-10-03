@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class HebrewAnswerWordPanel extends JPanel
@@ -19,16 +19,15 @@ public class HebrewAnswerWordPanel extends JPanel
             result.getWidth() + (result.getFeedbackImageList().size() - 1) * 4,
             110));
       this.setLayout(new TrainLayout(this, 4));
+      this.setOpaque(false);
 
       for (BufferedImage image : result.getFeedbackImageList())
       {
          JLabel label = new JLabel(new ImageIcon(image));
+         label.setBackground(TrainerColors.getPanelBackground());
          label.setMinimumSize(new Dimension(image.getWidth(), 110));
          label.setMaximumSize(new Dimension(image.getWidth(), 110));
          this.add(label);
       }
-      
-      this.setOpaque(true);
-      this.setBackground(ApplicationColors.getTexturedBackgroundColor());
    }
 }

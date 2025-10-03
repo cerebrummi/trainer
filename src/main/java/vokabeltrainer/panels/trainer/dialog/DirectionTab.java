@@ -13,15 +13,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.LanguageDirection;
 
-public class DirectionTab extends BackgroundPanelTiled
+public class DirectionTab extends JPanel
 {
    private static final long serialVersionUID = -5986907667521647559L;
 
@@ -39,10 +39,12 @@ public class DirectionTab extends BackgroundPanelTiled
 
    public DirectionTab(StartTrainingView dialog)
    {
-
       setLayout(new BorderLayout());
+      setBackground(TrainerColors.getPanelBackgroundDark());
+      setOpaque(true);
 
       JLabel question = new JLabel(translator.realisticTranslate(Translation.IN_WELCHER_RICHTUNG_WOLLEN_SIE_LERNEN_));
+      question.setForeground(TrainerColors.getTextForeground());
       question.setFont(ApplicationFonts.getButtonFont());
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -50,28 +52,33 @@ public class DirectionTab extends BackgroundPanelTiled
 
       JPanel center = new JPanel();
       center.setOpaque(false);
+      center.setBackground(TrainerColors.getTransparent());
       center.setLayout(new FlowLayout());
       directionGroup = new ButtonGroup();
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new BoxLayout(vertical, 1));
       vertical.setOpaque(false);
+      vertical.setBackground(TrainerColors.getTransparent());
       
       ownToNikudButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
             + " >> "
             + translator.realisticTranslate(Translation.HEBRAEISCH_));
+      ownToNikudButton.setForeground(TrainerColors.getTextForeground());
       ownToNikudButton.setFont(ApplicationFonts.getToolbarButtonFont());
       directionGroup.add(ownToNikudButton);
 
       hebrewToOwnButton = new JRadioButton(translator.realisticTranslate(Translation.HEBRAEISCH_)
             + " >> "
             + translator.realisticTranslate(Translation.DEUTSCH));
+      hebrewToOwnButton.setForeground(TrainerColors.getTextForeground());
       hebrewToOwnButton.setFont(ApplicationFonts.getToolbarButtonFont());
       directionGroup.add(hebrewToOwnButton);
       
       ownToSwedishButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
             + " >> "
             + translator.realisticTranslate(Translation.SCHWEDISCH));
+      ownToSwedishButton.setForeground(TrainerColors.getTextForeground());
       ownToSwedishButton.setFont(ApplicationFonts.getToolbarButtonFont());
       directionGroup.add(ownToSwedishButton);
       
@@ -79,18 +86,21 @@ public class DirectionTab extends BackgroundPanelTiled
             + " >> "
             + translator.realisticTranslate(Translation.DEUTSCH));
       swedishToOwnButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      swedishToOwnButton.setForeground(TrainerColors.getTextForeground());
       directionGroup.add(swedishToOwnButton);
       
       ownToGermanButton = new JRadioButton(translator.realisticTranslate(Translation.DEUTSCH)
             + " >> "
             + translator.realisticTranslate(Translation.GERMAN));
       ownToGermanButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      ownToGermanButton.setForeground(TrainerColors.getTextForeground());
       directionGroup.add(ownToGermanButton);
       
       germanToOwnButton = new JRadioButton(translator.realisticTranslate(Translation.GERMAN)
             + " >> "
             + translator.realisticTranslate(Translation.DEUTSCH));
       germanToOwnButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      germanToOwnButton.setForeground(TrainerColors.getTextForeground());
       directionGroup.add(germanToOwnButton);
 
       vertical.add(ownToNikudButton);
@@ -107,13 +117,18 @@ public class DirectionTab extends BackgroundPanelTiled
       add(center, BorderLayout.CENTER);
 
       JPanel buttonWrapper = new JPanel(new FlowLayout());
+      buttonWrapper.setOpaque(false);
 
       cancelButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
       cancelButton.setFont(ApplicationFonts.getButtonFont());
+      cancelButton.setBackground(TrainerColors.getButton());
+      cancelButton.setForeground(TrainerColors.getButtonForeground());
       cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
 
       nextButton = new JButton(translator.realisticTranslate(Translation.WEITER));
       nextButton.setFont(ApplicationFonts.getButtonFont());
+      nextButton.setBackground(TrainerColors.getButton());
+      nextButton.setForeground(TrainerColors.getButtonForeground());
       nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));
       nextButton.setEnabled(false);
 

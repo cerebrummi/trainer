@@ -17,6 +17,7 @@ import vokabeltrainer.TrashCanBackgroundPanel;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.colors.DictionaryColors;
 import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.table.ExpressionColumnModel;
@@ -81,6 +82,8 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
             .realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       selectAllInTableButton.setFont(ApplicationFonts.getButtonFont());
+      selectAllInTableButton.setForeground(DictionaryColors.getButtonForeground());
+      selectAllInTableButton.setBackground(DictionaryColors.getBackground());
       selectAllInTableButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
 
@@ -88,12 +91,16 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
             .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
+      clearInTableSelectedButton.setForeground(DictionaryColors.getButtonForeground());
+      clearInTableSelectedButton.setBackground(DictionaryColors.getBackground());
       clearInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
 
       restoreButton = new JButton(Common.getTranslator().realisticTranslate(Translation.AUSWAHL_WIEDER_HERSTELLEN));
       restoreButton.setHorizontalAlignment(SwingConstants.LEFT);
       restoreButton.setFont(ApplicationFonts.getButtonFont());
+      restoreButton.setForeground(DictionaryColors.getButtonForeground());
+      restoreButton.setBackground(DictionaryColors.getBackground());
       restoreButton.setIcon(new ImageIcon(ApplicationImages.getRestore()));
 
       vertical.add(selectAllInTableButton);
