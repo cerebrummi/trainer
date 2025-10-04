@@ -35,7 +35,7 @@ public class Settings
    private static float volume = -20;
    private static boolean letterImagesOn = true;
    private static Selection languageInput = readLanguageInput();
-   private static String version = "6.8";
+   private static String version = "7.0";
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
