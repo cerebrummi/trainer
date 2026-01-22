@@ -53,6 +53,7 @@ public class ApplicationImages
    private static BufferedImage logo150;
    private static BufferedImage logo;
    private static BufferedImage logoFolder;
+   private static BufferedImage logoFolderEmpty;
 
    private static BufferedImage turn;
    private static BufferedImage answerOkay;
@@ -1024,5 +1025,17 @@ public class ApplicationImages
       ApplicationImages.logoFolder = logoFolder;
    }
 
-   
+   public static BufferedImage getLogoFolderEmpty()
+   {
+      return logoFolderEmpty;
+   }
+
+   public static void setLogoFolderEmpty(BufferedImage logoFolderEmpty)
+   {
+      if (logoFolderEmpty == null)
+      {
+         exitWithMessage("kein Logo Folder Icon Empty");
+      }
+      ApplicationImages.logoFolderEmpty = logoFolderEmpty;
+   }
 }

@@ -63,6 +63,9 @@ import vokabeltrainer.panels.list.ChapterList;
 import vokabeltrainer.panels.list.ChapterListSelectionModel;
 import vokabeltrainer.panels.list.DatabaseList;
 import vokabeltrainer.panels.list.DatabaseListSelectionModel;
+import vokabeltrainer.panels.list.table.DatabaseTableModel;
+import vokabeltrainer.panels.list.table.DatabaseTableMultiselect;
+import vokabeltrainer.panels.list.table.DatabaseTableRow;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.ExpressionColumnModel;
@@ -219,10 +222,8 @@ public class DictionaryView extends JPanel
       tabbedPane.setOpaque(true);
       tabbedPane.setBackground(DictionaryColors.getBackground());
       tabbedPane.setFont(ApplicationFonts.getButtonFont());
-      tabbedPane.addTab(translator.realisticTranslate(Translation.DATEN),
-            new ImageIcon(ApplicationImages.getArrow()),
-            initDatabaseTab(),
-            translator.realisticTranslate(Translation.HOLE_DATEN));
+      tabbedPane.addTab(translator.realisticTranslate(Translation.DATENBANK),
+            initDatabaseTab());
       tabbedPane.addTab(translator.realisticTranslate(Translation.LEKTIONEN),
             initChaptersTab());
       tabbedPane.addTab(translator.realisticTranslate(Translation.SUCHE),
@@ -1020,12 +1021,15 @@ public class DictionaryView extends JPanel
    public void loadDatabases()
    {
       dataPanel.removeAll();
-      DatabaseListSelectionModel databaseListSelectionModel = new DatabaseListSelectionModel();
-      DatabaseList databaseList = new DatabaseList(databaseListSelectionModel);
-      databaseList.setListData(Data.getDatabaseArray());
-      databaseList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
-
-      JScrollPane scroller = new JScrollPane(databaseList);
+//      DatabaseListSelectionModel databaseListSelectionModel = new DatabaseListSelectionModel();
+//      DatabaseList databaseList = new DatabaseList(databaseListSelectionModel);
+//      databaseList.setListData(Data.getDatabaseArray());
+//      databaseList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
+      Vector<String> names = new Vector<>();
+      names.add(translator.realisticTranslate(Translation.DATENBANK));
+      DatabaseTableModel databaseTableModel = new DatabaseTableModel(Data.getDatabaseArray(),names);
+      DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(databaseTableModel, Settings.getKeyboardWidth());
+      JScrollPane scroller = new JScrollPane(databaseTable);
       scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
       scroller.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() + 50, 700));

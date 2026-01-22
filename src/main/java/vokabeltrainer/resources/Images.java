@@ -185,6 +185,9 @@ public class Images
 
       ApplicationImages.setLogoFolder(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/iconFolder.png")));
+      
+      ApplicationImages.setLogoFolderEmpty(ImageIO.read(
+              Images.class.getResourceAsStream("_2_images/iconFolderEmpty.png")));
    }
 
 }

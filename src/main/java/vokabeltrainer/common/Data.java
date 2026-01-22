@@ -45,6 +45,7 @@ import vokabeltrainer.editing.ExchangeLetter;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
+import vokabeltrainer.panels.list.table.DatabaseTableRow;
 import vokabeltrainer.panels.statistics.StatisticsTableModel;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
@@ -333,7 +334,7 @@ public final class Data
       getDataBaseAtomic().moveSelectedExpressionsToDatabase(toDatabase);
    }
 
-   public static DatabaseDescription[] getDatabaseArray()
+   public static Vector<Vector<DatabaseTableRow>> getDatabaseArray()
    {
       return getDataBaseAtomic().getDatabaseArray();
    }
@@ -2089,12 +2090,21 @@ public final class Data
                .setDatabaseName(toDatabase);
       }
 
-      private DatabaseDescription[] getDatabaseArray()
+      private Vector<Vector<DatabaseTableRow>> getDatabaseArray()
       {
-         return this.chapterSet.stream()
+         List<DatabaseTableRow> listRows =  this.chapterSet.stream()
                .map(chapter -> chapter.getDatabaseDescription()).distinct()
                .sorted()
-               .toArray(DatabaseDescription[]::new);
+               .map(description -> new DatabaseTableRow(description))
+               .toList();
+         Vector<Vector<DatabaseTableRow>> vectorOutside = new Vector<>();
+         for(DatabaseTableRow row: listRows)
+         {
+        	 Vector<DatabaseTableRow> vectorInside = new Vector<>();
+        	 vectorInside.add(row);
+        	 vectorOutside.add(vectorInside);
+         }
+         return vectorOutside;
       }
    }
 
