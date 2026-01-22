@@ -1,7 +1,6 @@
 package vokabeltrainer.types;
 
 import vokabeltrainer.common.Settings;
-import vokabeltrainer.editing.LetterHelper;
 
 public class LearningLanguage
 {
@@ -178,7 +177,7 @@ public class LearningLanguage
       
       if (this.simpleHebrew)
       {  
-         return LetterHelper.findHebrewWithoutPunctation(hebrew);
+         return hebrew;
       }
       
       if(this.isGerman())
@@ -186,7 +185,7 @@ public class LearningLanguage
          return german;
       }
       
-      return LetterHelper.findHebrewWithoutPunctation(hebrewPlene) + " | " + LetterHelper.findHebrewWithoutPunctation(hebrewDefektiv);
+      return hebrewPlene + " | " + hebrewDefektiv;
    }
 
    public String getHewbrewAccordingToType(HebrewType selectionType)

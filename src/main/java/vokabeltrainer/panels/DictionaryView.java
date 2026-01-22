@@ -61,11 +61,8 @@ import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.dictionary.SearchAction;
 import vokabeltrainer.panels.list.ChapterList;
 import vokabeltrainer.panels.list.ChapterListSelectionModel;
-import vokabeltrainer.panels.list.DatabaseList;
-import vokabeltrainer.panels.list.DatabaseListSelectionModel;
 import vokabeltrainer.panels.list.table.DatabaseTableModel;
 import vokabeltrainer.panels.list.table.DatabaseTableMultiselect;
-import vokabeltrainer.panels.list.table.DatabaseTableRow;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.ExpressionColumnModel;
@@ -137,6 +134,8 @@ public class DictionaryView extends JPanel
    private JPanel searchVertical;
 
    private JPanel dataPanel;
+
+   private DatabaseTableModel databaseTableModel;
 
    public DictionaryView(DictionaryControllerConnector connector)
    {
@@ -263,7 +262,6 @@ public class DictionaryView extends JPanel
 
       initChapterController();
 
-      loadChapters();
       loadDatabases();
       initController();
    }
@@ -1021,13 +1019,9 @@ public class DictionaryView extends JPanel
    public void loadDatabases()
    {
       dataPanel.removeAll();
-//      DatabaseListSelectionModel databaseListSelectionModel = new DatabaseListSelectionModel();
-//      DatabaseList databaseList = new DatabaseList(databaseListSelectionModel);
-//      databaseList.setListData(Data.getDatabaseArray());
-//      databaseList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
       Vector<String> names = new Vector<>();
       names.add(translator.realisticTranslate(Translation.DATENBANK));
-      DatabaseTableModel databaseTableModel = new DatabaseTableModel(Data.getDatabaseArray(),names);
+      databaseTableModel = new DatabaseTableModel(Data.getDatabaseArray(),names);
       DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(databaseTableModel, Settings.getKeyboardWidth());
       JScrollPane scroller = new JScrollPane(databaseTable);
       scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
@@ -1046,7 +1040,7 @@ public class DictionaryView extends JPanel
       listSelectionModel = new ChapterListSelectionModel();
       addChapterListSelectionListener();
       chapterList = new ChapterList(listSelectionModel);
-      chapterList.setListData(Data.getChapterArray());
+      chapterList.setListData(Data.getChapterArray(databaseTableModel.getSelectedRows()));
       chapterList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
 
       JScrollPane scroller = new JScrollPane(chapterList);
@@ -1392,5 +1386,11 @@ public class DictionaryView extends JPanel
    private String cleanTextLeaveComma(String text)
    {
       return text.replaceAll("\t", "").replaceAll("\n", "").strip();
+   }
+
+   @Override
+   public DatabaseTableModel getDatabaseTableModel() 
+   {
+		return databaseTableModel;
    }
 }

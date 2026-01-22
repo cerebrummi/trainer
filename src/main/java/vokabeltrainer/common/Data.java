@@ -188,10 +188,10 @@ public final class Data
    public static ExpressionTableModel findTranslations(String text,
          ExpressionKind kind, SearchType search, Chapter chapter,
          Command command, SortingType sortingType, Integer levelOfDifficulty,
-         Direction direction)
+         Direction direction, List<DatabaseTableRow> selectedRows)
    {
       return getDataBaseAtomic().findTranslations(text, kind, search, chapter,
-            command, sortingType, levelOfDifficulty, direction);
+            command, sortingType, levelOfDifficulty, direction, selectedRows);
    }
 
    public static ExpressionTableModel findTranslationsDeletedWords()
@@ -253,9 +253,9 @@ public final class Data
             .findAllSelectedExpressionsList(exceptDoNotChange);
    }
 
-   public static Chapter[] getChapterArray()
+   public static Chapter[] getChapterArray(List<DatabaseTableRow> tableRows)
    {
-      return getDataBaseAtomic().getChapterArray();
+      return getDataBaseAtomic().getChapterArray(tableRows);
    }
 
    public static void putExpressionInNewMap(UUID uuid, Expression expression)
@@ -1079,7 +1079,7 @@ public final class Data
       private ExpressionTableModel findTranslations(String text,
             ExpressionKind kind, SearchType search, Chapter chapter,
             Command command, SortingType sortingType, Integer levelOfDifficulty,
-            Direction direction)
+            Direction direction, List<DatabaseTableRow> selectedDatabases)
       {
          Collection<Expression> expressions = null;
 
@@ -1114,8 +1114,9 @@ public final class Data
          else if (text == null && kind != null && search == null
                && chapter == null && command == null)
          {
+        	 Set<String> selectedDatabasesNames = new HashSet<>( selectedDatabases.stream().map(row -> row.getDescription().getDatabaseName()).toList());
             return new ExpressionTableModel(convertToExpressionModelArray(
-                  findSortedExpressionsOfKind(kind, direction, sortingType)),
+                  findSortedExpressionsOfKind(kind, direction, sortingType, selectedDatabasesNames)),
                   COLUMNAMES);
          }
          else if (text != null && kind == null && search != null
@@ -1127,7 +1128,9 @@ public final class Data
             }
             else
             {
-               expressions = alleMap.values();
+            	Set<String> selectedDatabasesNames = new HashSet<>( selectedDatabases.stream().map(row -> row.getDescription().getDatabaseName()).toList());
+            	Predicate<Expression> databaseName = expression -> selectedDatabasesNames.contains(expression.getChapter().getDatabaseName());
+               expressions = alleMap.values().stream().filter(databaseName).toList();
             }
          }
          else
@@ -1236,11 +1239,14 @@ public final class Data
       }
 
       private List<Expression> findSortedExpressionsOfKind(ExpressionKind kind,
-            Direction language, SortingType sortingType)
+            Direction language, SortingType sortingType, Set<String> selectedDatabasesNames)
       {
+    	  Predicate<Expression> expressionKind = expression -> expression.getDefinitions()
+                  .getExpressionKindSet().contains(kind);
+    	  Predicate<Expression> databaseName = expression -> selectedDatabasesNames.contains(expression.getChapter().getDatabaseName());
+    	  
          return alleMap.values().stream()
-               .filter(expression -> expression.getDefinitions()
-                     .getExpressionKindSet().contains(kind))
+               .filter(expressionKind.and(databaseName))
                .sorted(new ExpressionComparator(sortingType, language))
                .collect(Collectors.toList());
       }
@@ -1453,13 +1459,14 @@ public final class Data
          return chapterList.stream().toArray(String[]::new);
       }
 
-      private Chapter[] getChapterArray()
-      {
-         return chapterSet.stream().sorted(new ChapterDatabaseComparator())
+      private Chapter[] getChapterArray(List<DatabaseTableRow> tableRows)
+      {   	  
+         return chapterSet.stream().filter(chapter -> tableRows.stream().anyMatch(row -> row.getDescription().getDatabaseName().equals(chapter.getDatabaseName())))
+        		 .sorted(new ChapterDatabaseComparator())
                .toArray(Chapter[]::new);
       }
 
-      private String getAllSelectedExpressionsAsString(SortingType sortingType,
+	  private String getAllSelectedExpressionsAsString(SortingType sortingType,
             Direction language)
       {
          return alleMap.values().stream()

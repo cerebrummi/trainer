@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.JScrollPane;
 
+import vokabeltrainer.panels.list.table.DatabaseTableModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.types.Chapter;
@@ -49,4 +50,5 @@ public interface DictionaryViewConnector
    public int askForMovingToChapterConfirmation();
    public int askForMovingToDatabaseConfirmation();
    public void loadDatabases();
+   public DatabaseTableModel getDatabaseTableModel();
 }

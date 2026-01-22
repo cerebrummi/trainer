@@ -264,7 +264,7 @@ public class InputPanel extends JPanel implements TableConnector
    private void doShowTable()
    {
       ExpressionTableModel tableModel = Data.findTranslations(null, null, null,
-            currentChapter, null, SortingType.DATE, null, Direction.OWN_TO_NEW);
+            currentChapter, null, SortingType.DATE, null, Direction.OWN_TO_NEW, null);
       tablePanel.removeAll();
       ExpressionTable table = new ExpressionTable(tableModel,
             Direction.OWN_TO_NEW, this, true,

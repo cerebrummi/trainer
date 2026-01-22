@@ -19,6 +19,7 @@ public class ApplicationColors
    public static Color backgroundGold = new Color(223, 210, 198);
    public static Color veryLightGold = new Color(247, 240, 232);
    public static Color green = new Color(181, 192, 81);
+   public static Color brightGreen = Color.GREEN;
    public static Color texturedBackgroundColor = new Color(225, 216, 211);
    public static Color texturedBackgroundColorLight = new Color(230, 221, 217);
    public static Color white = new Color(255, 255, 255);
