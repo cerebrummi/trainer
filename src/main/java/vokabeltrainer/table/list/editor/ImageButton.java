@@ -21,6 +21,11 @@ public class ImageButton extends JButton
       this.imagefile = imagefile;
    }
 
+   public ImageButton(Image image) 
+   {
+	   super(new ImageIcon(image));
+   }
+
    public String getImagefile() 
    {
 	   return imagefile;

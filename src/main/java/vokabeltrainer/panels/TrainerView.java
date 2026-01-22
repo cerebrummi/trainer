@@ -12,6 +12,7 @@ import java.awt.FocusTraversalPolicy;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,6 +29,7 @@ import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
@@ -39,6 +42,7 @@ import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.editing.GermanDocument;
@@ -58,7 +62,9 @@ import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.table.list.editor.ImageButton;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
+import vokabeltrainer.tonionlayout.ExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.LanguageDirection;
@@ -110,6 +116,8 @@ public class TrainerView extends JPanel
    private JPanel verticalTrainerPanel;
    private Translator translator = Common.getTranslator();
    private JPanel textFieldPanelWrapper;
+
+   private JButton imageButton = new ImageButton();
 
    public TrainerView(TrainerControllerConnector connector)
    {
@@ -820,6 +828,34 @@ public class TrainerView extends JPanel
 
       pictureToggleBox
             .addActionListener(_ -> connector.toggleLetterPictures());
+      
+      initControllerImageButton();
+   }
+   
+   private void initControllerImageButton()
+   {
+	   imageButton.addMouseListener(new MouseAdapter()
+	      {
+	          @Override
+	          public void mouseClicked(MouseEvent event)
+	          {
+	             JDialog frame = new JDialog(Common.getjFrame());
+	             frame.setModal(true);
+	             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+	             JPanel panel = new JPanel();
+	             ExpanderLayout layout = new ExpanderLayout(panel);
+	             panel.setLayout(layout);
+	             if (ImageData.loadImage(connector.getCurrentExpression().getUuid()) == null)
+	             {
+	                return;
+	             }
+	             panel.add(new JLabel(new ImageIcon(
+	                   ImageData.loadImageOriginal(connector.getCurrentExpression().getUuid()))));
+	             frame.add(panel);
+	             frame.pack();
+	             frame.setVisible(true);
+	          }
+	       });
    }
 
    public void setHtoDanswerButtons()
@@ -863,7 +899,13 @@ public class TrainerView extends JPanel
    }
 
    public void prepareHtoDFeedbackPanel()
-   {
+   {  
+	  JPanel outerVertical = new JPanel();
+	  outerVertical.setLayout(new TotemLayout(outerVertical));
+	  
+	  JPanel outerHorizontal = new JPanel();
+	  outerHorizontal.setLayout(new TrainLayout(outerHorizontal));
+	  
       JPanel answerPanel1 = new JPanel();
       answerPanel1.setLayout(new TotemLayout(answerPanel1));
       answerPanel1
@@ -872,12 +914,12 @@ public class TrainerView extends JPanel
             .realisticTranslate(Translation.DIE_RICHTIGE_ANTWORT_LAUTET_));
       correctAnswer.setFont(ApplicationFonts.getGermanFont(16F));
       correctAnswer.setForeground(TrainerColors.getTextForeground());
-      correctAnswer.setMinimumSize(new Dimension(490, 30));
+      correctAnswer.setMinimumSize(new Dimension(300, 30));
       correctAnswer.setMaximumSize(new Dimension(510, 30));
       JLabel correctAnswer2 = new JLabel(
             connector.getCurrentExpression().getOwnLanguage());
       correctAnswer2.setFont(ApplicationFonts.getGermanFont(20F));
-      correctAnswer2.setMinimumSize(new Dimension(490, 30));
+      correctAnswer2.setMinimumSize(new Dimension(300, 30));
       correctAnswer2.setMaximumSize(new Dimension(510, 30));
       JTextField correctAnswer3 = new JTextField(
             connector.getCurrentExpression().getGrammarInfo(false));
@@ -886,17 +928,15 @@ public class TrainerView extends JPanel
       correctAnswer3.setBackground(TrainerColors.getTransparent());
       correctAnswer3.setOpaque(false);
       correctAnswer3.setBorder(BorderFactory.createEmptyBorder());
-      JScrollPane scroller = new JScrollPane(correctAnswer3);
-      scroller.setMinimumSize(new Dimension(490, 40));
-      scroller.setMaximumSize(new Dimension(510, 40));
-      scroller.setBorder(BorderFactory.createEmptyBorder());
-      scroller.getViewport()
-            .setBackground(TrainerColors.getPanelBackground());
-      scroller.setBackground(TrainerColors.getPanelBackground());
+      
+      imageButton = new ImageButton(ApplicationImages.getLetterEmpty());
+      imageButton.setMinimumSize(new Dimension(60,60));
+      imageButton.setMaximumSize(new Dimension(60,60));
+      initControllerImageButton();
 
       answerPanel1.add(correctAnswer);
       answerPanel1.add(correctAnswer2);
-      answerPanel1.add(scroller);
+      answerPanel1.add(correctAnswer3);
 
       JPanel answerPanel2 = new JPanel();
       answerPanel2.setLayout(new GridLayout(1, 3));
@@ -904,16 +944,21 @@ public class TrainerView extends JPanel
       answerPanel2.setMaximumSize(new Dimension(501, 100));
       answerPanel2
             .setBackground(TrainerColors.getPanelBackground());
-
-      feedbackPanel.add(answerPanel1);
-      feedbackPanel.add(answerPanel2);
-
+      
       setHtoDanswerButtons();
       answerPanel2.add(answerOkay);
       answerPanel2.add(answerUndecided);
       answerPanel2.add(answerNotOkay);
 
       enableHtoDAnswerButtons(true);
+
+      outerHorizontal.add(answerPanel1);
+      outerHorizontal.add(imageButton);
+      
+      outerVertical.add(outerHorizontal);
+      outerVertical.add(answerPanel2);
+      
+      feedbackPanel.add(outerVertical);
    }
 
    public void nextWord()
