@@ -1,7 +1,9 @@
 package vokabeltrainer.panels.list.table;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
@@ -40,5 +42,18 @@ public class DatabaseTableModel extends DefaultTableModel
          }
       }
       return selectedRows;
+   }
+
+   public Set<String> getDatabaseNames()
+   {
+	   Set<String> selectedRows = new HashSet<>();
+	      for(DatabaseTableRow row : rows)
+	      {
+	         if(row.getDescription().isSelected())
+	         {
+	            selectedRows.add(row.getDescription().getDatabaseName());
+	         }
+	      }
+	      return selectedRows;
    }
 }

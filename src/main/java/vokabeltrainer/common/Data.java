@@ -264,10 +264,10 @@ public final class Data
    }
 
    public static TrainingTableModel findTrainingModel(
-         LanguageDirection languageDirection, FieldOfTraining fieldOfTraining)
+         LanguageDirection languageDirection, FieldOfTraining fieldOfTraining, Set<String> databaseNames)
    {
       return getDataBaseAtomic().findTrainingModel(languageDirection,
-            fieldOfTraining);
+            fieldOfTraining, databaseNames);
    }
 
    public static StatisticsTableModel findStatisticsModel()
@@ -1550,7 +1550,7 @@ public final class Data
 
       private TrainingTableModel findTrainingModel(
             LanguageDirection languageDirection,
-            FieldOfTraining fieldOfTraining)
+            FieldOfTraining fieldOfTraining, Set<String> databaseNames)
       {
          TrainingTableRow[][] data = null;
 
@@ -1563,7 +1563,7 @@ public final class Data
                final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
                      languageDirection, fieldOfTraining);
 
-               data = chapterSet.stream()
+               data = chapterSet.stream().filter(chapter -> databaseNames.stream().anyMatch(name -> name.equals(chapter.getDatabaseName())))
                      .filter(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.HEBREW) != null)
@@ -1581,7 +1581,7 @@ public final class Data
                final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
                      languageDirection, fieldOfTraining);
 
-               data = chapterSet.stream()
+               data = chapterSet.stream().filter(chapter -> databaseNames.stream().anyMatch(name -> name.equals(chapter.getDatabaseName())))
                      .filter(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.SWEDISH) != null)
@@ -1598,7 +1598,7 @@ public final class Data
                final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
                      languageDirection, fieldOfTraining);
 
-               data = chapterSet.stream()
+               data = chapterSet.stream().filter(chapter -> databaseNames.stream().anyMatch(name -> name.equals(chapter.getDatabaseName())))
                      .filter(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.GERMAN) != null)

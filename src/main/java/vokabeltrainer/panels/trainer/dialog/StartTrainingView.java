@@ -5,6 +5,8 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
+import java.util.Set;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -34,6 +36,7 @@ public class StartTrainingView extends JDialog
    private List<Expression> oldExpressions;
    private boolean training;
    private Translator translator = Common.getTranslator();
+   private Set<String> databaseNames;
 
    public StartTrainingView(StartTrainingControllerConnector connector)
    {
@@ -119,6 +122,15 @@ public class StartTrainingView extends JDialog
    public void setOldExpressions(List<Expression> oldExpressions)
    {
       this.oldExpressions = oldExpressions;
+   }
+
+   public Set<String> getDatabaseNames() 
+   {
+	return this.databaseNames;
+   }
+
+   public void setDatabaseNames(Set<String> databaseNames) {
+	this.databaseNames = databaseNames;
    }
 
 }

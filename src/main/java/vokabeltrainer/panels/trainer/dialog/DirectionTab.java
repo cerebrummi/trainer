@@ -19,6 +19,7 @@ import vokabeltrainer.common.Common;
 import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.LanguageDirection;
 
 public class DirectionTab extends JPanel
@@ -173,11 +174,18 @@ public class DirectionTab extends JPanel
       });
 
       nextButton.addActionListener(_ -> {
-         if (dialog.getTabbedPane().getTabCount() == 2)
+         if (dialog.getTabbedPane().getTabCount() == 2 && FieldOfTraining.AREA_CHAPTER.compareTo(dialog.getFieldOfTraining())==0)
          {
-            dialog.getTabbedPane().addTab(translator.realisticTranslate(Translation.WIE_VIELE),
+            dialog.getTabbedPane().addTab(translator.realisticTranslate(Translation.DATENBANKEN_ANSEHEN),
                   new ImageIcon(ApplicationImages.getArrow()),
-                  new AmountTab(dialog));
+                  new DatabaseTab(dialog));
+         }
+         else
+         {
+        	 dialog.setDatabaseNames(null);
+             dialog.getTabbedPane().addTab(translator.realisticTranslate(Translation.WIE_VIELE),
+                   new ImageIcon(ApplicationImages.getArrow()),
+                   new AmountTab(dialog));
          }
          dialog.getTabbedPane().setSelectedIndex(2);
       });
@@ -192,6 +200,11 @@ public class DirectionTab extends JPanel
    {
       if (dialog.getTabbedPane().getTabCount() == 3)
       {
+         dialog.getTabbedPane().remove(2);
+      }
+      else if (dialog.getTabbedPane().getTabCount() == 4)
+      {
+         dialog.getTabbedPane().remove(3);
          dialog.getTabbedPane().remove(2);
       }
    }
