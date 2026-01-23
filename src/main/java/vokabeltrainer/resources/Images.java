@@ -188,6 +188,12 @@ public class Images
       
       ApplicationImages.setLogoFolderEmpty(ImageIO.read(
               Images.class.getResourceAsStream("_2_images/iconFolderEmpty.png")));
+      
+      ApplicationImages.setIcon_notes(ImageIO.read(
+              Images.class.getResourceAsStream("_2_images/icon_notes.png")));
+      
+      ApplicationImages.setIcon_eye(ImageIO.read(
+              Images.class.getResourceAsStream("_2_images/icon_eye.png")));
    }
 
 }

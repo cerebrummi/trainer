@@ -44,6 +44,7 @@ import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.SoundData;
 import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
@@ -118,6 +119,7 @@ public class TrainerView extends JPanel
    private JPanel textFieldPanelWrapper;
 
    private JButton imageButton = new ImageButton();
+   private JButton wordButton = new ImageButton();
 
    public TrainerView(TrainerControllerConnector connector)
    {
@@ -830,8 +832,35 @@ public class TrainerView extends JPanel
             .addActionListener(_ -> connector.toggleLetterPictures());
       
       initControllerImageButton();
+      initControllerWordButton();
    }
    
+   private void initControllerWordButton()
+   {
+	   wordButton.addMouseListener(new MouseAdapter()
+	      {
+	          @Override
+	          public void mouseClicked(MouseEvent event)
+	          {
+	             JDialog frame = new JDialog(Common.getjFrame());
+	             frame.setModal(true);
+	             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+	             JPanel panel = new JPanel();
+	             ExpanderLayout layout = new ExpanderLayout(panel);
+	             panel.setLayout(layout);
+	             if (SoundData.loadSound(connector.getCurrentExpression().getUuid()) == null)
+	             {
+	                return;
+	             }
+//	             panel.add(new JLabel(new ImageIcon(
+//	                   ImageData.loadImageOriginal(connector.getCurrentExpression().getUuid()))));
+	             frame.add(panel);
+	             frame.pack();
+	             frame.setVisible(true);
+	          }
+	       });
+   }
+
    private void initControllerImageButton()
    {
 	   imageButton.addMouseListener(new MouseAdapter()
@@ -929,10 +958,15 @@ public class TrainerView extends JPanel
       correctAnswer3.setOpaque(false);
       correctAnswer3.setBorder(BorderFactory.createEmptyBorder());
       
-      imageButton = new ImageButton(ApplicationImages.getLetterEmpty());
+      imageButton = new ImageButton(ApplicationImages.getIcon_eye());
       imageButton.setMinimumSize(new Dimension(60,60));
       imageButton.setMaximumSize(new Dimension(60,60));
       initControllerImageButton();
+      
+      wordButton = new ImageButton(ApplicationImages.getIcon_notes());
+      wordButton.setMinimumSize(new Dimension(60,60));
+      wordButton.setMaximumSize(new Dimension(60,60));
+      initControllerWordButton();
 
       answerPanel1.add(correctAnswer);
       answerPanel1.add(correctAnswer2);
@@ -954,6 +988,7 @@ public class TrainerView extends JPanel
 
       outerHorizontal.add(answerPanel1);
       outerHorizontal.add(imageButton);
+      outerHorizontal.add(wordButton);
       
       outerVertical.add(outerHorizontal);
       outerVertical.add(answerPanel2);

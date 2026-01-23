@@ -81,6 +81,9 @@ public class ApplicationImages
    private static BufferedImage questionsAndAnswers2;
    
    private static BufferedImage darkmode;
+   
+   private static BufferedImage icon_notes;
+   private static BufferedImage icon_eye;
 
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    private static Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap;
@@ -1037,5 +1040,33 @@ public class ApplicationImages
          exitWithMessage("kein Logo Folder Icon Empty");
       }
       ApplicationImages.logoFolderEmpty = logoFolderEmpty;
+   }
+
+   public static BufferedImage getIcon_notes() 
+   {
+	return icon_notes;
+   }
+
+   public static void setIcon_notes(BufferedImage icon_notes) 
+   {
+	   if (icon_notes == null)
+	      {
+	         exitWithMessage("kein Icon Notes");
+	      }
+	ApplicationImages.icon_notes = icon_notes;
+   }
+
+   public static BufferedImage getIcon_eye() 
+   {
+	return icon_eye;
+   }
+
+   public static void setIcon_eye(BufferedImage icon_eye) 
+   {
+	   if (icon_eye == null)
+	      {
+	         exitWithMessage("kein Icon Eye");
+	      }
+	ApplicationImages.icon_eye = icon_eye;
    }
 }

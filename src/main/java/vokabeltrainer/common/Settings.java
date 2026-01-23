@@ -162,6 +162,16 @@ public class Settings
       return getExpressionFolder() + "-images";
    }
    
+   public static String getSoundPath()
+   {
+      return getExpressionPath() + File.separator + getSoundFolder();
+   }
+
+   private static String getSoundFolder()
+   {
+      return getExpressionFolder() + "-sounds";
+   }
+   
    public static String getTranslationPath()
    {
       return getExpressionPath() + File.separator + getTranslationFolder();
