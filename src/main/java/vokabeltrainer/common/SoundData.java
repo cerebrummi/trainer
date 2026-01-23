@@ -23,7 +23,7 @@ public final class SoundData
 
    private static final AtomicBoolean databaseInUse = new AtomicBoolean(false);
    private static volatile UUID uuidDataBaseLock;
-   private static WordDataBase database;
+   private static SoundDataBase database;
    public static AudioFormat audioFormat = new AudioFormat(44100, 16, 2, true,
 	         false);
 
@@ -34,7 +34,7 @@ public final class SoundData
 
    static void initImageDataBase()
    {
-      database = new WordDataBase();
+      database = new SoundDataBase();
    }
 
    static boolean lockDataBase(UUID uuid)
@@ -74,7 +74,7 @@ public final class SoundData
       }
    }
 
-   private static WordDataBase getDataBaseAtomic()
+   private static SoundDataBase getDataBaseAtomic()
    {
       checkDataBaseInUseAndWait();
       return database;
@@ -137,7 +137,7 @@ public final class SoundData
    // #########################################################
    // #########################################################
    // #########################################################
-   // ################### WordDataBase #######################
+   // ################### SoundDataBase #######################
    // #########################################################
    // #########################################################
    // #########################################################
@@ -151,12 +151,12 @@ public final class SoundData
    // #########################################################
    // #########################################################
 
-   private static class WordDataBase
+   private static class SoundDataBase
    {
       private final ConcurrentMap<UUID, byte[]> soundMap = new ConcurrentHashMap<>(
             findNumberOfAllVocabulary() + 100);
 
-      WordDataBase()
+      SoundDataBase()
       {
          if (!checkDirectory())
          {

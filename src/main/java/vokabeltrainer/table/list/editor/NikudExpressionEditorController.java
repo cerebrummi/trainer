@@ -83,8 +83,23 @@ public class NikudExpressionEditorController
          ImageData.deleteImage(
                nikudExpressionEditorDialog.getExpression().getUuid());
          nikudExpressionEditorDialog.getImageButton().setIcon(null);
+         // TODO
          nikudExpressionEditorDialog.getImageButton().validate();
          nikudExpressionEditorDialog.getImageButton().repaint();
       }
+   }
+
+   @Override
+   public void recordSoundButton() 
+   {
+	   
+	
+   }
+
+   @Override
+   public void removeSoundButton() 
+   {
+	
+	
    }
 }

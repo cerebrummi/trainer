@@ -7,4 +7,8 @@ public interface NikudExpressionEditorControllerConnector
 
 	void deleteImageForExpression();
 
+	void recordSoundButton();
+
+	void removeSoundButton();
+
 }

@@ -433,7 +433,9 @@ public enum Translation {
 	HOLE_DATEN("Keine Daten? Gebe Daten ein oder aktiviere eine Datenbank.", "No data? Input data or activate database."),
 	STELLEN_SIE_UM("Schreibrichtung oben ändern", "change writing direction at top"),
 	SPRACHE_UMSTELLEN("Sprache ändern unter 'Eingabe'.","change language at 'input'."),
-	NEUSTART("Programm schließt und muss neu gestartet werden.","app closes and restart needed");
+	NEUSTART("Programm schließt und muss neu gestartet werden.","app closes and restart needed"),
+	SPRACHE_AUFNEHMEN("Sprache aufnehmen", "record voice"), 
+	TONAUFNAHME_LOESCHEN("Tonaufnahme löschen", "delete recording");
    
 
 	private String german;

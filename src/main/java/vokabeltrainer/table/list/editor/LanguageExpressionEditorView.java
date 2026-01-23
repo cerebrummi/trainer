@@ -93,7 +93,7 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 public class LanguageExpressionEditorView extends JDialog
       implements ExpressionEditorViewConnector
 {
-   private static final int WIDTH_INFO_PANEL = 240;
+   private static final int WIDTH_INFO_PANEL = 230;
 
    private static final int WIDTH_INPUT_PANEL = Settings.getKeyboardWidth();
 
@@ -181,6 +181,10 @@ public class LanguageExpressionEditorView extends JDialog
    private JButton removeImageButton;
 
    private InfoCheckBox visible;
+
+   private JButton recordSoundButton;
+
+   private JButton removeSoundButton;
 
    public ImageButton getImageButton()
    {
@@ -589,8 +593,8 @@ public class LanguageExpressionEditorView extends JDialog
       verbTimesBox = new JComboBox<>(values);
       verbTimesBox.setFont(ApplicationFonts.getComboBoxFont());
       verbTimesBox.setEditable(false);
-      verbTimesBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      verbTimesBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      verbTimesBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
+      verbTimesBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       verbTimesBox.setMaximumRowCount(VerbTimes.values().length);
    }
 
@@ -599,8 +603,8 @@ public class LanguageExpressionEditorView extends JDialog
       numerusBox = new JComboBox<>(values);
       numerusBox.setFont(ApplicationFonts.getComboBoxFont());
       numerusBox.setEditable(false);
-      numerusBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      numerusBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      numerusBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
+      numerusBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       numerusBox.setMaximumRowCount(Numerus.values().length);
    }
 
@@ -610,9 +614,9 @@ public class LanguageExpressionEditorView extends JDialog
       grammaticalPersonBox.setFont(ApplicationFonts.getComboBoxFont());
       grammaticalPersonBox.setEditable(false);
       grammaticalPersonBox
-            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+            .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       grammaticalPersonBox
-            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+            .setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       grammaticalPersonBox
             .setMaximumRowCount(GrammaticalPerson.values().length);
    }
@@ -622,8 +626,8 @@ public class LanguageExpressionEditorView extends JDialog
       genderBox = new JComboBox<>(values);
       genderBox.setFont(ApplicationFonts.getComboBoxFont());
       genderBox.setEditable(false);
-      genderBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      genderBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      genderBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
+      genderBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       genderBox.setMaximumRowCount(Gender.values().length);
    }
 
@@ -632,8 +636,8 @@ public class LanguageExpressionEditorView extends JDialog
       binjanBox = new JComboBox<>(values);
       binjanBox.setFont(ApplicationFonts.getComboBoxFont());
       binjanBox.setEditable(false);
-      binjanBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
-      binjanBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 50));
+      binjanBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
+      binjanBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       binjanBox.setMaximumRowCount(Binjan.values().length);
    }
 
@@ -905,8 +909,17 @@ public class LanguageExpressionEditorView extends JDialog
       JPanel filler = new JPanel();
       filler.setOpaque(false);
       filler.setBackground(InputColors.getTransparent());
-      filler.setMinimumSize( new Dimension(230,50));
+      filler.setMinimumSize( new Dimension(230,0));
       filler.setMaximumSize(new Dimension(230,650));
+      
+      recordSoundButton = new JButton(translator.realisticTranslate(Translation.SPRACHE_AUFNEHMEN));
+      recordSoundButton.setForeground(InputColors.getTextForeground());
+      recordSoundButton.setFont(ApplicationFonts.getButtonFont());
+      
+      removeSoundButton = new JButton(translator.realisticTranslate(Translation.TONAUFNAHME_LOESCHEN));
+      removeSoundButton.setForeground(InputColors.getTextForeground());
+      removeSoundButton.setFont(ApplicationFonts.getButtonFont());
+      
       
       this.loadImageButton = new JButton(
             translator.realisticTranslate(Translation.BILD_LADEN));
@@ -937,6 +950,8 @@ public class LanguageExpressionEditorView extends JDialog
       
       innerScroll.add(definitionPanel);
       innerScroll.add(filler);
+      innerScroll.add(recordSoundButton);
+      innerScroll.add(removeSoundButton);
       innerScroll.add(loadImageButton);
       innerScroll.add(removeImageButton);
       innerScroll.add(wrapper);
@@ -1034,6 +1049,14 @@ public class LanguageExpressionEditorView extends JDialog
 
       removeImageButton.addActionListener(_ -> {
          connector.deleteImageForExpression();
+      });
+      
+      recordSoundButton.addActionListener(_ -> {
+    	  connector.recordSoundButton();
+      });
+      
+      removeSoundButton.addActionListener(_ -> {
+    	  connector.removeSoundButton();
       });
 
       imageButton.addMouseListener(new MouseAdapter()
