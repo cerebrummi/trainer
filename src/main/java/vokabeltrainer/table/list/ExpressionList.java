@@ -38,15 +38,11 @@ public class ExpressionList extends JList<String>
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);
-      if (withLock && withEye)
-      {
-         g.drawImage(ApplicationImages.getLockEye(), 0, 0, this);
-      }
-      else if (withLock)
+      if (withLock)
       {
          g.drawImage(ApplicationImages.getLock(), 0, 0, this);
       }
-      else if (withEye)
+      if (withEye)
       {
          g.drawImage(ApplicationImages.getEyeOnly(), 0, 0, this);
       }

@@ -172,7 +172,7 @@ public enum Translation {
 	JAHRESZEIT("Jahreszeit", "season"),
 
 	KAPITEL("Kapitel", "chapter"), 
-	KARTEIKASTEN("Karteikasten", "index box"),
+	KARTEIKASTEN("Kartei", "index"),
 	KEIN_EXPORT_VON_INTERNEN_DATENBANKEN_MOEGLICH("Kein Export von internen Datenbanken möglich.", "No export of internal databases possible."),
 	KEINE_WORTE_ZUM_UEBEN_AUSGEWAEHLT("Keine Worte zum Üben ausgewählt.", "No words selected for practice."),
 	KOENNEN_NICHT_GELOESCHT_WERDEN_("können nicht gelöscht werden.", "cannot be deleted."), 
@@ -282,7 +282,7 @@ public enum Translation {
 	TEXT("Text", "text"), 
 	TINTENSPRITZER("Tintenspritzer", "ink splatter"),
 	TRAININGSEINHEIT_ERFOLGREICH("Trainingseinheit erfolgreich", "training session successful"), 
-	TRAININGSUEBERSICHT("Trainingsübersicht", "training overview"),
+	TRAININGSUEBERSICHT("Training", "training"),
 
 	UHR("Uhr", "o'clock"), 
 	UHRZEIT("Uhrzeit", "time"), 
@@ -298,7 +298,7 @@ public enum Translation {
 	VERSCHIEBEN("verschieben", "move"),
 	VERSCHIEBT_ALLE_VOKABELN_EINER_DATENBANK_IN_DEN_PAPIERKORB_(
 			"Verschiebt alle Vokabeln einer Datenbank in den Papierkorb.", "Moves all vocabulary in a database to the trash."),
-	VOKABELN_ABFRAGEN("Vokabeln abfragen", "query vocabulary"),
+	VOKABELN_ABFRAGEN("Übungen", "queries"),
 	VOKABELN_EINER_DATENBANK_EXPORTIEREN("Vokabeln einer Datenbank exportieren", "export vocabulary from a database"), 
 	VOKABELTRAINER("Vokabeltrainer", "Vocabulary Trainer"),
 	VOM("vom", "date"), 

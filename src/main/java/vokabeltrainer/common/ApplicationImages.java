@@ -70,7 +70,6 @@ public class ApplicationImages
 
    private static BufferedImage back;
    private static BufferedImage lock;
-   private static BufferedImage lockEye;
    private static BufferedImage eyeOnly;
    private static BufferedImage eye;
    private static BufferedImage languages;
@@ -942,20 +941,6 @@ public class ApplicationImages
          exitWithMessage("kein Schloss Icon");
       }
       ApplicationImages.lock = lock;
-   }
-
-   public static BufferedImage getLockEye()
-   {
-      return lockEye;
-   }
-
-   public static void setLockEye(BufferedImage lockEye)
-   {
-      if (lockEye == null)
-      {
-         exitWithMessage("kein Schloss und Auge Icon");
-      }
-      ApplicationImages.lockEye = lockEye;
    }
 
    public static BufferedImage getEyeOnly()

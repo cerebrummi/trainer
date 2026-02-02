@@ -403,7 +403,7 @@ public class InputPanel extends JPanel implements TableConnector
 
       center.add(horizontal);
       center.add(newWordPunktationButton);
-      center.add(newTextPunktationButton);
+      // center.add(newTextPunktationButton);
       // center.add(newQuestionsAndAnswersButton);
       leftside.add(center);
       return leftside;
