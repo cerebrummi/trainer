@@ -39,7 +39,6 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
-import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
@@ -59,7 +58,6 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
-import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.InputColors;
@@ -71,7 +69,6 @@ import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.EscapeAction;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableMultiselect;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableRow;
-import vokabeltrainer.tonionlayout.ExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.Chapter;
@@ -174,22 +171,9 @@ public class LanguageExpressionEditorView extends JDialog
 
    private JLabel lastModiefiedLabel;
 
-   private ImageButton imageButton;
-
-   private JButton loadImageButton;
-
-   private JButton removeImageButton;
-
    private InfoCheckBox visible;
 
-   private JButton recordSoundButton;
 
-   private JButton removeSoundButton;
-
-   public ImageButton getImageButton()
-   {
-      return imageButton;
-   }
 
    public LanguageExpressionEditorView(
          NikudExpressionEditorControllerConnector connector)
@@ -910,39 +894,8 @@ public class LanguageExpressionEditorView extends JDialog
       filler.setOpaque(false);
       filler.setBackground(InputColors.getTransparent());
       filler.setMinimumSize( new Dimension(230,0));
-      filler.setMaximumSize(new Dimension(230,650));
+      filler.setMaximumSize(new Dimension(230,850));
       
-      recordSoundButton = new JButton(translator.realisticTranslate(Translation.SPRACHE_AUFNEHMEN));
-      recordSoundButton.setForeground(InputColors.getTextForeground());
-      recordSoundButton.setFont(ApplicationFonts.getButtonFont());
-      
-      removeSoundButton = new JButton(translator.realisticTranslate(Translation.TONAUFNAHME_LOESCHEN));
-      removeSoundButton.setForeground(InputColors.getTextForeground());
-      removeSoundButton.setFont(ApplicationFonts.getButtonFont());
-      
-      
-      this.loadImageButton = new JButton(
-            translator.realisticTranslate(Translation.BILD_LADEN));
-      loadImageButton.setForeground(InputColors.getTextForeground());
-      loadImageButton.setFont(ApplicationFonts.getButtonFont());
-
-      this.removeImageButton = new JButton(
-            translator.realisticTranslate(Translation.BILD_LOESCHEN));
-      removeImageButton.setForeground(InputColors.getTextForeground());
-      removeImageButton.setFont(ApplicationFonts.getButtonFont());
-
-      JPanel wrapper = new JPanel(null);
-      wrapper.setOpaque(false);
-      wrapper.setBackground(ApplicationColors.getTransparent());
-      wrapper.setMinimumSize(new Dimension(230, 60));
-      wrapper.setMaximumSize(new Dimension(230, 60));
-
-      imageButton = new ImageButton();
-      imageButton.setForeground(InputColors.getTextForeground());
-      imageButton.setLocation(86, 0);
-      imageButton.setSize(60, 60);
-      wrapper.add(imageButton);
-
       JPanel innerScroll = new JPanel();
       innerScroll.setOpaque(false);
       innerScroll.setBackground(ApplicationColors.getTransparent());
@@ -950,11 +903,6 @@ public class LanguageExpressionEditorView extends JDialog
       
       innerScroll.add(definitionPanel);
       innerScroll.add(filler);
-      innerScroll.add(recordSoundButton);
-      innerScroll.add(removeSoundButton);
-      innerScroll.add(loadImageButton);
-      innerScroll.add(removeImageButton);
-      innerScroll.add(wrapper);
 
       JScrollPane scrollPane2 = new JScrollPane(innerScroll);
       scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
@@ -1041,45 +989,6 @@ public class LanguageExpressionEditorView extends JDialog
 
       cancelButton.addActionListener(_ -> {
          this.disposeDialog();
-      });
-
-      loadImageButton.addActionListener(_ -> {
-         connector.chooseImageForExpression();
-      });
-
-      removeImageButton.addActionListener(_ -> {
-         connector.deleteImageForExpression();
-      });
-      
-      recordSoundButton.addActionListener(_ -> {
-    	  connector.recordSoundButton();
-      });
-      
-      removeSoundButton.addActionListener(_ -> {
-    	  connector.removeSoundButton();
-      });
-
-      imageButton.addMouseListener(new MouseAdapter()
-      {
-         @Override
-         public void mouseClicked(MouseEvent event)
-         {
-            JDialog frame = new JDialog(Common.getjFrame());
-            frame.setModal(true);
-            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            JPanel panel = new JPanel();
-            ExpanderLayout layout = new ExpanderLayout(panel);
-            panel.setLayout(layout);
-            if (ImageData.loadImage(expression.getUuid()) == null)
-            {
-               return;
-            }
-            panel.add(new JLabel(new ImageIcon(
-                  ImageData.loadImageOriginal(expression.getUuid()))));
-            frame.add(panel);
-            frame.pack();
-            frame.setVisible(true);
-         }
       });
 
       getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
@@ -1420,18 +1329,6 @@ public class LanguageExpressionEditorView extends JDialog
             + " " + translator.realisticTranslate(Translation.UHR));
 
       visible.setSelected(expression.isVisible());
-
-      if (ImageData.isImageForExpressionAvailable(expression.getUuid()))
-      {
-         imageButton.setIcon(
-               new ImageIcon(ImageData.loadImage(expression.getUuid())));
-      }
-      else
-      {
-         imageButton.setIcon(null);
-      }
-      imageButton.validate();
-      imageButton.repaint();
    }
 
    private DefaultComboBoxModel<String> getSearchwordsModelGerman()

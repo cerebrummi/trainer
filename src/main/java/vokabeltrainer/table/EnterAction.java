@@ -7,15 +7,16 @@ import javax.swing.AbstractAction;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
+import vokabeltrainer.table.list.editor.PictureExpressionEditorController;
+import vokabeltrainer.table.list.editor.PictureExpressionEditorView;
 import vokabeltrainer.table.list.editor.LanguageExpressionEditorView;
-import vokabeltrainer.table.list.editor.TextExpressionEditorView;
 import vokabeltrainer.types.Expression;
 
 public class EnterAction extends AbstractAction
 {
    private ExpressionTable table;
    private LanguageExpressionEditorView editorPunktation;
-   private TextExpressionEditorView editorText;
+   private PictureExpressionEditorView editorPicture;
    private TableConnector connector;
 
    public EnterAction(ExpressionTable table, TableConnector connector)
@@ -24,7 +25,9 @@ public class EnterAction extends AbstractAction
       this.connector = connector;
       NikudExpressionEditorController controller = new NikudExpressionEditorController();
       editorPunktation = controller.getNikudExpressionEditorDialog();
-      editorText = controller.getTextExpressionEditorDialog();
+      PictureExpressionEditorController pictureController = new PictureExpressionEditorController();
+      editorPicture = pictureController.getPictureExpressionEditorDialog();
+      
    }
 
    private static final long serialVersionUID = 719272853628204094L;
@@ -33,33 +36,21 @@ public class EnterAction extends AbstractAction
    public void actionPerformed(ActionEvent e)
    {
       int selectedRow = table.getSelectedRow();
+      
       if (selectedRow >= 0)
       {
          Expression expression = (Expression) table.getValueAt(selectedRow, 0);
-         if (expression.getDefinitions().isExpressionKindText())
+         
+         if(table.getSelectedColumn() == 0)
          {
-            showEditorText(expression);
+        	 showEditorPunktation(expression);
          }
          else
          {
-            showEditorPunktation(expression);
+        	 showEditorPicture(expression);
          }
+         
       }
-   }
-
-   private void showEditorText(Expression expression)
-   {
-      editorText.setFrozen(expression.isDoNotChange());
-      editorText.setExpression(expression, false);
-      editorText.setLocationRelativeTo(Common.getjFrame());
-      editorText.setVisible(true);
-      // editor is open
-      if (editorText.isSave())
-      {
-         connector.save();
-      }
-      
-      editorText.dispose();
    }
 
    private void showEditorPunktation(Expression expression)
@@ -73,6 +64,15 @@ public class EnterAction extends AbstractAction
       {
          connector.save();
       }
+      editorPunktation.dispose();
+   }
+   
+   private void showEditorPicture(Expression expression)
+   {
+      editorPicture.setExpression(expression, false);
+      editorPicture.setLocationRelativeTo(Common.getjFrame());
+      editorPicture.setVisible(true);
+      // editor is open
       editorPunktation.dispose();
    }
 }

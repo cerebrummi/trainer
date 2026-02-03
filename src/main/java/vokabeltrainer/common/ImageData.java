@@ -215,7 +215,7 @@ public final class ImageData
 
       private boolean isImageForExpressionAvailable(UUID uuid)
       {
-         return imageMap.containsKey(uuid);
+         return imageMap.containsKey(uuid)?true:false;
       }
 
       private void saveImage(String image, UUID uuid)

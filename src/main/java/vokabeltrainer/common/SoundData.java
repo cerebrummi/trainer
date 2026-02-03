@@ -32,7 +32,7 @@ public final class SoundData
 
    }
 
-   static void initImageDataBase()
+   static void initSoundDataBase()
    {
       database = new SoundDataBase();
    }
@@ -155,6 +155,8 @@ public final class SoundData
    {
       private final ConcurrentMap<UUID, byte[]> soundMap = new ConcurrentHashMap<>(
             findNumberOfAllVocabulary() + 100);
+      private final ConcurrentMap<UUID, String> soundTypeMap = new ConcurrentHashMap<>(
+              findNumberOfAllVocabulary() + 100);
 
       SoundDataBase()
       {
@@ -178,6 +180,7 @@ public final class SoundData
          }
 
          soundMap.remove(uuid);
+         soundTypeMap.remove(uuid);
       }
 
       private byte[] loadSound(UUID uuid)
@@ -225,7 +228,7 @@ public final class SoundData
 
       private boolean isSoundForExpressionAvailable(UUID uuid)
       {
-         return soundMap.containsKey(uuid);
+         return soundMap.containsKey(uuid)?true:false;
       }
 
       private void saveSound(UUID uuid, String path)
@@ -235,6 +238,12 @@ public final class SoundData
             return;
          }
 
+         String soundType = findSoundType(path);
+         
+         if (soundType == null)
+         {
+            return;
+         }
 
          try
          {
@@ -248,7 +257,8 @@ public final class SoundData
             return;
          }
 
-         addToSoundMap(uuid.toString());
+         addToSoundMap(Paths.get(Settings.getImagePath() + File.separator
+                 + uuid.toString() + soundType));
       }
 
       private boolean checkDirectory()
@@ -286,7 +296,7 @@ public final class SoundData
          {
             Files.walk(Paths.get(Settings.getSoundPath()))
                   .filter(Files::isRegularFile)
-                  .forEach(path -> addToSoundMap(path.getFileName().toString()));
+                  .forEach(path -> addToSoundMap(path));
          }
          catch (IOException e)
          {
@@ -294,19 +304,52 @@ public final class SoundData
          }
       }
 
-      private void addToSoundMap(String uuidString)
+      private void addToSoundMap(Path path)
       {
-         UUID uuid = UUID.fromString(uuidString);
+    	 File sound =  path.toFile();
+    	 String soundType = findSoundType(sound.toString());
+    	 
+    	 if (soundType == null)
+         {
+            return;
+         }
+    	 
+    	 UUID uuid = UUID.fromString(sound.getName().substring(0,
+                 sound.getName().length() - soundType.length()));
          
 
-         try(InputStream in = new FileInputStream(Settings.getSoundPath()+uuidString))
+         try(InputStream in = new FileInputStream(path.toFile()))
          {
             soundMap.put(uuid, in.readAllBytes());
+            soundTypeMap.put(uuid, soundType);
          }
          catch (Exception e)
          {
             // nothing;
          }
+      }
+      
+      private String findSoundType(String sound)
+      {
+         sound = sound.toLowerCase();
+         int length = sound.length();
+         char dot3 = sound.charAt(length - 3);
+         char dot4 = sound.charAt(length - 4);
+         int dotIndex;
+         if (dot3 == '.')
+         {
+            dotIndex = 3;
+         }
+         else if (dot4 == '.')
+         {
+            dotIndex = 4;
+         }
+         else
+         {
+            return null;
+         }
+         String soundType = sound.substring(length - dotIndex);
+         return soundType;
       }
    }
 }
