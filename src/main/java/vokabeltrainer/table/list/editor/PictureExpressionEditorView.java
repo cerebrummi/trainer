@@ -1,6 +1,5 @@
 package vokabeltrainer.table.list.editor;
 
-import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -8,6 +7,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
@@ -25,13 +25,8 @@ import vokabeltrainer.types.LLType;
 
 public class PictureExpressionEditorView extends JDialog
 {
-   private static final int WIDTH_INFO_PANEL = 230;
-
-   private static final int WIDTH_INPUT_PANEL = Settings.getKeyboardWidth();
-
    private static final long serialVersionUID = 5853498340870217732L;
 
-   private Translator translator = Common.getTranslator();
    private Expression expression;
    private boolean newExpression;
    
@@ -62,6 +57,8 @@ public class PictureExpressionEditorView extends JDialog
       layout.setOpaque(false);
       layout.setBackground(ApplicationColors.getTransparent());
       layout.setLayout(new TrainLayout(layout, 15));
+      layout.add(new JLabel("Bilder"));
+      
       outerLayout.add(layout);
 
       getContentPane().add(new JScrollPane(outerLayout));

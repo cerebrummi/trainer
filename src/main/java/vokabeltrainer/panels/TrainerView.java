@@ -277,8 +277,7 @@ public class TrainerView extends JPanel
       questionField.setEditable(false);
 
       questionFieldLL = new InputLanguagePanel(Selection.SIMPLE, 160, 10, false,
-            this, 1268, TrainerColors.getInfoTextForeground());
-      questionFieldLL.setBackground(TrainerColors.getTextBackground());
+            this, 1268, TrainerColors.getTextBackground());
       questionFieldLL.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(ApplicationColors.getLightBlue()),
             translator.realisticTranslate(
