@@ -16,7 +16,6 @@ public class ExpressionColumnModel extends DefaultTableColumnModel
       ExpressionCellRenderer rendererEditor = new ExpressionCellRenderer(
             language);
       column.setCellRenderer(rendererEditor);
-      column.setCellEditor(rendererEditor);
       column.setMinWidth(column.getWidth()-60);
       addColumn(column);
       

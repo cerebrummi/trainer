@@ -1,7 +1,6 @@
 package vokabeltrainer.table;
 
 import java.awt.Component;
-import java.util.EventObject;
 import java.util.UUID;
 
 import javax.swing.BorderFactory;
@@ -9,8 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.event.CellEditorListener;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.common.ApplicationColors;
@@ -21,8 +18,8 @@ import vokabeltrainer.common.colors.TableColors;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.types.Expression;
 
-public class ExpressionCellRenderer2
-      implements TableCellRenderer, TableCellEditor
+public class ExpressionCellRenderer2 
+      implements TableCellRenderer
 {
    private JPanel content;
    private JLabel picture;
@@ -88,52 +85,5 @@ public class ExpressionCellRenderer2
       return content;
    }
 
-   @Override
-   public Object getCellEditorValue()
-   {
-      return null;
-   }
-
-   @Override
-   public boolean isCellEditable(EventObject anEvent)
-   {
-      return false;
-   }
-
-   @Override
-   public boolean shouldSelectCell(EventObject anEvent)
-   {
-      return false;
-   }
-
-   @Override
-   public boolean stopCellEditing()
-   {
-      return false;
-   }
-
-   @Override
-   public void cancelCellEditing()
-   {
-
-   }
-
-   @Override
-   public void addCellEditorListener(CellEditorListener l)
-   {
-
-   }
-
-   @Override
-   public void removeCellEditorListener(CellEditorListener l)
-   {
-
-   }
-
-   @Override
-   public Component getTableCellEditorComponent(JTable table, Object value,
-         boolean isSelected, int row, int column)
-   {
-      return null;
-   }
+   
 }
