@@ -191,6 +191,12 @@ public class Images
       
       ApplicationImages.setIcon_eye(ImageIO.read(
               Images.class.getResourceAsStream("_2_images/icon_eye.png")));
+      
+      ApplicationImages.setIcon_bulb(ImageIO.read(
+            Images.class.getResourceAsStream("_2_images/icon_bulb.png")));
+      
+      ApplicationImages.setIcon_bulb_on(ImageIO.read(
+            Images.class.getResourceAsStream("_2_images/icon_bulb_on.png")));
    }
 
 }

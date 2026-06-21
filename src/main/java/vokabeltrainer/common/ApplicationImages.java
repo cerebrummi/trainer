@@ -83,6 +83,8 @@ public class ApplicationImages
    
    private static BufferedImage icon_notes;
    private static BufferedImage icon_eye;
+   private static BufferedImage icon_bulb;
+   private static BufferedImage icon_bulb_on;
 
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    private static Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap;
@@ -1053,5 +1055,33 @@ public class ApplicationImages
 	         exitWithMessage("kein Icon Eye");
 	      }
 	ApplicationImages.icon_eye = icon_eye;
+   }
+   
+   public static BufferedImage getIcon_bulb() 
+   {
+        return icon_bulb;
+   }
+
+   public static void setIcon_bulb(BufferedImage icon_bulb) 
+   {
+           if (icon_bulb == null)
+              {
+                 exitWithMessage("kein Icon Bulb");
+              }
+        ApplicationImages.icon_bulb = icon_bulb;
+   }
+   
+   public static BufferedImage getIcon_bulb_on() 
+   {
+        return icon_bulb_on;
+   }
+
+   public static void setIcon_bulb_on(BufferedImage icon_bulb_on) 
+   {
+           if (icon_bulb_on == null)
+              {
+                 exitWithMessage("kein Icon Bulb on");
+              }
+        ApplicationImages.icon_bulb_on = icon_bulb_on;
    }
 }

@@ -13,7 +13,6 @@ import javax.swing.table.TableCellRenderer;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.ImageData;
-import vokabeltrainer.common.SoundData;
 import vokabeltrainer.common.colors.TableColors;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.types.Expression;
@@ -22,23 +21,18 @@ public class ExpressionCellRenderer2
       implements TableCellRenderer
 {
    private JPanel content;
-   private JLabel picture;
-   private JLabel sound;
+   private JLabel infos;
 
    public ExpressionCellRenderer2()
    {
       content = new JPanel();
       TotemLayout layout = new TotemLayout(content, 15);
       content.setLayout(layout);
-      picture = new JLabel();
-      picture.setSize(60, 60);
-      picture.setBorder(BorderFactory.createEmptyBorder());
-      sound = new JLabel();
-      sound.setSize(60, 60);
-      sound.setBorder(BorderFactory.createEmptyBorder());
+      infos = new JLabel(new ImageIcon(ApplicationImages.getIcon_bulb()));
+      infos.setSize(60, 60);
+      infos.setBorder(BorderFactory.createEmptyBorder());
       
-      content.add(picture);
-      content.add(sound);
+      content.add(infos);
    }
 
    @Override
@@ -49,19 +43,11 @@ public class ExpressionCellRenderer2
       UUID uuid = expression.getUuid();
       if(ImageData.isImageForExpressionAvailable(uuid))
       {
-    	  picture.setIcon(new ImageIcon(ApplicationImages.getIcon_eye()));
+         infos.setIcon(new ImageIcon(ApplicationImages.getIcon_bulb_on()));
       }
       else
       {
-    	  picture.setIcon(null);
-      }
-      if(SoundData.isSoundForExpressionAvailable(uuid))
-      {
-    	  sound.setIcon(new ImageIcon(ApplicationImages.getIcon_notes()));
-      }
-      else
-      {
-    	  sound.setIcon(null);
+    	  infos.setIcon(new ImageIcon(ApplicationImages.getIcon_bulb()));
       }
       
       if (isSelected)
