@@ -1,12 +1,5 @@
 package vokabeltrainer.tonionlayout;
 
-/*
- * Copyright (c) 2020, Birke Heeren All rights reserved.
- * Use only at own risk.
- *
- * TOnion Project
- * Version 3.0: 20 July 2020
- */
 import java.awt.AWTError;
 import java.awt.Component;
 import java.awt.Container;
@@ -57,11 +50,14 @@ import javax.swing.JViewport;
  *
  * @author Birke Heeren
  * @since private
- * @version BullsEyeLayout 3.1 (revised 18.September.2023, released 20. July 2020)
+ * @version BullsEyeLayout 4.0 (released 24. June 2026)
+ * 
+ * Copyright (c) 2026 Birke Heeren
+ *
+ * Licensed under the MIT License. 
  */
 
-public class BullsEyeLayout
-      implements LayoutManager2, java.io.Serializable
+public class BullsEyeLayout implements LayoutManager2, java.io.Serializable
 {
 
    /*
@@ -124,8 +120,7 @@ public class BullsEyeLayout
     *
     * All <code>BullsEyeLayout</code> constructors defer to this one.
     */
-   private BullsEyeLayout(Container self, String testname,
-         LayoutMode mode)
+   private BullsEyeLayout(Container self, String testname, LayoutMode mode)
    {
       this.dimMin = null;
       this.self = self;
@@ -205,9 +200,18 @@ public class BullsEyeLayout
           * any - should override given Dimensions. Only when there is no
           * content the given Dimensions should be used.
           */
-         if (comp instanceof Container && (((Container) comp)
-               .getLayout() instanceof TotemLayout
-               || ((Container) comp).getLayout() instanceof TrainLayout))
+         if (((Container) comp).getLayout() instanceof BullsEyeLayout)
+         {
+            Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                  .getLayout()).minimumLayoutSize((Container) comp);
+            if (dminContent != null)
+               dmin = dminContent;
+            else
+               dmin = comp.getMinimumSize();
+            dmax = comp.getMaximumSize();
+         }
+         else if (comp instanceof Container
+               && LayoutHelper.isTOnionLayout(((Container) comp).getLayout()))
          {
             Dimension dminContent = ((LayoutManager2) ((Container) comp)
                   .getLayout()).minimumLayoutSize((Container) comp);
@@ -222,16 +226,6 @@ public class BullsEyeLayout
                dmax = dmaxContent;
             else
                dmax = comp.getMaximumSize();
-         }
-         else if (((Container) comp).getLayout() instanceof BullsEyeLayout)
-         {
-            Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                  .getLayout()).minimumLayoutSize((Container) comp);
-            if (dminContent != null)
-               dmin = dminContent;
-            else
-               dmin = comp.getMinimumSize();
-            dmax = comp.getMaximumSize();
          }
          else
          {
@@ -369,10 +363,8 @@ public class BullsEyeLayout
              * by content - if any - should override given Dimensions. Only when
              * there is no content the given Dimensions should be used.
              */
-            if (comp instanceof Container && (((Container) comp)
-                  .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+            if (comp instanceof Container && LayoutHelper
+                  .isTOnionLayout(((Container) comp).getLayout()))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -409,11 +401,11 @@ public class BullsEyeLayout
     * Determines the maximum size of the container argument using this
     * BullsEyeLayout.
     * <p>
-    * The maximum height of a BullsEyeLayout is the maximum height 
-    * available, but at least the minimum size of self.
+    * The maximum height of a BullsEyeLayout is the maximum height available,
+    * but at least the minimum size of self.
     * <p>
-    * The maximum width of a BullsEyeLayout is the maximum width available,
-    * but at least the minimum width of self
+    * The maximum width of a BullsEyeLayout is the maximum width available, but
+    * at least the minimum width of self
     *
     * @param self
     *           the container in which to do the layout
@@ -441,22 +433,21 @@ public class BullsEyeLayout
                - (self.getInsets().top + self.getInsets().bottom);
          double w = self.getSize().getWidth()
                - (self.getInsets().left + self.getInsets().right);
-         
-         
-         if(self.getMinimumSize() != null)
+
+         if (self.getMinimumSize() != null)
          {
             double hmin = self.getMinimumSize().height;
             double wmin = self.getMinimumSize().width;
-            if(h < hmin)
+            if (h < hmin)
             {
                h = hmin;
             }
-            if(w < wmin)
+            if (w < wmin)
             {
                w = wmin;
             }
          }
-         return new Dimension((int)w, (int)h);
+         return new Dimension((int) w, (int) h);
       }
    }
 
@@ -523,9 +514,18 @@ public class BullsEyeLayout
           * override given Dimensions. Only when there is no content the given
           * Dimensions should be used.
           */
-         if (comp instanceof Container && (((Container) comp)
-               .getLayout() instanceof TotemLayout
-               || ((Container) comp).getLayout() instanceof TrainLayout))
+         if (((Container) comp).getLayout() instanceof BullsEyeLayout)
+         {
+            Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                  .getLayout()).minimumLayoutSize((Container) comp);
+            if (dminContent != null)
+               dmin = dminContent;
+            else
+               dmin = comp.getMinimumSize();
+            dmax = comp.getMaximumSize();
+         }
+         else if (comp instanceof Container
+               && LayoutHelper.isTOnionLayout(((Container) comp).getLayout()))
          {
             Dimension dminContent = ((LayoutManager2) ((Container) comp)
                   .getLayout()).minimumLayoutSize((Container) comp);
@@ -540,16 +540,6 @@ public class BullsEyeLayout
                dmax = dmaxContent;
             else
                dmax = comp.getMaximumSize();
-         }
-         else if (((Container) comp).getLayout() instanceof BullsEyeLayout)
-         {
-            Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                  .getLayout()).minimumLayoutSize((Container) comp);
-            if (dminContent != null)
-               dmin = dminContent;
-            else
-               dmin = comp.getMinimumSize();
-            dmax = comp.getMaximumSize();
          }
          else
          {
@@ -700,14 +690,12 @@ public class BullsEyeLayout
       checkContainer(self);
       this.dimMin = null;
       if (self.getParent() != null && self.getParent().getLayout() != null
-            && (self.getParent().getLayout() instanceof TotemLayout
-                  || self.getParent().getLayout() instanceof TrainLayout
-                  || self.getParent().getLayout() instanceof BullsEyeLayout))
+            && LayoutHelper.isTOnionLayout(self.getParent().getLayout()))
       {
-         if(self.getParent() != null)
+         if (self.getParent() != null)
          {
             ((LayoutManager2) self.getParent().getLayout())
-            .invalidateLayout(self.getParent());
+                  .invalidateLayout(self.getParent());
          }
       }
    }

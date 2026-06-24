@@ -1,11 +1,5 @@
 package vokabeltrainer.tonionlayout;
-/*
- * Copyright (c) 2020, Birke Heeren All rights reserved.
- * Use only at own risk.
- *
- * TOnion Project
- * Version 3.0: 20 July 2020
- */
+
 
 import java.awt.AWTError;
 import java.awt.Component;
@@ -25,11 +19,11 @@ import javax.swing.JViewport;
  * <code>TotemLayout</code>, <code>TrainLayout</code> and
  * <code>BullsEyeLayout</code> work together like layers of an onion. They stack
  * into each other and are called TOnionLayout. TOnionLayout was developed to
- * layout forms and data masks. By using minimum and maximum size the layout will
- * resize to fit the available space. The components inside TOnionLayout only
- * have to fit together approximately, the layout will align the components to
- * look neatly by itself. <code>TotemLayout</code> will give all components the
- * same width and optimize the height of each component.
+ * layout forms and data masks. By using minimum and maximum size the layout
+ * will resize to fit the available space. The components inside TOnionLayout
+ * only have to fit together approximately, the layout will align the components
+ * to look neatly by itself. <code>TotemLayout</code> will give all components
+ * the same width and optimize the height of each component.
  * <p>
  * Even though TOnionLayout is done top-down each layer inquires about the
  * minimum and maximum sizes of all its components. To acquire a good
@@ -58,10 +52,13 @@ import javax.swing.JViewport;
  *
  * @author Birke Heeren
  * @since private
- * @version TotemLayout 3.0 (released 20. July 2020)
+ * @version TotemLayout 4.0 (released 24. June 2026)
+ * 
+ * Copyright (c) 2026 Birke Heeren
+ *
+ * Licensed under the MIT License. 
  */
-public class TotemLayout
-      implements LayoutManager2, java.io.Serializable
+public class TotemLayout implements LayoutManager2, java.io.Serializable
 {
    /*
     * serialVersionUID
@@ -101,7 +98,7 @@ public class TotemLayout
     * This is the container TotemLayout is assigned to.
     */
    private Container self;
-   
+
    /**
     * This is a name for test mode.
     */
@@ -121,9 +118,9 @@ public class TotemLayout
     */
    public TotemLayout(Container self)
    {
-      this(self, 0,  "none", LayoutMode.NOTEST);
+      this(self, 0, "none", LayoutMode.NOTEST);
    }
-   
+
    /**
     * Creates a totem layout with no vertical gap in test mode.
     * <p>
@@ -135,11 +132,11 @@ public class TotemLayout
     */
    public TotemLayout(Container self, String testname)
    {
-      this(self, 0, testname , LayoutMode.TEST);
+      this(self, 0, testname, LayoutMode.TEST);
    }
 
    /**
-    * Creates a totem layout with the specified vertical gap.  
+    * Creates a totem layout with the specified vertical gap.
     * <p>
     * 
     * @param self
@@ -153,9 +150,9 @@ public class TotemLayout
    {
       this(self, vgap, "none", LayoutMode.NOTEST);
    }
-   
+
    /**
-    * Creates a totem layout with the specified vertical gap in test mode.  
+    * Creates a totem layout with the specified vertical gap in test mode.
     * <p>
     * 
     * @param self
@@ -171,14 +168,15 @@ public class TotemLayout
    {
       this(self, vgap, testname, LayoutMode.TEST);
    }
-   
+
    /**
-    * private constructor  
+    * private constructor
     * <p>
     * 
     * All <code>TotemLayout</code> constructors defer to this one.
     */
-   private TotemLayout(Container self, int vgap, String testname, LayoutMode mode)
+   private TotemLayout(Container self, int vgap, String testname,
+         LayoutMode mode)
    {
       if (vgap < 0)
          throw new IllegalArgumentException(
@@ -283,9 +281,19 @@ public class TotemLayout
              * any - should override given Dimensions. Only when there is no
              * content the given Dimensions should be used.
              */
-            if (comp instanceof Container && (((Container) comp)
-                  .getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof TotemLayout))
+            if (comp instanceof Container
+                  && ((Container) comp).getLayout() instanceof BullsEyeLayout)
+            {
+               Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                     .getLayout()).minimumLayoutSize((Container) comp);
+               if (dminContent != null)
+                  dmin = dminContent;
+               else
+                  dmin = comp.getMinimumSize();
+               dmax = comp.getMaximumSize();
+            }
+            else if (comp instanceof Container && LayoutHelper
+                  .isTOnionLayout(((Container) comp).getLayout()))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -299,16 +307,6 @@ public class TotemLayout
                   dmax = dmaxContent;
                else
                   dmax = comp.getMaximumSize();
-            }
-            else if (((Container) comp).getLayout() instanceof BullsEyeLayout)
-            {
-               Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                     .getLayout()).minimumLayoutSize((Container) comp);
-               if (dminContent != null)
-                  dmin = dminContent;
-               else
-                  dmin = comp.getMinimumSize();
-               dmax = comp.getMaximumSize();
             }
             else
             {
@@ -373,7 +371,11 @@ public class TotemLayout
             }
             // allocating available height according to minimum heights vs.
             // hmintotal
-            hfinal[i] = (int) ((hmin[i] / (float) hmintotal) * h);
+            if (hmintotal > 0)
+            {
+               hfinal[i] = (int) ((hmin[i] / (float) hmintotal) * h);
+            }
+
             if (hmin[i] > hfinal[i])
             {
                hfinal[i] = hmin[i];
@@ -394,8 +396,11 @@ public class TotemLayout
             hcompare = 0;
             for (int i = 0; i < ncomponents; i++)
             {
-               hfinal[i] += (int) ((hdifference[i] / (float) hdifferencetotal)
-                     * hleftover);
+               if (hdifferencetotal > 0)
+               {
+                  hfinal[i] += (int) ((hdifference[i]
+                        / (float) hdifferencetotal) * hleftover);
+               }
                if (hmax[i] < hfinal[i])
                {
                   hfinal[i] = hmax[i];
@@ -423,12 +428,17 @@ public class TotemLayout
             }
          }
 
-         int hfinaltotal = insets.top;
-         for (int i = 0; i < ncomponents; i++)
+         int hfinaltotal = insets.top + insets.bottom;
+         for (int i = 0; i < ncomponents - 1; i++)
          {
-            hfinaltotal += hfinal[i] + vgap;
+            hfinaltotal += hfinal[i];
+
+            if (i < ncomponents - 1)
+            {
+               hfinaltotal += vgap;
+            }
          }
-         return new Dimension(hfinaltotal, w);
+         return new Dimension(w + insets.left + insets.right, hfinaltotal);
       }
    }
 
@@ -478,10 +488,8 @@ public class TotemLayout
              * any - should override given Dimensions. Only when there is no
              * content the given Dimensions should be used.
              */
-            if (comp instanceof Container && (((Container) comp)
-                  .getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+            if (comp instanceof Container && LayoutHelper
+                  .isTOnionLayout(((Container) comp).getLayout()))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -560,9 +568,8 @@ public class TotemLayout
              * any - should override given Dimensions. Only when there is no
              * content the given Dimensions should be used.
              */
-            if (comp instanceof Container && (((Container) comp)
-                  .getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof TotemLayout))
+            if (comp instanceof Container && LayoutHelper
+                  .isTOnionLayout(((Container) comp).getLayout()))
             {
                Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).maximumLayoutSize((Container) comp);
@@ -640,7 +647,7 @@ public class TotemLayout
             availableHeight = self.getHeight() - (insets.top + insets.bottom)
                   - vgap * (ncomponents - 1);
          }
-         
+
          int h = availableHeight;
          int w = availableWidth;
          int wmin = 0;
@@ -659,9 +666,19 @@ public class TotemLayout
              * any - should override given Dimensions. Only when there is no
              * content the given Dimensions should be used.
              */
-            if (comp instanceof Container && (((Container) comp)
-                  .getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof TotemLayout))
+            if (comp instanceof Container
+                  && ((Container) comp).getLayout() instanceof BullsEyeLayout)
+            {
+               Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                     .getLayout()).minimumLayoutSize((Container) comp);
+               if (dminContent != null)
+                  dmin = dminContent;
+               else
+                  dmin = comp.getMinimumSize();
+               dmax = comp.getMaximumSize();
+            }
+            else if (comp instanceof Container && LayoutHelper
+                  .isTOnionLayout(((Container) comp).getLayout()))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -675,16 +692,6 @@ public class TotemLayout
                   dmax = dmaxContent;
                else
                   dmax = comp.getMaximumSize();
-            }
-            else if (((Container) comp).getLayout() instanceof BullsEyeLayout)
-            {
-               Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                     .getLayout()).minimumLayoutSize((Container) comp);
-               if (dminContent != null)
-                  dmin = dminContent;
-               else
-                  dmin = comp.getMinimumSize();
-               dmax = comp.getMaximumSize();
             }
             else
             {
@@ -749,7 +756,11 @@ public class TotemLayout
             }
             // allocating available height according to minimum heights vs.
             // hmintotal
-            hfinal[i] = (int) ((hmin[i] / (float) hmintotal) * h);
+            if (hmintotal > 0)
+            {
+               hfinal[i] = (int) ((hmin[i] / (float) hmintotal) * h);
+            }
+
             if (hmin[i] > hfinal[i])
             {
                hfinal[i] = hmin[i];
@@ -770,8 +781,12 @@ public class TotemLayout
             hcompare = 0;
             for (int i = 0; i < ncomponents; i++)
             {
-               hfinal[i] += (int) ((hdifference[i] / (float) hdifferencetotal)
-                     * hleftover);
+               if (hdifferencetotal > 0)
+               {
+                  hfinal[i] += (int) ((hdifference[i]
+                        / (float) hdifferencetotal) * hleftover);
+               }
+
                if (hmax[i] < hfinal[i])
                {
                   hfinal[i] = hmax[i];
@@ -804,9 +819,12 @@ public class TotemLayout
          {
             Component comp = self.getComponent(i);
             comp.setBounds(insets.left, y, w, hfinal[i]);
-            y += hfinal[i] + vgap;
+            if(i < ncomponents - 1)
+            {
+               y += hfinal[i] + vgap;
+            }
          }
-         
+
          if (LayoutMode.TEST == this.mode)
          {
             System.out.println("");
@@ -817,11 +835,11 @@ public class TotemLayout
             System.out.println("all components min width: " + wmin);
             System.out.println("all components max width: " + wmax);
             for (int i = 0; i < ncomponents; i++)
-            {               
-               System.out.println("component["+i+"] height: "+ hfinal[i]);
+            {
+               System.out.println("component[" + i + "] height: " + hfinal[i]);
             }
-            System.out.println("");           
-         }        
+            System.out.println("");
+         }
       }
    }
 
@@ -879,8 +897,7 @@ public class TotemLayout
       this.dimMin = null;
       this.dimMax = null;
       if (self.getParent() != null && self.getParent().getLayout() != null
-            && (self.getParent().getLayout() instanceof TrainLayout
-                  || self.getParent().getLayout() instanceof TotemLayout))
+            && LayoutHelper.isTOnionLayout(self.getParent().getLayout()))
       {
          ((LayoutManager2) self.getParent().getLayout())
                .invalidateLayout(self.getParent());

@@ -1,11 +1,5 @@
 package vokabeltrainer.tonionlayout;
-/*
- * Copyright (c) 2020, Birke Heeren All rights reserved.
- * Use only at own risk.
- *
- * TOnion Project
- * Version 3.0: 20 July 2020
- */
+
 
 import java.awt.AWTError;
 import java.awt.Component;
@@ -25,11 +19,11 @@ import javax.swing.JViewport;
  * <code>TrainLayout</code>, <code>TotemLayout</code> and
  * <code>BullsEyeLayout</code> work together like layers of an onion. They stack
  * into each other and are called TOnionLayout. TOnionLayout was developed to
- * layout forms and data masks. By using minimum and maximum size the layout will
- * resize to fit the available space. The components inside TOnionLayout only
- * have to fit together approximately, the layout will align the components to
- * look neatly by itself. <code>TrainLayout</code> will give all components the
- * same height and optimize the width of each component.
+ * layout forms and data masks. By using minimum and maximum size the layout
+ * will resize to fit the available space. The components inside TOnionLayout
+ * only have to fit together approximately, the layout will align the components
+ * to look neatly by itself. <code>TrainLayout</code> will give all components
+ * the same height and optimize the width of each component.
  * <p>
  * Even though TOnionLayout is done top-down each layer inquires about the
  * minimum and maximum sizes of all its components. To acquire a good
@@ -58,10 +52,13 @@ import javax.swing.JViewport;
  *
  * @author Birke Heeren
  * @since private
- * @version TrainLayout 3.0 (released 20. July 2020)
+ * @version TrainLayout 4.0 (released 24. June 2026)
+ * 
+ * Copyright (c) 2026 Birke Heeren
+ *
+ * Licensed under the MIT License. 
  */
-public class TrainLayout
-      implements LayoutManager2, java.io.Serializable
+public class TrainLayout implements LayoutManager2, java.io.Serializable
 {
    /*
     * serialVersionUID
@@ -101,7 +98,7 @@ public class TrainLayout
     * This is the container TrainLayout is assigned to.
     */
    private Container self;
-   
+
    /**
     * This is a name for test mode.
     */
@@ -123,7 +120,7 @@ public class TrainLayout
    {
       this(self, 0, "none", LayoutMode.NOTEST);
    }
-   
+
    /**
     * Creates a train layout with no horizontal gap in test mode.
     * <p>
@@ -153,7 +150,7 @@ public class TrainLayout
    {
       this(self, hgap, "none", LayoutMode.NOTEST);
    }
-   
+
    /**
     * Creates a train layout with the specified horizontal gap in test mode.
     * <p>
@@ -171,14 +168,15 @@ public class TrainLayout
    {
       this(self, hgap, testname, LayoutMode.TEST);
    }
-   
+
    /**
-    * private constructor  
+    * private constructor
     * <p>
     * 
     * All <code>TrainLayout</code> constructors defer to this one.
     */
-   private TrainLayout(Container self, int hgap, String testname, LayoutMode mode)
+   private TrainLayout(Container self, int hgap, String testname,
+         LayoutMode mode)
    {
       if (hgap < 0)
          throw new IllegalArgumentException(
@@ -284,9 +282,19 @@ public class TrainLayout
              * any - should override given Dimensions. Only when there is no
              * content the given Dimensions should be used.
              */
-            if (comp instanceof Container && (((Container) comp)
-                  .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout))
+            if (comp instanceof Container
+                  && ((Container) comp).getLayout() instanceof BullsEyeLayout)
+            {
+               Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                     .getLayout()).minimumLayoutSize((Container) comp);
+               if (dminContent != null)
+                  dmin = dminContent;
+               else
+                  dmin = comp.getMinimumSize();
+               dmax = comp.getMaximumSize();
+            }
+            else if (comp instanceof Container
+                  && LayoutHelper.isTOnionLayout(((Container) comp).getLayout()))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -300,16 +308,6 @@ public class TrainLayout
                   dmax = dmaxContent;
                else
                   dmax = comp.getMaximumSize();
-            }
-            else if (((Container) comp).getLayout() instanceof BullsEyeLayout)
-            {
-               Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                     .getLayout()).minimumLayoutSize((Container) comp);
-               if (dminContent != null)
-                  dmin = dminContent;
-               else
-                  dmin = comp.getMinimumSize();
-               dmax = comp.getMaximumSize();
             }
             else
             {
@@ -350,7 +348,7 @@ public class TrainLayout
             // error correction, to show error use TrainLayoutTest or toString()
             hmax = hmin;
          }
-         
+
          if (hmax != Integer.MAX_VALUE)
          {
             if (h <= hmin)
@@ -378,7 +376,11 @@ public class TrainLayout
             }
             // allocating available width according to minimum widths vs.
             // wmintotal
-            wfinal[i] = (int) ((wmin[i] / (float) wmintotal) * w);
+            if (wmintotal > 0)
+            {
+               wfinal[i] = (int) ((wmin[i] / (float) wmintotal) * w);
+            }
+
             if (wmin[i] > wfinal[i])
             {
                wfinal[i] = wmin[i];
@@ -394,7 +396,7 @@ public class TrainLayout
          int wleftover = w - wcompare;
          // dispensing possible wleftover according to wdifference vs.
          // wdifferencetotal
-         if (wleftover > 0)
+         if (wdifferencetotal > 0)
          {
             wcompare = 0;
             for (int i = 0; i < ncomponents; i++)
@@ -428,13 +430,13 @@ public class TrainLayout
             }
          }
 
-         int wfinaltotal = insets.left;
-         for (int i = 0; i < ncomponents; i++)
+         int wfinaltotal = insets.left + insets.right;
+         for (int i = 0; i < ncomponents - 1; i++)
          {
             wfinaltotal += wfinal[i] + hgap;
          }
 
-         return new Dimension(wfinaltotal, h);
+         return new Dimension(wfinaltotal, h + insets.top + insets.bottom);
       }
    }
 
@@ -485,10 +487,8 @@ public class TrainLayout
              * any - should override given Dimensions. Only when there is no
              * content the given Dimensions should be used.
              */
-            if (comp instanceof Container && (((Container) comp)
-                  .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+            if (comp instanceof Container && LayoutHelper
+                  .isTOnionLayout(((Container) comp).getLayout()))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -501,7 +501,7 @@ public class TrainLayout
             {
                dmin = comp.getMinimumSize();
             }
-            
+
             if (dmin != null)
             {
                if (h < dmin.height)
@@ -570,9 +570,8 @@ public class TrainLayout
              * any - should override given Dimensions. Only when there is no
              * content the given Dimensions should be used.
              */
-            if (comp instanceof Container && (((Container) comp)
-                  .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout))
+            if (comp instanceof Container && LayoutHelper
+                  .isTOnionLayout(((Container) comp).getLayout()))
             {
                Dimension dmaxContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).maximumLayoutSize((Container) comp);
@@ -651,7 +650,7 @@ public class TrainLayout
             availableWidth = self.getWidth() - (insets.left + insets.right)
                   - hgap * (ncomponents - 1);
          }
-         
+
          int h = availableHeight;
          int w = availableWidth;
          int hmin = 0;
@@ -670,7 +669,18 @@ public class TrainLayout
              * any - should override given Dimensions. Only when there is no
              * content the given Dimensions should be used.
              */
-            if (comp instanceof Container && (((Container) comp)
+            if (comp instanceof Container
+                  && ((Container) comp).getLayout() instanceof BullsEyeLayout)
+            {
+               Dimension dminContent = ((LayoutManager2) ((Container) comp)
+                     .getLayout()).minimumLayoutSize((Container) comp);
+               if (dminContent != null)
+                  dmin = dminContent;
+               else
+                  dmin = comp.getMinimumSize();
+               dmax = comp.getMaximumSize();
+            }
+            else if (comp instanceof Container && (((Container) comp)
                   .getLayout() instanceof TotemLayout
                   || ((Container) comp).getLayout() instanceof TrainLayout))
             {
@@ -686,16 +696,6 @@ public class TrainLayout
                   dmax = dmaxContent;
                else
                   dmax = comp.getMaximumSize();
-            }
-            else if (((Container) comp).getLayout() instanceof BullsEyeLayout)
-            {
-               Dimension dminContent = ((LayoutManager2) ((Container) comp)
-                     .getLayout()).minimumLayoutSize((Container) comp);
-               if (dminContent != null)
-                  dmin = dminContent;
-               else
-                  dmin = comp.getMinimumSize();
-               dmax = comp.getMaximumSize();
             }
             else
             {
@@ -735,7 +735,7 @@ public class TrainLayout
             // error correction, to show error use TrainLayoutTest or toString()
             hmax = hmin;
          }
-         
+
          if (hmax != Integer.MAX_VALUE)
          {
             if (h <= hmin)
@@ -747,7 +747,7 @@ public class TrainLayout
          else if (h < hmin)
             h = hmin;
          // else h = h;
-         
+
          // width
          int[] wfinal = new int[ncomponents];
          int wcompare = 0;
@@ -763,7 +763,11 @@ public class TrainLayout
             }
             // allocating available width according to minimum widths vs.
             // wmintotal
-            wfinal[i] = (int) ((wmin[i] / (float) wmintotal) * w);
+            if(wmintotal > 0)
+            {
+               wfinal[i] = (int) ((wmin[i] / (float) wmintotal) * w);
+            }
+            
             if (wmin[i] > wfinal[i])
             {
                wfinal[i] = wmin[i];
@@ -818,9 +822,12 @@ public class TrainLayout
          {
             Component comp = self.getComponent(i);
             comp.setBounds(x, insets.top, wfinal[i], h);
-            x += wfinal[i] + hgap;
+            if(i < ncomponents - 1)
+            {
+               x += wfinal[i] + hgap;
+            }
          }
-         
+
          if (LayoutMode.TEST == this.mode)
          {
             System.out.println("");
@@ -831,11 +838,11 @@ public class TrainLayout
             System.out.println("all components min height: " + hmin);
             System.out.println("all components max height: " + hmax);
             for (int i = 0; i < ncomponents; i++)
-            {               
-               System.out.println("component["+i+"] width: "+ wfinal[i]);
+            {
+               System.out.println("component[" + i + "] width: " + wfinal[i]);
             }
-            System.out.println("");           
-         }        
+            System.out.println("");
+         }
       }
    }
 
@@ -893,8 +900,7 @@ public class TrainLayout
       this.dimMin = null;
       this.dimMax = null;
       if (self.getParent() != null && self.getParent().getLayout() != null
-            && (self.getParent().getLayout() instanceof TotemLayout
-                  || self.getParent().getLayout() instanceof TrainLayout))
+            && LayoutHelper.isTOnionLayout(self.getParent().getLayout()))
       {
          ((LayoutManager2) self.getParent().getLayout())
                .invalidateLayout(self.getParent());

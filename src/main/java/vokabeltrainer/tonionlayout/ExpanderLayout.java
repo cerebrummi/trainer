@@ -1,12 +1,6 @@
 package vokabeltrainer.tonionlayout;
 
-/*
- * Copyright (c) 2020, Birke Heeren All rights reserved.
- * Use only at own risk.
- *
- * TOnion Project
- * Version 3.0: 20 July 2020
- */
+
 import java.awt.AWTError;
 import java.awt.Component;
 import java.awt.Container;
@@ -22,7 +16,8 @@ import javax.swing.JViewport;
  * <p>
  * Minimum and maximum sizes are taken into account.
  * <p>
- * <code>ExpanderLayout</code> must be the out most layer of a Java Swing Program.
+ * <code>ExpanderLayout</code> must be the out most layer of a Java Swing
+ * Program.
  * <p>
  * <code>TotemLayout</code>, <code>TrainLayout</code> and
  * <code>BullsEyeLayout</code> work together like layers of an onion. They stack
@@ -59,11 +54,14 @@ import javax.swing.JViewport;
  *
  * @author Birke Heeren
  * @since private
- * @version ExpanderLayout 3.0 (released 20. July 2020)
+ * @version ExpanderLayout 4.0 (released 24. June 2026)
+ * 
+ * Copyright (c) 2026 Birke Heeren
+ *
+ * Licensed under the MIT License. 
  */
 
-public class ExpanderLayout
-      implements LayoutManager2, java.io.Serializable
+public class ExpanderLayout implements LayoutManager2, java.io.Serializable
 {
 
    /*
@@ -117,8 +115,7 @@ public class ExpanderLayout
     *
     * All <code>BullsEyeLayout</code> constructors defer to this one.
     */
-   private ExpanderLayout(Container self, String testname,
-         LayoutMode mode)
+   private ExpanderLayout(Container self, String testname, LayoutMode mode)
    {
       this.self = self;
       this.testname = testname;
@@ -219,10 +216,8 @@ public class ExpanderLayout
              * by content - if any - should override given Dimensions. Only when
              * there is no content the given Dimensions should be used.
              */
-            if (comp instanceof Container && (((Container) comp)
-                  .getLayout() instanceof TotemLayout
-                  || ((Container) comp).getLayout() instanceof TrainLayout
-                  || ((Container) comp).getLayout() instanceof BullsEyeLayout))
+            if (comp instanceof Container && LayoutHelper
+                  .isTOnionLayout(((Container) comp).getLayout()))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -258,11 +253,11 @@ public class ExpanderLayout
     * Determines the maximum size of the container argument using this
     * BullsEyeLayout.
     * <p>
-    * The maximum height of a BullsEyeLayout is the maximum height 
-    * available, but at least the minimum size of self.
+    * The maximum height of a BullsEyeLayout is the maximum height available,
+    * but at least the minimum size of self.
     * <p>
-    * The maximum width of a BullsEyeLayout is the maximum width available,
-    * but at least the minimum width of self
+    * The maximum width of a BullsEyeLayout is the maximum width available, but
+    * at least the minimum width of self
     *
     * @param self
     *           the container in which to do the layout
@@ -277,26 +272,29 @@ public class ExpanderLayout
       {
          checkContainer(self);
          Container parent = self.getParent();
+         if (parent == null)
+         {
+            return self.getSize();
+         }
          double h = parent.getSize().getHeight()
                - (self.getInsets().top + self.getInsets().bottom);
          double w = parent.getSize().getWidth()
                - (self.getInsets().left + self.getInsets().right);
-         
-         
-         if(self.getMinimumSize() != null)
+
+         if (self.getMinimumSize() != null)
          {
             double hmin = self.getMinimumSize().height;
             double wmin = self.getMinimumSize().width;
-            if(h < hmin)
+            if (h < hmin)
             {
                h = hmin;
             }
-            if(w < wmin)
+            if (w < wmin)
             {
                w = wmin;
             }
          }
-         return new Dimension((int)w, (int)h);
+         return new Dimension((int) w, (int) h);
       }
    }
 
@@ -339,10 +337,10 @@ public class ExpanderLayout
 
          int h = availableHeight;
          int w = availableWidth;
-         
+
          int x = insets.left;
          int y = insets.top;
-         
+
          Component comp = self.getComponent(0);
          comp.setBounds(x, y, w, h);
 
@@ -410,10 +408,9 @@ public class ExpanderLayout
    public void invalidateLayout(Container self)
    {
       checkContainer(self);
+
       if (self.getParent() != null && self.getParent().getLayout() != null
-            && (self.getParent().getLayout() instanceof TotemLayout
-                  || self.getParent().getLayout() instanceof TrainLayout
-                  || self.getParent().getLayout() instanceof BullsEyeLayout))
+            && LayoutHelper.isTOnionLayout(self.getParent().getLayout()))
       {
          ((LayoutManager2) self.getParent().getLayout())
                .invalidateLayout(self.getParent());
