@@ -127,6 +127,9 @@ public class Images
 
       ApplicationImages.setOkaySave(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/okay-save.png")));
+      
+      ApplicationImages.setOkaySaveIcon(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/okay-save_icon.png")));
 
       ApplicationImages.setRestore(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/restore.png")));
@@ -197,6 +200,9 @@ public class Images
       
       ApplicationImages.setIcon_bulb_on(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/icon_bulb_on.png")));
+      
+      ApplicationImages.setScroll(ImageIO.read(
+            Images.class.getResourceAsStream("_2_images/scroll.png")));
    }
 
 }

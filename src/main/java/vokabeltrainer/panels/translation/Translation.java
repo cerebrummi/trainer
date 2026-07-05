@@ -395,7 +395,7 @@ public enum Translation {
 	PLUSQUAMPERFEKT("Plusquamperfekt","pluperfect"),
 	FUTUR1("Futur 1","future 1 "),
 	FUTUR2("Futur 2","future 2"),
-	NEUTRUM("Neutrum","neuter"),
+	NEUTRUM("neutrum","neuter"),
 	STARKES_VERB("starkes Verb", "strong verb"),
 	SCHWACHES_VERB("schwaches Verb", "weak verb"),
 	UNREGELMAESSIG_VERB("unregelmäßiges Verb", "irregular verb"),
@@ -435,7 +435,10 @@ public enum Translation {
 	SPRACHE_UMSTELLEN("Sprache ändern unter 'Eingabe'.","change language at 'input'."),
 	NEUSTART("Programm schließt und muss neu gestartet werden.","app closes and restart needed"),
 	SPRACHE_AUFNEHMEN("Sprache aufnehmen", "record voice"), 
-	TONAUFNAHME_LOESCHEN("Tonaufnahme löschen", "delete recording");
+	TONAUFNAHME_LOESCHEN("Tonaufnahme löschen", "delete recording"),
+	BILDER_LADEN("Bilder laden","load images"),
+	BILDER_LOESCHEN("Bilder löschen","delete images"),
+	BILD_ANZEIGEN("Bild anzeigen","display Image");
    
 
 	private String german;

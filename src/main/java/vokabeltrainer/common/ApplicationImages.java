@@ -33,7 +33,8 @@ public class ApplicationImages
    private static BufferedImage start;
    private static BufferedImage stop;
    private static BufferedImage search;
-   private static BufferedImage okaySave;
+   private static BufferedImage okaySave; // small
+   private static BufferedImage okaySaveIcon; // big
    private static BufferedImage empty;
    private static BufferedImage infoCursor;
    private static BufferedImage infoButtonIcon;
@@ -85,6 +86,8 @@ public class ApplicationImages
    private static BufferedImage icon_eye;
    private static BufferedImage icon_bulb;
    private static BufferedImage icon_bulb_on;
+   
+   private static BufferedImage scroll;
 
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    private static Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap;
@@ -361,18 +364,33 @@ public class ApplicationImages
       ApplicationImages.search = search;
    }
 
-   public static BufferedImage getOkaySave()
+   public static BufferedImage getOkaySaveIcon()
    {
-      return okaySave;
+      return okaySaveIcon;
    }
+
+   public static void setOkaySaveIcon(BufferedImage okaySaveIcon)
+   {
+      if (okaySaveIcon == null)
+      {
+         exitWithMessage("kein OkaySave Icon");
+      }
+      ApplicationImages.okaySaveIcon = okaySaveIcon;
+   }
+   
 
    public static void setOkaySave(BufferedImage okaySave)
    {
       if (okaySave == null)
       {
-         exitWithMessage("kein OkaySave Icon");
+         exitWithMessage("kein OkaySave");
       }
       ApplicationImages.okaySave = okaySave;
+   }
+   
+   public static BufferedImage getOkaySave()
+   {
+      return okaySave;
    }
 
    public static BufferedImage getEmpty()
@@ -1084,4 +1102,21 @@ public class ApplicationImages
               }
         ApplicationImages.icon_bulb_on = icon_bulb_on;
    }
+
+   public static BufferedImage getScroll()
+   {
+      return scroll;
+   }
+
+   public static void setScroll(BufferedImage scroll)
+   {
+      if (scroll == null)
+      {
+         exitWithMessage("kein Scroll");
+      }
+      ApplicationImages.scroll = scroll;
+   }
+
+ 
+
 }

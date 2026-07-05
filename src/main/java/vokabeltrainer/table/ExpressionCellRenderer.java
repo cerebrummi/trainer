@@ -53,7 +53,7 @@ public class ExpressionCellRenderer implements TableCellRenderer
       if (isSelected)
       {
          list.setBorder(BorderFactory
-               .createLineBorder(ApplicationColors.brightGreen, 3));
+               .createLineBorder(ApplicationColors.getSelectionGreen(), 3));
       }
       else
       {

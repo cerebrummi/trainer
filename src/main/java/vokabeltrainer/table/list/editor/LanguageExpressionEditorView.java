@@ -141,8 +141,6 @@ public class LanguageExpressionEditorView extends JDialog
    private ExpressionKindTableMultiselect expressionKindTable;
    private boolean frozen;
 
-   private NikudExpressionEditorControllerConnector connector;
-
    private JPanel binjanBoxPanel;
 
    private JPanel genderBoxPanel;
@@ -180,7 +178,7 @@ public class LanguageExpressionEditorView extends JDialog
    {
       super(Common.getjFrame(), Settings.getWindowTitle(),
             Dialog.ModalityType.APPLICATION_MODAL);
-      this.connector = connector;
+
       save = false;
       setResizable(true);
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

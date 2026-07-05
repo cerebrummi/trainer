@@ -52,7 +52,7 @@ public class ExpressionCellRenderer2
       
       if (isSelected)
       {
-         content.setBorder(BorderFactory.createLineBorder(ApplicationColors.brightGreen, 3));
+         content.setBorder(BorderFactory.createLineBorder(ApplicationColors.getSelectionGreen(), 3));
       }
       else
       {

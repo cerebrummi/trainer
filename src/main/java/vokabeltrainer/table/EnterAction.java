@@ -27,7 +27,6 @@ public class EnterAction extends AbstractAction
       editorPunktation = controller.getNikudExpressionEditorDialog();
       PictureExpressionEditorController pictureController = new PictureExpressionEditorController();
       editorPicture = pictureController.getPictureExpressionEditorDialog();
-      
    }
 
    private static final long serialVersionUID = 719272853628204094L;
@@ -69,10 +68,12 @@ public class EnterAction extends AbstractAction
    
    private void showEditorPicture(Expression expression)
    {
-      editorPicture.setExpression(expression, false);
+      editorPicture.setExpression(expression);
+      editorPicture.revalidate();
+      editorPicture.repaint();
       editorPicture.setLocationRelativeTo(Common.getjFrame());
       editorPicture.setVisible(true);
       // editor is open
-      editorPunktation.dispose();
+      editorPicture.dispose();
    }
 }

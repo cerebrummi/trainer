@@ -154,6 +154,15 @@ public class ApplicationColors
       }
       return green;
    }
+   
+   public static Color getSelectionGreen()
+   {
+      if(Settings.isDarkmodeOn())
+      {
+         return sunflowerYellow;
+      }
+      return green;
+   }
 
    public static Color getTransparent()
    {
