@@ -1,5 +1,7 @@
 package vokabeltrainer.resources;
 
+import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 import vokabeltrainer.common.ApplicationImages;
@@ -7,7 +9,7 @@ import vokabeltrainer.common.ApplicationImages;
 public class Images
 {
 
-   public static void read() throws Exception
+   public static void read() throws IOException
    {
       ApplicationImages.setDarkmode(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/darkmode.png")));

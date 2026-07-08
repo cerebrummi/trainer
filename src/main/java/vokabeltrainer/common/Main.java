@@ -1,6 +1,9 @@
 package vokabeltrainer.common;
 
 import java.awt.Dimension;
+import java.awt.FontFormatException;
+import java.io.IOException;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -37,30 +40,20 @@ public final class Main
       {
          Fonts.read();
       }
-      catch (Exception e1)
+      catch (FontFormatException | IOException e1)
       {
          JOptionPane.showMessageDialog(null, message + "Schriftarten fehlen",
                "Nachricht", JOptionPane.CLOSED_OPTION);
          System.exit(1);
       }
 
-      try
-      {
-         Fonts.define();
-      }
-      catch (Exception e1)
-      {
-         JOptionPane.showMessageDialog(null,
-               message + "Schriftarten können nicht definiert werden",
-               "Nachricht", JOptionPane.CLOSED_OPTION);
-         System.exit(1);
-      }
+      Fonts.define();
 
       try
       {
          Images.read();
       }
-      catch (Exception e1)
+      catch (IOException e1)
       {
          JOptionPane.showMessageDialog(null, message + "Bilder fehlen",
                "Nachricht", JOptionPane.CLOSED_OPTION);
@@ -71,7 +64,7 @@ public final class Main
       {
          LetterIcons.readNikud();
       }
-      catch (Exception e1)
+      catch (IOException e1)
       {
          JOptionPane.showMessageDialog(null,
                message + "Buchstaben Nikud Icons fehlen", "Nachricht",
@@ -83,7 +76,7 @@ public final class Main
       {
          LetterIconsHandwritten.readNikud();
       }
-      catch (Exception e1)
+      catch (IOException e1)
       {
          JOptionPane.showMessageDialog(null,
                message + "Buchstaben Nikud Handwritten Icons fehlen",
@@ -95,7 +88,7 @@ public final class Main
       {
          Buchstabenbilder.read();
       }
-      catch (Exception e)
+      catch (IOException e)
       {
          JOptionPane.showMessageDialog(null,
                message + "Buchstabenbilder fehlen", "Nachricht",
@@ -104,17 +97,7 @@ public final class Main
          System.exit(1);
       }
 
-      try
-      {
-         Sounds.read();
-      }
-      catch (Exception e1)
-      {
-         e1.printStackTrace();
-         JOptionPane.showMessageDialog(null, message + "Geräusche fehlen",
-               "Nachricht", JOptionPane.CLOSED_OPTION);
-         System.exit(1);
-      }
+      Sounds.read();
 
       Data.initDataBase();
       ImageData.initImageDataBase();
@@ -149,8 +132,6 @@ public final class Main
                new JScrollPane(Common.getMainJPanel()));
          window.setJMenuBar(Common.getMainJPanel().getMenuBar());
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-         // window.setExtendedState(JFrame. MAXIMIZED_BOTH);
-         // window.pack();
          window.setLocationRelativeTo(null);
          window.setVisible(true);
       });
@@ -158,13 +139,13 @@ public final class Main
       new SwingWorker<Void, Void>()
       {
          @Override
-         protected Void doInBackground() throws Exception
+         protected Void doInBackground()
          {
             try
             {
                Blue.read();
             }
-            catch (Exception e)
+            catch (IOException e)
             {
                JOptionPane.showMessageDialog(null,
                      message + "Blaue Bilder fehlen", "Nachricht",
@@ -176,7 +157,7 @@ public final class Main
             {
                Gruen.read();
             }
-            catch (Exception e)
+            catch (IOException e)
             {
                JOptionPane.showMessageDialog(null,
                      message + "Grüne Bilder fehlen", "Nachricht",

@@ -1,6 +1,7 @@
 package vokabeltrainer.resources;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import vokabeltrainer.editing.NikudLetter;
 public class LetterIconsHandwritten
 {
 
-   public static void readNikud() throws Exception
+   public static void readNikud() throws IOException 
    {
       Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap = new HashMap<>();
       String type = "";

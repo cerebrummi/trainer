@@ -1,12 +1,15 @@
 package vokabeltrainer.resources;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
+
 import vokabeltrainer.common.ApplicationFonts;
 
 public class Fonts
 {
 
-   public static void read() throws Exception
+   public static void read() throws FontFormatException, IOException
    {
       ApplicationFonts.setHebrewFont(
             Font.createFont(Font.TRUETYPE_FONT, Fonts.class.getResourceAsStream(
@@ -25,7 +28,7 @@ public class Fonts
                   "_1_fonts/AdaAdama.ttf")));
    }
 
-   public static void define() throws Exception
+   public static void define()
    {
       ApplicationFonts
             .setButtonFont(ApplicationFonts.getGermanFont().deriveFont(16F));

@@ -24,8 +24,8 @@ public final class Common
    private static JFrame jFrame;
    private static LanguageExpressionEditorView languageExpressionEditor;
 
-   private static boolean setMainJPanelOnlyOnce = false;
-   private static boolean setJFrameOnlyOnce = false;
+   private static boolean setMainJPanelOnlyOnce = true;
+   private static boolean setJFrameOnlyOnce = true;
    private static Translator translator = new Translator();
    private static Settings settings;
    
@@ -165,9 +165,10 @@ public final class Common
 
    static void setMainJPanel(MainView mainJPanel)
    {
-      if (!setMainJPanelOnlyOnce)
+      if (setMainJPanelOnlyOnce)
       {
          Common.mainJPanel = mainJPanel;
+         setMainJPanelOnlyOnce = false;
       }
    }
 
@@ -178,9 +179,10 @@ public final class Common
 
    static void setjFrame(JFrame jFrame)
    {
-      if (!setJFrameOnlyOnce)
+      if (setJFrameOnlyOnce)
       {
          Common.jFrame = jFrame;
+         setJFrameOnlyOnce = false;
       }
    }
    

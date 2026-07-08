@@ -1,6 +1,7 @@
 package vokabeltrainer.resources;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Gruen
 {
    private static List<BufferedImage> greenImagesList = new ArrayList<>();
 
-   public static void read() throws Exception
+   public static void read() throws IOException
    {
 
       for (int i = 0; i < 72; i++)

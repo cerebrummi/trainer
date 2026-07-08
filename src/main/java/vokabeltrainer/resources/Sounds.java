@@ -5,7 +5,7 @@ import vokabeltrainer.editing.SwedishLetter;
 
 public class Sounds
 {
-   public static void read() throws Exception
+   public static void read()
    {
       ApplicationSound.setSplotchSound(Sounds.class.getResourceAsStream(
             "sounds/splotch-sound.byt"));

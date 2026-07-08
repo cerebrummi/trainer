@@ -1,6 +1,7 @@
 package vokabeltrainer.resources;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -19,7 +20,7 @@ public class Buchstabenbilder
    private static Map<NikudLetter, BufferedImage> letterPicturesMap = new HashMap<>();
    private static Map<NikudLetter, LetterPictureButtonPanel> letterPicturesPanelMap = new HashMap<>();
 
-   public static void read() throws Exception
+   public static void read() throws IOException 
    {
 
       for (NikudLetter letter : NikudLetter.values())
