@@ -42,7 +42,6 @@ import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
-import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.SoundData;
 import vokabeltrainer.common.colors.TrainerColors;
@@ -873,12 +872,7 @@ public class TrainerView extends JPanel
 	             JPanel panel = new JPanel();
 	             ExpanderLayout layout = new ExpanderLayout(panel);
 	             panel.setLayout(layout);
-	             if (ImageData.loadImage(connector.getCurrentExpression().getUuid()) == null)
-	             {
-	                return;
-	             }
-	             panel.add(new JLabel(new ImageIcon(
-	                   ImageData.loadImageOriginal(connector.getCurrentExpression().getUuid()))));
+
 	             frame.add(panel);
 	             frame.pack();
 	             frame.setVisible(true);

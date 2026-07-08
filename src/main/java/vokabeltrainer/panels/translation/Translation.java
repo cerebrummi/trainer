@@ -438,7 +438,7 @@ public enum Translation {
 	TONAUFNAHME_LOESCHEN("Tonaufnahme löschen", "delete recording"),
 	BILDER_LADEN("Bilder laden","load images"),
 	BILDER_LOESCHEN("Bilder löschen","delete images"),
-	BILD_ANZEIGEN("Bild anzeigen","display Image");
+	BILDER_ANZEIGEN("Bilder anzeigen","display Images");
    
 
 	private String german;

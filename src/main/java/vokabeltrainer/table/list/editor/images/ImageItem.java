@@ -25,6 +25,13 @@ public class ImageItem
       this.image = image;
    }
 
+   public ImageItem(UUID expressionUuid, Path file, BufferedImage image)
+   {
+      this(expressionUuid, file.getFileName().toString(), file,
+            ImageDropHandler.createThumbnail(image), image);
+      this.checked = true;
+   }
+
    public UUID getExpressionUuid()
    {
       return expressionUuid;
@@ -68,7 +75,7 @@ public class ImageItem
    public void setImage(BufferedImage image)
    {
       this.image = image;
-      this.thumbnail = ImageDropHandler.createThumbnail(image, 180, 180);
+      this.thumbnail = ImageDropHandler.createThumbnail(image);
    }
 
    @Override

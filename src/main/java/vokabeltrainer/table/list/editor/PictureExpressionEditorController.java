@@ -1,5 +1,7 @@
 package vokabeltrainer.table.list.editor;
 
+import vokabeltrainer.types.Expression;
+
 public class PictureExpressionEditorController
       implements NikudExpressionEditorControllerConnector
 {
@@ -13,6 +15,12 @@ public class PictureExpressionEditorController
    public PictureExpressionEditorView getPictureExpressionEditorDialog()
    {
       return pictureExpressionEditorDialog;
+   }
+
+   @Override
+   public void openPictureView(Expression expression)
+   {
+      // nothing
    }
 
 

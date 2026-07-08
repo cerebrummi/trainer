@@ -91,6 +91,8 @@ public class LanguageExpressionEditorView extends JDialog
       implements ExpressionEditorViewConnector
 {
    private static final int WIDTH_INFO_PANEL = 230;
+   
+   private static final int WIDTH_BOX_PANEL = 230;
 
    private static final int WIDTH_INPUT_PANEL = Settings.getKeyboardWidth();
 
@@ -137,6 +139,8 @@ public class LanguageExpressionEditorView extends JDialog
    private JButton pasteButton;
    private JButton cutButton;
    private JButton copyButton;
+   
+   private JButton imageButton;
 
    private ExpressionKindTableMultiselect expressionKindTable;
    private boolean frozen;
@@ -171,6 +175,7 @@ public class LanguageExpressionEditorView extends JDialog
 
    private InfoCheckBox visible;
 
+   private NikudExpressionEditorControllerConnector connector;
 
 
    public LanguageExpressionEditorView(
@@ -179,6 +184,7 @@ public class LanguageExpressionEditorView extends JDialog
       super(Common.getjFrame(), Settings.getWindowTitle(),
             Dialog.ModalityType.APPLICATION_MODAL);
 
+      this.connector = connector;
       save = false;
       setResizable(true);
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -489,6 +495,14 @@ public class LanguageExpressionEditorView extends JDialog
             translator.realisticTranslate(Translation.KOPIEREN));
       copyButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
       copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
+      
+      imageButton = new JButton();
+      imageButton.setFont(ApplicationFonts.getButtonFont());
+      imageButton.setForeground(InputColors.getTextForeground());
+      imageButton.setText(translator.realisticTranslate(Translation.BILDER_ANZEIGEN));
+      imageButton.setMinimumSize(new Dimension(WIDTH_BOX_PANEL, 40));
+      imageButton.setMaximumSize(new Dimension(WIDTH_BOX_PANEL, 40));
+      
 
       expressionKindTable = new ExpressionKindTableMultiselect(
             ExpressionKind.getModelForMultiselect(), WIDTH_INFO_PANEL, this);
@@ -882,7 +896,7 @@ public class LanguageExpressionEditorView extends JDialog
    private Component initInfosExtra()
    {
       definitionPanel = new JPanel();
-      TotemLayout definitionLayout = new TotemLayout(definitionPanel, 5);
+      TotemLayout definitionLayout = new TotemLayout(definitionPanel, 15);
       definitionPanel.setLayout(definitionLayout);
       definitionPanel.setBorder(BorderFactory.createEmptyBorder());
       definitionPanel.setOpaque(false);
@@ -891,8 +905,8 @@ public class LanguageExpressionEditorView extends JDialog
       JPanel filler = new JPanel();
       filler.setOpaque(false);
       filler.setBackground(InputColors.getTransparent());
-      filler.setMinimumSize( new Dimension(230,0));
-      filler.setMaximumSize(new Dimension(230,850));
+      filler.setMinimumSize( new Dimension(WIDTH_BOX_PANEL,200));
+      filler.setMaximumSize(new Dimension(WIDTH_BOX_PANEL,850));
       
       JPanel innerScroll = new JPanel();
       innerScroll.setOpaque(false);
@@ -901,10 +915,11 @@ public class LanguageExpressionEditorView extends JDialog
       
       innerScroll.add(definitionPanel);
       innerScroll.add(filler);
+      innerScroll.add(imageButton);
 
       JScrollPane scrollPane2 = new JScrollPane(innerScroll);
-      scrollPane2.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 200));
-      scrollPane2.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 800));
+      scrollPane2.setMinimumSize(new Dimension(WIDTH_BOX_PANEL, 200));
+      scrollPane2.setMaximumSize(new Dimension(WIDTH_BOX_PANEL, 800));
       scrollPane2.setBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setOpaque(true);
@@ -1264,10 +1279,13 @@ public class LanguageExpressionEditorView extends JDialog
          grammaticalPersonBox.setSelectedIndex(0);
          numerusBox.setSelectedIndex(0);
          verbTimesBox.setSelectedIndex(0);
-         extraInfo.setText("");
+         extraInfo.setText(""); 
+         imageButton.setVisible(false);
       }
       else
       {
+         imageButton.setVisible(true);
+         imageButton.addActionListener(_ -> connector.openPictureView(expression));
          Definitions definitions = expression.getDefinitions();
          Set<ExpressionKind> kinds = definitions.getExpressionKindSet();
          expressionKindTable

@@ -338,6 +338,11 @@ public final class Data
    {
       return getDataBaseAtomic().getDatabaseArray();
    }
+   
+   public static boolean isExistUuid(UUID uuid)
+   {
+      return getDataBaseAtomic().isExistUuid(uuid);
+   }
 
    // #########################################################
    // #########################################################
@@ -2113,6 +2118,10 @@ public final class Data
          }
          return vectorOutside;
       }
-   }
-
+      
+      private boolean isExistUuid(UUID uuid)
+      {
+         return alleMap.containsKey(uuid);
+      }
+   }  
 }

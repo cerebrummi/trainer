@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.ImageData;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
 import vokabeltrainer.table.list.editor.PictureExpressionEditorController;
@@ -19,6 +20,12 @@ public class EnterAction extends AbstractAction
    private PictureExpressionEditorView editorPicture;
    private TableConnector connector;
 
+   public EnterAction()
+   {
+      PictureExpressionEditorController pictureController = new PictureExpressionEditorController();
+      editorPicture = pictureController.getPictureExpressionEditorDialog();
+   }
+   
    public EnterAction(ExpressionTable table, TableConnector connector)
    {
       this.table = table;
@@ -46,7 +53,7 @@ public class EnterAction extends AbstractAction
          }
          else
          {
-        	 showEditorPicture(expression);
+        	 showEditorPicture(expression, false);
          }
          
       }
@@ -66,9 +73,13 @@ public class EnterAction extends AbstractAction
       editorPunktation.dispose();
    }
    
-   private void showEditorPicture(Expression expression)
+   public void showEditorPicture(Expression expression, boolean dropped)
    {
       editorPicture.setExpression(expression);
+      if(ImageData.isImageForExpressionAvailable(expression.getUuid()))
+      {
+         editorPicture.setImages(ImageData.loadImages(expression.getUuid()));
+      }
       editorPicture.revalidate();
       editorPicture.repaint();
       editorPicture.setLocationRelativeTo(Common.getjFrame());

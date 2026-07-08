@@ -54,6 +54,11 @@ public class ImageDropHandler extends TransferHandler
          return false;
       }
    }
+   
+   public void addImage(ImageItem item)
+   {
+      model.addElement(item);
+   }
 
    void addImage(File file)
    {
@@ -68,7 +73,7 @@ public class ImageDropHandler extends TransferHandler
             return;
          }
 
-         ImageIcon thumbnail = createThumbnail(image, 180, 180);
+         ImageIcon thumbnail = createThumbnail(image);
 
          ImageItem item = new ImageItem(expressionUUID, file.getName(),
                file.toPath(), thumbnail, image);
@@ -83,11 +88,10 @@ public class ImageDropHandler extends TransferHandler
       }
    }
 
-   public static ImageIcon createThumbnail(BufferedImage image, int maxWidth,
-         int maxHeight)
+   public static ImageIcon createThumbnail(BufferedImage image)
    {
-      double scale = Math.min((double) maxWidth / image.getWidth(),
-            (double) maxHeight / image.getHeight());
+      double scale = Math.min((double) 180 / image.getWidth(),
+            (double) 180 / image.getHeight());
 
       int width = (int) (image.getWidth() * scale);
       int height = (int) (image.getHeight() * scale);

@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -311,6 +312,14 @@ public class PictureExpressionEditorView extends JDialog
 
       initController();
    }
+   
+   public void setImages(ArrayList<ImageItem> items)
+   {
+      for(ImageItem item: items)
+      {
+         dropHandler.addImage(item);
+      }
+   }
 
    private ImageIcon createScreenSize(BufferedImage image, int maxWidth,
          int maxHeight)
@@ -391,4 +400,6 @@ public class PictureExpressionEditorView extends JDialog
 
       return fileName.substring(dot + 1).toLowerCase();
    }
+
+
 }
