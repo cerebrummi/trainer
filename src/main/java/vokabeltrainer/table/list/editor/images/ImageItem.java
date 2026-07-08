@@ -37,7 +37,7 @@ public class ImageItem
       return expressionUuid;
    }
 
-   public String getOriginalFileName()
+   public String getImageFileName()
    {
       return originalFileName;
    }

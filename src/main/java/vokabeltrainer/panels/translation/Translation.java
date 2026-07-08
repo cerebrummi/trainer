@@ -115,7 +115,7 @@ public enum Translation {
 	EINTRAEGE_LOESCHEN__("Einträge löschen?", "Delete postings?"),
 	ENTER_DRUECKEN_OEFFNET_DEN_MARKIERTEN_EINTRAG("Enter drücken öffnet den markierten Eintrag", "Pressing Enter opens the highlighted entry"),
 	ES_WURDEN_KEINE_EINTRAEGE("Es wurden keine Einträge", "There were no entries"), 
-	EXPORT("Export", "export"),
+	EXPORT("Export (ohne Bilder)", "export (without images)"),
 	EXPORT_ALLER_VOKABELN("Export aller Vokabeln", "export of all vocabulary"), 
 	EXPORT_EINER_DATENBANK("Export einer Datenbank", "export a database"),
 	EXPORT_MARKIERTER_VOKABELN("Export markierter Vokabeln", "export marked vocabulary"),

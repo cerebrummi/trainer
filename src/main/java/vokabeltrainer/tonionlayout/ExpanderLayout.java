@@ -198,13 +198,13 @@ public class ExpanderLayout implements LayoutManager2, java.io.Serializable
          int ncomponents = self.getComponentCount();
          if (ncomponents > 1)
          {
-            throw new AWTError("BullsEyeLayout can hold only one component");
+            throw new AWTError("ExpanderLayout can hold only one component");
          }
 
          Dimension dmin = null;
          if (ncomponents == 0)
          {
-            dmin = self.getMinimumSize();
+            dmin = self.getPreferredSize();
          }
          else
          {

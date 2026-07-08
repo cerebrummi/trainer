@@ -67,6 +67,8 @@ public class PictureExpressionEditorView extends JDialog
    private JPanel imagePanel;
 
    private ImageDropHandler dropHandler;
+   
+   private NikudExpressionEditorControllerConnector connector;
 
    public PictureExpressionEditorView(
          NikudExpressionEditorControllerConnector connector)
@@ -74,6 +76,7 @@ public class PictureExpressionEditorView extends JDialog
       super(Common.getjFrame(), Settings.getWindowTitle()
             + " Bilder hineinziehen und fallen lassen. Rechtsklick auf jedes Bild öffnet Menü für Bild. Links Doppelklick öffnet Bild.",
             Dialog.ModalityType.APPLICATION_MODAL);
+      this.connector = connector;
       setResizable(true);
       screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       setSize(Math.min(screenSize.width - 60, 1320),
@@ -234,7 +237,7 @@ public class PictureExpressionEditorView extends JDialog
       saveItem.setFont(ApplicationFonts.getButtonFont());
       saveItem.addActionListener(_ -> {
          item.setChecked(true);
-         // SwingWorker saveImage
+         connector.saveImage(expression, item);
          imageList.repaint(bounds);
       });
 
@@ -242,7 +245,7 @@ public class PictureExpressionEditorView extends JDialog
       deleteItem.setFont(ApplicationFonts.getButtonFont());
       deleteItem.addActionListener(_ -> {
          item.setChecked(false);
-         // SwingWorker deleteImage
+         connector.deleteImage(expression, item);
          imageList.repaint(bounds);
       });
 
@@ -266,7 +269,7 @@ public class PictureExpressionEditorView extends JDialog
          model.remove(index);
          if (item.isChecked())
          {
-            // SwingWorker deleteImage
+            connector.deleteImage(expression, item);
          }
          imageList.repaint();
       });

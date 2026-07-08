@@ -29,6 +29,11 @@ public class SoundAction extends AbstractAction
    {
       this.table = table;
    }
+   
+   public SoundAction()
+   {
+      
+   }
 
    @Override
    public void actionPerformed(ActionEvent e)

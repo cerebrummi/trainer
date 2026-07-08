@@ -14,6 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.prefs.Preferences;
+import java.util.stream.Stream;
+
 import javax.imageio.ImageIO;
 
 import vokabeltrainer.cmd.DirectoryHelper;
@@ -159,21 +161,19 @@ public final class ImageData
 
       private void readImagesAvailable()
       {
-         try
+         try (Stream<Path> s = Files.list(Paths.get(Settings.getImagePath())))
          {
-            Files.list(Paths.get(Settings.getImagePath()))
-                  .filter(Files::isDirectory).forEach(dirPath -> {
-                     try
-                     {
-                        Files.walk(dirPath).filter(Files::isRegularFile)
-                              .forEach(filePath -> addToImageNameMap(filePath,
-                                    dirPath));
-                     }
-                     catch (IOException e)
-                     {
-                        // nothing
-                     }
-                  });
+            s.filter(Files::isDirectory).forEach(dirPath -> {
+               try (Stream<Path> walk = Files.walk(dirPath))
+               {
+                  walk.filter(Files::isRegularFile).forEach(
+                        filePath -> addToImageNameMap(filePath, dirPath));
+               }
+               catch (IOException e)
+               {
+                  // nothing
+               }
+            });
          }
          catch (IOException e)
          {
@@ -183,47 +183,34 @@ public final class ImageData
 
       private void moveImagesFromPreviousVersion()
       {
-         try
+         try (Stream<Path> s = Files.walk(Paths.get(Settings.getImagePath())))
          {
-            Files.walk(Paths.get(Settings.getImagePath()))
-                  .filter(Files::isRegularFile).forEach(filePath -> {
+            s.filter(Files::isRegularFile).forEach(filePath -> {
 
-                     String fileName = filePath.getFileName().toString();
-                     UUID uuid = getUuidFromOldImageFile(fileName);
+               String fileName = filePath.getFileName().toString();
+               UUID uuid = getUuidFromOldImageFile(fileName);
 
-                     if (Data.isExistUuid(uuid))
-                     {
-                        try
-                        {
-                           Files.move(filePath,
-                                 Paths.get(Settings.getImagePath(),
-                                       "ex_" + fileName),
-                                 StandardCopyOption.REPLACE_EXISTING);
-                        }
-                        catch (Exception e)
-                        {
-                           e.printStackTrace();
-                        }
+               if (Data.isExistUuid(uuid))
+               {
+                  checkDirectory(uuid);
 
-                        checkDirectory(uuid);
-
-                        try
-                        {
-                           Files.move(
-                                 Paths.get(Settings.getImagePath(),
-                                       File.separator, "ex_" + fileName),
-                                 Paths.get(Settings.getImagePath(),
-                                       File.separator, uuid.toString(),
-                                       File.separator, "ex_" + fileName),
-                                 StandardCopyOption.REPLACE_EXISTING);
-                           addToImageNameMap(fileName, uuid);
-                        }
-                        catch (Exception e)
-                        {
-                           e.printStackTrace();
-                        }
-                     }
-                  });
+                  try
+                  {
+                     Files.move(
+                           Paths.get(Settings.getImagePath(), File.separator,
+                                 fileName),
+                           Paths.get(Settings.getImagePath(), File.separator,
+                                 uuid.toString(), File.separator,
+                                 "ex_" + fileName),
+                           StandardCopyOption.REPLACE_EXISTING);
+                     addToImageNameMap(fileName, uuid);
+                  }
+                  catch (Exception e)
+                  {
+                     // nothing
+                  }
+               }
+            });
          }
          catch (Exception e)
          {
@@ -289,33 +276,37 @@ public final class ImageData
             return imageList;
          }
 
-         nameList.stream().forEach(_ -> {
-            try
-            {
-               Files.walk(
-                     Paths.get(Settings.getImagePath() + File.separator + uuid))
-                     .filter(Files::isRegularFile).forEach(file -> {
-                        ImageItem item = loadImageOriginal(file, uuid);
-                        if (item != null)
-                        {
-                           imageList.add(item);
-                        }
-                     });
-            }
-            catch (Exception e)
-            {
-               // nothing
-            }
-         });
+         try (Stream<Path> s = Files.walk(
+               Paths.get(Settings.getImagePath() + File.separator + uuid)))
+         {
+            s.filter(Files::isRegularFile).forEach(file -> {
+               ImageItem item = loadImageOriginal(file, uuid);
+               if (item != null)
+               {
+                  imageList.add(item);
+               }
+            });
+         }
+         catch (Exception e)
+         {
+            // nothing
+         }
+
          return imageList;
       }
 
       private ImageItem loadImageOriginal(Path file, UUID uuid)
       {
-         try
+         try (FileInputStream in = new FileInputStream(file.toFile()))
          {
-            return new ImageItem(uuid, file,
-                  ImageIO.read(new FileInputStream(file.toString())));
+            BufferedImage image = ImageIO.read(in);
+
+            if (image == null)
+            {
+               return null;
+            }
+
+            return new ImageItem(uuid, file, image);
          }
          catch (Exception e)
          {
@@ -328,13 +319,16 @@ public final class ImageData
       {
          try
          {
-            Files.delete(Paths.get(Settings.getImagePath() + File.separator
-                  + uuid.toString() + File.separator + imageFile));
+            Files.deleteIfExists(
+                  Paths.get(Settings.getImagePath() + File.separator
+                        + uuid.toString() + File.separator + imageFile));
             imageNameMap.get(uuid).remove(imageFile);
+
          }
-         catch (IOException e)
+         catch (Exception e)
          {
             // nothing
+            e.printStackTrace();
          }
       }
 

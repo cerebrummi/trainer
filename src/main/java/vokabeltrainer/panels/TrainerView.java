@@ -62,9 +62,9 @@ import vokabeltrainer.panels.trainer.Result;
 import vokabeltrainer.panels.trainer.TrainerControllerConnector;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
+import vokabeltrainer.table.EnterAction;
 import vokabeltrainer.table.list.editor.ImageButton;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
-import vokabeltrainer.tonionlayout.ExpanderLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 import vokabeltrainer.types.LanguageDirection;
@@ -118,7 +118,7 @@ public class TrainerView extends JPanel
    private JPanel textFieldPanelWrapper;
 
    private JButton imageButton = new ImageButton();
-   private JButton wordButton = new ImageButton();
+   private JButton wordSoundButton = new ImageButton();
 
    public TrainerView(TrainerControllerConnector connector)
    {
@@ -835,26 +835,13 @@ public class TrainerView extends JPanel
    
    private void initControllerWordButton()
    {
-	   wordButton.addMouseListener(new MouseAdapter()
+	   wordSoundButton.addMouseListener(new MouseAdapter()
 	      {
 	          @Override
 	          public void mouseClicked(MouseEvent event)
 	          {
-	             JDialog frame = new JDialog(Common.getjFrame());
-	             frame.setModal(true);
-	             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-	             JPanel panel = new JPanel();
-	             ExpanderLayout layout = new ExpanderLayout(panel);
-	             panel.setLayout(layout);
-	             if (SoundData.loadSound(connector.getCurrentExpression().getUuid()) == null)
-	             {
-	                return;
-	             }
-//	             panel.add(new JLabel(new ImageIcon(
-//	                   ImageData.loadImageOriginal(connector.getCurrentExpression().getUuid()))));
-	             frame.add(panel);
-	             frame.pack();
-	             frame.setVisible(true);
+	             // not implemented, no Sounds available yet
+	             // SoundAction sound = new SoundAction();
 	          }
 	       });
    }
@@ -866,16 +853,8 @@ public class TrainerView extends JPanel
 	          @Override
 	          public void mouseClicked(MouseEvent event)
 	          {
-	             JDialog frame = new JDialog(Common.getjFrame());
-	             frame.setModal(true);
-	             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-	             JPanel panel = new JPanel();
-	             ExpanderLayout layout = new ExpanderLayout(panel);
-	             panel.setLayout(layout);
-
-	             frame.add(panel);
-	             frame.pack();
-	             frame.setVisible(true);
+	             EnterAction images = new EnterAction();
+	             images.showEditorPicture(connector.getCurrentExpression(),false);
 	          }
 	       });
    }
@@ -956,9 +935,9 @@ public class TrainerView extends JPanel
       imageButton.setMaximumSize(new Dimension(60,60));
       initControllerImageButton();
       
-      wordButton = new ImageButton(ApplicationImages.getIcon_notes());
-      wordButton.setMinimumSize(new Dimension(60,60));
-      wordButton.setMaximumSize(new Dimension(60,60));
+      wordSoundButton = new ImageButton(ApplicationImages.getIcon_notes());
+      wordSoundButton.setMinimumSize(new Dimension(60,60));
+      wordSoundButton.setMaximumSize(new Dimension(60,60));
       initControllerWordButton();
 
       answerPanel1.add(correctAnswer);
@@ -981,7 +960,7 @@ public class TrainerView extends JPanel
 
       outerHorizontal.add(answerPanel1);
       outerHorizontal.add(imageButton);
-      outerHorizontal.add(wordButton);
+      outerHorizontal.add(wordSoundButton);
       
       outerVertical.add(outerHorizontal);
       outerVertical.add(answerPanel2);
