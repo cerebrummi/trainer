@@ -24,7 +24,7 @@ public final class Main
 {
    static
    {
-      Common.setMode(Mode.LOCAL_MARIX );
+      Common.setMode(Mode.LOCAL_ORIGINAL );
    }
 
    private static String message = Settings.getWindowTitle()
