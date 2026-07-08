@@ -53,7 +53,8 @@ public class NikudLetterImage
       }
       if (letter.getDagesh() != null)
       {
-         g2d.drawString(letter.getDagesh().getUnicode(), 10, fm.getAscent() + 4);
+         g2d.drawString(letter.getDagesh().getUnicode(), 10,
+               fm.getAscent() + 4);
       }
       for (NikudLetter nikudLetter : letter.getListLowerPunktation())
       {

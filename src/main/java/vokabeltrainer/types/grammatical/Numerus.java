@@ -113,22 +113,21 @@ public enum Numerus implements GrammaticalEnum
    {
       return Numerus.NUMERUS_UNKNOWN;
    }
-   
+
    public static Numerus[] values(Expression expression)
    {
       LLType learningLanguageType = expression.getLL().getLltype();
-      return values(learningLanguageType);  
+      return values(learningLanguageType);
    }
 
    public static Numerus[] values(LLType learningLanguageType)
    {
       List<Numerus> list = new ArrayList<>();
-      for(Numerus n: Numerus.values())
+      for (Numerus n : Numerus.values())
       {
-         innerloop:
-         for(LLType l : n.llType)
+         innerloop: for (LLType l : n.llType)
          {
-            if(l == learningLanguageType)
+            if (l == learningLanguageType)
             {
                list.add(n);
                break innerloop;

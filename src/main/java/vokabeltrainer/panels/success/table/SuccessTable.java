@@ -27,11 +27,11 @@ public class SuccessTable extends JTable
       this.setColumnSelectionAllowed(false);
       this.setCellSelectionEnabled(false);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-      DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer(); 
+      DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
       headerRenderer.setForeground(SuccessColors.getTextForeground());
       headerRenderer.setBackground(SuccessColors.getPanelBackgroundLight());
       this.getTableHeader().setDefaultRenderer(headerRenderer);
-      
+
       addMouseListener(new MouseAdapter()
       {
          public void mousePressed(MouseEvent mouseEvent)
@@ -44,7 +44,7 @@ public class SuccessTable extends JTable
             {
                SuccessTableRow tableRow = ((SuccessTableRow) table
                      .getValueAt(table.getSelectedRow(), 0));
-               
+
                Expression expression = tableRow.getExpression();
 
                expression.toggleSelected();

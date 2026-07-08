@@ -253,7 +253,7 @@ public enum TranslationCode
    
    private String name;
    private ComponentOrientation orientation;
-   
+
    TranslationCode(String name, ComponentOrientation orientation)
    {
       this.name = name;
@@ -272,20 +272,17 @@ public enum TranslationCode
 
    public static TranslationCode[] valuesAvailable()
    {
-	   return Arrays
-	            .stream(TranslationCode.values())
-	            .filter(value -> TranslationCode.de_original == value || TranslationCode.en == value)
-	            .toArray(TranslationCode[]::new);
+      return Arrays.stream(TranslationCode.values())
+            .filter(value -> TranslationCode.de_original == value
+                  || TranslationCode.en == value)
+            .toArray(TranslationCode[]::new);
    }
-   
-   
+
    public static String[] stringsNoOriginal()
    {
-      return Arrays
-            .stream(TranslationCode.values())
+      return Arrays.stream(TranslationCode.values())
             .filter(value -> TranslationCode.de_original != value)
-            .map(code -> code.getName())
-            .toArray(String[]::new);
+            .map(code -> code.getName()).toArray(String[]::new);
    }
 
 }

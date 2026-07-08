@@ -48,7 +48,7 @@ public class NikudPictureButtonPanel extends JPanel
       this.setMaximumSize(new Dimension(50, 50));
 
       this.letterPicture = NikudLetterImage.make(letter);
-      
+
       layout = new CardLayout();
       this.setLayout(layout);
       this.setOpaque(false);
@@ -103,7 +103,7 @@ public class NikudPictureButtonPanel extends JPanel
       hebrewButton.addActionListener(_ -> {
          layout.next(this);
       });
-      
+
    }
 
    private void initGermanCard()
@@ -141,19 +141,19 @@ public class NikudPictureButtonPanel extends JPanel
          hebrewButton.setBorder(BorderFactory.createEmptyBorder());
          hebrewButton.setMargin(new Insets(0, 0, 0, 0));
          hebrewButton.setOpaque(false);
-      }     
+      }
       else
       {
          hebrewButton = new JButton(letter.getContent().getTranscript());
          hebrewButton.setBackground(AlefbetColors.getButton());
          hebrewButton.setForeground(AlefbetColors.getButtonForeground());
          hebrewButton.setFont(ApplicationFonts.getGermanFont(10F));
-         hebrewButton.setContentAreaFilled(false); 
+         hebrewButton.setContentAreaFilled(false);
       }
       hebrewButton.setBorder(BorderFactory.createEmptyBorder());
       hebrewButton.setMargin(new Insets(0, 0, 0, 0));
       hebrewButton.setOpaque(false);
-      
+
       hebrewCard.add(hebrewButton, BorderLayout.CENTER);
    }
 
@@ -175,17 +175,18 @@ public class NikudPictureButtonPanel extends JPanel
       pictureCard = new JPanel(new BorderLayout());
       pictureCard.setOpaque(false);
       pictureCard.setPreferredSize(new Dimension(50, 50));
-      imagePicture = ApplicationImages.getLetterPicturesMap().get(letter.getContent());
-      if(imagePicture != null)
+      imagePicture = ApplicationImages.getLetterPicturesMap()
+            .get(letter.getContent());
+      if (imagePicture != null)
       {
          pictureButton = new JButton(new ImageIcon(imagePicture));
       }
       else
       {
-         pictureButton = new JButton(
-               new ImageIcon(ApplicationImages.getLetterIconsNikudMap().get(letter.getContent())
-                     .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
-                           java.awt.Image.SCALE_SMOOTH)));
+         pictureButton = new JButton(new ImageIcon(ApplicationImages
+               .getLetterIconsNikudMap().get(letter.getContent())
+               .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
+                     java.awt.Image.SCALE_SMOOTH)));
       }
       pictureButton.setBorder(BorderFactory.createEmptyBorder());
       pictureButton.setMargin(new Insets(0, 0, 0, 0));

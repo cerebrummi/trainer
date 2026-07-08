@@ -42,18 +42,18 @@ public class StatisticsTableCellRenderer
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
    {
-      
+
       StatisticsTableRow renderedRow = (StatisticsTableRow) value;
       LocalDate now = LocalDate.now();
 
       if (column == 0)
       {
          date.setText(renderedRow.getDate());
-         if(now.isBefore(renderedRow.getLocalDate()))
+         if (now.isBefore(renderedRow.getLocalDate()))
          {
             date.setBackground(StatisticsColors.getFuture());
          }
-         else if(now.isAfter(renderedRow.getLocalDate()))
+         else if (now.isAfter(renderedRow.getLocalDate()))
          {
             date.setBackground(StatisticsColors.getToLate());
          }
@@ -68,13 +68,16 @@ public class StatisticsTableCellRenderer
       {
          if (isSelected)
          {
-            expressionsHtoD.setBackground(StatisticsColors.getSelectedBackground());
+            expressionsHtoD
+                  .setBackground(StatisticsColors.getSelectedBackground());
             expressionsHtoD.setForeground(StatisticsColors.getTextForeground());
          }
          else
          {
-            expressionsHtoD.setBackground(StatisticsColors.getTableCellBackground());
-            expressionsHtoD.setForeground(StatisticsColors.getTextForegroundInvers());
+            expressionsHtoD
+                  .setBackground(StatisticsColors.getTableCellBackground());
+            expressionsHtoD
+                  .setForeground(StatisticsColors.getTextForegroundInvers());
          }
          expressionsHtoD
                .setText(String.valueOf(renderedRow.getExpressionsHtoDSize()));
@@ -84,13 +87,16 @@ public class StatisticsTableCellRenderer
       // column == 2
       if (isSelected)
       {
-         expressionsDtoH.setBackground(StatisticsColors.getSelectedBackground());
+         expressionsDtoH
+               .setBackground(StatisticsColors.getSelectedBackground());
          expressionsDtoH.setForeground(StatisticsColors.getTextForeground());
       }
       else
       {
-         expressionsDtoH.setBackground(StatisticsColors.getTableCellBackground());
-         expressionsDtoH.setForeground(StatisticsColors.getTextForegroundInvers());
+         expressionsDtoH
+               .setBackground(StatisticsColors.getTableCellBackground());
+         expressionsDtoH
+               .setForeground(StatisticsColors.getTextForegroundInvers());
       }
       expressionsDtoH
             .setText(String.valueOf(renderedRow.getExpressionsDtoHSize()));

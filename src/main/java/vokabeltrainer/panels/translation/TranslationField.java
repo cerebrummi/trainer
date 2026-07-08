@@ -13,12 +13,12 @@ public class TranslationField extends JTextField
    private TranslationCode code;
    private UUID uuid = null;
    private String name;
-   
+
    public TranslationField(Translation translation)
    {
       this.translation = translation;
-      this.setMinimumSize(new Dimension(400,30));
-      this.setMaximumSize(new Dimension(600,30));
+      this.setMinimumSize(new Dimension(400, 30));
+      this.setMaximumSize(new Dimension(600, 30));
    }
 
    public Translation getTranslation()

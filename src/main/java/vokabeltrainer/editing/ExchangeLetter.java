@@ -2,14 +2,12 @@ package vokabeltrainer.editing;
 
 public enum ExchangeLetter
 {
-   SSIN(
-         "\uFB2B",
-         " FB2B");
-   
+   SSIN("\uFB2B", " FB2B");
+
    private String unicode;
    private String code;
-   
-   ExchangeLetter (String unicode, String code)
+
+   ExchangeLetter(String unicode, String code)
    {
       this.unicode = unicode;
       this.code = code;

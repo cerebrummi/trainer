@@ -9,9 +9,7 @@ import vokabeltrainer.common.ApplicationColors;
 
 public class Renderer extends DefaultListCellRenderer
 {
-   /**
-    * 
-    */
+
    private static final long serialVersionUID = 2183657576759647252L;
 
    @Override

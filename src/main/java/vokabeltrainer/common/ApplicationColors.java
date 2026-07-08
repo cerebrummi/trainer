@@ -27,12 +27,12 @@ public class ApplicationColors
    public static Color darkRed = new Color(216, 0, 0);
    public static Color rose = new Color(247, 215, 215);
    public static Color sunflowerYellow = new Color(255, 220, 35);
-   public static Color darkGreen = new Color(110,110,70);
-   public static Color transparent = new Color(0,0,0,0);
-   public static Color slategray = new Color(81,81,91);
+   public static Color darkGreen = new Color(110, 110, 70);
+   public static Color transparent = new Color(0, 0, 0, 0);
+   public static Color slategray = new Color(81, 81, 91);
    public static Color black = Color.BLACK;
    public static Color red = Color.RED;
-   
+
    private ApplicationColors()
    {
       // nothing
@@ -40,16 +40,16 @@ public class ApplicationColors
 
    public static Color getLightBlue()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return slategray;
       }
       return lightBlue;
    }
-   
+
    public static Color getLightGrayBlue()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return shadyBlue;
       }
@@ -58,16 +58,16 @@ public class ApplicationColors
 
    public static Color getMediumBlue()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return shadyBlue;
       }
       return mediumBlue;
    }
-   
+
    public static Color getMediumSilverBlue()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return darkGreen;
       }
@@ -76,7 +76,7 @@ public class ApplicationColors
 
    public static Color getShadyBlue()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return white;
       }
@@ -85,7 +85,7 @@ public class ApplicationColors
 
    public static Color getGold()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return darkGreen;
       }
@@ -94,7 +94,7 @@ public class ApplicationColors
 
    public static Color getDarkGold()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return white;
       }
@@ -103,7 +103,7 @@ public class ApplicationColors
 
    public static Color getLightGold()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return mediumSilverBlue;
       }
@@ -112,7 +112,7 @@ public class ApplicationColors
 
    public static Color getLightGrayGold()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return shadyBlue;
       }
@@ -121,7 +121,7 @@ public class ApplicationColors
 
    public static Color getMediumGold()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return mediumBlue;
       }
@@ -130,7 +130,7 @@ public class ApplicationColors
 
    public static Color getBackgroundGold()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return shadyBlue;
       }
@@ -139,7 +139,7 @@ public class ApplicationColors
 
    public static Color getVeryLightGold()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return darkGreen; // list background color B
       }
@@ -148,16 +148,16 @@ public class ApplicationColors
 
    public static Color getGreen()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return darkGreen;
       }
       return green;
    }
-   
+
    public static Color getSelectionGreen()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return sunflowerYellow;
       }
@@ -171,7 +171,7 @@ public class ApplicationColors
 
    public static Color getTexturedBackgroundColor()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return shadyBlue;
       }
@@ -180,7 +180,7 @@ public class ApplicationColors
 
    public static Color getTexturedBackgroundColorLight()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return shadyBlue;
       }
@@ -189,7 +189,7 @@ public class ApplicationColors
 
    public static Color getWhite()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return mediumSilverBlue;
       }
@@ -198,16 +198,16 @@ public class ApplicationColors
 
    public static Color getLightYellow()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return mediumSilverBlue;
       }
       return lightYellow;
    }
-   
+
    public static Color getDarkRed()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return shadyBlue;
       }
@@ -216,7 +216,7 @@ public class ApplicationColors
 
    public static Color getRose()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return texturedBackgroundColor;
       }
@@ -225,17 +225,16 @@ public class ApplicationColors
 
    public static Color getSunflowerYellow()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return mediumBlue;
       }
       return sunflowerYellow;
    }
 
-
    public static Color getGray()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return mediumSilverBlue;
       }
@@ -244,13 +243,11 @@ public class ApplicationColors
 
    public static Color getBlack()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return white;
       }
       return Color.BLACK;
    }
 
-   
 }
-

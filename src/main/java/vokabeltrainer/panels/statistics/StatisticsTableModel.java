@@ -8,7 +8,8 @@ public class StatisticsTableModel extends DefaultTableModel
 {
    private static final long serialVersionUID = -2421475557884629587L;
 
-   public StatisticsTableModel(Vector<Vector<StatisticsTableRow>> data, Vector<String> columnNames)
+   public StatisticsTableModel(Vector<Vector<StatisticsTableRow>> data,
+         Vector<String> columnNames)
    {
       super(data, columnNames);
    }

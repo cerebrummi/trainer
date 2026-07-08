@@ -10,12 +10,12 @@ public class TemporaryTrainingStatus
       trys = 1;
       totalTrys = 1;
    }
-   
+
    public boolean isTrainingDone()
    {
       return true;
    }
-   
+
    public boolean isTrainingStarted()
    {
       return false;

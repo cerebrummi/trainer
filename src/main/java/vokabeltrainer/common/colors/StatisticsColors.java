@@ -15,7 +15,7 @@ public class StatisticsColors
 
    public static Color getTextForeground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.white;
       }
@@ -24,34 +24,34 @@ public class StatisticsColors
 
    public static Color getTextBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.lightBlue;
       }
       return ApplicationColors.white;
    }
-   
+
    public static Color getToday()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.green;
       }
       return ApplicationColors.green;
    }
-   
+
    public static Color getToLate()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.rose;
       }
       return ApplicationColors.rose;
    }
-   
+
    public static Color getFuture()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.lightBlue;
       }
@@ -60,34 +60,34 @@ public class StatisticsColors
 
    public static Color getPanelBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlueLight;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getTableBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.veryLightGold;
    }
-   
+
    public static Color getTableCellBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumBlue;
       }
       return ApplicationColors.lightGold;
    }
-   
+
    public static Color getTableCellHighlightBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
@@ -96,7 +96,7 @@ public class StatisticsColors
 
    public static Color getSelectedBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.slategray;
       }
@@ -105,7 +105,7 @@ public class StatisticsColors
 
    public static Color getTextForegroundInvers()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.black;
       }

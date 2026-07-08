@@ -21,7 +21,7 @@ public class AntiFocusTextField extends JTextField
       setEnabled(true);
       setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
    }
-   
+
    public AntiFocusTextField()
    {
       setFocusable(false);
@@ -37,6 +37,5 @@ public class AntiFocusTextField extends JTextField
    {
       return this.getText();
    }
-   
-   
+
 }

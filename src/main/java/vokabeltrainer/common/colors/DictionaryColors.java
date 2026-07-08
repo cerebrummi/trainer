@@ -12,46 +12,46 @@ public class DictionaryColors
    {
       // nothing
    }
-   
+
    public static Color getInfoTextForeground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlue;
       }
       return ApplicationColors.darkGold;
    }
-   
+
    public static Color getPanelBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlueLight;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.mediumSilverBlue;
    }
-   
+
    public static Color getButton()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getButtonForeground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlue;
       }
@@ -60,7 +60,7 @@ public class DictionaryColors
 
    public static Color getLightGrayGold()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.lightGrayGold;
       }
@@ -68,5 +68,3 @@ public class DictionaryColors
    }
 
 }
-
-

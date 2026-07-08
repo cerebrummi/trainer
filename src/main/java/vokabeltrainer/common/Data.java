@@ -78,7 +78,7 @@ import vokabeltrainer.types.grammatical.VerbTimes;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
-// Maps und Sets werden nie herausgegeben!
+// Maps and Sets are never given to the outside!
 public final class Data
 {
    private static final AtomicBoolean databaseInUse = new AtomicBoolean(false);
@@ -87,7 +87,7 @@ public final class Data
 
    private Data()
    {
-
+      // nothing
    }
 
    static void initDataBase()
@@ -264,7 +264,8 @@ public final class Data
    }
 
    public static TrainingTableModel findTrainingModel(
-         LanguageDirection languageDirection, FieldOfTraining fieldOfTraining, Set<String> databaseNames)
+         LanguageDirection languageDirection, FieldOfTraining fieldOfTraining,
+         Set<String> databaseNames)
    {
       return getDataBaseAtomic().findTrainingModel(languageDirection,
             fieldOfTraining, databaseNames);
@@ -338,7 +339,7 @@ public final class Data
    {
       return getDataBaseAtomic().getDatabaseArray();
    }
-   
+
    public static boolean isExistUuid(UUID uuid)
    {
       return getDataBaseAtomic().isExistUuid(uuid);
@@ -461,8 +462,8 @@ public final class Data
             return new Chapter();
          }
          return alleMap.values().stream()
-               .sorted(new ExpressionComparator(SortingType.DATE, null)).findFirst()
-               .get().getChapter();
+               .sorted(new ExpressionComparator(SortingType.DATE, null))
+               .findFirst().get().getChapter();
       }
 
       private void readTrainingFile(File german,
@@ -1008,7 +1009,7 @@ public final class Data
                try
                {
                   String cleaned = TextHelper.cleanText(entries[index]);
-                  if(cleaned.trim().isBlank())
+                  if (cleaned.trim().isBlank())
                   {
                      expression.setSortingIndex(
                            String.valueOf(SortingIndex.getCounter()));
@@ -1119,9 +1120,12 @@ public final class Data
          else if (text == null && kind != null && search == null
                && chapter == null && command == null)
          {
-        	 Set<String> selectedDatabasesNames = new HashSet<>( selectedDatabases.stream().map(row -> row.getDescription().getDatabaseName()).toList());
-            return new ExpressionTableModel(convertToExpressionModelArray(
-                  findSortedExpressionsOfKind(kind, direction, sortingType, selectedDatabasesNames)),
+            Set<String> selectedDatabasesNames = new HashSet<>(selectedDatabases
+                  .stream().map(row -> row.getDescription().getDatabaseName())
+                  .toList());
+            return new ExpressionTableModel(
+                  convertToExpressionModelArray(findSortedExpressionsOfKind(
+                        kind, direction, sortingType, selectedDatabasesNames)),
                   COLUMNAMES);
          }
          else if (text != null && kind == null && search != null
@@ -1133,9 +1137,14 @@ public final class Data
             }
             else
             {
-            	Set<String> selectedDatabasesNames = new HashSet<>( selectedDatabases.stream().map(row -> row.getDescription().getDatabaseName()).toList());
-            	Predicate<Expression> databaseName = expression -> selectedDatabasesNames.contains(expression.getChapter().getDatabaseName());
-               expressions = alleMap.values().stream().filter(databaseName).toList();
+               Set<String> selectedDatabasesNames = new HashSet<>(
+                     selectedDatabases.stream()
+                           .map(row -> row.getDescription().getDatabaseName())
+                           .toList());
+               Predicate<Expression> databaseName = expression -> selectedDatabasesNames
+                     .contains(expression.getChapter().getDatabaseName());
+               expressions = alleMap.values().stream().filter(databaseName)
+                     .toList();
             }
          }
          else
@@ -1244,12 +1253,14 @@ public final class Data
       }
 
       private List<Expression> findSortedExpressionsOfKind(ExpressionKind kind,
-            Direction language, SortingType sortingType, Set<String> selectedDatabasesNames)
+            Direction language, SortingType sortingType,
+            Set<String> selectedDatabasesNames)
       {
-    	  Predicate<Expression> expressionKind = expression -> expression.getDefinitions()
-                  .getExpressionKindSet().contains(kind);
-    	  Predicate<Expression> databaseName = expression -> selectedDatabasesNames.contains(expression.getChapter().getDatabaseName());
-    	  
+         Predicate<Expression> expressionKind = expression -> expression
+               .getDefinitions().getExpressionKindSet().contains(kind);
+         Predicate<Expression> databaseName = expression -> selectedDatabasesNames
+               .contains(expression.getChapter().getDatabaseName());
+
          return alleMap.values().stream()
                .filter(expressionKind.and(databaseName))
                .sorted(new ExpressionComparator(sortingType, language))
@@ -1465,13 +1476,15 @@ public final class Data
       }
 
       private Chapter[] getChapterArray(List<DatabaseTableRow> tableRows)
-      {   	  
-         return chapterSet.stream().filter(chapter -> tableRows.stream().anyMatch(row -> row.getDescription().getDatabaseName().equals(chapter.getDatabaseName())))
-        		 .sorted(new ChapterDatabaseComparator())
-               .toArray(Chapter[]::new);
+      {
+         return chapterSet.stream()
+               .filter(chapter -> tableRows.stream()
+                     .anyMatch(row -> row.getDescription().getDatabaseName()
+                           .equals(chapter.getDatabaseName())))
+               .sorted(new ChapterDatabaseComparator()).toArray(Chapter[]::new);
       }
 
-	  private String getAllSelectedExpressionsAsString(SortingType sortingType,
+      private String getAllSelectedExpressionsAsString(SortingType sortingType,
             Direction language)
       {
          return alleMap.values().stream()
@@ -1568,7 +1581,9 @@ public final class Data
                final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
                      languageDirection, fieldOfTraining);
 
-               data = chapterSet.stream().filter(chapter -> databaseNames.stream().anyMatch(name -> name.equals(chapter.getDatabaseName())))
+               data = chapterSet.stream()
+                     .filter(chapter -> databaseNames.stream().anyMatch(
+                           name -> name.equals(chapter.getDatabaseName())))
                      .filter(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.HEBREW) != null)
@@ -1586,7 +1601,9 @@ public final class Data
                final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
                      languageDirection, fieldOfTraining);
 
-               data = chapterSet.stream().filter(chapter -> databaseNames.stream().anyMatch(name -> name.equals(chapter.getDatabaseName())))
+               data = chapterSet.stream()
+                     .filter(chapter -> databaseNames.stream().anyMatch(
+                           name -> name.equals(chapter.getDatabaseName())))
                      .filter(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.SWEDISH) != null)
@@ -1603,7 +1620,9 @@ public final class Data
                final Set<Expression> oldToBeTested = findOldExpressionsToBeTested(
                      languageDirection, fieldOfTraining);
 
-               data = chapterSet.stream().filter(chapter -> databaseNames.stream().anyMatch(name -> name.equals(chapter.getDatabaseName())))
+               data = chapterSet.stream()
+                     .filter(chapter -> databaseNames.stream().anyMatch(
+                           name -> name.equals(chapter.getDatabaseName())))
                      .filter(chapter -> makeChapterRow(languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.GERMAN) != null)
@@ -2104,24 +2123,23 @@ public final class Data
 
       private Vector<Vector<DatabaseTableRow>> getDatabaseArray()
       {
-         List<DatabaseTableRow> listRows =  this.chapterSet.stream()
+         List<DatabaseTableRow> listRows = this.chapterSet.stream()
                .map(chapter -> chapter.getDatabaseDescription()).distinct()
-               .sorted()
-               .map(description -> new DatabaseTableRow(description))
+               .sorted().map(description -> new DatabaseTableRow(description))
                .toList();
          Vector<Vector<DatabaseTableRow>> vectorOutside = new Vector<>();
-         for(DatabaseTableRow row: listRows)
+         for (DatabaseTableRow row : listRows)
          {
-        	 Vector<DatabaseTableRow> vectorInside = new Vector<>();
-        	 vectorInside.add(row);
-        	 vectorOutside.add(vectorInside);
+            Vector<DatabaseTableRow> vectorInside = new Vector<>();
+            vectorInside.add(row);
+            vectorOutside.add(vectorInside);
          }
          return vectorOutside;
       }
-      
+
       private boolean isExistUuid(UUID uuid)
       {
          return alleMap.containsKey(uuid);
       }
-   }  
+   }
 }

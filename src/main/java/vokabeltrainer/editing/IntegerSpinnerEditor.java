@@ -9,7 +9,7 @@ public class IntegerSpinnerEditor extends JSpinner.DefaultEditor
    public IntegerSpinnerEditor(JSpinner spinner)
    {
       super(spinner);
-      
+
       getTextField().setFormatterFactory(new NumberCodeFormatterFactory());
       getTextField().setEditable(false);
    }

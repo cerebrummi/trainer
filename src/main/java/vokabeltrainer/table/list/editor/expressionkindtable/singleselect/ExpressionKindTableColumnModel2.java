@@ -12,7 +12,7 @@ public class ExpressionKindTableColumnModel2 extends DefaultTableColumnModel
    public ExpressionKindTableColumnModel2(int totalWidth)
    {
       renderer2 = new ExpressionKindTableCellRenderer2();
-      
+
       TableColumn column = new TableColumn();
       column.setHeaderValue("Wahl");
       column.setCellRenderer(renderer2);
@@ -20,7 +20,7 @@ public class ExpressionKindTableColumnModel2 extends DefaultTableColumnModel
       column.setPreferredWidth(43);
       column.setWidth(43);
       addColumn(column);
-      
+
       TableColumn column1 = new TableColumn();
       column1.setHeaderValue("Wortart");
       column1.setCellRenderer(renderer2);

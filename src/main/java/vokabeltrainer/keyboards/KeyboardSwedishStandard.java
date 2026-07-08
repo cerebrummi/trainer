@@ -162,7 +162,7 @@ public class KeyboardSwedishStandard extends JPanel
       buttonPanel.setOpaque(false);
       buttonPanel.setLayout(new TotemLayout(buttonPanel));
       buttonPanel.add(jButton);
-      dataButtons.put(SwedishLetter.SPACE, (Component)buttonPanel);
+      dataButtons.put(SwedishLetter.SPACE, (Component) buttonPanel);
       return jButton;
    }
 
@@ -219,7 +219,7 @@ public class KeyboardSwedishStandard extends JPanel
       }
 
    }
-   
+
    public Component makeTextfieldWithRegularKeyboard()
    {
       makeRegularKeyboard();
@@ -298,8 +298,8 @@ public class KeyboardSwedishStandard extends JPanel
       JPanel bigFiller1 = new JPanel();
       bigFiller1.setOpaque(false);
       bigFiller1.setBackground(ApplicationColors.getTransparent());
-      bigFiller1.setMaximumSize(new Dimension(300, 32));      
-      
+      bigFiller1.setMaximumSize(new Dimension(300, 32));
+
       JPanel row4 = new JPanel();
       row4.setOpaque(false);
       row4.setLayout(new TrainLayout(row4, 4));
@@ -369,7 +369,7 @@ public class KeyboardSwedishStandard extends JPanel
       bigFiller2.setOpaque(false);
       bigFiller2.setBackground(ApplicationColors.getTransparent());
       bigFiller2.setMaximumSize(new Dimension(300, 32));
-      
+
       keyboardPanel.add(row1);
       keyboardPanel.add(row2);
       keyboardPanel.add(row3);

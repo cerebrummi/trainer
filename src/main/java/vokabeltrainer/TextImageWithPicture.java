@@ -13,8 +13,9 @@ public class TextImageWithPicture
 {
    private TextImageWithPicture()
    {
-      
+
    }
+
    public static BufferedImage make(BufferedImage picture, String... textrows)
    {
       BufferedImage helperImg = new BufferedImage(1, 1,
@@ -34,20 +35,23 @@ public class TextImageWithPicture
       int width = fm.stringWidth(longestText) + 5;
       int height = fm.getHeight() * textrows.length;
       g2d.dispose();
-      
+
       width += picture.getWidth() + 10;
       height = Math.max(height, picture.getHeight());
 
       BufferedImage finalImg = new BufferedImage(width, height,
             BufferedImage.TYPE_INT_RGB);
       g2d = finalImg.createGraphics();
-    
-      /*g2d.setPaint(new TexturePaint(ApplicationImages.getTexturedBackground(),
-            new Rectangle(0, 0, 93, 72)));*/
+
+      /*
+       * g2d.setPaint(new
+       * TexturePaint(ApplicationImages.getTexturedBackground(), new
+       * Rectangle(0, 0, 93, 72)));
+       */
       g2d.fillRect(0, 0, width, height);
-      
+
       g2d.drawImage(picture, null, 0, 0);
-      
+
       g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
             RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
       g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -70,7 +74,7 @@ public class TextImageWithPicture
       int y = fm.getAscent();
       for (String row : textrows)
       {
-         g2d.drawString(row, picture.getWidth()+10, y);
+         g2d.drawString(row, picture.getWidth() + 10, y);
          y += fm.getHeight();
       }
       g2d.dispose();

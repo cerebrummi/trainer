@@ -10,12 +10,12 @@ public class StartColors
 
    private StartColors()
    {
-      
+      // nothing
    }
-   
+
    public static Color getDatabase_Header()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
@@ -24,7 +24,7 @@ public class StartColors
 
    public static Color getPanelBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlueLight;
       }
@@ -33,7 +33,7 @@ public class StartColors
 
    public static Color getDatabase_HeaderText()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.white;
       }
@@ -47,7 +47,7 @@ public class StartColors
 
    public static Color getDatabase_Item()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.gold;
       }
@@ -56,11 +56,11 @@ public class StartColors
 
    public static Color getDatabase_Tipp()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.gold;
       }
       return ApplicationColors.shadyBlue;
    }
-   
+
 }

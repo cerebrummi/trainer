@@ -18,8 +18,7 @@ public class DatabaseTableMultiselect extends JTable
 
    private MouseListener mouseListener;
 
-   public DatabaseTableMultiselect(DatabaseTableModel model,
-         int totalWidth)
+   public DatabaseTableMultiselect(DatabaseTableModel model, int totalWidth)
    {
       super(model, new DatabaseTableColumnModel(totalWidth));
       this.setShowVerticalLines(false);
@@ -52,12 +51,13 @@ public class DatabaseTableMultiselect extends JTable
                DatabaseTableRow tableRow = ((DatabaseTableRow) table
                      .getValueAt(row, 0));
 
-               DatabaseDescription databaseDescription = tableRow.getDescription();
+               DatabaseDescription databaseDescription = tableRow
+                     .getDescription();
 
                databaseDescription.toggleSelected();
 
-               ((DatabaseTableModel) table.getModel())
-                     .fireTableCellUpdated(row, 0);
+               ((DatabaseTableModel) table.getModel()).fireTableCellUpdated(row,
+                     0);
 
                new SwingWorker<Void, Void>()
                {
@@ -66,7 +66,7 @@ public class DatabaseTableMultiselect extends JTable
                   {
                      if (row == 0)
                      {
-                    	// nothing
+                        // nothing
                      }
                      else
                      {

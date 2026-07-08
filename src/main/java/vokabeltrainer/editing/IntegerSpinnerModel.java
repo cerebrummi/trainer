@@ -7,7 +7,7 @@ import javax.swing.event.ChangeListener;
 public class IntegerSpinnerModel extends AbstractSpinnerModel
 {
    private static final long serialVersionUID = -7145780527051124946L;
-   
+
    int number = 0;
    int minimum = 0;
    int maximum = 0;
@@ -15,7 +15,6 @@ public class IntegerSpinnerModel extends AbstractSpinnerModel
    public Object getValue()
    {
       return String.valueOf(number);
-
    }
 
    public void setValue(Object value)
@@ -32,7 +31,7 @@ public class IntegerSpinnerModel extends AbstractSpinnerModel
 
       if (value instanceof String)
       {
-         if(((String) value).isEmpty())
+         if (((String) value).isEmpty())
          {
             return;
          }
@@ -72,19 +71,19 @@ public class IntegerSpinnerModel extends AbstractSpinnerModel
 
    public Object getNextValue()
    {
-      int next = (number + 1) %(maximum+1);
+      int next = (number + 1) % (maximum + 1);
       if (minimum <= next && maximum >= next)
       {
          this.number = next;
          this.fireChangeEvent();
       }
-      
+
       return String.valueOf(next);
    }
 
    public Object getPreviousValue()
    {
-      int previous = (number+maximum) %(maximum+1);
+      int previous = (number + maximum) % (maximum + 1);
       if (minimum <= previous && maximum >= previous)
       {
          this.number = previous;

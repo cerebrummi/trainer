@@ -14,7 +14,7 @@ public class SettingsColors
 
    public static Color getTextForeground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.white;
       }

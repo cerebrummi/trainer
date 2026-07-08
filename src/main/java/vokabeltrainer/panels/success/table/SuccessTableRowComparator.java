@@ -5,7 +5,8 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.Vector;
 
-public class SuccessTableRowComparator implements Comparator<Vector<SuccessTableRow>>
+public class SuccessTableRowComparator
+      implements Comparator<Vector<SuccessTableRow>>
 {
 
    @Override
@@ -13,7 +14,8 @@ public class SuccessTableRowComparator implements Comparator<Vector<SuccessTable
    {
       Collator coll = Collator.getInstance(Locale.GERMAN);
       coll.setStrength(Collator.PRIMARY);
-      return coll.compare(o1.get(0).getExpression().getChapterGermanComparison(),
+      return coll.compare(
+            o1.get(0).getExpression().getChapterGermanComparison(),
             o2.get(0).getExpression().getChapterGermanComparison());
    }
 

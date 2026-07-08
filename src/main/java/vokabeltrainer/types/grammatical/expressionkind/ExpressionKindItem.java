@@ -4,12 +4,12 @@ public class ExpressionKindItem
 {
    private ExpressionKind kind;
    private boolean selected;
-   
+
    public ExpressionKindItem(ExpressionKind kind)
    {
       this.kind = kind;
    }
-   
+
    public ExpressionKindItem(ExpressionKind kind, boolean selected)
    {
       this.kind = kind;

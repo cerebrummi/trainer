@@ -33,7 +33,6 @@ import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import vokabeltrainer.BackgroundPanelTiled;
 import vokabeltrainer.PathAndFile;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
@@ -55,7 +54,7 @@ import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
-public class SettingsPanel extends BackgroundPanelTiled
+public class SettingsPanel extends JPanel
 {
    private static final int WIDTH = 330;
    private static final long serialVersionUID = 1162776912036921483L;
@@ -78,7 +77,9 @@ public class SettingsPanel extends BackgroundPanelTiled
    public SettingsPanel()
    {
       setLayout(new BullsEyeLayout(this));
-
+      this.setOpaque(true);
+      this.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      
       JTabbedPane tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(false);
       tabbedPane.setFont(ApplicationFonts.getButtonFont());

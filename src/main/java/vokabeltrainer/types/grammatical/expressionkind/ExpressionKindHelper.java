@@ -16,7 +16,7 @@ public class ExpressionKindHelper
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
 
    public static GrammaticalParentEnum[] ADVERB_ENUMS = {};
-   
+
    public static GrammaticalParentEnum[] ADVERB_PLUS_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS,
          GrammaticalParentEnum.GRAMMATICAL_PERSON,
@@ -47,14 +47,14 @@ public class ExpressionKindHelper
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
 
    public static GrammaticalParentEnum[] GLUECKWUNSCH_ENUMS = {};
-   
+
    public static GrammaticalParentEnum[] HOEFLICHKEITSFORMEL_ENUMS = {};
 
    public static GrammaticalParentEnum[] JAHRESZEIT_ENUMS = {
          GrammaticalParentEnum.GENDER };
 
    public static GrammaticalParentEnum[] KOMPARATIV_ENUMS = {};
-   
+
    public static GrammaticalParentEnum[] KONSTRUKT_ENUMS = {};
 
    public static GrammaticalParentEnum[] MODALVERB_ENUMS = {
@@ -79,25 +79,24 @@ public class ExpressionKindHelper
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
 
    public static GrammaticalParentEnum[] PRAEPOSITION_ENUMS = {};
-   
+
    public static GrammaticalParentEnum[] PRONOMINALSUFFIX_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS,
          GrammaticalParentEnum.GRAMMATICAL_PERSON };
 
    public static GrammaticalParentEnum[] REDEWENDUNG_ENUMS = {
-         GrammaticalParentEnum.GENDER
-   };
-   
+         GrammaticalParentEnum.GENDER };
+
    public static GrammaticalParentEnum[] RELATIVPRONOM_ENUMS = {
-         GrammaticalParentEnum.GENDER};
+         GrammaticalParentEnum.GENDER };
 
    public static GrammaticalParentEnum[] SUBSTANTIV_ENUMS = {
          GrammaticalParentEnum.GENDER, GrammaticalParentEnum.NUMERUS };
-   
+
    public static GrammaticalParentEnum[] SUPERLATIV_ENUMS = {};
 
    public static GrammaticalParentEnum[] TEXT_ENUMS = {};
-   
+
    public static GrammaticalParentEnum[] UHRZEIT_ENUMS = {};
 
    public static GrammaticalParentEnum[] UMGANGSSPRACHE_ENUMS = {};
@@ -118,16 +117,14 @@ public class ExpressionKindHelper
 
    public static List<ExpressionKindItem> getAllExpressionKindItems()
    {
-      return getAllExpressionKinds()
-            .stream()
+      return getAllExpressionKinds().stream()
             .map(kind -> new ExpressionKindItem(kind))
             .collect(Collectors.toList());
    }
 
    public static List<ExpressionKind> getAllExpressionKinds()
    {
-      List<ExpressionKind> sortedKinds = Arrays
-            .stream(ExpressionKind.values())
+      List<ExpressionKind> sortedKinds = Arrays.stream(ExpressionKind.values())
             .collect(Collectors.toList());
       Collections.sort(sortedKinds, new ExpressionKindComparator());
       return sortedKinds;

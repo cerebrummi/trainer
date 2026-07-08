@@ -31,9 +31,8 @@ public class ChapterListCellRenderer extends DefaultListCellRenderer
       if (value != null)
       {
          Chapter chapter = (Chapter) value;
-         label
-               .setText(chapter.getDatabaseDescription().getDatabaseName()
-                     + " | " + chapter.getName());
+         label.setText(chapter.getDatabaseDescription().getDatabaseName()
+               + " | " + chapter.getName());
       }
       else
       {

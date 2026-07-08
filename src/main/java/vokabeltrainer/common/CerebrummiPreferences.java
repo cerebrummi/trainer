@@ -17,7 +17,7 @@ public class CerebrummiPreferences
 
    private CerebrummiPreferences()
    {
-
+      // nothing
    }
 
    public static void read()
@@ -26,14 +26,14 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setDarkmodeOn(
-               preferences.getBoolean(CerebrummiNodes.getDarkmodeNode(), false));
+         Settings.setDarkmodeOn(preferences
+               .getBoolean(CerebrummiNodes.getDarkmodeNode(), false));
       }
       catch (Exception e)
       {
          // nothing
       }
-      
+
       try
       {
          Preferences preferences = Preferences.userRoot()

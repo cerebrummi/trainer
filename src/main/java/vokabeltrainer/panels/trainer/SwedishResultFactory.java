@@ -20,22 +20,21 @@ public class SwedishResultFactory
    {
       // nothing
    }
-   
+
    public static BestResult getBestResultPossible(Expression expression,
          String answer)
 
    {
       BestResult bestResult = new BestResult(Selection.SWEDISH);
-      bestResult.setResultSwedish(getResultDtoSwedishSentence(expression,
-            answer));
+      bestResult
+            .setResultSwedish(getResultDtoSwedishSentence(expression, answer));
       return bestResult;
    }
 
    public static Result getResultDtoSwedishSentence(Expression expression,
          String answer)
    {
-      String[] expressionArray = expression.getLL()
-            .getSwedish()
+      String[] expressionArray = expression.getLL().getSwedish()
             .split(SwedishLetter.SPACE.getUnicode());
 
       String[] answerArray = answer.split(SwedishLetter.SPACE.getUnicode());
@@ -71,12 +70,15 @@ public class SwedishResultFactory
             if (index > 0)
             {
                result.addFeedbackImage(LetterFeedbackImage.makeSpace());
-               result.addAnswerSpace(new LetterForAnalysis(SwedishLetter.SPACE));
-               result.addDictionarySpace(new LetterForAnalysis(SwedishLetter.SPACE));
+               result.addAnswerSpace(
+                     new LetterForAnalysis(SwedishLetter.SPACE));
+               result.addDictionarySpace(
+                     new LetterForAnalysis(SwedishLetter.SPACE));
             }
             result.addFeedbackImageList(singleResult.getFeedbackImageList());
             result.addAnswer(singleResult.getAnswer()); // for unit testing
-            result.addDictionary(singleResult.getDictionary()); // for unit testing
+            result.addDictionary(singleResult.getDictionary()); // for unit
+                                                                // testing
             index++;
          }
 
@@ -86,21 +88,22 @@ public class SwedishResultFactory
       return getResultDtoSwedish(expression, answer);
    }
 
-   private static Result getResultDtoSwedish(Expression expression, String answer)
+   private static Result getResultDtoSwedish(Expression expression,
+         String answer)
    {
       Result result = new Result();
       result.setExpression(expression);
 
-      return getResultDtoSwedishString(
-            expression.getLL().getSwedish(),
-            answer, result);
+      return getResultDtoSwedishString(expression.getLL().getSwedish(), answer,
+            result);
    }
 
    private static Result getResultDtoSwedishString(String dictionary,
          String answer, Result result)
    {
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
-            LetterHelper.findLetterForAnalysisList(dictionary, LetterType.SWEDISH),
+            LetterHelper.findLetterForAnalysisList(dictionary,
+                  LetterType.SWEDISH),
             LetterHelper.findLetterForAnalysisList(answer, LetterType.SWEDISH),
             LetterType.SWEDISH);
 

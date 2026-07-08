@@ -5,7 +5,7 @@ import vokabeltrainer.panels.MainView;
 public class MainController implements MainControllerConnector
 {
    private MainView mainView;
-   
+
    public MainController()
    {
       mainView = new MainView();

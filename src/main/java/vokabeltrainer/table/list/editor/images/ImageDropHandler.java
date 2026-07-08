@@ -19,8 +19,9 @@ public class ImageDropHandler extends TransferHandler
 
    UUID expressionUUID;
    DefaultListModel<ImageItem> model;
-   
-   public ImageDropHandler(UUID expressionUUID, DefaultListModel<ImageItem> model)
+
+   public ImageDropHandler(UUID expressionUUID,
+         DefaultListModel<ImageItem> model)
    {
       this.expressionUUID = expressionUUID;
       this.model = model;
@@ -54,7 +55,7 @@ public class ImageDropHandler extends TransferHandler
          return false;
       }
    }
-   
+
    public void addImage(ImageItem item)
    {
       model.addElement(item);
@@ -68,7 +69,7 @@ public class ImageDropHandler extends TransferHandler
 
          if (image == null)
          {
-            JOptionPane.showMessageDialog(null, this, 
+            JOptionPane.showMessageDialog(null, this,
                   "Keine lesbare Bilddatei.", 1);
             return;
          }
@@ -83,8 +84,8 @@ public class ImageDropHandler extends TransferHandler
       }
       catch (Exception ex)
       {
-         JOptionPane.showMessageDialog(null, this, 
-               "Bild konnte nicht geladen werden:\n" + ex.getMessage(),1);
+         JOptionPane.showMessageDialog(null, this,
+               "Bild konnte nicht geladen werden:\n" + ex.getMessage(), 1);
       }
    }
 

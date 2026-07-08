@@ -15,25 +15,25 @@ public class MainColors
 
    public static Color getToolbarBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlueLight;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getPanelBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlueLight;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getButtonBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }

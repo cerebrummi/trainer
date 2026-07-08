@@ -242,7 +242,8 @@ public class InputPanel extends JPanel implements TableConnector
    private void doShowTable()
    {
       ExpressionTableModel tableModel = Data.findTranslations(null, null, null,
-            currentChapter, null, SortingType.DATE, null, Direction.OWN_TO_NEW, null);
+            currentChapter, null, SortingType.DATE, null, Direction.OWN_TO_NEW,
+            null);
       tablePanel.removeAll();
       ExpressionTable table = new ExpressionTable(tableModel,
             Direction.OWN_TO_NEW, this, true,
@@ -319,9 +320,11 @@ public class InputPanel extends JPanel implements TableConnector
 
       myWritingDirection = new JComboBox<>(WritingDirection.values());
       myWritingDirection.setEditable(false);
-      myWritingDirection.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createEmptyBorder(), translator.realisticTranslate(Translation.SCHREIBRICHTUNG), 0,
-            0, ApplicationFonts.getButtonFont(), InputColors.getPanelBackground()));
+      myWritingDirection.setBorder(
+            BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+                  translator.realisticTranslate(Translation.SCHREIBRICHTUNG), 0,
+                  0, ApplicationFonts.getButtonFont(),
+                  InputColors.getPanelBackground()));
       myWritingDirection.setOpaque(true);
       myWritingDirection.setBackground(InputColors.getPanelBackground());
       myWritingDirection.setForeground(ApplicationColors.getLightGrayGold());
@@ -331,9 +334,11 @@ public class InputPanel extends JPanel implements TableConnector
 
       otherLanguage = new JComboBox<>(LanguageStored.values());
       otherLanguage.setEditable(false);
-      otherLanguage.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createEmptyBorder(), translator.realisticTranslate(Translation.NEUE_SPRACHE), 0,
-            0, ApplicationFonts.getButtonFont(), InputColors.getPanelBackground()));
+      otherLanguage.setBorder(
+            BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
+                  translator.realisticTranslate(Translation.NEUE_SPRACHE), 0, 0,
+                  ApplicationFonts.getButtonFont(),
+                  InputColors.getPanelBackground()));
       otherLanguage.setOpaque(true);
       otherLanguage.setBackground(InputColors.getPanelBackground());
       otherLanguage.setForeground(ApplicationColors.getLightGrayGold());

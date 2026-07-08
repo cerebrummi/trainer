@@ -50,8 +50,7 @@ public class TrashCanController implements TrashCanControllerConnector
          trashCanDialog.setRestore(true);
          Data.restoreExpressions(selectedExpressions);
          trashCanDialog.clearTable();
-         trashCanDialog.doShowTable(
-               loadTableModel());
+         trashCanDialog.doShowTable(loadTableModel());
          trashCanDialog.tableValidateRepaint();
          save();
       }
@@ -64,8 +63,7 @@ public class TrashCanController implements TrashCanControllerConnector
       {
          trashCanDialog.selectAllExpressionsInTable();
          trashCanDialog.clearTable();
-         trashCanDialog.doShowTable(
-               loadTableModel());
+         trashCanDialog.doShowTable(loadTableModel());
          trashCanDialog.tableValidateRepaint();
       }
    }
@@ -77,8 +75,7 @@ public class TrashCanController implements TrashCanControllerConnector
       {
          trashCanDialog.unselectAllExpressionsInTable();
          trashCanDialog.clearTable();
-         trashCanDialog.doShowTable(
-               loadTableModel());
+         trashCanDialog.doShowTable(loadTableModel());
          trashCanDialog.tableValidateRepaint();
       }
    }
@@ -87,8 +84,7 @@ public class TrashCanController implements TrashCanControllerConnector
    public void switchLanguage()
    {
       trashCanDialog.clearTable();
-      trashCanDialog
-            .doShowTable(loadTableModel());
+      trashCanDialog.doShowTable(loadTableModel());
       trashCanDialog.tableValidateRepaint();
    }
 
@@ -110,6 +106,6 @@ public class TrashCanController implements TrashCanControllerConnector
    public void fireTableCellUpdated(JTable table, int selectedRow, int i)
    {
       ((ExpressionTableModel) table.getModel())
-      .fireTableCellUpdated(table.getSelectedRow(), 0);
+            .fireTableCellUpdated(table.getSelectedRow(), 0);
    }
 }

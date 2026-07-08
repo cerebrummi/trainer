@@ -22,7 +22,7 @@ public class DatabaseTableCopy extends JTable
 {
    private static final long serialVersionUID = 4815287371476856952L;
    private MouseListener mouseListener;
-   
+
    private Translator translator = Common.getTranslator();
 
    public DatabaseTableCopy(DatabaseTableCopyModel model, int totalWidth)
@@ -60,7 +60,8 @@ public class DatabaseTableCopy extends JTable
                      .getValueAt(table.getSelectedRow(), 0));
 
                InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
-                     translator.realisticTranslate(Translation.EXPORT_INTERNE_DATENBANK));
+                     translator.realisticTranslate(
+                           Translation.EXPORT_INTERNE_DATENBANK));
                dialog.setVisible(true);
 
                final String databaseName;
@@ -76,8 +77,7 @@ public class DatabaseTableCopy extends JTable
                   databaseName = dialog.getDatabaseName();
                   overwriteDatabaseNames = dialog.isOverwrite();
                   dialog.dispose();
-                  Data
-                  .copyInternalDatabase(
+                  Data.copyInternalDatabase(
                         tableRow.getDatabaseItem().getDatabase(),
                         overwriteDatabaseNames, databaseName);
                   new SwingWorker<Void, Void>()
@@ -91,7 +91,7 @@ public class DatabaseTableCopy extends JTable
                      }
 
                   }.execute();
-               } 
+               }
             }
          }
       };

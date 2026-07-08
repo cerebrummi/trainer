@@ -13,7 +13,7 @@ public class Translator
       }
       else if (TranslationCode.en == Settings.getTranslationCode())
       {
-    	  return translation.getEnglish();
+         return translation.getEnglish();
       }
 
       return "missing";

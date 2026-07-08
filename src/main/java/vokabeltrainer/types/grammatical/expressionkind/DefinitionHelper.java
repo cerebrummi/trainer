@@ -17,7 +17,7 @@ public class DefinitionHelper
 
    private DefinitionHelper()
    {
-
+      // nothing
    }
 
    public static List<GrammaticalEnum> getDefinitionsNA(
@@ -52,7 +52,6 @@ public class DefinitionHelper
          ExpressionKind expressionKind)
    {
       return Arrays.stream(expressionKind.getGrammaticalParentEnums())
-                   .map(parent -> parent.getUnkown())
-                   .collect(Collectors.toList());
+            .map(parent -> parent.getUnkown()).collect(Collectors.toList());
    }
 }

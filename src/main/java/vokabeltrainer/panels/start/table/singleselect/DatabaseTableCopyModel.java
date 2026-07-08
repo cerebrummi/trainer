@@ -19,7 +19,7 @@ public class DatabaseTableCopyModel extends DefaultTableModel
    {
       super(data, columnNames);
       this.data = data;
-      for(Vector<DatabaseTableCopyRow> datum : data)
+      for (Vector<DatabaseTableCopyRow> datum : data)
       {
          rows.add(datum.get(0));
       }

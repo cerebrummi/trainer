@@ -10,7 +10,7 @@ public enum LetterType
    NONE("");
 
    private String realm;
-   
+
    LetterType(String realm)
    {
       this.realm = realm;

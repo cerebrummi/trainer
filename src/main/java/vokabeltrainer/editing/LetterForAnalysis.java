@@ -27,7 +27,7 @@ public class LetterForAnalysis
       swedish = false;
       german = false;
    }
-   
+
    public LetterForAnalysis(SwedishLetter content)
    {
       this.swedishContent = content;
@@ -36,7 +36,7 @@ public class LetterForAnalysis
       swedish = true;
       german = false;
    }
-   
+
    public LetterForAnalysis(GermanLetter content)
    {
       this.germanContent = content;
@@ -45,35 +45,35 @@ public class LetterForAnalysis
       swedish = false;
       german = true;
    }
-   
+
    public LetterForAnalysis(Letter content)
    {
-      if(content instanceof NikudLetter)
+      if (content instanceof NikudLetter)
       {
-         this.content = (NikudLetter)content;
+         this.content = (NikudLetter) content;
          type = LetterType.HEBREW;
          nikud = true;
          swedish = false;
          german = false;
       }
-      else if(content instanceof SwedishLetter)
+      else if (content instanceof SwedishLetter)
       {
-         this.swedishContent = (SwedishLetter)content;
+         this.swedishContent = (SwedishLetter) content;
          type = LetterType.SWEDISH;
          nikud = false;
          swedish = true;
          german = false;
       }
-      else if(content instanceof GermanLetter)
+      else if (content instanceof GermanLetter)
       {
-         this.germanContent = (GermanLetter)content;
+         this.germanContent = (GermanLetter) content;
          type = LetterType.GERMAN;
          nikud = false;
          swedish = false;
          german = true;
       }
    }
-   
+
    public NikudLetter getNikudContent()
    {
       return content;
@@ -81,11 +81,11 @@ public class LetterForAnalysis
 
    public Letter getContent()
    {
-      if(isNikud())
+      if (isNikud())
       {
          return content;
       }
-      else if(isSwedish())
+      else if (isSwedish())
       {
          return swedishContent;
       }
@@ -99,17 +99,17 @@ public class LetterForAnalysis
    {
       return swedishContent;
    }
-   
+
    public GermanLetter getGermanContent()
    {
       return germanContent;
    }
-   
+
    public boolean isGerman()
    {
       return german;
    }
-   
+
    public boolean isNotGerman()
    {
       return nikud || swedish;
@@ -119,7 +119,7 @@ public class LetterForAnalysis
    {
       return swedish;
    }
-   
+
    public boolean isNotSwedish()
    {
       return nikud || german;
@@ -129,7 +129,7 @@ public class LetterForAnalysis
    {
       return nikud;
    }
-   
+
    public boolean isNotNikud()
    {
       return german || swedish;
@@ -137,7 +137,7 @@ public class LetterForAnalysis
 
    public LetterForAnalysis clone()
    {
-      if(this.type == LetterType.HEBREW)
+      if (this.type == LetterType.HEBREW)
       {
          LetterForAnalysis duplicate = new LetterForAnalysis(content);
          duplicate.setListLowerPunktation(
@@ -146,32 +146,33 @@ public class LetterForAnalysis
          duplicate.getSetUpperPunktation().addAll(setUpperPunktation);
          return duplicate;
       }
-      if(this.type == LetterType.SWEDISH)
+      if (this.type == LetterType.SWEDISH)
       {
          return new LetterForAnalysis(swedishContent);
       }
       return new LetterForAnalysis(germanContent);
    }
-   
-   public static boolean isEqual(LetterForAnalysis letter1,LetterForAnalysis letter2, LetterType type)
+
+   public static boolean isEqual(LetterForAnalysis letter1,
+         LetterForAnalysis letter2, LetterType type)
    {
-      if(type == LetterType.HEBREW)
+      if (type == LetterType.HEBREW)
       {
-         if(letter1.getContent() == letter2.getContent())
+         if (letter1.getContent() == letter2.getContent())
          {
             return true;
          }
       }
-      else if(type == LetterType.SWEDISH)
+      else if (type == LetterType.SWEDISH)
       {
-         if(letter1.getSwedishContent() == letter2.getSwedishContent())
+         if (letter1.getSwedishContent() == letter2.getSwedishContent())
          {
             return true;
          }
       }
-      else if(type == LetterType.GERMAN)
+      else if (type == LetterType.GERMAN)
       {
-         if(letter1.getGermanContent() == letter2.getGermanContent())
+         if (letter1.getGermanContent() == letter2.getGermanContent())
          {
             return true;
          }
@@ -227,7 +228,7 @@ public class LetterForAnalysis
 
    public int getPixelWidth()
    {
-      if(content != null)
+      if (content != null)
       {
          return content.getPixelWidth();
       }

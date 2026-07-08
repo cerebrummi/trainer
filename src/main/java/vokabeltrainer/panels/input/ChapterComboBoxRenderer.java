@@ -26,9 +26,8 @@ public class ChapterComboBoxRenderer extends JLabel
    {
       if (value != null)
       {
-         this
-               .setText(
-                     "  " + value.getDatabaseDescription().getDatabaseName() + " | " + value.getName());
+         this.setText("  " + value.getDatabaseDescription().getDatabaseName()
+               + " | " + value.getName());
       }
 
       return this;

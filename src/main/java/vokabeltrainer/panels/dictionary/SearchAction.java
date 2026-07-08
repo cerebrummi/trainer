@@ -8,7 +8,7 @@ import javax.swing.JButton;
 public class SearchAction extends AbstractAction
 {
    JButton searchButton;
-   
+
    private static final long serialVersionUID = -2307894271836844332L;
 
    public SearchAction(JButton searchButton)

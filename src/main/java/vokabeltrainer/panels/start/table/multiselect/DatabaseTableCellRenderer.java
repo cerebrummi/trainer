@@ -114,12 +114,12 @@ public class DatabaseTableCellRenderer
          this.database.setText(databaseItem.getDatabase().getName());
          return this.database;
       }
-      if(column == 2)
+      if (column == 2)
       {
          this.authors.setText(databaseItem.getDatabase().getAuthors());
          return this.authors;
       }
-      
+
       this.company.setText(databaseItem.getDatabase().getCompany());
       return this.company;
    }

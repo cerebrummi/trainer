@@ -154,14 +154,15 @@ public class Expression
       this.trainingStatusLLToD = trainingStatusHToD;
    }
 
-   public TemporaryTrainingStatus getTemporaryTrainingStatus() 
+   public TemporaryTrainingStatus getTemporaryTrainingStatus()
    {
       return new TemporaryTrainingStatus();
    }
 
-   public void setTemporaryTrainingStatus(TemporaryTrainingStatus temporaryTrainingStatus) 
+   public void setTemporaryTrainingStatus(
+         TemporaryTrainingStatus temporaryTrainingStatus)
    {
-	 // nothing
+      // nothing
    }
 
    public Chapter getChapter()
@@ -332,7 +333,7 @@ public class Expression
                   translator.realisticTranslate(Translation._DATE_TIME)));
       return result;
    }
-   
+
    public String[] toHebrewArrayForTableEntry2()
    {
       int index = 0;
@@ -373,7 +374,7 @@ public class Expression
                   translator.realisticTranslate(Translation._DATE_TIME)));
       return result;
    }
-   
+
    public String[] toSwedishArrayForTableEntry()
    {
       int index = 0;
@@ -414,7 +415,7 @@ public class Expression
                   translator.realisticTranslate(Translation._DATE_TIME)));
       return result;
    }
-   
+
    public String[] toSwedishArrayForTableEntry2()
    {
       int index = 0;
@@ -455,7 +456,7 @@ public class Expression
                   translator.realisticTranslate(Translation._DATE_TIME)));
       return result;
    }
-   
+
    public String[] toArrayForTableEntry()
    {
       int index = 0;
@@ -577,19 +578,17 @@ public class Expression
       {
          searchJoinerGerman.add(word);
       }
-      joiner.add(translator.realisticTranslate(Translation.SUCHWORTE)
-            + " "
-            + translator.realisticTranslate(Translation.DEUTSCH)
-            + ": " + searchJoinerGerman.toString());
+      joiner.add(translator.realisticTranslate(Translation.SUCHWORTE) + " "
+            + translator.realisticTranslate(Translation.DEUTSCH) + ": "
+            + searchJoinerGerman.toString());
       StringJoiner searchJoinerHebrew = new StringJoiner(", ");
       for (String word : searchwordsHebrew)
       {
          searchJoinerHebrew.add(word);
       }
-      joiner.add(translator.realisticTranslate(Translation.SUCHWORTE)
-            + " "
-            + translator.realisticTranslate(Translation.HEBRAEISCH)
-            + ": " + searchJoinerHebrew.toString());
+      joiner.add(translator.realisticTranslate(Translation.SUCHWORTE) + " "
+            + translator.realisticTranslate(Translation.HEBRAEISCH) + ": "
+            + searchJoinerHebrew.toString());
       if (!additionalInformation.isBlank())
       {
          joiner.add(additionalInformation);
@@ -605,15 +604,15 @@ public class Expression
       joiner.add(this.uuid.toString());
       if (Direction.OWN_TO_NEW.equals(languageDirection.getDirection()))
       {
-         joiner.add(
-               this.trainingStatusDToLL.getNextDate().format(dateTimeFormatter));
+         joiner.add(this.trainingStatusDToLL.getNextDate()
+               .format(dateTimeFormatter));
          joiner.add(this.trainingStatusDToLL.getRepetition().name());
          joiner.add(String.valueOf(this.trainingStatusDToLL.getTrys()));
       }
       else
       {
-         joiner.add(
-               this.trainingStatusLLToD.getNextDate().format(dateTimeFormatter));
+         joiner.add(this.trainingStatusLLToD.getNextDate()
+               .format(dateTimeFormatter));
          joiner.add(this.trainingStatusLLToD.getRepetition().name());
          joiner.add(String.valueOf(this.trainingStatusLLToD.getTrys()));
       }
@@ -647,21 +646,21 @@ public class Expression
    {
       if (Direction.OWN_TO_NEW.equals(language))
       {
-    	 if(this.getTrainingStatusDToLL().getRepetition() == null)
-    	 {
-    		  return "Fehler bei " + ownLanguage;
-    	 }
-    	 
-         return ownLanguage + "   [" + this.getTrainingStatusDToLL().getTrys() + " "
-               + translator.realisticTranslate(Translation.MAL) + " "
+         if (this.getTrainingStatusDToLL().getRepetition() == null)
+         {
+            return "Fehler bei " + ownLanguage;
+         }
+
+         return ownLanguage + "   [" + this.getTrainingStatusDToLL().getTrys()
+               + " " + translator.realisticTranslate(Translation.MAL) + " "
                + this.getTrainingStatusDToLL().getRepetition().getTranslation()
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }
       else
       {
-         return ownLanguage + "   [" + this.getTrainingStatusLLToD().getTrys() + " "
-               + translator.realisticTranslate(Translation.MAL) + " "
+         return ownLanguage + "   [" + this.getTrainingStatusLLToD().getTrys()
+               + " " + translator.realisticTranslate(Translation.MAL) + " "
                + this.getTrainingStatusLLToD().getRepetition().getTranslation()
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();

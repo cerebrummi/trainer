@@ -17,8 +17,7 @@ import vokabeltrainer.common.colors.TableColors;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.types.Expression;
 
-public class ExpressionCellRenderer2 
-      implements TableCellRenderer
+public class ExpressionCellRenderer2 implements TableCellRenderer
 {
    private JPanel content;
    private JLabel infos;
@@ -31,7 +30,7 @@ public class ExpressionCellRenderer2
       infos = new JLabel(new ImageIcon(ApplicationImages.getIcon_bulb()));
       infos.setSize(60, 60);
       infos.setBorder(BorderFactory.createEmptyBorder());
-      
+
       content.add(infos);
    }
 
@@ -41,18 +40,19 @@ public class ExpressionCellRenderer2
    {
       Expression expression = (Expression) value;
       UUID uuid = expression.getUuid();
-      if(ImageData.isImageForExpressionAvailable(uuid))
+      if (ImageData.isImageForExpressionAvailable(uuid))
       {
          infos.setIcon(new ImageIcon(ApplicationImages.getIcon_bulb_on()));
       }
       else
       {
-    	  infos.setIcon(new ImageIcon(ApplicationImages.getIcon_bulb()));
+         infos.setIcon(new ImageIcon(ApplicationImages.getIcon_bulb()));
       }
-      
+
       if (isSelected)
       {
-         content.setBorder(BorderFactory.createLineBorder(ApplicationColors.getSelectionGreen(), 3));
+         content.setBorder(BorderFactory
+               .createLineBorder(ApplicationColors.getSelectionGreen(), 3));
       }
       else
       {
@@ -67,9 +67,8 @@ public class ExpressionCellRenderer2
       {
          content.setBackground(TableColors.getRow2());
       }
-      
+
       return content;
    }
 
-   
 }

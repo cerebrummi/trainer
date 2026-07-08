@@ -7,32 +7,32 @@ import javax.swing.JButton;
 public class ImageButton extends JButton
 {
    private static final long serialVersionUID = 578075610960102010L;
-   
+
    private String imagefile;
 
    public ImageButton()
    {
       super();
    }
-   
+
    public ImageButton(Image image, String imagefile)
    {
       super(new ImageIcon(image));
       this.imagefile = imagefile;
    }
 
-   public ImageButton(Image image) 
+   public ImageButton(Image image)
    {
-	   super(new ImageIcon(image));
+      super(new ImageIcon(image));
    }
 
-   public String getImagefile() 
+   public String getImagefile()
    {
-	   return imagefile;
+      return imagefile;
    }
 
-   public void setImagefile(String imagefile) 
+   public void setImagefile(String imagefile)
    {
-	   this.imagefile = imagefile;
+      this.imagefile = imagefile;
    }
 }

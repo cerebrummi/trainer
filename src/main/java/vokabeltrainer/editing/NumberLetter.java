@@ -17,7 +17,7 @@ public enum NumberLetter implements Letter
    
    private String code;
    private String unicode;
-   
+
    NumberLetter(String code, String unicode)
    {
       this.code = code.toUpperCase();
@@ -27,11 +27,11 @@ public enum NumberLetter implements Letter
    public static String getPatternString()
    {
       StringJoiner joiner = new StringJoiner(",");
-      for(NumberLetter letter : NumberLetter.values())
+      for (NumberLetter letter : NumberLetter.values())
       {
          joiner.add(letter.code);
       }
-      
+
       return joiner.toString();
    }
 
@@ -58,7 +58,7 @@ public enum NumberLetter implements Letter
    {
       return false;
    }
-   
+
    @Override
    public LetterType isType()
    {
@@ -76,7 +76,7 @@ public enum NumberLetter implements Letter
    {
       return -1;
    }
-   
+
    @Override
    public String getTranscript()
    {

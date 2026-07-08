@@ -41,7 +41,7 @@ public class ExpressionListCellRenderer
    public Component getListCellRendererComponent(JList<? extends Object> list,
          Object value, int index, boolean isSelected, boolean cellHasFocus)
    {
-      
+
       if (index == 0)
       {
          if (Boolean.valueOf((String) value))
@@ -62,7 +62,8 @@ public class ExpressionListCellRenderer
          label.setEditable(false);
          label.setBackground(ApplicationColors.getTransparent());
          label.setBorder(BorderFactory.createEmptyBorder());
-         if(LetterHelper.findLetterTypeLanguages((String)value) == LetterType.HEBREW)
+         if (LetterHelper
+               .findLetterTypeLanguages((String) value) == LetterType.HEBREW)
          {
             label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          }
@@ -79,7 +80,8 @@ public class ExpressionListCellRenderer
          label.setEditable(false);
          label.setBackground(ApplicationColors.getTransparent());
          label.setBorder(BorderFactory.createEmptyBorder());
-         if(LetterHelper.findLetterTypeLanguages((String)value) == LetterType.HEBREW)
+         if (LetterHelper
+               .findLetterTypeLanguages((String) value) == LetterType.HEBREW)
          {
             label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          }

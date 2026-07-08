@@ -231,7 +231,7 @@ public class InputLanguagePanel extends JTextArea
       getInputMap(InputLanguagePanel.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
             .put(tabBack, focusBackwardCommand);
       getActionMap().put(focusBackwardCommand, new FocusBackwardAction());
-      
+
       layout.show(cards, selection.name());
    }
 
@@ -257,11 +257,11 @@ public class InputLanguagePanel extends JTextArea
                {
                   pleneField.requestFocusInWindow();
                }
-               else if(Selection.SWEDISH == selection)
+               else if (Selection.SWEDISH == selection)
                {
                   swedishField.requestFocusInWindow();
                }
-               else if(Selection.GERMAN == selection)
+               else if (Selection.GERMAN == selection)
                {
                   germanField.requestFocusInWindow();
                }
@@ -276,11 +276,11 @@ public class InputLanguagePanel extends JTextArea
                {
                   defektivField.requestFocusInWindow();
                }
-               else if(Selection.SWEDISH == selection)
+               else if (Selection.SWEDISH == selection)
                {
                   swedishField.requestFocusInWindow();
                }
-               else if(Selection.GERMAN == selection)
+               else if (Selection.GERMAN == selection)
                {
                   germanField.requestFocusInWindow();
                }
@@ -347,11 +347,11 @@ public class InputLanguagePanel extends JTextArea
             {
                pleneField.requestFocusInWindow();
             }
-            else if(Selection.SWEDISH == selection)
+            else if (Selection.SWEDISH == selection)
             {
                swedishField.requestFocusInWindow();
             }
-            else if(Selection.GERMAN == selection)
+            else if (Selection.GERMAN == selection)
             {
                germanField.requestFocusInWindow();
             }
@@ -438,29 +438,32 @@ public class InputLanguagePanel extends JTextArea
       hebrewField = new JTextPane();
       hebrewField.setFont(ApplicationFonts.getHebrewFont(30F));
       hebrewField.setDocument(new NikudStyledDocument(true));
-      hebrewField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);     
+      hebrewField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       hebrewField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel)));
       hebrewField.setMaximumSize(
             new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
-      hebrewField.setBorder(
-            BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(0,0,0,10), translator.realisticTranslate(
+      hebrewField.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createEmptyBorder(0, 0, 0, 10),
+            translator.realisticTranslate(
                   Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
       hebrewField.setBackground(color);
       changeLineSpacing(hebrewField);
-      
+
       components.add(hebrewField);
 
       vertical.add(hebrewField);
 
       return vertical;
    }
-   
-   private void changeLineSpacing(JTextPane pane) {
-      SimpleAttributeSet set = new SimpleAttributeSet(pane.getParagraphAttributes());
+
+   private void changeLineSpacing(JTextPane pane)
+   {
+      SimpleAttributeSet set = new SimpleAttributeSet(
+            pane.getParagraphAttributes());
       StyleConstants.setLineSpacing(set, 0.5F);
       pane.setParagraphAttributes(set, true);
-  }
+   }
 
    private Component initSwedish()
    {
@@ -490,7 +493,7 @@ public class InputLanguagePanel extends JTextArea
 
       return vertical;
    }
-   
+
    private Component initGerman()
    {
       JPanel vertical = new JPanel();
@@ -504,9 +507,8 @@ public class InputLanguagePanel extends JTextArea
       germanField.setDocument(new GermanDocument(true));
       germanField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
       germanField.setFont(ApplicationFonts.getGermanFont(20F));
-      germanField
-            .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
-                  (heightTotal - heightBorderTitel)));
+      germanField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
+            (heightTotal - heightBorderTitel)));
       germanField.setMaximumSize(
             new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
       germanField.setBorder(BorderFactory.createTitledBorder(
@@ -544,11 +546,10 @@ public class InputLanguagePanel extends JTextArea
       Settings.setLanguageInput(selection);
       keyboard.setKeyboardNoTextfield(selection);
    }
-   
 
    public void setLayoutNoKeyboard(Selection newselection)
    {
-      if(this.selection == newselection)
+      if (this.selection == newselection)
       {
          return;
       }
@@ -580,7 +581,7 @@ public class InputLanguagePanel extends JTextArea
    {
       return swedishField.getText();
    }
-   
+
    public String getGermanFieldText()
    {
       return germanField.getText();
@@ -605,7 +606,7 @@ public class InputLanguagePanel extends JTextArea
    {
       swedishField.setText(swedishText);
    }
-   
+
    public void setGermanFieldText(String germanText)
    {
       germanField.setText(germanText);
@@ -707,10 +708,10 @@ public class InputLanguagePanel extends JTextArea
    {
       return selection;
    }
-   
+
    public LLType getLLType()
    {
-      switch(selection)
+      switch (selection)
       {
       case PLENE_DEFEKTIV:
       case SIMPLE:

@@ -44,7 +44,8 @@ public class LetterPictureWordPanel extends JPanel
 
       JPanel displayPanel = new JPanel();
       displayPanel.setLayout(new TrainLayout(displayPanel));
-      displayPanel.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      displayPanel
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
       displayPanel.setMinimumSize(new Dimension(1268, 200));
       displayPanel.setMaximumSize(new Dimension(1268, 200));
 
@@ -61,13 +62,14 @@ public class LetterPictureWordPanel extends JPanel
 
       JPanel displayPanel2 = new JPanel();
       displayPanel2.setLayout(new TrainLayout(displayPanel2));
-      displayPanel2.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      displayPanel2
+            .setBackground(ApplicationColors.getTexturedBackgroundColor());
       displayPanel2.setMinimumSize(new Dimension(1268, 200));
       displayPanel2.setMaximumSize(new Dimension(1268, 200));
 
       for (LetterForAnalysis letter : hebrewLettersCode)
       {
-         if(Settings.isLetterImagesOn())
+         if (Settings.isLetterImagesOn())
          {
             displayPanel2.add(new NikudPictureButtonPanel(letter, cards2on));
          }

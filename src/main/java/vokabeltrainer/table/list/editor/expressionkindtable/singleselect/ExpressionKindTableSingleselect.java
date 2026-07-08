@@ -32,9 +32,8 @@ public class ExpressionKindTableSingleselect extends JTable
       this.setColumnSelectionAllowed(false);
       this.setCellSelectionEnabled(false);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-      this
-            .setBorder(BorderFactory
-                  .createLineBorder(ApplicationColors.getDarkGold()));
+      this.setBorder(
+            BorderFactory.createLineBorder(ApplicationColors.getDarkGold()));
       this.setTableHeader(null);
 
       addMouseListener(new MouseAdapter()

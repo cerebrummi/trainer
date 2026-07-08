@@ -16,11 +16,12 @@ public class ApplicationSound
 
    public static AudioFormat audioFormat = new AudioFormat(44100, 16, 2, true,
          false);
-   
+
    public static AudioFormat audioFormat2 = new AudioFormat(48000, 16, 2, true,
          false);
 
-   private static String message = Settings.getWindowTitle()+" konnte keine Geräusche laden.\nFehler: ";
+   private static String message = Settings.getWindowTitle()
+         + " konnte keine Geräusche laden.\nFehler: ";
 
    public static void setShredderSound(InputStream in)
    {

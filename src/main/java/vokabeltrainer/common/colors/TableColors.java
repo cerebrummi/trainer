@@ -15,16 +15,16 @@ public class TableColors
 
    public static Color getRow1()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.lightBlue;
    }
-   
+
    public static Color getRow2()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.lightGold;
       }

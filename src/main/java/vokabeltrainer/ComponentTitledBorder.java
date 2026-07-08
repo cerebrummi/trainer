@@ -77,7 +77,7 @@ public class ComponentTitledBorder
    }
 
    @SuppressWarnings("deprecation")
-private void dispatchEvent(MouseEvent me, int id)
+   private void dispatchEvent(MouseEvent me, int id)
    {
       Point pt = me.getPoint();
       pt.translate(-offset, 0);

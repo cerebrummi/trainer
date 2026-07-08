@@ -10,7 +10,7 @@ import vokabeltrainer.common.ApplicationFonts;
 public class DataButton extends JButton
 {
    private static final long serialVersionUID = 578075610960102010L;
-   
+
    private String data;
 
    public DataButton(Image caption, String data)
@@ -18,7 +18,7 @@ public class DataButton extends JButton
       super(new ImageIcon(caption));
       this.data = data;
    }
-   
+
    public DataButton(String caption, String data)
    {
       super(caption);
@@ -26,8 +26,9 @@ public class DataButton extends JButton
       this.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       this.setFont(ApplicationFonts.getHebrewFont(30F));
    }
-   
-   public DataButton(String caption, String data, ComponentOrientation orientation)
+
+   public DataButton(String caption, String data,
+         ComponentOrientation orientation)
    {
       super(caption);
       this.data = data;

@@ -56,136 +56,166 @@ public enum ExpressionKind {
 	WOCHENTAG(Translation.WOCHENTAG, ExpressionKindHelper.WOCHENTAG_ENUMS),
 	ZAHL(Translation.ZAHL, ExpressionKindHelper.ZAHL_ENUMS);
 
-	private Translation description;
-	private GrammaticalParentEnum[] grammaticalParentEnums;
+   private Translation description;
+   private GrammaticalParentEnum[] grammaticalParentEnums;
 
-	ExpressionKind(Translation description, GrammaticalParentEnum[] grammaticalParentEnums) {
-		this.description = description;
-		this.grammaticalParentEnums = grammaticalParentEnums;
-	}
+   ExpressionKind(Translation description,
+         GrammaticalParentEnum[] grammaticalParentEnums)
+   {
+      this.description = description;
+      this.grammaticalParentEnums = grammaticalParentEnums;
+   }
 
-	@Override
-	public String toString() {
-		Translator translator = Common.getTranslator();
-		return translator.realisticTranslate(description);
-	}
+   @Override
+   public String toString()
+   {
+      Translator translator = Common.getTranslator();
+      return translator.realisticTranslate(description);
+   }
 
-	public String toDescription() {
-		Translator translator = Common.getTranslator();
-		switch (this) {
-		case ADJEKTIV:
-		case ADVERB:
-		case ADVERB_PLUS:
-		case ALTERSANGABE:
-		case AUSRUF:
-		case ARTIKEL:
-		case BERUF:
-		case BINDEWORT:
-		case DEMONSTRATIVPRONOM:
-		case EIGENNAME:
-		case FARBE:
-		case FRAGEWORT:
-		case GLUECKWUNSCH:
-		case HOEFLICHKEITSFORMEL:
-		case JAHRESZEIT:
-		case KOMPARATIV:
-		case KONSTRUKT:
-		case MODALVERB:
-		case ORDNUNGSZAHL:
-		case PARTIKEL:
-		case PERSONALPRAEFIX:
-		case PERSONALPRONOM:
-		case PERSONALSUFFIX:
-		case POSSESSIVPRONOM:
-		case PRAEPOSITION:
-		case PRONOM:
-		case PRONOMINALSUFFIX:
-		case REDEWENDUNG:
-		case RELATIVPRONOM:
-		case SUBSTANTIV:
-		case SUPERLATIV:
-		case TEXT:
-		case UHRZEIT:
-		case UMGANGSPRACHE:
-		case VERB:
-		case WOCHENTAG:
-		case ZAHL:
-			return translator.realisticTranslate(description);
-		case EXPRESSIONKIND_UNKNOWN:
-			return translator.realisticTranslate(Translation.WORTART) + " "
-					+ translator.realisticTranslate(description);
-		default:
-			return "";
-		}
-	}
+   public String toDescription()
+   {
+      Translator translator = Common.getTranslator();
+      switch (this)
+      {
+      case ADJEKTIV:
+      case ADVERB:
+      case ADVERB_PLUS:
+      case ALTERSANGABE:
+      case AUSRUF:
+      case ARTIKEL:
+      case BERUF:
+      case BINDEWORT:
+      case DEMONSTRATIVPRONOM:
+      case EIGENNAME:
+      case FARBE:
+      case FRAGEWORT:
+      case GLUECKWUNSCH:
+      case HOEFLICHKEITSFORMEL:
+      case JAHRESZEIT:
+      case KOMPARATIV:
+      case KONSTRUKT:
+      case MODALVERB:
+      case ORDNUNGSZAHL:
+      case PARTIKEL:
+      case PERSONALPRAEFIX:
+      case PERSONALPRONOM:
+      case PERSONALSUFFIX:
+      case POSSESSIVPRONOM:
+      case PRAEPOSITION:
+      case PRONOM:
+      case PRONOMINALSUFFIX:
+      case REDEWENDUNG:
+      case RELATIVPRONOM:
+      case SUBSTANTIV:
+      case SUPERLATIV:
+      case TEXT:
+      case UHRZEIT:
+      case UMGANGSPRACHE:
+      case VERB:
+      case WOCHENTAG:
+      case ZAHL:
+         return translator.realisticTranslate(description);
+      case EXPRESSIONKIND_UNKNOWN:
+         return translator.realisticTranslate(Translation.WORTART) + " "
+               + translator.realisticTranslate(description);
+      default:
+         return "";
+      }
+   }
 
-	public static int getNumberOfValues() {
-		return ExpressionKind.values().length;
-	}
+   public static int getNumberOfValues()
+   {
+      return ExpressionKind.values().length;
+   }
 
-	public String getDescription() {
-		Translator translator = Common.getTranslator();
-		return translator.realisticTranslate(description);
-	}
+   public String getDescription()
+   {
+      Translator translator = Common.getTranslator();
+      return translator.realisticTranslate(description);
+   }
 
-	public static ExpressionKindTableModel getModelForMultiselect() {
-		Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
-		for (ExpressionKindItem kind : ExpressionKindHelper.getAllExpressionKindItems()) {
-			kind.setSelected(false);
-			Vector<ExpressionKindTableRow> row = new Vector<>();
-			row.add(new ExpressionKindTableRow(kind));
-			data.add(row);
-		}
-		Vector<String> columnNames = new Vector<>();
-		columnNames.add("eins");
-		return new ExpressionKindTableModel(data, columnNames);
-	}
+   public static ExpressionKindTableModel getModelForMultiselect()
+   {
+      Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
+      for (ExpressionKindItem kind : ExpressionKindHelper
+            .getAllExpressionKindItems())
+      {
+         kind.setSelected(false);
+         Vector<ExpressionKindTableRow> row = new Vector<>();
+         row.add(new ExpressionKindTableRow(kind));
+         data.add(row);
+      }
+      Vector<String> columnNames = new Vector<>();
+      columnNames.add("eins");
+      return new ExpressionKindTableModel(data, columnNames);
+   }
 
-	public static ExpressionKindTableModel2 getModelForSingleselect() {
-		Vector<Vector<ExpressionKindTableRow2>> data = new Vector<>();
-		for (ExpressionKindItem kind : ExpressionKindHelper.getAllExpressionKindItems()) {
-			kind.setSelected(false);
-			Vector<ExpressionKindTableRow2> row = new Vector<>();
-			row.add(new ExpressionKindTableRow2(kind));
-			data.add(row);
-		}
-		Vector<String> columnNames = new Vector<>();
-		columnNames.add("eins");
-		return new ExpressionKindTableModel2(data, columnNames);
-	}
+   public static ExpressionKindTableModel2 getModelForSingleselect()
+   {
+      Vector<Vector<ExpressionKindTableRow2>> data = new Vector<>();
+      for (ExpressionKindItem kind : ExpressionKindHelper
+            .getAllExpressionKindItems())
+      {
+         kind.setSelected(false);
+         Vector<ExpressionKindTableRow2> row = new Vector<>();
+         row.add(new ExpressionKindTableRow2(kind));
+         data.add(row);
+      }
+      Vector<String> columnNames = new Vector<>();
+      columnNames.add("eins");
+      return new ExpressionKindTableModel2(data, columnNames);
+   }
 
-	public static ExpressionKindTableModel getModelForMultiselect(Set<ExpressionKind> expressionKinds) {
-		Set<ExpressionKindItem> expressionKindItems = new HashSet<>();
-		Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
-		for (ExpressionKind kind : ExpressionKindHelper.getAllExpressionKinds()) {
-			ExpressionKindItem item = new ExpressionKindItem(kind);
-			if (expressionKinds.contains(kind)) {
-				item.setSelected(true);
-				expressionKindItems.add(item);
-			} else {
-				item.setSelected(false);
-				expressionKindItems.add(item);
-			}
-			Vector<ExpressionKindTableRow> row = new Vector<>();
-			row.add(new ExpressionKindTableRow(item));
-			data.add(row);
-		}
-		Vector<String> columnNames = new Vector<>();
-		columnNames.add("eins");
-		return new ExpressionKindTableModel(data, columnNames);
-	}
+   public static ExpressionKindTableModel getModelForMultiselect(
+         Set<ExpressionKind> expressionKinds)
+   {
+      Set<ExpressionKindItem> expressionKindItems = new HashSet<>();
+      Vector<Vector<ExpressionKindTableRow>> data = new Vector<>();
+      for (ExpressionKind kind : ExpressionKindHelper.getAllExpressionKinds())
+      {
+         ExpressionKindItem item = new ExpressionKindItem(kind);
+         if (expressionKinds.contains(kind))
+         {
+            item.setSelected(true);
+            expressionKindItems.add(item);
+         }
+         else
+         {
+            item.setSelected(false);
+            expressionKindItems.add(item);
+         }
+         Vector<ExpressionKindTableRow> row = new Vector<>();
+         row.add(new ExpressionKindTableRow(item));
+         data.add(row);
+      }
+      Vector<String> columnNames = new Vector<>();
+      columnNames.add("eins");
+      return new ExpressionKindTableModel(data, columnNames);
+   }
 
-	public static Set<GrammaticalParentEnum> getSetOfGrammaticalParentEnums(List<ExpressionKindTableRow> rows) {
-		return rows.stream().map(row -> Arrays.stream(row.getExpressionKindItem().getKind().getGrammaticalParentEnums())
-				.collect(Collectors.toSet())).flatMap(Set::stream).collect(Collectors.toSet());
-	}
+   public static Set<GrammaticalParentEnum> getSetOfGrammaticalParentEnums(
+         List<ExpressionKindTableRow> rows)
+   {
+      return rows.stream()
+            .map(row -> Arrays
+                  .stream(row.getExpressionKindItem().getKind()
+                        .getGrammaticalParentEnums())
+                  .collect(Collectors.toSet()))
+            .flatMap(Set::stream).collect(Collectors.toSet());
+   }
 
-	public static Set<GrammaticalParentEnum> getSetOfGrammaticalParentEnums(Set<ExpressionKind> kinds) {
-		return kinds.stream().map(kind -> Arrays.stream(kind.getGrammaticalParentEnums()).collect(Collectors.toSet()))
-				.flatMap(Set::stream).collect(Collectors.toSet());
-	}
+   public static Set<GrammaticalParentEnum> getSetOfGrammaticalParentEnums(
+         Set<ExpressionKind> kinds)
+   {
+      return kinds.stream()
+            .map(kind -> Arrays.stream(kind.getGrammaticalParentEnums())
+                  .collect(Collectors.toSet()))
+            .flatMap(Set::stream).collect(Collectors.toSet());
+   }
 
-	public GrammaticalParentEnum[] getGrammaticalParentEnums() {
-		return grammaticalParentEnums;
-	}
+   public GrammaticalParentEnum[] getGrammaticalParentEnums()
+   {
+      return grammaticalParentEnums;
+   }
 }

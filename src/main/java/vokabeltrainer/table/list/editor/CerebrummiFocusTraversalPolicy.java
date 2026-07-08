@@ -20,7 +20,7 @@ public class CerebrummiFocusTraversalPolicy extends FocusTraversalPolicy
    {
       this.focusList = new ArrayList<Component>(Arrays.asList(focusList));
       this.focusMap = new HashMap<>();
-      for(int i=0; i < focusList.length; i++)
+      for (int i = 0; i < focusList.length; i++)
       {
          focusMap.put(this.focusList.get(i), i);
       }
@@ -31,7 +31,8 @@ public class CerebrummiFocusTraversalPolicy extends FocusTraversalPolicy
          Component aComponent)
    {
       Integer componentNumber = focusMap.get(aComponent);
-      if(componentNumber != null && componentNumber >= 0 && componentNumber < focusList.size())
+      if (componentNumber != null && componentNumber >= 0
+            && componentNumber < focusList.size())
       {
          int focusNumber = (componentNumber + 1) % focusList.size();
          return focusList.get(focusNumber);
@@ -44,9 +45,11 @@ public class CerebrummiFocusTraversalPolicy extends FocusTraversalPolicy
          Component aComponent)
    {
       Integer componentNumber = focusMap.get(aComponent);
-      if(componentNumber != null && componentNumber >= 0 && componentNumber < focusList.size())
+      if (componentNumber != null && componentNumber >= 0
+            && componentNumber < focusList.size())
       {
-         int focusNumber = (focusList.size() + componentNumber - 1) % focusList.size();
+         int focusNumber = (focusList.size() + componentNumber - 1)
+               % focusList.size();
          return focusList.get(focusNumber);
       }
       return this.getLastComponent(focusCycleRoot);
@@ -61,7 +64,7 @@ public class CerebrummiFocusTraversalPolicy extends FocusTraversalPolicy
    @Override
    public Component getLastComponent(Container focusCycleRoot)
    {
-      return focusList.get(focusList.size()-1);
+      return focusList.get(focusList.size() - 1);
    }
 
    @Override

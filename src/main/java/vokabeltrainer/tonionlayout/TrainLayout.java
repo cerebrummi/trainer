@@ -1,6 +1,5 @@
 package vokabeltrainer.tonionlayout;
 
-
 import java.awt.AWTError;
 import java.awt.Component;
 import java.awt.Container;
@@ -54,9 +53,9 @@ import javax.swing.JViewport;
  * @since private
  * @version TrainLayout 4.0 (released 24. June 2026)
  * 
- * Copyright (c) 2026 Birke Heeren
+ *          Copyright (c) 2026 Birke Heeren
  *
- * Licensed under the MIT License. 
+ *          Licensed under the MIT License.
  */
 public class TrainLayout implements LayoutManager2, java.io.Serializable
 {
@@ -293,8 +292,8 @@ public class TrainLayout implements LayoutManager2, java.io.Serializable
                   dmin = comp.getMinimumSize();
                dmax = comp.getMaximumSize();
             }
-            else if (comp instanceof Container
-                  && LayoutHelper.isTOnionLayout(((Container) comp).getLayout()))
+            else if (comp instanceof Container && LayoutHelper
+                  .isTOnionLayout(((Container) comp).getLayout()))
             {
                Dimension dminContent = ((LayoutManager2) ((Container) comp)
                      .getLayout()).minimumLayoutSize((Container) comp);
@@ -763,11 +762,11 @@ public class TrainLayout implements LayoutManager2, java.io.Serializable
             }
             // allocating available width according to minimum widths vs.
             // wmintotal
-            if(wmintotal > 0)
+            if (wmintotal > 0)
             {
                wfinal[i] = (int) ((wmin[i] / (float) wmintotal) * w);
             }
-            
+
             if (wmin[i] > wfinal[i])
             {
                wfinal[i] = wmin[i];
@@ -822,7 +821,7 @@ public class TrainLayout implements LayoutManager2, java.io.Serializable
          {
             Component comp = self.getComponent(i);
             comp.setBounds(x, insets.top, wfinal[i], h);
-            if(i < ncomponents - 1)
+            if (i < ncomponents - 1)
             {
                x += wfinal[i] + hgap;
             }

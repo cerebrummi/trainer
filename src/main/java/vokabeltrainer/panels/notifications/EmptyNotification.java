@@ -10,7 +10,7 @@ public class EmptyNotification
 
    private EmptyNotification()
    {
-
+      // nothing
    }
 
    public static void display()

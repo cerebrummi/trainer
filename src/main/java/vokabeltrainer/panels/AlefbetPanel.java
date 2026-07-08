@@ -50,11 +50,12 @@ public class AlefbetPanel extends JPanel
       horizontal.setLayout(new TrainLayout(horizontal, 165));
       horizontal.setOpaque(false);
       horizontal.setBackground(ApplicationColors.getTransparent());
-      
+
       this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel();
       letterPictureAlphabetPanel.setOpaque(false);
-      letterPictureAlphabetPanel.setBackground(ApplicationColors.getTransparent());
-      
+      letterPictureAlphabetPanel
+            .setBackground(ApplicationColors.getTransparent());
+
       horizontal.add(initLetterPanel());
       horizontal.add(letterPictureAlphabetPanel);
       horizontal.add(initButtons());
@@ -78,11 +79,12 @@ public class AlefbetPanel extends JPanel
       filler.setMaximumSize(new Dimension(200, 1));
       filler.setOpaque(false);
 
-      resultButton = new JButton(translator.realisticTranslate(Translation.AUSWERTEN));
+      resultButton = new JButton(
+            translator.realisticTranslate(Translation.AUSWERTEN));
       resultButton.setBackground(AlefbetColors.getButton());
       resultButton.setForeground(AlefbetColors.getButtonForeground());
       resultButton.setFont(ApplicationFonts.getButtonFont());
-      
+
       resetButton = new JButton(
             translator.realisticTranslate(Translation.ZURUECKSETZEN));
       resetButton.setBackground(AlefbetColors.getButton());
@@ -152,10 +154,12 @@ public class AlefbetPanel extends JPanel
          JOptionPane.showMessageDialog(letterPanel, "",
                Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(
-                     translator.realisticTranslate(Translation.BILDERBUCHSTABEN),
-                     translator.realisticTranslate(Translation.ALLE_BILDER_KANN_MAN),
                      translator
-                           .realisticTranslate(Translation.AUCH_EINZELN_ANKLICKEN))));
+                           .realisticTranslate(Translation.BILDERBUCHSTABEN),
+                     translator.realisticTranslate(
+                           Translation.ALLE_BILDER_KANN_MAN),
+                     translator.realisticTranslate(
+                           Translation.AUCH_EINZELN_ANKLICKEN))));
       });
 
       pictureInfoButton.addMouseListener(new MouseListener()

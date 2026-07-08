@@ -76,17 +76,17 @@ public class ApplicationImages
    private static BufferedImage languages;
    private static BufferedImage newWordSmall;
    private static BufferedImage l18n;
-   
+
    private static BufferedImage questionsAndAnswers;
    private static BufferedImage questionsAndAnswers2;
-   
+
    private static BufferedImage darkmode;
-   
+
    private static BufferedImage icon_notes;
    private static BufferedImage icon_eye;
    private static BufferedImage icon_bulb;
    private static BufferedImage icon_bulb_on;
-   
+
    private static BufferedImage scroll;
 
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
@@ -251,7 +251,7 @@ public class ApplicationImages
       }
       ApplicationImages.newWordSmall = newWordSmall;
    }
-   
+
    public static BufferedImage getL18n()
    {
       return l18n;
@@ -377,7 +377,6 @@ public class ApplicationImages
       }
       ApplicationImages.okaySaveIcon = okaySaveIcon;
    }
-   
 
    public static void setOkaySave(BufferedImage okaySave)
    {
@@ -387,7 +386,7 @@ public class ApplicationImages
       }
       ApplicationImages.okaySave = okaySave;
    }
-   
+
    public static BufferedImage getOkaySave()
    {
       return okaySave;
@@ -646,7 +645,7 @@ public class ApplicationImages
    {
       if (letterIconsNikudMap.size() < 56)
       {
-         System.out.println("ApplicationImages: "+letterIconsNikudMap.size());
+         System.out.println("ApplicationImages: " + letterIconsNikudMap.size());
          exitWithMessage("Buchstaben Nikud Icons fehlen");
       }
       else if (letterIconsNikudMap.size() > 56)
@@ -845,9 +844,8 @@ public class ApplicationImages
 
    private static void exitWithMessage(String localMessage)
    {
-      JOptionPane
-            .showMessageDialog(null, message + localMessage, "Nachricht",
-                  JOptionPane.CLOSED_OPTION);
+      JOptionPane.showMessageDialog(null, message + localMessage, "Nachricht",
+            JOptionPane.CLOSED_OPTION);
       System.exit(1);
    }
 
@@ -1010,7 +1008,8 @@ public class ApplicationImages
       return questionsAndAnswers2;
    }
 
-   public static void setQuestionsAndAnswers2(BufferedImage questionsAndAnswers2)
+   public static void setQuestionsAndAnswers2(
+         BufferedImage questionsAndAnswers2)
    {
       if (questionsAndAnswers2 == null)
       {
@@ -1047,60 +1046,60 @@ public class ApplicationImages
       ApplicationImages.logoFolderEmpty = logoFolderEmpty;
    }
 
-   public static BufferedImage getIcon_notes() 
+   public static BufferedImage getIcon_notes()
    {
-	return icon_notes;
+      return icon_notes;
    }
 
-   public static void setIcon_notes(BufferedImage icon_notes) 
+   public static void setIcon_notes(BufferedImage icon_notes)
    {
-	   if (icon_notes == null)
-	      {
-	         exitWithMessage("kein Icon Notes");
-	      }
-	ApplicationImages.icon_notes = icon_notes;
+      if (icon_notes == null)
+      {
+         exitWithMessage("kein Icon Notes");
+      }
+      ApplicationImages.icon_notes = icon_notes;
    }
 
-   public static BufferedImage getIcon_eye() 
+   public static BufferedImage getIcon_eye()
    {
-	return icon_eye;
+      return icon_eye;
    }
 
-   public static void setIcon_eye(BufferedImage icon_eye) 
+   public static void setIcon_eye(BufferedImage icon_eye)
    {
-	   if (icon_eye == null)
-	      {
-	         exitWithMessage("kein Icon Eye");
-	      }
-	ApplicationImages.icon_eye = icon_eye;
-   }
-   
-   public static BufferedImage getIcon_bulb() 
-   {
-        return icon_bulb;
+      if (icon_eye == null)
+      {
+         exitWithMessage("kein Icon Eye");
+      }
+      ApplicationImages.icon_eye = icon_eye;
    }
 
-   public static void setIcon_bulb(BufferedImage icon_bulb) 
+   public static BufferedImage getIcon_bulb()
    {
-           if (icon_bulb == null)
-              {
-                 exitWithMessage("kein Icon Bulb");
-              }
-        ApplicationImages.icon_bulb = icon_bulb;
-   }
-   
-   public static BufferedImage getIcon_bulb_on() 
-   {
-        return icon_bulb_on;
+      return icon_bulb;
    }
 
-   public static void setIcon_bulb_on(BufferedImage icon_bulb_on) 
+   public static void setIcon_bulb(BufferedImage icon_bulb)
    {
-           if (icon_bulb_on == null)
-              {
-                 exitWithMessage("kein Icon Bulb on");
-              }
-        ApplicationImages.icon_bulb_on = icon_bulb_on;
+      if (icon_bulb == null)
+      {
+         exitWithMessage("kein Icon Bulb");
+      }
+      ApplicationImages.icon_bulb = icon_bulb;
+   }
+
+   public static BufferedImage getIcon_bulb_on()
+   {
+      return icon_bulb_on;
+   }
+
+   public static void setIcon_bulb_on(BufferedImage icon_bulb_on)
+   {
+      if (icon_bulb_on == null)
+      {
+         exitWithMessage("kein Icon Bulb on");
+      }
+      ApplicationImages.icon_bulb_on = icon_bulb_on;
    }
 
    public static BufferedImage getScroll()
@@ -1116,7 +1115,5 @@ public class ApplicationImages
       }
       ApplicationImages.scroll = scroll;
    }
-
- 
 
 }

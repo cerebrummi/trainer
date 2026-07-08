@@ -3,10 +3,10 @@ package vokabeltrainer.types;
 public class SortingIndex
 {
    private static int counter = 0;
-   
+
    private SortingIndex()
    {
-      
+      // nothing
    }
 
    public static int getCounter()
@@ -20,7 +20,7 @@ public class SortingIndex
       try
       {
          counterValueInt = Integer.valueOf(counterValue);
-         if(counterValueInt > counter)
+         if (counterValueInt > counter)
          {
             counter = counterValueInt;
          }

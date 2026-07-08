@@ -32,7 +32,7 @@ public class LanguageTab extends JPanel
    private JTabbedPane register;
 
    private JPanel infoPanel;
-   private Direction languageDirection; 
+   private Direction languageDirection;
    private Translator translator = Common.getTranslator();
 
    public LanguageTab(JPanel infoPanel, Direction languageDirection)
@@ -53,18 +53,30 @@ public class LanguageTab extends JPanel
       register.setBackground(SuccessColors.getPanelBackground());
       register.setFont(ApplicationFonts.getSecondaryToolbarButtonFont());
 
-      register.addTab(translator.realisticTranslate(Translation.RICHTUNG), infoPanel); // 0
-      register.addTab(translator.realisticTranslate(Translation.VORRAT), initNotStarted()); // 1
-      register.addTab(translator.realisticTranslate(Translation.HEUTE), initNow()); // 2
-      register.addTab(translator.realisticTranslate(Translation.MORGEN), initOneDay()); // 3
-      register.addTab(translator.realisticTranslate(Translation._2_TAGE), initTwoDays()); // 4
-      register.addTab(translator.realisticTranslate(Translation._5_TAGE), initFiveDays()); // 5
-      register.addTab(translator.realisticTranslate(Translation._11_TAGE), initElevenDays()); // 6
-      register.addTab(translator.realisticTranslate(Translation._19_TAGE), initNineteenDays()); // 7
-      register.addTab(translator.realisticTranslate(Translation._1_MONAT), initOneMonth()); // 8
-      register.addTab(translator.realisticTranslate(Translation._2_MONATE), initTwoMonths()); // 9
-      register.addTab(translator.realisticTranslate(Translation._5_MONATE), initFiveMonths()); // 10
-      register.addTab(translator.realisticTranslate(Translation.FERTIG), initDone()); // 11
+      register.addTab(translator.realisticTranslate(Translation.RICHTUNG),
+            infoPanel); // 0
+      register.addTab(translator.realisticTranslate(Translation.VORRAT),
+            initNotStarted()); // 1
+      register.addTab(translator.realisticTranslate(Translation.HEUTE),
+            initNow()); // 2
+      register.addTab(translator.realisticTranslate(Translation.MORGEN),
+            initOneDay()); // 3
+      register.addTab(translator.realisticTranslate(Translation._2_TAGE),
+            initTwoDays()); // 4
+      register.addTab(translator.realisticTranslate(Translation._5_TAGE),
+            initFiveDays()); // 5
+      register.addTab(translator.realisticTranslate(Translation._11_TAGE),
+            initElevenDays()); // 6
+      register.addTab(translator.realisticTranslate(Translation._19_TAGE),
+            initNineteenDays()); // 7
+      register.addTab(translator.realisticTranslate(Translation._1_MONAT),
+            initOneMonth()); // 8
+      register.addTab(translator.realisticTranslate(Translation._2_MONATE),
+            initTwoMonths()); // 9
+      register.addTab(translator.realisticTranslate(Translation._5_MONATE),
+            initFiveMonths()); // 10
+      register.addTab(translator.realisticTranslate(Translation.FERTIG),
+            initDone()); // 11
 
       this.add(register, BorderLayout.CENTER);
 
@@ -149,8 +161,7 @@ public class LanguageTab extends JPanel
          case 0:
             break;
          case 1:
-            SuccessHelper.addContent(null, notStartedPanel,
-                  languageDirection);
+            SuccessHelper.addContent(null, notStartedPanel, languageDirection);
             break;
          case 2:
             SuccessHelper.addContent(Repetition.NOW, nowPanel,
@@ -173,8 +184,8 @@ public class LanguageTab extends JPanel
                   languageDirection);
             break;
          case 7:
-            SuccessHelper.addContent(Repetition.NINETEEN_DAYS, nineteenDaysPanel,
-                  languageDirection);
+            SuccessHelper.addContent(Repetition.NINETEEN_DAYS,
+                  nineteenDaysPanel, languageDirection);
             break;
          case 8:
             SuccessHelper.addContent(Repetition.ONE_MONTH, oneMonthPanel,

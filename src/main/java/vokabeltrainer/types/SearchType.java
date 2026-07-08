@@ -6,8 +6,7 @@ import vokabeltrainer.panels.translation.Translator;
 
 public enum SearchType
 {
-   SEARCHWORD(Translation.SUCHE_NACH_SUCHWORT),
-   WORDSTART(
+   SEARCHWORD(Translation.SUCHE_NACH_SUCHWORT), WORDSTART(
          Translation.SUCHE_NACH_WORTANFANG);
 
    Translation meaning;

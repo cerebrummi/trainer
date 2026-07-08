@@ -13,7 +13,7 @@ public class ExpressionComparator implements Comparator<Expression>
 
    private SortingType sortingType;
    private Direction direction;
-   
+
    public ExpressionComparator(SortingType sortingType, Direction direction)
    {
       this.sortingType = sortingType;
@@ -53,24 +53,23 @@ public class ExpressionComparator implements Comparator<Expression>
          coll.setStrength(Collator.PRIMARY);
          return coll.compare(o1.getSortingIndex(), o2.getSortingIndex());
       case ALPHABET:
-         if(Direction.NEW_TO_OWN == direction)
+         if (Direction.NEW_TO_OWN == direction)
          {
-            if(o1.getLL().isSwedish())
+            if (o1.getLL().isSwedish())
             {
                Collator coll2 = Collator.getInstance(Locale.GERMAN);
                coll2.setStrength(Collator.PRIMARY);
-               return coll2.compare(o1.getLL().getSwedish(), o2.getLL().getSwedish());
+               return coll2.compare(o1.getLL().getSwedish(),
+                     o2.getLL().getSwedish());
             }
-            else
-               if(o1.getLL().isGerman())
-               {
-                  Collator coll2 = Collator.getInstance(Locale.GERMAN);
-                  coll2.setStrength(Collator.PRIMARY);
-                  return coll2.compare(o1.getLL().getGerman(), o2.getLL().getGerman());
-               }
-            return o1
-                  .getLL()
-                  .getHebrewNoMatterWhichKind()
+            else if (o1.getLL().isGerman())
+            {
+               Collator coll2 = Collator.getInstance(Locale.GERMAN);
+               coll2.setStrength(Collator.PRIMARY);
+               return coll2.compare(o1.getLL().getGerman(),
+                     o2.getLL().getGerman());
+            }
+            return o1.getLL().getHebrewNoMatterWhichKind()
                   .compareTo(o2.getLL().getHebrewNoMatterWhichKind());
          }
          else

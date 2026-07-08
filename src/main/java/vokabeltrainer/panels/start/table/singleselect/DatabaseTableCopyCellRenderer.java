@@ -88,19 +88,20 @@ public class DatabaseTableCopyCellRenderer
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
    {
-      DatabaseItem databaseItem = ((DatabaseTableCopyRow) value).getDatabaseItem();
+      DatabaseItem databaseItem = ((DatabaseTableCopyRow) value)
+            .getDatabaseItem();
 
       if (column == 0)
       {
          this.database.setText(databaseItem.getDatabase().getName());
          return this.database;
       }
-      if(column == 1)
+      if (column == 1)
       {
          this.authors.setText(databaseItem.getDatabase().getAuthors());
          return this.authors;
       }
-      
+
       this.company.setText(databaseItem.getDatabase().getCompany());
       return this.company;
    }

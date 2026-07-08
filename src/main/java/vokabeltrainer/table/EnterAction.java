@@ -25,7 +25,7 @@ public class EnterAction extends AbstractAction
       PictureExpressionEditorController pictureController = new PictureExpressionEditorController();
       editorPicture = pictureController.getPictureExpressionEditorDialog();
    }
-   
+
    public EnterAction(ExpressionTable table, TableConnector connector)
    {
       this.table = table;
@@ -40,22 +40,22 @@ public class EnterAction extends AbstractAction
 
    @Override
    public void actionPerformed(ActionEvent e)
-   {      
+   {
       int selectedRow = table.getSelectedRow();
-      
+
       if (selectedRow >= 0)
       {
          Expression expression = (Expression) table.getValueAt(selectedRow, 0);
-         
-         if(table.getSelectedColumn() == 0)
+
+         if (table.getSelectedColumn() == 0)
          {
-        	 showEditorPunktation(expression);
+            showEditorPunktation(expression);
          }
          else
          {
-        	 showEditorPicture(expression, false);
+            showEditorPicture(expression, false);
          }
-         
+
       }
    }
 
@@ -72,11 +72,11 @@ public class EnterAction extends AbstractAction
       }
       editorPunktation.dispose();
    }
-   
+
    public void showEditorPicture(Expression expression, boolean dropped)
    {
       editorPicture.setExpression(expression);
-      if(ImageData.isImageForExpressionAvailable(expression.getUuid()))
+      if (ImageData.isImageForExpressionAvailable(expression.getUuid()))
       {
          editorPicture.setImages(ImageData.loadImages(expression.getUuid()));
       }

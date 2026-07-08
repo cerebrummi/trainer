@@ -25,7 +25,7 @@ public class ColorPanel extends JPanel
    private JButton applyButton;
    private String message = Settings.getWindowTitle()
          + " bitte neu starten.\nFehler: ";
-   
+
    public ColorPanel()
    {
       setLayout(new BullsEyeLayout(this));
@@ -43,7 +43,7 @@ public class ColorPanel extends JPanel
       horizontal.setLayout(horizontalLayout);
       horizontal.setOpaque(false);
       horizontal.setBackground(ApplicationColors.getTransparent());
-      
+
       applyButton = new JButton(new ImageIcon(ApplicationImages.getDarkmode()));
 
       horizontal.add(applyButton);
@@ -64,11 +64,12 @@ public class ColorPanel extends JPanel
          add(initChooseColormode());
          this.validate();
          this.repaint();
-         
-         Common.getjFrame().getContentPane().setBackground(ApplicationColors.getBackgroundGold());
+
+         Common.getjFrame().getContentPane()
+               .setBackground(ApplicationColors.getBackgroundGold());
          Common.getjFrame().getContentPane().validate();
          Common.getjFrame().getContentPane().repaint();
-         
+
          try
          {
             LetterIcons.readNikud();
@@ -92,7 +93,7 @@ public class ColorPanel extends JPanel
                   "Nachricht", JOptionPane.CLOSED_OPTION);
             System.exit(1);
          }
-         
+
          try
          {
             Buchstabenbilder.reRead();
@@ -105,7 +106,7 @@ public class ColorPanel extends JPanel
             e.printStackTrace();
             System.exit(1);
          }
-         
+
          initController();
          applyButton.setEnabled(true);
       });

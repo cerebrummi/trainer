@@ -10,8 +10,9 @@ import vokabeltrainer.common.ApplicationImages;
 public class ImagePanelGreen extends JPanel
 {
    private static final long serialVersionUID = 5685334885200762846L;
-   private static BufferedImage currentImage = ApplicationImages.getRandomGreenImage();
-   
+   private static BufferedImage currentImage = ApplicationImages
+         .getRandomGreenImage();
+
    @Override
    public void paintComponent(Graphics g)
    {

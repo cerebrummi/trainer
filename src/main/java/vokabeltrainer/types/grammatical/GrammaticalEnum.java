@@ -17,26 +17,16 @@ public interface GrammaticalEnum
    public GrammaticalParentEnum getParent();
 
    public int getPrintOrderNumber();
-   
+
    public GrammaticalEnum getUnkown();
 
    public enum GrammaticalParentEnum
    {
-      GENDER(
-            10,
-            Translation.GESCHLECHT),
-      NUMERUS(
-            20,
-            Translation.NUMERUS),
-      GRAMMATICAL_PERSON(
-            30,
-            Translation.GRAMMATISCHE_PERSON),
-      BINJAN(
-            40,
-            Translation.BINJAN___STAMM),
-      VERB_TIMES(
-            50,
-            Translation.ZEITFORM);
+      GENDER(10, Translation.GESCHLECHT), 
+      NUMERUS(20, Translation.NUMERUS), 
+      GRAMMATICAL_PERSON(30, Translation.GRAMMATISCHE_PERSON), 
+      BINJAN(40, Translation.BINJAN___STAMM), 
+      VERB_TIMES(50, Translation.ZEITFORM);
 
       private int sortNumber;
       private Translation identifier;
@@ -57,10 +47,10 @@ public interface GrammaticalEnum
          Translator translator = Common.getTranslator();
          return translator.realisticTranslate(identifier);
       }
-      
+
       public GrammaticalEnum getUnkown()
       {
-         switch(this)
+         switch (this)
          {
          case BINJAN:
             return Binjan.BINJAN_UNKNOWN;

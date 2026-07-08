@@ -14,7 +14,7 @@ import vokabeltrainer.editing.NikudLetter;
 public class LetterIconsHandwritten
 {
 
-   public static void readNikud() throws IOException 
+   public static void readNikud() throws IOException
    {
       Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap = new HashMap<>();
       String type = "";

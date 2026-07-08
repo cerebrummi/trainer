@@ -81,9 +81,9 @@ public class Interaction
    
    public static Command getCommand(Interaction interaction)
    {
-      if(interactions.get(interaction) == null)
+      if (interactions.get(interaction) == null)
       {
-         switch(interaction.getAction())
+         switch (interaction.getAction())
          {
          case CHAPTER_WHICH:
             return Command.TABLE_CHAPTER_WHICH;
@@ -100,7 +100,8 @@ public class Interaction
          case MOVE_TO_DATABASE:
             return Command.TABLE_SELECTED_EXPRESSIONS;
          case NEW_EXPRESSION:
-            return Command.NOTHING; // must be nothing, because it is always followed by Action "save"
+            return Command.NOTHING; // must be nothing, because it is always
+                                    // followed by Action "save"
          case NEW_TO_OWN:
             return Command.NO_TABLE;
          case OPENED_PAGE:
@@ -138,24 +139,24 @@ public class Interaction
          case DATA_CHAPTER:
             return Command.NO_TABLE;
          default:
-            System.out.println("Interaction "+ interaction + Command.ERROR);
+            System.out.println("Interaction " + interaction + Command.ERROR);
             return Command.ERROR;
          }
       }
       return interactions.get(interaction);
    }
-   
+
    public Interaction(Action action, Status status)
    {
       this.action = action;
       this.status = status;
    }
-   
+
    public Interaction(Status status)
    {
       this.status = status;
    }
-   
+
    private Status status;
    private Action action;
 
@@ -201,6 +202,5 @@ public class Interaction
    {
       return "Interaction [status=" + status + ", action=" + action + "]";
    }
-
 
 }

@@ -12,8 +12,8 @@ public class ErrorNotification
 
    }
 
-   public static void display(String header, String top,
-         String middle, String bottom)
+   public static void display(String header, String top, String middle,
+         String bottom)
    {
       JDialog dialog = new ErrorDialog(header, top, middle, bottom);
       dialog.setLocationRelativeTo(Common.getjFrame());

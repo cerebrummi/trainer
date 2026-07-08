@@ -13,8 +13,9 @@ public class TextImage
 {
    private TextImage()
    {
-      
+
    }
+
    public static BufferedImage make(String... textrows)
    {
       BufferedImage helperImg = new BufferedImage(1, 1,
@@ -38,8 +39,11 @@ public class TextImage
       BufferedImage finalImg = new BufferedImage(width, height,
             BufferedImage.TYPE_INT_RGB);
       g2d = finalImg.createGraphics();
-      /*g2d.setPaint(new TexturePaint(ApplicationImages.getTexturedBackground(),
-            new Rectangle(0, 0, 93, 72)));*/
+      /*
+       * g2d.setPaint(new
+       * TexturePaint(ApplicationImages.getTexturedBackground(), new
+       * Rectangle(0, 0, 93, 72)));
+       */
       g2d.fillRect(0, 0, width, height);
       g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
             RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);

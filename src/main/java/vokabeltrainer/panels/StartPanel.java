@@ -43,7 +43,7 @@ public class StartPanel extends JPanel
       northWrapper.setBackground(ApplicationColors.getTransparent());
       BullsEyeLayout northWrapperLayout = new BullsEyeLayout(northWrapper);
       northWrapper.setLayout(northWrapperLayout);
-      
+
       JPanel north = new JPanel();
       TotemLayout northLayout = new TotemLayout(north);
       north.setLayout(northLayout);
@@ -55,7 +55,8 @@ public class StartPanel extends JPanel
       nameWrapper.setOpaque(false);
       nameWrapper.setMinimumSize(new Dimension(580, 100));
       nameWrapper.setMaximumSize(new Dimension(580, 100));
-      JLabel name = new JLabel("<html>"+Settings.getWindowTitle()+"</html>");
+      JLabel name = new JLabel(
+            "<html>" + Settings.getWindowTitle() + "</html>");
       name.setMinimumSize(new Dimension(580, 120));
       name.setMaximumSize(new Dimension(580, 120));
       name.setPreferredSize(new Dimension(580, 120));
@@ -69,9 +70,9 @@ public class StartPanel extends JPanel
       trainerWrapper.setOpaque(false);
       trainerWrapper.setMinimumSize(new Dimension(400, 80));
       trainerWrapper.setMaximumSize(new Dimension(400, 80));
-      JLabel trainer = new JLabel("<html>"
-            + translator.realisticTranslate(Translation.VOKABELTRAINER)
-            + "</html>");
+      JLabel trainer = new JLabel(
+            "<html>" + translator.realisticTranslate(Translation.VOKABELTRAINER)
+                  + "</html>");
       trainer.setMinimumSize(new Dimension(355, 90));
       trainer.setMaximumSize(new Dimension(355, 90));
       trainer.setPreferredSize(new Dimension(355, 90));
@@ -83,29 +84,29 @@ public class StartPanel extends JPanel
       filler1.setOpaque(false);
       filler1.setMinimumSize(new Dimension(400, 50));
       filler1.setMaximumSize(new Dimension(600, 100));
-      
+
       north.add(filler1);
       north.add(nameWrapper);
       north.add(trainerWrapper);
       northWrapper.add(north);
       add(northWrapper, BorderLayout.NORTH);
-      
+
       JPanel centerWrapper = new JPanel();
       centerWrapper.setOpaque(false);
       centerWrapper.setBackground(ApplicationColors.getTransparent());
       centerWrapper.setLayout(new BullsEyeLayout(centerWrapper));
-      
+
       JPanel center = new JPanel();
       center.setLayout(new TotemLayout(center, 15));
       center.setOpaque(false);
       center.setBackground(ApplicationColors.getTransparent());
-      
+
       center.add(initDatabaseTablePanel());
       center.add(initCopyTablePanel());
-      
+
       centerWrapper.add(center);
       add(centerWrapper, BorderLayout.CENTER);
-      
+
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);
       horizontal.setLayout(new TrainLayout(horizontal));
@@ -131,7 +132,7 @@ public class StartPanel extends JPanel
    {
       JPanel center = new JPanel();
       center.setLayout(new BullsEyeLayout(center));
-      
+
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
@@ -150,29 +151,29 @@ public class StartPanel extends JPanel
       scroller.setMinimumSize(new Dimension(990, 80));
       scroller.setMaximumSize(new Dimension(990, 80));
 
-      JLabel databaseLabel2 = new JLabel(" "
-            + translator.realisticTranslate(Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_SICHTBAR_MACHEN)
-            + " => "
-            + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
+      JLabel databaseLabel2 = new JLabel(" " + translator.realisticTranslate(
+            Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_SICHTBAR_MACHEN)
+            + " => " + translator.realisticTranslate(
+                  Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
       databaseLabel2.setForeground(StartColors.getDatabase_Tipp());
-      
+
       vertical.add(databaseLabel);
       vertical.add(scroller);
       vertical.add(databaseLabel2);
-      
+
       center.add(vertical);
 
       return center;
    }
-   
+
    private Component initCopyTablePanel()
    {
       JPanel center = new JPanel();
       center.setLayout(new BullsEyeLayout(center));
       center.setOpaque(false);
       center.setBackground(ApplicationColors.getTransparent());
-      
+
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
@@ -191,21 +192,23 @@ public class StartPanel extends JPanel
       scroller.setMinimumSize(new Dimension(990, 80));
       scroller.setMaximumSize(new Dimension(990, 80));
 
-      JLabel databaseLabel2 = new JLabel(" "  + translator.realisticTranslate(Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_KOPIEREN)
-            + " => "
-            + translator.realisticTranslate(Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
+      JLabel databaseLabel2 = new JLabel(" "
+            + translator.realisticTranslate(
+                  Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_KOPIEREN)
+            + " => " + translator.realisticTranslate(
+                  Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
       databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
       databaseLabel2.setForeground(StartColors.getDatabase_Tipp());
-      
+
       vertical.add(databaseLabel);
       vertical.add(scroller);
       vertical.add(databaseLabel2);
-      
+
       center.add(vertical);
 
       return center;
    }
-   
+
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);

@@ -82,7 +82,8 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
             .realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       selectAllInTableButton.setFont(ApplicationFonts.getButtonFont());
-      selectAllInTableButton.setForeground(DictionaryColors.getButtonForeground());
+      selectAllInTableButton
+            .setForeground(DictionaryColors.getButtonForeground());
       selectAllInTableButton.setBackground(DictionaryColors.getBackground());
       selectAllInTableButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
@@ -91,12 +92,15 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
             .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
-      clearInTableSelectedButton.setForeground(DictionaryColors.getButtonForeground());
-      clearInTableSelectedButton.setBackground(DictionaryColors.getBackground());
+      clearInTableSelectedButton
+            .setForeground(DictionaryColors.getButtonForeground());
+      clearInTableSelectedButton
+            .setBackground(DictionaryColors.getBackground());
       clearInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
 
-      restoreButton = new JButton(Common.getTranslator().realisticTranslate(Translation.AUSWAHL_WIEDER_HERSTELLEN));
+      restoreButton = new JButton(Common.getTranslator()
+            .realisticTranslate(Translation.AUSWAHL_WIEDER_HERSTELLEN));
       restoreButton.setHorizontalAlignment(SwingConstants.LEFT);
       restoreButton.setFont(ApplicationFonts.getButtonFont());
       restoreButton.setForeground(DictionaryColors.getButtonForeground());
@@ -136,11 +140,9 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       }
       else
       {
-         table = new ExpressionTable(tableModel,
-               Direction
-                     .NEW_TO_OWN,
-               connector, false, new ExpressionColumnModel(Direction.NEW_TO_OWN
-                     ));
+         table = new ExpressionTable(tableModel, Direction.NEW_TO_OWN,
+               connector, false,
+               new ExpressionColumnModel(Direction.NEW_TO_OWN));
          JScrollPane scrollPane = new JScrollPane(table);
          scrollPane.setOpaque(false);
          scrollPane.getViewport().setOpaque(false);

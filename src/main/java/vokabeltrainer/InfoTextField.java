@@ -38,11 +38,11 @@ public class InfoTextField extends JTextField
       button.setPreferredSize(new Dimension(14, 32));
 
       button.addActionListener(_ -> {
-         JOptionPane.showMessageDialog(this, "",
-               Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
+         JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
+               JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(infoText)));
       });
-      
+
       button.addMouseListener(new MouseAdapter()
       {
 
@@ -66,7 +66,7 @@ public class InfoTextField extends JTextField
 
          @Override
          public void mouseEntered(MouseEvent e)
-         {  
+         {
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
          }
 
@@ -84,12 +84,11 @@ public class InfoTextField extends JTextField
 
       this.setBorder(border);
    }
-   
 
    public void setBlankBorder()
    {
       ComponentTitledBorder border = new ComponentTitledBorder(button, this,
-            BorderFactory.createTitledBorder(title),025);
+            BorderFactory.createTitledBorder(title), 025);
 
       this.setBorder(border);
    }
@@ -97,11 +96,10 @@ public class InfoTextField extends JTextField
    public void setRedBorder()
    {
       ComponentTitledBorder border = new ComponentTitledBorder(button, this,
-            new TitledBorder(BorderFactory.createLineBorder(Color.RED),
-                  title), 25);
+            new TitledBorder(BorderFactory.createLineBorder(Color.RED), title),
+            25);
 
       this.setBorder(border);
    }
 
- 
 }

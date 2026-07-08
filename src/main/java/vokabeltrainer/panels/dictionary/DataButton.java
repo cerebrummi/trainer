@@ -22,7 +22,7 @@ public class DataButton extends JButton
    {
       this.data = data;
       this.index = 0;
-      if(currentExpression == null)
+      if (currentExpression == null)
       {
          this.nextExpression();
       }

@@ -6,5 +6,6 @@ import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
 
 public interface ExpressionEditorViewConnector
 {
-   public void showGrammaticalParentEnums(Set<GrammaticalParentEnum> grammaticalEnumsToShow);
+   public void showGrammaticalParentEnums(
+         Set<GrammaticalParentEnum> grammaticalEnumsToShow);
 }

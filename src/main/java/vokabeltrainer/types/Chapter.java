@@ -75,10 +75,9 @@ public class Chapter implements Comparable<Chapter>
       }
       Collator coll = Collator.getInstance(Locale.GERMAN);
       coll.setStrength(Collator.PRIMARY);
-      return coll.compare(this.getDatabaseName()+this.name, o.getDatabaseName()+o.name);
+      return coll.compare(this.getDatabaseName() + this.name,
+            o.getDatabaseName() + o.name);
    }
-
-   
 
    @Override
    public int hashCode()
@@ -96,7 +95,8 @@ public class Chapter implements Comparable<Chapter>
       if (getClass() != obj.getClass())
          return false;
       Chapter other = (Chapter) obj;
-      return Objects.equals(databaseDescription.getDatabaseName(), other.databaseDescription.getDatabaseName())
+      return Objects.equals(databaseDescription.getDatabaseName(),
+            other.databaseDescription.getDatabaseName())
             && Objects.equals(name, other.name);
    }
 
@@ -128,59 +128,24 @@ public class Chapter implements Comparable<Chapter>
 
    public enum Database
    {
-      GRUNDWORTSCHATZ(
-    		"grundwortschatz",
-            "Grundwortschatz",
-            "630 Vokabeln",
-            "Neuhebräisch",
-            LLType.HEBREW,
-            false),
-      ROSENGARTENLOOS("rosengartenloos",
-            "Rosengarten & Loos",
-            "IVRIT Schritt für Schritt: Die ersten 12 Kapitel.",
-            "COPYRIGHT S. Marix Verlag: Es ist nicht gestattet Texte zu speichern.",
-            LLType.HEBREW,
-            true),
-      SELF(
-            "",
-            "",
-            "",
-            "",
-            LLType.UNKOWN,
-            false),
-      COPY(
-            "",
-            "Kopie",
-            "",
-            "",
-            LLType.UNKOWN,
-            false),
-      IMPORTED(
-            "",
-            "importiert",
-            "",
-            "",
-            LLType.UNKOWN,
-            false),
-      UNKNOWN(
-            "",
-            "unbekannt",
-            "",
-            "",
-            LLType.UNKOWN,
-            false),
-      TO_BE_DETERMINED(
-            "",
-            "soll bestimmt werden",
-            "",
-            "",
-            LLType.UNKOWN,
-            false);
+      GRUNDWORTSCHATZ("grundwortschatz", "Grundwortschatz", "630 Vokabeln",
+            "Neuhebräisch", LLType.HEBREW,
+            false), ROSENGARTENLOOS("rosengartenloos", "Rosengarten & Loos",
+                  "IVRIT Schritt für Schritt: Die ersten 12 Kapitel.",
+                  "COPYRIGHT S. Marix Verlag: Es ist nicht gestattet Texte zu speichern.",
+                  LLType.HEBREW,
+                  true), SELF("", "", "", "", LLType.UNKOWN, false), COPY("",
+                        "Kopie", "", "", LLType.UNKOWN, false), IMPORTED("",
+                              "importiert", "", "", LLType.UNKOWN,
+                              false), UNKNOWN("", "unbekannt", "", "",
+                                    LLType.UNKOWN, false), TO_BE_DETERMINED("",
+                                          "soll bestimmt werden", "", "",
+                                          LLType.UNKOWN, false);
 
-            public void setLlType(LLType llType)
-            {
-               this.llType = llType;
-            }
+      public void setLlType(LLType llType)
+      {
+         this.llType = llType;
+      }
 
       private String folder;
       private String name;
@@ -188,8 +153,9 @@ public class Chapter implements Comparable<Chapter>
       private String company;
       private LLType llType;
       private boolean copyrighted;
-      
-      Database(String folder, String name, String authors, String company, LLType llType, boolean copyrighted)
+
+      Database(String folder, String name, String authors, String company,
+            LLType llType, boolean copyrighted)
       {
          this.folder = folder;
          this.name = name;
@@ -206,7 +172,7 @@ public class Chapter implements Comparable<Chapter>
 
       public String getName()
       {
-         if(this == Database.SELF)
+         if (this == Database.SELF)
          {
             Translator translator = Common.getTranslator();
             return translator.realisticTranslate(Translation.SELBST_EINGEGEBEN);
@@ -232,13 +198,13 @@ public class Chapter implements Comparable<Chapter>
          columnNames.add("eins");
          return new DatabaseTableModel(data, columnNames);
       }
-      
+
       public static DatabaseTableCopyModel getModelCopyAvailableDatabases()
       {
          Vector<Vector<DatabaseTableCopyRow>> data = new Vector<>();
          for (DatabaseItem item : DatabaseItem.getAllAvailableDatabaseItems())
          {
-            if(item.getDatabase().isCopyrighted())
+            if (item.getDatabase().isCopyrighted())
             {
                continue;
             }
@@ -266,7 +232,6 @@ public class Chapter implements Comparable<Chapter>
          return llType;
       }
 
-      
    }
 
    public static Database findOrigin(String databaseName)

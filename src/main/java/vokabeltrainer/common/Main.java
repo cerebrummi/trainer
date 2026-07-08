@@ -24,7 +24,7 @@ public final class Main
 {
    static
    {
-      Common.setMode(Mode.LOCAL_ORIGINAL );
+      Common.setMode(Mode.LOCAL_ORIGINAL);
    }
 
    private static String message = Settings.getWindowTitle()
@@ -118,7 +118,8 @@ public final class Main
          window.setResizable(true);
          window.setIconImage(ApplicationImages.getLogo());
          Common.setjFrame(window);
-         Common.getjFrame().getContentPane().setBackground(ApplicationColors.getBackgroundGold());
+         Common.getjFrame().getContentPane()
+               .setBackground(ApplicationColors.getBackgroundGold());
          Common.getjFrame().getContentPane().validate();
          Common.getjFrame().getContentPane().repaint();
          window.setTitle(
@@ -128,8 +129,7 @@ public final class Main
          ToolTipManager.sharedInstance().setInitialDelay(1000);
          Common.setMainJPanel(
                new vokabeltrainer.common.MainController().getMainView());
-         window.getContentPane().add(
-               new JScrollPane(Common.getMainJPanel()));
+         window.getContentPane().add(new JScrollPane(Common.getMainJPanel()));
          window.setJMenuBar(Common.getMainJPanel().getMenuBar());
          window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
          window.setLocationRelativeTo(null);

@@ -16,7 +16,7 @@ import vokabeltrainer.tonionlayout.TotemLayout;
 public class ErrorDialog extends JDialog
 {
    private static final long serialVersionUID = -2919642120086961576L;
-   
+
    public ErrorDialog(String textA, String textB, String middle, String textD)
    {
       super(Common.getjFrame(), "", Dialog.ModalityType.MODELESS);
@@ -26,8 +26,11 @@ public class ErrorDialog extends JDialog
       TotemLayout verticalLayout = new TotemLayout(vertical);
       vertical.setLayout(verticalLayout);
       vertical.setBackground(ApplicationColors.getWhite());
-      vertical.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(ApplicationColors.getDarkRed()),Common.getTranslator().realisticTranslate(Translation.FEHLERMELDUNG)));
-      
+      vertical.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(ApplicationColors.getDarkRed()),
+            Common.getTranslator()
+                  .realisticTranslate(Translation.FEHLERMELDUNG)));
+
       JLabel rowA = new JLabel(textA);
       rowA.setFont(ApplicationFonts.getGermanFont(24F));
       JLabel rowB = new JLabel(textB);
@@ -36,14 +39,14 @@ public class ErrorDialog extends JDialog
       rowC.setFont(ApplicationFonts.getGermanFont(20F));
       JLabel rowD = new JLabel(textD);
       rowD.setFont(ApplicationFonts.getGermanFont(16F));
-      
+
       vertical.add(rowA);
       vertical.add(new JPanel());
       vertical.add(rowB);
       vertical.add(rowC);
       vertical.add(new JPanel());
       vertical.add(rowD);
-      
+
       getContentPane().add(vertical);
       setUndecorated(true);
       this.setBackground(new Color(0, 0, 0, 0));

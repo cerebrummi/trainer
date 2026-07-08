@@ -10,9 +10,6 @@ import vokabeltrainer.table.list.editor.PictureExpressionEditorView;
 
 public class EscapeAction extends AbstractAction
 {
-   /**
-    * 
-    */
    private static final long serialVersionUID = 2610276331172351891L;
    private JDialog dialog;
 
@@ -20,26 +17,22 @@ public class EscapeAction extends AbstractAction
    {
       this.dialog = dialog;
    }
-   
+
    public EscapeAction(PictureExpressionEditorView dialog)
    {
       this.dialog = dialog;
    }
-   
+
    @Override
    public void actionPerformed(ActionEvent e)
    {
-	   if(this.dialog instanceof LanguageExpressionEditorView)
-	   {
-		   ((LanguageExpressionEditorView)this.dialog).disposeDialog();
-	   }
-	   else
-	   {
-		   ((PictureExpressionEditorView)this.dialog).disposeDialog();
-	   }
-         
-     
-      
+      if (this.dialog instanceof LanguageExpressionEditorView)
+      {
+         ((LanguageExpressionEditorView) this.dialog).disposeDialog();
+      }
+      else
+      {
+         ((PictureExpressionEditorView) this.dialog).disposeDialog();
+      }
    }
-
 }

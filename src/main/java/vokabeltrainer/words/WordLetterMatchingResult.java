@@ -10,17 +10,17 @@ public class WordLetterMatchingResult
 {
    private boolean dictionaryEmpty;
    private boolean answerEmpty;
-   
+
    private boolean completelyFalse;
    private boolean partlyFalse;
    private boolean okay;
    private int similarity;
-   
+
    private int deltaCol;
-   
+
    private List<LetterForAnalysis> dictionary = new LinkedList<>();
    private List<LetterForAnalysis> answer = new LinkedList<>();
-   
+
    private List<BufferedImage> feedbackImageList = new LinkedList<>();
 
    public boolean isDictionaryEmpty()
@@ -50,7 +50,7 @@ public class WordLetterMatchingResult
 
    public void setCompletelyFalse(boolean completelyFalse)
    {
-      if(completelyFalse)
+      if (completelyFalse)
       {
          this.okay = false;
       }
@@ -64,7 +64,7 @@ public class WordLetterMatchingResult
 
    public void setPartlyFalse(boolean partlyFalse)
    {
-      if(partlyFalse)
+      if (partlyFalse)
       {
          this.okay = false;
       }

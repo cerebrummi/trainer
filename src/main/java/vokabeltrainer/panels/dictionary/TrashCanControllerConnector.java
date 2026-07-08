@@ -11,8 +11,7 @@ public interface TrashCanControllerConnector extends TableConnector
 
    public DictionaryControllerConnector getDictionaryControllerConnector();
 
-   public void restoreSelectedExpressions(
-         List<Expression> selectedExpressions);
+   public void restoreSelectedExpressions(List<Expression> selectedExpressions);
 
    public void selectAllExpressionsInTable();
 

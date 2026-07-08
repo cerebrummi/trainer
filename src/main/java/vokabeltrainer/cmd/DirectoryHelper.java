@@ -23,7 +23,10 @@ public class DirectoryHelper
       catch (Exception e)
       {
          JOptionPane.showMessageDialog(Common.getjFrame(),
-               Common.getTranslator().realisticTranslate(Translation.FEHLER_BEIM_SPEICHERN), Common.getTranslator().realisticTranslate(Translation.FEHLERMELDUNG)+ " \n" + e,
+               Common.getTranslator()
+                     .realisticTranslate(Translation.FEHLER_BEIM_SPEICHERN),
+               Common.getTranslator()
+                     .realisticTranslate(Translation.FEHLERMELDUNG) + " \n" + e,
                JOptionPane.ERROR_MESSAGE);
          return false;
       }

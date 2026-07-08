@@ -29,7 +29,7 @@ public final class SoundData
 
    private SoundData()
    {
-
+      // nothing
    }
 
    static void initSoundDataBase()

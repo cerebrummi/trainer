@@ -11,7 +11,7 @@ import javax.swing.text.DefaultFormatterFactory;
 public class NumberCodeFormatterFactory extends DefaultFormatterFactory
 {
    private static final long serialVersionUID = -5068274823185920930L;
-   
+
    private NumberCodeFormatter codeFormatter = new NumberCodeFormatter();
 
    @Override
@@ -49,15 +49,15 @@ public class NumberCodeFormatterFactory extends DefaultFormatterFactory
    {
       private static final long serialVersionUID = 7933675034782342475L;
       String pattern = NumberLetter.getPatternString();
-      
+
       @Override
       public Object stringToValue(String text) throws ParseException
       {
-         if(text == null)
+         if (text == null)
          {
             return "";
          }
-         if(text.isEmpty())
+         if (text.isEmpty())
          {
             return text;
          }
@@ -65,7 +65,7 @@ public class NumberCodeFormatterFactory extends DefaultFormatterFactory
          {
             return Integer.valueOf(text);
          }
-         catch(Exception e)
+         catch (Exception e)
          {
             return "";
          }
@@ -74,27 +74,28 @@ public class NumberCodeFormatterFactory extends DefaultFormatterFactory
       @Override
       public String valueToString(Object value) throws ParseException
       {
-         if(value == null)
+         if (value == null)
          {
             return "";
          }
-         if(value instanceof Integer)
+         if (value instanceof Integer)
          {
             return String.valueOf(value);
          }
-         if(value instanceof String)
+         if (value instanceof String)
          {
-            String text = (String)value;
-            if(text.length()>4)
+            String text = (String) value;
+            if (text.length() > 4)
             {
-               text = text.substring(text.length()-4);
+               text = text.substring(text.length() - 4);
             }
-            
-            if(text.isEmpty())
+
+            if (text.isEmpty())
             {
                return text;
             }
-            List<String> list = LetterHelper.findLetterCodes(text, LetterType.NUMBER);
+            List<String> list = LetterHelper.findLetterCodes(text,
+                  LetterType.NUMBER);
             for (String letter : list)
             {
                if (!pattern.contains(letter))

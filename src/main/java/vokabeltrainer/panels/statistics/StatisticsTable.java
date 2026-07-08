@@ -22,7 +22,7 @@ public class StatisticsTable extends JTable
       this.setColumnSelectionAllowed(true);
       this.setCellSelectionEnabled(true);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-      
+
       JTableHeader header = getTableHeader();
       header.setForeground(StatisticsColors.getTextForeground());
    }

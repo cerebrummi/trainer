@@ -38,27 +38,27 @@ public class InformationTab extends JPanel
       setLayout(new TrainLayout(this));
       this.setOpaque(false);
       this.setBackground(ApplicationColors.getTransparent());
-      
+
       JPanel leftSide = new JPanel();
       leftSide.setLayout(new TotemLayout(leftSide));
       leftSide.setOpaque(true);
       leftSide.setBackground(ApplicationColors.getLightGold());
-      
+
       JPanel fillerBottom = new JPanel(new FlowLayout());
       fillerBottom.setMinimumSize(new Dimension(355, 100));
       fillerBottom.setMaximumSize(new Dimension(355, 700));
       fillerBottom.setOpaque(false);
       fillerBottom.setBackground(ApplicationColors.getTransparent());
-      
+
       JPanel boxWrapper = new JPanel(new FlowLayout());
       boxWrapper.setOpaque(false);
       boxWrapper.setBackground(ApplicationColors.getTransparent());
       boxWrapper.setPreferredSize(new Dimension(355, 100));
       boxWrapper.setMinimumSize(new Dimension(355, 100));
       boxWrapper.setMaximumSize(new Dimension(355, 300));
-      JLabel box = new JLabel("<html>"
-            + translator.realisticTranslate(Translation.KARTEIKASTEN)
-            + "</html>");
+      JLabel box = new JLabel(
+            "<html>" + translator.realisticTranslate(Translation.KARTEIKASTEN)
+                  + "</html>");
       box.setMinimumSize(new Dimension(355, 100));
       box.setMaximumSize(new Dimension(355, 100));
       box.setPreferredSize(new Dimension(355, 100));
@@ -68,7 +68,7 @@ public class InformationTab extends JPanel
       box.setFont(ApplicationFonts.getHebrewFont(30F));
       box.setHorizontalAlignment(SwingConstants.CENTER);
       boxWrapper.add(box);
-      
+
       JPanel checkWrapper = new JPanel();
       TotemLayout checkLayout = new TotemLayout(checkWrapper);
       checkWrapper.setLayout(checkLayout);
@@ -77,52 +77,62 @@ public class InformationTab extends JPanel
       checkWrapper.setPreferredSize(new Dimension(355, 1000));
       checkWrapper.setBackground(ApplicationColors.getDarkGold());
       checkWrapper.setOpaque(true);
-      
+
       Font checkBoxFont = ApplicationFonts.getGermanFont(20F);
-      
-      JCheckBox heuteCheck = new JCheckBox(translator.realisticTranslate(Translation.HEUTE));
+
+      JCheckBox heuteCheck = new JCheckBox(
+            translator.realisticTranslate(Translation.HEUTE));
       heuteCheck.setFont(checkBoxFont);
       heuteCheck.setForeground(ApplicationColors.getWhite());
       heuteCheck.setSelected(true);
       heuteCheck.setEnabled(false);
-      morgenCheck = new JCheckBox(translator.realisticTranslate(Translation.MORGEN));
+      morgenCheck = new JCheckBox(
+            translator.realisticTranslate(Translation.MORGEN));
       morgenCheck.setFont(checkBoxFont);
       morgenCheck.setForeground(ApplicationColors.getWhite());
       morgenCheck.setSelected(Settings.isRepetition_one_day());
-      tage_2_Check = new JCheckBox(translator.realisticTranslate(Translation._2_TAGE));
+      tage_2_Check = new JCheckBox(
+            translator.realisticTranslate(Translation._2_TAGE));
       tage_2_Check.setFont(checkBoxFont);
       tage_2_Check.setForeground(ApplicationColors.getWhite());
       tage_2_Check.setSelected(Settings.isRepetition_two_days());
-      tage_5_Check = new JCheckBox(translator.realisticTranslate(Translation._5_TAGE));
+      tage_5_Check = new JCheckBox(
+            translator.realisticTranslate(Translation._5_TAGE));
       tage_5_Check.setFont(checkBoxFont);
       tage_5_Check.setForeground(ApplicationColors.getWhite());
       tage_5_Check.setSelected(Settings.isRepetition_five_days());
-      tage_11_Check = new JCheckBox(translator.realisticTranslate(Translation._11_TAGE));
+      tage_11_Check = new JCheckBox(
+            translator.realisticTranslate(Translation._11_TAGE));
       tage_11_Check.setFont(checkBoxFont);
       tage_11_Check.setForeground(ApplicationColors.getWhite());
       tage_11_Check.setSelected(Settings.isRepetition_eleven_days());
-      tage_19_Check = new JCheckBox(translator.realisticTranslate(Translation._19_TAGE));
+      tage_19_Check = new JCheckBox(
+            translator.realisticTranslate(Translation._19_TAGE));
       tage_19_Check.setFont(checkBoxFont);
       tage_19_Check.setForeground(ApplicationColors.getWhite());
       tage_19_Check.setSelected(Settings.isRepetition_nineteen_days());
-      monate_1_Check = new JCheckBox(translator.realisticTranslate(Translation._1_MONAT));
+      monate_1_Check = new JCheckBox(
+            translator.realisticTranslate(Translation._1_MONAT));
       monate_1_Check.setFont(checkBoxFont);
       monate_1_Check.setForeground(ApplicationColors.getWhite());
       monate_1_Check.setSelected(Settings.isRepetition_one_month());
-      monate_2_Check = new JCheckBox(translator.realisticTranslate(Translation._2_MONATE));
+      monate_2_Check = new JCheckBox(
+            translator.realisticTranslate(Translation._2_MONATE));
       monate_2_Check.setFont(checkBoxFont);
       monate_2_Check.setForeground(ApplicationColors.getWhite());
       monate_2_Check.setSelected(Settings.isRepetition_two_months());
-      monate_5_Check = new JCheckBox(translator.realisticTranslate(Translation._5_MONATE));
+      monate_5_Check = new JCheckBox(
+            translator.realisticTranslate(Translation._5_MONATE));
       monate_5_Check.setFont(checkBoxFont);
       monate_5_Check.setForeground(ApplicationColors.getWhite());
       monate_5_Check.setSelected(Settings.isRepetition_five_months());
-      JCheckBox done_Check = new JCheckBox(translator.realisticTranslate(Translation.FERTIG));
+      JCheckBox done_Check = new JCheckBox(
+            translator.realisticTranslate(Translation.FERTIG));
       done_Check.setFont(checkBoxFont);
       done_Check.setForeground(ApplicationColors.getWhite());
       done_Check.setSelected(true);
       done_Check.setEnabled(false);
-      
+
       checkWrapper.add(heuteCheck);
       checkWrapper.add(morgenCheck);
       checkWrapper.add(tage_2_Check);
@@ -133,20 +143,20 @@ public class InformationTab extends JPanel
       checkWrapper.add(monate_2_Check);
       checkWrapper.add(monate_5_Check);
       checkWrapper.add(done_Check);
-      
+
       JPanel fillerRight = new JPanel(new FlowLayout());
       fillerRight.setMinimumSize(new Dimension(600, 500));
       fillerRight.setMaximumSize(new Dimension(900, 850));
       fillerRight.setOpaque(false);
-      fillerRight.setBackground(ApplicationColors.getTransparent()); 
-      
+      fillerRight.setBackground(ApplicationColors.getTransparent());
+
       leftSide.add(boxWrapper);
       leftSide.add(checkWrapper);
       leftSide.add(fillerBottom);
-      
+
       add(leftSide);
       add(fillerRight);
-      
+
       initController();
    }
 

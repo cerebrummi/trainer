@@ -1,6 +1,5 @@
 package vokabeltrainer.tonionlayout;
 
-
 import java.awt.AWTError;
 import java.awt.Component;
 import java.awt.Container;
@@ -56,9 +55,9 @@ import javax.swing.JViewport;
  * @since private
  * @version ExpanderLayout 4.0 (released 24. June 2026)
  * 
- * Copyright (c) 2026 Birke Heeren
+ *          Copyright (c) 2026 Birke Heeren
  *
- * Licensed under the MIT License. 
+ *          Licensed under the MIT License.
  */
 
 public class ExpanderLayout implements LayoutManager2, java.io.Serializable

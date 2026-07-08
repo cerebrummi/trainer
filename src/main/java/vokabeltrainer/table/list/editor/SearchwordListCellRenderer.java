@@ -26,11 +26,10 @@ public class SearchwordListCellRenderer implements ListCellRenderer<String>
       }
       else
       {
-         listComponent
-               .setBackground(InputColors.getTextBackground());
+         listComponent.setBackground(InputColors.getTextBackground());
          listComponent.setForeground(InputColors.getTextForeground());
       }
-      if(orientation != null)
+      if (orientation != null)
       {
          listComponent.setComponentOrientation(orientation);
       }

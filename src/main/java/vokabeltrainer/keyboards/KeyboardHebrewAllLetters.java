@@ -39,28 +39,30 @@ public class KeyboardHebrewAllLetters extends JPanel
          boolean addTextField)
    {
       scale = new Scale(BUTTON_SIZE);
-      
+
       if (textfield != null)
       {
-         if(textfield instanceof InputLanguagePanel)
+         if (textfield instanceof InputLanguagePanel)
          {
             textfield.setMinimumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
             textfield.setMaximumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
-            arrayList.addAll(((InputLanguagePanel)textfield).getTextComponents());
+            arrayList
+                  .addAll(((InputLanguagePanel) textfield).getTextComponents());
          }
          else
          {
             textfield.setFont(ApplicationFonts.getHebrewFont(30F));
-            textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            textfield
+                  .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             textfield.setMinimumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
             textfield.setMaximumSize(
                   new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
             arrayList.add(textfield);
          }
-         
+
       }
 
       this.components = arrayList;
@@ -69,12 +71,12 @@ public class KeyboardHebrewAllLetters extends JPanel
       this.setOpaque(false);
       this.setPreferredSize(new Dimension(Settings.getKeyboardWidth(),
             textFieldHeight + 10 + 218));
-      
+
       if (textfield != null && addTextField)
       {
          add(textfield);
       }
-      
+
       if (textfield != null && !(textfield instanceof InputLanguagePanel))
       {
          setFocusTraversalPolicy(new OneFocusTraversalPolicy(textfield));
@@ -148,7 +150,6 @@ public class KeyboardHebrewAllLetters extends JPanel
       row3.add(makeButton(NikudLetter.TAW));
       row3.add(makeButton(NikudLetter.ZADISSOFIT));
 
-
       JPanel row4 = new JPanel();
       row4.setOpaque(false);
       row4.setLayout(new TrainLayout(row4, 8));
@@ -160,7 +161,7 @@ public class KeyboardHebrewAllLetters extends JPanel
       row4.add(makeButton(NikudLetter.MAQAF));
       row4.add(makeButton(NikudLetter.GERSCHAYIM));
       row4.add(makeButton(NikudLetter.GERESCH));
-      
+
       JPanel row7 = new JPanel();
       row7.setOpaque(false);
       row7.setLayout(new TrainLayout(row7, 8));
@@ -189,8 +190,10 @@ public class KeyboardHebrewAllLetters extends JPanel
 
    private Component makeButton(NikudLetter letter)
    {
-      DataButton jButton = new DataButton(ApplicationImages.getLetterIconsNikudMap()
-            .get(letter).getScaledInstance(scale.getScaleX(), scale.getScaleY(), java.awt.Image.SCALE_SMOOTH),
+      DataButton jButton = new DataButton(
+            ApplicationImages.getLetterIconsNikudMap().get(letter)
+                  .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
+                        java.awt.Image.SCALE_SMOOTH),
             letter.getUnicode());
       jButton.setMargin(new Insets(3, -5, 0, -5));
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));

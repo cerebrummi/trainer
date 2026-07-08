@@ -30,15 +30,15 @@ public class PathAndFile
 
    public String getPathFile()
    {
-      if(path.isBlank() && file.isBlank())
+      if (path.isBlank() && file.isBlank())
       {
          return "";
       }
-      if(path.isBlank())
+      if (path.isBlank())
       {
          return file;
       }
-      if(file.isBlank())
+      if (file.isBlank())
       {
          return path;
       }

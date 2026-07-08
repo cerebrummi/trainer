@@ -71,9 +71,10 @@ public class TrainingTableCellRendererEditor
          table.editCellAt(row, column);
       });
 
-      fieldDone = new JLabel(); //new ImageIcon(ApplicationImages.getDone()));
+      fieldDone = new JLabel(); // new ImageIcon(ApplicationImages.getDone()));
       fieldWork = new JLabel(new ImageIcon(ApplicationImages.getWork()));
-      fieldNotStarted = new JLabel(new ImageIcon(ApplicationImages.getEmptyList()));
+      fieldNotStarted = new JLabel(
+            new ImageIcon(ApplicationImages.getEmptyList()));
    }
 
    @Override
@@ -163,7 +164,7 @@ public class TrainingTableCellRendererEditor
       {
          return null;
       }
-      
+
       TrainingTableRow renderedTrainingCellRow = (TrainingTableRow) value;
 
       if (column == 0)

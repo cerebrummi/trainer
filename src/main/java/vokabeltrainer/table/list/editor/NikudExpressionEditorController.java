@@ -30,7 +30,7 @@ public class NikudExpressionEditorController
    @Override
    public void saveImage(Expression expression, ImageItem item)
    {
-      // nothing  
+      // nothing
    }
 
    @Override

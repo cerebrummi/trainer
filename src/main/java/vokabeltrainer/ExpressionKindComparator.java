@@ -30,5 +30,5 @@ public class ExpressionKindComparator implements Comparator<ExpressionKind>
       coll.setStrength(Collator.PRIMARY);
       return coll.compare(o1.getDescription(), o2.getDescription());
    }
-   
+
 }

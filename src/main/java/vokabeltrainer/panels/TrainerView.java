@@ -20,7 +20,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,7 +28,6 @@ import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.JTextComponent;
 
@@ -43,7 +41,6 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
-import vokabeltrainer.common.SoundData;
 import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
@@ -260,9 +257,10 @@ public class TrainerView extends JPanel
    private void initTextField(LanguageDirection languageDirection)
    {
       textFieldPanelWrapper.removeAll();
-      
-      questionField = new JTextArea(); 
-      questionField.setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
+
+      questionField = new JTextArea();
+      questionField.setFont(
+            Common.getNimbus().getDefaults().getFont("internationalFont"));
       questionField.setLineWrap(true);
       questionField.setWrapStyleWord(true);
       questionField.setOpaque(true);
@@ -539,9 +537,9 @@ public class TrainerView extends JPanel
       grammarInfoField.setEditable(false);
 
       grammarInfo.addActionListener(_ -> connector.setGrammarInfo()); // needs
-                                                                          // to
-                                                                          // be
-                                                                          // here!
+                                                                      // to
+                                                                      // be
+                                                                      // here!
 
       JScrollPane scrollerGrammarInfo = new JScrollPane(grammarInfoField);
       scrollerGrammarInfo.setMinimumSize(
@@ -826,37 +824,36 @@ public class TrainerView extends JPanel
          }
       });
 
-      pictureToggleBox
-            .addActionListener(_ -> connector.toggleLetterPictures());
-      
+      pictureToggleBox.addActionListener(_ -> connector.toggleLetterPictures());
+
       initControllerImageButton();
       initControllerWordButton();
    }
-   
+
    private void initControllerWordButton()
    {
-	   wordSoundButton.addMouseListener(new MouseAdapter()
-	      {
-	          @Override
-	          public void mouseClicked(MouseEvent event)
-	          {
-	             // not implemented, no Sounds available yet
-	             // SoundAction sound = new SoundAction();
-	          }
-	       });
+      wordSoundButton.addMouseListener(new MouseAdapter()
+      {
+         @Override
+         public void mouseClicked(MouseEvent event)
+         {
+            // not implemented, no Sounds available yet
+            // SoundAction sound = new SoundAction();
+         }
+      });
    }
 
    private void initControllerImageButton()
    {
-	   imageButton.addMouseListener(new MouseAdapter()
-	      {
-	          @Override
-	          public void mouseClicked(MouseEvent event)
-	          {
-	             EnterAction images = new EnterAction();
-	             images.showEditorPicture(connector.getCurrentExpression(),false);
-	          }
-	       });
+      imageButton.addMouseListener(new MouseAdapter()
+      {
+         @Override
+         public void mouseClicked(MouseEvent event)
+         {
+            EnterAction images = new EnterAction();
+            images.showEditorPicture(connector.getCurrentExpression(), false);
+         }
+      });
    }
 
    public void setHtoDanswerButtons()
@@ -900,17 +897,16 @@ public class TrainerView extends JPanel
    }
 
    public void prepareHtoDFeedbackPanel()
-   {  
-	  JPanel outerVertical = new JPanel();
-	  outerVertical.setLayout(new TotemLayout(outerVertical));
-	  
-	  JPanel outerHorizontal = new JPanel();
-	  outerHorizontal.setLayout(new TrainLayout(outerHorizontal));
-	  
+   {
+      JPanel outerVertical = new JPanel();
+      outerVertical.setLayout(new TotemLayout(outerVertical));
+
+      JPanel outerHorizontal = new JPanel();
+      outerHorizontal.setLayout(new TrainLayout(outerHorizontal));
+
       JPanel answerPanel1 = new JPanel();
       answerPanel1.setLayout(new TotemLayout(answerPanel1));
-      answerPanel1
-            .setBackground(TrainerColors.getBackground());
+      answerPanel1.setBackground(TrainerColors.getBackground());
       JLabel correctAnswer = new JLabel(translator
             .realisticTranslate(Translation.DIE_RICHTIGE_ANTWORT_LAUTET_));
       correctAnswer.setFont(ApplicationFonts.getGermanFont(16F));
@@ -929,15 +925,15 @@ public class TrainerView extends JPanel
       correctAnswer3.setBackground(TrainerColors.getTransparent());
       correctAnswer3.setOpaque(false);
       correctAnswer3.setBorder(BorderFactory.createEmptyBorder());
-      
+
       imageButton = new ImageButton(ApplicationImages.getIcon_eye());
-      imageButton.setMinimumSize(new Dimension(60,60));
-      imageButton.setMaximumSize(new Dimension(60,60));
+      imageButton.setMinimumSize(new Dimension(60, 60));
+      imageButton.setMaximumSize(new Dimension(60, 60));
       initControllerImageButton();
-      
+
       wordSoundButton = new ImageButton(ApplicationImages.getIcon_notes());
-      wordSoundButton.setMinimumSize(new Dimension(60,60));
-      wordSoundButton.setMaximumSize(new Dimension(60,60));
+      wordSoundButton.setMinimumSize(new Dimension(60, 60));
+      wordSoundButton.setMaximumSize(new Dimension(60, 60));
       initControllerWordButton();
 
       answerPanel1.add(correctAnswer);
@@ -948,9 +944,8 @@ public class TrainerView extends JPanel
       answerPanel2.setLayout(new GridLayout(1, 3));
       answerPanel2.setMinimumSize(new Dimension(501, 100));
       answerPanel2.setMaximumSize(new Dimension(501, 100));
-      answerPanel2
-            .setBackground(TrainerColors.getPanelBackground());
-      
+      answerPanel2.setBackground(TrainerColors.getPanelBackground());
+
       setHtoDanswerButtons();
       answerPanel2.add(answerOkay);
       answerPanel2.add(answerUndecided);
@@ -961,10 +956,10 @@ public class TrainerView extends JPanel
       outerHorizontal.add(answerPanel1);
       outerHorizontal.add(imageButton);
       outerHorizontal.add(wordSoundButton);
-      
+
       outerVertical.add(outerHorizontal);
       outerVertical.add(answerPanel2);
-      
+
       feedbackPanel.add(outerVertical);
    }
 
@@ -1141,8 +1136,7 @@ public class TrainerView extends JPanel
       fillerAnswerPanel.setMinimumSize(new Dimension(501, 1));
       fillerAnswerPanel.setMaximumSize(new Dimension(501, 100));
       fillerAnswerPanel.setOpaque(true);
-      fillerAnswerPanel
-            .setBackground(TrainerColors.getPanelBackground());
+      fillerAnswerPanel.setBackground(TrainerColors.getPanelBackground());
 
       feedbackPanel.add(scrollPane);
       feedbackPanel.add(fillerAnswerPanel);

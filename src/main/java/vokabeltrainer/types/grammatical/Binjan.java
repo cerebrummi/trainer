@@ -78,8 +78,8 @@ public enum Binjan
       case UNREGELMAESSIG:
          return translator.realisticTranslate(description);
       case BINJAN_UNKNOWN:
-         return translator.realisticTranslate(Translation.BINJAN___STAMM)
-               + " " + translator.realisticTranslate(description);
+         return translator.realisticTranslate(Translation.BINJAN___STAMM) + " "
+               + translator.realisticTranslate(description);
       case BINJAN_NA:
       default:
          return "";
@@ -137,22 +137,21 @@ public enum Binjan
    {
       return Binjan.BINJAN_UNKNOWN;
    }
-   
+
    public static Binjan[] values(Expression expression)
    {
       LLType learningLanguageType = expression.getLL().getLltype();
-      return values(learningLanguageType);  
+      return values(learningLanguageType);
    }
 
    public static Binjan[] values(LLType learningLanguageType)
    {
       List<Binjan> list = new ArrayList<>();
-      for(Binjan b: Binjan.values())
+      for (Binjan b : Binjan.values())
       {
-         innerloop:
-         for(LLType l : b.llType)
+         innerloop: for (LLType l : b.llType)
          {
-            if(l == learningLanguageType)
+            if (l == learningLanguageType)
             {
                list.add(b);
                break innerloop;

@@ -27,7 +27,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
 
    private Translation description;
    private LLType[] llType;
-   
+
    GrammaticalPerson(Translation description, LLType[] llType)
    {
       this.description = description;
@@ -59,7 +59,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
          return "";
       }
    }
-   
+
    @Override
    public GrammaticalPerson fromEnumName(String name)
    {
@@ -89,7 +89,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
    {
       return GrammaticalParentEnum.GRAMMATICAL_PERSON;
    }
-   
+
    @Override
    public int getPrintOrderNumber()
    {
@@ -101,22 +101,21 @@ public enum GrammaticalPerson implements GrammaticalEnum
    {
       return GrammaticalPerson.GRAMMATICALPERSON_UNKNOWN;
    }
-   
+
    public static GrammaticalPerson[] values(Expression expression)
    {
       LLType learningLanguageType = expression.getLL().getLltype();
-      return values(learningLanguageType);  
+      return values(learningLanguageType);
    }
 
    public static GrammaticalPerson[] values(LLType learningLanguageType)
    {
       List<GrammaticalPerson> list = new ArrayList<>();
-      for(GrammaticalPerson g: GrammaticalPerson.values())
+      for (GrammaticalPerson g : GrammaticalPerson.values())
       {
-         innerloop:
-         for(LLType l : g.llType)
+         innerloop: for (LLType l : g.llType)
          {
-            if(l == learningLanguageType)
+            if (l == learningLanguageType)
             {
                list.add(g);
                break innerloop;

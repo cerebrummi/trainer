@@ -14,7 +14,7 @@ public class ExpressionList extends JList<String>
 {
 
    private static final long serialVersionUID = -8585511215166225268L;
-   
+
    private boolean withLock;
 
    public ExpressionList()
@@ -30,7 +30,7 @@ public class ExpressionList extends JList<String>
 
       setCellRenderer(new ExpressionListCellRenderer());
    }
-   
+
    @Override
    public void paintComponent(Graphics g)
    {
@@ -40,7 +40,7 @@ public class ExpressionList extends JList<String>
          g.drawImage(ApplicationImages.getLock(), 0, 0, this);
       }
    }
-   
+
    public void setLock(boolean lock)
    {
       this.withLock = lock;

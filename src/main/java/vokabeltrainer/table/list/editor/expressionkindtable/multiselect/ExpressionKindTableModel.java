@@ -18,7 +18,7 @@ public class ExpressionKindTableModel extends DefaultTableModel
    {
       super(data, columnNames);
       this.data = data;
-      for(Vector<ExpressionKindTableRow> datum : data)
+      for (Vector<ExpressionKindTableRow> datum : data)
       {
          rows.add(datum.get(0));
       }
@@ -32,9 +32,9 @@ public class ExpressionKindTableModel extends DefaultTableModel
    public List<ExpressionKindTableRow> getSelectedRows()
    {
       List<ExpressionKindTableRow> selectedRows = new ArrayList<>();
-      for(ExpressionKindTableRow row : rows)
+      for (ExpressionKindTableRow row : rows)
       {
-         if(row.getExpressionKindItem().isSelected())
+         if (row.getExpressionKindItem().isSelected())
          {
             selectedRows.add(row);
          }

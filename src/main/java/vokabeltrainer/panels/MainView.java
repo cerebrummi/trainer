@@ -99,7 +99,7 @@ public class MainView extends JPanel
       this.validate();
       this.repaint();
    }
-   
+
    private void initColormodeContent()
    {
       this.removeAll();
@@ -112,7 +112,7 @@ public class MainView extends JPanel
       Main.resetMenuBar();
       this.validate();
       this.repaint();
-      
+
    }
 
    private void initBackController()
@@ -142,7 +142,7 @@ public class MainView extends JPanel
 
       menuBar.add(backButton);
    }
-   
+
    private void initColorToolBar()
    {
       menuBar = new JMenuBar();
@@ -155,7 +155,7 @@ public class MainView extends JPanel
       backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
 
       menuBar.add(backButton);
-      
+
    }
 
    private void initToolBar()
@@ -196,7 +196,7 @@ public class MainView extends JPanel
       successButton.setFont(ApplicationFonts.getToolbarButtonFont());
       languageButton.setFont(ApplicationFonts.getToolbarButtonFont());
       darkmodeButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      
+
       startButton.setBackground(MainColors.getButtonBackground());
       inputButton.setBackground(MainColors.getButtonBackground());
       vocabularyCardsButton.setBackground(MainColors.getButtonBackground());

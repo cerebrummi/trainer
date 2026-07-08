@@ -44,15 +44,15 @@ public class InputDatabaseNameDialog extends JDialog
       this.setIconImage(ApplicationImages.getLogo24());
       this.setMinimumSize(new Dimension(400, 320));
       this.setLocationRelativeTo(Common.getjFrame());
-      
+
       JPanel panel = new JPanel();
       BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
       panel.setLayout(panelLayout);
-      
+
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
       vertical.setLayout(verticalLayout);
-      
+
       inputImportField = new JTextField();
       inputImportField.setDocument(new InternationalDocument(30));
       inputImportField.setMinimumSize(new Dimension(200, 30));
@@ -60,33 +60,37 @@ public class InputDatabaseNameDialog extends JDialog
       inputImportField.setColumns(20);
       inputImportField.setEditable(false);
       inputImportField.setEnabled(false);
-      
+
       overwriteGroup = new ButtonGroup();
-      overwriteNo = new JRadioButton(translator.realisticTranslate(Translation.VORHANDENEN_DATENBANKNAMEN_NICHT_UEBERSCHREIBEN));
-      overwriteYes = new JRadioButton(translator.realisticTranslate(Translation.VORHANDENEN_DATENBANKNAMEN_UEBERSCHREIBEN));
+      overwriteNo = new JRadioButton(translator.realisticTranslate(
+            Translation.VORHANDENEN_DATENBANKNAMEN_NICHT_UEBERSCHREIBEN));
+      overwriteYes = new JRadioButton(translator.realisticTranslate(
+            Translation.VORHANDENEN_DATENBANKNAMEN_UEBERSCHREIBEN));
       overwriteGroup.add(overwriteNo);
       overwriteGroup.add(overwriteYes);
       overwriteNo.setSelected(true);
-      
+
       okButton = new JButton(translator.realisticTranslate(Translation.OK));
-      stopButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
-      
+      stopButton = new JButton(
+            translator.realisticTranslate(Translation.ABBRECHEN));
+
       JPanel buttonPanel = new JPanel();
       TrainLayout buttonPanelLayout = new TrainLayout(buttonPanel, 15);
       buttonPanel.setLayout(buttonPanelLayout);
-      
+
       buttonPanel.add(okButton);
       buttonPanel.add(stopButton);
-      
+
       vertical.add(overwriteNo);
       vertical.add(overwriteYes);
-      vertical.add(new JLabel(translator.realisticTranslate(Translation.NAME_FUER_DIE_DATENBANK)));
+      vertical.add(new JLabel(translator
+            .realisticTranslate(Translation.NAME_FUER_DIE_DATENBANK)));
       vertical.add(inputImportField);
       vertical.add(buttonPanel);
-      
+
       panel.add(vertical);
       this.add(panel);
-      
+
       this.initController();
    }
 
@@ -97,31 +101,29 @@ public class InputDatabaseNameDialog extends JDialog
          overwrite = overwriteYes.isSelected();
          if (overwrite && databaseName.isBlank())
          {
-            this.inputImportField
-                  .setBorder(BorderFactory
-                        .createLineBorder(ApplicationColors.getDarkRed(),
-                              3));
+            this.inputImportField.setBorder(BorderFactory
+                  .createLineBorder(ApplicationColors.getDarkRed(), 3));
             return;
          }
          startImport = true;
          this.setVisible(false);
       });
-      
+
       stopButton.addActionListener(_ -> {
          startImport = false;
          this.setVisible(false);
       });
-      
+
       overwriteYes.addActionListener(_ -> {
-         if(overwriteYes.isSelected())
+         if (overwriteYes.isSelected())
          {
             inputImportField.setEditable(true);
             inputImportField.setEnabled(true);
          }
       });
-      
+
       overwriteNo.addActionListener(_ -> {
-         if(overwriteNo.isSelected())
+         if (overwriteNo.isSelected())
          {
             inputImportField.setEditable(false);
             inputImportField.setEnabled(false);

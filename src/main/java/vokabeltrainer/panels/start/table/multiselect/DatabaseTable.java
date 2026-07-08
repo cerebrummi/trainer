@@ -18,8 +18,7 @@ public class DatabaseTable extends JTable
    private static final long serialVersionUID = 4815287371476856952L;
    private MouseListener mouseListener;
 
-   public DatabaseTable(DatabaseTableModel model,
-         int totalWidth)
+   public DatabaseTable(DatabaseTableModel model, int totalWidth)
    {
       super(model, new DatabaseTableColumnModel(totalWidth));
       this.setShowVerticalLines(false);
@@ -56,8 +55,8 @@ public class DatabaseTable extends JTable
                DatabaseItem database = tableRow.getDatabaseItem();
 
                database.toggleSelected();
-               
-               if(database.isSelected())
+
+               if (database.isSelected())
                {
                   Settings.addChosenDatabase(database.getDatabase());
                }

@@ -14,11 +14,6 @@ public class SuccessList extends JList<String>
       setBorder(BorderFactory.createEmptyBorder());
       setVisibleRowCount(3);
       this.setFixedCellHeight(25);
-//      getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false),
-//            new Object());
-//      getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false),
-//            new Object());
-//      getActionMap().get("clearSelection").setEnabled(true);
 
       setCellRenderer(new SuccessListCellRenderer());
    }

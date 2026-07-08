@@ -10,57 +10,57 @@ public class AlefbetColors
 
    private AlefbetColors()
    {
-      //nothing
+      // nothing
    }
 
    public static Color getPanelBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlueLight;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getButton()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getButtonForeground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlue;
       }
       return ApplicationColors.darkGold;
    }
-   
+
    public static Color getButton2()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.white;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getKeyboardBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getTextForeground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.white;
       }
@@ -69,7 +69,7 @@ public class AlefbetColors
 
    public static Color getTextBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }

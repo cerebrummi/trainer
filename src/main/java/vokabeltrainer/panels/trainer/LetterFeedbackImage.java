@@ -13,12 +13,12 @@ import vokabeltrainer.editing.NikudLetter;
 
 public class LetterFeedbackImage
 {
-   
+
    private LetterFeedbackImage()
    {
       // nothing
    }
-   
+
    public static BufferedImage make(LetterForAnalysis letterDic,
          LetterForAnalysis letterAnswer, boolean okay)
    {
@@ -65,7 +65,7 @@ public class LetterFeedbackImage
       g2d.setColor(ApplicationColors.green);
       g2d.drawString(letterDic.getContent().getUnicode(), 0,
             fm.getAscent() + 9);
-      if(letterDic.isNikud())
+      if (letterDic.isNikud())
       {
          for (NikudLetter nikudLetter : letterDic.getSetUpperPunktation())
          {
@@ -82,22 +82,23 @@ public class LetterFeedbackImage
          }
       }
       g2d.setColor(ApplicationColors.white);
-      if(letterAnswer.getContent().isSpace() || letterAnswer.getContent().isNewspace())
+      if (letterAnswer.getContent().isSpace()
+            || letterAnswer.getContent().isNewspace())
       {
-         g2d.drawString("", 0,
-               fm.getAscent() + 9 + 50);
+         g2d.drawString("", 0, fm.getAscent() + 9 + 50);
       }
       else
       {
          g2d.drawString(letterAnswer.getContent().getUnicode(), 0,
                fm.getAscent() + 9 + 50);
       }
-      
-      if(letterAnswer.isNikud())
+
+      if (letterAnswer.isNikud())
       {
          for (NikudLetter nikudLetter : letterAnswer.getSetUpperPunktation())
          {
-            g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9 + 50);
+            g2d.drawString(nikudLetter.getUnicode(), 0,
+                  fm.getAscent() + 9 + 50);
          }
          if (letterAnswer.getDagesh() != null)
          {
@@ -106,10 +107,11 @@ public class LetterFeedbackImage
          }
          for (NikudLetter nikudLetter : letterAnswer.getListLowerPunktation())
          {
-            g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9 + 50);
+            g2d.drawString(nikudLetter.getUnicode(), 0,
+                  fm.getAscent() + 9 + 50);
          }
       }
-      
+
       g2d.dispose();
       return finalImg;
    }

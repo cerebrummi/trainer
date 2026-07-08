@@ -28,12 +28,13 @@ public class ExpressionCellRenderer
          boolean isSelected, boolean hasFocus, int row, int column)
    {
       Expression expression = (Expression) value;
-      
+
       list.setListData(expression.toArrayForTableEntry());
-      
+
       if (isSelected)
       {
-         list.setBorder(BorderFactory.createLineBorder(ApplicationColors.brightGreen, 3));
+         list.setBorder(BorderFactory
+               .createLineBorder(ApplicationColors.brightGreen, 3));
       }
       else
       {
@@ -48,7 +49,7 @@ public class ExpressionCellRenderer
       {
          list.setBackground(ApplicationColors.getVeryLightGold());
       }
-      
+
       list.setLock(expression.isDoNotChange());
 
       return list;

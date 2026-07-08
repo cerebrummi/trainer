@@ -13,45 +13,46 @@ import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.colors.SuccessColors;
 
-public class SuccessListCellRenderer implements ListCellRenderer<Object>, Serializable
+public class SuccessListCellRenderer
+      implements ListCellRenderer<Object>, Serializable
 {
 
    private static final long serialVersionUID = -5594206011077904779L;
 
-   private JTextField german;   
-   private JTextField hebrew;   
+   private JTextField german;
+   private JTextField hebrew;
    private JTextField grammar;
-   
+
    public SuccessListCellRenderer()
    {
       german = new JTextField();
       hebrew = new JTextField();
       grammar = new JTextField();
-      
+
       german.setOpaque(false);
       hebrew.setOpaque(false);
       grammar.setOpaque(false);
-      
+
       german.setEditable(false);
       hebrew.setEditable(false);
       grammar.setEditable(false);
-      
+
       german.setBackground(ApplicationColors.getTransparent());
       hebrew.setBackground(ApplicationColors.getTransparent());
       grammar.setBackground(ApplicationColors.getTransparent());
-      
+
       german.setBorder(BorderFactory.createEmptyBorder());
       hebrew.setBorder(BorderFactory.createEmptyBorder());
       grammar.setBorder(BorderFactory.createEmptyBorder());
-      
+
       german.setFont(ApplicationFonts.getGermanFont(16F));
       hebrew.setFont(ApplicationFonts.getHebrewFont(20F));
       grammar.setFont(ApplicationFonts.getGermanFont(16F));
-      
+
       german.setForeground(SuccessColors.getTextForeground());
       hebrew.setForeground(SuccessColors.getTextForeground());
       grammar.setForeground(SuccessColors.getTextForeground());
-      
+
       hebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
    }
 
@@ -59,12 +60,12 @@ public class SuccessListCellRenderer implements ListCellRenderer<Object>, Serial
    public Component getListCellRendererComponent(JList<? extends Object> list,
          Object value, int index, boolean isSelected, boolean cellHasFocus)
    {
-      if(index == 0)
+      if (index == 0)
       {
          german.setText((String) value);
          return german;
       }
-      if(index == 1)
+      if (index == 1)
       {
          hebrew.setText((String) value);
          return hebrew;

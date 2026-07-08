@@ -20,7 +20,7 @@ public class Buchstabenbilder
    private static Map<NikudLetter, BufferedImage> letterPicturesMap = new HashMap<>();
    private static Map<NikudLetter, LetterPictureButtonPanel> letterPicturesPanelMap = new HashMap<>();
 
-   public static void read() throws IOException 
+   public static void read() throws IOException
    {
 
       for (NikudLetter letter : NikudLetter.values())
@@ -34,9 +34,9 @@ public class Buchstabenbilder
          {
             continue;
          }
-         BufferedImage picture = ImageIO.read(
-               Buchstabenbilder.class.getResourceAsStream("buchstabenbilder/"
-                     + letter.name() + ".png"));
+         BufferedImage picture = ImageIO
+               .read(Buchstabenbilder.class.getResourceAsStream(
+                     "buchstabenbilder/" + letter.name() + ".png"));
 
          if (!(NikudLetter.SPACE == letter || NikudLetter.GERESCH == letter
                || NikudLetter.GERSCHAYIM == letter))
@@ -57,7 +57,7 @@ public class Buchstabenbilder
    public static void reRead() throws Exception
    {
       ApplicationSpecialPanels.getLetterPicturesPanelMap().clear();
-      
+
       for (NikudLetter letter : NikudLetter.values())
       {
          if (NikudLetter.SPACE == letter || NikudLetter.GERESCH == letter

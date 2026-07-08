@@ -441,20 +441,23 @@ public enum Translation {
 	BILDER_ANZEIGEN("Bilder anzeigen","display Images");
    
 
-	private String german;
-	private String english;
+   private String german;
+   private String english;
 
-	Translation(String german, String english) {
-		this.german = german;
-		this.english = english;
-	}
+   Translation(String german, String english)
+   {
+      this.german = german;
+      this.english = english;
+   }
 
-	public String getGerman() {
-		return german;
-	}
+   public String getGerman()
+   {
+      return german;
+   }
 
-	public String getEnglish() {
-		return english;
-	}
+   public String getEnglish()
+   {
+      return english;
+   }
 
 }

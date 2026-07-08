@@ -154,7 +154,7 @@ public final class SaveExpressions
       }
       return false;
    }
-   
+
    private boolean exportAsZip()
    {
       ProgressMonitor bar = new ProgressMonitor(null,
@@ -170,7 +170,7 @@ public final class SaveExpressions
          try
          {
             File f = new File(this.exportpath.getPathFileWithZipTest());
-           
+
             try (ZipOutputStream out = new ZipOutputStream(
                   new FileOutputStream(f), StandardCharsets.UTF_8))
             {
@@ -179,33 +179,39 @@ public final class SaveExpressions
                   ZipEntry entry = new ZipEntry(letter.name() + ".csv");
                   out.putNextEntry(entry);
 
-                  byte[] data = saveAsStringForZip(letter).getBytes(StandardCharsets.UTF_8);
+                  byte[] data = saveAsStringForZip(letter)
+                        .getBytes(StandardCharsets.UTF_8);
                   out.write(data, 0, data.length);
                   out.closeEntry();
 
                   progress += 100 / LetterForSaving.values().length;
                   bar.setProgress(progress);
                }
-               Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
-                     new Transferable() {
-                         @Override
-                         public DataFlavor[] getTransferDataFlavors() {
-                             return new DataFlavor[] { DataFlavor.javaFileListFlavor };
-                         }
+               Toolkit.getDefaultToolkit().getSystemClipboard()
+                     .setContents(new Transferable()
+                     {
+                        @Override
+                        public DataFlavor[] getTransferDataFlavors()
+                        {
+                           return new DataFlavor[] {
+                                 DataFlavor.javaFileListFlavor };
+                        }
 
-                         @Override
-                         public boolean isDataFlavorSupported(DataFlavor flavor) {
-                             return DataFlavor.javaFileListFlavor.equals(flavor);
-                         }
+                        @Override
+                        public boolean isDataFlavorSupported(DataFlavor flavor)
+                        {
+                           return DataFlavor.javaFileListFlavor.equals(flavor);
+                        }
 
-                         @Override
-                         public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
-                             List<File> list = new ArrayList<>();
-                             list.add(new File(f.getPath()));
-                             return list;
-                         }
-                     }, null
-                 );
+                        @Override
+                        public Object getTransferData(DataFlavor flavor)
+                              throws UnsupportedFlavorException, IOException
+                        {
+                           List<File> list = new ArrayList<>();
+                           list.add(new File(f.getPath()));
+                           return list;
+                        }
+                     }, null);
             }
             catch (Exception e)
             {
@@ -223,11 +229,9 @@ public final class SaveExpressions
          }
          catch (Exception e)
          {
-            JOptionPane
-                  .showMessageDialog(Common.getjFrame(),
-                        "Es hat beim Export einen Fehler gegeben.\n"
-                              + e.getMessage(),
-                        "Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(Common.getjFrame(),
+                  "Es hat beim Export einen Fehler gegeben.\n" + e.getMessage(),
+                  "Fehler", JOptionPane.ERROR_MESSAGE);
          }
          finally
          {

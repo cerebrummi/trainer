@@ -1,6 +1,5 @@
 package vokabeltrainer.tonionlayout;
 
-
 import java.awt.AWTError;
 import java.awt.Component;
 import java.awt.Container;
@@ -54,9 +53,9 @@ import javax.swing.JViewport;
  * @since private
  * @version TotemLayout 4.0 (released 24. June 2026)
  * 
- * Copyright (c) 2026 Birke Heeren
+ *          Copyright (c) 2026 Birke Heeren
  *
- * Licensed under the MIT License. 
+ *          Licensed under the MIT License.
  */
 public class TotemLayout implements LayoutManager2, java.io.Serializable
 {
@@ -819,7 +818,7 @@ public class TotemLayout implements LayoutManager2, java.io.Serializable
          {
             Component comp = self.getComponent(i);
             comp.setBounds(insets.left, y, w, hfinal[i]);
-            if(i < ncomponents - 1)
+            if (i < ncomponents - 1)
             {
                y += hfinal[i] + vgap;
             }

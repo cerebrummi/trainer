@@ -60,7 +60,7 @@ public class SuccessHelper
       panel.removeAll();
       panel.setOpaque(true);
       panel.setBackground(SuccessColors.getPanelBackgroundLight());
-      
+
       SuccessTableModel model = Data.findSuccessModel(direction, repetition);
       SuccessTable table = new SuccessTable(model);
 
@@ -78,7 +78,7 @@ public class SuccessHelper
       tablePanel.setOpaque(true);
       tablePanel.setBackground(SuccessColors.getPanelBackgroundLight());
       tablePanel.add(scroller);
-      
+
       panel.add(tablePanel);
 
       if (repetition != null)
@@ -93,7 +93,8 @@ public class SuccessHelper
          BullsEyeLayout buttonWrapperLayout = new BullsEyeLayout(
                buttonWrapperPanel);
          buttonWrapperPanel.setLayout(buttonWrapperLayout);
-         buttonWrapperPanel.setBackground(SuccessColors.getPanelBackgroundLight());
+         buttonWrapperPanel
+               .setBackground(SuccessColors.getPanelBackgroundLight());
 
          JPanel buttonPanel = new JPanel();
          buttonPanel.setBackground(SuccessColors.getPanelBackgroundLight());

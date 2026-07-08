@@ -150,8 +150,7 @@ public class KeyboardGermanStandard extends JPanel
 
    private Component makeSpaceButton()
    {
-      DataButtonGerman jButton = new DataButtonGerman(
-            "Leerzeichen",
+      DataButtonGerman jButton = new DataButtonGerman("Leerzeichen",
             GermanLetter.SPACE.getUnicode());
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE + 10));
       jButton.setMaximumSize(new Dimension(9 * BUTTON_SIZE, BUTTON_SIZE + 10));
@@ -160,7 +159,7 @@ public class KeyboardGermanStandard extends JPanel
       buttonPanel.setOpaque(false);
       buttonPanel.setLayout(new TotemLayout(buttonPanel));
       buttonPanel.add(jButton);
-      dataButtons.put(GermanLetter.SPACE, (Component)buttonPanel);
+      dataButtons.put(GermanLetter.SPACE, (Component) buttonPanel);
       return jButton;
    }
 
@@ -217,7 +216,7 @@ public class KeyboardGermanStandard extends JPanel
       }
 
    }
-   
+
    public Component makeTextfieldWithRegularKeyboard()
    {
       makeRegularKeyboard();
@@ -296,8 +295,8 @@ public class KeyboardGermanStandard extends JPanel
       JPanel bigFiller1 = new JPanel();
       bigFiller1.setOpaque(false);
       bigFiller1.setBackground(ApplicationColors.getTransparent());
-      bigFiller1.setMaximumSize(new Dimension(300, 32));      
-      
+      bigFiller1.setMaximumSize(new Dimension(300, 32));
+
       JPanel row4 = new JPanel();
       row4.setOpaque(false);
       row4.setLayout(new TrainLayout(row4, 4));
@@ -367,7 +366,7 @@ public class KeyboardGermanStandard extends JPanel
       bigFiller2.setOpaque(false);
       bigFiller2.setBackground(ApplicationColors.getTransparent());
       bigFiller2.setMaximumSize(new Dimension(300, 32));
-      
+
       keyboardPanel.add(row1);
       keyboardPanel.add(row2);
       keyboardPanel.add(row3);

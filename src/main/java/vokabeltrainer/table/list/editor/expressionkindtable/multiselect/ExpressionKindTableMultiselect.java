@@ -58,7 +58,8 @@ public class ExpressionKindTableMultiselect extends JTable
                ExpressionKindTableRow tableRow = ((ExpressionKindTableRow) table
                      .getValueAt(row, 0));
 
-               ExpressionKindItem expressionKind = tableRow.getExpressionKindItem();
+               ExpressionKindItem expressionKind = tableRow
+                     .getExpressionKindItem();
 
                expressionKind.toggleSelected();
 
@@ -72,7 +73,8 @@ public class ExpressionKindTableMultiselect extends JTable
                   {
                      if (row == 0)
                      {
-                        connector.showGrammaticalParentEnums(Collections.emptySet());
+                        connector.showGrammaticalParentEnums(
+                              Collections.emptySet());
                      }
                      else
                      {
@@ -134,7 +136,7 @@ public class ExpressionKindTableMultiselect extends JTable
       }
       else
       {
-         if(this.getMouseListeners().length == 0)
+         if (this.getMouseListeners().length == 0)
          {
             addMouseListener(mouseListener);
          }

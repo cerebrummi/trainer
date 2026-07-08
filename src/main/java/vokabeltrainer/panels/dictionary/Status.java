@@ -15,17 +15,17 @@ public enum Status
    SEARCH_WHICH_NEW, DATA_CHAPTER;
    
    private static ArrayDeque<Status> status = new ArrayDeque<>();
-   
+
    public static void push(Status status)
    {
       Status.status.push(status);
    }
-   
+
    public static Status pop()
    {
       return Status.status.pollLast();
    }
-   
+
    public static Status peek()
    {
       return Status.status.peekLast();

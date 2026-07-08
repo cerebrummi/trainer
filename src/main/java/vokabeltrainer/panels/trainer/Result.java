@@ -17,22 +17,24 @@ public class Result
    private Expression expression;
    private HebrewType selectionType;
    private int similarity;
-   
-   private List<LetterForAnalysis> dictionary = new LinkedList<>(); // for unit testing
-   private List<LetterForAnalysis> answer = new LinkedList<>(); // for unit testing
-   
+
+   private List<LetterForAnalysis> dictionary = new LinkedList<>(); // for unit
+                                                                    // testing
+   private List<LetterForAnalysis> answer = new LinkedList<>(); // for unit
+                                                                // testing
+
    private List<BufferedImage> feedbackImageList = new ArrayList<BufferedImage>();
 
    public Result(HebrewType selectionType)
    {
       this.selectionType = selectionType;
    }
-   
+
    public Result()
    {
-      
+
    }
-   
+
    public boolean isOkay()
    {
       return okay;
@@ -82,17 +84,17 @@ public class Result
    {
       this.feedbackImageList = feedbackImageList;
    }
-   
+
    public void addFeedbackImageList(List<BufferedImage> list)
    {
       this.feedbackImageList.addAll(list);
    }
-   
+
    public void addFeedbackImage(BufferedImage image)
    {
       this.feedbackImageList.add(image);
    }
-   
+
    public int getWidth()
    {
       int width = 0;
@@ -112,12 +114,12 @@ public class Result
    {
       this.dictionary = dictionary;
    }
-   
+
    public void addDictionary(List<LetterForAnalysis> dictionary)
    {
       this.dictionary.addAll(dictionary);
    }
-   
+
    public void addDictionarySpace(LetterForAnalysis space)
    {
       this.dictionary.add(space);
@@ -132,12 +134,12 @@ public class Result
    {
       this.answer = answer;
    }
-   
+
    public void addAnswer(List<LetterForAnalysis> answer)
    {
       this.answer.addAll(answer);
    }
-   
+
    public void addAnswerSpace(LetterForAnalysis space)
    {
       this.answer.add(space);

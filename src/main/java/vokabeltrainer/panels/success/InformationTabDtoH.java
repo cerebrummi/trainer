@@ -43,8 +43,7 @@ public class InformationTabDtoH extends JPanel
       boxWrapper.setBackground(ApplicationColors.getTransparent());
       boxWrapper.setPreferredSize(new Dimension(355, 100));
       JLabel box = new JLabel("<html>"
-            + translator.realisticTranslate(Translation.DEUTSCH)
-            + " >> "
+            + translator.realisticTranslate(Translation.DEUTSCH) + " >> "
             + translator.realisticTranslate(Translation.HEBRAEISCH)
             + "</html>");
       box.setMinimumSize(new Dimension(355, 100));

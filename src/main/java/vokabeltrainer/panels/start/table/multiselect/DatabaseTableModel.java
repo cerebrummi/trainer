@@ -19,7 +19,7 @@ public class DatabaseTableModel extends DefaultTableModel
    {
       super(data, columnNames);
       this.data = data;
-      for(Vector<DatabaseTableRow> datum : data)
+      for (Vector<DatabaseTableRow> datum : data)
       {
          rows.add(datum.get(0));
       }
@@ -33,15 +33,14 @@ public class DatabaseTableModel extends DefaultTableModel
    public List<DatabaseTableRow> getSelectedRows()
    {
       List<DatabaseTableRow> selectedRows = new ArrayList<>();
-      for(DatabaseTableRow row : rows)
+      for (DatabaseTableRow row : rows)
       {
-         if(row.getDatabaseItem().isSelected())
+         if (row.getDatabaseItem().isSelected())
          {
             selectedRows.add(row);
          }
       }
       return selectedRows;
    }
-   
-   
+
 }

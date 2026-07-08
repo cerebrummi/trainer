@@ -20,22 +20,21 @@ public class GermanResultFactory
    {
       // nothing
    }
-   
+
    public static BestResult getBestResultPossible(Expression expression,
          String answer)
 
    {
       BestResult bestResult = new BestResult(Selection.GERMAN);
-      bestResult.setResultGerman(getResultDtoGermanSentence(expression,
-            answer));
+      bestResult
+            .setResultGerman(getResultDtoGermanSentence(expression, answer));
       return bestResult;
    }
 
    public static Result getResultDtoGermanSentence(Expression expression,
          String answer)
    {
-      String[] expressionArray = expression.getLL()
-            .getGerman()
+      String[] expressionArray = expression.getLL().getGerman()
             .split(GermanLetter.SPACE.getUnicode());
 
       String[] answerArray = answer.split(GermanLetter.SPACE.getUnicode());
@@ -72,11 +71,13 @@ public class GermanResultFactory
             {
                result.addFeedbackImage(LetterFeedbackImage.makeSpace());
                result.addAnswerSpace(new LetterForAnalysis(GermanLetter.SPACE));
-               result.addDictionarySpace(new LetterForAnalysis(GermanLetter.SPACE));
+               result.addDictionarySpace(
+                     new LetterForAnalysis(GermanLetter.SPACE));
             }
             result.addFeedbackImageList(singleResult.getFeedbackImageList());
             result.addAnswer(singleResult.getAnswer()); // for unit testing
-            result.addDictionary(singleResult.getDictionary()); // for unit testing
+            result.addDictionary(singleResult.getDictionary()); // for unit
+                                                                // testing
             index++;
          }
 
@@ -86,21 +87,22 @@ public class GermanResultFactory
       return getResultDtoGerman(expression, answer);
    }
 
-   private static Result getResultDtoGerman(Expression expression, String answer)
+   private static Result getResultDtoGerman(Expression expression,
+         String answer)
    {
       Result result = new Result();
       result.setExpression(expression);
 
-      return getResultDtoGermanString(
-            expression.getLL().getGerman(),
-            answer, result);
+      return getResultDtoGermanString(expression.getLL().getGerman(), answer,
+            result);
    }
 
    private static Result getResultDtoGermanString(String dictionary,
          String answer, Result result)
    {
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
-            LetterHelper.findLetterForAnalysisList(dictionary, LetterType.GERMAN),
+            LetterHelper.findLetterForAnalysisList(dictionary,
+                  LetterType.GERMAN),
             LetterHelper.findLetterForAnalysisList(answer, LetterType.GERMAN),
             LetterType.GERMAN);
 

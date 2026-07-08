@@ -5,7 +5,7 @@ public class CerebrummiNodes
 
    private CerebrummiNodes()
    {
-      
+      // nothing
    }
 
    public static String getNode() // the node of preferences
@@ -22,7 +22,7 @@ public class CerebrummiNodes
    {
       return "training";
    }
-   
+
    public static String getSoundNode()
    {
       return "sound";
@@ -37,22 +37,22 @@ public class CerebrummiNodes
    {
       return "soundvolume";
    }
-   
+
    public static String getLetterPicturesNode()
    {
       return "letterpictures";
    }
-   
+
    public static String getLanguageNode()
    {
       return "language";
    }
-   
+
    public static String getChoosenDatabases()
    {
       return "choosendatabases";
    }
-   
+
    public static String getTranslationLanguage()
    {
       return "translation";
@@ -67,42 +67,42 @@ public class CerebrummiNodes
    {
       return "anyname";
    }
-   
+
    public static String getRepetitionOneDay()
    {
       return "repetition_one_day";
    }
-   
+
    public static String getRepetitionTwoDays()
    {
       return "repetition_two_days";
    }
-   
+
    public static String getRepetitionFiveDays()
    {
       return "repetition_five_days";
    }
-   
+
    public static String getRepetitionElevenDays()
    {
       return "repetition_eleven_days";
    }
-   
+
    public static String getRepetitionNineteenDays()
    {
       return "repetition_nineteen_days";
    }
-   
+
    public static String getRepetitionOneMonth()
    {
       return "repetition_one_month";
    }
-   
+
    public static String getRepetitionTwoMonths()
    {
       return "repetition_two_months";
    }
-   
+
    public static String getRepetitionFiveMonths()
    {
       return "repetition_five_months";

@@ -18,7 +18,7 @@ public class ExpressionKindTableCellRenderer2 extends DefaultTableCellRenderer
       implements TableCellEditor
 {
    private static final long serialVersionUID = 1516036848858702294L;
-   
+
    private JLabel selected;
    private JLabel empty;
    private JLabel expressionKind;
@@ -88,7 +88,7 @@ public class ExpressionKindTableCellRenderer2 extends DefaultTableCellRenderer
    {
       ExpressionKindItem expressionKind = ((ExpressionKindTableRow2) value)
             .getExpressionKind();
-      
+
       if (column == 0)
       {
          if (expressionKind.isSelected())

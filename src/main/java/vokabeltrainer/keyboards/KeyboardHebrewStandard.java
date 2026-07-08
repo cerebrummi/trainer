@@ -37,7 +37,8 @@ public class KeyboardHebrewStandard extends JPanel
    private boolean handwritten;
 
    public KeyboardHebrewStandard(JTextComponent textfield,
-         List<JTextComponent> arrayList, int textFieldHeight, boolean handwritten)
+         List<JTextComponent> arrayList, int textFieldHeight,
+         boolean handwritten)
    {
       this.handwritten = handwritten;
       scale = new Scale(BUTTON_SIZE);
@@ -78,7 +79,7 @@ public class KeyboardHebrewStandard extends JPanel
       dataButtons.put(NikudLetter.NUNSSOFIT, makeButton(NikudLetter.NUNSSOFIT));
       dataButtons.put(NikudLetter.MEMSSOFIT, makeButton(NikudLetter.MEMSSOFIT));
       dataButtons.put(NikudLetter.PAEI, makeButton(NikudLetter.PAEI));
-      
+
       dataButtons.put(NikudLetter.SCHIN, makeButton(NikudLetter.SCHIN));
       dataButtons.put(NikudLetter.DALET, makeButton(NikudLetter.DALET));
       dataButtons.put(NikudLetter.GIMEL, makeButton(NikudLetter.GIMEL));
@@ -87,9 +88,11 @@ public class KeyboardHebrewStandard extends JPanel
       dataButtons.put(NikudLetter.JOD, makeButton(NikudLetter.JOD));
       dataButtons.put(NikudLetter.CHET, makeButton(NikudLetter.CHET));
       dataButtons.put(NikudLetter.LAMED, makeButton(NikudLetter.LAMED));
-      dataButtons.put(NikudLetter.CHAFSSOFIT, makeButton(NikudLetter.CHAFSSOFIT));
-      dataButtons.put(NikudLetter.FAEISSOFIT, makeButton(NikudLetter.FAEISSOFIT));
-      
+      dataButtons.put(NikudLetter.CHAFSSOFIT,
+            makeButton(NikudLetter.CHAFSSOFIT));
+      dataButtons.put(NikudLetter.FAEISSOFIT,
+            makeButton(NikudLetter.FAEISSOFIT));
+
       dataButtons.put(NikudLetter.SSAIN, makeButton(NikudLetter.SSAIN));
       dataButtons.put(NikudLetter.SSAMECH, makeButton(NikudLetter.SSAMECH));
       dataButtons.put(NikudLetter.BET, makeButton(NikudLetter.BET));
@@ -98,10 +101,11 @@ public class KeyboardHebrewStandard extends JPanel
       dataButtons.put(NikudLetter.MEM, makeButton(NikudLetter.MEM));
       dataButtons.put(NikudLetter.ZADI, makeButton(NikudLetter.ZADI));
       dataButtons.put(NikudLetter.TAW, makeButton(NikudLetter.TAW));
-      dataButtons.put(NikudLetter.ZADISSOFIT, makeButton(NikudLetter.ZADISSOFIT));
+      dataButtons.put(NikudLetter.ZADISSOFIT,
+            makeButton(NikudLetter.ZADISSOFIT));
 
       makeRegularKeyboard();
-      
+
       add(keyboardPanel);
    }
 
@@ -110,16 +114,17 @@ public class KeyboardHebrewStandard extends JPanel
       DataButton dataButton;
       if (handwritten)
       {
-         dataButton = new DataButton(ApplicationImages.getLetterIconsNikudHandwrittenMap()
-               .get(letter).getScaledInstance(scale.getScaleX(), scale.getScaleY(),
-                     java.awt.Image.SCALE_SMOOTH),
+         dataButton = new DataButton(
+               ApplicationImages.getLetterIconsNikudHandwrittenMap().get(letter)
+                     .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
+                           java.awt.Image.SCALE_SMOOTH),
                letter.getUnicode());
       }
       else
       {
          dataButton = new DataButton(ApplicationImages.getLetterIconsNikudMap()
-               .get(letter).getScaledInstance(scale.getScaleX(), scale.getScaleY(),
-                     java.awt.Image.SCALE_SMOOTH),
+               .get(letter).getScaledInstance(scale.getScaleX(),
+                     scale.getScaleY(), java.awt.Image.SCALE_SMOOTH),
                letter.getUnicode());
       }
       dataButton.setMargin(new Insets(3, -5, 0, -5));
@@ -132,7 +137,7 @@ public class KeyboardHebrewStandard extends JPanel
       buttonPanel.add(dataButton);
 
       dataButton.addMouseListener(new KeyboardListener());
-      
+
       return buttonPanel;
    }
 
@@ -193,10 +198,10 @@ public class KeyboardHebrewStandard extends JPanel
    public void shuffleKeyboard()
    {
       keyboardPanel.removeAll();
-      
+
       List<NikudLetter> dataButtonList = new ArrayList<>(dataButtons.keySet());
       Collections.shuffle(dataButtonList);
-      
+
       JPanel row1 = new JPanel();
       row1.setOpaque(false);
       row1.setLayout(new TrainLayout(row1, 4));
@@ -263,15 +268,15 @@ public class KeyboardHebrewStandard extends JPanel
       keyboardPanel.add(row1);
       keyboardPanel.add(row2);
       keyboardPanel.add(row3);
-      
+
       keyboardPanel.validate();
       keyboardPanel.repaint();
    }
-   
+
    public void makeRegularKeyboard()
    {
       keyboardPanel.removeAll();
-      
+
       JPanel row1 = new JPanel();
       row1.setOpaque(false);
       row1.setLayout(new TrainLayout(row1, 4));
@@ -338,7 +343,7 @@ public class KeyboardHebrewStandard extends JPanel
       keyboardPanel.add(row1);
       keyboardPanel.add(row2);
       keyboardPanel.add(row3);
-      
+
       keyboardPanel.validate();
       keyboardPanel.repaint();
    }

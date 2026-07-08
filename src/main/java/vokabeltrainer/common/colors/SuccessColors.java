@@ -12,28 +12,28 @@ public class SuccessColors
    {
       // nothing
    }
-   
+
    public static Color getTextForeground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.white;
       }
       return ApplicationColors.darkGold;
    }
-   
+
    public static Color getPanelBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlueLight;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getPanelBackgroundLight()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
@@ -42,7 +42,7 @@ public class SuccessColors
 
    public static Color getTableBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.slategray;
       }

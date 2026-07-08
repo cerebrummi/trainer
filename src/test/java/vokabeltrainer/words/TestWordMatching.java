@@ -4,15 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.panels.trainer.Result;
+import vokabeltrainer.resources.Fonts;
 import vokabeltrainer.panels.trainer.NikudResultFactory;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.HebrewType;
@@ -218,9 +224,25 @@ public class TestWordMatching
    String[] wordTest26Array= {"WAW", "HAEI", "AIN", "RESCH", "SPACE", "SPACE", "SCHIN", "JOD", "ALEF"};
    List<String> wordTest26List = new LinkedList<>(Arrays.asList(wordTest26Array));
 
+   @BeforeAll
+   private static void init()
+   {
+      try
+      {
+         Fonts.read();
+      }
+      catch (FontFormatException | IOException e1)
+      {
+         JOptionPane.showMessageDialog(null, "Schriftarten fehlen",
+               "Nachricht", JOptionPane.CLOSED_OPTION);
+         System.exit(1);
+      }
+   }
+   
    @Test
    public void testMatchHebrew_Okay()
    {
+      
       Expression expressionDic = new Expression(true);
       expressionDic.getLL().setHebrew(wordDic);
       Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,

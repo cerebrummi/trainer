@@ -7,7 +7,7 @@ import java.awt.FocusTraversalPolicy;
 public class OneFocusTraversalPolicy extends FocusTraversalPolicy
 {
    Component component;
-   
+
    public OneFocusTraversalPolicy(Component component)
    {
       this.component = component;

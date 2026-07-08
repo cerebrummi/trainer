@@ -32,7 +32,7 @@ public class DatabaseTab extends JPanel
 
    private JButton nextButton;
    private JButton cancelButton;
-   
+
    private Translator translator = Common.getTranslator();
 
    public DatabaseTab(StartTrainingView dialog)
@@ -41,7 +41,8 @@ public class DatabaseTab extends JPanel
       setBackground(TrainerColors.getPanelBackgroundDark());
       setOpaque(true);
 
-      JLabel question = new JLabel(translator.realisticTranslate(Translation.DATENBANK));
+      JLabel question = new JLabel(
+            translator.realisticTranslate(Translation.DATENBANK));
       question.setForeground(TrainerColors.getTextForeground());
       question.setFont(ApplicationFonts.getButtonFont());
       question.setOpaque(false);
@@ -54,11 +55,12 @@ public class DatabaseTab extends JPanel
       center.setLayout(new FlowLayout());
       new ButtonGroup();
 
-      
       Vector<String> names = new Vector<>();
       names.add(translator.realisticTranslate(Translation.DATENBANK));
-      DatabaseTableModel databaseTableModel = new DatabaseTableModel(Data.getDatabaseArray(),names);
-      DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(databaseTableModel, Settings.getKeyboardWidth());
+      DatabaseTableModel databaseTableModel = new DatabaseTableModel(
+            Data.getDatabaseArray(), names);
+      DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(
+            databaseTableModel, Settings.getKeyboardWidth());
       JScrollPane scroller = new JScrollPane(databaseTable);
       scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
       scroller.setMaximumSize(
@@ -72,13 +74,15 @@ public class DatabaseTab extends JPanel
       JPanel buttonWrapper = new JPanel(new FlowLayout());
       buttonWrapper.setOpaque(false);
 
-      cancelButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
+      cancelButton = new JButton(
+            translator.realisticTranslate(Translation.ABBRECHEN));
       cancelButton.setFont(ApplicationFonts.getButtonFont());
       cancelButton.setBackground(TrainerColors.getButton());
       cancelButton.setForeground(TrainerColors.getButtonForeground());
       cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
 
-      nextButton = new JButton(translator.realisticTranslate(Translation.WEITER));
+      nextButton = new JButton(
+            translator.realisticTranslate(Translation.WEITER));
       nextButton.setFont(ApplicationFonts.getButtonFont());
       nextButton.setBackground(TrainerColors.getButton());
       nextButton.setForeground(TrainerColors.getButtonForeground());
@@ -88,27 +92,28 @@ public class DatabaseTab extends JPanel
       buttonWrapper.add(cancelButton);
       buttonWrapper.add(nextButton);
       add(buttonWrapper, BorderLayout.SOUTH);
-      
-      databaseTable.addMouseListener(new MouseAdapter() 
+
+      databaseTable.addMouseListener(new MouseAdapter()
       {
-    	  @Override
-    	  public void mouseClicked(MouseEvent mouseEvent)
-    	  {
-    		  removeTabsToTheRight(dialog);
-    	  }
+         @Override
+         public void mouseClicked(MouseEvent mouseEvent)
+         {
+            removeTabsToTheRight(dialog);
+         }
       });
 
       nextButton.addActionListener(_ -> {
          if (dialog.getTabbedPane().getTabCount() == 3)
          {
-        	dialog.setDatabaseNames(databaseTable.getModel().getDatabaseNames());
-            dialog.getTabbedPane().addTab(translator.realisticTranslate(Translation.WIE_VIELE),
+            dialog.setDatabaseNames(
+                  databaseTable.getModel().getDatabaseNames());
+            dialog.getTabbedPane().addTab(
+                  translator.realisticTranslate(Translation.WIE_VIELE),
                   new ImageIcon(ApplicationImages.getArrow()),
                   new AmountTab(dialog));
          }
          dialog.getTabbedPane().setSelectedIndex(3);
       });
-     
 
       cancelButton.addActionListener(_ -> {
          dialog.cancelTrainingStart();
@@ -128,10 +133,9 @@ public class DatabaseTab extends JPanel
       }
    }
 
-   public JButton getNextButton() 
+   public JButton getNextButton()
    {
-	return nextButton;
+      return nextButton;
    }
-   
-   
+
 }

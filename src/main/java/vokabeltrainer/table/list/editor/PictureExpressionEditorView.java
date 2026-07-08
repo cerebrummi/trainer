@@ -67,7 +67,7 @@ public class PictureExpressionEditorView extends JDialog
    private JPanel imagePanel;
 
    private ImageDropHandler dropHandler;
-   
+
    private NikudExpressionEditorControllerConnector connector;
 
    public PictureExpressionEditorView(
@@ -309,16 +309,15 @@ public class PictureExpressionEditorView extends JDialog
 
       imagePanel.removeAll();
       imagePanel.add(imageList);
-      dropHandler = new ImageDropHandler(
-            this.expression.getUuid(), model);
+      dropHandler = new ImageDropHandler(this.expression.getUuid(), model);
       imageList.setTransferHandler(dropHandler);
 
       initController();
    }
-   
+
    public void setImages(ArrayList<ImageItem> items)
    {
-      for(ImageItem item: items)
+      for (ImageItem item : items)
       {
          dropHandler.addImage(item);
       }
@@ -403,6 +402,5 @@ public class PictureExpressionEditorView extends JDialog
 
       return fileName.substring(dot + 1).toLowerCase();
    }
-
 
 }

@@ -89,7 +89,7 @@ public class LetterHelper
       }
       return swedishLetters;
    }
-   
+
    public static List<NikudLetter> findNikudLetters(String hebrewWord)
    {
       List<String> letterCodes = LetterHelper.findLetterCodes(hebrewWord,
@@ -110,26 +110,26 @@ public class LetterHelper
    public static LetterType findLetterTypeLanguages(String text)
    {
       List<String> codelist = findLetterCodes(text, LetterType.NONE);
-      
+
       for (String code : codelist)
       {
-         if(getLetterFromCode(code + "_DE", LetterType.GERMAN) != null)
+         if (getLetterFromCode(code + "_DE", LetterType.GERMAN) != null)
          {
             return LetterType.GERMAN;
          }
-         if(getLetterFromCode(code + "_SE", LetterType.SWEDISH) != null)
+         if (getLetterFromCode(code + "_SE", LetterType.SWEDISH) != null)
          {
             return LetterType.SWEDISH;
          }
-         if(getLetterFromCode(code + "_IL", LetterType.HEBREW) != null)
+         if (getLetterFromCode(code + "_IL", LetterType.HEBREW) != null)
          {
             return LetterType.HEBREW;
          }
       }
-      
+
       return LetterType.NONE;
    }
-   
+
    public static List<String> findLetterCodes(String word, LetterType type)
    {
       List<String> letterCodes = new LinkedList<>();
@@ -176,18 +176,15 @@ public class LetterHelper
       LetterForAnalysis currentLetterForAnalysis;
       if (LetterType.HEBREW == letterType)
       {
-         currentLetterForAnalysis = new LetterForAnalysis(
-               NikudLetter.SPACE);
+         currentLetterForAnalysis = new LetterForAnalysis(NikudLetter.SPACE);
       }
-      else if(LetterType.SWEDISH == letterType)
+      else if (LetterType.SWEDISH == letterType)
       {
-         currentLetterForAnalysis = new LetterForAnalysis(
-               SwedishLetter.SPACE);
+         currentLetterForAnalysis = new LetterForAnalysis(SwedishLetter.SPACE);
       }
       else
       {
-         currentLetterForAnalysis = new LetterForAnalysis(
-               GermanLetter.SPACE);
+         currentLetterForAnalysis = new LetterForAnalysis(GermanLetter.SPACE);
       }
 
       for (int i = 0; i < codeList.size(); i++)
@@ -233,33 +230,33 @@ public class LetterHelper
    public static boolean areLettersEqual(LetterForAnalysis one,
          LetterForAnalysis two)
    {
-      if(one.isNikud() && two.isNotNikud())
+      if (one.isNikud() && two.isNotNikud())
       {
          return false;
       }
-      if(one.isSwedish() && two.isNotSwedish())
+      if (one.isSwedish() && two.isNotSwedish())
       {
          return false;
       }
-      if(one.isGerman() && two.isNotGerman())
+      if (one.isGerman() && two.isNotGerman())
       {
          return false;
       }
-      if(one.isNikud() && two.isNikud())
+      if (one.isNikud() && two.isNikud())
       {
          if (one.getContent() != two.getContent())
          {
             return false;
          }
       }
-      if(one.isSwedish() && two.isSwedish())
+      if (one.isSwedish() && two.isSwedish())
       {
          if (one.getSwedishContent() != two.getSwedishContent())
          {
             return false;
          }
       }
-      if(one.isGerman() && two.isGerman())
+      if (one.isGerman() && two.isGerman())
       {
          if (one.getGermanContent() != two.getGermanContent())
          {

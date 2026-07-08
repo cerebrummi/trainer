@@ -16,7 +16,8 @@ import vokabeltrainer.ComponentTitledBorder;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationImages;
 
-public class ImageItemRenderer extends JPanel implements ListCellRenderer<ImageItem>
+public class ImageItemRenderer extends JPanel
+      implements ListCellRenderer<ImageItem>
 {
    private static final long serialVersionUID = -2888266762824574533L;
    private JLabel label;
@@ -43,7 +44,7 @@ public class ImageItemRenderer extends JPanel implements ListCellRenderer<ImageI
       {
          label.setIcon(value.getThumbnail());
          JCheckBox box = new JCheckBox();
-         
+
          if (value.isChecked())
          {
             box.setIcon(new ImageIcon(ApplicationImages.getOkaySaveIcon()));
@@ -53,14 +54,14 @@ public class ImageItemRenderer extends JPanel implements ListCellRenderer<ImageI
             box.setIcon(new ImageIcon(ApplicationImages.getCancel()));
          }
 
-         TitledBorder tBorder = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(
-               ApplicationColors.gold, 2), value.toString());
+         TitledBorder tBorder = BorderFactory.createTitledBorder(
+               BorderFactory.createLineBorder(ApplicationColors.gold, 2),
+               value.toString());
          tBorder.setTitleColor(ApplicationColors.getShadyBlue());
-         
+
          ComponentTitledBorder border = new ComponentTitledBorder(box, this,
-               tBorder,
-               25);
-         
+               tBorder, 25);
+
          this.setBorder(border);
       }
 

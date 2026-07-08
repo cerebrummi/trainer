@@ -38,7 +38,7 @@ public class StatisticsPanel extends JPanel
       horizontalPanel = new JPanel();
       TrainLayout horizontalPanelLayout = new TrainLayout(horizontalPanel);
       horizontalPanel.setLayout(horizontalPanelLayout);
-      
+
       tablePanel = new JPanel();
       tablePanel.setLayout(new TotemLayout(tablePanel));
       tablePanel.setOpaque(true);
@@ -55,7 +55,7 @@ public class StatisticsPanel extends JPanel
 
       horizontalPanel.add(tablePanel);
       horizontalPanel.add(wordPanel);
-      
+
       add(horizontalPanel);
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
@@ -73,7 +73,8 @@ public class StatisticsPanel extends JPanel
       titlePanel.setMinimumSize(new Dimension(580, 50));
       titlePanel.setMaximumSize(new Dimension(580, 50));
 
-      JLabel title = new JLabel(translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
+      JLabel title = new JLabel(
+            translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
       title.setForeground(StatisticsColors.getTextForeground());
       title.setFont(ApplicationFonts.getGermanFont(30F));
       titlePanel.add(title);
@@ -99,11 +100,12 @@ public class StatisticsPanel extends JPanel
                   JScrollPane scroller = new JScrollPane(
                         statisticsTableRow.getJListHtoD());
                   scroller.setOpaque(true);
-                  scroller.setBackground(StatisticsColors.getSelectedBackground());
+                  scroller.setBackground(
+                        StatisticsColors.getSelectedBackground());
                   scroller.setBorder(BorderFactory.createEmptyBorder());
                   scroller.getViewport().setOpaque(true);
-                  scroller.getViewport()
-                        .setBackground(StatisticsColors.getSelectedBackground());
+                  scroller.getViewport().setBackground(
+                        StatisticsColors.getSelectedBackground());
                   scroller.setViewportBorder(BorderFactory.createEmptyBorder());
                   wordPanel.add(scroller);
                }
@@ -114,11 +116,12 @@ public class StatisticsPanel extends JPanel
                   JScrollPane scroller = new JScrollPane(
                         statisticsTableRow.getJListDtoH());
                   scroller.setOpaque(true);
-                  scroller.setBackground(StatisticsColors.getSelectedBackground());
+                  scroller.setBackground(
+                        StatisticsColors.getSelectedBackground());
                   scroller.setBorder(BorderFactory.createEmptyBorder());
                   scroller.getViewport().setOpaque(true);
-                  scroller.getViewport()
-                        .setBackground(StatisticsColors.getSelectedBackground());
+                  scroller.getViewport().setBackground(
+                        StatisticsColors.getSelectedBackground());
                   scroller.setViewportBorder(BorderFactory.createEmptyBorder());
                   wordPanel.add(scroller);
                }
@@ -127,7 +130,7 @@ public class StatisticsPanel extends JPanel
             }
          }
       });
-      
+
       JScrollPane scroller = new JScrollPane(table);
       scroller.setOpaque(false);
       scroller.setBackground(ApplicationColors.getTransparent());

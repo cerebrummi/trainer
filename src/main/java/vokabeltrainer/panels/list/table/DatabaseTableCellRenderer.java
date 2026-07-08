@@ -15,19 +15,21 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.types.DatabaseDescription;
 
-public class DatabaseTableCellRenderer implements TableCellRenderer, TableCellEditor
+public class DatabaseTableCellRenderer
+      implements TableCellRenderer, TableCellEditor
 {
 
    private JLabel selected;
    private JLabel empty;
    private JLabel database;
 
-   public DatabaseTableCellRenderer() // multiple selection possible, except unknown selection row 0
+   public DatabaseTableCellRenderer() // multiple selection possible, except
+                                      // unknown selection row 0
    {
       selected = new JLabel(new ImageIcon(ApplicationImages.getLogoFolder()));
       selected.setBackground(ApplicationColors.getTransparent());
       selected.setOpaque(false);
-      
+
       empty = new JLabel();
       empty.setBackground(ApplicationColors.getTransparent());
       empty.setOpaque(false);
@@ -91,8 +93,9 @@ public class DatabaseTableCellRenderer implements TableCellRenderer, TableCellEd
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
    {
-      DatabaseDescription databaseDescription = ((DatabaseTableRow) value).getDescription();
-      
+      DatabaseDescription databaseDescription = ((DatabaseTableRow) value)
+            .getDescription();
+
       if (column == 0)
       {
          if (databaseDescription.isSelected())

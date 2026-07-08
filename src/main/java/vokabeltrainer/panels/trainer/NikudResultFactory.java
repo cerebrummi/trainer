@@ -85,11 +85,13 @@ public class NikudResultFactory
             {
                result.addFeedbackImage(LetterFeedbackImage.makeSpace());
                result.addAnswerSpace(new LetterForAnalysis(NikudLetter.SPACE));
-               result.addDictionarySpace(new LetterForAnalysis(NikudLetter.SPACE));
+               result.addDictionarySpace(
+                     new LetterForAnalysis(NikudLetter.SPACE));
             }
             result.addFeedbackImageList(singleResult.getFeedbackImageList());
             result.addAnswer(singleResult.getAnswer()); // for unit testing
-            result.addDictionary(singleResult.getDictionary()); // for unit testing
+            result.addDictionary(singleResult.getDictionary()); // for unit
+                                                                // testing
             index++;
          }
 
@@ -106,8 +108,8 @@ public class NikudResultFactory
       result.setExpression(expression);
 
       return getResultDtoNikudString(
-            expression.getLL().getHewbrewAccordingToType(selectionType),
-            answer, result);
+            expression.getLL().getHewbrewAccordingToType(selectionType), answer,
+            result);
    }
 
    private static Result getResultDtoNikudString(String dictionary,
@@ -115,7 +117,8 @@ public class NikudResultFactory
    {
 
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
-            LetterHelper.findLetterForAnalysisList(dictionary, LetterType.HEBREW),
+            LetterHelper.findLetterForAnalysisList(dictionary,
+                  LetterType.HEBREW),
             LetterHelper.findLetterForAnalysisList(answer, LetterType.HEBREW),
             LetterType.HEBREW);
 

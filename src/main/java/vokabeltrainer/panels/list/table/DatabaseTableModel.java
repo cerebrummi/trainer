@@ -20,7 +20,7 @@ public class DatabaseTableModel extends DefaultTableModel
    {
       super(data, columnNames);
       this.data = data;
-      for(Vector<DatabaseTableRow> datum : data)
+      for (Vector<DatabaseTableRow> datum : data)
       {
          rows.add(datum.get(0));
       }
@@ -34,9 +34,9 @@ public class DatabaseTableModel extends DefaultTableModel
    public List<DatabaseTableRow> getSelectedRows()
    {
       List<DatabaseTableRow> selectedRows = new ArrayList<>();
-      for(DatabaseTableRow row : rows)
+      for (DatabaseTableRow row : rows)
       {
-         if(row.getDescription().isSelected())
+         if (row.getDescription().isSelected())
          {
             selectedRows.add(row);
          }
@@ -46,14 +46,14 @@ public class DatabaseTableModel extends DefaultTableModel
 
    public Set<String> getDatabaseNames()
    {
-	   Set<String> selectedRows = new HashSet<>();
-	      for(DatabaseTableRow row : rows)
-	      {
-	         if(row.getDescription().isSelected())
-	         {
-	            selectedRows.add(row.getDescription().getDatabaseName());
-	         }
-	      }
-	      return selectedRows;
+      Set<String> selectedRows = new HashSet<>();
+      for (DatabaseTableRow row : rows)
+      {
+         if (row.getDescription().isSelected())
+         {
+            selectedRows.add(row.getDescription().getDatabaseName());
+         }
+      }
+      return selectedRows;
    }
 }

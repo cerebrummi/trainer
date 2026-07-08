@@ -61,7 +61,7 @@ public class GermanDocument extends PlainDocument
             return;
          }
 
-         if(!checking(list, builder))
+         if (!checking(list, builder))
          {
             Toolkit.getDefaultToolkit().beep();
             return;
@@ -96,7 +96,7 @@ public class GermanDocument extends PlainDocument
             return;
          }
 
-         if(!checking(list, builder))
+         if (!checking(list, builder))
          {
             Toolkit.getDefaultToolkit().beep();
             return;
@@ -111,8 +111,10 @@ public class GermanDocument extends PlainDocument
       {
          Letter letter = LetterHelper.getLetterFromCode(list.get(i),
                LetterType.GERMAN);
-         String signcode = list.get(i).replace(LetterType.GERMAN.getRealm(), LetterType.SIGN.getRealm());
-         String numbercode = list.get(i).replace(LetterType.GERMAN.getRealm(), LetterType.NUMBER.getRealm());
+         String signcode = list.get(i).replace(LetterType.GERMAN.getRealm(),
+               LetterType.SIGN.getRealm());
+         String numbercode = list.get(i).replace(LetterType.GERMAN.getRealm(),
+               LetterType.NUMBER.getRealm());
          //
          if (letter != null && letter instanceof GermanLetter)
          {

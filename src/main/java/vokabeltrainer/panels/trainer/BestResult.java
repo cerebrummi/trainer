@@ -40,7 +40,7 @@ public class BestResult
    {
       this.resultSwedish = resultSwedish;
    }
-   
+
    public void setResultGerman(Result resultGerman)
    {
       this.resultGerman = resultGerman;
@@ -48,16 +48,16 @@ public class BestResult
 
    public Result getBestResult()
    {
-      if(Selection.GERMAN == selection)
+      if (Selection.GERMAN == selection)
       {
          return resultGerman;
       }
-      
-      if(Selection.SWEDISH == selection)
+
+      if (Selection.SWEDISH == selection)
       {
          return resultSwedish;
       }
-      
+
       if (Selection.SIMPLE == selection)
       {
          return resultHebrew;

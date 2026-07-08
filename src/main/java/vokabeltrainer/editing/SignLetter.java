@@ -32,9 +32,9 @@ public enum SignLetter implements Letter
    COLON(" 003A", "\u003A"),                    // :
    LOW_LINE(" 005F", "\u005F"),                 // _
    DEGREE_SIGN(" 00B0", "\u00B0"),               // °
-   CIRCUMFLEX_ACCENT(" 005E", "\u005E"),         // ^ does not work properly, known Swing bug
-   ACUTE_ACCENT(" 00B4", "\u00B4"),              // ´ does not work properly, known Swing bug
-   GRAVE_ACCENT(" 0060", "\u0060"),              // ` does not work properly, known Swing bug
+   CIRCUMFLEX_ACCENT(" 005E", "\u005E"),         // ^ does not work properly, known Swing bug: FIX use internationalFont
+   ACUTE_ACCENT(" 00B4", "\u00B4"),              // ´ does not work properly, known Swing bug: FIX use internationalFont
+   GRAVE_ACCENT(" 0060", "\u0060"),              // ` does not work properly, known Swing bug: FIX use internationalFont
    COMMERCIAL_AT(" 0040", "\u0040"),             // @
    MICRO_SIGN(" 00B5", "\u00B5"),                // �
    LESS_THAN_SIGN(" 003C", "\u003C"),            // <
@@ -51,24 +51,24 @@ public enum SignLetter implements Letter
          PERCENT_SIGN, SOLIDUS, LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET,
          LEFT_CURLY_BRACKET, RIGHT_CURLY_BRACKET, EQUALS_SIGN, ASTERISK,
          PLUS_SIGN, NUMBER_SIGN, SEMICOLON, COLON, LOW_LINE, DEGREE_SIGN,
-         COMMERCIAL_AT, MICRO_SIGN,
-         LESS_THAN_SIGN, GREATER_THAN_SIGN, VERTICAL_LINE, AMPERSAND,
-         CIRCUMFLEX_ACCENT, ACUTE_ACCENT, GRAVE_ACCENT};
-   
-   private static SignLetter[] germanSignsWithComma = { QUESTION_MARK, EXCLAMATION_MARK,
-         FULL_STOP, APOSTROPHE, LEFT_PARENTHESIS, RIGHT_PARENTHESIS,
-         HYPHEN_MINUS, QUOTATION_MARK, SECTION_SIGN, DOLLAR_SIGN, EURO_SIGN,
-         PERCENT_SIGN, SOLIDUS, LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET,
-         LEFT_CURLY_BRACKET, RIGHT_CURLY_BRACKET, EQUALS_SIGN, ASTERISK,
-         PLUS_SIGN, NUMBER_SIGN, SEMICOLON, COLON, LOW_LINE, DEGREE_SIGN,
-         COMMERCIAL_AT, MICRO_SIGN,
-         LESS_THAN_SIGN, GREATER_THAN_SIGN, VERTICAL_LINE, AMPERSAND, COMMA };
+         COMMERCIAL_AT, MICRO_SIGN, LESS_THAN_SIGN, GREATER_THAN_SIGN,
+         VERTICAL_LINE, AMPERSAND, CIRCUMFLEX_ACCENT, ACUTE_ACCENT,
+         GRAVE_ACCENT };
+
+   private static SignLetter[] germanSignsWithComma = { QUESTION_MARK,
+         EXCLAMATION_MARK, FULL_STOP, APOSTROPHE, LEFT_PARENTHESIS,
+         RIGHT_PARENTHESIS, HYPHEN_MINUS, QUOTATION_MARK, SECTION_SIGN,
+         DOLLAR_SIGN, EURO_SIGN, PERCENT_SIGN, SOLIDUS, LEFT_SQUARE_BRACKET,
+         RIGHT_SQUARE_BRACKET, LEFT_CURLY_BRACKET, RIGHT_CURLY_BRACKET,
+         EQUALS_SIGN, ASTERISK, PLUS_SIGN, NUMBER_SIGN, SEMICOLON, COLON,
+         LOW_LINE, DEGREE_SIGN, COMMERCIAL_AT, MICRO_SIGN, LESS_THAN_SIGN,
+         GREATER_THAN_SIGN, VERTICAL_LINE, AMPERSAND, COMMA };
 
    private static SignLetter[] hebrewSigns = { QUESTION_MARK, EXCLAMATION_MARK,
          FULL_STOP };
    private static SignLetter[] hebrewSignsWithComma = { QUESTION_MARK,
          EXCLAMATION_MARK, FULL_STOP, COMMA };
-   
+
    private static SignLetter[] nikudSigns = { QUESTION_MARK, EXCLAMATION_MARK,
          FULL_STOP };
    private static SignLetter[] nikudSignsWithComma = { QUESTION_MARK,
@@ -79,20 +79,20 @@ public enum SignLetter implements Letter
          RIGHT_PARENTHESIS, HYPHEN_MINUS, COMMA, QUOTATION_MARK, SECTION_SIGN,
          DOLLAR_SIGN, EURO_SIGN, PERCENT_SIGN, SOLIDUS, LEFT_SQUARE_BRACKET,
          RIGHT_SQUARE_BRACKET, LEFT_CURLY_BRACKET, RIGHT_CURLY_BRACKET,
-         EQUALS_SIGN, ASTERISK, PLUS_SIGN, NUMBER_SIGN, 
-         SEMICOLON, COLON, LOW_LINE, DEGREE_SIGN, COMMERCIAL_AT, MICRO_SIGN, LESS_THAN_SIGN,
+         EQUALS_SIGN, ASTERISK, PLUS_SIGN, NUMBER_SIGN, SEMICOLON, COLON,
+         LOW_LINE, DEGREE_SIGN, COMMERCIAL_AT, MICRO_SIGN, LESS_THAN_SIGN,
          GREATER_THAN_SIGN, VERTICAL_LINE, AMPERSAND };
-   
-   private static SignLetter[] forFileNames = {HYPHEN_MINUS, LOW_LINE};
-   
-   private static SignLetter[] forbiddenSigns = {TAB, REVERSE_SOLIDUS};
+
+   private static SignLetter[] forFileNames = { HYPHEN_MINUS, LOW_LINE };
+
+   private static SignLetter[] forbiddenSigns = { TAB, REVERSE_SOLIDUS };
 
    SignLetter(String code, String unicode)
    {
       this.code = code.toUpperCase() + "_**";
       this.unicode = unicode;
    }
-   
+
    public static String getInternationalExclusionPattern()
    {
       StringJoiner joiner = new StringJoiner(",");
@@ -142,7 +142,7 @@ public enum SignLetter implements Letter
       }
       return joiner.toString();
    }
-   
+
    public static String getPatternStringNikud()
    {
       StringJoiner joiner = new StringJoiner(",");
@@ -152,7 +152,7 @@ public enum SignLetter implements Letter
       }
       return joiner.toString();
    }
-   
+
    public static String getPatternStringNikudWithComma()
    {
       StringJoiner joiner = new StringJoiner(",");
@@ -172,7 +172,7 @@ public enum SignLetter implements Letter
       }
       return joiner.toString();
    }
-   
+
    public static String getPatternStringForFileNames()
    {
       StringJoiner joiner = new StringJoiner(",");
@@ -206,7 +206,7 @@ public enum SignLetter implements Letter
    {
       return false;
    }
-   
+
    @Override
    public LetterType isType()
    {
@@ -218,13 +218,13 @@ public enum SignLetter implements Letter
    {
       return null;
    }
-   
+
    @Override
    public int getPixelWidth()
    {
       return -1;
    }
-   
+
    @Override
    public String getTranscript()
    {

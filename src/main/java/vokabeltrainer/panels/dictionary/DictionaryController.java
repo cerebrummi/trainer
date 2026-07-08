@@ -361,11 +361,10 @@ public class DictionaryController implements DictionaryControllerConnector
                         .getSelectedExpressionKind();
                   if (expressionKind != null)
                   {
-                     tableModel = Data.findTranslations(
-                            null,
-                           expressionKind, null, null, null,
-                           dictionaryView.getSortNow(), null, dictionaryView.getSelectedLanguage(),
-                           dictionaryView.getDatabaseTableModel().getSelectedRows());
+                     tableModel = Data.findTranslations(null, expressionKind,
+                           null, null, null, dictionaryView.getSortNow(), null,
+                           dictionaryView.getSelectedLanguage(), dictionaryView
+                                 .getDatabaseTableModel().getSelectedRows());
                   }
                   break;
                case TABLE_SEARCH_WHICH_OWN:
@@ -373,23 +372,24 @@ public class DictionaryController implements DictionaryControllerConnector
                   tableModel = Data.findTranslations(
                         dictionaryView.getSearchPhraseGerman(), null,
                         dictionaryView.getSelectedSearchTypeGerman(), null,
-                        null, dictionaryView.getSortNow(), null, dictionaryView.getSelectedLanguage(),
-                        dictionaryView.getDatabaseTableModel().getSelectedRows());
+                        null, dictionaryView.getSortNow(), null,
+                        dictionaryView.getSelectedLanguage(), dictionaryView
+                              .getDatabaseTableModel().getSelectedRows());
                   break;
                case TABLE_SEARCH_WHICH_NEW:
                   dictionaryView.clearTable();
                   tableModel = Data.findTranslations(
                         dictionaryView.getSearchPhraseOther(), null,
                         dictionaryView.getSelectedSearchTypeHebrew(), null,
-                        null, dictionaryView.getSortNow(), null, dictionaryView.getSelectedLanguage(),
-                        dictionaryView.getDatabaseTableModel().getSelectedRows());
+                        null, dictionaryView.getSortNow(), null,
+                        dictionaryView.getSelectedLanguage(), dictionaryView
+                              .getDatabaseTableModel().getSelectedRows());
                   break;
                case TABLE_SELECTED_EXPRESSIONS:
                   dictionaryView.clearTable();
-                  tableModel = Data.findTranslations(
-                        null, null, null,
-                        null, Command.ALL_SELECTED, dictionaryView.getSortNow(),
-                        null, dictionaryView.getSelectedLanguage(), null);
+                  tableModel = Data.findTranslations(null, null, null, null,
+                        Command.ALL_SELECTED, dictionaryView.getSortNow(), null,
+                        dictionaryView.getSelectedLanguage(), null);
                   break;
                }
             }
@@ -506,7 +506,7 @@ public class DictionaryController implements DictionaryControllerConnector
                {
                   dictionaryView.loadChapters();
                }
-               else if(Tabulator.DATA_TAB.equals(Tabulator.getTabShowing()))
+               else if (Tabulator.DATA_TAB.equals(Tabulator.getTabShowing()))
                {
                   dictionaryView.loadDatabases();
                }

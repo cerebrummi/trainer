@@ -45,7 +45,8 @@ public class AmountTab extends JPanel
       center.setLayout(new BorderLayout());
 
       TrainingTableModel model = Data.findTrainingModel(
-            dialog.getLanguageDirection(), dialog.getFieldOfTraining(), dialog.getDatabaseNames());
+            dialog.getLanguageDirection(), dialog.getFieldOfTraining(),
+            dialog.getDatabaseNames());
       TrainingTable table = new TrainingTable(model);
 
       JScrollPane scroller = new JScrollPane(table);

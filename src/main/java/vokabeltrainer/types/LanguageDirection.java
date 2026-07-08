@@ -10,16 +10,15 @@ public enum LanguageDirection
    GERMAN_TO_OWN(Direction.NEW_TO_OWN);
    
    private Direction direction;
-   
+
    LanguageDirection(Direction direction)
    {
       this.direction = direction;
    }
-   
+
    public Direction getDirection()
    {
       return direction;
    }
 
-   
 }

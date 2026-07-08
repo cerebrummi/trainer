@@ -18,16 +18,15 @@ public class WordLetterMatching
 {
    private WordLetterMatching()
    {
-
+      // nothing
    }
 
    public static WordLetterMatchingResult matchLetters(
          LinkedList<LetterForAnalysis> dictionary,
-         LinkedList<LetterForAnalysis> answer,
-         LetterType type)
+         LinkedList<LetterForAnalysis> answer, LetterType type)
    {
       WordLetterMatchingResult result = new WordLetterMatchingResult();
-      
+
       if (answer.isEmpty())
       {
          result.setAnswerEmpty(true);
@@ -37,13 +36,13 @@ public class WordLetterMatching
       {
          result.setDictionaryEmpty(true);
       }
-      
+
       if (answer.isEmpty() && dictionary.isEmpty())
       {
          result.setOkay(true);
          return result;
       }
-      
+
       if (answer.isEmpty() || dictionary.isEmpty())
       {
          result.setCompletelyFalse(true);
@@ -132,11 +131,11 @@ public class WordLetterMatching
       {
          if (letter == null)
          {
-            if(LetterType.HEBREW == type)
+            if (LetterType.HEBREW == type)
             {
                dataDic.add(new LetterForAnalysis(NikudLetter.NEWSPACE));
             }
-            else if(LetterType.SWEDISH == type)
+            else if (LetterType.SWEDISH == type)
             {
                dataDic.add(new LetterForAnalysis(SwedishLetter.NEWSPACE));
             }
@@ -155,11 +154,11 @@ public class WordLetterMatching
       {
          if (letter == null)
          {
-            if(LetterType.HEBREW == type)
+            if (LetterType.HEBREW == type)
             {
                dataTest.add(new LetterForAnalysis(NikudLetter.NEWSPACE));
             }
-            else if(LetterType.SWEDISH == type)
+            else if (LetterType.SWEDISH == type)
             {
                dataTest.add(new LetterForAnalysis(SwedishLetter.NEWSPACE));
             }
@@ -220,20 +219,23 @@ public class WordLetterMatching
 
       if (result.isPartlyFalse())
       {
-         if(LetterType.HEBREW == type)
+         if (LetterType.HEBREW == type)
          {
             dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
-                  dataDic, dataTest, NikudLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+                  dataDic, dataTest, NikudLetter.NEWSPACE,
+                  Math.min(sizeDic, sizeTest));
          }
-         else if(LetterType.SWEDISH == type)
+         else if (LetterType.SWEDISH == type)
          {
             dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
-                  dataDic, dataTest, SwedishLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+                  dataDic, dataTest, SwedishLetter.NEWSPACE,
+                  Math.min(sizeDic, sizeTest));
          }
          else
          {
             dataTest = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
-                  dataDic, dataTest, GermanLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+                  dataDic, dataTest, GermanLetter.NEWSPACE,
+                  Math.min(sizeDic, sizeTest));
          }
 
          if (dataDic.size() != dataTest.size())
@@ -241,20 +243,23 @@ public class WordLetterMatching
             throw new IllegalStateException("Längen unterschiedlich 4");
          }
 
-         if(LetterType.HEBREW == type)
+         if (LetterType.HEBREW == type)
          {
             dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
-                  dataTest, dataDic, NikudLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+                  dataTest, dataDic, NikudLetter.NEWSPACE,
+                  Math.min(sizeDic, sizeTest));
          }
-         else if(LetterType.SWEDISH == type)
+         else if (LetterType.SWEDISH == type)
          {
             dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
-                  dataTest, dataDic, SwedishLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+                  dataTest, dataDic, SwedishLetter.NEWSPACE,
+                  Math.min(sizeDic, sizeTest));
          }
-         else 
+         else
          {
             dataDic = lookForWrongLettersAndMoveDLettersToTheLeftMaximizeSameness(
-                  dataTest, dataDic, GermanLetter.NEWSPACE, Math.min(sizeDic, sizeTest));
+                  dataTest, dataDic, GermanLetter.NEWSPACE,
+                  Math.min(sizeDic, sizeTest));
          }
 
          if (dataDic.size() != dataTest.size())
@@ -263,14 +268,14 @@ public class WordLetterMatching
          }
 
          lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataDic, dataTest);
-         
+
          if (dataDic.size() != dataTest.size())
          {
             throw new IllegalStateException("Längen unterschiedlich 5a");
          }
-         
+
          lookForNewspaceAndMoveLettersToTheLeftIfPossible(dataTest, dataDic);
-         
+
          if (dataDic.size() != dataTest.size())
          {
             throw new IllegalStateException("Längen unterschiedlich 5b");
@@ -283,7 +288,7 @@ public class WordLetterMatching
       {
          throw new IllegalStateException("Längen unterschiedlich 6");
       }
-      
+
       result.setDictionary(dataDic);
       result.setAnswer(dataTest);
 
@@ -291,23 +296,27 @@ public class WordLetterMatching
    }
 
    private static void lookForNewspaceAndMoveLettersToTheLeftIfPossible(
-         List<LetterForAnalysis> dataReference, List<LetterForAnalysis> dataToBeChanged)
+         List<LetterForAnalysis> dataReference,
+         List<LetterForAnalysis> dataToBeChanged)
    {
       for (int i = 0; i < dataToBeChanged.size(); i++)
       {
-         if(dataToBeChanged.get(i).getContent().isNewspace() &&
-               !dataReference.get(i).getContent().isNewspace())
+         if (dataToBeChanged.get(i).getContent().isNewspace()
+               && !dataReference.get(i).getContent().isNewspace())
          {
-            int index = readIndexOfNextNotNewspaceLetterToTheRight(dataToBeChanged, i);
-            if (index > 0 && evaluateSame(dataReference.get(i), dataToBeChanged.get(index)) == 1)
+            int index = readIndexOfNextNotNewspaceLetterToTheRight(
+                  dataToBeChanged, i);
+            if (index > 0 && evaluateSame(dataReference.get(i),
+                  dataToBeChanged.get(index)) == 1)
             {
-               LetterForAnalysis letterToBeMoved = dataToBeChanged.remove(index);
+               LetterForAnalysis letterToBeMoved = dataToBeChanged
+                     .remove(index);
                dataToBeChanged.add(i, letterToBeMoved);
             }
          }
       }
    }
-   
+
    private static int readIndexOfNextNotNewspaceLetterToTheRight(
          List<LetterForAnalysis> dataTest, int i)
    {
@@ -320,7 +329,7 @@ public class WordLetterMatching
       }
       return -1;
    }
-   
+
    private static void cutOutCommonNewspace(List<LetterForAnalysis> dataT,
          List<LetterForAnalysis> dataD)
    {
@@ -334,14 +343,14 @@ public class WordLetterMatching
          }
       }
 
-      int[] indexes = indexesToBeRemoved.stream().mapToInt(i->i).toArray();
-      
-      for(int i = indexes.length-1; i>=0; i--)
+      int[] indexes = indexesToBeRemoved.stream().mapToInt(i -> i).toArray();
+
+      for (int i = indexes.length - 1; i >= 0; i--)
       {
          dataT.remove(indexes[i]);
       }
-      
-      for(int i = indexes.length-1; i>=0; i--)
+
+      for (int i = indexes.length - 1; i >= 0; i--)
       {
          dataD.remove(indexes[i]);
       }
@@ -393,10 +402,9 @@ public class WordLetterMatching
       {
          if (samenessMap.get(i) != null)
          {
-            if(dataT.size() != samenessMap.get(i).size())
+            if (dataT.size() != samenessMap.get(i).size())
             {
-               makeBothTheSameSize(dataT, samenessMap.get(i),
-                     NEWSPACE);
+               makeBothTheSameSize(dataT, samenessMap.get(i), NEWSPACE);
             }
 
             return samenessMap.get(i);
@@ -406,25 +414,24 @@ public class WordLetterMatching
       return dataD;
    }
 
-   private static void makeBothTheSameSize(
-         List<LetterForAnalysis> other, List<LetterForAnalysis> list,
-         Letter NEWSPACE)
+   private static void makeBothTheSameSize(List<LetterForAnalysis> other,
+         List<LetterForAnalysis> list, Letter NEWSPACE)
    {
-      if(other.size() == list.size())
+      if (other.size() == list.size())
       {
          return;
       }
-      
-      if(other.size() > list.size())
+
+      if (other.size() > list.size())
       {
-         int diff = other.size()-list.size();
+         int diff = other.size() - list.size();
          for (int i = 0; i < diff; i++)
          {
             list.add(0, new LetterForAnalysis(NEWSPACE));
          }
          return;
       }
-      
+
       int diff = list.size() - other.size();
       for (int i = 0; i < diff; i++)
       {
@@ -474,9 +481,10 @@ public class WordLetterMatching
          int deltaCol)
    {
       // nnnnnnnnnndddddddddddddddD
-      // nnnnnnnnnnnntttttttttT   T
-      for (int d = dataD.size() - 1, t = dataT.size() - 1
-            - Math.abs(deltaCol); d >= 0 && t >= 0; d--, t--)
+      // nnnnnnnnnnnntttttttttT T
+      for (int d = dataD.size() - 1,
+            t = dataT.size() - 1 - Math.abs(deltaCol); d >= 0
+                  && t >= 0; d--, t--)
       {
          if (evaluateSame(dataD.get(d), dataT.get(t)) == 1)
          {

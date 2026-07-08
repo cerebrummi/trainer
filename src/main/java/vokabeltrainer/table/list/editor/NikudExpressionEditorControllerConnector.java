@@ -12,6 +12,4 @@ public interface NikudExpressionEditorControllerConnector
 
    void deleteImage(Expression expression, ImageItem item);
 
-	
-
 }

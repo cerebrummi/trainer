@@ -27,7 +27,8 @@ public class ExpressionTable extends JTable
    private ExpressionTableModel model;
 
    public ExpressionTable(ExpressionTableModel dm, Direction language,
-         TableConnector connector, boolean editable, DefaultTableColumnModel columnModel)
+         TableConnector connector, boolean editable,
+         DefaultTableColumnModel columnModel)
    {
       super(dm, columnModel);
       this.model = dm;
@@ -45,21 +46,21 @@ public class ExpressionTable extends JTable
       {
          String editCommand = "enter";
          KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
-         getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
-               .put(enter, editCommand);
+         getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(enter,
+               editCommand);
          getActionMap().put(editCommand, new EnterAction(this, connector));
       }
 
       String selectCommand = "select";
       KeyStroke select = KeyStroke.getKeyStroke(KeyEvent.VK_A, 0);
-      getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
-            .put(select, selectCommand);
+      getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(select,
+            selectCommand);
       getActionMap().put(selectCommand, new SelectAction(this));
-      
+
       String soundCommand = "sound";
       KeyStroke sound = KeyStroke.getKeyStroke(KeyEvent.VK_B, 0);
-      getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
-      .put(sound, soundCommand);
+      getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(sound,
+            soundCommand);
       getActionMap().put(soundCommand, new SoundAction(this));
 
       addMouseListener(new MouseAdapter()
@@ -85,8 +86,7 @@ public class ExpressionTable extends JTable
 
    public String getTableDataToString()
    {
-      return Arrays
-            .stream(model.getTableData())
+      return Arrays.stream(model.getTableData())
             .filter(expressionArray -> expressionArray[0].isDoChange())
             .map(expressionArray -> expressionArray[0].getCopyLines(language))
             .collect(Collectors.joining("\n"));
@@ -94,8 +94,7 @@ public class ExpressionTable extends JTable
 
    public String getSelectedTableDataToString()
    {
-      return Arrays
-            .stream(model.getTableData())
+      return Arrays.stream(model.getTableData())
             .filter(expressionArray -> expressionArray[0].isDoChange())
             .filter(expressionArray -> expressionArray[0].isSelected())
             .map(expressionArray -> expressionArray[0].getCopyLines(language))
@@ -139,38 +138,38 @@ public class ExpressionTable extends JTable
 
    public List<Expression> findExpressionsFromPattern(String inputText)
    {
-      if(inputText.isBlank() || inputText.length() < 2)
+      if (inputText.isBlank() || inputText.length() < 2)
       {
          return Collections.emptyList();
       }
       String regex = ".*" + inputText + ".*";
       Pattern pattern = Pattern.compile(regex);
-      
+
       return Arrays.stream(model.getTableData())
-      .map(expressionArray -> expressionArray[0])
-      .filter(expression -> expression.findPattern(pattern))
-      .collect(Collectors.toList());
+            .map(expressionArray -> expressionArray[0])
+            .filter(expression -> expression.findPattern(pattern))
+            .collect(Collectors.toList());
    }
 
    public boolean scrollToExpression(Expression expression)
    {
-      if(expression == null)
+      if (expression == null)
       {
          return false;
       }
-      
-      for (int i = 0; i< model.getTableData().length; i++)
+
+      for (int i = 0; i < model.getTableData().length; i++)
       {
-         if(model.getTableData()[i][0] == expression)
+         if (model.getTableData()[i][0] == expression)
          {
-            this.scrollRectToVisible(this.getCellRect(i,0, true));
+            this.scrollRectToVisible(this.getCellRect(i, 0, true));
             this.setRowSelectionInterval(i, i);
             this.setColumnSelectionInterval(0, 0);
             this.grabFocus();
             return true;
          }
       }
-      
+
       return false;
    }
 }

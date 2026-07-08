@@ -34,9 +34,8 @@ public class SwedishDocument extends PlainDocument
       {
          if (getLength() + text.length() - length > NUMBER_OF_LETTERS_ALLOWED)
          {
-            text = text
-                  .substring(0,
-                        NUMBER_OF_LETTERS_ALLOWED - (getLength() - length));
+            text = text.substring(0,
+                  NUMBER_OF_LETTERS_ALLOWED - (getLength() - length));
             if (text.isEmpty())
             {
                Toolkit.getDefaultToolkit().beep();
@@ -44,7 +43,8 @@ public class SwedishDocument extends PlainDocument
             }
          }
 
-         List<String> list = LetterHelper.findLetterCodes(text, LetterType.SWEDISH);
+         List<String> list = LetterHelper.findLetterCodes(text,
+               LetterType.SWEDISH);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -75,7 +75,8 @@ public class SwedishDocument extends PlainDocument
             }
          }
 
-         List<String> list = LetterHelper.findLetterCodes(str, LetterType.SWEDISH);
+         List<String> list = LetterHelper.findLetterCodes(str,
+               LetterType.SWEDISH);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -95,8 +96,10 @@ public class SwedishDocument extends PlainDocument
    {
       for (int i = 0; i < list.size(); i++)
       {
-         Letter letter = LetterHelper.getLetterFromCode(list.get(i), LetterType.SWEDISH);
-         String signcode = list.get(i).replace(LetterType.SWEDISH.getRealm(), LetterType.SIGN.getRealm());
+         Letter letter = LetterHelper.getLetterFromCode(list.get(i),
+               LetterType.SWEDISH);
+         String signcode = list.get(i).replace(LetterType.SWEDISH.getRealm(),
+               LetterType.SIGN.getRealm());
          if (letter != null && letter instanceof SwedishLetter)
          {
             // okay
@@ -105,10 +108,8 @@ public class SwedishDocument extends PlainDocument
          else if (signPattern.contains(signcode))
          {
             // okay
-            builder
-                  .append(LetterHelper
-                        .getLetterFromCode(signcode, LetterType.SIGN)
-                        .getUnicode());
+            builder.append(LetterHelper
+                  .getLetterFromCode(signcode, LetterType.SIGN).getUnicode());
          }
          else
          {

@@ -28,7 +28,7 @@ public final class Common
    private static boolean setJFrameOnlyOnce = true;
    private static Translator translator = new Translator();
    private static Settings settings;
-   
+
    private static NimbusLookAndFeel nimbus;
    private static Mode mode;
 
@@ -36,8 +36,7 @@ public final class Common
    {
       // nothing
    }
-   
-      
+
    public static void setUI()
    {
       try
@@ -54,37 +53,42 @@ public final class Common
          UIManager.put("nimbusFocus", ApplicationColors.getSunflowerYellow());
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
          UIManager.put("nimbusSelection", ApplicationColors.getGreen());
-         
+
          UIManager.put("Button.foreground", ApplicationColors.getBlack());
          UIManager.put("List.foreground", ApplicationColors.getDarkGold());
-         
-//         UIManager.put("control", ApplicationColors.getWhite());
-//         UIManager.put("ComboBox.background", ApplicationColors.getDarkGold());
-//         UIManager.put("text", ApplicationColors.getBlack());
-//         UIManager.put("ComboBox.textField", ApplicationColors.getWhite());
-         
-         
+
+         // UIManager.put("control", ApplicationColors.getWhite());
+         // UIManager.put("ComboBox.background",
+         // ApplicationColors.getDarkGold());
+         // UIManager.put("text", ApplicationColors.getBlack());
+         // UIManager.put("ComboBox.textField", ApplicationColors.getWhite());
+
          /*
-         
-         UIManager.put("controlHighlight", ApplicationColors.getLightGrayBlue());
-         UIManager.put("info", ApplicationColors.getWhite());
-         
-         
-         UIManager.put("nimbusBase", ApplicationColors.getGold());
-         UIManager.put("textForeground", ApplicationColors.getGray());
-         UIManager.put("Button.textForeground", ApplicationColors.getBlack());
-         UIManager.put("textBackground", ApplicationColors.getWhite());
-         UIManager.put("nimbusSelectionBackground", ApplicationColors.getRose());
-         UIManager.put("nimbusLightBackground", ApplicationColors.getWhite());
-         UIManager.put("textHighlightText", ApplicationColors.getSunflowerYellow());
-         UIManager.put("textLHighlightText", ApplicationColors.getSunflowerYellow());
-         
-         UIManager.put("TextField.background",
-               ApplicationColors.getLightYellow());
-         UIManager.put("TitledBorder.titleColor", ApplicationColors.getGold());
-         UIManager.put("OptionPane.background", ApplicationColors.getWhite());
-         UIManager.put("Scroller.background", ApplicationColors.getRose());*/
-         
+          * 
+          * UIManager.put("controlHighlight",
+          * ApplicationColors.getLightGrayBlue()); UIManager.put("info",
+          * ApplicationColors.getWhite());
+          * 
+          * 
+          * UIManager.put("nimbusBase", ApplicationColors.getGold());
+          * UIManager.put("textForeground", ApplicationColors.getGray());
+          * UIManager.put("Button.textForeground",
+          * ApplicationColors.getBlack()); UIManager.put("textBackground",
+          * ApplicationColors.getWhite());
+          * UIManager.put("nimbusSelectionBackground",
+          * ApplicationColors.getRose()); UIManager.put("nimbusLightBackground",
+          * ApplicationColors.getWhite()); UIManager.put("textHighlightText",
+          * ApplicationColors.getSunflowerYellow());
+          * UIManager.put("textLHighlightText",
+          * ApplicationColors.getSunflowerYellow());
+          * 
+          * UIManager.put("TextField.background",
+          * ApplicationColors.getLightYellow());
+          * UIManager.put("TitledBorder.titleColor",
+          * ApplicationColors.getGold()); UIManager.put("OptionPane.background",
+          * ApplicationColors.getWhite()); UIManager.put("Scroller.background",
+          * ApplicationColors.getRose());
+          */
 
          UIManager.put("ToolBar:Button.contentMargins",
                new Insets(5, 15, 5, 15));
@@ -139,7 +143,7 @@ public final class Common
                translator.realisticTranslate(Translation.OEFFNEN));
          UIManager.put("FileChooser.saveDialogTitleText",
                translator.realisticTranslate(Translation.SPEICHERN));
-         
+
       }
       catch (UnsupportedLookAndFeelException e3)
       {
@@ -147,7 +151,7 @@ public final class Common
       }
 
    }
-   
+
    public static void setMode(Mode mode)
    {
       Common.mode = mode;
@@ -185,13 +189,14 @@ public final class Common
          setJFrameOnlyOnce = false;
       }
    }
-   
+
    public static LanguageExpressionEditorView getLanguageExpressionEditor()
    {
       return languageExpressionEditor;
    }
 
-   public static void setLanguageExpressionEditor(LanguageExpressionEditorView languageExpressionEditor)
+   public static void setLanguageExpressionEditor(
+         LanguageExpressionEditorView languageExpressionEditor)
    {
       Common.languageExpressionEditor = languageExpressionEditor;
    }
@@ -226,7 +231,7 @@ public final class Common
       ZonedDateTime now = ZonedDateTime.now();
       DayOfWeek day = now.getDayOfWeek();
       int hour = now.getHour();
-      if(day.equals(DayOfWeek.FRIDAY) && hour > 18)
+      if (day.equals(DayOfWeek.FRIDAY) && hour > 18)
       {
          return true;
       }
@@ -234,18 +239,18 @@ public final class Common
       {
          return true;
       }
-      
+
       return false;
    }
-   
+
    public static boolean isSchabbatPossible(LocalDate date)
    {
       DayOfWeek day = date.getDayOfWeek();
-      if(day.equals(DayOfWeek.FRIDAY) || day.equals(DayOfWeek.SATURDAY))
+      if (day.equals(DayOfWeek.FRIDAY) || day.equals(DayOfWeek.SATURDAY))
       {
          return true;
       }
-      
+
       return false;
    }
 }

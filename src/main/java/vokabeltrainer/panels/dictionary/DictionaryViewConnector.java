@@ -17,38 +17,73 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 public interface DictionaryViewConnector
 {
    public void loadChapters();
+
    public void unselectExpressionKind();
+
    public void selectTab(Tabulator caller);
+
    public Direction getSelectedLanguage();
+
    public boolean isTableNotNull();
+
    public String getTableDataToString();
+
    public String getSelectedTableDataToString();
+
    public void clearTableDataSelection();
+
    public void notifyNothingWasSelectedForDeletion();
+
    public int askForDeletionConfirmation(int numberOfExpressionsToBeDeleted);
-   public List<Expression> getInTableSelectedExpressions(boolean exceptDoNotChange);
+
+   public List<Expression> getInTableSelectedExpressions(
+         boolean exceptDoNotChange);
+
    public void selectTableData();
+
    public void displayNoTable();
+
    public Chapter getSelectedChapter();
+
    public ExpressionKind getSelectedExpressionKind();
+
    public SearchType getSelectedSearchTypeGerman();
+
    public SearchType getSelectedSearchTypeHebrew();
+
    public void tablePanelValidateRepaint();
+
    public String getSearchPhraseGerman();
+
    public String getSearchPhraseOther();
+
    public void switchSearchLanguagePanel(String actionCommand);
+
    public void selectChapter(Chapter currentChapter);
+
    public ExpressionTable getTable();
+
    public JScrollPane getTableScroller();
+
    public int askForShredderConfirmation();
+
    public void clearTable();
+
    public void removeChapterListSelectionListener();
+
    public void addChapterListSelectionListener();
+
    public void doShowTable(ExpressionTableModel tableModel);
+
    public void setValues();
+
    public SortingType getSortNow();
+
    public int askForMovingToChapterConfirmation();
+
    public int askForMovingToDatabaseConfirmation();
+
    public void loadDatabases();
+
    public DatabaseTableModel getDatabaseTableModel();
 }

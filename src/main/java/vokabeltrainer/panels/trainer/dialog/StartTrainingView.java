@@ -46,11 +46,11 @@ public class StartTrainingView extends JDialog
       training = false;
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       setSize(Math.min(screenSize.width - 60, 1500),
-              Math.min(screenSize.height - 60, 700));
+            Math.min(screenSize.height - 60, 700));
       layout = new JPanel();
       layout.setBackground(TrainerColors.getPanelBackground());
-      layout.setBorder(BorderFactory.createLineBorder(TrainerColors.getPanelBackground(),
-            15, false));
+      layout.setBorder(BorderFactory
+            .createLineBorder(TrainerColors.getPanelBackground(), 15, false));
       layout.setLayout(new BorderLayout());
       getContentPane().add(layout);
 
@@ -58,7 +58,8 @@ public class StartTrainingView extends JDialog
       tabbedPane.setFont(ApplicationFonts.getToolbarButtonFont());
       layout.add(tabbedPane, BorderLayout.CENTER);
 
-      tabbedPane.addTab(translator.realisticTranslate(Translation.GEBIET), new ImageIcon(ApplicationImages.getArrow()),
+      tabbedPane.addTab(translator.realisticTranslate(Translation.GEBIET),
+            new ImageIcon(ApplicationImages.getArrow()),
             new FieldOfTrainingTab(this));
    }
 
@@ -124,13 +125,14 @@ public class StartTrainingView extends JDialog
       this.oldExpressions = oldExpressions;
    }
 
-   public Set<String> getDatabaseNames() 
+   public Set<String> getDatabaseNames()
    {
-	return this.databaseNames;
+      return this.databaseNames;
    }
 
-   public void setDatabaseNames(Set<String> databaseNames) {
-	this.databaseNames = databaseNames;
+   public void setDatabaseNames(Set<String> databaseNames)
+   {
+      this.databaseNames = databaseNames;
    }
 
 }

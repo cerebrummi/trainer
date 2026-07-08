@@ -56,7 +56,8 @@ public class ExpressionListCellRenderer
       }
       else if (index == 1)
       {
-         if(LetterHelper.findLetterTypeLanguages((String)value) == LetterType.HEBREW)
+         if (LetterHelper
+               .findLetterTypeLanguages((String) value) == LetterType.HEBREW)
          {
             label.setFont(ApplicationFonts.getHebrewFont(20F));
             label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -72,8 +73,8 @@ public class ExpressionListCellRenderer
          label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
       }
 
-      label.setPreferredSize(new Dimension(1380,100));
-      
+      label.setPreferredSize(new Dimension(1380, 100));
+
       return new JScrollPane(label);
    }
 }

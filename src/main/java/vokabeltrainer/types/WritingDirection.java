@@ -8,7 +8,7 @@ public enum WritingDirection
    RIGHT_TO_LEFT(ComponentOrientation.RIGHT_TO_LEFT);
 
    private ComponentOrientation componentOrientation;
-   
+
    WritingDirection(ComponentOrientation componentOrientation)
    {
       this.componentOrientation = componentOrientation;

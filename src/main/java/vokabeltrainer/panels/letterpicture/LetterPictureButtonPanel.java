@@ -101,7 +101,7 @@ public class LetterPictureButtonPanel extends JPanel
       letterButton.addActionListener(_ -> {
          layout.next(this);
       });
-      
+
       letterHandwrittenButton.addActionListener(_ -> {
          layout.next(this);
       });
@@ -185,9 +185,9 @@ public class LetterPictureButtonPanel extends JPanel
       else
       {
          letterButton = new JButton(
-               new ImageIcon(ApplicationImages.getLetterIconsNikudMap().get(letter)
-                     .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
-                           java.awt.Image.SCALE_SMOOTH)));
+               new ImageIcon(ApplicationImages.getLetterIconsNikudMap()
+                     .get(letter).getScaledInstance(scale.getScaleX(),
+                           scale.getScaleY(), java.awt.Image.SCALE_SMOOTH)));
          letterButton.setFont(ApplicationFonts.getHebrewFont(30F));
          letterButton.setBorder(BorderFactory.createEmptyBorder());
          letterButton.setContentAreaFilled(false);
@@ -197,7 +197,7 @@ public class LetterPictureButtonPanel extends JPanel
 
       letterCard.add(letterButton, BorderLayout.CENTER);
    }
-   
+
    private void initLetterHandwrittenCard()
    {
       letterHandwrittenCard = new JPanel(new BorderLayout());
@@ -212,11 +212,12 @@ public class LetterPictureButtonPanel extends JPanel
       }
       else
       {
-         letterHandwrittenButton = new JButton(
-               new ImageIcon(ApplicationImages.getLetterIconsNikudHandwrittenMap().get(letter)
+         letterHandwrittenButton = new JButton(new ImageIcon(
+               ApplicationImages.getLetterIconsNikudHandwrittenMap().get(letter)
                      .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                            java.awt.Image.SCALE_SMOOTH)));
-         letterHandwrittenButton.setFont(ApplicationFonts.getHebrewHandwrittenFont(30F));
+         letterHandwrittenButton
+               .setFont(ApplicationFonts.getHebrewHandwrittenFont(30F));
          letterHandwrittenButton.setBorder(BorderFactory.createEmptyBorder());
          letterHandwrittenButton.setContentAreaFilled(false);
          letterHandwrittenButton.setMargin(new Insets(-10, 0, 0, 0));
@@ -231,16 +232,16 @@ public class LetterPictureButtonPanel extends JPanel
       pictureCard = new JPanel(new BorderLayout());
       pictureCard.setOpaque(false);
       pictureCard.setPreferredSize(new Dimension(50, 50));
-      if(picture != null)
+      if (picture != null)
       {
          pictureButton = new JButton(new ImageIcon(picture));
       }
       else
       {
          pictureButton = new JButton(
-               new ImageIcon(ApplicationImages.getLetterIconsNikudMap().get(letter)
-                     .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
-                           java.awt.Image.SCALE_SMOOTH)));
+               new ImageIcon(ApplicationImages.getLetterIconsNikudMap()
+                     .get(letter).getScaledInstance(scale.getScaleX(),
+                           scale.getScaleY(), java.awt.Image.SCALE_SMOOTH)));
       }
       pictureButton.setBorder(BorderFactory.createEmptyBorder());
       pictureButton.setMargin(new Insets(0, 0, 0, 0));

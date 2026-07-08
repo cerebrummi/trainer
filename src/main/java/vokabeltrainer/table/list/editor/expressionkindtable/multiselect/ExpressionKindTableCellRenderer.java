@@ -15,19 +15,21 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
-public class ExpressionKindTableCellRenderer implements TableCellRenderer, TableCellEditor
+public class ExpressionKindTableCellRenderer
+      implements TableCellRenderer, TableCellEditor
 {
 
    private JLabel selected;
    private JLabel empty;
    private JLabel expressionKind;
 
-   public ExpressionKindTableCellRenderer() // multiple selection possible, except unknown selection row 0
+   public ExpressionKindTableCellRenderer() // multiple selection possible,
+                                            // except unknown selection row 0
    {
       selected = new JLabel(new ImageIcon(ApplicationImages.getSelectDone()));
       selected.setBackground(ApplicationColors.getTransparent());
       selected.setOpaque(false);
-      
+
       empty = new JLabel();
       empty.setBackground(ApplicationColors.getTransparent());
       empty.setOpaque(false);
@@ -91,24 +93,27 @@ public class ExpressionKindTableCellRenderer implements TableCellRenderer, Table
    public Component getTableCellRendererComponent(JTable table, Object value,
          boolean isSelected, boolean hasFocus, int row, int column)
    {
-      ExpressionKindItem expressionKind = ((ExpressionKindTableRow) value).getExpressionKindItem();
-      
-      if(row == 0 && expressionKind.isSelected())
+      ExpressionKindItem expressionKind = ((ExpressionKindTableRow) value)
+            .getExpressionKindItem();
+
+      if (row == 0 && expressionKind.isSelected())
       {
          for (int i = 1; i < table.getRowCount(); i++)
          {
-            ExpressionKindTableRow rowValue = (ExpressionKindTableRow) table.getValueAt(i, 1);
+            ExpressionKindTableRow rowValue = (ExpressionKindTableRow) table
+                  .getValueAt(i, 1);
             rowValue.getExpressionKindItem().setSelected(false);
             table.setValueAt(rowValue, i, 1);
          }
       }
-      else if(row >  0 && expressionKind.isSelected())
+      else if (row > 0 && expressionKind.isSelected())
       {
-         ExpressionKindTableRow rowValue = (ExpressionKindTableRow) table.getValueAt(0, 1);
+         ExpressionKindTableRow rowValue = (ExpressionKindTableRow) table
+               .getValueAt(0, 1);
          rowValue.getExpressionKindItem().setSelected(false);
          table.setValueAt(rowValue, 0, 1);
       }
-      
+
       if (column == 0)
       {
          if (expressionKind.isSelected())

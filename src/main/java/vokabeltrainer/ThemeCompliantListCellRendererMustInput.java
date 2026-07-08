@@ -8,7 +8,8 @@ import javax.swing.ListCellRenderer;
 
 import vokabeltrainer.common.ApplicationColors;
 
-public class ThemeCompliantListCellRendererMustInput implements ListCellRenderer<String>
+public class ThemeCompliantListCellRendererMustInput
+      implements ListCellRenderer<String>
 {
    private ListCellRenderer<Object> wrappedRenderer = new DefaultListCellRenderer();
 

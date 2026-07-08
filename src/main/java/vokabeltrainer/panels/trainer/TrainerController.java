@@ -164,10 +164,10 @@ public class TrainerController implements TrainerControllerConnector
       trainerView.getFocusTraversalPolicy().getFirstComponent(null)
             .requestFocus();
    }
-   
+
    private void setGrammarInfo(boolean show)
    {
-      if(show)
+      if (show)
       {
          setGrammarInfo();
       }
@@ -188,7 +188,9 @@ public class TrainerController implements TrainerControllerConnector
                .setText(currentExpression.getOwnLanguage());
          trainerView.getQuestionFieldGerman().validate();
          trainerView.getQuestionFieldGerman().repaint();
-         trainerView.getGrammarInfo().setSelected(currentExpression.isVisible()); // only in this languageDirection
+         trainerView.getGrammarInfo()
+               .setSelected(currentExpression.isVisible()); // only in this
+                                                            // languageDirection
          this.setGrammarInfo(currentExpression.isVisible());
          break;
       case HEBREW_TO_OWN:
@@ -551,16 +553,17 @@ public class TrainerController implements TrainerControllerConnector
          @Override
          protected Void doInBackground() throws Exception
          {
-            try(Clip clip = AudioSystem.getClip())
+            try (Clip clip = AudioSystem.getClip())
             {
                clip.open(ApplicationSound.getWaveSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
                volume.setValue(Settings.getVolume());
                clip.start();
-               do {
+               do
+               {
                   Thread.sleep(100);
-              } while (clip.isRunning());
+               } while (clip.isRunning());
             }
             catch (LineUnavailableException | IOException e)
             {

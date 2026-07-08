@@ -29,8 +29,9 @@ public class LearningLanguage
       }
    }
 
-   public LearningLanguage(String hebrew, String hebrewPlene, String hebrewDefektiv,
-         boolean simpleHebrew, String swedish, String german)
+   public LearningLanguage(String hebrew, String hebrewPlene,
+         String hebrewDefektiv, boolean simpleHebrew, String swedish,
+         String german)
    {
       this.hebrew = hebrew;
       this.hebrewPlene = hebrewPlene;
@@ -38,11 +39,11 @@ public class LearningLanguage
       this.simpleHebrew = simpleHebrew;
       this.swedish = swedish;
       this.german = german;
-      if(!this.swedish.isBlank())
+      if (!this.swedish.isBlank())
       {
          this.lltype = LLType.SWEDISH;
       }
-      else if(!this.german.isBlank())
+      else if (!this.german.isBlank())
       {
          this.lltype = LLType.GERMAN;
       }
@@ -66,12 +67,12 @@ public class LearningLanguage
    {
       return this.lltype == LLType.HEBREW && simpleHebrew;
    }
-   
+
    public boolean isPleneDefektiv()
    {
       return this.lltype == LLType.HEBREW && !simpleHebrew;
    }
-   
+
    public boolean isSwedish()
    {
       return LLType.SWEDISH == this.lltype;
@@ -81,7 +82,7 @@ public class LearningLanguage
    {
       return LLType.GERMAN == this.lltype;
    }
-   
+
    public void setSimpleHebrew(boolean simpleHebrew)
    {
       this.simpleHebrew = simpleHebrew;
@@ -111,14 +112,14 @@ public class LearningLanguage
    {
       return hebrew;
    }
-   
+
    public String getHebrewNoMatterWhichKind()
    {
-      if(simpleHebrew)
+      if (simpleHebrew)
       {
          return hebrew;
       }
-      
+
       return hebrewPlene + " | " + hebrewDefektiv;
    }
 
@@ -154,37 +155,37 @@ public class LearningLanguage
       {
          return swedish;
       }
-      
+
       if (!this.german.isBlank())
       {
          return german;
       }
-      
+
       if (this.simpleHebrew)
       {
          return hebrew;
       }
-      
+
       return hebrewPlene + " | " + hebrewDefektiv;
    }
-   
+
    public String toTableEntry()
    {
-      if(this.isSwedish())
+      if (this.isSwedish())
       {
          return swedish;
       }
-      
+
       if (this.simpleHebrew)
-      {  
+      {
          return hebrew;
       }
-      
-      if(this.isGerman())
+
+      if (this.isGerman())
       {
          return german;
       }
-      
+
       return hebrewPlene + " | " + hebrewDefektiv;
    }
 

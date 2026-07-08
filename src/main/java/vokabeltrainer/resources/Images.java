@@ -129,9 +129,9 @@ public class Images
 
       ApplicationImages.setOkaySave(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/okay-save.png")));
-      
-      ApplicationImages.setOkaySaveIcon(ImageIO
-            .read(Images.class.getResourceAsStream("_2_images/okay-save_icon.png")));
+
+      ApplicationImages.setOkaySaveIcon(ImageIO.read(
+            Images.class.getResourceAsStream("_2_images/okay-save_icon.png")));
 
       ApplicationImages.setRestore(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/restore.png")));
@@ -187,24 +187,24 @@ public class Images
 
       ApplicationImages.setLogoFolder(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/iconFolder.png")));
-      
+
       ApplicationImages.setLogoFolderEmpty(ImageIO.read(
-              Images.class.getResourceAsStream("_2_images/iconFolderEmpty.png")));
-      
+            Images.class.getResourceAsStream("_2_images/iconFolderEmpty.png")));
+
       ApplicationImages.setIcon_notes(ImageIO.read(
-              Images.class.getResourceAsStream("_2_images/icon_notes.png")));
-      
-      ApplicationImages.setIcon_eye(ImageIO.read(
-              Images.class.getResourceAsStream("_2_images/icon_eye.png")));
-      
-      ApplicationImages.setIcon_bulb(ImageIO.read(
-            Images.class.getResourceAsStream("_2_images/icon_bulb.png")));
-      
+            Images.class.getResourceAsStream("_2_images/icon_notes.png")));
+
+      ApplicationImages.setIcon_eye(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/icon_eye.png")));
+
+      ApplicationImages.setIcon_bulb(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/icon_bulb.png")));
+
       ApplicationImages.setIcon_bulb_on(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/icon_bulb_on.png")));
-      
-      ApplicationImages.setScroll(ImageIO.read(
-            Images.class.getResourceAsStream("_2_images/scroll.png")));
+
+      ApplicationImages.setScroll(ImageIO
+            .read(Images.class.getResourceAsStream("_2_images/scroll.png")));
    }
 
 }

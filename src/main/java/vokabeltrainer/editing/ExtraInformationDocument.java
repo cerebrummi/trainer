@@ -56,7 +56,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          {
             super.replace(offset, length, text, attrs);
          }
-         
+
          return;
       }
       super.replace(offset, length, text, attrs);
@@ -78,8 +78,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             }
          }
 
-         List<String> list = LetterHelper.findLetterCodes(str,
-               LetterType.NONE);
+         List<String> list = LetterHelper.findLetterCodes(str, LetterType.NONE);
          StringBuilder builder = new StringBuilder();
 
          if (list == null || list.isEmpty())
@@ -88,11 +87,11 @@ public class ExtraInformationDocument extends DefaultStyledDocument
             return;
          }
 
-         if(checking(list, builder))
+         if (checking(list, builder))
          {
             super.insertString(offset, str, attr);
          }
-         
+
          return;
       }
       super.insertString(offset, str, attr);
@@ -105,7 +104,7 @@ public class ExtraInformationDocument extends DefaultStyledDocument
          String code = list.get(i);
          //
          if (exclusionPattern.contains(code))
-         { 
+         {
             return false;
          }
       }

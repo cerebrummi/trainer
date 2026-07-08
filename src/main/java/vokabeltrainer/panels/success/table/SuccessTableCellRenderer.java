@@ -23,7 +23,7 @@ public class SuccessTableCellRenderer
    private JLabel selected;
    private JLabel empty;
    private JLabel chapter;
-   
+
    private SuccessList content;
 
    public SuccessTableCellRenderer()
@@ -31,7 +31,7 @@ public class SuccessTableCellRenderer
       selected = new JLabel(new ImageIcon(ApplicationImages.getSelect()));
       selected.setBackground(SuccessColors.getTableBackground());
       selected.setOpaque(true);
-      
+
       empty = new JLabel();
       empty.setBackground(SuccessColors.getTableBackground());
       empty.setOpaque(true);
@@ -40,8 +40,9 @@ public class SuccessTableCellRenderer
       content = new SuccessList();
       content.setBackground(SuccessColors.getTableBackground());
       content.setForeground(SuccessColors.getTextForeground());
-      content.setOpaque(true);;
-      
+      content.setOpaque(true);
+      ;
+
       chapter = new JLabel();
       chapter.setFont(ApplicationFonts.getGermanFont(20));
       chapter.setBackground(SuccessColors.getTableBackground());
@@ -117,12 +118,13 @@ public class SuccessTableCellRenderer
          }
       }
 
-      if(column == 1)
+      if (column == 1)
       {
-         content.setListData(expression.getGermanHebrewGrammarArrayForSuccess());
+         content
+               .setListData(expression.getGermanHebrewGrammarArrayForSuccess());
          return this.content;
       }
-      
+
       chapter.setText(expression.getChapter().getName());
       return chapter;
    }

@@ -30,7 +30,7 @@ public class FieldOfTrainingTab extends JPanel
    private JRadioButton onceButton;
    private JButton nextButton;
    private JButton cancelButton;
-   
+
    private Translator translator = Common.getTranslator();
 
    public FieldOfTrainingTab(StartTrainingView dialog)
@@ -39,7 +39,8 @@ public class FieldOfTrainingTab extends JPanel
       setBackground(TrainerColors.getPanelBackgroundDark());
       setOpaque(true);
 
-      JLabel question = new JLabel(translator.realisticTranslate(Translation.WOHER_SOLLEN_DIE_VOKABELN_STAMMEN_));
+      JLabel question = new JLabel(translator.realisticTranslate(
+            Translation.WOHER_SOLLEN_DIE_VOKABELN_STAMMEN_));
       question.setForeground(TrainerColors.getTextForeground());
       question.setFont(ApplicationFonts.getButtonFont());
       question.setOpaque(false);
@@ -55,25 +56,29 @@ public class FieldOfTrainingTab extends JPanel
       vertical.setLayout(new BoxLayout(vertical, 1));
       vertical.setOpaque(false);
 
-      chapterButton = new JRadioButton(translator.realisticTranslate(Translation.AUS_DEN_LEKTIONEN));
+      chapterButton = new JRadioButton(
+            translator.realisticTranslate(Translation.AUS_DEN_LEKTIONEN));
       chapterButton.setBackground(TrainerColors.getButton());
       chapterButton.setForeground(TrainerColors.getTextForeground());
       chapterButton.setFont(ApplicationFonts.getToolbarButtonFont());
       chapterButton.setActionCommand(FieldOfTraining.AREA_CHAPTER.name());
       areaGroup.add(chapterButton);
 
-      selectedButton = new JRadioButton(translator.realisticTranslate(Translation.AUS_DEN_AUSGEWAEHLTEN_WOERTERN));
+      selectedButton = new JRadioButton(translator
+            .realisticTranslate(Translation.AUS_DEN_AUSGEWAEHLTEN_WOERTERN));
       selectedButton.setBackground(TrainerColors.getButton());
       selectedButton.setForeground(TrainerColors.getTextForeground());
       selectedButton.setFont(ApplicationFonts.getToolbarButtonFont());
       selectedButton.setActionCommand(FieldOfTraining.AREA_SELECTED.name());
       areaGroup.add(selectedButton);
-      
-      onceButton = new JRadioButton(translator.realisticTranslate(Translation.AUS_DEN_AUSGEWAEHLTEN_WOERTERN_EINMAL));
+
+      onceButton = new JRadioButton(translator.realisticTranslate(
+            Translation.AUS_DEN_AUSGEWAEHLTEN_WOERTERN_EINMAL));
       onceButton.setBackground(TrainerColors.getButton());
       onceButton.setForeground(TrainerColors.getTextForeground());
       onceButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      onceButton.setActionCommand(FieldOfTraining.AREA_SELECTED_TEMPORARY.name());
+      onceButton
+            .setActionCommand(FieldOfTraining.AREA_SELECTED_TEMPORARY.name());
       areaGroup.add(onceButton);
 
       vertical.add(chapterButton);
@@ -85,20 +90,22 @@ public class FieldOfTrainingTab extends JPanel
 
       JPanel buttonWrapper = new JPanel(new FlowLayout());
       buttonWrapper.setOpaque(false);
-      
-      cancelButton = new JButton(translator.realisticTranslate(Translation.ABBRECHEN));
+
+      cancelButton = new JButton(
+            translator.realisticTranslate(Translation.ABBRECHEN));
       cancelButton.setBackground(TrainerColors.getButton());
       cancelButton.setForeground(TrainerColors.getButtonForeground());
       cancelButton.setFont(ApplicationFonts.getButtonFont());
       cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
-      
-      nextButton = new JButton(translator.realisticTranslate(Translation.WEITER));
+
+      nextButton = new JButton(
+            translator.realisticTranslate(Translation.WEITER));
       nextButton.setBackground(TrainerColors.getButton());
       nextButton.setForeground(TrainerColors.getButtonForeground());
       nextButton.setFont(ApplicationFonts.getButtonFont());
       nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));
       nextButton.setEnabled(false);
-      
+
       buttonWrapper.add(cancelButton);
       buttonWrapper.add(nextButton);
       add(buttonWrapper, BorderLayout.SOUTH);
@@ -114,7 +121,7 @@ public class FieldOfTrainingTab extends JPanel
          removeTabsToTheRight(dialog);
          nextButton.setEnabled(true);
       });
-      
+
       onceButton.addActionListener(_ -> {
          dialog.setFieldOfTraining(FieldOfTraining.AREA_SELECTED_TEMPORARY);
          removeTabsToTheRight(dialog);
@@ -125,13 +132,14 @@ public class FieldOfTrainingTab extends JPanel
 
          if (dialog.getTabbedPane().getTabCount() == 1)
          {
-            dialog.getTabbedPane().addTab(translator.realisticTranslate(Translation.RICHTUNG),
+            dialog.getTabbedPane().addTab(
+                  translator.realisticTranslate(Translation.RICHTUNG),
                   new ImageIcon(ApplicationImages.getArrow()),
                   new DirectionTab(dialog));
          }
          dialog.getTabbedPane().setSelectedIndex(1);
       });
-      
+
       cancelButton.addActionListener(_ -> {
          dialog.cancelTrainingStart();
       });
@@ -150,7 +158,7 @@ public class FieldOfTrainingTab extends JPanel
       }
       else if (dialog.getTabbedPane().getTabCount() == 4)
       {
-    	 dialog.getTabbedPane().remove(3);
+         dialog.getTabbedPane().remove(3);
          dialog.getTabbedPane().remove(2);
          dialog.getTabbedPane().remove(1);
       }

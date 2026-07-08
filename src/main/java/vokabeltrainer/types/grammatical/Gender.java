@@ -56,14 +56,14 @@ public enum Gender implements GrammaticalEnum
       case NEUTRUM:
          return translator.realisticTranslate(description);
       case GENDER_UNKNOWN:
-         return translator.realisticTranslate(Translation.GESCHLECHT)
-               + " " + translator.realisticTranslate(description);
+         return translator.realisticTranslate(Translation.GESCHLECHT) + " "
+               + translator.realisticTranslate(description);
       case GENDER_NA:
       default:
          return "";
       }
    }
-   
+
    public String toInfo()
    {
       Translator translator = Common.getTranslator();
@@ -82,7 +82,7 @@ public enum Gender implements GrammaticalEnum
          return "";
       }
    }
-   
+
    @Override
    public Gender fromEnumName(String name)
    {
@@ -94,7 +94,7 @@ public enum Gender implements GrammaticalEnum
    {
       return GrammaticalParentEnum.GENDER;
    }
-   
+
    @Override
    public int getPrintOrderNumber()
    {
@@ -106,27 +106,26 @@ public enum Gender implements GrammaticalEnum
    {
       return Gender.GENDER_UNKNOWN;
    }
-   
+
    public static Gender[] values(Expression expression)
    {
       LLType learningLanguageType = expression.getLL().getLltype();
-      return values(learningLanguageType);  
+      return values(learningLanguageType);
    }
 
    public static Gender[] values(LLType learningLanguageType)
    {
       List<Gender> list = new ArrayList<>();
-      for(Gender g: Gender.values())
+      for (Gender g : Gender.values())
       {
-         innerloop:
-            for(LLType l : g.llType)
+         innerloop: for (LLType l : g.llType)
+         {
+            if (l == learningLanguageType)
             {
-               if(l == learningLanguageType)
-               {
-                  list.add(g);
-                  break innerloop;
-               }
+               list.add(g);
+               break innerloop;
             }
+         }
       }
       return list.toArray(new Gender[0]);
    }

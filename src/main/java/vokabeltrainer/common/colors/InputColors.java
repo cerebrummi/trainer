@@ -15,25 +15,25 @@ public class InputColors
 
    public static Color getEditorBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.mediumSilverBlue;
    }
-   
+
    public static Color getTextEditorBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.lightGold;
       }
       return ApplicationColors.veryLightGold;
    }
-   
+
    public static Color getPanelBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlueLight;
       }
@@ -42,7 +42,7 @@ public class InputColors
 
    public static Color getButtonBorder()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.green;
       }
@@ -51,16 +51,16 @@ public class InputColors
 
    public static Color getButton()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getButton2()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.lightGold;
       }
@@ -74,16 +74,16 @@ public class InputColors
 
    public static Color getTextBackground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.mediumSilverBlue;
       }
       return ApplicationColors.backgroundGold;
    }
-   
+
    public static Color getTextForeground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.white;
       }
@@ -92,7 +92,7 @@ public class InputColors
 
    public static Color getInfoTextForeground()
    {
-      if(Settings.isDarkmodeOn())
+      if (Settings.isDarkmodeOn())
       {
          return ApplicationColors.shadyBlue;
       }

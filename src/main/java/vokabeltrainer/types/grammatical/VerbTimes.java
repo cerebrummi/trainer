@@ -81,8 +81,8 @@ public enum VerbTimes
       case CONSTRUCTION:
          return translator.realisticTranslate(description);
       case VERBTIMES_UNKNOWN:
-         return translator.realisticTranslate(Translation.ZEITFORM)
-               + " " + translator.realisticTranslate(description);
+         return translator.realisticTranslate(Translation.ZEITFORM) + " "
+               + translator.realisticTranslate(description);
       case VERBTIMES_NA:
       default:
          return "";
@@ -139,22 +139,21 @@ public enum VerbTimes
    {
       return VerbTimes.VERBTIMES_UNKNOWN;
    }
-   
+
    public static VerbTimes[] values(Expression expression)
    {
       LLType learningLanguageType = expression.getLL().getLltype();
-      return values(learningLanguageType);  
+      return values(learningLanguageType);
    }
 
    public static VerbTimes[] values(LLType learningLanguageType)
    {
       List<VerbTimes> list = new ArrayList<>();
-      for(VerbTimes v: VerbTimes.values())
+      for (VerbTimes v : VerbTimes.values())
       {
-         innerloop:
-         for(LLType l : v.llType)
+         innerloop: for (LLType l : v.llType)
          {
-            if(l == learningLanguageType)
+            if (l == learningLanguageType)
             {
                list.add(v);
                break innerloop;

@@ -10,9 +10,9 @@ public class OkayExpressionsSavedNotification
 
    private OkayExpressionsSavedNotification()
    {
-      
+      // nothing
    }
-   
+
    public static void display()
    {
       JDialog dialog = new OkayExpressionsSavedDialog();

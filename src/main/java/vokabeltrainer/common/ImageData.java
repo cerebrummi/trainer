@@ -30,7 +30,7 @@ public final class ImageData
 
    private ImageData()
    {
-
+      // nothing
    }
 
    static void initImageDataBase()

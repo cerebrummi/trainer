@@ -13,11 +13,11 @@ public class TrainingTableColumnModel extends DefaultTableColumnModel
 
    private TrainingTableCellRendererEditor rendererEditor;
    private Translator translator = Common.getTranslator();
-   
+
    public TrainingTableColumnModel()
    {
       rendererEditor = new TrainingTableCellRendererEditor();
-    
+
       TableColumn column = new TableColumn();
       column.setHeaderValue(translator.realisticTranslate(Translation.KAPITEL));
       column.setCellRenderer(rendererEditor);
@@ -26,21 +26,24 @@ public class TrainingTableColumnModel extends DefaultTableColumnModel
       addColumn(column);
 
       TableColumn column1 = new TableColumn();
-      column1.setHeaderValue(translator.realisticTranslate(Translation.WIEDERHOLEN));
+      column1.setHeaderValue(
+            translator.realisticTranslate(Translation.WIEDERHOLEN));
       column1.setCellRenderer(rendererEditor);
       column1.setCellEditor(rendererEditor);
       column1.setPreferredWidth(50);
       addColumn(column1);
 
       TableColumn column2 = new TableColumn();
-      column2.setHeaderValue(translator.realisticTranslate(Translation.UNGELERNT));
+      column2.setHeaderValue(
+            translator.realisticTranslate(Translation.UNGELERNT));
       column2.setCellRenderer(rendererEditor);
       column2.setCellEditor(rendererEditor);
       column2.setPreferredWidth(50);
       addColumn(column2);
 
       TableColumn column3 = new TableColumn();
-      column3.setHeaderValue(translator.realisticTranslate(Translation.NEU_LERNEN));
+      column3.setHeaderValue(
+            translator.realisticTranslate(Translation.NEU_LERNEN));
       column3.setCellRenderer(rendererEditor);
       column3.setCellEditor(rendererEditor);
       column3.setPreferredWidth(50);
