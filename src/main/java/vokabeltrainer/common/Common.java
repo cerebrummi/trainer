@@ -53,9 +53,10 @@ public final class Common
 
          UIManager.put("nimbusFocus", ApplicationColors.getSunflowerYellow());
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
+         UIManager.put("nimbusSelection", ApplicationColors.getGreen());
          
          UIManager.put("Button.foreground", ApplicationColors.getBlack());
-         UIManager.put("List.foreground", ApplicationColors.getBlack());
+         UIManager.put("List.foreground", ApplicationColors.getDarkGold());
          
 //         UIManager.put("control", ApplicationColors.getWhite());
 //         UIManager.put("ComboBox.background", ApplicationColors.getDarkGold());
@@ -84,6 +85,7 @@ public final class Common
          UIManager.put("OptionPane.background", ApplicationColors.getWhite());
          UIManager.put("Scroller.background", ApplicationColors.getRose());*/
          
+
          UIManager.put("ToolBar:Button.contentMargins",
                new Insets(5, 15, 5, 15));
 

@@ -16,8 +16,15 @@ public class ExpressionColumnModel extends DefaultTableColumnModel
       ExpressionCellRenderer rendererEditor = new ExpressionCellRenderer(
             language);
       column.setCellRenderer(rendererEditor);
-      column.setCellEditor(rendererEditor);
+      column.setMinWidth(column.getWidth()-60);
       addColumn(column);
+      
+      TableColumn column2 = new TableColumn();
+      column2.setHeaderRenderer(null);
+      ExpressionCellRenderer2 rendererEditor2 = new ExpressionCellRenderer2();
+      column2.setCellRenderer(rendererEditor2);
+      column2.setMaxWidth(60);
+      addColumn(column2);
    }
 
 }

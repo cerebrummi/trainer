@@ -33,7 +33,8 @@ public class ApplicationImages
    private static BufferedImage start;
    private static BufferedImage stop;
    private static BufferedImage search;
-   private static BufferedImage okaySave;
+   private static BufferedImage okaySave; // small
+   private static BufferedImage okaySaveIcon; // big
    private static BufferedImage empty;
    private static BufferedImage infoCursor;
    private static BufferedImage infoButtonIcon;
@@ -53,6 +54,7 @@ public class ApplicationImages
    private static BufferedImage logo150;
    private static BufferedImage logo;
    private static BufferedImage logoFolder;
+   private static BufferedImage logoFolderEmpty;
 
    private static BufferedImage turn;
    private static BufferedImage answerOkay;
@@ -69,7 +71,6 @@ public class ApplicationImages
 
    private static BufferedImage back;
    private static BufferedImage lock;
-   private static BufferedImage lockEye;
    private static BufferedImage eyeOnly;
    private static BufferedImage eye;
    private static BufferedImage languages;
@@ -80,6 +81,13 @@ public class ApplicationImages
    private static BufferedImage questionsAndAnswers2;
    
    private static BufferedImage darkmode;
+   
+   private static BufferedImage icon_notes;
+   private static BufferedImage icon_eye;
+   private static BufferedImage icon_bulb;
+   private static BufferedImage icon_bulb_on;
+   
+   private static BufferedImage scroll;
 
    private static Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    private static Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap;
@@ -356,18 +364,33 @@ public class ApplicationImages
       ApplicationImages.search = search;
    }
 
-   public static BufferedImage getOkaySave()
+   public static BufferedImage getOkaySaveIcon()
    {
-      return okaySave;
+      return okaySaveIcon;
    }
+
+   public static void setOkaySaveIcon(BufferedImage okaySaveIcon)
+   {
+      if (okaySaveIcon == null)
+      {
+         exitWithMessage("kein OkaySave Icon");
+      }
+      ApplicationImages.okaySaveIcon = okaySaveIcon;
+   }
+   
 
    public static void setOkaySave(BufferedImage okaySave)
    {
       if (okaySave == null)
       {
-         exitWithMessage("kein OkaySave Icon");
+         exitWithMessage("kein OkaySave");
       }
       ApplicationImages.okaySave = okaySave;
+   }
+   
+   public static BufferedImage getOkaySave()
+   {
+      return okaySave;
    }
 
    public static BufferedImage getEmpty()
@@ -940,20 +963,6 @@ public class ApplicationImages
       ApplicationImages.lock = lock;
    }
 
-   public static BufferedImage getLockEye()
-   {
-      return lockEye;
-   }
-
-   public static void setLockEye(BufferedImage lockEye)
-   {
-      if (lockEye == null)
-      {
-         exitWithMessage("kein Schloss und Auge Icon");
-      }
-      ApplicationImages.lockEye = lockEye;
-   }
-
    public static BufferedImage getEyeOnly()
    {
       return eyeOnly;
@@ -1024,5 +1033,90 @@ public class ApplicationImages
       ApplicationImages.logoFolder = logoFolder;
    }
 
+   public static BufferedImage getLogoFolderEmpty()
+   {
+      return logoFolderEmpty;
+   }
+
+   public static void setLogoFolderEmpty(BufferedImage logoFolderEmpty)
+   {
+      if (logoFolderEmpty == null)
+      {
+         exitWithMessage("kein Logo Folder Icon Empty");
+      }
+      ApplicationImages.logoFolderEmpty = logoFolderEmpty;
+   }
+
+   public static BufferedImage getIcon_notes() 
+   {
+	return icon_notes;
+   }
+
+   public static void setIcon_notes(BufferedImage icon_notes) 
+   {
+	   if (icon_notes == null)
+	      {
+	         exitWithMessage("kein Icon Notes");
+	      }
+	ApplicationImages.icon_notes = icon_notes;
+   }
+
+   public static BufferedImage getIcon_eye() 
+   {
+	return icon_eye;
+   }
+
+   public static void setIcon_eye(BufferedImage icon_eye) 
+   {
+	   if (icon_eye == null)
+	      {
+	         exitWithMessage("kein Icon Eye");
+	      }
+	ApplicationImages.icon_eye = icon_eye;
+   }
    
+   public static BufferedImage getIcon_bulb() 
+   {
+        return icon_bulb;
+   }
+
+   public static void setIcon_bulb(BufferedImage icon_bulb) 
+   {
+           if (icon_bulb == null)
+              {
+                 exitWithMessage("kein Icon Bulb");
+              }
+        ApplicationImages.icon_bulb = icon_bulb;
+   }
+   
+   public static BufferedImage getIcon_bulb_on() 
+   {
+        return icon_bulb_on;
+   }
+
+   public static void setIcon_bulb_on(BufferedImage icon_bulb_on) 
+   {
+           if (icon_bulb_on == null)
+              {
+                 exitWithMessage("kein Icon Bulb on");
+              }
+        ApplicationImages.icon_bulb_on = icon_bulb_on;
+   }
+
+   public static BufferedImage getScroll()
+   {
+      return scroll;
+   }
+
+   public static void setScroll(BufferedImage scroll)
+   {
+      if (scroll == null)
+      {
+         exitWithMessage("kein Scroll");
+      }
+      ApplicationImages.scroll = scroll;
+   }
+
+ 
+
 }

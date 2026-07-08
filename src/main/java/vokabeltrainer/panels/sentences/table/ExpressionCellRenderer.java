@@ -33,7 +33,7 @@ public class ExpressionCellRenderer
       
       if (isSelected)
       {
-         list.setBorder(BorderFactory.createLineBorder(ApplicationColors.getGreen(), 3));
+         list.setBorder(BorderFactory.createLineBorder(ApplicationColors.brightGreen, 3));
       }
       else
       {

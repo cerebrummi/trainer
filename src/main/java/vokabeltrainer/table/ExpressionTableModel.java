@@ -26,4 +26,10 @@ public class ExpressionTableModel extends DefaultTableModel
    {
       return data;
    }
+
+   @Override
+   public boolean isCellEditable(int row, int column)
+   {
+      return false; // never use build in editing
+   }
 }

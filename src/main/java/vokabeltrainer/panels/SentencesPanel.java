@@ -47,11 +47,11 @@ public class SentencesPanel extends JPanel implements TableConnector
       tablePanel.setLayout(layout);
       tablePanel.setMinimumSize(new Dimension(1400, 800));
       tablePanel.setMaximumSize(new Dimension(1400, 800));
-      tablePanel.setBackground(ApplicationColors.getBackgroundGold());
+      tablePanel.setBackground(ApplicationColors.darkSilverBlue);
 
       ExpressionTableModel tableModel = Data.findTranslations(null, ExpressionKind.TEXT,
             null, null, null,
-            SortingType.ALPHABET, levelOfDifficulty, Direction.NEW_TO_OWN);
+            SortingType.ALPHABET, levelOfDifficulty, Direction.NEW_TO_OWN, null);
       tablePanel.removeAll();
       table = new ExpressionTable(tableModel,
             Direction.NEW_TO_OWN, this, true, new ExpressionColumnModel());
@@ -65,7 +65,7 @@ public class SentencesPanel extends JPanel implements TableConnector
    {
       ExpressionTableModel tableModel = Data.findTranslations(null, ExpressionKind.TEXT,
             null, null, null,
-            SortingType.ALPHABET, levelOfDifficulty, Direction.NEW_TO_OWN);
+            SortingType.ALPHABET, levelOfDifficulty, Direction.NEW_TO_OWN, null);
       tablePanel.removeAll();
       table = new ExpressionTable(tableModel,
             Direction.NEW_TO_OWN, this, true, new ExpressionColumnModel());

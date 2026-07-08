@@ -115,7 +115,7 @@ public enum Translation {
 	EINTRAEGE_LOESCHEN__("Einträge löschen?", "Delete postings?"),
 	ENTER_DRUECKEN_OEFFNET_DEN_MARKIERTEN_EINTRAG("Enter drücken öffnet den markierten Eintrag", "Pressing Enter opens the highlighted entry"),
 	ES_WURDEN_KEINE_EINTRAEGE("Es wurden keine Einträge", "There were no entries"), 
-	EXPORT("Export", "export"),
+	EXPORT("Export (ohne Bilder)", "export (without images)"),
 	EXPORT_ALLER_VOKABELN("Export aller Vokabeln", "export of all vocabulary"), 
 	EXPORT_EINER_DATENBANK("Export einer Datenbank", "export a database"),
 	EXPORT_MARKIERTER_VOKABELN("Export markierter Vokabeln", "export marked vocabulary"),
@@ -172,7 +172,7 @@ public enum Translation {
 	JAHRESZEIT("Jahreszeit", "season"),
 
 	KAPITEL("Kapitel", "chapter"), 
-	KARTEIKASTEN("Karteikasten", "index box"),
+	KARTEIKASTEN("Kartei", "index"),
 	KEIN_EXPORT_VON_INTERNEN_DATENBANKEN_MOEGLICH("Kein Export von internen Datenbanken möglich.", "No export of internal databases possible."),
 	KEINE_WORTE_ZUM_UEBEN_AUSGEWAEHLT("Keine Worte zum Üben ausgewählt.", "No words selected for practice."),
 	KOENNEN_NICHT_GELOESCHT_WERDEN_("können nicht gelöscht werden.", "cannot be deleted."), 
@@ -282,7 +282,7 @@ public enum Translation {
 	TEXT("Text", "text"), 
 	TINTENSPRITZER("Tintenspritzer", "ink splatter"),
 	TRAININGSEINHEIT_ERFOLGREICH("Trainingseinheit erfolgreich", "training session successful"), 
-	TRAININGSUEBERSICHT("Trainingsübersicht", "training overview"),
+	TRAININGSUEBERSICHT("Training", "training"),
 
 	UHR("Uhr", "o'clock"), 
 	UHRZEIT("Uhrzeit", "time"), 
@@ -298,7 +298,7 @@ public enum Translation {
 	VERSCHIEBEN("verschieben", "move"),
 	VERSCHIEBT_ALLE_VOKABELN_EINER_DATENBANK_IN_DEN_PAPIERKORB_(
 			"Verschiebt alle Vokabeln einer Datenbank in den Papierkorb.", "Moves all vocabulary in a database to the trash."),
-	VOKABELN_ABFRAGEN("Vokabeln abfragen", "query vocabulary"),
+	VOKABELN_ABFRAGEN("Übungen", "queries"),
 	VOKABELN_EINER_DATENBANK_EXPORTIEREN("Vokabeln einer Datenbank exportieren", "export vocabulary from a database"), 
 	VOKABELTRAINER("Vokabeltrainer", "Vocabulary Trainer"),
 	VOM("vom", "date"), 
@@ -395,7 +395,7 @@ public enum Translation {
 	PLUSQUAMPERFEKT("Plusquamperfekt","pluperfect"),
 	FUTUR1("Futur 1","future 1 "),
 	FUTUR2("Futur 2","future 2"),
-	NEUTRUM("Neutrum","neuter"),
+	NEUTRUM("neutrum","neuter"),
 	STARKES_VERB("starkes Verb", "strong verb"),
 	SCHWACHES_VERB("schwaches Verb", "weak verb"),
 	UNREGELMAESSIG_VERB("unregelmäßiges Verb", "irregular verb"),
@@ -433,7 +433,12 @@ public enum Translation {
 	HOLE_DATEN("Keine Daten? Gebe Daten ein oder aktiviere eine Datenbank.", "No data? Input data or activate database."),
 	STELLEN_SIE_UM("Schreibrichtung oben ändern", "change writing direction at top"),
 	SPRACHE_UMSTELLEN("Sprache ändern unter 'Eingabe'.","change language at 'input'."),
-	NEUSTART("Programm schließt und muss neu gestartet werden.","app closes and restart needed");
+	NEUSTART("Programm schließt und muss neu gestartet werden.","app closes and restart needed"),
+	SPRACHE_AUFNEHMEN("Sprache aufnehmen", "record voice"), 
+	TONAUFNAHME_LOESCHEN("Tonaufnahme löschen", "delete recording"),
+	BILDER_LADEN("Bilder laden","load images"),
+	BILDER_LOESCHEN("Bilder löschen","delete images"),
+	BILDER_ANZEIGEN("Bilder anzeigen","display Images");
    
 
 	private String german;

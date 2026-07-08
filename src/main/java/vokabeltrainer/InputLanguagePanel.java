@@ -403,6 +403,7 @@ public class InputLanguagePanel extends JTextArea
             (heightTotal - heightBorderTitel) / 2));
       pleneField.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.HEBRAEISCH__PLENE)));
+      pleneField.setBackground(color);
       this.changeLineSpacing(pleneField);
       components.add(pleneField);
 
@@ -417,6 +418,7 @@ public class InputLanguagePanel extends JTextArea
             (heightTotal - heightBorderTitel) / 2));
       defektivField.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.HEBRAEISCH__DEFEKTIV)));
+      defektivField.setBackground(color);
       this.changeLineSpacing(defektivField);
       components.add(defektivField);
 
@@ -444,6 +446,7 @@ public class InputLanguagePanel extends JTextArea
       hebrewField.setBorder(
             BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(0,0,0,10), translator.realisticTranslate(
                   Translation.HEBRAEISCH__EINFACHE_SCHREIBWEISE)));
+      hebrewField.setBackground(color);
       changeLineSpacing(hebrewField);
       
       components.add(hebrewField);
@@ -479,6 +482,7 @@ public class InputLanguagePanel extends JTextArea
             new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
       swedishField.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.SVENSKA)));
+      swedishField.setBackground(color);
 
       components.add(swedishField);
 
@@ -507,6 +511,7 @@ public class InputLanguagePanel extends JTextArea
             new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
       germanField.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.GERMAN)));
+      germanField.setBackground(color);
 
       components.add(germanField);
 

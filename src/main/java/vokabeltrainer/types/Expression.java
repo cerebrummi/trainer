@@ -322,8 +322,7 @@ public class Expression
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
-      result[index] = translator.realisticTranslate(Translation.KAPITEL) + ": "
-            + chapter.getName() + ", "
+      result[index] = chapter.getName() + ", "
             + translator.realisticTranslate(Translation.INDEX) + ": "
             + sortingIndex;
       index++;
@@ -364,8 +363,7 @@ public class Expression
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
-      result[index] = translator.realisticTranslate(Translation.KAPITEL) + ": "
-            + chapter.getName() + ", "
+      result[index] = chapter.getName() + ", "
             + translator.realisticTranslate(Translation.INDEX) + ": "
             + sortingIndex;
       index++;
@@ -406,8 +404,7 @@ public class Expression
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
-      result[index] = translator.realisticTranslate(Translation.KAPITEL) + ": "
-            + chapter.getName() + ", "
+      result[index] = chapter.getName() + ", "
             + translator.realisticTranslate(Translation.INDEX) + ": "
             + sortingIndex;
       index++;
@@ -448,8 +445,7 @@ public class Expression
       index++;
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
-      result[index] = translator.realisticTranslate(Translation.KAPITEL) + ": "
-            + chapter.getName() + ", "
+      result[index] = chapter.getName() + ", "
             + translator.realisticTranslate(Translation.INDEX) + ": "
             + sortingIndex;
       index++;

@@ -50,41 +50,12 @@ public class MainView extends JPanel
    private SuccessPanel successPanel;
    private JButton languageButton;
 
-   private JButton questionsAndAnswersButton;
-
    private JButton darkmodeButton;
-
-   private JButton sentencesButton;
-   private JButton sentences_1_Button;
-   private JButton sentences_2_Button;
-   private JButton sentences_3_Button;
-   private JButton sentences_4_Button;
-   private JButton sentences_5_Button;
-   private JButton sentences_6_Button;
-   private JButton sentences_7_Button;
-   private JButton sentences_8_Button;
-   private JButton sentences_9_Button;
-   private JButton sentences_10_Button;
-   private JButton sentences_11_Button;
-   private JButton sentences_12_Button;
-   private JButton sentences_13_Button;
-   private JButton sentences_14_Button;
-   private JButton sentences_15_Button;
-   private JButton sentences_16_Button;
-   private JButton sentences_17_Button;
-   private JButton sentences_18_Button;
-   private JButton sentences_19_Button;
-   private JButton sentences_20_Button;
-   private JButton sentences_21_Button;
-   private JButton sentences_22_Button;
-   private JButton sentences_23_Button;
-   private JButton sentences_24_Button;
 
    private JMenuBar menuBar;
 
    private JButton backButton;
    private TranslationPanel languagePanel;
-   private JPanel sentencesPanel;
 
    private Translator translator;
 
@@ -144,30 +115,6 @@ public class MainView extends JPanel
       
    }
 
-   private void initSentencesContent()
-   {
-      this.removeAll();
-
-      initSentencesToolBar();
-      initBackController();
-
-      Main.resetMenuBar();
-      this.validate();
-      this.repaint();
-   }
-
-   private void initQuestionsAndAnswersContent()
-   {
-      this.removeAll();
-
-      this.initQuestionsAndAnswersToolBar();
-      initBackController();
-
-      Main.resetMenuBar();
-      this.validate();
-      this.repaint();
-   }
-
    private void initBackController()
    {
       backButton.addActionListener(_ -> {
@@ -211,274 +158,6 @@ public class MainView extends JPanel
       
    }
 
-   private void initSentencesToolBar()
-   {
-      menuBar = new JMenuBar();
-      menuBar.setOpaque(true);
-      menuBar.setBackground(ApplicationColors.getLightGold());
-      menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-      menuBar.setMinimumSize(new Dimension(1200, 80));
-      menuBar.setMaximumSize(new Dimension(6000, 80));
-
-      backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
-      sentences_1_Button = new JButton("1");
-      sentences_1_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(1);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_2_Button = new JButton("2");
-      sentences_2_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(2);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_3_Button = new JButton("3");
-      sentences_3_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(3);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_4_Button = new JButton("4");
-      sentences_4_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(4);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_5_Button = new JButton("5");
-      sentences_5_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(5);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_6_Button = new JButton("6");
-      sentences_6_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(6);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_7_Button = new JButton("7");
-      sentences_7_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(7);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_8_Button = new JButton("8");
-      sentences_8_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(8);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_9_Button = new JButton("9");
-      sentences_9_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(9);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_10_Button = new JButton("10");
-      sentences_10_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(10);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_11_Button = new JButton("11");
-      sentences_11_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(11);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_12_Button = new JButton("12");
-      sentences_12_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(12);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_13_Button = new JButton("13");
-      sentences_13_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(13);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_14_Button = new JButton("14");
-      sentences_14_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(14);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_15_Button = new JButton("15");
-      sentences_15_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(15);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_16_Button = new JButton("16");
-      sentences_16_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(16);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_17_Button = new JButton("17");
-      sentences_17_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(17);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_18_Button = new JButton("18");
-      sentences_18_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(18);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_19_Button = new JButton("19");
-      sentences_19_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(19);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_20_Button = new JButton("20");
-      sentences_20_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(20);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_21_Button = new JButton("21");
-      sentences_21_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(21);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_22_Button = new JButton("22");
-      sentences_22_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(22);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_23_Button = new JButton("23");
-      sentences_23_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(23);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_24_Button = new JButton("24");
-      sentences_24_Button.addActionListener(_ -> {
-         this.removeAll();
-         sentencesPanel = new SentencesPanel(24);
-         this.add(sentencesPanel);
-         validate();
-         repaint();
-      });
-      sentences_1_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_2_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_3_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_4_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_5_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_6_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_7_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_8_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_9_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_10_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_11_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_12_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_13_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_14_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_15_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_16_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_17_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_18_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_19_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_20_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_21_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_22_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_23_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentences_24_Button.setFont(ApplicationFonts.getToolbarButtonFont());
-
-      menuBar.add(backButton);
-      menuBar.add(sentences_1_Button);
-      menuBar.add(sentences_2_Button);
-      menuBar.add(sentences_3_Button);
-      menuBar.add(sentences_4_Button);
-      menuBar.add(sentences_5_Button);
-      menuBar.add(sentences_6_Button);
-      menuBar.add(sentences_7_Button);
-      menuBar.add(sentences_8_Button);
-      menuBar.add(sentences_9_Button);
-      menuBar.add(sentences_10_Button);
-      menuBar.add(sentences_11_Button);
-      menuBar.add(sentences_12_Button);
-      menuBar.add(sentences_13_Button);
-      menuBar.add(sentences_14_Button);
-      menuBar.add(sentences_15_Button);
-      menuBar.add(sentences_16_Button);
-      menuBar.add(sentences_17_Button);
-      menuBar.add(sentences_18_Button);
-      menuBar.add(sentences_19_Button);
-      menuBar.add(sentences_20_Button);
-      menuBar.add(sentences_21_Button);
-      menuBar.add(sentences_22_Button);
-      menuBar.add(sentences_23_Button);
-      menuBar.add(sentences_24_Button);
-   }
-
-   private void initQuestionsAndAnswersToolBar()
-   {
-      menuBar = new JMenuBar();
-      menuBar.setOpaque(true);
-      menuBar.setBackground(ApplicationColors.getLightGold());
-      menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-      menuBar.setMinimumSize(new Dimension(1200, 80));
-      menuBar.setMaximumSize(new Dimension(6000, 80));
-
-      backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
-
-      menuBar.add(backButton);
-   }
-
    private void initToolBar()
    {
       menuBar = new JMenuBar();
@@ -505,10 +184,6 @@ public class MainView extends JPanel
       successButton = new JButton(
             translator.realisticTranslate(Translation.KARTEIKASTEN));
       languageButton = new JButton(new ImageIcon(ApplicationImages.getL18n()));
-      sentencesButton = new JButton(
-            translator.realisticTranslate(Translation.SAETZE));
-      questionsAndAnswersButton = new JButton(
-            new ImageIcon(ApplicationImages.getQuestionsAndAnswers2()));
       darkmodeButton = new JButton(
             new ImageIcon(ApplicationImages.getDarkmode()));
 
@@ -520,9 +195,6 @@ public class MainView extends JPanel
       letterPicturesButton.setFont(ApplicationFonts.getToolbarButtonFont());
       successButton.setFont(ApplicationFonts.getToolbarButtonFont());
       languageButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      sentencesButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      questionsAndAnswersButton
-            .setFont(ApplicationFonts.getToolbarButtonFont());
       darkmodeButton.setFont(ApplicationFonts.getToolbarButtonFont());
       
       startButton.setBackground(MainColors.getButtonBackground());
@@ -533,8 +205,6 @@ public class MainView extends JPanel
       letterPicturesButton.setBackground(MainColors.getButtonBackground());
       successButton.setBackground(MainColors.getButtonBackground());
       languageButton.setBackground(MainColors.getButtonBackground());
-      sentencesButton.setBackground(MainColors.getButtonBackground());
-      questionsAndAnswersButton.setBackground(MainColors.getButtonBackground());
       darkmodeButton.setBackground(MainColors.getButtonBackground());
       aboutButton.setBackground(MainColors.getButtonBackground());
 
@@ -545,8 +215,6 @@ public class MainView extends JPanel
       menuBar.add(letterPicturesButton);
       menuBar.add(statisticsButton);
       menuBar.add(successButton);
-      menuBar.add(sentencesButton);
-      // menuBar.add(questionsAndAnswersButton);
       menuBar.add(languageButton);
       menuBar.add(darkmodeButton);
       menuBar.add(Box.createHorizontalGlue());
@@ -677,14 +345,6 @@ public class MainView extends JPanel
 
       darkmodeButton.addActionListener(_ -> {
          initColormodeContent();
-      });
-
-      sentencesButton.addActionListener(_ -> {
-         initSentencesContent();
-      });
-
-      this.questionsAndAnswersButton.addActionListener(_ -> {
-         this.initQuestionsAndAnswersContent();
       });
    }
 

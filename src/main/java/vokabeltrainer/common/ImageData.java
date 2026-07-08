@@ -1,7 +1,5 @@
 package vokabeltrainer.common;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,14 +8,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.prefs.Preferences;
+import java.util.stream.Stream;
+
 import javax.imageio.ImageIO;
 
 import vokabeltrainer.cmd.DirectoryHelper;
+import vokabeltrainer.table.list.editor.images.ImageItem;
 
 public final class ImageData
 {
@@ -88,40 +90,32 @@ public final class ImageData
       return getDataBaseAtomic().isImageForExpressionAvailable(uuid);
    }
 
-   public static void saveImage(String image, UUID uuid)
+   public static void saveImage(BufferedImage image, UUID uuid,
+         String imageName)
    {
       if (uuid == null)
       {
          return;
       }
-      getDataBaseAtomic().saveImage(image, uuid);
+      getDataBaseAtomic().saveImage(image, uuid, imageName);
    }
 
-   public static BufferedImage loadImage(UUID uuid)
+   public static ArrayList<ImageItem> loadImages(UUID uuid)
    {
       if (uuid == null)
       {
          return null;
       }
-      return getDataBaseAtomic().loadImage(uuid);
+      return getDataBaseAtomic().loadImages(uuid);
    }
 
-   public static BufferedImage loadImageOriginal(UUID uuid)
-   {
-      if (uuid == null)
-      {
-         return null;
-      }
-      return getDataBaseAtomic().loadImageOriginal(uuid);
-   }
-
-   public static void deleteImage(UUID uuid)
+   public static void deleteImage(UUID uuid, String imageName)
    {
       if (uuid == null)
       {
          return;
       }
-      getDataBaseAtomic().deleteImage(uuid);
+      getDataBaseAtomic().deleteImage(uuid, imageName);
    }
 
    // #########################################################
@@ -152,9 +146,7 @@ public final class ImageData
 
    private static class ImageDataBase
    {
-      private final ConcurrentMap<UUID, BufferedImage> imageMap = new ConcurrentHashMap<>(
-            findNumberOfAllVocabulary() + 100);
-      private final ConcurrentMap<UUID, String> imageTypeMap = new ConcurrentHashMap<>(
+      private final ConcurrentMap<UUID, ArrayList<String>> imageNameMap = new ConcurrentHashMap<>(
             findNumberOfAllVocabulary() + 100);
 
       ImageDataBase()
@@ -163,117 +155,251 @@ public final class ImageData
          {
             return;
          }
+         moveImagesFromPreviousVersion();
          readImagesAvailable();
       }
 
-      private void deleteImage(UUID uuid)
+      private void readImagesAvailable()
       {
-         try
+         try (Stream<Path> s = Files.list(Paths.get(Settings.getImagePath())))
          {
-            Files.delete(Paths.get(Settings.getImagePath() + File.separator
-                  + uuid.toString() + imageTypeMap.get(uuid)));
+            s.filter(Files::isDirectory).forEach(dirPath -> {
+               try (Stream<Path> walk = Files.walk(dirPath))
+               {
+                  walk.filter(Files::isRegularFile).forEach(
+                        filePath -> addToImageNameMap(filePath, dirPath));
+               }
+               catch (IOException e)
+               {
+                  // nothing
+               }
+            });
          }
          catch (IOException e)
          {
             // nothing
          }
-
-         imageMap.remove(uuid);
-         imageTypeMap.remove(uuid);
       }
 
-      private BufferedImage loadImage(UUID uuid)
+      private void moveImagesFromPreviousVersion()
       {
-         return imageMap.get(uuid);
-      }
-      
-      private BufferedImage loadImageOriginal(UUID uuid)
-      {
-         try
+         try (Stream<Path> s = Files.walk(Paths.get(Settings.getImagePath())))
          {
-            if(Files.walk(Paths.get(Settings.getImagePath()))
-                  .filter(Files::isRegularFile)
-                  .filter(file -> file.getFileName().toString().contains(uuid.toString())) == null)
+            s.filter(Files::isRegularFile).forEach(filePath -> {
+
+               String fileName = filePath.getFileName().toString();
+               UUID uuid = getUuidFromOldImageFile(fileName);
+
+               if (Data.isExistUuid(uuid))
+               {
+                  checkDirectory(uuid);
+
+                  try
+                  {
+                     Files.move(
+                           Paths.get(Settings.getImagePath(), File.separator,
+                                 fileName),
+                           Paths.get(Settings.getImagePath(), File.separator,
+                                 uuid.toString(), File.separator,
+                                 "ex_" + fileName),
+                           StandardCopyOption.REPLACE_EXISTING);
+                     addToImageNameMap(fileName, uuid);
+                  }
+                  catch (Exception e)
+                  {
+                     // nothing
+                  }
+               }
+            });
+         }
+         catch (Exception e)
+         {
+            // nothing
+         }
+      }
+
+      private void addToImageNameMap(Path file, Path uuidPath)
+      {
+         String fileName = file.getFileName().toString();
+
+         if (!checkImageType(fileName))
+         {
+            return;
+         }
+
+         UUID uuid = UUID.fromString(uuidPath.getFileName().toString());
+
+         addToImageNameMap(fileName, uuid);
+      }
+
+      private void addToImageNameMap(String fileName, UUID uuid)
+      {
+         if (imageNameMap.containsKey(uuid) && imageNameMap.get(uuid) != null)
+         {
+            imageNameMap.get(uuid).add(fileName);
+         }
+         else
+         {
+            ArrayList<String> listNames = new ArrayList<>();
+            listNames.add(fileName);
+            imageNameMap.put(uuid, listNames);
+         }
+      }
+
+      private boolean checkImageType(String image)
+      {
+         image = image.toLowerCase();
+         int length = image.length();
+         char dot3 = image.charAt(length - 3);
+         char dot4 = image.charAt(length - 4);
+         if (dot3 == '.' || dot4 == '.')
+         {
+            return true;
+         }
+         return false;
+      }
+
+      private UUID getUuidFromOldImageFile(String image)
+      {
+         return UUID.fromString(image.substring(0, image.lastIndexOf('.')));
+      }
+
+      // #########################################################
+
+      private ArrayList<ImageItem> loadImages(UUID uuid)
+      {
+         ArrayList<ImageItem> imageList = new ArrayList<>();
+         ArrayList<String> nameList = imageNameMap.get(uuid);
+
+         if (nameList == null)
+         {
+            return imageList;
+         }
+
+         try (Stream<Path> s = Files.walk(
+               Paths.get(Settings.getImagePath() + File.separator + uuid)))
+         {
+            s.filter(Files::isRegularFile).forEach(file -> {
+               ImageItem item = loadImageOriginal(file, uuid);
+               if (item != null)
+               {
+                  imageList.add(item);
+               }
+            });
+         }
+         catch (Exception e)
+         {
+            // nothing
+         }
+
+         return imageList;
+      }
+
+      private ImageItem loadImageOriginal(Path file, UUID uuid)
+      {
+         try (FileInputStream in = new FileInputStream(file.toFile()))
+         {
+            BufferedImage image = ImageIO.read(in);
+
+            if (image == null)
             {
                return null;
             }
-            
-            Path path = Files.walk(Paths.get(Settings.getImagePath()))
-                  .filter(Files::isRegularFile)
-                  .filter(file -> file.getFileName().toString().contains(uuid.toString()))
-                  .findFirst().get();
-            
-            return ImageIO.read(
-                  new FileInputStream(path.toString()));
+
+            return new ImageItem(uuid, file, image);
          }
-         catch (IOException e)
+         catch (Exception e)
          {
             // nothing
          }
          return null;
       }
 
-      private boolean isImageForExpressionAvailable(UUID uuid)
+      private void deleteImage(UUID uuid, String imageFile)
       {
-         return imageMap.containsKey(uuid);
+         try
+         {
+            Files.deleteIfExists(
+                  Paths.get(Settings.getImagePath() + File.separator
+                        + uuid.toString() + File.separator + imageFile));
+            imageNameMap.get(uuid).remove(imageFile);
+
+         }
+         catch (Exception e)
+         {
+            // nothing
+            e.printStackTrace();
+         }
       }
 
-      private void saveImage(String image, UUID uuid)
+      private boolean isImageForExpressionAvailable(UUID uuid)
+      {
+         return imageNameMap.containsKey(uuid)
+               && !imageNameMap.get(uuid).isEmpty() ? true : false;
+      }
+
+      private void saveImage(BufferedImage image, UUID uuid, String imageName)
       {
          if (!checkDirectory())
          {
             return;
          }
 
-         String imageType = findImageType(image);
-
-         if (imageType == null)
+         if (!checkDirectory(uuid))
          {
             return;
          }
 
          try
          {
-            Files.copy(Paths.get(image),
-                  Paths.get(Settings.getImagePath() + File.separator
-                        + uuid.toString() + imageType),
-                  StandardCopyOption.REPLACE_EXISTING);
+            Path target = Path
+                  .of(Settings.getImagePath(), File.separator, uuid.toString())
+                  .resolve(imageName);
+
+            String format = getFormat(imageName);
+
+            boolean success = ImageIO.write(image, format, target.toFile());
+            if (success)
+            {
+               addToImageNameMap(imageName, uuid);
+            }
          }
          catch (IOException e)
          {
-            return;
+            // nothing
          }
-
-         addToImageMap(Paths.get(Settings.getImagePath() + File.separator
-               + uuid.toString() + imageType));
       }
 
-      private String findImageType(String image)
+      private static String getFormat(String fileName)
       {
-         image = image.toLowerCase();
-         int length = image.length();
-         char dot3 = image.charAt(length - 3);
-         char dot4 = image.charAt(length - 4);
-         int dotIndex;
-         if (dot3 == '.')
+         int dot = fileName.lastIndexOf('.');
+
+         if (dot < 0 || dot == fileName.length() - 1)
          {
-            dotIndex = 3;
+            return "png"; // Standard
          }
-         else if (dot4 == '.')
-         {
-            dotIndex = 4;
-         }
-         else
-         {
-            return null;
-         }
-         String imageType = image.substring(length - dotIndex);
-         return imageType;
+
+         return fileName.substring(dot + 1).toLowerCase();
       }
 
       private boolean checkDirectory()
       {
          File customDir = new File(Settings.getImagePath());
+         if (!customDir.exists())
+         {
+            if (!DirectoryHelper.makeDirectory(customDir))
+            {
+               return false;
+            }
+         }
+         return true;
+      }
+
+      private boolean checkDirectory(UUID uuid)
+      {
+         File customDir = new File(
+               Settings.getImagePath() + File.separator + uuid);
+
          if (!customDir.exists())
          {
             if (!DirectoryHelper.makeDirectory(customDir))
@@ -295,63 +421,6 @@ public final class ImageData
             numberOfVocabulary = 30000;
          }
          return numberOfVocabulary;
-      }
-
-      // #########################################################
-      // ################# available images ######################
-      // #########################################################
-      private void readImagesAvailable()
-      {
-         try
-         {
-            Files.walk(Paths.get(Settings.getImagePath()))
-                  .filter(Files::isRegularFile)
-                  .forEach(file -> addToImageMap(file));
-         }
-         catch (IOException e)
-         {
-            // nothing
-         }
-      }
-
-      private void addToImageMap(Path file)
-      {
-         File image = file.toFile();
-         String imageType = findImageType(file.toString());
-
-         if (imageType == null)
-         {
-            return;
-         }
-         UUID uuid = UUID.fromString(image.getName().substring(0,
-               image.getName().length() - imageType.length()));
-
-         try
-         {
-            imageMap.put(uuid,
-                  resize(
-                        ImageIO.read(
-                              new FileInputStream(image.getAbsolutePath())),
-                        230, 125));
-            imageTypeMap.put(uuid, imageType);
-         }
-         catch (IOException e)
-         {
-            // nothing;
-         }
-      }
-
-      private static BufferedImage resize(BufferedImage img, int newW, int newH)
-      {
-         Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
-         BufferedImage dimg = new BufferedImage(newW, newH,
-               BufferedImage.TYPE_INT_ARGB);
-
-         Graphics2D g2d = dimg.createGraphics();
-         g2d.drawImage(tmp, 0, 0, null);
-         g2d.dispose();
-
-         return dimg;
       }
    }
 }

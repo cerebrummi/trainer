@@ -10,6 +10,7 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
    private String databaseName = "";
    private String authors = "";
    private String company = "";
+   private boolean selected;
 
    public DatabaseDescription()
    {
@@ -111,4 +112,18 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       return this.databaseName.compareTo(o.databaseName);
    }
 
+   public boolean isSelected()
+   {
+      return selected;
+   }
+
+   public void setSelected(boolean selected)
+   {
+      this.selected = selected;
+   }
+
+   public void toggleSelected()
+   {
+      this.selected = !this.selected;
+   }
 }

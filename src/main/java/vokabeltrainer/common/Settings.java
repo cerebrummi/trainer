@@ -35,7 +35,7 @@ public class Settings
    private static float volume = -20;
    private static boolean letterImagesOn = true;
    private static Selection languageInput = readLanguageInput();
-   private static String version = "7.0";
+   private static String version = "8.0";
 
    private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
    private static LinkedList<Database> chosenDatabases = new LinkedList<>();
@@ -160,6 +160,16 @@ public class Settings
    private static String getImageFolder()
    {
       return getExpressionFolder() + "-images";
+   }
+   
+   public static String getSoundPath()
+   {
+      return getExpressionPath() + File.separator + getSoundFolder();
+   }
+
+   private static String getSoundFolder()
+   {
+      return getExpressionFolder() + "-sounds";
    }
    
    public static String getTranslationPath()

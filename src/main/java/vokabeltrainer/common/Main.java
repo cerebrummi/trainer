@@ -21,7 +21,7 @@ public final class Main
 {
    static
    {
-      Common.setMode(Mode.LOCAL_ORIGINAL);
+      Common.setMode(Mode.LOCAL_MARIX );
    }
 
    private static String message = Settings.getWindowTitle()
@@ -118,6 +118,7 @@ public final class Main
 
       Data.initDataBase();
       ImageData.initImageDataBase();
+      SoundData.initSoundDataBase();
 
       SwingUtilities.invokeLater(() -> {
          System.setProperty("java.awt.headless", "true");

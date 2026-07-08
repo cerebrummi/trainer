@@ -39,7 +39,6 @@ import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
 import vokabeltrainer.table.list.editor.LanguageExpressionEditorView;
-import vokabeltrainer.table.list.editor.TextExpressionEditorView;
 import vokabeltrainer.tonionlayout.BullsEyeLayout;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -133,9 +132,6 @@ public class InputPanel extends JPanel implements TableConnector
    {
       newWordPunktationButton
             .addActionListener(_ -> openNewNikudExpressionDialog());
-
-      newTextPunktationButton
-            .addActionListener(_ -> openNewTextExpressionDialog());
 
       chapterBox.addActionListener(_ -> {
          this.currentChapter = chapterBox
@@ -243,28 +239,10 @@ public class InputPanel extends JPanel implements TableConnector
       setLernsprache(true);
    }
 
-   private void openNewTextExpressionDialog()
-   {
-      TextExpressionEditorView editor = new NikudExpressionEditorController()
-            .getTextExpressionEditorDialog();
-      editor.setExpression(new Expression(true, false), true);
-      editor.setLocationRelativeTo(Common.getjFrame());
-      editor.setVisible(true);
-
-      if (editor.isSave())
-      {
-         Expression expression = editor.getExpression();
-         Data.putExpressionInNewMap(expression.getUuid(), expression);
-         this.currentChapter = expression.getChapter();
-         save();
-      }
-      setLernsprache(true);
-   }
-
    private void doShowTable()
    {
       ExpressionTableModel tableModel = Data.findTranslations(null, null, null,
-            currentChapter, null, SortingType.DATE, null, Direction.OWN_TO_NEW);
+            currentChapter, null, SortingType.DATE, null, Direction.OWN_TO_NEW, null);
       tablePanel.removeAll();
       ExpressionTable table = new ExpressionTable(tableModel,
             Direction.OWN_TO_NEW, this, true,
@@ -403,7 +381,7 @@ public class InputPanel extends JPanel implements TableConnector
 
       center.add(horizontal);
       center.add(newWordPunktationButton);
-      center.add(newTextPunktationButton);
+      // center.add(newTextPunktationButton);
       // center.add(newQuestionsAndAnswersButton);
       leftside.add(center);
       return leftside;

@@ -5,61 +5,58 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import vokabeltrainer.common.Common;
+import vokabeltrainer.common.ImageData;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
+import vokabeltrainer.table.list.editor.PictureExpressionEditorController;
+import vokabeltrainer.table.list.editor.PictureExpressionEditorView;
 import vokabeltrainer.table.list.editor.LanguageExpressionEditorView;
-import vokabeltrainer.table.list.editor.TextExpressionEditorView;
 import vokabeltrainer.types.Expression;
 
 public class EnterAction extends AbstractAction
 {
    private ExpressionTable table;
    private LanguageExpressionEditorView editorPunktation;
-   private TextExpressionEditorView editorText;
+   private PictureExpressionEditorView editorPicture;
    private TableConnector connector;
 
+   public EnterAction()
+   {
+      PictureExpressionEditorController pictureController = new PictureExpressionEditorController();
+      editorPicture = pictureController.getPictureExpressionEditorDialog();
+   }
+   
    public EnterAction(ExpressionTable table, TableConnector connector)
    {
       this.table = table;
       this.connector = connector;
       NikudExpressionEditorController controller = new NikudExpressionEditorController();
       editorPunktation = controller.getNikudExpressionEditorDialog();
-      editorText = controller.getTextExpressionEditorDialog();
+      PictureExpressionEditorController pictureController = new PictureExpressionEditorController();
+      editorPicture = pictureController.getPictureExpressionEditorDialog();
    }
 
    private static final long serialVersionUID = 719272853628204094L;
 
    @Override
    public void actionPerformed(ActionEvent e)
-   {
+   {      
       int selectedRow = table.getSelectedRow();
+      
       if (selectedRow >= 0)
       {
          Expression expression = (Expression) table.getValueAt(selectedRow, 0);
-         if (expression.getDefinitions().isExpressionKindText())
+         
+         if(table.getSelectedColumn() == 0)
          {
-            showEditorText(expression);
+        	 showEditorPunktation(expression);
          }
          else
          {
-            showEditorPunktation(expression);
+        	 showEditorPicture(expression, false);
          }
+         
       }
-   }
-
-   private void showEditorText(Expression expression)
-   {
-      editorText.setFrozen(expression.isDoNotChange());
-      editorText.setExpression(expression, false);
-      editorText.setLocationRelativeTo(Common.getjFrame());
-      editorText.setVisible(true);
-      // editor is open
-      if (editorText.isSave())
-      {
-         connector.save();
-      }
-      
-      editorText.dispose();
    }
 
    private void showEditorPunktation(Expression expression)
@@ -74,5 +71,20 @@ public class EnterAction extends AbstractAction
          connector.save();
       }
       editorPunktation.dispose();
+   }
+   
+   public void showEditorPicture(Expression expression, boolean dropped)
+   {
+      editorPicture.setExpression(expression);
+      if(ImageData.isImageForExpressionAvailable(expression.getUuid()))
+      {
+         editorPicture.setImages(ImageData.loadImages(expression.getUuid()));
+      }
+      editorPicture.revalidate();
+      editorPicture.repaint();
+      editorPicture.setLocationRelativeTo(Common.getjFrame());
+      editorPicture.setVisible(true);
+      // editor is open
+      editorPicture.dispose();
    }
 }

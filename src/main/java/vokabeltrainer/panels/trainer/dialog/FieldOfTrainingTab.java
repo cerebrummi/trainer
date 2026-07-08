@@ -148,5 +148,11 @@ public class FieldOfTrainingTab extends JPanel
          dialog.getTabbedPane().remove(2);
          dialog.getTabbedPane().remove(1);
       }
+      else if (dialog.getTabbedPane().getTabCount() == 4)
+      {
+    	 dialog.getTabbedPane().remove(3);
+         dialog.getTabbedPane().remove(2);
+         dialog.getTabbedPane().remove(1);
+      }
    }
 }
