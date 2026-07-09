@@ -73,6 +73,7 @@ public class SettingsPanel extends JPanel
    private JButton deleteDatabaseButton;
    private Translator translator = Common.getTranslator();
    private JCheckBox modus;
+   private JButton originalFolder;
 
    public SettingsPanel()
    {
@@ -150,7 +151,7 @@ public class SettingsPanel extends JPanel
       return panel;
    }
 
-   /*
+   /* TODO
     * private Component initBackupsTab() { JPanel panel = new JPanel();
     * BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
     * panel.setLayout(panelLayout);
@@ -372,10 +373,15 @@ public class SettingsPanel extends JPanel
             + " " + translator.realisticTranslate(
                   Translation.BELAESST_DIE_AKTUELLEN_VOKABELN_AM_ALTEN_ORT));
 
+      originalFolder = new JButton(translator.realisticTranslate(Translation.ZURUECKSETZEN));
+      originalFolder.setForeground(SettingsColors.getTextForeground());
+      originalFolder.setFont(ApplicationFonts.getButtonFont());
+      
       vertical.add(saverLabel);
       vertical.add(folderLabel);
       vertical.add(folderChooserButtonWithoutSaving);
-
+      vertical.add(originalFolder);
+      
       return vertical;
    }
 
@@ -674,6 +680,12 @@ public class SettingsPanel extends JPanel
             Main.initDatabase();
          }
 
+      });
+      
+      originalFolder.addActionListener(_ -> {
+         Settings.setBackExpressionPath();
+         this.folderLabel.setText(Settings.getExpressionPath());
+         Main.initDatabase();
       });
 
       importButton.addActionListener(_ -> {

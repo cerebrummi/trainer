@@ -152,18 +152,6 @@ public class CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings
-               .setAnyName(preferences.get(CerebrummiNodes.getAnyName(), null));
-      }
-      catch (Exception e)
-      {
-         // nothing
-      }
-
-      try
-      {
-         Preferences preferences = Preferences.userRoot()
-               .node(CerebrummiNodes.getNode());
          Settings.initRepetition_one_day(preferences
                .getBoolean(CerebrummiNodes.getRepetitionOneDay(), false));
       }

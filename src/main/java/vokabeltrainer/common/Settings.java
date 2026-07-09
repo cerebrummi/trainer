@@ -46,7 +46,6 @@ public class Settings
    private static String rememberChapterForInput = "";
 
    private static TranslationCode translationCode = TranslationCode.de_original;
-   private static String anyName = null;
 
    private static boolean repetition_now = true;
    private static boolean repetition_one_day;
@@ -123,6 +122,27 @@ public class Settings
          chosenExpressionPath = System.getProperty("user.home");
       }
       return chosenExpressionPath;
+   }
+   
+   public static void setBackExpressionPath()
+   {
+      String home = System.getProperty("user.home");
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.put(CerebrummiNodes.getChoosenExpressionPathNode(),
+            home);
+
+      Settings.chosenExpressionPath = home;
+   }
+   
+   public static void setChoosenExpressionPath(String choosenExpressionPath)
+   {
+      Preferences preferences = Preferences.userRoot()
+            .node(CerebrummiNodes.getNode());
+      preferences.put(CerebrummiNodes.getChoosenExpressionPathNode(),
+            choosenExpressionPath);
+
+      Settings.chosenExpressionPath = choosenExpressionPath;
    }
 
    public static String getExpressionPathFolder()
@@ -245,19 +265,6 @@ public class Settings
       return translationCode;
    }
 
-   public static String getAnyName()
-   {
-      return anyName;
-   }
-
-   public static void setAnyName(String anyName)
-   {
-      Preferences preferences = Preferences.userRoot()
-            .node(CerebrummiNodes.getNode());
-      preferences.put(CerebrummiNodes.getAnyName(), anyName);
-      Settings.anyName = anyName;
-   }
-
    public static boolean isLetterImagesOn()
    {
       return letterImagesOn;
@@ -281,15 +288,7 @@ public class Settings
       Settings.letterImagesOn = letterImagesOn;
    }
 
-   public static void setChoosenExpressionPath(String choosenExpressionPath)
-   {
-      Preferences preferences = Preferences.userRoot()
-            .node(CerebrummiNodes.getNode());
-      preferences.put(CerebrummiNodes.getChoosenExpressionPathNode(),
-            choosenExpressionPath);
 
-      Settings.chosenExpressionPath = choosenExpressionPath;
-   }
 
    public static void setChosenDatabases(List<Database> chosenDatabases)
    {
@@ -679,5 +678,7 @@ public class Settings
    {
       Settings.schabbat_modus = schabbat_modus;
    }
+
+
 
 }
