@@ -8,7 +8,6 @@ import vokabeltrainer.common.ApplicationImages;
 
 public class TrashCanBackgroundPanel extends JPanel
 {
-
    private static final long serialVersionUID = -7918923007938243168L;
 
    @Override

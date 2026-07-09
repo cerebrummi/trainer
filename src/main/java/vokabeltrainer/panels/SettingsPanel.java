@@ -105,7 +105,7 @@ public class SettingsPanel extends JPanel
          // nothing
       }
 
-      // tabbedPane.addTab(translator.realisticTranslate(
+      // TODO tabbedPane.addTab(translator.realisticTranslate(
       // Translation.SICHERHEITSKOPIEN), initBackupsTab());
 
       tabbedPane.addTab(
@@ -150,14 +150,6 @@ public class SettingsPanel extends JPanel
       return panel;
    }
 
-   /*
-    * private Component initBackupsTab() { JPanel panel = new JPanel();
-    * BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
-    * panel.setLayout(panelLayout);
-    * 
-    * panel.add(new JLabel("work in progress")); return panel; }
-    */
-
    private Component initLicencingTab() throws IOException
    {
       JPanel panel = new JPanel();
@@ -180,11 +172,12 @@ public class SettingsPanel extends JPanel
                {
                   return;
                }
+               
                try
                {
                   Desktop.getDesktop().browse(event.getURL().toURI());
                }
-               catch (Exception e)
+               catch (IOException | URISyntaxException e)
                {
                   // nothing
                }
@@ -233,7 +226,7 @@ public class SettingsPanel extends JPanel
                {
                   Desktop.getDesktop().browse(event.getURL().toURI());
                }
-               catch (Exception e)
+               catch (IOException | URISyntaxException e)
                {
                   // nothing
                }
@@ -548,14 +541,11 @@ public class SettingsPanel extends JPanel
                         Thread.sleep(100);
                      } while (clip.isRunning());
                   }
-                  catch (LineUnavailableException | IOException e)
+                  catch (LineUnavailableException | InterruptedException | IOException e)
                   {
                      // nothing
                   }
-                  catch (InterruptedException e)
-                  {
-                     // nothing
-                  }
+
                   return null;
                }
             }.execute();
@@ -582,14 +572,11 @@ public class SettingsPanel extends JPanel
                         Thread.sleep(100);
                      } while (clip.isRunning());
                   }
-                  catch (LineUnavailableException | IOException e)
+                  catch (LineUnavailableException | InterruptedException | IOException e)
                   {
                      // nothing
                   }
-                  catch (InterruptedException e)
-                  {
-                     // nothing
-                  }
+ 
                   return null;
                }
             }.execute();
@@ -616,11 +603,7 @@ public class SettingsPanel extends JPanel
                         Thread.sleep(100);
                      } while (clip.isRunning());
                   }
-                  catch (LineUnavailableException | IOException e)
-                  {
-                     // nothing
-                  }
-                  catch (InterruptedException e)
+                  catch (LineUnavailableException | InterruptedException | IOException e)
                   {
                      // nothing
                   }
@@ -650,11 +633,7 @@ public class SettingsPanel extends JPanel
                         Thread.sleep(100);
                      } while (clip.isRunning());
                   }
-                  catch (LineUnavailableException | IOException e)
-                  {
-                     // nothing
-                  }
-                  catch (InterruptedException e)
+                  catch (LineUnavailableException | InterruptedException | IOException e)
                   {
                      // nothing
                   }

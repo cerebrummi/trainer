@@ -1,6 +1,8 @@
 package vokabeltrainer.panels;
 
 import java.awt.Component;
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -74,7 +76,7 @@ public class ColorPanel extends JPanel
          {
             LetterIcons.readNikud();
          }
-         catch (Exception e1)
+         catch (IOException e)
          {
             JOptionPane.showMessageDialog(null,
                   message + "Buchstaben Nikud Icons fehlen", "Nachricht",
@@ -86,7 +88,7 @@ public class ColorPanel extends JPanel
          {
             LetterIconsHandwritten.readNikud();
          }
-         catch (Exception e1)
+         catch (IOException e)
          {
             JOptionPane.showMessageDialog(null,
                   message + "Buchstaben Nikud Handwritten Icons fehlen",
@@ -94,18 +96,7 @@ public class ColorPanel extends JPanel
             System.exit(1);
          }
 
-         try
-         {
-            Buchstabenbilder.reRead();
-         }
-         catch (Exception e)
-         {
-            JOptionPane.showMessageDialog(null,
-                  message + "Buchstabenbilder fehlen", "Nachricht",
-                  JOptionPane.CLOSED_OPTION);
-            e.printStackTrace();
-            System.exit(1);
-         }
+         Buchstabenbilder.reRead();
 
          initController();
          applyButton.setEnabled(true);

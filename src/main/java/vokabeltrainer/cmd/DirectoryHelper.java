@@ -11,7 +11,7 @@ public class DirectoryHelper
 
    private DirectoryHelper()
    {
-
+      // nothing
    }
 
    public static boolean makeDirectory(File customDir)

@@ -78,7 +78,7 @@ import vokabeltrainer.types.grammatical.VerbTimes;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
-// Maps and Sets are never given to the outside!
+// Maps and sets are never given to the outside!
 public final class Data
 {
    private static final AtomicBoolean databaseInUse = new AtomicBoolean(false);
