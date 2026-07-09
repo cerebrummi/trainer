@@ -26,9 +26,15 @@ public final class ImportExpressions
          }
          return false;
       }
+      catch (Exception e)
+      {
+
+      }
       finally
       {
          Data.unlockDataBase(uuidSearchLock);
       }
+      return false;
    }
+
 }

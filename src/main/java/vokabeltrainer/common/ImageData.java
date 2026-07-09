@@ -21,7 +21,6 @@ import javax.imageio.ImageIO;
 import vokabeltrainer.cmd.DirectoryHelper;
 import vokabeltrainer.table.list.editor.images.ImageItem;
 
-// Maps and sets are never given to the outside!
 public final class ImageData
 {
 
@@ -206,7 +205,7 @@ public final class ImageData
                            StandardCopyOption.REPLACE_EXISTING);
                      addToImageNameMap(fileName, uuid);
                   }
-                  catch (IOException e)
+                  catch (Exception e)
                   {
                      // nothing
                   }
@@ -288,7 +287,7 @@ public final class ImageData
                }
             });
          }
-         catch (IOException e)
+         catch (Exception e)
          {
             // nothing
          }
@@ -309,7 +308,7 @@ public final class ImageData
 
             return new ImageItem(uuid, file, image);
          }
-         catch (IOException e)
+         catch (Exception e)
          {
             // nothing
          }
@@ -326,9 +325,10 @@ public final class ImageData
             imageNameMap.get(uuid).remove(imageFile);
 
          }
-         catch (IOException e)
+         catch (Exception e)
          {
             // nothing
+            e.printStackTrace();
          }
       }
 

@@ -139,7 +139,7 @@ public final class SaveExpressions
             OkayExpressionsSavedNotification.display();
             return true;
          }
-         catch (IOException e)
+         catch (Exception e)
          {
             JOptionPane
                   .showMessageDialog(Common.getjFrame(),
@@ -212,6 +212,14 @@ public final class SaveExpressions
                            return list;
                         }
                      }, null);
+            }
+            catch (Exception e)
+            {
+               JOptionPane.showMessageDialog(Common.getjFrame(),
+                     "Es hat beim Export der ZipDatei einen Fehler gegeben.\n"
+                           + e.getMessage(),
+                     "Fehler", JOptionPane.ERROR_MESSAGE);
+               return false;
             }
 
             progress = 100;

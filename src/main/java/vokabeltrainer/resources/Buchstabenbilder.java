@@ -54,7 +54,7 @@ public class Buchstabenbilder
       ApplicationImages.setLetterPicturesMap(letterPicturesMap);
    }
 
-   public static void reRead()
+   public static void reRead() throws Exception
    {
       ApplicationSpecialPanels.getLetterPicturesPanelMap().clear();
 

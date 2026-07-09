@@ -2,6 +2,7 @@ package vokabeltrainer.cmd;
 
 public class TextHelper
 {
+
    private TextHelper()
    {
       // nothing

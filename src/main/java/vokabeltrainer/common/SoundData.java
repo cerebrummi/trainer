@@ -323,7 +323,7 @@ public final class SoundData
             soundMap.put(uuid, in.readAllBytes());
             soundTypeMap.put(uuid, soundType);
          }
-         catch (IOException e)
+         catch (Exception e)
          {
             // nothing;
          }

@@ -43,6 +43,11 @@ public class TextImageWithPicture
             BufferedImage.TYPE_INT_RGB);
       g2d = finalImg.createGraphics();
 
+      /*
+       * g2d.setPaint(new
+       * TexturePaint(ApplicationImages.getTexturedBackground(), new
+       * Rectangle(0, 0, 93, 72)));
+       */
       g2d.fillRect(0, 0, width, height);
 
       g2d.drawImage(picture, null, 0, 0);

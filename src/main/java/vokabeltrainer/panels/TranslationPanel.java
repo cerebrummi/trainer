@@ -2,8 +2,6 @@ package vokabeltrainer.panels;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -64,12 +62,11 @@ public class TranslationPanel extends JPanel
                .getItemAt(chooseLanguage.getSelectedIndex());
          Settings.setTranslationCode(choosen);
          Common.setTranslator(new Translator());
-         
          try
          {
             Buchstabenbilder.read();
          }
-         catch (IOException e)
+         catch (Exception e)
          {
             // nothing
          }

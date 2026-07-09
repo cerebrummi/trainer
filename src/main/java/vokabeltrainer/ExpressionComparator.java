@@ -10,6 +10,7 @@ import vokabeltrainer.types.SortingType;
 
 public class ExpressionComparator implements Comparator<Expression>
 {
+
    private SortingType sortingType;
    private Direction direction;
 
