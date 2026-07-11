@@ -1194,7 +1194,7 @@ public class LanguageExpressionEditorView extends JDialog
 
    private String cleanTextAndNoComma(String text)
    {
-      return TextHelper.cleanText(text).replaceAll(",", "");
+      return TextHelper.cleanTextSanitizeForCsv(text);
    }
 
    private String cleanText(String text)

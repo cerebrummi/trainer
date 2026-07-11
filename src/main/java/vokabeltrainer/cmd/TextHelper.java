@@ -13,4 +13,10 @@ public class TextHelper
       return text.replaceAll("\\t", " ").replaceAll("\\n", " ")
             .replaceAll("\\r", " ").strip();
    }
+   
+   static public String cleanTextSanitizeForCsv(String text)
+   {
+      return text.replaceAll("\\t", " ").replaceAll("\\n", " ")
+            .replaceAll("\\r", " ").replaceAll(",", " ").strip();
+   }
 }

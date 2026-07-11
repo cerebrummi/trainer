@@ -43,6 +43,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.TextImage;
+import vokabeltrainer.cmd.TextHelper;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
@@ -1393,7 +1394,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
    private String cleanTextLeaveComma(String text)
    {
-      return text.replaceAll("\t", "").replaceAll("\n", "").strip();
+      return TextHelper.cleanText(text);
    }
 
    @Override
