@@ -318,7 +318,7 @@ public class DictionaryController implements DictionaryControllerConnector
             }
 
             Command commando = DictionaryStateMachine
-                  .getCommand(new Interaction(action, status));
+                  .getCommand(new DictionaryInteraction(action, status));
 
             if (commando == null)
             {
