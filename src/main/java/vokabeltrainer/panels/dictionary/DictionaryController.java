@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
 
-import vokabeltrainer.Command;
 import vokabeltrainer.common.ApplicationSound;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
@@ -37,7 +36,7 @@ public class DictionaryController implements DictionaryControllerConnector
    public DictionaryController()
    {
       this.dictionaryView = new DictionaryView(this);
-      Status.push(Status.OPENED_PAGE);
+      Status.init(Status.OPENED_PAGE);
    }
 
    @Override
@@ -47,14 +46,14 @@ public class DictionaryController implements DictionaryControllerConnector
       {
          Tabulator.setTabShowing(Tabulator.KIND_TAB);
          Status.push(Status.TAB_EXPRESSIONKIND);
-         decideOnTableInteraction(Action.TAB_EXPRESSIONKIND);
+         popToDecideOnTableInteraction(Action.TAB_EXPRESSIONKIND);
       }
       else if (selectedIndex == Tabulator.CHAPTER_TAB.getIndex())
       {
          Tabulator.setTabShowing(Tabulator.CHAPTER_TAB);
          dictionaryView.unselectExpressionKind();
          Status.push(Status.TAB_CHAPTER);
-         decideOnTableInteraction(Action.TAB_CHAPTER);
+         popToDecideOnTableInteraction(Action.TAB_CHAPTER);
          dictionaryView.loadChapters();
       }
       else if (selectedIndex == Tabulator.DATA_TAB.getIndex())
@@ -62,7 +61,7 @@ public class DictionaryController implements DictionaryControllerConnector
          Tabulator.setTabShowing(Tabulator.DATA_TAB);
          dictionaryView.unselectExpressionKind();
          Status.push(Status.DATA_CHAPTER);
-         decideOnTableInteraction(Action.DATA_CHAPTER);
+         popToDecideOnTableInteraction(Action.DATA_CHAPTER);
          dictionaryView.loadDatabases();
       }
       else if (selectedIndex == Tabulator.SELECTED_TAB.getIndex())
@@ -70,14 +69,14 @@ public class DictionaryController implements DictionaryControllerConnector
          Tabulator.setTabShowing(Tabulator.SELECTED_TAB);
          dictionaryView.unselectExpressionKind();
          Status.push(Status.TAB_SELECTED_EXPRESSIONS);
-         decideOnTableInteraction(Action.TAB_SELECTED_EXPRESSIONS);
+         popToDecideOnTableInteraction(Action.TAB_SELECTED_EXPRESSIONS);
       }
       else if (selectedIndex == Tabulator.SEARCH_TAB.getIndex())
       {
          Tabulator.setTabShowing(Tabulator.SEARCH_TAB);
          dictionaryView.unselectExpressionKind();
          Status.push(Status.TAB_SEARCH);
-         decideOnTableInteraction(Action.TAB_SEARCH);
+         popToDecideOnTableInteraction(Action.TAB_SEARCH);
       }
    }
 
@@ -137,8 +136,8 @@ public class DictionaryController implements DictionaryControllerConnector
       if (dictionaryView.isTableNotNull())
       {
          dictionaryView.clearTableDataSelection();
-         Status.push(Status.peek());
-         decideOnTableInteraction(Action.UNSELECT_TABLE);
+         Status.pushToKeep();
+         popToDecideOnTableInteraction(Action.UNSELECT_TABLE);
       }
    }
 
@@ -148,8 +147,8 @@ public class DictionaryController implements DictionaryControllerConnector
       Data.clearAllSelectedExpressions();
       if (dictionaryView.isTableNotNull())
       {
-         Status.push(Status.peek());
-         decideOnTableInteraction(Action.UNSELECT_ALL);
+         Status.pushToKeep();
+         popToDecideOnTableInteraction(Action.UNSELECT_ALL);
       }
    }
 
@@ -175,8 +174,8 @@ public class DictionaryController implements DictionaryControllerConnector
       {
          dictionaryView.loadDatabases();
       }
-      Status.push(Status.peek());
-      decideOnTableInteraction(Action.DELETE_ALL_SELECTED);
+      Status.pushToKeep();
+      popToDecideOnTableInteraction(Action.DELETE_ALL_SELECTED);
       save();
    }
 
@@ -204,8 +203,8 @@ public class DictionaryController implements DictionaryControllerConnector
          {
             dictionaryView.loadDatabases();
          }
-         Status.push(Status.peek());
-         decideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
+         Status.pushToKeep();
+         popToDecideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
          save();
       }
       else
@@ -223,8 +222,8 @@ public class DictionaryController implements DictionaryControllerConnector
       dialog.setVisible(true);
       if (dialog.isRestore())
       {
-         Status.push(Status.peek());
-         decideOnTableInteraction(Action.WORK_WASTEBIN);
+         Status.pushToKeep();
+         popToDecideOnTableInteraction(Action.WORK_WASTEBIN);
       }
    }
 
@@ -234,8 +233,8 @@ public class DictionaryController implements DictionaryControllerConnector
       if (dictionaryView.isTableNotNull())
       {
          dictionaryView.selectTableData();
-         Status.push(Status.peek());
-         decideOnTableInteraction(Action.SELECT_TABLE);
+         Status.pushToKeep();
+         popToDecideOnTableInteraction(Action.SELECT_TABLE);
       }
    }
 
@@ -286,7 +285,7 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       dictionaryView.clearTable();
       Status.push(Status.SEARCH_WHICH_NEW);
-      decideOnTableInteraction(Action.SEARCH_WHICH_NEW);
+      popToDecideOnTableInteraction(Action.SEARCH_WHICH_NEW);
    }
 
    @Override
@@ -294,10 +293,10 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       dictionaryView.clearTable();
       Status.push(Status.SEARCH_WHICH_OWN);
-      decideOnTableInteraction(Action.SEARCH_WHICH_OWN);
+      popToDecideOnTableInteraction(Action.SEARCH_WHICH_OWN);
    }
 
-   public void decideOnTableInteraction(Action action)
+   public void popToDecideOnTableInteraction(Action action)
    {
       new SwingWorker<Void, Void>()
       {
@@ -318,7 +317,7 @@ public class DictionaryController implements DictionaryControllerConnector
                }
             }
 
-            vokabeltrainer.panels.dictionary.Command commando = Interaction
+            Command commando = DictionaryStateMachine
                   .getCommand(new Interaction(action, status));
 
             if (commando == null)
@@ -388,7 +387,8 @@ public class DictionaryController implements DictionaryControllerConnector
                case TABLE_SELECTED_EXPRESSIONS:
                   dictionaryView.clearTable();
                   tableModel = Data.findTranslations(null, null, null, null,
-                        Command.ALL_SELECTED, dictionaryView.getSortNow(), null,
+                        vokabeltrainer.Command.ALL_SELECTED,
+                        dictionaryView.getSortNow(), null,
                         dictionaryView.getSelectedLanguage(), null);
                   break;
                }
@@ -426,8 +426,8 @@ public class DictionaryController implements DictionaryControllerConnector
    public void switchLanguage(String actionCommand)
    {
       dictionaryView.switchSearchLanguagePanel(actionCommand);
-      Status.push(Status.peek());
-      decideOnTableInteraction(Action.valueOf(actionCommand));
+      Status.pushToKeep();
+      popToDecideOnTableInteraction(Action.valueOf(actionCommand));
    }
 
    @Override
@@ -435,14 +435,14 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       this.currentChapter = chapter;
       Status.push(Status.CHAPTER_WHICH);
-      decideOnTableInteraction(Action.CHAPTER_WHICH);
+      popToDecideOnTableInteraction(Action.CHAPTER_WHICH);
    }
 
    @Override
    public void displayExpressionKindWhich()
    {
       Status.push(Status.EXPRESSIONKIND_WHICH);
-      decideOnTableInteraction(Action.EXPRESSIONKIND_WHICH);
+      popToDecideOnTableInteraction(Action.EXPRESSIONKIND_WHICH);
    }
 
    @Override
@@ -450,16 +450,16 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       if (dictionaryView.isTableNotNull())
       {
-         Status.push(Status.peek());
-         decideOnTableInteraction(Action.SORT_NOW);
+         Status.pushToKeep();
+         popToDecideOnTableInteraction(Action.SORT_NOW);
       }
    }
 
    @Override
    public void displayTableAfterOpeningPage()
    {
-      Status.push(Status.peek());
-      decideOnTableInteraction(Action.OPENED_PAGE);
+      Status.pushToKeep();
+      popToDecideOnTableInteraction(Action.OPENED_PAGE);
    }
 
    @Override
@@ -472,8 +472,8 @@ public class DictionaryController implements DictionaryControllerConnector
          SaveExpressions saver = new SaveExpressions();
          saver.save();
 
-         Status.push(Status.peek());
-         decideOnTableInteraction(Action.MOVE_TO_CHAPTER);
+         Status.pushToKeep();
+         popToDecideOnTableInteraction(Action.MOVE_TO_CHAPTER);
       }
    }
 
@@ -487,8 +487,8 @@ public class DictionaryController implements DictionaryControllerConnector
          SaveExpressions saver = new SaveExpressions();
          saver.save();
 
-         Status.push(Status.peek());
-         decideOnTableInteraction(Action.MOVE_TO_DATABASE);
+         Status.pushToKeep();
+         popToDecideOnTableInteraction(Action.MOVE_TO_DATABASE);
       }
    }
 
@@ -510,8 +510,8 @@ public class DictionaryController implements DictionaryControllerConnector
                {
                   dictionaryView.loadDatabases();
                }
-               Status.push(Status.peek());
-               decideOnTableInteraction(Action.SAVE);
+               Status.pushToKeep();
+               popToDecideOnTableInteraction(Action.SAVE);
             }
             return null;
          }
@@ -523,8 +523,8 @@ public class DictionaryController implements DictionaryControllerConnector
    {
       if (Tabulator.SELECTED_TAB.equals(Tabulator.getTabShowing()))
       {
-         Status.push(Status.peek());
-         decideOnTableInteraction(Action.UNSELECT_EXPRESSION);
+         Status.pushToKeep();
+         popToDecideOnTableInteraction(Action.UNSELECT_EXPRESSION);
       }
       else
       {

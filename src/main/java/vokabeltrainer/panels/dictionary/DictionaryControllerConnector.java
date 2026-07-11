@@ -32,7 +32,7 @@ public interface DictionaryControllerConnector extends TableConnector
 
    public void searchMyLanguage();
 
-   public void decideOnTableInteraction(Action action);
+   public void popToDecideOnTableInteraction(Action action);
 
    public void switchLanguage(String actionCommand);
 

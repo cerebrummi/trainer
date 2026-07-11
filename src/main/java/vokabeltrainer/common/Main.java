@@ -105,7 +105,7 @@ public final class Main
 
       SwingUtilities.invokeLater(() -> {
          System.setProperty("java.awt.headless", "true");
-         JFrame window = new JFrame();
+         final JFrame window = new JFrame();
          if (Common.getMode().isWeb())
          {
             window.setUndecorated(true);

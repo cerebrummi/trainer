@@ -29,7 +29,7 @@ public class ExpressionComparator implements Comparator<Expression>
          return o2.getLastModified().compareTo(o1.getLastModified());
       case INDEX:
          int o1Int, o2Int;
-
+ 
          try
          {
             o1Int = Integer.valueOf(o1.getSortingIndex());

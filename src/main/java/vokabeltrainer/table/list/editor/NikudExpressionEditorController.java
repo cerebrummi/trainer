@@ -1,6 +1,5 @@
 package vokabeltrainer.table.list.editor;
 
-import vokabeltrainer.common.Common;
 import vokabeltrainer.table.EnterAction;
 import vokabeltrainer.table.list.editor.images.ImageItem;
 import vokabeltrainer.types.Expression;
@@ -13,7 +12,6 @@ public class NikudExpressionEditorController
    public NikudExpressionEditorController()
    {
       nikudExpressionEditorDialog = new LanguageExpressionEditorView(this);
-      Common.setLanguageExpressionEditor(nikudExpressionEditorDialog);
    }
 
    public LanguageExpressionEditorView getNikudExpressionEditorDialog()

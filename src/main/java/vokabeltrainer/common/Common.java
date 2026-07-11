@@ -16,16 +16,16 @@ import vokabeltrainer.cmd.Mode;
 import vokabeltrainer.panels.MainView;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
-import vokabeltrainer.table.list.editor.LanguageExpressionEditorView;
 
 public final class Common
 {
    private static MainView mainJPanel;
    private static JFrame jFrame;
-   private static LanguageExpressionEditorView languageExpressionEditor;
 
    private static boolean setMainJPanelOnlyOnce = true;
    private static boolean setJFrameOnlyOnce = true;
+   private static boolean setModeOnlyOnce = true;
+   
    private static Translator translator = new Translator();
    private static Settings settings;
 
@@ -119,9 +119,13 @@ public final class Common
 
    }
 
-   public static void setMode(Mode mode)
+   static void setMode(Mode mode)
    {
-      Common.mode = mode;
+      if(setModeOnlyOnce)
+      {
+         Common.mode = mode;
+         setModeOnlyOnce = false;
+      }
    }
 
    public static Mode getMode()
@@ -155,17 +159,6 @@ public final class Common
          Common.jFrame = jFrame;
          setJFrameOnlyOnce = false;
       }
-   }
-
-   public static LanguageExpressionEditorView getLanguageExpressionEditor()
-   {
-      return languageExpressionEditor;
-   }
-
-   public static void setLanguageExpressionEditor(
-         LanguageExpressionEditorView languageExpressionEditor)
-   {
-      Common.languageExpressionEditor = languageExpressionEditor;
    }
 
    public static Translator getTranslator()
