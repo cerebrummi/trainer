@@ -47,8 +47,8 @@ public final class Common
 
          nimbus.getDefaults().put("internationalFont",
                new Font(Font.SANS_SERIF, Font.PLAIN, 16));
-         ApplicationFonts.setInternationalFont(
-               nimbus.getDefaults().getFont("internationalFont"));
+         ApplicationFonts.internationalFont =
+               nimbus.getDefaults().getFont("internationalFont");
 
          UIManager.put("nimbusFocus", ApplicationColors.getSunflowerYellow());
          UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());

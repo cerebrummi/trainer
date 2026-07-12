@@ -124,7 +124,7 @@ public final class Main
          Common.getjFrame().getContentPane().repaint();
          window.setTitle(
                Settings.getWindowTitle() + " " + Settings.getVersion());
-         window.setFont(ApplicationFonts.getGermanFont(14F));
+         window.setFont(ApplicationFonts.germanFont.deriveFont(14F));
          ToolTipManager.sharedInstance().setDismissDelay(8000);
          ToolTipManager.sharedInstance().setInitialDelay(1000);
          Common.setMainJPanel(

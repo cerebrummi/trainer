@@ -42,7 +42,7 @@ public class NikudLetterImage
             RenderingHints.VALUE_RENDER_QUALITY);
       g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
             RenderingHints.VALUE_STROKE_PURE);
-      g2d.setFont(ApplicationFonts.getHebrewFont(36));
+      g2d.setFont(ApplicationFonts.hebrewFont.deriveFont(36));
       FontMetrics fm = g2d.getFontMetrics();
       fm = g2d.getFontMetrics();
       g2d.setColor(AlefbetColors.getButtonForeground());

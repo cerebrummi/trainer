@@ -35,7 +35,7 @@ public class DatabaseTableCellRenderer
       empty.setOpaque(false);
 
       database = new JLabel();
-      database.setFont(ApplicationFonts.getGermanFont(14F));
+      database.setFont(ApplicationFonts.germanFont.deriveFont(14F));
       database.setBackground(ApplicationColors.getTransparent());
       database.setOpaque(false);
    }

@@ -30,7 +30,7 @@ public class ExpressionKindTableCellRenderer2 extends DefaultTableCellRenderer
       empty = new JLabel();
 
       expressionKind = new JLabel();
-      expressionKind.setFont(ApplicationFonts.getGermanFont(14F));
+      expressionKind.setFont(ApplicationFonts.germanFont.deriveFont(14F));
    }
 
    @Override

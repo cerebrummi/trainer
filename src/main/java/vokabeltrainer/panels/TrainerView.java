@@ -326,7 +326,7 @@ public class TrainerView extends JPanel
 
    private JPanel initLeftPanel()
    {
-      Font labelFont = ApplicationFonts.getGermanBoldFont(15F);
+      Font labelFont = ApplicationFonts.germanBoldFont.deriveFont(15F);
 
       JPanel verticalLeftPanel = new JPanel();
       verticalLeftPanel.setLayout(new TotemLayout(verticalLeftPanel, 15));
@@ -492,7 +492,7 @@ public class TrainerView extends JPanel
             .setBackground(ApplicationColors.getTexturedBackgroundColor());
 
       additionalInfo = new JCheckBox();
-      additionalInfo.setFont(ApplicationFonts.getGermanFont(15F));
+      additionalInfo.setFont(ApplicationFonts.germanFont.deriveFont(15F));
       additionalInfo.setMinimumSize(
             new Dimension(Settings.getKeyboardWidth() / 2 - 8, 30));
       additionalInfo.setMaximumSize(
@@ -521,14 +521,14 @@ public class TrainerView extends JPanel
       scrollerAdditionalInfo.getViewport().setOpaque(false);
 
       grammarInfo = new JCheckBox();
-      grammarInfo.setFont(ApplicationFonts.getGermanFont(15F));
+      grammarInfo.setFont(ApplicationFonts.germanFont.deriveFont(15F));
       grammarInfo.setMinimumSize(
             new Dimension(Settings.getKeyboardWidth() / 2 - 8, 30));
       grammarInfo.setMaximumSize(
             new Dimension(Settings.getKeyboardWidth() / 2 - 7, 30));
 
       grammarInfoField = new JTextPane();
-      grammarInfoField.setFont(ApplicationFonts.getGermanFont(15F));
+      grammarInfoField.setFont(ApplicationFonts.germanFont.deriveFont(15F));
       grammarInfoField
             .setBorder(new ComponentTitledBorder(grammarInfo, grammarInfoField,
                   new TitledBorder(
@@ -738,7 +738,7 @@ public class TrainerView extends JPanel
          break;
       }
 
-      sendButton.setFont(ApplicationFonts.getButtonFont());
+      sendButton.setFont(ApplicationFonts.buttonFont);
       sendButton.setForeground(TrainerColors.getTextForeground());
       sendButton.setIcon(new ImageIcon(ApplicationImages.getSend()));
       sendButton.setMinimumSize(new Dimension(300, 40));
@@ -909,18 +909,18 @@ public class TrainerView extends JPanel
       answerPanel1.setBackground(TrainerColors.getBackground());
       JLabel correctAnswer = new JLabel(translator
             .realisticTranslate(Translation.DIE_RICHTIGE_ANTWORT_LAUTET_));
-      correctAnswer.setFont(ApplicationFonts.getGermanFont(16F));
+      correctAnswer.setFont(ApplicationFonts.germanFont.deriveFont(16F));
       correctAnswer.setForeground(TrainerColors.getTextForeground());
       correctAnswer.setMinimumSize(new Dimension(300, 30));
       correctAnswer.setMaximumSize(new Dimension(510, 30));
       JLabel correctAnswer2 = new JLabel(
             connector.getCurrentExpression().getOwnLanguage());
-      correctAnswer2.setFont(ApplicationFonts.getGermanFont(20F));
+      correctAnswer2.setFont(ApplicationFonts.germanFont.deriveFont(20F));
       correctAnswer2.setMinimumSize(new Dimension(300, 30));
       correctAnswer2.setMaximumSize(new Dimension(510, 30));
       JTextField correctAnswer3 = new JTextField(
             connector.getCurrentExpression().getGrammarInfo(false));
-      correctAnswer3.setFont(ApplicationFonts.getGermanFont(16F));
+      correctAnswer3.setFont(ApplicationFonts.germanFont.deriveFont(16F));
       correctAnswer3.setEditable(false);
       correctAnswer3.setBackground(TrainerColors.getTransparent());
       correctAnswer3.setOpaque(false);

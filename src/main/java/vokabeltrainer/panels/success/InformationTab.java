@@ -65,7 +65,7 @@ public class InformationTab extends JPanel
       box.setSize(new Dimension(355, 100));
       box.setForeground(ApplicationColors.getWhite());
       box.setBackground(ApplicationColors.getTransparent());
-      box.setFont(ApplicationFonts.getHebrewFont(30F));
+      box.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
       box.setHorizontalAlignment(SwingConstants.CENTER);
       boxWrapper.add(box);
 
@@ -78,7 +78,7 @@ public class InformationTab extends JPanel
       checkWrapper.setBackground(ApplicationColors.getDarkGold());
       checkWrapper.setOpaque(true);
 
-      Font checkBoxFont = ApplicationFonts.getGermanFont(20F);
+      Font checkBoxFont = ApplicationFonts.germanFont.deriveFont(20F);
 
       JCheckBox heuteCheck = new JCheckBox(
             translator.realisticTranslate(Translation.HEUTE));

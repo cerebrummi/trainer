@@ -196,7 +196,7 @@ public class InputLanguagePanel extends JTextArea
 
       if (canBeToggled)
       {
-         toggleButton.setFont(ApplicationFonts.getGermanFont(30F));
+         toggleButton.setFont(ApplicationFonts.germanFont.deriveFont(30F));
          toggleButton.setMargin(new Insets(-5, 0, -5, 0));
          toggleButton.setBackground(new Color(0, 0, 0, 0));
          toggleButton.setForeground(ApplicationColors.getGold());
@@ -396,7 +396,7 @@ public class InputLanguagePanel extends JTextArea
       pleneField = new JTextPane();
       pleneField.setDocument(new NikudStyledDocument(true));
       pleneField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      pleneField.setFont(ApplicationFonts.getHebrewFont(30F));
+      pleneField.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
       pleneField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel) / 2));
       pleneField.setMaximumSize(new Dimension(this.widthTotal,
@@ -410,7 +410,7 @@ public class InputLanguagePanel extends JTextArea
       defektivField = new JTextPane();
       defektivField.setDocument(new NikudStyledDocument(true));
       defektivField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      defektivField.setFont(ApplicationFonts.getHebrewFont(30F));
+      defektivField.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
       defektivField
             .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
                   (heightTotal - heightBorderTitel) / 2));
@@ -436,7 +436,7 @@ public class InputLanguagePanel extends JTextArea
       vertical.setOpaque(true);
 
       hebrewField = new JTextPane();
-      hebrewField.setFont(ApplicationFonts.getHebrewFont(30F));
+      hebrewField.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
       hebrewField.setDocument(new NikudStyledDocument(true));
       hebrewField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       hebrewField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
@@ -477,7 +477,7 @@ public class InputLanguagePanel extends JTextArea
       swedishField.setLineWrap(true);
       swedishField.setDocument(new SwedishDocument(true));
       swedishField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-      swedishField.setFont(ApplicationFonts.getGermanFont(20F));
+      swedishField.setFont(ApplicationFonts.germanFont.deriveFont(20F));
       swedishField
             .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
                   (heightTotal - heightBorderTitel)));
@@ -506,7 +506,7 @@ public class InputLanguagePanel extends JTextArea
       germanField.setLineWrap(true);
       germanField.setDocument(new GermanDocument(true));
       germanField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-      germanField.setFont(ApplicationFonts.getGermanFont(20F));
+      germanField.setFont(ApplicationFonts.germanFont.deriveFont(20F));
       germanField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel)));
       germanField.setMaximumSize(

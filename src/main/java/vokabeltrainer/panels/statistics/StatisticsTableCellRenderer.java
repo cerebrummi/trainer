@@ -24,7 +24,7 @@ public class StatisticsTableCellRenderer
 
    public StatisticsTableCellRenderer()
    {
-      Font font = ApplicationFonts.getGermanFont(20F);
+      Font font = ApplicationFonts.germanFont.deriveFont(20F);
       date = new JLabel();
       date.setFont(font);
       date.setOpaque(true);

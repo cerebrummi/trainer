@@ -76,7 +76,7 @@ public class StatisticsPanel extends JPanel
       JLabel title = new JLabel(
             translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
       title.setForeground(StatisticsColors.getTextForeground());
-      title.setFont(ApplicationFonts.getGermanFont(30F));
+      title.setFont(ApplicationFonts.germanFont.deriveFont(30F));
       titlePanel.add(title);
 
       StatisticsTable table = new StatisticsTable(Data.findStatisticsModel());

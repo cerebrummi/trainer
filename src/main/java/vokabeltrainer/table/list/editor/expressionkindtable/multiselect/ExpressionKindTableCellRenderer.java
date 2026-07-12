@@ -35,7 +35,7 @@ public class ExpressionKindTableCellRenderer
       empty.setOpaque(false);
 
       expressionKind = new JLabel();
-      expressionKind.setFont(ApplicationFonts.getGermanFont(14F));
+      expressionKind.setFont(ApplicationFonts.germanFont.deriveFont(14F));
       expressionKind.setBackground(ApplicationColors.getTransparent());
       expressionKind.setOpaque(false);
    }

@@ -6,44 +6,25 @@ import java.io.IOException;
 
 import vokabeltrainer.common.ApplicationFonts;
 
-public class Fonts
-{
+public interface Fonts {
 
-   public static void read() throws FontFormatException, IOException
-   {
-      ApplicationFonts
-            .setHebrewFont(Font.createFont(Font.TRUETYPE_FONT, Fonts.class
-                  .getResourceAsStream("_1_fonts/Cardo-regular_104s.ttf"))); // Windows
-                                                                             // accepts
-                                                                             // the
-                                                                             // forward
-                                                                             // slash
-                                                                             // and
-                                                                             // Linux,
-                                                                             // too.
+    static void read() throws FontFormatException, IOException {
+        // Windows accepts the forward slash and Linux, too.
+        ApplicationFonts.hebrewFont = Font.createFont(Font.TRUETYPE_FONT, Fonts.class
+            .getResourceAsStream("_1_fonts/Cardo-regular_104s.ttf"));
+        ApplicationFonts.germanFont = Font.createFont(Font.TRUETYPE_FONT,
+            Fonts.class.getResourceAsStream("_1_fonts/Orkney Light.ttf"));
+        ApplicationFonts.germanBoldFont = Font.createFont(Font.TRUETYPE_FONT,
+            Fonts.class.getResourceAsStream("_1_fonts/Orkney Medium.ttf"));
+        ApplicationFonts.hebrewHandwrittenFont = Font.createFont(Font.TRUETYPE_FONT,
+            Fonts.class.getResourceAsStream("_1_fonts/AdaAdama.ttf"));
+    }
 
-      ApplicationFonts.setGermanFont(Font.createFont(Font.TRUETYPE_FONT,
-            Fonts.class.getResourceAsStream("_1_fonts/Orkney Light.ttf")));
-
-      ApplicationFonts.setGermanBoldFont(Font.createFont(Font.TRUETYPE_FONT,
-            Fonts.class.getResourceAsStream("_1_fonts/Orkney Medium.ttf")));
-
-      ApplicationFonts
-            .setHebrewHandwrittenFont(Font.createFont(Font.TRUETYPE_FONT,
-                  Fonts.class.getResourceAsStream("_1_fonts/AdaAdama.ttf")));
-   }
-
-   public static void define()
-   {
-      ApplicationFonts
-            .setButtonFont(ApplicationFonts.getGermanFont().deriveFont(16F));
-      ApplicationFonts.setToolbarButtonFont(
-            ApplicationFonts.getGermanFont().deriveFont(26F));
-      ApplicationFonts.setSecondaryToolbarButtonFont(
-            ApplicationFonts.getGermanFont().deriveFont(18F));
-      ApplicationFonts.setRadioButtonFont(
-            ApplicationFonts.getGermanFont().deriveFont(12F));
-      ApplicationFonts
-            .setComboBoxFont(ApplicationFonts.getGermanFont().deriveFont(14F));
-   }
+    static void define() {
+        ApplicationFonts.buttonFont = ApplicationFonts.germanFont.deriveFont(16F);
+        ApplicationFonts.toolbarButtonFont = ApplicationFonts.germanFont.deriveFont(26F);
+        ApplicationFonts.secondaryToolbarButtonFont = ApplicationFonts.germanFont.deriveFont(18F);
+        ApplicationFonts.radioButtonFont = ApplicationFonts.germanFont.deriveFont(12F);
+        ApplicationFonts.comboBoxFont = ApplicationFonts.germanFont.deriveFont(14F);
+    }
 }
