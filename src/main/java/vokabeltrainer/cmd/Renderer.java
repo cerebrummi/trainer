@@ -7,23 +7,20 @@ import javax.swing.JList;
 
 import vokabeltrainer.common.ApplicationColors;
 
-public class Renderer extends DefaultListCellRenderer
-{
+public class Renderer extends DefaultListCellRenderer {
 
-   private static final long serialVersionUID = 2183657576759647252L;
+    private static final long serialVersionUID = 2183657576759647252L;
 
-   @Override
-   public void setOpaque(boolean makeBackGroundVisible)
-   {
-      super.setOpaque(true); // THIS DOES THE TRICK
-   }
+    @Override
+    public void setOpaque(boolean makeBackGroundVisible) {
+        super.setOpaque(true); // THIS DOES THE TRICK
+    }
 
-   @Override
-   public Component getListCellRendererComponent(JList<?> list, Object value,
-         int index, boolean isSelected, boolean cellHasFocus)
-   {
-      setText((String) value);
-      setBackground(ApplicationColors.getLightYellow());
-      return this;
-   }
+    @Override
+    public Component getListCellRendererComponent(JList<?> list, Object value,
+                                                  int index, boolean isSelected, boolean cellHasFocus) {
+        setText((String) value);
+        setBackground(ApplicationColors.getLightYellow());
+        return this;
+    }
 }

@@ -1,26 +1,22 @@
 package vokabeltrainer.cmd;
 
-public enum Mode
-{
-   LOCAL_ORIGINAL(false, true), // Standard
-   WEB_ORIGINAL(true, true);
-   
-   private boolean web;
-   private boolean free;
+public enum Mode {
+    LOCAL_ORIGINAL(false, true), // Standard
+    WEB_ORIGINAL(true, true);
 
-   Mode(boolean web, boolean free)
-   {
-      this.web = web;
-      this.free = free;
-   }
+    private final boolean web;
+    private final boolean free;
 
-   public boolean isWeb()
-   {
-      return web;
-   }
+    Mode(boolean web, boolean free) {
+        this.web = web;
+        this.free = free;
+    }
 
-   public boolean isFree()
-   {
-      return free;
-   }
+    public boolean isWeb() {
+        return web;
+    }
+
+    public boolean isFree() {
+        return free;
+    }
 }
