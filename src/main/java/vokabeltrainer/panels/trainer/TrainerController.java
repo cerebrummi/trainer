@@ -249,7 +249,7 @@ public class TrainerController implements TrainerControllerConnector
                bestResult = NikudResultFactory.getBestResultPossible(
                      currentExpression,
                      trainerView.getAnswerField().getText().trim(),
-                     ApplicationFonts.getHebrewFont(30F));
+                     ApplicationFonts.hebrewFont.deriveFont(30F));
             }
             else if (LanguageDirection.OWN_TO_SWEDISH == languageDirection)
             {

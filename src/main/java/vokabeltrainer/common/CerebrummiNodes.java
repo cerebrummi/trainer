@@ -1,125 +1,96 @@
 package vokabeltrainer.common;
 
-public class CerebrummiNodes
-{
+public interface CerebrummiNodes {
+    static String getNode() // the node of preferences
+    {
+        return "cerebrummi.hebrewtrainer";
+    }
 
-   private CerebrummiNodes()
-   {
-      // nothing
-   }
+    static String getExpressionNode() {
+        return "vocabulary";
+    }
 
-   public static String getNode() // the node of preferences
-   {
-      return "cerebrummi.hebrewtrainer";
-   }
+    static String getTrainingNode() {
+        return "training";
+    }
 
-   public static String getExpressionNode()
-   {
-      return "vocabulary";
-   }
+    static String getSoundNode() {
+        return "sound";
+    }
 
-   public static String getTrainingNode()
-   {
-      return "training";
-   }
+    static String getChoosenExpressionPathNode() {
+        return "choosenexpressionpath";
+    }
 
-   public static String getSoundNode()
-   {
-      return "sound";
-   }
+    static String getVolumeNode() {
+        return "soundvolume";
+    }
 
-   public static String getChoosenExpressionPathNode()
-   {
-      return "choosenexpressionpath";
-   }
+    static String getLetterPicturesNode() {
+        return "letterpictures";
+    }
 
-   public static String getVolumeNode()
-   {
-      return "soundvolume";
-   }
+    static String getLanguageNode() {
+        return "language";
+    }
 
-   public static String getLetterPicturesNode()
-   {
-      return "letterpictures";
-   }
+    static String getChoosenDatabases() {
+        return "choosendatabases";
+    }
 
-   public static String getLanguageNode()
-   {
-      return "language";
-   }
+    static String getTranslationLanguage() {
+        return "translation";
+    }
 
-   public static String getChoosenDatabases()
-   {
-      return "choosendatabases";
-   }
+    static String getTranslationUUID() {
+        return "uuid";
+    }
 
-   public static String getTranslationLanguage()
-   {
-      return "translation";
-   }
+    static String getAnyName() {
+        return "anyname";
+    }
 
-   public static String getTranslationUUID()
-   {
-      return "uuid";
-   }
+    static String getRepetitionOneDay() {
+        return "repetition_one_day";
+    }
 
-   public static String getAnyName()
-   {
-      return "anyname";
-   }
+    static String getRepetitionTwoDays() {
+        return "repetition_two_days";
+    }
 
-   public static String getRepetitionOneDay()
-   {
-      return "repetition_one_day";
-   }
+    static String getRepetitionFiveDays() {
+        return "repetition_five_days";
+    }
 
-   public static String getRepetitionTwoDays()
-   {
-      return "repetition_two_days";
-   }
+    static String getRepetitionElevenDays() {
+        return "repetition_eleven_days";
+    }
 
-   public static String getRepetitionFiveDays()
-   {
-      return "repetition_five_days";
-   }
+    static String getRepetitionNineteenDays() {
+        return "repetition_nineteen_days";
+    }
 
-   public static String getRepetitionElevenDays()
-   {
-      return "repetition_eleven_days";
-   }
+    static String getRepetitionOneMonth() {
+        return "repetition_one_month";
+    }
 
-   public static String getRepetitionNineteenDays()
-   {
-      return "repetition_nineteen_days";
-   }
+    static String getRepetitionTwoMonths() {
+        return "repetition_two_months";
+    }
 
-   public static String getRepetitionOneMonth()
-   {
-      return "repetition_one_month";
-   }
+    static String getRepetitionFiveMonths() {
+        return "repetition_five_months";
+    }
 
-   public static String getRepetitionTwoMonths()
-   {
-      return "repetition_two_months";
-   }
+    static String getSchabbatModus() {
+        return "schabbat_modus";
+    }
 
-   public static String getRepetitionFiveMonths()
-   {
-      return "repetition_five_months";
-   }
+    static String getWritingDirectionNode() {
+        return "my_writing_direction";
+    }
 
-   public static String getSchabbatModus()
-   {
-      return "schabbat_modus";
-   }
-
-   public static String getWritingDirectionNode()
-   {
-      return "my_writing_direction";
-   }
-
-   public static String getDarkmodeNode()
-   {
-      return "darkmode";
-   }
+    static String getDarkmodeNode() {
+        return "darkmode";
+    }
 }

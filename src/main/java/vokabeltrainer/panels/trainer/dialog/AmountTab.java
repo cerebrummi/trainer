@@ -35,7 +35,7 @@ public class AmountTab extends JPanel
       JLabel question = new JLabel(translator.realisticTranslate(
             Translation.WIE_VIELE_NEUE_WOERTER_MOECHTEN_SIE_LERNEN_));
       question.setForeground(TrainerColors.getTextForeground());
-      question.setFont(ApplicationFonts.getButtonFont());
+      question.setFont(ApplicationFonts.buttonFont);
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
       add(question, BorderLayout.NORTH);
@@ -61,14 +61,14 @@ public class AmountTab extends JPanel
 
       JButton cancelButton = new JButton(
             translator.realisticTranslate(Translation.ABBRECHEN));
-      cancelButton.setFont(ApplicationFonts.getButtonFont());
+      cancelButton.setFont(ApplicationFonts.buttonFont);
       cancelButton.setBackground(TrainerColors.getButton());
       cancelButton.setForeground(TrainerColors.getButtonForeground());
       cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
 
       JButton nextButton = new JButton(
             translator.realisticTranslate(Translation.WEITER));
-      nextButton.setFont(ApplicationFonts.getButtonFont());
+      nextButton.setFont(ApplicationFonts.buttonFont);
       nextButton.setBackground(TrainerColors.getButton());
       nextButton.setForeground(TrainerColors.getButtonForeground());
       nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));

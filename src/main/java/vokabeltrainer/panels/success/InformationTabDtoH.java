@@ -52,7 +52,7 @@ public class InformationTabDtoH extends JPanel
       box.setSize(new Dimension(355, 100));
       box.setForeground(ApplicationColors.getWhite());
       box.setBackground(ApplicationColors.getTransparent());
-      box.setFont(ApplicationFonts.getHebrewFont(30F));
+      box.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
       box.setHorizontalAlignment(SwingConstants.CENTER);
       boxWrapper.add(box);
 

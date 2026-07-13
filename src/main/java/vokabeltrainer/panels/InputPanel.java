@@ -291,7 +291,7 @@ public class InputPanel extends JPanel implements TableConnector
       chapterBox.setPreferredSize(new Dimension(500, 30));
       chapterBox.setSize(new Dimension(500, 30));
       chapterBox.setMaximumRowCount(10);
-      chapterBox.setFont(ApplicationFonts.getComboBoxFont());
+      chapterBox.setFont(ApplicationFonts.comboBoxFont);
       return chapterBox;
    }
 
@@ -323,7 +323,7 @@ public class InputPanel extends JPanel implements TableConnector
       myWritingDirection.setBorder(
             BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                   translator.realisticTranslate(Translation.SCHREIBRICHTUNG), 0,
-                  0, ApplicationFonts.getButtonFont(),
+                  0, ApplicationFonts.buttonFont,
                   InputColors.getPanelBackground()));
       myWritingDirection.setOpaque(true);
       myWritingDirection.setBackground(InputColors.getPanelBackground());
@@ -337,7 +337,7 @@ public class InputPanel extends JPanel implements TableConnector
       otherLanguage.setBorder(
             BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                   translator.realisticTranslate(Translation.NEUE_SPRACHE), 0, 0,
-                  ApplicationFonts.getButtonFont(),
+                  ApplicationFonts.buttonFont,
                   InputColors.getPanelBackground()));
       otherLanguage.setOpaque(true);
       otherLanguage.setBackground(InputColors.getPanelBackground());
@@ -348,7 +348,7 @@ public class InputPanel extends JPanel implements TableConnector
 
       newWordPunktationButton = new JButton(
             translator.realisticTranslate(Translation.NEUE_VOKABEL));
-      newWordPunktationButton.setFont(ApplicationFonts.getButtonFont());
+      newWordPunktationButton.setFont(ApplicationFonts.buttonFont);
       newWordPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newWordPunktationButton.setMinimumSize(new Dimension(300, 60));
       newWordPunktationButton.setMaximumSize(new Dimension(300, 60));
@@ -360,7 +360,7 @@ public class InputPanel extends JPanel implements TableConnector
 
       newTextPunktationButton = new JButton(
             translator.realisticTranslate(Translation.NEUER_TEXT));
-      newTextPunktationButton.setFont(ApplicationFonts.getButtonFont());
+      newTextPunktationButton.setFont(ApplicationFonts.buttonFont);
       newTextPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newTextPunktationButton.setMinimumSize(new Dimension(300, 60));
       newTextPunktationButton.setMaximumSize(new Dimension(300, 60));
@@ -372,7 +372,7 @@ public class InputPanel extends JPanel implements TableConnector
 
       newQuestionsAndAnswersButton = new JButton(
             translator.realisticTranslate(Translation.NEUE_FRAGE_UND_ANTWORT));
-      newQuestionsAndAnswersButton.setFont(ApplicationFonts.getButtonFont());
+      newQuestionsAndAnswersButton.setFont(ApplicationFonts.buttonFont);
       newQuestionsAndAnswersButton.setHorizontalAlignment(SwingConstants.LEFT);
       newQuestionsAndAnswersButton.setMinimumSize(new Dimension(300, 60));
       newQuestionsAndAnswersButton.setMaximumSize(new Dimension(300, 60));

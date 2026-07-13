@@ -61,7 +61,7 @@ public class StartPanel extends JPanel
       name.setMaximumSize(new Dimension(580, 120));
       name.setPreferredSize(new Dimension(580, 120));
       name.setForeground(Color.WHITE);
-      name.setFont(ApplicationFonts.getHebrewFont(90F));
+      name.setFont(ApplicationFonts.hebrewFont.deriveFont(90F));
       nameWrapper.add(name);
 
       JPanel trainerWrapper = new JPanel();
@@ -77,7 +77,7 @@ public class StartPanel extends JPanel
       trainer.setMaximumSize(new Dimension(355, 90));
       trainer.setPreferredSize(new Dimension(355, 90));
       trainer.setForeground(Color.WHITE);
-      trainer.setFont(ApplicationFonts.getHebrewFont(40F));
+      trainer.setFont(ApplicationFonts.hebrewFont.deriveFont(40F));
       trainerWrapper.add(trainer);
 
       JPanel filler1 = new JPanel();
@@ -139,7 +139,7 @@ public class StartPanel extends JPanel
 
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_ANSEHEN));
-      databaseLabel.setFont(ApplicationFonts.getGermanFont(30F));
+      databaseLabel.setFont(ApplicationFonts.germanFont.deriveFont(30F));
       databaseLabel.setForeground(StartColors.getDatabase_HeaderText());
       databaseLabel.setOpaque(true);
       databaseLabel.setBackground(StartColors.getDatabase_Header());
@@ -155,7 +155,7 @@ public class StartPanel extends JPanel
             Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_SICHTBAR_MACHEN)
             + " => " + translator.realisticTranslate(
                   Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
-      databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
+      databaseLabel2.setFont(ApplicationFonts.germanFont.deriveFont(16F));
       databaseLabel2.setForeground(StartColors.getDatabase_Tipp());
 
       vertical.add(databaseLabel);
@@ -180,7 +180,7 @@ public class StartPanel extends JPanel
 
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_KOPIEREN));
-      databaseLabel.setFont(ApplicationFonts.getGermanFont(30F));
+      databaseLabel.setFont(ApplicationFonts.germanFont.deriveFont(30F));
       databaseLabel.setForeground(StartColors.getDatabase_HeaderText());
       databaseLabel.setOpaque(true);
       databaseLabel.setBackground(StartColors.getDatabase_Header());
@@ -197,7 +197,7 @@ public class StartPanel extends JPanel
                   Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_KOPIEREN)
             + " => " + translator.realisticTranslate(
                   Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
-      databaseLabel2.setFont(ApplicationFonts.getGermanFont(16F));
+      databaseLabel2.setFont(ApplicationFonts.germanFont.deriveFont(16F));
       databaseLabel2.setForeground(StartColors.getDatabase_Tipp());
 
       vertical.add(databaseLabel);

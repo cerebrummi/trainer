@@ -47,7 +47,7 @@ public class DirectionTab extends JPanel
       JLabel question = new JLabel(translator.realisticTranslate(
             Translation.IN_WELCHER_RICHTUNG_WOLLEN_SIE_LERNEN_));
       question.setForeground(TrainerColors.getTextForeground());
-      question.setFont(ApplicationFonts.getButtonFont());
+      question.setFont(ApplicationFonts.buttonFont);
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
       add(question, BorderLayout.NORTH);
@@ -67,41 +67,41 @@ public class DirectionTab extends JPanel
             translator.realisticTranslate(Translation.DEUTSCH) + " >> "
                   + translator.realisticTranslate(Translation.HEBRAEISCH_));
       ownToNikudButton.setForeground(TrainerColors.getTextForeground());
-      ownToNikudButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      ownToNikudButton.setFont(ApplicationFonts.toolbarButtonFont);
       directionGroup.add(ownToNikudButton);
 
       hebrewToOwnButton = new JRadioButton(
             translator.realisticTranslate(Translation.HEBRAEISCH_) + " >> "
                   + translator.realisticTranslate(Translation.DEUTSCH));
       hebrewToOwnButton.setForeground(TrainerColors.getTextForeground());
-      hebrewToOwnButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      hebrewToOwnButton.setFont(ApplicationFonts.toolbarButtonFont);
       directionGroup.add(hebrewToOwnButton);
 
       ownToSwedishButton = new JRadioButton(
             translator.realisticTranslate(Translation.DEUTSCH) + " >> "
                   + translator.realisticTranslate(Translation.SCHWEDISCH));
       ownToSwedishButton.setForeground(TrainerColors.getTextForeground());
-      ownToSwedishButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      ownToSwedishButton.setFont(ApplicationFonts.toolbarButtonFont);
       directionGroup.add(ownToSwedishButton);
 
       swedishToOwnButton = new JRadioButton(
             translator.realisticTranslate(Translation.SCHWEDISCH) + " >> "
                   + translator.realisticTranslate(Translation.DEUTSCH));
-      swedishToOwnButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      swedishToOwnButton.setFont(ApplicationFonts.toolbarButtonFont);
       swedishToOwnButton.setForeground(TrainerColors.getTextForeground());
       directionGroup.add(swedishToOwnButton);
 
       ownToGermanButton = new JRadioButton(
             translator.realisticTranslate(Translation.DEUTSCH) + " >> "
                   + translator.realisticTranslate(Translation.GERMAN));
-      ownToGermanButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      ownToGermanButton.setFont(ApplicationFonts.toolbarButtonFont);
       ownToGermanButton.setForeground(TrainerColors.getTextForeground());
       directionGroup.add(ownToGermanButton);
 
       germanToOwnButton = new JRadioButton(
             translator.realisticTranslate(Translation.GERMAN) + " >> "
                   + translator.realisticTranslate(Translation.DEUTSCH));
-      germanToOwnButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      germanToOwnButton.setFont(ApplicationFonts.toolbarButtonFont);
       germanToOwnButton.setForeground(TrainerColors.getTextForeground());
       directionGroup.add(germanToOwnButton);
 
@@ -123,14 +123,14 @@ public class DirectionTab extends JPanel
 
       cancelButton = new JButton(
             translator.realisticTranslate(Translation.ABBRECHEN));
-      cancelButton.setFont(ApplicationFonts.getButtonFont());
+      cancelButton.setFont(ApplicationFonts.buttonFont);
       cancelButton.setBackground(TrainerColors.getButton());
       cancelButton.setForeground(TrainerColors.getButtonForeground());
       cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
 
       nextButton = new JButton(
             translator.realisticTranslate(Translation.WEITER));
-      nextButton.setFont(ApplicationFonts.getButtonFont());
+      nextButton.setFont(ApplicationFonts.buttonFont);
       nextButton.setBackground(TrainerColors.getButton());
       nextButton.setForeground(TrainerColors.getButtonForeground());
       nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));

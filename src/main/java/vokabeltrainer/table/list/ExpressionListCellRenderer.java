@@ -52,7 +52,7 @@ public class ExpressionListCellRenderer
       }
       if (index == 3)
       {
-         label.setFont(ApplicationFonts.getHebrewHandwrittenFont(30));
+         label.setFont(ApplicationFonts.hebrewHandwrittenFont.deriveFont(30f));
          label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       }
       else if (index == 2)

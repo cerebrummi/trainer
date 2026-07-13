@@ -53,7 +53,7 @@ public class KeyboardHebrewAllLetters extends JPanel
          }
          else
          {
-            textfield.setFont(ApplicationFonts.getHebrewFont(30F));
+            textfield.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
             textfield
                   .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             textfield.setMinimumSize(
@@ -206,7 +206,7 @@ public class KeyboardHebrewAllLetters extends JPanel
       buttonCaption.add(jButton);
       JLabel captionLabel = new JLabel(" ");
 
-      captionLabel.setFont(ApplicationFonts.getGermanFont(8F));
+      captionLabel.setFont(ApplicationFonts.germanFont.deriveFont(8F));
       captionLabel.setMinimumSize(new Dimension(BUTTON_SIZE + 2, 5));
       captionLabel.setMaximumSize(new Dimension(BUTTON_SIZE + 2, 5));
 

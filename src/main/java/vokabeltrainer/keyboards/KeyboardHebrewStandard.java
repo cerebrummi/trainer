@@ -46,7 +46,7 @@ public class KeyboardHebrewStandard extends JPanel
 
       if (textfield != null)
       {
-         textfield.setFont(ApplicationFonts.getHebrewFont(30F));
+         textfield.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
          textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          textfield.setMinimumSize(
                new Dimension(Settings.getKeyboardWidth(), textFieldHeight));

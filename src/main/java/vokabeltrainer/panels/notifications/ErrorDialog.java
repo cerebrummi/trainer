@@ -32,13 +32,13 @@ public class ErrorDialog extends JDialog
                   .realisticTranslate(Translation.FEHLERMELDUNG)));
 
       JLabel rowA = new JLabel(textA);
-      rowA.setFont(ApplicationFonts.getGermanFont(24F));
+      rowA.setFont(ApplicationFonts.germanFont.deriveFont(24F));
       JLabel rowB = new JLabel(textB);
-      rowB.setFont(ApplicationFonts.getGermanFont(20F));
+      rowB.setFont(ApplicationFonts.germanFont.deriveFont(20F));
       JLabel rowC = new JLabel(middle);
-      rowC.setFont(ApplicationFonts.getGermanFont(20F));
+      rowC.setFont(ApplicationFonts.germanFont.deriveFont(20F));
       JLabel rowD = new JLabel(textD);
-      rowD.setFont(ApplicationFonts.getGermanFont(16F));
+      rowD.setFont(ApplicationFonts.germanFont.deriveFont(16F));
 
       vertical.add(rowA);
       vertical.add(new JPanel());

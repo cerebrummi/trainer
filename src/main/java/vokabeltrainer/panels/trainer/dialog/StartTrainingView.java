@@ -55,7 +55,7 @@ public class StartTrainingView extends JDialog
       getContentPane().add(layout);
 
       tabbedPane = new JTabbedPane();
-      tabbedPane.setFont(ApplicationFonts.getToolbarButtonFont());
+      tabbedPane.setFont(ApplicationFonts.toolbarButtonFont);
       layout.add(tabbedPane, BorderLayout.CENTER);
 
       tabbedPane.addTab(translator.realisticTranslate(Translation.GEBIET),

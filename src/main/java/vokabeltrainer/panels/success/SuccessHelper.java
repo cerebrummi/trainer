@@ -106,7 +106,7 @@ public class SuccessHelper
          JButton selectAllButton = new JButton(
                translator.realisticTranslate(Translation.ALLE_AUSWAEHLEN));
          selectAllButton.setIcon(new ImageIcon(ApplicationImages.getSelect()));
-         selectAllButton.setFont(ApplicationFonts.getButtonFont());
+         selectAllButton.setFont(ApplicationFonts.buttonFont);
          selectAllButton.setForeground(SuccessColors.getTextForeground());
          selectAllButton.addActionListener(_ -> {
 
@@ -120,7 +120,7 @@ public class SuccessHelper
          JButton unselectAllButton = new JButton(translator
                .realisticTranslate(Translation.ALLE_NICHT_AUSWAEHLEN));
          unselectAllButton.setIcon(new ImageIcon(ApplicationImages.getClear()));
-         unselectAllButton.setFont(ApplicationFonts.getButtonFont());
+         unselectAllButton.setFont(ApplicationFonts.buttonFont);
          unselectAllButton.setForeground(SuccessColors.getTextForeground());
          unselectAllButton.addActionListener(_ -> {
 
@@ -136,7 +136,7 @@ public class SuccessHelper
                + translator.realisticTranslate(Translation.VORRAT) + "\" "
                + translator.realisticTranslate(Translation.VERSCHIEBEN));
          moveButton.setIcon(new ImageIcon(ApplicationImages.getBack()));
-         moveButton.setFont(ApplicationFonts.getButtonFont());
+         moveButton.setFont(ApplicationFonts.buttonFont);
          moveButton.setForeground(SuccessColors.getTextForeground());
          moveButton.addActionListener(_ -> {
             List<Vector<SuccessTableRow>> rows = new ArrayList<>();

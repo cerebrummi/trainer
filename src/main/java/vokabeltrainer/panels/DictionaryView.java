@@ -186,21 +186,21 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       sortForAlphabetBox = new JRadioButton(
             translator.realisticTranslate(Translation.ALFABET));
-      sortForAlphabetBox.setFont(ApplicationFonts.getRadioButtonFont());
+      sortForAlphabetBox.setFont(ApplicationFonts.radioButtonFont);
       sortForAlphabetBox.setMinimumSize(new Dimension(70, 30));
       sortForAlphabetBox.setMaximumSize(new Dimension(100, 60));
       sortForAlphabetBox.setActionCommand(SortingType.ALPHABET.name());
 
       sortForDateBox = new JRadioButton(
             translator.realisticTranslate(Translation.DATUM));
-      sortForDateBox.setFont(ApplicationFonts.getRadioButtonFont());
+      sortForDateBox.setFont(ApplicationFonts.radioButtonFont);
       sortForDateBox.setMinimumSize(new Dimension(70, 30));
       sortForDateBox.setMaximumSize(new Dimension(100, 60));
       sortForDateBox.setActionCommand(SortingType.DATE.name());
 
       sortForIndexBox = new JRadioButton(
             translator.realisticTranslate(Translation.INDEX));
-      sortForIndexBox.setFont(ApplicationFonts.getRadioButtonFont());
+      sortForIndexBox.setFont(ApplicationFonts.radioButtonFont);
       sortForIndexBox.setMinimumSize(new Dimension(70, 30));
       sortForIndexBox.setMaximumSize(new Dimension(100, 60));
       sortForIndexBox.setActionCommand(SortingType.INDEX.name());
@@ -220,7 +220,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(true);
       tabbedPane.setBackground(DictionaryColors.getBackground());
-      tabbedPane.setFont(ApplicationFonts.getButtonFont());
+      tabbedPane.setFont(ApplicationFonts.buttonFont);
       tabbedPane.addTab(translator.realisticTranslate(Translation.DATENBANK),
             initDatabaseTab());
       tabbedPane.addTab(translator.realisticTranslate(Translation.LEKTIONEN),
@@ -336,7 +336,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
       mySearchButton.setBackground(DictionaryColors.getButton());
       mySearchButton.setForeground(DictionaryColors.getButtonForeground());
-      mySearchButton.setFont(ApplicationFonts.getButtonFont());
+      mySearchButton.setFont(ApplicationFonts.buttonFont);
       mySearchButton.setIcon(new ImageIcon(ApplicationImages.getSearch()));
       JPanel wrapper = new JPanel(new FlowLayout());
       wrapper.setOpaque(false);
@@ -385,7 +385,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
       otherSearchButton.setBackground(DictionaryColors.getButton());
       otherSearchButton.setForeground(DictionaryColors.getButtonForeground());
-      otherSearchButton.setFont(ApplicationFonts.getButtonFont());
+      otherSearchButton.setFont(ApplicationFonts.buttonFont);
       otherSearchButton.setIcon(new ImageIcon(ApplicationImages.getSearch()));
       JPanel wrapper1 = new JPanel(new FlowLayout());
       wrapper1.setOpaque(false);
@@ -454,7 +454,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          {
             radioButton.setSelected(true);
          }
-         radioButton.setFont(ApplicationFonts.getButtonFont());
+         radioButton.setFont(ApplicationFonts.buttonFont);
          JPanel wrapper = new JPanel(new FlowLayout());
          wrapper.setOpaque(false);
          wrapper.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 25));
@@ -491,7 +491,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             .realisticTranslate(Translation.AUSWAHL_ZUR_LEKTION_VERSCHIEBEN));
       moveToChapterButton.setBackground(DictionaryColors.getButton());
       moveToChapterButton.setForeground(DictionaryColors.getButtonForeground());
-      moveToChapterButton.setFont(ApplicationFonts.getButtonFont());
+      moveToChapterButton.setFont(ApplicationFonts.buttonFont);
 
       horizontalMoveToChapterPanel.add(chapterChoiceBox);
       horizontalMoveToChapterPanel.add(moveToChapterButton);
@@ -513,7 +513,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       moveToDatabaseButton.setBackground(DictionaryColors.getButton());
       moveToDatabaseButton
             .setForeground(DictionaryColors.getButtonForeground());
-      moveToDatabaseButton.setFont(ApplicationFonts.getButtonFont());
+      moveToDatabaseButton.setFont(ApplicationFonts.buttonFont);
 
       horizontalMoveToDatabasePanel.add(databaseChoiceBox);
       horizontalMoveToDatabasePanel.add(moveToDatabaseButton);
@@ -577,7 +577,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       copyAllSelectedButton.setBackground(DictionaryColors.getButton());
       copyAllSelectedButton
             .setForeground(DictionaryColors.getButtonForeground());
-      copyAllSelectedButton.setFont(ApplicationFonts.getButtonFont());
+      copyAllSelectedButton.setFont(ApplicationFonts.buttonFont);
       copyAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyAllSelectedButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
       copyAllSelectedButton.setToolTipText(translator.realisticTranslate(
@@ -590,7 +590,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       copyInTableSelectedButton.setBackground(DictionaryColors.getButton());
       copyInTableSelectedButton
             .setForeground(DictionaryColors.getButtonForeground());
-      copyInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
+      copyInTableSelectedButton.setFont(ApplicationFonts.buttonFont);
       copyInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getCopy()));
@@ -603,7 +603,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             translator.realisticTranslate(Translation.TABELLE_KOPIEREN));
       copyTableButton.setBackground(DictionaryColors.getButton());
       copyTableButton.setForeground(DictionaryColors.getButtonForeground());
-      copyTableButton.setFont(ApplicationFonts.getButtonFont());
+      copyTableButton.setFont(ApplicationFonts.buttonFont);
       copyTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyTableButton.setIcon(new ImageIcon(ApplicationImages.getCopy()));
       copyTableButton.setToolTipText(translator.realisticTranslate(
@@ -616,7 +616,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       selectAllInTableButton.setBackground(DictionaryColors.getButton());
       selectAllInTableButton
             .setForeground(DictionaryColors.getButtonForeground());
-      selectAllInTableButton.setFont(ApplicationFonts.getButtonFont());
+      selectAllInTableButton.setFont(ApplicationFonts.buttonFont);
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       selectAllInTableButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
@@ -628,7 +628,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       clearAllSelectedButton.setBackground(DictionaryColors.getButton());
       clearAllSelectedButton
             .setForeground(DictionaryColors.getButtonForeground());
-      clearAllSelectedButton.setFont(ApplicationFonts.getButtonFont());
+      clearAllSelectedButton.setFont(ApplicationFonts.buttonFont);
       clearAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearAllSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
@@ -640,7 +640,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       clearInTableSelectedButton.setBackground(DictionaryColors.getButton());
       clearInTableSelectedButton
             .setForeground(DictionaryColors.getButtonForeground());
-      clearInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
+      clearInTableSelectedButton.setFont(ApplicationFonts.buttonFont);
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
@@ -652,7 +652,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       deleteInTableSelectedButton.setBackground(DictionaryColors.getButton());
       deleteInTableSelectedButton
             .setForeground(DictionaryColors.getButtonForeground());
-      deleteInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
+      deleteInTableSelectedButton.setFont(ApplicationFonts.buttonFont);
       deleteInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getDeleteWord()));
@@ -664,7 +664,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       deleteAllSelectedButton.setBackground(DictionaryColors.getButton());
       deleteAllSelectedButton
             .setForeground(DictionaryColors.getButtonForeground());
-      deleteAllSelectedButton.setFont(ApplicationFonts.getButtonFont());
+      deleteAllSelectedButton.setFont(ApplicationFonts.buttonFont);
       deleteAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteAllSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getDeleteWord()));
@@ -706,7 +706,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       JLabel infoLabel = new JLabel(
             translator.realisticTranslate(Translation.TABELLE_BEDIENEN));
       infoLabel.setForeground(DictionaryColors.getInfoTextForeground());
-      infoLabel.setFont(ApplicationFonts.getButtonFont());
+      infoLabel.setFont(ApplicationFonts.buttonFont);
       infoLabel.setMinimumSize(new Dimension(200, 40));
       infoLabel.setMaximumSize(new Dimension(600, 40));
 
@@ -1100,7 +1100,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       scrollsearchButton.setOpaque(true);
       scrollsearchButton.setBackground(DictionaryColors.getButton());
       scrollsearchButton.setForeground(DictionaryColors.getButtonForeground());
-      scrollsearchButton.setFont(ApplicationFonts.getButtonFont());
+      scrollsearchButton.setFont(ApplicationFonts.buttonFont);
       DataButton scrollsearchPinButton = new DataButton(
             translator.realisticTranslate(Translation.NAECHSTE_AUSWAHL));
       scrollsearchPinButton
@@ -1109,7 +1109,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       scrollsearchPinButton.setBackground(DictionaryColors.getBackground());
       scrollsearchPinButton
             .setForeground(DictionaryColors.getButtonForeground());
-      scrollsearchPinButton.setFont(ApplicationFonts.getButtonFont());
+      scrollsearchPinButton.setFont(ApplicationFonts.buttonFont);
 
       table = new ExpressionTable(tableModel, this.getSelectedLanguage(),
             connector, true,
@@ -1184,7 +1184,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       JLabel numberOfEntriesLabel = new JLabel(
             " " + tableModel.getRowCount() + " " + translator
                   .realisticTranslate(Translation.EINTRAEGE_IN_DIESER_TABELLE));
-      numberOfEntriesLabel.setFont(ApplicationFonts.getButtonFont());
+      numberOfEntriesLabel.setFont(ApplicationFonts.buttonFont);
       infotablePanel.add(numberOfEntriesLabel);
 
       southWrapperPanel.add(scrollsearchField, BorderLayout.NORTH);
@@ -1205,7 +1205,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
    private void initLanguageButtonGroup(ButtonGroup languageTypeGroup)
    {
-      Font font = ApplicationFonts.getGermanFont(20F);
+      Font font = ApplicationFonts.germanFont.deriveFont(20F);
       JRadioButton german = new JRadioButton(
             translator.realisticTranslate(Translation.MEINE_SPRACHE));
       german.setActionCommand(Action.OWN_TO_NEW.name());

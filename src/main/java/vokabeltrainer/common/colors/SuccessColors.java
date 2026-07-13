@@ -5,47 +5,28 @@ import java.awt.Color;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.Settings;
 
-public class SuccessColors
-{
+public interface SuccessColors {
+    static Color getTextForeground() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.white;
+        return ApplicationColors.darkGold;
+    }
 
-   private SuccessColors()
-   {
-      // nothing
-   }
+    static Color getPanelBackground() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.shadyBlueLight;
+        return ApplicationColors.backgroundGold;
+    }
 
-   public static Color getTextForeground()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.white;
-      }
-      return ApplicationColors.darkGold;
-   }
+    static Color getPanelBackgroundLight() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.mediumSilverBlue;
+        return ApplicationColors.mediumSilverBlue;
+    }
 
-   public static Color getPanelBackground()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.shadyBlueLight;
-      }
-      return ApplicationColors.backgroundGold;
-   }
-
-   public static Color getPanelBackgroundLight()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.mediumSilverBlue;
-      }
-      return ApplicationColors.mediumSilverBlue;
-   }
-
-   public static Color getTableBackground()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.slategray;
-      }
-      return ApplicationColors.white;
-   }
+    static Color getTableBackground() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.slategray;
+        return ApplicationColors.white;
+    }
 }
