@@ -41,7 +41,7 @@ import vokabeltrainer.common.ApplicationSound;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
 import vokabeltrainer.common.ImportExpressions;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.Initializer;
 import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.Settings.OperatingSystem;
@@ -74,9 +74,11 @@ public class SettingsPanel extends JPanel
    private Translator translator = Common.getTranslator();
    private JCheckBox modus;
    private JButton originalFolder;
+   private Initializer initializer;
 
-   public SettingsPanel()
+   public SettingsPanel(Initializer initializer)
    {
+      this.initializer = initializer;
       setLayout(new BullsEyeLayout(this));
       this.setOpaque(true);
       this.setBackground(ApplicationColors.getTexturedBackgroundColor());
@@ -677,7 +679,7 @@ public class SettingsPanel extends JPanel
          {
             Settings.setChoosenExpressionPath(pathOfFolder);
             this.folderLabel.setText(Settings.getExpressionPath());
-            Main.initDatabase();
+            initializer.initDatabase();
          }
 
       });
@@ -685,7 +687,7 @@ public class SettingsPanel extends JPanel
       originalFolder.addActionListener(_ -> {
          Settings.setBackExpressionPath();
          this.folderLabel.setText(Settings.getExpressionPath());
-         Main.initDatabase();
+         initializer.initDatabase();
       });
 
       importButton.addActionListener(_ -> {

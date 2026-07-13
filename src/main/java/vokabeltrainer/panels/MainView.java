@@ -17,7 +17,7 @@ import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Data;
-import vokabeltrainer.common.Main;
+import vokabeltrainer.common.Initializer;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.MainColors;
 import vokabeltrainer.panels.dictionary.DictionaryController;
@@ -56,11 +56,14 @@ public class MainView extends JPanel
 
    private JButton backButton;
    private TranslationPanel languagePanel;
+   
+   private Initializer initializer;
 
    private Translator translator;
 
-   public MainView()
+   public MainView(Initializer initializer)
    {
+      this.initializer = initializer;
       initContent();
       initController();
       activeComponent = startPanel;
@@ -82,7 +85,7 @@ public class MainView extends JPanel
       dictionaryPanel = new DictionaryController().getDictionaryPanel();
       letterPicturesPanel = new AlefbetPanel();
       statisticsPanel = new StatisticsPanel();
-      settingsPanel = new SettingsPanel();
+      settingsPanel = new SettingsPanel(initializer);
       successPanel = new SuccessPanel();
    }
 
@@ -95,7 +98,7 @@ public class MainView extends JPanel
       add(languagePanel);
       initBackController();
 
-      Main.resetMenuBar();
+      initializer.resetMenuBar();
       this.validate();
       this.repaint();
    }
@@ -109,7 +112,7 @@ public class MainView extends JPanel
       add(colorPanel);
       initBackController();
 
-      Main.resetMenuBar();
+      initializer.resetMenuBar();
       this.validate();
       this.repaint();
 
@@ -123,7 +126,7 @@ public class MainView extends JPanel
          initController();
          activeComponent = startPanel;
          add(activeComponent);
-         Main.resetMenuBar();
+         initializer.resetMenuBar();
          Common.getjFrame().validate();
          Common.getjFrame().repaint();
       });
