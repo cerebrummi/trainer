@@ -83,13 +83,13 @@ public class AlefbetPanel extends JPanel
             translator.realisticTranslate(Translation.AUSWERTEN));
       resultButton.setBackground(AlefbetColors.getButton());
       resultButton.setForeground(AlefbetColors.getButtonForeground());
-      resultButton.setFont(ApplicationFonts.getButtonFont());
+      resultButton.setFont(ApplicationFonts.buttonFont);
 
       resetButton = new JButton(
             translator.realisticTranslate(Translation.ZURUECKSETZEN));
       resetButton.setBackground(AlefbetColors.getButton());
       resetButton.setForeground(AlefbetColors.getButtonForeground());
-      resetButton.setFont(ApplicationFonts.getButtonFont());
+      resetButton.setFont(ApplicationFonts.buttonFont);
 
       vertical.add(filler);
       vertical.add(resultButton);
@@ -106,7 +106,7 @@ public class AlefbetPanel extends JPanel
       JLabel title = new JLabel(
             translator.realisticTranslate(Translation.ALEFBET_UEBEN));
       title.setForeground(AlefbetColors.getTextForeground());
-      title.setFont(ApplicationFonts.getGermanFont(24F));
+      title.setFont(ApplicationFonts.germanFont.deriveFont(24F));
       letterPanel.add(title);
 
       pictureInfoButton = new JButton(

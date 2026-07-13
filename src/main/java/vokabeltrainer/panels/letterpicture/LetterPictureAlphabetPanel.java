@@ -219,7 +219,7 @@ public class LetterPictureAlphabetPanel extends JPanel
             translator.realisticTranslate(Translation.ALLE_UMDREHEN));
       turnButton.setBackground(AlefbetColors.getButton());
       turnButton.setForeground(AlefbetColors.getButtonForeground());
-      turnButton.setFont(ApplicationFonts.getButtonFont());
+      turnButton.setFont(ApplicationFonts.buttonFont);
       turnButton.setIcon(new ImageIcon(ApplicationImages.getTurn()));
       turnButton.addActionListener(_ -> {
          for (LetterPictureButtonPanel panel : panels.values())
@@ -365,7 +365,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          for (JTextComponent jtc : textFields)
          {
-            jtc.setFont(ApplicationFonts.getHebrewHandwrittenFont(30));
+            jtc.setFont(ApplicationFonts.hebrewHandwrittenFont.deriveFont(30f));
          }
          cardLayout.show(keyboardPanel, SCHREIBSCHRIFT);
       }
@@ -373,7 +373,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          for (JTextComponent jtc : textFields)
          {
-            jtc.setFont(ApplicationFonts.getHebrewFont(30));
+            jtc.setFont(ApplicationFonts.hebrewFont.deriveFont(30f));
          }
          cardLayout.show(keyboardPanel, DRUCKSCHRIFT);
       }

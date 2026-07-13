@@ -44,7 +44,7 @@ public class SuccessTableCellRenderer
       ;
 
       chapter = new JLabel();
-      chapter.setFont(ApplicationFonts.getGermanFont(20));
+      chapter.setFont(ApplicationFonts.germanFont.deriveFont(20f));
       chapter.setBackground(SuccessColors.getTableBackground());
       chapter.setOpaque(true);
       chapter.setForeground(SuccessColors.getTextForeground());

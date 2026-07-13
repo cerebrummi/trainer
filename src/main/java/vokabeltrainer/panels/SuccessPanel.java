@@ -34,7 +34,7 @@ public class SuccessPanel extends JPanel
       germanHebrewRegister = new JTabbedPane();
       germanHebrewRegister.setForeground(SuccessColors.getTextForeground());
       germanHebrewRegister
-            .setFont(ApplicationFonts.getSecondaryToolbarButtonFont());
+            .setFont(ApplicationFonts.secondaryToolbarButtonFont);
       germanHebrewRegister.setTabPlacement(JTabbedPane.LEFT);
       germanHebrewRegister.setMinimumSize(new Dimension(1254, 613));
       germanHebrewRegister.setMaximumSize(new Dimension(1500, 800));

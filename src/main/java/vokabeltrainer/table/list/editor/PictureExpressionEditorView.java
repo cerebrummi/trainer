@@ -234,7 +234,7 @@ public class PictureExpressionEditorView extends JDialog
       JPopupMenu menu = new JPopupMenu();
 
       JMenuItem saveItem = new JMenuItem("Bild speichern");
-      saveItem.setFont(ApplicationFonts.getButtonFont());
+      saveItem.setFont(ApplicationFonts.buttonFont);
       saveItem.addActionListener(_ -> {
          item.setChecked(true);
          connector.saveImage(expression, item);
@@ -242,7 +242,7 @@ public class PictureExpressionEditorView extends JDialog
       });
 
       JMenuItem deleteItem = new JMenuItem("Bild löschen");
-      deleteItem.setFont(ApplicationFonts.getButtonFont());
+      deleteItem.setFont(ApplicationFonts.buttonFont);
       deleteItem.addActionListener(_ -> {
          item.setChecked(false);
          connector.deleteImage(expression, item);
@@ -262,7 +262,7 @@ public class PictureExpressionEditorView extends JDialog
       });
 
       JMenuItem removeFromListItem = new JMenuItem("Bild entfernen");
-      removeFromListItem.setFont(ApplicationFonts.getButtonFont());
+      removeFromListItem.setFont(ApplicationFonts.buttonFont);
       removeFromListItem.addActionListener(_ -> {
          DefaultListModel<ImageItem> model = (DefaultListModel<ImageItem>) imageList
                .getModel();

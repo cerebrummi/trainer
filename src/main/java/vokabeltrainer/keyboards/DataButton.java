@@ -24,7 +24,7 @@ public class DataButton extends JButton
       super(caption);
       this.data = data;
       this.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      this.setFont(ApplicationFonts.getHebrewFont(30F));
+      this.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
    }
 
    public DataButton(String caption, String data,
@@ -33,7 +33,7 @@ public class DataButton extends JButton
       super(caption);
       this.data = data;
       this.setComponentOrientation(orientation);
-      this.setFont(ApplicationFonts.getHebrewFont(30F));
+      this.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
    }
 
    public String getData()

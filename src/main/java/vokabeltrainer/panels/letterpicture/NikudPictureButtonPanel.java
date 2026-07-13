@@ -121,7 +121,7 @@ public class NikudPictureButtonPanel extends JPanel
       {
          germanButton = new JButton(
                letter.getNikudContent().getGermanPictureName());
-         germanButton.setFont(ApplicationFonts.getGermanFont(10F));
+         germanButton.setFont(ApplicationFonts.germanFont.deriveFont(10F));
          germanButton.setContentAreaFilled(false);
       }
       germanButton.setBorder(BorderFactory.createEmptyBorder());
@@ -147,7 +147,7 @@ public class NikudPictureButtonPanel extends JPanel
          hebrewButton = new JButton(letter.getContent().getTranscript());
          hebrewButton.setBackground(AlefbetColors.getButton());
          hebrewButton.setForeground(AlefbetColors.getButtonForeground());
-         hebrewButton.setFont(ApplicationFonts.getGermanFont(10F));
+         hebrewButton.setFont(ApplicationFonts.germanFont.deriveFont(10F));
          hebrewButton.setContentAreaFilled(false);
       }
       hebrewButton.setBorder(BorderFactory.createEmptyBorder());

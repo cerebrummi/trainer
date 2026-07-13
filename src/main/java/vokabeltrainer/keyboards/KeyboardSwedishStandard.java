@@ -38,7 +38,7 @@ public class KeyboardSwedishStandard extends JPanel
 
       if (textfield != null)
       {
-         textfield.setFont(ApplicationFonts.getGermanFont(30F));
+         textfield.setFont(ApplicationFonts.germanFont.deriveFont(30F));
          textfield.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          textfield.setMinimumSize(
                new Dimension(Settings.getKeyboardWidth(), textFieldHeight));

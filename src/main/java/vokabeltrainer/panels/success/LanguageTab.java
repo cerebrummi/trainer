@@ -51,7 +51,7 @@ public class LanguageTab extends JPanel
       register = new JTabbedPane();
       register.setOpaque(true);
       register.setBackground(SuccessColors.getPanelBackground());
-      register.setFont(ApplicationFonts.getSecondaryToolbarButtonFont());
+      register.setFont(ApplicationFonts.secondaryToolbarButtonFont);
 
       register.addTab(translator.realisticTranslate(Translation.RICHTUNG),
             infoPanel); // 0

@@ -5,29 +5,16 @@ import java.awt.Color;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.Settings;
 
-public class TableColors
-{
+public interface TableColors {
+    static Color getRow1() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.mediumSilverBlue;
+        return ApplicationColors.lightBlue;
+    }
 
-   private TableColors()
-   {
-      // nothing
-   }
-
-   public static Color getRow1()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.mediumSilverBlue;
-      }
-      return ApplicationColors.lightBlue;
-   }
-
-   public static Color getRow2()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.lightGold;
-      }
-      return ApplicationColors.veryLightGold;
-   }
+    static Color getRow2() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.lightGold;
+        return ApplicationColors.veryLightGold;
+    }
 }

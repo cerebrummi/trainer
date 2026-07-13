@@ -45,9 +45,9 @@ public class SuccessListCellRenderer
       hebrew.setBorder(BorderFactory.createEmptyBorder());
       grammar.setBorder(BorderFactory.createEmptyBorder());
 
-      german.setFont(ApplicationFonts.getGermanFont(16F));
-      hebrew.setFont(ApplicationFonts.getHebrewFont(20F));
-      grammar.setFont(ApplicationFonts.getGermanFont(16F));
+      german.setFont(ApplicationFonts.germanFont.deriveFont(16F));
+      hebrew.setFont(ApplicationFonts.hebrewFont.deriveFont(20F));
+      grammar.setFont(ApplicationFonts.germanFont.deriveFont(16F));
 
       german.setForeground(SuccessColors.getTextForeground());
       hebrew.setForeground(SuccessColors.getTextForeground());

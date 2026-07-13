@@ -187,15 +187,15 @@ public class MainView extends JPanel
       darkmodeButton = new JButton(
             new ImageIcon(ApplicationImages.getDarkmode()));
 
-      startButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      inputButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      vocabularyCardsButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      dictionaryButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      statisticsButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      letterPicturesButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      successButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      languageButton.setFont(ApplicationFonts.getToolbarButtonFont());
-      darkmodeButton.setFont(ApplicationFonts.getToolbarButtonFont());
+      startButton.setFont(ApplicationFonts.toolbarButtonFont);
+      inputButton.setFont(ApplicationFonts.toolbarButtonFont);
+      vocabularyCardsButton.setFont(ApplicationFonts.toolbarButtonFont);
+      dictionaryButton.setFont(ApplicationFonts.toolbarButtonFont);
+      statisticsButton.setFont(ApplicationFonts.toolbarButtonFont);
+      letterPicturesButton.setFont(ApplicationFonts.toolbarButtonFont);
+      successButton.setFont(ApplicationFonts.toolbarButtonFont);
+      languageButton.setFont(ApplicationFonts.toolbarButtonFont);
+      darkmodeButton.setFont(ApplicationFonts.toolbarButtonFont);
 
       startButton.setBackground(MainColors.getButtonBackground());
       inputButton.setBackground(MainColors.getButtonBackground());

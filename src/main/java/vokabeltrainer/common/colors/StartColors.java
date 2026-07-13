@@ -5,62 +5,38 @@ import java.awt.Color;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.Settings;
 
-public class StartColors
-{
+public interface StartColors {
+    static Color getDatabase_Header() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.mediumSilverBlue;
+        return ApplicationColors.mediumSilverBlue;
+    }
 
-   private StartColors()
-   {
-      // nothing
-   }
+    static Color getPanelBackground() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.shadyBlueLight;
+        return ApplicationColors.backgroundGold;
+    }
 
-   public static Color getDatabase_Header()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.mediumSilverBlue;
-      }
-      return ApplicationColors.mediumSilverBlue;
-   }
+    static Color getDatabase_HeaderText() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.white;
+        return ApplicationColors.darkGold;
+    }
 
-   public static Color getPanelBackground()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.shadyBlueLight;
-      }
-      return ApplicationColors.backgroundGold;
-   }
+    static Color getTransparent() {
+        return ApplicationColors.transparent;
+    }
 
-   public static Color getDatabase_HeaderText()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.white;
-      }
-      return ApplicationColors.darkGold;
-   }
+    static Color getDatabase_Item() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.gold;
+        return ApplicationColors.lightBlue;
+    }
 
-   public static Color getTransparent()
-   {
-      return ApplicationColors.transparent;
-   }
-
-   public static Color getDatabase_Item()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.gold;
-      }
-      return ApplicationColors.lightBlue;
-   }
-
-   public static Color getDatabase_Tipp()
-   {
-      if (Settings.isDarkmodeOn())
-      {
-         return ApplicationColors.gold;
-      }
-      return ApplicationColors.shadyBlue;
-   }
-
+    static Color getDatabase_Tipp() {
+        if (Settings.isDarkmodeOn())
+            return ApplicationColors.gold;
+        return ApplicationColors.shadyBlue;
+    }
 }

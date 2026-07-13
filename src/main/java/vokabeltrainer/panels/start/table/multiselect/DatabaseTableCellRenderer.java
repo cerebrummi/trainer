@@ -31,15 +31,15 @@ public class DatabaseTableCellRenderer
       empty = new JLabel();
 
       database = new JLabel();
-      database.setFont(ApplicationFonts.getGermanFont(14F));
+      database.setFont(ApplicationFonts.germanFont.deriveFont(14F));
       database.setForeground(ApplicationColors.getShadyBlue());
 
       authors = new JLabel();
-      authors.setFont(ApplicationFonts.getGermanFont(14F));
+      authors.setFont(ApplicationFonts.germanFont.deriveFont(14F));
       authors.setForeground(ApplicationColors.getShadyBlue());
 
       company = new JLabel();
-      company.setFont(ApplicationFonts.getGermanFont(14F));
+      company.setFont(ApplicationFonts.germanFont.deriveFont(14F));
       company.setForeground(ApplicationColors.getShadyBlue());
    }
 

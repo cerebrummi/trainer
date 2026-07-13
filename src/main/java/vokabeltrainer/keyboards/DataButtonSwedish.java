@@ -13,7 +13,7 @@ public class DataButtonSwedish extends DataButton
    {
       super(caption, data, ComponentOrientation.LEFT_TO_RIGHT);
       this.data = data;
-      this.setFont(ApplicationFonts.getButtonFont());
+      this.setFont(ApplicationFonts.buttonFont);
    }
 
    public String getData()

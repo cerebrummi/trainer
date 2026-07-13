@@ -21,7 +21,7 @@ public class TextImage
       BufferedImage helperImg = new BufferedImage(1, 1,
             BufferedImage.TYPE_INT_RGB);
       Graphics2D g2d = helperImg.createGraphics();
-      Font font = ApplicationFonts.getGermanFont(16F);
+      Font font = ApplicationFonts.germanFont.deriveFont(16F);
       g2d.setFont(font);
       FontMetrics fm = g2d.getFontMetrics();
       String longestText = "";

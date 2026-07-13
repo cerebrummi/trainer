@@ -134,7 +134,7 @@ public class LetterPictureButtonPanel extends JPanel
       else
       {
          germanButton = new JButton(letter.getGermanPictureName());
-         germanButton.setFont(ApplicationFonts.getGermanFont(10F));
+         germanButton.setFont(ApplicationFonts.germanFont.deriveFont(10F));
          germanButton.setBorder(BorderFactory.createEmptyBorder());
          germanButton.setMargin(new Insets(0, 0, 0, 0));
          germanButton.setContentAreaFilled(false);
@@ -161,7 +161,7 @@ public class LetterPictureButtonPanel extends JPanel
          hebrewButton = new JButton(letter.getTranscript());
          hebrewButton.setBorder(BorderFactory.createEmptyBorder());
          hebrewButton.setMargin(new Insets(0, 0, 0, 0));
-         hebrewButton.setFont(ApplicationFonts.getGermanFont(10F));
+         hebrewButton.setFont(ApplicationFonts.germanFont.deriveFont(10F));
          hebrewButton.setContentAreaFilled(false);
       }
       hebrewButton.setOpaque(true);
@@ -188,7 +188,7 @@ public class LetterPictureButtonPanel extends JPanel
                new ImageIcon(ApplicationImages.getLetterIconsNikudMap()
                      .get(letter).getScaledInstance(scale.getScaleX(),
                            scale.getScaleY(), java.awt.Image.SCALE_SMOOTH)));
-         letterButton.setFont(ApplicationFonts.getHebrewFont(30F));
+         letterButton.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
          letterButton.setBorder(BorderFactory.createEmptyBorder());
          letterButton.setContentAreaFilled(false);
          letterButton.setMargin(new Insets(-10, 0, 0, 0));
@@ -217,7 +217,7 @@ public class LetterPictureButtonPanel extends JPanel
                      .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                            java.awt.Image.SCALE_SMOOTH)));
          letterHandwrittenButton
-               .setFont(ApplicationFonts.getHebrewHandwrittenFont(30F));
+               .setFont(ApplicationFonts.hebrewHandwrittenFont.deriveFont(30F));
          letterHandwrittenButton.setBorder(BorderFactory.createEmptyBorder());
          letterHandwrittenButton.setContentAreaFilled(false);
          letterHandwrittenButton.setMargin(new Insets(-10, 0, 0, 0));

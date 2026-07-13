@@ -81,7 +81,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       selectAllInTableButton = new JButton(Common.getTranslator()
             .realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
-      selectAllInTableButton.setFont(ApplicationFonts.getButtonFont());
+      selectAllInTableButton.setFont(ApplicationFonts.buttonFont);
       selectAllInTableButton
             .setForeground(DictionaryColors.getButtonForeground());
       selectAllInTableButton.setBackground(DictionaryColors.getBackground());
@@ -91,7 +91,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       clearInTableSelectedButton = new JButton(Common.getTranslator()
             .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
-      clearInTableSelectedButton.setFont(ApplicationFonts.getButtonFont());
+      clearInTableSelectedButton.setFont(ApplicationFonts.buttonFont);
       clearInTableSelectedButton
             .setForeground(DictionaryColors.getButtonForeground());
       clearInTableSelectedButton
@@ -102,7 +102,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       restoreButton = new JButton(Common.getTranslator()
             .realisticTranslate(Translation.AUSWAHL_WIEDER_HERSTELLEN));
       restoreButton.setHorizontalAlignment(SwingConstants.LEFT);
-      restoreButton.setFont(ApplicationFonts.getButtonFont());
+      restoreButton.setFont(ApplicationFonts.buttonFont);
       restoreButton.setForeground(DictionaryColors.getButtonForeground());
       restoreButton.setBackground(DictionaryColors.getBackground());
       restoreButton.setIcon(new ImageIcon(ApplicationImages.getRestore()));

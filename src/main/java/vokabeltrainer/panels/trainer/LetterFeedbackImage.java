@@ -59,7 +59,7 @@ public class LetterFeedbackImage
             RenderingHints.VALUE_RENDER_QUALITY);
       g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
             RenderingHints.VALUE_STROKE_PURE);
-      g2d.setFont(ApplicationFonts.getHebrewFont(24F));
+      g2d.setFont(ApplicationFonts.hebrewFont.deriveFont(24F));
       FontMetrics fm = g2d.getFontMetrics();
       fm = g2d.getFontMetrics();
       g2d.setColor(ApplicationColors.green);

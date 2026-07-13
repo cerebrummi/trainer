@@ -41,7 +41,7 @@ public class TrainingTableCellRendererEditor
 
    public TrainingTableCellRendererEditor()
    {
-      Font font = ApplicationFonts.getGermanFont(20F);
+      Font font = ApplicationFonts.germanFont.deriveFont(20F);
       field = new JLabel();
       field.setFont(font);
       toBeRepeatedWords = new JLabel();
