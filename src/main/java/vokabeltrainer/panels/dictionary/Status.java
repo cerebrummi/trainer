@@ -10,6 +10,7 @@ public enum Status
 
    public static void init(Status status)
    {
+      Status.status.clear();
       checkInit();
       Status.status.push(status);
    }
