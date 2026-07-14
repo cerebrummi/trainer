@@ -24,9 +24,10 @@ import vokabeltrainer.TextImageWithPicture;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.ApplicationSound;
-import vokabeltrainer.common.Common;
-import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.SaveTraining;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.TrainerView;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -47,19 +48,20 @@ public class TrainerController implements TrainerControllerConnector
    private int oldWordsToRepeat;
    private Set<Expression> allExpressions;
    private List<Expression> expressionsToBeTested;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public TrainerController(LanguageDirection languageDirection,
+   public TrainerController(Common common, View view, LanguageDirection languageDirection,
          FieldOfTraining fieldOfTraining, List<Expression> newExpressions,
          List<Expression> oldExpressions)
    {
+      translator = common.getTranslator();
       this.languageDirection = languageDirection;
       this.fieldOfTraining = fieldOfTraining;
       this.newExpressions = newExpressions;
       this.oldExpressions = oldExpressions;
       allExpressions = new HashSet<>();
 
-      trainerView = new TrainerView(this);
+      trainerView = new TrainerView(common, view, this);
 
       newWordsToLearn = this.newExpressions.size();
 
@@ -97,7 +99,7 @@ public class TrainerController implements TrainerControllerConnector
             .setText(String.valueOf(expressionsToBeTested.size()));
 
       Collections.shuffle(expressionsToBeTested);
-      trainerView.init();
+      trainerView.init(common, view);
       EventQueue.invokeLater(new Runnable()
       {
          @Override
@@ -234,7 +236,7 @@ public class TrainerController implements TrainerControllerConnector
    }
 
    @Override
-   public void send()
+   public void send(Common common, View view)
    {
       try
       {
@@ -266,7 +268,7 @@ public class TrainerController implements TrainerControllerConnector
             Result result = bestResult.getBestResult();
             if (result.isAnswerEmpty())
             {
-               JOptionPane.showMessageDialog(Common.getjFrame(), "",
+               JOptionPane.showMessageDialog(view.getjFrame(), "",
                      Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                      new ImageIcon(TextImage.make(translator.realisticTranslate(
                            Translation.BITTE_SCHREIBEN_SIE_EINE_ANTWORT))));
@@ -274,7 +276,7 @@ public class TrainerController implements TrainerControllerConnector
             }
             else if (result.isDictionaryEmpty())
             {
-               JOptionPane.showMessageDialog(Common.getjFrame(), "",
+               JOptionPane.showMessageDialog(view.getjFrame(), "",
                      Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                      new ImageIcon(TextImage.make(translator.realisticTranslate(
                            Translation.IHR_TRAININGSWORT_ENTHAELT_KEINE_BUCHSTABEN_),
@@ -285,21 +287,21 @@ public class TrainerController implements TrainerControllerConnector
                                  + currentExpression.getChapter().getName())));
                return;
             }
-            trainerView.prepareDtoNikudFeedbackPanel(result);
+            trainerView.prepareDtoNikudFeedbackPanel(common, result);
             if (result.isOkay())
             {
-               resultDtoIsOkay();
+               resultDtoIsOkay(common);
             }
             else
             {
-               resultDtoIsNotOkay();
+               resultDtoIsNotOkay(common);
             }
-            reactToAnswer(result.isOkay());
+            reactToAnswer(common, view, result.isOkay());
             break;
          case HEBREW_TO_OWN:
          case SWEDISH_TO_OWN:
          case GERMAN_TO_OWN:
-            trainerView.prepareHtoDFeedbackPanel();
+            trainerView.prepareHtoDFeedbackPanel(common, view);
             break;
          }
 
@@ -313,7 +315,7 @@ public class TrainerController implements TrainerControllerConnector
       }
    }
 
-   private void resultDtoIsNotOkay()
+   private void resultDtoIsNotOkay(Common common)
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
@@ -328,7 +330,7 @@ public class TrainerController implements TrainerControllerConnector
          }
          else
          {
-            currentExpression.getTrainingStatusDToLL().previousRepetition();
+            currentExpression.getTrainingStatusDToLL().previousRepetition(common);
          }
       }
       else
@@ -345,7 +347,7 @@ public class TrainerController implements TrainerControllerConnector
       }
    }
 
-   private void resultDtoIsOkay()
+   private void resultDtoIsOkay(Common common)
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
@@ -353,7 +355,7 @@ public class TrainerController implements TrainerControllerConnector
                currentExpression.getTrainingStatusDToLL().getTrys() - 1);
          if (currentExpression.getTrainingStatusDToLL().getTrys() == 0)
          {
-            currentExpression.getTrainingStatusDToLL().nextRepetition();
+            currentExpression.getTrainingStatusDToLL().nextRepetition(common);
             currentExpression.getTrainingStatusDToLL().setTrys(1);
          }
       }
@@ -366,7 +368,7 @@ public class TrainerController implements TrainerControllerConnector
    }
 
    @Override
-   public void resultHtoDOkay()
+   public void resultHtoDOkay(Common common, View view)
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
@@ -374,7 +376,7 @@ public class TrainerController implements TrainerControllerConnector
                currentExpression.getTrainingStatusLLToD().getTrys() - 1);
          if (currentExpression.getTrainingStatusLLToD().getTrys() == 0)
          {
-            currentExpression.getTrainingStatusLLToD().nextRepetition();
+            currentExpression.getTrainingStatusLLToD().nextRepetition(common);
             currentExpression.getTrainingStatusLLToD().setTrys(1);
          }
       }
@@ -385,18 +387,18 @@ public class TrainerController implements TrainerControllerConnector
       }
       trainerView.enableHtoDAnswerButtons(false);
       expressionsToBeTested.remove(0);
-      reactToAnswer(true);
+      reactToAnswer(common, view, true);
    }
 
    @Override
-   public void resultHtoDUndecided()
+   public void resultHtoDUndecided(Common common, View view)
    {
       trainerView.enableHtoDAnswerButtons(false);
-      reactToAnswer(null);
+      reactToAnswer(common, view, null);
    }
 
    @Override
-   public void resultHtoDFalse()
+   public void resultHtoDFalse(Common common, View view)
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
@@ -411,7 +413,7 @@ public class TrainerController implements TrainerControllerConnector
          }
          else
          {
-            currentExpression.getTrainingStatusLLToD().previousRepetition();
+            currentExpression.getTrainingStatusLLToD().previousRepetition(common);
          }
       }
       else
@@ -427,10 +429,10 @@ public class TrainerController implements TrainerControllerConnector
          }
       }
       trainerView.enableHtoDAnswerButtons(false);
-      reactToAnswer(false);
+      reactToAnswer(common, view, false);
    }
 
-   public void reactToAnswer(Boolean okay)
+   public void reactToAnswer(Common common, View view, Boolean okay)
    {
       if (okay == null)
       {
@@ -474,7 +476,7 @@ public class TrainerController implements TrainerControllerConnector
       }
       else
       {
-         stopTraining(true);
+         stopTraining(common, view, true);
       }
    }
 
@@ -581,15 +583,15 @@ public class TrainerController implements TrainerControllerConnector
       trainerView.showResultBlue();
    }
 
-   public void stopTraining(boolean finished)
+   public void stopTraining(Common common, View view, boolean finished)
    {
-      Common.getMainJPanel().moveToStatisticsPanel();
+      view.getMainJPanel().moveToStatisticsPanel(common);
 
       if (finished)
       {
          if (newWordsToLearn > 0 && oldWordsToRepeat > 0)
          {
-            JOptionPane.showMessageDialog(Common.getjFrame(), "",
+            JOptionPane.showMessageDialog(view.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(
                         ApplicationImages.getReward(),
@@ -611,7 +613,7 @@ public class TrainerController implements TrainerControllerConnector
          }
          else if (newWordsToLearn > 0 && oldWordsToRepeat == 0)
          {
-            JOptionPane.showMessageDialog(Common.getjFrame(), "",
+            JOptionPane.showMessageDialog(view.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(
                         ApplicationImages.getReward(),
@@ -629,7 +631,7 @@ public class TrainerController implements TrainerControllerConnector
          }
          else if (newWordsToLearn == 0 && oldWordsToRepeat > 0)
          {
-            JOptionPane.showMessageDialog(Common.getjFrame(), "",
+            JOptionPane.showMessageDialog(view.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(
                         ApplicationImages.getReward(),
@@ -648,14 +650,14 @@ public class TrainerController implements TrainerControllerConnector
       }
       else if (trainerView.getWordsRight().getText().equals("0"))
       {
-         JOptionPane.showMessageDialog(Common.getjFrame(), "",
+         JOptionPane.showMessageDialog(view.getjFrame(), "",
                Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                new ImageIcon(TextImage.make(translator.realisticTranslate(
                      Translation.DAS_TRAINING_WURDE_ABGEBROCHEN_))));
       }
       else if (trainerView.getWordsRight().getText().equals("1"))
       {
-         JOptionPane.showMessageDialog(Common.getjFrame(), "",
+         JOptionPane.showMessageDialog(view.getjFrame(), "",
                Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                new ImageIcon(TextImage.make(
                      translator.realisticTranslate(
@@ -667,7 +669,7 @@ public class TrainerController implements TrainerControllerConnector
       }
       else
       {
-         JOptionPane.showMessageDialog(Common.getjFrame(), "",
+         JOptionPane.showMessageDialog(view.getjFrame(), "",
                Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                new ImageIcon(TextImage.make(
                      translator.realisticTranslate(
@@ -680,10 +682,10 @@ public class TrainerController implements TrainerControllerConnector
                            Translation.ANTWORTEN_GEGEBEN_))));
       }
 
-      saveTraining();
+      saveTraining(view);
    }
 
-   private void saveTraining()
+   private void saveTraining(View view)
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY == this.fieldOfTraining)
       {
@@ -696,7 +698,7 @@ public class TrainerController implements TrainerControllerConnector
          public void run()
          {
             int counter = 0;
-            while (counter < 10 && !saveTraining.save())
+            while (counter < 10 && !saveTraining.save(view))
             {
                try
                {
@@ -712,7 +714,7 @@ public class TrainerController implements TrainerControllerConnector
             if (counter == 10)
             {
                JOptionPane
-                     .showMessageDialog(Common.getjFrame(),
+                     .showMessageDialog(view.getjFrame(),
                            translator
                                  .realisticTranslate(Translation.FEHLERMELDUNG)
                                  + "\n"

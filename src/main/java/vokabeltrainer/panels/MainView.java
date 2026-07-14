@@ -11,15 +11,18 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
-import vokabeltrainer.common.Initializer;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.MainColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.Model;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.dictionary.DictionaryController;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
 import vokabeltrainer.panels.trainer.TrainerController;
@@ -56,79 +59,84 @@ public class MainView extends JPanel
 
    private JButton backButton;
    private TranslationPanel languagePanel;
-   
-   private Initializer initializer;
 
    private Translator translator;
 
-   public MainView(Initializer initializer)
+   public MainView(Common common)
    {
-      this.initializer = initializer;
-      initContent();
-      initController();
-      activeComponent = startPanel;
-      add(activeComponent);
+      this.translator = common.getTranslator();
+      initToolBar();
    }
-
-   private void initContent()
+   
+   public void initContent(Common common, Model model, View view)
    {
       setLayout(new BorderLayout());
       this.setOpaque(false);
       this.setBackground(ApplicationColors.getTransparent());
 
-      translator = Common.getTranslator();
+      startPanel = new StartPanel(common, view);
+      inputPanel = new InputPanel(common, view);
+      dictionaryPanel = new DictionaryController(common, view).getDictionaryPanel();
+      letterPicturesPanel = new AlefbetPanel(common);
+      statisticsPanel = new StatisticsPanel(common);
+      settingsPanel = new SettingsPanel(common, model, view);
+      successPanel = new SuccessPanel(common, view);
+      activeComponent = startPanel;
 
-      initToolBar();
-
-      startPanel = new StartPanel();
-      inputPanel = new InputPanel();
-      dictionaryPanel = new DictionaryController().getDictionaryPanel();
-      letterPicturesPanel = new AlefbetPanel();
-      statisticsPanel = new StatisticsPanel();
-      settingsPanel = new SettingsPanel(initializer);
-      successPanel = new SuccessPanel();
+      add(activeComponent);
+   }
+   
+   private void resetMenuBar(View view)
+   {
+      SwingUtilities.invokeLater(() -> {
+         view.getjFrame()
+               .setJMenuBar(getMenuBar());
+         view.getjFrame().validate();
+         view.getjFrame().repaint();
+      });
    }
 
-   private void initLanguageContent()
+   private void initLanguageContent(Common common, Model model, View view)
    {
       this.removeAll();
 
       initLanguageToolBar();
-      languagePanel = new TranslationPanel();
+      languagePanel = new TranslationPanel(common);
       add(languagePanel);
-      initBackController();
+      initBackController(common, model, view);
 
-      initializer.resetMenuBar();
+      resetMenuBar(view);
       this.validate();
       this.repaint();
    }
 
-   private void initColormodeContent()
+   private void initColormodeContent(Common common, Model model, View view)
    {
       this.removeAll();
 
       initColorToolBar();
-      ColorPanel colorPanel = new ColorPanel();
+      ColorPanel colorPanel = new ColorPanel(common, view);
       add(colorPanel);
-      initBackController();
+      initBackController(common, model, view);
 
-      initializer.resetMenuBar();
+      resetMenuBar(view);
       this.validate();
       this.repaint();
 
    }
 
-   private void initBackController()
+   private void initBackController(Common common, Model model, View view)
    {
       backButton.addActionListener(_ -> {
          this.removeAll();
-         initContent();
-         initController();
+         initContent(common, model, view);
+         initToolBar();
+         initController(common, model, view);
          activeComponent = startPanel;
          add(activeComponent);
-         initializer.resetMenuBar();
-         Common.getjFrame().validate();
-         Common.getjFrame().repaint();
+         resetMenuBar(view);
+         view.getjFrame().validate();
+         view.getjFrame().repaint();
       });
    }
 
@@ -224,7 +232,7 @@ public class MainView extends JPanel
       menuBar.add(aboutButton);
    }
 
-   private void initController()
+   public void initController(Common common, Model model, View view)
    {
       startButton.addActionListener(_ -> {
          moveToStartPanel();
@@ -236,7 +244,7 @@ public class MainView extends JPanel
             remove(activeComponent);
          }
          activeComponent = (Component) inputPanel;
-         inputPanel.reset();
+         inputPanel.reset(common);
          add(activeComponent);
          validate();
          repaint();
@@ -248,7 +256,7 @@ public class MainView extends JPanel
             remove(activeComponent);
          }
          activeComponent = (Component) dictionaryPanel;
-         dictionaryPanel.setValues();
+         dictionaryPanel.setValues(common, view);
          add(activeComponent);
          validate();
          repaint();
@@ -256,7 +264,7 @@ public class MainView extends JPanel
 
       vocabularyCardsButton.addActionListener(_ -> {
 
-         if (Settings.isSchabbat_modus() && Common.isSchabbat())
+         if (Settings.isSchabbat_modus() && common.isSchabbat())
          {
             JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
                   JOptionPane.INFORMATION_MESSAGE,
@@ -268,8 +276,8 @@ public class MainView extends JPanel
             return;
          }
 
-         Data.determineReloadDatabases();
-         StartTrainingView dialog = new StartTrainingController()
+         Data.determineReloadDatabases(common, view);
+         StartTrainingView dialog = new StartTrainingController(common, view)
                .getStartTrainingView();
          dialog.setLocationRelativeTo(null);
          dialog.setVisible(true);
@@ -280,7 +288,7 @@ public class MainView extends JPanel
                   && (dialog.getOldExpressions() == null
                         || dialog.getOldExpressions().isEmpty()))
             {
-               this.showNoWordsForTraining();
+               this.showNoWordsForTraining(view);
                return;
             }
 
@@ -289,7 +297,7 @@ public class MainView extends JPanel
                remove(activeComponent);
             }
 
-            TrainerView trainerPanel = new TrainerController(
+            TrainerView trainerPanel = new TrainerController(common, view,
                   dialog.getLanguageDirection(), dialog.getFieldOfTraining(),
                   dialog.getNewExpressions(), dialog.getOldExpressions())
                         .getTrainerView();
@@ -313,12 +321,12 @@ public class MainView extends JPanel
       });
 
       statisticsButton.addActionListener(_ -> {
-         Data.determineReloadDatabases();
-         moveToStatisticsPanel();
+         Data.determineReloadDatabases(common, view);
+         moveToStatisticsPanel(common);
       });
 
       successButton.addActionListener(_ -> {
-         Data.determineReloadDatabases();
+         Data.determineReloadDatabases(common, view);
          if (activeComponent != null)
          {
             remove(activeComponent);
@@ -343,11 +351,11 @@ public class MainView extends JPanel
       });
 
       languageButton.addActionListener(_ -> {
-         initLanguageContent();
+         initLanguageContent(common, model, view);
       });
 
       darkmodeButton.addActionListener(_ -> {
-         initColormodeContent();
+         initColormodeContent(common, model, view);
       });
    }
 
@@ -364,22 +372,22 @@ public class MainView extends JPanel
       repaint();
    }
 
-   public void moveToStatisticsPanel()
+   public void moveToStatisticsPanel(Common common)
    {
       if (activeComponent != null)
       {
          remove(activeComponent);
       }
-      statisticsPanel.setValues();
+      statisticsPanel.setValues(common);
       activeComponent = statisticsPanel;
       add(activeComponent);
       validate();
       repaint();
    }
 
-   private void showNoWordsForTraining()
+   private void showNoWordsForTraining(View view)
    {
-      JOptionPane.showMessageDialog(Common.getjFrame(), "",
+      JOptionPane.showMessageDialog(view.getjFrame(), "",
             Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
             new ImageIcon(TextImage.make(
                   translator.realisticTranslate(

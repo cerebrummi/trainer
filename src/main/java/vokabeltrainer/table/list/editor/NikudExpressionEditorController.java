@@ -1,5 +1,7 @@
 package vokabeltrainer.table.list.editor;
 
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.table.EnterAction;
 import vokabeltrainer.table.list.editor.images.ImageItem;
 import vokabeltrainer.types.Expression;
@@ -9,9 +11,9 @@ public class NikudExpressionEditorController
 {
    private LanguageExpressionEditorView nikudExpressionEditorDialog;
 
-   public NikudExpressionEditorController()
+   public NikudExpressionEditorController(Common common, View view)
    {
-      nikudExpressionEditorDialog = new LanguageExpressionEditorView(this);
+      nikudExpressionEditorDialog = new LanguageExpressionEditorView(common, view, this);
    }
 
    public LanguageExpressionEditorView getNikudExpressionEditorDialog()
@@ -20,13 +22,13 @@ public class NikudExpressionEditorController
    }
 
    @Override
-   public void openPictureView(Expression expression)
+   public void openPictureView(Common common, View view, Expression expression)
    {
-      new EnterAction().showEditorPicture(expression, false);
+      new EnterAction(common, view).showEditorPicture(common, view, expression, false);
    }
 
    @Override
-   public void saveImage(Expression expression, ImageItem item)
+   public void saveImage(Common common, View view, Expression expression, ImageItem item)
    {
       // nothing
    }

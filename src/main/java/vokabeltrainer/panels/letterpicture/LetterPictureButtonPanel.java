@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.colors.AlefbetColors;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.editing.NikudLetter;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.scale.Scale;
 
 public class LetterPictureButtonPanel extends JPanel
@@ -41,11 +43,15 @@ public class LetterPictureButtonPanel extends JPanel
    private CardLayout layout;
 
    private Scale scale;
+   
+   private Translator translator;
 
-   public LetterPictureButtonPanel(BufferedImage picture, NikudLetter letter,
+   public LetterPictureButtonPanel(Common common, BufferedImage picture, NikudLetter letter,
          Card[] cards)
    {
       this.letter = letter;
+      this.translator = common.getTranslator();
+      
       scale = new Scale(50);
 
       this.setMinimumSize(new Dimension(50, 50));
@@ -133,7 +139,7 @@ public class LetterPictureButtonPanel extends JPanel
       }
       else
       {
-         germanButton = new JButton(letter.getGermanPictureName());
+         germanButton = new JButton(letter.getGermanPictureName(translator));
          germanButton.setFont(ApplicationFonts.germanFont.deriveFont(10F));
          germanButton.setBorder(BorderFactory.createEmptyBorder());
          germanButton.setMargin(new Insets(0, 0, 0, 0));

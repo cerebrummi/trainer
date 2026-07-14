@@ -11,6 +11,7 @@ import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.DatabaseItem;
 
 public class DatabaseTableCopyCellRenderer
@@ -19,9 +20,11 @@ public class DatabaseTableCopyCellRenderer
    private JLabel database;
    private JLabel authors;
    private JLabel company;
+   private Common common;
 
-   public DatabaseTableCopyCellRenderer() // no multiple selection possible
+   public DatabaseTableCopyCellRenderer(Common common) // no multiple selection possible
    {
+      this.common = common;
       database = new JLabel();
       database.setFont(ApplicationFonts.germanFont.deriveFont(14F));
       database.setForeground(ApplicationColors.getShadyBlue());
@@ -93,7 +96,7 @@ public class DatabaseTableCopyCellRenderer
 
       if (column == 0)
       {
-         this.database.setText(databaseItem.getDatabase().getName());
+         this.database.setText(databaseItem.getDatabase().getName(common));
          return this.database;
       }
       if (column == 1)

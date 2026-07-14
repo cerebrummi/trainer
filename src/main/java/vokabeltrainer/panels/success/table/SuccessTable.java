@@ -9,15 +9,16 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import vokabeltrainer.common.colors.SuccessColors;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.Expression;
 
 public class SuccessTable extends JTable
 {
    private static final long serialVersionUID = 853537882592595897L;
 
-   public SuccessTable(SuccessTableModel model)
+   public SuccessTable(Common common, SuccessTableModel model)
    {
-      super(model, new SuccessTableColumnModel());
+      super(model, new SuccessTableColumnModel(common));
       this.setShowVerticalLines(true);
       setOpaque(true);
       setRowHeight(75);

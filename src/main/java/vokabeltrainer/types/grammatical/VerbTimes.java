@@ -3,7 +3,6 @@ package vokabeltrainer.types.grammatical;
 import java.util.ArrayList;
 import java.util.List;
 
-import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
@@ -47,23 +46,27 @@ public enum VerbTimes
 
    private Translation description;
    private LLType[] llType;
+   private static Translator translator;
 
    VerbTimes(Translation description, LLType[] llType)
    {
       this.description = description;
       this.llType = llType;
    }
+   
+   public static void setTranslator(Translator translator)
+   {
+      VerbTimes.translator = translator;
+   }
 
    @Override
    public String toString()
    {
-      Translator translator = Common.getTranslator();
       return translator.realisticTranslate(description);
    }
 
    public String toDescription()
    {
-      Translator translator = Common.getTranslator();
       switch (this)
       {
       case FUTURE:
@@ -98,7 +101,6 @@ public enum VerbTimes
    @Override
    public String toInfo()
    {
-      Translator translator = Common.getTranslator();
       switch (this)
       {
       case FUTURE:

@@ -13,6 +13,7 @@ import javax.swing.table.TableCellRenderer;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.DatabaseItem;
 
 public class DatabaseTableCellRenderer
@@ -23,9 +24,11 @@ public class DatabaseTableCellRenderer
    private JLabel database;
    private JLabel authors;
    private JLabel company;
+   private Common common;
 
-   public DatabaseTableCellRenderer() // multiple selection possible
+   public DatabaseTableCellRenderer(Common common) // multiple selection possible
    {
+      this.common = common;
       selected = new JLabel(new ImageIcon(ApplicationImages.getSelectDone()));
 
       empty = new JLabel();
@@ -111,7 +114,7 @@ public class DatabaseTableCellRenderer
       }
       if (column == 1)
       {
-         this.database.setText(databaseItem.getDatabase().getName());
+         this.database.setText(databaseItem.getDatabase().getName(common));
          return this.database;
       }
       if (column == 2)

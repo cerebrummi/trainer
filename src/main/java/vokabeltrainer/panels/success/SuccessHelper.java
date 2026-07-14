@@ -13,10 +13,11 @@ import javax.swing.JScrollPane;
 
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
-import vokabeltrainer.common.SaveTraining;
 import vokabeltrainer.common.colors.SuccessColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.SaveTraining;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.success.table.SuccessTable;
 import vokabeltrainer.panels.success.table.SuccessTableModel;
 import vokabeltrainer.panels.success.table.SuccessTableRow;
@@ -53,16 +54,16 @@ public class SuccessHelper
       return wrapper;
    }
 
-   static void addContent(Repetition repetition, JPanel panel,
+   static void addContent(Common common, View view, Repetition repetition, JPanel panel,
          Direction direction)
    {
-      Translator translator = Common.getTranslator();
+      Translator translator = common.getTranslator();
       panel.removeAll();
       panel.setOpaque(true);
       panel.setBackground(SuccessColors.getPanelBackgroundLight());
 
       SuccessTableModel model = Data.findSuccessModel(direction, repetition);
-      SuccessTable table = new SuccessTable(model);
+      SuccessTable table = new SuccessTable(common, model);
 
       JScrollPane scroller = new JScrollPane(table);
       scroller.setMinimumSize(new Dimension(1200, 600));
@@ -162,7 +163,7 @@ public class SuccessHelper
                model.getData().remove(row);
             }
             SaveTraining saver = new SaveTraining();
-            saver.save();
+            saver.save(view);
             model.fireTableDataChanged();
 
          });

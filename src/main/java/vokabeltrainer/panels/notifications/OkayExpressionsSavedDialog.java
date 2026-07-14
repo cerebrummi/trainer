@@ -8,15 +8,15 @@ import javax.swing.JDialog;
 
 import vokabeltrainer.IconPanel;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.View;
 
 public class OkayExpressionsSavedDialog extends JDialog
 {
    private static final long serialVersionUID = 3958358982334677951L;
 
-   public OkayExpressionsSavedDialog()
+   public OkayExpressionsSavedDialog(View view)
    {
-      super(Common.getjFrame(), "", Dialog.ModalityType.MODELESS);
+      super(view.getjFrame(), "", Dialog.ModalityType.MODELESS);
 
       setSize(200, 200);
       getContentPane().setPreferredSize(new Dimension(200, 200));

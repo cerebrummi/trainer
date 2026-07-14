@@ -2,7 +2,9 @@ package vokabeltrainer.table.list.editor;
 
 import javax.swing.SwingWorker;
 
-import vokabeltrainer.common.ImageData;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.ImageData;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.table.list.editor.images.ImageItem;
 import vokabeltrainer.types.Expression;
 
@@ -11,9 +13,9 @@ public class PictureExpressionEditorController
 {
    private PictureExpressionEditorView pictureExpressionEditorDialog;
 
-   public PictureExpressionEditorController()
+   public PictureExpressionEditorController(Common common, View view)
    {
-      pictureExpressionEditorDialog = new PictureExpressionEditorView(this);
+      pictureExpressionEditorDialog = new PictureExpressionEditorView(common, view, this);
    }
 
    public PictureExpressionEditorView getPictureExpressionEditorDialog()
@@ -22,20 +24,20 @@ public class PictureExpressionEditorController
    }
 
    @Override
-   public void openPictureView(Expression expression)
+   public void openPictureView(Common common, View view, Expression expression)
    {
       // nothing
    }
 
    @Override
-   public void saveImage(Expression expression, ImageItem item)
+   public void saveImage(Common common, View view, Expression expression, ImageItem item)
    {
       new SwingWorker<Void, Void>()
       {
          @Override
          protected Void doInBackground() throws Exception
          {
-            ImageData.saveImage(item.getImage(), expression.getUuid(),
+            ImageData.saveImage(common, view, item.getImage(), expression.getUuid(),
                   item.getImageFileName());
             return null;
          }

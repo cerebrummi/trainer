@@ -15,9 +15,10 @@ import javax.swing.JScrollPane;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.StartColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTable;
 import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopy;
 import vokabeltrainer.panels.translation.Translation;
@@ -30,10 +31,11 @@ import vokabeltrainer.types.Chapter;
 public class StartPanel extends JPanel
 {
    private static final long serialVersionUID = -4928761869820144146L;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public StartPanel()
+   public StartPanel(Common common, View view)
    {
+      translator = common.getTranslator();
       setLayout(new BorderLayout());
       setOpaque(true);
       setBackground(StartColors.getPanelBackground());
@@ -101,8 +103,8 @@ public class StartPanel extends JPanel
       center.setOpaque(false);
       center.setBackground(ApplicationColors.getTransparent());
 
-      center.add(initDatabaseTablePanel());
-      center.add(initCopyTablePanel());
+      center.add(initDatabaseTablePanel(common));
+      center.add(initCopyTablePanel(common, view));
 
       centerWrapper.add(center);
       add(centerWrapper, BorderLayout.CENTER);
@@ -128,7 +130,7 @@ public class StartPanel extends JPanel
       add(horizontal, BorderLayout.SOUTH);
    }
 
-   private Component initDatabaseTablePanel()
+   private Component initDatabaseTablePanel(Common common)
    {
       JPanel center = new JPanel();
       center.setLayout(new BullsEyeLayout(center));
@@ -144,7 +146,7 @@ public class StartPanel extends JPanel
       databaseLabel.setOpaque(true);
       databaseLabel.setBackground(StartColors.getDatabase_Header());
 
-      DatabaseTable databaseTable = new DatabaseTable(
+      DatabaseTable databaseTable = new DatabaseTable(common,
             Chapter.Database.getModelAvailableDatabases(), 990);
 
       JScrollPane scroller = new JScrollPane(databaseTable);
@@ -167,7 +169,7 @@ public class StartPanel extends JPanel
       return center;
    }
 
-   private Component initCopyTablePanel()
+   private Component initCopyTablePanel(Common common, View view)
    {
       JPanel center = new JPanel();
       center.setLayout(new BullsEyeLayout(center));
@@ -185,7 +187,7 @@ public class StartPanel extends JPanel
       databaseLabel.setOpaque(true);
       databaseLabel.setBackground(StartColors.getDatabase_Header());
 
-      DatabaseTableCopy databaseTable = new DatabaseTableCopy(
+      DatabaseTableCopy databaseTable = new DatabaseTableCopy(common, view,
             Chapter.Database.getModelCopyAvailableDatabases(), 990);
 
       JScrollPane scroller = new JScrollPane(databaseTable);

@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -19,10 +19,11 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 public class InformationTabDtoH extends JPanel
 {
    private static final long serialVersionUID = -4006431590073534430L;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public InformationTabDtoH()
+   public InformationTabDtoH(Common common)
    {
+      translator = common.getTranslator();
       this.setLayout(new TrainLayout(this));
       setOpaque(false);
       setBackground(ApplicationColors.getTransparent());

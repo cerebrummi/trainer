@@ -2,8 +2,8 @@ package vokabeltrainer.editing;
 
 import java.util.StringJoiner;
 
-import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 
 public enum NikudLetter
       implements
@@ -564,8 +564,8 @@ public enum NikudLetter
       return NikudLetter.NEWSPACE;
    }
 
-   public String getGermanPictureName()
+   public String getGermanPictureName(Translator translator)
    {
-      return Common.getTranslator().realisticTranslate(germanPictureName);
+      return translator.realisticTranslate(germanPictureName);
    }
 }

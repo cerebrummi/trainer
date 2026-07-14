@@ -1,4 +1,4 @@
-package vokabeltrainer.common;
+package vokabeltrainer.common.main;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
@@ -24,7 +24,9 @@ import javax.swing.ProgressMonitor;
 import vokabeltrainer.PathAndFile;
 import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.cmd.DirectoryHelper;
+import vokabeltrainer.common.CerebrummiNodes;
+import vokabeltrainer.common.LetterForSaving;
+import vokabeltrainer.common.Settings;
 
 public final class SaveExpressions
 {
@@ -47,35 +49,35 @@ public final class SaveExpressions
       this.exportpath = exportpath; // for exports
    }
 
-   public void export(String databaseName, boolean overwriteDatabaseNames)
+   public void export(Common common, View view, String databaseName, boolean overwriteDatabaseNames)
    {
       this.databaseName = databaseName;
       this.overwriteDatabaseNames = overwriteDatabaseNames;
-      exportAsZip();
+      exportAsZip(common, view);
    }
 
-   public void export(String databaseName, boolean overwriteDatabaseNames,
+   public void export(Common common, View view, String databaseName, boolean overwriteDatabaseNames,
          boolean b)
    {
       this.databaseName = databaseName;
       this.overwriteDatabaseNames = overwriteDatabaseNames;
       this.takeSelectedOnlyIntoAccount = true;
-      exportAsZip();
+      exportAsZip(common, view);
    }
 
-   public void export(String databaseName, boolean overwriteDatabaseNames,
+   public void export(Common common, View view, String databaseName, boolean overwriteDatabaseNames,
          String databaseChoosen)
    {
       this.databaseName = databaseName;
       this.overwriteDatabaseNames = overwriteDatabaseNames;
       this.takeOriginIntoAccount = true;
       this.origin = databaseChoosen;
-      exportAsZip();
+      exportAsZip(common, view);
    }
 
-   public boolean save()
+   public boolean save(Common common, View view)
    {
-      ProgressMonitor bar = new ProgressMonitor(Common.getjFrame(),
+      ProgressMonitor bar = new ProgressMonitor(view.getjFrame(),
             "Die Daten werden gespeichert.", "", 0, 2900);
       int progress = 0;
       bar.setProgress(progress);
@@ -93,9 +95,9 @@ public final class SaveExpressions
                File customDir = new File(Settings.getExpressionPathFolder());
                if (!customDir.exists())
                {
-                  if (!DirectoryHelper.makeDirectory(customDir))
+                  if (!common.getDirectoryHelper().makeDirectory(common, view,customDir))
                   {
-                     JOptionPane.showMessageDialog(Common.getjFrame(),
+                     JOptionPane.showMessageDialog(view.getjFrame(),
                            "Es hat beim Speichern einen Fehler gegeben.\n"
                                  + "Wählen Sie einen anderen Speicherort.",
                            "Fehler", JOptionPane.ERROR_MESSAGE);
@@ -108,41 +110,41 @@ public final class SaveExpressions
             }
             for (LetterForSaving letter : LetterForSaving.values())
             {
-               save(letter);
+               save(common, letter);
                synchronized (bar)
                {
                   progress += 100;
                   bar.setProgress(progress);
                   bar.notify();
-                  Common.getjFrame().validate();
-                  Common.getjFrame().repaint();
+                  view.getjFrame().validate();
+                  view.getjFrame().repaint();
                }
             }
 
             Preferences preferences = Preferences.userRoot()
                   .node(CerebrummiNodes.getNode());
             preferences.putInt(CerebrummiNodes.getExpressionNode(), counter);
-            saveDeletedExpressions();
+            saveDeletedExpressions(common);
             Data.integrateNewExpressions();
             synchronized (bar)
             {
                progress += 100;
                bar.setProgress(progress);
                bar.notify();
-               Common.getjFrame().validate();
-               Common.getjFrame().repaint();
+               view.getjFrame().validate();
+               view.getjFrame().repaint();
                bar.close();
                bar.notify();
-               Common.getjFrame().validate();
-               Common.getjFrame().repaint();
+               view.getjFrame().validate();
+               view.getjFrame().repaint();
             }
-            OkayExpressionsSavedNotification.display();
+            OkayExpressionsSavedNotification.display(view);
             return true;
          }
          catch (Exception e)
          {
             JOptionPane
-                  .showMessageDialog(Common.getjFrame(),
+                  .showMessageDialog(view.getjFrame(),
                         "Es hat beim Speichern einen Fehler gegeben.\n"
                               + e.getMessage(),
                         "Fehler", JOptionPane.ERROR_MESSAGE);
@@ -155,7 +157,7 @@ public final class SaveExpressions
       return false;
    }
 
-   private boolean exportAsZip()
+   private boolean exportAsZip(Common common, View view)
    {
       ProgressMonitor bar = new ProgressMonitor(null,
             "Die Daten werden gespeichert.", "", 0, 100);
@@ -179,7 +181,7 @@ public final class SaveExpressions
                   ZipEntry entry = new ZipEntry(letter.name() + ".csv");
                   out.putNextEntry(entry);
 
-                  byte[] data = saveAsStringForZip(letter)
+                  byte[] data = saveAsStringForZip(common, letter)
                         .getBytes(StandardCharsets.UTF_8);
                   out.write(data, 0, data.length);
                   out.closeEntry();
@@ -215,7 +217,7 @@ public final class SaveExpressions
             }
             catch (Exception e)
             {
-               JOptionPane.showMessageDialog(Common.getjFrame(),
+               JOptionPane.showMessageDialog(view.getjFrame(),
                      "Es hat beim Export der ZipDatei einen Fehler gegeben.\n"
                            + e.getMessage(),
                      "Fehler", JOptionPane.ERROR_MESSAGE);
@@ -224,12 +226,12 @@ public final class SaveExpressions
 
             progress = 100;
             bar.setProgress(progress);
-            OkayExpressionsSavedNotification.display();
+            OkayExpressionsSavedNotification.display(view);
             return true;
          }
          catch (Exception e)
          {
-            JOptionPane.showMessageDialog(Common.getjFrame(),
+            JOptionPane.showMessageDialog(view.getjFrame(),
                   "Es hat beim Export einen Fehler gegeben.\n" + e.getMessage(),
                   "Fehler", JOptionPane.ERROR_MESSAGE);
          }
@@ -241,30 +243,30 @@ public final class SaveExpressions
       return false;
    }
 
-   private String saveAsStringForZip(LetterForSaving letter) throws IOException
+   private String saveAsStringForZip(Common common, LetterForSaving letter) throws IOException
    {
       StringJoiner joiner = new StringJoiner("\n");
       joiner.add(HEADER_CSV);
       for (Expression expression : getValues(letter))
       {
-         if (isMarkedandMarked(expression) || isOriginandOrigin(expression)
+         if (isMarkedandMarked(expression) || isOriginandOrigin(common, expression)
                || isAll())
          {
             if (overwriteDatabaseNames && databaseName != null)
             {
                joiner.add(
-                     expression.getExpressionPrintLineForSaving(databaseName));
+                     expression.getExpressionPrintLineForSaving(common, databaseName));
             }
             else
             {
-               joiner.add(expression.getExpressionPrintLineForSaving());
+               joiner.add(expression.getExpressionPrintLineForSaving(common));
             }
          }
       }
       return joiner.toString();
    }
 
-   private void saveDeletedExpressions() throws IOException
+   private void saveDeletedExpressions(Common common) throws IOException
    {
       File file;
       if (exportpath == null)
@@ -284,10 +286,10 @@ public final class SaveExpressions
       joiner.add(HEADER_CSV);
       for (Expression expression : Data.getDeletedMapValues())
       {
-         if (isMarkedandMarked(expression) || isOriginandOrigin(expression)
+         if (isMarkedandMarked(expression) || isOriginandOrigin(common, expression)
                || isAll())
          {
-            joiner.add(expression.getExpressionPrintLineForSaving());
+            joiner.add(expression.getExpressionPrintLineForSaving(common));
          }
       }
       writer.write(joiner.toString());
@@ -300,10 +302,10 @@ public final class SaveExpressions
       return !takeSelectedOnlyIntoAccount && !takeOriginIntoAccount;
    }
 
-   private boolean isOriginandOrigin(Expression expression)
+   private boolean isOriginandOrigin(Common common, Expression expression)
    {
       return takeOriginIntoAccount
-            && expression.getChapter().getDatabaseName().equals(origin);
+            && expression.getChapter().getDatabaseName(common).equals(origin);
    }
 
    private boolean isMarkedandMarked(Expression expression)
@@ -311,7 +313,7 @@ public final class SaveExpressions
       return takeSelectedOnlyIntoAccount && expression.isSelected();
    }
 
-   private void save(LetterForSaving letter) throws IOException
+   private void save(Common common, LetterForSaving letter) throws IOException
    {
       File file;
       if (exportpath == null)
@@ -330,17 +332,17 @@ public final class SaveExpressions
       joiner.add(HEADER_CSV);
       for (Expression expression : getValues(letter))
       {
-         if (isMarkedandMarked(expression) || isOriginandOrigin(expression)
+         if (isMarkedandMarked(expression) || isOriginandOrigin(common, expression)
                || isAll())
          {
             if (overwriteDatabaseNames && databaseName != null)
             {
                joiner.add(
-                     expression.getExpressionPrintLineForSaving(databaseName));
+                     expression.getExpressionPrintLineForSaving(common, databaseName));
             }
             else
             {
-               joiner.add(expression.getExpressionPrintLineForSaving());
+               joiner.add(expression.getExpressionPrintLineForSaving(common));
             }
             counter++;
          }

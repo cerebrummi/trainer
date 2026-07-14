@@ -10,6 +10,8 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
@@ -19,7 +21,7 @@ public class ExpressionKindTableSingleselect extends JTable
 
    private DictionaryControllerConnector connector;
 
-   public ExpressionKindTableSingleselect(ExpressionKindTableModel2 model,
+   public ExpressionKindTableSingleselect(Common common, View view, ExpressionKindTableModel2 model,
          int totalWidth, DictionaryControllerConnector connector)
    {
       super(model, new ExpressionKindTableColumnModel2(totalWidth));
@@ -65,7 +67,7 @@ public class ExpressionKindTableSingleselect extends JTable
                               .fireTableCellUpdated(i, 0);
                      }
                   }
-                  connector.displayExpressionKindWhich();
+                  connector.displayExpressionKindWhich(common, view);
                }
 
                ((ExpressionKindTableModel2) table.getModel())
@@ -75,7 +77,7 @@ public class ExpressionKindTableSingleselect extends JTable
       });
    }
 
-   public void redisplaySelectedExpressionKindIfAny()
+   public void redisplaySelectedExpressionKindIfAny(Common common, View view)
    {
       for (int i = 0; i < getRowCount(); i++)
       {
@@ -83,7 +85,7 @@ public class ExpressionKindTableSingleselect extends JTable
                .getExpressionKind();
          if (kind.isSelected())
          {
-            connector.displayExpressionKindWhich();
+            connector.displayExpressionKindWhich(common, view);
             break;
          }
       }

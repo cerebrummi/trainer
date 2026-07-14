@@ -11,9 +11,9 @@ import java.util.Locale;
 import javax.swing.JPanel;
 
 import vokabeltrainer.ExpressionComparator;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.StatisticsColors;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.Translator;
@@ -25,14 +25,14 @@ import vokabeltrainer.types.SortingType;
 public class StatisticsTableRow
 {
    private LocalDate date;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
    private DateTimeFormatter dateFormatter;
    int row;
    StatisticsTableModel model;
    private List<Expression> expressionsHtoD;
    private List<Expression> expressionsDtoH;
 
-   public StatisticsTableRow(int row, LocalDate date,
+   public StatisticsTableRow(Common common, int row, LocalDate date,
          List<Expression> expressionsDtoH, List<Expression> expressionsHtoD,
          StatisticsTableModel model)
    {
@@ -40,6 +40,7 @@ public class StatisticsTableRow
       this.date = date;
       this.expressionsDtoH = expressionsDtoH;
       this.expressionsHtoD = expressionsHtoD;
+      translator = common.getTranslator();
       if (TranslationCode.de_original == Settings.getTranslationCode())
       {
          dateFormatter = DateTimeFormatter.ofPattern(
@@ -82,7 +83,7 @@ public class StatisticsTableRow
       return date;
    }
 
-   public Component getJListHtoD()
+   public Component getJListHtoD(Common common)
    {
       JPanel list = new JPanel();
       list.setOpaque(true);
@@ -92,13 +93,13 @@ public class StatisticsTableRow
 
       for (Expression expression : expressionsHtoD)
       {
-         list.add(new ListImageRow(expression, Direction.NEW_TO_OWN));
+         list.add(new ListImageRow(common, expression, Direction.NEW_TO_OWN));
       }
 
       return list;
    }
 
-   public Component getJListDtoH()
+   public Component getJListDtoH(Common common)
    {
       JPanel list = new JPanel();
       list.setOpaque(true);
@@ -108,7 +109,7 @@ public class StatisticsTableRow
 
       for (Expression expression : expressionsDtoH)
       {
-         list.add(new ListImageRow(expression, Direction.OWN_TO_NEW));
+         list.add(new ListImageRow(common, expression, Direction.OWN_TO_NEW));
       }
 
       return list;

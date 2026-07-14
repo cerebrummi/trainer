@@ -13,8 +13,8 @@ import javax.swing.SwingConstants;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -23,7 +23,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 public class InformationTab extends JPanel
 {
    private static final long serialVersionUID = -700729868879651952L;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
    private JCheckBox morgenCheck;
    private JCheckBox tage_2_Check;
    private JCheckBox tage_5_Check;
@@ -33,8 +33,10 @@ public class InformationTab extends JPanel
    private JCheckBox monate_2_Check;
    private JCheckBox monate_5_Check;
 
-   public InformationTab()
+   public InformationTab(Common common)
    {
+      translator = common.getTranslator();
+      
       setLayout(new TrainLayout(this));
       this.setOpaque(false);
       this.setBackground(ApplicationColors.getTransparent());

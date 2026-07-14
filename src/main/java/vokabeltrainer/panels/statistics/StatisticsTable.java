@@ -5,14 +5,15 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.JTableHeader;
 
 import vokabeltrainer.common.colors.StatisticsColors;
+import vokabeltrainer.common.main.Common;
 
 public class StatisticsTable extends JTable
 {
    private static final long serialVersionUID = 1467979172740860765L;
 
-   public StatisticsTable(StatisticsTableModel model)
+   public StatisticsTable(Common common, StatisticsTableModel model)
    {
-      super(model, new StatisticsTableColumnModel());
+      super(model, new StatisticsTableColumnModel(common));
       this.setShowVerticalLines(false);
       setOpaque(true);
       setRowHeight(50);

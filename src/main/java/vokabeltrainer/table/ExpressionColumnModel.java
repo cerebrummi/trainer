@@ -3,17 +3,18 @@ package vokabeltrainer.table;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.Direction;
 
 public class ExpressionColumnModel extends DefaultTableColumnModel
 {
    private static final long serialVersionUID = 2275832088905828369L;
 
-   public ExpressionColumnModel(Direction language)
+   public ExpressionColumnModel(Common common, Direction language)
    {
       TableColumn column = new TableColumn();
       column.setHeaderRenderer(null);
-      ExpressionCellRenderer rendererEditor = new ExpressionCellRenderer(
+      ExpressionCellRenderer rendererEditor = new ExpressionCellRenderer(common,
             language);
       column.setCellRenderer(rendererEditor);
       column.setMinWidth(column.getWidth() - 60);

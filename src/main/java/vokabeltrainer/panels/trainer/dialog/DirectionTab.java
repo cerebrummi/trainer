@@ -15,8 +15,8 @@ import javax.swing.JRadioButton;
 
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.FieldOfTraining;
@@ -36,10 +36,11 @@ public class DirectionTab extends JPanel
    private JButton nextButton;
    private JButton cancelButton;
 
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public DirectionTab(StartTrainingView dialog)
+   public DirectionTab(Common common, StartTrainingView dialog)
    {
+      translator = common.getTranslator();
       setLayout(new BorderLayout());
       setBackground(TrainerColors.getPanelBackgroundDark());
       setOpaque(true);
@@ -185,7 +186,7 @@ public class DirectionTab extends JPanel
                   translator
                         .realisticTranslate(Translation.DATENBANKEN_ANSEHEN),
                   new ImageIcon(ApplicationImages.getArrow()),
-                  new DatabaseTab(dialog));
+                  new DatabaseTab(common, dialog));
          }
          else
          {
@@ -193,7 +194,7 @@ public class DirectionTab extends JPanel
             dialog.getTabbedPane().addTab(
                   translator.realisticTranslate(Translation.WIE_VIELE),
                   new ImageIcon(ApplicationImages.getArrow()),
-                  new AmountTab(dialog));
+                  new AmountTab(common, dialog));
          }
          dialog.getTabbedPane().setSelectedIndex(2);
       });

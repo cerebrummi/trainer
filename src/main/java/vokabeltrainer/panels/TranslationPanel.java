@@ -9,8 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Main;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.resources.Buchstabenbilder;
@@ -24,13 +25,13 @@ public class TranslationPanel extends JPanel
    private JButton applyButton;
    private JComboBox<TranslationCode> chooseLanguage;
 
-   TranslationPanel()
+   TranslationPanel(Common common)
    {
       setLayout(new BullsEyeLayout(this));
 
       add(initChooseLanguage());
 
-      initController();
+      initController(common);
    }
 
    private Component initChooseLanguage()
@@ -55,16 +56,17 @@ public class TranslationPanel extends JPanel
       return horizontal;
    }
 
-   private void initController()
+   private void initController(Common common)
    {
       applyButton.addActionListener(_ -> {
          TranslationCode choosen = chooseLanguage
                .getItemAt(chooseLanguage.getSelectedIndex());
          Settings.setTranslationCode(choosen);
-         Common.setTranslator(new Translator());
+         common.setTranslator(new Translator());
+         Main.initEnums(common);
          try
          {
-            Buchstabenbilder.read();
+            Buchstabenbilder.read(common);
          }
          catch (Exception e)
          {

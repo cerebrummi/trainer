@@ -38,14 +38,15 @@ import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.ApplicationSound;
-import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
-import vokabeltrainer.common.ImportExpressions;
-import vokabeltrainer.common.Initializer;
-import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.Settings.OperatingSystem;
 import vokabeltrainer.common.colors.SettingsColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.ImportExpressions;
+import vokabeltrainer.common.main.SaveExpressions;
+import vokabeltrainer.common.main.View;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -71,14 +72,13 @@ public class SettingsPanel extends JPanel
    private JButton exportSelectedButton;
    private JButton exportDatabaseButton;
    private JButton deleteDatabaseButton;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
    private JCheckBox modus;
    private JButton originalFolder;
-   private Initializer initializer;
 
-   public SettingsPanel(Initializer initializer)
+   public SettingsPanel(Common common, Model model, View view)
    {
-      this.initializer = initializer;
+      translator = common.getTranslator();
       setLayout(new BullsEyeLayout(this));
       this.setOpaque(true);
       this.setBackground(ApplicationColors.getTexturedBackgroundColor());
@@ -119,7 +119,7 @@ public class SettingsPanel extends JPanel
 
       initColors();
       
-      initController();
+      initController(common, model, view);
    }
 
    private void initColors()
@@ -143,7 +143,7 @@ public class SettingsPanel extends JPanel
       panel.setLayout(panelLayout);
       panel.setBackground(ApplicationColors.getShadyBlue());
 
-      modus = new JCheckBox(Common.getTranslator()
+      modus = new JCheckBox(translator
             .realisticTranslate(Translation.SCHABBAT_MODUS));
       modus.setFont(ApplicationFonts.buttonFont);
       modus.setForeground(ApplicationColors.getWhite());
@@ -522,7 +522,7 @@ public class SettingsPanel extends JPanel
       return vertical;
    }
 
-   private void initController()
+   private void initController(Common common, Model model, View view)
    {
       soundslider.addChangeListener(_ -> {
          if (!soundslider.getValueIsAdjusting())
@@ -679,7 +679,7 @@ public class SettingsPanel extends JPanel
          {
             Settings.setChoosenExpressionPath(pathOfFolder);
             this.folderLabel.setText(Settings.getExpressionPath());
-            initializer.initDatabase();
+            model.initDatabase(common, view);
          }
 
       });
@@ -687,12 +687,12 @@ public class SettingsPanel extends JPanel
       originalFolder.addActionListener(_ -> {
          Settings.setBackExpressionPath();
          this.folderLabel.setText(Settings.getExpressionPath());
-         initializer.initDatabase();
+         model.initDatabase(common, view);
       });
 
       importButton.addActionListener(_ -> {
 
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(common, view,
                translator.realisticTranslate(Translation.IMPORT));
          dialog.setVisible(true);
 
@@ -720,11 +720,11 @@ public class SettingsPanel extends JPanel
                protected Void doInBackground() throws Exception
                {
                   ImportExpressions importer = new ImportExpressions();
-                  if (importer.importExpressions(databaseName,
+                  if (importer.importExpressions(common, databaseName,
                         overwriteDatabaseNames, pathOfFolderOrFile))
                   {
                      SaveExpressions saver = new SaveExpressions();
-                     saver.save();
+                     saver.save(common, view);
                   }
 
                   return null;
@@ -736,7 +736,7 @@ public class SettingsPanel extends JPanel
 
       exportButton.addActionListener(_ -> {
 
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(translator
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(common, view, translator
                .realisticTranslate(Translation.EXPORT_ALLER_VOKABELN));
          dialog.setVisible(true);
 
@@ -765,7 +765,7 @@ public class SettingsPanel extends JPanel
                protected Void doInBackground() throws Exception
                {
                   SaveExpressions saver = new SaveExpressions(pathOfFolder);
-                  saver.export(databaseName, overwriteDatabaseNames);
+                  saver.export(common, view, databaseName, overwriteDatabaseNames);
 
                   return null;
                }
@@ -775,7 +775,7 @@ public class SettingsPanel extends JPanel
       });
 
       this.exportSelectedButton.addActionListener(_ -> {
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(translator
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(common, view, translator
                .realisticTranslate(Translation.EXPORT_MARKIERTER_VOKABELN));
          dialog.setVisible(true);
 
@@ -804,7 +804,7 @@ public class SettingsPanel extends JPanel
                protected Void doInBackground() throws Exception
                {
                   SaveExpressions saver = new SaveExpressions(pathOfFolder);
-                  saver.export(databaseName, overwriteDatabaseNames, true);
+                  saver.export(common, view, databaseName, overwriteDatabaseNames, true);
 
                   return null;
                }
@@ -816,20 +816,20 @@ public class SettingsPanel extends JPanel
       exportDatabaseButton.addActionListener(_ -> {
 
          String databaseChoosen = (String) JOptionPane.showInputDialog(
-               Common.getMainJPanel(),
+               view.getMainJPanel(),
                translator.realisticTranslate(
                      Translation.WAEHLEN_SIE_EINE_DATENBANK_FUER_DEN_EXPORT_AUS_),
                translator.realisticTranslate(Translation.AUSWAHL),
                JOptionPane.QUESTION_MESSAGE,
                new ImageIcon(ApplicationImages.getLogo24()),
-               Data.getAllOwnDistinctDatabaseDescriptions(false), null);
+               Data.getAllOwnDistinctDatabaseDescriptions(common, false), null);
 
          if (databaseChoosen == null)
          {
             return;
          }
 
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(translator
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(common, view, translator
                .realisticTranslate(Translation.EXPORT_EINER_DATENBANK));
          dialog.setVisible(true);
 
@@ -858,7 +858,7 @@ public class SettingsPanel extends JPanel
                protected Void doInBackground() throws Exception
                {
                   SaveExpressions saver = new SaveExpressions(pathOfFolder);
-                  saver.export(databaseName, overwriteDatabaseNames,
+                  saver.export(common, view, databaseName, overwriteDatabaseNames,
                         databaseChoosen);
                   return null;
                }
@@ -869,21 +869,21 @@ public class SettingsPanel extends JPanel
 
       this.deleteDatabaseButton.addActionListener(_ -> {
          String databaseChoosen = (String) JOptionPane.showInputDialog(
-               Common.getMainJPanel(),
+               view.getMainJPanel(),
                translator.realisticTranslate(
                      Translation.WAEHLEN_SIE_EINE_DATENBANK_ZUM_LOESCHEN_AUS),
                translator.realisticTranslate(
                      Translation.DATENBANK_IN_DEN_PAPIERKORB),
                JOptionPane.QUESTION_MESSAGE,
                new ImageIcon(ApplicationImages.getLogo24()),
-               Data.getAllOwnDistinctDatabaseDescriptions(false), null);
+               Data.getAllOwnDistinctDatabaseDescriptions(common, false), null);
 
          if (databaseChoosen == null)
          {
             return;
          }
 
-         if (JOptionPane.showConfirmDialog(Common.getjFrame(),
+         if (JOptionPane.showConfirmDialog(view.getjFrame(),
                translator.realisticTranslate(
                      Translation.WOLLEN_SIE_WIRKLICH_DIE_VOKABELN_VON__)
                      + databaseChoosen
@@ -900,8 +900,8 @@ public class SettingsPanel extends JPanel
             @Override
             protected Void doInBackground() throws Exception
             {
-               Data.deleteExpressionsOfDatabase(databaseChoosen);
-               new SaveExpressions().save();
+               Data.deleteExpressionsOfDatabase(common, databaseChoosen);
+               new SaveExpressions().save(common, view);
                return null;
             }
 
@@ -909,7 +909,7 @@ public class SettingsPanel extends JPanel
       });
 
       this.modus.addActionListener(_ -> {
-         if (!Common.isSchabbat())
+         if (!common.isSchabbat())
          {
             Settings.setSchabbat_modus(modus.isSelected());
          }

@@ -9,10 +9,10 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 import vokabeltrainer.types.Chapter.Database;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Letter;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
@@ -35,33 +35,35 @@ public class Expression
    private String additionalInformation;
    private LocalDateTime lastModified;
    private String sortingIndex = "";
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
    private Integer level = 0;
    private boolean visible;
 
    public Expression(boolean preset) // for unit testing
-   {
+   {      
       this.doNotChange = true;
 
       if (preset)
       {
          uuid = UUID.randomUUID();
          ownLanguage = "";
-         chapter = new Chapter(Database.SELF);
+         chapter = new Chapter(null, Database.SELF);
          definitions = new Definitions();
          lastModified = LocalDateTime.now();
       }
    }
 
-   public Expression(boolean preset, boolean doNotChange)
+   public Expression(Common common, boolean preset, boolean doNotChange)
    {
+      translator = common.getTranslator();
+      
       this.doNotChange = doNotChange;
 
       if (preset)
       {
          uuid = UUID.randomUUID();
          ownLanguage = "";
-         chapter = new Chapter(Database.SELF);
+         chapter = new Chapter(common, Database.SELF);
          definitions = new Definitions();
          lastModified = LocalDateTime.now();
          ll.setSimpleHebrew(Settings.isSimpleHebrewInput());
@@ -293,7 +295,7 @@ public class Expression
       this.visible = visible;
    }
 
-   public String[] toHebrewArrayForTableEntry()
+   public String[] toHebrewArrayForTableEntry(Common common)
    {
       int index = 0;
       String[] result = new String[10];
@@ -327,14 +329,14 @@ public class Expression
             + translator.realisticTranslate(Translation.INDEX) + ": "
             + sortingIndex;
       index++;
-      result[index] = chapter.getDatabaseName() + " "
+      result[index] = chapter.getDatabaseName(common) + " "
             + translator.realisticTranslate(Translation.VOM) + " "
             + lastModified.format(DateTimeFormatter.ofPattern(
                   translator.realisticTranslate(Translation._DATE_TIME)));
       return result;
    }
 
-   public String[] toHebrewArrayForTableEntry2()
+   public String[] toHebrewArrayForTableEntry2(Common common)
    {
       int index = 0;
       String[] result = new String[10];
@@ -368,14 +370,14 @@ public class Expression
             + translator.realisticTranslate(Translation.INDEX) + ": "
             + sortingIndex;
       index++;
-      result[index] = chapter.getDatabaseName() + " "
+      result[index] = chapter.getDatabaseName(common) + " "
             + translator.realisticTranslate(Translation.VOM) + " "
             + lastModified.format(DateTimeFormatter.ofPattern(
                   translator.realisticTranslate(Translation._DATE_TIME)));
       return result;
    }
 
-   public String[] toSwedishArrayForTableEntry()
+   public String[] toSwedishArrayForTableEntry(Common common)
    {
       int index = 0;
       String[] result = new String[10];
@@ -409,14 +411,14 @@ public class Expression
             + translator.realisticTranslate(Translation.INDEX) + ": "
             + sortingIndex;
       index++;
-      result[index] = chapter.getDatabaseName() + " "
+      result[index] = chapter.getDatabaseName(common) + " "
             + translator.realisticTranslate(Translation.VOM) + " "
             + lastModified.format(DateTimeFormatter.ofPattern(
                   translator.realisticTranslate(Translation._DATE_TIME)));
       return result;
    }
 
-   public String[] toSwedishArrayForTableEntry2()
+   public String[] toSwedishArrayForTableEntry2(Common common)
    {
       int index = 0;
       String[] result = new String[10];
@@ -450,7 +452,7 @@ public class Expression
             + translator.realisticTranslate(Translation.INDEX) + ": "
             + sortingIndex;
       index++;
-      result[index] = chapter.getDatabaseName() + " "
+      result[index] = chapter.getDatabaseName(common) + " "
             + translator.realisticTranslate(Translation.VOM) + " "
             + lastModified.format(DateTimeFormatter.ofPattern(
                   translator.realisticTranslate(Translation._DATE_TIME)));
@@ -505,16 +507,16 @@ public class Expression
       return joiner.toString();
    }
 
-   public String getExpressionPrintLineForSaving()
+   public String getExpressionPrintLineForSaving(Common common)
    {
-      return getExpressionPrintLineForSaving(chapter.getDatabaseName());
+      return getExpressionPrintLineForSaving(common, chapter.getDatabaseName(common));
    }
 
-   public String getExpressionPrintLineForSaving(String databaseName)
+   public String getExpressionPrintLineForSaving(Common common, String databaseName)
    {
       StringJoiner joiner = new StringJoiner("\t");
       joiner.add(uuid.toString());
-      Database db = Chapter.findOrigin(databaseName);
+      Database db = Chapter.findOrigin(common, databaseName);
       joiner.add(db.name());
       joiner.add(databaseName);
       joiner.add(chapter.getName());
@@ -642,7 +644,7 @@ public class Expression
       return joiner.toString();
    }
 
-   public String getWordGermanForStatistics(Direction language)
+   public String getWordGermanForStatistics(Common common, Direction language)
    {
       if (Direction.OWN_TO_NEW.equals(language))
       {
@@ -653,7 +655,7 @@ public class Expression
 
          return ownLanguage + "   [" + this.getTrainingStatusDToLL().getTrys()
                + " " + translator.realisticTranslate(Translation.MAL) + " "
-               + this.getTrainingStatusDToLL().getRepetition().getTranslation()
+               + this.getTrainingStatusDToLL().getRepetition().getTranslation(common)
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }
@@ -661,7 +663,7 @@ public class Expression
       {
          return ownLanguage + "   [" + this.getTrainingStatusLLToD().getTrys()
                + " " + translator.realisticTranslate(Translation.MAL) + " "
-               + this.getTrainingStatusLLToD().getRepetition().getTranslation()
+               + this.getTrainingStatusLLToD().getRepetition().getTranslation(common)
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }

@@ -15,8 +15,8 @@ import javax.swing.border.TitledBorder;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.editing.InternationalDocument;
 
 public class InfoTextField extends JTextField
@@ -25,11 +25,11 @@ public class InfoTextField extends JTextField
    private JButton button;
    private String title;
 
-   public InfoTextField(String borderTitle, String... infoText)
+   public InfoTextField(View view, String borderTitle, String... infoText)
    {
       this.title = borderTitle;
       setDocument(new InternationalDocument(40));
-      setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
+      setFont(view.getNimbus().getDefaults().getFont("internationalFont"));
       button = new JButton(
             new ImageIcon(ApplicationImages.getInfoButtonIcon()));
       button.setMargin(new Insets(-5, -20, -5, -20));

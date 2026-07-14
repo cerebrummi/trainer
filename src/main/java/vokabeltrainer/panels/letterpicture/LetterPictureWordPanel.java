@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
@@ -30,7 +31,7 @@ public class LetterPictureWordPanel extends JPanel
       this.setOpaque(false);
    }
 
-   public void displayNikudWord(String nikudWord)
+   public void displayNikudWord(Common common, String nikudWord)
    {
       removeAll();
 
@@ -55,7 +56,7 @@ public class LetterPictureWordPanel extends JPanel
 
       for (LetterForAnalysis letter : hebrewLettersCode)
       {
-         displayPanel.add(new NikudPictureButtonPanel(letter, cards));
+         displayPanel.add(new NikudPictureButtonPanel(common, letter, cards));
       }
 
       vertical.add(displayPanel);
@@ -71,11 +72,11 @@ public class LetterPictureWordPanel extends JPanel
       {
          if (Settings.isLetterImagesOn())
          {
-            displayPanel2.add(new NikudPictureButtonPanel(letter, cards2on));
+            displayPanel2.add(new NikudPictureButtonPanel(common, letter, cards2on));
          }
          else
          {
-            displayPanel2.add(new NikudPictureButtonPanel(letter, cards2off));
+            displayPanel2.add(new NikudPictureButtonPanel(common, letter, cards2off));
          }
       }
 

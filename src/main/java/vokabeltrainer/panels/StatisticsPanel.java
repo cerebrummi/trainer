@@ -13,9 +13,9 @@ import javax.swing.JTable;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.common.colors.StatisticsColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Data;
 import vokabeltrainer.panels.statistics.StatisticsTable;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.translation.Translation;
@@ -31,10 +31,11 @@ public class StatisticsPanel extends JPanel
    private JPanel tablePanel;
    private JPanel wordPanel;
    private JPanel horizontalPanel;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public StatisticsPanel()
+   public StatisticsPanel(Common common)
    {
+      translator = common.getTranslator();
       horizontalPanel = new JPanel();
       TrainLayout horizontalPanelLayout = new TrainLayout(horizontalPanel);
       horizontalPanel.setLayout(horizontalPanelLayout);
@@ -62,7 +63,7 @@ public class StatisticsPanel extends JPanel
       setBackground(StatisticsColors.getPanelBackground());
    }
 
-   public void setValues()
+   public void setValues(Common common)
    {
       tablePanel.removeAll();
       wordPanel.removeAll();
@@ -79,7 +80,7 @@ public class StatisticsPanel extends JPanel
       title.setFont(ApplicationFonts.germanFont.deriveFont(30F));
       titlePanel.add(title);
 
-      StatisticsTable table = new StatisticsTable(Data.findStatisticsModel());
+      StatisticsTable table = new StatisticsTable(common, Data.findStatisticsModel(common));
 
       table.addMouseListener(new MouseAdapter()
       {
@@ -98,7 +99,7 @@ public class StatisticsPanel extends JPanel
                   StatisticsTableRow statisticsTableRow = ((StatisticsTableRow) table
                         .getValueAt(table.getSelectedRow(), 1));
                   JScrollPane scroller = new JScrollPane(
-                        statisticsTableRow.getJListHtoD());
+                        statisticsTableRow.getJListHtoD(common));
                   scroller.setOpaque(true);
                   scroller.setBackground(
                         StatisticsColors.getSelectedBackground());
@@ -114,7 +115,7 @@ public class StatisticsPanel extends JPanel
                   StatisticsTableRow statisticsTableRow = ((StatisticsTableRow) table
                         .getValueAt(table.getSelectedRow(), 2));
                   JScrollPane scroller = new JScrollPane(
-                        statisticsTableRow.getJListDtoH());
+                        statisticsTableRow.getJListDtoH(common));
                   scroller.setOpaque(true);
                   scroller.setBackground(
                         StatisticsColors.getSelectedBackground());

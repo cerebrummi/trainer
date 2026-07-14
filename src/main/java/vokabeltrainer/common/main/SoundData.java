@@ -1,4 +1,4 @@
-package vokabeltrainer.common;
+package vokabeltrainer.common.main;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +16,8 @@ import java.util.prefs.Preferences;
 
 import javax.sound.sampled.AudioFormat;
 
-import vokabeltrainer.cmd.DirectoryHelper;
+import vokabeltrainer.common.CerebrummiNodes;
+import vokabeltrainer.common.Settings;
 
 public final class SoundData
 {
@@ -32,9 +33,9 @@ public final class SoundData
       // nothing
    }
 
-   static void initSoundDataBase()
+   static void initSoundDataBase(Common common, View view)
    {
-      database = new SoundDataBase();
+      database = new SoundDataBase(common, view);
    }
 
    static boolean lockDataBase(UUID uuid)
@@ -89,13 +90,13 @@ public final class SoundData
       return getDataBaseAtomic().isSoundForExpressionAvailable(uuid);
    }
 
-   public static void saveSound(String path, UUID uuid)
+   public static void saveSound(Common common, View view, String path, UUID uuid)
    {
       if (uuid == null)
       {
          return;
       }
-      getDataBaseAtomic().saveSound(uuid, path);
+      getDataBaseAtomic().saveSound(common, view, uuid, path);
    }
 
    public static byte[] loadSound(UUID uuid)
@@ -158,9 +159,9 @@ public final class SoundData
       private final ConcurrentMap<UUID, String> soundTypeMap = new ConcurrentHashMap<>(
               findNumberOfAllVocabulary() + 100);
 
-      SoundDataBase()
+      SoundDataBase(Common common, View view)
       {
-         if (!checkDirectory())
+         if (!checkDirectory(common, view))
          {
             return;
          }
@@ -231,9 +232,9 @@ public final class SoundData
          return soundMap.containsKey(uuid)?true:false;
       }
 
-      private void saveSound(UUID uuid, String path)
+      private void saveSound(Common common, View view, UUID uuid, String path)
       {
-         if (!checkDirectory())
+         if (!checkDirectory(common, view))
          {
             return;
          }
@@ -261,12 +262,12 @@ public final class SoundData
                  + uuid.toString() + soundType));
       }
 
-      private boolean checkDirectory()
+      private boolean checkDirectory(Common common, View view)
       {
          File customDir = new File(Settings.getImagePath());
          if (!customDir.exists())
          {
-            if (!DirectoryHelper.makeDirectory(customDir))
+            if (!common.getDirectoryHelper().makeDirectory(common, view, customDir))
             {
                return false;
             }

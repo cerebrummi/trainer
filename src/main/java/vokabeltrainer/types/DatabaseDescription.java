@@ -2,19 +2,20 @@ package vokabeltrainer.types;
 
 import java.util.Objects;
 
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.Chapter.Database;
 
 public class DatabaseDescription implements Comparable<DatabaseDescription>
 {
-   private Database database = Database.TO_BE_DETERMINED;
-   private String databaseName = "";
-   private String authors = "";
-   private String company = "";
+   private Database database;
+   private String databaseName;
+   private String authors;
+   private String company;
    private boolean selected;
 
    public DatabaseDescription()
    {
-
+      this("");
    }
 
    public DatabaseDescription(String databaseName)
@@ -22,18 +23,18 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       this.databaseName = databaseName;
    }
 
+   public DatabaseDescription(Common common, Database database)
+   {
+      this.database = database;
+      databaseName = database.getName(common);
+      authors = database.getAuthors();
+      company = database.getCompany();
+   }
+   
    @Override
    public String toString()
    {
       return databaseName;
-   }
-
-   public DatabaseDescription(Database database)
-   {
-      this.database = database;
-      databaseName = database.getName();
-      authors = database.getAuthors();
-      company = database.getCompany();
    }
 
    public Database getDatabase()

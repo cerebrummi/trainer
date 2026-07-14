@@ -13,7 +13,8 @@ import javax.swing.JTextField;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.editing.InternationalDocument;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -34,16 +35,18 @@ public class InputDatabaseNameDialog extends JDialog
    private JRadioButton overwriteYes;
    private ButtonGroup overwriteGroup;
    private JRadioButton overwriteNo;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public InputDatabaseNameDialog(String title)
+   public InputDatabaseNameDialog(Common common, View view, String title)
    {
-      super(Common.getjFrame(), title, true);
+      super(view.getjFrame(), title, true);
 
+      translator = common.getTranslator();
+      
       this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
       this.setIconImage(ApplicationImages.getLogo24());
       this.setMinimumSize(new Dimension(400, 320));
-      this.setLocationRelativeTo(Common.getjFrame());
+      this.setLocationRelativeTo(view.getjFrame());
 
       JPanel panel = new JPanel();
       BullsEyeLayout panelLayout = new BullsEyeLayout(panel);

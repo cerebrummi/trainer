@@ -3,19 +3,20 @@ package vokabeltrainer.cmd;
 import java.io.File;
 import javax.swing.JOptionPane;
 
-import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 
-public interface DirectoryHelper {
+public class DirectoryHelper {
 
-    static boolean makeDirectory(File customDir) {
+    public boolean makeDirectory(Common common, View view, File customDir) {
         try {
             customDir.mkdirs();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(Common.getjFrame(),
-                Common.getTranslator()
+            JOptionPane.showMessageDialog(view.getjFrame(),
+                common.getTranslator()
                     .realisticTranslate(Translation.FEHLER_BEIM_SPEICHERN),
-                Common.getTranslator()
+                common.getTranslator()
                     .realisticTranslate(Translation.FEHLERMELDUNG) + " \n" + e,
                 JOptionPane.ERROR_MESSAGE);
             return false;

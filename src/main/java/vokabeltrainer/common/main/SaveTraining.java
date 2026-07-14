@@ -1,4 +1,4 @@
-package vokabeltrainer.common;
+package vokabeltrainer.common.main;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,6 +15,8 @@ import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 
+import vokabeltrainer.common.CerebrummiNodes;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
@@ -23,7 +25,7 @@ public final class SaveTraining
 {
    private int counter;
 
-   public boolean save()
+   public boolean save(View view)
    {
       ProgressMonitor bar = new ProgressMonitor(null,
             "Die Traingsdaten werden gespeichert.", "", 0, 100);
@@ -47,7 +49,7 @@ public final class SaveTraining
                }
                catch (Exception e)
                {
-                  JOptionPane.showMessageDialog(Common.getjFrame(),
+                  JOptionPane.showMessageDialog(view.getjFrame(),
                         "Fehler beim Speichern des Trainings.", "Fehlermeldung",
                         JOptionPane.ERROR_MESSAGE);
                   return false;
@@ -73,7 +75,7 @@ public final class SaveTraining
          catch (Exception e)
          {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(Common.getjFrame(),
+            JOptionPane.showMessageDialog(view.getjFrame(),
                   "Es hat beim Speichern des Trainings einen Fehler gegeben.\n"
                         + e.getMessage(),
                   "Fehler", JOptionPane.ERROR_MESSAGE);

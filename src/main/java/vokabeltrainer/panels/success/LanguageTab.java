@@ -6,8 +6,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.colors.SuccessColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Direction;
@@ -33,10 +34,11 @@ public class LanguageTab extends JPanel
 
    private JPanel infoPanel;
    private Direction languageDirection;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public LanguageTab(JPanel infoPanel, Direction languageDirection)
+   public LanguageTab(Common common, JPanel infoPanel, Direction languageDirection)
    {
+      translator = common.getTranslator();
       this.infoPanel = infoPanel;
       this.languageDirection = languageDirection;
       this.setLayout(new BorderLayout());
@@ -44,7 +46,7 @@ public class LanguageTab extends JPanel
       this.setBackground(SuccessColors.getPanelBackground());
    }
 
-   public void loadBoxes()
+   public void loadBoxes(Common common, View view)
    {
       this.removeAll();
 
@@ -80,7 +82,7 @@ public class LanguageTab extends JPanel
 
       this.add(register, BorderLayout.CENTER);
 
-      initController();
+      initController(common, view);
    }
 
    private Component initNotStarted()
@@ -153,7 +155,7 @@ public class LanguageTab extends JPanel
       return SuccessHelper.makePanel(donePanel);
    }
 
-   private void initController()
+   private void initController(Common common, View view)
    {
       register.addChangeListener(_ -> {
          switch (register.getSelectedIndex())
@@ -161,46 +163,46 @@ public class LanguageTab extends JPanel
          case 0:
             break;
          case 1:
-            SuccessHelper.addContent(null, notStartedPanel, languageDirection);
+            SuccessHelper.addContent(common, view, null, notStartedPanel, languageDirection);
             break;
          case 2:
-            SuccessHelper.addContent(Repetition.NOW, nowPanel,
+            SuccessHelper.addContent(common, view, Repetition.NOW, nowPanel,
                   languageDirection);
             break;
          case 3:
-            SuccessHelper.addContent(Repetition.ONE_DAY, oneDayPanel,
+            SuccessHelper.addContent(common, view, Repetition.ONE_DAY, oneDayPanel,
                   languageDirection);
             break;
          case 4:
-            SuccessHelper.addContent(Repetition.TWO_DAYS, twoDaysPanel,
+            SuccessHelper.addContent(common, view, Repetition.TWO_DAYS, twoDaysPanel,
                   languageDirection);
             break;
          case 5:
-            SuccessHelper.addContent(Repetition.FIVE_DAYS, fiveDaysPanel,
+            SuccessHelper.addContent(common, view, Repetition.FIVE_DAYS, fiveDaysPanel,
                   languageDirection);
             break;
          case 6:
-            SuccessHelper.addContent(Repetition.ELEVEN_DAYS, elevenDaysPanel,
+            SuccessHelper.addContent(common, view, Repetition.ELEVEN_DAYS, elevenDaysPanel,
                   languageDirection);
             break;
          case 7:
-            SuccessHelper.addContent(Repetition.NINETEEN_DAYS,
+            SuccessHelper.addContent(common, view, Repetition.NINETEEN_DAYS,
                   nineteenDaysPanel, languageDirection);
             break;
          case 8:
-            SuccessHelper.addContent(Repetition.ONE_MONTH, oneMonthPanel,
+            SuccessHelper.addContent(common, view, Repetition.ONE_MONTH, oneMonthPanel,
                   languageDirection);
             break;
          case 9:
-            SuccessHelper.addContent(Repetition.TWO_MONTHS, twoMonthsPanel,
+            SuccessHelper.addContent(common, view, Repetition.TWO_MONTHS, twoMonthsPanel,
                   languageDirection);
             break;
          case 10:
-            SuccessHelper.addContent(Repetition.FIVE_MONTHS, fiveMonthsPanel,
+            SuccessHelper.addContent(common, view, Repetition.FIVE_MONTHS, fiveMonthsPanel,
                   languageDirection);
             break;
          case 11:
-            SuccessHelper.addContent(Repetition.DONE, donePanel,
+            SuccessHelper.addContent(common, view, Repetition.DONE, donePanel,
                   languageDirection);
             break;
          }

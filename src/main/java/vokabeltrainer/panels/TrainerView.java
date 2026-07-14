@@ -39,9 +39,10 @@ import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
 import vokabeltrainer.editing.SwedishDocument;
@@ -111,15 +112,16 @@ public class TrainerView extends JPanel
    private JSlider soundslider;
    private JCheckBox pictureToggleBox;
    private JPanel verticalTrainerPanel;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
    private JPanel textFieldPanelWrapper;
 
    private JButton imageButton = new ImageButton();
    private JButton wordSoundButton = new ImageButton();
 
-   public TrainerView(TrainerControllerConnector connector)
+   public TrainerView(Common common, View view, TrainerControllerConnector connector)
    {
       this.connector = connector;
+      translator = common.getTranslator();
       this.languageDirection = connector.getLanguageDirection();
       BullsEyeLayout trainerLayout = new BullsEyeLayout(this);
       setLayout(trainerLayout);
@@ -131,13 +133,13 @@ public class TrainerView extends JPanel
       setBorder(BorderFactory.createEmptyBorder());
       initGui();
       this.add(verticalTrainerPanel);
-      initController();
+      initController(common, view);
    }
 
-   public void init()
+   public void init(Common common, View view)
    {
-      initTextField(languageDirection);
-      initQuestionPanel(languageDirection);
+      initTextField(common, view, languageDirection);
+      initQuestionPanel(view, languageDirection);
 
       switch (Settings.getMyWritingDirection())
       {
@@ -254,13 +256,13 @@ public class TrainerView extends JPanel
       return textFieldPanelWrapper;
    }
 
-   private void initTextField(LanguageDirection languageDirection)
+   private void initTextField(Common common, View view, LanguageDirection languageDirection)
    {
       textFieldPanelWrapper.removeAll();
 
       questionField = new JTextArea();
       questionField.setFont(
-            Common.getNimbus().getDefaults().getFont("internationalFont"));
+            view.getNimbus().getDefaults().getFont("internationalFont"));
       questionField.setLineWrap(true);
       questionField.setWrapStyleWord(true);
       questionField.setOpaque(true);
@@ -273,7 +275,7 @@ public class TrainerView extends JPanel
       questionField.setMaximumSize(new Dimension(1268, 160));
       questionField.setEditable(false);
 
-      questionFieldLL = new InputLanguagePanel(Selection.SIMPLE, 160, 10, false,
+      questionFieldLL = new InputLanguagePanel(common, Selection.SIMPLE, 160, 10, false,
             this, 1268, TrainerColors.getTextBackground());
       questionFieldLL.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(ApplicationColors.getLightBlue()),
@@ -480,7 +482,7 @@ public class TrainerView extends JPanel
       return verticalLeftPanel;
    }
 
-   private void initQuestionPanel(LanguageDirection languageDirection)
+   private void initQuestionPanel(View view, LanguageDirection languageDirection)
    {
       questionPanel.removeAll();
       questionPanel
@@ -571,7 +573,7 @@ public class TrainerView extends JPanel
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
          answerPanel
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 444));
-         answerField = new InfoTextField(
+         answerField = new InfoTextField(view,
                translator.realisticTranslate(Translation.ANTWORTFELD),
                translator.realisticTranslate(Translation.ANTWORTFELD) + ":",
                translator.realisticTranslate(
@@ -594,7 +596,7 @@ public class TrainerView extends JPanel
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
          answerPanel
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 444));
-         answerField = new InfoTextField(
+         answerField = new InfoTextField(view,
                translator.realisticTranslate(Translation.ANTWORTFELD),
                translator.realisticTranslate(Translation.ANTWORTFELD) + ":",
                translator.realisticTranslate(
@@ -617,7 +619,7 @@ public class TrainerView extends JPanel
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 308));
          answerPanel
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 444));
-         answerField = new InfoTextField(
+         answerField = new InfoTextField(view,
                translator.realisticTranslate(Translation.ANTWORTFELD),
                translator.realisticTranslate(Translation.ANTWORTFELD) + ":",
                translator.realisticTranslate(
@@ -642,7 +644,7 @@ public class TrainerView extends JPanel
                .setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 80));
          answerPanel
                .setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 80));
-         answerField = new InfoTextField(
+         answerField = new InfoTextField(view,
                translator.realisticTranslate(Translation.ANTWORTFELD),
                translator.realisticTranslate(Translation.ANTWORTFELD) + ":",
                translator.realisticTranslate(
@@ -759,9 +761,9 @@ public class TrainerView extends JPanel
       return vertical;
    }
 
-   private void initController()
+   private void initController(Common common, View view)
    {
-      sendButton.addActionListener(_ -> connector.send());
+      sendButton.addActionListener(_ -> connector.send(common, view));
 
       nextWordButton.addActionListener(_ -> nextWord());
 
@@ -812,7 +814,7 @@ public class TrainerView extends JPanel
       });
 
       stopTrainingButton.addActionListener(_ -> {
-         connector.stopTraining(false);
+         connector.stopTraining(common, view, false);
       });
 
       this.soundButton.addActionListener(_ -> connector.toggleSound());
@@ -826,7 +828,7 @@ public class TrainerView extends JPanel
 
       pictureToggleBox.addActionListener(_ -> connector.toggleLetterPictures());
 
-      initControllerImageButton();
+      initControllerImageButton(common, view);
       initControllerWordButton();
    }
 
@@ -843,25 +845,25 @@ public class TrainerView extends JPanel
       });
    }
 
-   private void initControllerImageButton()
+   private void initControllerImageButton(Common common, View view)
    {
       imageButton.addMouseListener(new MouseAdapter()
       {
          @Override
          public void mouseClicked(MouseEvent event)
          {
-            EnterAction images = new EnterAction();
-            images.showEditorPicture(connector.getCurrentExpression(), false);
+            EnterAction images = new EnterAction(common, view);
+            images.showEditorPicture(common, view, connector.getCurrentExpression(), false);
          }
       });
    }
 
-   public void setHtoDanswerButtons()
+   public void setHtoDanswerButtons(Common common, View view)
    {
       answerOkay = new JButton(
             new ImageIcon(ApplicationImages.getAnswerOkay()));
       answerOkay.addActionListener(_ -> {
-         connector.resultHtoDOkay();
+         connector.resultHtoDOkay(common, view);
       });
       answerOkay.setMinimumSize(new Dimension(150, 110));
       answerOkay.setMaximumSize(new Dimension(150, 110));
@@ -871,7 +873,7 @@ public class TrainerView extends JPanel
       answerUndecided = new JButton(
             new ImageIcon(ApplicationImages.getAnswerUndecided()));
       answerUndecided.addActionListener(_ -> {
-         connector.resultHtoDUndecided();
+         connector.resultHtoDUndecided(common, view);
       });
       answerUndecided.setMinimumSize(new Dimension(150, 110));
       answerUndecided.setMaximumSize(new Dimension(150, 110));
@@ -881,7 +883,7 @@ public class TrainerView extends JPanel
       answerNotOkay = new JButton(
             new ImageIcon(ApplicationImages.getAnswerNotOkay()));
       answerNotOkay.addActionListener(_ -> {
-         connector.resultHtoDFalse();
+         connector.resultHtoDFalse(common, view);
       });
       answerNotOkay.setMinimumSize(new Dimension(150, 110));
       answerNotOkay.setMaximumSize(new Dimension(150, 110));
@@ -896,7 +898,7 @@ public class TrainerView extends JPanel
       this.answerNotOkay.setEnabled(b);
    }
 
-   public void prepareHtoDFeedbackPanel()
+   public void prepareHtoDFeedbackPanel(Common common, View view)
    {
       JPanel outerVertical = new JPanel();
       outerVertical.setLayout(new TotemLayout(outerVertical));
@@ -929,7 +931,7 @@ public class TrainerView extends JPanel
       imageButton = new ImageButton(ApplicationImages.getIcon_eye());
       imageButton.setMinimumSize(new Dimension(60, 60));
       imageButton.setMaximumSize(new Dimension(60, 60));
-      initControllerImageButton();
+      initControllerImageButton(common, view);
 
       wordSoundButton = new ImageButton(ApplicationImages.getIcon_notes());
       wordSoundButton.setMinimumSize(new Dimension(60, 60));
@@ -946,7 +948,7 @@ public class TrainerView extends JPanel
       answerPanel2.setMaximumSize(new Dimension(501, 100));
       answerPanel2.setBackground(TrainerColors.getPanelBackground());
 
-      setHtoDanswerButtons();
+      setHtoDanswerButtons(common, view);
       answerPanel2.add(answerOkay);
       answerPanel2.add(answerUndecided);
       answerPanel2.add(answerNotOkay);
@@ -1117,7 +1119,7 @@ public class TrainerView extends JPanel
             String.valueOf(connector.getExpressionsToBeTested().size()));
    }
 
-   public void prepareDtoNikudFeedbackPanel(Result result)
+   public void prepareDtoNikudFeedbackPanel(Common common, Result result)
    {
       HebrewAnswerWordPanel answerPanel = new HebrewAnswerWordPanel(result);
 
@@ -1143,7 +1145,7 @@ public class TrainerView extends JPanel
       if (result.getExpression().getLL().isSimpleHebrew())
       {
          pictureWordPanelPlene
-               .displayNikudWord(result.getExpression().getLL().getHebrew());
+               .displayNikudWord(common, result.getExpression().getLL().getHebrew());
       }
       else if (result.getExpression().getLL().isSwedish())
       {
@@ -1155,9 +1157,9 @@ public class TrainerView extends JPanel
       }
       else
       {
-         pictureWordPanelPlene.displayNikudWord(
+         pictureWordPanelPlene.displayNikudWord(common,
                result.getExpression().getLL().getHebrewPlene());
-         pictureWordPanelDefektiv.displayNikudWord(
+         pictureWordPanelDefektiv.displayNikudWord(common,
                result.getExpression().getLL().getHebrewDefektiv());
       }
    }

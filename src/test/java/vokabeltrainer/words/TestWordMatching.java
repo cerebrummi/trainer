@@ -221,6 +221,7 @@ public class TestWordMatching {
     String[] wordTest26Array = {"WAW", "HAEI", "AIN", "RESCH", "SPACE", "SPACE", "SCHIN", "JOD", "ALEF"};
     List<String> wordTest26List = new LinkedList<>(Arrays.asList(wordTest26Array));
 
+    
     @BeforeAll
     public static void init() throws IOException, FontFormatException {
         Fonts.read();

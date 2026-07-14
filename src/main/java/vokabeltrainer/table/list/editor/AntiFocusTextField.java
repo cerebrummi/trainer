@@ -5,13 +5,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
 import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.View;
 
 public class AntiFocusTextField extends JTextField
 {
    private static final long serialVersionUID = -4364086687323301340L;
 
-   public AntiFocusTextField(String value)
+   public AntiFocusTextField(View view, String value)
    {
       super(value);
       setFocusable(false);
@@ -19,17 +19,17 @@ public class AntiFocusTextField extends JTextField
       setBackground(ApplicationColors.getBackgroundGold());
       setBorder(BorderFactory.createEmptyBorder());
       setEnabled(true);
-      setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
+      setFont(view.getNimbus().getDefaults().getFont("internationalFont"));
    }
 
-   public AntiFocusTextField()
+   public AntiFocusTextField(View view)
    {
       setFocusable(false);
       setOpaque(true);
       setBackground(ApplicationColors.getBackgroundGold());
       setBorder(BorderFactory.createEmptyBorder());
       setEnabled(true);
-      setFont(Common.getNimbus().getDefaults().getFont("internationalFont"));
+      setFont(view.getNimbus().getDefaults().getFont("internationalFont"));
    }
 
    @Override

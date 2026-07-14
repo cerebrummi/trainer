@@ -7,18 +7,24 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 import vokabeltrainer.common.colors.InputColors;
+import vokabeltrainer.common.main.View;
 
 public class SearchwordListCellRenderer implements ListCellRenderer<String>
 {
-
    private AntiFocusTextField listComponent;
    private ComponentOrientation orientation;
+   private View view;
+   
+   public SearchwordListCellRenderer(View view)
+   {
+      this.view = view;
+   }
 
    @Override
    public Component getListCellRendererComponent(JList<? extends String> list,
          String value, int index, boolean isSelected, boolean cellHasFocus)
    {
-      listComponent = new AntiFocusTextField(value);
+      listComponent = new AntiFocusTextField(view, value);
       if (isSelected)
       {
          listComponent.setBackground(InputColors.getTextForeground());

@@ -3,7 +3,6 @@ package vokabeltrainer.types.grammatical;
 import java.util.ArrayList;
 import java.util.List;
 
-import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
@@ -27,6 +26,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
 
    private Translation description;
    private LLType[] llType;
+   private static Translator translator;
 
    GrammaticalPerson(Translation description, LLType[] llType)
    {
@@ -34,16 +34,19 @@ public enum GrammaticalPerson implements GrammaticalEnum
       this.llType = llType;
    }
 
+   public static void setTranslator(Translator translator)
+   {
+      GrammaticalPerson.translator = translator;
+   }
+   
    @Override
    public String toString()
    {
-      Translator translator = Common.getTranslator();
       return translator.realisticTranslate(description);
    }
 
    public String toDescription()
    {
-      Translator translator = Common.getTranslator();
       switch (this)
       {
       case DRITTE_PERSON:
@@ -69,7 +72,6 @@ public enum GrammaticalPerson implements GrammaticalEnum
    @Override
    public String toInfo()
    {
-      Translator translator = Common.getTranslator();
       switch (this)
       {
       case DRITTE_PERSON:

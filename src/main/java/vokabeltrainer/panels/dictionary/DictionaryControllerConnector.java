@@ -1,54 +1,54 @@
 package vokabeltrainer.panels.dictionary;
 
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.SortingType;
 
 public interface DictionaryControllerConnector extends TableConnector
 {
-   public void save();
+   public void tabbedPaneChanged(Common common, View view, int selectedIndex);
 
-   public void tabbedPaneChanged(int selectedIndex);
+   public void copyExpressionsOfTable(View view);
 
-   public void copyExpressionsOfTable();
+   public void copyInTableSelectedExpressions(View view);
 
-   public void copyInTableSelectedExpressions();
+   public void unselectTableExpressions(Common common, View view);
 
-   public void unselectTableExpressions();
+   public void unselectAllExpressions(Common common, View view);
 
-   public void unselectAllExpressions();
+   public void selectTableExpressions(Common common, View view);
 
-   public void selectTableExpressions();
+   public void deleteAllSelectedExpressions(Common common, View view);
 
-   public void deleteAllSelectedExpressions();
+   public void deleteInTableSelectedExpressions(Common common, View view);
 
-   public void deleteInTableSelectedExpressions();
+   public void openTrashCanDialog(Common common, View view);
 
-   public void openTrashCanDialog();
+   public void shredderDeletedExpressions(Common common, View view);
 
-   public void shredderDeletedExpressions();
+   public void searchOtherLanguage(Common common, View view);
 
-   public void searchOtherLanguage();
+   public void searchMyLanguage(Common common, View view);
 
-   public void searchMyLanguage();
+   public void popToDecideOnTableInteraction(Common common, View view, Action action);
 
-   public void popToDecideOnTableInteraction(Action action);
+   public void switchLanguage(Common common, View view, String actionCommand);
 
-   public void switchLanguage(String actionCommand);
+   public void displayChapterWhich(Common common, View view, Chapter chapter);
 
-   public void displayChapterWhich(Chapter chapter);
-
-   public void displayExpressionKindWhich();
+   public void displayExpressionKindWhich(Common common, View view);
 
    public DictionaryViewConnector getDictionaryPanel();
 
-   public void sortTableNow();
+   public void sortTableNow(Common common, View view);
 
-   public void displayTableAfterOpeningPage();
+   public void displayTableAfterOpeningPage(Common common, View view);
 
-   public void moveExpressionsToChapter(String toChapter);
+   public void moveExpressionsToChapter(Common common, View view, String toChapter);
 
-   public void moveExpressionsToDatabase(String databaseAim);
+   public void moveExpressionsToDatabase(Common common, View view, String databaseAim);
 
-   void copyAllSelectedExpressions(SortingType sortingType);
+   public void copyAllSelectedExpressions(View view, SortingType sortingType);
 }

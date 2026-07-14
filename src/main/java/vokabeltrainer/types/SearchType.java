@@ -1,6 +1,6 @@
 package vokabeltrainer.types;
 
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 
@@ -16,9 +16,9 @@ public enum SearchType
       this.meaning = meaning;
    }
 
-   public String getMeaning(Direction language)
+   public String getMeaning(Common common, Direction language)
    {
-      Translator translator = Common.getTranslator();
+      Translator translator = common.getTranslator();
       switch (language)
       {
       case OWN_TO_NEW:

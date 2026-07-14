@@ -3,8 +3,8 @@ package vokabeltrainer.types;
 import java.time.LocalDate;
 import java.time.Period;
 
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.Common;
 
 public class TrainingStatus
 {
@@ -40,7 +40,7 @@ public class TrainingStatus
       trainingStarted = false;
    }
 
-   public void nextRepetition()
+   public void nextRepetition(Common common)
    {
       LocalDate now = LocalDate.now();
       switch (repetition)
@@ -50,7 +50,7 @@ public class TrainingStatus
          if (Settings.isRepetition_one_day())
          {
             LocalDate future = now.plus(Period.ofDays(1));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -60,7 +60,7 @@ public class TrainingStatus
          if (Settings.isRepetition_two_days())
          {
             LocalDate future = now.plus(Period.ofDays(2));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -70,7 +70,7 @@ public class TrainingStatus
          if (Settings.isRepetition_five_days())
          {
             LocalDate future = now.plus(Period.ofDays(5));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -80,7 +80,7 @@ public class TrainingStatus
          if (Settings.isRepetition_eleven_days())
          {
             LocalDate future = now.plus(Period.ofDays(11));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -90,7 +90,7 @@ public class TrainingStatus
          if (Settings.isRepetition_nineteen_days())
          {
             LocalDate future = now.plus(Period.ofDays(19));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -100,7 +100,7 @@ public class TrainingStatus
          if (Settings.isRepetition_one_month())
          {
             LocalDate future = now.plus(Period.ofMonths(1));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -110,7 +110,7 @@ public class TrainingStatus
          if (Settings.isRepetition_two_months())
          {
             LocalDate future = now.plus(Period.ofMonths(2));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -120,7 +120,7 @@ public class TrainingStatus
          if (Settings.isRepetition_five_months())
          {
             LocalDate future = now.plus(Period.ofMonths(5));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -139,7 +139,7 @@ public class TrainingStatus
       this.nextDate = now.plus(repetition.getPeriod());
    }
 
-   public void previousRepetition()
+   public void previousRepetition(Common common)
    {
       LocalDate now = LocalDate.now();
       switch (repetition)
@@ -153,7 +153,7 @@ public class TrainingStatus
          if (Settings.isRepetition_two_months())
          {
             LocalDate future = now.plus(Period.ofMonths(2));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -163,7 +163,7 @@ public class TrainingStatus
          if (Settings.isRepetition_one_month())
          {
             LocalDate future = now.plus(Period.ofMonths(1));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -173,7 +173,7 @@ public class TrainingStatus
          if (Settings.isRepetition_nineteen_days())
          {
             LocalDate future = now.plus(Period.ofDays(19));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -183,7 +183,7 @@ public class TrainingStatus
          if (Settings.isRepetition_eleven_days())
          {
             LocalDate future = now.plus(Period.ofDays(11));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -193,7 +193,7 @@ public class TrainingStatus
          if (Settings.isRepetition_five_days())
          {
             LocalDate future = now.plus(Period.ofDays(5));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -203,7 +203,7 @@ public class TrainingStatus
          if (Settings.isRepetition_two_days())
          {
             LocalDate future = now.plus(Period.ofDays(2));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -213,7 +213,7 @@ public class TrainingStatus
          if (Settings.isRepetition_one_day())
          {
             LocalDate future = now.plus(Period.ofDays(1));
-            if (checkOnBreak(future))
+            if (checkOnBreak(common, future))
             {
                break;
             }
@@ -227,11 +227,11 @@ public class TrainingStatus
       this.nextDate = now.plus(repetition.getPeriod());
    }
 
-   private boolean checkOnBreak(LocalDate future)
+   private boolean checkOnBreak(Common common, LocalDate future)
    {
       if (Settings.isSchabbat_modus())
       {
-         if (Common.isSchabbatPossible(future))
+         if (common.isSchabbatPossible(future))
          {
             return false;
          }

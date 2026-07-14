@@ -18,9 +18,9 @@ import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.AlefbetColors;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.letterpicture.LetterPictureAlphabetPanel;
 import vokabeltrainer.panels.letterpicture.LetterTextField;
 import vokabeltrainer.panels.translation.Translation;
@@ -38,10 +38,11 @@ public class AlefbetPanel extends JPanel
    private LetterPictureAlphabetPanel letterPictureAlphabetPanel;
    private JButton resultButton;
    private JButton resetButton;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public AlefbetPanel()
+   public AlefbetPanel(Common common)
    {
+      translator = common.getTranslator();
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
       setBackground(AlefbetColors.getPanelBackground());
@@ -51,7 +52,7 @@ public class AlefbetPanel extends JPanel
       horizontal.setOpaque(false);
       horizontal.setBackground(ApplicationColors.getTransparent());
 
-      this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel();
+      this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel(common);
       letterPictureAlphabetPanel.setOpaque(false);
       letterPictureAlphabetPanel
             .setBackground(ApplicationColors.getTransparent());

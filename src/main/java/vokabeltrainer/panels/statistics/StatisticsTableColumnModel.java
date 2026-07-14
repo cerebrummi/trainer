@@ -3,7 +3,7 @@ package vokabeltrainer.panels.statistics;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 
@@ -12,10 +12,11 @@ public class StatisticsTableColumnModel extends DefaultTableColumnModel
    private static final long serialVersionUID = 1858850934582009695L;
 
    private StatisticsTableCellRenderer renderer;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public StatisticsTableColumnModel()
+   public StatisticsTableColumnModel(Common common)
    {
+      translator = common.getTranslator();
       renderer = new StatisticsTableCellRenderer();
 
       TableColumn column = new TableColumn();

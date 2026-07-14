@@ -11,6 +11,7 @@ import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.StartColors;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.DatabaseItem;
 
 public class DatabaseTable extends JTable
@@ -18,9 +19,9 @@ public class DatabaseTable extends JTable
    private static final long serialVersionUID = 4815287371476856952L;
    private MouseListener mouseListener;
 
-   public DatabaseTable(DatabaseTableModel model, int totalWidth)
+   public DatabaseTable(Common common, DatabaseTableModel model, int totalWidth)
    {
-      super(model, new DatabaseTableColumnModel(totalWidth));
+      super(model, new DatabaseTableColumnModel(common, totalWidth));
       this.setShowVerticalLines(false);
       setOpaque(true);
       setRowHeight(30);

@@ -36,9 +36,10 @@ import javax.swing.SwingUtilities;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.InputColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.table.EscapeAction;
 import vokabeltrainer.table.list.editor.images.ImageDropHandler;
 import vokabeltrainer.table.list.editor.images.ImageItem;
@@ -70,10 +71,10 @@ public class PictureExpressionEditorView extends JDialog
 
    private NikudExpressionEditorControllerConnector connector;
 
-   public PictureExpressionEditorView(
+   public PictureExpressionEditorView(Common common, View view,
          NikudExpressionEditorControllerConnector connector)
    {
-      super(Common.getjFrame(), Settings.getWindowTitle()
+      super(view.getjFrame(), Settings.getWindowTitle()
             + " Bilder hineinziehen und fallen lassen. Rechtsklick auf jedes Bild öffnet Menü für Bild. Links Doppelklick öffnet Bild.",
             Dialog.ModalityType.APPLICATION_MODAL);
       this.connector = connector;
@@ -92,7 +93,7 @@ public class PictureExpressionEditorView extends JDialog
 
       getContentPane().add(new JScrollPane(outerLayout));
 
-      initController();
+      initController(common, view);
    }
 
    private Component initImagePanel()
@@ -127,7 +128,7 @@ public class PictureExpressionEditorView extends JDialog
       return imagePanel;
    }
 
-   private void initController()
+   private void initController(Common common, View view)
    {
       renderer = new ImageItemRenderer();
       imageList.setCellRenderer(renderer);
@@ -157,7 +158,7 @@ public class PictureExpressionEditorView extends JDialog
 
                SwingUtilities.invokeLater(() -> {
                   System.setProperty("java.awt.headless", "true");
-                  JDialog dialog = new JDialog(Common.getjFrame(),
+                  JDialog dialog = new JDialog(view.getjFrame(),
                         Settings.getWindowTitle(),
                         Dialog.ModalityType.APPLICATION_MODAL);
                   JPanel panelinside = new JPanel();
@@ -212,7 +213,7 @@ public class PictureExpressionEditorView extends JDialog
 
                ImageItem item = imageList.getModel().getElementAt(index);
 
-               JPopupMenu menu = createImageContextMenu(index, item, bounds);
+               JPopupMenu menu = createImageContextMenu(common, view, index, item, bounds);
 
                menu.show(imageList, e.getX(), e.getY());
 
@@ -228,7 +229,7 @@ public class PictureExpressionEditorView extends JDialog
       getRootPane().getActionMap().put("ESCAPE_KEY", new EscapeAction(this));
    }
 
-   private JPopupMenu createImageContextMenu(int index, ImageItem item,
+   private JPopupMenu createImageContextMenu(Common common, View view, int index, ImageItem item,
          Rectangle bounds)
    {
       JPopupMenu menu = new JPopupMenu();
@@ -237,7 +238,7 @@ public class PictureExpressionEditorView extends JDialog
       saveItem.setFont(ApplicationFonts.buttonFont);
       saveItem.addActionListener(_ -> {
          item.setChecked(true);
-         connector.saveImage(expression, item);
+         connector.saveImage(common, view, expression, item);
          imageList.repaint(bounds);
       });
 
@@ -293,7 +294,7 @@ public class PictureExpressionEditorView extends JDialog
       this.dispose();
    }
 
-   public void setExpression(Expression expression)
+   public void setExpression(Common common, View view, Expression expression)
    {
       this.expression = expression;
       model = new DefaultListModel<>();
@@ -312,7 +313,7 @@ public class PictureExpressionEditorView extends JDialog
       dropHandler = new ImageDropHandler(this.expression.getUuid(), model);
       imageList.setTransferHandler(dropHandler);
 
-      initController();
+      initController(common, view);
    }
 
    public void setImages(ArrayList<ImageItem> items)

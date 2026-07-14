@@ -17,10 +17,10 @@ import javax.swing.JScrollPane;
 
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Data;
 import vokabeltrainer.panels.list.table.DatabaseTableModel;
 import vokabeltrainer.panels.list.table.DatabaseTableMultiselect;
 import vokabeltrainer.panels.translation.Translation;
@@ -33,10 +33,11 @@ public class DatabaseTab extends JPanel
    private JButton nextButton;
    private JButton cancelButton;
 
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public DatabaseTab(StartTrainingView dialog)
+   public DatabaseTab(Common common, StartTrainingView dialog)
    {
+      translator = common.getTranslator();
       setLayout(new BorderLayout());
       setBackground(TrainerColors.getPanelBackgroundDark());
       setOpaque(true);
@@ -110,7 +111,7 @@ public class DatabaseTab extends JPanel
             dialog.getTabbedPane().addTab(
                   translator.realisticTranslate(Translation.WIE_VIELE),
                   new ImageIcon(ApplicationImages.getArrow()),
-                  new AmountTab(dialog));
+                  new AmountTab(common, dialog));
          }
          dialog.getTabbedPane().setSelectedIndex(3);
       });

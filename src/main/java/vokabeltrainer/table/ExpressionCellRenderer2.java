@@ -12,8 +12,8 @@ import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.ImageData;
 import vokabeltrainer.common.colors.TableColors;
+import vokabeltrainer.common.main.ImageData;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.types.Expression;
 

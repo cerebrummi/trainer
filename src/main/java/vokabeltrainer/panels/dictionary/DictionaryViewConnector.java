@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.swing.JScrollPane;
 
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.list.table.DatabaseTableModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
@@ -16,7 +18,7 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public interface DictionaryViewConnector
 {
-   public void loadChapters();
+   public void loadChapters(Common common);
 
    public void unselectExpressionKind();
 
@@ -31,10 +33,6 @@ public interface DictionaryViewConnector
    public String getSelectedTableDataToString();
 
    public void clearTableDataSelection();
-
-   public void notifyNothingWasSelectedForDeletion();
-
-   public int askForDeletionConfirmation(int numberOfExpressionsToBeDeleted);
 
    public List<Expression> getInTableSelectedExpressions(
          boolean exceptDoNotChange);
@@ -59,13 +57,13 @@ public interface DictionaryViewConnector
 
    public void switchSearchLanguagePanel(String actionCommand);
 
-   public void selectChapter(Chapter currentChapter);
+   public void selectChapter(Common common, Chapter currentChapter);
 
    public ExpressionTable getTable();
 
    public JScrollPane getTableScroller();
 
-   public int askForShredderConfirmation();
+
 
    public void clearTable();
 
@@ -73,15 +71,23 @@ public interface DictionaryViewConnector
 
    public void addChapterListSelectionListener();
 
-   public void doShowTable(ExpressionTableModel tableModel);
+   public void doShowTable(Common common, View view, ExpressionTableModel tableModel);
 
-   public void setValues();
+ 
 
    public SortingType getSortNow();
 
-   public int askForMovingToChapterConfirmation();
+   public int askForMovingToChapterConfirmation(View view);
 
-   public int askForMovingToDatabaseConfirmation();
+   public int askForMovingToDatabaseConfirmation(View view);
+   
+   public int askForShredderConfirmation(View view);
+   
+   public int askForDeletionConfirmation(View view, int numberOfExpressionsToBeDeleted);
+   
+   public void notifyNothingWasSelectedForDeletion(View view);
+   
+   public void setValues(Common common, View view);
 
    public void loadDatabases();
 

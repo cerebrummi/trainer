@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
-import vokabeltrainer.common.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableModel;
@@ -58,6 +57,7 @@ public enum ExpressionKind {
 
    private Translation description;
    private GrammaticalParentEnum[] grammaticalParentEnums;
+   private static Translator translator;
 
    ExpressionKind(Translation description,
          GrammaticalParentEnum[] grammaticalParentEnums)
@@ -65,17 +65,20 @@ public enum ExpressionKind {
       this.description = description;
       this.grammaticalParentEnums = grammaticalParentEnums;
    }
+   
+   public static void setTranslator(Translator translator)
+   {
+      ExpressionKind.translator = translator;
+   }
 
    @Override
    public String toString()
    {
-      Translator translator = Common.getTranslator();
       return translator.realisticTranslate(description);
    }
 
    public String toDescription()
    {
-      Translator translator = Common.getTranslator();
       switch (this)
       {
       case ADJEKTIV:
@@ -131,7 +134,6 @@ public enum ExpressionKind {
 
    public String getDescription()
    {
-      Translator translator = Common.getTranslator();
       return translator.realisticTranslate(description);
    }
 

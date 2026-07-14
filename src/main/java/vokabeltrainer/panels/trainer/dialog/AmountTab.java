@@ -11,9 +11,9 @@ import javax.swing.JScrollPane;
 
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Data;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTable;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.translation.Translation;
@@ -24,10 +24,11 @@ public class AmountTab extends JPanel
 {
    private static final long serialVersionUID = -5609291190819549709L;
 
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public AmountTab(StartTrainingView dialog)
+   public AmountTab(Common common, StartTrainingView dialog)
    {
+      translator = common.getTranslator();
       setLayout(new BorderLayout());
       setBackground(TrainerColors.getPanelBackground());
       setOpaque(true);
@@ -44,10 +45,10 @@ public class AmountTab extends JPanel
       center.setOpaque(false);
       center.setLayout(new BorderLayout());
 
-      TrainingTableModel model = Data.findTrainingModel(
+      TrainingTableModel model = Data.findTrainingModel(common,
             dialog.getLanguageDirection(), dialog.getFieldOfTraining(),
             dialog.getDatabaseNames());
-      TrainingTable table = new TrainingTable(model);
+      TrainingTable table = new TrainingTable(common, model);
 
       JScrollPane scroller = new JScrollPane(table);
       scroller.setForeground(TrainerColors.getTextForeground());

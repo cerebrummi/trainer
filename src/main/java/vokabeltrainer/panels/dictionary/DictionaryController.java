@@ -15,10 +15,11 @@ import javax.swing.JTable;
 import javax.swing.SwingWorker;
 
 import vokabeltrainer.common.ApplicationSound;
-import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
-import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.SaveExpressions;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.DictionaryView;
 import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.table.ExpressionTableModel;
@@ -29,101 +30,101 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public class DictionaryController implements DictionaryControllerConnector
 {
-   private DictionaryViewConnector dictionaryView;
+   private DictionaryViewConnector dictionaryViewConnector;
    private Chapter currentChapter;
    private Expression currentExpression;
 
-   public DictionaryController()
+   public DictionaryController(Common common, View view)
    {
-      this.dictionaryView = new DictionaryView(this);
+      this.dictionaryViewConnector = new DictionaryView(common, view, this);
       Status.init(Status.OPENED_PAGE);
    }
 
    @Override
-   public void tabbedPaneChanged(int selectedIndex)
+   public void tabbedPaneChanged(Common common, View view, int selectedIndex)
    {
       if (selectedIndex == Tabulator.KIND_TAB.getIndex())
       {
          Tabulator.setTabShowing(Tabulator.KIND_TAB);
          Status.push(Status.TAB_EXPRESSIONKIND);
-         popToDecideOnTableInteraction(Action.TAB_EXPRESSIONKIND);
+         popToDecideOnTableInteraction(common, view, Action.TAB_EXPRESSIONKIND);
       }
       else if (selectedIndex == Tabulator.CHAPTER_TAB.getIndex())
       {
          Tabulator.setTabShowing(Tabulator.CHAPTER_TAB);
-         dictionaryView.unselectExpressionKind();
+         dictionaryViewConnector.unselectExpressionKind();
          Status.push(Status.TAB_CHAPTER);
-         popToDecideOnTableInteraction(Action.TAB_CHAPTER);
-         dictionaryView.loadChapters();
+         popToDecideOnTableInteraction(common, view, Action.TAB_CHAPTER);
+         dictionaryViewConnector.loadChapters(common);
       }
       else if (selectedIndex == Tabulator.DATA_TAB.getIndex())
       {
          Tabulator.setTabShowing(Tabulator.DATA_TAB);
-         dictionaryView.unselectExpressionKind();
+         dictionaryViewConnector.unselectExpressionKind();
          Status.push(Status.DATA_CHAPTER);
-         popToDecideOnTableInteraction(Action.DATA_CHAPTER);
-         dictionaryView.loadDatabases();
+         popToDecideOnTableInteraction(common, view, Action.DATA_CHAPTER);
+         dictionaryViewConnector.loadDatabases();
       }
       else if (selectedIndex == Tabulator.SELECTED_TAB.getIndex())
       {
          Tabulator.setTabShowing(Tabulator.SELECTED_TAB);
-         dictionaryView.unselectExpressionKind();
+         dictionaryViewConnector.unselectExpressionKind();
          Status.push(Status.TAB_SELECTED_EXPRESSIONS);
-         popToDecideOnTableInteraction(Action.TAB_SELECTED_EXPRESSIONS);
+         popToDecideOnTableInteraction(common, view, Action.TAB_SELECTED_EXPRESSIONS);
       }
       else if (selectedIndex == Tabulator.SEARCH_TAB.getIndex())
       {
          Tabulator.setTabShowing(Tabulator.SEARCH_TAB);
-         dictionaryView.unselectExpressionKind();
+         dictionaryViewConnector.unselectExpressionKind();
          Status.push(Status.TAB_SEARCH);
-         popToDecideOnTableInteraction(Action.TAB_SEARCH);
+         popToDecideOnTableInteraction(common, view, Action.TAB_SEARCH);
       }
    }
 
    public DictionaryViewConnector getDictionaryPanel()
    {
-      return dictionaryView;
+      return dictionaryViewConnector;
    }
 
    @Override
-   public void copyAllSelectedExpressions(SortingType sortingType)
+   public void copyAllSelectedExpressions(View view, SortingType sortingType)
    {
-      copyStringToClipboard(Data.getAllSelectedExpressionsAsString(sortingType,
-            dictionaryView.getSelectedLanguage()));
+      copyStringToClipboard(view, Data.getAllSelectedExpressionsAsString(sortingType,
+            dictionaryViewConnector.getSelectedLanguage()));
    }
 
    @Override
-   public void copyExpressionsOfTable()
+   public void copyExpressionsOfTable(View view)
    {
-      if (dictionaryView.isTableNotNull())
+      if (dictionaryViewConnector.isTableNotNull())
       {
-         copyStringToClipboard(dictionaryView.getTableDataToString());
+         copyStringToClipboard(view, dictionaryViewConnector.getTableDataToString());
       }
    }
 
    @Override
-   public void copyInTableSelectedExpressions()
+   public void copyInTableSelectedExpressions(View view)
    {
-      if (dictionaryView.isTableNotNull())
+      if (dictionaryViewConnector.isTableNotNull())
       {
-         copyStringToClipboard(dictionaryView.getSelectedTableDataToString());
+         copyStringToClipboard(view, dictionaryViewConnector.getSelectedTableDataToString());
       }
    }
 
-   private void copyStringToClipboard(String stringToCopy)
+   private void copyStringToClipboard(View view, String stringToCopy)
    {
-      if (checkIfAnythingToCopyWithMessageIfNot(stringToCopy))
+      if (checkIfAnythingToCopyWithMessageIfNot(view, stringToCopy))
       {
          Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
          clipboard.setContents(new StringSelection(stringToCopy), null);
       }
    }
 
-   private boolean checkIfAnythingToCopyWithMessageIfNot(String stringToCopy)
+   private boolean checkIfAnythingToCopyWithMessageIfNot(View view, String stringToCopy)
    {
       if (stringToCopy.isBlank())
       {
-         JOptionPane.showMessageDialog(Common.getjFrame(),
+         JOptionPane.showMessageDialog(view.getjFrame(),
                "Nur selbst eingegebene Vokabeln\nk�nnen kopiert werden.");
          return false;
       }
@@ -131,117 +132,117 @@ public class DictionaryController implements DictionaryControllerConnector
    }
 
    @Override
-   public void unselectTableExpressions()
+   public void unselectTableExpressions(Common common, View view)
    {
-      if (dictionaryView.isTableNotNull())
+      if (dictionaryViewConnector.isTableNotNull())
       {
-         dictionaryView.clearTableDataSelection();
+         dictionaryViewConnector.clearTableDataSelection();
          Status.pushToKeep();
-         popToDecideOnTableInteraction(Action.UNSELECT_TABLE);
+         popToDecideOnTableInteraction(common, view, Action.UNSELECT_TABLE);
       }
    }
 
    @Override
-   public void unselectAllExpressions()
+   public void unselectAllExpressions(Common common, View view)
    {
       Data.clearAllSelectedExpressions();
-      if (dictionaryView.isTableNotNull())
+      if (dictionaryViewConnector.isTableNotNull())
       {
          Status.pushToKeep();
-         popToDecideOnTableInteraction(Action.UNSELECT_ALL);
+         popToDecideOnTableInteraction(common, view, Action.UNSELECT_ALL);
       }
    }
 
    @Override
-   public void deleteAllSelectedExpressions()
+   public void deleteAllSelectedExpressions(Common common, View view)
    {
       List<Expression> list = Data.getAllSelectedExpressions(true);
 
       if (list.isEmpty())
       {
-         dictionaryView.notifyNothingWasSelectedForDeletion();
+         dictionaryViewConnector.notifyNothingWasSelectedForDeletion(view);
          return;
       }
-      if (dictionaryView.askForDeletionConfirmation(list.size()) == 0)
+      if (dictionaryViewConnector.askForDeletionConfirmation(view, list.size()) == 0)
       {
          Data.deleteExpressions(list);
       }
       if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
       {
-         dictionaryView.loadChapters();
+         dictionaryViewConnector.loadChapters(common);
       }
       if (Tabulator.DATA_TAB.equals(Tabulator.getTabShowing()))
       {
-         dictionaryView.loadDatabases();
+         dictionaryViewConnector.loadDatabases();
       }
       Status.pushToKeep();
-      popToDecideOnTableInteraction(Action.DELETE_ALL_SELECTED);
-      save();
+      popToDecideOnTableInteraction(common, view, Action.DELETE_ALL_SELECTED);
+      save(common, view);
    }
 
    @Override
-   public void deleteInTableSelectedExpressions()
+   public void deleteInTableSelectedExpressions(Common common, View view)
    {
-      if (dictionaryView.isTableNotNull())
+      if (dictionaryViewConnector.isTableNotNull())
       {
-         List<Expression> list = dictionaryView
+         List<Expression> list = dictionaryViewConnector
                .getInTableSelectedExpressions(true);
          if (list.isEmpty())
          {
-            dictionaryView.notifyNothingWasSelectedForDeletion();
+            dictionaryViewConnector.notifyNothingWasSelectedForDeletion(view);
             return;
          }
-         if (dictionaryView.askForDeletionConfirmation(list.size()) == 0)
+         if (dictionaryViewConnector.askForDeletionConfirmation(view, list.size()) == 0)
          {
             Data.deleteExpressions(list);
          }
          if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
          {
-            dictionaryView.loadChapters();
+            dictionaryViewConnector.loadChapters(common);
          }
          if (Tabulator.DATA_TAB.equals(Tabulator.getTabShowing()))
          {
-            dictionaryView.loadDatabases();
+            dictionaryViewConnector.loadDatabases();
          }
          Status.pushToKeep();
-         popToDecideOnTableInteraction(Action.DELETE_SELECTED_IN_TABLE);
-         save();
+         popToDecideOnTableInteraction(common, view, Action.DELETE_SELECTED_IN_TABLE);
+         save(common, view);
       }
       else
       {
-         dictionaryView.notifyNothingWasSelectedForDeletion();
+         dictionaryViewConnector.notifyNothingWasSelectedForDeletion(view);
       }
    }
 
    @Override
-   public void openTrashCanDialog()
+   public void openTrashCanDialog(Common common, View view)
    {
-      TrashCanDialog dialog = new TrashCanController(this,
-            dictionaryView.getSelectedLanguage()).getTrashCanDialog();
-      dialog.setLocationRelativeTo(Common.getjFrame());
+      TrashCanDialog dialog = new TrashCanController(common, view, this,
+            dictionaryViewConnector.getSelectedLanguage()).getTrashCanDialog();
+      dialog.setLocationRelativeTo(view.getjFrame());
       dialog.setVisible(true);
       if (dialog.isRestore())
       {
          Status.pushToKeep();
-         popToDecideOnTableInteraction(Action.WORK_WASTEBIN);
+         popToDecideOnTableInteraction(common, view, Action.WORK_WASTEBIN);
       }
    }
 
    @Override
-   public void selectTableExpressions()
+   public void selectTableExpressions(Common common, View view)
    {
-      if (dictionaryView.isTableNotNull())
+      if (dictionaryViewConnector.isTableNotNull())
       {
-         dictionaryView.selectTableData();
+         dictionaryViewConnector.selectTableData();
          Status.pushToKeep();
-         popToDecideOnTableInteraction(Action.SELECT_TABLE);
+         popToDecideOnTableInteraction(common, view, Action.SELECT_TABLE);
       }
    }
 
    @Override
-   public void shredderDeletedExpressions()
+   public void shredderDeletedExpressions(Common common, View view)
    {
-      if (dictionaryView.askForShredderConfirmation() == 0)
+      if (dictionaryViewConnector.askForShredderConfirmation(view) == 0)
       {
          if (Settings.isSoundOn())
          {
@@ -276,27 +277,27 @@ public class DictionaryController implements DictionaryControllerConnector
          }
 
          Data.shredderDeletedExpressions();
-         save();
+         save(common, view);
       }
    }
 
    @Override
-   public void searchOtherLanguage()
+   public void searchOtherLanguage(Common common, View view)
    {
-      dictionaryView.clearTable();
+      dictionaryViewConnector.clearTable();
       Status.push(Status.SEARCH_WHICH_NEW);
-      popToDecideOnTableInteraction(Action.SEARCH_WHICH_NEW);
+      popToDecideOnTableInteraction(common, view, Action.SEARCH_WHICH_NEW);
    }
 
    @Override
-   public void searchMyLanguage()
+   public void searchMyLanguage(Common common, View view)
    {
-      dictionaryView.clearTable();
+      dictionaryViewConnector.clearTable();
       Status.push(Status.SEARCH_WHICH_OWN);
-      popToDecideOnTableInteraction(Action.SEARCH_WHICH_OWN);
+      popToDecideOnTableInteraction(common, view, Action.SEARCH_WHICH_OWN);
    }
 
-   public void popToDecideOnTableInteraction(Action action)
+   public void popToDecideOnTableInteraction(Common common, View view, Action action)
    {
       new SwingWorker<Void, Void>()
       {
@@ -307,12 +308,12 @@ public class DictionaryController implements DictionaryControllerConnector
          {
             Status status = Status.pop();
 
-            if (dictionaryView.getTable() != null)
+            if (dictionaryViewConnector.getTable() != null)
             {
-               int selectedRow = dictionaryView.getTable().getSelectedRow();
+               int selectedRow = dictionaryViewConnector.getTable().getSelectedRow();
                if (selectedRow >= 0)
                {
-                  currentExpression = (Expression) dictionaryView.getTable()
+                  currentExpression = (Expression) dictionaryViewConnector.getTable()
                         .getValueAt(selectedRow, 0);
                }
             }
@@ -322,74 +323,74 @@ public class DictionaryController implements DictionaryControllerConnector
 
             if (commando == null)
             {
-               dictionaryView.displayNoTable();
+               dictionaryViewConnector.displayNoTable();
             }
             else
             {
                switch (commando)
                {
                case ERROR: // default
-                  dictionaryView.displayNoTable();
+                  dictionaryViewConnector.displayNoTable();
                   break;
                case NOTHING:
                   break;
                case NO_TABLE:
-                  dictionaryView.displayNoTable();
+                  dictionaryViewConnector.displayNoTable();
                   break;
                case RESTORE_WHICH_CHAPTER:
-                  dictionaryView.selectChapter(currentChapter);
+                  dictionaryViewConnector.selectChapter(common, currentChapter);
                   break;
                case RESTORE_WHICH_SEARCH_OWN:
-                  searchMyLanguage();
+                  searchMyLanguage(common, view);
                   break;
                case RESTORE_WHICH_SEARCH_NEW:
-                  searchOtherLanguage();
+                  searchOtherLanguage(common, view);
                   break;
                case TABLE_CHAPTER_WHICH:
-                  dictionaryView.clearTable();
-                  tableModel = Data.findTranslations(null, null, null,
-                        currentChapter, null, dictionaryView.getSortNow(), null,
-                        dictionaryView.getSelectedLanguage(), null);
-                  dictionaryView.removeChapterListSelectionListener();
-                  dictionaryView.selectChapter(currentChapter);
-                  dictionaryView.addChapterListSelectionListener();
+                  dictionaryViewConnector.clearTable();
+                  tableModel = Data.findTranslations(common, null, null, null,
+                        currentChapter, null, dictionaryViewConnector.getSortNow(), null,
+                        dictionaryViewConnector.getSelectedLanguage(), null);
+                  dictionaryViewConnector.removeChapterListSelectionListener();
+                  dictionaryViewConnector.selectChapter(common, currentChapter);
+                  dictionaryViewConnector.addChapterListSelectionListener();
                   break;
                case TABLE_EXPRESSIONKIND_WHICH:
-                  dictionaryView.clearTable();
-                  ExpressionKind expressionKind = dictionaryView
+                  dictionaryViewConnector.clearTable();
+                  ExpressionKind expressionKind = dictionaryViewConnector
                         .getSelectedExpressionKind();
                   if (expressionKind != null)
                   {
-                     tableModel = Data.findTranslations(null, expressionKind,
-                           null, null, null, dictionaryView.getSortNow(), null,
-                           dictionaryView.getSelectedLanguage(), dictionaryView
+                     tableModel = Data.findTranslations(common, null, expressionKind,
+                           null, null, null, dictionaryViewConnector.getSortNow(), null,
+                           dictionaryViewConnector.getSelectedLanguage(), dictionaryViewConnector
                                  .getDatabaseTableModel().getSelectedRows());
                   }
                   break;
                case TABLE_SEARCH_WHICH_OWN:
-                  dictionaryView.clearTable();
-                  tableModel = Data.findTranslations(
-                        dictionaryView.getSearchPhraseGerman(), null,
-                        dictionaryView.getSelectedSearchTypeGerman(), null,
-                        null, dictionaryView.getSortNow(), null,
-                        dictionaryView.getSelectedLanguage(), dictionaryView
+                  dictionaryViewConnector.clearTable();
+                  tableModel = Data.findTranslations(common, 
+                        dictionaryViewConnector.getSearchPhraseGerman(), null,
+                        dictionaryViewConnector.getSelectedSearchTypeGerman(), null,
+                        null, dictionaryViewConnector.getSortNow(), null,
+                        dictionaryViewConnector.getSelectedLanguage(), dictionaryViewConnector
                               .getDatabaseTableModel().getSelectedRows());
                   break;
                case TABLE_SEARCH_WHICH_NEW:
-                  dictionaryView.clearTable();
-                  tableModel = Data.findTranslations(
-                        dictionaryView.getSearchPhraseOther(), null,
-                        dictionaryView.getSelectedSearchTypeHebrew(), null,
-                        null, dictionaryView.getSortNow(), null,
-                        dictionaryView.getSelectedLanguage(), dictionaryView
+                  dictionaryViewConnector.clearTable();
+                  tableModel = Data.findTranslations(common,
+                        dictionaryViewConnector.getSearchPhraseOther(), null,
+                        dictionaryViewConnector.getSelectedSearchTypeHebrew(), null,
+                        null, dictionaryViewConnector.getSortNow(), null,
+                        dictionaryViewConnector.getSelectedLanguage(), dictionaryViewConnector
                               .getDatabaseTableModel().getSelectedRows());
                   break;
                case TABLE_SELECTED_EXPRESSIONS:
-                  dictionaryView.clearTable();
-                  tableModel = Data.findTranslations(null, null, null, null,
+                  dictionaryViewConnector.clearTable();
+                  tableModel = Data.findTranslations(common,null, null, null, null,
                         vokabeltrainer.Command.ALL_SELECTED,
-                        dictionaryView.getSortNow(), null,
-                        dictionaryView.getSelectedLanguage(), null);
+                        dictionaryViewConnector.getSortNow(), null,
+                        dictionaryViewConnector.getSelectedLanguage(), null);
                   break;
                }
             }
@@ -406,112 +407,112 @@ public class DictionaryController implements DictionaryControllerConnector
             }
             else if (tableModel.getRowCount() == 0)
             {
-               EmptyNotification.display();
-               dictionaryView.tablePanelValidateRepaint();
+               EmptyNotification.display(view);
+               dictionaryViewConnector.tablePanelValidateRepaint();
             }
             else
             {
-               dictionaryView.doShowTable(tableModel);
+               dictionaryViewConnector.doShowTable(common, view, tableModel);
             }
 
-            if (dictionaryView.getTable() != null)
+            if (dictionaryViewConnector.getTable() != null)
             {
-               dictionaryView.getTable().scrollToExpression(currentExpression);
+               dictionaryViewConnector.getTable().scrollToExpression(currentExpression);
             }
          }
       }.execute();
    }
 
    @Override
-   public void switchLanguage(String actionCommand)
+   public void switchLanguage(Common common, View view, String actionCommand)
    {
-      dictionaryView.switchSearchLanguagePanel(actionCommand);
+      dictionaryViewConnector.switchSearchLanguagePanel(actionCommand);
       Status.pushToKeep();
-      popToDecideOnTableInteraction(Action.valueOf(actionCommand));
+      popToDecideOnTableInteraction(common, view, Action.valueOf(actionCommand));
    }
 
    @Override
-   public void displayChapterWhich(Chapter chapter)
+   public void displayChapterWhich(Common common, View view, Chapter chapter)
    {
       this.currentChapter = chapter;
       Status.push(Status.CHAPTER_WHICH);
-      popToDecideOnTableInteraction(Action.CHAPTER_WHICH);
+      popToDecideOnTableInteraction(common, view, Action.CHAPTER_WHICH);
    }
 
    @Override
-   public void displayExpressionKindWhich()
+   public void displayExpressionKindWhich(Common common, View view)
    {
       Status.push(Status.EXPRESSIONKIND_WHICH);
-      popToDecideOnTableInteraction(Action.EXPRESSIONKIND_WHICH);
+      popToDecideOnTableInteraction(common, view, Action.EXPRESSIONKIND_WHICH);
    }
 
    @Override
-   public void sortTableNow()
+   public void sortTableNow(Common common, View view)
    {
-      if (dictionaryView.isTableNotNull())
+      if (dictionaryViewConnector.isTableNotNull())
       {
          Status.pushToKeep();
-         popToDecideOnTableInteraction(Action.SORT_NOW);
+         popToDecideOnTableInteraction(common, view, Action.SORT_NOW);
       }
    }
 
    @Override
-   public void displayTableAfterOpeningPage()
+   public void displayTableAfterOpeningPage(Common common, View view)
    {
       Status.pushToKeep();
-      popToDecideOnTableInteraction(Action.OPENED_PAGE);
+      popToDecideOnTableInteraction(common, view, Action.OPENED_PAGE);
    }
 
    @Override
-   public void moveExpressionsToChapter(String toChapter)
+   public void moveExpressionsToChapter(Common common, View view, String toChapter)
    {
-      if (dictionaryView.askForMovingToChapterConfirmation() == 0)
+      if (dictionaryViewConnector.askForMovingToChapterConfirmation(view) == 0)
       {
          Data.moveSelectedExpressionsToChapter(toChapter);
 
          SaveExpressions saver = new SaveExpressions();
-         saver.save();
+         saver.save(common, view);
 
          Status.pushToKeep();
-         popToDecideOnTableInteraction(Action.MOVE_TO_CHAPTER);
+         popToDecideOnTableInteraction(common, view, Action.MOVE_TO_CHAPTER);
       }
    }
 
    @Override
-   public void moveExpressionsToDatabase(String toDatabase)
+   public void moveExpressionsToDatabase(Common common, View view, String toDatabase)
    {
-      if (dictionaryView.askForMovingToDatabaseConfirmation() == 0)
+      if (dictionaryViewConnector.askForMovingToDatabaseConfirmation(view) == 0)
       {
          Data.moveSelectedExpressionsToDatabase(toDatabase);
 
          SaveExpressions saver = new SaveExpressions();
-         saver.save();
+         saver.save(common, view);
 
          Status.pushToKeep();
-         popToDecideOnTableInteraction(Action.MOVE_TO_DATABASE);
+         popToDecideOnTableInteraction(common, view, Action.MOVE_TO_DATABASE);
       }
    }
 
    @Override
-   public void save()
+   public void save(Common common, View view)
    {
       new SwingWorker<Void, Void>()
       {
          @Override
          protected Void doInBackground() throws Exception
          {
-            if (new SaveExpressions().save())
+            if (new SaveExpressions().save(common, view))
             {
                if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
                {
-                  dictionaryView.loadChapters();
+                  dictionaryViewConnector.loadChapters(common);
                }
                else if (Tabulator.DATA_TAB.equals(Tabulator.getTabShowing()))
                {
-                  dictionaryView.loadDatabases();
+                  dictionaryViewConnector.loadDatabases();
                }
                Status.pushToKeep();
-               popToDecideOnTableInteraction(Action.SAVE);
+               popToDecideOnTableInteraction(common, view, Action.SAVE);
             }
             return null;
          }
@@ -519,12 +520,12 @@ public class DictionaryController implements DictionaryControllerConnector
    }
 
    @Override
-   public void fireTableCellUpdated(JTable table, int selectedRow, int column)
+   public void fireTableCellUpdated(Common common, View view, JTable table, int selectedRow, int column)
    {
       if (Tabulator.SELECTED_TAB.equals(Tabulator.getTabShowing()))
       {
          Status.pushToKeep();
-         popToDecideOnTableInteraction(Action.UNSELECT_EXPRESSION);
+         popToDecideOnTableInteraction(common, view, Action.UNSELECT_EXPRESSION);
       }
       else
       {

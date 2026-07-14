@@ -22,8 +22,8 @@ import javax.swing.text.JTextComponent;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.ApplicationSpecialPanels;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.colors.AlefbetColors;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.editing.SingleLetterDocument;
 import vokabeltrainer.keyboards.KeyboardHebrewStandard;
@@ -61,7 +61,7 @@ public class LetterPictureAlphabetPanel extends JPanel
    private final NikudLetter[] keys4 = { NikudLetter.TAW, NikudLetter.SCHIN,
          NikudLetter.RESCH };
 
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
    private LetterTextField alef = new LetterTextField(NikudLetter.ALEF);
    private LetterTextField wet = new LetterTextField(NikudLetter.BET);
@@ -111,16 +111,12 @@ public class LetterPictureAlphabetPanel extends JPanel
          ssamech, ain, faei, faeissofit, zadi, zadissofit, kuf, resch, schin,
          taw };
 
-   JRadioButton printLettersButton = new JRadioButton(
-         translator.realisticTranslate(Translation.DRUCKSCHRIFT));
-   JRadioButton handwrittenLettersButton = new JRadioButton(
-         translator.realisticTranslate(Translation.SCHREIBSCHRIFT));
+   JRadioButton printLettersButton;
+   JRadioButton handwrittenLettersButton;
    ButtonGroup switchButtonGroup = new ButtonGroup();
 
-   JRadioButton keyboardRegularButton = new JRadioButton(
-         translator.realisticTranslate(Translation.TASTATUR_REGULAER));
-   JRadioButton keyboardShuffleButton = new JRadioButton(
-         translator.realisticTranslate(Translation.TASTATUR_VERMISCHT));
+   JRadioButton keyboardRegularButton;
+   JRadioButton keyboardShuffleButton;
    ButtonGroup keyboardButtonGroup = new ButtonGroup();
 
    FocusTraversalPolicy focusTraversalPolicy;
@@ -133,8 +129,19 @@ public class LetterPictureAlphabetPanel extends JPanel
 
    private KeyboardHebrewStandard keyboardHandwritten;
 
-   public LetterPictureAlphabetPanel()
+   public LetterPictureAlphabetPanel(Common common)
    {
+      translator = common.getTranslator();
+      
+      printLettersButton = new JRadioButton(
+            translator.realisticTranslate(Translation.DRUCKSCHRIFT));
+      handwrittenLettersButton = new JRadioButton(
+            translator.realisticTranslate(Translation.SCHREIBSCHRIFT));
+      keyboardRegularButton = new JRadioButton(
+            translator.realisticTranslate(Translation.TASTATUR_REGULAER));
+      keyboardShuffleButton = new JRadioButton(
+            translator.realisticTranslate(Translation.TASTATUR_VERMISCHT));
+      
       printLettersButton.setBackground(AlefbetColors.getButton());
       printLettersButton.setForeground(AlefbetColors.getButtonForeground());
 

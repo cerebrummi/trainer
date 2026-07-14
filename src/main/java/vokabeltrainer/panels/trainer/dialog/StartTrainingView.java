@@ -15,9 +15,10 @@ import javax.swing.JTabbedPane;
 
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
@@ -35,14 +36,14 @@ public class StartTrainingView extends JDialog
    private List<Expression> newExpressions;
    private List<Expression> oldExpressions;
    private boolean training;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
    private Set<String> databaseNames;
 
-   public StartTrainingView(StartTrainingControllerConnector connector)
+   public StartTrainingView(Common common, View view, StartTrainingControllerConnector connector)
    {
-      super(Common.getjFrame(), Settings.getWindowTitle(),
+      super(view.getjFrame(), Settings.getWindowTitle(),
             Dialog.ModalityType.APPLICATION_MODAL);
-
+      translator = common.getTranslator();
       training = false;
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       setSize(Math.min(screenSize.width - 60, 1500),
@@ -60,7 +61,7 @@ public class StartTrainingView extends JDialog
 
       tabbedPane.addTab(translator.realisticTranslate(Translation.GEBIET),
             new ImageIcon(ApplicationImages.getArrow()),
-            new FieldOfTrainingTab(this));
+            new FieldOfTrainingTab(common, this));
    }
 
    public void initTraining()

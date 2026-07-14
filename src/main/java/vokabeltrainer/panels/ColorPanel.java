@@ -8,8 +8,9 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.resources.Buchstabenbilder;
 import vokabeltrainer.resources.LetterIcons;
 import vokabeltrainer.resources.LetterIconsHandwritten;
@@ -18,21 +19,19 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class ColorPanel extends JPanel
 {
-   /**
-    * 
-    */
    private static final long serialVersionUID = 5974748523983524775L;
+   
    private JButton applyButton;
    private String message = Settings.getWindowTitle()
          + " bitte neu starten.\nFehler: ";
 
-   public ColorPanel()
+   public ColorPanel(Common common, View view)
    {
       setLayout(new BullsEyeLayout(this));
 
       add(initChooseColormode());
 
-      initController();
+      initController(common, view);
    }
 
    private Component initChooseColormode()
@@ -51,13 +50,13 @@ public class ColorPanel extends JPanel
       return horizontal;
    }
 
-   private void initController()
+   private void initController(Common common, View view)
    {
       applyButton.addActionListener(_ -> {
          applyButton.setEnabled(false);
          Settings.toggleDarkmodeOn();
-
-         Common.setUI();
+         
+         view.setUI();
 
          this.removeAll();
          this.invalidate();
@@ -65,10 +64,10 @@ public class ColorPanel extends JPanel
          this.validate();
          this.repaint();
 
-         Common.getjFrame().getContentPane()
+         view.getjFrame().getContentPane()
                .setBackground(ApplicationColors.getBackgroundGold());
-         Common.getjFrame().getContentPane().validate();
-         Common.getjFrame().getContentPane().repaint();
+         view.getjFrame().getContentPane().validate();
+         view.getjFrame().getContentPane().repaint();
 
          try
          {
@@ -96,7 +95,7 @@ public class ColorPanel extends JPanel
 
          try
          {
-            Buchstabenbilder.reRead();
+            Buchstabenbilder.reRead(common);
          }
          catch (Exception e)
          {
@@ -107,7 +106,7 @@ public class ColorPanel extends JPanel
             System.exit(1);
          }
 
-         initController();
+         initController(common, view);
          applyButton.setEnabled(true);
       });
    }

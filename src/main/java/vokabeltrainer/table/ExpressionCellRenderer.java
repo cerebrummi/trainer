@@ -7,6 +7,7 @@ import javax.swing.table.TableCellRenderer;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.colors.TableColors;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.table.list.ExpressionList;
 import vokabeltrainer.types.Direction;
 import vokabeltrainer.types.Expression;
@@ -15,9 +16,11 @@ public class ExpressionCellRenderer implements TableCellRenderer
 {
    private ExpressionList list;
    private Direction language;
+   private Common common;
 
-   public ExpressionCellRenderer(Direction language)
+   public ExpressionCellRenderer(Common common, Direction language)
    {
+      this.common = common;
       this.language = language;
       list = new ExpressionList(language);
    }
@@ -31,22 +34,22 @@ public class ExpressionCellRenderer implements TableCellRenderer
       {
          if (expression.getLL().isSwedish() || expression.getLL().isGerman())
          {
-            list.setListData(expression.toSwedishArrayForTableEntry2());
+            list.setListData(expression.toSwedishArrayForTableEntry2(common));
          }
          else
          {
-            list.setListData(expression.toHebrewArrayForTableEntry2());
+            list.setListData(expression.toHebrewArrayForTableEntry2(common));
          }
       }
       else
       {
          if (expression.getLL().isSwedish() || expression.getLL().isGerman())
          {
-            list.setListData(expression.toSwedishArrayForTableEntry());
+            list.setListData(expression.toSwedishArrayForTableEntry(common));
          }
          else
          {
-            list.setListData(expression.toHebrewArrayForTableEntry());
+            list.setListData(expression.toHebrewArrayForTableEntry(common));
          }
       }
 

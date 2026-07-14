@@ -5,7 +5,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Vector;
 
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTableModel;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTableRow;
 import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopyModel;
@@ -17,25 +17,27 @@ public class Chapter implements Comparable<Chapter>
 {
    private String name = "";
    private DatabaseDescription databaseDescription = new DatabaseDescription();
+   private Common common;
 
-   public Chapter()
+   public Chapter(Common common)
    {
-
+      this(common, "", "", Database.TO_BE_DETERMINED);
    }
 
-   public Chapter(Database origin)
+   public Chapter(Common common, Database origin)
    {
-      databaseDescription.setDatabase(origin);
+      this(common, "", "", origin);
    }
 
-   public Chapter(String name, Database origin)
+   public Chapter(Common common, String name, Database origin)
    {
-      this.name = name;
-      databaseDescription.setDatabase(origin);
+      this(common, "", name, origin);
    }
 
-   public Chapter(String databaseName, String name, Database origin)
+   public Chapter(Common common, String databaseName, String name,
+         Database origin)
    {
+      this.common = common;
       databaseDescription.setDatabaseName(databaseName.strip());
       this.name = name;
       databaseDescription.setDatabase(origin);
@@ -75,8 +77,8 @@ public class Chapter implements Comparable<Chapter>
       }
       Collator coll = Collator.getInstance(Locale.GERMAN);
       coll.setStrength(Collator.PRIMARY);
-      return coll.compare(this.getDatabaseName() + this.name,
-            o.getDatabaseName() + o.name);
+      return coll.compare(this.getDatabaseName(common) + this.name,
+            o.getDatabaseName(common) + o.name);
    }
 
    @Override
@@ -105,7 +107,7 @@ public class Chapter implements Comparable<Chapter>
       return database.getFolder();
    }
 
-   public String getDatabaseName()
+   public String getDatabaseName(Common common)
    {
       if (Database.IMPORTED == databaseDescription.getDatabase()
             || Database.SELF == databaseDescription.getDatabase()
@@ -113,7 +115,7 @@ public class Chapter implements Comparable<Chapter>
       {
          return databaseDescription.getDatabaseName();
       }
-      return databaseDescription.getDatabase().getName();
+      return databaseDescription.getDatabase().getName(common);
    }
 
    public void setDatabaseName(String databaseName)
@@ -130,15 +132,19 @@ public class Chapter implements Comparable<Chapter>
    {
       GRUNDWORTSCHATZ("grundwortschatz", "Grundwortschatz", "630 Vokabeln",
             "Neuhebräisch", LLType.HEBREW,
-            false), ROSENGARTENLOOS("rosengartenloos", "Rosengarten & Loos",
+            false), 
+      ROSENGARTENLOOS("rosengartenloos", "Rosengarten & Loos",
                   "IVRIT Schritt für Schritt: Die ersten 12 Kapitel.",
                   "COPYRIGHT S. Marix Verlag: Es ist nicht gestattet Texte zu speichern.",
                   LLType.HEBREW,
-                  true), SELF("", "", "", "", LLType.UNKOWN, false), COPY("",
+                  true), 
+      SELF("", "", "", "", LLType.UNKOWN, false), COPY("",
                         "Kopie", "", "", LLType.UNKOWN, false), IMPORTED("",
                               "importiert", "", "", LLType.UNKOWN,
-                              false), UNKNOWN("", "unbekannt", "", "",
-                                    LLType.UNKOWN, false), TO_BE_DETERMINED("",
+                              false), 
+      UNKNOWN("", "unbekannt", "", "",
+                                    LLType.UNKOWN, false), 
+      TO_BE_DETERMINED("",
                                           "soll bestimmt werden", "", "",
                                           LLType.UNKOWN, false);
 
@@ -170,11 +176,11 @@ public class Chapter implements Comparable<Chapter>
          return folder;
       }
 
-      public String getName()
+      public String getName(Common common)
       {
          if (this == Database.SELF)
          {
-            Translator translator = Common.getTranslator();
+            Translator translator = common.getTranslator();
             return translator.realisticTranslate(Translation.SELBST_EINGEGEBEN);
          }
          return name;
@@ -234,9 +240,9 @@ public class Chapter implements Comparable<Chapter>
 
    }
 
-   public static Database findOrigin(String databaseName)
+   public static Database findOrigin(Common common, String databaseName)
    {
-      if (Database.GRUNDWORTSCHATZ.getName().equals(databaseName))
+      if (Database.GRUNDWORTSCHATZ.getName(common).equals(databaseName))
       {
          return Database.GRUNDWORTSCHATZ;
       }

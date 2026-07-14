@@ -47,10 +47,11 @@ import vokabeltrainer.cmd.TextHelper;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.DictionaryColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.keyboards.KeyboardGermanStandard;
 import vokabeltrainer.keyboards.KeyboardHebrewAllLetters;
 import vokabeltrainer.keyboards.KeyboardSwedishStandard;
@@ -125,7 +126,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    private JComboBox<String> chapterChoiceBox;
    private JComboBox<String> databaseChoiceBox;
    private JButton moveToDatabaseButton;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
    private Component keyboard;
 
@@ -137,8 +138,9 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
    private DatabaseTableModel databaseTableModel;
 
-   public DictionaryView(DictionaryControllerConnector connector)
+   public DictionaryView(Common common, View view, DictionaryControllerConnector connector)
    {
+      translator = common.getTranslator();
       this.connector = connector;
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
@@ -173,7 +175,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          button.setMinimumSize(new Dimension(90, 30));
          button.setMaximumSize(new Dimension(120, 60));
          button.addActionListener(
-               _ -> this.connector.switchLanguage(button.getActionCommand()));
+               _ -> this.connector.switchLanguage(common, view, button.getActionCommand()));
          horizontalLanguagePanel.add(button);
       }
 
@@ -226,11 +228,11 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       tabbedPane.addTab(translator.realisticTranslate(Translation.LEKTIONEN),
             initChaptersTab());
       tabbedPane.addTab(translator.realisticTranslate(Translation.SUCHE),
-            initSearchTab());
+            initSearchTab(common, view));
       tabbedPane.addTab(translator.realisticTranslate(Translation.WORTARTEN),
-            initExpressionKindsTab());
+            initExpressionKindsTab(common, view));
       tabbedPane.addTab(translator.realisticTranslate(Translation.AUSWAHL),
-            initSelectedTab());
+            initSelectedTab(common));
       tabbedPane.setMinimumSize(new Dimension(420, 400));
       tabbedPane.setMaximumSize(new Dimension(600, 700));
 
@@ -260,13 +262,13 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       Tabulator.setTabShowing(Tabulator.CHAPTER_TAB);
 
-      initChapterController();
+      initChapterController(common, view);
 
       loadDatabases();
-      initController();
+      initController(common, view);
    }
 
-   private void initChapterController()
+   private void initChapterController(Common common, View view)
    {
       listSelectionListener = new ListSelectionListener()
       {
@@ -276,14 +278,14 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          {
             if (!event.getValueIsAdjusting())
             {
-               connector.displayChapterWhich(getSelectedChapter());
+               connector.displayChapterWhich(common, view, getSelectedChapter());
             }
          }
 
       };
    }
 
-   private Component initSearchTab()
+   private Component initSearchTab(Common common, View view)
    {
       JPanel outerWrapper = new JPanel();
       BullsEyeLayout outerLayout = new BullsEyeLayout(outerWrapper);
@@ -295,13 +297,13 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       searchVertical.setLayout(new TotemLayout(searchVertical));
       searchVertical.setOpaque(false);
 
-      initSearchPanel(Direction.OWN_TO_NEW);
+      initSearchPanel(common, view, Direction.OWN_TO_NEW);
 
       outerWrapper.add(searchVertical);
       return outerWrapper;
    }
 
-   public void initSearchPanel(Direction selectedLanguage)
+   public void initSearchPanel(Common common, View view, Direction selectedLanguage)
    {
       JPanel mySearch = new JPanel();
       mySearch.setLayout(new TotemLayout(mySearch, 5));
@@ -329,7 +331,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       mySearch.add(filler);
 
       searchTypeGroupGerman = new ButtonGroup();
-      mySearch.add(initSearchRadioButtonPanel(searchTypeGroupGerman,
+      mySearch.add(initSearchRadioButtonPanel(common, searchTypeGroupGerman,
             Direction.OWN_TO_NEW));
 
       mySearchButton = new JButton(
@@ -398,7 +400,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       otherSearch.add(new JLabel(
             translator.realisticTranslate(Translation.SPRACHE_UMSTELLEN)));
       otherSearch.add(keyboard);
-      otherSearch.add(initSearchRadioButtonPanel(searchTypeGroupHebrew,
+      otherSearch.add(initSearchRadioButtonPanel(common, searchTypeGroupHebrew,
             Direction.NEW_TO_OWN));
       otherSearch.add(wrapper1);
 
@@ -417,9 +419,9 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       searchVertical.add(swapPanel);
 
-      otherSearchButton.addActionListener(_ -> connector.searchOtherLanguage());
+      otherSearchButton.addActionListener(_ -> connector.searchOtherLanguage(common, view));
 
-      mySearchButton.addActionListener(_ -> connector.searchMyLanguage());
+      mySearchButton.addActionListener(_ -> connector.searchMyLanguage(common, view));
    }
 
    public void setWritingDirection()
@@ -437,7 +439,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       }
    }
 
-   private JPanel initSearchRadioButtonPanel(ButtonGroup group,
+   private JPanel initSearchRadioButtonPanel(Common common, ButtonGroup group,
          Direction language)
    {
       JPanel vertical = new JPanel();
@@ -446,7 +448,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       for (SearchType type : SearchType.values())
       {
-         JRadioButton radioButton = new JRadioButton(type.getMeaning(language));
+         JRadioButton radioButton = new JRadioButton(type.getMeaning(common, language));
          radioButton.setActionCommand(type.name());
          radioButton.setBackground(DictionaryColors.getButton());
          radioButton.setForeground(DictionaryColors.getButtonForeground());
@@ -467,7 +469,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       return vertical;
    }
 
-   private Component initSelectedTab()
+   private Component initSelectedTab(Common common)
    {
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
@@ -504,7 +506,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       databaseChoiceBox = new JComboBox<>();
       databaseChoiceBox.setEditable(true);
-      databaseChoiceBox.setModel(Data.getOwnDatabasesComboBoxModel());
+      databaseChoiceBox.setModel(Data.getOwnDatabasesComboBoxModel(common));
       databaseChoiceBox.setMinimumSize(new Dimension(250, 30));
       databaseChoiceBox.setMaximumSize(new Dimension(250, 30));
 
@@ -540,17 +542,17 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       return chapterPanel;
    }
 
-   private JPanel initExpressionKindsTab()
+   private JPanel initExpressionKindsTab(Common common, View view)
    {
       JPanel vertical1 = new JPanel(new BorderLayout());
       vertical1.setOpaque(true);
       vertical1.setBackground(DictionaryColors.getBackground());
-      expressionKindTable = new ExpressionKindTableSingleselect(
+      expressionKindTable = new ExpressionKindTableSingleselect(common, view,
             ExpressionKind.getModelForSingleselect(), 300, connector);
       JScrollPane scroller = new JScrollPane(expressionKindTable);
       scroller.setMinimumSize(new Dimension(400, 470));
       scroller.setMaximumSize(new Dimension(400, 470));
-      scroller.setBorder(BorderFactory.createTitledBorder(Common.getTranslator()
+      scroller.setBorder(BorderFactory.createTitledBorder(translator
             .realisticTranslate(Translation.DOPPELCLICK)));
 
       JPanel scrollerWrapper = new JPanel();
@@ -780,40 +782,40 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       return vertical;
    }
 
-   private void initController()
+   private void initController(Common common, View view)
    {
       tabbedPane.addChangeListener(
-            _ -> connector.tabbedPaneChanged(tabbedPane.getSelectedIndex()));
+            _ -> connector.tabbedPaneChanged(common, view, tabbedPane.getSelectedIndex()));
 
       copyAllSelectedButton.addActionListener(
-            _ -> connector.copyAllSelectedExpressions(SortingType
+            _ -> connector.copyAllSelectedExpressions(view, SortingType
                   .valueOf(sortingGroup.getSelection().getActionCommand())));
 
       copyTableButton
-            .addActionListener(_ -> connector.copyExpressionsOfTable());
+            .addActionListener(_ -> connector.copyExpressionsOfTable(view));
 
       copyInTableSelectedButton
-            .addActionListener(_ -> connector.copyInTableSelectedExpressions());
+            .addActionListener(_ -> connector.copyInTableSelectedExpressions(view));
 
       clearInTableSelectedButton
-            .addActionListener(_ -> connector.unselectTableExpressions());
+            .addActionListener(_ -> connector.unselectTableExpressions(common, view));
 
       clearAllSelectedButton
-            .addActionListener(_ -> connector.unselectAllExpressions());
+            .addActionListener(_ -> connector.unselectAllExpressions(common, view));
 
       deleteAllSelectedButton
-            .addActionListener(_ -> connector.deleteAllSelectedExpressions());
+            .addActionListener(_ -> connector.deleteAllSelectedExpressions(common, view));
 
       deleteInTableSelectedButton.addActionListener(
-            _ -> connector.deleteInTableSelectedExpressions());
+            _ -> connector.deleteInTableSelectedExpressions(common, view));
 
-      wasteBinButton.addActionListener(_ -> connector.openTrashCanDialog());
+      wasteBinButton.addActionListener(_ -> connector.openTrashCanDialog(common, view));
 
       selectAllInTableButton
-            .addActionListener(_ -> connector.selectTableExpressions());
+            .addActionListener(_ -> connector.selectTableExpressions(common, view));
 
       shredderButton
-            .addActionListener(_ -> connector.shredderDeletedExpressions());
+            .addActionListener(_ -> connector.shredderDeletedExpressions(common, view));
 
       searchPhraseMy.addKeyListener(new KeyAdapter()
       {
@@ -822,7 +824,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          {
             if (e.getKeyCode() == KeyEvent.VK_ENTER)
             {
-               connector.searchMyLanguage();
+               connector.searchMyLanguage(common, view);
             }
          }
       });
@@ -834,7 +836,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          {
             if (e.getKeyCode() == KeyEvent.VK_ENTER)
             {
-               connector.searchOtherLanguage();
+               connector.searchOtherLanguage(common, view);
             }
          }
       });
@@ -891,15 +893,15 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       });
 
       sortForDateBox.addActionListener(_ -> {
-         connector.sortTableNow();
+         connector.sortTableNow(common, view);
       });
 
       sortForAlphabetBox.addActionListener(_ -> {
-         connector.sortTableNow();
+         connector.sortTableNow(common, view);
       });
 
       sortForIndexBox.addActionListener(_ -> {
-         connector.sortTableNow();
+         connector.sortTableNow(common, view);
       });
 
       moveToChapterButton.addActionListener(_ -> {
@@ -907,7 +909,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          chapterAim = cleanTextLeaveComma(chapterAim);
          if (chapterAim.isBlank())
          {
-            JOptionPane.showMessageDialog(Common.getjFrame(), translator
+            JOptionPane.showMessageDialog(view.getjFrame(), translator
                   .realisticTranslate(
                         Translation.BITTE_GEBEN_SIE_EINEN_NEUEN_LEKTIONSNAMEN_EIN)
                   + "\n "
@@ -918,7 +920,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          }
          else
          {
-            connector.moveExpressionsToChapter(chapterAim);
+            connector.moveExpressionsToChapter(common, view, chapterAim);
             chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
          }
       });
@@ -928,7 +930,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          databaseAim = cleanTextLeaveComma(databaseAim);
          if (databaseAim.isBlank())
          {
-            JOptionPane.showMessageDialog(Common.getjFrame(), translator
+            JOptionPane.showMessageDialog(view.getjFrame(), translator
                   .realisticTranslate(
                         Translation.BITTE_GEBEN_SIE_EINEN_NEUEN_DATENBANKNAMEN_EIN)
                   + "\n "
@@ -939,16 +941,16 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          }
          else
          {
-            connector.moveExpressionsToDatabase(databaseAim);
-            databaseChoiceBox.setModel(Data.getOwnDatabasesComboBoxModel());
+            connector.moveExpressionsToDatabase(common, view, databaseAim);
+            databaseChoiceBox.setModel(Data.getOwnDatabasesComboBoxModel(common));
          }
       });
    }
 
    @Override
-   public int askForMovingToDatabaseConfirmation()
+   public int askForMovingToDatabaseConfirmation(View view)
    {
-      return JOptionPane.showConfirmDialog(Common.getjFrame(),
+      return JOptionPane.showConfirmDialog(view.getjFrame(),
             translator.realisticTranslate(
                   Translation.WOLLEN_SIE_WIRKLICH_DIE_VOKABELN_IN_EINE_ANDERE_DATENBANK_VERSCHIEBEN__),
             translator.realisticTranslate(Translation.FRAGE),
@@ -956,9 +958,9 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    }
 
    @Override
-   public int askForMovingToChapterConfirmation()
+   public int askForMovingToChapterConfirmation(View view)
    {
-      return JOptionPane.showConfirmDialog(Common.getjFrame(),
+      return JOptionPane.showConfirmDialog(view.getjFrame(),
             translator.realisticTranslate(
                   Translation.WOLLEN_SIE_WIRKLICH_DIE_VOKABELN_IN_EINE_ANDERE_LEKTION_VERSCHIEBEN__),
             translator.realisticTranslate(Translation.FRAGE),
@@ -966,9 +968,9 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    }
 
    @Override
-   public int askForShredderConfirmation()
+   public int askForShredderConfirmation(View view)
    {
-      return JOptionPane.showConfirmDialog(Common.getjFrame(),
+      return JOptionPane.showConfirmDialog(view.getjFrame(),
             translator.realisticTranslate(
                   Translation.WOLLEN_SIE_WIRKLICH_DEN_PAPIERKORB_LEEREN__),
             translator.realisticTranslate(Translation.FRAGE),
@@ -976,7 +978,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    }
 
    @Override
-   public int askForDeletionConfirmation(int number)
+   public int askForDeletionConfirmation(View view, int number)
    {
       String message;
       if (number == 1)
@@ -998,12 +1000,12 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       message += "\n";
       message += translator
             .realisticTranslate(Translation.KOENNEN_NICHT_GELOESCHT_WERDEN_);
-      return JOptionPane.showConfirmDialog(Common.getjFrame(), message,
+      return JOptionPane.showConfirmDialog(view.getjFrame(), message,
             translator.realisticTranslate(Translation.FRAGE),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
    }
 
-   public void notifyNothingWasSelectedForDeletion()
+   public void notifyNothingWasSelectedForDeletion(View view)
    {
       String message = translator
             .realisticTranslate(Translation.ES_WURDEN_KEINE_EINTRAEGE);
@@ -1016,7 +1018,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       message += "\n";
       message += translator
             .realisticTranslate(Translation.KOENNEN_NICHT_GELOESCHT_WERDEN_);
-      JOptionPane.showMessageDialog(Common.getjFrame(), message, "Nachricht",
+      JOptionPane.showMessageDialog(view.getjFrame(), message, "Nachricht",
             JOptionPane.CLOSED_OPTION);
 
    }
@@ -1041,14 +1043,14 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       dataPanel.repaint();
    }
 
-   public void loadChapters()
+   public void loadChapters(Common common)
    {
       chapterPanel.removeAll();
       listSelectionModel = new ChapterListSelectionModel();
       addChapterListSelectionListener();
       chapterList = new ChapterList(listSelectionModel);
       chapterList.setListData(
-            Data.getChapterArray(databaseTableModel.getSelectedRows()));
+            Data.getChapterArray(common, databaseTableModel.getSelectedRows()));
       chapterList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
 
       JScrollPane scroller = new JScrollPane(chapterList);
@@ -1087,7 +1089,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       }
    }
 
-   public void doShowTable(ExpressionTableModel tableModel)
+   public void doShowTable(Common common, View view, ExpressionTableModel tableModel)
    {
       tablePanel.removeAll();
 
@@ -1111,9 +1113,9 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             .setForeground(DictionaryColors.getButtonForeground());
       scrollsearchPinButton.setFont(ApplicationFonts.buttonFont);
 
-      table = new ExpressionTable(tableModel, this.getSelectedLanguage(),
+      table = new ExpressionTable(common, view, tableModel, this.getSelectedLanguage(),
             connector, true,
-            new ExpressionColumnModel(this.getSelectedLanguage()));
+            new ExpressionColumnModel(common, this.getSelectedLanguage()));
       tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);
       tableScroller.getViewport().setOpaque(false);
@@ -1348,12 +1350,12 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    }
 
    @Override
-   public void selectChapter(Chapter currentChapter)
+   public void selectChapter(Common common, Chapter currentChapter)
    {
       chapterList.setSelectedValue(currentChapter, true);
       if (chapterList.getSelectedValue() == null)
       {
-         loadChapters();
+         loadChapters(common);
          chapterList.setSelectedValue(currentChapter, true);
       }
    }
@@ -1369,20 +1371,20 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    }
 
    @Override
-   public void setValues()
+   public void setValues(Common common, View view)
    {
-      Data.determineReloadDatabases();
-      this.loadChapters();
+      Data.determineReloadDatabases(common, view);
+      this.loadChapters(common);
       this.loadDatabases();
       this.displayNoTable();
       setWritingDirection();
       this.searchVertical.removeAll();
       Direction selectedLanguage = this.getSelectedLanguage();
-      this.initSearchPanel(selectedLanguage);
+      this.initSearchPanel(common, view, selectedLanguage);
       chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
       this.searchVertical.validate();
       this.searchVertical.repaint();
-      connector.displayTableAfterOpeningPage();
+      connector.displayTableAfterOpeningPage(common, view);
    }
 
    @Override
@@ -1402,4 +1404,5 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    {
       return databaseTableModel;
    }
+
 }

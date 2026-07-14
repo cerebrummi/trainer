@@ -24,12 +24,13 @@ import vokabeltrainer.TextImage;
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
-import vokabeltrainer.common.Data;
-import vokabeltrainer.common.SaveExpressions;
 import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.Settings.LanguageStored;
 import vokabeltrainer.common.colors.InputColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.SaveExpressions;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.input.ChapterComboBox;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.panels.translation.Translation;
@@ -59,14 +60,15 @@ public class InputPanel extends JPanel implements TableConnector
    private Chapter currentChapter;
    private ChapterComboBox chapterBox;
    private JButton tableInfoButton;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
    private JComboBox<LanguageStored> otherLanguage;
 
    private JComboBox<WritingDirection> myWritingDirection;
 
-   public InputPanel()
+   public InputPanel(Common common, View view)
    {
+      translator = common.getTranslator();
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
       setBackground(InputColors.getPanelBackground());
@@ -105,38 +107,38 @@ public class InputPanel extends JPanel implements TableConnector
 
       this.add(vertical);
 
-      initController();
+      initController(common, view);
 
       setWritingDirection();
       setLernsprache(false);
    }
 
-   public void reset()
+   public void reset(Common common)
    {
-      Chapter lastModiefiedChapter = Data.getChapterWithLastModifiedDate();
-      chapterBox.setModel(Data.getChapterComboBoxModelAsChapter());
+      Chapter lastModiefiedChapter = Data.getChapterWithLastModifiedDate(common);
+      chapterBox.setModel(Data.getChapterComboBoxModelAsChapter(common));
       if (chapterBox.getModel().getSize() > 0)
       {
          chapterBox.setSelectedItem(lastModiefiedChapter);
       }
       else
       {
-         chapterBox.addItem(new Chapter());
+         chapterBox.addItem(new Chapter(common));
          chapterBox.setSelectedIndex(0);
          this.validate();
          this.repaint();
       }
    }
 
-   private void initController()
+   private void initController(Common common, View view)
    {
       newWordPunktationButton
-            .addActionListener(_ -> openNewNikudExpressionDialog());
+            .addActionListener(_ -> openNewNikudExpressionDialog(common, view));
 
       chapterBox.addActionListener(_ -> {
          this.currentChapter = chapterBox
                .getItemAt(chapterBox.getSelectedIndex());
-         this.doShowTable();
+         this.doShowTable(common, view);
       });
 
       myWritingDirection.addActionListener(_ -> {
@@ -221,12 +223,12 @@ public class InputPanel extends JPanel implements TableConnector
       });
    }
 
-   private void openNewNikudExpressionDialog()
+   private void openNewNikudExpressionDialog(Common common, View view)
    {
-      LanguageExpressionEditorView editor = new NikudExpressionEditorController()
+      LanguageExpressionEditorView editor = new NikudExpressionEditorController(common, view)
             .getNikudExpressionEditorDialog();
-      editor.setExpression(new Expression(true, false), true);
-      editor.setLocationRelativeTo(Common.getjFrame());
+      editor.setExpression(common, view, new Expression(common, true, false), true);
+      editor.setLocationRelativeTo(view.getjFrame());
       editor.setVisible(true);
 
       if (editor.isSave())
@@ -234,20 +236,20 @@ public class InputPanel extends JPanel implements TableConnector
          Expression expression = editor.getExpression();
          Data.putExpressionInNewMap(expression.getUuid(), expression);
          this.currentChapter = expression.getChapter();
-         save();
+         save(common, view);
       }
       setLernsprache(true);
    }
 
-   private void doShowTable()
+   private void doShowTable(Common common, View view)
    {
-      ExpressionTableModel tableModel = Data.findTranslations(null, null, null,
+      ExpressionTableModel tableModel = Data.findTranslations(common, null, null, null,
             currentChapter, null, SortingType.DATE, null, Direction.OWN_TO_NEW,
             null);
       tablePanel.removeAll();
-      ExpressionTable table = new ExpressionTable(tableModel,
+      ExpressionTable table = new ExpressionTable(common, view, tableModel,
             Direction.OWN_TO_NEW, this, true,
-            new ExpressionColumnModel(Direction.OWN_TO_NEW));
+            new ExpressionColumnModel(common, Direction.OWN_TO_NEW));
       JScrollPane tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);
       tableScroller.getViewport().setOpaque(false);
@@ -433,16 +435,16 @@ public class InputPanel extends JPanel implements TableConnector
    }
 
    @Override
-   public void save()
+   public void save(Common common, View view)
    {
       new SwingWorker<Void, Void>()
       {
          @Override
          protected Void doInBackground() throws Exception
          {
-            if (new SaveExpressions().save())
+            if (new SaveExpressions().save(common, view))
             {
-               chapterBox.setModel(Data.getChapterComboBoxModelAsChapter());
+               chapterBox.setModel(Data.getChapterComboBoxModelAsChapter(common));
                chapterBox.setSelectedItem(currentChapter);
             }
             return null;
@@ -451,7 +453,7 @@ public class InputPanel extends JPanel implements TableConnector
    }
 
    @Override
-   public void fireTableCellUpdated(JTable table, int selectedRow, int i)
+   public void fireTableCellUpdated(Common common, View view, JTable table, int selectedRow, int i)
    {
       ((ExpressionTableModel) table.getModel())
             .fireTableCellUpdated(table.getSelectedRow(), 0);

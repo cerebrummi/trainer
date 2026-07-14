@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
 import vokabeltrainer.types.LanguageDirection;
@@ -21,9 +22,9 @@ public class TrainingTable extends JTable
 {
    private static final long serialVersionUID = -1180739124368536646L;
 
-   public TrainingTable(TrainingTableModel model)
+   public TrainingTable(Common common, TrainingTableModel model)
    {
-      super(model, new TrainingTableColumnModel());
+      super(model, new TrainingTableColumnModel(common));
 
       putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
       setOpaque(false);

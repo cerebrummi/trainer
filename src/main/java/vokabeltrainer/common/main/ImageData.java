@@ -1,4 +1,4 @@
-package vokabeltrainer.common;
+package vokabeltrainer.common.main;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,7 +18,8 @@ import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.cmd.DirectoryHelper;
+import vokabeltrainer.common.CerebrummiNodes;
+import vokabeltrainer.common.Settings;
 import vokabeltrainer.table.list.editor.images.ImageItem;
 
 public final class ImageData
@@ -33,9 +34,9 @@ public final class ImageData
       // nothing
    }
 
-   static void initImageDataBase()
+   static void initImageDataBase(Common common, View view)
    {
-      database = new ImageDataBase();
+      database = new ImageDataBase(common, view);
    }
 
    static boolean lockDataBase(UUID uuid)
@@ -90,14 +91,14 @@ public final class ImageData
       return getDataBaseAtomic().isImageForExpressionAvailable(uuid);
    }
 
-   public static void saveImage(BufferedImage image, UUID uuid,
+   public static void saveImage(Common common, View view, BufferedImage image, UUID uuid,
          String imageName)
    {
       if (uuid == null)
       {
          return;
       }
-      getDataBaseAtomic().saveImage(image, uuid, imageName);
+      getDataBaseAtomic().saveImage(common, view, image, uuid, imageName);
    }
 
    public static ArrayList<ImageItem> loadImages(UUID uuid)
@@ -149,13 +150,13 @@ public final class ImageData
       private final ConcurrentMap<UUID, ArrayList<String>> imageNameMap = new ConcurrentHashMap<>(
             findNumberOfAllVocabulary() + 100);
 
-      ImageDataBase()
+      ImageDataBase(Common common, View view)
       {
-         if (!checkDirectory())
+         if (!checkDirectory(common, view))
          {
             return;
          }
-         moveImagesFromPreviousVersion();
+         moveImagesFromPreviousVersion(common, view);
          readImagesAvailable();
       }
 
@@ -181,7 +182,7 @@ public final class ImageData
          }
       }
 
-      private void moveImagesFromPreviousVersion()
+      private void moveImagesFromPreviousVersion(Common common, View view)
       {
          try (Stream<Path> s = Files.walk(Paths.get(Settings.getImagePath())))
          {
@@ -192,7 +193,7 @@ public final class ImageData
 
                if (Data.isExistUuid(uuid))
                {
-                  checkDirectory(uuid);
+                  checkDirectory(common, view, uuid);
 
                   try
                   {
@@ -338,14 +339,14 @@ public final class ImageData
                && !imageNameMap.get(uuid).isEmpty() ? true : false;
       }
 
-      private void saveImage(BufferedImage image, UUID uuid, String imageName)
+      private void saveImage(Common common, View view, BufferedImage image, UUID uuid, String imageName)
       {
-         if (!checkDirectory())
+         if (!checkDirectory(common, view))
          {
             return;
          }
 
-         if (!checkDirectory(uuid))
+         if (!checkDirectory(common, view, uuid))
          {
             return;
          }
@@ -382,12 +383,12 @@ public final class ImageData
          return fileName.substring(dot + 1).toLowerCase();
       }
 
-      private boolean checkDirectory()
+      private boolean checkDirectory(Common common, View view)
       {
          File customDir = new File(Settings.getImagePath());
          if (!customDir.exists())
          {
-            if (!DirectoryHelper.makeDirectory(customDir))
+            if (!common.getDirectoryHelper().makeDirectory(common, view, customDir))
             {
                return false;
             }
@@ -395,14 +396,14 @@ public final class ImageData
          return true;
       }
 
-      private boolean checkDirectory(UUID uuid)
+      private boolean checkDirectory(Common common, View view, UUID uuid)
       {
          File customDir = new File(
                Settings.getImagePath() + File.separator + uuid);
 
          if (!customDir.exists())
          {
-            if (!DirectoryHelper.makeDirectory(customDir))
+            if (!common.getDirectoryHelper().makeDirectory(common, view, customDir))
             {
                return false;
             }

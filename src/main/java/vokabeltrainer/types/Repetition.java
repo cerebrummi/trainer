@@ -2,9 +2,8 @@ package vokabeltrainer.types;
 
 import java.time.Period;
 
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
-import vokabeltrainer.panels.translation.Translator;
 
 public enum Repetition
 {
@@ -44,9 +43,8 @@ public enum Repetition
       return period;
    }
 
-   public String getTranslation()
+   public String getTranslation(Common common)
    {
-      Translator translator = Common.getTranslator();
-      return translator.realisticTranslate(translation);
+      return common.getTranslator().realisticTranslate(translation);
    }
 }

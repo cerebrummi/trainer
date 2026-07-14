@@ -9,7 +9,8 @@ import javax.swing.JPanel;
 
 import vokabeltrainer.common.ApplicationColors;
 import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.tonionlayout.TotemLayout;
 
@@ -17,9 +18,9 @@ public class ErrorDialog extends JDialog
 {
    private static final long serialVersionUID = -2919642120086961576L;
 
-   public ErrorDialog(String textA, String textB, String middle, String textD)
+   public ErrorDialog(Common common, View view, String textA, String textB, String middle, String textD)
    {
-      super(Common.getjFrame(), "", Dialog.ModalityType.MODELESS);
+      super(view.getjFrame(), "", Dialog.ModalityType.MODELESS);
 
       setSize(400, 200);
       JPanel vertical = new JPanel();
@@ -28,7 +29,7 @@ public class ErrorDialog extends JDialog
       vertical.setBackground(ApplicationColors.getWhite());
       vertical.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(ApplicationColors.getDarkRed()),
-            Common.getTranslator()
+            common.getTranslator()
                   .realisticTranslate(Translation.FEHLERMELDUNG)));
 
       JLabel rowA = new JLabel(textA);

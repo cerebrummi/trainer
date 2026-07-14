@@ -3,7 +3,7 @@ package vokabeltrainer.panels.notifications;
 import javax.swing.JDialog;
 import javax.swing.Timer;
 
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.View;
 
 public class OkayExpressionsSavedNotification
 {
@@ -13,10 +13,10 @@ public class OkayExpressionsSavedNotification
       // nothing
    }
 
-   public static void display()
+   public static void display(View view)
    {
-      JDialog dialog = new OkayExpressionsSavedDialog();
-      dialog.setLocationRelativeTo(Common.getjFrame());
+      JDialog dialog = new OkayExpressionsSavedDialog(view);
+      dialog.setLocationRelativeTo(view.getjFrame());
       dialog.setVisible(true);
 
       new Timer(1000, _ -> {

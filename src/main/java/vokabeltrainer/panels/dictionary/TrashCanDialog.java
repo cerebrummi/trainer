@@ -16,10 +16,12 @@ import javax.swing.SwingConstants;
 import vokabeltrainer.TrashCanBackgroundPanel;
 import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.colors.DictionaryColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.ExpressionColumnModel;
 import vokabeltrainer.table.ExpressionTable;
 import vokabeltrainer.table.ExpressionTableModel;
@@ -39,12 +41,15 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    private JButton clearInTableSelectedButton;
    private boolean restore;
    private TrashCanControllerConnector connector;
+   private Translator translator;
 
-   public TrashCanDialog(TrashCanControllerConnector connector)
+   public TrashCanDialog(Common common, View view, TrashCanControllerConnector connector)
    {
-      super(Common.getjFrame(), "Papierkorb",
+      super(view.getjFrame(), "Papierkorb",
             Dialog.ModalityType.APPLICATION_MODAL);
+      
       this.connector = connector;
+      translator = common.getTranslator();
       restore = false;
       setSize(1000, 620);
       getContentPane().setPreferredSize(new Dimension(1000, 620));
@@ -57,7 +62,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       getContentPane().add(layout);
 
       initGui();
-      initController();
+      initController(common, view);
    }
 
    private void initGui()
@@ -78,7 +83,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       vertical.setOpaque(false);
       vertical.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
 
-      selectAllInTableButton = new JButton(Common.getTranslator()
+      selectAllInTableButton = new JButton(translator
             .realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       selectAllInTableButton.setFont(ApplicationFonts.buttonFont);
@@ -88,7 +93,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       selectAllInTableButton
             .setIcon(new ImageIcon(ApplicationImages.getSelect()));
 
-      clearInTableSelectedButton = new JButton(Common.getTranslator()
+      clearInTableSelectedButton = new JButton(translator
             .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearInTableSelectedButton.setFont(ApplicationFonts.buttonFont);
@@ -99,7 +104,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       clearInTableSelectedButton
             .setIcon(new ImageIcon(ApplicationImages.getClear()));
 
-      restoreButton = new JButton(Common.getTranslator()
+      restoreButton = new JButton(translator
             .realisticTranslate(Translation.AUSWAHL_WIEDER_HERSTELLEN));
       restoreButton.setHorizontalAlignment(SwingConstants.LEFT);
       restoreButton.setFont(ApplicationFonts.buttonFont);
@@ -113,36 +118,36 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       return vertical;
    }
 
-   private void initController()
+   private void initController(Common common, View view)
    {
       this.restoreButton.addActionListener(_ -> {
          if (isTableNotNull())
          {
-            connector.restoreSelectedExpressions(
+            connector.restoreSelectedExpressions(common, view,
                   table.getSelectedExpressions(false));
          }
       });
 
       this.selectAllInTableButton.addActionListener(_ -> {
-         connector.selectAllExpressionsInTable();
+         connector.selectAllExpressionsInTable(common, view);
       });
 
       clearInTableSelectedButton.addActionListener(_ -> {
-         connector.unselectAllExpressionsInTable();
+         connector.unselectAllExpressionsInTable(common, view);
       });
    }
 
-   public void doShowTable(ExpressionTableModel tableModel)
+   public void doShowTable(Common common, View view, ExpressionTableModel tableModel)
    {
       if (tableModel.getRowCount() == 0)
       {
-         EmptyNotification.display();
+         EmptyNotification.display(view);
       }
       else
       {
-         table = new ExpressionTable(tableModel, Direction.NEW_TO_OWN,
+         table = new ExpressionTable(common, view, tableModel, Direction.NEW_TO_OWN,
                connector, false,
-               new ExpressionColumnModel(Direction.NEW_TO_OWN));
+               new ExpressionColumnModel(common, Direction.NEW_TO_OWN));
          JScrollPane scrollPane = new JScrollPane(table);
          scrollPane.setOpaque(false);
          scrollPane.getViewport().setOpaque(false);

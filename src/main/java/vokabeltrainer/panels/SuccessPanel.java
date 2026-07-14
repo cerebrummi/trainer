@@ -5,8 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.Common;
 import vokabeltrainer.common.colors.SuccessColors;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.success.LanguageTab;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -23,10 +24,12 @@ public class SuccessPanel extends JPanel
    private JPanel infoCard;
    private LanguageTab languageDtoHcard;
    private LanguageTab languageHtoDcard;
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
-   public SuccessPanel()
+   public SuccessPanel(Common common, View view)
    {
+      translator = common.getTranslator();
+      
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
       setBackground(SuccessColors.getPanelBackground());
@@ -39,10 +42,10 @@ public class SuccessPanel extends JPanel
       germanHebrewRegister.setMinimumSize(new Dimension(1254, 613));
       germanHebrewRegister.setMaximumSize(new Dimension(1500, 800));
 
-      infoCard = new InformationTab();
-      languageDtoHcard = new LanguageTab(new InformationTabDtoH(),
+      infoCard = new InformationTab(common);
+      languageDtoHcard = new LanguageTab(common, new InformationTabDtoH(common),
             Direction.OWN_TO_NEW);
-      languageHtoDcard = new LanguageTab(new InformationTabHtoD(),
+      languageHtoDcard = new LanguageTab(common, new InformationTabHtoD(common),
             Direction.NEW_TO_OWN);
 
       germanHebrewRegister.addTab(
@@ -58,19 +61,19 @@ public class SuccessPanel extends JPanel
 
       add(germanHebrewRegister);
 
-      initController();
+      initController(common, view);
    }
 
-   private void initController()
+   private void initController(Common common, View view)
    {
       germanHebrewRegister.addChangeListener(_ -> {
          if (germanHebrewRegister.getSelectedIndex() == 1)
          {
-            languageDtoHcard.loadBoxes();
+            languageDtoHcard.loadBoxes(common, view);
          }
          else if (germanHebrewRegister.getSelectedIndex() == 2)
          {
-            languageHtoDcard.loadBoxes();
+            languageHtoDcard.loadBoxes(common, view);
          }
       });
 

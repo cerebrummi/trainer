@@ -1,4 +1,4 @@
-package vokabeltrainer.common;
+package vokabeltrainer.common.main;
 
 import java.util.UUID;
 
@@ -6,7 +6,7 @@ import javax.swing.ProgressMonitor;
 
 public final class ImportExpressions
 {
-   public boolean importExpressions(String databaseName,
+   public boolean importExpressions(Common common, String databaseName,
          boolean overwriteDatabaseNames, String databasePath)
    {
       ProgressMonitor bar = new ProgressMonitor(null,
@@ -21,7 +21,7 @@ public final class ImportExpressions
       {
          if (Data.lockDataBase(uuidSearchLock))
          {
-            return (Data.importDatabase(databasePath, databaseName,
+            return (Data.importDatabase(common, databasePath, databaseName,
                   overwriteDatabaseNames));
          }
          return false;

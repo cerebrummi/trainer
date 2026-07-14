@@ -3,7 +3,7 @@ package vokabeltrainer.panels.start.table.multiselect;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
-import vokabeltrainer.common.Common;
+import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 
@@ -12,13 +12,14 @@ public class DatabaseTableColumnModel extends DefaultTableColumnModel
 
    private static final long serialVersionUID = -126413736438939824L;
 
-   private Translator translator = Common.getTranslator();
+   private Translator translator;
 
    private DatabaseTableCellRenderer renderer;
 
-   public DatabaseTableColumnModel(int totalWidth)
+   public DatabaseTableColumnModel(Common common, int totalWidth)
    {
-      renderer = new DatabaseTableCellRenderer();
+      translator = common.getTranslator();
+      renderer = new DatabaseTableCellRenderer(common);
       int width = (totalWidth - 43) / 3;
 
       TableColumn column = new TableColumn();
