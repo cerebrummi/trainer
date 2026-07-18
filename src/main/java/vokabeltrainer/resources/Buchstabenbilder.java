@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.ApplicationSpecialPanels;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.panels.letterpicture.Card;
@@ -52,7 +52,7 @@ public class Buchstabenbilder
       ApplicationSpecialPanels
             .setLetterPicturesPanelMap(common, letterPicturesPanelMap);
 
-      ApplicationImages.setLetterPicturesMap(letterPicturesMap);
+      AppImages.setLetterPicturesMap(letterPicturesMap);
    }
 
    public static void reRead(Common common) throws Exception

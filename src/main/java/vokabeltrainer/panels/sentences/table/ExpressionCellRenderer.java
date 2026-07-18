@@ -9,7 +9,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.panels.sentences.table.list.ExpressionList;
 import vokabeltrainer.types.Expression;
 
@@ -34,7 +34,7 @@ public class ExpressionCellRenderer
       if (isSelected)
       {
          list.setBorder(BorderFactory
-               .createLineBorder(ApplicationColors.brightGreen, 3));
+               .createLineBorder(ColorBase.brightGreen, 3));
       }
       else
       {
@@ -43,11 +43,11 @@ public class ExpressionCellRenderer
 
       if (row % 2 == 1)
       {
-         list.setBackground(ApplicationColors.getLightBlue());
+         list.setBackground(ColorBase.getLightBlue());
       }
       else
       {
-         list.setBackground(ApplicationColors.getVeryLightGold());
+         list.setBackground(ColorBase.getVeryLightGold());
       }
 
       list.setLock(expression.isDoNotChange());

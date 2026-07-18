@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JList;
 import javax.swing.KeyStroke;
 
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.main.AppImages;
 
 public class ExpressionList extends JList<String>
 {
@@ -37,7 +37,7 @@ public class ExpressionList extends JList<String>
       super.paintComponent(g);
       if (withLock)
       {
-         g.drawImage(ApplicationImages.getLock(), 0, 0, this);
+         g.drawImage(AppImages.getLock(), 0, 0, this);
       }
    }
 

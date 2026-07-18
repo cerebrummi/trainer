@@ -7,8 +7,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.NikudLetter;
 
 public class LetterIcons
@@ -38,6 +38,6 @@ public class LetterIcons
          }
       }
 
-      ApplicationImages.setLetterIconsNikudMap(letterIconsNikudMap);
+      AppImages.setLetterIconsNikudMap(letterIconsNikudMap);
    }
 }

@@ -14,10 +14,10 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -46,7 +46,7 @@ public class KeyboardHebrewStandard extends JPanel
 
       if (textfield != null)
       {
-         textfield.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
+         textfield.setFont(AppFonts.hebrewFont.deriveFont(30F));
          textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          textfield.setMinimumSize(
                new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
@@ -115,14 +115,14 @@ public class KeyboardHebrewStandard extends JPanel
       if (handwritten)
       {
          dataButton = new DataButton(
-               ApplicationImages.getLetterIconsNikudHandwrittenMap().get(letter)
+               AppImages.getLetterIconsNikudHandwrittenMap().get(letter)
                      .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                            java.awt.Image.SCALE_SMOOTH),
                letter.getUnicode());
       }
       else
       {
-         dataButton = new DataButton(ApplicationImages.getLetterIconsNikudMap()
+         dataButton = new DataButton(AppImages.getLetterIconsNikudMap()
                .get(letter).getScaledInstance(scale.getScaleX(),
                      scale.getScaleY(), java.awt.Image.SCALE_SMOOTH),
                letter.getUnicode());
@@ -210,7 +210,7 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller1.setMinimumSize(new Dimension(76, BUTTON_SIZE));
       halfSizedFiller1.setMaximumSize(new Dimension(76, BUTTON_SIZE));
       halfSizedFiller1.setOpaque(false);
-      halfSizedFiller1.setBackground(ApplicationColors.getTransparent());
+      halfSizedFiller1.setBackground(ColorBase.getTransparent());
       row1.add(halfSizedFiller1);
 
       row1.add(dataButtons.get(dataButtonList.get(0)));
@@ -230,7 +230,7 @@ public class KeyboardHebrewStandard extends JPanel
       tinyFiller2.setMinimumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setMaximumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setOpaque(false);
-      tinyFiller2.setBackground(ApplicationColors.getTransparent());
+      tinyFiller2.setBackground(ColorBase.getTransparent());
       row2.add(tinyFiller2);
 
       row2.add(dataButtons.get(dataButtonList.get(8)));
@@ -252,7 +252,7 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller3.setMinimumSize(new Dimension(30, BUTTON_SIZE));
       halfSizedFiller3.setMaximumSize(new Dimension(30, BUTTON_SIZE));
       halfSizedFiller3.setOpaque(false);
-      halfSizedFiller3.setBackground(ApplicationColors.getTransparent());
+      halfSizedFiller3.setBackground(ColorBase.getTransparent());
       row3.add(halfSizedFiller3);
 
       row3.add(dataButtons.get(dataButtonList.get(18)));
@@ -285,7 +285,7 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller1.setMinimumSize(new Dimension(76, BUTTON_SIZE));
       halfSizedFiller1.setMaximumSize(new Dimension(76, BUTTON_SIZE));
       halfSizedFiller1.setOpaque(false);
-      halfSizedFiller1.setBackground(ApplicationColors.getTransparent());
+      halfSizedFiller1.setBackground(ColorBase.getTransparent());
       row1.add(halfSizedFiller1);
 
       row1.add(dataButtons.get(NikudLetter.KUF));
@@ -305,7 +305,7 @@ public class KeyboardHebrewStandard extends JPanel
       tinyFiller2.setMinimumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setMaximumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setOpaque(false);
-      tinyFiller2.setBackground(ApplicationColors.getTransparent());
+      tinyFiller2.setBackground(ColorBase.getTransparent());
       row2.add(tinyFiller2);
 
       row2.add(dataButtons.get(NikudLetter.SCHIN));
@@ -327,7 +327,7 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller3.setMinimumSize(new Dimension(30, BUTTON_SIZE));
       halfSizedFiller3.setMaximumSize(new Dimension(30, BUTTON_SIZE));
       halfSizedFiller3.setOpaque(false);
-      halfSizedFiller3.setBackground(ApplicationColors.getTransparent());
+      halfSizedFiller3.setBackground(ColorBase.getTransparent());
       row3.add(halfSizedFiller3);
 
       row3.add(dataButtons.get(NikudLetter.SSAIN));

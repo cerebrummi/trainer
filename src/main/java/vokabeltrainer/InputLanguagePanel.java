@@ -32,10 +32,7 @@ import javax.swing.text.JTextComponent;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudStyledDocument;
@@ -87,7 +84,7 @@ public class InputLanguagePanel extends JTextArea
       SIMPLE, PLENE_DEFEKTIV, SWEDISH, GERMAN;
    }
 
-   public InputLanguagePanel(Common common, Selection selection, int heightTotal,
+   public InputLanguagePanel(App app, Common common, Selection selection, int heightTotal,
          int heightBorderTitel, boolean canBeToggled, Container parent,
          int widthTotal, Color color)
    {
@@ -106,21 +103,21 @@ public class InputLanguagePanel extends JTextArea
       layout = new CardLayout();
       cards.setLayout(layout);
       cards.setOpaque(true);
-      cards.setBackground(ApplicationColors.getLightGrayBlue());
+      cards.setBackground(app.appColors.getLightGrayBlue());
       cards.setBorder(BorderFactory.createEmptyBorder());
 
       this.setOpaque(true);
-      this.setBackground(ApplicationColors.getWhite());
+      this.setBackground(app.appColors.getWhite());
 
       toggleButton = new JButton(
-            new ImageIcon(ApplicationImages.getToggleButtonIcon()));
+            new ImageIcon(app.appImages.getToggleButtonIcon()));
 
       if (canBeToggled)
       {
-         toggleButton.setFont(ApplicationFonts.germanFont.deriveFont(30F));
+         toggleButton.setFont(app.appFonts.germanFont.deriveFont(30F));
          toggleButton.setMargin(new Insets(-5, 0, -5, 0));
          toggleButton.setBackground(new Color(0, 0, 0, 0));
-         toggleButton.setForeground(ApplicationColors.getGold());
+         toggleButton.setForeground(app.appColors.getGold());
          toggleButton.setPreferredSize(new Dimension(40, 32));
          toggleButton.setActionCommand("was_toggled");
          toggleBorder = new ComponentTitledBorder(toggleButton, this,
@@ -132,13 +129,13 @@ public class InputLanguagePanel extends JTextArea
          cards.setBorder(BorderFactory.createEmptyBorder());
       }
 
-      cards.add(Selection.GERMAN.name(), initGerman());
-      cards.add(Selection.SWEDISH.name(), initSwedish());
-      cards.add(Selection.PLENE_DEFEKTIV.name(), initPleneDefektivHebrew());
-      cards.add(Selection.SIMPLE.name(), initSimpleHebrew());
+      cards.add(Selection.GERMAN.name(), initGerman(app));
+      cards.add(Selection.SWEDISH.name(), initSwedish(app));
+      cards.add(Selection.PLENE_DEFEKTIV.name(), initPleneDefektivHebrew(app));
+      cards.add(Selection.SIMPLE.name(), initSimpleHebrew(app));
 
       this.add(cards);
-      initController();
+      initController(app);
 
       String focusCommand = "focus_forward";
       KeyStroke tab = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0);
@@ -156,7 +153,7 @@ public class InputLanguagePanel extends JTextArea
       layout.show(cards, selection.name());
    }
 
-   private void initController()
+   private void initController(App app)
    {
       addFocusListener(new FocusListener()
       {
@@ -247,7 +244,7 @@ public class InputLanguagePanel extends JTextArea
          }
       });
 
-      toggleButton.addActionListener(_ -> toggleNext());
+      toggleButton.addActionListener(_ -> toggleNext(app));
 
       toggleButton.addMouseListener(new MouseAdapter()
       {
@@ -307,7 +304,7 @@ public class InputLanguagePanel extends JTextArea
 
    }
 
-   private Component initPleneDefektivHebrew()
+   private Component initPleneDefektivHebrew(App app)
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
@@ -317,8 +314,8 @@ public class InputLanguagePanel extends JTextArea
       pleneField = new JTextPane();
       pleneField.setDocument(new NikudStyledDocument(true));
       pleneField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      pleneField.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
-      pleneField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
+      pleneField.setFont(app.appFonts.hebrewFont.deriveFont(30F));
+      pleneField.setMinimumSize(new Dimension(app.settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel) / 2));
       pleneField.setMaximumSize(new Dimension(this.widthTotal,
             (heightTotal - heightBorderTitel) / 2));
@@ -331,9 +328,9 @@ public class InputLanguagePanel extends JTextArea
       defektivField = new JTextPane();
       defektivField.setDocument(new NikudStyledDocument(true));
       defektivField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      defektivField.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
+      defektivField.setFont(app.appFonts.hebrewFont.deriveFont(30F));
       defektivField
-            .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
+            .setMinimumSize(new Dimension(app.settings.getKeyboardWidth() - 30,
                   (heightTotal - heightBorderTitel) / 2));
       defektivField.setMaximumSize(new Dimension(this.widthTotal,
             (heightTotal - heightBorderTitel) / 2));
@@ -349,7 +346,7 @@ public class InputLanguagePanel extends JTextArea
       return vertical;
    }
 
-   private Component initSimpleHebrew()
+   private Component initSimpleHebrew(App app)
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
@@ -357,10 +354,10 @@ public class InputLanguagePanel extends JTextArea
       vertical.setOpaque(true);
 
       hebrewField = new JTextPane();
-      hebrewField.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
+      hebrewField.setFont(app.appFonts.hebrewFont.deriveFont(30F));
       hebrewField.setDocument(new NikudStyledDocument(true));
       hebrewField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      hebrewField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
+      hebrewField.setMinimumSize(new Dimension(app.settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel)));
       hebrewField.setMaximumSize(
             new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
@@ -386,7 +383,7 @@ public class InputLanguagePanel extends JTextArea
       pane.setParagraphAttributes(set, true);
    }
 
-   private Component initSwedish()
+   private Component initSwedish(App app)
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
@@ -398,9 +395,9 @@ public class InputLanguagePanel extends JTextArea
       swedishField.setLineWrap(true);
       swedishField.setDocument(new SwedishDocument(true));
       swedishField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-      swedishField.setFont(ApplicationFonts.germanFont.deriveFont(20F));
+      swedishField.setFont(app.appFonts.germanFont.deriveFont(20F));
       swedishField
-            .setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
+            .setMinimumSize(new Dimension(app.settings.getKeyboardWidth() - 30,
                   (heightTotal - heightBorderTitel)));
       swedishField.setMaximumSize(
             new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
@@ -415,7 +412,7 @@ public class InputLanguagePanel extends JTextArea
       return vertical;
    }
 
-   private Component initGerman()
+   private Component initGerman(App app)
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
@@ -427,8 +424,8 @@ public class InputLanguagePanel extends JTextArea
       germanField.setLineWrap(true);
       germanField.setDocument(new GermanDocument(true));
       germanField.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-      germanField.setFont(ApplicationFonts.germanFont.deriveFont(20F));
-      germanField.setMinimumSize(new Dimension(Settings.getKeyboardWidth() - 30,
+      germanField.setFont(app.appFonts.germanFont.deriveFont(20F));
+      germanField.setMinimumSize(new Dimension(app.settings.getKeyboardWidth() - 30,
             (heightTotal - heightBorderTitel)));
       germanField.setMaximumSize(
             new Dimension(this.widthTotal, (heightTotal - heightBorderTitel)));
@@ -443,7 +440,7 @@ public class InputLanguagePanel extends JTextArea
       return vertical;
    }
 
-   private void toggleNext()
+   private void toggleNext(App app)
    {
       switch (selection)
       {
@@ -463,7 +460,7 @@ public class InputLanguagePanel extends JTextArea
          break;
       }
 
-      Settings.setLanguageInput(selection);
+      app.settings.setLanguageInput(selection);
       keyboard.setKeyboardNoTextfield(selection);
    }
 

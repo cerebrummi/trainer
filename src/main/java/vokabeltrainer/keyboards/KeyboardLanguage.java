@@ -16,10 +16,10 @@ import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.InputLanguagePanel;
 import vokabeltrainer.InputLanguagePanel.Selection;
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -64,7 +64,7 @@ public class KeyboardLanguage extends JPanel
          }
          else
          {
-            textfield.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
+            textfield.setFont(AppFonts.hebrewFont.deriveFont(30F));
             textfield
                   .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             textfield.setMinimumSize(
@@ -172,7 +172,7 @@ public class KeyboardLanguage extends JPanel
       halfSizedFiller1.setMinimumSize(new Dimension(76, BUTTON_SIZE));
       halfSizedFiller1.setMaximumSize(new Dimension(76, BUTTON_SIZE));
       halfSizedFiller1.setOpaque(false);
-      halfSizedFiller1.setBackground(ApplicationColors.getTransparent());
+      halfSizedFiller1.setBackground(ColorBase.getTransparent());
       row1.add(halfSizedFiller1);
 
       row1.add(makeButton(NikudLetter.KUF));
@@ -192,7 +192,7 @@ public class KeyboardLanguage extends JPanel
       tinyFiller2.setMinimumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setMaximumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setOpaque(false);
-      tinyFiller2.setBackground(ApplicationColors.getTransparent());
+      tinyFiller2.setBackground(ColorBase.getTransparent());
       row2.add(tinyFiller2);
 
       row2.add(makeButton(NikudLetter.SCHIN));
@@ -214,7 +214,7 @@ public class KeyboardLanguage extends JPanel
       halfSizedFiller3.setMinimumSize(new Dimension(30, BUTTON_SIZE));
       halfSizedFiller3.setMaximumSize(new Dimension(30, BUTTON_SIZE));
       halfSizedFiller3.setOpaque(false);
-      halfSizedFiller3.setBackground(ApplicationColors.getTransparent());
+      halfSizedFiller3.setBackground(ColorBase.getTransparent());
       row3.add(halfSizedFiller3);
 
       row3.add(makeButton(NikudLetter.SSAIN));
@@ -287,7 +287,7 @@ public class KeyboardLanguage extends JPanel
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
-      filler.setBackground(ApplicationColors.getTransparent());
+      filler.setBackground(ColorBase.getTransparent());
 
       keyboard.add(filler);
       return keyboard;
@@ -306,7 +306,7 @@ public class KeyboardLanguage extends JPanel
    private Component makeButton(NikudLetter letter)
    {
       DataButton jButton = new DataButton(
-            ApplicationImages.getLetterIconsNikudMap().get(letter)
+            AppImages.getLetterIconsNikudMap().get(letter)
                   .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                         java.awt.Image.SCALE_SMOOTH),
             letter.getUnicode());
@@ -321,7 +321,7 @@ public class KeyboardLanguage extends JPanel
       buttonCaption.add(jButton);
       JLabel captionLabel = new JLabel(" ");
 
-      captionLabel.setFont(ApplicationFonts.germanFont.deriveFont(8F));
+      captionLabel.setFont(AppFonts.germanFont.deriveFont(8F));
       captionLabel.setMinimumSize(new Dimension(BUTTON_SIZE + 2, 5));
       captionLabel.setMaximumSize(new Dimension(BUTTON_SIZE + 2, 5));
 

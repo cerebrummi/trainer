@@ -1,7 +1,8 @@
 package vokabeltrainer.keyboards;
 
 import java.awt.ComponentOrientation;
-import vokabeltrainer.common.ApplicationFonts;
+
+import vokabeltrainer.common.main.AppFonts;
 
 public class DataButtonSwedish extends DataButton
 {
@@ -13,7 +14,7 @@ public class DataButtonSwedish extends DataButton
    {
       super(caption, data, ComponentOrientation.LEFT_TO_RIGHT);
       this.data = data;
-      this.setFont(ApplicationFonts.buttonFont);
+      this.setFont(AppFonts.buttonFont);
    }
 
    public String getData()

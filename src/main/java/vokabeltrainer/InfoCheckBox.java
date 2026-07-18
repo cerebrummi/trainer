@@ -2,22 +2,22 @@ package vokabeltrainer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
-import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.main.App;
 
 public class InfoCheckBox extends JCheckBox
 {
    private static final long serialVersionUID = 7704010484130304775L;
 
-   public InfoCheckBox()
+   public InfoCheckBox(App app)
    {
       setOpaque(false);
-      setBackground(ApplicationColors.getTransparent());
+      setBackground(app.appColors.getTransparent());
       this.setBorderPainted(true);
    }
 
-   public InfoCheckBox(String borderTitle)
+   public InfoCheckBox(App app, String borderTitle)
    {
-      this();
+      this(app);
       this.setBorder(BorderFactory.createTitledBorder(borderTitle));
    }
 

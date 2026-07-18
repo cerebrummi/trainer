@@ -10,9 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.TableColors;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.ImageData;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.types.Expression;
@@ -27,7 +27,7 @@ public class ExpressionCellRenderer2 implements TableCellRenderer
       content = new JPanel();
       TotemLayout layout = new TotemLayout(content, 15);
       content.setLayout(layout);
-      infos = new JLabel(new ImageIcon(ApplicationImages.getIcon_bulb()));
+      infos = new JLabel(new ImageIcon(AppImages.getIcon_bulb()));
       infos.setSize(60, 60);
       infos.setBorder(BorderFactory.createEmptyBorder());
 
@@ -42,17 +42,17 @@ public class ExpressionCellRenderer2 implements TableCellRenderer
       UUID uuid = expression.getUuid();
       if (ImageData.isImageForExpressionAvailable(uuid))
       {
-         infos.setIcon(new ImageIcon(ApplicationImages.getIcon_bulb_on()));
+         infos.setIcon(new ImageIcon(AppImages.getIcon_bulb_on()));
       }
       else
       {
-         infos.setIcon(new ImageIcon(ApplicationImages.getIcon_bulb()));
+         infos.setIcon(new ImageIcon(AppImages.getIcon_bulb()));
       }
 
       if (isSelected)
       {
          content.setBorder(BorderFactory
-               .createLineBorder(ApplicationColors.getSelectionGreen(), 3));
+               .createLineBorder(ColorBase.getSelectionGreen(), 3));
       }
       else
       {

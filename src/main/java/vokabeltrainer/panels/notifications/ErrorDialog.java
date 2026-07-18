@@ -7,8 +7,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.translation.Translation;
@@ -26,20 +26,20 @@ public class ErrorDialog extends JDialog
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical);
       vertical.setLayout(verticalLayout);
-      vertical.setBackground(ApplicationColors.getWhite());
+      vertical.setBackground(ColorBase.getWhite());
       vertical.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(ApplicationColors.getDarkRed()),
+            BorderFactory.createLineBorder(ColorBase.getDarkRed()),
             common.getTranslator()
                   .realisticTranslate(Translation.FEHLERMELDUNG)));
 
       JLabel rowA = new JLabel(textA);
-      rowA.setFont(ApplicationFonts.germanFont.deriveFont(24F));
+      rowA.setFont(AppFonts.germanFont.deriveFont(24F));
       JLabel rowB = new JLabel(textB);
-      rowB.setFont(ApplicationFonts.germanFont.deriveFont(20F));
+      rowB.setFont(AppFonts.germanFont.deriveFont(20F));
       JLabel rowC = new JLabel(middle);
-      rowC.setFont(ApplicationFonts.germanFont.deriveFont(20F));
+      rowC.setFont(AppFonts.germanFont.deriveFont(20F));
       JLabel rowD = new JLabel(textD);
-      rowD.setFont(ApplicationFonts.germanFont.deriveFont(16F));
+      rowD.setFont(AppFonts.germanFont.deriveFont(16F));
 
       vertical.add(rowA);
       vertical.add(new JPanel());

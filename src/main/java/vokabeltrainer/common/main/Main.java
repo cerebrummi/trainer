@@ -1,20 +1,12 @@
 package vokabeltrainer.common.main;
 
-import java.awt.FontFormatException;
 import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import vokabeltrainer.cmd.Mode;
-import vokabeltrainer.common.CerebrummiPreferences;
 import vokabeltrainer.resources.Blue;
-import vokabeltrainer.resources.Buchstabenbilder;
-import vokabeltrainer.resources.Fonts;
 import vokabeltrainer.resources.Gruen;
-import vokabeltrainer.resources.Images;
-import vokabeltrainer.resources.LetterIcons;
-import vokabeltrainer.resources.LetterIconsHandwritten;
-import vokabeltrainer.resources.Sounds;
 import vokabeltrainer.types.grammatical.Binjan;
 import vokabeltrainer.types.grammatical.Gender;
 import vokabeltrainer.types.grammatical.GrammaticalEnum.GrammaticalParentEnum;
@@ -27,13 +19,14 @@ public final class Main
 {
    static void main(String[] args)
    { 
-      Common common = new Common();
-      Model model = new Model();
       Mode mode = Mode.LOCAL_ORIGINAL;
+      App app = new App(mode);
       
+      Common common = new Common();
+           
       initEnums(common);
       
-      View view = initView(common, model, mode);
+      View view = initView(app, common, mode);
 
       SwingUtilities.invokeLater(() -> {
         view.startApp();
@@ -53,40 +46,11 @@ public final class Main
       ExpressionKind.setTranslator(common.getTranslator());
    }
 
-   private static View initView(Common common, Model model, Mode mode)
+   private static View initView(App app, Common common, Mode mode)
    {
-      CerebrummiPreferences.read(mode);
-
-      try
-      {
-         Fonts.read();
-      }
-      catch (FontFormatException | IOException e)
-      {
-         System.exit(1);
-      }
-
-      Fonts.define();
-
-      try
-      {
-         Images.read();
-         LetterIcons.readNikud();
-         LetterIconsHandwritten.readNikud();
-         Buchstabenbilder.read(common);
-      }
-      catch (IOException e1)
-      {
-         System.exit(1);
-      }
-
-      Sounds.read();
+      View view = new View(app, common, mode);
       
-      View view = new View(common, mode);
-      
-      model.initDatabase(common, view);
-      model.initImageData(common, view);
-      model.initSoundData(common, view);
+      Model model = new Model(app.settings, common, view);
       
       view.getMainJPanel().initContent(common, model, view);
       view.getMainJPanel().initController(common, model, view);

@@ -3,8 +3,8 @@ package vokabeltrainer.types;
 import java.time.LocalDate;
 import java.time.Period;
 
-import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Settings;
 
 public class TrainingStatus
 {

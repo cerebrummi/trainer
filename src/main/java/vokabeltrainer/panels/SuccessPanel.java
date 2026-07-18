@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.colors.SuccessColors;
+import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.success.LanguageTab;
@@ -37,7 +37,7 @@ public class SuccessPanel extends JPanel
       germanHebrewRegister = new JTabbedPane();
       germanHebrewRegister.setForeground(SuccessColors.getTextForeground());
       germanHebrewRegister
-            .setFont(ApplicationFonts.secondaryToolbarButtonFont);
+            .setFont(AppFonts.secondaryToolbarButtonFont);
       germanHebrewRegister.setTabPlacement(JTabbedPane.LEFT);
       germanHebrewRegister.setMinimumSize(new Dimension(1254, 613));
       germanHebrewRegister.setMaximumSize(new Dimension(1500, 800));

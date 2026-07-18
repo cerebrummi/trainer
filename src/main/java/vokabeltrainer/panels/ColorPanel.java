@@ -6,10 +6,10 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.resources.Buchstabenbilder;
 import vokabeltrainer.resources.LetterIcons;
@@ -36,14 +36,14 @@ public class ColorPanel extends JPanel
 
    private Component initChooseColormode()
    {
-      this.setBackground(ApplicationColors.getBackgroundGold());
+      this.setBackground(ColorBase.getBackgroundGold());
       JPanel horizontal = new JPanel();
       TrainLayout horizontalLayout = new TrainLayout(horizontal, 15);
       horizontal.setLayout(horizontalLayout);
       horizontal.setOpaque(false);
-      horizontal.setBackground(ApplicationColors.getTransparent());
+      horizontal.setBackground(ColorBase.getTransparent());
 
-      applyButton = new JButton(new ImageIcon(ApplicationImages.getDarkmode()));
+      applyButton = new JButton(new ImageIcon(AppImages.getDarkmode()));
 
       horizontal.add(applyButton);
 
@@ -65,7 +65,7 @@ public class ColorPanel extends JPanel
          this.repaint();
 
          view.getjFrame().getContentPane()
-               .setBackground(ApplicationColors.getBackgroundGold());
+               .setBackground(ColorBase.getBackgroundGold());
          view.getjFrame().getContentPane().validate();
          view.getjFrame().getContentPane().repaint();
 

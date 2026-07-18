@@ -33,12 +33,12 @@ import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.InputColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.table.EscapeAction;
 import vokabeltrainer.table.list.editor.images.ImageDropHandler;
@@ -84,7 +84,7 @@ public class PictureExpressionEditorView extends JDialog
             Math.min(screenSize.height - 60, 825));
 
       outerLayout = new JPanel();
-      outerLayout.setBackground(ApplicationColors.getShadyBlue());
+      outerLayout.setBackground(ColorBase.getShadyBlue());
       outerLayout.setBorder(BorderFactory
             .createLineBorder(InputColors.getEditorBackground(), 15, false));
       outerLayout.setLayout(new TotemLayout(outerLayout, 15));
@@ -104,7 +104,7 @@ public class PictureExpressionEditorView extends JDialog
          public void paintComponent(Graphics g)
          {
             super.paintComponent(g);
-            g.drawImage(ApplicationImages.getScroll(), 0, 0, this);
+            g.drawImage(AppImages.getScroll(), 0, 0, this);
          }
       };
       ExpanderLayout layout = new ExpanderLayout(imagePanel);
@@ -235,7 +235,7 @@ public class PictureExpressionEditorView extends JDialog
       JPopupMenu menu = new JPopupMenu();
 
       JMenuItem saveItem = new JMenuItem("Bild speichern");
-      saveItem.setFont(ApplicationFonts.buttonFont);
+      saveItem.setFont(AppFonts.buttonFont);
       saveItem.addActionListener(_ -> {
          item.setChecked(true);
          connector.saveImage(common, view, expression, item);
@@ -243,7 +243,7 @@ public class PictureExpressionEditorView extends JDialog
       });
 
       JMenuItem deleteItem = new JMenuItem("Bild löschen");
-      deleteItem.setFont(ApplicationFonts.buttonFont);
+      deleteItem.setFont(AppFonts.buttonFont);
       deleteItem.addActionListener(_ -> {
          item.setChecked(false);
          connector.deleteImage(expression, item);
@@ -263,7 +263,7 @@ public class PictureExpressionEditorView extends JDialog
       });
 
       JMenuItem removeFromListItem = new JMenuItem("Bild entfernen");
-      removeFromListItem.setFont(ApplicationFonts.buttonFont);
+      removeFromListItem.setFont(AppFonts.buttonFont);
       removeFromListItem.addActionListener(_ -> {
          DefaultListModel<ImageItem> model = (DefaultListModel<ImageItem>) imageList
                .getModel();

@@ -5,7 +5,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.TableColors;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.table.list.ExpressionList;
@@ -56,7 +56,7 @@ public class ExpressionCellRenderer implements TableCellRenderer
       if (isSelected)
       {
          list.setBorder(BorderFactory
-               .createLineBorder(ApplicationColors.getSelectionGreen(), 3));
+               .createLineBorder(ColorBase.getSelectionGreen(), 3));
       }
       else
       {

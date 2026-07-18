@@ -12,8 +12,8 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.colors.StatisticsColors;
+import vokabeltrainer.common.main.AppFonts;
 
 public class StatisticsTableCellRenderer
       implements TableCellRenderer, TableCellEditor
@@ -24,7 +24,7 @@ public class StatisticsTableCellRenderer
 
    public StatisticsTableCellRenderer()
    {
-      Font font = ApplicationFonts.germanFont.deriveFont(20F);
+      Font font = AppFonts.germanFont.deriveFont(20F);
       date = new JLabel();
       date.setFont(font);
       date.setOpaque(true);

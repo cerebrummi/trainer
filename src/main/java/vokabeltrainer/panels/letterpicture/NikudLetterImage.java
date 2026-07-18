@@ -5,9 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.AlefbetColors;
+import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
 
@@ -34,7 +34,7 @@ public interface NikudLetterImage {
             RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
             RenderingHints.VALUE_STROKE_PURE);
-        g2d.setFont(ApplicationFonts.hebrewFont.deriveFont(36f));
+        g2d.setFont(AppFonts.hebrewFont.deriveFont(36f));
         FontMetrics fm = g2d.getFontMetrics();
         fm = g2d.getFontMetrics();
         g2d.setColor(AlefbetColors.getButtonForeground());
@@ -57,7 +57,7 @@ public interface NikudLetterImage {
         BufferedImage finalImg = new BufferedImage(50, 50,
             BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = finalImg.createGraphics();
-        g2d.setColor(ApplicationColors.getTexturedBackgroundColor());
+        g2d.setColor(ColorBase.getTexturedBackgroundColor());
         g2d.fillRect(0, 0, 50, 50);
         g2d.dispose();
         return finalImg;

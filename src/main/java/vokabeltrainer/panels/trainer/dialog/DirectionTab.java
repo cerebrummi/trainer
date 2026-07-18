@@ -13,9 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -48,7 +48,7 @@ public class DirectionTab extends JPanel
       JLabel question = new JLabel(translator.realisticTranslate(
             Translation.IN_WELCHER_RICHTUNG_WOLLEN_SIE_LERNEN_));
       question.setForeground(TrainerColors.getTextForeground());
-      question.setFont(ApplicationFonts.buttonFont);
+      question.setFont(AppFonts.buttonFont);
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
       add(question, BorderLayout.NORTH);
@@ -68,41 +68,41 @@ public class DirectionTab extends JPanel
             translator.realisticTranslate(Translation.DEUTSCH) + " >> "
                   + translator.realisticTranslate(Translation.HEBRAEISCH_));
       ownToNikudButton.setForeground(TrainerColors.getTextForeground());
-      ownToNikudButton.setFont(ApplicationFonts.toolbarButtonFont);
+      ownToNikudButton.setFont(AppFonts.toolbarButtonFont);
       directionGroup.add(ownToNikudButton);
 
       hebrewToOwnButton = new JRadioButton(
             translator.realisticTranslate(Translation.HEBRAEISCH_) + " >> "
                   + translator.realisticTranslate(Translation.DEUTSCH));
       hebrewToOwnButton.setForeground(TrainerColors.getTextForeground());
-      hebrewToOwnButton.setFont(ApplicationFonts.toolbarButtonFont);
+      hebrewToOwnButton.setFont(AppFonts.toolbarButtonFont);
       directionGroup.add(hebrewToOwnButton);
 
       ownToSwedishButton = new JRadioButton(
             translator.realisticTranslate(Translation.DEUTSCH) + " >> "
                   + translator.realisticTranslate(Translation.SCHWEDISCH));
       ownToSwedishButton.setForeground(TrainerColors.getTextForeground());
-      ownToSwedishButton.setFont(ApplicationFonts.toolbarButtonFont);
+      ownToSwedishButton.setFont(AppFonts.toolbarButtonFont);
       directionGroup.add(ownToSwedishButton);
 
       swedishToOwnButton = new JRadioButton(
             translator.realisticTranslate(Translation.SCHWEDISCH) + " >> "
                   + translator.realisticTranslate(Translation.DEUTSCH));
-      swedishToOwnButton.setFont(ApplicationFonts.toolbarButtonFont);
+      swedishToOwnButton.setFont(AppFonts.toolbarButtonFont);
       swedishToOwnButton.setForeground(TrainerColors.getTextForeground());
       directionGroup.add(swedishToOwnButton);
 
       ownToGermanButton = new JRadioButton(
             translator.realisticTranslate(Translation.DEUTSCH) + " >> "
                   + translator.realisticTranslate(Translation.GERMAN));
-      ownToGermanButton.setFont(ApplicationFonts.toolbarButtonFont);
+      ownToGermanButton.setFont(AppFonts.toolbarButtonFont);
       ownToGermanButton.setForeground(TrainerColors.getTextForeground());
       directionGroup.add(ownToGermanButton);
 
       germanToOwnButton = new JRadioButton(
             translator.realisticTranslate(Translation.GERMAN) + " >> "
                   + translator.realisticTranslate(Translation.DEUTSCH));
-      germanToOwnButton.setFont(ApplicationFonts.toolbarButtonFont);
+      germanToOwnButton.setFont(AppFonts.toolbarButtonFont);
       germanToOwnButton.setForeground(TrainerColors.getTextForeground());
       directionGroup.add(germanToOwnButton);
 
@@ -124,17 +124,17 @@ public class DirectionTab extends JPanel
 
       cancelButton = new JButton(
             translator.realisticTranslate(Translation.ABBRECHEN));
-      cancelButton.setFont(ApplicationFonts.buttonFont);
+      cancelButton.setFont(AppFonts.buttonFont);
       cancelButton.setBackground(TrainerColors.getButton());
       cancelButton.setForeground(TrainerColors.getButtonForeground());
-      cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
+      cancelButton.setIcon(new ImageIcon(AppImages.getCancel()));
 
       nextButton = new JButton(
             translator.realisticTranslate(Translation.WEITER));
-      nextButton.setFont(ApplicationFonts.buttonFont);
+      nextButton.setFont(AppFonts.buttonFont);
       nextButton.setBackground(TrainerColors.getButton());
       nextButton.setForeground(TrainerColors.getButtonForeground());
-      nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));
+      nextButton.setIcon(new ImageIcon(AppImages.getArrow()));
       nextButton.setEnabled(false);
 
       buttonWrapper.add(cancelButton);
@@ -185,7 +185,7 @@ public class DirectionTab extends JPanel
             dialog.getTabbedPane().addTab(
                   translator
                         .realisticTranslate(Translation.DATENBANKEN_ANSEHEN),
-                  new ImageIcon(ApplicationImages.getArrow()),
+                  new ImageIcon(AppImages.getArrow()),
                   new DatabaseTab(common, dialog));
          }
          else
@@ -193,7 +193,7 @@ public class DirectionTab extends JPanel
             dialog.setDatabaseNames(null);
             dialog.getTabbedPane().addTab(
                   translator.realisticTranslate(Translation.WIE_VIELE),
-                  new ImageIcon(ApplicationImages.getArrow()),
+                  new ImageIcon(AppImages.getArrow()),
                   new AmountTab(common, dialog));
          }
          dialog.getTabbedPane().setSelectedIndex(2);

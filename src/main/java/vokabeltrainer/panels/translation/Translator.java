@@ -1,6 +1,6 @@
 package vokabeltrainer.panels.translation;
 
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.Settings;
 
 public class Translator
 {

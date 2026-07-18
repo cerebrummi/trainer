@@ -4,35 +4,41 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 
-import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.main.AppFonts;
 
-public interface Fonts
+public class Fonts
 {
+   private AppFonts appFonts = new AppFonts();
 
-   static void read() throws FontFormatException, IOException
+   public void read() throws FontFormatException, IOException
    {
       // Windows accepts the forward slash and Linux, too.
-      ApplicationFonts.hebrewFont = Font.createFont(Font.TRUETYPE_FONT,
+      this.appFonts.hebrewFont = Font.createFont(Font.TRUETYPE_FONT,
             Fonts.class.getResourceAsStream("_1_fonts/Cardo-regular_104s.ttf"));
-      ApplicationFonts.germanFont = Font.createFont(Font.TRUETYPE_FONT,
+      this.appFonts.germanFont = Font.createFont(Font.TRUETYPE_FONT,
             Fonts.class.getResourceAsStream("_1_fonts/Orkney Light.ttf"));
-      ApplicationFonts.germanBoldFont = Font.createFont(Font.TRUETYPE_FONT,
+      this.appFonts.germanBoldFont = Font.createFont(Font.TRUETYPE_FONT,
             Fonts.class.getResourceAsStream("_1_fonts/Orkney Medium.ttf"));
-      ApplicationFonts.hebrewHandwrittenFont = Font.createFont(
+      this.appFonts.hebrewHandwrittenFont = Font.createFont(
             Font.TRUETYPE_FONT,
             Fonts.class.getResourceAsStream("_1_fonts/AdaAdama.ttf"));
    }
 
-   static void define()
+   public void define()
    {
-      ApplicationFonts.buttonFont = ApplicationFonts.germanFont.deriveFont(16F);
-      ApplicationFonts.toolbarButtonFont = ApplicationFonts.germanFont
+      this.appFonts.buttonFont = this.appFonts.germanFont.deriveFont(16F);
+      this.appFonts.toolbarButtonFont = this.appFonts.germanFont
             .deriveFont(26F);
-      ApplicationFonts.secondaryToolbarButtonFont = ApplicationFonts.germanFont
+      this.appFonts.secondaryToolbarButtonFont = this.appFonts.germanFont
             .deriveFont(18F);
-      ApplicationFonts.radioButtonFont = ApplicationFonts.germanFont
+      this.appFonts.radioButtonFont = this.appFonts.germanFont
             .deriveFont(12F);
-      ApplicationFonts.comboBoxFont = ApplicationFonts.germanFont
+      this.appFonts.comboBoxFont = this.appFonts.germanFont
             .deriveFont(14F);
+   }
+
+   public AppFonts getAppFonts()
+   {
+      return appFonts;
    }
 }

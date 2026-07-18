@@ -14,9 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import vokabeltrainer.TrashCanBackgroundPanel;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.colors.DictionaryColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.notifications.EmptyNotification;
@@ -86,31 +86,31 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       selectAllInTableButton = new JButton(translator
             .realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
-      selectAllInTableButton.setFont(ApplicationFonts.buttonFont);
+      selectAllInTableButton.setFont(AppFonts.buttonFont);
       selectAllInTableButton
             .setForeground(DictionaryColors.getButtonForeground());
       selectAllInTableButton.setBackground(DictionaryColors.getBackground());
       selectAllInTableButton
-            .setIcon(new ImageIcon(ApplicationImages.getSelect()));
+            .setIcon(new ImageIcon(AppImages.getSelect()));
 
       clearInTableSelectedButton = new JButton(translator
             .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
-      clearInTableSelectedButton.setFont(ApplicationFonts.buttonFont);
+      clearInTableSelectedButton.setFont(AppFonts.buttonFont);
       clearInTableSelectedButton
             .setForeground(DictionaryColors.getButtonForeground());
       clearInTableSelectedButton
             .setBackground(DictionaryColors.getBackground());
       clearInTableSelectedButton
-            .setIcon(new ImageIcon(ApplicationImages.getClear()));
+            .setIcon(new ImageIcon(AppImages.getClear()));
 
       restoreButton = new JButton(translator
             .realisticTranslate(Translation.AUSWAHL_WIEDER_HERSTELLEN));
       restoreButton.setHorizontalAlignment(SwingConstants.LEFT);
-      restoreButton.setFont(ApplicationFonts.buttonFont);
+      restoreButton.setFont(AppFonts.buttonFont);
       restoreButton.setForeground(DictionaryColors.getButtonForeground());
       restoreButton.setBackground(DictionaryColors.getBackground());
-      restoreButton.setIcon(new ImageIcon(ApplicationImages.getRestore()));
+      restoreButton.setIcon(new ImageIcon(AppImages.getRestore()));
 
       vertical.add(selectAllInTableButton);
       vertical.add(clearInTableSelectedButton);

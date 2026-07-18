@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.main.AppImages;
 
 public class ImagePanelStart extends JPanel
 {
@@ -17,7 +17,7 @@ public class ImagePanelStart extends JPanel
 
       int x = this.getParent().getWidth() / 2 - 501 / 2;
       int y = this.getParent().getHeight() / 2 - 210 / 2;
-      g.drawImage(ApplicationImages.getStartImage(), x, y, this);
+      g.drawImage(AppImages.getStartImage(), x, y, this);
    }
 
 }

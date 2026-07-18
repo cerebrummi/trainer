@@ -13,8 +13,8 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.AbstractAction;
 
-import vokabeltrainer.common.ApplicationSound;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.AppSounds;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.SwedishLetter;
 import vokabeltrainer.types.Expression;
@@ -64,7 +64,7 @@ public class SoundAction extends AbstractAction
       {
          AudioInputStream stream = new AudioInputStream(
                new ByteArrayInputStream(letter.getSound()),
-               ApplicationSound.audioFormat2, letter.getSound().length);
+               AppSounds.audioFormat2, letter.getSound().length);
          inputStreams.add(stream);
          frameLength += stream.getFrameLength();
       }
@@ -77,7 +77,7 @@ public class SoundAction extends AbstractAction
          Clip clip = AudioSystem.getClip();
 
          clip.open(new AudioInputStream(sequenceInputStream,
-               ApplicationSound.audioFormat, frameLength));
+               AppSounds.audioFormat, frameLength));
          FloatControl volume = (FloatControl) clip
                .getControl(FloatControl.Type.MASTER_GAIN);
          volume.setValue(Settings.getVolume());

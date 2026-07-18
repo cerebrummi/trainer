@@ -1,4 +1,4 @@
-package vokabeltrainer.common;
+package vokabeltrainer.common.main;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -26,52 +26,54 @@ public class Settings
       WINDOWS, LINUX
    }
 
-   private static boolean soundOn = false;
-   private static String chosenExpressionPath = null;
-   private static float volume = -20;
-   private static boolean letterImagesOn = true;
-   private static Selection languageInput = readLanguageInput();
-   private static String version = "8.1";
+   private  boolean soundOn = false;
+   private  String chosenExpressionPath = null;
+   private  float volume = -20;
+   private  boolean letterImagesOn = true;
+   private  Selection languageInput = readLanguageInput();
+   private  String version = "8.1";
 
-   private static LinkedList<Database> oldChosenDatabases = new LinkedList<>();
-   private static LinkedList<Database> chosenDatabases = new LinkedList<>();
-   private static Database[] availableDatabases;
-   private static Database[] availableDatabasesOriginal = {
+   private  LinkedList<Database> oldChosenDatabases = new LinkedList<>();
+   private  LinkedList<Database> chosenDatabases = new LinkedList<>();
+   private  Database[] availableDatabases;
+   private  Database[] availableDatabasesOriginal = {
          Database.GRUNDWORTSCHATZ };
-   static
+   
    {
       availableDatabases = availableDatabasesOriginal;
    }
-   private static String rememberDatabaseForInput = "";
-   private static String rememberChapterForInput = "";
+   private  String rememberDatabaseForInput = "";
+   private  String rememberChapterForInput = "";
 
-   private static TranslationCode translationCode = TranslationCode.de_original;
+   private  TranslationCode translationCode = TranslationCode.de_original;
 
-   private static boolean repetition_now = true;
-   private static boolean repetition_one_day;
-   private static boolean repetition_two_days;
-   private static boolean repetition_five_days;
-   private static boolean repetition_eleven_days;
-   private static boolean repetition_nineteen_days;
-   private static boolean repetition_one_month;
-   private static boolean repetition_two_months;
-   private static boolean repetition_five_months;
-   private static boolean repetition_done = true;
+   private  boolean repetition_now = true;
+   private  boolean repetition_one_day;
+   private  boolean repetition_two_days;
+   private  boolean repetition_five_days;
+   private  boolean repetition_eleven_days;
+   private  boolean repetition_nineteen_days;
+   private  boolean repetition_one_month;
+   private  boolean repetition_two_months;
+   private  boolean repetition_five_months;
+   private  boolean repetition_done = true;
 
-   private static boolean schabbat_modus = false;
+   private  boolean schabbat_modus = false;
 
-   private static boolean darkmodeOn = false;
+   private  boolean darkmodeOn = false;
 
-   private static WritingDirection myWritingDirection = readMyWritingDirection();
+   private  WritingDirection myWritingDirection = readMyWritingDirection();
 
-   private static OperatingSystem operatingSystem = figureBetriebssystem();
+   private  OperatingSystem operatingSystem = figureBetriebssystem();
 
-   private Settings()
+   private App app;
+   
+   Settings(App app)
    {
-
+      this.app = app;
    }
 
-   private static OperatingSystem figureBetriebssystem()
+   private  OperatingSystem figureBetriebssystem()
    {
       if ("\\".equalsIgnoreCase(File.separator))
       {
@@ -80,42 +82,42 @@ public class Settings
       return OperatingSystem.LINUX;
    }
 
-   public static OperatingSystem getOperatingSystem()
+   public  OperatingSystem getOperatingSystem()
    {
       return operatingSystem;
    }
 
-   public static String getVersion()
+   public  String getVersion()
    {
       return version;
    }
 
-   public static int dictionaryTableRowHeight()
+   public  int dictionaryTableRowHeight()
    {
       return 250;
    }
 
-   public static LanguageSettings getLanguage()
+   public  LanguageSettings getLanguage()
    {
       return LanguageSettings.GERMAN;
    }
 
-   public static String getExpressionFolder()
+   public  String getExpressionFolder()
    {
       return "cerebrummi-hebrewtrainer";
    }
 
-   public static String getWebExportFolder()
+   public  String getWebExportFolder()
    {
       return ""; // The server sets the folder
    }
 
-   public static String getWebExportPath()
+   public  String getWebExportPath()
    {
       return getWebExportFolder(); // The server sets the path ?
    }
 
-   public static String getExpressionPath()
+   public  String getExpressionPath()
    {
       if (chosenExpressionPath == null || chosenExpressionPath.isBlank())
       {
@@ -124,7 +126,7 @@ public class Settings
       return chosenExpressionPath;
    }
    
-   public static void setBackExpressionPath()
+   public  void setBackExpressionPath()
    {
       String home = System.getProperty("user.home");
       Preferences preferences = Preferences.userRoot()
@@ -132,89 +134,89 @@ public class Settings
       preferences.put(CerebrummiNodes.getChoosenExpressionPathNode(),
             home);
 
-      Settings.chosenExpressionPath = home;
+      chosenExpressionPath = home;
    }
    
-   public static void setChoosenExpressionPath(String choosenExpressionPath)
+   public  void setChoosenExpressionPath(String choosenExpressionPath)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.put(CerebrummiNodes.getChoosenExpressionPathNode(),
             choosenExpressionPath);
 
-      Settings.chosenExpressionPath = choosenExpressionPath;
+      chosenExpressionPath = choosenExpressionPath;
    }
 
-   public static String getExpressionPathFolder()
+   public  String getExpressionPathFolder()
    {
       return getExpressionPath() + File.separator + getExpressionFolder();
    }
 
-   public static String getTrainingPath()
+   public  String getTrainingPath()
    {
       return getExpressionPath() + File.separator + getTrainingFolder();
    }
 
-   private static String getTrainingFolder()
+   private  String getTrainingFolder()
    {
       return getExpressionFolder() + "-training";
    }
 
-   public static String getImagePath()
+   public  String getImagePath()
    {
       return getExpressionPath() + File.separator + getImageFolder();
    }
 
-   private static String getImageFolder()
+   private  String getImageFolder()
    {
       return getExpressionFolder() + "-images";
    }
 
-   public static String getSoundPath()
+   public  String getSoundPath()
    {
       return getExpressionPath() + File.separator + getSoundFolder();
    }
 
-   private static String getSoundFolder()
+   private  String getSoundFolder()
    {
       return getExpressionFolder() + "-sounds";
    }
 
-   public static String getTranslationPath()
+   public  String getTranslationPath()
    {
       return getExpressionPath() + File.separator + getTranslationFolder();
    }
 
-   private static String getTranslationFolder()
+   private  String getTranslationFolder()
    {
       return getExpressionFolder() + "-languages";
    }
 
-   public static int getKeyboardWidth()
+   public  int getKeyboardWidth()
    {
       return 474;
    }
 
-   public static String getWindowTitle()
+   public  String getWindowTitle()
    {
       return "Cerebrummi";
    }
 
-   public static BufferedImage getSound()
+   public  BufferedImage getSound()
    {
       if (soundOn)
       {
-         return ApplicationImages.getSoundOn();
+         return app.appImages.getSoundOn();
       }
-      return ApplicationImages.getSoundOff();
+      return app.appImages.getSoundOff();
    }
 
-   public static boolean isSoundOn()
+   public  boolean isSoundOn()
    {
       return soundOn;
    }
 
-   public static void toggleSoundOnOff()
+   public  void toggleSoundOnOff()
    {
       soundOn = !soundOn;
       Preferences preferences = Preferences.userRoot()
@@ -222,28 +224,28 @@ public class Settings
       preferences.putBoolean(CerebrummiNodes.getSoundNode(), soundOn);
    }
 
-   public static void setSoundOn(boolean soundOn)
+   public  void setSoundOn(boolean soundOn)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getSoundNode(), soundOn);
-      Settings.soundOn = soundOn;
+      this.soundOn = soundOn;
    }
 
-   public static boolean isDarkmodeOn()
+   public  boolean isDarkmodeOn()
    {
       return darkmodeOn;
    }
 
-   public static void setDarkmodeOn(boolean darkmodeOn)
+   public  void setDarkmodeOn(boolean darkmodeOn)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getDarkmodeNode(), darkmodeOn);
-      Settings.darkmodeOn = darkmodeOn;
+      this.darkmodeOn = darkmodeOn;
    }
 
-   public static void toggleDarkmodeOn()
+   public  void toggleDarkmodeOn()
    {
       darkmodeOn = !darkmodeOn;
       Preferences preferences = Preferences.userRoot()
@@ -251,26 +253,26 @@ public class Settings
       preferences.putBoolean(CerebrummiNodes.getDarkmodeNode(), darkmodeOn);
    }
 
-   public static void setTranslationCode(TranslationCode translationCode)
+   public  void setTranslationCode(TranslationCode translationCode)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.put(CerebrummiNodes.getTranslationLanguage(),
             translationCode.name());
-      Settings.translationCode = translationCode;
+      this.translationCode = translationCode;
    }
 
-   public static TranslationCode getTranslationCode()
+   public  TranslationCode getTranslationCode()
    {
       return translationCode;
    }
 
-   public static boolean isLetterImagesOn()
+   public  boolean isLetterImagesOn()
    {
       return letterImagesOn;
    }
 
-   public static void toggleLetterImagesOnOff()
+   public  void toggleLetterImagesOnOff()
    {
       letterImagesOn = !letterImagesOn;
       Preferences preferences = Preferences.userRoot()
@@ -279,34 +281,34 @@ public class Settings
             letterImagesOn);
    }
 
-   public static void setLetterImagesOn(boolean letterImagesOn)
+   public  void setLetterImagesOn(boolean letterImagesOn)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getLetterPicturesNode(),
             letterImagesOn);
-      Settings.letterImagesOn = letterImagesOn;
+      this.letterImagesOn = letterImagesOn;
    }
 
 
 
-   public static void setChosenDatabases(List<Database> chosenDatabases)
+   public  void setChosenDatabases(List<Database> chosenDatabases)
    {
-      Settings.chosenDatabases = new LinkedList<>();
-      Settings.chosenDatabases.addAll(chosenDatabases);
+      chosenDatabases = new LinkedList<>();
+      chosenDatabases.addAll(chosenDatabases);
    }
 
-   public static boolean isDatabaseChoosen(Database database)
+   public  boolean isDatabaseChoosen(Database database)
    {
-      return Settings.chosenDatabases.contains(database);
+      return chosenDatabases.contains(database);
    }
 
-   public static LinkedList<Database> getChosenDatabases()
+   public  LinkedList<Database> getChosenDatabases()
    {
-      return Settings.chosenDatabases;
+      return chosenDatabases;
    }
 
-   public static void addChosenDatabase(Database chosen)
+   public  void addChosenDatabase(Database chosen)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
@@ -324,10 +326,10 @@ public class Settings
       preferences = preferences.node(CerebrummiNodes.getChoosenDatabases());
       preferences.putBoolean(chosen.name().toLowerCase(), true);
 
-      Settings.chosenDatabases.add(chosen);
+      chosenDatabases.add(chosen);
    }
 
-   public static void removeChosenDatabase(Database chosen)
+   public  void removeChosenDatabase(Database chosen)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
@@ -346,94 +348,94 @@ public class Settings
 
       preferences.putBoolean(chosen.name().toLowerCase(), false);
 
-      Settings.chosenDatabases.remove(chosen);
+      chosenDatabases.remove(chosen);
    }
 
-   public static LinkedList<Database> getOldChosenDatabases()
+   public  LinkedList<Database> getOldChosenDatabases()
    {
       return oldChosenDatabases;
    }
 
-   public static void setOldChosenDatabases(
+   public  void setOldChosenDatabases(
          LinkedList<Database> oldChosenDatabases)
    {
-      Settings.oldChosenDatabases = oldChosenDatabases;
+      this.oldChosenDatabases = oldChosenDatabases;
    }
 
-   public static float getVolume()
+   public  float getVolume()
    {
       return volume;
    }
 
-   public static void setVolume(float volume)
+   public  void setVolume(float volume)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putInt(CerebrummiNodes.getVolumeNode(), (int) volume);
-      Settings.volume = volume;
+      this.volume = volume;
    }
 
-   public static List<Database> getAvailableDatabases()
+   public  List<Database> getAvailableDatabases()
    {
       return Arrays.asList(availableDatabases);
    }
 
-   public static Database[] getAvailableDatabasesAsArray()
+   public  Database[] getAvailableDatabasesAsArray()
    {
       return availableDatabases;
    }
 
-   public static boolean isSimpleHebrewInput()
+   public  boolean isSimpleHebrewInput()
    {
       return languageInput == Selection.SIMPLE;
    }
 
-   public static boolean isHebrewPleneDefektivInput()
+   public  boolean isHebrewPleneDefektivInput()
    {
       return languageInput == Selection.PLENE_DEFEKTIV;
    }
 
-   public static boolean isSwedishInput()
+   public  boolean isSwedishInput()
    {
       return languageInput == Selection.SWEDISH;
    }
 
-   public static boolean isGermanInput()
+   public  boolean isGermanInput()
    {
       return languageInput == Selection.GERMAN;
    }
 
-   public static void setLanguageInput(Selection selection)
+   public  void setLanguageInput(Selection selection)
    {
-      Settings.languageInput = selection;
+      languageInput = selection;
 
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.put(CerebrummiNodes.getLanguageNode(),
-            Settings.languageInput.name());
+            languageInput.name());
    }
 
-   public static Selection getLanguageInput()
+   public  Selection getLanguageInput()
    {
       return languageInput;
    }
 
-   public static WritingDirection getMyWritingDirection()
+   public  WritingDirection getMyWritingDirection()
    {
       return myWritingDirection;
    }
 
-   public static void setMyWritingDirection(WritingDirection myWritingDirection)
+   public  void setMyWritingDirection(WritingDirection myWritingDirection)
    {
-      Settings.myWritingDirection = myWritingDirection;
+      this.myWritingDirection = myWritingDirection;
 
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.put(CerebrummiNodes.getWritingDirectionNode(),
-            Settings.myWritingDirection.name());
+            myWritingDirection.name());
    }
 
-   public static WritingDirection readMyWritingDirection()
+   public  WritingDirection readMyWritingDirection()
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
@@ -449,7 +451,7 @@ public class Settings
       return WritingDirection.valueOf(s);
    }
 
-   public static Selection readLanguageInput()
+   public  Selection readLanguageInput()
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
@@ -465,25 +467,25 @@ public class Settings
       return Selection.valueOf(s);
    }
 
-   public static String getRememberDatabaseForInput()
+   public  String getRememberDatabaseForInput()
    {
       return rememberDatabaseForInput;
    }
 
-   public static void setRememberDatabaseForInput(
+   public  void setRememberDatabaseForInput(
          String rememberDatabaseForInput)
    {
-      Settings.rememberDatabaseForInput = rememberDatabaseForInput;
+      this.rememberDatabaseForInput = rememberDatabaseForInput;
    }
 
-   public static String getRememberChapterForInput()
+   public  String getRememberChapterForInput()
    {
       return rememberChapterForInput;
    }
 
-   public static void setRememberChapterForInput(String rememberChapterForInput)
+   public  void setRememberChapterForInput(String rememberChapterForInput)
    {
-      Settings.rememberChapterForInput = rememberChapterForInput;
+      this.rememberChapterForInput = rememberChapterForInput;
    }
 
    public boolean isRepetition_now()
@@ -491,192 +493,192 @@ public class Settings
       return repetition_now;
    }
 
-   public static void setRepetition_now(boolean repetition_now)
+   public  void setRepetition_now(boolean repetition_now)
    {
       // nothing
    }
 
-   public static boolean isRepetition_one_day()
+   public  boolean isRepetition_one_day()
    {
-      return Settings.repetition_one_day;
+      return repetition_one_day;
    }
 
-   public static void setRepetition_one_day(boolean repetition_one_day)
+   public  void setRepetition_one_day(boolean repetition_one_day)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getRepetitionOneDay(),
             repetition_one_day);
-      Settings.repetition_one_day = repetition_one_day;
+      this.repetition_one_day = repetition_one_day;
    }
 
-   public static void initRepetition_one_day(boolean repetition_one_day)
+   public  void initRepetition_one_day(boolean repetition_one_day)
    {
-      Settings.repetition_one_day = repetition_one_day;
+      this.repetition_one_day = repetition_one_day;
    }
 
-   public static boolean isRepetition_two_days()
+   public  boolean isRepetition_two_days()
    {
-      return Settings.repetition_two_days;
+      return repetition_two_days;
    }
 
-   public static void setRepetition_two_days(boolean repetition_two_days)
+   public  void setRepetition_two_days(boolean repetition_two_days)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getRepetitionTwoDays(),
             repetition_two_days);
-      Settings.repetition_two_days = repetition_two_days;
+      this.repetition_two_days = repetition_two_days;
    }
 
-   public static void initRepetition_two_days(boolean repetition_two_days)
+   public  void initRepetition_two_days(boolean repetition_two_days)
    {
-      Settings.repetition_two_days = repetition_two_days;
+      this.repetition_two_days = repetition_two_days;
    }
 
-   public static boolean isRepetition_five_days()
+   public  boolean isRepetition_five_days()
    {
-      return Settings.repetition_five_days;
+      return repetition_five_days;
    }
 
-   public static void setRepetition_five_days(boolean repetition_five_days)
+   public  void setRepetition_five_days(boolean repetition_five_days)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getRepetitionFiveDays(),
             repetition_five_days);
-      Settings.repetition_five_days = repetition_five_days;
+      this.repetition_five_days = repetition_five_days;
    }
 
-   public static void initRepetition_five_days(boolean repetition_five_days)
+   public  void initRepetition_five_days(boolean repetition_five_days)
    {
-      Settings.repetition_five_days = repetition_five_days;
+      this.repetition_five_days = repetition_five_days;
    }
 
-   public static boolean isRepetition_eleven_days()
+   public  boolean isRepetition_eleven_days()
    {
-      return Settings.repetition_eleven_days;
+      return repetition_eleven_days;
    }
 
-   public static void setRepetition_eleven_days(boolean repetition_eleven_days)
+   public  void setRepetition_eleven_days(boolean repetition_eleven_days)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getRepetitionElevenDays(),
             repetition_eleven_days);
-      Settings.repetition_eleven_days = repetition_eleven_days;
+      this.repetition_eleven_days = repetition_eleven_days;
    }
 
-   public static void initRepetition_eleven_days(boolean repetition_eleven_days)
+   public  void initRepetition_eleven_days(boolean repetition_eleven_days)
    {
-      Settings.repetition_eleven_days = repetition_eleven_days;
+      this.repetition_eleven_days = repetition_eleven_days;
    }
 
-   public static boolean isRepetition_nineteen_days()
+   public  boolean isRepetition_nineteen_days()
    {
-      return Settings.repetition_nineteen_days;
+      return repetition_nineteen_days;
    }
 
-   public static void setRepetition_nineteen_days(
+   public  void setRepetition_nineteen_days(
          boolean repetition_nineteen_days)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getRepetitionNineteenDays(),
             repetition_nineteen_days);
-      Settings.repetition_nineteen_days = repetition_nineteen_days;
+      this.repetition_nineteen_days = repetition_nineteen_days;
    }
 
-   public static void initRepetition_nineteen_days(
+   public  void initRepetition_nineteen_days(
          boolean repetition_nineteen_days)
    {
-      Settings.repetition_nineteen_days = repetition_nineteen_days;
+      this.repetition_nineteen_days = repetition_nineteen_days;
    }
 
-   public static boolean isRepetition_one_month()
+   public  boolean isRepetition_one_month()
    {
-      return Settings.repetition_one_month;
+      return repetition_one_month;
    }
 
-   public static void setRepetition_one_month(boolean repetition_one_month)
+   public  void setRepetition_one_month(boolean repetition_one_month)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getRepetitionOneMonth(),
             repetition_one_month);
-      Settings.repetition_one_month = repetition_one_month;
+      this.repetition_one_month = repetition_one_month;
    }
 
-   public static void initRepetition_one_month(boolean repetition_one_month)
+   public  void initRepetition_one_month(boolean repetition_one_month)
    {
-      Settings.repetition_one_month = repetition_one_month;
+      this.repetition_one_month = repetition_one_month;
    }
 
-   public static boolean isRepetition_two_months()
+   public  boolean isRepetition_two_months()
    {
-      return Settings.repetition_two_months;
+      return repetition_two_months;
    }
 
-   public static void setRepetition_two_months(boolean repetition_two_months)
+   public  void setRepetition_two_months(boolean repetition_two_months)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getRepetitionTwoMonths(),
             repetition_two_months);
-      Settings.repetition_two_months = repetition_two_months;
+      this.repetition_two_months = repetition_two_months;
    }
 
-   public static void initRepetition_two_months(boolean repetition_two_months)
+   public  void initRepetition_two_months(boolean repetition_two_months)
    {
-      Settings.repetition_two_months = repetition_two_months;
+      this.repetition_two_months = repetition_two_months;
    }
 
-   public static boolean isRepetition_five_months()
+   public  boolean isRepetition_five_months()
    {
-      return Settings.repetition_five_months;
+      return repetition_five_months;
    }
 
-   public static void setRepetition_five_months(boolean repetition_five_months)
+   public  void setRepetition_five_months(boolean repetition_five_months)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getRepetitionFiveMonths(),
             repetition_five_months);
-      Settings.repetition_five_months = repetition_five_months;
+      this.repetition_five_months = repetition_five_months;
    }
 
-   public static void initRepetition_five_months(boolean repetition_five_months)
+   public  void initRepetition_five_months(boolean repetition_five_months)
    {
-      Settings.repetition_five_months = repetition_five_months;
+      this.repetition_five_months = repetition_five_months;
    }
 
-   public static boolean isRepetition_done()
+   public  boolean isRepetition_done()
    {
-      return Settings.repetition_done;
+      return repetition_done;
    }
 
-   public static void setRepetition_done(boolean repetition_done)
+   public  void setRepetition_done(boolean repetition_done)
    {
       // nothing
    }
 
-   public static boolean isSchabbat_modus()
+   public  boolean isSchabbat_modus()
    {
-      return Settings.schabbat_modus;
+      return schabbat_modus;
    }
 
-   public static void setSchabbat_modus(boolean schabbat_modus)
+   public  void setSchabbat_modus(boolean schabbat_modus)
    {
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getSchabbatModus(),
             schabbat_modus);
-      Settings.schabbat_modus = schabbat_modus;
+      this.schabbat_modus = schabbat_modus;
    }
 
-   public static void initSchabbat_modus(boolean schabbat_modus)
+   public  void initSchabbat_modus(boolean schabbat_modus)
    {
-      Settings.schabbat_modus = schabbat_modus;
+      this.schabbat_modus = schabbat_modus;
    }
 
 

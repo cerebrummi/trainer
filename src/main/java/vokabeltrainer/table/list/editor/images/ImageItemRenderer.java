@@ -13,8 +13,8 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 
 import vokabeltrainer.ComponentTitledBorder;
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.AppImages;
 
 public class ImageItemRenderer extends JPanel
       implements ListCellRenderer<ImageItem>
@@ -31,7 +31,7 @@ public class ImageItemRenderer extends JPanel
       setMinimumSize(new Dimension(210, 210));
       setMaximumSize(new Dimension(210, 210));
       setOpaque(true);
-      setBackground(ApplicationColors.getLightGrayGold());
+      setBackground(ColorBase.getLightGrayGold());
    }
 
    @Override
@@ -47,17 +47,17 @@ public class ImageItemRenderer extends JPanel
 
          if (value.isChecked())
          {
-            box.setIcon(new ImageIcon(ApplicationImages.getOkaySaveIcon()));
+            box.setIcon(new ImageIcon(AppImages.getOkaySaveIcon()));
          }
          else
          {
-            box.setIcon(new ImageIcon(ApplicationImages.getCancel()));
+            box.setIcon(new ImageIcon(AppImages.getCancel()));
          }
 
          TitledBorder tBorder = BorderFactory.createTitledBorder(
-               BorderFactory.createLineBorder(ApplicationColors.gold, 2),
+               BorderFactory.createLineBorder(ColorBase.gold, 2),
                value.toString());
-         tBorder.setTitleColor(ApplicationColors.getShadyBlue());
+         tBorder.setTitleColor(ColorBase.getShadyBlue());
 
          ComponentTitledBorder border = new ComponentTitledBorder(box, this,
                tBorder, 25);

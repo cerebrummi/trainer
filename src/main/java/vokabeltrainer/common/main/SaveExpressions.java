@@ -24,9 +24,7 @@ import javax.swing.ProgressMonitor;
 import vokabeltrainer.PathAndFile;
 import vokabeltrainer.panels.notifications.OkayExpressionsSavedNotification;
 import vokabeltrainer.types.Expression;
-import vokabeltrainer.common.CerebrummiNodes;
 import vokabeltrainer.common.LetterForSaving;
-import vokabeltrainer.common.Settings;
 
 public final class SaveExpressions
 {
@@ -38,15 +36,21 @@ public final class SaveExpressions
    private String origin;
    private boolean overwriteDatabaseNames;
    private String databaseName;
+   
+   private App app;
+   private Model model;
 
-   public SaveExpressions()
+   public SaveExpressions(App app, Model model)
    {
       // for regular saving
+      this.app = app;
+      this.model = model;
    }
 
    public SaveExpressions(PathAndFile exportpath)
    {
-      this.exportpath = exportpath; // for exports
+      // for exports
+      this.exportpath = exportpath; 
    }
 
    public void export(Common common, View view, String databaseName, boolean overwriteDatabaseNames)
@@ -85,14 +89,14 @@ public final class SaveExpressions
       bar.setMillisToDecideToPopup(1);
 
       UUID uuidSearchLock = UUID.randomUUID();
-      if (Data.lockDataBase(uuidSearchLock))
+      if (model.data.lockDataBase(uuidSearchLock))
       {
          try
          {
             counter = 0;
             if (this.exportpath == null)
             {
-               File customDir = new File(Settings.getExpressionPathFolder());
+               File customDir = new File(app.settings.getExpressionPathFolder());
                if (!customDir.exists())
                {
                   if (!common.getDirectoryHelper().makeDirectory(common, view,customDir))
@@ -125,7 +129,7 @@ public final class SaveExpressions
                   .node(CerebrummiNodes.getNode());
             preferences.putInt(CerebrummiNodes.getExpressionNode(), counter);
             saveDeletedExpressions(common);
-            Data.integrateNewExpressions();
+            model.data.integrateNewExpressions();
             synchronized (bar)
             {
                progress += 100;
@@ -151,7 +155,7 @@ public final class SaveExpressions
          }
          finally
          {
-            Data.unlockDataBase(uuidSearchLock);
+            model.data.unlockDataBase(uuidSearchLock);
          }
       }
       return false;
@@ -167,7 +171,7 @@ public final class SaveExpressions
       bar.setMillisToDecideToPopup(1000);
 
       UUID uuidSearchLock = UUID.randomUUID();
-      if (Data.lockDataBase(uuidSearchLock))
+      if (model.data.lockDataBase(uuidSearchLock))
       {
          try
          {
@@ -237,7 +241,7 @@ public final class SaveExpressions
          }
          finally
          {
-            Data.unlockDataBase(uuidSearchLock);
+            model.data.unlockDataBase(uuidSearchLock);
          }
       }
       return false;
@@ -271,7 +275,7 @@ public final class SaveExpressions
       File file;
       if (exportpath == null)
       {
-         file = new File(Settings.getExpressionPathFolder() + File.separator
+         file = new File(app.settings.getExpressionPathFolder() + File.separator
                + "DELETED.csv");
       }
       else
@@ -284,7 +288,7 @@ public final class SaveExpressions
             StandardCharsets.UTF_8);
       StringJoiner joiner = new StringJoiner("\n");
       joiner.add(HEADER_CSV);
-      for (Expression expression : Data.getDeletedMapValues())
+      for (Expression expression : model.data.getDeletedMapValues())
       {
          if (isMarkedandMarked(expression) || isOriginandOrigin(common, expression)
                || isAll())
@@ -318,7 +322,7 @@ public final class SaveExpressions
       File file;
       if (exportpath == null)
       {
-         file = new File(Settings.getExpressionPathFolder() + File.separator
+         file = new File(app.settings.getExpressionPathFolder() + File.separator
                + letter.name() + ".csv");
       }
       else
@@ -356,7 +360,7 @@ public final class SaveExpressions
    {
       List<Expression> list = new ArrayList<>();
 
-      for (Expression expression : Data.getAlleMapValues())
+      for (Expression expression : model.data.getAlleMapValues())
       {
          if (expression.isDoNotChange())
          {
@@ -369,7 +373,7 @@ public final class SaveExpressions
          }
       }
 
-      for (Expression expression : Data.getNewMapValues())
+      for (Expression expression : model.data.getNewMapValues())
       {
          if (expression.getLetterForSaving().equals(letter))
          {

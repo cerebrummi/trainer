@@ -2,73 +2,73 @@ package vokabeltrainer.common.colors;
 
 import java.awt.Color;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.Settings;
 
 public interface StatisticsColors {
     static Color getTextForeground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.white;
-        return ApplicationColors.darkGold;
+            return ColorBase.white;
+        return ColorBase.darkGold;
     }
 
     static Color getTextBackground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.lightBlue;
-        return ApplicationColors.white;
+            return ColorBase.lightBlue;
+        return ColorBase.white;
     }
 
     static Color getToday() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.green;
-        return ApplicationColors.green;
+            return ColorBase.green;
+        return ColorBase.green;
     }
 
     static Color getToLate() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.rose;
-        return ApplicationColors.rose;
+            return ColorBase.rose;
+        return ColorBase.rose;
     }
 
     static Color getFuture() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.lightBlue;
-        return ApplicationColors.lightBlue;
+            return ColorBase.lightBlue;
+        return ColorBase.lightBlue;
     }
 
     static Color getPanelBackground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.shadyBlueLight;
-        return ApplicationColors.backgroundGold;
+            return ColorBase.shadyBlueLight;
+        return ColorBase.backgroundGold;
     }
 
     static Color getTableBackground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.mediumSilverBlue;
-        return ApplicationColors.veryLightGold;
+            return ColorBase.mediumSilverBlue;
+        return ColorBase.veryLightGold;
     }
 
     static Color getTableCellBackground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.mediumBlue;
-        return ApplicationColors.lightGold;
+            return ColorBase.mediumBlue;
+        return ColorBase.lightGold;
     }
 
     static Color getTableCellHighlightBackground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.mediumSilverBlue;
-        return ApplicationColors.veryLightGold;
+            return ColorBase.mediumSilverBlue;
+        return ColorBase.veryLightGold;
     }
 
     static Color getSelectedBackground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.slategray;
-        return ApplicationColors.backgroundGold;
+            return ColorBase.slategray;
+        return ColorBase.backgroundGold;
     }
 
     static Color getTextForegroundInvers() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.black;
-        return ApplicationColors.white;
+            return ColorBase.black;
+        return ColorBase.white;
     }
 }

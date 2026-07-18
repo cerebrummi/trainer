@@ -9,8 +9,8 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.DatabaseItem;
 
@@ -26,16 +26,16 @@ public class DatabaseTableCopyCellRenderer
    {
       this.common = common;
       database = new JLabel();
-      database.setFont(ApplicationFonts.germanFont.deriveFont(14F));
-      database.setForeground(ApplicationColors.getShadyBlue());
+      database.setFont(AppFonts.germanFont.deriveFont(14F));
+      database.setForeground(ColorBase.getShadyBlue());
 
       authors = new JLabel();
-      authors.setFont(ApplicationFonts.germanFont.deriveFont(14F));
-      authors.setForeground(ApplicationColors.getShadyBlue());
+      authors.setFont(AppFonts.germanFont.deriveFont(14F));
+      authors.setForeground(ColorBase.getShadyBlue());
 
       company = new JLabel();
-      company.setFont(ApplicationFonts.germanFont.deriveFont(14F));
-      company.setForeground(ApplicationColors.getShadyBlue());
+      company.setFont(AppFonts.germanFont.deriveFont(14F));
+      company.setForeground(ColorBase.getShadyBlue());
    }
 
    @Override

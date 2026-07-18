@@ -12,10 +12,10 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.InputColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.SwedishLetter;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -38,7 +38,7 @@ public class KeyboardSwedishStandard extends JPanel
 
       if (textfield != null)
       {
-         textfield.setFont(ApplicationFonts.germanFont.deriveFont(30F));
+         textfield.setFont(AppFonts.germanFont.deriveFont(30F));
          textfield.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          textfield.setMinimumSize(
                new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
@@ -141,7 +141,7 @@ public class KeyboardSwedishStandard extends JPanel
 
       JPanel buttonPanel = new JPanel();
       buttonPanel.setOpaque(false);
-      buttonPanel.setBackground(ApplicationColors.getTransparent());
+      buttonPanel.setBackground(ColorBase.getTransparent());
       buttonPanel.setLayout(new TotemLayout(buttonPanel));
       buttonPanel.add(dataButton);
 
@@ -238,7 +238,7 @@ public class KeyboardSwedishStandard extends JPanel
       halfSizedFiller1.setMinimumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1.setMaximumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1.setOpaque(false);
-      halfSizedFiller1.setBackground(ApplicationColors.getTransparent());
+      halfSizedFiller1.setBackground(ColorBase.getTransparent());
       row1.add(halfSizedFiller1);
 
       row1.add(dataButtons.get(SwedishLetter.Q));
@@ -261,7 +261,7 @@ public class KeyboardSwedishStandard extends JPanel
       tinyFiller2.setMinimumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2.setMaximumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2.setOpaque(false);
-      tinyFiller2.setBackground(ApplicationColors.getTransparent());
+      tinyFiller2.setBackground(ColorBase.getTransparent());
       row2.add(tinyFiller2);
 
       row2.add(dataButtons.get(SwedishLetter.A));
@@ -284,7 +284,7 @@ public class KeyboardSwedishStandard extends JPanel
       halfSizedFiller3.setMinimumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3.setMaximumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3.setOpaque(false);
-      halfSizedFiller3.setBackground(ApplicationColors.getTransparent());
+      halfSizedFiller3.setBackground(ColorBase.getTransparent());
       row3.add(halfSizedFiller3);
 
       row3.add(dataButtons.get(SwedishLetter.Z));
@@ -297,7 +297,7 @@ public class KeyboardSwedishStandard extends JPanel
 
       JPanel bigFiller1 = new JPanel();
       bigFiller1.setOpaque(false);
-      bigFiller1.setBackground(ApplicationColors.getTransparent());
+      bigFiller1.setBackground(ColorBase.getTransparent());
       bigFiller1.setMaximumSize(new Dimension(300, 32));
 
       JPanel row4 = new JPanel();
@@ -308,7 +308,7 @@ public class KeyboardSwedishStandard extends JPanel
       halfSizedFiller1b.setMinimumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1b.setMaximumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1b.setOpaque(false);
-      halfSizedFiller1b.setBackground(ApplicationColors.getTransparent());
+      halfSizedFiller1b.setBackground(ColorBase.getTransparent());
       row4.add(halfSizedFiller1b);
 
       row4.add(dataButtons.get(SwedishLetter.q));
@@ -331,7 +331,7 @@ public class KeyboardSwedishStandard extends JPanel
       tinyFiller2b.setMinimumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2b.setMaximumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2b.setOpaque(false);
-      tinyFiller2b.setBackground(ApplicationColors.getTransparent());
+      tinyFiller2b.setBackground(ColorBase.getTransparent());
       row5.add(tinyFiller2b);
 
       row5.add(dataButtons.get(SwedishLetter.a));
@@ -354,7 +354,7 @@ public class KeyboardSwedishStandard extends JPanel
       halfSizedFiller3b.setMinimumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3b.setMaximumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3b.setOpaque(false);
-      halfSizedFiller3b.setBackground(ApplicationColors.getTransparent());
+      halfSizedFiller3b.setBackground(ColorBase.getTransparent());
       row6.add(halfSizedFiller3b);
 
       row6.add(dataButtons.get(SwedishLetter.z));
@@ -367,7 +367,7 @@ public class KeyboardSwedishStandard extends JPanel
 
       JPanel bigFiller2 = new JPanel();
       bigFiller2.setOpaque(false);
-      bigFiller2.setBackground(ApplicationColors.getTransparent());
+      bigFiller2.setBackground(ColorBase.getTransparent());
       bigFiller2.setMaximumSize(new Dimension(300, 32));
 
       keyboardPanel.add(row1);
@@ -382,7 +382,7 @@ public class KeyboardSwedishStandard extends JPanel
 
       JPanel bigFiller3 = new JPanel();
       bigFiller3.setOpaque(false);
-      bigFiller3.setBackground(ApplicationColors.getTransparent());
+      bigFiller3.setBackground(ColorBase.getTransparent());
       bigFiller3.setMaximumSize(new Dimension(300, 32));
 
       keyboardPanel.add(bigFiller3);

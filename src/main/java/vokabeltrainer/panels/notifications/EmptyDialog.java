@@ -7,7 +7,7 @@ import java.awt.Dimension;
 import javax.swing.JDialog;
 
 import vokabeltrainer.IconPanel;
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.View;
 
 public class EmptyDialog extends JDialog
@@ -20,7 +20,7 @@ public class EmptyDialog extends JDialog
 
       setSize(200, 200);
       getContentPane().setPreferredSize(new Dimension(200, 200));
-      IconPanel content = new IconPanel(ApplicationImages.getEmpty(), 200, 200);
+      IconPanel content = new IconPanel(AppImages.getEmpty(), 200, 200);
       getContentPane().add(content);
       setUndecorated(true);
       this.setBackground(new Color(0, 0, 0, 0));

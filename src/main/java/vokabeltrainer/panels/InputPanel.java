@@ -21,16 +21,16 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
-import vokabeltrainer.common.Settings.LanguageStored;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.InputColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.Data;
 import vokabeltrainer.common.main.SaveExpressions;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
+import vokabeltrainer.common.main.Settings.LanguageStored;
 import vokabeltrainer.panels.input.ChapterComboBox;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.panels.translation.Translation;
@@ -272,8 +272,8 @@ public class InputPanel extends JPanel implements TableConnector
       JPanel flow = new JPanel();
       flow.setOpaque(false);
       tableInfoButton = new JButton(
-            new ImageIcon(ApplicationImages.getInfoButtonIcon()));
-      tableInfoButton.setBackground(ApplicationColors.getWhite());
+            new ImageIcon(AppImages.getInfoButtonIcon()));
+      tableInfoButton.setBackground(ColorBase.getWhite());
       tableInfoButton.setMinimumSize(new Dimension(20, 50));
       tableInfoButton.setMaximumSize(new Dimension(20, 50));
       tableInfoButton.setMargin(new Insets(0, 0, 0, 0));
@@ -293,7 +293,7 @@ public class InputPanel extends JPanel implements TableConnector
       chapterBox.setPreferredSize(new Dimension(500, 30));
       chapterBox.setSize(new Dimension(500, 30));
       chapterBox.setMaximumRowCount(10);
-      chapterBox.setFont(ApplicationFonts.comboBoxFont);
+      chapterBox.setFont(AppFonts.comboBoxFont);
       return chapterBox;
    }
 
@@ -325,11 +325,11 @@ public class InputPanel extends JPanel implements TableConnector
       myWritingDirection.setBorder(
             BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                   translator.realisticTranslate(Translation.SCHREIBRICHTUNG), 0,
-                  0, ApplicationFonts.buttonFont,
+                  0, AppFonts.buttonFont,
                   InputColors.getPanelBackground()));
       myWritingDirection.setOpaque(true);
       myWritingDirection.setBackground(InputColors.getPanelBackground());
-      myWritingDirection.setForeground(ApplicationColors.getLightGrayGold());
+      myWritingDirection.setForeground(ColorBase.getLightGrayGold());
       myWritingDirection.setMinimumSize(new Dimension(250, 50));
       myWritingDirection.setMaximumSize(new Dimension(250, 50));
       myWritingDirection.setMaximumRowCount(2);
@@ -339,49 +339,49 @@ public class InputPanel extends JPanel implements TableConnector
       otherLanguage.setBorder(
             BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                   translator.realisticTranslate(Translation.NEUE_SPRACHE), 0, 0,
-                  ApplicationFonts.buttonFont,
+                  AppFonts.buttonFont,
                   InputColors.getPanelBackground()));
       otherLanguage.setOpaque(true);
       otherLanguage.setBackground(InputColors.getPanelBackground());
-      otherLanguage.setForeground(ApplicationColors.getLightGrayGold());
+      otherLanguage.setForeground(ColorBase.getLightGrayGold());
       otherLanguage.setMinimumSize(new Dimension(250, 50));
       otherLanguage.setMaximumSize(new Dimension(250, 50));
       otherLanguage.setMaximumRowCount(4);
 
       newWordPunktationButton = new JButton(
             translator.realisticTranslate(Translation.NEUE_VOKABEL));
-      newWordPunktationButton.setFont(ApplicationFonts.buttonFont);
+      newWordPunktationButton.setFont(AppFonts.buttonFont);
       newWordPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newWordPunktationButton.setMinimumSize(new Dimension(300, 60));
       newWordPunktationButton.setMaximumSize(new Dimension(300, 60));
       newWordPunktationButton
-            .setIcon(new ImageIcon(ApplicationImages.getNewWord()));
+            .setIcon(new ImageIcon(AppImages.getNewWord()));
       newWordPunktationButton.setBackground(InputColors.getButton());
       newWordPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
             10, 10, InputColors.getButtonBorder()));
 
       newTextPunktationButton = new JButton(
             translator.realisticTranslate(Translation.NEUER_TEXT));
-      newTextPunktationButton.setFont(ApplicationFonts.buttonFont);
+      newTextPunktationButton.setFont(AppFonts.buttonFont);
       newTextPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newTextPunktationButton.setMinimumSize(new Dimension(300, 60));
       newTextPunktationButton.setMaximumSize(new Dimension(300, 60));
       newTextPunktationButton
-            .setIcon(new ImageIcon(ApplicationImages.getNewWord()));
+            .setIcon(new ImageIcon(AppImages.getNewWord()));
       newTextPunktationButton.setBackground(InputColors.getButton2());
       newTextPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
             10, 10, InputColors.getButtonBorder()));
 
       newQuestionsAndAnswersButton = new JButton(
             translator.realisticTranslate(Translation.NEUE_FRAGE_UND_ANTWORT));
-      newQuestionsAndAnswersButton.setFont(ApplicationFonts.buttonFont);
+      newQuestionsAndAnswersButton.setFont(AppFonts.buttonFont);
       newQuestionsAndAnswersButton.setHorizontalAlignment(SwingConstants.LEFT);
       newQuestionsAndAnswersButton.setMinimumSize(new Dimension(300, 60));
       newQuestionsAndAnswersButton.setMaximumSize(new Dimension(300, 60));
       newQuestionsAndAnswersButton
-            .setIcon(new ImageIcon(ApplicationImages.getQuestionsAndAnswers()));
+            .setIcon(new ImageIcon(AppImages.getQuestionsAndAnswers()));
       newQuestionsAndAnswersButton.setBorder(BorderFactory.createMatteBorder(10,
-            10, 10, 10, ApplicationColors.getGreen()));
+            10, 10, 10, ColorBase.getGreen()));
 
       horizontal.add(myWritingDirection);
       horizontal.add(otherLanguage);

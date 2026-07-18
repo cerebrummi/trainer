@@ -15,8 +15,8 @@ import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableColumnModel;
 
-import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.types.Direction;

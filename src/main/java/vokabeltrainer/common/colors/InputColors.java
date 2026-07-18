@@ -2,45 +2,45 @@ package vokabeltrainer.common.colors;
 
 import java.awt.Color;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.Settings;
 
 public interface InputColors {
 
     static Color getEditorBackground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.mediumSilverBlue;
-        return ApplicationColors.mediumSilverBlue;
+            return ColorBase.mediumSilverBlue;
+        return ColorBase.mediumSilverBlue;
     }
 
     static Color getTextEditorBackground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.lightGold;
-        return ApplicationColors.veryLightGold;
+            return ColorBase.lightGold;
+        return ColorBase.veryLightGold;
     }
 
     static Color getPanelBackground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.shadyBlueLight;
-        return ApplicationColors.backgroundGold;
+            return ColorBase.shadyBlueLight;
+        return ColorBase.backgroundGold;
     }
 
     static Color getButtonBorder() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.green;
-        return ApplicationColors.green;
+            return ColorBase.green;
+        return ColorBase.green;
     }
 
     static Color getButton() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.mediumSilverBlue;
-        return ApplicationColors.backgroundGold;
+            return ColorBase.mediumSilverBlue;
+        return ColorBase.backgroundGold;
     }
 
     static Color getButton2() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.lightGold;
-        return ApplicationColors.backgroundGold;
+            return ColorBase.lightGold;
+        return ColorBase.backgroundGold;
     }
 
     static Color getTransparent() {
@@ -49,19 +49,19 @@ public interface InputColors {
 
     static Color getTextBackground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.mediumSilverBlue;
-        return ApplicationColors.backgroundGold;
+            return ColorBase.mediumSilverBlue;
+        return ColorBase.backgroundGold;
     }
 
     static Color getTextForeground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.white;
-        return ApplicationColors.darkGold;
+            return ColorBase.white;
+        return ColorBase.darkGold;
     }
 
     static Color getInfoTextForeground() {
         if (Settings.isDarkmodeOn())
-            return ApplicationColors.shadyBlue;
-        return ApplicationColors.darkGold;
+            return ColorBase.shadyBlue;
+        return ColorBase.darkGold;
     }
 }

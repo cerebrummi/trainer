@@ -6,7 +6,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ColorBase;
 
 public class ThemeCompliantListCellRendererMustInput
       implements ListCellRenderer<String>
@@ -19,7 +19,7 @@ public class ThemeCompliantListCellRendererMustInput
    {
       Component c = wrappedRenderer.getListCellRendererComponent(list, value,
             index, isSelected, cellHasFocus);
-      c.setBackground(ApplicationColors.getLightYellow());
+      c.setBackground(ColorBase.getLightYellow());
       return c;
    }
 }

@@ -9,9 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.Data;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTable;
@@ -36,7 +36,7 @@ public class AmountTab extends JPanel
       JLabel question = new JLabel(translator.realisticTranslate(
             Translation.WIE_VIELE_NEUE_WOERTER_MOECHTEN_SIE_LERNEN_));
       question.setForeground(TrainerColors.getTextForeground());
-      question.setFont(ApplicationFonts.buttonFont);
+      question.setFont(AppFonts.buttonFont);
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
       add(question, BorderLayout.NORTH);
@@ -62,17 +62,17 @@ public class AmountTab extends JPanel
 
       JButton cancelButton = new JButton(
             translator.realisticTranslate(Translation.ABBRECHEN));
-      cancelButton.setFont(ApplicationFonts.buttonFont);
+      cancelButton.setFont(AppFonts.buttonFont);
       cancelButton.setBackground(TrainerColors.getButton());
       cancelButton.setForeground(TrainerColors.getButtonForeground());
-      cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
+      cancelButton.setIcon(new ImageIcon(AppImages.getCancel()));
 
       JButton nextButton = new JButton(
             translator.realisticTranslate(Translation.WEITER));
-      nextButton.setFont(ApplicationFonts.buttonFont);
+      nextButton.setFont(AppFonts.buttonFont);
       nextButton.setBackground(TrainerColors.getButton());
       nextButton.setForeground(TrainerColors.getButtonForeground());
-      nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));
+      nextButton.setIcon(new ImageIcon(AppImages.getArrow()));
 
       buttonWrapper.add(cancelButton);
       buttonWrapper.add(nextButton);

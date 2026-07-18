@@ -1,4 +1,4 @@
-package vokabeltrainer.common;
+package vokabeltrainer.common.main;
 
 public interface CerebrummiNodes {
     static String getNode() // the node of preferences

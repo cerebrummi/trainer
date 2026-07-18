@@ -4,207 +4,215 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.main.AppImages;
 
 public class Images
 {
-
-   public static void read() throws IOException
+   private AppImages appImages;
+   
+   public void read() throws IOException
    {
-      ApplicationImages.setDarkmode(ImageIO
+      appImages = new AppImages();
+      
+      appImages.setDarkmode(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/darkmode.png")));
-      ApplicationImages.setAnswerNotOkay(ImageIO.read(
+      appImages.setAnswerNotOkay(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/answer-not-okay.png")));
 
-      ApplicationImages.setAnswerOkay(ImageIO.read(
+      appImages.setAnswerOkay(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/answer-okay.png")));
 
-      ApplicationImages.setAnswerUndecided(ImageIO.read(Images.class
+      appImages.setAnswerUndecided(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/answer-undecided.png")));
 
-      ApplicationImages.setArrow(ImageIO
+      appImages.setArrow(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/arrow.png")));
 
-      ApplicationImages.setBack(ImageIO
+      appImages.setBack(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/back.png")));
 
-      ApplicationImages.setReward(ImageIO.read(
+      appImages.setReward(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/baerlohnung.png")));
 
-      ApplicationImages.setImage(ImageIO.read(Images.class
+      appImages.setImage(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/book-2878724_1280.png")));
 
-      ApplicationImages.setCancel(ImageIO
+      appImages.setCancel(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/cancel.png")));
 
-      ApplicationImages.setLogo(ImageIO.read(
+      appImages.setLogo(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/Cerebrummi.png")));
 
-      ApplicationImages.setLogo150(ImageIO.read(Images.class
+      appImages.setLogo150(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/Cerebrummi_150px.png")));
 
-      ApplicationImages.setLogo24(ImageIO.read(
+      appImages.setLogo24(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/Cerebrummi_24px.png")));
 
-      ApplicationImages.setClear(ImageIO
+      appImages.setClear(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/clear.png")));
 
-      ApplicationImages.setCopy(ImageIO
+      appImages.setCopy(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/copy.png")));
 
-      ApplicationImages.setCopy2(ImageIO
+      appImages.setCopy2(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/copy2.png")));
 
-      ApplicationImages.setCut(ImageIO
+      appImages.setCut(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/cut.png")));
 
-      ApplicationImages.setPaste(ImageIO
+      appImages.setPaste(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/paste.png")));
 
-      ApplicationImages.setDeleteWord(ImageIO
+      appImages.setDeleteWord(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/delete.png")));
 
-      ApplicationImages.setDone(ImageIO
+      appImages.setDone(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/done.png")));
 
-      ApplicationImages.setEmpty(ImageIO
+      appImages.setEmpty(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/empty.png")));
 
-      ApplicationImages.setEmptyList(ImageIO.read(
+      appImages.setEmptyList(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/empty-list.png")));
 
-      ApplicationImages.setErrorImage(ImageIO
+      appImages.setErrorImage(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/error.jpg")));
 
-      ApplicationImages.setSoundOn(ImageIO.read(Images.class
+      appImages.setSoundOn(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/headphones-2104207.png")));
 
-      ApplicationImages.setSoundOff(ImageIO.read(Images.class
+      appImages.setSoundOff(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/headphones-2104207-gray.png")));
 
-      ApplicationImages.setHebrewLetters(ImageIO.read(Images.class
+      appImages.setHebrewLetters(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/hebrew-letters-2730159_1280.jpg")));
 
-      ApplicationImages.setInfoButtonIcon(ImageIO.read(Images.class
+      appImages.setInfoButtonIcon(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/info-button-icon.png")));
 
-      ApplicationImages.setInfoCursor(ImageIO.read(
+      appImages.setInfoCursor(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/info-cursor.png")));
 
-      ApplicationImages.setToggleButtonIcon(ImageIO.read(Images.class
+      appImages.setToggleButtonIcon(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/toggle-button-icon.png")));
 
-      ApplicationImages.setToggleCursor(ImageIO.read(
+      appImages.setToggleCursor(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/toggle-cursor.png")));
 
-      ApplicationImages.setInfoIcon(ImageIO
+      appImages.setInfoIcon(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/info-icon.png")));
 
-      ApplicationImages.setL18n(ImageIO
+      appImages.setL18n(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/L18n.png")));
 
-      ApplicationImages.setLanguages(ImageIO
+      appImages.setLanguages(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/languages.png")));
 
-      ApplicationImages.setLetterEmpty(ImageIO.read(
+      appImages.setLetterEmpty(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/letter_empty.png")));
 
-      ApplicationImages.setLock(ImageIO
+      appImages.setLock(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/lock.png")));
 
-      ApplicationImages.setEye(ImageIO
+      appImages.setEye(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/eye.png")));
 
-      ApplicationImages.setEyeOnly(ImageIO
+      appImages.setEyeOnly(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/eye_only.png")));
 
-      ApplicationImages.setStartImage(ImageIO
+      appImages.setStartImage(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/neutral.jpg")));
 
-      ApplicationImages.setNewWord(ImageIO
+      appImages.setNewWord(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/new.png")));
 
-      ApplicationImages.setNewWordSmall(ImageIO
+      appImages.setNewWordSmall(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/new_small.png")));
 
-      ApplicationImages.setOkaySave(ImageIO
+      appImages.setOkaySave(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/okay-save.png")));
 
-      ApplicationImages.setOkaySaveIcon(ImageIO.read(
+      appImages.setOkaySaveIcon(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/okay-save_icon.png")));
 
-      ApplicationImages.setRestore(ImageIO
+      appImages.setRestore(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/restore.png")));
 
-      ApplicationImages
+      appImages
             .setDreidel(ImageIO.read(Images.class.getResourceAsStream(
                   "_2_images/robert-zunikoff-483401-unsplash.jpg")));
 
-      ApplicationImages.setSaveWord(ImageIO
+      appImages.setSaveWord(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/save.png")));
 
-      ApplicationImages.setSearch(ImageIO
+      appImages.setSearch(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/search.png")));
 
-      ApplicationImages.setSelect(ImageIO
+      appImages.setSelect(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/select.png")));
 
-      ApplicationImages.setSelectDone(ImageIO.read(
+      appImages.setSelectDone(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/select-done.png")));
 
-      ApplicationImages.setSend(ImageIO
+      appImages.setSend(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/send.png")));
 
-      ApplicationImages.setStart(ImageIO
+      appImages.setStart(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/start.png")));
 
-      ApplicationImages.setStop(ImageIO
+      appImages.setStop(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/stop.png")));
 
-      ApplicationImages.setTexturedBackground(ImageIO.read(Images.class
+      appImages.setTexturedBackground(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/textured-background.jpg")));
 
-      ApplicationImages.setShredder(ImageIO.read(
+      appImages.setShredder(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/trash-97586.png")));
 
-      ApplicationImages.setTrashcan(ImageIO.read(
+      appImages.setTrashcan(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/trashcan-98470.png")));
 
-      ApplicationImages.setTurn(ImageIO
+      appImages.setTurn(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/turn.png")));
 
-      ApplicationImages.setTrashcanBackground(ImageIO.read(Images.class
+      appImages.setTrashcanBackground(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/white-male-2064827_640.jpg")));
 
-      ApplicationImages.setWork(ImageIO
+      appImages.setWork(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/work.png")));
 
-      ApplicationImages.setQuestionsAndAnswers(ImageIO.read(Images.class
+      appImages.setQuestionsAndAnswers(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/questions-and-answers.png")));
 
-      ApplicationImages.setQuestionsAndAnswers2(ImageIO.read(Images.class
+      appImages.setQuestionsAndAnswers2(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/questions-and-answers2.png")));
 
-      ApplicationImages.setLogoFolder(ImageIO.read(
+      appImages.setLogoFolder(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/iconFolder.png")));
 
-      ApplicationImages.setLogoFolderEmpty(ImageIO.read(
+      appImages.setLogoFolderEmpty(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/iconFolderEmpty.png")));
 
-      ApplicationImages.setIcon_notes(ImageIO.read(
+      appImages.setIcon_notes(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/icon_notes.png")));
 
-      ApplicationImages.setIcon_eye(ImageIO
+      appImages.setIcon_eye(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/icon_eye.png")));
 
-      ApplicationImages.setIcon_bulb(ImageIO
+      appImages.setIcon_bulb(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/icon_bulb.png")));
 
-      ApplicationImages.setIcon_bulb_on(ImageIO.read(
+      appImages.setIcon_bulb_on(ImageIO.read(
             Images.class.getResourceAsStream("_2_images/icon_bulb_on.png")));
 
-      ApplicationImages.setScroll(ImageIO
+      appImages.setScroll(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/scroll.png")));
+   }
+
+   public AppImages getAppImages()
+   {
+      return appImages;
    }
 
 }

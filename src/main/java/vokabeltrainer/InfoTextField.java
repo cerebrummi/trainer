@@ -13,9 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.editing.InternationalDocument;
 
@@ -25,22 +23,22 @@ public class InfoTextField extends JTextField
    private JButton button;
    private String title;
 
-   public InfoTextField(View view, String borderTitle, String... infoText)
+   public InfoTextField(App app, View view, String borderTitle, String... infoText)
    {
       this.title = borderTitle;
       setDocument(new InternationalDocument(40));
       setFont(view.getNimbus().getDefaults().getFont("internationalFont"));
       button = new JButton(
-            new ImageIcon(ApplicationImages.getInfoButtonIcon()));
+            new ImageIcon(app.appImages.getInfoButtonIcon()));
       button.setMargin(new Insets(-5, -20, -5, -20));
       button.setBackground(new Color(0, 0, 0, 0));
-      button.setForeground(ApplicationColors.getGold());
+      button.setForeground(app.appColors.getGold());
       button.setPreferredSize(new Dimension(14, 32));
 
       button.addActionListener(_ -> {
-         JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
+         JOptionPane.showMessageDialog(this, "", app.settings.getWindowTitle(),
                JOptionPane.INFORMATION_MESSAGE,
-               new ImageIcon(TextImage.make(infoText)));
+               new ImageIcon(TextImage.make(app, infoText)));
       });
 
       button.addMouseListener(new MouseAdapter()

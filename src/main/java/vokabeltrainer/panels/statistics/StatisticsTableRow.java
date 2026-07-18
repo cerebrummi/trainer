@@ -11,9 +11,9 @@ import java.util.Locale;
 import javax.swing.JPanel;
 
 import vokabeltrainer.ExpressionComparator;
-import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.StatisticsColors;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.Translator;

@@ -10,11 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -39,22 +39,22 @@ public class InformationTab extends JPanel
       
       setLayout(new TrainLayout(this));
       this.setOpaque(false);
-      this.setBackground(ApplicationColors.getTransparent());
+      this.setBackground(ColorBase.getTransparent());
 
       JPanel leftSide = new JPanel();
       leftSide.setLayout(new TotemLayout(leftSide));
       leftSide.setOpaque(true);
-      leftSide.setBackground(ApplicationColors.getLightGold());
+      leftSide.setBackground(ColorBase.getLightGold());
 
       JPanel fillerBottom = new JPanel(new FlowLayout());
       fillerBottom.setMinimumSize(new Dimension(355, 100));
       fillerBottom.setMaximumSize(new Dimension(355, 700));
       fillerBottom.setOpaque(false);
-      fillerBottom.setBackground(ApplicationColors.getTransparent());
+      fillerBottom.setBackground(ColorBase.getTransparent());
 
       JPanel boxWrapper = new JPanel(new FlowLayout());
       boxWrapper.setOpaque(false);
-      boxWrapper.setBackground(ApplicationColors.getTransparent());
+      boxWrapper.setBackground(ColorBase.getTransparent());
       boxWrapper.setPreferredSize(new Dimension(355, 100));
       boxWrapper.setMinimumSize(new Dimension(355, 100));
       boxWrapper.setMaximumSize(new Dimension(355, 300));
@@ -65,9 +65,9 @@ public class InformationTab extends JPanel
       box.setMaximumSize(new Dimension(355, 100));
       box.setPreferredSize(new Dimension(355, 100));
       box.setSize(new Dimension(355, 100));
-      box.setForeground(ApplicationColors.getWhite());
-      box.setBackground(ApplicationColors.getTransparent());
-      box.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
+      box.setForeground(ColorBase.getWhite());
+      box.setBackground(ColorBase.getTransparent());
+      box.setFont(AppFonts.hebrewFont.deriveFont(30F));
       box.setHorizontalAlignment(SwingConstants.CENTER);
       boxWrapper.add(box);
 
@@ -77,61 +77,61 @@ public class InformationTab extends JPanel
       checkWrapper.setMinimumSize(new Dimension(355, 1000));
       checkWrapper.setMaximumSize(new Dimension(355, 1000));
       checkWrapper.setPreferredSize(new Dimension(355, 1000));
-      checkWrapper.setBackground(ApplicationColors.getDarkGold());
+      checkWrapper.setBackground(ColorBase.getDarkGold());
       checkWrapper.setOpaque(true);
 
-      Font checkBoxFont = ApplicationFonts.germanFont.deriveFont(20F);
+      Font checkBoxFont = AppFonts.germanFont.deriveFont(20F);
 
       JCheckBox heuteCheck = new JCheckBox(
             translator.realisticTranslate(Translation.HEUTE));
       heuteCheck.setFont(checkBoxFont);
-      heuteCheck.setForeground(ApplicationColors.getWhite());
+      heuteCheck.setForeground(ColorBase.getWhite());
       heuteCheck.setSelected(true);
       heuteCheck.setEnabled(false);
       morgenCheck = new JCheckBox(
             translator.realisticTranslate(Translation.MORGEN));
       morgenCheck.setFont(checkBoxFont);
-      morgenCheck.setForeground(ApplicationColors.getWhite());
+      morgenCheck.setForeground(ColorBase.getWhite());
       morgenCheck.setSelected(Settings.isRepetition_one_day());
       tage_2_Check = new JCheckBox(
             translator.realisticTranslate(Translation._2_TAGE));
       tage_2_Check.setFont(checkBoxFont);
-      tage_2_Check.setForeground(ApplicationColors.getWhite());
+      tage_2_Check.setForeground(ColorBase.getWhite());
       tage_2_Check.setSelected(Settings.isRepetition_two_days());
       tage_5_Check = new JCheckBox(
             translator.realisticTranslate(Translation._5_TAGE));
       tage_5_Check.setFont(checkBoxFont);
-      tage_5_Check.setForeground(ApplicationColors.getWhite());
+      tage_5_Check.setForeground(ColorBase.getWhite());
       tage_5_Check.setSelected(Settings.isRepetition_five_days());
       tage_11_Check = new JCheckBox(
             translator.realisticTranslate(Translation._11_TAGE));
       tage_11_Check.setFont(checkBoxFont);
-      tage_11_Check.setForeground(ApplicationColors.getWhite());
+      tage_11_Check.setForeground(ColorBase.getWhite());
       tage_11_Check.setSelected(Settings.isRepetition_eleven_days());
       tage_19_Check = new JCheckBox(
             translator.realisticTranslate(Translation._19_TAGE));
       tage_19_Check.setFont(checkBoxFont);
-      tage_19_Check.setForeground(ApplicationColors.getWhite());
+      tage_19_Check.setForeground(ColorBase.getWhite());
       tage_19_Check.setSelected(Settings.isRepetition_nineteen_days());
       monate_1_Check = new JCheckBox(
             translator.realisticTranslate(Translation._1_MONAT));
       monate_1_Check.setFont(checkBoxFont);
-      monate_1_Check.setForeground(ApplicationColors.getWhite());
+      monate_1_Check.setForeground(ColorBase.getWhite());
       monate_1_Check.setSelected(Settings.isRepetition_one_month());
       monate_2_Check = new JCheckBox(
             translator.realisticTranslate(Translation._2_MONATE));
       monate_2_Check.setFont(checkBoxFont);
-      monate_2_Check.setForeground(ApplicationColors.getWhite());
+      monate_2_Check.setForeground(ColorBase.getWhite());
       monate_2_Check.setSelected(Settings.isRepetition_two_months());
       monate_5_Check = new JCheckBox(
             translator.realisticTranslate(Translation._5_MONATE));
       monate_5_Check.setFont(checkBoxFont);
-      monate_5_Check.setForeground(ApplicationColors.getWhite());
+      monate_5_Check.setForeground(ColorBase.getWhite());
       monate_5_Check.setSelected(Settings.isRepetition_five_months());
       JCheckBox done_Check = new JCheckBox(
             translator.realisticTranslate(Translation.FERTIG));
       done_Check.setFont(checkBoxFont);
-      done_Check.setForeground(ApplicationColors.getWhite());
+      done_Check.setForeground(ColorBase.getWhite());
       done_Check.setSelected(true);
       done_Check.setEnabled(false);
 
@@ -150,7 +150,7 @@ public class InformationTab extends JPanel
       fillerRight.setMinimumSize(new Dimension(600, 500));
       fillerRight.setMaximumSize(new Dimension(900, 850));
       fillerRight.setOpaque(false);
-      fillerRight.setBackground(ApplicationColors.getTransparent());
+      fillerRight.setBackground(ColorBase.getTransparent());
 
       leftSide.add(boxWrapper);
       leftSide.add(checkWrapper);
@@ -193,11 +193,11 @@ public class InformationTab extends JPanel
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);
-      if (ApplicationImages.getImage() != null)
+      if (AppImages.getImage() != null)
       {
          int x = this.getParent().getWidth() / 2 - 1280 / 2;
          int y = this.getParent().getHeight() / 2 - 853 / 2;
-         g.drawImage(ApplicationImages.getDreidel(), x, y, this);
+         g.drawImage(AppImages.getDreidel(), x, y, this);
       }
    }
 

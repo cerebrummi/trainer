@@ -15,12 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.TextImage;
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.AlefbetColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.panels.letterpicture.LetterPictureAlphabetPanel;
 import vokabeltrainer.panels.letterpicture.LetterTextField;
 import vokabeltrainer.panels.translation.Translation;
@@ -50,12 +50,12 @@ public class AlefbetPanel extends JPanel
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 165));
       horizontal.setOpaque(false);
-      horizontal.setBackground(ApplicationColors.getTransparent());
+      horizontal.setBackground(ColorBase.getTransparent());
 
       this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel(common);
       letterPictureAlphabetPanel.setOpaque(false);
       letterPictureAlphabetPanel
-            .setBackground(ApplicationColors.getTransparent());
+            .setBackground(ColorBase.getTransparent());
 
       horizontal.add(initLetterPanel());
       horizontal.add(letterPictureAlphabetPanel);
@@ -84,13 +84,13 @@ public class AlefbetPanel extends JPanel
             translator.realisticTranslate(Translation.AUSWERTEN));
       resultButton.setBackground(AlefbetColors.getButton());
       resultButton.setForeground(AlefbetColors.getButtonForeground());
-      resultButton.setFont(ApplicationFonts.buttonFont);
+      resultButton.setFont(AppFonts.buttonFont);
 
       resetButton = new JButton(
             translator.realisticTranslate(Translation.ZURUECKSETZEN));
       resetButton.setBackground(AlefbetColors.getButton());
       resetButton.setForeground(AlefbetColors.getButtonForeground());
-      resetButton.setFont(ApplicationFonts.buttonFont);
+      resetButton.setFont(AppFonts.buttonFont);
 
       vertical.add(filler);
       vertical.add(resultButton);
@@ -107,11 +107,11 @@ public class AlefbetPanel extends JPanel
       JLabel title = new JLabel(
             translator.realisticTranslate(Translation.ALEFBET_UEBEN));
       title.setForeground(AlefbetColors.getTextForeground());
-      title.setFont(ApplicationFonts.germanFont.deriveFont(24F));
+      title.setFont(AppFonts.germanFont.deriveFont(24F));
       letterPanel.add(title);
 
       pictureInfoButton = new JButton(
-            new ImageIcon(ApplicationImages.getInfoButtonIcon()));
+            new ImageIcon(AppImages.getInfoButtonIcon()));
       pictureInfoButton.setBackground(AlefbetColors.getButton());
       pictureInfoButton.setForeground(AlefbetColors.getButtonForeground());
       pictureInfoButton.setMinimumSize(new Dimension(50, 50));
@@ -129,15 +129,15 @@ public class AlefbetPanel extends JPanel
          {
             if (((LetterTextField) jtc).isOkay())
             {
-               jtc.setBackground(ApplicationColors.getGreen());
+               jtc.setBackground(ColorBase.getGreen());
             }
             else if (jtc.getText().isBlank())
             {
-               jtc.setBackground(ApplicationColors.getLightYellow());
+               jtc.setBackground(ColorBase.getLightYellow());
             }
             else
             {
-               jtc.setBackground(ApplicationColors.getLightGrayGold());
+               jtc.setBackground(ColorBase.getLightGrayGold());
             }
          }
       });

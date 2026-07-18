@@ -7,9 +7,9 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
@@ -37,16 +37,16 @@ public class LetterPictureWordPanel extends JPanel
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
-      horizontal.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      horizontal.setBackground(ColorBase.getTexturedBackgroundColor());
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
-      vertical.setBackground(ApplicationColors.getTexturedBackgroundColor());
+      vertical.setBackground(ColorBase.getTexturedBackgroundColor());
 
       JPanel displayPanel = new JPanel();
       displayPanel.setLayout(new TrainLayout(displayPanel));
       displayPanel
-            .setBackground(ApplicationColors.getTexturedBackgroundColor());
+            .setBackground(ColorBase.getTexturedBackgroundColor());
       displayPanel.setMinimumSize(new Dimension(1268, 200));
       displayPanel.setMaximumSize(new Dimension(1268, 200));
 
@@ -64,7 +64,7 @@ public class LetterPictureWordPanel extends JPanel
       JPanel displayPanel2 = new JPanel();
       displayPanel2.setLayout(new TrainLayout(displayPanel2));
       displayPanel2
-            .setBackground(ApplicationColors.getTexturedBackgroundColor());
+            .setBackground(ColorBase.getTexturedBackgroundColor());
       displayPanel2.setMinimumSize(new Dimension(1268, 200));
       displayPanel2.setMaximumSize(new Dimension(1268, 200));
 
@@ -96,7 +96,7 @@ public class LetterPictureWordPanel extends JPanel
       JLabel dummy = new JLabel();
       dummy.setMinimumSize(new Dimension(1268, 200));
       dummy.setMaximumSize(new Dimension(1268, 200));
-      dummy.setBackground(ApplicationColors.getTransparent());
+      dummy.setBackground(ColorBase.getTransparent());
       dummy.setOpaque(false);
       add(dummy);
 

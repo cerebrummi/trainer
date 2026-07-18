@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.main.AppImages;
 
 public class Gruen
 {
@@ -21,6 +21,6 @@ public class Gruen
          greenImagesList.add(ImageIO.read(
                Gruen.class.getResourceAsStream("gruen/green_" + i + ".jpg")));
       }
-      ApplicationImages.setGreenImages(greenImagesList);
+      AppImages.setGreenImages(greenImagesList);
    }
 }

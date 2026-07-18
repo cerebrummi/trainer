@@ -8,10 +8,10 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.Main;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.resources.Buchstabenbilder;
@@ -47,7 +47,7 @@ public class TranslationPanel extends JPanel
       chooseLanguage.setMaximumSize(new Dimension(300, 50));
 
       applyButton = new JButton(
-            new ImageIcon(ApplicationImages.getSelectDone()));
+            new ImageIcon(AppImages.getSelectDone()));
 
       horizontal.add(appTranslation);
       horizontal.add(chooseLanguage);

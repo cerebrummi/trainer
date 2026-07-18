@@ -13,9 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.InternationalDocument;
 
 public class InfoComboBox extends JComboBox<String>
@@ -25,23 +23,23 @@ public class InfoComboBox extends JComboBox<String>
    private String title;
    private JTextField textField;
 
-   public InfoComboBox(String borderTitle, String... infoText)
+   public InfoComboBox(App app, String borderTitle, String... infoText)
    {
       this.title = borderTitle;
       textField = ((JTextField) this.getEditor().getEditorComponent());
       textField.setDocument(new InternationalDocument(50));
 
       button = new JButton(
-            new ImageIcon(ApplicationImages.getInfoButtonIcon()));
+            new ImageIcon(app.appImages.getInfoButtonIcon()));
       button.setMargin(new Insets(-5, -20, -5, -20));
-      button.setBackground(ApplicationColors.getTransparent());
-      button.setForeground(ApplicationColors.getGold());
+      button.setBackground(app.appColors.getTransparent());
+      button.setForeground(app.appColors.getGold());
       button.setPreferredSize(new Dimension(14, 32));
 
       button.addActionListener(_ -> {
-         JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
+         JOptionPane.showMessageDialog(this, "", app.settings.getWindowTitle(),
                JOptionPane.INFORMATION_MESSAGE,
-               new ImageIcon(TextImage.make(infoText)));
+               new ImageIcon(TextImage.make(app, infoText)));
       });
 
       button.addMouseListener(new MouseAdapter()

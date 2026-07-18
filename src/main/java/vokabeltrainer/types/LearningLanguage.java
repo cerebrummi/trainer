@@ -1,6 +1,6 @@
 package vokabeltrainer.types;
 
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.Settings;
 
 public class LearningLanguage
 {

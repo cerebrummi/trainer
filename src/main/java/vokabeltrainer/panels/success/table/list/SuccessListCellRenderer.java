@@ -9,9 +9,9 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.SuccessColors;
+import vokabeltrainer.common.main.AppFonts;
 
 public class SuccessListCellRenderer
       implements ListCellRenderer<Object>, Serializable
@@ -37,17 +37,17 @@ public class SuccessListCellRenderer
       hebrew.setEditable(false);
       grammar.setEditable(false);
 
-      german.setBackground(ApplicationColors.getTransparent());
-      hebrew.setBackground(ApplicationColors.getTransparent());
-      grammar.setBackground(ApplicationColors.getTransparent());
+      german.setBackground(ColorBase.getTransparent());
+      hebrew.setBackground(ColorBase.getTransparent());
+      grammar.setBackground(ColorBase.getTransparent());
 
       german.setBorder(BorderFactory.createEmptyBorder());
       hebrew.setBorder(BorderFactory.createEmptyBorder());
       grammar.setBorder(BorderFactory.createEmptyBorder());
 
-      german.setFont(ApplicationFonts.germanFont.deriveFont(16F));
-      hebrew.setFont(ApplicationFonts.hebrewFont.deriveFont(20F));
-      grammar.setFont(ApplicationFonts.germanFont.deriveFont(16F));
+      german.setFont(AppFonts.germanFont.deriveFont(16F));
+      hebrew.setFont(AppFonts.hebrewFont.deriveFont(20F));
+      grammar.setFont(AppFonts.germanFont.deriveFont(16F));
 
       german.setForeground(SuccessColors.getTextForeground());
       hebrew.setForeground(SuccessColors.getTextForeground());

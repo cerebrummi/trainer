@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.panels.letterpicture.LetterPictureButtonPanel;
 import vokabeltrainer.panels.translation.Translation;

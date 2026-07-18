@@ -5,9 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
 
@@ -30,7 +30,7 @@ public class LetterFeedbackImage
       g2d.fillRect(0, 0,
             Math.max(letterDic.getPixelWidth(), letterAnswer.getPixelWidth()),
             100);
-      g2d.setColor(ApplicationColors.red);
+      g2d.setColor(ColorBase.red);
       if (!okay)
       {
          double midX = ((double) Math.max(
@@ -59,10 +59,10 @@ public class LetterFeedbackImage
             RenderingHints.VALUE_RENDER_QUALITY);
       g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
             RenderingHints.VALUE_STROKE_PURE);
-      g2d.setFont(ApplicationFonts.hebrewFont.deriveFont(24F));
+      g2d.setFont(AppFonts.hebrewFont.deriveFont(24F));
       FontMetrics fm = g2d.getFontMetrics();
       fm = g2d.getFontMetrics();
-      g2d.setColor(ApplicationColors.green);
+      g2d.setColor(ColorBase.green);
       g2d.drawString(letterDic.getContent().getUnicode(), 0,
             fm.getAscent() + 9);
       if (letterDic.isNikud())
@@ -81,7 +81,7 @@ public class LetterFeedbackImage
             g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9);
          }
       }
-      g2d.setColor(ApplicationColors.white);
+      g2d.setColor(ColorBase.white);
       if (letterAnswer.getContent().isSpace()
             || letterAnswer.getContent().isNewspace())
       {

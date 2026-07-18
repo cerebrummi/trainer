@@ -18,28 +18,29 @@ import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.common.CerebrummiNodes;
-import vokabeltrainer.common.Settings;
 import vokabeltrainer.table.list.editor.images.ImageItem;
 
-public final class ImageData
+public class ImageData
 {
 
-   private static final AtomicBoolean databaseInUse = new AtomicBoolean(false);
-   private static volatile UUID uuidDataBaseLock;
-   private static ImageDataBase database;
+   private final AtomicBoolean databaseInUse = new AtomicBoolean(false);
+   private volatile UUID uuidDataBaseLock;
+   private ImageDataBase database;
+   private Settings settings;
+   private Data data;
 
-   private ImageData()
+   ImageData(Settings settings, Data data)
    {
-      // nothing
+      this.settings = settings;
+      this.data = data;
    }
 
-   static void initImageDataBase(Common common, View view)
+   void initImageDataBase(Common common, View view)
    {
       database = new ImageDataBase(common, view);
    }
 
-   static boolean lockDataBase(UUID uuid)
+   boolean lockDataBase(UUID uuid)
    {
       if (databaseInUse.get())
       {
@@ -51,7 +52,7 @@ public final class ImageData
       return true;
    }
 
-   static boolean unlockDataBase(UUID uuid)
+   boolean unlockDataBase(UUID uuid)
    {
       if (uuidDataBaseLock.equals(uuid))
       {
@@ -61,7 +62,7 @@ public final class ImageData
       return false;
    }
 
-   private static void checkDataBaseInUseAndWait()
+   private void checkDataBaseInUseAndWait()
    {
       while (databaseInUse.get())
       {
@@ -76,13 +77,13 @@ public final class ImageData
       }
    }
 
-   private static ImageDataBase getDataBaseAtomic()
+   private ImageDataBase getDataBaseAtomic()
    {
       checkDataBaseInUseAndWait();
       return database;
    }
 
-   public static boolean isImageForExpressionAvailable(UUID uuid)
+   public boolean isImageForExpressionAvailable(UUID uuid)
    {
       if (uuid == null)
       {
@@ -91,7 +92,7 @@ public final class ImageData
       return getDataBaseAtomic().isImageForExpressionAvailable(uuid);
    }
 
-   public static void saveImage(Common common, View view, BufferedImage image, UUID uuid,
+   public void saveImage(Common common, View view, BufferedImage image, UUID uuid,
          String imageName)
    {
       if (uuid == null)
@@ -101,7 +102,7 @@ public final class ImageData
       getDataBaseAtomic().saveImage(common, view, image, uuid, imageName);
    }
 
-   public static ArrayList<ImageItem> loadImages(UUID uuid)
+   public ArrayList<ImageItem> loadImages(UUID uuid)
    {
       if (uuid == null)
       {
@@ -110,7 +111,7 @@ public final class ImageData
       return getDataBaseAtomic().loadImages(uuid);
    }
 
-   public static void deleteImage(UUID uuid, String imageName)
+   public void deleteImage(UUID uuid, String imageName)
    {
       if (uuid == null)
       {
@@ -145,7 +146,7 @@ public final class ImageData
    // #########################################################
    // #########################################################
 
-   private static class ImageDataBase
+   private class ImageDataBase
    {
       private final ConcurrentMap<UUID, ArrayList<String>> imageNameMap = new ConcurrentHashMap<>(
             findNumberOfAllVocabulary() + 100);
@@ -162,7 +163,7 @@ public final class ImageData
 
       private void readImagesAvailable()
       {
-         try (Stream<Path> s = Files.list(Paths.get(Settings.getImagePath())))
+         try (Stream<Path> s = Files.list(Paths.get(settings.getImagePath())))
          {
             s.filter(Files::isDirectory).forEach(dirPath -> {
                try (Stream<Path> walk = Files.walk(dirPath))
@@ -184,23 +185,23 @@ public final class ImageData
 
       private void moveImagesFromPreviousVersion(Common common, View view)
       {
-         try (Stream<Path> s = Files.walk(Paths.get(Settings.getImagePath())))
+         try (Stream<Path> s = Files.walk(Paths.get(settings.getImagePath())))
          {
             s.filter(Files::isRegularFile).forEach(filePath -> {
 
                String fileName = filePath.getFileName().toString();
                UUID uuid = getUuidFromOldImageFile(fileName);
 
-               if (Data.isExistUuid(uuid))
+               if (data.isExistUuid(uuid))
                {
                   checkDirectory(common, view, uuid);
 
                   try
                   {
                      Files.move(
-                           Paths.get(Settings.getImagePath(), File.separator,
+                           Paths.get(settings.getImagePath(), File.separator,
                                  fileName),
-                           Paths.get(Settings.getImagePath(), File.separator,
+                           Paths.get(settings.getImagePath(), File.separator,
                                  uuid.toString(), File.separator,
                                  "ex_" + fileName),
                            StandardCopyOption.REPLACE_EXISTING);
@@ -278,7 +279,7 @@ public final class ImageData
          }
 
          try (Stream<Path> s = Files.walk(
-               Paths.get(Settings.getImagePath() + File.separator + uuid)))
+               Paths.get(settings.getImagePath() + File.separator + uuid)))
          {
             s.filter(Files::isRegularFile).forEach(file -> {
                ImageItem item = loadImageOriginal(file, uuid);
@@ -321,7 +322,7 @@ public final class ImageData
          try
          {
             Files.deleteIfExists(
-                  Paths.get(Settings.getImagePath() + File.separator
+                  Paths.get(settings.getImagePath() + File.separator
                         + uuid.toString() + File.separator + imageFile));
             imageNameMap.get(uuid).remove(imageFile);
 
@@ -354,7 +355,7 @@ public final class ImageData
          try
          {
             Path target = Path
-                  .of(Settings.getImagePath(), File.separator, uuid.toString())
+                  .of(settings.getImagePath(), File.separator, uuid.toString())
                   .resolve(imageName);
 
             String format = getFormat(imageName);
@@ -371,7 +372,7 @@ public final class ImageData
          }
       }
 
-      private static String getFormat(String fileName)
+      private String getFormat(String fileName)
       {
          int dot = fileName.lastIndexOf('.');
 
@@ -385,7 +386,7 @@ public final class ImageData
 
       private boolean checkDirectory(Common common, View view)
       {
-         File customDir = new File(Settings.getImagePath());
+         File customDir = new File(settings.getImagePath());
          if (!customDir.exists())
          {
             if (!common.getDirectoryHelper().makeDirectory(common, view, customDir))
@@ -399,7 +400,7 @@ public final class ImageData
       private boolean checkDirectory(Common common, View view, UUID uuid)
       {
          File customDir = new File(
-               Settings.getImagePath() + File.separator + uuid);
+               settings.getImagePath() + File.separator + uuid);
 
          if (!customDir.exists())
          {

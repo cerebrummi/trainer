@@ -12,9 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -43,7 +43,7 @@ public class FieldOfTrainingTab extends JPanel
       JLabel question = new JLabel(translator.realisticTranslate(
             Translation.WOHER_SOLLEN_DIE_VOKABELN_STAMMEN_));
       question.setForeground(TrainerColors.getTextForeground());
-      question.setFont(ApplicationFonts.buttonFont);
+      question.setFont(AppFonts.buttonFont);
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
       add(question, BorderLayout.NORTH);
@@ -61,7 +61,7 @@ public class FieldOfTrainingTab extends JPanel
             translator.realisticTranslate(Translation.AUS_DEN_LEKTIONEN));
       chapterButton.setBackground(TrainerColors.getButton());
       chapterButton.setForeground(TrainerColors.getTextForeground());
-      chapterButton.setFont(ApplicationFonts.toolbarButtonFont);
+      chapterButton.setFont(AppFonts.toolbarButtonFont);
       chapterButton.setActionCommand(FieldOfTraining.AREA_CHAPTER.name());
       areaGroup.add(chapterButton);
 
@@ -69,7 +69,7 @@ public class FieldOfTrainingTab extends JPanel
             .realisticTranslate(Translation.AUS_DEN_AUSGEWAEHLTEN_WOERTERN));
       selectedButton.setBackground(TrainerColors.getButton());
       selectedButton.setForeground(TrainerColors.getTextForeground());
-      selectedButton.setFont(ApplicationFonts.toolbarButtonFont);
+      selectedButton.setFont(AppFonts.toolbarButtonFont);
       selectedButton.setActionCommand(FieldOfTraining.AREA_SELECTED.name());
       areaGroup.add(selectedButton);
 
@@ -77,7 +77,7 @@ public class FieldOfTrainingTab extends JPanel
             Translation.AUS_DEN_AUSGEWAEHLTEN_WOERTERN_EINMAL));
       onceButton.setBackground(TrainerColors.getButton());
       onceButton.setForeground(TrainerColors.getTextForeground());
-      onceButton.setFont(ApplicationFonts.toolbarButtonFont);
+      onceButton.setFont(AppFonts.toolbarButtonFont);
       onceButton
             .setActionCommand(FieldOfTraining.AREA_SELECTED_TEMPORARY.name());
       areaGroup.add(onceButton);
@@ -96,15 +96,15 @@ public class FieldOfTrainingTab extends JPanel
             translator.realisticTranslate(Translation.ABBRECHEN));
       cancelButton.setBackground(TrainerColors.getButton());
       cancelButton.setForeground(TrainerColors.getButtonForeground());
-      cancelButton.setFont(ApplicationFonts.buttonFont);
-      cancelButton.setIcon(new ImageIcon(ApplicationImages.getCancel()));
+      cancelButton.setFont(AppFonts.buttonFont);
+      cancelButton.setIcon(new ImageIcon(AppImages.getCancel()));
 
       nextButton = new JButton(
             translator.realisticTranslate(Translation.WEITER));
       nextButton.setBackground(TrainerColors.getButton());
       nextButton.setForeground(TrainerColors.getButtonForeground());
-      nextButton.setFont(ApplicationFonts.buttonFont);
-      nextButton.setIcon(new ImageIcon(ApplicationImages.getArrow()));
+      nextButton.setFont(AppFonts.buttonFont);
+      nextButton.setIcon(new ImageIcon(AppImages.getArrow()));
       nextButton.setEnabled(false);
 
       buttonWrapper.add(cancelButton);
@@ -135,7 +135,7 @@ public class FieldOfTrainingTab extends JPanel
          {
             dialog.getTabbedPane().addTab(
                   translator.realisticTranslate(Translation.RICHTUNG),
-                  new ImageIcon(ApplicationImages.getArrow()),
+                  new ImageIcon(AppImages.getArrow()),
                   new DirectionTab(common, dialog));
          }
          dialog.getTabbedPane().setSelectedIndex(1);

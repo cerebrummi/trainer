@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.StatisticsColors;
+import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.Data;
 import vokabeltrainer.panels.statistics.StatisticsTable;
@@ -70,14 +70,14 @@ public class StatisticsPanel extends JPanel
 
       JPanel titlePanel = new JPanel(new FlowLayout());
       titlePanel.setOpaque(false);
-      titlePanel.setBackground(ApplicationColors.getTransparent());
+      titlePanel.setBackground(ColorBase.getTransparent());
       titlePanel.setMinimumSize(new Dimension(580, 50));
       titlePanel.setMaximumSize(new Dimension(580, 50));
 
       JLabel title = new JLabel(
             translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
       title.setForeground(StatisticsColors.getTextForeground());
-      title.setFont(ApplicationFonts.germanFont.deriveFont(30F));
+      title.setFont(AppFonts.germanFont.deriveFont(30F));
       titlePanel.add(title);
 
       StatisticsTable table = new StatisticsTable(common, Data.findStatisticsModel(common));
@@ -134,12 +134,12 @@ public class StatisticsPanel extends JPanel
 
       JScrollPane scroller = new JScrollPane(table);
       scroller.setOpaque(false);
-      scroller.setBackground(ApplicationColors.getTransparent());
+      scroller.setBackground(ColorBase.getTransparent());
       scroller.setBorder(BorderFactory.createEmptyBorder());
       scroller.getViewport().setOpaque(false);
-      scroller.getViewport().setBackground(ApplicationColors.getTransparent());
+      scroller.getViewport().setBackground(ColorBase.getTransparent());
       scroller.setViewportBorder(BorderFactory.createEmptyBorder());
-      scroller.setBackground(ApplicationColors.getDarkRed());
+      scroller.setBackground(ColorBase.getDarkRed());
 
       tablePanel.add(titlePanel);
       tablePanel.add(scroller);

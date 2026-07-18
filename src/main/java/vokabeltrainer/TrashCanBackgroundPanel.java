@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.main.AppImages;
 
 public class TrashCanBackgroundPanel extends JPanel
 {
@@ -15,11 +15,11 @@ public class TrashCanBackgroundPanel extends JPanel
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);
-      if (ApplicationImages.getTrashcanBackground() != null)
+      if (AppImages.getTrashcanBackground() != null)
       {
          int x = this.getParent().getWidth() / 2 - 1000 / 2;
          int y = this.getParent().getHeight() / 2 - 620 / 2;
-         g.drawImage(ApplicationImages.getTrashcanBackground(), x, y, this);
+         g.drawImage(AppImages.getTrashcanBackground(), x, y, this);
       }
    }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.main.AppImages;
 
 public class Blue
 {
@@ -23,7 +23,7 @@ public class Blue
                Blue.class.getResourceAsStream("blue/blue_" + i + ".jpg")));
 
       }
-      ApplicationImages.setBlueImages(blueImagesList);
+      AppImages.setBlueImages(blueImagesList);
    }
 
 }

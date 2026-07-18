@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
@@ -35,7 +35,7 @@ public class ExpressionKindTableSingleselect extends JTable
       this.setCellSelectionEnabled(false);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       this.setBorder(
-            BorderFactory.createLineBorder(ApplicationColors.getDarkGold()));
+            BorderFactory.createLineBorder(ColorBase.getDarkGold()));
       this.setTableHeader(null);
 
       addMouseListener(new MouseAdapter()

@@ -11,9 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.colors.AlefbetColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.panels.translation.Translator;
@@ -140,7 +140,7 @@ public class LetterPictureButtonPanel extends JPanel
       else
       {
          germanButton = new JButton(letter.getGermanPictureName(translator));
-         germanButton.setFont(ApplicationFonts.germanFont.deriveFont(10F));
+         germanButton.setFont(AppFonts.germanFont.deriveFont(10F));
          germanButton.setBorder(BorderFactory.createEmptyBorder());
          germanButton.setMargin(new Insets(0, 0, 0, 0));
          germanButton.setContentAreaFilled(false);
@@ -167,7 +167,7 @@ public class LetterPictureButtonPanel extends JPanel
          hebrewButton = new JButton(letter.getTranscript());
          hebrewButton.setBorder(BorderFactory.createEmptyBorder());
          hebrewButton.setMargin(new Insets(0, 0, 0, 0));
-         hebrewButton.setFont(ApplicationFonts.germanFont.deriveFont(10F));
+         hebrewButton.setFont(AppFonts.germanFont.deriveFont(10F));
          hebrewButton.setContentAreaFilled(false);
       }
       hebrewButton.setOpaque(true);
@@ -191,10 +191,10 @@ public class LetterPictureButtonPanel extends JPanel
       else
       {
          letterButton = new JButton(
-               new ImageIcon(ApplicationImages.getLetterIconsNikudMap()
+               new ImageIcon(AppImages.getLetterIconsNikudMap()
                      .get(letter).getScaledInstance(scale.getScaleX(),
                            scale.getScaleY(), java.awt.Image.SCALE_SMOOTH)));
-         letterButton.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
+         letterButton.setFont(AppFonts.hebrewFont.deriveFont(30F));
          letterButton.setBorder(BorderFactory.createEmptyBorder());
          letterButton.setContentAreaFilled(false);
          letterButton.setMargin(new Insets(-10, 0, 0, 0));
@@ -219,11 +219,11 @@ public class LetterPictureButtonPanel extends JPanel
       else
       {
          letterHandwrittenButton = new JButton(new ImageIcon(
-               ApplicationImages.getLetterIconsNikudHandwrittenMap().get(letter)
+               AppImages.getLetterIconsNikudHandwrittenMap().get(letter)
                      .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                            java.awt.Image.SCALE_SMOOTH)));
          letterHandwrittenButton
-               .setFont(ApplicationFonts.hebrewHandwrittenFont.deriveFont(30F));
+               .setFont(AppFonts.hebrewHandwrittenFont.deriveFont(30F));
          letterHandwrittenButton.setBorder(BorderFactory.createEmptyBorder());
          letterHandwrittenButton.setContentAreaFilled(false);
          letterHandwrittenButton.setMargin(new Insets(-10, 0, 0, 0));
@@ -245,7 +245,7 @@ public class LetterPictureButtonPanel extends JPanel
       else
       {
          pictureButton = new JButton(
-               new ImageIcon(ApplicationImages.getLetterIconsNikudMap()
+               new ImageIcon(AppImages.getLetterIconsNikudMap()
                      .get(letter).getScaledInstance(scale.getScaleX(),
                            scale.getScaleY(), java.awt.Image.SCALE_SMOOTH)));
       }
@@ -261,7 +261,7 @@ public class LetterPictureButtonPanel extends JPanel
       blankCard.setOpaque(false);
       blankCard.setPreferredSize(new Dimension(50, 50));
       blankButton = new JButton(
-            new ImageIcon(ApplicationImages.getLetterEmpty()));
+            new ImageIcon(AppImages.getLetterEmpty()));
       blankButton.setBorder(BorderFactory.createEmptyBorder());
       blankButton.setMargin(new Insets(0, 0, 0, 0));
       blankButton.setOpaque(false);

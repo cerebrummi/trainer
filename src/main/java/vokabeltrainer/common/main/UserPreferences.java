@@ -1,4 +1,4 @@
-package vokabeltrainer.common;
+package vokabeltrainer.common.main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,15 +13,15 @@ import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.types.Chapter;
 import vokabeltrainer.types.Chapter.Database;
 
-public interface CerebrummiPreferences
+public class UserPreferences
 {
-   static void read(Mode mode)
+   void read(Settings settings, Mode mode)
    {
       try
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setDarkmodeOn(preferences
+         settings.setDarkmodeOn(preferences
                .getBoolean(CerebrummiNodes.getDarkmodeNode(), false));
       }
       catch (Exception e)
@@ -32,7 +32,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setSoundOn(
+         settings.setSoundOn(
                preferences.getBoolean(CerebrummiNodes.getSoundNode(), true));
       }
       catch (Exception e)
@@ -43,7 +43,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setChoosenExpressionPath(preferences
+         settings.setChoosenExpressionPath(preferences
                .get(CerebrummiNodes.getChoosenExpressionPathNode(), null));
       }
       catch (Exception e)
@@ -54,7 +54,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setVolume(
+         settings.setVolume(
                preferences.getFloat(CerebrummiNodes.getVolumeNode(), -20f));
       }
       catch (Exception e)
@@ -65,7 +65,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setLetterImagesOn(preferences
+         settings.setLetterImagesOn(preferences
                .getBoolean(CerebrummiNodes.getLetterPicturesNode(), true));
       }
       catch (Exception e)
@@ -117,7 +117,7 @@ public interface CerebrummiPreferences
             }
          }
 
-         Settings.setChosenDatabases(choosenDatabases);
+         settings.setChosenDatabases(choosenDatabases);
       }
       catch (BackingStoreException e)
       {
@@ -127,7 +127,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setTranslationCode(TranslationCode.valueOf(
+         settings.setTranslationCode(TranslationCode.valueOf(
                preferences.get(CerebrummiNodes.getTranslationLanguage(),
                      TranslationCode.de_original.name())));
       }
@@ -139,7 +139,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_one_day(preferences
+         settings.initRepetition_one_day(preferences
                .getBoolean(CerebrummiNodes.getRepetitionOneDay(), false));
       }
       catch (Exception e)
@@ -150,7 +150,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_two_days(preferences
+         settings.initRepetition_two_days(preferences
                .getBoolean(CerebrummiNodes.getRepetitionTwoDays(), true));
       }
       catch (Exception e)
@@ -161,7 +161,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_five_days(preferences
+         settings.initRepetition_five_days(preferences
                .getBoolean(CerebrummiNodes.getRepetitionFiveDays(), true));
       }
       catch (Exception e)
@@ -172,7 +172,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_eleven_days(preferences
+         settings.initRepetition_eleven_days(preferences
                .getBoolean(CerebrummiNodes.getRepetitionElevenDays(), false));
       }
       catch (Exception e)
@@ -183,7 +183,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_nineteen_days(preferences
+         settings.initRepetition_nineteen_days(preferences
                .getBoolean(CerebrummiNodes.getRepetitionNineteenDays(), true));
       }
       catch (Exception e)
@@ -194,7 +194,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_one_month(preferences
+         settings.initRepetition_one_month(preferences
                .getBoolean(CerebrummiNodes.getRepetitionOneMonth(), false));
       }
       catch (Exception e)
@@ -205,7 +205,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_two_months(preferences
+         settings.initRepetition_two_months(preferences
                .getBoolean(CerebrummiNodes.getRepetitionTwoMonths(), false));
       }
       catch (Exception e)
@@ -216,7 +216,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initRepetition_five_months(preferences
+         settings.initRepetition_five_months(preferences
                .getBoolean(CerebrummiNodes.getRepetitionFiveMonths(), false));
       }
       catch (Exception e)
@@ -227,7 +227,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.initSchabbat_modus(preferences
+         settings.initSchabbat_modus(preferences
                .getBoolean(CerebrummiNodes.getSchabbatModus(), false));
       }
       catch (Exception e)
@@ -238,7 +238,7 @@ public interface CerebrummiPreferences
       {
          Preferences preferences = Preferences.userRoot()
                .node(CerebrummiNodes.getNode());
-         Settings.setLanguageInput(Selection.valueOf(preferences.get(
+         settings.setLanguageInput(Selection.valueOf(preferences.get(
                CerebrummiNodes.getLanguageNode(), Selection.GERMAN.name())));
       }
       catch (Exception e)

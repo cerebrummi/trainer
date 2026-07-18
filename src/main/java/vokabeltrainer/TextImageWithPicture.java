@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-import vokabeltrainer.common.ApplicationFonts;
+import vokabeltrainer.common.main.App;
 
 public class TextImageWithPicture
 {
@@ -16,12 +16,12 @@ public class TextImageWithPicture
 
    }
 
-   public static BufferedImage make(BufferedImage picture, String... textrows)
+   public static BufferedImage make(App app, BufferedImage picture, String... textrows)
    {
       BufferedImage helperImg = new BufferedImage(1, 1,
             BufferedImage.TYPE_INT_RGB);
       Graphics2D g2d = helperImg.createGraphics();
-      Font font = ApplicationFonts.germanFont.deriveFont(16F);
+      Font font = app.appFonts.germanFont.deriveFont(16F);
       g2d.setFont(font);
       FontMetrics fm = g2d.getFontMetrics();
       String longestText = "";

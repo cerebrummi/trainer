@@ -5,12 +5,12 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.main.AppImages;
 
 public class ImagePanelGreen extends JPanel
 {
    private static final long serialVersionUID = 5685334885200762846L;
-   private static BufferedImage currentImage = ApplicationImages
+   private static BufferedImage currentImage = AppImages
          .getRandomGreenImage();
 
    @Override
@@ -25,6 +25,6 @@ public class ImagePanelGreen extends JPanel
 
    public static void setNextImage()
    {
-      currentImage = ApplicationImages.getRandomGreenImage();
+      currentImage = AppImages.getRandomGreenImage();
    }
 }

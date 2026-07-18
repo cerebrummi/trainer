@@ -11,9 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.colors.SuccessColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.Data;
 import vokabeltrainer.common.main.SaveTraining;
@@ -106,8 +106,8 @@ public class SuccessHelper
 
          JButton selectAllButton = new JButton(
                translator.realisticTranslate(Translation.ALLE_AUSWAEHLEN));
-         selectAllButton.setIcon(new ImageIcon(ApplicationImages.getSelect()));
-         selectAllButton.setFont(ApplicationFonts.buttonFont);
+         selectAllButton.setIcon(new ImageIcon(AppImages.getSelect()));
+         selectAllButton.setFont(AppFonts.buttonFont);
          selectAllButton.setForeground(SuccessColors.getTextForeground());
          selectAllButton.addActionListener(_ -> {
 
@@ -120,8 +120,8 @@ public class SuccessHelper
          });
          JButton unselectAllButton = new JButton(translator
                .realisticTranslate(Translation.ALLE_NICHT_AUSWAEHLEN));
-         unselectAllButton.setIcon(new ImageIcon(ApplicationImages.getClear()));
-         unselectAllButton.setFont(ApplicationFonts.buttonFont);
+         unselectAllButton.setIcon(new ImageIcon(AppImages.getClear()));
+         unselectAllButton.setFont(AppFonts.buttonFont);
          unselectAllButton.setForeground(SuccessColors.getTextForeground());
          unselectAllButton.addActionListener(_ -> {
 
@@ -136,8 +136,8 @@ public class SuccessHelper
                .realisticTranslate(Translation.AUSGEWAEHLTE_WOERTER_ZU) + " \""
                + translator.realisticTranslate(Translation.VORRAT) + "\" "
                + translator.realisticTranslate(Translation.VERSCHIEBEN));
-         moveButton.setIcon(new ImageIcon(ApplicationImages.getBack()));
-         moveButton.setFont(ApplicationFonts.buttonFont);
+         moveButton.setIcon(new ImageIcon(AppImages.getBack()));
+         moveButton.setFont(AppFonts.buttonFont);
          moveButton.setForeground(SuccessColors.getTextForeground());
          moveButton.addActionListener(_ -> {
             List<Vector<SuccessTableRow>> rows = new ArrayList<>();

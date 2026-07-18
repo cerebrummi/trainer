@@ -1,19 +1,23 @@
 package vokabeltrainer.resources;
 
-import vokabeltrainer.common.ApplicationSound;
+import vokabeltrainer.common.main.AppSounds;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.SwedishLetter;
 
 public class Sounds
 {
-   public static void read()
+   private AppSounds appSounds;
+
+   public void read(Settings settings)
    {
-      ApplicationSound.setSplotchSound(
+      appSounds = new AppSounds(settings);
+      appSounds.setSplotchSound(
             Sounds.class.getResourceAsStream("sounds/splotch-sound.byt"));
-      ApplicationSound.setClappingSound(
+      appSounds.setClappingSound(
             Sounds.class.getResourceAsStream("sounds/clapping-sound.byt"));
-      ApplicationSound.setWaveSound(
+      appSounds.setWaveSound(
             Sounds.class.getResourceAsStream("sounds/wave-sound.byt"));
-      ApplicationSound.setShredderSound(
+      appSounds.setShredderSound(
             Sounds.class.getResourceAsStream("sounds/shredder-sound.byt"));
 
       SwedishLetter.A
@@ -134,5 +138,10 @@ public class Sounds
             .setSound(Sounds.class.getResourceAsStream("sounds/OE.byt"));
       SwedishLetter.SPACE
             .setSound(Sounds.class.getResourceAsStream("sounds/SPACE.byt"));
+   }
+
+   public AppSounds getAppSounds()
+   {
+      return appSounds;
    }
 }

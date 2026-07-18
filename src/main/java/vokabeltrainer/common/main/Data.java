@@ -40,11 +40,9 @@ import vokabeltrainer.ChapterDatabaseComparator;
 import vokabeltrainer.Command;
 import vokabeltrainer.ExpressionComparator;
 import vokabeltrainer.cmd.TextHelper;
-import vokabeltrainer.common.CerebrummiNodes;
 import vokabeltrainer.common.Letter;
 import vokabeltrainer.common.LetterForLoading;
 import vokabeltrainer.common.LetterForSaving;
-import vokabeltrainer.common.Settings;
 import vokabeltrainer.editing.ExchangeLetter;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
@@ -83,18 +81,24 @@ import vokabeltrainer.types.grammatical.expressionkind.Definitions;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 // Maps and Sets are never given to the outside!
-public abstract class Data
+public class Data
 {
-   private static final AtomicBoolean databaseInUse = new AtomicBoolean(false);
-   private static volatile UUID uuidDataBaseLock;
-   private static DataBase database;
+   private final AtomicBoolean databaseInUse = new AtomicBoolean(false);
+   private volatile UUID uuidDataBaseLock;
+   private DataBase database;
+   private Settings settings;
+   
+   public Data(Settings settings)
+   {
+      this.settings = settings;
+   }
 
-   static void initDatabase(Common common, View view)
+   void initDatabase(Common common, View view)
    {
       database = new DataBase(common, view);
    }
 
-   static boolean lockDataBase(UUID uuid)
+   boolean lockDataBase(UUID uuid)
    {
       if (databaseInUse.get())
       {
@@ -106,7 +110,7 @@ public abstract class Data
       return true;
    }
 
-   static boolean unlockDataBase(UUID uuid)
+   boolean unlockDataBase(UUID uuid)
    {
       if (uuidDataBaseLock.equals(uuid))
       {
@@ -116,7 +120,7 @@ public abstract class Data
       return false;
    }
 
-   private static void checkDataBaseInUseAndWait()
+   private void checkDataBaseInUseAndWait()
    {
       while (databaseInUse.get())
       {
@@ -131,32 +135,32 @@ public abstract class Data
       }
    }
 
-   private static DataBase getDataBaseAtomic()
+   private DataBase getDataBaseAtomic()
    {
       checkDataBaseInUseAndWait();
       return database;
    }
 
    // for saving expressions only, therefore NOT public
-   static Collection<Expression> getAlleMapValues()
+   Collection<Expression> getAlleMapValues()
    {
       return database.getAlleMap().values();
    }
 
    // for saving expressions only, therefore NOT public
-   static Collection<Expression> getNewMapValues()
+   Collection<Expression> getNewMapValues()
    {
       return database.getNewMap().values();
    }
 
    // for saving expressions only, therefore NOT public
-   static Collection<Expression> getDeletedMapValues()
+   Collection<Expression> getDeletedMapValues()
    {
       return database.getDeletedMap().values();
    }
 
    // for importing expressions only, therefore NOT public
-   static boolean importDatabase(Common common, String databasePath, String databaseName,
+   boolean importDatabase(Common common, String databasePath, String databaseName,
          boolean overwriteDatabaseNames)
    {
       return database.importDatabase(common, databasePath, databaseName,
@@ -164,27 +168,27 @@ public abstract class Data
    }
 
    // for saving expressions only, therefore NOT public
-   static void integrateNewExpressions()
+   void integrateNewExpressions()
    {
       database.integrateNewExpressions();
    }
 
-   public static int getAlleMapSize()
+   public int getAlleMapSize()
    {
       return getDataBaseAtomic().getAlleMap().size();
    }
 
-   public static int getNewMapSize()
+   public int getNewMapSize()
    {
       return getDataBaseAtomic().getNewMap().size();
    }
 
-   public static int getDeletedMapSize()
+   public int getDeletedMapSize()
    {
       return getDataBaseAtomic().getDeletedMap().size();
    }
 
-   public static ExpressionTableModel findTranslations(Common common, String text,
+   public ExpressionTableModel findTranslations(Common common, String text,
          ExpressionKind kind, SearchType search, Chapter chapter,
          Command command, SortingType sortingType, Integer levelOfDifficulty,
          Direction direction, List<DatabaseTableRow> selectedRows)
@@ -193,76 +197,76 @@ public abstract class Data
             command, sortingType, levelOfDifficulty, direction, selectedRows);
    }
 
-   public static ExpressionTableModel findTranslationsDeletedWords()
+   public ExpressionTableModel findTranslationsDeletedWords()
    {
       return getDataBaseAtomic().findTranslationsDeletedWords();
    }
 
-   public static ComboBoxModel<String> getChapterComboBoxModel()
+   public ComboBoxModel<String> getChapterComboBoxModel()
    {
       return getDataBaseAtomic().getChapterComboBoxModel();
    }
 
-   public static ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter(Common common)
+   public ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter(Common common)
    {
       return getDataBaseAtomic().getChapterComboBoxModelAsChapter(common);
    }
 
-   public static ComboBoxModel<String> getOwnDatabasesComboBoxModel(Common common)
+   public ComboBoxModel<String> getOwnDatabasesComboBoxModel(Common common)
    {
       return getDataBaseAtomic().getOwnDatabasesComboBoxModel(common);
    }
 
-   public static String getAllSelectedExpressionsAsString(
+   public String getAllSelectedExpressionsAsString(
          SortingType sortingType, Direction language)
    {
       return getDataBaseAtomic().getAllSelectedExpressionsAsString(sortingType,
             language);
    }
 
-   public static void clearAllSelectedExpressions()
+   public void clearAllSelectedExpressions()
    {
       getDataBaseAtomic().clearAllSelectedExpressions();
    }
 
-   public static void deleteExpressions(List<Expression> list)
+   public void deleteExpressions(List<Expression> list)
    {
       getDataBaseAtomic().deleteExpressions(list);
    }
 
-   public static void deleteExpressionsOfDatabase(Common common, String databaseChoosen)
+   public void deleteExpressionsOfDatabase(Common common, String databaseChoosen)
    {
       getDataBaseAtomic().deleteExpressionsOfDatabase(common, databaseChoosen);
    }
 
-   public static void restoreExpressions(List<Expression> list)
+   public void restoreExpressions(List<Expression> list)
    {
       getDataBaseAtomic().restoreExpressions(list);
    }
 
-   public static void shredderDeletedExpressions()
+   public void shredderDeletedExpressions()
    {
       getDataBaseAtomic().shredderDeletedExpressions();
    }
 
-   public static List<Expression> getAllSelectedExpressions(
+   public List<Expression> getAllSelectedExpressions(
          boolean exceptDoNotChange)
    {
       return getDataBaseAtomic()
             .findAllSelectedExpressionsList(exceptDoNotChange);
    }
 
-   public static Chapter[] getChapterArray(Common common, List<DatabaseTableRow> tableRows)
+   public Chapter[] getChapterArray(Common common, List<DatabaseTableRow> tableRows)
    {
       return getDataBaseAtomic().getChapterArray(common, tableRows);
    }
 
-   public static void putExpressionInNewMap(UUID uuid, Expression expression)
+   public void putExpressionInNewMap(UUID uuid, Expression expression)
    {
       getDataBaseAtomic().getNewMap().put(uuid, expression);
    }
 
-   public static TrainingTableModel findTrainingModel(Common common,
+   public TrainingTableModel findTrainingModel(Common common,
          LanguageDirection languageDirection, FieldOfTraining fieldOfTraining,
          Set<String> databaseNames)
    {
@@ -270,76 +274,76 @@ public abstract class Data
             fieldOfTraining, databaseNames);
    }
 
-   public static StatisticsTableModel findStatisticsModel(Common common)
+   public StatisticsTableModel findStatisticsModel(Common common)
    {
       return getDataBaseAtomic().findStatisticsModel(common);
    }
 
-   public static SuccessTableModel findSuccessModel(Direction direction,
+   public SuccessTableModel findSuccessModel(Direction direction,
          Repetition repetition)
    {
       return getDataBaseAtomic().findSuccessModel(direction, repetition);
    }
 
-   public static void unselectAllExpressions()
+   public void unselectAllExpressions()
    {
       getDataBaseAtomic().unselectAllExpressions();
    }
 
-   public static boolean determineReloadDatabases(Common common, View view)
+   public boolean determineReloadDatabases(Common common, View view)
    {
-      if (new HashSet<>(Settings.getChosenDatabases())
-            .equals(new HashSet<>(Settings.getOldChosenDatabases())))
+      if (new HashSet<>(settings.getChosenDatabases())
+            .equals(new HashSet<>(settings.getOldChosenDatabases())))
       {
          return false;
       }
       // reload data
       initDatabase(common, view);
-      Settings.setOldChosenDatabases(
-            new LinkedList<>(Settings.getChosenDatabases()));
+      settings.setOldChosenDatabases(
+            new LinkedList<>(settings.getChosenDatabases()));
       return true;
    }
 
-   public static String[] getAllOwnDistinctDatabaseDescriptions(Common common,
+   public String[] getAllOwnDistinctDatabaseDescriptions(Common common,
          boolean withSelfEvenIfNotInUseYet)
    {
       return getDataBaseAtomic().getAllOwnDistinctDatabaseDescriptions(common,
             withSelfEvenIfNotInUseYet, false);
    }
 
-   public static ComboBoxModel<String> getInternalDatabasesComboBoxModel(Common common)
+   public ComboBoxModel<String> getInternalDatabasesComboBoxModel(Common common)
    {
       return getDataBaseAtomic().getInternalDatabasesComboBoxModel(common);
    }
 
-   public static void copyInternalDatabase(Common common, Database database,
+   public void copyInternalDatabase(Common common, Database database,
          boolean overwriteDatabaseName, String databaseName)
    {
       getDataBaseAtomic().copyInternalDatabase(common, database, overwriteDatabaseName,
             databaseName);
    }
 
-   public static Chapter getChapterWithLastModifiedDate(Common common)
+   public Chapter getChapterWithLastModifiedDate(Common common)
    {
       return getDataBaseAtomic().getChapterWithLastModifiedDate(common);
    }
 
-   public static void moveSelectedExpressionsToChapter(String toChapter)
+   public void moveSelectedExpressionsToChapter(String toChapter)
    {
       getDataBaseAtomic().moveSelectedExpressionToChapter(toChapter);
    }
 
-   public static void moveSelectedExpressionsToDatabase(String toDatabase)
+   public void moveSelectedExpressionsToDatabase(String toDatabase)
    {
       getDataBaseAtomic().moveSelectedExpressionsToDatabase(toDatabase);
    }
 
-   public static Vector<Vector<DatabaseTableRow>> getDatabaseArray()
+   public Vector<Vector<DatabaseTableRow>> getDatabaseArray()
    {
       return getDataBaseAtomic().getDatabaseArray();
    }
 
-   public static boolean isExistUuid(UUID uuid)
+   public boolean isExistUuid(UUID uuid)
    {
       return getDataBaseAtomic().isExistUuid(uuid);
    }
@@ -370,9 +374,9 @@ public abstract class Data
    // #########################################################
    // #########################################################
 
-   private static class DataBase
+   private class DataBase
    {
-      private final static String DELETED_CSV = "DELETED.csv";
+      private final String DELETED_CSV = "DELETED.csv";
       private Set<Chapter> chapterSet = new HashSet<>();
       private final String[][] COLUMNAMES = { { "erste" } };
 
@@ -395,11 +399,11 @@ public abstract class Data
                .forEach(letter -> readFileRegular(common, letter.name() + ".csv",
                      Database.TO_BE_DETERMINED, letter));
 
-         Settings.getChosenDatabases().stream()
+         settings.getChosenDatabases().stream()
                .forEach(database -> Stream.of(LetterForSaving.values())
                      .forEach(letter -> readFileAvailable(common, letter, database)));
 
-         File customDir = new File(Settings.getTrainingPath());
+         File customDir = new File(settings.getTrainingPath());
          if (!customDir.exists())
          {
             customDir.mkdirs();
@@ -407,23 +411,23 @@ public abstract class Data
          else
          {
             File ownToGerman = new File(
-                  Settings.getTrainingPath() + File.separator
+                  settings.getTrainingPath() + File.separator
                         + LanguageDirection.OWN_TO_GERMAN.name() + ".txt");
             File ownToHebrew = new File(
-                  Settings.getTrainingPath() + File.separator
+                  settings.getTrainingPath() + File.separator
                         + LanguageDirection.OWN_TO_HEBREW.name() + ".txt");
             File ownToSwedish = new File(
-                  Settings.getTrainingPath() + File.separator
+                  settings.getTrainingPath() + File.separator
                         + LanguageDirection.OWN_TO_SWEDISH.name() + ".txt");
 
             File germanToOwn = new File(
-                  Settings.getTrainingPath() + File.separator
+                  settings.getTrainingPath() + File.separator
                         + LanguageDirection.GERMAN_TO_OWN.name() + ".txt");
             File hebrewToOwn = new File(
-                  Settings.getTrainingPath() + File.separator
+                  settings.getTrainingPath() + File.separator
                         + LanguageDirection.HEBREW_TO_OWN.name() + ".txt");
             File swedishToOwn = new File(
-                  Settings.getTrainingPath() + File.separator
+                  settings.getTrainingPath() + File.separator
                         + LanguageDirection.SWEDISH_TO_OWN.name() + ".txt");
 
             if (ownToGerman.exists())
@@ -544,11 +548,11 @@ public abstract class Data
          }
       }
 
-      private static boolean checkDirectory(Common common, View view)
+      private boolean checkDirectory(Common common, View view)
       {
          try
          {
-            File customDir = new File(Settings.getExpressionPathFolder());
+            File customDir = new File(settings.getExpressionPathFolder());
             if (!customDir.exists())
             {
                if (!common.getDirectoryHelper().makeDirectory(common, view, customDir))
@@ -739,7 +743,7 @@ public abstract class Data
             return new ConcurrentHashMap<UUID, Expression>(100);
          }
 
-         file = new File(Settings.getExpressionPathFolder() + "/" + filename);
+         file = new File(settings.getExpressionPathFolder() + "/" + filename);
          if (!file.exists())
          {
             return new ConcurrentHashMap<UUID, Expression>(100);
@@ -847,7 +851,7 @@ public abstract class Data
                   expression.setChapter(new Chapter(common, databasename,
                         entries[index], Database.SELF));
                }
-               else if (Settings.getAvailableDatabases().contains(origin))
+               else if (settings.getAvailableDatabases().contains(origin))
                {
                   index++;
                   expression.setChapter(
@@ -1310,7 +1314,7 @@ public abstract class Data
       {
          text = text.trim();
 
-         switch (Settings.getLanguageInput())
+         switch (settings.getLanguageInput())
          {
          case GERMAN:
             if (expression.getLL().getGerman().isBlank())
@@ -1465,7 +1469,7 @@ public abstract class Data
 
       private String[] getChapterArrayForEditor()
       {
-         final List<Database> availableDatabases = Settings
+         final List<Database> availableDatabases = settings
                .getAvailableDatabases();
 
          List<String> chapterList = chapterSet.stream().filter(
@@ -2078,7 +2082,7 @@ public abstract class Data
 
       private String[] getInternalDatabaseNames(Common common)
       {
-         return Arrays.stream(Settings.getAvailableDatabasesAsArray())
+         return Arrays.stream(settings.getAvailableDatabasesAsArray())
                .map(database -> database.getName(common)).toArray(String[]::new);
       }
 

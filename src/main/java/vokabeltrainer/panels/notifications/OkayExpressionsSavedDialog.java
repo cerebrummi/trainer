@@ -7,7 +7,7 @@ import java.awt.Dimension;
 import javax.swing.JDialog;
 
 import vokabeltrainer.IconPanel;
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.View;
 
 public class OkayExpressionsSavedDialog extends JDialog
@@ -20,7 +20,7 @@ public class OkayExpressionsSavedDialog extends JDialog
 
       setSize(200, 200);
       getContentPane().setPreferredSize(new Dimension(200, 200));
-      IconPanel content = new IconPanel(ApplicationImages.getOkaySave(), 200,
+      IconPanel content = new IconPanel(AppImages.getOkaySave(), 200,
             200);
       getContentPane().add(content);
       setUndecorated(true);

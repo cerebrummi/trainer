@@ -7,9 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -26,22 +26,22 @@ public class InformationTabDtoH extends JPanel
       translator = common.getTranslator();
       this.setLayout(new TrainLayout(this));
       setOpaque(false);
-      setBackground(ApplicationColors.getTransparent());
+      setBackground(ColorBase.getTransparent());
 
       JPanel leftSide = new JPanel();
       leftSide.setLayout(new TotemLayout(leftSide));
       leftSide.setOpaque(true);
-      leftSide.setBackground(ApplicationColors.getLightGold());
+      leftSide.setBackground(ColorBase.getLightGold());
 
       JPanel fillerBottom = new JPanel(new FlowLayout());
       fillerBottom.setMinimumSize(new Dimension(200, 100));
       fillerBottom.setMaximumSize(new Dimension(400, 700));
       fillerBottom.setOpaque(false);
-      fillerBottom.setBackground(ApplicationColors.getTransparent());
+      fillerBottom.setBackground(ColorBase.getTransparent());
 
       JPanel boxWrapper = new JPanel(new FlowLayout());
       boxWrapper.setOpaque(false);
-      boxWrapper.setBackground(ApplicationColors.getTransparent());
+      boxWrapper.setBackground(ColorBase.getTransparent());
       boxWrapper.setPreferredSize(new Dimension(355, 100));
       JLabel box = new JLabel("<html>"
             + translator.realisticTranslate(Translation.DEUTSCH) + " >> "
@@ -51,9 +51,9 @@ public class InformationTabDtoH extends JPanel
       box.setMaximumSize(new Dimension(355, 100));
       box.setPreferredSize(new Dimension(355, 100));
       box.setSize(new Dimension(355, 100));
-      box.setForeground(ApplicationColors.getWhite());
-      box.setBackground(ApplicationColors.getTransparent());
-      box.setFont(ApplicationFonts.hebrewFont.deriveFont(30F));
+      box.setForeground(ColorBase.getWhite());
+      box.setBackground(ColorBase.getTransparent());
+      box.setFont(AppFonts.hebrewFont.deriveFont(30F));
       box.setHorizontalAlignment(SwingConstants.CENTER);
       boxWrapper.add(box);
 
@@ -61,7 +61,7 @@ public class InformationTabDtoH extends JPanel
       fillerRight.setMinimumSize(new Dimension(600, 500));
       fillerRight.setMaximumSize(new Dimension(900, 850));
       fillerRight.setOpaque(false);
-      fillerRight.setBackground(ApplicationColors.getTransparent());
+      fillerRight.setBackground(ColorBase.getTransparent());
 
       leftSide.add(boxWrapper);
       leftSide.add(fillerBottom);
@@ -73,11 +73,11 @@ public class InformationTabDtoH extends JPanel
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);
-      if (ApplicationImages.getImage() != null)
+      if (AppImages.getImage() != null)
       {
          int x = this.getParent().getWidth() / 2 - 1280 / 2;
          int y = this.getParent().getHeight() / 2 - 853 / 2;
-         g.drawImage(ApplicationImages.getHebrewLetters(), x, y, this);
+         g.drawImage(AppImages.getHebrewLetters(), x, y, this);
       }
    }
 

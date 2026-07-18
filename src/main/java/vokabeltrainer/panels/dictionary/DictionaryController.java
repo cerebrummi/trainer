@@ -14,11 +14,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
 
-import vokabeltrainer.common.ApplicationSound;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.AppSounds;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.Data;
 import vokabeltrainer.common.main.SaveExpressions;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.DictionaryView;
 import vokabeltrainer.panels.notifications.EmptyNotification;
@@ -253,7 +253,7 @@ public class DictionaryController implements DictionaryControllerConnector
                {
                   try (Clip clip = AudioSystem.getClip())
                   {
-                     clip.open(ApplicationSound.getShredderSound());
+                     clip.open(AppSounds.getShredderSound());
                      FloatControl volume = (FloatControl) clip
                            .getControl(FloatControl.Type.MASTER_GAIN);
                      volume.setValue(Settings.getVolume());

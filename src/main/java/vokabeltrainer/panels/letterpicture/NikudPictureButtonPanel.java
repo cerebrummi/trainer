@@ -11,9 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.colors.AlefbetColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
@@ -125,7 +125,7 @@ public class NikudPictureButtonPanel extends JPanel
       {
          germanButton = new JButton(
                letter.getNikudContent().getGermanPictureName(translator));
-         germanButton.setFont(ApplicationFonts.germanFont.deriveFont(10F));
+         germanButton.setFont(AppFonts.germanFont.deriveFont(10F));
          germanButton.setContentAreaFilled(false);
       }
       germanButton.setBorder(BorderFactory.createEmptyBorder());
@@ -151,7 +151,7 @@ public class NikudPictureButtonPanel extends JPanel
          hebrewButton = new JButton(letter.getContent().getTranscript());
          hebrewButton.setBackground(AlefbetColors.getButton());
          hebrewButton.setForeground(AlefbetColors.getButtonForeground());
-         hebrewButton.setFont(ApplicationFonts.germanFont.deriveFont(10F));
+         hebrewButton.setFont(AppFonts.germanFont.deriveFont(10F));
          hebrewButton.setContentAreaFilled(false);
       }
       hebrewButton.setBorder(BorderFactory.createEmptyBorder());
@@ -179,7 +179,7 @@ public class NikudPictureButtonPanel extends JPanel
       pictureCard = new JPanel(new BorderLayout());
       pictureCard.setOpaque(false);
       pictureCard.setPreferredSize(new Dimension(50, 50));
-      imagePicture = ApplicationImages.getLetterPicturesMap()
+      imagePicture = AppImages.getLetterPicturesMap()
             .get(letter.getContent());
       if (imagePicture != null)
       {
@@ -187,7 +187,7 @@ public class NikudPictureButtonPanel extends JPanel
       }
       else
       {
-         pictureButton = new JButton(new ImageIcon(ApplicationImages
+         pictureButton = new JButton(new ImageIcon(AppImages
                .getLetterIconsNikudMap().get(letter.getContent())
                .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                      java.awt.Image.SCALE_SMOOTH)));

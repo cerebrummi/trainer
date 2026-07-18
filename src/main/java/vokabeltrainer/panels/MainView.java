@@ -14,14 +14,14 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import vokabeltrainer.TextImage;
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.ColorBase;
 import vokabeltrainer.common.colors.MainColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.Data;
 import vokabeltrainer.common.main.Model;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.dictionary.DictionaryController;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
@@ -72,7 +72,7 @@ public class MainView extends JPanel
    {
       setLayout(new BorderLayout());
       this.setOpaque(false);
-      this.setBackground(ApplicationColors.getTransparent());
+      this.setBackground(ColorBase.getTransparent());
 
       startPanel = new StartPanel(common, view);
       inputPanel = new InputPanel(common, view);
@@ -144,12 +144,12 @@ public class MainView extends JPanel
    {
       menuBar = new JMenuBar();
       menuBar.setOpaque(true);
-      menuBar.setBackground(ApplicationColors.getLightGold());
+      menuBar.setBackground(ColorBase.getLightGold());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
       menuBar.setMinimumSize(new Dimension(1200, 80));
       menuBar.setMaximumSize(new Dimension(6000, 80));
 
-      backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
+      backButton = new JButton(new ImageIcon(AppImages.getBack()));
 
       menuBar.add(backButton);
    }
@@ -158,12 +158,12 @@ public class MainView extends JPanel
    {
       menuBar = new JMenuBar();
       menuBar.setOpaque(true);
-      menuBar.setBackground(ApplicationColors.getLightGold());
+      menuBar.setBackground(ColorBase.getLightGold());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
       menuBar.setMinimumSize(new Dimension(1200, 80));
       menuBar.setMaximumSize(new Dimension(6000, 80));
 
-      backButton = new JButton(new ImageIcon(ApplicationImages.getBack()));
+      backButton = new JButton(new ImageIcon(AppImages.getBack()));
 
       menuBar.add(backButton);
 
@@ -180,7 +180,7 @@ public class MainView extends JPanel
 
       startButton = new JButton(
             translator.realisticTranslate(Translation.DATEN),
-            new ImageIcon(ApplicationImages.getLogoFolder()));
+            new ImageIcon(AppImages.getLogoFolder()));
       inputButton = new JButton(
             translator.realisticTranslate(Translation.EINGABE));
       vocabularyCardsButton = new JButton(
@@ -189,24 +189,24 @@ public class MainView extends JPanel
             translator.realisticTranslate(Translation.WOERTERBUCH));
       statisticsButton = new JButton(
             translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
-      aboutButton = new JButton(new ImageIcon(ApplicationImages.getLogo24()));
+      aboutButton = new JButton(new ImageIcon(AppImages.getLogo24()));
       letterPicturesButton = new JButton(
             translator.realisticTranslate(Translation.ALEFBET));
       successButton = new JButton(
             translator.realisticTranslate(Translation.KARTEIKASTEN));
-      languageButton = new JButton(new ImageIcon(ApplicationImages.getL18n()));
+      languageButton = new JButton(new ImageIcon(AppImages.getL18n()));
       darkmodeButton = new JButton(
-            new ImageIcon(ApplicationImages.getDarkmode()));
+            new ImageIcon(AppImages.getDarkmode()));
 
-      startButton.setFont(ApplicationFonts.toolbarButtonFont);
-      inputButton.setFont(ApplicationFonts.toolbarButtonFont);
-      vocabularyCardsButton.setFont(ApplicationFonts.toolbarButtonFont);
-      dictionaryButton.setFont(ApplicationFonts.toolbarButtonFont);
-      statisticsButton.setFont(ApplicationFonts.toolbarButtonFont);
-      letterPicturesButton.setFont(ApplicationFonts.toolbarButtonFont);
-      successButton.setFont(ApplicationFonts.toolbarButtonFont);
-      languageButton.setFont(ApplicationFonts.toolbarButtonFont);
-      darkmodeButton.setFont(ApplicationFonts.toolbarButtonFont);
+      startButton.setFont(AppFonts.toolbarButtonFont);
+      inputButton.setFont(AppFonts.toolbarButtonFont);
+      vocabularyCardsButton.setFont(AppFonts.toolbarButtonFont);
+      dictionaryButton.setFont(AppFonts.toolbarButtonFont);
+      statisticsButton.setFont(AppFonts.toolbarButtonFont);
+      letterPicturesButton.setFont(AppFonts.toolbarButtonFont);
+      successButton.setFont(AppFonts.toolbarButtonFont);
+      languageButton.setFont(AppFonts.toolbarButtonFont);
+      darkmodeButton.setFont(AppFonts.toolbarButtonFont);
 
       startButton.setBackground(MainColors.getButtonBackground());
       inputButton.setBackground(MainColors.getButtonBackground());

@@ -13,11 +13,11 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.Settings;
 import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -56,11 +56,11 @@ public class StartTrainingView extends JDialog
       getContentPane().add(layout);
 
       tabbedPane = new JTabbedPane();
-      tabbedPane.setFont(ApplicationFonts.toolbarButtonFont);
+      tabbedPane.setFont(AppFonts.toolbarButtonFont);
       layout.add(tabbedPane, BorderLayout.CENTER);
 
       tabbedPane.addTab(translator.realisticTranslate(Translation.GEBIET),
-            new ImageIcon(ApplicationImages.getArrow()),
+            new ImageIcon(AppImages.getArrow()),
             new FieldOfTrainingTab(common, this));
    }
 

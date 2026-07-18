@@ -10,9 +10,9 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
+import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableCellRenderer
@@ -26,17 +26,17 @@ public class ExpressionKindTableCellRenderer
    public ExpressionKindTableCellRenderer() // multiple selection possible,
                                             // except unknown selection row 0
    {
-      selected = new JLabel(new ImageIcon(ApplicationImages.getSelectDone()));
-      selected.setBackground(ApplicationColors.getTransparent());
+      selected = new JLabel(new ImageIcon(AppImages.getSelectDone()));
+      selected.setBackground(ColorBase.getTransparent());
       selected.setOpaque(false);
 
       empty = new JLabel();
-      empty.setBackground(ApplicationColors.getTransparent());
+      empty.setBackground(ColorBase.getTransparent());
       empty.setOpaque(false);
 
       expressionKind = new JLabel();
-      expressionKind.setFont(ApplicationFonts.germanFont.deriveFont(14F));
-      expressionKind.setBackground(ApplicationColors.getTransparent());
+      expressionKind.setFont(AppFonts.germanFont.deriveFont(14F));
+      expressionKind.setBackground(ColorBase.getTransparent());
       expressionKind.setOpaque(false);
    }
 

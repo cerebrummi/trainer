@@ -5,7 +5,7 @@ import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 
-import vokabeltrainer.common.ApplicationColors;
+import vokabeltrainer.common.ColorBase;
 
 public class Renderer extends DefaultListCellRenderer {
 
@@ -20,7 +20,7 @@ public class Renderer extends DefaultListCellRenderer {
     public Component getListCellRendererComponent(JList<?> list, Object value,
                                                   int index, boolean isSelected, boolean cellHasFocus) {
         setText((String) value);
-        setBackground(ApplicationColors.getLightYellow());
+        setBackground(ColorBase.getLightYellow());
         return this;
     }
 }

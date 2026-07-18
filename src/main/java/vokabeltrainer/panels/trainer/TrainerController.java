@@ -21,12 +21,12 @@ import javax.swing.SwingWorker;
 import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.TextImageWithPicture;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
-import vokabeltrainer.common.ApplicationSound;
-import vokabeltrainer.common.Settings;
+import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.AppSounds;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.SaveTraining;
+import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.TrainerView;
 import vokabeltrainer.panels.translation.Translation;
@@ -251,7 +251,7 @@ public class TrainerController implements TrainerControllerConnector
                bestResult = NikudResultFactory.getBestResultPossible(
                      currentExpression,
                      trainerView.getAnswerField().getText().trim(),
-                     ApplicationFonts.hebrewFont.deriveFont(30F));
+                     AppFonts.hebrewFont.deriveFont(30F));
             }
             else if (LanguageDirection.OWN_TO_SWEDISH == languageDirection)
             {
@@ -489,7 +489,7 @@ public class TrainerController implements TrainerControllerConnector
          {
             try (Clip clip = AudioSystem.getClip())
             {
-               clip.open(ApplicationSound.getSplotchSound());
+               clip.open(AppSounds.getSplotchSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
                volume.setValue(Settings.getVolume());
@@ -523,7 +523,7 @@ public class TrainerController implements TrainerControllerConnector
          {
             try (Clip clip = AudioSystem.getClip())
             {
-               clip.open(ApplicationSound.getClappingSound());
+               clip.open(AppSounds.getClappingSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
                volume.setValue(Settings.getVolume());
@@ -557,7 +557,7 @@ public class TrainerController implements TrainerControllerConnector
          {
             try (Clip clip = AudioSystem.getClip())
             {
-               clip.open(ApplicationSound.getWaveSound());
+               clip.open(AppSounds.getWaveSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
                volume.setValue(Settings.getVolume());
@@ -594,7 +594,7 @@ public class TrainerController implements TrainerControllerConnector
             JOptionPane.showMessageDialog(view.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(
-                        ApplicationImages.getReward(),
+                        AppImages.getReward(),
                         translator.realisticTranslate(
                               Translation.WUNDERBAR__SIE_HABEN_DIESE),
                         translator.realisticTranslate(
@@ -616,7 +616,7 @@ public class TrainerController implements TrainerControllerConnector
             JOptionPane.showMessageDialog(view.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(
-                        ApplicationImages.getReward(),
+                        AppImages.getReward(),
                         translator.realisticTranslate(
                               Translation.WUNDERBAR__SIE_HABEN_DIESE),
                         translator.realisticTranslate(
@@ -634,7 +634,7 @@ public class TrainerController implements TrainerControllerConnector
             JOptionPane.showMessageDialog(view.getjFrame(), "",
                   Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(
-                        ApplicationImages.getReward(),
+                        AppImages.getReward(),
                         translator.realisticTranslate(
                               Translation.WUNDERBAR__SIE_HABEN_DIESE),
                         translator.realisticTranslate(

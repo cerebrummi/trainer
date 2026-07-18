@@ -2,27 +2,24 @@ package vokabeltrainer.common.main;
 
 public final class Model
 {   
-   // package on purpose
-   Model()
+   public Data data;
+
+   public Model(Settings settings, Common common, View view)
    {
-      // nothing
+      initUserExpressionDatabase(settings, common, view);
+      initUserImageData(settings, common, view);
+      // TODO initUserSoundData
    }
    
-   public View initImageData(Common common, View view)
+   private void initUserExpressionDatabase(Settings settings, Common common, View view)
    {
-      ImageData.initImageDataBase(common, view);
-      return view;
+      data = new Data(settings);
+      data.initDatabase(common, view);
    }
    
-   public View initSoundData(Common common, View view)
+   private void initUserImageData(Settings settings, Common common, View view)
    {
-      SoundData.initSoundDataBase(common, view);
-      return view;
-   }
-   
-   public View initDatabase(Common common, View view)
-   {
-      Data.initDatabase(common, view);
-      return view;
+      ImageData imageData = new ImageData(settings, data);
+      imageData.initImageDataBase(common, view);
    }
 }

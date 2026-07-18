@@ -6,6 +6,13 @@ import javax.swing.ProgressMonitor;
 
 public final class ImportExpressions
 {
+   private Model model;
+   
+   public ImportExpressions(Model model)
+   {
+      this.model = model;
+   }
+   
    public boolean importExpressions(Common common, String databaseName,
          boolean overwriteDatabaseNames, String databasePath)
    {
@@ -19,20 +26,20 @@ public final class ImportExpressions
       UUID uuidSearchLock = UUID.randomUUID();
       try
       {
-         if (Data.lockDataBase(uuidSearchLock))
+         if (model.data.lockDataBase(uuidSearchLock))
          {
-            return (Data.importDatabase(common, databasePath, databaseName,
+            return (model.data.importDatabase(common, databasePath, databaseName,
                   overwriteDatabaseNames));
          }
          return false;
       }
       catch (Exception e)
       {
-
+         // nothing
       }
       finally
       {
-         Data.unlockDataBase(uuidSearchLock);
+         model.data.unlockDataBase(uuidSearchLock);
       }
       return false;
    }

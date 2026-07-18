@@ -5,8 +5,8 @@ import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import vokabeltrainer.common.ApplicationFonts;
 import vokabeltrainer.common.colors.SuccessColors;
+import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.translation.Translation;
@@ -53,7 +53,7 @@ public class LanguageTab extends JPanel
       register = new JTabbedPane();
       register.setOpaque(true);
       register.setBackground(SuccessColors.getPanelBackground());
-      register.setFont(ApplicationFonts.secondaryToolbarButtonFont);
+      register.setFont(AppFonts.secondaryToolbarButtonFont);
 
       register.addTab(translator.realisticTranslate(Translation.RICHTUNG),
             infoPanel); // 0

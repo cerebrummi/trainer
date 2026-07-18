@@ -3,6 +3,7 @@ package vokabeltrainer.common.main;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -13,13 +14,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import vokabeltrainer.cmd.Mode;
-import vokabeltrainer.common.ApplicationColors;
-import vokabeltrainer.common.ApplicationFonts;
-import vokabeltrainer.common.ApplicationImages;
 import vokabeltrainer.common.MainController;
-import vokabeltrainer.common.Settings;
 import vokabeltrainer.panels.MainView;
 import vokabeltrainer.panels.translation.Translation;
+import vokabeltrainer.resources.Buchstabenbilder;
+import vokabeltrainer.resources.LetterIcons;
+import vokabeltrainer.resources.LetterIconsHandwritten;
 
 public final class View
 {
@@ -29,10 +29,22 @@ public final class View
    private Common common;
    
    // package on purpose
-   View(Common common, Mode mode)
+   View(App app, Common common, Mode mode)
    {
       this.common = common;
-      setUI();
+      setUI(app);
+      
+      try
+      {
+         LetterIcons.readNikud();
+         LetterIconsHandwritten.readNikud();
+         Buchstabenbilder.read(common);
+      }
+      catch (IOException e1)
+      {
+         System.exit(10);
+      }
+      
       jFrame = new JFrame();
       
       if (mode.isWeb())
@@ -45,11 +57,11 @@ public final class View
          jFrame.setSize(new Dimension(1536, 980));
       }
       jFrame.setResizable(true);
-      jFrame.setIconImage(ApplicationImages.getLogo());
+      jFrame.setIconImage(app.appImages.getLogo());
       jFrame.getContentPane()
-            .setBackground(ApplicationColors.getBackgroundGold());
-      jFrame.setTitle(Settings.getWindowTitle() + " " + Settings.getVersion());
-      jFrame.setFont(ApplicationFonts.germanFont.deriveFont(14F));
+            .setBackground(app.appColors.getBackgroundGold());
+      jFrame.setTitle(app.settings.getWindowTitle() + " " + app.settings.getVersion());
+      jFrame.setFont(app.appFonts.germanFont.deriveFont(14F));
       ToolTipManager.sharedInstance().setDismissDelay(8000);
       ToolTipManager.sharedInstance().setInitialDelay(1000);
       mainJPanel = new MainController(common).getMainView();
@@ -79,7 +91,7 @@ public final class View
       return nimbus;
    }
    
-   public void setUI()
+   public void setUI(App app)
    {
       try
       {
@@ -88,15 +100,15 @@ public final class View
 
          nimbus.getDefaults().put("internationalFont",
                new Font(Font.SANS_SERIF, Font.PLAIN, 16));
-         ApplicationFonts.internationalFont = nimbus.getDefaults()
+         app.appFonts.internationalFont = nimbus.getDefaults()
                .getFont("internationalFont");
 
-         UIManager.put("nimbusFocus", ApplicationColors.getSunflowerYellow());
-         UIManager.put("nimbusBlueGrey", ApplicationColors.getLightGrayGold());
-         UIManager.put("nimbusSelection", ApplicationColors.getGreen());
+         UIManager.put("nimbusFocus", app.appColors.getSunflowerYellow());
+         UIManager.put("nimbusBlueGrey", app.appColors.getLightGrayGold());
+         UIManager.put("nimbusSelection", app.appColors.getGreen());
 
-         UIManager.put("Button.foreground", ApplicationColors.getBlack());
-         UIManager.put("List.foreground", ApplicationColors.getDarkGold());
+         UIManager.put("Button.foreground", app.appColors.getBlack());
+         UIManager.put("List.foreground", app.appColors.getDarkGold());
 
          UIManager.put("ToolBar:Button.contentMargins",
                new Insets(5, 15, 5, 15));
@@ -155,8 +167,16 @@ public final class View
       }
       catch (UnsupportedLookAndFeelException e3)
       {
-         // nothing
+         try
+         {
+            LetterIcons.readNikud();
+            LetterIconsHandwritten.readNikud();
+            Buchstabenbilder.read(common);
+         }
+         catch (IOException e1)
+         {
+            System.exit(11);
+         }
       }
-
    }
 }

@@ -15,8 +15,6 @@ import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 
-import vokabeltrainer.common.CerebrummiNodes;
-import vokabeltrainer.common.Settings;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.LanguageDirection;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
@@ -25,7 +23,7 @@ public final class SaveTraining
 {
    private int counter;
 
-   public boolean save(View view)
+   public boolean save(App app, Model model, View view)
    {
       ProgressMonitor bar = new ProgressMonitor(null,
             "Die Traingsdaten werden gespeichert.", "", 0, 100);
@@ -35,12 +33,12 @@ public final class SaveTraining
       bar.setMillisToDecideToPopup(1000);
 
       UUID uuidSearchLock = UUID.randomUUID();
-      if (Data.lockDataBase(uuidSearchLock))
+      if (model.data.lockDataBase(uuidSearchLock))
       {
          try
          {
             counter = 0;
-            File customDir = new File(Settings.getTrainingPath());
+            File customDir = new File(app.settings.getTrainingPath());
             if (!customDir.exists())
             {
                try
@@ -59,7 +57,7 @@ public final class SaveTraining
             for (LanguageDirection languageDirection : LanguageDirection
                   .values())
             {
-               doSave(languageDirection);
+               doSave(app, model, languageDirection);
                progress += 100 / ExpressionKind.values().length;
                bar.setProgress(progress);
             }
@@ -82,21 +80,21 @@ public final class SaveTraining
          }
          finally
          {
-            Data.unlockDataBase(uuidSearchLock);
+            model.data.unlockDataBase(uuidSearchLock);
          }
       }
       return false;
    }
 
-   private void doSave(LanguageDirection languageDirection) throws IOException
+   private void doSave(App app, Model model, LanguageDirection languageDirection) throws IOException
    {
-      File file = new File(Settings.getTrainingPath() + File.separator
+      File file = new File(app.settings.getTrainingPath() + File.separator
             + languageDirection.name() + ".txt");
       FileOutputStream stream = new FileOutputStream(file);
       OutputStreamWriter writer = new OutputStreamWriter(stream,
             StandardCharsets.UTF_8);
       StringJoiner joiner = new StringJoiner("\n");
-      for (Expression expression : getAllValues())
+      for (Expression expression : getAllValues(model))
       {
          if (languageDirection.name()
                .contains(expression.getLL().getLltype().name()))
@@ -115,11 +113,11 @@ public final class SaveTraining
 
    }
 
-   private Collection<Expression> getAllValues()
+   private Collection<Expression> getAllValues(Model model)
    {
       List<Expression> list = new ArrayList<>();
-      list.addAll(Data.getAlleMapValues());
-      list.addAll(Data.getNewMapValues());
+      list.addAll(model.data.getAlleMapValues());
+      list.addAll(model.data.getNewMapValues());
       return list;
    }
 }
