@@ -12,10 +12,7 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.common.ColorBase;
-import vokabeltrainer.common.colors.InputColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.GermanLetter;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -31,19 +28,19 @@ public class KeyboardGermanStandard extends JPanel
 
    private JPanel keyboardPanel;
 
-   public KeyboardGermanStandard(JTextComponent textfield,
+   public KeyboardGermanStandard(App app, JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight)
    {
       dataButtons = new HashMap<>();
 
       if (textfield != null)
       {
-         textfield.setFont(AppFonts.germanFont.deriveFont(30F));
+         textfield.setFont(app.appFonts.germanFont.deriveFont(30F));
          textfield.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          textfield.setMinimumSize(
-               new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+               new Dimension(app.settings.getKeyboardWidth(), textFieldHeight));
          textfield.setMaximumSize(
-               new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+               new Dimension(app.settings.getKeyboardWidth(), textFieldHeight));
          arrayList.add(textfield);
       }
 
@@ -64,76 +61,76 @@ public class KeyboardGermanStandard extends JPanel
       keyboardPanel.setOpaque(false);
       keyboardPanel.setLayout(new TotemLayout(keyboardPanel));
 
-      dataButtons.put(GermanLetter.A, makeButton(GermanLetter.A));
-      dataButtons.put(GermanLetter.B, makeButton(GermanLetter.B));
-      dataButtons.put(GermanLetter.C, makeButton(GermanLetter.C));
-      dataButtons.put(GermanLetter.D, makeButton(GermanLetter.D));
-      dataButtons.put(GermanLetter.E, makeButton(GermanLetter.E));
-      dataButtons.put(GermanLetter.F, makeButton(GermanLetter.F));
-      dataButtons.put(GermanLetter.G, makeButton(GermanLetter.G));
-      dataButtons.put(GermanLetter.H, makeButton(GermanLetter.H));
-      dataButtons.put(GermanLetter.I, makeButton(GermanLetter.I));
-      dataButtons.put(GermanLetter.J, makeButton(GermanLetter.J));
-      dataButtons.put(GermanLetter.K, makeButton(GermanLetter.K));
-      dataButtons.put(GermanLetter.L, makeButton(GermanLetter.L));
-      dataButtons.put(GermanLetter.M, makeButton(GermanLetter.M));
-      dataButtons.put(GermanLetter.N, makeButton(GermanLetter.N));
-      dataButtons.put(GermanLetter.O, makeButton(GermanLetter.O));
-      dataButtons.put(GermanLetter.P, makeButton(GermanLetter.P));
-      dataButtons.put(GermanLetter.Q, makeButton(GermanLetter.Q));
-      dataButtons.put(GermanLetter.R, makeButton(GermanLetter.R));
-      dataButtons.put(GermanLetter.S, makeButton(GermanLetter.S));
-      dataButtons.put(GermanLetter.T, makeButton(GermanLetter.T));
-      dataButtons.put(GermanLetter.U, makeButton(GermanLetter.U));
-      dataButtons.put(GermanLetter.V, makeButton(GermanLetter.V));
-      dataButtons.put(GermanLetter.W, makeButton(GermanLetter.W));
-      dataButtons.put(GermanLetter.X, makeButton(GermanLetter.X));
-      dataButtons.put(GermanLetter.Y, makeButton(GermanLetter.Y));
-      dataButtons.put(GermanLetter.Z, makeButton(GermanLetter.Z));
-      dataButtons.put(GermanLetter.UE, makeButton(GermanLetter.UE));
-      dataButtons.put(GermanLetter.AE, makeButton(GermanLetter.AE));
-      dataButtons.put(GermanLetter.OE, makeButton(GermanLetter.OE));
+      dataButtons.put(GermanLetter.A, makeButton(app, GermanLetter.A));
+      dataButtons.put(GermanLetter.B, makeButton(app, GermanLetter.B));
+      dataButtons.put(GermanLetter.C, makeButton(app, GermanLetter.C));
+      dataButtons.put(GermanLetter.D, makeButton(app, GermanLetter.D));
+      dataButtons.put(GermanLetter.E, makeButton(app, GermanLetter.E));
+      dataButtons.put(GermanLetter.F, makeButton(app, GermanLetter.F));
+      dataButtons.put(GermanLetter.G, makeButton(app, GermanLetter.G));
+      dataButtons.put(GermanLetter.H, makeButton(app, GermanLetter.H));
+      dataButtons.put(GermanLetter.I, makeButton(app, GermanLetter.I));
+      dataButtons.put(GermanLetter.J, makeButton(app, GermanLetter.J));
+      dataButtons.put(GermanLetter.K, makeButton(app, GermanLetter.K));
+      dataButtons.put(GermanLetter.L, makeButton(app, GermanLetter.L));
+      dataButtons.put(GermanLetter.M, makeButton(app, GermanLetter.M));
+      dataButtons.put(GermanLetter.N, makeButton(app, GermanLetter.N));
+      dataButtons.put(GermanLetter.O, makeButton(app, GermanLetter.O));
+      dataButtons.put(GermanLetter.P, makeButton(app, GermanLetter.P));
+      dataButtons.put(GermanLetter.Q, makeButton(app, GermanLetter.Q));
+      dataButtons.put(GermanLetter.R, makeButton(app, GermanLetter.R));
+      dataButtons.put(GermanLetter.S, makeButton(app, GermanLetter.S));
+      dataButtons.put(GermanLetter.T, makeButton(app, GermanLetter.T));
+      dataButtons.put(GermanLetter.U, makeButton(app, GermanLetter.U));
+      dataButtons.put(GermanLetter.V, makeButton(app, GermanLetter.V));
+      dataButtons.put(GermanLetter.W, makeButton(app, GermanLetter.W));
+      dataButtons.put(GermanLetter.X, makeButton(app, GermanLetter.X));
+      dataButtons.put(GermanLetter.Y, makeButton(app, GermanLetter.Y));
+      dataButtons.put(GermanLetter.Z, makeButton(app, GermanLetter.Z));
+      dataButtons.put(GermanLetter.UE, makeButton(app, GermanLetter.UE));
+      dataButtons.put(GermanLetter.AE, makeButton(app, GermanLetter.AE));
+      dataButtons.put(GermanLetter.OE, makeButton(app, GermanLetter.OE));
 
-      dataButtons.put(GermanLetter.a, makeButton(GermanLetter.a));
-      dataButtons.put(GermanLetter.b, makeButton(GermanLetter.b));
-      dataButtons.put(GermanLetter.c, makeButton(GermanLetter.c));
-      dataButtons.put(GermanLetter.d, makeButton(GermanLetter.d));
-      dataButtons.put(GermanLetter.e, makeButton(GermanLetter.e));
-      dataButtons.put(GermanLetter.f, makeButton(GermanLetter.f));
-      dataButtons.put(GermanLetter.g, makeButton(GermanLetter.g));
-      dataButtons.put(GermanLetter.h, makeButton(GermanLetter.h));
-      dataButtons.put(GermanLetter.i, makeButton(GermanLetter.i));
-      dataButtons.put(GermanLetter.j, makeButton(GermanLetter.j));
-      dataButtons.put(GermanLetter.k, makeButton(GermanLetter.k));
-      dataButtons.put(GermanLetter.l, makeButton(GermanLetter.l));
-      dataButtons.put(GermanLetter.m, makeButton(GermanLetter.m));
-      dataButtons.put(GermanLetter.n, makeButton(GermanLetter.n));
-      dataButtons.put(GermanLetter.o, makeButton(GermanLetter.o));
-      dataButtons.put(GermanLetter.p, makeButton(GermanLetter.p));
-      dataButtons.put(GermanLetter.q, makeButton(GermanLetter.q));
-      dataButtons.put(GermanLetter.r, makeButton(GermanLetter.r));
-      dataButtons.put(GermanLetter.s, makeButton(GermanLetter.s));
-      dataButtons.put(GermanLetter.t, makeButton(GermanLetter.t));
-      dataButtons.put(GermanLetter.u, makeButton(GermanLetter.u));
-      dataButtons.put(GermanLetter.v, makeButton(GermanLetter.v));
-      dataButtons.put(GermanLetter.w, makeButton(GermanLetter.w));
-      dataButtons.put(GermanLetter.x, makeButton(GermanLetter.x));
-      dataButtons.put(GermanLetter.y, makeButton(GermanLetter.y));
-      dataButtons.put(GermanLetter.z, makeButton(GermanLetter.z));
-      dataButtons.put(GermanLetter.ue, makeButton(GermanLetter.ue));
-      dataButtons.put(GermanLetter.ae, makeButton(GermanLetter.ae));
-      dataButtons.put(GermanLetter.oe, makeButton(GermanLetter.oe));
-      makeRegularKeyboard();
+      dataButtons.put(GermanLetter.a, makeButton(app, GermanLetter.a));
+      dataButtons.put(GermanLetter.b, makeButton(app, GermanLetter.b));
+      dataButtons.put(GermanLetter.c, makeButton(app, GermanLetter.c));
+      dataButtons.put(GermanLetter.d, makeButton(app, GermanLetter.d));
+      dataButtons.put(GermanLetter.e, makeButton(app, GermanLetter.e));
+      dataButtons.put(GermanLetter.f, makeButton(app, GermanLetter.f));
+      dataButtons.put(GermanLetter.g, makeButton(app, GermanLetter.g));
+      dataButtons.put(GermanLetter.h, makeButton(app, GermanLetter.h));
+      dataButtons.put(GermanLetter.i, makeButton(app, GermanLetter.i));
+      dataButtons.put(GermanLetter.j, makeButton(app, GermanLetter.j));
+      dataButtons.put(GermanLetter.k, makeButton(app, GermanLetter.k));
+      dataButtons.put(GermanLetter.l, makeButton(app, GermanLetter.l));
+      dataButtons.put(GermanLetter.m, makeButton(app, GermanLetter.m));
+      dataButtons.put(GermanLetter.n, makeButton(app, GermanLetter.n));
+      dataButtons.put(GermanLetter.o, makeButton(app, GermanLetter.o));
+      dataButtons.put(GermanLetter.p, makeButton(app, GermanLetter.p));
+      dataButtons.put(GermanLetter.q, makeButton(app, GermanLetter.q));
+      dataButtons.put(GermanLetter.r, makeButton(app, GermanLetter.r));
+      dataButtons.put(GermanLetter.s, makeButton(app, GermanLetter.s));
+      dataButtons.put(GermanLetter.t, makeButton(app, GermanLetter.t));
+      dataButtons.put(GermanLetter.u, makeButton(app, GermanLetter.u));
+      dataButtons.put(GermanLetter.v, makeButton(app, GermanLetter.v));
+      dataButtons.put(GermanLetter.w, makeButton(app, GermanLetter.w));
+      dataButtons.put(GermanLetter.x, makeButton(app, GermanLetter.x));
+      dataButtons.put(GermanLetter.y, makeButton(app, GermanLetter.y));
+      dataButtons.put(GermanLetter.z, makeButton(app, GermanLetter.z));
+      dataButtons.put(GermanLetter.ue, makeButton(app, GermanLetter.ue));
+      dataButtons.put(GermanLetter.ae, makeButton(app, GermanLetter.ae));
+      dataButtons.put(GermanLetter.oe, makeButton(app, GermanLetter.oe));
+      makeRegularKeyboard(app);
 
       add(keyboardPanel);
    }
 
-   private Component makeButton(GermanLetter letter)
+   private Component makeButton(App app, GermanLetter letter)
    {
       DataButtonGerman dataButton;
-      dataButton = new DataButtonGerman(letter.getUnicode(),
+      dataButton = new DataButtonGerman(app, letter.getUnicode(),
             letter.getUnicode());
-      dataButton.setForeground(InputColors.getTextForeground());
+      dataButton.setForeground(app.appColors.input.getTextForeground());
       dataButton.setMargin(new Insets(3, -5, 0, -5));
       dataButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
       dataButton.setMaximumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
@@ -148,9 +145,9 @@ public class KeyboardGermanStandard extends JPanel
       return buttonPanel;
    }
 
-   private Component makeSpaceButton()
+   private Component makeSpaceButton(App app)
    {
-      DataButtonGerman jButton = new DataButtonGerman("Leerzeichen",
+      DataButtonGerman jButton = new DataButtonGerman(app, "Leerzeichen",
             GermanLetter.SPACE.getUnicode());
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE + 10));
       jButton.setMaximumSize(new Dimension(9 * BUTTON_SIZE, BUTTON_SIZE + 10));
@@ -217,13 +214,13 @@ public class KeyboardGermanStandard extends JPanel
 
    }
 
-   public Component makeTextfieldWithRegularKeyboard()
+   public Component makeTextfieldWithRegularKeyboard(App app)
    {
-      makeRegularKeyboard();
+      makeRegularKeyboard(app);
       return this;
    }
 
-   public Component makeRegularKeyboard()
+   public Component makeRegularKeyboard(App app)
    {
       keyboardPanel.removeAll();
 
@@ -235,7 +232,7 @@ public class KeyboardGermanStandard extends JPanel
       halfSizedFiller1.setMinimumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1.setMaximumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1.setOpaque(false);
-      halfSizedFiller1.setBackground(ColorBase.getTransparent());
+      halfSizedFiller1.setBackground(app.appColors.getTransparent());
       row1.add(halfSizedFiller1);
 
       row1.add(dataButtons.get(GermanLetter.Q));
@@ -258,7 +255,7 @@ public class KeyboardGermanStandard extends JPanel
       tinyFiller2.setMinimumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2.setMaximumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2.setOpaque(false);
-      tinyFiller2.setBackground(ColorBase.getTransparent());
+      tinyFiller2.setBackground(app.appColors.getTransparent());
       row2.add(tinyFiller2);
 
       row2.add(dataButtons.get(GermanLetter.A));
@@ -281,7 +278,7 @@ public class KeyboardGermanStandard extends JPanel
       halfSizedFiller3.setMinimumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3.setMaximumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3.setOpaque(false);
-      halfSizedFiller3.setBackground(ColorBase.getTransparent());
+      halfSizedFiller3.setBackground(app.appColors.getTransparent());
       row3.add(halfSizedFiller3);
 
       row3.add(dataButtons.get(GermanLetter.Z));
@@ -294,7 +291,7 @@ public class KeyboardGermanStandard extends JPanel
 
       JPanel bigFiller1 = new JPanel();
       bigFiller1.setOpaque(false);
-      bigFiller1.setBackground(ColorBase.getTransparent());
+      bigFiller1.setBackground(app.appColors.getTransparent());
       bigFiller1.setMaximumSize(new Dimension(300, 32));
 
       JPanel row4 = new JPanel();
@@ -305,7 +302,7 @@ public class KeyboardGermanStandard extends JPanel
       halfSizedFiller1b.setMinimumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1b.setMaximumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1b.setOpaque(false);
-      halfSizedFiller1b.setBackground(ColorBase.getTransparent());
+      halfSizedFiller1b.setBackground(app.appColors.getTransparent());
       row4.add(halfSizedFiller1b);
 
       row4.add(dataButtons.get(GermanLetter.q));
@@ -328,7 +325,7 @@ public class KeyboardGermanStandard extends JPanel
       tinyFiller2b.setMinimumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2b.setMaximumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2b.setOpaque(false);
-      tinyFiller2b.setBackground(ColorBase.getTransparent());
+      tinyFiller2b.setBackground(app.appColors.getTransparent());
       row5.add(tinyFiller2b);
 
       row5.add(dataButtons.get(GermanLetter.a));
@@ -351,7 +348,7 @@ public class KeyboardGermanStandard extends JPanel
       halfSizedFiller3b.setMinimumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3b.setMaximumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3b.setOpaque(false);
-      halfSizedFiller3b.setBackground(ColorBase.getTransparent());
+      halfSizedFiller3b.setBackground(app.appColors.getTransparent());
       row6.add(halfSizedFiller3b);
 
       row6.add(dataButtons.get(GermanLetter.z));
@@ -364,14 +361,14 @@ public class KeyboardGermanStandard extends JPanel
 
       JPanel bigFiller2 = new JPanel();
       bigFiller2.setOpaque(false);
-      bigFiller2.setBackground(ColorBase.getTransparent());
+      bigFiller2.setBackground(app.appColors.getTransparent());
       bigFiller2.setMaximumSize(new Dimension(300, 32));
 
       keyboardPanel.add(row1);
       keyboardPanel.add(row2);
       keyboardPanel.add(row3);
       keyboardPanel.add(bigFiller1);
-      keyboardPanel.add(makeSpaceButton());
+      keyboardPanel.add(makeSpaceButton(app));
       keyboardPanel.add(bigFiller2);
       keyboardPanel.add(row4);
       keyboardPanel.add(row5);
@@ -379,7 +376,7 @@ public class KeyboardGermanStandard extends JPanel
 
       JPanel bigFiller3 = new JPanel();
       bigFiller3.setOpaque(false);
-      bigFiller3.setBackground(ColorBase.getTransparent());
+      bigFiller3.setBackground(app.appColors.getTransparent());
       bigFiller3.setMaximumSize(new Dimension(300, 32));
 
       keyboardPanel.add(bigFiller3);

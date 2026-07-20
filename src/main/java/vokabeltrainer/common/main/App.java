@@ -4,6 +4,9 @@ import java.awt.FontFormatException;
 import java.io.IOException;
 
 import vokabeltrainer.cmd.Mode;
+import vokabeltrainer.common.colors.AppColors;
+import vokabeltrainer.common.colors.DarkMode;
+import vokabeltrainer.common.colors.GoldenMode;
 import vokabeltrainer.resources.Fonts;
 import vokabeltrainer.resources.Images;
 import vokabeltrainer.resources.Sounds;
@@ -29,7 +32,7 @@ public class App
       sounds.read(settings);
       appSound = sounds.getAppSounds();
       
-      appColors = new AppColors(settings);
+      toggleColors();
       
       Images images = new Images();
       try
@@ -53,5 +56,19 @@ public class App
       }
       fonts.define();
       appFonts = fonts.getAppFonts();
+      
+      
+   }
+   
+   void toggleColors()
+   {
+      if(settings.isDarkmodeOn())
+      {
+         appColors = new DarkMode();
+      }
+      else
+      {
+         appColors = new GoldenMode();
+      }
    }
 }

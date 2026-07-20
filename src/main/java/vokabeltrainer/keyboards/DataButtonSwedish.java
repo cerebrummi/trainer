@@ -2,7 +2,7 @@ package vokabeltrainer.keyboards;
 
 import java.awt.ComponentOrientation;
 
-import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.App;
 
 public class DataButtonSwedish extends DataButton
 {
@@ -10,11 +10,11 @@ public class DataButtonSwedish extends DataButton
 
    private String data;
 
-   public DataButtonSwedish(String caption, String data)
+   public DataButtonSwedish(App app, String caption, String data)
    {
-      super(caption, data, ComponentOrientation.LEFT_TO_RIGHT);
+      super(app, caption, data, ComponentOrientation.LEFT_TO_RIGHT);
       this.data = data;
-      this.setFont(AppFonts.buttonFont);
+      this.setFont(app.appFonts.buttonFont);
    }
 
    public String getData()

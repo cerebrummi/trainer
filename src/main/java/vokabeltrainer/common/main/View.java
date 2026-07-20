@@ -27,13 +27,13 @@ public final class View
    private MainView mainJPanel;
    private NimbusLookAndFeel nimbus;
    private Common common;
-   
+
    // package on purpose
    View(App app, Common common, Mode mode)
    {
       this.common = common;
       setUI(app);
-      
+
       try
       {
          LetterIcons.readNikud();
@@ -44,9 +44,9 @@ public final class View
       {
          System.exit(10);
       }
-      
+
       jFrame = new JFrame();
-      
+
       if (mode.isWeb())
       {
          jFrame.setUndecorated(true);
@@ -58,9 +58,9 @@ public final class View
       }
       jFrame.setResizable(true);
       jFrame.setIconImage(app.appImages.getLogo());
-      jFrame.getContentPane()
-            .setBackground(app.appColors.getBackgroundGold());
-      jFrame.setTitle(app.settings.getWindowTitle() + " " + app.settings.getVersion());
+      jFrame.getContentPane().setBackground(app.appColors.getBackgroundGold());
+      jFrame.setTitle(
+            app.settings.getWindowTitle() + " " + app.settings.getVersion());
       jFrame.setFont(app.appFonts.germanFont.deriveFont(14F));
       ToolTipManager.sharedInstance().setDismissDelay(8000);
       ToolTipManager.sharedInstance().setInitialDelay(1000);
@@ -70,7 +70,7 @@ public final class View
       jFrame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
       jFrame.setLocationRelativeTo(null);
    }
-   
+
    public void startApp()
    {
       jFrame.setVisible(true);
@@ -80,7 +80,7 @@ public final class View
    {
       return jFrame;
    }
-   
+
    public MainView getMainJPanel()
    {
       return mainJPanel;
@@ -90,9 +90,10 @@ public final class View
    {
       return nimbus;
    }
-   
+
    public void setUI(App app)
    {
+      app.toggleColors();
       try
       {
          nimbus = new NimbusLookAndFeel();
@@ -126,25 +127,27 @@ public final class View
          UIManager.put("OptionPane.buttonFont",
                nimbus.getDefaults().getFont("internationalFont"));
 
-         UIManager.put("OptionPane.cancelButtonText",
-               common.getTranslator().realisticTranslate(Translation.ABBRECHEN));
+         UIManager.put("OptionPane.cancelButtonText", common.getTranslator()
+               .realisticTranslate(Translation.ABBRECHEN));
          UIManager.put("OptionPane.yesButtonText",
                common.getTranslator().realisticTranslate(Translation.JA));
          UIManager.put("OptionPane.noButtonText",
                common.getTranslator().realisticTranslate(Translation.NEIN));
-         UIManager.put("OptionPane.titleText",
-               common.getTranslator().realisticTranslate(Translation.BILD_LOESCHEN));
+         UIManager.put("OptionPane.titleText", common.getTranslator()
+               .realisticTranslate(Translation.BILD_LOESCHEN));
 
          UIManager.put("FileChooser.openButtonText",
                common.getTranslator().realisticTranslate(Translation.OEFFNEN));
-         UIManager.put("FileChooser.cancelButtonText",
-               common.getTranslator().realisticTranslate(Translation.ABBRECHEN));
-         UIManager.put("FileChooser.saveButtonText",
-               common.getTranslator().realisticTranslate(Translation.SPEICHERN));
-         UIManager.put("FileChooser.cancelButtonToolTipText", common.getTranslator()
-               .realisticTranslate(Translation.ABBRECHEN_DER_AUSWAHL));
-         UIManager.put("FileChooser.saveButtonToolTipText", common.getTranslator()
-               .realisticTranslate(Translation.AUSGEWAEHLTE_DATEI_SPEICHERN));
+         UIManager.put("FileChooser.cancelButtonText", common.getTranslator()
+               .realisticTranslate(Translation.ABBRECHEN));
+         UIManager.put("FileChooser.saveButtonText", common.getTranslator()
+               .realisticTranslate(Translation.SPEICHERN));
+         UIManager.put("FileChooser.cancelButtonToolTipText",
+               common.getTranslator()
+                     .realisticTranslate(Translation.ABBRECHEN_DER_AUSWAHL));
+         UIManager.put("FileChooser.saveButtonToolTipText",
+               common.getTranslator().realisticTranslate(
+                     Translation.AUSGEWAEHLTE_DATEI_SPEICHERN));
          UIManager.put("FileChooser.openButtonToolTipText",
                "Ausgewählte Datei öffnen");
          UIManager.put("FileChooser.upFolderToolTipText", "Eine Ebene höher");
@@ -161,22 +164,25 @@ public final class View
          UIManager.put("FileChooser.folderNameLabelText", "Ordnername:");
          UIManager.put("FileChooser.openDialogTitleText",
                common.getTranslator().realisticTranslate(Translation.OEFFNEN));
-         UIManager.put("FileChooser.saveDialogTitleText",
-               common.getTranslator().realisticTranslate(Translation.SPEICHERN));
+         UIManager.put("FileChooser.saveDialogTitleText", common.getTranslator()
+               .realisticTranslate(Translation.SPEICHERN));
 
       }
       catch (UnsupportedLookAndFeelException e3)
       {
-         try
-         {
-            LetterIcons.readNikud();
-            LetterIconsHandwritten.readNikud();
-            Buchstabenbilder.read(common);
-         }
-         catch (IOException e1)
-         {
-            System.exit(11);
-         }
+         // nothing
       }
+
+      try
+      {
+         LetterIcons.readNikud();
+         LetterIconsHandwritten.readNikud();
+         Buchstabenbilder.read(common);
+      }
+      catch (IOException e1)
+      {
+         System.exit(11);
+      }
+
    }
 }

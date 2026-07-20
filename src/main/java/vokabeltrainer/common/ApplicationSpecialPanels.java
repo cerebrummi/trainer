@@ -4,8 +4,8 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.panels.letterpicture.LetterPictureButtonPanel;
 import vokabeltrainer.panels.translation.Translation;
@@ -14,9 +14,9 @@ public class ApplicationSpecialPanels
 {
    private static Map<NikudLetter, LetterPictureButtonPanel> letterPicturesPanelMap;
    private static String message;
-   ApplicationSpecialPanels(Common common)
+   ApplicationSpecialPanels(App app, Common common)
    {
-      message = Settings.getWindowTitle()
+      message = app.settings.getWindowTitle()
             + common.getTranslator().realisticTranslate(
                   Translation.KONNTE_RESOURCEN_NICHT_LADEN_FEHLER);
    }

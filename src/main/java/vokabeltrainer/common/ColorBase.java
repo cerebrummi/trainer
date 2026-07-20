@@ -19,7 +19,7 @@ public interface ColorBase
    Color backgroundGold = new Color(223, 210, 198);
    Color veryLightGold = new Color(247, 240, 232);
    Color green = new Color(181, 192, 81);
-   Color brightGreen = Color.GREEN;
+   Color brightGreen = new Color(0, 255, 0);
    Color texturedBackgroundColor = new Color(225, 216, 211);
    Color texturedBackgroundColorLight = new Color(230, 221, 217);
    Color white = new Color(255, 255, 255);
@@ -30,6 +30,7 @@ public interface ColorBase
    Color darkGreen = new Color(110, 110, 70);
    Color transparent = new Color(0, 0, 0, 0);
    Color slategray = new Color(81, 81, 91);
-   Color black = Color.BLACK;
-   Color red = Color.RED;
+   Color silvergray = new Color(180, 180, 180);
+   Color black = new Color(0, 0, 0);
+   Color red = new Color(255, 0, 0);
 }

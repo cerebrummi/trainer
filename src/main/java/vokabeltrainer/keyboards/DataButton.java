@@ -5,7 +5,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.App;
 
 public class DataButton extends JButton
 {
@@ -19,21 +19,21 @@ public class DataButton extends JButton
       this.data = data;
    }
 
-   public DataButton(String caption, String data)
+   public DataButton(App app, String caption, String data)
    {
       super(caption);
       this.data = data;
       this.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-      this.setFont(AppFonts.hebrewFont.deriveFont(30F));
+      this.setFont(app.appFonts.hebrewFont.deriveFont(30F));
    }
 
-   public DataButton(String caption, String data,
+   public DataButton(App app, String caption, String data,
          ComponentOrientation orientation)
    {
       super(caption);
       this.data = data;
       this.setComponentOrientation(orientation);
-      this.setFont(AppFonts.hebrewFont.deriveFont(30F));
+      this.setFont(app.appFonts.hebrewFont.deriveFont(30F));
    }
 
    public String getData()
