@@ -69,7 +69,7 @@ public class MainView extends JPanel
       this.setOpaque(false);
       this.setBackground(app.appColors.getTransparent());
 
-      startPanel = new StartPanel(common, view);
+      startPanel = new StartPanel(app, common, view);
       inputPanel = new InputPanel(app, common, model, view);
       dictionaryPanel = new DictionaryController(app, common, model, view).getDictionaryPanel();
       letterPicturesPanel = new AlefbetPanel(app, common);
@@ -339,7 +339,7 @@ public class MainView extends JPanel
             remove(activeComponent);
          }
          activeComponent = new JScrollPane(settingsPanel);
-         settingsPanel.setValues();
+         settingsPanel.setValues(app);
          add(activeComponent);
          validate();
          repaint();

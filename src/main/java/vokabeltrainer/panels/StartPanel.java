@@ -12,12 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.colors.StartColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTable;
 import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopy;
@@ -32,17 +28,19 @@ public class StartPanel extends JPanel
 {
    private static final long serialVersionUID = -4928761869820144146L;
    private Translator translator;
+   private App app;
 
-   public StartPanel(Common common, View view)
+   public StartPanel(App app, Common common, View view)
    {
+      this.app = app;
       translator = common.getTranslator();
       setLayout(new BorderLayout());
       setOpaque(true);
-      setBackground(StartColors.getPanelBackground());
+      setBackground(app.appColors.start.getPanelBackground());
 
       JPanel northWrapper = new JPanel();
       northWrapper.setOpaque(false);
-      northWrapper.setBackground(ColorBase.getTransparent());
+      northWrapper.setBackground(app.appColors.getTransparent());
       BullsEyeLayout northWrapperLayout = new BullsEyeLayout(northWrapper);
       northWrapper.setLayout(northWrapperLayout);
 
@@ -58,12 +56,12 @@ public class StartPanel extends JPanel
       nameWrapper.setMinimumSize(new Dimension(580, 100));
       nameWrapper.setMaximumSize(new Dimension(580, 100));
       JLabel name = new JLabel(
-            "<html>" + Settings.getWindowTitle() + "</html>");
+            "<html>" + app.settings.getWindowTitle() + "</html>");
       name.setMinimumSize(new Dimension(580, 120));
       name.setMaximumSize(new Dimension(580, 120));
       name.setPreferredSize(new Dimension(580, 120));
       name.setForeground(Color.WHITE);
-      name.setFont(AppFonts.hebrewFont.deriveFont(90F));
+      name.setFont(app.appFonts.hebrewFont.deriveFont(90F));
       nameWrapper.add(name);
 
       JPanel trainerWrapper = new JPanel();
@@ -79,7 +77,7 @@ public class StartPanel extends JPanel
       trainer.setMaximumSize(new Dimension(355, 90));
       trainer.setPreferredSize(new Dimension(355, 90));
       trainer.setForeground(Color.WHITE);
-      trainer.setFont(AppFonts.hebrewFont.deriveFont(40F));
+      trainer.setFont(app.appFonts.hebrewFont.deriveFont(40F));
       trainerWrapper.add(trainer);
 
       JPanel filler1 = new JPanel();
@@ -95,16 +93,16 @@ public class StartPanel extends JPanel
 
       JPanel centerWrapper = new JPanel();
       centerWrapper.setOpaque(false);
-      centerWrapper.setBackground(ColorBase.getTransparent());
+      centerWrapper.setBackground(app.appColors.getTransparent());
       centerWrapper.setLayout(new BullsEyeLayout(centerWrapper));
 
       JPanel center = new JPanel();
       center.setLayout(new TotemLayout(center, 15));
       center.setOpaque(false);
-      center.setBackground(ColorBase.getTransparent());
+      center.setBackground(app.appColors.getTransparent());
 
-      center.add(initDatabaseTablePanel(common));
-      center.add(initCopyTablePanel(common, view));
+      center.add(initDatabaseTablePanel(app, common));
+      center.add(initCopyTablePanel(app, common, view));
 
       centerWrapper.add(center);
       add(centerWrapper, BorderLayout.CENTER);
@@ -119,7 +117,7 @@ public class StartPanel extends JPanel
       filler.setMaximumSize(new Dimension(600, 100));
 
       JLabel schalom = new JLabel(
-            new ImageIcon(AppImages.getLogo150()));
+            new ImageIcon(app.appImages.getLogo150()));
 
       schalom.setMinimumSize(new Dimension(670, 200));
       schalom.setMaximumSize(new Dimension(670, 200));
@@ -130,7 +128,7 @@ public class StartPanel extends JPanel
       add(horizontal, BorderLayout.SOUTH);
    }
 
-   private Component initDatabaseTablePanel(Common common)
+   private Component initDatabaseTablePanel(App app, Common common)
    {
       JPanel center = new JPanel();
       center.setLayout(new BullsEyeLayout(center));
@@ -141,10 +139,10 @@ public class StartPanel extends JPanel
 
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_ANSEHEN));
-      databaseLabel.setFont(AppFonts.germanFont.deriveFont(30F));
-      databaseLabel.setForeground(StartColors.getDatabase_HeaderText());
+      databaseLabel.setFont(app.appFonts.germanFont.deriveFont(30F));
+      databaseLabel.setForeground(app.appColors.start.getDatabase_HeaderText());
       databaseLabel.setOpaque(true);
-      databaseLabel.setBackground(StartColors.getDatabase_Header());
+      databaseLabel.setBackground(app.appColors.start.getDatabase_Header());
 
       DatabaseTable databaseTable = new DatabaseTable(common,
             Chapter.Database.getModelAvailableDatabases(), 990);
@@ -157,8 +155,8 @@ public class StartPanel extends JPanel
             Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_SICHTBAR_MACHEN)
             + " => " + translator.realisticTranslate(
                   Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
-      databaseLabel2.setFont(AppFonts.germanFont.deriveFont(16F));
-      databaseLabel2.setForeground(StartColors.getDatabase_Tipp());
+      databaseLabel2.setFont(app.appFonts.germanFont.deriveFont(16F));
+      databaseLabel2.setForeground(app.appColors.start.getDatabase_Tipp());
 
       vertical.add(databaseLabel);
       vertical.add(scroller);
@@ -169,12 +167,12 @@ public class StartPanel extends JPanel
       return center;
    }
 
-   private Component initCopyTablePanel(Common common, View view)
+   private Component initCopyTablePanel(App app, Common common, View view)
    {
       JPanel center = new JPanel();
       center.setLayout(new BullsEyeLayout(center));
       center.setOpaque(false);
-      center.setBackground(ColorBase.getTransparent());
+      center.setBackground(app.appColors.getTransparent());
 
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
@@ -182,10 +180,10 @@ public class StartPanel extends JPanel
 
       JLabel databaseLabel = new JLabel(" "
             + translator.realisticTranslate(Translation.DATENBANKEN_KOPIEREN));
-      databaseLabel.setFont(AppFonts.germanFont.deriveFont(30F));
-      databaseLabel.setForeground(StartColors.getDatabase_HeaderText());
+      databaseLabel.setFont(app.appFonts.germanFont.deriveFont(30F));
+      databaseLabel.setForeground(app.appColors.start.getDatabase_HeaderText());
       databaseLabel.setOpaque(true);
-      databaseLabel.setBackground(StartColors.getDatabase_Header());
+      databaseLabel.setBackground(app.appColors.start.getDatabase_Header());
 
       DatabaseTableCopy databaseTable = new DatabaseTableCopy(common, view,
             Chapter.Database.getModelCopyAvailableDatabases(), 990);
@@ -199,8 +197,8 @@ public class StartPanel extends JPanel
                   Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_KOPIEREN)
             + " => " + translator.realisticTranslate(
                   Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
-      databaseLabel2.setFont(AppFonts.germanFont.deriveFont(16F));
-      databaseLabel2.setForeground(StartColors.getDatabase_Tipp());
+      databaseLabel2.setFont(app.appFonts.germanFont.deriveFont(16F));
+      databaseLabel2.setForeground(app.appColors.start.getDatabase_Tipp());
 
       vertical.add(databaseLabel);
       vertical.add(scroller);
@@ -211,10 +209,11 @@ public class StartPanel extends JPanel
       return center;
    }
 
+   @Override
    public void paintComponent(Graphics g)
    {
       super.paintComponent(g);
-      if (AppImages.getImage() != null)
+      if (app.appImages.getImage() != null)
       {
          float factorWidth = 1536 / 1280F;
          float factorHeight = 960 / 859F;
@@ -223,7 +222,7 @@ public class StartPanel extends JPanel
             int width = (int) (1280F * factorHeight);
             int x = getParent().getWidth() / 2 - width / 2;
             g.drawImage(
-                  AppImages.getImage().getScaledInstance(width,
+                  app.appImages.getImage().getScaledInstance(width,
                         getParent().getHeight(), BufferedImage.SCALE_SMOOTH),
                   x, 0, this);
          }
@@ -231,7 +230,7 @@ public class StartPanel extends JPanel
          {
             int height = (int) (859F * factorWidth);
             int y = getParent().getHeight() / 2 - height / 2;
-            g.drawImage(AppImages.getImage().getScaledInstance(
+            g.drawImage(app.appImages.getImage().getScaledInstance(
                   getParent().getWidth(), height, BufferedImage.SCALE_SMOOTH),
                   0, y, this);
          }

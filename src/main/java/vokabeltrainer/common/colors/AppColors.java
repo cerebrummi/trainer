@@ -110,7 +110,7 @@ public abstract class AppColors implements ColorBase
       public abstract Color getTextForeground();
    }
    
-   abstract class Start
+   public abstract class Start
    {
       public abstract Color getDatabase_Header();
       public abstract Color getPanelBackground();

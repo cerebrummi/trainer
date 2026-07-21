@@ -35,14 +35,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import vokabeltrainer.PathAndFile;
 import vokabeltrainer.common.main.App;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
-import vokabeltrainer.common.main.AppSounds;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Data;
 import vokabeltrainer.common.main.ImportExpressions;
 import vokabeltrainer.common.main.SaveExpressions;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.common.main.Settings.OperatingSystem;
 import vokabeltrainer.common.main.Model;
@@ -86,12 +81,12 @@ public class SettingsPanel extends JPanel
       tabbedPane.setOpaque(false);
       tabbedPane.setFont(app.appFonts.buttonFont);
       tabbedPane.addTab(translator.realisticTranslate(
-            Translation.EINSTELLUNGEN_UND_SERVICE), initSettingsTab());
+            Translation.EINSTELLUNGEN_UND_SERVICE), initSettingsTab(app));
 
       try
       {
          tabbedPane.addTab(translator.realisticTranslate(Translation.INFO),
-               initImpressumTab());
+               initImpressumTab(app));
       }
       catch (IOException e1)
       {
@@ -100,7 +95,7 @@ public class SettingsPanel extends JPanel
       try
       {
          tabbedPane.addTab(translator.realisticTranslate(Translation.NACHWEISE),
-               initLicencingTab());
+               initLicencingTab(app));
       }
       catch (IOException e)
       {
@@ -112,13 +107,13 @@ public class SettingsPanel extends JPanel
 
       tabbedPane.addTab(
             translator.realisticTranslate(Translation.SCHABBAT_MODUS),
-            initSchabbatTab());
+            initSchabbatTab(app));
 
       add(tabbedPane);
 
-      initColors();
+      initColors(app);
       
-      initController(common, model, view);
+      initController(app, common, model, view);
    }
 
    private void initColors(App app)
@@ -284,13 +279,13 @@ public class SettingsPanel extends JPanel
       TotemLayout vertical3Layout = new TotemLayout(vertical3, 60);
       vertical3.setLayout(vertical3Layout);
 
-      vertical1.add(initSoundPanel());
+      vertical1.add(initSoundPanel(app));
 
-      vertical2.add(initSavePanel());
-      vertical2.add(initDeletePanel());
+      vertical2.add(initSavePanel(app));
+      vertical2.add(initDeletePanel(app));
 
-      vertical3.add(initImportPanel());
-      vertical3.add(initExportPanel());
+      vertical3.add(initImportPanel(app));
+      vertical3.add(initExportPanel(app));
 
       horizontal.add(vertical1);
       horizontal.add(vertical2);
@@ -673,7 +668,7 @@ public class SettingsPanel extends JPanel
 
       folderChooserButtonWithoutSaving.addActionListener(_ -> {
 
-         String pathOfFolder = choosesFolderForSave();
+         String pathOfFolder = choosesFolderForSave(app);
          if (pathOfFolder != null)
          {
             app.settings.setChoosenExpressionPath(pathOfFolder);
@@ -684,9 +679,9 @@ public class SettingsPanel extends JPanel
       });
       
       originalFolder.addActionListener(_ -> {
-         Settings.setBackExpressionPath();
-         this.folderLabel.setText(Settings.getExpressionPath());
-         model.initDatabase(common, view);
+         app.settings.setBackExpressionPath();
+         this.folderLabel.setText(app.settings.getExpressionPath());
+         model.data.initDatabase(common, view);
       });
 
       importButton.addActionListener(_ -> {
@@ -710,7 +705,7 @@ public class SettingsPanel extends JPanel
             dialog.dispose();
          }
 
-         String pathOfFolderOrFile = choosesFolderOrZipFileForOpen();
+         String pathOfFolderOrFile = choosesFolderOrZipFileForOpen(app);
          if (pathOfFolderOrFile != null)
          {
             new SwingWorker<Void, Void>()
@@ -718,11 +713,11 @@ public class SettingsPanel extends JPanel
                @Override
                protected Void doInBackground() throws Exception
                {
-                  ImportExpressions importer = new ImportExpressions();
+                  ImportExpressions importer = new ImportExpressions(model);
                   if (importer.importExpressions(common, databaseName,
                         overwriteDatabaseNames, pathOfFolderOrFile))
                   {
-                     SaveExpressions saver = new SaveExpressions();
+                     SaveExpressions saver = new SaveExpressions(app, model);
                      saver.save(common, view);
                   }
 
@@ -754,7 +749,7 @@ public class SettingsPanel extends JPanel
             dialog.dispose();
          }
 
-         PathAndFile pathOfFolder = choosesFolderAndFileForSave();
+         PathAndFile pathOfFolder = choosesFolderAndFileForSave(app);
          if (pathOfFolder != null)
          {
             new SwingWorker<Void, Void>()
@@ -793,7 +788,7 @@ public class SettingsPanel extends JPanel
             dialog.dispose();
          }
 
-         PathAndFile pathOfFolder = choosesFolderAndFileForSave();
+         PathAndFile pathOfFolder = choosesFolderAndFileForSave(app);
          if (pathOfFolder != null)
          {
             new SwingWorker<Void, Void>()
@@ -820,8 +815,8 @@ public class SettingsPanel extends JPanel
                      Translation.WAEHLEN_SIE_EINE_DATENBANK_FUER_DEN_EXPORT_AUS_),
                translator.realisticTranslate(Translation.AUSWAHL),
                JOptionPane.QUESTION_MESSAGE,
-               new ImageIcon(AppImages.getLogo24()),
-               Data.getAllOwnDistinctDatabaseDescriptions(common, false), null);
+               new ImageIcon(app.appImages.getLogo24()),
+               model.data.getAllOwnDistinctDatabaseDescriptions(common, false), null);
 
          if (databaseChoosen == null)
          {
@@ -847,7 +842,7 @@ public class SettingsPanel extends JPanel
             dialog.dispose();
          }
 
-         PathAndFile pathOfFolder = choosesFolderAndFileForSave();
+         PathAndFile pathOfFolder = choosesFolderAndFileForSave(app);
          if (pathOfFolder != null)
          {
             new SwingWorker<Void, Void>()
@@ -874,8 +869,8 @@ public class SettingsPanel extends JPanel
                translator.realisticTranslate(
                      Translation.DATENBANK_IN_DEN_PAPIERKORB),
                JOptionPane.QUESTION_MESSAGE,
-               new ImageIcon(AppImages.getLogo24()),
-               Data.getAllOwnDistinctDatabaseDescriptions(common, false), null);
+               new ImageIcon(app.appImages.getLogo24()),
+               model.data.getAllOwnDistinctDatabaseDescriptions(common, false), null);
 
          if (databaseChoosen == null)
          {
@@ -899,8 +894,8 @@ public class SettingsPanel extends JPanel
             @Override
             protected Void doInBackground() throws Exception
             {
-               Data.deleteExpressionsOfDatabase(common, databaseChoosen);
-               new SaveExpressions().save(common, view);
+               model.data.deleteExpressionsOfDatabase(common, databaseChoosen);
+               new SaveExpressions(app, model).save(common, view);
                return null;
             }
 
@@ -910,7 +905,7 @@ public class SettingsPanel extends JPanel
       this.modus.addActionListener(_ -> {
          if (!common.isSchabbat())
          {
-            Settings.setSchabbat_modus(modus.isSelected());
+            app.settings.setSchabbat_modus(modus.isSelected());
          }
       });
    }
@@ -934,10 +929,10 @@ public class SettingsPanel extends JPanel
       return folder.exists() && folder.isFile();
    }
 
-   private String choosesFolderForSave()
+   private String choosesFolderForSave(App app)
    {
       JFileChooser folderChooser = new JFileChooser(
-            Settings.getExpressionPath());
+            app.settings.getExpressionPath());
       folderChooser.setAcceptAllFileFilterUsed(false);
       folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -963,10 +958,10 @@ public class SettingsPanel extends JPanel
       return null;
    }
 
-   private PathAndFile choosesFolderAndFileForSave()
+   private PathAndFile choosesFolderAndFileForSave(App app)
    {
       JFileChooser folderChooser = new JFileChooser(
-            Settings.getExpressionPath());
+            app.settings.getExpressionPath());
       folderChooser.setAcceptAllFileFilterUsed(false);
       folderChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -975,7 +970,7 @@ public class SettingsPanel extends JPanel
       if (JFileChooser.APPROVE_OPTION == choice)
       {
          String splitter = null;
-         if (OperatingSystem.WINDOWS == Settings.getOperatingSystem())
+         if (OperatingSystem.WINDOWS == app.settings.getOperatingSystem())
          {
             splitter = File.separator + File.separator;
          }
@@ -1066,10 +1061,10 @@ public class SettingsPanel extends JPanel
       return null;
    }
 
-   private String choosesFolderOrZipFileForOpen()
+   private String choosesFolderOrZipFileForOpen(App app)
    {
       JFileChooser folderChooser = new JFileChooser(
-            Settings.getExpressionPath());
+            app.settings.getExpressionPath());
       folderChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
       FileFilter filter = new FileNameExtensionFilter("zip-Datei", "zip");
       folderChooser.setAcceptAllFileFilterUsed(false);
