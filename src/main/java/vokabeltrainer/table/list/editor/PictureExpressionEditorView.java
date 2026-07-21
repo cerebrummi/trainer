@@ -33,7 +33,7 @@ import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.colors.InputColors;
 import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.AppImages;

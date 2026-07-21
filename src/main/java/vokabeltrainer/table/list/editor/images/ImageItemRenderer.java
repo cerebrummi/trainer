@@ -13,7 +13,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
 
 import vokabeltrainer.ComponentTitledBorder;
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.main.AppImages;
 
 public class ImageItemRenderer extends JPanel

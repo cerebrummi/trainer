@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;

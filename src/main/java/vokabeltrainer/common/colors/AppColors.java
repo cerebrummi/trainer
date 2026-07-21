@@ -2,11 +2,9 @@ package vokabeltrainer.common.colors;
 
 import java.awt.Color;
 
-import vokabeltrainer.common.ColorBase;
-
 public abstract class AppColors implements ColorBase
 {
-   public Alefbet alephbet = null;
+   public Alefbet alefbet = null;
    public Dictionary dictionary = null;
    public Input input = null;
    public Main main = null;
@@ -55,7 +53,7 @@ public abstract class AppColors implements ColorBase
 
    public abstract Color getLightYellow();
 
-   abstract Color getDarkRed();
+   public abstract Color getDarkRed();
 
    abstract Color getRose();
 
@@ -65,7 +63,7 @@ public abstract class AppColors implements ColorBase
 
    public abstract Color getBlack();
    
-   abstract class Alefbet
+   public abstract class Alefbet
    {
       public abstract Color getPanelBackground();
       public abstract Color getButton();
@@ -76,7 +74,7 @@ public abstract class AppColors implements ColorBase
       public abstract Color getTextBackground();
    }
    
-   abstract class Dictionary
+   public abstract class Dictionary
    {
       public abstract Color getInfoTextForeground();
       public abstract Color getPanelBackground();

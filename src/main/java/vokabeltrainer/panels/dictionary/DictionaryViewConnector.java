@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.swing.JScrollPane;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.list.table.DatabaseTableModel;
 import vokabeltrainer.table.ExpressionTable;
@@ -18,7 +20,7 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public interface DictionaryViewConnector
 {
-   public void loadChapters(Common common);
+   public void loadChapters(App app, Common common, Model model);
 
    public void unselectExpressionKind();
 
@@ -57,7 +59,7 @@ public interface DictionaryViewConnector
 
    public void switchSearchLanguagePanel(String actionCommand);
 
-   public void selectChapter(Common common, Chapter currentChapter);
+   public void selectChapter(App app, Common common, Model model, Chapter currentChapter);
 
    public ExpressionTable getTable();
 
@@ -71,7 +73,7 @@ public interface DictionaryViewConnector
 
    public void addChapterListSelectionListener();
 
-   public void doShowTable(Common common, View view, ExpressionTableModel tableModel);
+   public void doShowTable(App app, Common common, View view, ExpressionTableModel tableModel);
 
  
 
@@ -87,9 +89,9 @@ public interface DictionaryViewConnector
    
    public void notifyNothingWasSelectedForDeletion(View view);
    
-   public void setValues(Common common, View view);
+   public void setValues(App app, Common common, Model model, View view);
 
-   public void loadDatabases();
+   public void loadDatabases(App app, Model model);
 
    public DatabaseTableModel getDatabaseTableModel();
 }

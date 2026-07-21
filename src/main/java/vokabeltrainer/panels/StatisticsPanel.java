@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.colors.StatisticsColors;
 import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.Common;

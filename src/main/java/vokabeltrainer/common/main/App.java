@@ -32,7 +32,7 @@ public class App
       sounds.read(settings);
       appSound = sounds.getAppSounds();
       
-      toggleColors();
+      toggleModes();
       
       Images images = new Images();
       try
@@ -60,7 +60,7 @@ public class App
       
    }
    
-   void toggleColors()
+   void toggleModes()
    {
       if(settings.isDarkmodeOn())
       {

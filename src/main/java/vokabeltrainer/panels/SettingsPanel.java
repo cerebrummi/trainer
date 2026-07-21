@@ -34,7 +34,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import vokabeltrainer.PathAndFile;
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.colors.SettingsColors;
 import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.AppImages;

@@ -12,10 +12,7 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.common.ColorBase;
-import vokabeltrainer.common.colors.InputColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.SwedishLetter;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.tonionlayout.TrainLayout;
@@ -31,19 +28,19 @@ public class KeyboardSwedishStandard extends JPanel
 
    private JPanel keyboardPanel;
 
-   public KeyboardSwedishStandard(JTextComponent textfield,
+   public KeyboardSwedishStandard(App app, JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight)
    {
       dataButtons = new HashMap<>();
 
       if (textfield != null)
       {
-         textfield.setFont(AppFonts.germanFont.deriveFont(30F));
+         textfield.setFont(app.appFonts.germanFont.deriveFont(30F));
          textfield.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
          textfield.setMinimumSize(
-               new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+               new Dimension(app.settings.getKeyboardWidth(), textFieldHeight));
          textfield.setMaximumSize(
-               new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+               new Dimension(app.settings.getKeyboardWidth(), textFieldHeight));
          arrayList.add(textfield);
       }
 
@@ -64,76 +61,76 @@ public class KeyboardSwedishStandard extends JPanel
       keyboardPanel.setOpaque(false);
       keyboardPanel.setLayout(new TotemLayout(keyboardPanel));
 
-      dataButtons.put(SwedishLetter.A, makeButton(SwedishLetter.A));
-      dataButtons.put(SwedishLetter.B, makeButton(SwedishLetter.B));
-      dataButtons.put(SwedishLetter.C, makeButton(SwedishLetter.C));
-      dataButtons.put(SwedishLetter.D, makeButton(SwedishLetter.D));
-      dataButtons.put(SwedishLetter.E, makeButton(SwedishLetter.E));
-      dataButtons.put(SwedishLetter.F, makeButton(SwedishLetter.F));
-      dataButtons.put(SwedishLetter.G, makeButton(SwedishLetter.G));
-      dataButtons.put(SwedishLetter.H, makeButton(SwedishLetter.H));
-      dataButtons.put(SwedishLetter.I, makeButton(SwedishLetter.I));
-      dataButtons.put(SwedishLetter.J, makeButton(SwedishLetter.J));
-      dataButtons.put(SwedishLetter.K, makeButton(SwedishLetter.K));
-      dataButtons.put(SwedishLetter.L, makeButton(SwedishLetter.L));
-      dataButtons.put(SwedishLetter.M, makeButton(SwedishLetter.M));
-      dataButtons.put(SwedishLetter.N, makeButton(SwedishLetter.N));
-      dataButtons.put(SwedishLetter.O, makeButton(SwedishLetter.O));
-      dataButtons.put(SwedishLetter.P, makeButton(SwedishLetter.P));
-      dataButtons.put(SwedishLetter.Q, makeButton(SwedishLetter.Q));
-      dataButtons.put(SwedishLetter.R, makeButton(SwedishLetter.R));
-      dataButtons.put(SwedishLetter.S, makeButton(SwedishLetter.S));
-      dataButtons.put(SwedishLetter.T, makeButton(SwedishLetter.T));
-      dataButtons.put(SwedishLetter.U, makeButton(SwedishLetter.U));
-      dataButtons.put(SwedishLetter.V, makeButton(SwedishLetter.V));
-      dataButtons.put(SwedishLetter.W, makeButton(SwedishLetter.W));
-      dataButtons.put(SwedishLetter.X, makeButton(SwedishLetter.X));
-      dataButtons.put(SwedishLetter.Y, makeButton(SwedishLetter.Y));
-      dataButtons.put(SwedishLetter.Z, makeButton(SwedishLetter.Z));
-      dataButtons.put(SwedishLetter.ARING, makeButton(SwedishLetter.ARING));
-      dataButtons.put(SwedishLetter.AE, makeButton(SwedishLetter.AE));
-      dataButtons.put(SwedishLetter.OE, makeButton(SwedishLetter.OE));
+      dataButtons.put(SwedishLetter.A, makeButton(app, SwedishLetter.A));
+      dataButtons.put(SwedishLetter.B, makeButton(app, SwedishLetter.B));
+      dataButtons.put(SwedishLetter.C, makeButton(app, SwedishLetter.C));
+      dataButtons.put(SwedishLetter.D, makeButton(app, SwedishLetter.D));
+      dataButtons.put(SwedishLetter.E, makeButton(app, SwedishLetter.E));
+      dataButtons.put(SwedishLetter.F, makeButton(app, SwedishLetter.F));
+      dataButtons.put(SwedishLetter.G, makeButton(app, SwedishLetter.G));
+      dataButtons.put(SwedishLetter.H, makeButton(app, SwedishLetter.H));
+      dataButtons.put(SwedishLetter.I, makeButton(app, SwedishLetter.I));
+      dataButtons.put(SwedishLetter.J, makeButton(app, SwedishLetter.J));
+      dataButtons.put(SwedishLetter.K, makeButton(app, SwedishLetter.K));
+      dataButtons.put(SwedishLetter.L, makeButton(app, SwedishLetter.L));
+      dataButtons.put(SwedishLetter.M, makeButton(app, SwedishLetter.M));
+      dataButtons.put(SwedishLetter.N, makeButton(app, SwedishLetter.N));
+      dataButtons.put(SwedishLetter.O, makeButton(app, SwedishLetter.O));
+      dataButtons.put(SwedishLetter.P, makeButton(app, SwedishLetter.P));
+      dataButtons.put(SwedishLetter.Q, makeButton(app, SwedishLetter.Q));
+      dataButtons.put(SwedishLetter.R, makeButton(app, SwedishLetter.R));
+      dataButtons.put(SwedishLetter.S, makeButton(app, SwedishLetter.S));
+      dataButtons.put(SwedishLetter.T, makeButton(app, SwedishLetter.T));
+      dataButtons.put(SwedishLetter.U, makeButton(app, SwedishLetter.U));
+      dataButtons.put(SwedishLetter.V, makeButton(app, SwedishLetter.V));
+      dataButtons.put(SwedishLetter.W, makeButton(app, SwedishLetter.W));
+      dataButtons.put(SwedishLetter.X, makeButton(app, SwedishLetter.X));
+      dataButtons.put(SwedishLetter.Y, makeButton(app, SwedishLetter.Y));
+      dataButtons.put(SwedishLetter.Z, makeButton(app, SwedishLetter.Z));
+      dataButtons.put(SwedishLetter.ARING, makeButton(app, SwedishLetter.ARING));
+      dataButtons.put(SwedishLetter.AE, makeButton(app, SwedishLetter.AE));
+      dataButtons.put(SwedishLetter.OE, makeButton(app, SwedishLetter.OE));
 
-      dataButtons.put(SwedishLetter.a, makeButton(SwedishLetter.a));
-      dataButtons.put(SwedishLetter.b, makeButton(SwedishLetter.b));
-      dataButtons.put(SwedishLetter.c, makeButton(SwedishLetter.c));
-      dataButtons.put(SwedishLetter.d, makeButton(SwedishLetter.d));
-      dataButtons.put(SwedishLetter.e, makeButton(SwedishLetter.e));
-      dataButtons.put(SwedishLetter.f, makeButton(SwedishLetter.f));
-      dataButtons.put(SwedishLetter.g, makeButton(SwedishLetter.g));
-      dataButtons.put(SwedishLetter.h, makeButton(SwedishLetter.h));
-      dataButtons.put(SwedishLetter.i, makeButton(SwedishLetter.i));
-      dataButtons.put(SwedishLetter.j, makeButton(SwedishLetter.j));
-      dataButtons.put(SwedishLetter.k, makeButton(SwedishLetter.k));
-      dataButtons.put(SwedishLetter.l, makeButton(SwedishLetter.l));
-      dataButtons.put(SwedishLetter.m, makeButton(SwedishLetter.m));
-      dataButtons.put(SwedishLetter.n, makeButton(SwedishLetter.n));
-      dataButtons.put(SwedishLetter.o, makeButton(SwedishLetter.o));
-      dataButtons.put(SwedishLetter.p, makeButton(SwedishLetter.p));
-      dataButtons.put(SwedishLetter.q, makeButton(SwedishLetter.q));
-      dataButtons.put(SwedishLetter.r, makeButton(SwedishLetter.r));
-      dataButtons.put(SwedishLetter.s, makeButton(SwedishLetter.s));
-      dataButtons.put(SwedishLetter.t, makeButton(SwedishLetter.t));
-      dataButtons.put(SwedishLetter.u, makeButton(SwedishLetter.u));
-      dataButtons.put(SwedishLetter.v, makeButton(SwedishLetter.v));
-      dataButtons.put(SwedishLetter.w, makeButton(SwedishLetter.w));
-      dataButtons.put(SwedishLetter.x, makeButton(SwedishLetter.x));
-      dataButtons.put(SwedishLetter.y, makeButton(SwedishLetter.y));
-      dataButtons.put(SwedishLetter.z, makeButton(SwedishLetter.z));
-      dataButtons.put(SwedishLetter.aring, makeButton(SwedishLetter.aring));
-      dataButtons.put(SwedishLetter.ae, makeButton(SwedishLetter.ae));
-      dataButtons.put(SwedishLetter.oe, makeButton(SwedishLetter.oe));
-      makeRegularKeyboard();
+      dataButtons.put(SwedishLetter.a, makeButton(app, SwedishLetter.a));
+      dataButtons.put(SwedishLetter.b, makeButton(app, SwedishLetter.b));
+      dataButtons.put(SwedishLetter.c, makeButton(app, SwedishLetter.c));
+      dataButtons.put(SwedishLetter.d, makeButton(app, SwedishLetter.d));
+      dataButtons.put(SwedishLetter.e, makeButton(app, SwedishLetter.e));
+      dataButtons.put(SwedishLetter.f, makeButton(app, SwedishLetter.f));
+      dataButtons.put(SwedishLetter.g, makeButton(app, SwedishLetter.g));
+      dataButtons.put(SwedishLetter.h, makeButton(app, SwedishLetter.h));
+      dataButtons.put(SwedishLetter.i, makeButton(app, SwedishLetter.i));
+      dataButtons.put(SwedishLetter.j, makeButton(app, SwedishLetter.j));
+      dataButtons.put(SwedishLetter.k, makeButton(app, SwedishLetter.k));
+      dataButtons.put(SwedishLetter.l, makeButton(app, SwedishLetter.l));
+      dataButtons.put(SwedishLetter.m, makeButton(app, SwedishLetter.m));
+      dataButtons.put(SwedishLetter.n, makeButton(app, SwedishLetter.n));
+      dataButtons.put(SwedishLetter.o, makeButton(app, SwedishLetter.o));
+      dataButtons.put(SwedishLetter.p, makeButton(app, SwedishLetter.p));
+      dataButtons.put(SwedishLetter.q, makeButton(app, SwedishLetter.q));
+      dataButtons.put(SwedishLetter.r, makeButton(app, SwedishLetter.r));
+      dataButtons.put(SwedishLetter.s, makeButton(app, SwedishLetter.s));
+      dataButtons.put(SwedishLetter.t, makeButton(app, SwedishLetter.t));
+      dataButtons.put(SwedishLetter.u, makeButton(app, SwedishLetter.u));
+      dataButtons.put(SwedishLetter.v, makeButton(app, SwedishLetter.v));
+      dataButtons.put(SwedishLetter.w, makeButton(app, SwedishLetter.w));
+      dataButtons.put(SwedishLetter.x, makeButton(app, SwedishLetter.x));
+      dataButtons.put(SwedishLetter.y, makeButton(app, SwedishLetter.y));
+      dataButtons.put(SwedishLetter.z, makeButton(app, SwedishLetter.z));
+      dataButtons.put(SwedishLetter.aring, makeButton(app, SwedishLetter.aring));
+      dataButtons.put(SwedishLetter.ae, makeButton(app, SwedishLetter.ae));
+      dataButtons.put(SwedishLetter.oe, makeButton(app, SwedishLetter.oe));
+      makeRegularKeyboard(app);
 
       add(keyboardPanel);
    }
 
-   private Component makeButton(SwedishLetter letter)
+   private Component makeButton(App app, SwedishLetter letter)
    {
       DataButtonSwedish dataButton;
-      dataButton = new DataButtonSwedish(letter.getUnicode(),
+      dataButton = new DataButtonSwedish(app, letter.getUnicode(),
             letter.getUnicode());
-      dataButton.setForeground(InputColors.getTextForeground());
+      dataButton.setForeground(app.appColors.input.getTextForeground());
       dataButton.setMargin(new Insets(3, -5, 0, -5));
       dataButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
       dataButton.setMaximumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE));
@@ -141,7 +138,7 @@ public class KeyboardSwedishStandard extends JPanel
 
       JPanel buttonPanel = new JPanel();
       buttonPanel.setOpaque(false);
-      buttonPanel.setBackground(ColorBase.getTransparent());
+      buttonPanel.setBackground(app.appColors.getTransparent());
       buttonPanel.setLayout(new TotemLayout(buttonPanel));
       buttonPanel.add(dataButton);
 
@@ -150,9 +147,9 @@ public class KeyboardSwedishStandard extends JPanel
       return buttonPanel;
    }
 
-   private Component makeSpaceButton()
+   private Component makeSpaceButton(App app)
    {
-      DataButtonSwedish jButton = new DataButtonSwedish(
+      DataButtonSwedish jButton = new DataButtonSwedish(app,
             SwedishLetter.SPACE.getPronunciation(),
             SwedishLetter.SPACE.getUnicode());
       jButton.setMinimumSize(new Dimension(BUTTON_SIZE + 2, BUTTON_SIZE + 10));
@@ -220,13 +217,13 @@ public class KeyboardSwedishStandard extends JPanel
 
    }
 
-   public Component makeTextfieldWithRegularKeyboard()
+   public Component makeTextfieldWithRegularKeyboard(App app)
    {
-      makeRegularKeyboard();
+      makeRegularKeyboard(app);
       return this;
    }
 
-   public Component makeRegularKeyboard()
+   public Component makeRegularKeyboard(App app)
    {
       keyboardPanel.removeAll();
 
@@ -238,7 +235,7 @@ public class KeyboardSwedishStandard extends JPanel
       halfSizedFiller1.setMinimumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1.setMaximumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1.setOpaque(false);
-      halfSizedFiller1.setBackground(ColorBase.getTransparent());
+      halfSizedFiller1.setBackground(app.appColors.getTransparent());
       row1.add(halfSizedFiller1);
 
       row1.add(dataButtons.get(SwedishLetter.Q));
@@ -261,7 +258,7 @@ public class KeyboardSwedishStandard extends JPanel
       tinyFiller2.setMinimumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2.setMaximumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2.setOpaque(false);
-      tinyFiller2.setBackground(ColorBase.getTransparent());
+      tinyFiller2.setBackground(app.appColors.getTransparent());
       row2.add(tinyFiller2);
 
       row2.add(dataButtons.get(SwedishLetter.A));
@@ -284,7 +281,7 @@ public class KeyboardSwedishStandard extends JPanel
       halfSizedFiller3.setMinimumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3.setMaximumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3.setOpaque(false);
-      halfSizedFiller3.setBackground(ColorBase.getTransparent());
+      halfSizedFiller3.setBackground(app.appColors.getTransparent());
       row3.add(halfSizedFiller3);
 
       row3.add(dataButtons.get(SwedishLetter.Z));
@@ -297,7 +294,7 @@ public class KeyboardSwedishStandard extends JPanel
 
       JPanel bigFiller1 = new JPanel();
       bigFiller1.setOpaque(false);
-      bigFiller1.setBackground(ColorBase.getTransparent());
+      bigFiller1.setBackground(app.appColors.getTransparent());
       bigFiller1.setMaximumSize(new Dimension(300, 32));
 
       JPanel row4 = new JPanel();
@@ -308,7 +305,7 @@ public class KeyboardSwedishStandard extends JPanel
       halfSizedFiller1b.setMinimumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1b.setMaximumSize(new Dimension(5, BUTTON_SIZE));
       halfSizedFiller1b.setOpaque(false);
-      halfSizedFiller1b.setBackground(ColorBase.getTransparent());
+      halfSizedFiller1b.setBackground(app.appColors.getTransparent());
       row4.add(halfSizedFiller1b);
 
       row4.add(dataButtons.get(SwedishLetter.q));
@@ -331,7 +328,7 @@ public class KeyboardSwedishStandard extends JPanel
       tinyFiller2b.setMinimumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2b.setMaximumSize(new Dimension(18, BUTTON_SIZE));
       tinyFiller2b.setOpaque(false);
-      tinyFiller2b.setBackground(ColorBase.getTransparent());
+      tinyFiller2b.setBackground(app.appColors.getTransparent());
       row5.add(tinyFiller2b);
 
       row5.add(dataButtons.get(SwedishLetter.a));
@@ -354,7 +351,7 @@ public class KeyboardSwedishStandard extends JPanel
       halfSizedFiller3b.setMinimumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3b.setMaximumSize(new Dimension(31, BUTTON_SIZE));
       halfSizedFiller3b.setOpaque(false);
-      halfSizedFiller3b.setBackground(ColorBase.getTransparent());
+      halfSizedFiller3b.setBackground(app.appColors.getTransparent());
       row6.add(halfSizedFiller3b);
 
       row6.add(dataButtons.get(SwedishLetter.z));
@@ -367,14 +364,14 @@ public class KeyboardSwedishStandard extends JPanel
 
       JPanel bigFiller2 = new JPanel();
       bigFiller2.setOpaque(false);
-      bigFiller2.setBackground(ColorBase.getTransparent());
+      bigFiller2.setBackground(app.appColors.getTransparent());
       bigFiller2.setMaximumSize(new Dimension(300, 32));
 
       keyboardPanel.add(row1);
       keyboardPanel.add(row2);
       keyboardPanel.add(row3);
       keyboardPanel.add(bigFiller1);
-      keyboardPanel.add(makeSpaceButton());
+      keyboardPanel.add(makeSpaceButton(app));
       keyboardPanel.add(bigFiller2);
       keyboardPanel.add(row4);
       keyboardPanel.add(row5);
@@ -382,7 +379,7 @@ public class KeyboardSwedishStandard extends JPanel
 
       JPanel bigFiller3 = new JPanel();
       bigFiller3.setOpaque(false);
-      bigFiller3.setBackground(ColorBase.getTransparent());
+      bigFiller3.setBackground(app.appColors.getTransparent());
       bigFiller3.setMaximumSize(new Dimension(300, 32));
 
       keyboardPanel.add(bigFiller3);

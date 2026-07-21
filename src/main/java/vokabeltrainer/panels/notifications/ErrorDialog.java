@@ -7,7 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;

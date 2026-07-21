@@ -1,6 +1,8 @@
 package vokabeltrainer.panels.dictionary;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.types.Chapter;
@@ -8,47 +10,47 @@ import vokabeltrainer.types.SortingType;
 
 public interface DictionaryControllerConnector extends TableConnector
 {
-   public void tabbedPaneChanged(Common common, View view, int selectedIndex);
+   public void tabbedPaneChanged(App app, Common common, Model model, View view, int selectedIndex);
 
    public void copyExpressionsOfTable(View view);
 
    public void copyInTableSelectedExpressions(View view);
 
-   public void unselectTableExpressions(Common common, View view);
+   public void unselectTableExpressions(App app, Common common, Model model, View view);
 
-   public void unselectAllExpressions(Common common, View view);
+   public void unselectAllExpressions(App app, Common common, Model model, View view);
 
-   public void selectTableExpressions(Common common, View view);
+   public void selectTableExpressions(App app, Common common, Model model, View view);
 
-   public void deleteAllSelectedExpressions(Common common, View view);
+   public void deleteAllSelectedExpressions(App app, Common common, Model model, View view);
 
-   public void deleteInTableSelectedExpressions(Common common, View view);
+   public void deleteInTableSelectedExpressions(App app, Common common, Model model, View view);
 
-   public void openTrashCanDialog(Common common, View view);
+   public void openTrashCanDialog(App app, Common common, Model model, View view);
 
-   public void shredderDeletedExpressions(Common common, View view);
+   public void shredderDeletedExpressions(App app, Common common, Model model, View view);
 
-   public void searchOtherLanguage(Common common, View view);
+   public void searchOtherLanguage(App app, Common common, Model model, View view);
 
-   public void searchMyLanguage(Common common, View view);
+   public void searchMyLanguage(App app, Common common, Model model, View view);
 
-   public void popToDecideOnTableInteraction(Common common, View view, Action action);
+   public void popToDecideOnTableInteraction(App app, Common common, Model model, View view, Action action);
 
-   public void switchLanguage(Common common, View view, String actionCommand);
+   public void switchLanguage(App app, Common common, Model model, View view, String actionCommand);
 
-   public void displayChapterWhich(Common common, View view, Chapter chapter);
+   public void displayChapterWhich(App app, Common common, Model model, View view, Chapter chapter);
 
-   public void displayExpressionKindWhich(Common common, View view);
+   public void displayExpressionKindWhich(App app, Common common, Model model, View view);
 
    public DictionaryViewConnector getDictionaryPanel();
 
-   public void sortTableNow(Common common, View view);
+   public void sortTableNow(App app, Common common, Model model, View view);
 
-   public void displayTableAfterOpeningPage(Common common, View view);
+   public void displayTableAfterOpeningPage(App app, Common common, Model model, View view);
 
-   public void moveExpressionsToChapter(Common common, View view, String toChapter);
+   public void moveExpressionsToChapter(App app, Common common, Model model, View view, String toChapter);
 
-   public void moveExpressionsToDatabase(Common common, View view, String databaseAim);
+   public void moveExpressionsToDatabase(App app, Common common, Model model, View view, String databaseAim);
 
-   public void copyAllSelectedExpressions(View view, SortingType sortingType);
+   public void copyAllSelectedExpressions(Model model, View view, SortingType sortingType);
 }

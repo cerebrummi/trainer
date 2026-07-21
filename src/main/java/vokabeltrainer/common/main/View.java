@@ -93,7 +93,7 @@ public final class View
 
    public void setUI(App app)
    {
-      app.toggleColors();
+      app.toggleModes();
       try
       {
          nimbus = new NimbusLookAndFeel();

@@ -15,12 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.TextImage;
-import vokabeltrainer.common.ColorBase;
-import vokabeltrainer.common.colors.AlefbetColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.panels.letterpicture.LetterPictureAlphabetPanel;
 import vokabeltrainer.panels.letterpicture.LetterTextField;
 import vokabeltrainer.panels.translation.Translation;
@@ -40,36 +36,35 @@ public class AlefbetPanel extends JPanel
    private JButton resetButton;
    private Translator translator;
 
-   public AlefbetPanel(Common common)
+   public AlefbetPanel(App app, Common common)
    {
       translator = common.getTranslator();
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(AlefbetColors.getPanelBackground());
+      setBackground(app.appColors.alefbet.getPanelBackground());
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 165));
       horizontal.setOpaque(false);
-      horizontal.setBackground(ColorBase.getTransparent());
+      horizontal.setBackground(app.appColors.getTransparent());
 
       this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel(common);
       letterPictureAlphabetPanel.setOpaque(false);
-      letterPictureAlphabetPanel
-            .setBackground(ColorBase.getTransparent());
+      letterPictureAlphabetPanel.setBackground(app.appColors.getTransparent());
 
-      horizontal.add(initLetterPanel());
+      horizontal.add(initLetterPanel(app));
       horizontal.add(letterPictureAlphabetPanel);
-      horizontal.add(initButtons());
+      horizontal.add(initButtons(app));
 
       add(horizontal);
 
-      initController();
+      initController(app);
       this.setFocusTraversalPolicyProvider(true);
       this.setFocusTraversalPolicy(
             this.letterPictureAlphabetPanel.getFocusTraversalPolicy());
    }
 
-   private Component initButtons()
+   private Component initButtons(App app)
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 14));
@@ -82,15 +77,15 @@ public class AlefbetPanel extends JPanel
 
       resultButton = new JButton(
             translator.realisticTranslate(Translation.AUSWERTEN));
-      resultButton.setBackground(AlefbetColors.getButton());
-      resultButton.setForeground(AlefbetColors.getButtonForeground());
-      resultButton.setFont(AppFonts.buttonFont);
+      resultButton.setBackground(app.appColors.alefbet.getButton());
+      resultButton.setForeground(app.appColors.alefbet.getButtonForeground());
+      resultButton.setFont(app.appFonts.buttonFont);
 
       resetButton = new JButton(
             translator.realisticTranslate(Translation.ZURUECKSETZEN));
-      resetButton.setBackground(AlefbetColors.getButton());
-      resetButton.setForeground(AlefbetColors.getButtonForeground());
-      resetButton.setFont(AppFonts.buttonFont);
+      resetButton.setBackground(app.appColors.alefbet.getButton());
+      resetButton.setForeground(app.appColors.alefbet.getButtonForeground());
+      resetButton.setFont(app.appFonts.buttonFont);
 
       vertical.add(filler);
       vertical.add(resultButton);
@@ -98,7 +93,7 @@ public class AlefbetPanel extends JPanel
       return vertical;
    }
 
-   private Component initLetterPanel()
+   private Component initLetterPanel(App app)
    {
       letterPanel = new JPanel();
       letterPanel.setLayout(new TotemLayout(letterPanel));
@@ -106,14 +101,15 @@ public class AlefbetPanel extends JPanel
 
       JLabel title = new JLabel(
             translator.realisticTranslate(Translation.ALEFBET_UEBEN));
-      title.setForeground(AlefbetColors.getTextForeground());
-      title.setFont(AppFonts.germanFont.deriveFont(24F));
+      title.setForeground(app.appColors.alefbet.getTextForeground());
+      title.setFont(app.appFonts.germanFont.deriveFont(24F));
       letterPanel.add(title);
 
       pictureInfoButton = new JButton(
-            new ImageIcon(AppImages.getInfoButtonIcon()));
-      pictureInfoButton.setBackground(AlefbetColors.getButton());
-      pictureInfoButton.setForeground(AlefbetColors.getButtonForeground());
+            new ImageIcon(app.appImages.getInfoButtonIcon()));
+      pictureInfoButton.setBackground(app.appColors.alefbet.getButton());
+      pictureInfoButton
+            .setForeground(app.appColors.alefbet.getButtonForeground());
       pictureInfoButton.setMinimumSize(new Dimension(50, 50));
       pictureInfoButton.setMaximumSize(new Dimension(50, 50));
       pictureInfoButton.setMargin(new Insets(0, 0, 0, 0));
@@ -122,22 +118,22 @@ public class AlefbetPanel extends JPanel
       return letterPanel;
    }
 
-   private void initController()
+   private void initController(App app)
    {
       resultButton.addActionListener(_ -> {
          for (JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
          {
             if (((LetterTextField) jtc).isOkay())
             {
-               jtc.setBackground(ColorBase.getGreen());
+               jtc.setBackground(app.appColors.getGreen());
             }
             else if (jtc.getText().isBlank())
             {
-               jtc.setBackground(ColorBase.getLightYellow());
+               jtc.setBackground(app.appColors.getLightYellow());
             }
             else
             {
-               jtc.setBackground(ColorBase.getLightGrayGold());
+               jtc.setBackground(app.appColors.getLightGrayGold());
             }
          }
       });
@@ -145,16 +141,16 @@ public class AlefbetPanel extends JPanel
       resetButton.addActionListener(_ -> {
          for (JTextComponent jtc : letterPictureAlphabetPanel.getTextFields())
          {
-            jtc.setBackground(AlefbetColors.getButton());
-            jtc.setForeground(AlefbetColors.getButtonForeground());
+            jtc.setBackground(app.appColors.alefbet.getButton());
+            jtc.setForeground(app.appColors.alefbet.getButtonForeground());
             jtc.setText("");
          }
       });
 
       pictureInfoButton.addActionListener(_ -> {
          JOptionPane.showMessageDialog(letterPanel, "",
-               Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
-               new ImageIcon(TextImage.make(
+               app.settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
+               new ImageIcon(TextImage.make(app,
                      translator
                            .realisticTranslate(Translation.BILDERBUCHSTABEN),
                      translator.realisticTranslate(

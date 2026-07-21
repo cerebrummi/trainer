@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.colors.TableColors;
 import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.ImageData;

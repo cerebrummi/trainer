@@ -14,8 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import vokabeltrainer.TextImage;
-import vokabeltrainer.common.ColorBase;
-import vokabeltrainer.common.colors.MainColors;
 import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;

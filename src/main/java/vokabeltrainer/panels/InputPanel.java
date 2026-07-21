@@ -21,14 +21,10 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
-import vokabeltrainer.common.ColorBase;
-import vokabeltrainer.common.colors.InputColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.SaveExpressions;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.common.main.Settings.LanguageStored;
 import vokabeltrainer.panels.input.ChapterComboBox;
@@ -66,12 +62,12 @@ public class InputPanel extends JPanel implements TableConnector
 
    private JComboBox<WritingDirection> myWritingDirection;
 
-   public InputPanel(Common common, View view)
+   public InputPanel(App app, Common common, Model model, View view)
    {
       translator = common.getTranslator();
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(InputColors.getPanelBackground());
+      setBackground(app.appColors.input.getPanelBackground());
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
@@ -86,9 +82,9 @@ public class InputPanel extends JPanel implements TableConnector
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
       horizontal.add(filler1);
-      horizontal.add(initLeftside());
+      horizontal.add(initLeftside(app));
       horizontal.add(filler2);
-      horizontal.add(initRightside());
+      horizontal.add(initRightside(app));
       horizontal.setOpaque(false);
 
       JPanel spanner = new JPanel();
@@ -107,16 +103,17 @@ public class InputPanel extends JPanel implements TableConnector
 
       this.add(vertical);
 
-      initController(common, view);
+      initController(app, common, model, view);
 
-      setWritingDirection();
-      setLernsprache(false);
+      setWritingDirection(app);
+      setLernsprache(app, false);
    }
 
-   public void reset(Common common)
+   public void reset(Common common, Model model)
    {
-      Chapter lastModiefiedChapter = Data.getChapterWithLastModifiedDate(common);
-      chapterBox.setModel(Data.getChapterComboBoxModelAsChapter(common));
+      Chapter lastModiefiedChapter = model.data
+            .getChapterWithLastModifiedDate(common);
+      chapterBox.setModel(model.data.getChapterComboBoxModelAsChapter(common));
       if (chapterBox.getModel().getSize() > 0)
       {
          chapterBox.setSelectedItem(lastModiefiedChapter);
@@ -130,15 +127,15 @@ public class InputPanel extends JPanel implements TableConnector
       }
    }
 
-   private void initController(Common common, View view)
+   private void initController(App app, Common common, Model model, View view)
    {
-      newWordPunktationButton
-            .addActionListener(_ -> openNewNikudExpressionDialog(common, view));
+      newWordPunktationButton.addActionListener(
+            _ -> openNewNikudExpressionDialog(app, common, model, view));
 
       chapterBox.addActionListener(_ -> {
          this.currentChapter = chapterBox
                .getItemAt(chapterBox.getSelectedIndex());
-         this.doShowTable(common, view);
+         this.doShowTable(common, model, view);
       });
 
       myWritingDirection.addActionListener(_ -> {
@@ -152,7 +149,7 @@ public class InputPanel extends JPanel implements TableConnector
             writingDirection = WritingDirection.RIGHT_TO_LEFT;
             break;
          }
-         Settings.setMyWritingDirection(writingDirection);
+         app.settings.setMyWritingDirection(writingDirection);
       });
 
       otherLanguage.addActionListener(_ -> {
@@ -172,13 +169,13 @@ public class InputPanel extends JPanel implements TableConnector
             selection = Selection.GERMAN;
             break;
          }
-         Settings.setLanguageInput(selection);
+         app.settings.setLanguageInput(selection);
       });
 
       tableInfoButton.addActionListener(_ -> {
-         JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
+         JOptionPane.showMessageDialog(this, "", app.settings.getWindowTitle(),
                JOptionPane.INFORMATION_MESSAGE,
-               new ImageIcon(TextImage.make(
+               new ImageIcon(TextImage.make(app,
                      translator.realisticTranslate(Translation.TABELLE),
                      translator.realisticTranslate(
                            Translation.EINMAL_KLICKEN_MARKIERT_EINEN_EINTRAG),
@@ -223,29 +220,31 @@ public class InputPanel extends JPanel implements TableConnector
       });
    }
 
-   private void openNewNikudExpressionDialog(Common common, View view)
+   private void openNewNikudExpressionDialog(App app, Common common,
+         Model model, View view)
    {
-      LanguageExpressionEditorView editor = new NikudExpressionEditorController(common, view)
-            .getNikudExpressionEditorDialog();
-      editor.setExpression(common, view, new Expression(common, true, false), true);
+      LanguageExpressionEditorView editor = new NikudExpressionEditorController(
+            common, view).getNikudExpressionEditorDialog();
+      editor.setExpression(common, view, new Expression(common, true, false),
+            true);
       editor.setLocationRelativeTo(view.getjFrame());
       editor.setVisible(true);
 
       if (editor.isSave())
       {
          Expression expression = editor.getExpression();
-         Data.putExpressionInNewMap(expression.getUuid(), expression);
+         model.data.putExpressionInNewMap(expression.getUuid(), expression);
          this.currentChapter = expression.getChapter();
-         save(common, view);
+         save(app, common, model, view);
       }
-      setLernsprache(true);
+      setLernsprache(app, true);
    }
 
-   private void doShowTable(Common common, View view)
+   private void doShowTable(Common common, Model model, View view)
    {
-      ExpressionTableModel tableModel = Data.findTranslations(common, null, null, null,
-            currentChapter, null, SortingType.DATE, null, Direction.OWN_TO_NEW,
-            null);
+      ExpressionTableModel tableModel = model.data.findTranslations(common,
+            null, null, null, currentChapter, null, SortingType.DATE, null,
+            Direction.OWN_TO_NEW, null);
       tablePanel.removeAll();
       ExpressionTable table = new ExpressionTable(common, view, tableModel,
             Direction.OWN_TO_NEW, this, true,
@@ -263,7 +262,7 @@ public class InputPanel extends JPanel implements TableConnector
       tablePanel.repaint();
    }
 
-   private Component initRightside()
+   private Component initRightside(App app)
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
@@ -272,20 +271,20 @@ public class InputPanel extends JPanel implements TableConnector
       JPanel flow = new JPanel();
       flow.setOpaque(false);
       tableInfoButton = new JButton(
-            new ImageIcon(AppImages.getInfoButtonIcon()));
-      tableInfoButton.setBackground(ColorBase.getWhite());
+            new ImageIcon(app.appImages.getInfoButtonIcon()));
+      tableInfoButton.setBackground(app.appColors.getWhite());
       tableInfoButton.setMinimumSize(new Dimension(20, 50));
       tableInfoButton.setMaximumSize(new Dimension(20, 50));
       tableInfoButton.setMargin(new Insets(0, 0, 0, 0));
       flow.add(tableInfoButton);
       vertical.add(flow);
-      vertical.add(initChapterBox());
+      vertical.add(initChapterBox(app));
       vertical.add(initTablePanel());
 
       return vertical;
    }
 
-   private Component initChapterBox()
+   private Component initChapterBox(App app)
    {
       chapterBox = new ChapterComboBox();
       chapterBox.setMinimumSize(new Dimension(500, 30));
@@ -293,7 +292,7 @@ public class InputPanel extends JPanel implements TableConnector
       chapterBox.setPreferredSize(new Dimension(500, 30));
       chapterBox.setSize(new Dimension(500, 30));
       chapterBox.setMaximumRowCount(10);
-      chapterBox.setFont(AppFonts.comboBoxFont);
+      chapterBox.setFont(app.appFonts.comboBoxFont);
       return chapterBox;
    }
 
@@ -306,7 +305,7 @@ public class InputPanel extends JPanel implements TableConnector
       return tablePanel;
    }
 
-   private Component initLeftside()
+   private Component initLeftside(App app)
    {
       JPanel leftside = new JPanel();
       leftside.setLayout(new BullsEyeLayout(leftside));
@@ -322,66 +321,65 @@ public class InputPanel extends JPanel implements TableConnector
 
       myWritingDirection = new JComboBox<>(WritingDirection.values());
       myWritingDirection.setEditable(false);
-      myWritingDirection.setBorder(
-            BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                  translator.realisticTranslate(Translation.SCHREIBRICHTUNG), 0,
-                  0, AppFonts.buttonFont,
-                  InputColors.getPanelBackground()));
+      myWritingDirection.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createEmptyBorder(),
+            translator.realisticTranslate(Translation.SCHREIBRICHTUNG), 0, 0,
+            app.appFonts.buttonFont, app.appColors.input.getPanelBackground()));
       myWritingDirection.setOpaque(true);
-      myWritingDirection.setBackground(InputColors.getPanelBackground());
-      myWritingDirection.setForeground(ColorBase.getLightGrayGold());
+      myWritingDirection
+            .setBackground(app.appColors.input.getPanelBackground());
+      myWritingDirection.setForeground(app.appColors.getLightGrayGold());
       myWritingDirection.setMinimumSize(new Dimension(250, 50));
       myWritingDirection.setMaximumSize(new Dimension(250, 50));
       myWritingDirection.setMaximumRowCount(2);
 
       otherLanguage = new JComboBox<>(LanguageStored.values());
       otherLanguage.setEditable(false);
-      otherLanguage.setBorder(
-            BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
-                  translator.realisticTranslate(Translation.NEUE_SPRACHE), 0, 0,
-                  AppFonts.buttonFont,
-                  InputColors.getPanelBackground()));
+      otherLanguage.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createEmptyBorder(),
+            translator.realisticTranslate(Translation.NEUE_SPRACHE), 0, 0,
+            app.appFonts.buttonFont, app.appColors.input.getPanelBackground()));
       otherLanguage.setOpaque(true);
-      otherLanguage.setBackground(InputColors.getPanelBackground());
-      otherLanguage.setForeground(ColorBase.getLightGrayGold());
+      otherLanguage.setBackground(app.appColors.input.getPanelBackground());
+      otherLanguage.setForeground(app.appColors.getLightGrayGold());
       otherLanguage.setMinimumSize(new Dimension(250, 50));
       otherLanguage.setMaximumSize(new Dimension(250, 50));
       otherLanguage.setMaximumRowCount(4);
 
       newWordPunktationButton = new JButton(
             translator.realisticTranslate(Translation.NEUE_VOKABEL));
-      newWordPunktationButton.setFont(AppFonts.buttonFont);
+      newWordPunktationButton.setFont(app.appFonts.buttonFont);
       newWordPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newWordPunktationButton.setMinimumSize(new Dimension(300, 60));
       newWordPunktationButton.setMaximumSize(new Dimension(300, 60));
       newWordPunktationButton
-            .setIcon(new ImageIcon(AppImages.getNewWord()));
-      newWordPunktationButton.setBackground(InputColors.getButton());
+            .setIcon(new ImageIcon(app.appImages.getNewWord()));
+      newWordPunktationButton.setBackground(app.appColors.input.getButton());
       newWordPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
-            10, 10, InputColors.getButtonBorder()));
+            10, 10, app.appColors.input.getButtonBorder()));
 
       newTextPunktationButton = new JButton(
             translator.realisticTranslate(Translation.NEUER_TEXT));
-      newTextPunktationButton.setFont(AppFonts.buttonFont);
+      newTextPunktationButton.setFont(app.appFonts.buttonFont);
       newTextPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newTextPunktationButton.setMinimumSize(new Dimension(300, 60));
       newTextPunktationButton.setMaximumSize(new Dimension(300, 60));
       newTextPunktationButton
-            .setIcon(new ImageIcon(AppImages.getNewWord()));
-      newTextPunktationButton.setBackground(InputColors.getButton2());
+            .setIcon(new ImageIcon(app.appImages.getNewWord()));
+      newTextPunktationButton.setBackground(app.appColors.input.getButton2());
       newTextPunktationButton.setBorder(BorderFactory.createMatteBorder(10, 10,
-            10, 10, InputColors.getButtonBorder()));
+            10, 10, app.appColors.input.getButtonBorder()));
 
       newQuestionsAndAnswersButton = new JButton(
             translator.realisticTranslate(Translation.NEUE_FRAGE_UND_ANTWORT));
-      newQuestionsAndAnswersButton.setFont(AppFonts.buttonFont);
+      newQuestionsAndAnswersButton.setFont(app.appFonts.buttonFont);
       newQuestionsAndAnswersButton.setHorizontalAlignment(SwingConstants.LEFT);
       newQuestionsAndAnswersButton.setMinimumSize(new Dimension(300, 60));
       newQuestionsAndAnswersButton.setMaximumSize(new Dimension(300, 60));
       newQuestionsAndAnswersButton
-            .setIcon(new ImageIcon(AppImages.getQuestionsAndAnswers()));
+            .setIcon(new ImageIcon(app.appImages.getQuestionsAndAnswers()));
       newQuestionsAndAnswersButton.setBorder(BorderFactory.createMatteBorder(10,
-            10, 10, 10, ColorBase.getGreen()));
+            10, 10, 10, app.appColors.getGreen()));
 
       horizontal.add(myWritingDirection);
       horizontal.add(otherLanguage);
@@ -394,9 +392,9 @@ public class InputPanel extends JPanel implements TableConnector
       return leftside;
    }
 
-   private void setWritingDirection()
+   private void setWritingDirection(App app)
    {
-      switch (Settings.getMyWritingDirection())
+      switch (app.settings.getMyWritingDirection())
       {
       case LEFT_TO_RIGHT:
          myWritingDirection.setSelectedItem(WritingDirection.LEFT_TO_RIGHT);
@@ -408,9 +406,9 @@ public class InputPanel extends JPanel implements TableConnector
 
    }
 
-   public void setLernsprache(boolean update)
+   public void setLernsprache(App app, boolean update)
    {
-      switch (Settings.getLanguageInput())
+      switch (app.settings.getLanguageInput())
       {
       case GERMAN:
          otherLanguage.setSelectedItem(LanguageStored.GERMAN);
@@ -435,16 +433,17 @@ public class InputPanel extends JPanel implements TableConnector
    }
 
    @Override
-   public void save(Common common, View view)
+   public void save(App app, Common common, Model model, View view)
    {
       new SwingWorker<Void, Void>()
       {
          @Override
          protected Void doInBackground() throws Exception
          {
-            if (new SaveExpressions().save(common, view))
+            if (new SaveExpressions(app, model).save(common, view))
             {
-               chapterBox.setModel(Data.getChapterComboBoxModelAsChapter(common));
+               chapterBox.setModel(
+                     model.data.getChapterComboBoxModelAsChapter(common));
                chapterBox.setSelectedItem(currentChapter);
             }
             return null;
@@ -453,9 +452,11 @@ public class InputPanel extends JPanel implements TableConnector
    }
 
    @Override
-   public void fireTableCellUpdated(Common common, View view, JTable table, int selectedRow, int i)
+   public void fireTableCellUpdated(App app, Common common, Model model,
+         View view, JTable table, int selectedRow, int i)
    {
       ((ExpressionTableModel) table.getModel())
             .fireTableCellUpdated(table.getSelectedRow(), 0);
    }
+
 }

@@ -36,7 +36,7 @@ import vokabeltrainer.InfoTextField;
 import vokabeltrainer.InputLanguagePanel;
 import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.AppImages;

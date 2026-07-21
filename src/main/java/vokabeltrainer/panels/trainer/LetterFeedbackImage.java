@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.colors.TrainerColors;
 import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.editing.LetterForAnalysis;

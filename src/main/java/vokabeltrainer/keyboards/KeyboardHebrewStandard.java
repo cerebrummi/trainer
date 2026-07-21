@@ -14,10 +14,7 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-import vokabeltrainer.common.ColorBase;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.scale.Scale;
 import vokabeltrainer.tonionlayout.TotemLayout;
@@ -36,7 +33,7 @@ public class KeyboardHebrewStandard extends JPanel
    private JPanel keyboardPanel;
    private boolean handwritten;
 
-   public KeyboardHebrewStandard(JTextComponent textfield,
+   public KeyboardHebrewStandard(App app, JTextComponent textfield,
          List<JTextComponent> arrayList, int textFieldHeight,
          boolean handwritten)
    {
@@ -46,12 +43,12 @@ public class KeyboardHebrewStandard extends JPanel
 
       if (textfield != null)
       {
-         textfield.setFont(AppFonts.hebrewFont.deriveFont(30F));
+         textfield.setFont(app.appFonts.hebrewFont.deriveFont(30F));
          textfield.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          textfield.setMinimumSize(
-               new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+               new Dimension(app.settings.getKeyboardWidth(), textFieldHeight));
          textfield.setMaximumSize(
-               new Dimension(Settings.getKeyboardWidth(), textFieldHeight));
+               new Dimension(app.settings.getKeyboardWidth(), textFieldHeight));
          arrayList.add(textfield);
       }
 
@@ -71,58 +68,58 @@ public class KeyboardHebrewStandard extends JPanel
       keyboardPanel.setOpaque(false);
       keyboardPanel.setLayout(new TotemLayout(keyboardPanel));
 
-      dataButtons.put(NikudLetter.KUF, makeButton(NikudLetter.KUF));
-      dataButtons.put(NikudLetter.RESCH, makeButton(NikudLetter.RESCH));
-      dataButtons.put(NikudLetter.ALEF, makeButton(NikudLetter.ALEF));
-      dataButtons.put(NikudLetter.TET, makeButton(NikudLetter.TET));
-      dataButtons.put(NikudLetter.WAW, makeButton(NikudLetter.WAW));
-      dataButtons.put(NikudLetter.NUNSSOFIT, makeButton(NikudLetter.NUNSSOFIT));
-      dataButtons.put(NikudLetter.MEMSSOFIT, makeButton(NikudLetter.MEMSSOFIT));
-      dataButtons.put(NikudLetter.PAEI, makeButton(NikudLetter.PAEI));
+      dataButtons.put(NikudLetter.KUF, makeButton(app, NikudLetter.KUF));
+      dataButtons.put(NikudLetter.RESCH, makeButton(app, NikudLetter.RESCH));
+      dataButtons.put(NikudLetter.ALEF, makeButton(app, NikudLetter.ALEF));
+      dataButtons.put(NikudLetter.TET, makeButton(app, NikudLetter.TET));
+      dataButtons.put(NikudLetter.WAW, makeButton(app, NikudLetter.WAW));
+      dataButtons.put(NikudLetter.NUNSSOFIT, makeButton(app, NikudLetter.NUNSSOFIT));
+      dataButtons.put(NikudLetter.MEMSSOFIT, makeButton(app, NikudLetter.MEMSSOFIT));
+      dataButtons.put(NikudLetter.PAEI, makeButton(app, NikudLetter.PAEI));
 
-      dataButtons.put(NikudLetter.SCHIN, makeButton(NikudLetter.SCHIN));
-      dataButtons.put(NikudLetter.DALET, makeButton(NikudLetter.DALET));
-      dataButtons.put(NikudLetter.GIMEL, makeButton(NikudLetter.GIMEL));
-      dataButtons.put(NikudLetter.KAF, makeButton(NikudLetter.KAF));
-      dataButtons.put(NikudLetter.AIN, makeButton(NikudLetter.AIN));
-      dataButtons.put(NikudLetter.JOD, makeButton(NikudLetter.JOD));
-      dataButtons.put(NikudLetter.CHET, makeButton(NikudLetter.CHET));
-      dataButtons.put(NikudLetter.LAMED, makeButton(NikudLetter.LAMED));
+      dataButtons.put(NikudLetter.SCHIN, makeButton(app, NikudLetter.SCHIN));
+      dataButtons.put(NikudLetter.DALET, makeButton(app, NikudLetter.DALET));
+      dataButtons.put(NikudLetter.GIMEL, makeButton(app, NikudLetter.GIMEL));
+      dataButtons.put(NikudLetter.KAF, makeButton(app, NikudLetter.KAF));
+      dataButtons.put(NikudLetter.AIN, makeButton(app, NikudLetter.AIN));
+      dataButtons.put(NikudLetter.JOD, makeButton(app, NikudLetter.JOD));
+      dataButtons.put(NikudLetter.CHET, makeButton(app, NikudLetter.CHET));
+      dataButtons.put(NikudLetter.LAMED, makeButton(app, NikudLetter.LAMED));
       dataButtons.put(NikudLetter.CHAFSSOFIT,
-            makeButton(NikudLetter.CHAFSSOFIT));
+            makeButton(app, NikudLetter.CHAFSSOFIT));
       dataButtons.put(NikudLetter.FAEISSOFIT,
-            makeButton(NikudLetter.FAEISSOFIT));
+            makeButton(app, NikudLetter.FAEISSOFIT));
 
-      dataButtons.put(NikudLetter.SSAIN, makeButton(NikudLetter.SSAIN));
-      dataButtons.put(NikudLetter.SSAMECH, makeButton(NikudLetter.SSAMECH));
-      dataButtons.put(NikudLetter.BET, makeButton(NikudLetter.BET));
-      dataButtons.put(NikudLetter.HAEI, makeButton(NikudLetter.HAEI));
-      dataButtons.put(NikudLetter.NUN, makeButton(NikudLetter.NUN));
-      dataButtons.put(NikudLetter.MEM, makeButton(NikudLetter.MEM));
-      dataButtons.put(NikudLetter.ZADI, makeButton(NikudLetter.ZADI));
-      dataButtons.put(NikudLetter.TAW, makeButton(NikudLetter.TAW));
+      dataButtons.put(NikudLetter.SSAIN, makeButton(app, NikudLetter.SSAIN));
+      dataButtons.put(NikudLetter.SSAMECH, makeButton(app, NikudLetter.SSAMECH));
+      dataButtons.put(NikudLetter.BET, makeButton(app, NikudLetter.BET));
+      dataButtons.put(NikudLetter.HAEI, makeButton(app, NikudLetter.HAEI));
+      dataButtons.put(NikudLetter.NUN, makeButton(app, NikudLetter.NUN));
+      dataButtons.put(NikudLetter.MEM, makeButton(app, NikudLetter.MEM));
+      dataButtons.put(NikudLetter.ZADI, makeButton(app, NikudLetter.ZADI));
+      dataButtons.put(NikudLetter.TAW, makeButton(app, NikudLetter.TAW));
       dataButtons.put(NikudLetter.ZADISSOFIT,
-            makeButton(NikudLetter.ZADISSOFIT));
+            makeButton(app, NikudLetter.ZADISSOFIT));
 
-      makeRegularKeyboard();
+      makeRegularKeyboard(app);
 
       add(keyboardPanel);
    }
 
-   private Component makeButton(NikudLetter letter)
+   private Component makeButton(App app, NikudLetter letter)
    {
       DataButton dataButton;
       if (handwritten)
       {
          dataButton = new DataButton(
-               AppImages.getLetterIconsNikudHandwrittenMap().get(letter)
+               app.appImages.getLetterIconsNikudHandwrittenMap().get(letter)
                      .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                            java.awt.Image.SCALE_SMOOTH),
                letter.getUnicode());
       }
       else
       {
-         dataButton = new DataButton(AppImages.getLetterIconsNikudMap()
+         dataButton = new DataButton(app.appImages.getLetterIconsNikudMap()
                .get(letter).getScaledInstance(scale.getScaleX(),
                      scale.getScaleY(), java.awt.Image.SCALE_SMOOTH),
                letter.getUnicode());
@@ -195,7 +192,7 @@ public class KeyboardHebrewStandard extends JPanel
 
    }
 
-   public void shuffleKeyboard()
+   public void shuffleKeyboard(App app)
    {
       keyboardPanel.removeAll();
 
@@ -210,7 +207,7 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller1.setMinimumSize(new Dimension(76, BUTTON_SIZE));
       halfSizedFiller1.setMaximumSize(new Dimension(76, BUTTON_SIZE));
       halfSizedFiller1.setOpaque(false);
-      halfSizedFiller1.setBackground(ColorBase.getTransparent());
+      halfSizedFiller1.setBackground(app.appColors.getTransparent());
       row1.add(halfSizedFiller1);
 
       row1.add(dataButtons.get(dataButtonList.get(0)));
@@ -230,7 +227,7 @@ public class KeyboardHebrewStandard extends JPanel
       tinyFiller2.setMinimumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setMaximumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setOpaque(false);
-      tinyFiller2.setBackground(ColorBase.getTransparent());
+      tinyFiller2.setBackground(app.appColors.getTransparent());
       row2.add(tinyFiller2);
 
       row2.add(dataButtons.get(dataButtonList.get(8)));
@@ -252,7 +249,7 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller3.setMinimumSize(new Dimension(30, BUTTON_SIZE));
       halfSizedFiller3.setMaximumSize(new Dimension(30, BUTTON_SIZE));
       halfSizedFiller3.setOpaque(false);
-      halfSizedFiller3.setBackground(ColorBase.getTransparent());
+      halfSizedFiller3.setBackground(app.appColors.getTransparent());
       row3.add(halfSizedFiller3);
 
       row3.add(dataButtons.get(dataButtonList.get(18)));
@@ -273,7 +270,7 @@ public class KeyboardHebrewStandard extends JPanel
       keyboardPanel.repaint();
    }
 
-   public void makeRegularKeyboard()
+   public void makeRegularKeyboard(App app)
    {
       keyboardPanel.removeAll();
 
@@ -285,7 +282,7 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller1.setMinimumSize(new Dimension(76, BUTTON_SIZE));
       halfSizedFiller1.setMaximumSize(new Dimension(76, BUTTON_SIZE));
       halfSizedFiller1.setOpaque(false);
-      halfSizedFiller1.setBackground(ColorBase.getTransparent());
+      halfSizedFiller1.setBackground(app.appColors.getTransparent());
       row1.add(halfSizedFiller1);
 
       row1.add(dataButtons.get(NikudLetter.KUF));
@@ -305,7 +302,7 @@ public class KeyboardHebrewStandard extends JPanel
       tinyFiller2.setMinimumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setMaximumSize(new Dimension(0, BUTTON_SIZE));
       tinyFiller2.setOpaque(false);
-      tinyFiller2.setBackground(ColorBase.getTransparent());
+      tinyFiller2.setBackground(app.appColors.getTransparent());
       row2.add(tinyFiller2);
 
       row2.add(dataButtons.get(NikudLetter.SCHIN));
@@ -327,7 +324,7 @@ public class KeyboardHebrewStandard extends JPanel
       halfSizedFiller3.setMinimumSize(new Dimension(30, BUTTON_SIZE));
       halfSizedFiller3.setMaximumSize(new Dimension(30, BUTTON_SIZE));
       halfSizedFiller3.setOpaque(false);
-      halfSizedFiller3.setBackground(ColorBase.getTransparent());
+      halfSizedFiller3.setBackground(app.appColors.getTransparent());
       row3.add(halfSizedFiller3);
 
       row3.add(dataButtons.get(NikudLetter.SSAIN));

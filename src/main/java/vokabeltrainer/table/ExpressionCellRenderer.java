@@ -5,7 +5,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.colors.TableColors;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.table.list.ExpressionList;

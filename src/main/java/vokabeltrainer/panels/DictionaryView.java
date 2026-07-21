@@ -44,13 +44,9 @@ import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.TextImage;
 import vokabeltrainer.cmd.TextHelper;
-import vokabeltrainer.common.ColorBase;
-import vokabeltrainer.common.colors.DictionaryColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Data;
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.keyboards.KeyboardGermanStandard;
 import vokabeltrainer.keyboards.KeyboardHebrewAllLetters;
@@ -138,13 +134,13 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
    private DatabaseTableModel databaseTableModel;
 
-   public DictionaryView(Common common, View view, DictionaryControllerConnector connector)
+   public DictionaryView(App app, Common common, Model model, View view, DictionaryControllerConnector connector)
    {
       translator = common.getTranslator();
       this.connector = connector;
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(DictionaryColors.getPanelBackground());
+      setBackground(app.appColors.dictionary.getPanelBackground());
 
       JPanel layout = new JPanel();
       TrainLayout layoutLayout = new TrainLayout(layout, 15);
@@ -155,54 +151,54 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
       vertical.setOpaque(false);
-      vertical.setBackground(DictionaryColors.getBackground());
+      vertical.setBackground(app.appColors.dictionary.getBackground());
 
       horizontalLanguagePanel = new JPanel();
       horizontalLanguagePanel
             .setLayout(new TrainLayout(horizontalLanguagePanel, 15));
-      horizontalLanguagePanel.setBackground(DictionaryColors.getBackground());
+      horizontalLanguagePanel.setBackground(app.appColors.dictionary.getBackground());
       horizontalLanguagePanel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.SPRACHEN)));
       languageGroup = new ButtonGroup();
-      initLanguageButtonGroup(languageGroup);
+      initLanguageButtonGroup(app, languageGroup);
       Enumeration<AbstractButton> enumeration1 = languageGroup.getElements();
       while (enumeration1.hasMoreElements())
       {
          AbstractButton button = enumeration1.nextElement();
-         button.setBackground(DictionaryColors.getButton());
-         button.setForeground(DictionaryColors.getButtonForeground());
-         button.setForeground(ColorBase.getDarkGold());
+         button.setBackground(app.appColors.dictionary.getButton());
+         button.setForeground(app.appColors.dictionary.getButtonForeground());
+         button.setForeground(app.appColors.getDarkGold());
          button.setMinimumSize(new Dimension(90, 30));
          button.setMaximumSize(new Dimension(120, 60));
          button.addActionListener(
-               _ -> this.connector.switchLanguage(common, view, button.getActionCommand()));
+               _ -> this.connector.switchLanguage(app, common, model, view, button.getActionCommand()));
          horizontalLanguagePanel.add(button);
       }
 
       JPanel horizontalSortPanel = new JPanel();
       horizontalSortPanel.setLayout(new TrainLayout(horizontalSortPanel, 15));
       horizontalSortPanel.setOpaque(true);
-      horizontalSortPanel.setBackground(DictionaryColors.getBackground());
+      horizontalSortPanel.setBackground(app.appColors.dictionary.getBackground());
       horizontalSortPanel.setBorder(BorderFactory.createTitledBorder(
             translator.realisticTranslate(Translation.TABELLE_SORTIEREN_NACH)));
 
       sortForAlphabetBox = new JRadioButton(
             translator.realisticTranslate(Translation.ALFABET));
-      sortForAlphabetBox.setFont(AppFonts.radioButtonFont);
+      sortForAlphabetBox.setFont(app.appFonts.radioButtonFont);
       sortForAlphabetBox.setMinimumSize(new Dimension(70, 30));
       sortForAlphabetBox.setMaximumSize(new Dimension(100, 60));
       sortForAlphabetBox.setActionCommand(SortingType.ALPHABET.name());
 
       sortForDateBox = new JRadioButton(
             translator.realisticTranslate(Translation.DATUM));
-      sortForDateBox.setFont(AppFonts.radioButtonFont);
+      sortForDateBox.setFont(app.appFonts.radioButtonFont);
       sortForDateBox.setMinimumSize(new Dimension(70, 30));
       sortForDateBox.setMaximumSize(new Dimension(100, 60));
       sortForDateBox.setActionCommand(SortingType.DATE.name());
 
       sortForIndexBox = new JRadioButton(
             translator.realisticTranslate(Translation.INDEX));
-      sortForIndexBox.setFont(AppFonts.radioButtonFont);
+      sortForIndexBox.setFont(app.appFonts.radioButtonFont);
       sortForIndexBox.setMinimumSize(new Dimension(70, 30));
       sortForIndexBox.setMaximumSize(new Dimension(100, 60));
       sortForIndexBox.setActionCommand(SortingType.INDEX.name());
@@ -221,18 +217,18 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(true);
-      tabbedPane.setBackground(DictionaryColors.getBackground());
-      tabbedPane.setFont(AppFonts.buttonFont);
+      tabbedPane.setBackground(app.appColors.dictionary.getBackground());
+      tabbedPane.setFont(app.appFonts.buttonFont);
       tabbedPane.addTab(translator.realisticTranslate(Translation.DATENBANK),
             initDatabaseTab());
       tabbedPane.addTab(translator.realisticTranslate(Translation.LEKTIONEN),
             initChaptersTab());
       tabbedPane.addTab(translator.realisticTranslate(Translation.SUCHE),
-            initSearchTab(common, view));
+            initSearchTab(app, common, model, view));
       tabbedPane.addTab(translator.realisticTranslate(Translation.WORTARTEN),
-            initExpressionKindsTab(common, view));
+            initExpressionKindsTab(app, common, view));
       tabbedPane.addTab(translator.realisticTranslate(Translation.AUSWAHL),
-            initSelectedTab(common));
+            initSelectedTab(app, common, model));
       tabbedPane.setMinimumSize(new Dimension(420, 400));
       tabbedPane.setMaximumSize(new Dimension(600, 700));
 
@@ -258,17 +254,17 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       layout.add(filler2);
       layout.add(tablePanel);
       layout.add(filler3);
-      layout.add(initServicePanel());
+      layout.add(initServicePanel(app));
 
       Tabulator.setTabShowing(Tabulator.CHAPTER_TAB);
 
-      initChapterController(common, view);
+      initChapterController(app, common, model, view);
 
-      loadDatabases();
-      initController(common, view);
+      loadDatabases(app, model);
+      initController(app, common, model, view);
    }
 
-   private void initChapterController(Common common, View view)
+   private void initChapterController(App app, Common common, Model model, View view)
    {
       listSelectionListener = new ListSelectionListener()
       {
@@ -278,32 +274,32 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          {
             if (!event.getValueIsAdjusting())
             {
-               connector.displayChapterWhich(common, view, getSelectedChapter());
+               connector.displayChapterWhich(app, common, model, view, getSelectedChapter());
             }
          }
 
       };
    }
 
-   private Component initSearchTab(Common common, View view)
+   private Component initSearchTab(App app, Common common, Model model, View view)
    {
       JPanel outerWrapper = new JPanel();
       BullsEyeLayout outerLayout = new BullsEyeLayout(outerWrapper);
       outerWrapper.setLayout(outerLayout);
       outerWrapper.setOpaque(true);
-      outerWrapper.setBackground(DictionaryColors.getBackground());
+      outerWrapper.setBackground(app.appColors.dictionary.getBackground());
 
       searchVertical = new JPanel();
       searchVertical.setLayout(new TotemLayout(searchVertical));
       searchVertical.setOpaque(false);
 
-      initSearchPanel(common, view, Direction.OWN_TO_NEW);
+      initSearchPanel(app, common, model, view, Direction.OWN_TO_NEW);
 
       outerWrapper.add(searchVertical);
       return outerWrapper;
    }
 
-   public void initSearchPanel(Common common, View view, Direction selectedLanguage)
+   public void initSearchPanel(App app, Common common, Model model, View view, Direction selectedLanguage)
    {
       JPanel mySearch = new JPanel();
       mySearch.setLayout(new TotemLayout(mySearch, 5));
@@ -317,34 +313,34 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             .realisticTranslate(Translation.WORT_AUF_DEUTSCH_EINGEBEN)));
       mySearch.add(searchPhraseMy);
       searchPhraseMy.setMinimumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 70));
+            new Dimension(app.settings.getKeyboardWidth() + 50, 70));
       searchPhraseMy.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 250, 70));
-      setWritingDirection();
+            new Dimension(app.settings.getKeyboardWidth() + 250, 70));
+      setWritingDirection(app);
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
       filler.setMinimumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 100));
+            new Dimension(app.settings.getKeyboardWidth() + 50, 100));
       filler.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 250, 270));
+            new Dimension(app.settings.getKeyboardWidth() + 250, 270));
       mySearch.add(filler);
 
       searchTypeGroupGerman = new ButtonGroup();
-      mySearch.add(initSearchRadioButtonPanel(common, searchTypeGroupGerman,
+      mySearch.add(initSearchRadioButtonPanel(app, common, searchTypeGroupGerman,
             Direction.OWN_TO_NEW));
 
       mySearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
-      mySearchButton.setBackground(DictionaryColors.getButton());
-      mySearchButton.setForeground(DictionaryColors.getButtonForeground());
-      mySearchButton.setFont(AppFonts.buttonFont);
-      mySearchButton.setIcon(new ImageIcon(AppImages.getSearch()));
+      mySearchButton.setBackground(app.appColors.dictionary.getButton());
+      mySearchButton.setForeground(app.appColors.dictionary.getButtonForeground());
+      mySearchButton.setFont(app.appFonts.buttonFont);
+      mySearchButton.setIcon(new ImageIcon(app.appImages.getSearch()));
       JPanel wrapper = new JPanel(new FlowLayout());
       wrapper.setOpaque(false);
-      wrapper.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
+      wrapper.setMinimumSize(new Dimension(app.settings.getKeyboardWidth(), 30));
       wrapper.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 50));
+            new Dimension(app.settings.getKeyboardWidth() + 50, 50));
       wrapper.add(mySearchButton);
       mySearch.add(wrapper);
 
@@ -358,58 +354,58 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       JPanel filler2 = new JPanel();
       filler2.setOpaque(false);
-      filler2.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 5));
+      filler2.setMinimumSize(new Dimension(app.settings.getKeyboardWidth(), 5));
       filler2.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 14));
+            new Dimension(app.settings.getKeyboardWidth() + 50, 14));
 
       searchTypeGroupHebrew = new ButtonGroup();
 
-      switch (Settings.getLanguageInput())
+      switch (app.settings.getLanguageInput())
       {
       case GERMAN:
-         KeyboardGermanStandard germanKeyboardMaker = new KeyboardGermanStandard(
+         KeyboardGermanStandard germanKeyboardMaker = new KeyboardGermanStandard(app,
                searchPhraseOther, new ArrayList<JTextComponent>(), 70);
-         keyboard = germanKeyboardMaker.makeTextfieldWithRegularKeyboard();
+         keyboard = germanKeyboardMaker.makeTextfieldWithRegularKeyboard(app);
          break;
       case PLENE_DEFEKTIV:
       case SIMPLE:
-         keyboard = new KeyboardHebrewAllLetters(searchPhraseOther,
+         keyboard = new KeyboardHebrewAllLetters(app, searchPhraseOther,
                new ArrayList<JTextComponent>(), 70, true);
          break;
       case SWEDISH:
-         KeyboardSwedishStandard swedishKeyboardMaker = new KeyboardSwedishStandard(
+         KeyboardSwedishStandard swedishKeyboardMaker = new KeyboardSwedishStandard(app,
                searchPhraseOther, new ArrayList<JTextComponent>(), 70);
-         keyboard = swedishKeyboardMaker.makeTextfieldWithRegularKeyboard();
+         keyboard = swedishKeyboardMaker.makeTextfieldWithRegularKeyboard(app);
          break;
       }
 
       otherSearchButton = new JButton(
             translator.realisticTranslate(Translation.SUCHE_STARTEN));
-      otherSearchButton.setBackground(DictionaryColors.getButton());
-      otherSearchButton.setForeground(DictionaryColors.getButtonForeground());
-      otherSearchButton.setFont(AppFonts.buttonFont);
-      otherSearchButton.setIcon(new ImageIcon(AppImages.getSearch()));
+      otherSearchButton.setBackground(app.appColors.dictionary.getButton());
+      otherSearchButton.setForeground(app.appColors.dictionary.getButtonForeground());
+      otherSearchButton.setFont(app.appFonts.buttonFont);
+      otherSearchButton.setIcon(new ImageIcon(app.appImages.getSearch()));
       JPanel wrapper1 = new JPanel(new FlowLayout());
       wrapper1.setOpaque(false);
-      wrapper1.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 30));
+      wrapper1.setMinimumSize(new Dimension(app.settings.getKeyboardWidth(), 30));
       wrapper1.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 50));
+            new Dimension(app.settings.getKeyboardWidth() + 50, 50));
       wrapper1.add(otherSearchButton);
 
       otherSearch.add(filler2);
       otherSearch.add(new JLabel(
             translator.realisticTranslate(Translation.SPRACHE_UMSTELLEN)));
       otherSearch.add(keyboard);
-      otherSearch.add(initSearchRadioButtonPanel(common, searchTypeGroupHebrew,
+      otherSearch.add(initSearchRadioButtonPanel(app, common, searchTypeGroupHebrew,
             Direction.NEW_TO_OWN));
       otherSearch.add(wrapper1);
 
       cardLayout = new CardLayout();
       swapPanel = new JPanel(cardLayout);
       swapPanel.setOpaque(false);
-      swapPanel.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 420));
+      swapPanel.setMinimumSize(new Dimension(app.settings.getKeyboardWidth(), 420));
       swapPanel.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 620));
+            new Dimension(app.settings.getKeyboardWidth() + 50, 620));
       mySearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
       otherSearch.setBorder(BorderFactory.createEmptyBorder(0, 12, 0, 0));
       swapPanel.add(Direction.OWN_TO_NEW.name(), mySearch);
@@ -419,14 +415,14 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       searchVertical.add(swapPanel);
 
-      otherSearchButton.addActionListener(_ -> connector.searchOtherLanguage(common, view));
+      otherSearchButton.addActionListener(_ -> connector.searchOtherLanguage(app, common, model, view));
 
-      mySearchButton.addActionListener(_ -> connector.searchMyLanguage(common, view));
+      mySearchButton.addActionListener(_ -> connector.searchMyLanguage(app, common, model, view));
    }
 
-   public void setWritingDirection()
+   public void setWritingDirection(App app)
    {
-      switch (Settings.getMyWritingDirection())
+      switch (app.settings.getMyWritingDirection())
       {
       case LEFT_TO_RIGHT:
          searchPhraseMy
@@ -439,7 +435,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       }
    }
 
-   private JPanel initSearchRadioButtonPanel(Common common, ButtonGroup group,
+   private JPanel initSearchRadioButtonPanel(App app, Common common, ButtonGroup group,
          Direction language)
    {
       JPanel vertical = new JPanel();
@@ -450,17 +446,17 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       {
          JRadioButton radioButton = new JRadioButton(type.getMeaning(common, language));
          radioButton.setActionCommand(type.name());
-         radioButton.setBackground(DictionaryColors.getButton());
-         radioButton.setForeground(DictionaryColors.getButtonForeground());
+         radioButton.setBackground(app.appColors.dictionary.getButton());
+         radioButton.setForeground(app.appColors.dictionary.getButtonForeground());
          if (SearchType.WORDSTART.equals(type))
          {
             radioButton.setSelected(true);
          }
-         radioButton.setFont(AppFonts.buttonFont);
+         radioButton.setFont(app.appFonts.buttonFont);
          JPanel wrapper = new JPanel(new FlowLayout());
          wrapper.setOpaque(false);
-         wrapper.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 25));
-         wrapper.setMaximumSize(new Dimension(Settings.getKeyboardWidth(), 25));
+         wrapper.setMinimumSize(new Dimension(app.settings.getKeyboardWidth(), 25));
+         wrapper.setMaximumSize(new Dimension(app.settings.getKeyboardWidth(), 25));
          wrapper.add(radioButton);
          vertical.add(wrapper);
          group.add(radioButton);
@@ -469,7 +465,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       return vertical;
    }
 
-   private Component initSelectedTab(Common common)
+   private Component initSelectedTab(App app, Common common, Model model)
    {
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical, 15);
@@ -485,15 +481,15 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       chapterChoiceBox = new JComboBox<>();
       chapterChoiceBox.setEditable(true);
-      chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
+      chapterChoiceBox.setModel(model.data.getChapterComboBoxModel());
       chapterChoiceBox.setMinimumSize(new Dimension(250, 30));
       chapterChoiceBox.setMaximumSize(new Dimension(250, 30));
 
       moveToChapterButton = new JButton(translator
             .realisticTranslate(Translation.AUSWAHL_ZUR_LEKTION_VERSCHIEBEN));
-      moveToChapterButton.setBackground(DictionaryColors.getButton());
-      moveToChapterButton.setForeground(DictionaryColors.getButtonForeground());
-      moveToChapterButton.setFont(AppFonts.buttonFont);
+      moveToChapterButton.setBackground(app.appColors.dictionary.getButton());
+      moveToChapterButton.setForeground(app.appColors.dictionary.getButtonForeground());
+      moveToChapterButton.setFont(app.appFonts.buttonFont);
 
       horizontalMoveToChapterPanel.add(chapterChoiceBox);
       horizontalMoveToChapterPanel.add(moveToChapterButton);
@@ -506,16 +502,16 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       databaseChoiceBox = new JComboBox<>();
       databaseChoiceBox.setEditable(true);
-      databaseChoiceBox.setModel(Data.getOwnDatabasesComboBoxModel(common));
+      databaseChoiceBox.setModel(model.data.getOwnDatabasesComboBoxModel(common));
       databaseChoiceBox.setMinimumSize(new Dimension(250, 30));
       databaseChoiceBox.setMaximumSize(new Dimension(250, 30));
 
       moveToDatabaseButton = new JButton(translator
             .realisticTranslate(Translation.AUSWAHL_ZUR_DATENBANK_VERSCHIEBEN));
-      moveToDatabaseButton.setBackground(DictionaryColors.getButton());
+      moveToDatabaseButton.setBackground(app.appColors.dictionary.getButton());
       moveToDatabaseButton
-            .setForeground(DictionaryColors.getButtonForeground());
-      moveToDatabaseButton.setFont(AppFonts.buttonFont);
+            .setForeground(app.appColors.dictionary.getButtonForeground());
+      moveToDatabaseButton.setFont(app.appFonts.buttonFont);
 
       horizontalMoveToDatabasePanel.add(databaseChoiceBox);
       horizontalMoveToDatabasePanel.add(moveToDatabaseButton);
@@ -542,11 +538,11 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       return chapterPanel;
    }
 
-   private JPanel initExpressionKindsTab(Common common, View view)
+   private JPanel initExpressionKindsTab(App app, Common common, View view)
    {
       JPanel vertical1 = new JPanel(new BorderLayout());
       vertical1.setOpaque(true);
-      vertical1.setBackground(DictionaryColors.getBackground());
+      vertical1.setBackground(app.appColors.dictionary.getBackground());
       expressionKindTable = new ExpressionKindTableSingleselect(common, view,
             ExpressionKind.getModelForSingleselect(), 300, connector);
       JScrollPane scroller = new JScrollPane(expressionKindTable);
@@ -557,7 +553,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       JPanel scrollerWrapper = new JPanel();
       scrollerWrapper.setOpaque(false);
-      scrollerWrapper.setBackground(ColorBase.getTransparent());
+      scrollerWrapper.setBackground(app.appColors.getTransparent());
       BullsEyeLayout scrollerWrapperLayout = new BullsEyeLayout(
             scrollerWrapper);
       scrollerWrapper.setLayout(scrollerWrapperLayout);
@@ -568,7 +564,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       return vertical1;
    }
 
-   private Component initServicePanel()
+   private Component initServicePanel(App app)
    {
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
@@ -576,12 +572,12 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       copyAllSelectedButton = new JButton(
             translator.realisticTranslate(Translation.GESAMTAUSWAHL_KOPIEREN));
-      copyAllSelectedButton.setBackground(DictionaryColors.getButton());
+      copyAllSelectedButton.setBackground(app.appColors.dictionary.getButton());
       copyAllSelectedButton
-            .setForeground(DictionaryColors.getButtonForeground());
-      copyAllSelectedButton.setFont(AppFonts.buttonFont);
+            .setForeground(app.appColors.dictionary.getButtonForeground());
+      copyAllSelectedButton.setFont(app.appFonts.buttonFont);
       copyAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
-      copyAllSelectedButton.setIcon(new ImageIcon(AppImages.getCopy()));
+      copyAllSelectedButton.setIcon(new ImageIcon(app.appImages.getCopy()));
       copyAllSelectedButton.setToolTipText(translator.realisticTranslate(
             Translation.NUR_SELBST_EINGEGEBENE_VOKABELN_KOENNEN_KOPIERT_WERDEN));
       copyAllSelectedButton.setMinimumSize(new Dimension(200, 40));
@@ -589,13 +585,13 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       copyInTableSelectedButton = new JButton(translator
             .realisticTranslate(Translation.TABELLENAUSWAHL_KOPIEREN));
-      copyInTableSelectedButton.setBackground(DictionaryColors.getButton());
+      copyInTableSelectedButton.setBackground(app.appColors.dictionary.getButton());
       copyInTableSelectedButton
-            .setForeground(DictionaryColors.getButtonForeground());
-      copyInTableSelectedButton.setFont(AppFonts.buttonFont);
+            .setForeground(app.appColors.dictionary.getButtonForeground());
+      copyInTableSelectedButton.setFont(app.appFonts.buttonFont);
       copyInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyInTableSelectedButton
-            .setIcon(new ImageIcon(AppImages.getCopy()));
+            .setIcon(new ImageIcon(app.appImages.getCopy()));
       copyInTableSelectedButton.setToolTipText(translator.realisticTranslate(
             Translation.NUR_SELBST_EINGEGEBENE_VOKABELN_KOENNEN_KOPIERT_WERDEN));
       copyInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
@@ -603,11 +599,11 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       copyTableButton = new JButton(
             translator.realisticTranslate(Translation.TABELLE_KOPIEREN));
-      copyTableButton.setBackground(DictionaryColors.getButton());
-      copyTableButton.setForeground(DictionaryColors.getButtonForeground());
-      copyTableButton.setFont(AppFonts.buttonFont);
+      copyTableButton.setBackground(app.appColors.dictionary.getButton());
+      copyTableButton.setForeground(app.appColors.dictionary.getButtonForeground());
+      copyTableButton.setFont(app.appFonts.buttonFont);
       copyTableButton.setHorizontalAlignment(SwingConstants.LEFT);
-      copyTableButton.setIcon(new ImageIcon(AppImages.getCopy()));
+      copyTableButton.setIcon(new ImageIcon(app.appImages.getCopy()));
       copyTableButton.setToolTipText(translator.realisticTranslate(
             Translation.NUR_SELBST_EINGEGEBENE_VOKABELN_KOENNEN_KOPIERT_WERDEN));
       copyTableButton.setMinimumSize(new Dimension(200, 40));
@@ -615,78 +611,78 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       selectAllInTableButton = new JButton(
             translator.realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
-      selectAllInTableButton.setBackground(DictionaryColors.getButton());
+      selectAllInTableButton.setBackground(app.appColors.dictionary.getButton());
       selectAllInTableButton
-            .setForeground(DictionaryColors.getButtonForeground());
-      selectAllInTableButton.setFont(AppFonts.buttonFont);
+            .setForeground(app.appColors.dictionary.getButtonForeground());
+      selectAllInTableButton.setFont(app.appFonts.buttonFont);
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       selectAllInTableButton
-            .setIcon(new ImageIcon(AppImages.getSelect()));
+            .setIcon(new ImageIcon(app.appImages.getSelect()));
       selectAllInTableButton.setMinimumSize(new Dimension(200, 40));
       selectAllInTableButton.setMaximumSize(new Dimension(600, 40));
 
       clearAllSelectedButton = new JButton(
             translator.realisticTranslate(Translation.GESAMTAUSWAHL_AUFHEBEN));
-      clearAllSelectedButton.setBackground(DictionaryColors.getButton());
+      clearAllSelectedButton.setBackground(app.appColors.dictionary.getButton());
       clearAllSelectedButton
-            .setForeground(DictionaryColors.getButtonForeground());
-      clearAllSelectedButton.setFont(AppFonts.buttonFont);
+            .setForeground(app.appColors.dictionary.getButtonForeground());
+      clearAllSelectedButton.setFont(app.appFonts.buttonFont);
       clearAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearAllSelectedButton
-            .setIcon(new ImageIcon(AppImages.getClear()));
+            .setIcon(new ImageIcon(app.appImages.getClear()));
       clearAllSelectedButton.setMinimumSize(new Dimension(200, 40));
       clearAllSelectedButton.setMaximumSize(new Dimension(600, 40));
 
       clearInTableSelectedButton = new JButton(translator
             .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
-      clearInTableSelectedButton.setBackground(DictionaryColors.getButton());
+      clearInTableSelectedButton.setBackground(app.appColors.dictionary.getButton());
       clearInTableSelectedButton
-            .setForeground(DictionaryColors.getButtonForeground());
-      clearInTableSelectedButton.setFont(AppFonts.buttonFont);
+            .setForeground(app.appColors.dictionary.getButtonForeground());
+      clearInTableSelectedButton.setFont(app.appFonts.buttonFont);
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       clearInTableSelectedButton
-            .setIcon(new ImageIcon(AppImages.getClear()));
+            .setIcon(new ImageIcon(app.appImages.getClear()));
       clearInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
       clearInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
 
       deleteInTableSelectedButton = new JButton(translator
             .realisticTranslate(Translation.TABELLENAUSWAHL_LOESCHEN));
-      deleteInTableSelectedButton.setBackground(DictionaryColors.getButton());
+      deleteInTableSelectedButton.setBackground(app.appColors.dictionary.getButton());
       deleteInTableSelectedButton
-            .setForeground(DictionaryColors.getButtonForeground());
-      deleteInTableSelectedButton.setFont(AppFonts.buttonFont);
+            .setForeground(app.appColors.dictionary.getButtonForeground());
+      deleteInTableSelectedButton.setFont(app.appFonts.buttonFont);
       deleteInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteInTableSelectedButton
-            .setIcon(new ImageIcon(AppImages.getDeleteWord()));
+            .setIcon(new ImageIcon(app.appImages.getDeleteWord()));
       deleteInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
       deleteInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
 
       deleteAllSelectedButton = new JButton(
             translator.realisticTranslate(Translation.GESAMTAUSWAHL_LOESCHEN));
-      deleteAllSelectedButton.setBackground(DictionaryColors.getButton());
+      deleteAllSelectedButton.setBackground(app.appColors.dictionary.getButton());
       deleteAllSelectedButton
-            .setForeground(DictionaryColors.getButtonForeground());
-      deleteAllSelectedButton.setFont(AppFonts.buttonFont);
+            .setForeground(app.appColors.dictionary.getButtonForeground());
+      deleteAllSelectedButton.setFont(app.appFonts.buttonFont);
       deleteAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       deleteAllSelectedButton
-            .setIcon(new ImageIcon(AppImages.getDeleteWord()));
+            .setIcon(new ImageIcon(app.appImages.getDeleteWord()));
       deleteAllSelectedButton.setMinimumSize(new Dimension(200, 40));
       deleteAllSelectedButton.setMaximumSize(new Dimension(600, 40));
 
       JPanel copyPanel = new JPanel();
       copyPanel.setLayout(new TotemLayout(copyPanel, 10));
-      copyPanel.setBackground(DictionaryColors.getBackground());
+      copyPanel.setBackground(app.appColors.dictionary.getBackground());
       copyPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
-            DictionaryColors.getBackground()));
+            app.appColors.dictionary.getBackground()));
       copyPanel.add(copyInTableSelectedButton);
       copyPanel.add(copyTableButton);
       copyPanel.add(copyAllSelectedButton);
 
       JPanel selectUnselectPanel = new JPanel();
       selectUnselectPanel.setLayout(new TotemLayout(selectUnselectPanel, 10));
-      selectUnselectPanel.setBackground(DictionaryColors.getBackground());
+      selectUnselectPanel.setBackground(app.appColors.dictionary.getBackground());
       selectUnselectPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
-            DictionaryColors.getBackground()));
+            app.appColors.dictionary.getBackground()));
       selectUnselectPanel.add(selectAllInTableButton);
       selectUnselectPanel.add(clearInTableSelectedButton);
       selectUnselectPanel.add(clearAllSelectedButton);
@@ -701,20 +697,20 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       JPanel infoPanel = new JPanel();
       infoPanel.setLayout(new TrainLayout(infoPanel, 10));
-      infoPanel.setBackground(DictionaryColors.getBackground());
+      infoPanel.setBackground(app.appColors.dictionary.getBackground());
       infoPanel.setBorder(BorderFactory.createMatteBorder(5, 3, 5, 3,
-            DictionaryColors.getBackground()));
+            app.appColors.dictionary.getBackground()));
 
       JLabel infoLabel = new JLabel(
             translator.realisticTranslate(Translation.TABELLE_BEDIENEN));
-      infoLabel.setForeground(DictionaryColors.getInfoTextForeground());
-      infoLabel.setFont(AppFonts.buttonFont);
+      infoLabel.setForeground(app.appColors.dictionary.getInfoTextForeground());
+      infoLabel.setFont(app.appFonts.buttonFont);
       infoLabel.setMinimumSize(new Dimension(200, 40));
       infoLabel.setMaximumSize(new Dimension(600, 40));
 
       tableInfoButton = new JButton(
-            new ImageIcon(AppImages.getInfoButtonIcon()));
-      tableInfoButton.setBackground(ColorBase.getTransparent());
+            new ImageIcon(app.appImages.getInfoButtonIcon()));
+      tableInfoButton.setBackground(app.appColors.getTransparent());
       tableInfoButton.setMinimumSize(new Dimension(20, 40));
       tableInfoButton.setMaximumSize(new Dimension(20, 40));
       tableInfoButton.setMargin(new Insets(0, 0, 0, 0));
@@ -732,17 +728,17 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       trashIconPanel.setOpaque(false);
 
       wasteBinButton = new JButton(
-            new ImageIcon(AppImages.getTrashcan()));
+            new ImageIcon(app.appImages.getTrashcan()));
       wasteBinButton.setBorder(
-            BorderFactory.createLineBorder(ColorBase.getGreen(), 2));
+            BorderFactory.createLineBorder(app.appColors.getGreen(), 2));
       wasteBinButton.setBorderPainted(true);
       wasteBinButton.setContentAreaFilled(false);
       wasteBinButton.setFocusPainted(false);
 
       shredderButton = new JButton(
-            new ImageIcon(AppImages.getShredder()));
+            new ImageIcon(app.appImages.getShredder()));
       shredderButton.setBorder(
-            BorderFactory.createLineBorder(ColorBase.getDarkRed(), 2));
+            BorderFactory.createLineBorder(app.appColors.getDarkRed(), 2));
       shredderButton.setBorderPainted(true);
       shredderButton.setContentAreaFilled(false);
       shredderButton.setFocusPainted(false);
@@ -782,13 +778,13 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       return vertical;
    }
 
-   private void initController(Common common, View view)
+   private void initController(App app, Common common, Model model, View view)
    {
       tabbedPane.addChangeListener(
-            _ -> connector.tabbedPaneChanged(common, view, tabbedPane.getSelectedIndex()));
+            _ -> connector.tabbedPaneChanged(app, common, model, view, tabbedPane.getSelectedIndex()));
 
       copyAllSelectedButton.addActionListener(
-            _ -> connector.copyAllSelectedExpressions(view, SortingType
+            _ -> connector.copyAllSelectedExpressions(model, view, SortingType
                   .valueOf(sortingGroup.getSelection().getActionCommand())));
 
       copyTableButton
@@ -798,24 +794,24 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             .addActionListener(_ -> connector.copyInTableSelectedExpressions(view));
 
       clearInTableSelectedButton
-            .addActionListener(_ -> connector.unselectTableExpressions(common, view));
+            .addActionListener(_ -> connector.unselectTableExpressions(app, common, model, view));
 
       clearAllSelectedButton
-            .addActionListener(_ -> connector.unselectAllExpressions(common, view));
+            .addActionListener(_ -> connector.unselectAllExpressions(app, common, model, view));
 
       deleteAllSelectedButton
-            .addActionListener(_ -> connector.deleteAllSelectedExpressions(common, view));
+            .addActionListener(_ -> connector.deleteAllSelectedExpressions(app, common, model, view));
 
       deleteInTableSelectedButton.addActionListener(
-            _ -> connector.deleteInTableSelectedExpressions(common, view));
+            _ -> connector.deleteInTableSelectedExpressions(app, common, model, view));
 
-      wasteBinButton.addActionListener(_ -> connector.openTrashCanDialog(common, view));
+      wasteBinButton.addActionListener(_ -> connector.openTrashCanDialog(app, common, model, view));
 
       selectAllInTableButton
-            .addActionListener(_ -> connector.selectTableExpressions(common, view));
+            .addActionListener(_ -> connector.selectTableExpressions(app, common, model, view));
 
       shredderButton
-            .addActionListener(_ -> connector.shredderDeletedExpressions(common, view));
+            .addActionListener(_ -> connector.shredderDeletedExpressions(app, common, model, view));
 
       searchPhraseMy.addKeyListener(new KeyAdapter()
       {
@@ -824,7 +820,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          {
             if (e.getKeyCode() == KeyEvent.VK_ENTER)
             {
-               connector.searchMyLanguage(common, view);
+               connector.searchMyLanguage(app, common, model, view);
             }
          }
       });
@@ -836,15 +832,15 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          {
             if (e.getKeyCode() == KeyEvent.VK_ENTER)
             {
-               connector.searchOtherLanguage(common, view);
+               connector.searchOtherLanguage(app, common, model, view);
             }
          }
       });
 
       tableInfoButton.addActionListener(_ -> {
          JOptionPane.showMessageDialog(horizontalLanguagePanel, "",
-               Settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
-               new ImageIcon(TextImage.make(
+               app.settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
+               new ImageIcon(TextImage.make(app,
                      translator.realisticTranslate(Translation.TABELLE),
                      translator.realisticTranslate(
                            Translation.EINMAL_KLICKEN_MARKIERT_EINEN_EINTRAG),
@@ -893,15 +889,15 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       });
 
       sortForDateBox.addActionListener(_ -> {
-         connector.sortTableNow(common, view);
+         connector.sortTableNow(app, common, model, view);
       });
 
       sortForAlphabetBox.addActionListener(_ -> {
-         connector.sortTableNow(common, view);
+         connector.sortTableNow(app, common, model, view);
       });
 
       sortForIndexBox.addActionListener(_ -> {
-         connector.sortTableNow(common, view);
+         connector.sortTableNow(app, common, model, view);
       });
 
       moveToChapterButton.addActionListener(_ -> {
@@ -920,8 +916,8 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          }
          else
          {
-            connector.moveExpressionsToChapter(common, view, chapterAim);
-            chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
+            connector.moveExpressionsToChapter(app, common, model, view, chapterAim);
+            chapterChoiceBox.setModel(model.data.getChapterComboBoxModel());
          }
       });
 
@@ -941,8 +937,8 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          }
          else
          {
-            connector.moveExpressionsToDatabase(common, view, databaseAim);
-            databaseChoiceBox.setModel(Data.getOwnDatabasesComboBoxModel(common));
+            connector.moveExpressionsToDatabase(app, common, model, view, databaseAim);
+            databaseChoiceBox.setModel(model.data.getOwnDatabasesComboBoxModel(common));
          }
       });
    }
@@ -1023,19 +1019,19 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
    }
 
-   public void loadDatabases()
+   public void loadDatabases(App app, Model model)
    {
       dataPanel.removeAll();
       Vector<String> names = new Vector<>();
       names.add(translator.realisticTranslate(Translation.DATENBANK));
-      databaseTableModel = new DatabaseTableModel(Data.getDatabaseArray(),
+      databaseTableModel = new DatabaseTableModel(model.data.getDatabaseArray(),
             names);
       DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(
-            databaseTableModel, Settings.getKeyboardWidth());
+            databaseTableModel, app.settings.getKeyboardWidth());
       JScrollPane scroller = new JScrollPane(databaseTable);
-      scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
+      scroller.setMinimumSize(new Dimension(app.settings.getKeyboardWidth(), 300));
       scroller.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 700));
+            new Dimension(app.settings.getKeyboardWidth() + 50, 700));
       scroller.setBorder(BorderFactory.createEmptyBorder());
 
       dataPanel.add(scroller);
@@ -1043,20 +1039,20 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       dataPanel.repaint();
    }
 
-   public void loadChapters(Common common)
+   public void loadChapters(App app, Common common, Model model)
    {
       chapterPanel.removeAll();
       listSelectionModel = new ChapterListSelectionModel();
       addChapterListSelectionListener();
       chapterList = new ChapterList(listSelectionModel);
       chapterList.setListData(
-            Data.getChapterArray(common, databaseTableModel.getSelectedRows()));
+            model.data.getChapterArray(common, databaseTableModel.getSelectedRows()));
       chapterList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
 
       JScrollPane scroller = new JScrollPane(chapterList);
-      scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
+      scroller.setMinimumSize(new Dimension(app.settings.getKeyboardWidth(), 300));
       scroller.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 700));
+            new Dimension(app.settings.getKeyboardWidth() + 50, 700));
       scroller.setBorder(BorderFactory.createEmptyBorder());
 
       chapterPanel.add(scroller);
@@ -1089,7 +1085,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       }
    }
 
-   public void doShowTable(Common common, View view, ExpressionTableModel tableModel)
+   public void doShowTable(App app, Common common, View view, ExpressionTableModel tableModel)
    {
       tablePanel.removeAll();
 
@@ -1100,18 +1096,18 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       DataButton scrollsearchButton = new DataButton(
             translator.realisticTranslate(Translation.SUCHE_WORT_IN_TABELLE));
       scrollsearchButton.setOpaque(true);
-      scrollsearchButton.setBackground(DictionaryColors.getButton());
-      scrollsearchButton.setForeground(DictionaryColors.getButtonForeground());
-      scrollsearchButton.setFont(AppFonts.buttonFont);
+      scrollsearchButton.setBackground(app.appColors.dictionary.getButton());
+      scrollsearchButton.setForeground(app.appColors.dictionary.getButtonForeground());
+      scrollsearchButton.setFont(app.appFonts.buttonFont);
       DataButton scrollsearchPinButton = new DataButton(
             translator.realisticTranslate(Translation.NAECHSTE_AUSWAHL));
       scrollsearchPinButton
-            .setIcon(new ImageIcon(AppImages.getSelect()));
+            .setIcon(new ImageIcon(app.appImages.getSelect()));
       scrollsearchPinButton.setOpaque(true);
-      scrollsearchPinButton.setBackground(DictionaryColors.getBackground());
+      scrollsearchPinButton.setBackground(app.appColors.dictionary.getBackground());
       scrollsearchPinButton
-            .setForeground(DictionaryColors.getButtonForeground());
-      scrollsearchPinButton.setFont(AppFonts.buttonFont);
+            .setForeground(app.appColors.dictionary.getButtonForeground());
+      scrollsearchPinButton.setFont(app.appFonts.buttonFont);
 
       table = new ExpressionTable(common, view, tableModel, this.getSelectedLanguage(),
             connector, true,
@@ -1186,7 +1182,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       JLabel numberOfEntriesLabel = new JLabel(
             " " + tableModel.getRowCount() + " " + translator
                   .realisticTranslate(Translation.EINTRAEGE_IN_DIESER_TABELLE));
-      numberOfEntriesLabel.setFont(AppFonts.buttonFont);
+      numberOfEntriesLabel.setFont(app.appFonts.buttonFont);
       infotablePanel.add(numberOfEntriesLabel);
 
       southWrapperPanel.add(scrollsearchField, BorderLayout.NORTH);
@@ -1205,9 +1201,9 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       tablePanel.repaint();
    }
 
-   private void initLanguageButtonGroup(ButtonGroup languageTypeGroup)
+   private void initLanguageButtonGroup(App app, ButtonGroup languageTypeGroup)
    {
-      Font font = AppFonts.germanFont.deriveFont(20F);
+      Font font = app.appFonts.germanFont.deriveFont(20F);
       JRadioButton german = new JRadioButton(
             translator.realisticTranslate(Translation.MEINE_SPRACHE));
       german.setActionCommand(Action.OWN_TO_NEW.name());
@@ -1350,12 +1346,12 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    }
 
    @Override
-   public void selectChapter(Common common, Chapter currentChapter)
+   public void selectChapter(App app, Common common, Model model, Chapter currentChapter)
    {
       chapterList.setSelectedValue(currentChapter, true);
       if (chapterList.getSelectedValue() == null)
       {
-         loadChapters(common);
+         loadChapters(app, common, model);
          chapterList.setSelectedValue(currentChapter, true);
       }
    }
@@ -1371,20 +1367,20 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    }
 
    @Override
-   public void setValues(Common common, View view)
+   public void setValues(App app, Common common, Model model, View view)
    {
-      Data.determineReloadDatabases(common, view);
-      this.loadChapters(common);
-      this.loadDatabases();
+      model.data.determineReloadDatabases(common, view);
+      this.loadChapters(app, common, model);
+      this.loadDatabases(app, model);
       this.displayNoTable();
-      setWritingDirection();
+      setWritingDirection(app);
       this.searchVertical.removeAll();
       Direction selectedLanguage = this.getSelectedLanguage();
-      this.initSearchPanel(common, view, selectedLanguage);
-      chapterChoiceBox.setModel(Data.getChapterComboBoxModel());
+      this.initSearchPanel(app, common, model, view, selectedLanguage);
+      chapterChoiceBox.setModel(model.data.getChapterComboBoxModel());
       this.searchVertical.validate();
       this.searchVertical.repaint();
-      connector.displayTableAfterOpeningPage(common, view);
+      connector.displayTableAfterOpeningPage(app, common, model, view);
    }
 
    @Override

@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import vokabeltrainer.common.ColorBase;
+import vokabeltrainer.common.colors.ColorBase;
 import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;

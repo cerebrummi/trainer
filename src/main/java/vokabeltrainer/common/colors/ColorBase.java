@@ -1,8 +1,8 @@
-package vokabeltrainer.common;
+package vokabeltrainer.common.colors;
 
 import java.awt.Color;
 
-public interface ColorBase
+interface ColorBase
 {
    Color lightBlue = new Color(215, 231, 247);
    Color lightGrayBlue = new Color(150, 165, 180);
