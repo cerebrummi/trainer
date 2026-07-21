@@ -23,13 +23,13 @@ public abstract class AppColors implements ColorBase
 
    abstract Color getMediumSilverBlue();
 
-   abstract Color getShadyBlue();
+   public abstract Color getShadyBlue();
 
    public abstract Color getGold();
 
    public abstract Color getDarkGold();
 
-   abstract Color getLightGold();
+   public abstract Color getLightGold();
 
    public abstract Color getLightGrayGold();
 
@@ -45,7 +45,7 @@ public abstract class AppColors implements ColorBase
 
    public abstract Color getTransparent();
 
-   abstract Color getTexturedBackgroundColor();
+   public abstract Color getTexturedBackgroundColor();
 
    abstract Color getTexturedBackgroundColorLight();
 
@@ -98,14 +98,14 @@ public abstract class AppColors implements ColorBase
       public abstract Color getInfoTextForeground();
    }
    
-   abstract class Main
+   public abstract class Main
    {
       public abstract Color getToolbarBackground();
       public abstract Color getPanelBackground();
       public abstract Color getButtonBackground();
    }
    
-   abstract class Settings
+   public abstract class Settings
    {
       public abstract Color getTextForeground();
    }

@@ -14,12 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import vokabeltrainer.TextImage;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Data;
 import vokabeltrainer.common.main.Model;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.dictionary.DictionaryController;
 import vokabeltrainer.panels.dictionary.DictionaryViewConnector;
@@ -60,24 +57,24 @@ public class MainView extends JPanel
 
    private Translator translator;
 
-   public MainView(Common common)
+   public MainView(App app, Common common)
    {
       this.translator = common.getTranslator();
-      initToolBar();
+      initToolBar(app);
    }
    
-   public void initContent(Common common, Model model, View view)
+   public void initContent(App app, Common common, Model model, View view)
    {
       setLayout(new BorderLayout());
       this.setOpaque(false);
-      this.setBackground(ColorBase.getTransparent());
+      this.setBackground(app.appColors.getTransparent());
 
       startPanel = new StartPanel(common, view);
-      inputPanel = new InputPanel(common, view);
-      dictionaryPanel = new DictionaryController(common, view).getDictionaryPanel();
-      letterPicturesPanel = new AlefbetPanel(common);
+      inputPanel = new InputPanel(app, common, model, view);
+      dictionaryPanel = new DictionaryController(app, common, model, view).getDictionaryPanel();
+      letterPicturesPanel = new AlefbetPanel(app, common);
       statisticsPanel = new StatisticsPanel(common);
-      settingsPanel = new SettingsPanel(common, model, view);
+      settingsPanel = new SettingsPanel(app, common, model, view);
       successPanel = new SuccessPanel(common, view);
       activeComponent = startPanel;
 
@@ -94,28 +91,28 @@ public class MainView extends JPanel
       });
    }
 
-   private void initLanguageContent(Common common, Model model, View view)
+   private void initLanguageContent(App app, Common common, Model model, View view)
    {
       this.removeAll();
 
-      initLanguageToolBar();
+      initLanguageToolBar(app);
       languagePanel = new TranslationPanel(common);
       add(languagePanel);
-      initBackController(common, model, view);
+      initBackController(app, common, model, view);
 
       resetMenuBar(view);
       this.validate();
       this.repaint();
    }
 
-   private void initColormodeContent(Common common, Model model, View view)
+   private void initColormodeContent(App app, Common common, Model model, View view)
    {
       this.removeAll();
 
-      initColorToolBar();
-      ColorPanel colorPanel = new ColorPanel(common, view);
+      initColorToolBar(app);
+      ColorPanel colorPanel = new ColorPanel(app, common, view);
       add(colorPanel);
-      initBackController(common, model, view);
+      initBackController(app, common, model, view);
 
       resetMenuBar(view);
       this.validate();
@@ -123,13 +120,13 @@ public class MainView extends JPanel
 
    }
 
-   private void initBackController(Common common, Model model, View view)
+   private void initBackController(App app, Common common, Model model, View view)
    {
       backButton.addActionListener(_ -> {
          this.removeAll();
-         initContent(common, model, view);
-         initToolBar();
-         initController(common, model, view);
+         initContent(app, common, model, view);
+         initToolBar(app);
+         initController(app, common, model, view);
          activeComponent = startPanel;
          add(activeComponent);
          resetMenuBar(view);
@@ -138,47 +135,47 @@ public class MainView extends JPanel
       });
    }
 
-   private void initLanguageToolBar()
+   private void initLanguageToolBar(App app)
    {
       menuBar = new JMenuBar();
       menuBar.setOpaque(true);
-      menuBar.setBackground(ColorBase.getLightGold());
+      menuBar.setBackground(app.appColors.getLightGold());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
       menuBar.setMinimumSize(new Dimension(1200, 80));
       menuBar.setMaximumSize(new Dimension(6000, 80));
 
-      backButton = new JButton(new ImageIcon(AppImages.getBack()));
+      backButton = new JButton(new ImageIcon(app.appImages.getBack()));
 
       menuBar.add(backButton);
    }
 
-   private void initColorToolBar()
+   private void initColorToolBar(App app)
    {
       menuBar = new JMenuBar();
       menuBar.setOpaque(true);
-      menuBar.setBackground(ColorBase.getLightGold());
+      menuBar.setBackground(app.appColors.getLightGold());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
       menuBar.setMinimumSize(new Dimension(1200, 80));
       menuBar.setMaximumSize(new Dimension(6000, 80));
 
-      backButton = new JButton(new ImageIcon(AppImages.getBack()));
+      backButton = new JButton(new ImageIcon(app.appImages.getBack()));
 
       menuBar.add(backButton);
 
    }
 
-   private void initToolBar()
+   public void initToolBar(App app)
    {
       menuBar = new JMenuBar();
       menuBar.setOpaque(true);
-      menuBar.setBackground(MainColors.getToolbarBackground());
+      menuBar.setBackground(app.appColors.main.getToolbarBackground());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
       menuBar.setMinimumSize(new Dimension(1200, 80));
       menuBar.setMaximumSize(new Dimension(6000, 80));
 
       startButton = new JButton(
             translator.realisticTranslate(Translation.DATEN),
-            new ImageIcon(AppImages.getLogoFolder()));
+            new ImageIcon(app.appImages.getLogoFolder()));
       inputButton = new JButton(
             translator.realisticTranslate(Translation.EINGABE));
       vocabularyCardsButton = new JButton(
@@ -187,35 +184,35 @@ public class MainView extends JPanel
             translator.realisticTranslate(Translation.WOERTERBUCH));
       statisticsButton = new JButton(
             translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
-      aboutButton = new JButton(new ImageIcon(AppImages.getLogo24()));
+      aboutButton = new JButton(new ImageIcon(app.appImages.getLogo24()));
       letterPicturesButton = new JButton(
             translator.realisticTranslate(Translation.ALEFBET));
       successButton = new JButton(
             translator.realisticTranslate(Translation.KARTEIKASTEN));
-      languageButton = new JButton(new ImageIcon(AppImages.getL18n()));
+      languageButton = new JButton(new ImageIcon(app.appImages.getL18n()));
       darkmodeButton = new JButton(
-            new ImageIcon(AppImages.getDarkmode()));
+            new ImageIcon(app.appImages.getDarkmode()));
 
-      startButton.setFont(AppFonts.toolbarButtonFont);
-      inputButton.setFont(AppFonts.toolbarButtonFont);
-      vocabularyCardsButton.setFont(AppFonts.toolbarButtonFont);
-      dictionaryButton.setFont(AppFonts.toolbarButtonFont);
-      statisticsButton.setFont(AppFonts.toolbarButtonFont);
-      letterPicturesButton.setFont(AppFonts.toolbarButtonFont);
-      successButton.setFont(AppFonts.toolbarButtonFont);
-      languageButton.setFont(AppFonts.toolbarButtonFont);
-      darkmodeButton.setFont(AppFonts.toolbarButtonFont);
+      startButton.setFont(app.appFonts.toolbarButtonFont);
+      inputButton.setFont(app.appFonts.toolbarButtonFont);
+      vocabularyCardsButton.setFont(app.appFonts.toolbarButtonFont);
+      dictionaryButton.setFont(app.appFonts.toolbarButtonFont);
+      statisticsButton.setFont(app.appFonts.toolbarButtonFont);
+      letterPicturesButton.setFont(app.appFonts.toolbarButtonFont);
+      successButton.setFont(app.appFonts.toolbarButtonFont);
+      languageButton.setFont(app.appFonts.toolbarButtonFont);
+      darkmodeButton.setFont(app.appFonts.toolbarButtonFont);
 
-      startButton.setBackground(MainColors.getButtonBackground());
-      inputButton.setBackground(MainColors.getButtonBackground());
-      vocabularyCardsButton.setBackground(MainColors.getButtonBackground());
-      dictionaryButton.setBackground(MainColors.getButtonBackground());
-      statisticsButton.setBackground(MainColors.getButtonBackground());
-      letterPicturesButton.setBackground(MainColors.getButtonBackground());
-      successButton.setBackground(MainColors.getButtonBackground());
-      languageButton.setBackground(MainColors.getButtonBackground());
-      darkmodeButton.setBackground(MainColors.getButtonBackground());
-      aboutButton.setBackground(MainColors.getButtonBackground());
+      startButton.setBackground(app.appColors.main.getButtonBackground());
+      inputButton.setBackground(app.appColors.main.getButtonBackground());
+      vocabularyCardsButton.setBackground(app.appColors.main.getButtonBackground());
+      dictionaryButton.setBackground(app.appColors.main.getButtonBackground());
+      statisticsButton.setBackground(app.appColors.main.getButtonBackground());
+      letterPicturesButton.setBackground(app.appColors.main.getButtonBackground());
+      successButton.setBackground(app.appColors.main.getButtonBackground());
+      languageButton.setBackground(app.appColors.main.getButtonBackground());
+      darkmodeButton.setBackground(app.appColors.main.getButtonBackground());
+      aboutButton.setBackground(app.appColors.main.getButtonBackground());
 
       menuBar.add(startButton);
       menuBar.add(inputButton);
@@ -230,7 +227,7 @@ public class MainView extends JPanel
       menuBar.add(aboutButton);
    }
 
-   public void initController(Common common, Model model, View view)
+   public void initController(App app, Common common, Model model, View view)
    {
       startButton.addActionListener(_ -> {
          moveToStartPanel();
@@ -242,7 +239,7 @@ public class MainView extends JPanel
             remove(activeComponent);
          }
          activeComponent = (Component) inputPanel;
-         inputPanel.reset(common);
+         inputPanel.reset(common, model);
          add(activeComponent);
          validate();
          repaint();
@@ -254,7 +251,7 @@ public class MainView extends JPanel
             remove(activeComponent);
          }
          activeComponent = (Component) dictionaryPanel;
-         dictionaryPanel.setValues(common, view);
+         dictionaryPanel.setValues(app, common, model, view);
          add(activeComponent);
          validate();
          repaint();
@@ -262,11 +259,11 @@ public class MainView extends JPanel
 
       vocabularyCardsButton.addActionListener(_ -> {
 
-         if (Settings.isSchabbat_modus() && common.isSchabbat())
+         if (app.settings.isSchabbat_modus() && common.isSchabbat())
          {
-            JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
+            JOptionPane.showMessageDialog(this, "", app.settings.getWindowTitle(),
                   JOptionPane.INFORMATION_MESSAGE,
-                  new ImageIcon(TextImage.make(
+                  new ImageIcon(TextImage.make(app,
                         translator
                               .realisticTranslate(Translation.ES_IST_SCHABBAT),
                         translator.realisticTranslate(
@@ -274,7 +271,7 @@ public class MainView extends JPanel
             return;
          }
 
-         Data.determineReloadDatabases(common, view);
+         model.data.determineReloadDatabases(common, view);
          StartTrainingView dialog = new StartTrainingController(common, view)
                .getStartTrainingView();
          dialog.setLocationRelativeTo(null);
@@ -286,7 +283,7 @@ public class MainView extends JPanel
                   && (dialog.getOldExpressions() == null
                         || dialog.getOldExpressions().isEmpty()))
             {
-               this.showNoWordsForTraining(view);
+               this.showNoWordsForTraining(app, view);
                return;
             }
 
@@ -319,12 +316,12 @@ public class MainView extends JPanel
       });
 
       statisticsButton.addActionListener(_ -> {
-         Data.determineReloadDatabases(common, view);
+         model.data.determineReloadDatabases(common, view);
          moveToStatisticsPanel(common);
       });
 
       successButton.addActionListener(_ -> {
-         Data.determineReloadDatabases(common, view);
+         model.data.determineReloadDatabases(common, view);
          if (activeComponent != null)
          {
             remove(activeComponent);
@@ -349,11 +346,11 @@ public class MainView extends JPanel
       });
 
       languageButton.addActionListener(_ -> {
-         initLanguageContent(common, model, view);
+         initLanguageContent(app, common, model, view);
       });
 
       darkmodeButton.addActionListener(_ -> {
-         initColormodeContent(common, model, view);
+         initColormodeContent(app, common, model, view);
       });
    }
 
@@ -383,11 +380,11 @@ public class MainView extends JPanel
       repaint();
    }
 
-   private void showNoWordsForTraining(View view)
+   private void showNoWordsForTraining(App app, View view)
    {
       JOptionPane.showMessageDialog(view.getjFrame(), "",
-            Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-            new ImageIcon(TextImage.make(
+            app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+            new ImageIcon(TextImage.make(app,
                   translator.realisticTranslate(
                         Translation.KEINE_WORTE_ZUM_UEBEN_AUSGEWAEHLT),
                   translator.realisticTranslate(

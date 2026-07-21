@@ -93,7 +93,7 @@ public class Data
       this.settings = settings;
    }
 
-   void initDatabase(Common common, View view)
+   public void initDatabase(Common common, View view)
    {
       database = new DataBase(common, view);
    }

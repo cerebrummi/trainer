@@ -52,8 +52,9 @@ public final class Main
       
       Model model = new Model(app.settings, common, view);
       
-      view.getMainJPanel().initContent(common, model, view);
-      view.getMainJPanel().initController(common, model, view);
+      view.getMainJPanel().initContent(app, common, model, view);
+      view.getMainJPanel().initToolBar(app);
+      view.getMainJPanel().initController(app, common, model, view);
       
       return view;
    }
