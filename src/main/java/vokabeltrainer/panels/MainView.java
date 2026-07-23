@@ -73,9 +73,9 @@ public class MainView extends JPanel
       inputPanel = new InputPanel(app, common, model, view);
       dictionaryPanel = new DictionaryController(app, common, model, view).getDictionaryPanel();
       letterPicturesPanel = new AlefbetPanel(app, common);
-      statisticsPanel = new StatisticsPanel(common);
+      statisticsPanel = new StatisticsPanel(app, common);
       settingsPanel = new SettingsPanel(app, common, model, view);
-      successPanel = new SuccessPanel(common, view);
+      successPanel = new SuccessPanel(app, common, view);
       activeComponent = startPanel;
 
       add(activeComponent);
@@ -96,7 +96,7 @@ public class MainView extends JPanel
       this.removeAll();
 
       initLanguageToolBar(app);
-      languagePanel = new TranslationPanel(common);
+      languagePanel = new TranslationPanel(app, common);
       add(languagePanel);
       initBackController(app, common, model, view);
 
@@ -317,7 +317,7 @@ public class MainView extends JPanel
 
       statisticsButton.addActionListener(_ -> {
          model.data.determineReloadDatabases(common, view);
-         moveToStatisticsPanel(common);
+         moveToStatisticsPanel(app, common, model);
       });
 
       successButton.addActionListener(_ -> {
@@ -367,13 +367,13 @@ public class MainView extends JPanel
       repaint();
    }
 
-   public void moveToStatisticsPanel(Common common)
+   public void moveToStatisticsPanel(App app, Common common, Model model)
    {
       if (activeComponent != null)
       {
          remove(activeComponent);
       }
-      statisticsPanel.setValues(common);
+      statisticsPanel.setValues(app, common, model);
       activeComponent = statisticsPanel;
       add(activeComponent);
       validate();

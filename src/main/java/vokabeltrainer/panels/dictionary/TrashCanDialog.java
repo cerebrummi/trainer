@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 
 import vokabeltrainer.TrashCanBackgroundPanel;
 import vokabeltrainer.common.colors.DictionaryColors;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
@@ -43,7 +44,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    private TrashCanControllerConnector connector;
    private Translator translator;
 
-   public TrashCanDialog(Common common, View view, TrashCanControllerConnector connector)
+   public TrashCanDialog(App app, Common common, View view, TrashCanControllerConnector connector)
    {
       super(view.getjFrame(), "Papierkorb",
             Dialog.ModalityType.APPLICATION_MODAL);
@@ -54,7 +55,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       setSize(1000, 620);
       getContentPane().setPreferredSize(new Dimension(1000, 620));
 
-      layout = new TrashCanBackgroundPanel();
+      layout = new TrashCanBackgroundPanel(app);
       layout.setPreferredSize(new Dimension(1000, 620));
       layout.setBorder(BorderFactory.createLineBorder(new Color(169, 136, 103),
             15, false));

@@ -1,5 +1,6 @@
 package vokabeltrainer.common;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.MainView;
 
@@ -7,9 +8,9 @@ public class MainController implements MainControllerConnector
 {
    private MainView mainView;
 
-   public MainController(Common common)
+   public MainController(App app, Common common)
    {
-      mainView = new MainView(common);
+      mainView = new MainView(app, common);
    }
 
    public MainView getMainView()

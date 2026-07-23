@@ -8,10 +8,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.Main;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.resources.Buchstabenbilder;
@@ -25,16 +24,16 @@ public class TranslationPanel extends JPanel
    private JButton applyButton;
    private JComboBox<TranslationCode> chooseLanguage;
 
-   TranslationPanel(Common common)
+   TranslationPanel(App app, Common common)
    {
       setLayout(new BullsEyeLayout(this));
 
-      add(initChooseLanguage());
+      add(initChooseLanguage(app));
 
-      initController(common);
+      initController(app, common);
    }
 
-   private Component initChooseLanguage()
+   private Component initChooseLanguage(App app)
    {
       JPanel horizontal = new JPanel();
       TrainLayout horizontalLayout = new TrainLayout(horizontal, 15);
@@ -47,7 +46,7 @@ public class TranslationPanel extends JPanel
       chooseLanguage.setMaximumSize(new Dimension(300, 50));
 
       applyButton = new JButton(
-            new ImageIcon(AppImages.getSelectDone()));
+            new ImageIcon(app.appImages.getSelectDone()));
 
       horizontal.add(appTranslation);
       horizontal.add(chooseLanguage);
@@ -56,12 +55,12 @@ public class TranslationPanel extends JPanel
       return horizontal;
    }
 
-   private void initController(Common common)
+   private void initController(App app, Common common)
    {
       applyButton.addActionListener(_ -> {
          TranslationCode choosen = chooseLanguage
                .getItemAt(chooseLanguage.getSelectedIndex());
-         Settings.setTranslationCode(choosen);
+         app.settings.setTranslationCode(choosen);
          common.setTranslator(new Translator());
          Main.initEnums(common);
          try

@@ -11,11 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.colors.StatisticsColors;
-import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.panels.statistics.StatisticsTable;
 import vokabeltrainer.panels.statistics.StatisticsTableRow;
 import vokabeltrainer.panels.translation.Translation;
@@ -33,7 +31,7 @@ public class StatisticsPanel extends JPanel
    private JPanel horizontalPanel;
    private Translator translator;
 
-   public StatisticsPanel(Common common)
+   public StatisticsPanel(App app, Common common)
    {
       translator = common.getTranslator();
       horizontalPanel = new JPanel();
@@ -43,7 +41,7 @@ public class StatisticsPanel extends JPanel
       tablePanel = new JPanel();
       tablePanel.setLayout(new TotemLayout(tablePanel));
       tablePanel.setOpaque(true);
-      tablePanel.setBackground(StatisticsColors.getPanelBackground());
+      tablePanel.setBackground(app.appColors.statistics.getPanelBackground());
       tablePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
       wordPanel = new JPanel();
@@ -52,7 +50,7 @@ public class StatisticsPanel extends JPanel
       wordPanel.setMinimumSize(new Dimension(500, 160));
       wordPanel.setMaximumSize(new Dimension(700, 800));
       wordPanel.setOpaque(true);
-      wordPanel.setBackground(StatisticsColors.getSelectedBackground());
+      wordPanel.setBackground(app.appColors.statistics.getSelectedBackground());
 
       horizontalPanel.add(tablePanel);
       horizontalPanel.add(wordPanel);
@@ -60,27 +58,27 @@ public class StatisticsPanel extends JPanel
       add(horizontalPanel);
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(StatisticsColors.getPanelBackground());
+      setBackground(app.appColors.statistics.getPanelBackground());
    }
 
-   public void setValues(Common common)
+   public void setValues(App app, Common common, Model model)
    {
       tablePanel.removeAll();
       wordPanel.removeAll();
 
       JPanel titlePanel = new JPanel(new FlowLayout());
       titlePanel.setOpaque(false);
-      titlePanel.setBackground(ColorBase.getTransparent());
+      titlePanel.setBackground(app.appColors.getTransparent());
       titlePanel.setMinimumSize(new Dimension(580, 50));
       titlePanel.setMaximumSize(new Dimension(580, 50));
 
       JLabel title = new JLabel(
             translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
-      title.setForeground(StatisticsColors.getTextForeground());
-      title.setFont(AppFonts.germanFont.deriveFont(30F));
+      title.setForeground(app.appColors.statistics.getTextForeground());
+      title.setFont(app.appFonts.germanFont.deriveFont(30F));
       titlePanel.add(title);
 
-      StatisticsTable table = new StatisticsTable(common, Data.findStatisticsModel(common));
+      StatisticsTable table = new StatisticsTable(common, model.data.findStatisticsModel(common));
 
       table.addMouseListener(new MouseAdapter()
       {
@@ -102,11 +100,11 @@ public class StatisticsPanel extends JPanel
                         statisticsTableRow.getJListHtoD(common));
                   scroller.setOpaque(true);
                   scroller.setBackground(
-                        StatisticsColors.getSelectedBackground());
+                        app.appColors.statistics.getSelectedBackground());
                   scroller.setBorder(BorderFactory.createEmptyBorder());
                   scroller.getViewport().setOpaque(true);
                   scroller.getViewport().setBackground(
-                        StatisticsColors.getSelectedBackground());
+                        app.appColors.statistics.getSelectedBackground());
                   scroller.setViewportBorder(BorderFactory.createEmptyBorder());
                   wordPanel.add(scroller);
                }
@@ -118,11 +116,11 @@ public class StatisticsPanel extends JPanel
                         statisticsTableRow.getJListDtoH(common));
                   scroller.setOpaque(true);
                   scroller.setBackground(
-                        StatisticsColors.getSelectedBackground());
+                        app.appColors.statistics.getSelectedBackground());
                   scroller.setBorder(BorderFactory.createEmptyBorder());
                   scroller.getViewport().setOpaque(true);
                   scroller.getViewport().setBackground(
-                        StatisticsColors.getSelectedBackground());
+                        app.appColors.statistics.getSelectedBackground());
                   scroller.setViewportBorder(BorderFactory.createEmptyBorder());
                   wordPanel.add(scroller);
                }
@@ -134,12 +132,12 @@ public class StatisticsPanel extends JPanel
 
       JScrollPane scroller = new JScrollPane(table);
       scroller.setOpaque(false);
-      scroller.setBackground(ColorBase.getTransparent());
+      scroller.setBackground(app.appColors.getTransparent());
       scroller.setBorder(BorderFactory.createEmptyBorder());
       scroller.getViewport().setOpaque(false);
-      scroller.getViewport().setBackground(ColorBase.getTransparent());
+      scroller.getViewport().setBackground(app.appColors.getTransparent());
       scroller.setViewportBorder(BorderFactory.createEmptyBorder());
-      scroller.setBackground(ColorBase.getDarkRed());
+      scroller.setBackground(app.appColors.getDarkRed());
 
       tablePanel.add(titlePanel);
       tablePanel.add(scroller);

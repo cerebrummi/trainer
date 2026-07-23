@@ -64,7 +64,7 @@ public final class View
       jFrame.setFont(app.appFonts.germanFont.deriveFont(14F));
       ToolTipManager.sharedInstance().setDismissDelay(8000);
       ToolTipManager.sharedInstance().setInitialDelay(1000);
-      mainJPanel = new MainController(common).getMainView();
+      mainJPanel = new MainController(app, common).getMainView();
       jFrame.getContentPane().add(new JScrollPane(mainJPanel));
       jFrame.setJMenuBar(mainJPanel.getMenuBar());
       jFrame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);

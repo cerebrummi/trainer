@@ -4,8 +4,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import vokabeltrainer.common.colors.SuccessColors;
-import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.success.LanguageTab;
@@ -26,18 +25,18 @@ public class SuccessPanel extends JPanel
    private LanguageTab languageHtoDcard;
    private Translator translator;
 
-   public SuccessPanel(Common common, View view)
+   public SuccessPanel(App app, Common common, View view)
    {
       translator = common.getTranslator();
       
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(SuccessColors.getPanelBackground());
+      setBackground(app.appColors.success.getPanelBackground());
 
       germanHebrewRegister = new JTabbedPane();
-      germanHebrewRegister.setForeground(SuccessColors.getTextForeground());
+      germanHebrewRegister.setForeground(app.appColors.success.getTextForeground());
       germanHebrewRegister
-            .setFont(AppFonts.secondaryToolbarButtonFont);
+            .setFont(app.appFonts.secondaryToolbarButtonFont);
       germanHebrewRegister.setTabPlacement(JTabbedPane.LEFT);
       germanHebrewRegister.setMinimumSize(new Dimension(1254, 613));
       germanHebrewRegister.setMaximumSize(new Dimension(1500, 800));

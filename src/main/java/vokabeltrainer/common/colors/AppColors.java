@@ -15,7 +15,7 @@ public abstract class AppColors implements ColorBase
    public Table table = null;
    public Trainer trainer = null;
    
-   abstract Color getLightBlue();
+   public abstract Color getLightBlue();
 
    public abstract Color getLightGrayBlue();
 
@@ -120,7 +120,7 @@ public abstract class AppColors implements ColorBase
       public abstract Color getDatabase_Tipp();
    }
    
-   abstract class Statistics
+   public abstract class Statistics
    {
       public abstract Color getTextForeground();
       public abstract Color getTextBackground();
@@ -135,7 +135,7 @@ public abstract class AppColors implements ColorBase
       public abstract Color getTextForegroundInvers();
    }
    
-   abstract class Success
+   public abstract class Success
    {
       public abstract Color getTextForeground();
       public abstract Color getPanelBackground();
@@ -149,7 +149,7 @@ public abstract class AppColors implements ColorBase
       public abstract Color getRow2();
    }
    
-   abstract class Trainer
+   public abstract class Trainer
    {
       public abstract Color getTextForeground();
       public abstract Color getTextBackground();
