@@ -2,7 +2,9 @@ package vokabeltrainer.panels.trainer;
 
 import java.util.List;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
@@ -20,11 +22,11 @@ public interface TrainerControllerConnector
 
    public void setAdditionalInfo();
 
-   public void setNextTest();
+   public void setNextTest(App app);
 
-   public void send(Common common, View view);
+   public void send(App app, Common common, Model model, View view);
 
-   public void stopTraining(Common common, View view, boolean finished);
+   public void stopTraining(App app, Common common, Model model, View view, boolean finished);
 
    public int getNewWordsToLearn();
 
@@ -36,15 +38,15 @@ public interface TrainerControllerConnector
 
    public List<Expression> getExpressionsToBeTested();
 
-   public void resultHtoDOkay(Common common, View view);
+   public void resultHtoDOkay(App app, Common common, Model model, View view);
 
-   public void resultHtoDUndecided(Common common, View view);
+   public void resultHtoDUndecided(App app, Common common, Model model, View view);
 
-   public void resultHtoDFalse(Common common, View view);
+   public void resultHtoDFalse(App app, Common common, Model model, View view);
 
-   public void toggleSound();
+   public void toggleSound(App app);
 
-   public void toggleLetterPictures();
+   public void toggleLetterPictures(App app);
 
    public void setGrammarInfo();
 }

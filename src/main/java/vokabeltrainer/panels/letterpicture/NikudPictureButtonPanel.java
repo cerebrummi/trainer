@@ -11,9 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.colors.AlefbetColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
@@ -42,7 +40,7 @@ public class NikudPictureButtonPanel extends JPanel
    private Scale scale;
    private Translator translator;
 
-   public NikudPictureButtonPanel(Common common, LetterForAnalysis letter, Card[] cards)
+   public NikudPictureButtonPanel(App app, Common common, LetterForAnalysis letter, Card[] cards)
    {
       this.letter = letter;
       this.translator = common.getTranslator();
@@ -51,16 +49,16 @@ public class NikudPictureButtonPanel extends JPanel
       this.setMinimumSize(new Dimension(50, 50));
       this.setMaximumSize(new Dimension(50, 50));
 
-      this.letterPicture = NikudLetterImage.make(letter);
+      this.letterPicture = NikudLetterImage.make(app, letter);
 
       layout = new CardLayout();
       this.setLayout(layout);
       this.setOpaque(false);
 
-      initPictureCard();
+      initPictureCard(app);
       initLetterCard();
-      initHebrewCard();
-      initGermanCard();
+      initHebrewCard(app);
+      initGermanCard(app);
 
       for (Card card : cards)
       {
@@ -110,11 +108,11 @@ public class NikudPictureButtonPanel extends JPanel
 
    }
 
-   private void initGermanCard()
+   private void initGermanCard(App app)
    {
       germanCard = new JPanel(new BorderLayout());
-      germanCard.setBackground(AlefbetColors.getButton());
-      germanCard.setForeground(AlefbetColors.getButtonForeground());
+      germanCard.setBackground(app.appColors.alefbet.getButton());
+      germanCard.setForeground(app.appColors.alefbet.getButtonForeground());
       germanCard.setOpaque(true);
       germanCard.setPreferredSize(new Dimension(50, 50));
       if (letter.getContent() == NikudLetter.SPACE)
@@ -125,7 +123,7 @@ public class NikudPictureButtonPanel extends JPanel
       {
          germanButton = new JButton(
                letter.getNikudContent().getGermanPictureName(translator));
-         germanButton.setFont(AppFonts.germanFont.deriveFont(10F));
+         germanButton.setFont(app.appFonts.germanFont.deriveFont(10F));
          germanButton.setContentAreaFilled(false);
       }
       germanButton.setBorder(BorderFactory.createEmptyBorder());
@@ -134,7 +132,7 @@ public class NikudPictureButtonPanel extends JPanel
       germanCard.add(germanButton, BorderLayout.CENTER);
    }
 
-   private void initHebrewCard()
+   private void initHebrewCard(App app)
    {
       hebrewCard = new JPanel(new BorderLayout());
       hebrewCard.setOpaque(false);
@@ -149,9 +147,9 @@ public class NikudPictureButtonPanel extends JPanel
       else
       {
          hebrewButton = new JButton(letter.getContent().getTranscript());
-         hebrewButton.setBackground(AlefbetColors.getButton());
-         hebrewButton.setForeground(AlefbetColors.getButtonForeground());
-         hebrewButton.setFont(AppFonts.germanFont.deriveFont(10F));
+         hebrewButton.setBackground(app.appColors.alefbet.getButton());
+         hebrewButton.setForeground(app.appColors.alefbet.getButtonForeground());
+         hebrewButton.setFont(app.appFonts.germanFont.deriveFont(10F));
          hebrewButton.setContentAreaFilled(false);
       }
       hebrewButton.setBorder(BorderFactory.createEmptyBorder());
@@ -174,12 +172,12 @@ public class NikudPictureButtonPanel extends JPanel
       letterCard.add(letterButton, BorderLayout.CENTER);
    }
 
-   private void initPictureCard()
+   private void initPictureCard(App app)
    {
       pictureCard = new JPanel(new BorderLayout());
       pictureCard.setOpaque(false);
       pictureCard.setPreferredSize(new Dimension(50, 50));
-      imagePicture = AppImages.getLetterPicturesMap()
+      imagePicture = app.appImages.getLetterPicturesMap()
             .get(letter.getContent());
       if (imagePicture != null)
       {
@@ -187,7 +185,7 @@ public class NikudPictureButtonPanel extends JPanel
       }
       else
       {
-         pictureButton = new JButton(new ImageIcon(AppImages
+         pictureButton = new JButton(new ImageIcon(app.appImages
                .getLetterIconsNikudMap().get(letter.getContent())
                .getScaledInstance(scale.getScaleX(), scale.getScaleY(),
                      java.awt.Image.SCALE_SMOOTH)));

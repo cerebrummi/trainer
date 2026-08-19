@@ -5,18 +5,16 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-import vokabeltrainer.common.colors.AlefbetColors;
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
 
 public interface NikudLetterImage {
-    static BufferedImage make(LetterForAnalysis letter) {
+    static BufferedImage make(App app, LetterForAnalysis letter) {
         BufferedImage finalImg = new BufferedImage(50, 50,
             BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = finalImg.createGraphics();
-        g2d.setColor(AlefbetColors.getButton());
+        g2d.setColor(app.appColors.alefbet.getButton());
         g2d.fillRect(0, 0, 50, 50);
         g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
             RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
@@ -34,10 +32,10 @@ public interface NikudLetterImage {
             RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
             RenderingHints.VALUE_STROKE_PURE);
-        g2d.setFont(AppFonts.hebrewFont.deriveFont(36f));
+        g2d.setFont(app.appFonts.hebrewFont.deriveFont(36f));
         FontMetrics fm = g2d.getFontMetrics();
         fm = g2d.getFontMetrics();
-        g2d.setColor(AlefbetColors.getButtonForeground());
+        g2d.setColor(app.appColors.alefbet.getButtonForeground());
         g2d.drawString(letter.getContent().getUnicode(), 10, fm.getAscent() + 4);
         for (NikudLetter nikudLetter : letter.getSetUpperPunktation()) {
             g2d.drawString(nikudLetter.getUnicode(), 10, fm.getAscent() + 4);
@@ -53,11 +51,11 @@ public interface NikudLetterImage {
         return finalImg;
     }
 
-    static BufferedImage makeSpace() {
+    static BufferedImage makeSpace(App app) {
         BufferedImage finalImg = new BufferedImage(50, 50,
             BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = finalImg.createGraphics();
-        g2d.setColor(ColorBase.getTexturedBackgroundColor());
+        g2d.setColor(app.appColors.getTexturedBackgroundColor());
         g2d.fillRect(0, 0, 50, 50);
         g2d.dispose();
         return finalImg;

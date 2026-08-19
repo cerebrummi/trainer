@@ -10,9 +10,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.types.DatabaseDescription;
 
 public class DatabaseTableCellRenderer
@@ -23,20 +21,20 @@ public class DatabaseTableCellRenderer
    private JLabel empty;
    private JLabel database;
 
-   public DatabaseTableCellRenderer() // multiple selection possible, except
+   public DatabaseTableCellRenderer(App app) // multiple selection possible, except
                                       // unknown selection row 0
    {
-      selected = new JLabel(new ImageIcon(AppImages.getLogoFolder()));
-      selected.setBackground(ColorBase.getTransparent());
+      selected = new JLabel(new ImageIcon(app.appImages.getLogoFolder()));
+      selected.setBackground(app.appColors.getTransparent());
       selected.setOpaque(false);
 
       empty = new JLabel();
-      empty.setBackground(ColorBase.getTransparent());
+      empty.setBackground(app.appColors.getTransparent());
       empty.setOpaque(false);
 
       database = new JLabel();
-      database.setFont(AppFonts.germanFont.deriveFont(14F));
-      database.setBackground(ColorBase.getTransparent());
+      database.setFont(app.appFonts.germanFont.deriveFont(14F));
+      database.setBackground(app.appColors.getTransparent());
       database.setOpaque(false);
    }
 

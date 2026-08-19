@@ -53,33 +53,33 @@ public final class SaveExpressions
       this.exportpath = exportpath; 
    }
 
-   public void export(Common common, View view, String databaseName, boolean overwriteDatabaseNames)
+   public void export(App app, Common common, View view, String databaseName, boolean overwriteDatabaseNames)
    {
       this.databaseName = databaseName;
       this.overwriteDatabaseNames = overwriteDatabaseNames;
-      exportAsZip(common, view);
+      exportAsZip(app, common, view);
    }
 
-   public void export(Common common, View view, String databaseName, boolean overwriteDatabaseNames,
+   public void export(App app, Common common, View view, String databaseName, boolean overwriteDatabaseNames,
          boolean b)
    {
       this.databaseName = databaseName;
       this.overwriteDatabaseNames = overwriteDatabaseNames;
       this.takeSelectedOnlyIntoAccount = true;
-      exportAsZip(common, view);
+      exportAsZip(app, common, view);
    }
 
-   public void export(Common common, View view, String databaseName, boolean overwriteDatabaseNames,
+   public void export(App app, Common common, View view, String databaseName, boolean overwriteDatabaseNames,
          String databaseChoosen)
    {
       this.databaseName = databaseName;
       this.overwriteDatabaseNames = overwriteDatabaseNames;
       this.takeOriginIntoAccount = true;
       this.origin = databaseChoosen;
-      exportAsZip(common, view);
+      exportAsZip(app, common, view);
    }
 
-   public boolean save(Common common, View view)
+   public boolean save(App app, Common common, View view)
    {
       ProgressMonitor bar = new ProgressMonitor(view.getjFrame(),
             "Die Daten werden gespeichert.", "", 0, 2900);
@@ -142,7 +142,7 @@ public final class SaveExpressions
                view.getjFrame().validate();
                view.getjFrame().repaint();
             }
-            OkayExpressionsSavedNotification.display(view);
+            OkayExpressionsSavedNotification.display(app, view);
             return true;
          }
          catch (Exception e)
@@ -161,7 +161,7 @@ public final class SaveExpressions
       return false;
    }
 
-   private boolean exportAsZip(Common common, View view)
+   private boolean exportAsZip(App app, Common common, View view)
    {
       ProgressMonitor bar = new ProgressMonitor(null,
             "Die Daten werden gespeichert.", "", 0, 100);
@@ -230,7 +230,7 @@ public final class SaveExpressions
 
             progress = 100;
             bar.setProgress(progress);
-            OkayExpressionsSavedNotification.display(view);
+            OkayExpressionsSavedNotification.display(app, view);
             return true;
          }
          catch (Exception e)

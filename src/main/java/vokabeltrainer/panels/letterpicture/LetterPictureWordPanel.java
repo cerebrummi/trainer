@@ -7,9 +7,8 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.colors.ColorBase;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
@@ -31,22 +30,22 @@ public class LetterPictureWordPanel extends JPanel
       this.setOpaque(false);
    }
 
-   public void displayNikudWord(Common common, String nikudWord)
+   public void displayNikudWord(App app, Common common, String nikudWord)
    {
       removeAll();
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
-      horizontal.setBackground(ColorBase.getTexturedBackgroundColor());
+      horizontal.setBackground(app.appColors.getTexturedBackgroundColor());
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
-      vertical.setBackground(ColorBase.getTexturedBackgroundColor());
+      vertical.setBackground(app.appColors.getTexturedBackgroundColor());
 
       JPanel displayPanel = new JPanel();
       displayPanel.setLayout(new TrainLayout(displayPanel));
       displayPanel
-            .setBackground(ColorBase.getTexturedBackgroundColor());
+            .setBackground(app.appColors.getTexturedBackgroundColor());
       displayPanel.setMinimumSize(new Dimension(1268, 200));
       displayPanel.setMaximumSize(new Dimension(1268, 200));
 
@@ -56,7 +55,7 @@ public class LetterPictureWordPanel extends JPanel
 
       for (LetterForAnalysis letter : hebrewLettersCode)
       {
-         displayPanel.add(new NikudPictureButtonPanel(common, letter, cards));
+         displayPanel.add(new NikudPictureButtonPanel(app, common, letter, cards));
       }
 
       vertical.add(displayPanel);
@@ -64,19 +63,19 @@ public class LetterPictureWordPanel extends JPanel
       JPanel displayPanel2 = new JPanel();
       displayPanel2.setLayout(new TrainLayout(displayPanel2));
       displayPanel2
-            .setBackground(ColorBase.getTexturedBackgroundColor());
+            .setBackground(app.appColors.getTexturedBackgroundColor());
       displayPanel2.setMinimumSize(new Dimension(1268, 200));
       displayPanel2.setMaximumSize(new Dimension(1268, 200));
 
       for (LetterForAnalysis letter : hebrewLettersCode)
       {
-         if (Settings.isLetterImagesOn())
+         if (app.settings.isLetterImagesOn())
          {
-            displayPanel2.add(new NikudPictureButtonPanel(common, letter, cards2on));
+            displayPanel2.add(new NikudPictureButtonPanel(app, common, letter, cards2on));
          }
          else
          {
-            displayPanel2.add(new NikudPictureButtonPanel(common, letter, cards2off));
+            displayPanel2.add(new NikudPictureButtonPanel(app, common, letter, cards2off));
          }
       }
 
@@ -89,14 +88,14 @@ public class LetterPictureWordPanel extends JPanel
       repaint();
    }
 
-   public void clear()
+   public void clear(App app)
    {
       removeAll();
 
       JLabel dummy = new JLabel();
       dummy.setMinimumSize(new Dimension(1268, 200));
       dummy.setMaximumSize(new Dimension(1268, 200));
-      dummy.setBackground(ColorBase.getTransparent());
+      dummy.setBackground(app.appColors.getTransparent());
       dummy.setOpaque(false);
       add(dummy);
 

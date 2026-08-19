@@ -216,7 +216,7 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void openTrashCanDialog(App app, Common common, Model model, View view)
    {
-      TrashCanDialog dialog = new TrashCanController(common, model, view, this,
+      TrashCanDialog dialog = new TrashCanController(app, common, model, view, this,
             dictionaryViewConnector.getSelectedLanguage()).getTrashCanDialog();
       dialog.setLocationRelativeTo(view.getjFrame());
       dialog.setVisible(true);
@@ -406,7 +406,7 @@ public class DictionaryController implements DictionaryControllerConnector
             }
             else if (tableModel.getRowCount() == 0)
             {
-               EmptyNotification.display(view);
+               EmptyNotification.display(app, view);
                dictionaryViewConnector.tablePanelValidateRepaint();
             }
             else
@@ -470,7 +470,7 @@ public class DictionaryController implements DictionaryControllerConnector
          model.data.moveSelectedExpressionsToChapter(toChapter);
 
          SaveExpressions saver = new SaveExpressions(app, model);
-         saver.save(common, view);
+         saver.save(app, common, view);
 
          Status.pushToKeep();
          popToDecideOnTableInteraction(app, common, model, view, Action.MOVE_TO_CHAPTER);
@@ -485,7 +485,7 @@ public class DictionaryController implements DictionaryControllerConnector
          model.data.moveSelectedExpressionsToDatabase(toDatabase);
 
          SaveExpressions saver = new SaveExpressions(app, model);
-         saver.save(common, view);
+         saver.save(app, common, view);
 
          Status.pushToKeep();
          popToDecideOnTableInteraction(app, common, model, view, Action.MOVE_TO_DATABASE);
@@ -500,7 +500,7 @@ public class DictionaryController implements DictionaryControllerConnector
          @Override
          protected Void doInBackground() throws Exception
          {
-            if (new SaveExpressions(app, model).save(common, view))
+            if (new SaveExpressions(app, model).save(app, common, view))
             {
                if (Tabulator.CHAPTER_TAB.equals(Tabulator.getTabShowing()))
                {

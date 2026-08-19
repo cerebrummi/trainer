@@ -11,8 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.editing.InternationalDocument;
@@ -37,14 +36,14 @@ public class InputDatabaseNameDialog extends JDialog
    private JRadioButton overwriteNo;
    private Translator translator;
 
-   public InputDatabaseNameDialog(Common common, View view, String title)
+   public InputDatabaseNameDialog(App app, Common common, View view, String title)
    {
       super(view.getjFrame(), title, true);
 
       translator = common.getTranslator();
       
       this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-      this.setIconImage(AppImages.getLogo24());
+      this.setIconImage(app.appImages.getLogo24());
       this.setMinimumSize(new Dimension(400, 320));
       this.setLocationRelativeTo(view.getjFrame());
 
@@ -94,10 +93,10 @@ public class InputDatabaseNameDialog extends JDialog
       panel.add(vertical);
       this.add(panel);
 
-      this.initController();
+      this.initController(app);
    }
 
-   private void initController()
+   private void initController(App app)
    {
       okButton.addActionListener(_ -> {
          databaseName = inputImportField.getText();
@@ -105,7 +104,7 @@ public class InputDatabaseNameDialog extends JDialog
          if (overwrite && databaseName.isBlank())
          {
             this.inputImportField.setBorder(BorderFactory
-                  .createLineBorder(ColorBase.getDarkRed(), 3));
+                  .createLineBorder(app.appColors.getDarkRed(), 3));
             return;
          }
          startImport = true;

@@ -10,9 +10,9 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 
-import vokabeltrainer.common.colors.StartColors;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.SaveExpressions;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.settings.InputDatabaseNameDialog;
@@ -26,13 +26,13 @@ public class DatabaseTableCopy extends JTable
 
    private Translator translator;
 
-   public DatabaseTableCopy(Common common, View view, DatabaseTableCopyModel model, int totalWidth)
+   public DatabaseTableCopy(App app, Common common, Model model, View view, DatabaseTableCopyModel dTCmodel, int totalWidth)
    {
-      super(model, new DatabaseTableCopyColumnModel(common, totalWidth));
+      super(dTCmodel, new DatabaseTableCopyColumnModel(app, common, totalWidth));
       translator = common.getTranslator();
       this.setShowVerticalLines(false);
       setOpaque(true);
-      setBackground(StartColors.getDatabase_Item());
+      setBackground(app.appColors.start.getDatabase_Item());
       setRowHeight(30);
       setShowHorizontalLines(true);
       this.setRowSelectionAllowed(true);
@@ -42,11 +42,11 @@ public class DatabaseTableCopy extends JTable
       this.setBorder(BorderFactory.createEmptyBorder());
       this.setTableHeader(null);
 
-      mouseListener = getSingleselectMouseListener(common, view);
+      mouseListener = getSingleselectMouseListener(app, common, model, view);
       addMouseListener(mouseListener);
    }
 
-   private MouseAdapter getSingleselectMouseListener(Common common, View view)
+   private MouseAdapter getSingleselectMouseListener(App app, Common common, Model model, View view)
    {
       return new MouseAdapter()
       {
@@ -61,7 +61,7 @@ public class DatabaseTableCopy extends JTable
                DatabaseTableCopyRow tableRow = ((DatabaseTableCopyRow) table
                      .getValueAt(table.getSelectedRow(), 0));
 
-               InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(common, view,
+               InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(app, common, view,
                      translator.realisticTranslate(
                            Translation.EXPORT_INTERNE_DATENBANK));
                dialog.setVisible(true);
@@ -79,7 +79,7 @@ public class DatabaseTableCopy extends JTable
                   databaseName = dialog.getDatabaseName();
                   overwriteDatabaseNames = dialog.isOverwrite();
                   dialog.dispose();
-                  Data.copyInternalDatabase(common,
+                  model.data.copyInternalDatabase(common,
                         tableRow.getDatabaseItem().getDatabase(),
                         overwriteDatabaseNames, databaseName);
                   new SwingWorker<Void, Void>()
@@ -88,7 +88,7 @@ public class DatabaseTableCopy extends JTable
                      @Override
                      protected Void doInBackground() throws Exception
                      {
-                        new SaveExpressions().save(common, view);
+                        new SaveExpressions(app, model).save(app, common, view);
                         return null;
                      }
 

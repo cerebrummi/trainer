@@ -37,9 +37,11 @@ public abstract class AppColors implements ColorBase
 
    public abstract Color getBackgroundGold();
 
-   abstract Color getVeryLightGold();
+   public abstract Color getVeryLightGold();
 
    public abstract Color getGreen();
+   
+   public abstract Color getBrightGreen();
 
    abstract Color getSelectionGreen();
 

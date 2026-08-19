@@ -13,9 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListCellRenderer;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
 
@@ -27,17 +25,19 @@ public class ExpressionListCellRenderer
    private JTextArea label;
    private JLabel selected;
    private JLabel empty;
+   private App app;
 
-   public ExpressionListCellRenderer()
+   public ExpressionListCellRenderer(App app)
    {
+      this.app = app;
       label = new JTextArea();
       label.setWrapStyleWord(true);
       label.setLineWrap(true);
       label.setOpaque(false);
       label.setEditable(false);
-      label.setBackground(ColorBase.getTransparent());
+      label.setBackground(app.appColors.getTransparent());
       label.setBorder(BorderFactory.createEmptyBorder());
-      selected = new JLabel(new ImageIcon(AppImages.getSelect()));
+      selected = new JLabel(new ImageIcon(app.appImages.getSelect()));
       empty = new JLabel();
    }
 
@@ -59,17 +59,17 @@ public class ExpressionListCellRenderer
          if (LetterHelper
                .findLetterTypeLanguages((String) value) == LetterType.HEBREW)
          {
-            label.setFont(AppFonts.hebrewFont.deriveFont(20F));
+            label.setFont(app.appFonts.hebrewFont.deriveFont(20F));
             label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          }
          else
          {
-            label.setFont(AppFonts.germanBoldFont.deriveFont(20F));
+            label.setFont(app.appFonts.germanBoldFont.deriveFont(20F));
          }
       }
       else
       {
-         label.setFont(AppFonts.germanFont.deriveFont(16F));
+         label.setFont(app.appFonts.germanFont.deriveFont(16F));
          label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
       }
 

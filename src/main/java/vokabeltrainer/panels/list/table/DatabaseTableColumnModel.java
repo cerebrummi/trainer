@@ -3,15 +3,17 @@ package vokabeltrainer.panels.list.table;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
+import vokabeltrainer.common.main.App;
+
 public class DatabaseTableColumnModel extends DefaultTableColumnModel
 {
    private static final long serialVersionUID = -2011627608532876165L;
 
    private DatabaseTableCellRenderer renderer;
 
-   public DatabaseTableColumnModel(int totalWidth)
+   public DatabaseTableColumnModel(App app, int totalWidth)
    {
-      renderer = new DatabaseTableCellRenderer();
+      renderer = new DatabaseTableCellRenderer(app);
 
       TableColumn column = new TableColumn();
       column.setHeaderValue("Wahl");

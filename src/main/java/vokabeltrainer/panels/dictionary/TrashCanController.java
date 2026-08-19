@@ -19,12 +19,12 @@ public class TrashCanController implements TrashCanControllerConnector
    private TrashCanDialog trashCanDialog;
    private DictionaryControllerConnector connector;
 
-   public TrashCanController(Common common, Model model, View view, DictionaryControllerConnector connector,
+   public TrashCanController(App app, Common common, Model model, View view, DictionaryControllerConnector connector,
          Direction initialLanguage)
    {
       this.connector = connector;
-      trashCanDialog = new TrashCanDialog(common, view, this);
-      trashCanDialog.doShowTable(common, view, loadTableModel(model));
+      trashCanDialog = new TrashCanDialog(app, common, model, view, this);
+      trashCanDialog.doShowTable(app, common, view, loadTableModel(model));
       trashCanDialog.pack();
    }
 
@@ -53,41 +53,41 @@ public class TrashCanController implements TrashCanControllerConnector
          trashCanDialog.setRestore(true);
          model.data.restoreExpressions(selectedExpressions);
          trashCanDialog.clearTable();
-         trashCanDialog.doShowTable(common, view, loadTableModel(model));
+         trashCanDialog.doShowTable(app, common, view, loadTableModel(model));
          trashCanDialog.tableValidateRepaint();
          save(app, common, model, view);
       }
    }
 
    @Override
-   public void selectAllExpressionsInTable(Common common, Model model, View view)
+   public void selectAllExpressionsInTable(App app, Common common, Model model, View view)
    {
       if (trashCanDialog.isTableNotNull())
       {
          trashCanDialog.selectAllExpressionsInTable();
          trashCanDialog.clearTable();
-         trashCanDialog.doShowTable(common, view, loadTableModel(model));
+         trashCanDialog.doShowTable(app, common, view, loadTableModel(model));
          trashCanDialog.tableValidateRepaint();
       }
    }
 
    @Override
-   public void unselectAllExpressionsInTable(Common common, Model model, View view)
+   public void unselectAllExpressionsInTable(App app, Common common, Model model, View view)
    {
       if (trashCanDialog.isTableNotNull())
       {
          trashCanDialog.unselectAllExpressionsInTable();
          trashCanDialog.clearTable();
-         trashCanDialog.doShowTable(common, view, loadTableModel(model));
+         trashCanDialog.doShowTable(app, common, view, loadTableModel(model));
          trashCanDialog.tableValidateRepaint();
       }
    }
 
    @Override
-   public void switchLanguage(Common common, Model model, View view)
+   public void switchLanguage(App app, Common common, Model model, View view)
    {
       trashCanDialog.clearTable();
-      trashCanDialog.doShowTable(common, view, loadTableModel(model));
+      trashCanDialog.doShowTable(app, common, view, loadTableModel(model));
       trashCanDialog.tableValidateRepaint();
    }
 
@@ -99,7 +99,7 @@ public class TrashCanController implements TrashCanControllerConnector
          @Override
          protected Void doInBackground() throws Exception
          {
-            new SaveExpressions(app, model).save(common, view);
+            new SaveExpressions(app, model).save(app, common, view);
             return null;
          }
       }.execute();

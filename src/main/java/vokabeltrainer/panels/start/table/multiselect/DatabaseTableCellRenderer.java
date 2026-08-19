@@ -10,9 +10,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.DatabaseItem;
 
@@ -26,24 +24,24 @@ public class DatabaseTableCellRenderer
    private JLabel company;
    private Common common;
 
-   public DatabaseTableCellRenderer(Common common) // multiple selection possible
+   public DatabaseTableCellRenderer(App app, Common common) // multiple selection possible
    {
       this.common = common;
-      selected = new JLabel(new ImageIcon(AppImages.getSelectDone()));
+      selected = new JLabel(new ImageIcon(app.appImages.getSelectDone()));
 
       empty = new JLabel();
 
       database = new JLabel();
-      database.setFont(AppFonts.germanFont.deriveFont(14F));
-      database.setForeground(ColorBase.getShadyBlue());
+      database.setFont(app.appFonts.germanFont.deriveFont(14F));
+      database.setForeground(app.appColors.getShadyBlue());
 
       authors = new JLabel();
-      authors.setFont(AppFonts.germanFont.deriveFont(14F));
-      authors.setForeground(ColorBase.getShadyBlue());
+      authors.setFont(app.appFonts.germanFont.deriveFont(14F));
+      authors.setForeground(app.appColors.getShadyBlue());
 
       company = new JLabel();
-      company.setFont(AppFonts.germanFont.deriveFont(14F));
-      company.setForeground(ColorBase.getShadyBlue());
+      company.setFont(app.appFonts.germanFont.deriveFont(14F));
+      company.setForeground(app.appColors.getShadyBlue());
    }
 
    @Override

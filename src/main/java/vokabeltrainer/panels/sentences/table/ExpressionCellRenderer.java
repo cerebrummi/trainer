@@ -9,7 +9,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.colors.ColorBase;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.panels.sentences.table.list.ExpressionList;
 import vokabeltrainer.types.Expression;
 
@@ -17,10 +17,12 @@ public class ExpressionCellRenderer
       implements TableCellRenderer, TableCellEditor
 {
    private ExpressionList list;
+   private App app;
 
-   public ExpressionCellRenderer()
+   public ExpressionCellRenderer(App app)
    {
-      list = new ExpressionList();
+      this.app = app;
+      list = new ExpressionList(app);
    }
 
    @Override
@@ -34,7 +36,7 @@ public class ExpressionCellRenderer
       if (isSelected)
       {
          list.setBorder(BorderFactory
-               .createLineBorder(ColorBase.brightGreen, 3));
+               .createLineBorder(app.appColors.getBrightGreen(), 3));
       }
       else
       {
@@ -43,11 +45,11 @@ public class ExpressionCellRenderer
 
       if (row % 2 == 1)
       {
-         list.setBackground(ColorBase.getLightBlue());
+         list.setBackground(app.appColors.getLightBlue());
       }
       else
       {
-         list.setBackground(ColorBase.getVeryLightGold());
+         list.setBackground(app.appColors.getVeryLightGold());
       }
 
       list.setLock(expression.isDoNotChange());

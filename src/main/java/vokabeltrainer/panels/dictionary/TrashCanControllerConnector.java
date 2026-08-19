@@ -17,11 +17,11 @@ public interface TrashCanControllerConnector extends TableConnector
 
    public void restoreSelectedExpressions(App app, Common common, Model model, View view, List<Expression> selectedExpressions);
 
-   public void selectAllExpressionsInTable(Common common, Model model, View view);
+   public void selectAllExpressionsInTable(App app, Common common, Model model, View view);
 
-   public void unselectAllExpressionsInTable(Common common, Model model, View view);
+   public void unselectAllExpressionsInTable(App app, Common common, Model model, View view);
 
-   public void switchLanguage(Common common, Model model, View view);
+   public void switchLanguage(App app, Common common, Model model, View view);
 
    public ExpressionTableModel loadTableModel(Model model);
 }

@@ -20,9 +20,7 @@ import javax.swing.JRadioButton;
 import javax.swing.text.JTextComponent;
 
 import vokabeltrainer.common.ApplicationSpecialPanels;
-import vokabeltrainer.common.colors.AlefbetColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.editing.SingleLetterDocument;
@@ -63,53 +61,42 @@ public class LetterPictureAlphabetPanel extends JPanel
 
    private Translator translator;
 
-   private LetterTextField alef = new LetterTextField(NikudLetter.ALEF);
-   private LetterTextField wet = new LetterTextField(NikudLetter.BET);
-   private LetterTextField gimel = new LetterTextField(NikudLetter.GIMEL);
-   private LetterTextField dalet = new LetterTextField(NikudLetter.DALET);
-   private LetterTextField haei = new LetterTextField(NikudLetter.HAEI);
-   private LetterTextField waw = new LetterTextField(NikudLetter.WAW);
-   private LetterTextField ssain = new LetterTextField(NikudLetter.SSAIN);
-   private LetterTextField chet = new LetterTextField(NikudLetter.CHET);
-   private LetterTextField tet = new LetterTextField(NikudLetter.TET);
-   private LetterTextField jod = new LetterTextField(NikudLetter.JOD);
-   private LetterTextField chaf = new LetterTextField(NikudLetter.KAF);
-   private LetterTextField chafssofit = new LetterTextField(
-         NikudLetter.CHAFSSOFIT);
-   private LetterTextField lamed = new LetterTextField(NikudLetter.LAMED);
-   private LetterTextField mem = new LetterTextField(NikudLetter.MEM);
-   private LetterTextField memssofit = new LetterTextField(
-         NikudLetter.MEMSSOFIT);
-   private LetterTextField nun = new LetterTextField(NikudLetter.NUN);
-   private LetterTextField nunssofit = new LetterTextField(
-         NikudLetter.NUNSSOFIT);
-   private LetterTextField ssamech = new LetterTextField(NikudLetter.SSAMECH);
-   private LetterTextField ain = new LetterTextField(NikudLetter.AIN);
-   private LetterTextField faei = new LetterTextField(NikudLetter.PAEI);
-   private LetterTextField faeissofit = new LetterTextField(
-         NikudLetter.FAEISSOFIT);
-   private LetterTextField zadi = new LetterTextField(NikudLetter.ZADI);
-   private LetterTextField zadissofit = new LetterTextField(
-         NikudLetter.ZADISSOFIT);
-   private LetterTextField kuf = new LetterTextField(NikudLetter.KUF);
-   private LetterTextField resch = new LetterTextField(NikudLetter.RESCH);
-   private LetterTextField schin = new LetterTextField(NikudLetter.SCHIN);
-   private LetterTextField taw = new LetterTextField(NikudLetter.TAW);
+   private LetterTextField alef;
+   private LetterTextField wet;
+   private LetterTextField gimel;
+   private LetterTextField dalet;
+   private LetterTextField haei;
+   private LetterTextField waw;
+   private LetterTextField ssain;
+   private LetterTextField chet;
+   private LetterTextField tet;
+   private LetterTextField jod;
+   private LetterTextField chaf;
+   private LetterTextField chafssofit;
+   private LetterTextField lamed;
+   private LetterTextField mem;
+   private LetterTextField memssofit;
+   private LetterTextField nun;
+   private LetterTextField nunssofit;
+   private LetterTextField ssamech;
+   private LetterTextField ain;
+   private LetterTextField faei;
+   private LetterTextField faeissofit;
+   private LetterTextField zadi;
+   private LetterTextField zadissofit;
+   private LetterTextField kuf;
+   private LetterTextField resch;
+   private LetterTextField schin;
+   private LetterTextField taw;
 
-   private LetterTextField[] textFields1 = { chet, ssain, waw, haei, dalet,
-         gimel, wet, alef };
-   private LetterTextField[] textFields2 = { nun, memssofit, mem, lamed,
-         chafssofit, chaf, jod, tet };
-   private LetterTextField[] textFields3 = { kuf, zadissofit, zadi, faeissofit,
-         faei, ain, ssamech, nunssofit };
-   private LetterTextField[] textFields4 = { taw, schin, resch };
+   private LetterTextField[] textFields1;
+   private LetterTextField[] textFields2;
+   private LetterTextField[] textFields3;
+   private LetterTextField[] textFields4;
 
    private List<JTextComponent> textFields;
 
-   Component[] focusList = { alef, wet, gimel, dalet, haei, waw, ssain, chet,
-         tet, jod, chaf, chafssofit, lamed, mem, memssofit, nun, nunssofit,
-         ssamech, ain, faei, faeissofit, zadi, zadissofit, kuf, resch, schin,
-         taw };
+   Component[] focusList;
 
    JRadioButton printLettersButton;
    JRadioButton handwrittenLettersButton;
@@ -129,10 +116,51 @@ public class LetterPictureAlphabetPanel extends JPanel
 
    private KeyboardHebrewStandard keyboardHandwritten;
 
-   public LetterPictureAlphabetPanel(Common common)
+   public LetterPictureAlphabetPanel(App app, Common common)
    {
       translator = common.getTranslator();
+
+      alef = new LetterTextField(app, NikudLetter.ALEF);
+      wet = new LetterTextField(app, NikudLetter.BET);
+      gimel = new LetterTextField(app, NikudLetter.GIMEL);
+      dalet = new LetterTextField(app, NikudLetter.DALET);
+      haei = new LetterTextField(app, NikudLetter.HAEI);
+      waw = new LetterTextField(app, NikudLetter.WAW);
+      ssain = new LetterTextField(app, NikudLetter.SSAIN);
+      chet = new LetterTextField(app, NikudLetter.CHET);
+      tet = new LetterTextField(app, NikudLetter.TET);
+      jod = new LetterTextField(app, NikudLetter.JOD);
+      chaf = new LetterTextField(app, NikudLetter.KAF);
+      chafssofit = new LetterTextField(app, NikudLetter.CHAFSSOFIT);
+      lamed = new LetterTextField(app, NikudLetter.LAMED);
+      mem = new LetterTextField(app, NikudLetter.MEM);
+      memssofit = new LetterTextField(app, NikudLetter.MEMSSOFIT);
+      nun = new LetterTextField(app, NikudLetter.NUN);
+      nunssofit = new LetterTextField(app, NikudLetter.NUNSSOFIT);
+      ssamech = new LetterTextField(app, NikudLetter.SSAMECH);
+      ain = new LetterTextField(app, NikudLetter.AIN);
+      faei = new LetterTextField(app, NikudLetter.PAEI);
+      faeissofit = new LetterTextField(app, NikudLetter.FAEISSOFIT);
+      zadi = new LetterTextField(app, NikudLetter.ZADI);
+      zadissofit = new LetterTextField(app, NikudLetter.ZADISSOFIT);
+      kuf = new LetterTextField(app, NikudLetter.KUF);
+      resch = new LetterTextField(app, NikudLetter.RESCH);
+      schin = new LetterTextField(app, NikudLetter.SCHIN);
+      taw = new LetterTextField(app, NikudLetter.TAW);
+
+      textFields1 = new LetterTextField[] { chet, ssain, waw, haei, dalet,
+            gimel, wet, alef };
+      textFields2 = new LetterTextField[] { nun, memssofit, mem, lamed,
+            chafssofit, chaf, jod, tet };
+      textFields3 = new LetterTextField[] { kuf, zadissofit, zadi, faeissofit,
+            faei, ain, ssamech, nunssofit };
+      textFields4 = new LetterTextField[] { taw, schin, resch };
       
+      focusList = new Component[]{ alef, wet, gimel, dalet, haei, waw, ssain, chet,
+            tet, jod, chaf, chafssofit, lamed, mem, memssofit, nun, nunssofit,
+            ssamech, ain, faei, faeissofit, zadi, zadissofit, kuf, resch, schin,
+            taw };
+
       printLettersButton = new JRadioButton(
             translator.realisticTranslate(Translation.DRUCKSCHRIFT));
       handwrittenLettersButton = new JRadioButton(
@@ -141,26 +169,29 @@ public class LetterPictureAlphabetPanel extends JPanel
             translator.realisticTranslate(Translation.TASTATUR_REGULAER));
       keyboardShuffleButton = new JRadioButton(
             translator.realisticTranslate(Translation.TASTATUR_VERMISCHT));
-      
-      printLettersButton.setBackground(AlefbetColors.getButton());
-      printLettersButton.setForeground(AlefbetColors.getButtonForeground());
 
-      handwrittenLettersButton.setBackground(AlefbetColors.getButton());
+      printLettersButton.setBackground(app.appColors.alefbet.getButton());
+      printLettersButton
+            .setForeground(app.appColors.alefbet.getButtonForeground());
+
+      handwrittenLettersButton.setBackground(app.appColors.alefbet.getButton());
       handwrittenLettersButton
-            .setForeground(AlefbetColors.getButtonForeground());
+            .setForeground(app.appColors.alefbet.getButtonForeground());
 
-      keyboardRegularButton.setBackground(AlefbetColors.getButton());
-      keyboardRegularButton.setForeground(AlefbetColors.getButtonForeground());
+      keyboardRegularButton.setBackground(app.appColors.alefbet.getButton());
+      keyboardRegularButton
+            .setForeground(app.appColors.alefbet.getButtonForeground());
 
-      keyboardShuffleButton.setBackground(AlefbetColors.getButton());
-      keyboardShuffleButton.setForeground(AlefbetColors.getButtonForeground());
+      keyboardShuffleButton.setBackground(app.appColors.alefbet.getButton());
+      keyboardShuffleButton
+            .setForeground(app.appColors.alefbet.getButtonForeground());
 
       textFields = new ArrayList<>();
       Map<NikudLetter, LetterPictureButtonPanel> panels = ApplicationSpecialPanels
             .getLetterPicturesPanelMap();
       this.setOpaque(true);
-      setBackground(AlefbetColors.getButton());
-      setForeground(AlefbetColors.getButtonForeground());
+      setBackground(app.appColors.alefbet.getButton());
+      setForeground(app.appColors.alefbet.getButtonForeground());
       this.setLayout(new TotemLayout(this, 15));
       this.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 15));
 
@@ -172,7 +203,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          JPanel column = new JPanel();
          column.setLayout(new TotemLayout(column));
-         column.setBackground(AlefbetColors.getPanelBackground());
+         column.setBackground(app.appColors.alefbet.getPanelBackground());
          column.add(panels.get(keys1[i]));
          column.add(textFields1[i]);
          textFields.add(textFields1[i]);
@@ -188,7 +219,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          JPanel column = new JPanel();
          column.setLayout(new TotemLayout(column));
-         column.setBackground(AlefbetColors.getPanelBackground());
+         column.setBackground(app.appColors.alefbet.getPanelBackground());
          column.add(panels.get(keys2[i]));
          column.add(textFields2[i]);
          textFields.add(textFields2[i]);
@@ -204,7 +235,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          JPanel column = new JPanel();
          column.setLayout(new TotemLayout(column));
-         column.setBackground(AlefbetColors.getPanelBackground());
+         column.setBackground(app.appColors.alefbet.getPanelBackground());
          column.add(panels.get(keys3[i]));
          column.add(textFields3[i]);
          textFields.add(textFields3[i]);
@@ -224,10 +255,10 @@ public class LetterPictureAlphabetPanel extends JPanel
 
       JButton turnButton = new JButton(
             translator.realisticTranslate(Translation.ALLE_UMDREHEN));
-      turnButton.setBackground(AlefbetColors.getButton());
-      turnButton.setForeground(AlefbetColors.getButtonForeground());
-      turnButton.setFont(AppFonts.buttonFont);
-      turnButton.setIcon(new ImageIcon(AppImages.getTurn()));
+      turnButton.setBackground(app.appColors.alefbet.getButton());
+      turnButton.setForeground(app.appColors.alefbet.getButtonForeground());
+      turnButton.setFont(app.appFonts.buttonFont);
+      turnButton.setIcon(new ImageIcon(app.appImages.getTurn()));
       turnButton.addActionListener(_ -> {
          for (LetterPictureButtonPanel panel : panels.values())
          {
@@ -243,7 +274,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          JPanel column = new JPanel();
          column.setLayout(new TotemLayout(column));
-         column.setBackground(AlefbetColors.getPanelBackground());
+         column.setBackground(app.appColors.alefbet.getPanelBackground());
          column.add(panels.get(keys4[i]));
          column.add(textFields4[i]);
          textFields.add(textFields4[i]);
@@ -262,16 +293,18 @@ public class LetterPictureAlphabetPanel extends JPanel
 
       JPanel keyboardPrintPanel = new JPanel(new BorderLayout());
       keyboardPrintPanel.setOpaque(true);
-      keyboardPrintPanel.setBackground(AlefbetColors.getKeyboardBackground());
-      keyboardPrint = new KeyboardHebrewStandard(null, textFields, 15, false);
+      keyboardPrintPanel
+            .setBackground(app.appColors.alefbet.getKeyboardBackground());
+      keyboardPrint = new KeyboardHebrewStandard(app, null, textFields, 15,
+            false);
       keyboardPrintPanel.add(keyboardPrint, BorderLayout.CENTER);
 
       JPanel keyboardHandwrittenPanel = new JPanel(new BorderLayout());
       keyboardHandwrittenPanel.setOpaque(true);
       keyboardHandwrittenPanel
-            .setBackground(AlefbetColors.getKeyboardBackground());
-      keyboardHandwritten = new KeyboardHebrewStandard(null, textFields, 15,
-            true);
+            .setBackground(app.appColors.alefbet.getKeyboardBackground());
+      keyboardHandwritten = new KeyboardHebrewStandard(app, null, textFields,
+            15, true);
       keyboardHandwrittenPanel.add(keyboardHandwritten, BorderLayout.CENTER);
 
       cardLayout = new CardLayout();
@@ -280,29 +313,33 @@ public class LetterPictureAlphabetPanel extends JPanel
       keyboardPanel.add(SCHREIBSCHRIFT, keyboardHandwrittenPanel);
       keyboardPanel.setMinimumSize(new Dimension(501, 150));
       keyboardPanel.setMaximumSize(new Dimension(530, 200));
-      keyboardPanel.setBackground(AlefbetColors.getPanelBackground());
+      keyboardPanel.setBackground(app.appColors.alefbet.getPanelBackground());
 
       this.add(keyboardPanel);
 
-      printLettersButton.addActionListener(_ -> setWriting(DRUCKSCHRIFT));
-      printLettersButton.setBackground(AlefbetColors.getButton());
-      printLettersButton.setForeground(AlefbetColors.getTextForeground());
+      printLettersButton.addActionListener(_ -> setWriting(app, DRUCKSCHRIFT));
+      printLettersButton.setBackground(app.appColors.alefbet.getButton());
+      printLettersButton
+            .setForeground(app.appColors.alefbet.getTextForeground());
 
       handwrittenLettersButton
-            .addActionListener(_ -> setWriting(SCHREIBSCHRIFT));
-      handwrittenLettersButton.setBackground(AlefbetColors.getButton());
-      handwrittenLettersButton.setForeground(AlefbetColors.getTextForeground());
+            .addActionListener(_ -> setWriting(app, SCHREIBSCHRIFT));
+      handwrittenLettersButton.setBackground(app.appColors.alefbet.getButton());
+      handwrittenLettersButton
+            .setForeground(app.appColors.alefbet.getTextForeground());
 
       switchButtonGroup.add(printLettersButton);
       switchButtonGroup.add(handwrittenLettersButton);
 
-      keyboardRegularButton.addActionListener(_ -> setKeyboard(REGULAR));
-      keyboardRegularButton.setBackground(AlefbetColors.getButton());
-      keyboardRegularButton.setForeground(AlefbetColors.getTextForeground());
+      keyboardRegularButton.addActionListener(_ -> setKeyboard(app, REGULAR));
+      keyboardRegularButton.setBackground(app.appColors.alefbet.getButton());
+      keyboardRegularButton
+            .setForeground(app.appColors.alefbet.getTextForeground());
 
-      keyboardShuffleButton.addActionListener(_ -> setKeyboard(SHUFFLE));
-      keyboardShuffleButton.setBackground(AlefbetColors.getButton());
-      keyboardShuffleButton.setForeground(AlefbetColors.getTextForeground());
+      keyboardShuffleButton.addActionListener(_ -> setKeyboard(app, SHUFFLE));
+      keyboardShuffleButton.setBackground(app.appColors.alefbet.getButton());
+      keyboardShuffleButton
+            .setForeground(app.appColors.alefbet.getTextForeground());
 
       keyboardButtonGroup.add(keyboardRegularButton);
       keyboardButtonGroup.add(keyboardShuffleButton);
@@ -310,25 +347,27 @@ public class LetterPictureAlphabetPanel extends JPanel
       JPanel buttonPanel = new JPanel();
       TrainLayout buttonPanelLayout = new TrainLayout(buttonPanel, 30);
       buttonPanel.setOpaque(true);
-      buttonPanel.setBackground(AlefbetColors.getPanelBackground());
+      buttonPanel.setBackground(app.appColors.alefbet.getPanelBackground());
       buttonPanel.setLayout(buttonPanelLayout);
 
       JPanel letterSwitchPanel = new JPanel();
       TotemLayout letterSwitchPanelLayout = new TotemLayout(letterSwitchPanel,
             15);
       letterSwitchPanel.setOpaque(true);
-      letterSwitchPanel.setBackground(AlefbetColors.getPanelBackground());
+      letterSwitchPanel
+            .setBackground(app.appColors.alefbet.getPanelBackground());
       letterSwitchPanel.setBorder(BorderFactory
-            .createLineBorder(AlefbetColors.getPanelBackground(), 5));
+            .createLineBorder(app.appColors.alefbet.getPanelBackground(), 5));
       letterSwitchPanel.setLayout(letterSwitchPanelLayout);
 
       JPanel keyboardShufflePanel = new JPanel();
       TotemLayout keyboardShufflePanelLayout = new TotemLayout(
             keyboardShufflePanel, 15);
       keyboardShufflePanel.setOpaque(true);
-      keyboardShufflePanel.setBackground(AlefbetColors.getPanelBackground());
+      keyboardShufflePanel
+            .setBackground(app.appColors.alefbet.getPanelBackground());
       keyboardShufflePanel.setBorder(BorderFactory
-            .createLineBorder(AlefbetColors.getPanelBackground(), 5));
+            .createLineBorder(app.appColors.alefbet.getPanelBackground(), 5));
       keyboardShufflePanel.setLayout(keyboardShufflePanelLayout);
 
       letterSwitchPanel.add(printLettersButton);
@@ -347,32 +386,32 @@ public class LetterPictureAlphabetPanel extends JPanel
 
       this.add(buttonPanel);
 
-      setWriting(switchButtonGroup.getSelection().getActionCommand());
+      setWriting(app, switchButtonGroup.getSelection().getActionCommand());
 
       this.focusTraversalPolicy = new CerebrummiFocusTraversalPolicy(focusList);
    }
 
-   private void setKeyboard(String actionCommand)
+   private void setKeyboard(App app, String actionCommand)
    {
       if (REGULAR == actionCommand)
       {
-         keyboardPrint.makeRegularKeyboard();
-         keyboardHandwritten.makeRegularKeyboard();
+         keyboardPrint.makeRegularKeyboard(app);
+         keyboardHandwritten.makeRegularKeyboard(app);
       }
       else
       {
-         keyboardPrint.shuffleKeyboard();
-         keyboardHandwritten.shuffleKeyboard();
+         keyboardPrint.shuffleKeyboard(app);
+         keyboardHandwritten.shuffleKeyboard(app);
       }
    }
 
-   private void setWriting(String actionCommand)
+   private void setWriting(App app, String actionCommand)
    {
       if (SCHREIBSCHRIFT == actionCommand)
       {
          for (JTextComponent jtc : textFields)
          {
-            jtc.setFont(AppFonts.hebrewHandwrittenFont.deriveFont(30f));
+            jtc.setFont(app.appFonts.hebrewHandwrittenFont.deriveFont(30f));
          }
          cardLayout.show(keyboardPanel, SCHREIBSCHRIFT);
       }
@@ -380,7 +419,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       {
          for (JTextComponent jtc : textFields)
          {
-            jtc.setFont(AppFonts.hebrewFont.deriveFont(30f));
+            jtc.setFont(app.appFonts.hebrewFont.deriveFont(30f));
          }
          cardLayout.show(keyboardPanel, DRUCKSCHRIFT);
       }

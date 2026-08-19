@@ -3,7 +3,7 @@ package vokabeltrainer.panels.letterpicture;
 import javax.swing.JTextField;
 
 import vokabeltrainer.editing.NikudLetter;
-import vokabeltrainer.common.colors.AlefbetColors;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.LetterHelper;
 
 public class LetterTextField extends JTextField
@@ -12,11 +12,11 @@ public class LetterTextField extends JTextField
 
    private NikudLetter letter;
 
-   public LetterTextField(NikudLetter letter)
+   public LetterTextField(App app, NikudLetter letter)
    {
       this.letter = letter;
-      this.setBackground(AlefbetColors.getTextBackground());
-      this.setForeground(AlefbetColors.getTextForeground());
+      this.setBackground(app.appColors.alefbet.getTextBackground());
+      this.setForeground(app.appColors.alefbet.getTextForeground());
    }
 
    public NikudLetter getLetter()

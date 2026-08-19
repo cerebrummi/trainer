@@ -93,6 +93,12 @@ public class GoldenMode extends AppColors
    {
       return darkGreen;
    }
+   
+   @Override
+   public Color getBrightGreen()
+   {
+      return brightGreen;
+   }
 
    @Override
    public Color getSelectionGreen()
@@ -562,6 +568,5 @@ public class GoldenMode extends AppColors
          return transparent;
       }
       
-   }
-   
+   }   
 }

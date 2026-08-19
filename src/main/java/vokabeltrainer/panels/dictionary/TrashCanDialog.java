@@ -14,11 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import vokabeltrainer.TrashCanBackgroundPanel;
-import vokabeltrainer.common.colors.DictionaryColors;
 import vokabeltrainer.common.main.App;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.notifications.EmptyNotification;
 import vokabeltrainer.panels.translation.Translation;
@@ -44,7 +42,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
    private TrashCanControllerConnector connector;
    private Translator translator;
 
-   public TrashCanDialog(App app, Common common, View view, TrashCanControllerConnector connector)
+   public TrashCanDialog(App app, Common common, Model model, View view, TrashCanControllerConnector connector)
    {
       super(view.getjFrame(), "Papierkorb",
             Dialog.ModalityType.APPLICATION_MODAL);
@@ -62,11 +60,11 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       layout.setLayout(new TrainLayout(layout, 15));
       getContentPane().add(layout);
 
-      initGui();
-      initController(common, view);
+      initGui(app);
+      initController(app, common, model, view);
    }
 
-   private void initGui()
+   private void initGui(App app)
    {
       tablePanel = new JPanel(new BorderLayout());
       tablePanel.setMinimumSize(new Dimension(400, 540));
@@ -74,10 +72,10 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       tablePanel.setOpaque(false);
 
       layout.add(tablePanel);
-      layout.add(initControlPanel());
+      layout.add(initControlPanel(app));
    }
 
-   private Component initControlPanel()
+   private Component initControlPanel(App app)
    {
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical, 15));
@@ -87,31 +85,31 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       selectAllInTableButton = new JButton(translator
             .realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
       selectAllInTableButton.setHorizontalAlignment(SwingConstants.LEFT);
-      selectAllInTableButton.setFont(AppFonts.buttonFont);
+      selectAllInTableButton.setFont(app.appFonts.buttonFont);
       selectAllInTableButton
-            .setForeground(DictionaryColors.getButtonForeground());
-      selectAllInTableButton.setBackground(DictionaryColors.getBackground());
+            .setForeground(app.appColors.dictionary.getButtonForeground());
+      selectAllInTableButton.setBackground(app.appColors.dictionary.getBackground());
       selectAllInTableButton
-            .setIcon(new ImageIcon(AppImages.getSelect()));
+            .setIcon(new ImageIcon(app.appImages.getSelect()));
 
       clearInTableSelectedButton = new JButton(translator
             .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
       clearInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
-      clearInTableSelectedButton.setFont(AppFonts.buttonFont);
+      clearInTableSelectedButton.setFont(app.appFonts.buttonFont);
       clearInTableSelectedButton
-            .setForeground(DictionaryColors.getButtonForeground());
+            .setForeground(app.appColors.dictionary.getButtonForeground());
       clearInTableSelectedButton
-            .setBackground(DictionaryColors.getBackground());
+            .setBackground(app.appColors.dictionary.getBackground());
       clearInTableSelectedButton
-            .setIcon(new ImageIcon(AppImages.getClear()));
+            .setIcon(new ImageIcon(app.appImages.getClear()));
 
       restoreButton = new JButton(translator
             .realisticTranslate(Translation.AUSWAHL_WIEDER_HERSTELLEN));
       restoreButton.setHorizontalAlignment(SwingConstants.LEFT);
-      restoreButton.setFont(AppFonts.buttonFont);
-      restoreButton.setForeground(DictionaryColors.getButtonForeground());
-      restoreButton.setBackground(DictionaryColors.getBackground());
-      restoreButton.setIcon(new ImageIcon(AppImages.getRestore()));
+      restoreButton.setFont(app.appFonts.buttonFont);
+      restoreButton.setForeground(app.appColors.dictionary.getButtonForeground());
+      restoreButton.setBackground(app.appColors.dictionary.getBackground());
+      restoreButton.setIcon(new ImageIcon(app.appImages.getRestore()));
 
       vertical.add(selectAllInTableButton);
       vertical.add(clearInTableSelectedButton);
@@ -119,30 +117,30 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       return vertical;
    }
 
-   private void initController(Common common, View view)
+   private void initController(App app, Common common, Model model, View view)
    {
       this.restoreButton.addActionListener(_ -> {
          if (isTableNotNull())
          {
-            connector.restoreSelectedExpressions(common, view,
+            connector.restoreSelectedExpressions(app, common, model, view,
                   table.getSelectedExpressions(false));
          }
       });
 
       this.selectAllInTableButton.addActionListener(_ -> {
-         connector.selectAllExpressionsInTable(common, view);
+         connector.selectAllExpressionsInTable(app, common, model, view);
       });
 
       clearInTableSelectedButton.addActionListener(_ -> {
-         connector.unselectAllExpressionsInTable(common, view);
+         connector.unselectAllExpressionsInTable(app, common, model, view);
       });
    }
 
-   public void doShowTable(Common common, View view, ExpressionTableModel tableModel)
+   public void doShowTable(App app, Common common, View view, ExpressionTableModel tableModel)
    {
       if (tableModel.getRowCount() == 0)
       {
-         EmptyNotification.display(view);
+         EmptyNotification.display(app, view);
       }
       else
       {

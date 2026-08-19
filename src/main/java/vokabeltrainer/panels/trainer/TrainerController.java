@@ -21,12 +21,10 @@ import javax.swing.SwingWorker;
 import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.TextImageWithPicture;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
-import vokabeltrainer.common.main.AppSounds;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.SaveTraining;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.TrainerView;
 import vokabeltrainer.panels.translation.Translation;
@@ -50,7 +48,7 @@ public class TrainerController implements TrainerControllerConnector
    private List<Expression> expressionsToBeTested;
    private Translator translator;
 
-   public TrainerController(Common common, View view, LanguageDirection languageDirection,
+   public TrainerController(App app, Common common, Model model, View view, LanguageDirection languageDirection,
          FieldOfTraining fieldOfTraining, List<Expression> newExpressions,
          List<Expression> oldExpressions)
    {
@@ -61,7 +59,7 @@ public class TrainerController implements TrainerControllerConnector
       this.oldExpressions = oldExpressions;
       allExpressions = new HashSet<>();
 
-      trainerView = new TrainerView(common, view, this);
+      trainerView = new TrainerView(app, common, model, view, this);
 
       newWordsToLearn = this.newExpressions.size();
 
@@ -99,7 +97,7 @@ public class TrainerController implements TrainerControllerConnector
             .setText(String.valueOf(expressionsToBeTested.size()));
 
       Collections.shuffle(expressionsToBeTested);
-      trainerView.init(common, view);
+      trainerView.init(app, common, view);
       EventQueue.invokeLater(new Runnable()
       {
          @Override
@@ -175,10 +173,10 @@ public class TrainerController implements TrainerControllerConnector
       }
    }
 
-   public void setNextTest()
+   public void setNextTest(App app)
    {
-      trainerView.getWordPanelPlene().clear();
-      trainerView.getWordPanelDefektiv().clear();
+      trainerView.getWordPanelPlene().clear(app);
+      trainerView.getWordPanelDefektiv().clear(app);
       currentExpression = expressionsToBeTested.get(0);
 
       switch (languageDirection)
@@ -236,7 +234,7 @@ public class TrainerController implements TrainerControllerConnector
    }
 
    @Override
-   public void send(Common common, View view)
+   public void send(App app, Common common, Model model, View view)
    {
       try
       {
@@ -251,7 +249,7 @@ public class TrainerController implements TrainerControllerConnector
                bestResult = NikudResultFactory.getBestResultPossible(
                      currentExpression,
                      trainerView.getAnswerField().getText().trim(),
-                     AppFonts.hebrewFont.deriveFont(30F));
+                     app.appFonts.hebrewFont.deriveFont(30F));
             }
             else if (LanguageDirection.OWN_TO_SWEDISH == languageDirection)
             {
@@ -269,16 +267,16 @@ public class TrainerController implements TrainerControllerConnector
             if (result.isAnswerEmpty())
             {
                JOptionPane.showMessageDialog(view.getjFrame(), "",
-                     Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                     new ImageIcon(TextImage.make(translator.realisticTranslate(
+                    app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                     new ImageIcon(TextImage.make(app, translator.realisticTranslate(
                            Translation.BITTE_SCHREIBEN_SIE_EINE_ANTWORT))));
                return;
             }
             else if (result.isDictionaryEmpty())
             {
                JOptionPane.showMessageDialog(view.getjFrame(), "",
-                     Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                     new ImageIcon(TextImage.make(translator.realisticTranslate(
+                     app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                     new ImageIcon(TextImage.make(app, translator.realisticTranslate(
                            Translation.IHR_TRAININGSWORT_ENTHAELT_KEINE_BUCHSTABEN_),
                            translator.realisticTranslate(
                                  Translation.BITTE_LOESCHEN_SIE_DIESEN_AUSDRUCK),
@@ -287,7 +285,7 @@ public class TrainerController implements TrainerControllerConnector
                                  + currentExpression.getChapter().getName())));
                return;
             }
-            trainerView.prepareDtoNikudFeedbackPanel(common, result);
+            trainerView.prepareDtoNikudFeedbackPanel(app, common, result);
             if (result.isOkay())
             {
                resultDtoIsOkay(common);
@@ -296,12 +294,12 @@ public class TrainerController implements TrainerControllerConnector
             {
                resultDtoIsNotOkay(common);
             }
-            reactToAnswer(common, view, result.isOkay());
+            reactToAnswer(app, common, model, view, result.isOkay());
             break;
          case HEBREW_TO_OWN:
          case SWEDISH_TO_OWN:
          case GERMAN_TO_OWN:
-            trainerView.prepareHtoDFeedbackPanel(common, view);
+            trainerView.prepareHtoDFeedbackPanel(app, common, model, view);
             break;
          }
 
@@ -368,7 +366,7 @@ public class TrainerController implements TrainerControllerConnector
    }
 
    @Override
-   public void resultHtoDOkay(Common common, View view)
+   public void resultHtoDOkay(App app, Common common, Model model, View view)
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
@@ -387,18 +385,18 @@ public class TrainerController implements TrainerControllerConnector
       }
       trainerView.enableHtoDAnswerButtons(false);
       expressionsToBeTested.remove(0);
-      reactToAnswer(common, view, true);
+      reactToAnswer(app, common, model, view, true);
    }
 
    @Override
-   public void resultHtoDUndecided(Common common, View view)
+   public void resultHtoDUndecided(App app, Common common, Model model, View view)
    {
       trainerView.enableHtoDAnswerButtons(false);
-      reactToAnswer(common, view, null);
+      reactToAnswer(app, common, model, view, null);
    }
 
    @Override
-   public void resultHtoDFalse(Common common, View view)
+   public void resultHtoDFalse(App app, Common common, Model model, View view)
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
@@ -429,16 +427,16 @@ public class TrainerController implements TrainerControllerConnector
          }
       }
       trainerView.enableHtoDAnswerButtons(false);
-      reactToAnswer(common, view, false);
+      reactToAnswer(app, common, model, view, false);
    }
 
-   public void reactToAnswer(Common common, View view, Boolean okay)
+   public void reactToAnswer(App app, Common common, Model model, View view, Boolean okay)
    {
       if (okay == null)
       {
-         if (Settings.isSoundOn())
+         if (app.settings.isSoundOn())
          {
-            reactUndecidedWithSoundOn();
+            reactUndecidedWithSoundOn(app);
          }
          else
          {
@@ -447,9 +445,9 @@ public class TrainerController implements TrainerControllerConnector
       }
       else if (okay)
       {
-         if (Settings.isSoundOn())
+         if (app.settings.isSoundOn())
          {
-            reactOkayWithSoundOn();
+            reactOkayWithSoundOn(app);
          }
          else
          {
@@ -458,9 +456,9 @@ public class TrainerController implements TrainerControllerConnector
       }
       else
       {
-         if (Settings.isSoundOn())
+         if (app.settings.isSoundOn())
          {
-            reactFalseWithSoundOn();
+            reactFalseWithSoundOn(app);
          }
          else
          {
@@ -476,11 +474,11 @@ public class TrainerController implements TrainerControllerConnector
       }
       else
       {
-         stopTraining(common, view, true);
+         stopTraining(app, common, model, view, true);
       }
    }
 
-   private void reactFalseWithSoundOn()
+   private void reactFalseWithSoundOn(App app)
    {
       new SwingWorker<Void, Void>()
       {
@@ -489,10 +487,10 @@ public class TrainerController implements TrainerControllerConnector
          {
             try (Clip clip = AudioSystem.getClip())
             {
-               clip.open(AppSounds.getSplotchSound());
+               clip.open(app.appSound.getSplotchSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
-               volume.setValue(Settings.getVolume());
+               volume.setValue(app.settings.getVolume());
                clip.start();
                do
                {
@@ -514,7 +512,7 @@ public class TrainerController implements TrainerControllerConnector
       trainerView.showResultRed();
    }
 
-   private void reactOkayWithSoundOn()
+   private void reactOkayWithSoundOn(App app)
    {
       new SwingWorker<Void, Void>()
       {
@@ -523,10 +521,10 @@ public class TrainerController implements TrainerControllerConnector
          {
             try (Clip clip = AudioSystem.getClip())
             {
-               clip.open(AppSounds.getClappingSound());
+               clip.open(app.appSound.getClappingSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
-               volume.setValue(Settings.getVolume());
+               volume.setValue(app.settings.getVolume());
                clip.start();
                do
                {
@@ -548,7 +546,7 @@ public class TrainerController implements TrainerControllerConnector
       trainerView.showResultGreen();
    }
 
-   private void reactUndecidedWithSoundOn()
+   private void reactUndecidedWithSoundOn(App app)
    {
       new SwingWorker<Void, Void>()
       {
@@ -557,10 +555,10 @@ public class TrainerController implements TrainerControllerConnector
          {
             try (Clip clip = AudioSystem.getClip())
             {
-               clip.open(AppSounds.getWaveSound());
+               clip.open(app.appSound.getWaveSound());
                FloatControl volume = (FloatControl) clip
                      .getControl(FloatControl.Type.MASTER_GAIN);
-               volume.setValue(Settings.getVolume());
+               volume.setValue(app.settings.getVolume());
                clip.start();
                do
                {
@@ -583,18 +581,18 @@ public class TrainerController implements TrainerControllerConnector
       trainerView.showResultBlue();
    }
 
-   public void stopTraining(Common common, View view, boolean finished)
+   public void stopTraining(App app, Common common, Model model, View view, boolean finished)
    {
-      view.getMainJPanel().moveToStatisticsPanel(common);
+      view.getMainJPanel().moveToStatisticsPanel(app, common, model);
 
       if (finished)
       {
          if (newWordsToLearn > 0 && oldWordsToRepeat > 0)
          {
             JOptionPane.showMessageDialog(view.getjFrame(), "",
-                  Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                  new ImageIcon(TextImageWithPicture.make(
-                        AppImages.getReward(),
+                 app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                  new ImageIcon(TextImageWithPicture.make(app,
+                       app.appImages.getReward(),
                         translator.realisticTranslate(
                               Translation.WUNDERBAR__SIE_HABEN_DIESE),
                         translator.realisticTranslate(
@@ -614,9 +612,9 @@ public class TrainerController implements TrainerControllerConnector
          else if (newWordsToLearn > 0 && oldWordsToRepeat == 0)
          {
             JOptionPane.showMessageDialog(view.getjFrame(), "",
-                  Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                  new ImageIcon(TextImageWithPicture.make(
-                        AppImages.getReward(),
+                 app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                  new ImageIcon(TextImageWithPicture.make(app,
+                        app.appImages.getReward(),
                         translator.realisticTranslate(
                               Translation.WUNDERBAR__SIE_HABEN_DIESE),
                         translator.realisticTranslate(
@@ -632,9 +630,9 @@ public class TrainerController implements TrainerControllerConnector
          else if (newWordsToLearn == 0 && oldWordsToRepeat > 0)
          {
             JOptionPane.showMessageDialog(view.getjFrame(), "",
-                  Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                  new ImageIcon(TextImageWithPicture.make(
-                        AppImages.getReward(),
+                  app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+                  new ImageIcon(TextImageWithPicture.make(app,
+                        app.appImages.getReward(),
                         translator.realisticTranslate(
                               Translation.WUNDERBAR__SIE_HABEN_DIESE),
                         translator.realisticTranslate(
@@ -651,15 +649,15 @@ public class TrainerController implements TrainerControllerConnector
       else if (trainerView.getWordsRight().getText().equals("0"))
       {
          JOptionPane.showMessageDialog(view.getjFrame(), "",
-               Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-               new ImageIcon(TextImage.make(translator.realisticTranslate(
+               app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+               new ImageIcon(TextImage.make(app, translator.realisticTranslate(
                      Translation.DAS_TRAINING_WURDE_ABGEBROCHEN_))));
       }
       else if (trainerView.getWordsRight().getText().equals("1"))
       {
          JOptionPane.showMessageDialog(view.getjFrame(), "",
-               Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-               new ImageIcon(TextImage.make(
+               app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+               new ImageIcon(TextImage.make(app,
                      translator.realisticTranslate(
                            Translation.DAS_TRAINING_WURDE_ABGEBROCHEN_),
                      translator.realisticTranslate(
@@ -670,8 +668,8 @@ public class TrainerController implements TrainerControllerConnector
       else
       {
          JOptionPane.showMessageDialog(view.getjFrame(), "",
-               Settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-               new ImageIcon(TextImage.make(
+               app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
+               new ImageIcon(TextImage.make(app,
                      translator.realisticTranslate(
                            Translation.DAS_TRAINING_WURDE_ABGEBROCHEN_),
                      translator.realisticTranslate(Translation.SIE_HABEN) + " "
@@ -682,10 +680,10 @@ public class TrainerController implements TrainerControllerConnector
                            Translation.ANTWORTEN_GEGEBEN_))));
       }
 
-      saveTraining(view);
+      saveTraining(app, model, view);
    }
 
-   private void saveTraining(View view)
+   private void saveTraining(App app, Model model, View view)
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY == this.fieldOfTraining)
       {
@@ -698,7 +696,7 @@ public class TrainerController implements TrainerControllerConnector
          public void run()
          {
             int counter = 0;
-            while (counter < 10 && !saveTraining.save(view))
+            while (counter < 10 && !saveTraining.save(app, model, view))
             {
                try
                {
@@ -723,7 +721,7 @@ public class TrainerController implements TrainerControllerConnector
                                  + "\n"
                                  + translator.realisticTranslate(
                                        Translation.NICHT_GESPEICHERT_WERDEN_),
-                           Settings.getWindowTitle(),
+                                 app.settings.getWindowTitle(),
                            JOptionPane.WARNING_MESSAGE);
             }
          }
@@ -757,16 +755,15 @@ public class TrainerController implements TrainerControllerConnector
    }
 
    @Override
-   public void toggleSound()
+   public void toggleSound(App app)
    {
-      Settings.toggleSoundOnOff();
-      trainerView.getSoundButton().setIcon(new ImageIcon(Settings.getSound()));
+      app.settings.toggleSoundOnOff();
+      trainerView.getSoundButton().setIcon(new ImageIcon(app.settings.getSound()));
    }
 
    @Override
-   public void toggleLetterPictures()
+   public void toggleLetterPictures(App app)
    {
-      Settings.toggleLetterImagesOnOff();
+      app.settings.toggleLetterImagesOnOff();
    }
-
 }

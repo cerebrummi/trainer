@@ -69,7 +69,7 @@ public class MainView extends JPanel
       this.setOpaque(false);
       this.setBackground(app.appColors.getTransparent());
 
-      startPanel = new StartPanel(app, common, view);
+      startPanel = new StartPanel(app, common, model, view);
       inputPanel = new InputPanel(app, common, model, view);
       dictionaryPanel = new DictionaryController(app, common, model, view).getDictionaryPanel();
       letterPicturesPanel = new AlefbetPanel(app, common);
@@ -292,7 +292,7 @@ public class MainView extends JPanel
                remove(activeComponent);
             }
 
-            TrainerView trainerPanel = new TrainerController(common, view,
+            TrainerView trainerPanel = new TrainerController(app, common, model, view,
                   dialog.getLanguageDirection(), dialog.getFieldOfTraining(),
                   dialog.getNewExpressions(), dialog.getOldExpressions())
                         .getTrainerView();

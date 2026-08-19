@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.types.DatabaseDescription;
 
 public class DatabaseTableMultiselect extends JTable
@@ -18,9 +19,9 @@ public class DatabaseTableMultiselect extends JTable
 
    private MouseListener mouseListener;
 
-   public DatabaseTableMultiselect(DatabaseTableModel model, int totalWidth)
+   public DatabaseTableMultiselect(App app, DatabaseTableModel model, int totalWidth)
    {
-      super(model, new DatabaseTableColumnModel(totalWidth));
+      super(model, new DatabaseTableColumnModel(app, totalWidth));
       this.setShowVerticalLines(false);
       setOpaque(true);
       setRowHeight(40);

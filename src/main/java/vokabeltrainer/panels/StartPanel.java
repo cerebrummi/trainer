@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 
 import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTable;
 import vokabeltrainer.panels.start.table.singleselect.DatabaseTableCopy;
@@ -30,7 +31,7 @@ public class StartPanel extends JPanel
    private Translator translator;
    private App app;
 
-   public StartPanel(App app, Common common, View view)
+   public StartPanel(App app, Common common, Model model, View view)
    {
       this.app = app;
       translator = common.getTranslator();
@@ -102,7 +103,7 @@ public class StartPanel extends JPanel
       center.setBackground(app.appColors.getTransparent());
 
       center.add(initDatabaseTablePanel(app, common));
-      center.add(initCopyTablePanel(app, common, view));
+      center.add(initCopyTablePanel(app, common, model, view));
 
       centerWrapper.add(center);
       add(centerWrapper, BorderLayout.CENTER);
@@ -144,7 +145,7 @@ public class StartPanel extends JPanel
       databaseLabel.setOpaque(true);
       databaseLabel.setBackground(app.appColors.start.getDatabase_Header());
 
-      DatabaseTable databaseTable = new DatabaseTable(common,
+      DatabaseTable databaseTable = new DatabaseTable(app, common,
             Chapter.Database.getModelAvailableDatabases(), 990);
 
       JScrollPane scroller = new JScrollPane(databaseTable);
@@ -167,7 +168,7 @@ public class StartPanel extends JPanel
       return center;
    }
 
-   private Component initCopyTablePanel(App app, Common common, View view)
+   private Component initCopyTablePanel(App app, Common common, Model model, View view)
    {
       JPanel center = new JPanel();
       center.setLayout(new BullsEyeLayout(center));
@@ -185,7 +186,7 @@ public class StartPanel extends JPanel
       databaseLabel.setOpaque(true);
       databaseLabel.setBackground(app.appColors.start.getDatabase_Header());
 
-      DatabaseTableCopy databaseTable = new DatabaseTableCopy(common, view,
+      DatabaseTableCopy databaseTable = new DatabaseTableCopy(app, common, model, view,
             Chapter.Database.getModelCopyAvailableDatabases(), 990);
 
       JScrollPane scroller = new JScrollPane(databaseTable);

@@ -7,8 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.translation.Translation;
@@ -18,7 +17,7 @@ public class ErrorDialog extends JDialog
 {
    private static final long serialVersionUID = -2919642120086961576L;
 
-   public ErrorDialog(Common common, View view, String textA, String textB, String middle, String textD)
+   public ErrorDialog(App app, Common common, View view, String textA, String textB, String middle, String textD)
    {
       super(view.getjFrame(), "", Dialog.ModalityType.MODELESS);
 
@@ -26,20 +25,20 @@ public class ErrorDialog extends JDialog
       JPanel vertical = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(vertical);
       vertical.setLayout(verticalLayout);
-      vertical.setBackground(ColorBase.getWhite());
+      vertical.setBackground(app.appColors.getWhite());
       vertical.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(ColorBase.getDarkRed()),
+            BorderFactory.createLineBorder(app.appColors.getDarkRed()),
             common.getTranslator()
                   .realisticTranslate(Translation.FEHLERMELDUNG)));
 
       JLabel rowA = new JLabel(textA);
-      rowA.setFont(AppFonts.germanFont.deriveFont(24F));
+      rowA.setFont(app.appFonts.germanFont.deriveFont(24F));
       JLabel rowB = new JLabel(textB);
-      rowB.setFont(AppFonts.germanFont.deriveFont(20F));
+      rowB.setFont(app.appFonts.germanFont.deriveFont(20F));
       JLabel rowC = new JLabel(middle);
-      rowC.setFont(AppFonts.germanFont.deriveFont(20F));
+      rowC.setFont(app.appFonts.germanFont.deriveFont(20F));
       JLabel rowD = new JLabel(textD);
-      rowD.setFont(AppFonts.germanFont.deriveFont(16F));
+      rowD.setFont(app.appFonts.germanFont.deriveFont(16F));
 
       vertical.add(rowA);
       vertical.add(new JPanel());

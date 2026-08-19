@@ -9,9 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import vokabeltrainer.common.colors.StartColors;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.types.DatabaseItem;
 
 public class DatabaseTable extends JTable
@@ -19,9 +18,9 @@ public class DatabaseTable extends JTable
    private static final long serialVersionUID = 4815287371476856952L;
    private MouseListener mouseListener;
 
-   public DatabaseTable(Common common, DatabaseTableModel model, int totalWidth)
+   public DatabaseTable(App app, Common common, DatabaseTableModel model, int totalWidth)
    {
-      super(model, new DatabaseTableColumnModel(common, totalWidth));
+      super(model, new DatabaseTableColumnModel(app, common, totalWidth));
       this.setShowVerticalLines(false);
       setOpaque(true);
       setRowHeight(30);
@@ -32,13 +31,13 @@ public class DatabaseTable extends JTable
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       this.setBorder(BorderFactory.createEmptyBorder());
       this.setTableHeader(null);
-      setBackground(StartColors.getDatabase_Item());
+      setBackground(app.appColors.start.getDatabase_Item());
 
-      mouseListener = getMultiselectMouseListener();
+      mouseListener = getMultiselectMouseListener(app);
       addMouseListener(mouseListener);
    }
 
-   private MouseAdapter getMultiselectMouseListener()
+   private MouseAdapter getMultiselectMouseListener(App app)
    {
       return new MouseAdapter()
       {
@@ -59,11 +58,11 @@ public class DatabaseTable extends JTable
 
                if (database.isSelected())
                {
-                  Settings.addChosenDatabase(database.getDatabase());
+                  app.settings.addChosenDatabase(database.getDatabase());
                }
                else
                {
-                  Settings.removeChosenDatabase(database.getDatabase());
+                  app.settings.removeChosenDatabase(database.getDatabase());
                }
 
                ((DatabaseTableModel) table.getModel())

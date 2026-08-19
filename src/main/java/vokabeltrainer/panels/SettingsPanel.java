@@ -686,7 +686,7 @@ public class SettingsPanel extends JPanel
 
       importButton.addActionListener(_ -> {
 
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(common, view,
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(app, common, view,
                translator.realisticTranslate(Translation.IMPORT));
          dialog.setVisible(true);
 
@@ -718,7 +718,7 @@ public class SettingsPanel extends JPanel
                         overwriteDatabaseNames, pathOfFolderOrFile))
                   {
                      SaveExpressions saver = new SaveExpressions(app, model);
-                     saver.save(common, view);
+                     saver.save(app, common, view);
                   }
 
                   return null;
@@ -730,7 +730,7 @@ public class SettingsPanel extends JPanel
 
       exportButton.addActionListener(_ -> {
 
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(common, view, translator
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(app, common, view, translator
                .realisticTranslate(Translation.EXPORT_ALLER_VOKABELN));
          dialog.setVisible(true);
 
@@ -759,7 +759,7 @@ public class SettingsPanel extends JPanel
                protected Void doInBackground() throws Exception
                {
                   SaveExpressions saver = new SaveExpressions(pathOfFolder);
-                  saver.export(common, view, databaseName, overwriteDatabaseNames);
+                  saver.export(app, common, view, databaseName, overwriteDatabaseNames);
 
                   return null;
                }
@@ -769,7 +769,7 @@ public class SettingsPanel extends JPanel
       });
 
       this.exportSelectedButton.addActionListener(_ -> {
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(common, view, translator
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(app, common, view, translator
                .realisticTranslate(Translation.EXPORT_MARKIERTER_VOKABELN));
          dialog.setVisible(true);
 
@@ -798,7 +798,7 @@ public class SettingsPanel extends JPanel
                protected Void doInBackground() throws Exception
                {
                   SaveExpressions saver = new SaveExpressions(pathOfFolder);
-                  saver.export(common, view, databaseName, overwriteDatabaseNames, true);
+                  saver.export(app, common, view, databaseName, overwriteDatabaseNames, true);
 
                   return null;
                }
@@ -823,7 +823,7 @@ public class SettingsPanel extends JPanel
             return;
          }
 
-         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(common, view, translator
+         InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(app, common, view, translator
                .realisticTranslate(Translation.EXPORT_EINER_DATENBANK));
          dialog.setVisible(true);
 
@@ -852,7 +852,7 @@ public class SettingsPanel extends JPanel
                protected Void doInBackground() throws Exception
                {
                   SaveExpressions saver = new SaveExpressions(pathOfFolder);
-                  saver.export(common, view, databaseName, overwriteDatabaseNames,
+                  saver.export(app, common, view, databaseName, overwriteDatabaseNames,
                         databaseChoosen);
                   return null;
                }
@@ -895,7 +895,7 @@ public class SettingsPanel extends JPanel
             protected Void doInBackground() throws Exception
             {
                model.data.deleteExpressionsOfDatabase(common, databaseChoosen);
-               new SaveExpressions(app, model).save(common, view);
+               new SaveExpressions(app, model).save(app, common, view);
                return null;
             }
 

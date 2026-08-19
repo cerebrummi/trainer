@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JList;
 import javax.swing.KeyStroke;
 
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 
 public class ExpressionList extends JList<String>
 {
@@ -16,9 +16,11 @@ public class ExpressionList extends JList<String>
    private static final long serialVersionUID = -8585511215166225268L;
 
    private boolean withLock;
+   private App app;
 
-   public ExpressionList()
+   public ExpressionList(App app)
    {
+      this.app = app;
       setSelectionModel(new ExpressionListSelectionModel());
       setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
       setVisibleRowCount(3);
@@ -28,7 +30,7 @@ public class ExpressionList extends JList<String>
             new Object());
       getActionMap().get("clearSelection").setEnabled(true);
 
-      setCellRenderer(new ExpressionListCellRenderer());
+      setCellRenderer(new ExpressionListCellRenderer(app));
    }
 
    @Override
@@ -37,7 +39,7 @@ public class ExpressionList extends JList<String>
       super.paintComponent(g);
       if (withLock)
       {
-         g.drawImage(AppImages.getLock(), 0, 0, this);
+         g.drawImage(app.appImages.getLock(), 0, 0, this);
       }
    }
 

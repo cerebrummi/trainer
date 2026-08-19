@@ -48,7 +48,7 @@ public class AlefbetPanel extends JPanel
       horizontal.setOpaque(false);
       horizontal.setBackground(app.appColors.getTransparent());
 
-      this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel(common);
+      this.letterPictureAlphabetPanel = new LetterPictureAlphabetPanel(app, common);
       letterPictureAlphabetPanel.setOpaque(false);
       letterPictureAlphabetPanel.setBackground(app.appColors.getTransparent());
 

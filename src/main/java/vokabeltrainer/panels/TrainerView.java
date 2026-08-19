@@ -38,6 +38,7 @@ import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.editing.GermanDocument;
 import vokabeltrainer.editing.NikudDocument;
@@ -114,7 +115,7 @@ public class TrainerView extends JPanel
    private JButton imageButton = new ImageButton();
    private JButton wordSoundButton = new ImageButton();
 
-   public TrainerView(App app, Common common, View view, TrainerControllerConnector connector)
+   public TrainerView(App app, Common common, Model model, View view, TrainerControllerConnector connector)
    {
       this.connector = connector;
       translator = common.getTranslator();
@@ -129,7 +130,7 @@ public class TrainerView extends JPanel
       setBorder(BorderFactory.createEmptyBorder());
       initGui(app);
       this.add(verticalTrainerPanel);
-      initController(app, common, view);
+      initController(app, common, model, view);
    }
 
    public void init(App app, Common common, View view)
@@ -199,7 +200,7 @@ public class TrainerView extends JPanel
          break;
       }
 
-      connector.setNextTest();
+      connector.setNextTest(app);
 
       this.textFieldPanelWrapper.validate();
       this.textFieldPanelWrapper.repaint();
@@ -757,11 +758,11 @@ public class TrainerView extends JPanel
       return vertical;
    }
 
-   private void initController(App app, Common common, View view)
+   private void initController(App app, Common common, Model model, View view)
    {
-      sendButton.addActionListener(_ -> connector.send(common, view));
+      sendButton.addActionListener(_ -> connector.send(app, common, model, view));
 
-      nextWordButton.addActionListener(_ -> nextWord());
+      nextWordButton.addActionListener(_ -> nextWord(app));
 
       infoStopTrainingButton.addActionListener(
             _ -> JOptionPane.showMessageDialog(infoStopTrainingPanel, "",
@@ -810,10 +811,10 @@ public class TrainerView extends JPanel
       });
 
       stopTrainingButton.addActionListener(_ -> {
-         connector.stopTraining(common, view, false);
+         connector.stopTraining(app, common, model, view, false);
       });
 
-      this.soundButton.addActionListener(_ -> connector.toggleSound());
+      this.soundButton.addActionListener(_ -> connector.toggleSound(app));
 
       soundslider.addChangeListener(_ -> {
          if (!soundslider.getValueIsAdjusting())
@@ -822,7 +823,7 @@ public class TrainerView extends JPanel
          }
       });
 
-      pictureToggleBox.addActionListener(_ -> connector.toggleLetterPictures());
+      pictureToggleBox.addActionListener(_ -> connector.toggleLetterPictures(app));
 
       initControllerImageButton(common, view);
       initControllerWordButton();
@@ -854,12 +855,12 @@ public class TrainerView extends JPanel
       });
    }
 
-   public void setHtoDanswerButtons(App app, Common common, View view)
+   public void setHtoDanswerButtons(App app, Common common, Model model, View view)
    {
       answerOkay = new JButton(
             new ImageIcon(app.appImages.getAnswerOkay()));
       answerOkay.addActionListener(_ -> {
-         connector.resultHtoDOkay(common, view);
+         connector.resultHtoDOkay(app, common, model, view);
       });
       answerOkay.setMinimumSize(new Dimension(150, 110));
       answerOkay.setMaximumSize(new Dimension(150, 110));
@@ -869,7 +870,7 @@ public class TrainerView extends JPanel
       answerUndecided = new JButton(
             new ImageIcon(app.appImages.getAnswerUndecided()));
       answerUndecided.addActionListener(_ -> {
-         connector.resultHtoDUndecided(common, view);
+         connector.resultHtoDUndecided(app, common, model, view);
       });
       answerUndecided.setMinimumSize(new Dimension(150, 110));
       answerUndecided.setMaximumSize(new Dimension(150, 110));
@@ -879,7 +880,7 @@ public class TrainerView extends JPanel
       answerNotOkay = new JButton(
             new ImageIcon(app.appImages.getAnswerNotOkay()));
       answerNotOkay.addActionListener(_ -> {
-         connector.resultHtoDFalse(common, view);
+         connector.resultHtoDFalse(app, common, model, view);
       });
       answerNotOkay.setMinimumSize(new Dimension(150, 110));
       answerNotOkay.setMaximumSize(new Dimension(150, 110));
@@ -894,7 +895,7 @@ public class TrainerView extends JPanel
       this.answerNotOkay.setEnabled(b);
    }
 
-   public void prepareHtoDFeedbackPanel(App app, Common common, View view)
+   public void prepareHtoDFeedbackPanel(App app, Common common, Model model, View view)
    {
       JPanel outerVertical = new JPanel();
       outerVertical.setLayout(new TotemLayout(outerVertical));
@@ -944,7 +945,7 @@ public class TrainerView extends JPanel
       answerPanel2.setMaximumSize(new Dimension(501, 100));
       answerPanel2.setBackground(app.appColors.trainer.getPanelBackground());
 
-      setHtoDanswerButtons(app, common, view);
+      setHtoDanswerButtons(app, common, model, view);
       answerPanel2.add(answerOkay);
       answerPanel2.add(answerUndecided);
       answerPanel2.add(answerNotOkay);
@@ -961,7 +962,7 @@ public class TrainerView extends JPanel
       feedbackPanel.add(outerVertical);
    }
 
-   public void nextWord()
+   public void nextWord(App app)
    {
       nextWordButton.setEnabled(false);
       cardLayout.show(swapPanel, "START");
@@ -980,7 +981,7 @@ public class TrainerView extends JPanel
       pictureWordPanelPlene.removeAll();
       pictureWordPanelDefektiv.removeAll();
 
-      connector.setNextTest();
+      connector.setNextTest(app);
       answerField.grabFocus();
       answerField.requestFocusInWindow();
    }
@@ -1141,7 +1142,7 @@ public class TrainerView extends JPanel
       if (result.getExpression().getLL().isSimpleHebrew())
       {
          pictureWordPanelPlene
-               .displayNikudWord(common, result.getExpression().getLL().getHebrew());
+               .displayNikudWord(app, common, result.getExpression().getLL().getHebrew());
       }
       else if (result.getExpression().getLL().isSwedish())
       {
@@ -1153,9 +1154,9 @@ public class TrainerView extends JPanel
       }
       else
       {
-         pictureWordPanelPlene.displayNikudWord(common,
+         pictureWordPanelPlene.displayNikudWord(app, common,
                result.getExpression().getLL().getHebrewPlene());
-         pictureWordPanelDefektiv.displayNikudWord(common,
+         pictureWordPanelDefektiv.displayNikudWord(app, common,
                result.getExpression().getLL().getHebrewDefektiv());
       }
    }

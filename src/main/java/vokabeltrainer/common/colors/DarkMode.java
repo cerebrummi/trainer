@@ -93,6 +93,12 @@ public class DarkMode extends AppColors
    {
       return green;
    }
+   
+   @Override
+   public Color getBrightGreen()
+   {
+      return brightGreen;
+   }
 
    @Override
    public Color getSelectionGreen()

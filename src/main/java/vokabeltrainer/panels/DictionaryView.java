@@ -1026,7 +1026,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       names.add(translator.realisticTranslate(Translation.DATENBANK));
       databaseTableModel = new DatabaseTableModel(model.data.getDatabaseArray(),
             names);
-      DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(
+      DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(app,
             databaseTableModel, app.settings.getKeyboardWidth());
       JScrollPane scroller = new JScrollPane(databaseTable);
       scroller.setMinimumSize(new Dimension(app.settings.getKeyboardWidth(), 300));
@@ -1044,7 +1044,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       chapterPanel.removeAll();
       listSelectionModel = new ChapterListSelectionModel();
       addChapterListSelectionListener();
-      chapterList = new ChapterList(listSelectionModel);
+      chapterList = new ChapterList(app, listSelectionModel);
       chapterList.setListData(
             model.data.getChapterArray(common, databaseTableModel.getSelectedRows()));
       chapterList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
