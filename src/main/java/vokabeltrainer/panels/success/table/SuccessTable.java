@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import vokabeltrainer.common.colors.SuccessColors;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.Expression;
 
@@ -16,21 +16,21 @@ public class SuccessTable extends JTable
 {
    private static final long serialVersionUID = 853537882592595897L;
 
-   public SuccessTable(Common common, SuccessTableModel model)
+   public SuccessTable(App app, Common common, SuccessTableModel model)
    {
-      super(model, new SuccessTableColumnModel(common));
+      super(model, new SuccessTableColumnModel(app, common));
       this.setShowVerticalLines(true);
       setOpaque(true);
       setRowHeight(75);
       setShowHorizontalLines(true);
-      setBackground(SuccessColors.getTableBackground());
+      setBackground(app.appColors.success.getTableBackground());
       this.setRowSelectionAllowed(false);
       this.setColumnSelectionAllowed(false);
       this.setCellSelectionEnabled(false);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-      headerRenderer.setForeground(SuccessColors.getTextForeground());
-      headerRenderer.setBackground(SuccessColors.getPanelBackgroundLight());
+      headerRenderer.setForeground(app.appColors.success.getTextForeground());
+      headerRenderer.setBackground(app.appColors.success.getPanelBackgroundLight());
       this.getTableHeader().setDefaultRenderer(headerRenderer);
 
       addMouseListener(new MouseAdapter()

@@ -12,8 +12,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.colors.StatisticsColors;
-import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.App;
 
 public class StatisticsTableCellRenderer
       implements TableCellRenderer, TableCellEditor
@@ -21,10 +20,12 @@ public class StatisticsTableCellRenderer
    private JLabel date;
    private JLabel expressionsDtoH;
    private JLabel expressionsHtoD;
+   private App app;
 
-   public StatisticsTableCellRenderer()
+   public StatisticsTableCellRenderer(App app)
    {
-      Font font = AppFonts.germanFont.deriveFont(20F);
+      this.app = app;
+      Font font = app.appFonts.germanFont.deriveFont(20F);
       date = new JLabel();
       date.setFont(font);
       date.setOpaque(true);
@@ -51,15 +52,15 @@ public class StatisticsTableCellRenderer
          date.setText(renderedRow.getDate());
          if (now.isBefore(renderedRow.getLocalDate()))
          {
-            date.setBackground(StatisticsColors.getFuture());
+            date.setBackground(app.appColors.statistics.getFuture());
          }
          else if (now.isAfter(renderedRow.getLocalDate()))
          {
-            date.setBackground(StatisticsColors.getToLate());
+            date.setBackground(app.appColors.statistics.getToLate());
          }
          else
          {
-            date.setBackground(StatisticsColors.getToday());
+            date.setBackground(app.appColors.statistics.getToday());
          }
          return date;
       }
@@ -69,15 +70,15 @@ public class StatisticsTableCellRenderer
          if (isSelected)
          {
             expressionsHtoD
-                  .setBackground(StatisticsColors.getSelectedBackground());
-            expressionsHtoD.setForeground(StatisticsColors.getTextForeground());
+                  .setBackground(app.appColors.statistics.getSelectedBackground());
+            expressionsHtoD.setForeground(app.appColors.statistics.getTextForeground());
          }
          else
          {
             expressionsHtoD
-                  .setBackground(StatisticsColors.getTableCellBackground());
+                  .setBackground(app.appColors.statistics.getTableCellBackground());
             expressionsHtoD
-                  .setForeground(StatisticsColors.getTextForegroundInvers());
+                  .setForeground(app.appColors.statistics.getTextForegroundInvers());
          }
          expressionsHtoD
                .setText(String.valueOf(renderedRow.getExpressionsHtoDSize()));
@@ -88,15 +89,15 @@ public class StatisticsTableCellRenderer
       if (isSelected)
       {
          expressionsDtoH
-               .setBackground(StatisticsColors.getSelectedBackground());
-         expressionsDtoH.setForeground(StatisticsColors.getTextForeground());
+               .setBackground(app.appColors.statistics.getSelectedBackground());
+         expressionsDtoH.setForeground(app.appColors.statistics.getTextForeground());
       }
       else
       {
          expressionsDtoH
-               .setBackground(StatisticsColors.getTableCellBackground());
+               .setBackground(app.appColors.statistics.getTableCellBackground());
          expressionsDtoH
-               .setForeground(StatisticsColors.getTextForegroundInvers());
+               .setForeground(app.appColors.statistics.getTextForegroundInvers());
       }
       expressionsDtoH
             .setText(String.valueOf(renderedRow.getExpressionsDtoHSize()));

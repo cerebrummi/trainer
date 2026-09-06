@@ -13,7 +13,7 @@ public final class ImportExpressions
       this.model = model;
    }
    
-   public boolean importExpressions(Common common, String databaseName,
+   public boolean importExpressions(App app, Common common, String databaseName,
          boolean overwriteDatabaseNames, String databasePath)
    {
       ProgressMonitor bar = new ProgressMonitor(null,
@@ -28,7 +28,7 @@ public final class ImportExpressions
       {
          if (model.data.lockDataBase(uuidSearchLock))
          {
-            return (model.data.importDatabase(common, databasePath, databaseName,
+            return (model.data.importDatabase(app, common, databasePath, databaseName,
                   overwriteDatabaseNames));
          }
          return false;

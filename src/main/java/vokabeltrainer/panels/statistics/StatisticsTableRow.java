@@ -11,9 +11,8 @@ import java.util.Locale;
 import javax.swing.JPanel;
 
 import vokabeltrainer.ExpressionComparator;
-import vokabeltrainer.common.colors.StatisticsColors;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.TranslationCode;
 import vokabeltrainer.panels.translation.Translator;
@@ -32,7 +31,7 @@ public class StatisticsTableRow
    private List<Expression> expressionsHtoD;
    private List<Expression> expressionsDtoH;
 
-   public StatisticsTableRow(Common common, int row, LocalDate date,
+   public StatisticsTableRow(App app, Common common, int row, LocalDate date,
          List<Expression> expressionsDtoH, List<Expression> expressionsHtoD,
          StatisticsTableModel model)
    {
@@ -41,16 +40,16 @@ public class StatisticsTableRow
       this.expressionsDtoH = expressionsDtoH;
       this.expressionsHtoD = expressionsHtoD;
       translator = common.getTranslator();
-      if (TranslationCode.de_original == Settings.getTranslationCode())
+      if (TranslationCode.de_original == app.settings.getTranslationCode())
       {
          dateFormatter = DateTimeFormatter.ofPattern(
-               "EEEE " + translator.realisticTranslate(Translation._DATE),
+               "EEEE " + translator.realisticTranslate(app, Translation._DATE),
                Locale.GERMANY);
       }
-      else if (TranslationCode.en == Settings.getTranslationCode())
+      else if (TranslationCode.en == app.settings.getTranslationCode())
       {
          dateFormatter = DateTimeFormatter.ofPattern(
-               "EEEE " + translator.realisticTranslate(Translation._DATE),
+               "EEEE " + translator.realisticTranslate(app, Translation._DATE),
                Locale.US);
       }
 
@@ -83,33 +82,33 @@ public class StatisticsTableRow
       return date;
    }
 
-   public Component getJListHtoD(Common common)
+   public Component getJListHtoD(App app, Common common)
    {
       JPanel list = new JPanel();
       list.setOpaque(true);
-      list.setBackground(StatisticsColors.getSelectedBackground());
+      list.setBackground(app.appColors.statistics.getSelectedBackground());
       LayoutManager layout = new TotemLayout(list);
       list.setLayout(layout);
 
       for (Expression expression : expressionsHtoD)
       {
-         list.add(new ListImageRow(common, expression, Direction.NEW_TO_OWN));
+         list.add(new ListImageRow(app, common, expression, Direction.NEW_TO_OWN));
       }
 
       return list;
    }
 
-   public Component getJListDtoH(Common common)
+   public Component getJListDtoH(App app, Common common)
    {
       JPanel list = new JPanel();
       list.setOpaque(true);
-      list.setBackground(StatisticsColors.getSelectedBackground());
+      list.setBackground(app.appColors.statistics.getSelectedBackground());
       LayoutManager layout = new TotemLayout(list);
       list.setLayout(layout);
 
       for (Expression expression : expressionsDtoH)
       {
-         list.add(new ListImageRow(common, expression, Direction.OWN_TO_NEW));
+         list.add(new ListImageRow(app, common, expression, Direction.OWN_TO_NEW));
       }
 
       return list;

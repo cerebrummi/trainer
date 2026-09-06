@@ -569,4 +569,10 @@ public class DarkMode extends AppColors
       }
       
    }
+
+   @Override
+   public Color getRed()
+   {
+      return red;
+   }
 }

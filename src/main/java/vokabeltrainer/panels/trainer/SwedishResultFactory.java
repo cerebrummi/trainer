@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import vokabeltrainer.InputLanguagePanel.Selection;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
@@ -21,17 +22,17 @@ public class SwedishResultFactory
       // nothing
    }
 
-   public static BestResult getBestResultPossible(Expression expression,
+   public static BestResult getBestResultPossible(App app, Expression expression,
          String answer)
 
    {
       BestResult bestResult = new BestResult(Selection.SWEDISH);
       bestResult
-            .setResultSwedish(getResultDtoSwedishSentence(expression, answer));
+            .setResultSwedish(getResultDtoSwedishSentence(app, expression, answer));
       return bestResult;
    }
 
-   public static Result getResultDtoSwedishSentence(Expression expression,
+   public static Result getResultDtoSwedishSentence(App app, Expression expression,
          String answer)
    {
       String[] expressionArray = expression.getLL().getSwedish()
@@ -41,7 +42,7 @@ public class SwedishResultFactory
 
       if (expressionArray.length == 1 && answerArray.length == 1)
       {
-         return getResultDtoSwedish(expression, answer);
+         return getResultDtoSwedish(app, expression, answer);
       }
 
       if (expressionArray.length == answerArray.length)
@@ -51,7 +52,7 @@ public class SwedishResultFactory
          List<Result> resultList = new ArrayList<>(expressionArray.length);
          for (int i = 0; i < expressionArray.length; i++)
          {
-            resultList.add(getResultDtoSwedishString(expressionArray[i],
+            resultList.add(getResultDtoSwedishString(app, expressionArray[i],
                   answerArray[i], new Result()));
          }
 
@@ -69,7 +70,7 @@ public class SwedishResultFactory
                   && singleResult.isDictionaryEmpty());
             if (index > 0)
             {
-               result.addFeedbackImage(LetterFeedbackImage.makeSpace());
+               result.addFeedbackImage(LetterFeedbackImage.makeSpace(app));
                result.addAnswerSpace(
                      new LetterForAnalysis(SwedishLetter.SPACE));
                result.addDictionarySpace(
@@ -85,20 +86,20 @@ public class SwedishResultFactory
          return result;
       }
 
-      return getResultDtoSwedish(expression, answer);
+      return getResultDtoSwedish(app, expression, answer);
    }
 
-   private static Result getResultDtoSwedish(Expression expression,
+   private static Result getResultDtoSwedish(App app, Expression expression,
          String answer)
    {
       Result result = new Result();
       result.setExpression(expression);
 
-      return getResultDtoSwedishString(expression.getLL().getSwedish(), answer,
+      return getResultDtoSwedishString(app, expression.getLL().getSwedish(), answer,
             result);
    }
 
-   private static Result getResultDtoSwedishString(String dictionary,
+   private static Result getResultDtoSwedishString(App app, String dictionary,
          String answer, Result result)
    {
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
@@ -126,7 +127,7 @@ public class SwedishResultFactory
          boolean letterresult = LetterHelper
                .areLettersEqual(dictionaryList.get(i), answerList.get(i));
 
-         feedbackImageList.add(LetterFeedbackImage.make(dictionaryList.get(i),
+         feedbackImageList.add(LetterFeedbackImage.make(app, dictionaryList.get(i),
                answerList.get(i), letterresult));
          result.setOkay(result.isOkay() && letterresult);
       }

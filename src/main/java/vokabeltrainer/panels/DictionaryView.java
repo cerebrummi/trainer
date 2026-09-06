@@ -158,7 +158,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             .setLayout(new TrainLayout(horizontalLanguagePanel, 15));
       horizontalLanguagePanel.setBackground(app.appColors.dictionary.getBackground());
       horizontalLanguagePanel.setBorder(BorderFactory.createTitledBorder(
-            translator.realisticTranslate(Translation.SPRACHEN)));
+            translator.realisticTranslate(app, Translation.SPRACHEN)));
       languageGroup = new ButtonGroup();
       initLanguageButtonGroup(app, languageGroup);
       Enumeration<AbstractButton> enumeration1 = languageGroup.getElements();
@@ -180,24 +180,24 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       horizontalSortPanel.setOpaque(true);
       horizontalSortPanel.setBackground(app.appColors.dictionary.getBackground());
       horizontalSortPanel.setBorder(BorderFactory.createTitledBorder(
-            translator.realisticTranslate(Translation.TABELLE_SORTIEREN_NACH)));
+            translator.realisticTranslate(app, Translation.TABELLE_SORTIEREN_NACH)));
 
       sortForAlphabetBox = new JRadioButton(
-            translator.realisticTranslate(Translation.ALFABET));
+            translator.realisticTranslate(app, Translation.ALFABET));
       sortForAlphabetBox.setFont(app.appFonts.radioButtonFont);
       sortForAlphabetBox.setMinimumSize(new Dimension(70, 30));
       sortForAlphabetBox.setMaximumSize(new Dimension(100, 60));
       sortForAlphabetBox.setActionCommand(SortingType.ALPHABET.name());
 
       sortForDateBox = new JRadioButton(
-            translator.realisticTranslate(Translation.DATUM));
+            translator.realisticTranslate(app, Translation.DATUM));
       sortForDateBox.setFont(app.appFonts.radioButtonFont);
       sortForDateBox.setMinimumSize(new Dimension(70, 30));
       sortForDateBox.setMaximumSize(new Dimension(100, 60));
       sortForDateBox.setActionCommand(SortingType.DATE.name());
 
       sortForIndexBox = new JRadioButton(
-            translator.realisticTranslate(Translation.INDEX));
+            translator.realisticTranslate(app, Translation.INDEX));
       sortForIndexBox.setFont(app.appFonts.radioButtonFont);
       sortForIndexBox.setMinimumSize(new Dimension(70, 30));
       sortForIndexBox.setMaximumSize(new Dimension(100, 60));
@@ -219,15 +219,15 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       tabbedPane.setOpaque(true);
       tabbedPane.setBackground(app.appColors.dictionary.getBackground());
       tabbedPane.setFont(app.appFonts.buttonFont);
-      tabbedPane.addTab(translator.realisticTranslate(Translation.DATENBANK),
+      tabbedPane.addTab(translator.realisticTranslate(app, Translation.DATENBANK),
             initDatabaseTab());
-      tabbedPane.addTab(translator.realisticTranslate(Translation.LEKTIONEN),
+      tabbedPane.addTab(translator.realisticTranslate(app, Translation.LEKTIONEN),
             initChaptersTab());
-      tabbedPane.addTab(translator.realisticTranslate(Translation.SUCHE),
+      tabbedPane.addTab(translator.realisticTranslate(app, Translation.SUCHE),
             initSearchTab(app, common, model, view));
-      tabbedPane.addTab(translator.realisticTranslate(Translation.WORTARTEN),
+      tabbedPane.addTab(translator.realisticTranslate(app, Translation.WORTARTEN),
             initExpressionKindsTab(app, common, view));
-      tabbedPane.addTab(translator.realisticTranslate(Translation.AUSWAHL),
+      tabbedPane.addTab(translator.realisticTranslate(app, Translation.AUSWAHL),
             initSelectedTab(app, common, model));
       tabbedPane.setMinimumSize(new Dimension(420, 400));
       tabbedPane.setMaximumSize(new Dimension(600, 700));
@@ -306,11 +306,11 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       mySearch.setOpaque(false);
 
       mySearch.add(new JLabel(
-            translator.realisticTranslate(Translation.STELLEN_SIE_UM)));
+            translator.realisticTranslate(app, Translation.STELLEN_SIE_UM)));
 
       searchPhraseMy = new JTextField();
       searchPhraseMy.setBorder(new TitledBorder(translator
-            .realisticTranslate(Translation.WORT_AUF_DEUTSCH_EINGEBEN)));
+            .realisticTranslate(app, Translation.WORT_AUF_DEUTSCH_EINGEBEN)));
       mySearch.add(searchPhraseMy);
       searchPhraseMy.setMinimumSize(
             new Dimension(app.settings.getKeyboardWidth() + 50, 70));
@@ -331,7 +331,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             Direction.OWN_TO_NEW));
 
       mySearchButton = new JButton(
-            translator.realisticTranslate(Translation.SUCHE_STARTEN));
+            translator.realisticTranslate(app, Translation.SUCHE_STARTEN));
       mySearchButton.setBackground(app.appColors.dictionary.getButton());
       mySearchButton.setForeground(app.appColors.dictionary.getButtonForeground());
       mySearchButton.setFont(app.appFonts.buttonFont);
@@ -350,7 +350,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       searchPhraseOther = new JTextField();
       searchPhraseOther.setBorder(new TitledBorder(translator
-            .realisticTranslate(Translation.WORT_AUF_HEBRAISCH_EINGEBEN)));
+            .realisticTranslate(app, Translation.WORT_AUF_HEBRAISCH_EINGEBEN)));
 
       JPanel filler2 = new JPanel();
       filler2.setOpaque(false);
@@ -380,7 +380,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       }
 
       otherSearchButton = new JButton(
-            translator.realisticTranslate(Translation.SUCHE_STARTEN));
+            translator.realisticTranslate(app, Translation.SUCHE_STARTEN));
       otherSearchButton.setBackground(app.appColors.dictionary.getButton());
       otherSearchButton.setForeground(app.appColors.dictionary.getButtonForeground());
       otherSearchButton.setFont(app.appFonts.buttonFont);
@@ -394,7 +394,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       otherSearch.add(filler2);
       otherSearch.add(new JLabel(
-            translator.realisticTranslate(Translation.SPRACHE_UMSTELLEN)));
+            translator.realisticTranslate(app, Translation.SPRACHE_UMSTELLEN)));
       otherSearch.add(keyboard);
       otherSearch.add(initSearchRadioButtonPanel(app, common, searchTypeGroupHebrew,
             Direction.NEW_TO_OWN));
@@ -481,12 +481,12 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       chapterChoiceBox = new JComboBox<>();
       chapterChoiceBox.setEditable(true);
-      chapterChoiceBox.setModel(model.data.getChapterComboBoxModel());
+      chapterChoiceBox.setModel(model.data.getChapterComboBoxModel(app));
       chapterChoiceBox.setMinimumSize(new Dimension(250, 30));
       chapterChoiceBox.setMaximumSize(new Dimension(250, 30));
 
       moveToChapterButton = new JButton(translator
-            .realisticTranslate(Translation.AUSWAHL_ZUR_LEKTION_VERSCHIEBEN));
+            .realisticTranslate(app, Translation.AUSWAHL_ZUR_LEKTION_VERSCHIEBEN));
       moveToChapterButton.setBackground(app.appColors.dictionary.getButton());
       moveToChapterButton.setForeground(app.appColors.dictionary.getButtonForeground());
       moveToChapterButton.setFont(app.appFonts.buttonFont);
@@ -507,7 +507,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       databaseChoiceBox.setMaximumSize(new Dimension(250, 30));
 
       moveToDatabaseButton = new JButton(translator
-            .realisticTranslate(Translation.AUSWAHL_ZUR_DATENBANK_VERSCHIEBEN));
+            .realisticTranslate(app, Translation.AUSWAHL_ZUR_DATENBANK_VERSCHIEBEN));
       moveToDatabaseButton.setBackground(app.appColors.dictionary.getButton());
       moveToDatabaseButton
             .setForeground(app.appColors.dictionary.getButtonForeground());
@@ -549,7 +549,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       scroller.setMinimumSize(new Dimension(400, 470));
       scroller.setMaximumSize(new Dimension(400, 470));
       scroller.setBorder(BorderFactory.createTitledBorder(translator
-            .realisticTranslate(Translation.DOPPELCLICK)));
+            .realisticTranslate(app, Translation.DOPPELCLICK)));
 
       JPanel scrollerWrapper = new JPanel();
       scrollerWrapper.setOpaque(false);
@@ -571,20 +571,20 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       vertical.setLayout(new TotemLayout(vertical));
 
       copyAllSelectedButton = new JButton(
-            translator.realisticTranslate(Translation.GESAMTAUSWAHL_KOPIEREN));
+            translator.realisticTranslate(app, Translation.GESAMTAUSWAHL_KOPIEREN));
       copyAllSelectedButton.setBackground(app.appColors.dictionary.getButton());
       copyAllSelectedButton
             .setForeground(app.appColors.dictionary.getButtonForeground());
       copyAllSelectedButton.setFont(app.appFonts.buttonFont);
       copyAllSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyAllSelectedButton.setIcon(new ImageIcon(app.appImages.getCopy()));
-      copyAllSelectedButton.setToolTipText(translator.realisticTranslate(
+      copyAllSelectedButton.setToolTipText(translator.realisticTranslate(app, 
             Translation.NUR_SELBST_EINGEGEBENE_VOKABELN_KOENNEN_KOPIERT_WERDEN));
       copyAllSelectedButton.setMinimumSize(new Dimension(200, 40));
       copyAllSelectedButton.setMaximumSize(new Dimension(600, 40));
 
       copyInTableSelectedButton = new JButton(translator
-            .realisticTranslate(Translation.TABELLENAUSWAHL_KOPIEREN));
+            .realisticTranslate(app, Translation.TABELLENAUSWAHL_KOPIEREN));
       copyInTableSelectedButton.setBackground(app.appColors.dictionary.getButton());
       copyInTableSelectedButton
             .setForeground(app.appColors.dictionary.getButtonForeground());
@@ -592,25 +592,25 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       copyInTableSelectedButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyInTableSelectedButton
             .setIcon(new ImageIcon(app.appImages.getCopy()));
-      copyInTableSelectedButton.setToolTipText(translator.realisticTranslate(
+      copyInTableSelectedButton.setToolTipText(translator.realisticTranslate(app, 
             Translation.NUR_SELBST_EINGEGEBENE_VOKABELN_KOENNEN_KOPIERT_WERDEN));
       copyInTableSelectedButton.setMinimumSize(new Dimension(200, 40));
       copyInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
 
       copyTableButton = new JButton(
-            translator.realisticTranslate(Translation.TABELLE_KOPIEREN));
+            translator.realisticTranslate(app, Translation.TABELLE_KOPIEREN));
       copyTableButton.setBackground(app.appColors.dictionary.getButton());
       copyTableButton.setForeground(app.appColors.dictionary.getButtonForeground());
       copyTableButton.setFont(app.appFonts.buttonFont);
       copyTableButton.setHorizontalAlignment(SwingConstants.LEFT);
       copyTableButton.setIcon(new ImageIcon(app.appImages.getCopy()));
-      copyTableButton.setToolTipText(translator.realisticTranslate(
+      copyTableButton.setToolTipText(translator.realisticTranslate(app, 
             Translation.NUR_SELBST_EINGEGEBENE_VOKABELN_KOENNEN_KOPIERT_WERDEN));
       copyTableButton.setMinimumSize(new Dimension(200, 40));
       copyTableButton.setMaximumSize(new Dimension(600, 40));
 
       selectAllInTableButton = new JButton(
-            translator.realisticTranslate(Translation.TABELLE_AUSWAEHLEN));
+            translator.realisticTranslate(app, Translation.TABELLE_AUSWAEHLEN));
       selectAllInTableButton.setBackground(app.appColors.dictionary.getButton());
       selectAllInTableButton
             .setForeground(app.appColors.dictionary.getButtonForeground());
@@ -622,7 +622,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       selectAllInTableButton.setMaximumSize(new Dimension(600, 40));
 
       clearAllSelectedButton = new JButton(
-            translator.realisticTranslate(Translation.GESAMTAUSWAHL_AUFHEBEN));
+            translator.realisticTranslate(app, Translation.GESAMTAUSWAHL_AUFHEBEN));
       clearAllSelectedButton.setBackground(app.appColors.dictionary.getButton());
       clearAllSelectedButton
             .setForeground(app.appColors.dictionary.getButtonForeground());
@@ -634,7 +634,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       clearAllSelectedButton.setMaximumSize(new Dimension(600, 40));
 
       clearInTableSelectedButton = new JButton(translator
-            .realisticTranslate(Translation.TABELLENAUSWAHL_AUFHEBEN));
+            .realisticTranslate(app, Translation.TABELLENAUSWAHL_AUFHEBEN));
       clearInTableSelectedButton.setBackground(app.appColors.dictionary.getButton());
       clearInTableSelectedButton
             .setForeground(app.appColors.dictionary.getButtonForeground());
@@ -646,7 +646,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       clearInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
 
       deleteInTableSelectedButton = new JButton(translator
-            .realisticTranslate(Translation.TABELLENAUSWAHL_LOESCHEN));
+            .realisticTranslate(app, Translation.TABELLENAUSWAHL_LOESCHEN));
       deleteInTableSelectedButton.setBackground(app.appColors.dictionary.getButton());
       deleteInTableSelectedButton
             .setForeground(app.appColors.dictionary.getButtonForeground());
@@ -658,7 +658,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       deleteInTableSelectedButton.setMaximumSize(new Dimension(600, 40));
 
       deleteAllSelectedButton = new JButton(
-            translator.realisticTranslate(Translation.GESAMTAUSWAHL_LOESCHEN));
+            translator.realisticTranslate(app, Translation.GESAMTAUSWAHL_LOESCHEN));
       deleteAllSelectedButton.setBackground(app.appColors.dictionary.getButton());
       deleteAllSelectedButton
             .setForeground(app.appColors.dictionary.getButtonForeground());
@@ -702,7 +702,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             app.appColors.dictionary.getBackground()));
 
       JLabel infoLabel = new JLabel(
-            translator.realisticTranslate(Translation.TABELLE_BEDIENEN));
+            translator.realisticTranslate(app, Translation.TABELLE_BEDIENEN));
       infoLabel.setForeground(app.appColors.dictionary.getInfoTextForeground());
       infoLabel.setFont(app.appFonts.buttonFont);
       infoLabel.setMinimumSize(new Dimension(200, 40));
@@ -841,12 +841,12 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          JOptionPane.showMessageDialog(horizontalLanguagePanel, "",
                app.settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(app,
-                     translator.realisticTranslate(Translation.TABELLE),
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, Translation.TABELLE),
+                     translator.realisticTranslate(app, 
                            Translation.EINMAL_KLICKEN_MARKIERT_EINEN_EINTRAG),
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.ENTER_DRUECKEN_OEFFNET_DEN_MARKIERTEN_EINTRAG),
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.ZWEIMAL_KLICKEN_WAEHLT_EINEN_EINTRAG_AUS__STECKNADEL_)
          // ,
          // translator.realisticTranslate(
@@ -906,18 +906,18 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          if (chapterAim.isBlank())
          {
             JOptionPane.showMessageDialog(view.getjFrame(), translator
-                  .realisticTranslate(
+                  .realisticTranslate(app, 
                         Translation.BITTE_GEBEN_SIE_EINEN_NEUEN_LEKTIONSNAMEN_EIN)
                   + "\n "
-                  + translator.realisticTranslate(
+                  + translator.realisticTranslate(app, 
                         Translation.ODER_WAEHLEN_SIE_EINE_VORHANDENE_LEKTION_AUS),
-                  translator.realisticTranslate(Translation.INFORMATION),
+                  translator.realisticTranslate(app, Translation.INFORMATION),
                   JOptionPane.INFORMATION_MESSAGE);
          }
          else
          {
             connector.moveExpressionsToChapter(app, common, model, view, chapterAim);
-            chapterChoiceBox.setModel(model.data.getChapterComboBoxModel());
+            chapterChoiceBox.setModel(model.data.getChapterComboBoxModel(app));
          }
       });
 
@@ -927,12 +927,12 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          if (databaseAim.isBlank())
          {
             JOptionPane.showMessageDialog(view.getjFrame(), translator
-                  .realisticTranslate(
+                  .realisticTranslate(app, 
                         Translation.BITTE_GEBEN_SIE_EINEN_NEUEN_DATENBANKNAMEN_EIN)
                   + "\n "
-                  + translator.realisticTranslate(
+                  + translator.realisticTranslate(app, 
                         Translation.ODER_WAEHLEN_SIE_EINE_VORHANDENE_DATENBANK_AUS),
-                  translator.realisticTranslate(Translation.INFORMATION),
+                  translator.realisticTranslate(app, Translation.INFORMATION),
                   JOptionPane.INFORMATION_MESSAGE);
          }
          else
@@ -944,76 +944,76 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    }
 
    @Override
-   public int askForMovingToDatabaseConfirmation(View view)
+   public int askForMovingToDatabaseConfirmation(App app, View view)
    {
       return JOptionPane.showConfirmDialog(view.getjFrame(),
-            translator.realisticTranslate(
+            translator.realisticTranslate(app, 
                   Translation.WOLLEN_SIE_WIRKLICH_DIE_VOKABELN_IN_EINE_ANDERE_DATENBANK_VERSCHIEBEN__),
-            translator.realisticTranslate(Translation.FRAGE),
+            translator.realisticTranslate(app, Translation.FRAGE),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
    }
 
    @Override
-   public int askForMovingToChapterConfirmation(View view)
+   public int askForMovingToChapterConfirmation(App app, View view)
    {
       return JOptionPane.showConfirmDialog(view.getjFrame(),
-            translator.realisticTranslate(
+            translator.realisticTranslate(app, 
                   Translation.WOLLEN_SIE_WIRKLICH_DIE_VOKABELN_IN_EINE_ANDERE_LEKTION_VERSCHIEBEN__),
-            translator.realisticTranslate(Translation.FRAGE),
+            translator.realisticTranslate(app, Translation.FRAGE),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
    }
 
    @Override
-   public int askForShredderConfirmation(View view)
+   public int askForShredderConfirmation(App app, View view)
    {
       return JOptionPane.showConfirmDialog(view.getjFrame(),
-            translator.realisticTranslate(
+            translator.realisticTranslate(app, 
                   Translation.WOLLEN_SIE_WIRKLICH_DEN_PAPIERKORB_LEEREN__),
-            translator.realisticTranslate(Translation.FRAGE),
+            translator.realisticTranslate(app, Translation.FRAGE),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
    }
 
    @Override
-   public int askForDeletionConfirmation(View view, int number)
+   public int askForDeletionConfirmation(App app, View view, int number)
    {
       String message;
       if (number == 1)
       {
-         message = translator.realisticTranslate(
+         message = translator.realisticTranslate(app, 
                Translation.WOLLEN_SIE_WIRKLICH_EINEN_EINTRAG_LOESCHEN__);
       }
       else
       {
          message = translator
-               .realisticTranslate(Translation.WOLLEN_SIE_WIRKLICH) + " "
+               .realisticTranslate(app, Translation.WOLLEN_SIE_WIRKLICH) + " "
                + number + " " + translator
-                     .realisticTranslate(Translation.EINTRAEGE_LOESCHEN__);
+                     .realisticTranslate(app, Translation.EINTRAEGE_LOESCHEN__);
       }
 
       message += "\n";
-      message += translator.realisticTranslate(
+      message += translator.realisticTranslate(app, 
             Translation.HINWEIS__DIE_VOKABELN_EINGEBAUTER_DATENBANKEN);
       message += "\n";
       message += translator
-            .realisticTranslate(Translation.KOENNEN_NICHT_GELOESCHT_WERDEN_);
+            .realisticTranslate(app, Translation.KOENNEN_NICHT_GELOESCHT_WERDEN_);
       return JOptionPane.showConfirmDialog(view.getjFrame(), message,
-            translator.realisticTranslate(Translation.FRAGE),
+            translator.realisticTranslate(app, Translation.FRAGE),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
    }
 
-   public void notifyNothingWasSelectedForDeletion(View view)
+   public void notifyNothingWasSelectedForDeletion(App app, View view)
    {
       String message = translator
-            .realisticTranslate(Translation.ES_WURDEN_KEINE_EINTRAEGE);
+            .realisticTranslate(app, Translation.ES_WURDEN_KEINE_EINTRAEGE);
       message += "\n";
       message += translator
-            .realisticTranslate(Translation.ZUM_LOESCHEN_AUSGEWAEHLT);
+            .realisticTranslate(app, Translation.ZUM_LOESCHEN_AUSGEWAEHLT);
       message += "\n";
-      message += translator.realisticTranslate(
+      message += translator.realisticTranslate(app, 
             Translation.HINWEIS__DIE_VOKABELN_EINGEBAUTER_DATENBANKEN);
       message += "\n";
       message += translator
-            .realisticTranslate(Translation.KOENNEN_NICHT_GELOESCHT_WERDEN_);
+            .realisticTranslate(app, Translation.KOENNEN_NICHT_GELOESCHT_WERDEN_);
       JOptionPane.showMessageDialog(view.getjFrame(), message, "Nachricht",
             JOptionPane.CLOSED_OPTION);
 
@@ -1023,7 +1023,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    {
       dataPanel.removeAll();
       Vector<String> names = new Vector<>();
-      names.add(translator.realisticTranslate(Translation.DATENBANK));
+      names.add(translator.realisticTranslate(app, Translation.DATENBANK));
       databaseTableModel = new DatabaseTableModel(model.data.getDatabaseArray(),
             names);
       DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(app,
@@ -1092,15 +1092,15 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       JTextField scrollsearchField = new JTextField();
       scrollsearchField.setOpaque(false);
       scrollsearchField.setBorder(BorderFactory.createTitledBorder(
-            translator.realisticTranslate(Translation.SUCHWORT)));
+            translator.realisticTranslate(app, Translation.SUCHWORT)));
       DataButton scrollsearchButton = new DataButton(
-            translator.realisticTranslate(Translation.SUCHE_WORT_IN_TABELLE));
+            translator.realisticTranslate(app, Translation.SUCHE_WORT_IN_TABELLE));
       scrollsearchButton.setOpaque(true);
       scrollsearchButton.setBackground(app.appColors.dictionary.getButton());
       scrollsearchButton.setForeground(app.appColors.dictionary.getButtonForeground());
       scrollsearchButton.setFont(app.appFonts.buttonFont);
       DataButton scrollsearchPinButton = new DataButton(
-            translator.realisticTranslate(Translation.NAECHSTE_AUSWAHL));
+            translator.realisticTranslate(app, Translation.NAECHSTE_AUSWAHL));
       scrollsearchPinButton
             .setIcon(new ImageIcon(app.appImages.getSelect()));
       scrollsearchPinButton.setOpaque(true);
@@ -1181,7 +1181,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       infotablePanel.setLayout(infotablePanelLayout);
       JLabel numberOfEntriesLabel = new JLabel(
             " " + tableModel.getRowCount() + " " + translator
-                  .realisticTranslate(Translation.EINTRAEGE_IN_DIESER_TABELLE));
+                  .realisticTranslate(app, Translation.EINTRAEGE_IN_DIESER_TABELLE));
       numberOfEntriesLabel.setFont(app.appFonts.buttonFont);
       infotablePanel.add(numberOfEntriesLabel);
 
@@ -1205,7 +1205,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    {
       Font font = app.appFonts.germanFont.deriveFont(20F);
       JRadioButton german = new JRadioButton(
-            translator.realisticTranslate(Translation.MEINE_SPRACHE));
+            translator.realisticTranslate(app, Translation.MEINE_SPRACHE));
       german.setActionCommand(Action.OWN_TO_NEW.name());
       german.setFont(font);
       german.setSelected(true);
@@ -1214,7 +1214,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       german.setMaximumSize(new Dimension(205, 32));
 
       JRadioButton hebrew = new JRadioButton(
-            translator.realisticTranslate(Translation.NEUE_SPRACHE));
+            translator.realisticTranslate(app, Translation.NEUE_SPRACHE));
       hebrew.setActionCommand(Action.NEW_TO_OWN.name());
       hebrew.setFont(font);
       languageTypeGroup.add(hebrew);
@@ -1369,7 +1369,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    @Override
    public void setValues(App app, Common common, Model model, View view)
    {
-      model.data.determineReloadDatabases(common, view);
+      model.data.determineReloadDatabases(app, common, view);
       this.loadChapters(app, common, model);
       this.loadDatabases(app, model);
       this.displayNoTable();
@@ -1377,7 +1377,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       this.searchVertical.removeAll();
       Direction selectedLanguage = this.getSelectedLanguage();
       this.initSearchPanel(app, common, model, view, selectedLanguage);
-      chapterChoiceBox.setModel(model.data.getChapterComboBoxModel());
+      chapterChoiceBox.setModel(model.data.getChapterComboBoxModel(app));
       this.searchVertical.validate();
       this.searchVertical.repaint();
       connector.displayTableAfterOpeningPage(app, common, model, view);

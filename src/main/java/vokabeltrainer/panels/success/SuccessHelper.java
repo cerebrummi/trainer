@@ -11,11 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.common.colors.SuccessColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.SaveTraining;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.success.table.SuccessTable;
@@ -39,45 +37,45 @@ public class SuccessHelper
       // nothing
    }
 
-   static JPanel makePanel(JPanel panel)
+   static JPanel makePanel(App app, JPanel panel)
    {
       JPanel wrapper = new JPanel();
       BullsEyeLayout wrapperLayout = new BullsEyeLayout(wrapper);
       wrapper.setLayout(wrapperLayout);
-      wrapper.setBackground(SuccessColors.getPanelBackgroundLight());
+      wrapper.setBackground(app.appColors.success.getPanelBackgroundLight());
       wrapper.setOpaque(true);
       TotemLayout totemLayout = new TotemLayout(panel);
       panel.setLayout(totemLayout);
-      panel.setBackground(SuccessColors.getPanelBackgroundLight());
+      panel.setBackground(app.appColors.success.getPanelBackgroundLight());
       panel.setOpaque(true);
       wrapper.add(panel);
       return wrapper;
    }
 
-   static void addContent(Common common, View view, Repetition repetition, JPanel panel,
+   static void addContent(App app, Common common, Model model, View view, Repetition repetition, JPanel panel,
          Direction direction)
    {
       Translator translator = common.getTranslator();
       panel.removeAll();
       panel.setOpaque(true);
-      panel.setBackground(SuccessColors.getPanelBackgroundLight());
+      panel.setBackground(app.appColors.success.getPanelBackgroundLight());
 
-      SuccessTableModel model = Data.findSuccessModel(direction, repetition);
-      SuccessTable table = new SuccessTable(common, model);
+      SuccessTableModel tableModel = model.data.findSuccessModel(direction, repetition);
+      SuccessTable table = new SuccessTable(app, common, tableModel);
 
       JScrollPane scroller = new JScrollPane(table);
       scroller.setMinimumSize(new Dimension(1200, 600));
       scroller.setMaximumSize(new Dimension(1500, 800));
-      scroller.setBackground(SuccessColors.getPanelBackground());
+      scroller.setBackground(app.appColors.success.getPanelBackground());
       scroller.setOpaque(true);
-      scroller.getViewport().setBackground(SuccessColors.getTableBackground());
+      scroller.getViewport().setBackground(app.appColors.success.getTableBackground());
       scroller.getViewport().setOpaque(true);
 
       JPanel tablePanel = new JPanel();
       BullsEyeLayout tableLayout = new BullsEyeLayout(tablePanel);
       tablePanel.setLayout(tableLayout);
       tablePanel.setOpaque(true);
-      tablePanel.setBackground(SuccessColors.getPanelBackgroundLight());
+      tablePanel.setBackground(app.appColors.success.getPanelBackgroundLight());
       tablePanel.add(scroller);
 
       panel.add(tablePanel);
@@ -85,7 +83,7 @@ public class SuccessHelper
       if (repetition != null)
       {
          JPanel fillerPanel = new JPanel(new FlowLayout());
-         fillerPanel.setBackground(SuccessColors.getPanelBackgroundLight());
+         fillerPanel.setBackground(app.appColors.success.getPanelBackgroundLight());
          fillerPanel.setOpaque(true);
          fillerPanel.setMinimumSize(new Dimension(1200, 15));
          fillerPanel.setMaximumSize(new Dimension(1500, 15));
@@ -95,53 +93,53 @@ public class SuccessHelper
                buttonWrapperPanel);
          buttonWrapperPanel.setLayout(buttonWrapperLayout);
          buttonWrapperPanel
-               .setBackground(SuccessColors.getPanelBackgroundLight());
+               .setBackground(app.appColors.success.getPanelBackgroundLight());
 
          JPanel buttonPanel = new JPanel();
-         buttonPanel.setBackground(SuccessColors.getPanelBackgroundLight());
+         buttonPanel.setBackground(app.appColors.success.getPanelBackgroundLight());
          buttonPanel.setOpaque(true);
          buttonPanel.setLayout(new TrainLayout(buttonPanel, 15));
          buttonPanel.setMinimumSize(new Dimension(1200, 40));
          buttonPanel.setMaximumSize(new Dimension(1500, 40));
 
          JButton selectAllButton = new JButton(
-               translator.realisticTranslate(Translation.ALLE_AUSWAEHLEN));
-         selectAllButton.setIcon(new ImageIcon(AppImages.getSelect()));
-         selectAllButton.setFont(AppFonts.buttonFont);
-         selectAllButton.setForeground(SuccessColors.getTextForeground());
+               translator.realisticTranslate(app, Translation.ALLE_AUSWAEHLEN));
+         selectAllButton.setIcon(new ImageIcon(app.appImages.getSelect()));
+         selectAllButton.setFont(app.appFonts.buttonFont);
+         selectAllButton.setForeground(app.appColors.success.getTextForeground());
          selectAllButton.addActionListener(_ -> {
 
-            for (Vector<SuccessTableRow> row : model.getData())
+            for (Vector<SuccessTableRow> row : tableModel.getData())
             {
                row.get(0).getExpression().setSelected(true);
             }
-            model.fireTableDataChanged();
+            tableModel.fireTableDataChanged();
 
          });
          JButton unselectAllButton = new JButton(translator
-               .realisticTranslate(Translation.ALLE_NICHT_AUSWAEHLEN));
-         unselectAllButton.setIcon(new ImageIcon(AppImages.getClear()));
-         unselectAllButton.setFont(AppFonts.buttonFont);
-         unselectAllButton.setForeground(SuccessColors.getTextForeground());
+               .realisticTranslate(app, Translation.ALLE_NICHT_AUSWAEHLEN));
+         unselectAllButton.setIcon(new ImageIcon(app.appImages.getClear()));
+         unselectAllButton.setFont(app.appFonts.buttonFont);
+         unselectAllButton.setForeground(app.appColors.success.getTextForeground());
          unselectAllButton.addActionListener(_ -> {
 
-            for (Vector<SuccessTableRow> row : model.getData())
+            for (Vector<SuccessTableRow> row : tableModel.getData())
             {
                row.get(0).getExpression().setSelected(false);
             }
-            model.fireTableDataChanged();
+            tableModel.fireTableDataChanged();
 
          });
          JButton moveButton = new JButton(translator
-               .realisticTranslate(Translation.AUSGEWAEHLTE_WOERTER_ZU) + " \""
-               + translator.realisticTranslate(Translation.VORRAT) + "\" "
-               + translator.realisticTranslate(Translation.VERSCHIEBEN));
-         moveButton.setIcon(new ImageIcon(AppImages.getBack()));
-         moveButton.setFont(AppFonts.buttonFont);
-         moveButton.setForeground(SuccessColors.getTextForeground());
+               .realisticTranslate(app, Translation.AUSGEWAEHLTE_WOERTER_ZU) + " \""
+               + translator.realisticTranslate(app, Translation.VORRAT) + "\" "
+               + translator.realisticTranslate(app, Translation.VERSCHIEBEN));
+         moveButton.setIcon(new ImageIcon(app.appImages.getBack()));
+         moveButton.setFont(app.appFonts.buttonFont);
+         moveButton.setForeground(app.appColors.success.getTextForeground());
          moveButton.addActionListener(_ -> {
             List<Vector<SuccessTableRow>> rows = new ArrayList<>();
-            for (Vector<SuccessTableRow> row : model.getData())
+            for (Vector<SuccessTableRow> row : tableModel.getData())
             {
                Expression expression = row.get(0).getExpression();
                if (expression.isSelected() && Direction.OWN_TO_NEW == direction)
@@ -160,11 +158,11 @@ public class SuccessHelper
             }
             for (Vector<SuccessTableRow> row : rows)
             {
-               model.getData().remove(row);
+               tableModel.getData().remove(row);
             }
             SaveTraining saver = new SaveTraining();
-            saver.save(view);
-            model.fireTableDataChanged();
+            saver.save(app, model, view);
+            tableModel.fireTableDataChanged();
 
          });
          buttonPanel.add(selectAllButton);

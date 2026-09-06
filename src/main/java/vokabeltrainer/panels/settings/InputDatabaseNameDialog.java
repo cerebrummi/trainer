@@ -64,17 +64,17 @@ public class InputDatabaseNameDialog extends JDialog
       inputImportField.setEnabled(false);
 
       overwriteGroup = new ButtonGroup();
-      overwriteNo = new JRadioButton(translator.realisticTranslate(
+      overwriteNo = new JRadioButton(translator.realisticTranslate(app, 
             Translation.VORHANDENEN_DATENBANKNAMEN_NICHT_UEBERSCHREIBEN));
-      overwriteYes = new JRadioButton(translator.realisticTranslate(
+      overwriteYes = new JRadioButton(translator.realisticTranslate(app, 
             Translation.VORHANDENEN_DATENBANKNAMEN_UEBERSCHREIBEN));
       overwriteGroup.add(overwriteNo);
       overwriteGroup.add(overwriteYes);
       overwriteNo.setSelected(true);
 
-      okButton = new JButton(translator.realisticTranslate(Translation.OK));
+      okButton = new JButton(translator.realisticTranslate(app, Translation.OK));
       stopButton = new JButton(
-            translator.realisticTranslate(Translation.ABBRECHEN));
+            translator.realisticTranslate(app, Translation.ABBRECHEN));
 
       JPanel buttonPanel = new JPanel();
       TrainLayout buttonPanelLayout = new TrainLayout(buttonPanel, 15);
@@ -86,7 +86,7 @@ public class InputDatabaseNameDialog extends JDialog
       vertical.add(overwriteNo);
       vertical.add(overwriteYes);
       vertical.add(new JLabel(translator
-            .realisticTranslate(Translation.NAME_FUER_DIE_DATENBANK)));
+            .realisticTranslate(app, Translation.NAME_FUER_DIE_DATENBANK)));
       vertical.add(inputImportField);
       vertical.add(buttonPanel);
 

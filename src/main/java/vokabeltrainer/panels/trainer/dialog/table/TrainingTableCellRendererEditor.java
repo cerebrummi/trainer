@@ -15,9 +15,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.IntegerSpinnerEditor;
 import vokabeltrainer.editing.IntegerSpinnerModel;
 
@@ -39,9 +37,9 @@ public class TrainingTableCellRendererEditor
    private int row;
    private int column;
 
-   public TrainingTableCellRendererEditor()
+   public TrainingTableCellRendererEditor(App app)
    {
-      Font font = AppFonts.germanFont.deriveFont(20F);
+      Font font = app.appFonts.germanFont.deriveFont(20F);
       field = new JLabel();
       field.setFont(font);
       toBeRepeatedWords = new JLabel();
@@ -66,15 +64,15 @@ public class TrainingTableCellRendererEditor
       amountOfNewWordsButton = new JButton();
       amountOfNewWordsButton.setFont(font);
       amountOfNewWordsButton.setBorder(BorderFactory.createEmptyBorder());
-      amountOfNewWordsButton.setBackground(ColorBase.getGreen());
+      amountOfNewWordsButton.setBackground(app.appColors.getGreen());
       amountOfNewWordsButton.addActionListener(_ -> {
          table.editCellAt(row, column);
       });
 
       fieldDone = new JLabel(); // new ImageIcon(ApplicationImages.getDone()));
-      fieldWork = new JLabel(new ImageIcon(AppImages.getWork()));
+      fieldWork = new JLabel(new ImageIcon(app.appImages.getWork()));
       fieldNotStarted = new JLabel(
-            new ImageIcon(AppImages.getEmptyList()));
+            new ImageIcon(app.appImages.getEmptyList()));
    }
 
    @Override

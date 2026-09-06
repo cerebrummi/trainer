@@ -75,7 +75,7 @@ public class MainView extends JPanel
       letterPicturesPanel = new AlefbetPanel(app, common);
       statisticsPanel = new StatisticsPanel(app, common);
       settingsPanel = new SettingsPanel(app, common, model, view);
-      successPanel = new SuccessPanel(app, common, view);
+      successPanel = new SuccessPanel(app, common, model, view);
       activeComponent = startPanel;
 
       add(activeComponent);
@@ -174,21 +174,21 @@ public class MainView extends JPanel
       menuBar.setMaximumSize(new Dimension(6000, 80));
 
       startButton = new JButton(
-            translator.realisticTranslate(Translation.DATEN),
+            translator.realisticTranslate(app, Translation.DATEN),
             new ImageIcon(app.appImages.getLogoFolder()));
       inputButton = new JButton(
-            translator.realisticTranslate(Translation.EINGABE));
+            translator.realisticTranslate(app, Translation.EINGABE));
       vocabularyCardsButton = new JButton(
-            translator.realisticTranslate(Translation.VOKABELN_ABFRAGEN));
+            translator.realisticTranslate(app, Translation.VOKABELN_ABFRAGEN));
       dictionaryButton = new JButton(
-            translator.realisticTranslate(Translation.WOERTERBUCH));
+            translator.realisticTranslate(app, Translation.WOERTERBUCH));
       statisticsButton = new JButton(
-            translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
+            translator.realisticTranslate(app, Translation.TRAININGSUEBERSICHT));
       aboutButton = new JButton(new ImageIcon(app.appImages.getLogo24()));
       letterPicturesButton = new JButton(
-            translator.realisticTranslate(Translation.ALEFBET));
+            translator.realisticTranslate(app, Translation.ALEFBET));
       successButton = new JButton(
-            translator.realisticTranslate(Translation.KARTEIKASTEN));
+            translator.realisticTranslate(app, Translation.KARTEIKASTEN));
       languageButton = new JButton(new ImageIcon(app.appImages.getL18n()));
       darkmodeButton = new JButton(
             new ImageIcon(app.appImages.getDarkmode()));
@@ -265,14 +265,14 @@ public class MainView extends JPanel
                   JOptionPane.INFORMATION_MESSAGE,
                   new ImageIcon(TextImage.make(app,
                         translator
-                              .realisticTranslate(Translation.ES_IST_SCHABBAT),
-                        translator.realisticTranslate(
+                              .realisticTranslate(app, Translation.ES_IST_SCHABBAT),
+                        translator.realisticTranslate(app, 
                               Translation.DAS_TRAINING_IST_ABGESCHALTET))));
             return;
          }
 
-         model.data.determineReloadDatabases(common, view);
-         StartTrainingView dialog = new StartTrainingController(common, view)
+         model.data.determineReloadDatabases(app, common, view);
+         StartTrainingView dialog = new StartTrainingController(app, common, model, view)
                .getStartTrainingView();
          dialog.setLocationRelativeTo(null);
          dialog.setVisible(true);
@@ -316,12 +316,12 @@ public class MainView extends JPanel
       });
 
       statisticsButton.addActionListener(_ -> {
-         model.data.determineReloadDatabases(common, view);
+         model.data.determineReloadDatabases(app, common, view);
          moveToStatisticsPanel(app, common, model);
       });
 
       successButton.addActionListener(_ -> {
-         model.data.determineReloadDatabases(common, view);
+         model.data.determineReloadDatabases(app, common, view);
          if (activeComponent != null)
          {
             remove(activeComponent);
@@ -385,11 +385,11 @@ public class MainView extends JPanel
       JOptionPane.showMessageDialog(view.getjFrame(), "",
             app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
             new ImageIcon(TextImage.make(app,
-                  translator.realisticTranslate(
+                  translator.realisticTranslate(app, 
                         Translation.KEINE_WORTE_ZUM_UEBEN_AUSGEWAEHLT),
-                  translator.realisticTranslate(
+                  translator.realisticTranslate(app, 
                         Translation.BITTE_NEUE_WORTE_DURCH_EINGABE_EINER_ANZAHL),
-                  translator.realisticTranslate(
+                  translator.realisticTranslate(app, 
                         Translation.AUSWAHLEN__UM_DANN_DAS_TRAINING_ZU_STARTEN_))));
    }
 

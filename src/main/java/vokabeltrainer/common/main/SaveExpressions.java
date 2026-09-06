@@ -99,7 +99,7 @@ public final class SaveExpressions
                File customDir = new File(app.settings.getExpressionPathFolder());
                if (!customDir.exists())
                {
-                  if (!common.getDirectoryHelper().makeDirectory(common, view,customDir))
+                  if (!common.getDirectoryHelper().makeDirectory(app, common, view,customDir))
                   {
                      JOptionPane.showMessageDialog(view.getjFrame(),
                            "Es hat beim Speichern einen Fehler gegeben.\n"

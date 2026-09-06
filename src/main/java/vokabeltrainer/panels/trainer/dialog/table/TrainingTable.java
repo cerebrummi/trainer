@@ -10,7 +10,7 @@ import java.util.Set;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.FieldOfTraining;
@@ -22,15 +22,15 @@ public class TrainingTable extends JTable
 {
    private static final long serialVersionUID = -1180739124368536646L;
 
-   public TrainingTable(Common common, TrainingTableModel model)
+   public TrainingTable(App app, Common common, TrainingTableModel model)
    {
-      super(model, new TrainingTableColumnModel(common));
+      super(model, new TrainingTableColumnModel(app, common));
 
       putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
       setOpaque(false);
       setRowHeight(50);
       setShowHorizontalLines(false);
-      setBackground(TrainerColors.getPanelBackgroundDark());
+      setBackground(app.appColors.trainer.getPanelBackgroundDark());
       this.setRowSelectionAllowed(true);
       this.setColumnSelectionAllowed(true);
       this.setCellSelectionEnabled(true);

@@ -13,11 +13,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import vokabeltrainer.common.colors.TrainerColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -39,9 +37,9 @@ public class StartTrainingView extends JDialog
    private Translator translator;
    private Set<String> databaseNames;
 
-   public StartTrainingView(Common common, View view, StartTrainingControllerConnector connector)
+   public StartTrainingView(App app, Common common, Model model, View view, StartTrainingControllerConnector connector)
    {
-      super(view.getjFrame(), Settings.getWindowTitle(),
+      super(view.getjFrame(), app.settings.getWindowTitle(),
             Dialog.ModalityType.APPLICATION_MODAL);
       translator = common.getTranslator();
       training = false;
@@ -49,19 +47,19 @@ public class StartTrainingView extends JDialog
       setSize(Math.min(screenSize.width - 60, 1500),
             Math.min(screenSize.height - 60, 700));
       layout = new JPanel();
-      layout.setBackground(TrainerColors.getPanelBackground());
+      layout.setBackground(app.appColors.trainer.getPanelBackground());
       layout.setBorder(BorderFactory
-            .createLineBorder(TrainerColors.getPanelBackground(), 15, false));
+            .createLineBorder(app.appColors.trainer.getPanelBackground(), 15, false));
       layout.setLayout(new BorderLayout());
       getContentPane().add(layout);
 
       tabbedPane = new JTabbedPane();
-      tabbedPane.setFont(AppFonts.toolbarButtonFont);
+      tabbedPane.setFont(app.appFonts.toolbarButtonFont);
       layout.add(tabbedPane, BorderLayout.CENTER);
 
       tabbedPane.addTab(translator.realisticTranslate(Translation.GEBIET),
-            new ImageIcon(AppImages.getArrow()),
-            new FieldOfTrainingTab(common, this));
+            new ImageIcon(app.appImages.getArrow()),
+            new FieldOfTrainingTab(app, common, model, this));
    }
 
    public void initTraining()

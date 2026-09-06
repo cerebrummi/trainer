@@ -86,16 +86,10 @@ public class Data
    private final AtomicBoolean databaseInUse = new AtomicBoolean(false);
    private volatile UUID uuidDataBaseLock;
    private DataBase database;
-   private Settings settings;
-   
-   public Data(Settings settings)
-   {
-      this.settings = settings;
-   }
 
-   public void initDatabase(Common common, View view)
+   public void initDatabase(App app, Common common, View view)
    {
-      database = new DataBase(common, view);
+      database = new DataBase(app, common, view);
    }
 
    boolean lockDataBase(UUID uuid)
@@ -160,10 +154,10 @@ public class Data
    }
 
    // for importing expressions only, therefore NOT public
-   boolean importDatabase(Common common, String databasePath, String databaseName,
+   boolean importDatabase(App app, Common common, String databasePath, String databaseName,
          boolean overwriteDatabaseNames)
    {
-      return database.importDatabase(common, databasePath, databaseName,
+      return database.importDatabase(app, common, databasePath, databaseName,
             overwriteDatabaseNames);
    }
 
@@ -188,12 +182,12 @@ public class Data
       return getDataBaseAtomic().getDeletedMap().size();
    }
 
-   public ExpressionTableModel findTranslations(Common common, String text,
+   public ExpressionTableModel findTranslations(App app, Common common, String text,
          ExpressionKind kind, SearchType search, Chapter chapter,
          Command command, SortingType sortingType, Integer levelOfDifficulty,
          Direction direction, List<DatabaseTableRow> selectedRows)
    {
-      return getDataBaseAtomic().findTranslations(common, text, kind, search, chapter,
+      return getDataBaseAtomic().findTranslations(app, common, text, kind, search, chapter,
             command, sortingType, levelOfDifficulty, direction, selectedRows);
    }
 
@@ -202,9 +196,9 @@ public class Data
       return getDataBaseAtomic().findTranslationsDeletedWords();
    }
 
-   public ComboBoxModel<String> getChapterComboBoxModel()
+   public ComboBoxModel<String> getChapterComboBoxModel(App app)
    {
-      return getDataBaseAtomic().getChapterComboBoxModel();
+      return getDataBaseAtomic().getChapterComboBoxModel(app);
    }
 
    public ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter(Common common)
@@ -266,17 +260,17 @@ public class Data
       getDataBaseAtomic().getNewMap().put(uuid, expression);
    }
 
-   public TrainingTableModel findTrainingModel(Common common,
+   public TrainingTableModel findTrainingModel(App app, Common common,
          LanguageDirection languageDirection, FieldOfTraining fieldOfTraining,
          Set<String> databaseNames)
    {
-      return getDataBaseAtomic().findTrainingModel(common, languageDirection,
+      return getDataBaseAtomic().findTrainingModel(app, common, languageDirection,
             fieldOfTraining, databaseNames);
    }
 
-   public StatisticsTableModel findStatisticsModel(Common common)
+   public StatisticsTableModel findStatisticsModel(App app, Common common)
    {
-      return getDataBaseAtomic().findStatisticsModel(common);
+      return getDataBaseAtomic().findStatisticsModel(app, common);
    }
 
    public SuccessTableModel findSuccessModel(Direction direction,
@@ -290,17 +284,17 @@ public class Data
       getDataBaseAtomic().unselectAllExpressions();
    }
 
-   public boolean determineReloadDatabases(Common common, View view)
+   public boolean determineReloadDatabases(App app, Common common, View view)
    {
-      if (new HashSet<>(settings.getChosenDatabases())
-            .equals(new HashSet<>(settings.getOldChosenDatabases())))
+      if (new HashSet<>(app.settings.getChosenDatabases())
+            .equals(new HashSet<>(app.settings.getOldChosenDatabases())))
       {
          return false;
       }
       // reload data
-      initDatabase(common, view);
-      settings.setOldChosenDatabases(
-            new LinkedList<>(settings.getChosenDatabases()));
+      initDatabase(app, common, view);
+      app.settings.setOldChosenDatabases(
+            new LinkedList<>(app.settings.getChosenDatabases()));
       return true;
    }
 
@@ -311,15 +305,15 @@ public class Data
             withSelfEvenIfNotInUseYet, false);
    }
 
-   public ComboBoxModel<String> getInternalDatabasesComboBoxModel(Common common)
+   public ComboBoxModel<String> getInternalDatabasesComboBoxModel(App app, Common common)
    {
-      return getDataBaseAtomic().getInternalDatabasesComboBoxModel(common);
+      return getDataBaseAtomic().getInternalDatabasesComboBoxModel(app, common);
    }
 
-   public void copyInternalDatabase(Common common, Database database,
+   public void copyInternalDatabase(App app, Common common, Database database,
          boolean overwriteDatabaseName, String databaseName)
    {
-      getDataBaseAtomic().copyInternalDatabase(common, database, overwriteDatabaseName,
+      getDataBaseAtomic().copyInternalDatabase(app, common, database, overwriteDatabaseName,
             databaseName);
    }
 
@@ -388,22 +382,22 @@ public class Data
       private final ConcurrentMap<UUID, Expression> deletedMap;
       private Translator translator;
 
-      DataBase(Common common, View view)
+      DataBase(App app, Common common, View view)
       {
-         deletedMap = readFileRegular(common,
+         deletedMap = readFileRegular(app, common,
                DELETED_CSV, Database.TO_BE_DETERMINED, LetterForLoading.DELETED);
          translator = common.getTranslator();
-         directoryOkay = checkDirectory(common, view);
+         directoryOkay = checkDirectory(app, common, view);
          
          Stream.of(LetterForSaving.values())
-               .forEach(letter -> readFileRegular(common, letter.name() + ".csv",
+               .forEach(letter -> readFileRegular(app, common, letter.name() + ".csv",
                      Database.TO_BE_DETERMINED, letter));
 
-         settings.getChosenDatabases().stream()
+         app.settings.getChosenDatabases().stream()
                .forEach(database -> Stream.of(LetterForSaving.values())
-                     .forEach(letter -> readFileAvailable(common, letter, database)));
+                     .forEach(letter -> readFileAvailable(app, common, letter, database)));
 
-         File customDir = new File(settings.getTrainingPath());
+         File customDir = new File(app.settings.getTrainingPath());
          if (!customDir.exists())
          {
             customDir.mkdirs();
@@ -411,23 +405,23 @@ public class Data
          else
          {
             File ownToGerman = new File(
-                  settings.getTrainingPath() + File.separator
+                  app.settings.getTrainingPath() + File.separator
                         + LanguageDirection.OWN_TO_GERMAN.name() + ".txt");
             File ownToHebrew = new File(
-                  settings.getTrainingPath() + File.separator
+                  app.settings.getTrainingPath() + File.separator
                         + LanguageDirection.OWN_TO_HEBREW.name() + ".txt");
             File ownToSwedish = new File(
-                  settings.getTrainingPath() + File.separator
+                  app.settings.getTrainingPath() + File.separator
                         + LanguageDirection.OWN_TO_SWEDISH.name() + ".txt");
 
             File germanToOwn = new File(
-                  settings.getTrainingPath() + File.separator
+                  app.settings.getTrainingPath() + File.separator
                         + LanguageDirection.GERMAN_TO_OWN.name() + ".txt");
             File hebrewToOwn = new File(
-                  settings.getTrainingPath() + File.separator
+                  app.settings.getTrainingPath() + File.separator
                         + LanguageDirection.HEBREW_TO_OWN.name() + ".txt");
             File swedishToOwn = new File(
-                  settings.getTrainingPath() + File.separator
+                  app.settings.getTrainingPath() + File.separator
                         + LanguageDirection.SWEDISH_TO_OWN.name() + ".txt");
 
             if (ownToGerman.exists())
@@ -548,14 +542,14 @@ public class Data
          }
       }
 
-      private boolean checkDirectory(Common common, View view)
+      private boolean checkDirectory(App app, Common common, View view)
       {
          try
          {
-            File customDir = new File(settings.getExpressionPathFolder());
+            File customDir = new File(app.settings.getExpressionPathFolder());
             if (!customDir.exists())
             {
-               if (!common.getDirectoryHelper().makeDirectory(common, view, customDir))
+               if (!common.getDirectoryHelper().makeDirectory(app, common, view, customDir))
                {
                   JOptionPane.showMessageDialog(view.getjFrame(),
                         "Es hat beim Lesen einen Fehler gegeben.\n"
@@ -590,18 +584,18 @@ public class Data
          return numberOfVocabulary;
       }
 
-      public void copyInternalDatabase(Common common, Database database,
+      public void copyInternalDatabase(App app, Common common, Database database,
             boolean overwriteDatabaseName, String databaseName)
       {
          Stream.of(LetterForSaving.values())
-               .forEach(letter -> readFileAvailable(common, letter, database,
+               .forEach(letter -> readFileAvailable(app, common, letter, database,
                      overwriteDatabaseName, databaseName));
       }
 
       // #########################################################
       // ######################## import #########################
       // #########################################################
-      private boolean importDatabase(Common common, String databasePath, String databaseName,
+      private boolean importDatabase(App app, Common common, String databasePath, String databaseName,
             boolean overwriteDatabaseNames)
       {
          if (databasePath.endsWith(".zip"))
@@ -612,7 +606,7 @@ public class Data
                {
                   try
                   {
-                     readZipFileImport(common, zipFile,
+                     readZipFileImport(app, common, zipFile,
                            zipFile.getEntry(letter.name() + ".csv"), letter,
                            databaseName, overwriteDatabaseNames);
                   }
@@ -631,7 +625,7 @@ public class Data
          else
          {
             Stream.of(LetterForSaving.values())
-                  .forEach(letter -> readFileImport(common, databasePath, letter,
+                  .forEach(letter -> readFileImport(app, common, databasePath, letter,
                         databaseName, overwriteDatabaseNames));
          }
 
@@ -641,7 +635,7 @@ public class Data
       // #########################################################
       // ######################## import #########################
       // #########################################################
-      private void readFileImport(Common common, String path, LetterForSaving letter,
+      private void readFileImport(App app, Common common, String path, LetterForSaving letter,
             String databaseName, boolean overwrite)
       {
          File file = new File(path + "/" + letter.name() + ".csv");
@@ -655,7 +649,7 @@ public class Data
                      StandardCharsets.UTF_8);
                Reader reader = new BufferedReader(isr);)
          {
-            readData(common, letter.name() + ".csv", reader, Database.IMPORTED, letter,
+            readData(app, common, letter.name() + ".csv", reader, Database.IMPORTED, letter,
                   overwrite, databaseName, false);
          }
          catch (IOException e)
@@ -664,14 +658,14 @@ public class Data
          }
       }
 
-      private void readZipFileImport(Common common, ZipFile zipFile, ZipEntry entry,
+      private void readZipFileImport(App app, Common common, ZipFile zipFile, ZipEntry entry,
             LetterForSaving letter, String databaseName, boolean overwrite)
       {
          try (InputStream stream = zipFile.getInputStream(entry);
                InputStreamReader isr = new InputStreamReader(stream, "UTF-8");
                Reader reader = new BufferedReader(isr);)
          {
-            readData(common, letter.name() + ".csv", reader, Database.IMPORTED, letter,
+            readData(app, common, letter.name() + ".csv", reader, Database.IMPORTED, letter,
                   overwrite, databaseName, false);
          }
          catch (Exception e)
@@ -683,7 +677,7 @@ public class Data
       // #########################################################
       // ################# available databases ###################
       // #########################################################
-      private void readFileAvailable(Common common, LetterForSaving letter, Database origin)
+      private void readFileAvailable(App app, Common common, LetterForSaving letter, Database origin)
       {
          try (InputStream fis = Vocabulary.class.getResourceAsStream(
                origin.getFolder() + "/" + letter.name() + ".csv");
@@ -691,7 +685,7 @@ public class Data
                      StandardCharsets.UTF_8);
                Reader reader = new BufferedReader(isr);)
          {
-            readData(common, letter.name() + ".csv", reader, origin, letter, false,
+            readData(app, common, letter.name() + ".csv", reader, origin, letter, false,
                   origin.getName(common), true);
          }
          catch (Exception e)
@@ -704,7 +698,7 @@ public class Data
       // #########################################################
       // ############## copy available databases #################
       // #########################################################
-      private void readFileAvailable(Common common, LetterForSaving letter, Database origin,
+      private void readFileAvailable(App app, Common common, LetterForSaving letter, Database origin,
             boolean overwriteDatabaseName, String databaseName)
       {
          try (InputStream fis = Vocabulary.class.getResourceAsStream(
@@ -715,12 +709,12 @@ public class Data
          {
             if (overwriteDatabaseName)
             {
-               readData(common, letter.name() + ".csv", reader, Database.COPY, letter,
+               readData(app, common, letter.name() + ".csv", reader, Database.COPY, letter,
                      true, databaseName, false);
             }
             else
             {
-               readData(common, letter.name() + ".csv", reader, Database.COPY, letter,
+               readData(app, common, letter.name() + ".csv", reader, Database.COPY, letter,
                      false, origin.getName(common) + " Kopie", false);
             }
          }
@@ -733,7 +727,7 @@ public class Data
       // #########################################################
       // ####################### regular #########################
       // #########################################################
-      private ConcurrentMap<UUID, Expression> readFileRegular(Common common, String filename,
+      private ConcurrentMap<UUID, Expression> readFileRegular(App app, Common common, String filename,
             Database origin, Letter letter)
       {
          File file = null;
@@ -743,7 +737,7 @@ public class Data
             return new ConcurrentHashMap<UUID, Expression>(100);
          }
 
-         file = new File(settings.getExpressionPathFolder() + "/" + filename);
+         file = new File(app.settings.getExpressionPathFolder() + "/" + filename);
          if (!file.exists())
          {
             return new ConcurrentHashMap<UUID, Expression>(100);
@@ -754,7 +748,7 @@ public class Data
                      StandardCharsets.UTF_8);
                Reader reader = new BufferedReader(isr);)
          {
-            return readData(common, filename, reader, origin, letter, false, null,
+            return readData(app, common, filename, reader, origin, letter, false, null,
                   false);
          }
          catch (IOException e)
@@ -768,7 +762,7 @@ public class Data
       // #########################################################
       // ################# read Data #############################
       // #########################################################
-      private ConcurrentMap<UUID, Expression> readData(Common common, String filename,
+      private ConcurrentMap<UUID, Expression> readData(App app, Common common, String filename,
             Reader reader, Database origin, Letter letter, boolean overwrite,
             String databasename, boolean doNotChange) throws IOException
       {
@@ -851,7 +845,7 @@ public class Data
                   expression.setChapter(new Chapter(common, databasename,
                         entries[index], Database.SELF));
                }
-               else if (settings.getAvailableDatabases().contains(origin))
+               else if (app.settings.getAvailableDatabases().contains(origin))
                {
                   index++;
                   expression.setChapter(
@@ -1089,7 +1083,7 @@ public class Data
 
       // ############################################################
 
-      private ExpressionTableModel findTranslations(Common common, String text,
+      private ExpressionTableModel findTranslations(App app, Common common, String text,
             ExpressionKind kind, SearchType search, Chapter chapter,
             Command command, SortingType sortingType, Integer levelOfDifficulty,
             Direction direction, List<DatabaseTableRow> selectedDatabases)
@@ -1165,7 +1159,7 @@ public class Data
          }
 
          return new ExpressionTableModel(
-               convertToExpressionModelArray(filterExpressions(text, direction,
+               convertToExpressionModelArray(filterExpressions(app, text, direction,
                      search, expressions, sortingType)),
                COLUMNAMES);
       }
@@ -1190,7 +1184,7 @@ public class Data
                convertToExpressionModelArray(expressionArray), COLUMNAMES);
       }
 
-      private List<Expression> filterExpressions(String text,
+      private List<Expression> filterExpressions(App app, String text,
             Direction language, SearchType search,
             Collection<Expression> expressions, SortingType sortingType)
       {
@@ -1205,7 +1199,7 @@ public class Data
                text, expression);
          Predicate<Expression> hebrewSearchword = expression -> equalsHebrewSearchWord(
                text, expression);
-         Predicate<Expression> hebrewWordstart = expression -> equalsNewWordStart(
+         Predicate<Expression> hebrewWordstart = expression -> equalsNewWordStart(app,
                text, expression);
 
          Predicate<Expression> ownToNew = _ -> Direction.OWN_TO_NEW
@@ -1310,11 +1304,11 @@ public class Data
                      list2.get(i), letterType));
       }
 
-      private boolean equalsNewWordStart(String text, Expression expression)
+      private boolean equalsNewWordStart(App app, String text, Expression expression)
       {
          text = text.trim();
 
-         switch (settings.getLanguageInput())
+         switch (app.settings.getLanguageInput())
          {
          case GERMAN:
             if (expression.getLL().getGerman().isBlank())
@@ -1440,9 +1434,9 @@ public class Data
          return newMap;
       }
 
-      private ComboBoxModel<String> getChapterComboBoxModel()
+      private ComboBoxModel<String> getChapterComboBoxModel(App app)
       {
-         return new DefaultComboBoxModel<String>(getChapterArrayForEditor());
+         return new DefaultComboBoxModel<String>(getChapterArrayForEditor(app));
       }
 
       private ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter(Common common)
@@ -1461,15 +1455,15 @@ public class Data
                this.getAllOwnDistinctDatabaseDescriptions(common, true, true));
       }
 
-      private ComboBoxModel<String> getInternalDatabasesComboBoxModel(Common common)
+      private ComboBoxModel<String> getInternalDatabasesComboBoxModel(App app, Common common)
       {
          return new DefaultComboBoxModel<String>(
-               this.getInternalDatabaseNames(common));
+               this.getInternalDatabaseNames(app, common));
       }
 
-      private String[] getChapterArrayForEditor()
+      private String[] getChapterArrayForEditor(App app)
       {
-         final List<Database> availableDatabases = settings
+         final List<Database> availableDatabases = app.settings
                .getAvailableDatabases();
 
          List<String> chapterList = chapterSet.stream().filter(
@@ -1573,7 +1567,7 @@ public class Data
                .collect(Collectors.toSet());
       }
 
-      private TrainingTableModel findTrainingModel(Common common,
+      private TrainingTableModel findTrainingModel(App app, Common common,
             LanguageDirection languageDirection,
             FieldOfTraining fieldOfTraining, Set<String> databaseNames)
       {
@@ -1648,7 +1642,7 @@ public class Data
 
             List<Expression> listSelected = findAllSelectedExpressionsList(
                   false);
-            TrainingTableRow selectedRow = makeSelectedRow(languageDirection,
+            TrainingTableRow selectedRow = makeSelectedRow(app, languageDirection,
                   fieldOfTraining, oldToBeTested, listSelected);
             data = new TrainingTableRow[1][1];
             data[0][0] = selectedRow;
@@ -1656,7 +1650,7 @@ public class Data
          case AREA_SELECTED_TEMPORARY:
             List<Expression> listSelected2 = findAllSelectedExpressionsList(
                   false);
-            TrainingTableRow selectedRow2 = makeSelectedRow(languageDirection,
+            TrainingTableRow selectedRow2 = makeSelectedRow(app, languageDirection,
                   fieldOfTraining, null, listSelected2);
             data = new TrainingTableRow[1][1];
             data[0][0] = selectedRow2;
@@ -1665,7 +1659,7 @@ public class Data
          return new TrainingTableModel(data);
       }
 
-      private TrainingTableRow makeSelectedRow(
+      private TrainingTableRow makeSelectedRow(App app,
             LanguageDirection languageDirection,
             FieldOfTraining fieldOfTraining,
             final Set<Expression> oldToBeTested, List<Expression> listSelected)
@@ -1673,7 +1667,7 @@ public class Data
          TrainingTableRow selectedRow = new TrainingTableRow();
          selectedRow.setFieldOfTraining(fieldOfTraining);
          selectedRow.setField(
-               translator.realisticTranslate(Translation.AUSGEWAEHLTE_WOERTER));
+               translator.realisticTranslate(app, Translation.AUSGEWAEHLTE_WOERTER));
          selectedRow.setExpressionListOldWords(oldToBeTested);
          if (oldToBeTested != null)
          {
@@ -1965,7 +1959,7 @@ public class Data
          return alleMap;
       }
 
-      private StatisticsTableModel findStatisticsModel(Common common)
+      private StatisticsTableModel findStatisticsModel(App app, Common common)
       {
          Predicate<Expression> trainingDToHStarted = e -> e
                .getTrainingStatusDToLL().isTrainingStarted();
@@ -2001,7 +1995,7 @@ public class Data
 
          Stream.iterate(0, i -> i + 1).limit(sortedAllDates.size())
                .forEachOrdered(i -> {
-                  StatisticsTableRow row = new StatisticsTableRow(common, i,
+                  StatisticsTableRow row = new StatisticsTableRow(app, common, i,
                         sortedAllDates.get(i),
                         mapDtoH.get(sortedAllDates.get(i)) == null
                               ? Collections.emptyList()
@@ -2080,9 +2074,9 @@ public class Data
          return resultAsString.stream().toArray(String[]::new);
       }
 
-      private String[] getInternalDatabaseNames(Common common)
+      private String[] getInternalDatabaseNames(App app, Common common)
       {
-         return Arrays.stream(settings.getAvailableDatabasesAsArray())
+         return Arrays.stream(app.settings.getAvailableDatabasesAsArray())
                .map(database -> database.getName(common)).toArray(String[]::new);
       }
 

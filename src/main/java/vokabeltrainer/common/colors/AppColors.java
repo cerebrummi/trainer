@@ -56,6 +56,7 @@ public abstract class AppColors implements ColorBase
    public abstract Color getLightYellow();
 
    public abstract Color getDarkRed();
+   public abstract Color getRed();
 
    abstract Color getRose();
 

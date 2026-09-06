@@ -2,6 +2,7 @@ package vokabeltrainer.editing;
 
 import java.util.StringJoiner;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 
@@ -564,8 +565,8 @@ public enum NikudLetter
       return NikudLetter.NEWSPACE;
    }
 
-   public String getGermanPictureName(Translator translator)
+   public String getGermanPictureName(App app, Translator translator)
    {
-      return translator.realisticTranslate(germanPictureName);
+      return translator.realisticTranslate(app, germanPictureName);
    }
 }

@@ -62,7 +62,7 @@ public class DatabaseTableCopy extends JTable
                      .getValueAt(table.getSelectedRow(), 0));
 
                InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(app, common, view,
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.EXPORT_INTERNE_DATENBANK));
                dialog.setVisible(true);
 
@@ -79,7 +79,7 @@ public class DatabaseTableCopy extends JTable
                   databaseName = dialog.getDatabaseName();
                   overwriteDatabaseNames = dialog.isOverwrite();
                   dialog.dispose();
-                  model.data.copyInternalDatabase(common,
+                  model.data.copyInternalDatabase(app, common,
                         tableRow.getDatabaseItem().getDatabase(),
                         overwriteDatabaseNames, databaseName);
                   new SwingWorker<Void, Void>()

@@ -9,11 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.common.colors.TrainerColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Data;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTable;
 import vokabeltrainer.panels.trainer.dialog.table.TrainingTableModel;
 import vokabeltrainer.panels.translation.Translation;
@@ -26,17 +24,17 @@ public class AmountTab extends JPanel
 
    private Translator translator;
 
-   public AmountTab(Common common, StartTrainingView dialog)
+   public AmountTab(App app, Common common, Model model, StartTrainingView dialog)
    {
       translator = common.getTranslator();
       setLayout(new BorderLayout());
-      setBackground(TrainerColors.getPanelBackground());
+      setBackground(app.appColors.trainer.getPanelBackground());
       setOpaque(true);
 
       JLabel question = new JLabel(translator.realisticTranslate(
             Translation.WIE_VIELE_NEUE_WOERTER_MOECHTEN_SIE_LERNEN_));
-      question.setForeground(TrainerColors.getTextForeground());
-      question.setFont(AppFonts.buttonFont);
+      question.setForeground(app.appColors.trainer.getTextForeground());
+      question.setFont(app.appFonts.buttonFont);
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
       add(question, BorderLayout.NORTH);
@@ -45,14 +43,14 @@ public class AmountTab extends JPanel
       center.setOpaque(false);
       center.setLayout(new BorderLayout());
 
-      TrainingTableModel model = Data.findTrainingModel(common,
+      TrainingTableModel tableModel = model.data.findTrainingModel(common,
             dialog.getLanguageDirection(), dialog.getFieldOfTraining(),
             dialog.getDatabaseNames());
-      TrainingTable table = new TrainingTable(common, model);
+      TrainingTable table = new TrainingTable(app, common, tableModel);
 
       JScrollPane scroller = new JScrollPane(table);
-      scroller.setForeground(TrainerColors.getTextForeground());
-      scroller.setBackground(TrainerColors.getTextBackground());
+      scroller.setForeground(app.appColors.trainer.getTextForeground());
+      scroller.setBackground(app.appColors.trainer.getTextBackground());
       center.add(scroller);
 
       add(center, BorderLayout.CENTER);
@@ -62,17 +60,17 @@ public class AmountTab extends JPanel
 
       JButton cancelButton = new JButton(
             translator.realisticTranslate(Translation.ABBRECHEN));
-      cancelButton.setFont(AppFonts.buttonFont);
-      cancelButton.setBackground(TrainerColors.getButton());
-      cancelButton.setForeground(TrainerColors.getButtonForeground());
-      cancelButton.setIcon(new ImageIcon(AppImages.getCancel()));
+      cancelButton.setFont(app.appFonts.buttonFont);
+      cancelButton.setBackground(app.appColors.trainer.getButton());
+      cancelButton.setForeground(app.appColors.trainer.getButtonForeground());
+      cancelButton.setIcon(new ImageIcon(app.appImages.getCancel()));
 
       JButton nextButton = new JButton(
             translator.realisticTranslate(Translation.WEITER));
-      nextButton.setFont(AppFonts.buttonFont);
-      nextButton.setBackground(TrainerColors.getButton());
-      nextButton.setForeground(TrainerColors.getButtonForeground());
-      nextButton.setIcon(new ImageIcon(AppImages.getArrow()));
+      nextButton.setFont(app.appFonts.buttonFont);
+      nextButton.setBackground(app.appColors.trainer.getButton());
+      nextButton.setForeground(app.appColors.trainer.getButtonForeground());
+      nextButton.setIcon(new ImageIcon(app.appImages.getArrow()));
 
       buttonWrapper.add(cancelButton);
       buttonWrapper.add(nextButton);

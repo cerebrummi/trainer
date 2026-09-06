@@ -159,10 +159,10 @@ public class DictionaryController implements DictionaryControllerConnector
 
       if (list.isEmpty())
       {
-         dictionaryViewConnector.notifyNothingWasSelectedForDeletion(view);
+         dictionaryViewConnector.notifyNothingWasSelectedForDeletion(app, view);
          return;
       }
-      if (dictionaryViewConnector.askForDeletionConfirmation(view, list.size()) == 0)
+      if (dictionaryViewConnector.askForDeletionConfirmation(app, view, list.size()) == 0)
       {
          model.data.deleteExpressions(list);
       }
@@ -188,10 +188,10 @@ public class DictionaryController implements DictionaryControllerConnector
                .getInTableSelectedExpressions(true);
          if (list.isEmpty())
          {
-            dictionaryViewConnector.notifyNothingWasSelectedForDeletion(view);
+            dictionaryViewConnector.notifyNothingWasSelectedForDeletion(app, view);
             return;
          }
-         if (dictionaryViewConnector.askForDeletionConfirmation(view, list.size()) == 0)
+         if (dictionaryViewConnector.askForDeletionConfirmation(app, view, list.size()) == 0)
          {
             model.data.deleteExpressions(list);
          }
@@ -209,7 +209,7 @@ public class DictionaryController implements DictionaryControllerConnector
       }
       else
       {
-         dictionaryViewConnector.notifyNothingWasSelectedForDeletion(view);
+         dictionaryViewConnector.notifyNothingWasSelectedForDeletion(app, view);
       }
    }
 
@@ -241,7 +241,7 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void shredderDeletedExpressions(App app, Common common, Model model, View view)
    {
-      if (dictionaryViewConnector.askForShredderConfirmation(view) == 0)
+      if (dictionaryViewConnector.askForShredderConfirmation(app, view) == 0)
       {
          if (app.settings.isSoundOn())
          {
@@ -347,7 +347,7 @@ public class DictionaryController implements DictionaryControllerConnector
                   break;
                case TABLE_CHAPTER_WHICH:
                   dictionaryViewConnector.clearTable();
-                  tableModel = model.data.findTranslations(common, null, null, null,
+                  tableModel = model.data.findTranslations(app, common, null, null, null,
                         currentChapter, null, dictionaryViewConnector.getSortNow(), null,
                         dictionaryViewConnector.getSelectedLanguage(), null);
                   dictionaryViewConnector.removeChapterListSelectionListener();
@@ -360,7 +360,7 @@ public class DictionaryController implements DictionaryControllerConnector
                         .getSelectedExpressionKind();
                   if (expressionKind != null)
                   {
-                     tableModel = model.data.findTranslations(common, null, expressionKind,
+                     tableModel = model.data.findTranslations(app, common, null, expressionKind,
                            null, null, null, dictionaryViewConnector.getSortNow(), null,
                            dictionaryViewConnector.getSelectedLanguage(), dictionaryViewConnector
                                  .getDatabaseTableModel().getSelectedRows());
@@ -368,7 +368,7 @@ public class DictionaryController implements DictionaryControllerConnector
                   break;
                case TABLE_SEARCH_WHICH_OWN:
                   dictionaryViewConnector.clearTable();
-                  tableModel = model.data.findTranslations(common, 
+                  tableModel = model.data.findTranslations(app, common, 
                         dictionaryViewConnector.getSearchPhraseGerman(), null,
                         dictionaryViewConnector.getSelectedSearchTypeGerman(), null,
                         null, dictionaryViewConnector.getSortNow(), null,
@@ -377,7 +377,7 @@ public class DictionaryController implements DictionaryControllerConnector
                   break;
                case TABLE_SEARCH_WHICH_NEW:
                   dictionaryViewConnector.clearTable();
-                  tableModel = model.data.findTranslations(common,
+                  tableModel = model.data.findTranslations(app, common,
                         dictionaryViewConnector.getSearchPhraseOther(), null,
                         dictionaryViewConnector.getSelectedSearchTypeHebrew(), null,
                         null, dictionaryViewConnector.getSortNow(), null,
@@ -386,7 +386,7 @@ public class DictionaryController implements DictionaryControllerConnector
                   break;
                case TABLE_SELECTED_EXPRESSIONS:
                   dictionaryViewConnector.clearTable();
-                  tableModel = model.data.findTranslations(common,null, null, null, null,
+                  tableModel = model.data.findTranslations(app, common,null, null, null, null,
                         vokabeltrainer.Command.ALL_SELECTED,
                         dictionaryViewConnector.getSortNow(), null,
                         dictionaryViewConnector.getSelectedLanguage(), null);
@@ -465,7 +465,7 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void moveExpressionsToChapter(App app, Common common, Model model, View view, String toChapter)
    {
-      if (dictionaryViewConnector.askForMovingToChapterConfirmation(view) == 0)
+      if (dictionaryViewConnector.askForMovingToChapterConfirmation(app, view) == 0)
       {
          model.data.moveSelectedExpressionsToChapter(toChapter);
 
@@ -480,7 +480,7 @@ public class DictionaryController implements DictionaryControllerConnector
    @Override
    public void moveExpressionsToDatabase(App app, Common common, Model model, View view, String toDatabase)
    {
-      if (dictionaryViewConnector.askForMovingToDatabaseConfirmation(view) == 0)
+      if (dictionaryViewConnector.askForMovingToDatabaseConfirmation(app, view) == 0)
       {
          model.data.moveSelectedExpressionsToDatabase(toDatabase);
 

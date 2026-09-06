@@ -6,14 +6,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import vokabeltrainer.common.colors.TrainerColors;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class HebrewAnswerWordPanel extends JPanel
 {
    private static final long serialVersionUID = 3783416522992027245L;
 
-   public HebrewAnswerWordPanel(Result result)
+   public HebrewAnswerWordPanel(App app, Result result)
    {
       this.setPreferredSize(new Dimension(
             result.getWidth() + (result.getFeedbackImageList().size() - 1) * 4,
@@ -24,7 +24,7 @@ public class HebrewAnswerWordPanel extends JPanel
       for (BufferedImage image : result.getFeedbackImageList())
       {
          JLabel label = new JLabel(new ImageIcon(image));
-         label.setBackground(TrainerColors.getPanelBackground());
+         label.setBackground(app.appColors.trainer.getPanelBackground());
          label.setMinimumSize(new Dimension(image.getWidth(), 110));
          label.setMaximumSize(new Dimension(image.getWidth(), 110));
          this.add(label);

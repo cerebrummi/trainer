@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import vokabeltrainer.InputLanguagePanel.Selection;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.GermanLetter;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
@@ -21,17 +22,17 @@ public class GermanResultFactory
       // nothing
    }
 
-   public static BestResult getBestResultPossible(Expression expression,
+   public static BestResult getBestResultPossible(App app, Expression expression,
          String answer)
 
    {
       BestResult bestResult = new BestResult(Selection.GERMAN);
       bestResult
-            .setResultGerman(getResultDtoGermanSentence(expression, answer));
+            .setResultGerman(getResultDtoGermanSentence(app, expression, answer));
       return bestResult;
    }
 
-   public static Result getResultDtoGermanSentence(Expression expression,
+   public static Result getResultDtoGermanSentence(App app, Expression expression,
          String answer)
    {
       String[] expressionArray = expression.getLL().getGerman()
@@ -41,7 +42,7 @@ public class GermanResultFactory
 
       if (expressionArray.length == 1 && answerArray.length == 1)
       {
-         return getResultDtoGerman(expression, answer);
+         return getResultDtoGerman(app, expression, answer);
       }
 
       if (expressionArray.length == answerArray.length)
@@ -51,7 +52,7 @@ public class GermanResultFactory
          List<Result> resultList = new ArrayList<>(expressionArray.length);
          for (int i = 0; i < expressionArray.length; i++)
          {
-            resultList.add(getResultDtoGermanString(expressionArray[i],
+            resultList.add(getResultDtoGermanString(app, expressionArray[i],
                   answerArray[i], new Result()));
          }
 
@@ -69,7 +70,7 @@ public class GermanResultFactory
                   && singleResult.isDictionaryEmpty());
             if (index > 0)
             {
-               result.addFeedbackImage(LetterFeedbackImage.makeSpace());
+               result.addFeedbackImage(LetterFeedbackImage.makeSpace(app));
                result.addAnswerSpace(new LetterForAnalysis(GermanLetter.SPACE));
                result.addDictionarySpace(
                      new LetterForAnalysis(GermanLetter.SPACE));
@@ -84,20 +85,20 @@ public class GermanResultFactory
          return result;
       }
 
-      return getResultDtoGerman(expression, answer);
+      return getResultDtoGerman(app, expression, answer);
    }
 
-   private static Result getResultDtoGerman(Expression expression,
+   private static Result getResultDtoGerman(App app, Expression expression,
          String answer)
    {
       Result result = new Result();
       result.setExpression(expression);
 
-      return getResultDtoGermanString(expression.getLL().getGerman(), answer,
+      return getResultDtoGermanString(app, expression.getLL().getGerman(), answer,
             result);
    }
 
-   private static Result getResultDtoGermanString(String dictionary,
+   private static Result getResultDtoGermanString(App app, String dictionary,
          String answer, Result result)
    {
       WordLetterMatchingResult matchingResult = WordLetterMatching.matchLetters(
@@ -125,7 +126,7 @@ public class GermanResultFactory
          boolean letterresult = LetterHelper
                .areLettersEqual(dictionaryList.get(i), answerList.get(i));
 
-         feedbackImageList.add(LetterFeedbackImage.make(dictionaryList.get(i),
+         feedbackImageList.add(LetterFeedbackImage.make(app, dictionaryList.get(i),
                answerList.get(i), letterresult));
          result.setOkay(result.isOkay() && letterresult);
       }

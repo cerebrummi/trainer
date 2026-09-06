@@ -128,25 +128,25 @@ public final class View
                nimbus.getDefaults().getFont("internationalFont"));
 
          UIManager.put("OptionPane.cancelButtonText", common.getTranslator()
-               .realisticTranslate(Translation.ABBRECHEN));
+               .realisticTranslate(app, Translation.ABBRECHEN));
          UIManager.put("OptionPane.yesButtonText",
-               common.getTranslator().realisticTranslate(Translation.JA));
+               common.getTranslator().realisticTranslate(app, Translation.JA));
          UIManager.put("OptionPane.noButtonText",
-               common.getTranslator().realisticTranslate(Translation.NEIN));
+               common.getTranslator().realisticTranslate(app, Translation.NEIN));
          UIManager.put("OptionPane.titleText", common.getTranslator()
-               .realisticTranslate(Translation.BILD_LOESCHEN));
+               .realisticTranslate(app, Translation.BILD_LOESCHEN));
 
          UIManager.put("FileChooser.openButtonText",
-               common.getTranslator().realisticTranslate(Translation.OEFFNEN));
+               common.getTranslator().realisticTranslate(app, Translation.OEFFNEN));
          UIManager.put("FileChooser.cancelButtonText", common.getTranslator()
-               .realisticTranslate(Translation.ABBRECHEN));
+               .realisticTranslate(app, Translation.ABBRECHEN));
          UIManager.put("FileChooser.saveButtonText", common.getTranslator()
-               .realisticTranslate(Translation.SPEICHERN));
+               .realisticTranslate(app, Translation.SPEICHERN));
          UIManager.put("FileChooser.cancelButtonToolTipText",
                common.getTranslator()
-                     .realisticTranslate(Translation.ABBRECHEN_DER_AUSWAHL));
+                     .realisticTranslate(app, Translation.ABBRECHEN_DER_AUSWAHL));
          UIManager.put("FileChooser.saveButtonToolTipText",
-               common.getTranslator().realisticTranslate(
+               common.getTranslator().realisticTranslate(app, 
                      Translation.AUSGEWAEHLTE_DATEI_SPEICHERN));
          UIManager.put("FileChooser.openButtonToolTipText",
                "Ausgewählte Datei öffnen");
@@ -163,9 +163,9 @@ public final class View
                "Alle Dateien (*.*)");
          UIManager.put("FileChooser.folderNameLabelText", "Ordnername:");
          UIManager.put("FileChooser.openDialogTitleText",
-               common.getTranslator().realisticTranslate(Translation.OEFFNEN));
+               common.getTranslator().realisticTranslate(app, Translation.OEFFNEN));
          UIManager.put("FileChooser.saveDialogTitleText", common.getTranslator()
-               .realisticTranslate(Translation.SPEICHERN));
+               .realisticTranslate(app, Translation.SPEICHERN));
 
       }
       catch (UnsupportedLookAndFeelException e3)

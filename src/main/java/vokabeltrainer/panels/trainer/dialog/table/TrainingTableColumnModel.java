@@ -3,6 +3,7 @@ package vokabeltrainer.panels.trainer.dialog.table;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
@@ -14,10 +15,10 @@ public class TrainingTableColumnModel extends DefaultTableColumnModel
    private TrainingTableCellRendererEditor rendererEditor;
    private Translator translator;
 
-   public TrainingTableColumnModel(Common common)
+   public TrainingTableColumnModel(App app, Common common)
    {
       translator = common.getTranslator();
-      rendererEditor = new TrainingTableCellRendererEditor();
+      rendererEditor = new TrainingTableCellRendererEditor(app);
 
       TableColumn column = new TableColumn();
       column.setHeaderValue(translator.realisticTranslate(Translation.KAPITEL));

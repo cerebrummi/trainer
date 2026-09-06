@@ -24,7 +24,7 @@ public class DatabaseTableCopyColumnModel extends DefaultTableColumnModel
 
       TableColumn column1 = new TableColumn();
       column1.setHeaderValue(
-            translator.realisticTranslate(Translation.DATENBANK));
+            translator.realisticTranslate(app, Translation.DATENBANK));
       column1.setCellRenderer(renderer);
       column1.setCellEditor(renderer);
       column1.setPreferredWidth(width + 43);
@@ -32,14 +32,14 @@ public class DatabaseTableCopyColumnModel extends DefaultTableColumnModel
 
       TableColumn column2 = new TableColumn();
       column2
-            .setHeaderValue(translator.realisticTranslate(Translation.AUTOREN));
+            .setHeaderValue(translator.realisticTranslate(app, Translation.AUTOREN));
       column2.setCellRenderer(renderer);
       column2.setCellEditor(renderer);
       column2.setPreferredWidth(width);
       addColumn(column2);
 
       TableColumn column3 = new TableColumn();
-      column3.setHeaderValue(translator.realisticTranslate(Translation.VERLAG));
+      column3.setHeaderValue(translator.realisticTranslate(app, Translation.VERLAG));
       column3.setCellRenderer(renderer);
       column3.setCellEditor(renderer);
       column3.setPreferredWidth(width);

@@ -76,13 +76,13 @@ public class AlefbetPanel extends JPanel
       filler.setOpaque(false);
 
       resultButton = new JButton(
-            translator.realisticTranslate(Translation.AUSWERTEN));
+            translator.realisticTranslate(app, Translation.AUSWERTEN));
       resultButton.setBackground(app.appColors.alefbet.getButton());
       resultButton.setForeground(app.appColors.alefbet.getButtonForeground());
       resultButton.setFont(app.appFonts.buttonFont);
 
       resetButton = new JButton(
-            translator.realisticTranslate(Translation.ZURUECKSETZEN));
+            translator.realisticTranslate(app, Translation.ZURUECKSETZEN));
       resetButton.setBackground(app.appColors.alefbet.getButton());
       resetButton.setForeground(app.appColors.alefbet.getButtonForeground());
       resetButton.setFont(app.appFonts.buttonFont);
@@ -100,7 +100,7 @@ public class AlefbetPanel extends JPanel
       letterPanel.setOpaque(false);
 
       JLabel title = new JLabel(
-            translator.realisticTranslate(Translation.ALEFBET_UEBEN));
+            translator.realisticTranslate(app, Translation.ALEFBET_UEBEN));
       title.setForeground(app.appColors.alefbet.getTextForeground());
       title.setFont(app.appFonts.germanFont.deriveFont(24F));
       letterPanel.add(title);
@@ -152,10 +152,10 @@ public class AlefbetPanel extends JPanel
                app.settings.getWindowTitle(), JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(app,
                      translator
-                           .realisticTranslate(Translation.BILDERBUCHSTABEN),
-                     translator.realisticTranslate(
+                           .realisticTranslate(app, Translation.BILDERBUCHSTABEN),
+                     translator.realisticTranslate(app, 
                            Translation.ALLE_BILDER_KANN_MAN),
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.AUCH_EINZELN_ANKLICKEN))));
       });
 

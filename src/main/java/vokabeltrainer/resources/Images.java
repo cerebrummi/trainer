@@ -36,6 +36,9 @@ public class Images
 
       appImages.setImage(ImageIO.read(Images.class
             .getResourceAsStream("_2_images/book-2878724_1280.png")));
+      
+      appImages.setFabric(ImageIO.read(Images.class
+            .getResourceAsStream("jewish-1159704_1280.jpg")));
 
       appImages.setCancel(ImageIO
             .read(Images.class.getResourceAsStream("_2_images/cancel.png")));

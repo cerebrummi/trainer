@@ -13,7 +13,7 @@ public class StatisticsTable extends JTable
 
    public StatisticsTable(App app, Common common, StatisticsTableModel model)
    {
-      super(model, new StatisticsTableColumnModel(common));
+      super(model, new StatisticsTableColumnModel(app, common));
       this.setShowVerticalLines(false);
       setOpaque(true);
       setRowHeight(50);

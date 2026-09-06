@@ -91,12 +91,12 @@ public class InputPanel extends JPanel implements TableConnector
       spanner.setMinimumSize(new Dimension(1500, 30));
       spanner.setMaximumSize(new Dimension(1536, 30));
       spanner.add(new JLabel(translator
-            .realisticTranslate(Translation.UM_EINE_VOKABEL_WIEDER_AUFZURUFEN__)
+            .realisticTranslate(app, Translation.UM_EINE_VOKABEL_WIEDER_AUFZURUFEN__)
             + " "
-            + translator.realisticTranslate(
+            + translator.realisticTranslate(app, 
                   Translation.EINMAL_ANKLICKEN_UND_DANN_ENTER_EINGABE_TASTE)
             + " " + translator
-                  .realisticTranslate(Translation.AUF_DER_TASTATUR_DRUECKEN_)));
+                  .realisticTranslate(app, Translation.AUF_DER_TASTATUR_DRUECKEN_)));
 
       vertical.add(horizontal);
       vertical.add(spanner);
@@ -135,7 +135,7 @@ public class InputPanel extends JPanel implements TableConnector
       chapterBox.addActionListener(_ -> {
          this.currentChapter = chapterBox
                .getItemAt(chapterBox.getSelectedIndex());
-         this.doShowTable(common, model, view);
+         this.doShowTable(app, common, model, view);
       });
 
       myWritingDirection.addActionListener(_ -> {
@@ -176,12 +176,12 @@ public class InputPanel extends JPanel implements TableConnector
          JOptionPane.showMessageDialog(this, "", app.settings.getWindowTitle(),
                JOptionPane.INFORMATION_MESSAGE,
                new ImageIcon(TextImage.make(app,
-                     translator.realisticTranslate(Translation.TABELLE),
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, Translation.TABELLE),
+                     translator.realisticTranslate(app, 
                            Translation.EINMAL_KLICKEN_MARKIERT_EINEN_EINTRAG),
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.ENTER_DRUECKEN_OEFFNET_DEN_MARKIERTEN_EINTRAG),
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.ZWEIMAL_KLICKEN_WAEHLT_EINEN_EINTRAG_AUS__STECKNADEL_))));
       });
 
@@ -240,9 +240,9 @@ public class InputPanel extends JPanel implements TableConnector
       setLernsprache(app, true);
    }
 
-   private void doShowTable(Common common, Model model, View view)
+   private void doShowTable(App app, Common common, Model model, View view)
    {
-      ExpressionTableModel tableModel = model.data.findTranslations(common,
+      ExpressionTableModel tableModel = model.data.findTranslations(app, common,
             null, null, null, currentChapter, null, SortingType.DATE, null,
             Direction.OWN_TO_NEW, null);
       tablePanel.removeAll();
@@ -323,7 +323,7 @@ public class InputPanel extends JPanel implements TableConnector
       myWritingDirection.setEditable(false);
       myWritingDirection.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createEmptyBorder(),
-            translator.realisticTranslate(Translation.SCHREIBRICHTUNG), 0, 0,
+            translator.realisticTranslate(app, Translation.SCHREIBRICHTUNG), 0, 0,
             app.appFonts.buttonFont, app.appColors.input.getPanelBackground()));
       myWritingDirection.setOpaque(true);
       myWritingDirection
@@ -337,7 +337,7 @@ public class InputPanel extends JPanel implements TableConnector
       otherLanguage.setEditable(false);
       otherLanguage.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createEmptyBorder(),
-            translator.realisticTranslate(Translation.NEUE_SPRACHE), 0, 0,
+            translator.realisticTranslate(app, Translation.NEUE_SPRACHE), 0, 0,
             app.appFonts.buttonFont, app.appColors.input.getPanelBackground()));
       otherLanguage.setOpaque(true);
       otherLanguage.setBackground(app.appColors.input.getPanelBackground());
@@ -347,7 +347,7 @@ public class InputPanel extends JPanel implements TableConnector
       otherLanguage.setMaximumRowCount(4);
 
       newWordPunktationButton = new JButton(
-            translator.realisticTranslate(Translation.NEUE_VOKABEL));
+            translator.realisticTranslate(app, Translation.NEUE_VOKABEL));
       newWordPunktationButton.setFont(app.appFonts.buttonFont);
       newWordPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newWordPunktationButton.setMinimumSize(new Dimension(300, 60));
@@ -359,7 +359,7 @@ public class InputPanel extends JPanel implements TableConnector
             10, 10, app.appColors.input.getButtonBorder()));
 
       newTextPunktationButton = new JButton(
-            translator.realisticTranslate(Translation.NEUER_TEXT));
+            translator.realisticTranslate(app, Translation.NEUER_TEXT));
       newTextPunktationButton.setFont(app.appFonts.buttonFont);
       newTextPunktationButton.setHorizontalAlignment(SwingConstants.LEFT);
       newTextPunktationButton.setMinimumSize(new Dimension(300, 60));
@@ -371,7 +371,7 @@ public class InputPanel extends JPanel implements TableConnector
             10, 10, app.appColors.input.getButtonBorder()));
 
       newQuestionsAndAnswersButton = new JButton(
-            translator.realisticTranslate(Translation.NEUE_FRAGE_UND_ANTWORT));
+            translator.realisticTranslate(app, Translation.NEUE_FRAGE_UND_ANTWORT));
       newQuestionsAndAnswersButton.setFont(app.appFonts.buttonFont);
       newQuestionsAndAnswersButton.setHorizontalAlignment(SwingConstants.LEFT);
       newQuestionsAndAnswersButton.setMinimumSize(new Dimension(300, 60));

@@ -73,12 +73,12 @@ public class StatisticsPanel extends JPanel
       titlePanel.setMaximumSize(new Dimension(580, 50));
 
       JLabel title = new JLabel(
-            translator.realisticTranslate(Translation.TRAININGSUEBERSICHT));
+            translator.realisticTranslate(app, Translation.TRAININGSUEBERSICHT));
       title.setForeground(app.appColors.statistics.getTextForeground());
       title.setFont(app.appFonts.germanFont.deriveFont(30F));
       titlePanel.add(title);
 
-      StatisticsTable table = new StatisticsTable(common, model.data.findStatisticsModel(common));
+      StatisticsTable table = new StatisticsTable(app, common, model.data.findStatisticsModel(app, common));
 
       table.addMouseListener(new MouseAdapter()
       {
@@ -97,7 +97,7 @@ public class StatisticsPanel extends JPanel
                   StatisticsTableRow statisticsTableRow = ((StatisticsTableRow) table
                         .getValueAt(table.getSelectedRow(), 1));
                   JScrollPane scroller = new JScrollPane(
-                        statisticsTableRow.getJListHtoD(common));
+                        statisticsTableRow.getJListHtoD(app, common));
                   scroller.setOpaque(true);
                   scroller.setBackground(
                         app.appColors.statistics.getSelectedBackground());
@@ -113,7 +113,7 @@ public class StatisticsPanel extends JPanel
                   StatisticsTableRow statisticsTableRow = ((StatisticsTableRow) table
                         .getValueAt(table.getSelectedRow(), 2));
                   JScrollPane scroller = new JScrollPane(
-                        statisticsTableRow.getJListDtoH(common));
+                        statisticsTableRow.getJListDtoH(app, common));
                   scroller.setOpaque(true);
                   scroller.setBackground(
                         app.appColors.statistics.getSelectedBackground());

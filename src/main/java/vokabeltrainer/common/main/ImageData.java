@@ -26,18 +26,16 @@ public class ImageData
    private final AtomicBoolean databaseInUse = new AtomicBoolean(false);
    private volatile UUID uuidDataBaseLock;
    private ImageDataBase database;
-   private Settings settings;
    private Data data;
 
-   ImageData(Settings settings, Data data)
+   ImageData(Data data)
    {
-      this.settings = settings;
       this.data = data;
    }
 
-   void initImageDataBase(Common common, View view)
+   void initImageDataBase(App app, Common common, View view)
    {
-      database = new ImageDataBase(common, view);
+      database = new ImageDataBase(app, common, view);
    }
 
    boolean lockDataBase(UUID uuid)
@@ -92,32 +90,32 @@ public class ImageData
       return getDataBaseAtomic().isImageForExpressionAvailable(uuid);
    }
 
-   public void saveImage(Common common, View view, BufferedImage image, UUID uuid,
+   public void saveImage(App app, Common common, View view, BufferedImage image, UUID uuid,
          String imageName)
    {
       if (uuid == null)
       {
          return;
       }
-      getDataBaseAtomic().saveImage(common, view, image, uuid, imageName);
+      getDataBaseAtomic().saveImage(app, common, view, image, uuid, imageName);
    }
 
-   public ArrayList<ImageItem> loadImages(UUID uuid)
+   public ArrayList<ImageItem> loadImages(App app, UUID uuid)
    {
       if (uuid == null)
       {
          return null;
       }
-      return getDataBaseAtomic().loadImages(uuid);
+      return getDataBaseAtomic().loadImages(app, uuid);
    }
 
-   public void deleteImage(UUID uuid, String imageName)
+   public void deleteImage(App app, UUID uuid, String imageName)
    {
       if (uuid == null)
       {
          return;
       }
-      getDataBaseAtomic().deleteImage(uuid, imageName);
+      getDataBaseAtomic().deleteImage(app, uuid, imageName);
    }
 
    // #########################################################
@@ -151,19 +149,19 @@ public class ImageData
       private final ConcurrentMap<UUID, ArrayList<String>> imageNameMap = new ConcurrentHashMap<>(
             findNumberOfAllVocabulary() + 100);
 
-      ImageDataBase(Common common, View view)
+      ImageDataBase(App app, Common common, View view)
       {
-         if (!checkDirectory(common, view))
+         if (!checkDirectory(app, common, view))
          {
             return;
          }
-         moveImagesFromPreviousVersion(common, view);
-         readImagesAvailable();
+         moveImagesFromPreviousVersion(app, common, view);
+         readImagesAvailable(app);
       }
 
-      private void readImagesAvailable()
+      private void readImagesAvailable(App app)
       {
-         try (Stream<Path> s = Files.list(Paths.get(settings.getImagePath())))
+         try (Stream<Path> s = Files.list(Paths.get(app.settings.getImagePath())))
          {
             s.filter(Files::isDirectory).forEach(dirPath -> {
                try (Stream<Path> walk = Files.walk(dirPath))
@@ -183,9 +181,9 @@ public class ImageData
          }
       }
 
-      private void moveImagesFromPreviousVersion(Common common, View view)
+      private void moveImagesFromPreviousVersion(App app, Common common, View view)
       {
-         try (Stream<Path> s = Files.walk(Paths.get(settings.getImagePath())))
+         try (Stream<Path> s = Files.walk(Paths.get(app.settings.getImagePath())))
          {
             s.filter(Files::isRegularFile).forEach(filePath -> {
 
@@ -194,14 +192,14 @@ public class ImageData
 
                if (data.isExistUuid(uuid))
                {
-                  checkDirectory(common, view, uuid);
+                  checkDirectory(app, common, view, uuid);
 
                   try
                   {
                      Files.move(
-                           Paths.get(settings.getImagePath(), File.separator,
+                           Paths.get(app.settings.getImagePath(), File.separator,
                                  fileName),
-                           Paths.get(settings.getImagePath(), File.separator,
+                           Paths.get(app.settings.getImagePath(), File.separator,
                                  uuid.toString(), File.separator,
                                  "ex_" + fileName),
                            StandardCopyOption.REPLACE_EXISTING);
@@ -268,7 +266,7 @@ public class ImageData
 
       // #########################################################
 
-      private ArrayList<ImageItem> loadImages(UUID uuid)
+      private ArrayList<ImageItem> loadImages(App app, UUID uuid)
       {
          ArrayList<ImageItem> imageList = new ArrayList<>();
          ArrayList<String> nameList = imageNameMap.get(uuid);
@@ -279,7 +277,7 @@ public class ImageData
          }
 
          try (Stream<Path> s = Files.walk(
-               Paths.get(settings.getImagePath() + File.separator + uuid)))
+               Paths.get(app.settings.getImagePath() + File.separator + uuid)))
          {
             s.filter(Files::isRegularFile).forEach(file -> {
                ImageItem item = loadImageOriginal(file, uuid);
@@ -317,12 +315,12 @@ public class ImageData
          return null;
       }
 
-      private void deleteImage(UUID uuid, String imageFile)
+      private void deleteImage(App app, UUID uuid, String imageFile)
       {
          try
          {
             Files.deleteIfExists(
-                  Paths.get(settings.getImagePath() + File.separator
+                  Paths.get(app.settings.getImagePath() + File.separator
                         + uuid.toString() + File.separator + imageFile));
             imageNameMap.get(uuid).remove(imageFile);
 
@@ -340,14 +338,14 @@ public class ImageData
                && !imageNameMap.get(uuid).isEmpty() ? true : false;
       }
 
-      private void saveImage(Common common, View view, BufferedImage image, UUID uuid, String imageName)
+      private void saveImage(App app, Common common, View view, BufferedImage image, UUID uuid, String imageName)
       {
-         if (!checkDirectory(common, view))
+         if (!checkDirectory(app, common, view))
          {
             return;
          }
 
-         if (!checkDirectory(common, view, uuid))
+         if (!checkDirectory(app, common, view, uuid))
          {
             return;
          }
@@ -355,7 +353,7 @@ public class ImageData
          try
          {
             Path target = Path
-                  .of(settings.getImagePath(), File.separator, uuid.toString())
+                  .of(app.settings.getImagePath(), File.separator, uuid.toString())
                   .resolve(imageName);
 
             String format = getFormat(imageName);
@@ -384,12 +382,12 @@ public class ImageData
          return fileName.substring(dot + 1).toLowerCase();
       }
 
-      private boolean checkDirectory(Common common, View view)
+      private boolean checkDirectory(App app, Common common, View view)
       {
-         File customDir = new File(settings.getImagePath());
+         File customDir = new File(app.settings.getImagePath());
          if (!customDir.exists())
          {
-            if (!common.getDirectoryHelper().makeDirectory(common, view, customDir))
+            if (!common.getDirectoryHelper().makeDirectory(app, common, view, customDir))
             {
                return false;
             }
@@ -397,14 +395,14 @@ public class ImageData
          return true;
       }
 
-      private boolean checkDirectory(Common common, View view, UUID uuid)
+      private boolean checkDirectory(App app, Common common, View view, UUID uuid)
       {
          File customDir = new File(
-               settings.getImagePath() + File.separator + uuid);
+               app.settings.getImagePath() + File.separator + uuid);
 
          if (!customDir.exists())
          {
-            if (!common.getDirectoryHelper().makeDirectory(common, view, customDir))
+            if (!common.getDirectoryHelper().makeDirectory(app, common, view, customDir))
             {
                return false;
             }

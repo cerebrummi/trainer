@@ -15,12 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import vokabeltrainer.common.colors.TrainerColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Data;
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.panels.list.table.DatabaseTableModel;
 import vokabeltrainer.panels.list.table.DatabaseTableMultiselect;
 import vokabeltrainer.panels.translation.Translation;
@@ -35,37 +32,37 @@ public class DatabaseTab extends JPanel
 
    private Translator translator;
 
-   public DatabaseTab(Common common, StartTrainingView dialog)
+   public DatabaseTab(App app, Common common, Model model, StartTrainingView dialog)
    {
       translator = common.getTranslator();
       setLayout(new BorderLayout());
-      setBackground(TrainerColors.getPanelBackgroundDark());
+      setBackground(app.appColors.trainer.getPanelBackgroundDark());
       setOpaque(true);
 
       JLabel question = new JLabel(
             translator.realisticTranslate(Translation.DATENBANK));
-      question.setForeground(TrainerColors.getTextForeground());
-      question.setFont(AppFonts.buttonFont);
+      question.setForeground(app.appColors.trainer.getTextForeground());
+      question.setFont(app.appFonts.buttonFont);
       question.setOpaque(false);
       question.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
       add(question, BorderLayout.NORTH);
 
       JPanel center = new JPanel();
       center.setOpaque(false);
-      center.setBackground(TrainerColors.getTransparent());
+      center.setBackground(app.appColors.trainer.getTransparent());
       center.setLayout(new FlowLayout());
       new ButtonGroup();
 
       Vector<String> names = new Vector<>();
       names.add(translator.realisticTranslate(Translation.DATENBANK));
       DatabaseTableModel databaseTableModel = new DatabaseTableModel(
-            Data.getDatabaseArray(), names);
-      DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(
-            databaseTableModel, Settings.getKeyboardWidth());
+            model.data.getDatabaseArray(), names);
+      DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(app,
+            databaseTableModel, app.settings.getKeyboardWidth());
       JScrollPane scroller = new JScrollPane(databaseTable);
-      scroller.setMinimumSize(new Dimension(Settings.getKeyboardWidth(), 300));
+      scroller.setMinimumSize(new Dimension(app.settings.getKeyboardWidth(), 300));
       scroller.setMaximumSize(
-            new Dimension(Settings.getKeyboardWidth() + 50, 700));
+            new Dimension(app.settings.getKeyboardWidth() + 50, 700));
       scroller.setBorder(BorderFactory.createEmptyBorder());
 
       center.add(scroller);
@@ -77,17 +74,17 @@ public class DatabaseTab extends JPanel
 
       cancelButton = new JButton(
             translator.realisticTranslate(Translation.ABBRECHEN));
-      cancelButton.setFont(AppFonts.buttonFont);
-      cancelButton.setBackground(TrainerColors.getButton());
-      cancelButton.setForeground(TrainerColors.getButtonForeground());
-      cancelButton.setIcon(new ImageIcon(AppImages.getCancel()));
+      cancelButton.setFont(app.appFonts.buttonFont);
+      cancelButton.setBackground(app.appColors.trainer.getButton());
+      cancelButton.setForeground(app.appColors.trainer.getButtonForeground());
+      cancelButton.setIcon(new ImageIcon(app.appImages.getCancel()));
 
       nextButton = new JButton(
             translator.realisticTranslate(Translation.WEITER));
-      nextButton.setFont(AppFonts.buttonFont);
-      nextButton.setBackground(TrainerColors.getButton());
-      nextButton.setForeground(TrainerColors.getButtonForeground());
-      nextButton.setIcon(new ImageIcon(AppImages.getArrow()));
+      nextButton.setFont(app.appFonts.buttonFont);
+      nextButton.setBackground(app.appColors.trainer.getButton());
+      nextButton.setForeground(app.appColors.trainer.getButtonForeground());
+      nextButton.setIcon(new ImageIcon(app.appImages.getArrow()));
       nextButton.setEnabled(true);
 
       buttonWrapper.add(cancelButton);
@@ -110,8 +107,8 @@ public class DatabaseTab extends JPanel
                   databaseTable.getModel().getDatabaseNames());
             dialog.getTabbedPane().addTab(
                   translator.realisticTranslate(Translation.WIE_VIELE),
-                  new ImageIcon(AppImages.getArrow()),
-                  new AmountTab(common, dialog));
+                  new ImageIcon(app.appImages.getArrow()),
+                  new AmountTab(app, common, model, dialog));
          }
          dialog.getTabbedPane().setSelectedIndex(3);
       });

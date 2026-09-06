@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vokabeltrainer.InputLanguagePanel.Selection;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
@@ -23,27 +24,27 @@ public class NikudResultFactory
       // nothing
    }
 
-   public static BestResult getBestResultPossible(Expression expression,
+   public static BestResult getBestResultPossible(App app, Expression expression,
          String answer, Font hebrewFont)
 
    {
       if (expression.getLL().isSimpleHebrew())
       {
          BestResult bestResult = new BestResult(Selection.SIMPLE);
-         bestResult.setResultHebrew(getResultDtoNikudSentence(expression,
+         bestResult.setResultHebrew(getResultDtoNikudSentence(app, expression,
                answer, hebrewFont, HebrewType.SIMPLE));
          return bestResult;
       }
 
       BestResult bestResult = new BestResult(Selection.PLENE_DEFEKTIV);
-      bestResult.setResultPlene(getResultDtoNikudSentence(expression, answer,
+      bestResult.setResultPlene(getResultDtoNikudSentence(app, expression, answer,
             hebrewFont, HebrewType.PLENE));
-      bestResult.setResultDefektiv(getResultDtoNikudSentence(expression, answer,
+      bestResult.setResultDefektiv(getResultDtoNikudSentence(app, expression, answer,
             hebrewFont, HebrewType.DEFEKTIV));
       return bestResult;
    }
 
-   public static Result getResultDtoNikudSentence(Expression expression,
+   public static Result getResultDtoNikudSentence(App app, Expression expression,
          String answer, Font hebrewFont, HebrewType selectionType)
    {
       String[] expressionArray = expression.getLL()
@@ -54,7 +55,7 @@ public class NikudResultFactory
 
       if (expressionArray.length == 1 && answerArray.length == 1)
       {
-         return getResultDtoNikud(expression, answer, hebrewFont,
+         return getResultDtoNikud(app, expression, answer, hebrewFont,
                selectionType);
       }
 
@@ -65,7 +66,7 @@ public class NikudResultFactory
          List<Result> resultList = new ArrayList<>(expressionArray.length);
          for (int i = expressionArray.length - 1; i >= 0; i--)
          {
-            resultList.add(getResultDtoNikudString(expressionArray[i],
+            resultList.add(getResultDtoNikudString(app, expressionArray[i],
                   answerArray[i], new Result(selectionType)));
          }
 
@@ -83,7 +84,7 @@ public class NikudResultFactory
                   && singleResult.isDictionaryEmpty());
             if (index > 0)
             {
-               result.addFeedbackImage(LetterFeedbackImage.makeSpace());
+               result.addFeedbackImage(LetterFeedbackImage.makeSpace(app));
                result.addAnswerSpace(new LetterForAnalysis(NikudLetter.SPACE));
                result.addDictionarySpace(
                      new LetterForAnalysis(NikudLetter.SPACE));
@@ -98,21 +99,21 @@ public class NikudResultFactory
          return result;
       }
 
-      return getResultDtoNikud(expression, answer, hebrewFont, selectionType);
+      return getResultDtoNikud(app, expression, answer, hebrewFont, selectionType);
    }
 
-   private static Result getResultDtoNikud(Expression expression, String answer,
+   private static Result getResultDtoNikud(App app, Expression expression, String answer,
          Font hebrewFont, HebrewType selectionType)
    {
       Result result = new Result(selectionType);
       result.setExpression(expression);
 
-      return getResultDtoNikudString(
+      return getResultDtoNikudString(app, 
             expression.getLL().getHewbrewAccordingToType(selectionType), answer,
             result);
    }
 
-   private static Result getResultDtoNikudString(String dictionary,
+   private static Result getResultDtoNikudString(App app, String dictionary,
          String answer, Result result)
    {
 
@@ -139,7 +140,7 @@ public class NikudResultFactory
          boolean letterresult = LetterHelper
                .areLettersEqual(dictionaryList.get(i), answerList.get(i));
 
-         feedbackImageList.add(LetterFeedbackImage.make(dictionaryList.get(i),
+         feedbackImageList.add(LetterFeedbackImage.make(app, dictionaryList.get(i),
                answerList.get(i), letterresult));
          result.setOkay(result.isOkay() && letterresult);
       }

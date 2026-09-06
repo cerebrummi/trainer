@@ -9,9 +9,7 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.colors.SuccessColors;
-import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.App;
 
 public class SuccessListCellRenderer
       implements ListCellRenderer<Object>, Serializable
@@ -23,7 +21,7 @@ public class SuccessListCellRenderer
    private JTextField hebrew;
    private JTextField grammar;
 
-   public SuccessListCellRenderer()
+   public SuccessListCellRenderer(App app)
    {
       german = new JTextField();
       hebrew = new JTextField();
@@ -37,21 +35,21 @@ public class SuccessListCellRenderer
       hebrew.setEditable(false);
       grammar.setEditable(false);
 
-      german.setBackground(ColorBase.getTransparent());
-      hebrew.setBackground(ColorBase.getTransparent());
-      grammar.setBackground(ColorBase.getTransparent());
+      german.setBackground(app.appColors.getTransparent());
+      hebrew.setBackground(app.appColors.getTransparent());
+      grammar.setBackground(app.appColors.getTransparent());
 
       german.setBorder(BorderFactory.createEmptyBorder());
       hebrew.setBorder(BorderFactory.createEmptyBorder());
       grammar.setBorder(BorderFactory.createEmptyBorder());
 
-      german.setFont(AppFonts.germanFont.deriveFont(16F));
-      hebrew.setFont(AppFonts.hebrewFont.deriveFont(20F));
-      grammar.setFont(AppFonts.germanFont.deriveFont(16F));
+      german.setFont(app.appFonts.germanFont.deriveFont(16F));
+      hebrew.setFont(app.appFonts.hebrewFont.deriveFont(20F));
+      grammar.setFont(app.appFonts.germanFont.deriveFont(16F));
 
-      german.setForeground(SuccessColors.getTextForeground());
-      hebrew.setForeground(SuccessColors.getTextForeground());
-      grammar.setForeground(SuccessColors.getTextForeground());
+      german.setForeground(app.appColors.success.getTextForeground());
+      hebrew.setForeground(app.appColors.success.getTextForeground());
+      grammar.setForeground(app.appColors.success.getTextForeground());
 
       hebrew.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
    }

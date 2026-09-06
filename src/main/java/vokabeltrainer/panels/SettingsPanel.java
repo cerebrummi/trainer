@@ -80,12 +80,12 @@ public class SettingsPanel extends JPanel
       JTabbedPane tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(false);
       tabbedPane.setFont(app.appFonts.buttonFont);
-      tabbedPane.addTab(translator.realisticTranslate(
+      tabbedPane.addTab(translator.realisticTranslate(app, 
             Translation.EINSTELLUNGEN_UND_SERVICE), initSettingsTab(app));
 
       try
       {
-         tabbedPane.addTab(translator.realisticTranslate(Translation.INFO),
+         tabbedPane.addTab(translator.realisticTranslate(app, Translation.INFO),
                initImpressumTab(app));
       }
       catch (IOException e1)
@@ -94,7 +94,7 @@ public class SettingsPanel extends JPanel
       }
       try
       {
-         tabbedPane.addTab(translator.realisticTranslate(Translation.NACHWEISE),
+         tabbedPane.addTab(translator.realisticTranslate(app, Translation.NACHWEISE),
                initLicencingTab(app));
       }
       catch (IOException e)
@@ -106,7 +106,7 @@ public class SettingsPanel extends JPanel
       // Translation.SICHERHEITSKOPIEN), initBackupsTab());
 
       tabbedPane.addTab(
-            translator.realisticTranslate(Translation.SCHABBAT_MODUS),
+            translator.realisticTranslate(app, Translation.SCHABBAT_MODUS),
             initSchabbatTab(app));
 
       add(tabbedPane);
@@ -138,7 +138,7 @@ public class SettingsPanel extends JPanel
       panel.setBackground(app.appColors.getShadyBlue());
 
       modus = new JCheckBox(translator
-            .realisticTranslate(Translation.SCHABBAT_MODUS));
+            .realisticTranslate(app, Translation.SCHABBAT_MODUS));
       modus.setFont(app.appFonts.buttonFont);
       modus.setForeground(app.appColors.getWhite());
       modus.setSelected(app.settings.isSchabbat_modus());
@@ -291,7 +291,7 @@ public class SettingsPanel extends JPanel
       horizontal.add(vertical2);
       horizontal.add(vertical3);
       
-      JButton link = new JButton(translator.realisticTranslate(Translation.ERKLAEHR_VIDEO));
+      JButton link = new JButton(translator.realisticTranslate(app, Translation.ERKLAEHR_VIDEO));
       link.setBackground(app.appColors.getGreen());
       link.setFont(app.appFonts.buttonFont);
       link.addActionListener(_ -> {
@@ -322,14 +322,14 @@ public class SettingsPanel extends JPanel
       vertical.setLayout(verticalLayout);
 
       JLabel deleteLabel = new JLabel(
-            translator.realisticTranslate(Translation.LOESCHEN));
+            translator.realisticTranslate(app, Translation.LOESCHEN));
       deleteLabel.setFont(app.appFonts.germanFont.deriveFont(30F));
       deleteLabel.setForeground(app.appColors.getGold());
 
       deleteDatabaseButton = new JButton(translator
-            .realisticTranslate(Translation.EIGENE_DATENBANK_LOESCHEN));
+            .realisticTranslate(app, Translation.EIGENE_DATENBANK_LOESCHEN));
       deleteDatabaseButton.setFont(app.appFonts.buttonFont);
-      deleteDatabaseButton.setToolTipText(translator.realisticTranslate(
+      deleteDatabaseButton.setToolTipText(translator.realisticTranslate(app, 
             Translation.VERSCHIEBT_ALLE_VOKABELN_EINER_DATENBANK_IN_DEN_PAPIERKORB_));
       deleteDatabaseButton.setMinimumSize(new Dimension(WIDTH, 30));
       deleteDatabaseButton.setMaximumSize(new Dimension(WIDTH, 30));
@@ -347,7 +347,7 @@ public class SettingsPanel extends JPanel
       vertical.setLayout(verticalLayout);
 
       JLabel saverLabel = new JLabel(
-            translator.realisticTranslate(Translation.SPEICHERORT));
+            translator.realisticTranslate(app, Translation.SPEICHERORT));
       saverLabel.setFont(app.appFonts.germanFont.deriveFont(30F));
       saverLabel.setForeground(app.appColors.getGold());
 
@@ -355,21 +355,21 @@ public class SettingsPanel extends JPanel
       folderLabel.setFont(app.appFonts.buttonFont);
       folderLabel.setEditable(false);
       folderLabel.setBorder(BorderFactory.createTitledBorder(
-            translator.realisticTranslate(Translation.ORDNER)));
+            translator.realisticTranslate(app, Translation.ORDNER)));
       folderLabel.setMinimumSize(new Dimension(WIDTH, 100));
       folderLabel.setMaximumSize(new Dimension(WIDTH, 100));
 
       folderChooserButtonWithoutSaving = new JButton(
-            translator.realisticTranslate(Translation.AENDERN));
+            translator.realisticTranslate(app, Translation.AENDERN));
       folderChooserButtonWithoutSaving
             .setFont(app.appFonts.buttonFont);
       folderChooserButtonWithoutSaving.setToolTipText(translator
-            .realisticTranslate(
+            .realisticTranslate(app, 
                   Translation.LAEDT_ALLE_VOKABELN__DIE_AM_NEUEN_ORT_SCHON_VORHANDEN_SIND_)
-            + " " + translator.realisticTranslate(
+            + " " + translator.realisticTranslate(app, 
                   Translation.BELAESST_DIE_AKTUELLEN_VOKABELN_AM_ALTEN_ORT));
 
-      originalFolder = new JButton(translator.realisticTranslate(Translation.ZURUECKSETZEN));
+      originalFolder = new JButton(translator.realisticTranslate(app, Translation.ZURUECKSETZEN));
       originalFolder.setForeground(app.appColors.settings.getTextForeground());
       originalFolder.setFont(app.appFonts.buttonFont);
       
@@ -388,37 +388,37 @@ public class SettingsPanel extends JPanel
       vertical.setLayout(verticalLayout);
 
       exportButton = new JButton(translator
-            .realisticTranslate(Translation.ALLE_VOKABELN_EXPORTIEREN));
+            .realisticTranslate(app, Translation.ALLE_VOKABELN_EXPORTIEREN));
       exportButton.setFont(app.appFonts.buttonFont);
       exportButton.setToolTipText(
-            translator.realisticTranslate(Translation.ALLE_VOKABELN_EXPORTIEREN)
-                  + " " + translator.realisticTranslate(
+            translator.realisticTranslate(app, Translation.ALLE_VOKABELN_EXPORTIEREN)
+                  + " " + translator.realisticTranslate(app, 
                         Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
 
       exportSelectedButton = new JButton(translator
-            .realisticTranslate(Translation.MARKIERTE_VOKABELN_EXPORTIEREN));
+            .realisticTranslate(app, Translation.MARKIERTE_VOKABELN_EXPORTIEREN));
       exportSelectedButton.setFont(app.appFonts.buttonFont);
       exportSelectedButton.setToolTipText(translator
-            .realisticTranslate(Translation.MARKIERTE_VOKABELN_EXPORTIEREN)
+            .realisticTranslate(app, Translation.MARKIERTE_VOKABELN_EXPORTIEREN)
             + " " + translator
-                  .realisticTranslate(Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
+                  .realisticTranslate(app, Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
 
-      exportDatabaseButton = new JButton(translator.realisticTranslate(
+      exportDatabaseButton = new JButton(translator.realisticTranslate(app, 
             Translation.VOKABELN_EINER_DATENBANK_EXPORTIEREN));
       exportDatabaseButton.setFont(app.appFonts.buttonFont);
-      exportDatabaseButton.setToolTipText(translator.realisticTranslate(
+      exportDatabaseButton.setToolTipText(translator.realisticTranslate(app, 
             Translation.VOKABELN_EINER_DATENBANK_EXPORTIEREN) + " "
             + translator
-                  .realisticTranslate(Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
+                  .realisticTranslate(app, Translation.IM_CSV_FORMAT_ALS_ZIP_DATEI));
       exportDatabaseButton.setMinimumSize(new Dimension(WIDTH, 30));
       exportDatabaseButton.setMaximumSize(new Dimension(WIDTH, 30));
 
       JLabel exportLabel = new JLabel(
-            translator.realisticTranslate(Translation.EXPORT));
+            translator.realisticTranslate(app, Translation.EXPORT));
       exportLabel.setFont(app.appFonts.germanFont.deriveFont(30F));
       exportLabel.setForeground(app.appColors.getGold());
 
-      JLabel exportExplanation = new JLabel(" " + translator.realisticTranslate(
+      JLabel exportExplanation = new JLabel(" " + translator.realisticTranslate(app, 
             Translation.KEIN_EXPORT_VON_INTERNEN_DATENBANKEN_MOEGLICH));
       exportExplanation.setFont(app.appFonts.germanFont.deriveFont(14F));
       exportExplanation.setForeground(app.appColors.getGold());
@@ -439,12 +439,12 @@ public class SettingsPanel extends JPanel
       vertical.setLayout(verticalLayout);
 
       JLabel importLabel = new JLabel(
-            translator.realisticTranslate(Translation.IMPORT));
+            translator.realisticTranslate(app, Translation.IMPORT));
       importLabel.setFont(app.appFonts.germanFont.deriveFont(30F));
       importLabel.setForeground(app.appColors.getGold());
 
       importButton = new JButton(
-            translator.realisticTranslate(Translation.DATENBANK_IMPORTIEREN));
+            translator.realisticTranslate(app, Translation.DATENBANK_IMPORTIEREN));
       importButton.setFont(app.appFonts.buttonFont);
       importButton.setMinimumSize(new Dimension(WIDTH, 30));
       importButton.setMaximumSize(new Dimension(WIDTH, 30));
@@ -468,7 +468,7 @@ public class SettingsPanel extends JPanel
       vertical.setLayout(verticalLayout);
 
       JLabel soundLabel = new JLabel(
-            translator.realisticTranslate(Translation.LAUTSTAERKE));
+            translator.realisticTranslate(app, Translation.LAUTSTAERKE));
       soundLabel.setFont(app.appFonts.germanFont.deriveFont(30F));
       soundLabel.setForeground(app.appColors.getDarkGold());
 
@@ -490,19 +490,19 @@ public class SettingsPanel extends JPanel
       soundslider.setMaximumSize(new Dimension(WIDTH, 60));
 
       waveSoundButton = new JButton(
-            translator.realisticTranslate(Translation.WELLEN));
+            translator.realisticTranslate(app, Translation.WELLEN));
       waveSoundButton.setFont(app.appFonts.buttonFont);
 
       clappingSoundButton = new JButton(
-            translator.realisticTranslate(Translation.APPLAUS));
+            translator.realisticTranslate(app, Translation.APPLAUS));
       clappingSoundButton.setFont(app.appFonts.buttonFont);
 
       splotchSoundButton = new JButton(
-            translator.realisticTranslate(Translation.TINTENSPRITZER));
+            translator.realisticTranslate(app, Translation.TINTENSPRITZER));
       splotchSoundButton.setFont(app.appFonts.buttonFont);
 
       shredderSoundButton = new JButton(
-            translator.realisticTranslate(Translation.AKTENVERNICHTER));
+            translator.realisticTranslate(app, Translation.AKTENVERNICHTER));
       shredderSoundButton.setFont(app.appFonts.buttonFont);
 
       vertical.add(soundLabel);
@@ -673,7 +673,7 @@ public class SettingsPanel extends JPanel
          {
             app.settings.setChoosenExpressionPath(pathOfFolder);
             this.folderLabel.setText(app.settings.getExpressionPath());
-            model.data.initDatabase(common, view);
+            model.data.initDatabase(app, common, view);
          }
 
       });
@@ -681,13 +681,13 @@ public class SettingsPanel extends JPanel
       originalFolder.addActionListener(_ -> {
          app.settings.setBackExpressionPath();
          this.folderLabel.setText(app.settings.getExpressionPath());
-         model.data.initDatabase(common, view);
+         model.data.initDatabase(app, common, view);
       });
 
       importButton.addActionListener(_ -> {
 
          InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(app, common, view,
-               translator.realisticTranslate(Translation.IMPORT));
+               translator.realisticTranslate(app, Translation.IMPORT));
          dialog.setVisible(true);
 
          final String databaseName;
@@ -714,7 +714,7 @@ public class SettingsPanel extends JPanel
                protected Void doInBackground() throws Exception
                {
                   ImportExpressions importer = new ImportExpressions(model);
-                  if (importer.importExpressions(common, databaseName,
+                  if (importer.importExpressions(app, common, databaseName,
                         overwriteDatabaseNames, pathOfFolderOrFile))
                   {
                      SaveExpressions saver = new SaveExpressions(app, model);
@@ -731,7 +731,7 @@ public class SettingsPanel extends JPanel
       exportButton.addActionListener(_ -> {
 
          InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(app, common, view, translator
-               .realisticTranslate(Translation.EXPORT_ALLER_VOKABELN));
+               .realisticTranslate(app, Translation.EXPORT_ALLER_VOKABELN));
          dialog.setVisible(true);
 
          final String databaseName;
@@ -770,7 +770,7 @@ public class SettingsPanel extends JPanel
 
       this.exportSelectedButton.addActionListener(_ -> {
          InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(app, common, view, translator
-               .realisticTranslate(Translation.EXPORT_MARKIERTER_VOKABELN));
+               .realisticTranslate(app, Translation.EXPORT_MARKIERTER_VOKABELN));
          dialog.setVisible(true);
 
          final String databaseName;
@@ -811,9 +811,9 @@ public class SettingsPanel extends JPanel
 
          String databaseChoosen = (String) JOptionPane.showInputDialog(
                view.getMainJPanel(),
-               translator.realisticTranslate(
+               translator.realisticTranslate(app, 
                      Translation.WAEHLEN_SIE_EINE_DATENBANK_FUER_DEN_EXPORT_AUS_),
-               translator.realisticTranslate(Translation.AUSWAHL),
+               translator.realisticTranslate(app, Translation.AUSWAHL),
                JOptionPane.QUESTION_MESSAGE,
                new ImageIcon(app.appImages.getLogo24()),
                model.data.getAllOwnDistinctDatabaseDescriptions(common, false), null);
@@ -824,7 +824,7 @@ public class SettingsPanel extends JPanel
          }
 
          InputDatabaseNameDialog dialog = new InputDatabaseNameDialog(app, common, view, translator
-               .realisticTranslate(Translation.EXPORT_EINER_DATENBANK));
+               .realisticTranslate(app, Translation.EXPORT_EINER_DATENBANK));
          dialog.setVisible(true);
 
          final String databaseName;
@@ -864,9 +864,9 @@ public class SettingsPanel extends JPanel
       this.deleteDatabaseButton.addActionListener(_ -> {
          String databaseChoosen = (String) JOptionPane.showInputDialog(
                view.getMainJPanel(),
-               translator.realisticTranslate(
+               translator.realisticTranslate(app, 
                      Translation.WAEHLEN_SIE_EINE_DATENBANK_ZUM_LOESCHEN_AUS),
-               translator.realisticTranslate(
+               translator.realisticTranslate(app, 
                      Translation.DATENBANK_IN_DEN_PAPIERKORB),
                JOptionPane.QUESTION_MESSAGE,
                new ImageIcon(app.appImages.getLogo24()),
@@ -878,11 +878,11 @@ public class SettingsPanel extends JPanel
          }
 
          if (JOptionPane.showConfirmDialog(view.getjFrame(),
-               translator.realisticTranslate(
+               translator.realisticTranslate(app, 
                      Translation.WOLLEN_SIE_WIRKLICH_DIE_VOKABELN_VON__)
                      + databaseChoosen
-                     + translator.realisticTranslate(Translation.__LOESCHEN_),
-               translator.realisticTranslate(Translation.FRAGE),
+                     + translator.realisticTranslate(app, Translation.__LOESCHEN_),
+               translator.realisticTranslate(app, Translation.FRAGE),
                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) != 0)
          {
             return;
@@ -943,13 +943,13 @@ public class SettingsPanel extends JPanel
          String result = folderChooser.getSelectedFile().getPath();
          if (!testIfFolderExists(folderChooser.getSelectedFile().getPath()))
          {
-            JOptionPane.showMessageDialog(this, translator.realisticTranslate(
+            JOptionPane.showMessageDialog(this, translator.realisticTranslate(app, 
                   Translation.DER_GEWAEHLTE_ORDNER_EXISTIERT_NICHT_) + "\n"
                   + result + "\n"
-                  + translator.realisticTranslate(
+                  + translator.realisticTranslate(app, 
                         Translation.BITTE_WAEHLEN_SIE_EINEN_EXISTIERENDEN_ORDNER_)
-                  + "\n" + translator.realisticTranslate(Translation.DANKE_),
-                  translator.realisticTranslate(Translation.NACHRICHT),
+                  + "\n" + translator.realisticTranslate(app, Translation.DANKE_),
+                  translator.realisticTranslate(app, Translation.NACHRICHT),
                   JOptionPane.CLOSED_OPTION);
             return null;
          }
@@ -998,13 +998,13 @@ public class SettingsPanel extends JPanel
 
          if (!testIfFolderExists(pathAndFile.getPath()))
          {
-            JOptionPane.showMessageDialog(this, translator.realisticTranslate(
+            JOptionPane.showMessageDialog(this, translator.realisticTranslate(app, 
                   Translation.DER_GEWAEHLTE_ORDNER_EXISTIERT_NICHT_) + "\n"
                   + pathAndFile.getPath() + "\n"
-                  + translator.realisticTranslate(
+                  + translator.realisticTranslate(app, 
                         Translation.BITTE_WAEHLEN_SIE_EINEN_EXISTIERENDEN_ORDNER_)
-                  + "\n" + translator.realisticTranslate(Translation.DANKE_),
-                  translator.realisticTranslate(Translation.NACHRICHT),
+                  + "\n" + translator.realisticTranslate(app, Translation.DANKE_),
+                  translator.realisticTranslate(app, Translation.NACHRICHT),
                   JOptionPane.CLOSED_OPTION);
             return null;
          }
@@ -1012,12 +1012,12 @@ public class SettingsPanel extends JPanel
          if (testIfFileExists(pathAndFile.getPathFile()))
          {
             int answer = JOptionPane.showConfirmDialog(this,
-                  translator.realisticTranslate(
+                  translator.realisticTranslate(app, 
                         Translation.DIE_DATEI_EXISTIERT_SCHON)
                         + "\n"
-                        + translator.realisticTranslate(
+                        + translator.realisticTranslate(app, 
                               Translation.SOLL_SIE_UEBERSCHRIEBEN_WERDEN_),
-                  translator.realisticTranslate(Translation.FRAGE),
+                  translator.realisticTranslate(app, Translation.FRAGE),
                   JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (JOptionPane.OK_OPTION != answer)
             {
@@ -1028,12 +1028,12 @@ public class SettingsPanel extends JPanel
          if (testIfFileExists(pathAndFile.getPathFile() + ".zip"))
          {
             int answer = JOptionPane.showConfirmDialog(this,
-                  translator.realisticTranslate(
+                  translator.realisticTranslate(app, 
                         Translation.DIE_DATEI_EXISTIERT_SCHON)
                         + "\n"
-                        + translator.realisticTranslate(
+                        + translator.realisticTranslate(app, 
                               Translation.SOLL_SIE_UEBERSCHRIEBEN_WERDEN_),
-                  translator.realisticTranslate(Translation.FRAGE),
+                  translator.realisticTranslate(app, Translation.FRAGE),
                   JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (JOptionPane.OK_OPTION != answer)
             {
@@ -1044,12 +1044,12 @@ public class SettingsPanel extends JPanel
          if (testIfFileExists(pathAndFile.getPathFile() + ".ZIP"))
          {
             int answer = JOptionPane.showConfirmDialog(this,
-                  translator.realisticTranslate(
+                  translator.realisticTranslate(app, 
                         Translation.DIE_DATEI_EXISTIERT_SCHON)
                         + "\n"
-                        + translator.realisticTranslate(
+                        + translator.realisticTranslate(app, 
                               Translation.SOLL_SIE_UEBERSCHRIEBEN_WERDEN_),
-                  translator.realisticTranslate(Translation.FRAGE),
+                  translator.realisticTranslate(app, Translation.FRAGE),
                   JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (JOptionPane.OK_OPTION != answer)
             {
@@ -1084,16 +1084,16 @@ public class SettingsPanel extends JPanel
          }
          else
          {
-            JOptionPane.showMessageDialog(this, translator.realisticTranslate(
+            JOptionPane.showMessageDialog(this, translator.realisticTranslate(app, 
                   Translation.DER_GEWAEHLTE_ORDNER_DIE_DATEI_EXISTIERT_NICHT_)
                   + "\n"
-                  + translator.realisticTranslate(
+                  + translator.realisticTranslate(app, 
                         Translation.ODER_DIE_DATEI_IST_KEINE_ZIP_DATEI)
                   + "\n" + folderChooser.getSelectedFile().getPath() + "\n"
-                  + translator.realisticTranslate(
+                  + translator.realisticTranslate(app, 
                         Translation.BITTE_WAEHLEN_SIE_EINEN_EXISTIERENDEN_ORDNER_BZW__ZIP_DATEI_)
-                  + "\n" + translator.realisticTranslate(Translation.DANKE_),
-                  translator.realisticTranslate(Translation.NACHRICHT),
+                  + "\n" + translator.realisticTranslate(app, Translation.DANKE_),
+                  translator.realisticTranslate(app, Translation.NACHRICHT),
                   JOptionPane.CLOSED_OPTION);
             return null;
          }

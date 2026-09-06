@@ -50,7 +50,7 @@ public final class Main
    {
       View view = new View(app, common, mode);
       
-      Model model = new Model(app.settings, common, view);
+      Model model = new Model(app, common, view);
       
       view.getMainJPanel().initContent(app, common, model, view);
       view.getMainJPanel().initToolBar(app);

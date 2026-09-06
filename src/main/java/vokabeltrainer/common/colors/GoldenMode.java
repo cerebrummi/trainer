@@ -568,5 +568,11 @@ public class GoldenMode extends AppColors
          return transparent;
       }
       
+   }
+
+   @Override
+   public Color getRed()
+   {
+      return red;
    }   
 }

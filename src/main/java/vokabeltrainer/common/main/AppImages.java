@@ -86,6 +86,7 @@ public class AppImages
    private BufferedImage icon_bulb_on;
 
    private BufferedImage scroll;
+   private BufferedImage fabric;
 
    private Map<NikudLetter, BufferedImage> letterIconsNikudMap;
    private Map<NikudLetter, BufferedImage> letterIconsNikudHandwrittenMap;
@@ -1104,6 +1105,20 @@ public class AppImages
          System.exit(1072);
       }
       this.scroll = scroll;
+   }
+
+   public BufferedImage getFabric()
+   {
+      return fabric;
+   }
+
+   public void setFabric(BufferedImage fabric)
+   {
+      if (fabric == null)
+      {
+         System.exit(1073);
+      }
+      this.fabric = fabric;
    }
 
 }

@@ -246,20 +246,20 @@ public class TrainerController implements TrainerControllerConnector
             BestResult bestResult;
             if (LanguageDirection.OWN_TO_HEBREW == languageDirection)
             {
-               bestResult = NikudResultFactory.getBestResultPossible(
+               bestResult = NikudResultFactory.getBestResultPossible(app,
                      currentExpression,
                      trainerView.getAnswerField().getText().trim(),
                      app.appFonts.hebrewFont.deriveFont(30F));
             }
             else if (LanguageDirection.OWN_TO_SWEDISH == languageDirection)
             {
-               bestResult = SwedishResultFactory.getBestResultPossible(
+               bestResult = SwedishResultFactory.getBestResultPossible(app,
                      currentExpression,
                      trainerView.getAnswerField().getText().trim());
             }
             else
             {
-               bestResult = GermanResultFactory.getBestResultPossible(
+               bestResult = GermanResultFactory.getBestResultPossible(app,
                      currentExpression,
                      trainerView.getAnswerField().getText().trim());
             }
@@ -440,7 +440,7 @@ public class TrainerController implements TrainerControllerConnector
          }
          else
          {
-            trainerView.showResultBlue();
+            trainerView.showResultBlue(app);
          }
       }
       else if (okay)
@@ -451,7 +451,7 @@ public class TrainerController implements TrainerControllerConnector
          }
          else
          {
-            trainerView.showResultGreen();
+            trainerView.showResultGreen(app);
          }
       }
       else
@@ -543,7 +543,7 @@ public class TrainerController implements TrainerControllerConnector
          }
       }.execute();
 
-      trainerView.showResultGreen();
+      trainerView.showResultGreen(app);
    }
 
    private void reactUndecidedWithSoundOn(App app)
@@ -578,7 +578,7 @@ public class TrainerController implements TrainerControllerConnector
 
       }.execute();
 
-      trainerView.showResultBlue();
+      trainerView.showResultBlue(app);
    }
 
    public void stopTraining(App app, Common common, Model model, View view, boolean finished)

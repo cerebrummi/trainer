@@ -79,15 +79,15 @@ public interface DictionaryViewConnector
 
    public SortingType getSortNow();
 
-   public int askForMovingToChapterConfirmation(View view);
+   public int askForMovingToChapterConfirmation(App app, View view);
 
-   public int askForMovingToDatabaseConfirmation(View view);
+   public int askForMovingToDatabaseConfirmation(App app, View view);
    
-   public int askForShredderConfirmation(View view);
+   public int askForShredderConfirmation(App app, View view);
    
-   public int askForDeletionConfirmation(View view, int numberOfExpressionsToBeDeleted);
+   public int askForDeletionConfirmation(App app, View view, int numberOfExpressionsToBeDeleted);
    
-   public void notifyNothingWasSelectedForDeletion(View view);
+   public void notifyNothingWasSelectedForDeletion(App app, View view);
    
    public void setValues(App app, Common common, Model model, View view);
 

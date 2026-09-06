@@ -5,9 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.colors.TrainerColors;
-import vokabeltrainer.common.main.AppFonts;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.editing.NikudLetter;
 
@@ -19,18 +17,18 @@ public class LetterFeedbackImage
       // nothing
    }
 
-   public static BufferedImage make(LetterForAnalysis letterDic,
+   public static BufferedImage make(App app, LetterForAnalysis letterDic,
          LetterForAnalysis letterAnswer, boolean okay)
    {
       BufferedImage finalImg = new BufferedImage(
             Math.max(letterDic.getPixelWidth(), letterAnswer.getPixelWidth()),
             100, BufferedImage.TYPE_INT_RGB);
       Graphics2D g2d = finalImg.createGraphics();
-      g2d.setColor(TrainerColors.getPanelBackground());
+      g2d.setColor(app.appColors.trainer.getPanelBackground());
       g2d.fillRect(0, 0,
             Math.max(letterDic.getPixelWidth(), letterAnswer.getPixelWidth()),
             100);
-      g2d.setColor(ColorBase.red);
+      g2d.setColor(app.appColors.getRed());
       if (!okay)
       {
          double midX = ((double) Math.max(
@@ -59,10 +57,10 @@ public class LetterFeedbackImage
             RenderingHints.VALUE_RENDER_QUALITY);
       g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
             RenderingHints.VALUE_STROKE_PURE);
-      g2d.setFont(AppFonts.hebrewFont.deriveFont(24F));
+      g2d.setFont(app.appFonts.hebrewFont.deriveFont(24F));
       FontMetrics fm = g2d.getFontMetrics();
       fm = g2d.getFontMetrics();
-      g2d.setColor(ColorBase.green);
+      g2d.setColor(app.appColors.getBrightGreen());
       g2d.drawString(letterDic.getContent().getUnicode(), 0,
             fm.getAscent() + 9);
       if (letterDic.isNikud())
@@ -81,7 +79,7 @@ public class LetterFeedbackImage
             g2d.drawString(nikudLetter.getUnicode(), 0, fm.getAscent() + 9);
          }
       }
-      g2d.setColor(ColorBase.white);
+      g2d.setColor(app.appColors.getWhite());
       if (letterAnswer.getContent().isSpace()
             || letterAnswer.getContent().isNewspace())
       {
@@ -116,12 +114,12 @@ public class LetterFeedbackImage
       return finalImg;
    }
 
-   public static BufferedImage makeSpace()
+   public static BufferedImage makeSpace(App app)
    {
       BufferedImage finalImg = new BufferedImage(18, 100,
             BufferedImage.TYPE_INT_RGB);
       Graphics2D g2d = finalImg.createGraphics();
-      g2d.setColor(TrainerColors.getPanelBackground());
+      g2d.setColor(app.appColors.trainer.getPanelBackground());
       g2d.fillRect(0, 0, 18, 100);
       g2d.dispose();
       return finalImg;

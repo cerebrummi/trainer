@@ -1,17 +1,17 @@
 package vokabeltrainer.panels.translation;
 
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.App;
 
 public class Translator
 {
 
-   public String realisticTranslate(Translation translation)
+   public String realisticTranslate(App app, Translation translation)
    {
-      if (TranslationCode.de_original == Settings.getTranslationCode())
+      if (TranslationCode.de_original == app.settings.getTranslationCode())
       {
          return translation.getGerman();
       }
-      else if (TranslationCode.en == Settings.getTranslationCode())
+      else if (TranslationCode.en == app.settings.getTranslationCode())
       {
          return translation.getEnglish();
       }

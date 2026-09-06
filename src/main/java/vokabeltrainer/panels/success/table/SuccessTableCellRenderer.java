@@ -11,9 +11,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.colors.SuccessColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.panels.success.table.list.SuccessList;
 import vokabeltrainer.types.Expression;
 
@@ -26,28 +24,27 @@ public class SuccessTableCellRenderer
 
    private SuccessList content;
 
-   public SuccessTableCellRenderer()
+   public SuccessTableCellRenderer(App app)
    {
-      selected = new JLabel(new ImageIcon(AppImages.getSelect()));
-      selected.setBackground(SuccessColors.getTableBackground());
+      selected = new JLabel(new ImageIcon(app.appImages.getSelect()));
+      selected.setBackground(app.appColors.success.getTableBackground());
       selected.setOpaque(true);
 
       empty = new JLabel();
-      empty.setBackground(SuccessColors.getTableBackground());
+      empty.setBackground(app.appColors.success.getTableBackground());
       empty.setOpaque(true);
-      empty.setForeground(SuccessColors.getTextForeground());
+      empty.setForeground(app.appColors.success.getTextForeground());
 
-      content = new SuccessList();
-      content.setBackground(SuccessColors.getTableBackground());
-      content.setForeground(SuccessColors.getTextForeground());
+      content = new SuccessList(app);
+      content.setBackground(app.appColors.success.getTableBackground());
+      content.setForeground(app.appColors.success.getTextForeground());
       content.setOpaque(true);
-      ;
 
       chapter = new JLabel();
-      chapter.setFont(AppFonts.germanFont.deriveFont(20f));
-      chapter.setBackground(SuccessColors.getTableBackground());
+      chapter.setFont(app.appFonts.germanFont.deriveFont(20f));
+      chapter.setBackground(app.appColors.success.getTableBackground());
       chapter.setOpaque(true);
-      chapter.setForeground(SuccessColors.getTextForeground());
+      chapter.setForeground(app.appColors.success.getTextForeground());
       chapter.setHorizontalAlignment(SwingConstants.CENTER);
    }
 

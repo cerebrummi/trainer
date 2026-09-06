@@ -72,7 +72,7 @@ public class StartPanel extends JPanel
       trainerWrapper.setMinimumSize(new Dimension(400, 80));
       trainerWrapper.setMaximumSize(new Dimension(400, 80));
       JLabel trainer = new JLabel(
-            "<html>" + translator.realisticTranslate(Translation.VOKABELTRAINER)
+            "<html>" + translator.realisticTranslate(app, Translation.VOKABELTRAINER)
                   + "</html>");
       trainer.setMinimumSize(new Dimension(355, 90));
       trainer.setMaximumSize(new Dimension(355, 90));
@@ -139,7 +139,7 @@ public class StartPanel extends JPanel
       vertical.setLayout(verticalLayout);
 
       JLabel databaseLabel = new JLabel(" "
-            + translator.realisticTranslate(Translation.DATENBANKEN_ANSEHEN));
+            + translator.realisticTranslate(app, Translation.DATENBANKEN_ANSEHEN));
       databaseLabel.setFont(app.appFonts.germanFont.deriveFont(30F));
       databaseLabel.setForeground(app.appColors.start.getDatabase_HeaderText());
       databaseLabel.setOpaque(true);
@@ -152,9 +152,9 @@ public class StartPanel extends JPanel
       scroller.setMinimumSize(new Dimension(990, 80));
       scroller.setMaximumSize(new Dimension(990, 80));
 
-      JLabel databaseLabel2 = new JLabel(" " + translator.realisticTranslate(
+      JLabel databaseLabel2 = new JLabel(" " + translator.realisticTranslate(app, 
             Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_SICHTBAR_MACHEN)
-            + " => " + translator.realisticTranslate(
+            + " => " + translator.realisticTranslate(app, 
                   Translation.DATENSAETZE_KOENNEN_NICHT_EDITIERT_WERDEN));
       databaseLabel2.setFont(app.appFonts.germanFont.deriveFont(16F));
       databaseLabel2.setForeground(app.appColors.start.getDatabase_Tipp());
@@ -180,7 +180,7 @@ public class StartPanel extends JPanel
       vertical.setLayout(verticalLayout);
 
       JLabel databaseLabel = new JLabel(" "
-            + translator.realisticTranslate(Translation.DATENBANKEN_KOPIEREN));
+            + translator.realisticTranslate(app, Translation.DATENBANKEN_KOPIEREN));
       databaseLabel.setFont(app.appFonts.germanFont.deriveFont(30F));
       databaseLabel.setForeground(app.appColors.start.getDatabase_HeaderText());
       databaseLabel.setOpaque(true);
@@ -194,9 +194,9 @@ public class StartPanel extends JPanel
       scroller.setMaximumSize(new Dimension(990, 80));
 
       JLabel databaseLabel2 = new JLabel(" "
-            + translator.realisticTranslate(
+            + translator.realisticTranslate(app, 
                   Translation.INTERNE_DATENBANK_DURCH_DOPPELKLICK_KOPIEREN)
-            + " => " + translator.realisticTranslate(
+            + " => " + translator.realisticTranslate(app, 
                   Translation.DATENSAETZE_KOENNEN_EDITIERT_WERDEN));
       databaseLabel2.setFont(app.appFonts.germanFont.deriveFont(16F));
       databaseLabel2.setForeground(app.appColors.start.getDatabase_Tipp());

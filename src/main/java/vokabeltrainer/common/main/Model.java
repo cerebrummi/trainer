@@ -4,22 +4,22 @@ public final class Model
 {   
    public Data data;
 
-   public Model(Settings settings, Common common, View view)
+   public Model(App app, Common common, View view)
    {
-      initUserExpressionDatabase(settings, common, view);
-      initUserImageData(settings, common, view);
+      initUserExpressionDatabase(app, common, view);
+      initUserImageData(app, common, view);
       // TODO initUserSoundData
    }
    
-   private void initUserExpressionDatabase(Settings settings, Common common, View view)
+   private void initUserExpressionDatabase(App app, Common common, View view)
    {
-      data = new Data(settings);
-      data.initDatabase(common, view);
+      data = new Data();
+      data.initDatabase(app, common, view);
    }
    
-   private void initUserImageData(Settings settings, Common common, View view)
+   private void initUserImageData(App app, Common common, View view)
    {
-      ImageData imageData = new ImageData(settings, data);
-      imageData.initImageDataBase(common, view);
+      ImageData imageData = new ImageData(data);
+      imageData.initImageDataBase(app, common, view);
    }
 }
