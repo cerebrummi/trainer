@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import vokabeltrainer.common.ApplicationSpecialPanels;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.panels.letterpicture.Card;
@@ -21,7 +21,7 @@ public class Buchstabenbilder
    private static Map<NikudLetter, BufferedImage> letterPicturesMap = new HashMap<>();
    private static Map<NikudLetter, LetterPictureButtonPanel> letterPicturesPanelMap = new HashMap<>();
 
-   public static void read(Common common) throws IOException
+   public static void read(App app, Common common) throws IOException
    {
 
       for (NikudLetter letter : NikudLetter.values())
@@ -43,19 +43,19 @@ public class Buchstabenbilder
                || NikudLetter.GERSCHAYIM == letter))
          {
             letterPicturesPanelMap.put(letter,
-                  new LetterPictureButtonPanel(common, picture, letter, cards));
+                  new LetterPictureButtonPanel(app, common, picture, letter, cards));
          }
 
          letterPicturesMap.put(letter, picture);
       }
 
       ApplicationSpecialPanels
-            .setLetterPicturesPanelMap(common, letterPicturesPanelMap);
+            .setLetterPicturesPanelMap(letterPicturesPanelMap);
 
-      AppImages.setLetterPicturesMap(letterPicturesMap);
+      app.appImages.setLetterPicturesMap(letterPicturesMap);
    }
 
-   public static void reRead(Common common) throws Exception
+   public static void reRead(App app, Common common) throws Exception
    {
       ApplicationSpecialPanels.getLetterPicturesPanelMap().clear();
 
@@ -76,11 +76,11 @@ public class Buchstabenbilder
                || NikudLetter.GERSCHAYIM == letter))
          {
             letterPicturesPanelMap.put(letter,
-                  new LetterPictureButtonPanel(common, picture, letter, cards));
+                  new LetterPictureButtonPanel(app, common, picture, letter, cards));
          }
       }
 
       ApplicationSpecialPanels
-            .setLetterPicturesPanelMap(common, letterPicturesPanelMap);
+            .setLetterPicturesPanelMap(letterPicturesPanelMap);
    }
 }

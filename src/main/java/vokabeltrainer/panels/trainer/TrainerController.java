@@ -268,7 +268,7 @@ public class TrainerController implements TrainerControllerConnector
             {
                JOptionPane.showMessageDialog(view.getjFrame(), "",
                     app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                     new ImageIcon(TextImage.make(app, translator.realisticTranslate(
+                     new ImageIcon(TextImage.make(app, translator.realisticTranslate(app, 
                            Translation.BITTE_SCHREIBEN_SIE_EINE_ANTWORT))));
                return;
             }
@@ -276,11 +276,11 @@ public class TrainerController implements TrainerControllerConnector
             {
                JOptionPane.showMessageDialog(view.getjFrame(), "",
                      app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-                     new ImageIcon(TextImage.make(app, translator.realisticTranslate(
+                     new ImageIcon(TextImage.make(app, translator.realisticTranslate(app, 
                            Translation.IHR_TRAININGSWORT_ENTHAELT_KEINE_BUCHSTABEN_),
-                           translator.realisticTranslate(
+                           translator.realisticTranslate(app, 
                                  Translation.BITTE_LOESCHEN_SIE_DIESEN_AUSDRUCK),
-                           translator.realisticTranslate(
+                           translator.realisticTranslate(app, 
                                  Translation.AUS_KAPITEL) + " "
                                  + currentExpression.getChapter().getName())));
                return;
@@ -593,20 +593,20 @@ public class TrainerController implements TrainerControllerConnector
                  app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(app,
                        app.appImages.getReward(),
-                        translator.realisticTranslate(
+                        translator.realisticTranslate(app, 
                               Translation.WUNDERBAR__SIE_HABEN_DIESE),
-                        translator.realisticTranslate(
+                        translator.realisticTranslate(app, 
                               Translation.TRAININGSEINHEIT_ERFOLGREICH),
-                        translator.realisticTranslate(Translation.BEENDET_),
-                        translator.realisticTranslate(Translation.SIE_HABEN)
+                        translator.realisticTranslate(app, Translation.BEENDET_),
+                        translator.realisticTranslate(app, Translation.SIE_HABEN)
                               + " " + newWordsToLearn + " "
-                              + translator.realisticTranslate(
+                              + translator.realisticTranslate(app, 
                                     Translation.NEUE_WOERTER),
-                        translator.realisticTranslate(Translation.UND) + " "
+                        translator.realisticTranslate(app, Translation.UND) + " "
                               + oldWordsToRepeat + " "
-                              + translator.realisticTranslate(
+                              + translator.realisticTranslate(app, 
                                     Translation.BEKANNTE_WOERTER)
-                              + " " + translator.realisticTranslate(
+                              + " " + translator.realisticTranslate(app, 
                                     Translation.BEARBEITET_))));
          }
          else if (newWordsToLearn > 0 && oldWordsToRepeat == 0)
@@ -615,17 +615,17 @@ public class TrainerController implements TrainerControllerConnector
                  app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(app,
                         app.appImages.getReward(),
-                        translator.realisticTranslate(
+                        translator.realisticTranslate(app, 
                               Translation.WUNDERBAR__SIE_HABEN_DIESE),
-                        translator.realisticTranslate(
+                        translator.realisticTranslate(app, 
                               Translation.TRAININGSEINHEIT_ERFOLGREICH),
-                        translator.realisticTranslate(Translation.BEENDET_),
-                        translator.realisticTranslate(Translation.SIE_HABEN)
+                        translator.realisticTranslate(app, Translation.BEENDET_),
+                        translator.realisticTranslate(app, Translation.SIE_HABEN)
                               + " " + newWordsToLearn + " "
-                              + translator.realisticTranslate(
+                              + translator.realisticTranslate(app, 
                                     Translation.NEUE_WOERTER),
                         translator
-                              .realisticTranslate(Translation.BEARBEITET_))));
+                              .realisticTranslate(app, Translation.BEARBEITET_))));
          }
          else if (newWordsToLearn == 0 && oldWordsToRepeat > 0)
          {
@@ -633,16 +633,16 @@ public class TrainerController implements TrainerControllerConnector
                   app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                   new ImageIcon(TextImageWithPicture.make(app,
                         app.appImages.getReward(),
-                        translator.realisticTranslate(
+                        translator.realisticTranslate(app, 
                               Translation.WUNDERBAR__SIE_HABEN_DIESE),
-                        translator.realisticTranslate(
+                        translator.realisticTranslate(app, 
                               Translation.TRAININGSEINHEIT_ERFOLGREICH),
-                        translator.realisticTranslate(Translation.BEENDET_),
-                        translator.realisticTranslate(Translation.SIE_HABEN)
+                        translator.realisticTranslate(app, Translation.BEENDET_),
+                        translator.realisticTranslate(app, Translation.SIE_HABEN)
                               + " " + oldWordsToRepeat + " "
-                              + translator.realisticTranslate(
+                              + translator.realisticTranslate(app, 
                                     Translation.BEKANNTE_WOERTER)
-                              + " " + translator.realisticTranslate(
+                              + " " + translator.realisticTranslate(app, 
                                     Translation.BEARBEITET_))));
          }
       }
@@ -650,7 +650,7 @@ public class TrainerController implements TrainerControllerConnector
       {
          JOptionPane.showMessageDialog(view.getjFrame(), "",
                app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
-               new ImageIcon(TextImage.make(app, translator.realisticTranslate(
+               new ImageIcon(TextImage.make(app, translator.realisticTranslate(app, 
                      Translation.DAS_TRAINING_WURDE_ABGEBROCHEN_))));
       }
       else if (trainerView.getWordsRight().getText().equals("1"))
@@ -658,25 +658,25 @@ public class TrainerController implements TrainerControllerConnector
          JOptionPane.showMessageDialog(view.getjFrame(), "",
                app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                new ImageIcon(TextImage.make(app,
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.DAS_TRAINING_WURDE_ABGEBROCHEN_),
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.SIE_HABEN_1NE_RICHTIGE),
                      translator
-                           .realisticTranslate(Translation.ANTWORT_GEGEBEN_))));
+                           .realisticTranslate(app, Translation.ANTWORT_GEGEBEN_))));
       }
       else
       {
          JOptionPane.showMessageDialog(view.getjFrame(), "",
                app.settings.getWindowTitle(), JOptionPane.PLAIN_MESSAGE,
                new ImageIcon(TextImage.make(app,
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.DAS_TRAINING_WURDE_ABGEBROCHEN_),
-                     translator.realisticTranslate(Translation.SIE_HABEN) + " "
+                     translator.realisticTranslate(app, Translation.SIE_HABEN) + " "
                            + trainerView.getWordsRight().getText() + " "
                            + translator
-                                 .realisticTranslate(Translation.RICHTIGE),
-                     translator.realisticTranslate(
+                                 .realisticTranslate(app, Translation.RICHTIGE),
+                     translator.realisticTranslate(app, 
                            Translation.ANTWORTEN_GEGEBEN_))));
       }
 
@@ -714,12 +714,12 @@ public class TrainerController implements TrainerControllerConnector
                JOptionPane
                      .showMessageDialog(view.getjFrame(),
                            translator
-                                 .realisticTranslate(Translation.FEHLERMELDUNG)
+                                 .realisticTranslate(app, Translation.FEHLERMELDUNG)
                                  + "\n"
-                                 + translator.realisticTranslate(
+                                 + translator.realisticTranslate(app, 
                                        Translation.DIE_TRAININGSDATEN_KONTEN)
                                  + "\n"
-                                 + translator.realisticTranslate(
+                                 + translator.realisticTranslate(app, 
                                        Translation.NICHT_GESPEICHERT_WERDEN_),
                                  app.settings.getWindowTitle(),
                            JOptionPane.WARNING_MESSAGE);

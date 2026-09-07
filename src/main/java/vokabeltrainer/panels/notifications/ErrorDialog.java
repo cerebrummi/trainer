@@ -29,7 +29,7 @@ public class ErrorDialog extends JDialog
       vertical.setBorder(BorderFactory.createTitledBorder(
             BorderFactory.createLineBorder(app.appColors.getDarkRed()),
             common.getTranslator()
-                  .realisticTranslate(Translation.FEHLERMELDUNG)));
+                  .realisticTranslate(app, Translation.FEHLERMELDUNG)));
 
       JLabel rowA = new JLabel(textA);
       rowA.setFont(app.appFonts.germanFont.deriveFont(24F));

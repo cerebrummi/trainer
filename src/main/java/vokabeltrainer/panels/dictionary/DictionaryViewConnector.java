@@ -73,7 +73,7 @@ public interface DictionaryViewConnector
 
    public void addChapterListSelectionListener();
 
-   public void doShowTable(App app, Common common, View view, ExpressionTableModel tableModel);
+   public void doShowTable(App app, Common common, Model model, View view, ExpressionTableModel tableModel);
 
  
 

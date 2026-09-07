@@ -122,7 +122,7 @@ public class NikudPictureButtonPanel extends JPanel
       else
       {
          germanButton = new JButton(
-               letter.getNikudContent().getGermanPictureName(translator));
+               letter.getNikudContent().getGermanPictureName(app, translator));
          germanButton.setFont(app.appFonts.germanFont.deriveFont(10F));
          germanButton.setContentAreaFilled(false);
       }

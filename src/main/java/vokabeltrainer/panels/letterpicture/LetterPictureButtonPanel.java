@@ -137,7 +137,7 @@ public class LetterPictureButtonPanel extends JPanel
       }
       else
       {
-         germanButton = new JButton(letter.getGermanPictureName(translator));
+         germanButton = new JButton(letter.getGermanPictureName(app, translator));
          germanButton.setFont(app.appFonts.germanFont.deriveFont(10F));
          germanButton.setBorder(BorderFactory.createEmptyBorder());
          germanButton.setMargin(new Insets(0, 0, 0, 0));

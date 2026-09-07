@@ -4,8 +4,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.ImageData;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.table.list.editor.NikudExpressionEditorController;
@@ -20,20 +21,26 @@ public class EnterAction extends AbstractAction
    private LanguageExpressionEditorView editorPunktation;
    private PictureExpressionEditorView editorPicture;
    private TableConnector connector;
+   private App app;
    private Common common;
+   private Model model;
    private View view;
 
-   public EnterAction(Common common, View view)
+   public EnterAction(App app, Common common, Model model, View view)
    {
+      this.app = app;
       this.common = common;
+      this.model = model;
       this.view = view;
       PictureExpressionEditorController pictureController = new PictureExpressionEditorController(common, view);
       editorPicture = pictureController.getPictureExpressionEditorDialog();
    }
 
-   public EnterAction(Common common, View view, ExpressionTable table, TableConnector connector)
+   public EnterAction(App app, Common common, Model model, View view, ExpressionTable table, TableConnector connector)
    {
+      this.app = app;
       this.common = common;
+      this.model = model;
       this.view = view;
       this.table = table;
       this.connector = connector;
@@ -56,17 +63,17 @@ public class EnterAction extends AbstractAction
 
          if (table.getSelectedColumn() == 0)
          {
-            showEditorPunktation(common, view, expression);
+            showEditorPunktation(app, common, model, view, expression);
          }
          else
          {
-            showEditorPicture(common, view, expression, false);
+            showEditorPicture(app, common, model, view, expression, false);
          }
 
       }
    }
 
-   private void showEditorPunktation(Common common, View view, Expression expression)
+   private void showEditorPunktation(App app, Common common, Model model, View view, Expression expression)
    {
       editorPunktation.setFrozen(expression.isDoNotChange());
       editorPunktation.setExpression(common, view, expression, false);
@@ -75,17 +82,17 @@ public class EnterAction extends AbstractAction
       // editor is open
       if (editorPunktation.isSave())
       {
-         connector.save(common, view);
+         connector.save(app, common, model, view);
       }
       editorPunktation.dispose();
    }
 
-   public void showEditorPicture(Common common, View view, Expression expression, boolean dropped)
+   public void showEditorPicture(App app, Common common, Model model, View view, Expression expression, boolean dropped)
    {
       editorPicture.setExpression(common, view, expression);
-      if (ImageData.isImageForExpressionAvailable(expression.getUuid()))
+      if (model.imageData.isImageForExpressionAvailable(expression.getUuid()))
       {
-         editorPicture.setImages(ImageData.loadImages(expression.getUuid()));
+         editorPicture.setImages(model.imageData.loadImages(app, expression.getUuid()));
       }
       editorPicture.revalidate();
       editorPicture.repaint();

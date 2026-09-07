@@ -136,7 +136,7 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       });
    }
 
-   public void doShowTable(App app, Common common, View view, ExpressionTableModel tableModel)
+   public void doShowTable(App app, Common common, Model model, View view, ExpressionTableModel tableModel)
    {
       if (tableModel.getRowCount() == 0)
       {
@@ -144,9 +144,9 @@ public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
       }
       else
       {
-         table = new ExpressionTable(common, view, tableModel, Direction.NEW_TO_OWN,
+         table = new ExpressionTable(app, common, model, view, tableModel, Direction.NEW_TO_OWN,
                connector, false,
-               new ExpressionColumnModel(common, Direction.NEW_TO_OWN));
+               new ExpressionColumnModel(app, common, model, Direction.NEW_TO_OWN));
          JScrollPane scrollPane = new JScrollPane(table);
          scrollPane.setOpaque(false);
          scrollPane.getViewport().setOpaque(false);

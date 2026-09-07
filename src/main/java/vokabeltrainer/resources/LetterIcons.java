@@ -7,18 +7,17 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.common.main.AppImages;
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.NikudLetter;
 
 public class LetterIcons
 {
 
-   public static void readNikud() throws IOException
+   public static void readNikud(App app) throws IOException
    {
       Map<NikudLetter, BufferedImage> letterIconsNikudMap = new HashMap<>();
       String type = "";
-      if (Settings.isDarkmodeOn())
+      if (app.settings.isDarkmodeOn())
       {
          type = "_white";
       }
@@ -38,6 +37,6 @@ public class LetterIcons
          }
       }
 
-      AppImages.setLetterIconsNikudMap(letterIconsNikudMap);
+      app.appImages.setLetterIconsNikudMap(letterIconsNikudMap);
    }
 }

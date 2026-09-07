@@ -10,24 +10,26 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.colors.TableColors;
-import vokabeltrainer.common.main.AppImages;
-import vokabeltrainer.common.main.ImageData;
+import vokabeltrainer.common.main.App;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.tonionlayout.TotemLayout;
 import vokabeltrainer.types.Expression;
 
 public class ExpressionCellRenderer2 implements TableCellRenderer
 {
+   private App app;
+   private Model model;
    private JPanel content;
    private JLabel infos;
 
-   public ExpressionCellRenderer2()
+   public ExpressionCellRenderer2(App app, Model model)
    {
+      this.app = app;
+      this.model = model;
       content = new JPanel();
       TotemLayout layout = new TotemLayout(content, 15);
       content.setLayout(layout);
-      infos = new JLabel(new ImageIcon(AppImages.getIcon_bulb()));
+      infos = new JLabel(new ImageIcon(app.appImages.getIcon_bulb()));
       infos.setSize(60, 60);
       infos.setBorder(BorderFactory.createEmptyBorder());
 
@@ -40,19 +42,19 @@ public class ExpressionCellRenderer2 implements TableCellRenderer
    {
       Expression expression = (Expression) value;
       UUID uuid = expression.getUuid();
-      if (ImageData.isImageForExpressionAvailable(uuid))
+      if (model.imageData.isImageForExpressionAvailable(uuid))
       {
-         infos.setIcon(new ImageIcon(AppImages.getIcon_bulb_on()));
+         infos.setIcon(new ImageIcon(app.appImages.getIcon_bulb_on()));
       }
       else
       {
-         infos.setIcon(new ImageIcon(AppImages.getIcon_bulb()));
+         infos.setIcon(new ImageIcon(app.appImages.getIcon_bulb()));
       }
 
       if (isSelected)
       {
          content.setBorder(BorderFactory
-               .createLineBorder(ColorBase.getSelectionGreen(), 3));
+               .createLineBorder(app.appColors.getSelectionGreen(), 3));
       }
       else
       {
@@ -61,11 +63,11 @@ public class ExpressionCellRenderer2 implements TableCellRenderer
 
       if (row % 2 == 1)
       {
-         content.setBackground(TableColors.getRow1());
+         content.setBackground(app.appColors.table.getRow1());
       }
       else
       {
-         content.setBackground(TableColors.getRow2());
+         content.setBackground(app.appColors.table.getRow2());
       }
 
       return content;

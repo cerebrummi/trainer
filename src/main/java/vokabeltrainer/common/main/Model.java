@@ -3,6 +3,7 @@ package vokabeltrainer.common.main;
 public final class Model
 {   
    public Data data;
+   public ImageData imageData;
 
    public Model(App app, Common common, View view)
    {
@@ -19,7 +20,7 @@ public final class Model
    
    private void initUserImageData(App app, Common common, View view)
    {
-      ImageData imageData = new ImageData(data);
+      imageData = new ImageData(data);
       imageData.initImageDataBase(app, common, view);
    }
 }

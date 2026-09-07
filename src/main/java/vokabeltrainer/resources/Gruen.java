@@ -7,13 +7,13 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 
 public class Gruen
 {
    private static List<BufferedImage> greenImagesList = new ArrayList<>();
 
-   public static void read() throws IOException
+   public static void read(App app) throws IOException
    {
 
       for (int i = 0; i < 72; i++)
@@ -21,6 +21,6 @@ public class Gruen
          greenImagesList.add(ImageIO.read(
                Gruen.class.getResourceAsStream("gruen/green_" + i + ".jpg")));
       }
-      AppImages.setGreenImages(greenImagesList);
+      app.appImages.setGreenImages(greenImagesList);
    }
 }

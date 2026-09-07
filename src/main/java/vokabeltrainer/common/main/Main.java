@@ -32,7 +32,7 @@ public final class Main
         view.startApp();
       });
 
-      initPostView();
+      initPostView(app);
    }
    
    public static void initEnums(Common common)
@@ -59,7 +59,7 @@ public final class Main
       return view;
    }
    
-   private static void initPostView()
+   private static void initPostView(App app)
    {
       new SwingWorker<Void, Void>()
       {
@@ -68,8 +68,8 @@ public final class Main
          {
             try
             {
-               Blue.read();
-               Gruen.read();
+               Blue.read(app);
+               Gruen.read(app);
             }
             catch (IOException e)
             {

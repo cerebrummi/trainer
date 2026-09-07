@@ -411,7 +411,7 @@ public class DictionaryController implements DictionaryControllerConnector
             }
             else
             {
-               dictionaryViewConnector.doShowTable(app, common, view, tableModel);
+               dictionaryViewConnector.doShowTable(app, common, model, view, tableModel);
             }
 
             if (dictionaryViewConnector.getTable() != null)

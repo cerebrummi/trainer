@@ -57,7 +57,7 @@ public class StartTrainingView extends JDialog
       tabbedPane.setFont(app.appFonts.toolbarButtonFont);
       layout.add(tabbedPane, BorderLayout.CENTER);
 
-      tabbedPane.addTab(translator.realisticTranslate(Translation.GEBIET),
+      tabbedPane.addTab(translator.realisticTranslate(app, Translation.GEBIET),
             new ImageIcon(app.appImages.getArrow()),
             new FieldOfTrainingTab(app, common, model, this));
    }

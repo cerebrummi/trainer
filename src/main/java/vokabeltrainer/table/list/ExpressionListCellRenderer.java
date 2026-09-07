@@ -11,9 +11,7 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.LetterType;
 
@@ -22,18 +20,21 @@ public class ExpressionListCellRenderer
 {
    private static final long serialVersionUID = -631988254932147508L;
 
+   private App app;
+   
    private JTextField label;
    private JLabel selected;
    private JLabel empty;
 
-   public ExpressionListCellRenderer()
+   public ExpressionListCellRenderer(App app)
    {
+      this.app = app;
       label = new JTextField();
       label.setOpaque(false);
       label.setEditable(false);
-      label.setBackground(ColorBase.getTransparent());
+      label.setBackground(app.appColors.getTransparent());
       label.setBorder(BorderFactory.createEmptyBorder());
-      selected = new JLabel(new ImageIcon(AppImages.getSelect()));
+      selected = new JLabel(new ImageIcon(app.appImages.getSelect()));
       empty = new JLabel();
    }
 
@@ -52,7 +53,7 @@ public class ExpressionListCellRenderer
       }
       if (index == 3)
       {
-         label.setFont(AppFonts.hebrewHandwrittenFont.deriveFont(30f));
+         label.setFont(app.appFonts.hebrewHandwrittenFont.deriveFont(30f));
          label.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
       }
       else if (index == 2)
@@ -60,7 +61,7 @@ public class ExpressionListCellRenderer
          label = new JTextField();
          label.setOpaque(false);
          label.setEditable(false);
-         label.setBackground(ColorBase.getTransparent());
+         label.setBackground(app.appColors.getTransparent());
          label.setBorder(BorderFactory.createEmptyBorder());
          if (LetterHelper
                .findLetterTypeLanguages((String) value) == LetterType.HEBREW)
@@ -78,7 +79,7 @@ public class ExpressionListCellRenderer
          label.setFont(label.getFont().deriveFont(24F));
          label.setOpaque(false);
          label.setEditable(false);
-         label.setBackground(ColorBase.getTransparent());
+         label.setBackground(app.appColors.getTransparent());
          label.setBorder(BorderFactory.createEmptyBorder());
          if (LetterHelper
                .findLetterTypeLanguages((String) value) == LetterType.HEBREW)
@@ -95,7 +96,7 @@ public class ExpressionListCellRenderer
          label = new JTextField();
          label.setOpaque(false);
          label.setEditable(false);
-         label.setBackground(ColorBase.getTransparent());
+         label.setBackground(app.appColors.getTransparent());
          label.setBorder(BorderFactory.createEmptyBorder());
          label.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
       }

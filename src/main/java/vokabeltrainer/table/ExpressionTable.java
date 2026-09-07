@@ -15,8 +15,9 @@ import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableColumnModel;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.input.TableConnector;
 import vokabeltrainer.types.Direction;
@@ -28,14 +29,14 @@ public class ExpressionTable extends JTable
    private Direction language;
    private ExpressionTableModel model;
 
-   public ExpressionTable(Common common, View view, ExpressionTableModel dm, Direction language,
+   public ExpressionTable(App app, Common common, Model model, View view, ExpressionTableModel dm, Direction language,
          TableConnector connector, boolean editable,
          DefaultTableColumnModel columnModel)
    {
       super(dm, columnModel);
       this.model = dm;
       this.language = language;
-      setRowHeight(Settings.dictionaryTableRowHeight());
+      setRowHeight(app.settings.dictionaryTableRowHeight());
       putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
       setShowHorizontalLines(false);
       this.setRowSelectionAllowed(true);
@@ -50,7 +51,7 @@ public class ExpressionTable extends JTable
          KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
          getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(enter,
                editCommand);
-         getActionMap().put(editCommand, new EnterAction(common, view, this, connector));
+         getActionMap().put(editCommand, new EnterAction(app, common, model, view, this, connector));
       }
 
       String selectCommand = "select";
@@ -80,7 +81,7 @@ public class ExpressionTable extends JTable
 
                expression.toggleSelected();
 
-               connector.fireTableCellUpdated(common, view, table, table.getSelectedRow(), 0);
+               connector.fireTableCellUpdated(app, common, model, view, table, table.getSelectedRow(), 0);
             }
          }
       });

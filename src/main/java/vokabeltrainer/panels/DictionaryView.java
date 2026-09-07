@@ -1085,7 +1085,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       }
    }
 
-   public void doShowTable(App app, Common common, View view, ExpressionTableModel tableModel)
+   public void doShowTable(App app, Common common, Model model, View view, ExpressionTableModel tableModel)
    {
       tablePanel.removeAll();
 
@@ -1109,9 +1109,9 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             .setForeground(app.appColors.dictionary.getButtonForeground());
       scrollsearchPinButton.setFont(app.appFonts.buttonFont);
 
-      table = new ExpressionTable(common, view, tableModel, this.getSelectedLanguage(),
+      table = new ExpressionTable(app, common, model, view, tableModel, this.getSelectedLanguage(),
             connector, true,
-            new ExpressionColumnModel(common, this.getSelectedLanguage()));
+            new ExpressionColumnModel(app, common, model, this.getSelectedLanguage()));
       tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);
       tableScroller.getViewport().setOpaque(false);

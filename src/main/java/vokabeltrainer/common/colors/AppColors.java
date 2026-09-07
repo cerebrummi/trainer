@@ -43,7 +43,7 @@ public abstract class AppColors implements ColorBase
    
    public abstract Color getBrightGreen();
 
-   abstract Color getSelectionGreen();
+   public abstract Color getSelectionGreen();
 
    public abstract Color getTransparent();
 
@@ -146,7 +146,7 @@ public abstract class AppColors implements ColorBase
       public abstract Color getTableBackground();
    }
    
-   abstract class Table
+   public abstract class Table
    {
       public abstract Color getRow1();
       public abstract Color getRow2();

@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JList;
 import javax.swing.KeyStroke;
 
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.types.Direction;
 
 public class ExpressionList extends JList<String>
@@ -16,11 +16,14 @@ public class ExpressionList extends JList<String>
 
    private static final long serialVersionUID = -8585511215166225268L;
 
+   private App app;
+   
    private boolean withLock;
    private boolean withEye;
 
-   public ExpressionList(Direction language)
+   public ExpressionList(App app, Direction language)
    {
+      this.app = app;
       setSelectionModel(new ExpressionListSelectionModel());
       setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
       setVisibleRowCount(10);
@@ -31,7 +34,7 @@ public class ExpressionList extends JList<String>
             new Object());
       getActionMap().get("clearSelection").setEnabled(true);
 
-      setCellRenderer(new ExpressionListCellRenderer());
+      setCellRenderer(new ExpressionListCellRenderer(app));
    }
 
    @Override
@@ -40,11 +43,11 @@ public class ExpressionList extends JList<String>
       super.paintComponent(g);
       if (withLock)
       {
-         g.drawImage(AppImages.getLock(), 0, 0, this);
+         g.drawImage(app.appImages.getLock(), 0, 0, this);
       }
       if (withEye)
       {
-         g.drawImage(AppImages.getEyeOnly(), 0, 0, this);
+         g.drawImage(app.appImages.getEyeOnly(), 0, 0, this);
       }
    }
 

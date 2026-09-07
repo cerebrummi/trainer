@@ -36,9 +36,9 @@ public final class View
 
       try
       {
-         LetterIcons.readNikud();
-         LetterIconsHandwritten.readNikud();
-         Buchstabenbilder.read(common);
+         LetterIcons.readNikud(app);
+         LetterIconsHandwritten.readNikud(app);
+         Buchstabenbilder.read(app, common);
       }
       catch (IOException e1)
       {
@@ -175,9 +175,9 @@ public final class View
 
       try
       {
-         LetterIcons.readNikud();
-         LetterIconsHandwritten.readNikud();
-         Buchstabenbilder.read(common);
+         LetterIcons.readNikud(app);
+         LetterIconsHandwritten.readNikud(app);
+         Buchstabenbilder.read(app, common);
       }
       catch (IOException e1)
       {

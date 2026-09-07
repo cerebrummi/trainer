@@ -24,7 +24,7 @@ public class TrashCanController implements TrashCanControllerConnector
    {
       this.connector = connector;
       trashCanDialog = new TrashCanDialog(app, common, model, view, this);
-      trashCanDialog.doShowTable(app, common, view, loadTableModel(model));
+      trashCanDialog.doShowTable(app, common, model, view, loadTableModel(model));
       trashCanDialog.pack();
    }
 
@@ -53,7 +53,7 @@ public class TrashCanController implements TrashCanControllerConnector
          trashCanDialog.setRestore(true);
          model.data.restoreExpressions(selectedExpressions);
          trashCanDialog.clearTable();
-         trashCanDialog.doShowTable(app, common, view, loadTableModel(model));
+         trashCanDialog.doShowTable(app, common, model, view, loadTableModel(model));
          trashCanDialog.tableValidateRepaint();
          save(app, common, model, view);
       }
@@ -66,7 +66,7 @@ public class TrashCanController implements TrashCanControllerConnector
       {
          trashCanDialog.selectAllExpressionsInTable();
          trashCanDialog.clearTable();
-         trashCanDialog.doShowTable(app, common, view, loadTableModel(model));
+         trashCanDialog.doShowTable(app, common, model, view, loadTableModel(model));
          trashCanDialog.tableValidateRepaint();
       }
    }
@@ -78,7 +78,7 @@ public class TrashCanController implements TrashCanControllerConnector
       {
          trashCanDialog.unselectAllExpressionsInTable();
          trashCanDialog.clearTable();
-         trashCanDialog.doShowTable(app, common, view, loadTableModel(model));
+         trashCanDialog.doShowTable(app, common, model, view, loadTableModel(model));
          trashCanDialog.tableValidateRepaint();
       }
    }
@@ -87,7 +87,7 @@ public class TrashCanController implements TrashCanControllerConnector
    public void switchLanguage(App app, Common common, Model model, View view)
    {
       trashCanDialog.clearTable();
-      trashCanDialog.doShowTable(app, common, view, loadTableModel(model));
+      trashCanDialog.doShowTable(app, common, model, view, loadTableModel(model));
       trashCanDialog.tableValidateRepaint();
    }
 

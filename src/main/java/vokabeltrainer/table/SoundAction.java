@@ -13,8 +13,8 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.AbstractAction;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.AppSounds;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.editing.LetterHelper;
 import vokabeltrainer.editing.SwedishLetter;
 import vokabeltrainer.types.Expression;
@@ -55,7 +55,7 @@ public class SoundAction extends AbstractAction
 
    }
 
-   public void buchstabieren(Expression expression)
+   public void buchstabieren(App app, Expression expression)
    {
       Vector<AudioInputStream> inputStreams = new Vector<>();
       long frameLength = 0;
@@ -80,7 +80,7 @@ public class SoundAction extends AbstractAction
                AppSounds.audioFormat, frameLength));
          FloatControl volume = (FloatControl) clip
                .getControl(FloatControl.Type.MASTER_GAIN);
-         volume.setValue(Settings.getVolume());
+         volume.setValue(app.settings.getVolume());
          clip.start();
       }
       catch (LineUnavailableException | IOException e)

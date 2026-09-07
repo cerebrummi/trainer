@@ -5,8 +5,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.colors.TableColors;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.table.list.ExpressionList;
 import vokabeltrainer.types.Direction;
@@ -16,13 +15,15 @@ public class ExpressionCellRenderer implements TableCellRenderer
 {
    private ExpressionList list;
    private Direction language;
+   private App app;
    private Common common;
 
-   public ExpressionCellRenderer(Common common, Direction language)
+   public ExpressionCellRenderer(App app, Common common, Direction language)
    {
+      this.app = app;
       this.common = common;
       this.language = language;
-      list = new ExpressionList(language);
+      list = new ExpressionList(app, language);
    }
 
    @Override
@@ -56,7 +57,7 @@ public class ExpressionCellRenderer implements TableCellRenderer
       if (isSelected)
       {
          list.setBorder(BorderFactory
-               .createLineBorder(ColorBase.getSelectionGreen(), 3));
+               .createLineBorder(app.appColors.getSelectionGreen(), 3));
       }
       else
       {
@@ -65,11 +66,11 @@ public class ExpressionCellRenderer implements TableCellRenderer
 
       if (row % 2 == 1)
       {
-         list.setBackground(TableColors.getRow1());
+         list.setBackground(app.appColors.table.getRow1());
       }
       else
       {
-         list.setBackground(TableColors.getRow2());
+         list.setBackground(app.appColors.table.getRow2());
       }
 
       list.setLock(expression.isDoNotChange());

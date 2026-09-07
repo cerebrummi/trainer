@@ -54,8 +54,7 @@ import vokabeltrainer.InputLanguagePanel.Selection;
 import vokabeltrainer.TextImage;
 import vokabeltrainer.cmd.TextHelper;
 import vokabeltrainer.common.LetterForSaving;
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.colors.InputColors;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.AppFonts;
 import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
@@ -95,7 +94,7 @@ public class LanguageExpressionEditorView extends JDialog
 
    private static final int WIDTH_BOX_PANEL = 230;
 
-   private static final int WIDTH_INPUT_PANEL = Settings.getKeyboardWidth();
+   private static final int WIDTH_INPUT_PANEL;
 
    private static final long serialVersionUID = 5853498340870217732L;
 
@@ -174,23 +173,25 @@ public class LanguageExpressionEditorView extends JDialog
 
    private NikudExpressionEditorControllerConnector connector;
 
-   public LanguageExpressionEditorView(Common common, View view,
+   public LanguageExpressionEditorView(App app, Common common, View view,
          NikudExpressionEditorControllerConnector connector)
    {
-      super(view.getjFrame(), Settings.getWindowTitle(),
+      super(view.getjFrame(), app.settings.getWindowTitle(),
             Dialog.ModalityType.APPLICATION_MODAL);
 
+      WIDTH_INPUT_PANEL = app.settings.getKeyboardWidth();
+      
       this.connector = connector;
       translator = common.getTranslator();
       
       germanTitle = translator
-            .realisticTranslate(Translation.DEUTSCH);
+            .realisticTranslate(app, Translation.DEUTSCH);
       searchwordJListGermanTitle = translator
-            .realisticTranslate(Translation.DEUTSCHE_SUCHWOERTER);
+            .realisticTranslate(app, Translation.DEUTSCHE_SUCHWOERTER);
       searchwordsJListHebrewTitle = translator
-            .realisticTranslate(Translation.HEBRAEISCHE_SUCHWOERTER);
+            .realisticTranslate(app, Translation.HEBRAEISCHE_SUCHWOERTER);
       chapterTitle = translator
-            .realisticTranslate(Translation.LEKTION);
+            .realisticTranslate(app, Translation.LEKTION);
       
       save = false;
       setResizable(true);
@@ -199,17 +200,17 @@ public class LanguageExpressionEditorView extends JDialog
             Math.min(screenSize.height - 60, 825));
 
       outerLayout = new JPanel();
-      outerLayout.setBackground(InputColors.getEditorBackground());
+      outerLayout.setBackground(app.appColors.input.getEditorBackground());
       outerLayout.setBorder(BorderFactory
-            .createLineBorder(InputColors.getEditorBackground(), 15, false));
+            .createLineBorder(app.appColors.input.getEditorBackground(), 15, false));
       outerLayout.setLayout(new TotemLayout(outerLayout, 15));
 
       layout = new JPanel();
       layout.setOpaque(false);
-      layout.setBackground(ColorBase.getTransparent());
+      layout.setBackground(app.appColors.getTransparent());
       layout.setLayout(new TrainLayout(layout, 15));
 
-      initGuiFields(common, view);
+      initGuiFields(app, common, view);
       layout.add(initInput());
       layout.add(initInfosLeft());
       layout.add(initInfosRight());
@@ -227,15 +228,15 @@ public class LanguageExpressionEditorView extends JDialog
             new CerebrummiFocusTraversalPolicy(focusList));
    }
 
-   private void initGuiFields(Common common, View view)
+   private void initGuiFields(App app, Common common, View view)
    {
       ownLanguage = new JTextField();
-      ownLanguage.setFont(AppFonts.internationalFont);
+      ownLanguage.setFont(app.appFonts.internationalFont);
       ownLanguage.setBorder(makeBorderBlank(germanTitle));
       ownLanguage.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       ownLanguage.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       ownLanguage.setDocument(new InternationalDocument());
-      switch (Settings.getMyWritingDirection())
+      switch (app.settings.getMyWritingDirection())
       {
       case LEFT_TO_RIGHT:
          ownLanguage
@@ -247,35 +248,35 @@ public class LanguageExpressionEditorView extends JDialog
          break;
       }
 
-      if (Settings.isSimpleHebrewInput())
+      if (app.settings.isSimpleHebrewInput())
       {
-         language = new InputLanguagePanel(common, Selection.SIMPLE, 152, 6, true, this,
-               WIDTH_INPUT_PANEL, ColorBase.getLightYellow());
+         language = new InputLanguagePanel(app, common, Selection.SIMPLE, 152, 6, true, this,
+               WIDTH_INPUT_PANEL, app.appColors.getLightYellow());
       }
-      else if (Settings.isHebrewPleneDefektivInput())
+      else if (app.settings.isHebrewPleneDefektivInput())
       {
-         language = new InputLanguagePanel(common, Selection.PLENE_DEFEKTIV, 152, 6,
+         language = new InputLanguagePanel(app, common, Selection.PLENE_DEFEKTIV, 152, 6,
                true, this, WIDTH_INPUT_PANEL,
-               ColorBase.getLightYellow());
+               app.appColors.getLightYellow());
       }
-      else if (Settings.isSwedishInput())
+      else if (app.settings.isSwedishInput())
       {
-         language = new InputLanguagePanel(common, Selection.SWEDISH, 152, 6, false,
-               this, WIDTH_INPUT_PANEL, ColorBase.getLightYellow());
+         language = new InputLanguagePanel(app, common, Selection.SWEDISH, 152, 6, false,
+               this, WIDTH_INPUT_PANEL, app.appColors.getLightYellow());
       }
       else
       {
-         language = new InputLanguagePanel(common, Selection.GERMAN, 152, 6, false,
-               this, WIDTH_INPUT_PANEL, ColorBase.getLightYellow());
+         language = new InputLanguagePanel(app, common, Selection.GERMAN, 152, 6, false,
+               this, WIDTH_INPUT_PANEL, app.appColors.getLightYellow());
       }
       language.setBlankBorder();
 
-      newSearchwordOwn = new InfoTextField(view,
-            translator.realisticTranslate(Translation.NEUES_SUCHWORT_DEUTSCH)
+      newSearchwordOwn = new InfoTextField(app, view,
+            translator.realisticTranslate(app, Translation.NEUES_SUCHWORT_DEUTSCH)
                   + "  ",
-            translator.realisticTranslate(
+            translator.realisticTranslate(app, 
                   Translation.BITTE_JE_EIN_WORT_EINGEBEN) + "  ",
-            translator.realisticTranslate(Translation.UND_DANN_ENTER_DRUECKEN_)
+            translator.realisticTranslate(app, Translation.UND_DANN_ENTER_DRUECKEN_)
                   + "  ");
 
       newSearchwordOwn.setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 70));
@@ -283,7 +284,7 @@ public class LanguageExpressionEditorView extends JDialog
       newSearchwordOwn.setDocument(new InternationalDocument());
 
       searchwordsJListOwn = new JList<>();
-      searchwordsJListOwn.setBackground(InputColors.getTextBackground());
+      searchwordsJListOwn.setBackground(app.appColors.input.getTextBackground());
       searchwordsJListOwn.setCellRenderer(new ListCellRenderer<String>()
       {
          @Override
@@ -291,17 +292,17 @@ public class LanguageExpressionEditorView extends JDialog
                JList<? extends String> list, String value, int index,
                boolean isSelected, boolean cellHasFocus)
          {
-            AntiFocusTextField listComponent = new AntiFocusTextField(view,
+            AntiFocusTextField listComponent = new AntiFocusTextField(app, view,
                   value);
             if (isSelected)
             {
-               listComponent.setBackground(InputColors.getTextForeground());
-               listComponent.setForeground(InputColors.getTextBackground());
+               listComponent.setBackground(app.appColors.input.getTextForeground());
+               listComponent.setForeground(app.appColors.input.getTextBackground());
             }
             else
             {
-               listComponent.setBackground(InputColors.getTextBackground());
-               listComponent.setForeground(InputColors.getTextForeground());
+               listComponent.setBackground(app.appColors.input.getTextBackground());
+               listComponent.setForeground(app.appColors.input.getTextForeground());
             }
             return listComponent;
          }
@@ -313,7 +314,7 @@ public class LanguageExpressionEditorView extends JDialog
       searchwordsJListOwn.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
       JPopupMenu popupGerman = new JPopupMenu();
       JMenuItem copyMenuGerman = new JMenuItem(
-            translator.realisticTranslate(Translation.KOPIEREN));
+            translator.realisticTranslate(app, Translation.KOPIEREN));
       copyMenuGerman.addActionListener(_ -> {
          StringSelection stringSelection = new StringSelection(
                searchwordsJListOwn.getSelectedValue());
@@ -323,13 +324,13 @@ public class LanguageExpressionEditorView extends JDialog
       popupGerman.add(copyMenuGerman);
       searchwordsJListOwn.setComponentPopupMenu(popupGerman);
 
-      newSearchwordNew = new InfoTextField(view,
-            translator.realisticTranslate(Translation.NEUES_SUCHWORT_HEBRAEISCH)
+      newSearchwordNew = new InfoTextField(app, view,
+            translator.realisticTranslate(app, Translation.NEUES_SUCHWORT_HEBRAEISCH)
                   + "  ",
-            translator.realisticTranslate(Translation.BITTE_HINEINKLICKEN_),
-            translator.realisticTranslate(
+            translator.realisticTranslate(app, Translation.BITTE_HINEINKLICKEN_),
+            translator.realisticTranslate(app, 
                   Translation.HEBRAEISCHE_TASTATUR_BENUTZEN),
-            translator.realisticTranslate(Translation.DANACH_ENTER_DRUECKEN_)
+            translator.realisticTranslate(app, Translation.DANACH_ENTER_DRUECKEN_)
                   + "  ");
 
       newSearchwordNew
@@ -340,7 +341,7 @@ public class LanguageExpressionEditorView extends JDialog
       this.components.add(newSearchwordNew);
 
       searchwordsJListNew = new JList<>();
-      searchwordsJListNew.setBackground(InputColors.getTextBackground());
+      searchwordsJListNew.setBackground(app.appColors.input.getTextBackground());
       searchwordsJListNew.setCellRenderer(new ListCellRenderer<String>()
       {
          @Override

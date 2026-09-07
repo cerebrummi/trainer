@@ -65,7 +65,7 @@ public class TranslationPanel extends JPanel
          Main.initEnums(common);
          try
          {
-            Buchstabenbilder.read(common);
+            Buchstabenbilder.read(app, common);
          }
          catch (Exception e)
          {

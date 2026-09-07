@@ -825,7 +825,7 @@ public class TrainerView extends JPanel
 
       pictureToggleBox.addActionListener(_ -> connector.toggleLetterPictures(app));
 
-      initControllerImageButton(common, view);
+      initControllerImageButton(app, common, model, view);
       initControllerWordButton();
    }
 
@@ -842,15 +842,15 @@ public class TrainerView extends JPanel
       });
    }
 
-   private void initControllerImageButton(Common common, View view)
+   private void initControllerImageButton(App app, Common common, Model model, View view)
    {
       imageButton.addMouseListener(new MouseAdapter()
       {
          @Override
          public void mouseClicked(MouseEvent event)
          {
-            EnterAction images = new EnterAction(common, view);
-            images.showEditorPicture(common, view, connector.getCurrentExpression(), false);
+            EnterAction images = new EnterAction(app, common, model, view);
+            images.showEditorPicture(app, common, model, view, connector.getCurrentExpression(), false);
          }
       });
    }
@@ -928,7 +928,7 @@ public class TrainerView extends JPanel
       imageButton = new ImageButton(app.appImages.getIcon_eye());
       imageButton.setMinimumSize(new Dimension(60, 60));
       imageButton.setMaximumSize(new Dimension(60, 60));
-      initControllerImageButton(common, view);
+      initControllerImageButton(app, common, model, view);
 
       wordSoundButton = new ImageButton(app.appImages.getIcon_notes());
       wordSoundButton.setMinimumSize(new Dimension(60, 60));

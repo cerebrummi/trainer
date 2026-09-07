@@ -162,13 +162,13 @@ public class LetterPictureAlphabetPanel extends JPanel
             taw };
 
       printLettersButton = new JRadioButton(
-            translator.realisticTranslate(Translation.DRUCKSCHRIFT));
+            translator.realisticTranslate(app, Translation.DRUCKSCHRIFT));
       handwrittenLettersButton = new JRadioButton(
-            translator.realisticTranslate(Translation.SCHREIBSCHRIFT));
+            translator.realisticTranslate(app, Translation.SCHREIBSCHRIFT));
       keyboardRegularButton = new JRadioButton(
-            translator.realisticTranslate(Translation.TASTATUR_REGULAER));
+            translator.realisticTranslate(app, Translation.TASTATUR_REGULAER));
       keyboardShuffleButton = new JRadioButton(
-            translator.realisticTranslate(Translation.TASTATUR_VERMISCHT));
+            translator.realisticTranslate(app, Translation.TASTATUR_VERMISCHT));
 
       printLettersButton.setBackground(app.appColors.alefbet.getButton());
       printLettersButton
@@ -254,7 +254,7 @@ public class LetterPictureAlphabetPanel extends JPanel
       filler.setMaximumSize(new Dimension(310, 50));
 
       JButton turnButton = new JButton(
-            translator.realisticTranslate(Translation.ALLE_UMDREHEN));
+            translator.realisticTranslate(app, Translation.ALLE_UMDREHEN));
       turnButton.setBackground(app.appColors.alefbet.getButton());
       turnButton.setForeground(app.appColors.alefbet.getButtonForeground());
       turnButton.setFont(app.appFonts.buttonFont);

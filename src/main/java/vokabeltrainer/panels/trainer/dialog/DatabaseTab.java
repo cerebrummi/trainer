@@ -40,7 +40,7 @@ public class DatabaseTab extends JPanel
       setOpaque(true);
 
       JLabel question = new JLabel(
-            translator.realisticTranslate(Translation.DATENBANK));
+            translator.realisticTranslate(app, Translation.DATENBANK));
       question.setForeground(app.appColors.trainer.getTextForeground());
       question.setFont(app.appFonts.buttonFont);
       question.setOpaque(false);
@@ -54,7 +54,7 @@ public class DatabaseTab extends JPanel
       new ButtonGroup();
 
       Vector<String> names = new Vector<>();
-      names.add(translator.realisticTranslate(Translation.DATENBANK));
+      names.add(translator.realisticTranslate(app, Translation.DATENBANK));
       DatabaseTableModel databaseTableModel = new DatabaseTableModel(
             model.data.getDatabaseArray(), names);
       DatabaseTableMultiselect databaseTable = new DatabaseTableMultiselect(app,
@@ -73,14 +73,14 @@ public class DatabaseTab extends JPanel
       buttonWrapper.setOpaque(false);
 
       cancelButton = new JButton(
-            translator.realisticTranslate(Translation.ABBRECHEN));
+            translator.realisticTranslate(app, Translation.ABBRECHEN));
       cancelButton.setFont(app.appFonts.buttonFont);
       cancelButton.setBackground(app.appColors.trainer.getButton());
       cancelButton.setForeground(app.appColors.trainer.getButtonForeground());
       cancelButton.setIcon(new ImageIcon(app.appImages.getCancel()));
 
       nextButton = new JButton(
-            translator.realisticTranslate(Translation.WEITER));
+            translator.realisticTranslate(app, Translation.WEITER));
       nextButton.setFont(app.appFonts.buttonFont);
       nextButton.setBackground(app.appColors.trainer.getButton());
       nextButton.setForeground(app.appColors.trainer.getButtonForeground());
@@ -106,7 +106,7 @@ public class DatabaseTab extends JPanel
             dialog.setDatabaseNames(
                   databaseTable.getModel().getDatabaseNames());
             dialog.getTabbedPane().addTab(
-                  translator.realisticTranslate(Translation.WIE_VIELE),
+                  translator.realisticTranslate(app, Translation.WIE_VIELE),
                   new ImageIcon(app.appImages.getArrow()),
                   new AmountTab(app, common, model, dialog));
          }

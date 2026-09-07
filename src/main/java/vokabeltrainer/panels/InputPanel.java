@@ -246,9 +246,9 @@ public class InputPanel extends JPanel implements TableConnector
             null, null, null, currentChapter, null, SortingType.DATE, null,
             Direction.OWN_TO_NEW, null);
       tablePanel.removeAll();
-      ExpressionTable table = new ExpressionTable(common, view, tableModel,
+      ExpressionTable table = new ExpressionTable(app, common, model, view, tableModel,
             Direction.OWN_TO_NEW, this, true,
-            new ExpressionColumnModel(common, Direction.OWN_TO_NEW));
+            new ExpressionColumnModel(app, common, model, Direction.OWN_TO_NEW));
       JScrollPane tableScroller = new JScrollPane(table);
       tableScroller.setOpaque(false);
       tableScroller.getViewport().setOpaque(false);

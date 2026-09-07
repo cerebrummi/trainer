@@ -31,7 +31,7 @@ public class AmountTab extends JPanel
       setBackground(app.appColors.trainer.getPanelBackground());
       setOpaque(true);
 
-      JLabel question = new JLabel(translator.realisticTranslate(
+      JLabel question = new JLabel(translator.realisticTranslate(app, 
             Translation.WIE_VIELE_NEUE_WOERTER_MOECHTEN_SIE_LERNEN_));
       question.setForeground(app.appColors.trainer.getTextForeground());
       question.setFont(app.appFonts.buttonFont);
@@ -43,7 +43,7 @@ public class AmountTab extends JPanel
       center.setOpaque(false);
       center.setLayout(new BorderLayout());
 
-      TrainingTableModel tableModel = model.data.findTrainingModel(common,
+      TrainingTableModel tableModel = model.data.findTrainingModel(app, common,
             dialog.getLanguageDirection(), dialog.getFieldOfTraining(),
             dialog.getDatabaseNames());
       TrainingTable table = new TrainingTable(app, common, tableModel);
@@ -59,14 +59,14 @@ public class AmountTab extends JPanel
       buttonWrapper.setOpaque(false);
 
       JButton cancelButton = new JButton(
-            translator.realisticTranslate(Translation.ABBRECHEN));
+            translator.realisticTranslate(app, Translation.ABBRECHEN));
       cancelButton.setFont(app.appFonts.buttonFont);
       cancelButton.setBackground(app.appColors.trainer.getButton());
       cancelButton.setForeground(app.appColors.trainer.getButtonForeground());
       cancelButton.setIcon(new ImageIcon(app.appImages.getCancel()));
 
       JButton nextButton = new JButton(
-            translator.realisticTranslate(Translation.WEITER));
+            translator.realisticTranslate(app, Translation.WEITER));
       nextButton.setFont(app.appFonts.buttonFont);
       nextButton.setBackground(app.appColors.trainer.getButton());
       nextButton.setForeground(app.appColors.trainer.getButtonForeground());
