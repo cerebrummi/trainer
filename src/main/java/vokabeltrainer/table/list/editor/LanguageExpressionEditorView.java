@@ -55,11 +55,8 @@ import vokabeltrainer.TextImage;
 import vokabeltrainer.cmd.TextHelper;
 import vokabeltrainer.common.LetterForSaving;
 import vokabeltrainer.common.main.App;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Data;
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.editing.ExtraInformationDocument;
 import vokabeltrainer.editing.InternationalDocument;
@@ -94,7 +91,7 @@ public class LanguageExpressionEditorView extends JDialog
 
    private static final int WIDTH_BOX_PANEL = 230;
 
-   private static final int WIDTH_INPUT_PANEL;
+   private static int WIDTH_INPUT_PANEL;
 
    private static final long serialVersionUID = 5853498340870217732L;
 
@@ -173,7 +170,7 @@ public class LanguageExpressionEditorView extends JDialog
 
    private NikudExpressionEditorControllerConnector connector;
 
-   public LanguageExpressionEditorView(App app, Common common, View view,
+   public LanguageExpressionEditorView(App app, Common common, Model model, View view,
          NikudExpressionEditorControllerConnector connector)
    {
       super(view.getjFrame(), app.settings.getWindowTitle(),
@@ -211,17 +208,17 @@ public class LanguageExpressionEditorView extends JDialog
       layout.setLayout(new TrainLayout(layout, 15));
 
       initGuiFields(app, common, view);
-      layout.add(initInput());
+      layout.add(initInput(app));
       layout.add(initInfosLeft());
-      layout.add(initInfosRight());
-      layout.add(initInfosExtra());
+      layout.add(initInfosRight(app));
+      layout.add(initInfosExtra(app));
 
-      outerLayout.add(initTopPanel());
+      outerLayout.add(initTopPanel(app));
       outerLayout.add(layout);
 
       getContentPane().add(new JScrollPane(outerLayout));
 
-      initController(common, view);
+      initController(app, common, model, view);
       Component[] focusList = { ownLanguage, language, newSearchwordOwn,
             newSearchwordNew, extraInfo };
       this.setFocusTraversalPolicy(
@@ -349,17 +346,17 @@ public class LanguageExpressionEditorView extends JDialog
                JList<? extends String> list, String value, int index,
                boolean isSelected, boolean cellHasFocus)
          {
-            AntiFocusTextField listComponent = new AntiFocusTextField(view,
+            AntiFocusTextField listComponent = new AntiFocusTextField(app, view,
                   value);
             if (isSelected)
             {
-               listComponent.setBackground(InputColors.getTextForeground());
-               listComponent.setForeground(InputColors.getTextBackground());
+               listComponent.setBackground(app.appColors.input.getTextForeground());
+               listComponent.setForeground(app.appColors.input.getTextBackground());
             }
             else
             {
-               listComponent.setBackground(InputColors.getTextBackground());
-               listComponent.setForeground(InputColors.getTextForeground());
+               listComponent.setBackground(app.appColors.input.getTextBackground());
+               listComponent.setForeground(app.appColors.input.getTextForeground());
             }
             return listComponent;
          }
@@ -372,7 +369,7 @@ public class LanguageExpressionEditorView extends JDialog
       searchwordsJListNew.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 400));
       JPopupMenu popupHebrew = new JPopupMenu();
       JMenuItem copyMenuHebrew = new JMenuItem(
-            translator.realisticTranslate(Translation.KOPIEREN));
+            translator.realisticTranslate(app, Translation.KOPIEREN));
       copyMenuHebrew.addActionListener(_ -> {
          StringSelection stringSelection = new StringSelection(
                searchwordsJListNew.getSelectedValue());
@@ -383,53 +380,53 @@ public class LanguageExpressionEditorView extends JDialog
       searchwordsJListNew.setComponentPopupMenu(popupHebrew);
 
       deleteSearchwordButtonHebrew = new JButton(translator
-            .realisticTranslate(Translation.LOESCHE_SUCHWORT_HEBRAEISCH));
-      deleteSearchwordButtonHebrew.setFont(AppFonts.buttonFont);
+            .realisticTranslate(app, Translation.LOESCHE_SUCHWORT_HEBRAEISCH));
+      deleteSearchwordButtonHebrew.setFont(app.appFonts.buttonFont);
       deleteSearchwordButtonHebrew
-            .setForeground(InputColors.getTextForeground());
+            .setForeground(app.appColors.input.getTextForeground());
       deleteSearchwordButtonHebrew
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 40));
       deleteSearchwordButtonHebrew
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 40));
 
       deleteSearchwordButtonGerman = new JButton(translator
-            .realisticTranslate(Translation.LOESCHE_SUCHWORT_DEUTSCH));
+            .realisticTranslate(app, Translation.LOESCHE_SUCHWORT_DEUTSCH));
       deleteSearchwordButtonGerman.setFocusable(false);
-      deleteSearchwordButtonGerman.setFont(AppFonts.buttonFont);
+      deleteSearchwordButtonGerman.setFont(app.appFonts.buttonFont);
       deleteSearchwordButtonGerman
-            .setForeground(InputColors.getTextForeground());
+            .setForeground(app.appColors.input.getTextForeground());
       deleteSearchwordButtonGerman
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL, 40));
       deleteSearchwordButtonGerman
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 40));
 
       saveButton = new JButton(
-            translator.realisticTranslate(Translation.SPEICHERN));
-      saveButton.setFont(AppFonts.buttonFont);
-      saveButton.setForeground(InputColors.getTextForeground());
+            translator.realisticTranslate(app, Translation.SPEICHERN));
+      saveButton.setFont(app.appFonts.buttonFont);
+      saveButton.setForeground(app.appColors.input.getTextForeground());
       saveButton.setMinimumSize(new Dimension(120, 40));
       saveButton.setMaximumSize(new Dimension(160, 40));
 
       restoreButton = new JButton(
-            translator.realisticTranslate(Translation.ZURUECKSETZEN));
-      restoreButton.setFont(AppFonts.buttonFont);
-      restoreButton.setForeground(InputColors.getTextForeground());
+            translator.realisticTranslate(app, Translation.ZURUECKSETZEN));
+      restoreButton.setFont(app.appFonts.buttonFont);
+      restoreButton.setForeground(app.appColors.input.getTextForeground());
       restoreButton.setMinimumSize(new Dimension(120, 40));
       restoreButton.setMaximumSize(new Dimension(160, 40));
 
       cancelButton = new JButton(
-            translator.realisticTranslate(Translation.ABBRECHEN));
-      cancelButton.setFont(AppFonts.buttonFont);
-      cancelButton.setForeground(InputColors.getTextForeground());
+            translator.realisticTranslate(app, Translation.ABBRECHEN));
+      cancelButton.setFont(app.appFonts.buttonFont);
+      cancelButton.setForeground(app.appColors.input.getTextForeground());
       cancelButton.setMinimumSize(new Dimension(120, 40));
       cancelButton.setMaximumSize(new Dimension(160, 40));
 
-      chapter = new InfoComboBox(this.chapterTitle,
+      chapter = new InfoComboBox(app, this.chapterTitle,
             translator
-                  .realisticTranslate(Translation.HINEINKLICKEN_UND_SCHREIBEN),
-            translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM),
+                  .realisticTranslate(app, Translation.HINEINKLICKEN_UND_SCHREIBEN),
+            translator.realisticTranslate(app, Translation.ENTER_DRUECKEN__UM),
             translator
-                  .realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
+                  .realisticTranslate(app, Translation.EINEN_EINTRAG_ZU_AENDERN));
       chapter.setEditable(true);
       chapter.setMaximumRowCount(20);
       chapter.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
@@ -437,21 +434,21 @@ public class LanguageExpressionEditorView extends JDialog
 
       indexField = new JTextField();
       indexField.setBorder(
-            makeBorderBlank(translator.realisticTranslate(Translation.INDEX)));
+            makeBorderBlank(translator.realisticTranslate(app, Translation.INDEX)));
       indexField.setOpaque(false);
-      indexField.setBackground(ColorBase.getTransparent());
+      indexField.setBackground(app.appColors.getTransparent());
       indexField.setDocument(new InternationalDocument());
       indexField.setMinimumSize(new Dimension(85, 70));
       indexField.setMaximumSize(new Dimension(85, 70));
 
-      databaseNameField = new InfoComboBox(
-            translator.realisticTranslate(Translation.DATENBANK),
+      databaseNameField = new InfoComboBox(app, 
+            translator.realisticTranslate(app, Translation.DATENBANK),
             translator
-                  .realisticTranslate(Translation.HINEINKLICKEN_UND_SCHREIBEN),
-            translator.realisticTranslate(Translation.ENTER_DRUECKEN__UM),
+                  .realisticTranslate(app, Translation.HINEINKLICKEN_UND_SCHREIBEN),
+            translator.realisticTranslate(app, Translation.ENTER_DRUECKEN__UM),
             translator
-                  .realisticTranslate(Translation.EINEN_EINTRAG_ZU_AENDERN));
-      databaseNameField.setFont(AppFonts.buttonFont);
+                  .realisticTranslate(app, Translation.EINEN_EINTRAG_ZU_AENDERN));
+      databaseNameField.setFont(app.appFonts.buttonFont);
       databaseNameField.setMinimumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       databaseNameField.setMaximumSize(new Dimension(WIDTH_INPUT_PANEL, 70));
       databaseNameField.setEditable(true);
@@ -459,11 +456,11 @@ public class LanguageExpressionEditorView extends JDialog
 
       extraInfo = new JTextPane();
       extraInfo.setBorder(BorderFactory.createTitledBorder(
-            translator.realisticTranslate(Translation.WEITERE_INFORMATIONEN)));
+            translator.realisticTranslate(app, Translation.WEITERE_INFORMATIONEN)));
       extraInfo.setDocument(new ExtraInformationDocument());
       StyledDocument doc = extraInfo.getStyledDocument();
       SimpleAttributeSet style = new SimpleAttributeSet();
-      StyleConstants.setForeground(style, InputColors.getInfoTextForeground());
+      StyleConstants.setForeground(style, app.appColors.input.getInfoTextForeground());
       StyleConstants.setFontSize(style, 20);
       StyleConstants.setFontFamily(style, "Serif");
       doc.setParagraphAttributes(0, doc.getLength(), style, true);
@@ -478,64 +475,64 @@ public class LanguageExpressionEditorView extends JDialog
       extraInfoScroller.setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 240));
 
       pasteButton = new JButton(new DefaultEditorKit.PasteAction());
-      pasteButton.setForeground(InputColors.getTextForeground());
-      pasteButton.setIcon(new ImageIcon(AppImages.getPaste()));
+      pasteButton.setForeground(app.appColors.input.getTextForeground());
+      pasteButton.setIcon(new ImageIcon(app.appImages.getPaste()));
       pasteButton.setText("");
       pasteButton.setToolTipText(
-            translator.realisticTranslate(Translation.EINFUEGEN));
+            translator.realisticTranslate(app, Translation.EINFUEGEN));
       pasteButton
             .setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
       pasteButton
             .setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       cutButton = new JButton(new DefaultEditorKit.CutAction());
-      cutButton.setForeground(InputColors.getTextForeground());
-      cutButton.setIcon(new ImageIcon(AppImages.getCut()));
+      cutButton.setForeground(app.appColors.input.getTextForeground());
+      cutButton.setIcon(new ImageIcon(app.appImages.getCut()));
       cutButton.setText("");
       cutButton.setToolTipText(
-            translator.realisticTranslate(Translation.AUSSCNEIDEN));
+            translator.realisticTranslate(app, Translation.AUSSCNEIDEN));
       cutButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
       cutButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       copyButton = new JButton(new DefaultEditorKit.CopyAction());
-      copyButton.setForeground(InputColors.getTextForeground());
-      copyButton.setIcon(new ImageIcon(AppImages.getCopy2()));
+      copyButton.setForeground(app.appColors.input.getTextForeground());
+      copyButton.setIcon(new ImageIcon(app.appImages.getCopy2()));
       copyButton.setText("");
       copyButton.setToolTipText(
-            translator.realisticTranslate(Translation.KOPIEREN));
+            translator.realisticTranslate(app, Translation.KOPIEREN));
       copyButton.setMinimumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
       copyButton.setMaximumSize(new Dimension((WIDTH_INFO_PANEL - 30) / 3, 40));
 
       imageButton = new JButton();
-      imageButton.setFont(AppFonts.buttonFont);
-      imageButton.setForeground(InputColors.getTextForeground());
+      imageButton.setFont(app.appFonts.buttonFont);
+      imageButton.setForeground(app.appColors.input.getTextForeground());
       imageButton.setText(
-            translator.realisticTranslate(Translation.BILDER_ANZEIGEN));
+            translator.realisticTranslate(app, Translation.BILDER_ANZEIGEN));
       imageButton.setMinimumSize(new Dimension(WIDTH_BOX_PANEL, 40));
       imageButton.setMaximumSize(new Dimension(WIDTH_BOX_PANEL, 40));
 
       expressionKindTable = new ExpressionKindTableMultiselect(
             ExpressionKind.getModelForMultiselect(), WIDTH_INFO_PANEL, this);
 
-      makeAllBoxes();
+      makeAllBoxes(app);
 
       binjanBoxPanel = new JPanel();
       TotemLayout binjanLayout = new TotemLayout(binjanBoxPanel);
       binjanBoxPanel.setLayout(binjanLayout);
       binjanBoxPanel.add(binjanBox);
       binjanBoxPanel.setOpaque(false);
-      binjanBoxPanel.setBackground(ColorBase.getTransparent());
+      binjanBoxPanel.setBackground(app.appColors.getTransparent());
       binjanBoxPanel.setBorder(new TitledBorder(
-            translator.realisticTranslate(Translation.BINJAN___STAMM)));
+            translator.realisticTranslate(app, Translation.BINJAN___STAMM)));
 
       genderBoxPanel = new JPanel();
       TotemLayout genderLayout = new TotemLayout(genderBoxPanel);
       genderBoxPanel.setLayout(genderLayout);
       genderBoxPanel.add(genderBox);
       genderBoxPanel.setOpaque(false);
-      genderBoxPanel.setBackground(ColorBase.getTransparent());
+      genderBoxPanel.setBackground(app.appColors.getTransparent());
       genderBoxPanel.setBorder(BorderFactory.createTitledBorder(
-            translator.realisticTranslate(Translation.GESCHLECHT)));
+            translator.realisticTranslate(app, Translation.GESCHLECHT)));
 
       grammaticalPersonBoxPanel = new JPanel();
       TotemLayout grammaticalPersonLayout = new TotemLayout(
@@ -544,80 +541,80 @@ public class LanguageExpressionEditorView extends JDialog
       grammaticalPersonBoxPanel.add(grammaticalPersonBox);
       grammaticalPersonBoxPanel.setOpaque(false);
       grammaticalPersonBoxPanel
-            .setBackground(ColorBase.getTransparent());
+            .setBackground(app.appColors.getTransparent());
       grammaticalPersonBoxPanel.setBorder(BorderFactory.createTitledBorder(
-            translator.realisticTranslate(Translation.GRAMMATISCHE_PERSON)));
+            translator.realisticTranslate(app, Translation.GRAMMATISCHE_PERSON)));
 
       numerusBoxPanel = new JPanel();
       TotemLayout numerusLayout = new TotemLayout(numerusBoxPanel);
       numerusBoxPanel.setLayout(numerusLayout);
       numerusBoxPanel.add(numerusBox);
       numerusBoxPanel.setOpaque(false);
-      numerusBoxPanel.setBackground(ColorBase.getTransparent());
+      numerusBoxPanel.setBackground(app.appColors.getTransparent());
       numerusBoxPanel.setBorder(BorderFactory.createTitledBorder(
-            translator.realisticTranslate(Translation.NUMERUS)));
+            translator.realisticTranslate(app, Translation.NUMERUS)));
 
       verbTimesBoxPanel = new JPanel();
       TotemLayout verbConjugationLayout = new TotemLayout(verbTimesBoxPanel);
       verbTimesBoxPanel.setLayout(verbConjugationLayout);
       verbTimesBoxPanel.add(verbTimesBox);
       verbTimesBoxPanel.setOpaque(false);
-      verbTimesBoxPanel.setBackground(ColorBase.getTransparent());
+      verbTimesBoxPanel.setBackground(app.appColors.getTransparent());
       verbTimesBoxPanel.setBorder(BorderFactory.createTitledBorder(
-            translator.realisticTranslate(Translation.ZEITFORM)));
+            translator.realisticTranslate(app, Translation.ZEITFORM)));
 
-      keyboard = new KeyboardLanguage(language, components, 152, true, false);
+      keyboard = new KeyboardLanguage(app, language, components, 152, true, false);
    }
 
-   private void makeAllBoxes()
+   private void makeAllBoxes(App app)
    {
-      switch (Settings.getLanguageInput())
+      switch (app.settings.getLanguageInput())
       {
       case PLENE_DEFEKTIV:
       case SIMPLE:
-         makeAllBoxes(LLType.HEBREW);
+         makeAllBoxes(app, LLType.HEBREW);
          break;
       case SWEDISH:
-         makeAllBoxes(LLType.SWEDISH);
+         makeAllBoxes(app, LLType.SWEDISH);
          break;
       case GERMAN:
-         makeAllBoxes(LLType.GERMAN);
+         makeAllBoxes(app, LLType.GERMAN);
       }
    }
 
-   private void makeAllBoxes(LLType llType)
+   private void makeAllBoxes(App app, LLType llType)
    {
-      makeVerbTimesBox(VerbTimes.values(llType));
-      makeNumerusBox(Numerus.values(llType));
-      makeGrammaticalPersonBox(GrammaticalPerson.values(llType));
-      makeGenderBox(Gender.values(llType));
-      makeBinjanBox(Binjan.values(llType));
+      makeVerbTimesBox(app, VerbTimes.values(llType));
+      makeNumerusBox(app, Numerus.values(llType));
+      makeGrammaticalPersonBox(app, GrammaticalPerson.values(llType));
+      makeGenderBox(app, Gender.values(llType));
+      makeBinjanBox(app, Binjan.values(llType));
    }
 
-   private void makeVerbTimesBox(VerbTimes[] values)
+   private void makeVerbTimesBox(App app, VerbTimes[] values)
    {
       verbTimesBox = new JComboBox<>(values);
-      verbTimesBox.setFont(AppFonts.comboBoxFont);
+      verbTimesBox.setFont(app.appFonts.comboBoxFont);
       verbTimesBox.setEditable(false);
       verbTimesBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       verbTimesBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       verbTimesBox.setMaximumRowCount(VerbTimes.values().length);
    }
 
-   private void makeNumerusBox(Numerus[] values)
+   private void makeNumerusBox(App app, Numerus[] values)
    {
       numerusBox = new JComboBox<>(values);
-      numerusBox.setFont(AppFonts.comboBoxFont);
+      numerusBox.setFont(app.appFonts.comboBoxFont);
       numerusBox.setEditable(false);
       numerusBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       numerusBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       numerusBox.setMaximumRowCount(Numerus.values().length);
    }
 
-   private void makeGrammaticalPersonBox(GrammaticalPerson[] values)
+   private void makeGrammaticalPersonBox(App app, GrammaticalPerson[] values)
    {
       grammaticalPersonBox = new JComboBox<>(values);
-      grammaticalPersonBox.setFont(AppFonts.comboBoxFont);
+      grammaticalPersonBox.setFont(app.appFonts.comboBoxFont);
       grammaticalPersonBox.setEditable(false);
       grammaticalPersonBox
             .setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
@@ -627,20 +624,20 @@ public class LanguageExpressionEditorView extends JDialog
             .setMaximumRowCount(GrammaticalPerson.values().length);
    }
 
-   private void makeGenderBox(Gender[] values)
+   private void makeGenderBox(App app, Gender[] values)
    {
       genderBox = new JComboBox<>(values);
-      genderBox.setFont(AppFonts.comboBoxFont);
+      genderBox.setFont(app.appFonts.comboBoxFont);
       genderBox.setEditable(false);
       genderBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       genderBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       genderBox.setMaximumRowCount(Gender.values().length);
    }
 
-   private void makeBinjanBox(Binjan[] values)
+   private void makeBinjanBox(App app, Binjan[] values)
    {
       binjanBox = new JComboBox<>(values);
-      binjanBox.setFont(AppFonts.comboBoxFont);
+      binjanBox.setFont(app.appFonts.comboBoxFont);
       binjanBox.setEditable(false);
       binjanBox.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
       binjanBox.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 30));
@@ -736,30 +733,30 @@ public class LanguageExpressionEditorView extends JDialog
             title);
    }
 
-   private Component initTopPanel()
+   private Component initTopPanel(App app)
    {
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
       horizontal.setOpaque(false);
-      horizontal.setBackground(ColorBase.getTransparent());
+      horizontal.setBackground(app.appColors.getTransparent());
       horizontal.add(databaseNameField);
       horizontal.add(chapter);
       horizontal.add(indexField);
       return horizontal;
    }
 
-   private Component initInput()
+   private Component initInput(App app)
    {
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
-      vertical.setBackground(ColorBase.getTransparent());
+      vertical.setBackground(app.appColors.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 15));
       vertical.add(ownLanguage);
       vertical.add(keyboard);
 
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);
-      horizontal.setBackground(ColorBase.getTransparent());
+      horizontal.setBackground(app.appColors.getTransparent());
       horizontal.setLayout(new TrainLayout(horizontal, 15));
       horizontal.add(saveButton);
       horizontal.add(restoreButton);
@@ -800,11 +797,11 @@ public class LanguageExpressionEditorView extends JDialog
       return vertical;
    }
 
-   private Component initInfosRight()
+   private Component initInfosRight(App app)
    {
       JPanel vertical = new JPanel();
       vertical.setOpaque(false);
-      vertical.setBackground(ColorBase.getTransparent());
+      vertical.setBackground(app.appColors.getTransparent());
       vertical.setLayout(new TotemLayout(vertical, 15));
 
       scrollPaneExpressionTable = new JScrollPane(expressionKindTable);
@@ -814,36 +811,36 @@ public class LanguageExpressionEditorView extends JDialog
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       scrollPaneExpressionTable.setBorder(BorderFactory.createTitledBorder(
             BorderFactory
-                  .createLineBorder(ColorBase.getLightGrayGold()),
-            translator.realisticTranslate(
+                  .createLineBorder(app.appColors.getLightGrayGold()),
+            translator.realisticTranslate(app, 
                   Translation.WORTARTEN__MEHRFACHAUSWAHL_)));
 
       JPanel horizontalEye = new JPanel();
-      horizontalEye.setBackground(ColorBase.getMediumBlue());
+      horizontalEye.setBackground(app.appColors.getMediumBlue());
       horizontalEye.setLayout(new TrainLayout(horizontalEye, 15));
 
-      visible = new InfoCheckBox(
-            translator.realisticTranslate(Translation.SICHTBAR));
-      visible.setFont(AppFonts.buttonFont);
+      visible = new InfoCheckBox(app, 
+            translator.realisticTranslate(app, Translation.SICHTBAR));
+      visible.setFont(app.appFonts.buttonFont);
       visible.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 85, 70));
       visible.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 85, 70));
 
-      JButton labelEye = new JButton(new ImageIcon(AppImages.getEye()));
+      JButton labelEye = new JButton(new ImageIcon(app.appImages.getEye()));
       labelEye.setMinimumSize(new Dimension(70, 70));
       labelEye.setMaximumSize(new Dimension(70, 70));
       labelEye.setOpaque(false);
-      labelEye.setBackground(ColorBase.getLightGrayBlue());
+      labelEye.setBackground(app.appColors.getLightGrayBlue());
       labelEye.setBorder(BorderFactory.createEmptyBorder());
 
       labelEye.addActionListener(_ -> {
-         JOptionPane.showMessageDialog(this, "", Settings.getWindowTitle(),
+         JOptionPane.showMessageDialog(this, "", app.settings.getWindowTitle(),
                JOptionPane.INFORMATION_MESSAGE,
-               new ImageIcon(TextImage.make(
-                     translator.realisticTranslate(
+               new ImageIcon(TextImage.make(app, 
+                     translator.realisticTranslate(app, 
                            Translation.BEIM_VOKABEL_ABFRAGEN),
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.IHRE_SPRACHE_LERNSPRACHE),
-                     translator.realisticTranslate(
+                     translator.realisticTranslate(app, 
                            Translation.GRAMMATIK_SICHTBAR_MACHEN))));
       });
 
@@ -880,11 +877,11 @@ public class LanguageExpressionEditorView extends JDialog
       });
 
       lastModiefiedLabel = new JLabel();
-      lastModiefiedLabel.setFont(AppFonts.germanFont.deriveFont(14F));
+      lastModiefiedLabel.setFont(app.appFonts.germanFont.deriveFont(14F));
 
       JPanel horizontal = new JPanel();
       horizontal.setOpaque(false);
-      horizontal.setBackground(ColorBase.getTransparent());
+      horizontal.setBackground(app.appColors.getTransparent());
       horizontal.setLayout(new TrainLayout(horizontal, 15));
 
       horizontalEye.add(visible);
@@ -903,24 +900,24 @@ public class LanguageExpressionEditorView extends JDialog
       return vertical;
    }
 
-   private Component initInfosExtra()
+   private Component initInfosExtra(App app)
    {
       definitionPanel = new JPanel();
       TotemLayout definitionLayout = new TotemLayout(definitionPanel, 15);
       definitionPanel.setLayout(definitionLayout);
       definitionPanel.setBorder(BorderFactory.createEmptyBorder());
       definitionPanel.setOpaque(false);
-      definitionPanel.setBackground(ColorBase.getTransparent());
+      definitionPanel.setBackground(app.appColors.getTransparent());
 
       JPanel filler = new JPanel();
       filler.setOpaque(false);
-      filler.setBackground(InputColors.getTransparent());
+      filler.setBackground(app.appColors.input.getTransparent());
       filler.setMinimumSize(new Dimension(WIDTH_BOX_PANEL, 200));
       filler.setMaximumSize(new Dimension(WIDTH_BOX_PANEL, 850));
 
       JPanel innerScroll = new JPanel();
       innerScroll.setOpaque(false);
-      innerScroll.setBackground(ColorBase.getTransparent());
+      innerScroll.setBackground(app.appColors.getTransparent());
       innerScroll.setLayout(new TotemLayout(innerScroll, 15));
 
       innerScroll.add(definitionPanel);
@@ -933,9 +930,9 @@ public class LanguageExpressionEditorView extends JDialog
       scrollPane2.setBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
       scrollPane2.setOpaque(true);
-      scrollPane2.setBackground(InputColors.getEditorBackground());
+      scrollPane2.setBackground(app.appColors.input.getEditorBackground());
       scrollPane2.getViewport()
-            .setBackground(InputColors.getEditorBackground());
+            .setBackground(app.appColors.input.getEditorBackground());
 
       return scrollPane2;
    }
@@ -947,7 +944,7 @@ public class LanguageExpressionEditorView extends JDialog
       language.setBlankBorder();
    }
 
-   private void initController(Common common, View view)
+   private void initController(App app, Common common, Model model, View view)
    {
       ownLanguage.addActionListener(_ -> {
          if (!ownLanguage.getText().isEmpty())
@@ -1000,13 +997,13 @@ public class LanguageExpressionEditorView extends JDialog
          if (testForCompletness())
          {
             save = true;
-            saveExpression(common);
+            saveExpression(app, common);
             this.setVisible(false);
          }
       });
 
       restoreButton.addActionListener(_ -> {
-         setExpressionForReset(common, view);
+         setExpressionForReset(app, common, model, view);
          resetAllBorders();
       });
 
@@ -1025,7 +1022,7 @@ public class LanguageExpressionEditorView extends JDialog
       this.dispose();
    }
 
-   public void showGrammaticalParentEnums(
+   public void showGrammaticalParentEnums(App app,
          Set<GrammaticalParentEnum> grammaticalParentEnumsToShow)
    {
       definitionPanel.removeAll();
@@ -1077,7 +1074,7 @@ public class LanguageExpressionEditorView extends JDialog
       filler.setMinimumSize(new Dimension(WIDTH_INFO_PANEL - 10, 0));
       filler.setMaximumSize(new Dimension(WIDTH_INFO_PANEL - 10, 700));
       filler.setOpaque(false);
-      filler.setBackground(ColorBase.getTransparent());
+      filler.setBackground(app.appColors.getTransparent());
       definitionPanel.add(filler);
 
       definitionPanel.validate();
@@ -1106,7 +1103,7 @@ public class LanguageExpressionEditorView extends JDialog
       return result;
    }
 
-   private void saveExpression(Common common)
+   private void saveExpression(App app, Common common)
    {
       expression.setOwnLanguage(cleanText(ownLanguage.getText()));
 
@@ -1171,7 +1168,7 @@ public class LanguageExpressionEditorView extends JDialog
       selfChapter.setName(cleanText((String) chapter.getSelectedItem()));
       expression.setChapter(selfChapter);
 
-      Settings.setRememberChapterForInput(selfChapter.getName());
+      app.settings.setRememberChapterForInput(selfChapter.getName());
 
       expression.setAdditionalInformation(cleanText(extraInfo.getText()));
 
@@ -1185,7 +1182,7 @@ public class LanguageExpressionEditorView extends JDialog
                cleanText((String) databaseNameField.getSelectedItem()));
       }
 
-      Settings.setRememberDatabaseForInput(
+      app.settings.setRememberDatabaseForInput(
             expression.getChapter().getDatabaseName(common));
 
       if (indexField.getText().isBlank())
@@ -1213,18 +1210,18 @@ public class LanguageExpressionEditorView extends JDialog
       return TextHelper.cleanText(text);
    }
 
-   private void setExpressionForReset(Common common, View view)
+   private void setExpressionForReset(App app, Common common, Model model, View view)
    {
-      setExpression(common, view, this.expression, this.newExpression);
+      setExpression(app, common, model, view, this.expression, this.newExpression);
    }
 
-   public void setExpression(Common common, View view, Expression expression,
+   public void setExpression(App app, Common common, Model model, View view, Expression expression,
          boolean newExpression)
    {
       this.save = false;
       this.expression = expression;
       this.newExpression = newExpression;
-      setWritingDirection(expression.getLL().getLltype());
+      setWritingDirection(app, expression.getLL().getLltype());
       if (!newExpression)
       {
          this.remakeAllBoxes(expression);
@@ -1254,10 +1251,10 @@ public class LanguageExpressionEditorView extends JDialog
          }
       }
 
-      this.chapter.setModel(Data.getChapterComboBoxModel());
+      this.chapter.setModel(model.data.getChapterComboBoxModel(app));
       if (newExpression)
       {
-         this.chapter.setSelectedItem(Settings.getRememberChapterForInput());
+         this.chapter.setSelectedItem(app.settings.getRememberChapterForInput());
       }
       else
       {
@@ -1318,7 +1315,7 @@ public class LanguageExpressionEditorView extends JDialog
             verbTimesBox.setSelectedItem(
                   definitions.getGrammaticalEnum(kind, VerbTimes.class));
 
-            showGrammaticalParentEnums(
+            showGrammaticalParentEnums(app, 
                   ExpressionKind.getSetOfGrammaticalParentEnums(kinds));
 
             scrollPaneExpressionTable.getVerticalScrollBar()
@@ -1331,17 +1328,17 @@ public class LanguageExpressionEditorView extends JDialog
 
       if (expression.isDoChange())
       {
-         databaseNameField.setModel(Data.getOwnDatabasesComboBoxModel(common));
+         databaseNameField.setModel(model.data.getOwnDatabasesComboBoxModel(common));
       }
       else
       {
-         databaseNameField.setModel(Data.getInternalDatabasesComboBoxModel(common));
+         databaseNameField.setModel(model.data.getInternalDatabasesComboBoxModel(app, common));
       }
 
       if (newExpression)
       {
          databaseNameField
-               .setSelectedItem(Settings.getRememberDatabaseForInput());
+               .setSelectedItem(app.settings.getRememberDatabaseForInput());
       }
       else
       {
@@ -1349,12 +1346,12 @@ public class LanguageExpressionEditorView extends JDialog
                .setSelectedItem(expression.getChapter().getDatabaseName(common));
       }
 
-      lastModiefiedLabel.setText(translator.realisticTranslate(Translation.VOM)
+      lastModiefiedLabel.setText(translator.realisticTranslate(app, Translation.VOM)
             + " "
             + expression.getLastModified()
                   .format(DateTimeFormatter.ofPattern(
-                        translator.realisticTranslate(Translation._DATE_TIME)))
-            + " " + translator.realisticTranslate(Translation.UHR));
+                        translator.realisticTranslate(app, Translation._DATE_TIME)))
+            + " " + translator.realisticTranslate(app, Translation.UHR));
 
       visible.setSelected(expression.isVisible());
    }
@@ -1453,9 +1450,9 @@ public class LanguageExpressionEditorView extends JDialog
       return keyboard;
    }
 
-   public void setWritingDirection(LLType llType)
+   public void setWritingDirection(App app, LLType llType)
    {
-      switch (Settings.getMyWritingDirection())
+      switch (app.settings.getMyWritingDirection())
       {
       case LEFT_TO_RIGHT:
          ownLanguage
@@ -1495,7 +1492,7 @@ public class LanguageExpressionEditorView extends JDialog
                .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
          break;
       case UNKOWN:
-         switch (Settings.getLanguageInput())
+         switch (app.settings.getLanguageInput())
          {
          case GERMAN:
          case SWEDISH:

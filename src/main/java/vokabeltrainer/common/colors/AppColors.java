@@ -19,7 +19,7 @@ public abstract class AppColors implements ColorBase
 
    public abstract Color getLightGrayBlue();
 
-   abstract Color getMediumBlue();
+   public abstract Color getMediumBlue();
 
    abstract Color getMediumSilverBlue();
 

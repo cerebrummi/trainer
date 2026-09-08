@@ -225,7 +225,7 @@ public class InputPanel extends JPanel implements TableConnector
    {
       LanguageExpressionEditorView editor = new NikudExpressionEditorController(
             common, view).getNikudExpressionEditorDialog();
-      editor.setExpression(common, view, new Expression(common, true, false),
+      editor.setExpression(app, common, model, view, new Expression(common, true, false),
             true);
       editor.setLocationRelativeTo(view.getjFrame());
       editor.setVisible(true);

@@ -76,7 +76,7 @@ public class EnterAction extends AbstractAction
    private void showEditorPunktation(App app, Common common, Model model, View view, Expression expression)
    {
       editorPunktation.setFrozen(expression.isDoNotChange());
-      editorPunktation.setExpression(common, view, expression, false);
+      editorPunktation.setExpression(app, common, model, view, expression, false);
       editorPunktation.setLocationRelativeTo(view.getjFrame());
       editorPunktation.setVisible(true);
       // editor is open
