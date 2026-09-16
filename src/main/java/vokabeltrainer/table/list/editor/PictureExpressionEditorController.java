@@ -2,8 +2,9 @@ package vokabeltrainer.table.list.editor;
 
 import javax.swing.SwingWorker;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.ImageData;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.table.list.editor.images.ImageItem;
 import vokabeltrainer.types.Expression;
@@ -13,9 +14,9 @@ public class PictureExpressionEditorController
 {
    private PictureExpressionEditorView pictureExpressionEditorDialog;
 
-   public PictureExpressionEditorController(Common common, View view)
+   public PictureExpressionEditorController(App app, Common common, Model model, View view)
    {
-      pictureExpressionEditorDialog = new PictureExpressionEditorView(common, view, this);
+      pictureExpressionEditorDialog = new PictureExpressionEditorView(app, common, model, view, this);
    }
 
    public PictureExpressionEditorView getPictureExpressionEditorDialog()
@@ -24,20 +25,20 @@ public class PictureExpressionEditorController
    }
 
    @Override
-   public void openPictureView(Common common, View view, Expression expression)
+   public void openPictureView(App app, Common common, Model model, View view, Expression expression)
    {
       // nothing
    }
 
    @Override
-   public void saveImage(Common common, View view, Expression expression, ImageItem item)
+   public void saveImage(App app, Common common, Model model, View view, Expression expression, ImageItem item)
    {
       new SwingWorker<Void, Void>()
       {
          @Override
          protected Void doInBackground() throws Exception
          {
-            ImageData.saveImage(common, view, item.getImage(), expression.getUuid(),
+            model.imageData.saveImage(app, common, view, item.getImage(), expression.getUuid(),
                   item.getImageFileName());
             return null;
          }
@@ -46,14 +47,14 @@ public class PictureExpressionEditorController
    }
 
    @Override
-   public void deleteImage(Expression expression, ImageItem item)
+   public void deleteImage(App app, Model model, Expression expression, ImageItem item)
    {
       new SwingWorker<Void, Void>()
       {
          @Override
          protected Void doInBackground() throws Exception
          {
-            ImageData.deleteImage(expression.getUuid(),
+            model.imageData.deleteImage(app, expression.getUuid(),
                   item.getImageFileName());
             return null;
          }

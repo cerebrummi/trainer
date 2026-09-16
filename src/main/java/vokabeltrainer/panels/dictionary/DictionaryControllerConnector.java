@@ -12,9 +12,9 @@ public interface DictionaryControllerConnector extends TableConnector
 {
    public void tabbedPaneChanged(App app, Common common, Model model, View view, int selectedIndex);
 
-   public void copyExpressionsOfTable(View view);
+   public void copyExpressionsOfTable(App app, View view);
 
-   public void copyInTableSelectedExpressions(View view);
+   public void copyInTableSelectedExpressions(App app, View view);
 
    public void unselectTableExpressions(App app, Common common, Model model, View view);
 
@@ -52,5 +52,5 @@ public interface DictionaryControllerConnector extends TableConnector
 
    public void moveExpressionsToDatabase(App app, Common common, Model model, View view, String databaseAim);
 
-   public void copyAllSelectedExpressions(Model model, View view, SortingType sortingType);
+   public void copyAllSelectedExpressions(App app, Model model, View view, SortingType sortingType);
 }

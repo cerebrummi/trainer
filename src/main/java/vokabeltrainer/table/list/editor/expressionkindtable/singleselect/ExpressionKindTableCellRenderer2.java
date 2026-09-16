@@ -10,8 +10,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableCellRenderer2 extends DefaultTableCellRenderer
@@ -23,14 +22,14 @@ public class ExpressionKindTableCellRenderer2 extends DefaultTableCellRenderer
    private JLabel empty;
    private JLabel expressionKind;
 
-   public ExpressionKindTableCellRenderer2() // one selection only
+   public ExpressionKindTableCellRenderer2(App app) // one selection only
    {
-      selected = new JLabel(new ImageIcon(AppImages.getSelectDone()));
+      selected = new JLabel(new ImageIcon(app.appImages.getSelectDone()));
 
       empty = new JLabel();
 
       expressionKind = new JLabel();
-      expressionKind.setFont(AppFonts.germanFont.deriveFont(14F));
+      expressionKind.setFont(app.appFonts.germanFont.deriveFont(14F));
    }
 
    @Override

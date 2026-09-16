@@ -146,7 +146,7 @@ public class StartPanel extends JPanel
       databaseLabel.setBackground(app.appColors.start.getDatabase_Header());
 
       DatabaseTable databaseTable = new DatabaseTable(app, common,
-            Chapter.Database.getModelAvailableDatabases(), 990);
+            Chapter.Database.getModelAvailableDatabases(app), 990);
 
       JScrollPane scroller = new JScrollPane(databaseTable);
       scroller.setMinimumSize(new Dimension(990, 80));
@@ -187,7 +187,7 @@ public class StartPanel extends JPanel
       databaseLabel.setBackground(app.appColors.start.getDatabase_Header());
 
       DatabaseTableCopy databaseTable = new DatabaseTableCopy(app, common, model, view,
-            Chapter.Database.getModelCopyAvailableDatabases(), 990);
+            Chapter.Database.getModelCopyAvailableDatabases(app), 990);
 
       JScrollPane scroller = new JScrollPane(databaseTable);
       scroller.setMinimumSize(new Dimension(990, 80));

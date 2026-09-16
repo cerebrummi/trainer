@@ -1,6 +1,6 @@
 package vokabeltrainer.types;
 
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.App;
 
 public class LearningLanguage
 {
@@ -12,9 +12,9 @@ public class LearningLanguage
    private String german = "";
    private LLType lltype;
 
-   public LearningLanguage()
+   public LearningLanguage(App app)
    {
-      switch (Settings.getLanguageInput())
+      switch (app.settings.getLanguageInput())
       {
       case PLENE_DEFEKTIV:
       case SIMPLE:

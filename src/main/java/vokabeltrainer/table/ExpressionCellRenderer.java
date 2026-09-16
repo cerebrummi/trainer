@@ -35,22 +35,22 @@ public class ExpressionCellRenderer implements TableCellRenderer
       {
          if (expression.getLL().isSwedish() || expression.getLL().isGerman())
          {
-            list.setListData(expression.toSwedishArrayForTableEntry2(common));
+            list.setListData(expression.toSwedishArrayForTableEntry2(app, common));
          }
          else
          {
-            list.setListData(expression.toHebrewArrayForTableEntry2(common));
+            list.setListData(expression.toHebrewArrayForTableEntry2(app, common));
          }
       }
       else
       {
          if (expression.getLL().isSwedish() || expression.getLL().isGerman())
          {
-            list.setListData(expression.toSwedishArrayForTableEntry(common));
+            list.setListData(expression.toSwedishArrayForTableEntry(app, common));
          }
          else
          {
-            list.setListData(expression.toHebrewArrayForTableEntry(common));
+            list.setListData(expression.toHebrewArrayForTableEntry(app, common));
          }
       }
 

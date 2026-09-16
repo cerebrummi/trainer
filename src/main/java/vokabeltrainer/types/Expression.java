@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 import vokabeltrainer.types.Chapter.Database;
 import vokabeltrainer.common.Letter;
 import vokabeltrainer.common.LetterForSaving;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Settings;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.grammatical.expressionkind.Definitions;
@@ -21,7 +21,7 @@ public class Expression
 {
    private UUID uuid;
    private String ownLanguage;
-   private LearningLanguage ll = new LearningLanguage();
+   private LearningLanguage ll;
    private List<String> searchwordsGerman = new ArrayList<>();
    private List<String> searchwordsHebrew = new ArrayList<>();
    private TrainingStatus trainingStatusDToLL = new TrainingStatus();
@@ -39,9 +39,10 @@ public class Expression
    private Integer level = 0;
    private boolean visible;
 
-   public Expression(boolean preset) // for unit testing
+   public Expression(App app, boolean preset) // for unit testing
    {      
       this.doNotChange = true;
+      ll = new LearningLanguage(app);
 
       if (preset)
       {
@@ -53,11 +54,11 @@ public class Expression
       }
    }
 
-   public Expression(Common common, boolean preset, boolean doNotChange)
+   public Expression(App app, Common common, boolean preset, boolean doNotChange)
    {
       translator = common.getTranslator();
-      
       this.doNotChange = doNotChange;
+      ll = new LearningLanguage(app);
 
       if (preset)
       {
@@ -66,7 +67,7 @@ public class Expression
          chapter = new Chapter(common, Database.SELF);
          definitions = new Definitions();
          lastModified = LocalDateTime.now();
-         ll.setSimpleHebrew(Settings.isSimpleHebrewInput());
+         ll.setSimpleHebrew(app.settings.isSimpleHebrewInput());
       }
    }
 
@@ -295,7 +296,7 @@ public class Expression
       this.visible = visible;
    }
 
-   public String[] toHebrewArrayForTableEntry(Common common)
+   public String[] toHebrewArrayForTableEntry(App app, Common common)
    {
       int index = 0;
       String[] result = new String[10];
@@ -326,17 +327,17 @@ public class Expression
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
       result[index] = chapter.getName() + ", "
-            + translator.realisticTranslate(Translation.INDEX) + ": "
+            + translator.realisticTranslate(app, Translation.INDEX) + ": "
             + sortingIndex;
       index++;
-      result[index] = chapter.getDatabaseName(common) + " "
-            + translator.realisticTranslate(Translation.VOM) + " "
+      result[index] = chapter.getDatabaseName(app, common) + " "
+            + translator.realisticTranslate(app, Translation.VOM) + " "
             + lastModified.format(DateTimeFormatter.ofPattern(
-                  translator.realisticTranslate(Translation._DATE_TIME)));
+                  translator.realisticTranslate(app, Translation._DATE_TIME)));
       return result;
    }
 
-   public String[] toHebrewArrayForTableEntry2(Common common)
+   public String[] toHebrewArrayForTableEntry2(App app, Common common)
    {
       int index = 0;
       String[] result = new String[10];
@@ -367,17 +368,17 @@ public class Expression
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
       result[index] = chapter.getName() + ", "
-            + translator.realisticTranslate(Translation.INDEX) + ": "
+            + translator.realisticTranslate(app, Translation.INDEX) + ": "
             + sortingIndex;
       index++;
-      result[index] = chapter.getDatabaseName(common) + " "
-            + translator.realisticTranslate(Translation.VOM) + " "
+      result[index] = chapter.getDatabaseName(app, common) + " "
+            + translator.realisticTranslate(app, Translation.VOM) + " "
             + lastModified.format(DateTimeFormatter.ofPattern(
-                  translator.realisticTranslate(Translation._DATE_TIME)));
+                  translator.realisticTranslate(app, Translation._DATE_TIME)));
       return result;
    }
 
-   public String[] toSwedishArrayForTableEntry(Common common)
+   public String[] toSwedishArrayForTableEntry(App app, Common common)
    {
       int index = 0;
       String[] result = new String[10];
@@ -408,17 +409,17 @@ public class Expression
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
       result[index] = chapter.getName() + ", "
-            + translator.realisticTranslate(Translation.INDEX) + ": "
+            + translator.realisticTranslate(app, Translation.INDEX) + ": "
             + sortingIndex;
       index++;
-      result[index] = chapter.getDatabaseName(common) + " "
-            + translator.realisticTranslate(Translation.VOM) + " "
+      result[index] = chapter.getDatabaseName(app, common) + " "
+            + translator.realisticTranslate(app, Translation.VOM) + " "
             + lastModified.format(DateTimeFormatter.ofPattern(
-                  translator.realisticTranslate(Translation._DATE_TIME)));
+                  translator.realisticTranslate(app, Translation._DATE_TIME)));
       return result;
    }
 
-   public String[] toSwedishArrayForTableEntry2(Common common)
+   public String[] toSwedishArrayForTableEntry2(App app, Common common)
    {
       int index = 0;
       String[] result = new String[10];
@@ -449,13 +450,13 @@ public class Expression
       result[index] = definitions.getExpressionKindDescriptions();
       index++;
       result[index] = chapter.getName() + ", "
-            + translator.realisticTranslate(Translation.INDEX) + ": "
+            + translator.realisticTranslate(app, Translation.INDEX) + ": "
             + sortingIndex;
       index++;
-      result[index] = chapter.getDatabaseName(common) + " "
-            + translator.realisticTranslate(Translation.VOM) + " "
+      result[index] = chapter.getDatabaseName(app, common) + " "
+            + translator.realisticTranslate(app, Translation.VOM) + " "
             + lastModified.format(DateTimeFormatter.ofPattern(
-                  translator.realisticTranslate(Translation._DATE_TIME)));
+                  translator.realisticTranslate(app, Translation._DATE_TIME)));
       return result;
    }
 
@@ -507,16 +508,16 @@ public class Expression
       return joiner.toString();
    }
 
-   public String getExpressionPrintLineForSaving(Common common)
+   public String getExpressionPrintLineForSaving(App app, Common common)
    {
-      return getExpressionPrintLineForSaving(common, chapter.getDatabaseName(common));
+      return getExpressionPrintLineForSaving(app, common, chapter.getDatabaseName(app, common));
    }
 
-   public String getExpressionPrintLineForSaving(Common common, String databaseName)
+   public String getExpressionPrintLineForSaving(App app, Common common, String databaseName)
    {
       StringJoiner joiner = new StringJoiner("\t");
       joiner.add(uuid.toString());
-      Database db = Chapter.findOrigin(common, databaseName);
+      Database db = Chapter.findOrigin(app, common, databaseName);
       joiner.add(db.name());
       joiner.add(databaseName);
       joiner.add(chapter.getName());
@@ -559,7 +560,7 @@ public class Expression
       return joiner.toString();
    }
 
-   public String getCopyLines(Direction language)
+   public String getCopyLines(App app, Direction language)
    {
       StringJoiner joiner = new StringJoiner("\t");
       if (Direction.OWN_TO_NEW.equals(language))
@@ -580,16 +581,16 @@ public class Expression
       {
          searchJoinerGerman.add(word);
       }
-      joiner.add(translator.realisticTranslate(Translation.SUCHWORTE) + " "
-            + translator.realisticTranslate(Translation.DEUTSCH) + ": "
+      joiner.add(translator.realisticTranslate(app, Translation.SUCHWORTE) + " "
+            + translator.realisticTranslate(app, Translation.DEUTSCH) + ": "
             + searchJoinerGerman.toString());
       StringJoiner searchJoinerHebrew = new StringJoiner(", ");
       for (String word : searchwordsHebrew)
       {
          searchJoinerHebrew.add(word);
       }
-      joiner.add(translator.realisticTranslate(Translation.SUCHWORTE) + " "
-            + translator.realisticTranslate(Translation.HEBRAEISCH) + ": "
+      joiner.add(translator.realisticTranslate(app, Translation.SUCHWORTE) + " "
+            + translator.realisticTranslate(app, Translation.HEBRAEISCH) + ": "
             + searchJoinerHebrew.toString());
       if (!additionalInformation.isBlank())
       {
@@ -644,7 +645,7 @@ public class Expression
       return joiner.toString();
    }
 
-   public String getWordGermanForStatistics(Common common, Direction language)
+   public String getWordGermanForStatistics(App app, Common common, Direction language)
    {
       if (Direction.OWN_TO_NEW.equals(language))
       {
@@ -654,16 +655,16 @@ public class Expression
          }
 
          return ownLanguage + "   [" + this.getTrainingStatusDToLL().getTrys()
-               + " " + translator.realisticTranslate(Translation.MAL) + " "
-               + this.getTrainingStatusDToLL().getRepetition().getTranslation(common)
+               + " " + translator.realisticTranslate(app, Translation.MAL) + " "
+               + this.getTrainingStatusDToLL().getRepetition().getTranslation(app, common)
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }
       else
       {
          return ownLanguage + "   [" + this.getTrainingStatusLLToD().getTrys()
-               + " " + translator.realisticTranslate(Translation.MAL) + " "
-               + this.getTrainingStatusLLToD().getRepetition().getTranslation(common)
+               + " " + translator.realisticTranslate(app, Translation.MAL) + " "
+               + this.getTrainingStatusLLToD().getRepetition().getTranslation(app, common)
                + "]  [" + chapter.getName() + "]   "
                + this.getAdditionalInfoGermanForStatistics();
       }

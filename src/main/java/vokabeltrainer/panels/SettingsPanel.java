@@ -816,7 +816,7 @@ public class SettingsPanel extends JPanel
                translator.realisticTranslate(app, Translation.AUSWAHL),
                JOptionPane.QUESTION_MESSAGE,
                new ImageIcon(app.appImages.getLogo24()),
-               model.data.getAllOwnDistinctDatabaseDescriptions(common, false), null);
+               model.data.getAllOwnDistinctDatabaseDescriptions(app, common, false), null);
 
          if (databaseChoosen == null)
          {
@@ -870,7 +870,7 @@ public class SettingsPanel extends JPanel
                      Translation.DATENBANK_IN_DEN_PAPIERKORB),
                JOptionPane.QUESTION_MESSAGE,
                new ImageIcon(app.appImages.getLogo24()),
-               model.data.getAllOwnDistinctDatabaseDescriptions(common, false), null);
+               model.data.getAllOwnDistinctDatabaseDescriptions(app, common, false), null);
 
          if (databaseChoosen == null)
          {
@@ -894,7 +894,7 @@ public class SettingsPanel extends JPanel
             @Override
             protected Void doInBackground() throws Exception
             {
-               model.data.deleteExpressionsOfDatabase(common, databaseChoosen);
+               model.data.deleteExpressionsOfDatabase(app, common, databaseChoosen);
                new SaveExpressions(app, model).save(app, common, view);
                return null;
             }

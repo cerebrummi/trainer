@@ -30,9 +30,9 @@ public interface DictionaryViewConnector
 
    public boolean isTableNotNull();
 
-   public String getTableDataToString();
+   public String getTableDataToString(App app);
 
-   public String getSelectedTableDataToString();
+   public String getSelectedTableDataToString(App app);
 
    public void clearTableDataSelection();
 

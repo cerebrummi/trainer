@@ -3,15 +3,17 @@ package vokabeltrainer.table.list.editor.expressionkindtable.singleselect;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 
+import vokabeltrainer.common.main.App;
+
 public class ExpressionKindTableColumnModel2 extends DefaultTableColumnModel
 {
    private static final long serialVersionUID = -2011627608532876165L;
 
    private ExpressionKindTableCellRenderer2 renderer2;
 
-   public ExpressionKindTableColumnModel2(int totalWidth)
+   public ExpressionKindTableColumnModel2(App app, int totalWidth)
    {
-      renderer2 = new ExpressionKindTableCellRenderer2();
+      renderer2 = new ExpressionKindTableCellRenderer2(app);
 
       TableColumn column = new TableColumn();
       column.setHeaderValue("Wahl");

@@ -128,7 +128,7 @@ public final class SaveExpressions
             Preferences preferences = Preferences.userRoot()
                   .node(CerebrummiNodes.getNode());
             preferences.putInt(CerebrummiNodes.getExpressionNode(), counter);
-            saveDeletedExpressions(common);
+            saveDeletedExpressions(app, common);
             model.data.integrateNewExpressions();
             synchronized (bar)
             {
@@ -185,7 +185,7 @@ public final class SaveExpressions
                   ZipEntry entry = new ZipEntry(letter.name() + ".csv");
                   out.putNextEntry(entry);
 
-                  byte[] data = saveAsStringForZip(common, letter)
+                  byte[] data = saveAsStringForZip(app, common, letter)
                         .getBytes(StandardCharsets.UTF_8);
                   out.write(data, 0, data.length);
                   out.closeEntry();
@@ -247,30 +247,30 @@ public final class SaveExpressions
       return false;
    }
 
-   private String saveAsStringForZip(Common common, LetterForSaving letter) throws IOException
+   private String saveAsStringForZip(App app, Common common, LetterForSaving letter) throws IOException
    {
       StringJoiner joiner = new StringJoiner("\n");
       joiner.add(HEADER_CSV);
       for (Expression expression : getValues(letter))
       {
-         if (isMarkedandMarked(expression) || isOriginandOrigin(common, expression)
+         if (isMarkedandMarked(expression) || isOriginandOrigin(app, common, expression)
                || isAll())
          {
             if (overwriteDatabaseNames && databaseName != null)
             {
                joiner.add(
-                     expression.getExpressionPrintLineForSaving(common, databaseName));
+                     expression.getExpressionPrintLineForSaving(app, common, databaseName));
             }
             else
             {
-               joiner.add(expression.getExpressionPrintLineForSaving(common));
+               joiner.add(expression.getExpressionPrintLineForSaving(app, common));
             }
          }
       }
       return joiner.toString();
    }
 
-   private void saveDeletedExpressions(Common common) throws IOException
+   private void saveDeletedExpressions(App app, Common common) throws IOException
    {
       File file;
       if (exportpath == null)
@@ -290,10 +290,10 @@ public final class SaveExpressions
       joiner.add(HEADER_CSV);
       for (Expression expression : model.data.getDeletedMapValues())
       {
-         if (isMarkedandMarked(expression) || isOriginandOrigin(common, expression)
+         if (isMarkedandMarked(expression) || isOriginandOrigin(app, common, expression)
                || isAll())
          {
-            joiner.add(expression.getExpressionPrintLineForSaving(common));
+            joiner.add(expression.getExpressionPrintLineForSaving(app, common));
          }
       }
       writer.write(joiner.toString());
@@ -306,10 +306,10 @@ public final class SaveExpressions
       return !takeSelectedOnlyIntoAccount && !takeOriginIntoAccount;
    }
 
-   private boolean isOriginandOrigin(Common common, Expression expression)
+   private boolean isOriginandOrigin(App app, Common common, Expression expression)
    {
       return takeOriginIntoAccount
-            && expression.getChapter().getDatabaseName(common).equals(origin);
+            && expression.getChapter().getDatabaseName(app, common).equals(origin);
    }
 
    private boolean isMarkedandMarked(Expression expression)
@@ -336,17 +336,17 @@ public final class SaveExpressions
       joiner.add(HEADER_CSV);
       for (Expression expression : getValues(letter))
       {
-         if (isMarkedandMarked(expression) || isOriginandOrigin(common, expression)
+         if (isMarkedandMarked(expression) || isOriginandOrigin(app, common, expression)
                || isAll())
          {
             if (overwriteDatabaseNames && databaseName != null)
             {
                joiner.add(
-                     expression.getExpressionPrintLineForSaving(common, databaseName));
+                     expression.getExpressionPrintLineForSaving(app, common, databaseName));
             }
             else
             {
-               joiner.add(expression.getExpressionPrintLineForSaving(common));
+               joiner.add(expression.getExpressionPrintLineForSaving(app, common));
             }
             counter++;
          }

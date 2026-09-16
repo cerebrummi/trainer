@@ -2,6 +2,7 @@ package vokabeltrainer.types;
 
 import java.util.Objects;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.Chapter.Database;
 
@@ -23,10 +24,10 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       this.databaseName = databaseName;
    }
 
-   public DatabaseDescription(Common common, Database database)
+   public DatabaseDescription(App app, Common common, Database database)
    {
       this.database = database;
-      databaseName = database.getName(common);
+      databaseName = database.getName(app, common);
       authors = database.getAuthors();
       company = database.getCompany();
    }

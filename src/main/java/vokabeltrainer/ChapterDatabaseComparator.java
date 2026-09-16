@@ -4,15 +4,18 @@ import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.types.Chapter;
 
 public class ChapterDatabaseComparator implements Comparator<Chapter>
 {
+   private App app;
    private Common common = null;
    
-   public ChapterDatabaseComparator(Common common)
+   public ChapterDatabaseComparator(App app, Common common)
    {
+      this.app = app;
       this.common = common;
    }
    
@@ -27,11 +30,11 @@ public class ChapterDatabaseComparator implements Comparator<Chapter>
       Collator coll = Collator.getInstance(Locale.GERMAN);
       coll.setStrength(Collator.PRIMARY);
 
-      if (o1.getDatabaseName(common).equals(o2.getDatabaseName(common)))
+      if (o1.getDatabaseName(app, common).equals(o2.getDatabaseName(app, common)))
       {
          return coll.compare(o1.getName(), o2.getName());
       }
 
-      return coll.compare(o1.getDatabaseName(common), o2.getDatabaseName(common));
+      return coll.compare(o1.getDatabaseName(app, common), o2.getDatabaseName(app, common));
    }
 }

@@ -33,12 +33,9 @@ import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.colors.InputColors;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.table.EscapeAction;
 import vokabeltrainer.table.list.editor.images.ImageDropHandler;
@@ -61,7 +58,7 @@ public class PictureExpressionEditorView extends JDialog
 
    private JList<ImageItem> imageList;
 
-   private DefaultListModel<ImageItem> model;
+   private DefaultListModel<ImageItem> listModel;
 
    private ImageItemRenderer renderer;
 
@@ -71,10 +68,10 @@ public class PictureExpressionEditorView extends JDialog
 
    private NikudExpressionEditorControllerConnector connector;
 
-   public PictureExpressionEditorView(Common common, View view,
+   public PictureExpressionEditorView(App app, Common common, Model model, View view,
          NikudExpressionEditorControllerConnector connector)
    {
-      super(view.getjFrame(), Settings.getWindowTitle()
+      super(view.getjFrame(), app.settings.getWindowTitle()
             + " Bilder hineinziehen und fallen lassen. Rechtsklick auf jedes Bild öffnet Menü für Bild. Links Doppelklick öffnet Bild.",
             Dialog.ModalityType.APPLICATION_MODAL);
       this.connector = connector;
@@ -84,19 +81,19 @@ public class PictureExpressionEditorView extends JDialog
             Math.min(screenSize.height - 60, 825));
 
       outerLayout = new JPanel();
-      outerLayout.setBackground(ColorBase.getShadyBlue());
+      outerLayout.setBackground(app.appColors.getShadyBlue());
       outerLayout.setBorder(BorderFactory
-            .createLineBorder(InputColors.getEditorBackground(), 15, false));
+            .createLineBorder(app.appColors.input.getEditorBackground(), 15, false));
       outerLayout.setLayout(new TotemLayout(outerLayout, 15));
 
-      outerLayout.add(initImagePanel());
+      outerLayout.add(initImagePanel(app));
 
       getContentPane().add(new JScrollPane(outerLayout));
 
-      initController(common, view);
+      initController(app, common, model, view);
    }
 
-   private Component initImagePanel()
+   private Component initImagePanel(App app)
    {
       imagePanel = new JPanel()
       {
@@ -104,7 +101,7 @@ public class PictureExpressionEditorView extends JDialog
          public void paintComponent(Graphics g)
          {
             super.paintComponent(g);
-            g.drawImage(AppImages.getScroll(), 0, 0, this);
+            g.drawImage(app.appImages.getScroll(), 0, 0, this);
          }
       };
       ExpanderLayout layout = new ExpanderLayout(imagePanel);
@@ -112,8 +109,8 @@ public class PictureExpressionEditorView extends JDialog
       imagePanel.setOpaque(true);
       imagePanel.setBackground(Color.WHITE);
 
-      model = new DefaultListModel<>();
-      imageList = new JList<>(model);
+      listModel = new DefaultListModel<>();
+      imageList = new JList<>(listModel);
       imageList.setOpaque(false);
       imageList.setMinimumSize(new Dimension(1200, 400));
       imageList.setMaximumSize(new Dimension(1600, 600));
@@ -128,9 +125,9 @@ public class PictureExpressionEditorView extends JDialog
       return imagePanel;
    }
 
-   private void initController(Common common, View view)
+   private void initController(App app, Common common, Model model, View view)
    {
-      renderer = new ImageItemRenderer();
+      renderer = new ImageItemRenderer(app);
       imageList.setCellRenderer(renderer);
 
       imageList.addMouseListener(new MouseAdapter()
@@ -159,7 +156,7 @@ public class PictureExpressionEditorView extends JDialog
                SwingUtilities.invokeLater(() -> {
                   System.setProperty("java.awt.headless", "true");
                   JDialog dialog = new JDialog(view.getjFrame(),
-                        Settings.getWindowTitle(),
+                        app.settings.getWindowTitle(),
                         Dialog.ModalityType.APPLICATION_MODAL);
                   JPanel panelinside = new JPanel();
                   BullsEyeLayout layoutBullsEye = new BullsEyeLayout(
@@ -213,7 +210,7 @@ public class PictureExpressionEditorView extends JDialog
 
                ImageItem item = imageList.getModel().getElementAt(index);
 
-               JPopupMenu menu = createImageContextMenu(common, view, index, item, bounds);
+               JPopupMenu menu = createImageContextMenu(app, common, model, view, index, item, bounds);
 
                menu.show(imageList, e.getX(), e.getY());
 
@@ -229,24 +226,24 @@ public class PictureExpressionEditorView extends JDialog
       getRootPane().getActionMap().put("ESCAPE_KEY", new EscapeAction(this));
    }
 
-   private JPopupMenu createImageContextMenu(Common common, View view, int index, ImageItem item,
+   private JPopupMenu createImageContextMenu(App app, Common common, Model model, View view, int index, ImageItem item,
          Rectangle bounds)
    {
       JPopupMenu menu = new JPopupMenu();
 
       JMenuItem saveItem = new JMenuItem("Bild speichern");
-      saveItem.setFont(AppFonts.buttonFont);
+      saveItem.setFont(app.appFonts.buttonFont);
       saveItem.addActionListener(_ -> {
          item.setChecked(true);
-         connector.saveImage(common, view, expression, item);
+         connector.saveImage(app, common, model, view, expression, item);
          imageList.repaint(bounds);
       });
 
       JMenuItem deleteItem = new JMenuItem("Bild löschen");
-      deleteItem.setFont(AppFonts.buttonFont);
+      deleteItem.setFont(app.appFonts.buttonFont);
       deleteItem.addActionListener(_ -> {
          item.setChecked(false);
-         connector.deleteImage(expression, item);
+         connector.deleteImage(app, model, expression, item);
          imageList.repaint(bounds);
       });
 
@@ -263,14 +260,14 @@ public class PictureExpressionEditorView extends JDialog
       });
 
       JMenuItem removeFromListItem = new JMenuItem("Bild entfernen");
-      removeFromListItem.setFont(AppFonts.buttonFont);
+      removeFromListItem.setFont(app.appFonts.buttonFont);
       removeFromListItem.addActionListener(_ -> {
-         DefaultListModel<ImageItem> model = (DefaultListModel<ImageItem>) imageList
+         DefaultListModel<ImageItem> listModel = (DefaultListModel<ImageItem>) imageList
                .getModel();
-         model.remove(index);
+         listModel.remove(index);
          if (item.isChecked())
          {
-            connector.deleteImage(expression, item);
+            connector.deleteImage(app, model, expression, item);
          }
          imageList.repaint();
       });
@@ -294,11 +291,11 @@ public class PictureExpressionEditorView extends JDialog
       this.dispose();
    }
 
-   public void setExpression(Common common, View view, Expression expression)
+   public void setExpression(App app, Common common, Model model, View view, Expression expression)
    {
       this.expression = expression;
-      model = new DefaultListModel<>();
-      imageList = new JList<>(model);
+      listModel = new DefaultListModel<>();
+      imageList = new JList<>(listModel);
       imageList.setOpaque(false);
       imageList.setMinimumSize(new Dimension(1200, 400));
       imageList.setMaximumSize(new Dimension(1600, 600));
@@ -310,10 +307,10 @@ public class PictureExpressionEditorView extends JDialog
 
       imagePanel.removeAll();
       imagePanel.add(imageList);
-      dropHandler = new ImageDropHandler(this.expression.getUuid(), model);
+      dropHandler = new ImageDropHandler(this.expression.getUuid(), listModel);
       imageList.setTransferHandler(dropHandler);
 
-      initController(common, view);
+      initController(app, common, model, view);
    }
 
    public void setImages(ArrayList<ImageItem> items)

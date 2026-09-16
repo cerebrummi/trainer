@@ -3,6 +3,7 @@ package vokabeltrainer.types.grammatical;
 import java.util.ArrayList;
 import java.util.List;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
@@ -43,11 +44,17 @@ public enum Binjan
    private Translation description;
    private LLType[] llType;
    private static Translator translator;
+   private static App app;
 
    Binjan(Translation description, LLType[] lltype)
    {
       this.description = description;
       this.llType = lltype;
+   }
+   
+   public static void setApp(App app)
+   {
+      Binjan.app = app;
    }
    
    public static void setTranslator(Translator translator)
@@ -58,7 +65,7 @@ public enum Binjan
    @Override
    public String toString()
    {
-      return translator.realisticTranslate(description);
+      return translator.realisticTranslate(app, description);
    }
 
    public String toDescription()
@@ -79,10 +86,10 @@ public enum Binjan
       case STARK:
       case SCHWACH:
       case UNREGELMAESSIG:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case BINJAN_UNKNOWN:
-         return translator.realisticTranslate(Translation.BINJAN___STAMM) + " "
-               + translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, Translation.BINJAN___STAMM) + " "
+               + translator.realisticTranslate(app, description);
       case BINJAN_NA:
       default:
          return "";
@@ -114,7 +121,7 @@ public enum Binjan
       case STARK:
       case SCHWACH:
       case UNREGELMAESSIG:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case BINJAN_UNKNOWN:
       case BINJAN_NA:
       default:

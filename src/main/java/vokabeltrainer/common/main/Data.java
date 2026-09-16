@@ -201,20 +201,20 @@ public class Data
       return getDataBaseAtomic().getChapterComboBoxModel(app);
    }
 
-   public ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter(Common common)
+   public ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter(App app, Common common)
    {
-      return getDataBaseAtomic().getChapterComboBoxModelAsChapter(common);
+      return getDataBaseAtomic().getChapterComboBoxModelAsChapter(app, common);
    }
 
-   public ComboBoxModel<String> getOwnDatabasesComboBoxModel(Common common)
+   public ComboBoxModel<String> getOwnDatabasesComboBoxModel(App app, Common common)
    {
-      return getDataBaseAtomic().getOwnDatabasesComboBoxModel(common);
+      return getDataBaseAtomic().getOwnDatabasesComboBoxModel(app, common);
    }
 
-   public String getAllSelectedExpressionsAsString(
+   public String getAllSelectedExpressionsAsString(App app, 
          SortingType sortingType, Direction language)
    {
-      return getDataBaseAtomic().getAllSelectedExpressionsAsString(sortingType,
+      return getDataBaseAtomic().getAllSelectedExpressionsAsString(app, sortingType,
             language);
    }
 
@@ -228,9 +228,9 @@ public class Data
       getDataBaseAtomic().deleteExpressions(list);
    }
 
-   public void deleteExpressionsOfDatabase(Common common, String databaseChoosen)
+   public void deleteExpressionsOfDatabase(App app, Common common, String databaseChoosen)
    {
-      getDataBaseAtomic().deleteExpressionsOfDatabase(common, databaseChoosen);
+      getDataBaseAtomic().deleteExpressionsOfDatabase(app, common, databaseChoosen);
    }
 
    public void restoreExpressions(List<Expression> list)
@@ -250,9 +250,9 @@ public class Data
             .findAllSelectedExpressionsList(exceptDoNotChange);
    }
 
-   public Chapter[] getChapterArray(Common common, List<DatabaseTableRow> tableRows)
+   public Chapter[] getChapterArray(App app, Common common, List<DatabaseTableRow> tableRows)
    {
-      return getDataBaseAtomic().getChapterArray(common, tableRows);
+      return getDataBaseAtomic().getChapterArray(app, common, tableRows);
    }
 
    public void putExpressionInNewMap(UUID uuid, Expression expression)
@@ -298,10 +298,10 @@ public class Data
       return true;
    }
 
-   public String[] getAllOwnDistinctDatabaseDescriptions(Common common,
+   public String[] getAllOwnDistinctDatabaseDescriptions(App app, Common common,
          boolean withSelfEvenIfNotInUseYet)
    {
-      return getDataBaseAtomic().getAllOwnDistinctDatabaseDescriptions(common,
+      return getDataBaseAtomic().getAllOwnDistinctDatabaseDescriptions(app, common,
             withSelfEvenIfNotInUseYet, false);
    }
 
@@ -686,7 +686,7 @@ public class Data
                Reader reader = new BufferedReader(isr);)
          {
             readData(app, common, letter.name() + ".csv", reader, origin, letter, false,
-                  origin.getName(common), true);
+                  origin.getName(app, common), true);
          }
          catch (Exception e)
          {
@@ -715,7 +715,7 @@ public class Data
             else
             {
                readData(app, common, letter.name() + ".csv", reader, Database.COPY, letter,
-                     false, origin.getName(common) + " Kopie", false);
+                     false, origin.getName(app, common) + " Kopie", false);
             }
          }
          catch (IOException e)
@@ -801,7 +801,7 @@ public class Data
             try
             {
 
-               Expression expression = new Expression(common, false, doNotChange);
+               Expression expression = new Expression(app, common, false, doNotChange);
                // read csv file row
                int index = 0;
                String[] entries = row.split("\t");
@@ -849,7 +849,7 @@ public class Data
                {
                   index++;
                   expression.setChapter(
-                        new Chapter(common, origin.getName(common), entries[index], origin));
+                        new Chapter(common, origin.getName(app, common), entries[index], origin));
                }
                else
                {
@@ -1125,7 +1125,7 @@ public class Data
                   .stream().map(row -> row.getDescription().getDatabaseName())
                   .toList());
             return new ExpressionTableModel(
-                  convertToExpressionModelArray(findSortedExpressionsOfKind(common,
+                  convertToExpressionModelArray(findSortedExpressionsOfKind(app, common,
                         kind, direction, sortingType, selectedDatabasesNames)),
                   COLUMNAMES);
          }
@@ -1143,7 +1143,7 @@ public class Data
                            .map(row -> row.getDescription().getDatabaseName())
                            .toList());
                Predicate<Expression> databaseName = expression -> selectedDatabasesNames
-                     .contains(expression.getChapter().getDatabaseName(common));
+                     .contains(expression.getChapter().getDatabaseName(app, common));
                expressions = alleMap.values().stream().filter(databaseName)
                      .toList();
             }
@@ -1253,14 +1253,14 @@ public class Data
                .collect(Collectors.toList());
       }
 
-      private List<Expression> findSortedExpressionsOfKind(Common common, ExpressionKind kind,
+      private List<Expression> findSortedExpressionsOfKind(App app, Common common, ExpressionKind kind,
             Direction language, SortingType sortingType,
             Set<String> selectedDatabasesNames)
       {
          Predicate<Expression> expressionKind = expression -> expression
                .getDefinitions().getExpressionKindSet().contains(kind);
          Predicate<Expression> databaseName = expression -> selectedDatabasesNames
-               .contains(expression.getChapter().getDatabaseName(common));
+               .contains(expression.getChapter().getDatabaseName(app, common));
 
          return alleMap.values().stream()
                .filter(expressionKind.and(databaseName))
@@ -1439,20 +1439,20 @@ public class Data
          return new DefaultComboBoxModel<String>(getChapterArrayForEditor(app));
       }
 
-      private ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter(Common common)
+      private ComboBoxModel<Chapter> getChapterComboBoxModelAsChapter(App app, Common common)
       {
          return new DefaultComboBoxModel<Chapter>(chapterSet.stream()
                .filter(chapter -> chapter.getDatabaseDescription().getDatabase()
                      .equals(Database.SELF))
-               .sorted((c1, c2) -> new ChapterDatabaseComparator(common).compareChapter(c1,
+               .sorted((c1, c2) -> new ChapterDatabaseComparator(app, common).compareChapter(c1,
                      c2))
                .toArray(size -> new Chapter[size]));
       }
 
-      private ComboBoxModel<String> getOwnDatabasesComboBoxModel(Common common)
+      private ComboBoxModel<String> getOwnDatabasesComboBoxModel(App app, Common common)
       {
          return new DefaultComboBoxModel<String>(
-               this.getAllOwnDistinctDatabaseDescriptions(common, true, true));
+               this.getAllOwnDistinctDatabaseDescriptions(app, common, true, true));
       }
 
       private ComboBoxModel<String> getInternalDatabasesComboBoxModel(App app, Common common)
@@ -1476,23 +1476,23 @@ public class Data
          return chapterList.stream().toArray(String[]::new);
       }
 
-      private Chapter[] getChapterArray(Common common, List<DatabaseTableRow> tableRows)
+      private Chapter[] getChapterArray(App app, Common common, List<DatabaseTableRow> tableRows)
       {
          return chapterSet.stream()
                .filter(chapter -> tableRows.stream()
                      .anyMatch(row -> row.getDescription().getDatabaseName()
-                           .equals(chapter.getDatabaseName(common))))
-               .sorted(new ChapterDatabaseComparator(common)).toArray(Chapter[]::new);
+                           .equals(chapter.getDatabaseName(app, common))))
+               .sorted(new ChapterDatabaseComparator(app, common)).toArray(Chapter[]::new);
       }
 
-      private String getAllSelectedExpressionsAsString(SortingType sortingType,
+      private String getAllSelectedExpressionsAsString(App app, SortingType sortingType,
             Direction language)
       {
          return alleMap.values().stream()
                .filter(expression -> expression.isSelected())
                .filter(expression -> expression.isDoChange())
                .sorted(new ExpressionComparator(sortingType, language))
-               .map(expression -> expression.getCopyLines(language))
+               .map(expression -> expression.getCopyLines(app, language))
                .collect(Collectors.joining("\n\n"));
       }
 
@@ -1531,9 +1531,9 @@ public class Data
          newMap.remove(expression.getUuid(), expression);
       }
 
-      public void deleteExpressionsOfDatabase(Common common, String databaseChoosen)
+      public void deleteExpressionsOfDatabase(App app, Common common, String databaseChoosen)
       {
-         deleteExpressions(findAllExpressionsOfDatabase(common, databaseChoosen));
+         deleteExpressions(findAllExpressionsOfDatabase(app, common, databaseChoosen));
       }
 
       private void integrateNewExpressions()
@@ -1584,12 +1584,12 @@ public class Data
 
                data = chapterSet.stream()
                      .filter(chapter -> databaseNames.stream().anyMatch(
-                           name -> name.equals(chapter.getDatabaseName(common))))
-                     .filter(chapter -> makeChapterRow(common, languageDirection,
+                           name -> name.equals(chapter.getDatabaseName(app, common))))
+                     .filter(chapter -> makeChapterRow(app, common, languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.HEBREW) != null)
                      .sorted()
-                     .map(chapter -> makeChapterRow(common, languageDirection,
+                     .map(chapter -> makeChapterRow(app, common, languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.HEBREW))
                      .map(trainingTableRow -> new TrainingTableRow[] {
@@ -1604,12 +1604,12 @@ public class Data
 
                data = chapterSet.stream()
                      .filter(chapter -> databaseNames.stream().anyMatch(
-                           name -> name.equals(chapter.getDatabaseName(common))))
-                     .filter(chapter -> makeChapterRow(common, languageDirection,
+                           name -> name.equals(chapter.getDatabaseName(app, common))))
+                     .filter(chapter -> makeChapterRow(app, common, languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.SWEDISH) != null)
                      .sorted()
-                     .map(chapter -> makeChapterRow(common, languageDirection,
+                     .map(chapter -> makeChapterRow(app, common, languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.SWEDISH))
                      .map(trainingTableRow -> new TrainingTableRow[] {
@@ -1623,12 +1623,12 @@ public class Data
 
                data = chapterSet.stream()
                      .filter(chapter -> databaseNames.stream().anyMatch(
-                           name -> name.equals(chapter.getDatabaseName(common))))
-                     .filter(chapter -> makeChapterRow(common, languageDirection,
+                           name -> name.equals(chapter.getDatabaseName(app, common))))
+                     .filter(chapter -> makeChapterRow(app, common, languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.GERMAN) != null)
                      .sorted()
-                     .map(chapter -> makeChapterRow(common, languageDirection,
+                     .map(chapter -> makeChapterRow(app, common, languageDirection,
                            fieldOfTraining, oldToBeTested, chapter,
                            LLType.GERMAN))
                      .map(trainingTableRow -> new TrainingTableRow[] {
@@ -1696,7 +1696,7 @@ public class Data
          return selectedRow;
       }
 
-      private TrainingTableRow makeChapterRow(Common common,
+      private TrainingTableRow makeChapterRow(App app, Common common,
             LanguageDirection languageDirection,
             FieldOfTraining fieldOfTraining,
             final Set<Expression> oldToBeTested, Chapter chapter, LLType llType)
@@ -1711,7 +1711,7 @@ public class Data
          chapterRow.setFieldOfTraining(fieldOfTraining);
          chapterRow.setChapter(chapter);
          chapterRow
-               .setField(chapter.getDatabaseName(common) + " | " + chapter.getName());
+               .setField(chapter.getDatabaseName(app, common) + " | " + chapter.getName());
          chapterRow.setExpressionListOldWords(
                findSetOfOldExpressionsToBeTestedPerChapter(chapter,
                      oldToBeTested));
@@ -2048,7 +2048,7 @@ public class Data
          });
       }
 
-      private String[] getAllOwnDistinctDatabaseDescriptions(Common common,
+      private String[] getAllOwnDistinctDatabaseDescriptions(App app, Common common,
             boolean withSelfEvenIfNotInUseYet, boolean withEmptySelection)
       {
          List<DatabaseDescription> result = alleMap.values().stream()
@@ -2056,9 +2056,9 @@ public class Data
                .map(Expression::getChapter).map(Chapter::getDatabaseDescription)
                .distinct().collect(Collectors.toList());
          if (withSelfEvenIfNotInUseYet
-               && !result.contains(new DatabaseDescription(common, Database.SELF)))
+               && !result.contains(new DatabaseDescription(app, common, Database.SELF)))
          {
-            result.add(new DatabaseDescription(common, Database.SELF));
+            result.add(new DatabaseDescription(app, common, Database.SELF));
          }
          Collections.sort(result);
 
@@ -2077,15 +2077,15 @@ public class Data
       private String[] getInternalDatabaseNames(App app, Common common)
       {
          return Arrays.stream(app.settings.getAvailableDatabasesAsArray())
-               .map(database -> database.getName(common)).toArray(String[]::new);
+               .map(database -> database.getName(app, common)).toArray(String[]::new);
       }
 
-      private List<Expression> findAllExpressionsOfDatabase(Common common,
+      private List<Expression> findAllExpressionsOfDatabase(App app, Common common,
             String databaseChoosen)
       {
          return alleMap
                .values().stream().filter(expression -> expression.getChapter()
-                     .getDatabaseName(common).equals(databaseChoosen))
+                     .getDatabaseName(app, common).equals(databaseChoosen))
                .collect(Collectors.toList());
       }
 

@@ -32,7 +32,7 @@ public class EnterAction extends AbstractAction
       this.common = common;
       this.model = model;
       this.view = view;
-      PictureExpressionEditorController pictureController = new PictureExpressionEditorController(common, view);
+      PictureExpressionEditorController pictureController = new PictureExpressionEditorController(app, common, model, view);
       editorPicture = pictureController.getPictureExpressionEditorDialog();
    }
 
@@ -44,9 +44,9 @@ public class EnterAction extends AbstractAction
       this.view = view;
       this.table = table;
       this.connector = connector;
-      NikudExpressionEditorController controller = new NikudExpressionEditorController(common, view);
+      NikudExpressionEditorController controller = new NikudExpressionEditorController(app, common, model, view);
       editorPunktation = controller.getNikudExpressionEditorDialog();
-      PictureExpressionEditorController pictureController = new PictureExpressionEditorController(common, view);
+      PictureExpressionEditorController pictureController = new PictureExpressionEditorController(app, common, model, view);
       editorPicture = pictureController.getPictureExpressionEditorDialog();
    }
 
@@ -89,7 +89,7 @@ public class EnterAction extends AbstractAction
 
    public void showEditorPicture(App app, Common common, Model model, View view, Expression expression, boolean dropped)
    {
-      editorPicture.setExpression(common, view, expression);
+      editorPicture.setExpression(app, common, model, view, expression);
       if (model.imageData.isImageForExpressionAvailable(expression.getUuid()))
       {
          editorPicture.setImages(model.imageData.loadImages(app, expression.getUuid()));

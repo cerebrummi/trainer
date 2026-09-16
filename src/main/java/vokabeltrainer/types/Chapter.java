@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Vector;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTableModel;
 import vokabeltrainer.panels.start.table.multiselect.DatabaseTableRow;
@@ -17,6 +18,8 @@ public class Chapter implements Comparable<Chapter>
 {
    private String name = "";
    private DatabaseDescription databaseDescription = new DatabaseDescription();
+   
+   private App app;
    private Common common;
 
    public Chapter(Common common)
@@ -77,8 +80,9 @@ public class Chapter implements Comparable<Chapter>
       }
       Collator coll = Collator.getInstance(Locale.GERMAN);
       coll.setStrength(Collator.PRIMARY);
-      return coll.compare(this.getDatabaseName(common) + this.name,
-            o.getDatabaseName(common) + o.name);
+      return coll.compare(this.getDatabaseName(app, common) + this.name,
+            o.getDatabaseName(app, 
+                    common) + o.name);
    }
 
    @Override
@@ -107,7 +111,7 @@ public class Chapter implements Comparable<Chapter>
       return database.getFolder();
    }
 
-   public String getDatabaseName(Common common)
+   public String getDatabaseName(App app, Common common)
    {
       if (Database.IMPORTED == databaseDescription.getDatabase()
             || Database.SELF == databaseDescription.getDatabase()
@@ -115,7 +119,7 @@ public class Chapter implements Comparable<Chapter>
       {
          return databaseDescription.getDatabaseName();
       }
-      return databaseDescription.getDatabase().getName(common);
+      return databaseDescription.getDatabase().getName(app, common);
    }
 
    public void setDatabaseName(String databaseName)
@@ -176,12 +180,12 @@ public class Chapter implements Comparable<Chapter>
          return folder;
       }
 
-      public String getName(Common common)
+      public String getName(App app, Common common)
       {
          if (this == Database.SELF)
          {
             Translator translator = common.getTranslator();
-            return translator.realisticTranslate(Translation.SELBST_EINGEGEBEN);
+            return translator.realisticTranslate(app, Translation.SELBST_EINGEGEBEN);
          }
          return name;
       }
@@ -191,10 +195,10 @@ public class Chapter implements Comparable<Chapter>
          return copyrighted;
       }
 
-      public static DatabaseTableModel getModelAvailableDatabases()
+      public static DatabaseTableModel getModelAvailableDatabases(App app)
       {
          Vector<Vector<DatabaseTableRow>> data = new Vector<>();
-         for (DatabaseItem item : DatabaseItem.getAllAvailableDatabaseItems())
+         for (DatabaseItem item : DatabaseItem.getAllAvailableDatabaseItems(app))
          {
             Vector<DatabaseTableRow> row = new Vector<>();
             row.add(new DatabaseTableRow(item));
@@ -205,10 +209,10 @@ public class Chapter implements Comparable<Chapter>
          return new DatabaseTableModel(data, columnNames);
       }
 
-      public static DatabaseTableCopyModel getModelCopyAvailableDatabases()
+      public static DatabaseTableCopyModel getModelCopyAvailableDatabases(App app)
       {
          Vector<Vector<DatabaseTableCopyRow>> data = new Vector<>();
-         for (DatabaseItem item : DatabaseItem.getAllAvailableDatabaseItems())
+         for (DatabaseItem item : DatabaseItem.getAllAvailableDatabaseItems(app))
          {
             if (item.getDatabase().isCopyrighted())
             {
@@ -240,9 +244,9 @@ public class Chapter implements Comparable<Chapter>
 
    }
 
-   public static Database findOrigin(Common common, String databaseName)
+   public static Database findOrigin(App app, Common common, String databaseName)
    {
-      if (Database.GRUNDWORTSCHATZ.getName(common).equals(databaseName))
+      if (Database.GRUNDWORTSCHATZ.getName(app, common).equals(databaseName))
       {
          return Database.GRUNDWORTSCHATZ;
       }

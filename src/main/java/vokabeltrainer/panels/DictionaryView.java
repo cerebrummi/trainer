@@ -226,7 +226,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       tabbedPane.addTab(translator.realisticTranslate(app, Translation.SUCHE),
             initSearchTab(app, common, model, view));
       tabbedPane.addTab(translator.realisticTranslate(app, Translation.WORTARTEN),
-            initExpressionKindsTab(app, common, view));
+            initExpressionKindsTab(app, common, model, view));
       tabbedPane.addTab(translator.realisticTranslate(app, Translation.AUSWAHL),
             initSelectedTab(app, common, model));
       tabbedPane.setMinimumSize(new Dimension(420, 400));
@@ -444,7 +444,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       for (SearchType type : SearchType.values())
       {
-         JRadioButton radioButton = new JRadioButton(type.getMeaning(common, language));
+         JRadioButton radioButton = new JRadioButton(type.getMeaning(app, common, language));
          radioButton.setActionCommand(type.name());
          radioButton.setBackground(app.appColors.dictionary.getButton());
          radioButton.setForeground(app.appColors.dictionary.getButtonForeground());
@@ -502,7 +502,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
 
       databaseChoiceBox = new JComboBox<>();
       databaseChoiceBox.setEditable(true);
-      databaseChoiceBox.setModel(model.data.getOwnDatabasesComboBoxModel(common));
+      databaseChoiceBox.setModel(model.data.getOwnDatabasesComboBoxModel(app, common));
       databaseChoiceBox.setMinimumSize(new Dimension(250, 30));
       databaseChoiceBox.setMaximumSize(new Dimension(250, 30));
 
@@ -538,12 +538,12 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       return chapterPanel;
    }
 
-   private JPanel initExpressionKindsTab(App app, Common common, View view)
+   private JPanel initExpressionKindsTab(App app, Common common, Model model, View view)
    {
       JPanel vertical1 = new JPanel(new BorderLayout());
       vertical1.setOpaque(true);
       vertical1.setBackground(app.appColors.dictionary.getBackground());
-      expressionKindTable = new ExpressionKindTableSingleselect(common, view,
+      expressionKindTable = new ExpressionKindTableSingleselect(app, common, model, view, 
             ExpressionKind.getModelForSingleselect(), 300, connector);
       JScrollPane scroller = new JScrollPane(expressionKindTable);
       scroller.setMinimumSize(new Dimension(400, 470));
@@ -784,14 +784,14 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
             _ -> connector.tabbedPaneChanged(app, common, model, view, tabbedPane.getSelectedIndex()));
 
       copyAllSelectedButton.addActionListener(
-            _ -> connector.copyAllSelectedExpressions(model, view, SortingType
+            _ -> connector.copyAllSelectedExpressions(app, model, view, SortingType
                   .valueOf(sortingGroup.getSelection().getActionCommand())));
 
       copyTableButton
-            .addActionListener(_ -> connector.copyExpressionsOfTable(view));
+            .addActionListener(_ -> connector.copyExpressionsOfTable(app, view));
 
       copyInTableSelectedButton
-            .addActionListener(_ -> connector.copyInTableSelectedExpressions(view));
+            .addActionListener(_ -> connector.copyInTableSelectedExpressions(app, view));
 
       clearInTableSelectedButton
             .addActionListener(_ -> connector.unselectTableExpressions(app, common, model, view));
@@ -938,7 +938,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          else
          {
             connector.moveExpressionsToDatabase(app, common, model, view, databaseAim);
-            databaseChoiceBox.setModel(model.data.getOwnDatabasesComboBoxModel(common));
+            databaseChoiceBox.setModel(model.data.getOwnDatabasesComboBoxModel(app, common));
          }
       });
    }
@@ -1046,7 +1046,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       addChapterListSelectionListener();
       chapterList = new ChapterList(app, listSelectionModel);
       chapterList.setListData(
-            model.data.getChapterArray(common, databaseTableModel.getSelectedRows()));
+            model.data.getChapterArray(app, common, databaseTableModel.getSelectedRows()));
       chapterList.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
 
       JScrollPane scroller = new JScrollPane(chapterList);
@@ -1257,15 +1257,15 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    }
 
    @Override
-   public String getTableDataToString()
+   public String getTableDataToString(App app)
    {
-      return table.getTableDataToString();
+      return table.getTableDataToString(app);
    }
 
    @Override
-   public String getSelectedTableDataToString()
+   public String getSelectedTableDataToString(App app)
    {
-      return table.getSelectedTableDataToString();
+      return table.getSelectedTableDataToString(app);
    }
 
    @Override

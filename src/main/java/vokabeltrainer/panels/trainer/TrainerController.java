@@ -288,11 +288,11 @@ public class TrainerController implements TrainerControllerConnector
             trainerView.prepareDtoNikudFeedbackPanel(app, common, result);
             if (result.isOkay())
             {
-               resultDtoIsOkay(common);
+               resultDtoIsOkay(app, common);
             }
             else
             {
-               resultDtoIsNotOkay(common);
+               resultDtoIsNotOkay(app, common);
             }
             reactToAnswer(app, common, model, view, result.isOkay());
             break;
@@ -313,7 +313,7 @@ public class TrainerController implements TrainerControllerConnector
       }
    }
 
-   private void resultDtoIsNotOkay(Common common)
+   private void resultDtoIsNotOkay(App app, Common common)
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
@@ -328,7 +328,7 @@ public class TrainerController implements TrainerControllerConnector
          }
          else
          {
-            currentExpression.getTrainingStatusDToLL().previousRepetition(common);
+            currentExpression.getTrainingStatusDToLL().previousRepetition(app, common);
          }
       }
       else
@@ -345,7 +345,7 @@ public class TrainerController implements TrainerControllerConnector
       }
    }
 
-   private void resultDtoIsOkay(Common common)
+   private void resultDtoIsOkay(App app, Common common)
    {
       if (FieldOfTraining.AREA_SELECTED_TEMPORARY != this.fieldOfTraining)
       {
@@ -353,7 +353,7 @@ public class TrainerController implements TrainerControllerConnector
                currentExpression.getTrainingStatusDToLL().getTrys() - 1);
          if (currentExpression.getTrainingStatusDToLL().getTrys() == 0)
          {
-            currentExpression.getTrainingStatusDToLL().nextRepetition(common);
+            currentExpression.getTrainingStatusDToLL().nextRepetition(app, common);
             currentExpression.getTrainingStatusDToLL().setTrys(1);
          }
       }
@@ -374,7 +374,7 @@ public class TrainerController implements TrainerControllerConnector
                currentExpression.getTrainingStatusLLToD().getTrys() - 1);
          if (currentExpression.getTrainingStatusLLToD().getTrys() == 0)
          {
-            currentExpression.getTrainingStatusLLToD().nextRepetition(common);
+            currentExpression.getTrainingStatusLLToD().nextRepetition(app, common);
             currentExpression.getTrainingStatusLLToD().setTrys(1);
          }
       }
@@ -411,7 +411,7 @@ public class TrainerController implements TrainerControllerConnector
          }
          else
          {
-            currentExpression.getTrainingStatusLLToD().previousRepetition(common);
+            currentExpression.getTrainingStatusLLToD().previousRepetition(app, common);
          }
       }
       else

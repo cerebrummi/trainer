@@ -22,10 +22,12 @@ public class DatabaseTableCellRenderer
    private JLabel database;
    private JLabel authors;
    private JLabel company;
+   private App app;
    private Common common;
 
    public DatabaseTableCellRenderer(App app, Common common) // multiple selection possible
    {
+      this.app = app;
       this.common = common;
       selected = new JLabel(new ImageIcon(app.appImages.getSelectDone()));
 
@@ -112,7 +114,7 @@ public class DatabaseTableCellRenderer
       }
       if (column == 1)
       {
-         this.database.setText(databaseItem.getDatabase().getName(common));
+         this.database.setText(databaseItem.getDatabase().getName(app, common));
          return this.database;
       }
       if (column == 2)

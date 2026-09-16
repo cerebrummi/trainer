@@ -10,9 +10,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-import vokabeltrainer.common.colors.ColorBase;
-import vokabeltrainer.common.main.AppFonts;
-import vokabeltrainer.common.main.AppImages;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableCellRenderer
@@ -23,20 +21,20 @@ public class ExpressionKindTableCellRenderer
    private JLabel empty;
    private JLabel expressionKind;
 
-   public ExpressionKindTableCellRenderer() // multiple selection possible,
+   public ExpressionKindTableCellRenderer(App app) // multiple selection possible,
                                             // except unknown selection row 0
    {
-      selected = new JLabel(new ImageIcon(AppImages.getSelectDone()));
-      selected.setBackground(ColorBase.getTransparent());
+      selected = new JLabel(new ImageIcon(app.appImages.getSelectDone()));
+      selected.setBackground(app.appColors.getTransparent());
       selected.setOpaque(false);
 
       empty = new JLabel();
-      empty.setBackground(ColorBase.getTransparent());
+      empty.setBackground(app.appColors.getTransparent());
       empty.setOpaque(false);
 
       expressionKind = new JLabel();
-      expressionKind.setFont(AppFonts.germanFont.deriveFont(14F));
-      expressionKind.setBackground(ColorBase.getTransparent());
+      expressionKind.setFont(app.appFonts.germanFont.deriveFont(14F));
+      expressionKind.setBackground(app.appColors.getTransparent());
       expressionKind.setOpaque(false);
    }
 

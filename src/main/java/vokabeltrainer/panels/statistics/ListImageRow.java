@@ -24,14 +24,14 @@ public class ListImageRow extends JPanel
       if (Direction.OWN_TO_NEW.equals(language))
       {
          JLabel label = new JLabel(
-               expression.getWordGermanForStatistics(common, Direction.OWN_TO_NEW));
+               expression.getWordGermanForStatistics(app, common, Direction.OWN_TO_NEW));
          label.setForeground(app.appColors.statistics.getTextForeground());
          add(label);
       }
       else
       {
          JLabel label = new JLabel(
-               expression.getWordGermanForStatistics(common, Direction.NEW_TO_OWN));
+               expression.getWordGermanForStatistics(app, common, Direction.NEW_TO_OWN));
          label.setForeground(app.appColors.statistics.getTextForeground());
          add(label);
       }

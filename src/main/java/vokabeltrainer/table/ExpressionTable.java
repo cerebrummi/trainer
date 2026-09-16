@@ -87,20 +87,20 @@ public class ExpressionTable extends JTable
       });
    }
 
-   public String getTableDataToString()
+   public String getTableDataToString(App app)
    {
       return Arrays.stream(model.getTableData())
             .filter(expressionArray -> expressionArray[0].isDoChange())
-            .map(expressionArray -> expressionArray[0].getCopyLines(language))
+            .map(expressionArray -> expressionArray[0].getCopyLines(app, language))
             .collect(Collectors.joining("\n"));
    }
 
-   public String getSelectedTableDataToString()
+   public String getSelectedTableDataToString(App app)
    {
       return Arrays.stream(model.getTableData())
             .filter(expressionArray -> expressionArray[0].isDoChange())
             .filter(expressionArray -> expressionArray[0].isSelected())
-            .map(expressionArray -> expressionArray[0].getCopyLines(language))
+            .map(expressionArray -> expressionArray[0].getCopyLines(app, language))
             .collect(Collectors.joining("\n"));
    }
 

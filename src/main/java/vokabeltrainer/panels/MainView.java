@@ -239,7 +239,7 @@ public class MainView extends JPanel
             remove(activeComponent);
          }
          activeComponent = (Component) inputPanel;
-         inputPanel.reset(common, model);
+         inputPanel.reset(app, common, model);
          add(activeComponent);
          validate();
          repaint();

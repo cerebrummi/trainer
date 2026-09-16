@@ -19,10 +19,12 @@ public class DatabaseTableCopyCellRenderer
    private JLabel database;
    private JLabel authors;
    private JLabel company;
+   private App app;
    private Common common;
 
    public DatabaseTableCopyCellRenderer(App app, Common common) // no multiple selection possible
    {
+      this.app = app;
       this.common = common;
       database = new JLabel();
       database.setFont(app.appFonts.germanFont.deriveFont(14F));
@@ -95,7 +97,7 @@ public class DatabaseTableCopyCellRenderer
 
       if (column == 0)
       {
-         this.database.setText(databaseItem.getDatabase().getName(common));
+         this.database.setText(databaseItem.getDatabase().getName(app, common));
          return this.database;
       }
       if (column == 1)

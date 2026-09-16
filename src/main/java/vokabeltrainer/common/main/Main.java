@@ -24,7 +24,7 @@ public final class Main
       
       Common common = new Common();
            
-      initEnums(common);
+      initEnums(app, common);
       
       View view = initView(app, common, mode);
 
@@ -35,9 +35,10 @@ public final class Main
       initPostView(app);
    }
    
-   public static void initEnums(Common common)
+   public static void initEnums(App app, Common common)
    {
       Binjan.setTranslator(common.getTranslator());
+      Binjan.setApp(app);
       Gender.setTranslator(common.getTranslator());
       GrammaticalPerson.setTranslator(common.getTranslator());
       Numerus.setTranslator(common.getTranslator());

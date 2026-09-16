@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.table.list.editor.ExpressionEditorViewConnector;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
@@ -23,10 +24,10 @@ public class ExpressionKindTableMultiselect extends JTable
    private boolean frozen;
    private MouseListener mouseListener;
 
-   public ExpressionKindTableMultiselect(ExpressionKindTableModel model,
+   public ExpressionKindTableMultiselect(App app, ExpressionKindTableModel model,
          int totalWidth, ExpressionEditorViewConnector connector)
    {
-      super(model, new ExpressionKindTableColumnModel(totalWidth));
+      super(model, new ExpressionKindTableColumnModel(app, totalWidth));
       this.connector = connector;
       this.setShowVerticalLines(false);
       setOpaque(true);
@@ -39,11 +40,11 @@ public class ExpressionKindTableMultiselect extends JTable
       this.setBorder(BorderFactory.createEmptyBorder());
       this.setTableHeader(null);
 
-      mouseListener = getMultiselectMouseListener();
+      mouseListener = getMultiselectMouseListener(app);
       addMouseListener(mouseListener);
    }
 
-   private MouseAdapter getMultiselectMouseListener()
+   private MouseAdapter getMultiselectMouseListener(App app)
    {
       return new MouseAdapter()
       {
@@ -73,12 +74,12 @@ public class ExpressionKindTableMultiselect extends JTable
                   {
                      if (row == 0)
                      {
-                        connector.showGrammaticalParentEnums(
+                        connector.showGrammaticalParentEnums(app, 
                               Collections.emptySet());
                      }
                      else
                      {
-                        connector.showGrammaticalParentEnums(
+                        connector.showGrammaticalParentEnums(app, 
                               ExpressionKind.getSetOfGrammaticalParentEnums(
                                     getModel().getSelectedRows()));
                      }

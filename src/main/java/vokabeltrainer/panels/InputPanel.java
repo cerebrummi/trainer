@@ -109,11 +109,11 @@ public class InputPanel extends JPanel implements TableConnector
       setLernsprache(app, false);
    }
 
-   public void reset(Common common, Model model)
+   public void reset(App app, Common common, Model model)
    {
       Chapter lastModiefiedChapter = model.data
             .getChapterWithLastModifiedDate(common);
-      chapterBox.setModel(model.data.getChapterComboBoxModelAsChapter(common));
+      chapterBox.setModel(model.data.getChapterComboBoxModelAsChapter(app, common));
       if (chapterBox.getModel().getSize() > 0)
       {
          chapterBox.setSelectedItem(lastModiefiedChapter);
@@ -223,9 +223,9 @@ public class InputPanel extends JPanel implements TableConnector
    private void openNewNikudExpressionDialog(App app, Common common,
          Model model, View view)
    {
-      LanguageExpressionEditorView editor = new NikudExpressionEditorController(
-            common, view).getNikudExpressionEditorDialog();
-      editor.setExpression(app, common, model, view, new Expression(common, true, false),
+      LanguageExpressionEditorView editor = new NikudExpressionEditorController(app,
+            common, model, view).getNikudExpressionEditorDialog();
+      editor.setExpression(app, common, model, view, new Expression(app, common, true, false),
             true);
       editor.setLocationRelativeTo(view.getjFrame());
       editor.setVisible(true);
@@ -443,7 +443,7 @@ public class InputPanel extends JPanel implements TableConnector
             if (new SaveExpressions(app, model).save(app, common, view))
             {
                chapterBox.setModel(
-                     model.data.getChapterComboBoxModelAsChapter(common));
+                     model.data.getChapterComboBoxModelAsChapter(app, common));
                chapterBox.setSelectedItem(currentChapter);
             }
             return null;

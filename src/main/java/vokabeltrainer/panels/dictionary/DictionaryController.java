@@ -86,27 +86,27 @@ public class DictionaryController implements DictionaryControllerConnector
    }
 
    @Override
-   public void copyAllSelectedExpressions(Model model, View view, SortingType sortingType)
+   public void copyAllSelectedExpressions(App app, Model model, View view, SortingType sortingType)
    {
-      copyStringToClipboard(view, model.data.getAllSelectedExpressionsAsString(sortingType,
+      copyStringToClipboard(view, model.data.getAllSelectedExpressionsAsString(app, sortingType,
             dictionaryViewConnector.getSelectedLanguage()));
    }
 
    @Override
-   public void copyExpressionsOfTable(View view)
+   public void copyExpressionsOfTable(App app, View view)
    {
       if (dictionaryViewConnector.isTableNotNull())
       {
-         copyStringToClipboard(view, dictionaryViewConnector.getTableDataToString());
+         copyStringToClipboard(view, dictionaryViewConnector.getTableDataToString(app));
       }
    }
 
    @Override
-   public void copyInTableSelectedExpressions(View view)
+   public void copyInTableSelectedExpressions(App app, View view)
    {
       if (dictionaryViewConnector.isTableNotNull())
       {
-         copyStringToClipboard(view, dictionaryViewConnector.getSelectedTableDataToString());
+         copyStringToClipboard(view, dictionaryViewConnector.getSelectedTableDataToString(app));
       }
    }
 

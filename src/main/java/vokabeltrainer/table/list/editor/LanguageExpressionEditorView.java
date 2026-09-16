@@ -511,7 +511,7 @@ public class LanguageExpressionEditorView extends JDialog
       imageButton.setMinimumSize(new Dimension(WIDTH_BOX_PANEL, 40));
       imageButton.setMaximumSize(new Dimension(WIDTH_BOX_PANEL, 40));
 
-      expressionKindTable = new ExpressionKindTableMultiselect(
+      expressionKindTable = new ExpressionKindTableMultiselect(app, 
             ExpressionKind.getModelForMultiselect(), WIDTH_INFO_PANEL, this);
 
       makeAllBoxes(app);
@@ -1174,7 +1174,7 @@ public class LanguageExpressionEditorView extends JDialog
 
       if (((String) databaseNameField.getSelectedItem()).isBlank())
       {
-         expression.getChapter().setDatabaseName(Database.SELF.getName(common));
+         expression.getChapter().setDatabaseName(Database.SELF.getName(app, common));
       }
       else
       {
@@ -1183,7 +1183,7 @@ public class LanguageExpressionEditorView extends JDialog
       }
 
       app.settings.setRememberDatabaseForInput(
-            expression.getChapter().getDatabaseName(common));
+            expression.getChapter().getDatabaseName(app, common));
 
       if (indexField.getText().isBlank())
       {
@@ -1294,7 +1294,7 @@ public class LanguageExpressionEditorView extends JDialog
       {
          imageButton.setVisible(true);
          imageButton.addActionListener(
-               _ -> connector.openPictureView(common, view, expression));
+               _ -> connector.openPictureView(app, common, model, view, expression));
          Definitions definitions = expression.getDefinitions();
          Set<ExpressionKind> kinds = definitions.getExpressionKindSet();
          expressionKindTable
@@ -1328,7 +1328,7 @@ public class LanguageExpressionEditorView extends JDialog
 
       if (expression.isDoChange())
       {
-         databaseNameField.setModel(model.data.getOwnDatabasesComboBoxModel(common));
+         databaseNameField.setModel(model.data.getOwnDatabasesComboBoxModel(app, common));
       }
       else
       {
@@ -1343,7 +1343,7 @@ public class LanguageExpressionEditorView extends JDialog
       else
       {
          databaseNameField
-               .setSelectedItem(expression.getChapter().getDatabaseName(common));
+               .setSelectedItem(expression.getChapter().getDatabaseName(app, common));
       }
 
       lastModiefiedLabel.setText(translator.realisticTranslate(app, Translation.VOM)

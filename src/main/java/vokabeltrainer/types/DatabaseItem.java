@@ -3,7 +3,7 @@ package vokabeltrainer.types;
 import java.util.ArrayList;
 import java.util.List;
 
-import vokabeltrainer.common.main.Settings;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.types.Chapter.Database;
 
 public class DatabaseItem
@@ -88,14 +88,14 @@ public class DatabaseItem
       this.company = company;
    }
 
-   public static List<DatabaseItem> getAllAvailableDatabaseItems()
+   public static List<DatabaseItem> getAllAvailableDatabaseItems(App app)
    {
       List<DatabaseItem> databaseItemList = new ArrayList<>();
 
-      for (Database database : Settings.getAvailableDatabases())
+      for (Database database : app.settings.getAvailableDatabases())
       {
          databaseItemList.add(new DatabaseItem(database,
-               Settings.isDatabaseChoosen(database)));
+               app.settings.isDatabaseChoosen(database)));
       }
 
       return databaseItemList;

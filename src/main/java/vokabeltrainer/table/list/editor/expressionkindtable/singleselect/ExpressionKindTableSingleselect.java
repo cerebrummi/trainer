@@ -9,8 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-import vokabeltrainer.common.colors.ColorBase;
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Model;
 import vokabeltrainer.common.main.View;
 import vokabeltrainer.panels.dictionary.DictionaryControllerConnector;
 import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
@@ -21,10 +22,10 @@ public class ExpressionKindTableSingleselect extends JTable
 
    private DictionaryControllerConnector connector;
 
-   public ExpressionKindTableSingleselect(Common common, View view, ExpressionKindTableModel2 model,
+   public ExpressionKindTableSingleselect(App app, Common common, Model model, View view, ExpressionKindTableModel2 listModel,
          int totalWidth, DictionaryControllerConnector connector)
    {
-      super(model, new ExpressionKindTableColumnModel2(totalWidth));
+      super(listModel, new ExpressionKindTableColumnModel2(app, totalWidth));
       this.connector = connector;
       this.setShowVerticalLines(false);
       setOpaque(true);
@@ -35,7 +36,7 @@ public class ExpressionKindTableSingleselect extends JTable
       this.setCellSelectionEnabled(false);
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       this.setBorder(
-            BorderFactory.createLineBorder(ColorBase.getDarkGold()));
+            BorderFactory.createLineBorder(app.appColors.getDarkGold()));
       this.setTableHeader(null);
 
       addMouseListener(new MouseAdapter()
@@ -67,7 +68,7 @@ public class ExpressionKindTableSingleselect extends JTable
                               .fireTableCellUpdated(i, 0);
                      }
                   }
-                  connector.displayExpressionKindWhich(common, view);
+                  connector.displayExpressionKindWhich(app, common, model, view);
                }
 
                ((ExpressionKindTableModel2) table.getModel())
@@ -77,7 +78,7 @@ public class ExpressionKindTableSingleselect extends JTable
       });
    }
 
-   public void redisplaySelectedExpressionKindIfAny(Common common, View view)
+   public void redisplaySelectedExpressionKindIfAny(App app, Common common, Model model, View view)
    {
       for (int i = 0; i < getRowCount(); i++)
       {
@@ -85,7 +86,7 @@ public class ExpressionKindTableSingleselect extends JTable
                .getExpressionKind();
          if (kind.isSelected())
          {
-            connector.displayExpressionKindWhich(common, view);
+            connector.displayExpressionKindWhich(app, common, model, view);
             break;
          }
       }
