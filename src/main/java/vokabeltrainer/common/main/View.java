@@ -94,7 +94,7 @@ public final class View
 
    public void setUI(App app, Common common)
    {
-      app.toggleModes();
+      app.readColorModes();
       try
       {
          nimbus = new NimbusLookAndFeel();

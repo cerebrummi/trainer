@@ -17,10 +17,12 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKind;
 
 public final class Main
 {
+   private static transient App app;
+   
    static void main(String[] args)
    { 
       Mode mode = Mode.LOCAL_ORIGINAL;
-      App app = new App(mode);
+      app = new App(mode);
       
       Common common = new Common();
            

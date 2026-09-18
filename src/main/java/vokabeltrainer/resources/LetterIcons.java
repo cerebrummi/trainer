@@ -17,7 +17,7 @@ public class LetterIcons
    {
       Map<NikudLetter, BufferedImage> letterIconsNikudMap = new HashMap<>();
       String type = "";
-      if (app.settings.isDarkmodeOn())
+      if (!app.settings.isDarkmodeOn())
       {
          type = "_white";
       }

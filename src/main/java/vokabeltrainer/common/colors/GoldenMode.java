@@ -76,13 +76,13 @@ public class GoldenMode extends AppColors
    @Override
    public Color getMediumGold()
    {
-      return mediumBlue;
+      return mediumGold;
    }
 
    @Override
    public Color getBackgroundGold()
    {
-      return shadyBlue;
+      return backgroundGold;
       
    }
 

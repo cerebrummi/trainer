@@ -46,8 +46,9 @@ public class ColorPanel extends JPanel
    {
       applyButton.addActionListener(_ -> {
          applyButton.setEnabled(false);
-         app.settings.toggleDarkmodeOn();
          
+         app.settings.toggleDarkmodeOn();
+         app.readColorModes();
          view.setUI(app, common);
 
          this.removeAll();

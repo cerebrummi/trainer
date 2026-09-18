@@ -68,6 +68,8 @@ public class MainView extends JPanel
       setLayout(new BorderLayout());
       this.setOpaque(false);
       this.setBackground(app.appColors.getTransparent());
+      app.readColorModes();
+      view.setUI(app, common);
 
       startPanel = new StartPanel(app, common, model, view);
       inputPanel = new InputPanel(app, common, model, view);
