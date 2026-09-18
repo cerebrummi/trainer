@@ -21,7 +21,7 @@ public class App
    public AppFonts appFonts;
 
    
-   App (Mode mode)
+   public App (Mode mode)
    {
       this.settings = new Settings(this);
       

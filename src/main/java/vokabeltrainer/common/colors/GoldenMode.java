@@ -4,16 +4,20 @@ import java.awt.Color;
 
 public class GoldenMode extends AppColors
 {
-   public Alefbet alephbet = new Alefbet();
-   public Dictionary dictionary = new Dictionary();
-   public Input input = new Input();
-   public Main main = new Main();
-   public Settings settings = new Settings();
-   public Start start = new Start();
-   public Statistics statistics = new Statistics();
-   public Success success = new Success();
-   public Table table = new Table();
-   public Trainer trainer = new Trainer();
+   public GoldenMode()
+   {
+      alefbet = new Alefbet();
+      dictionary = new Dictionary();
+      input = new Input();
+      main = new Main();
+      settings = new Settings();
+      start = new Start();
+      statistics = new Statistics();
+      success = new Success();
+      table = new Table();
+      trainer = new Trainer();
+   }
+   
 
    @Override
    public Color getLightBlue()

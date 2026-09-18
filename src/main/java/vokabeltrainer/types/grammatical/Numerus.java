@@ -3,6 +3,7 @@ package vokabeltrainer.types.grammatical;
 import java.util.ArrayList;
 import java.util.List;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
@@ -28,6 +29,7 @@ public enum Numerus implements GrammaticalEnum
    private Translation description;
    private LLType[] llType;
    private static Translator translator;
+   private static App app;
 
    Numerus(Translation description, LLType[] llType)
    {
@@ -39,11 +41,16 @@ public enum Numerus implements GrammaticalEnum
    {
       Numerus.translator = translator;
    }
+   
+   public static void setApp(App app)
+   {
+      Numerus.app = app;
+   }
 
    @Override
    public String toString()
    {
-      return translator.realisticTranslate(description);
+      return translator.realisticTranslate(app, description);
    }
 
    public String toDescription()
@@ -60,10 +67,10 @@ public enum Numerus implements GrammaticalEnum
       case SINGULAR_PLURAL:
       case PLURAL_SPECIFIC:
       case PLURAL_INDEFINITE:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case NUMERUS_UNKNOWN:
-         return translator.realisticTranslate(Translation.NUMERUS) + " "
-               + translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, Translation.NUMERUS) + " "
+               + translator.realisticTranslate(app, description);
       case NUMERUS_NA:
       default:
          return "";
@@ -84,7 +91,7 @@ public enum Numerus implements GrammaticalEnum
       case SINGULAR_PLURAL:
       case PLURAL_SPECIFIC:
       case PLURAL_INDEFINITE:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case NUMERUS_UNKNOWN:
       case NUMERUS_NA:
       default:

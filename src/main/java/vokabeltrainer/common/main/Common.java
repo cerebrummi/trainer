@@ -13,8 +13,7 @@ public final class Common
    private DirectoryHelper directoryHelper = new DirectoryHelper();
    private Translator translator = new Translator();
    
-   //package on purpose
-   Common()
+   public Common()
    {
 
    }

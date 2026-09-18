@@ -3,6 +3,7 @@ package vokabeltrainer.types.grammatical;
 import java.util.ArrayList;
 import java.util.List;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
@@ -27,6 +28,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
    private Translation description;
    private LLType[] llType;
    private static Translator translator;
+   private static App app;
 
    GrammaticalPerson(Translation description, LLType[] llType)
    {
@@ -39,10 +41,15 @@ public enum GrammaticalPerson implements GrammaticalEnum
       GrammaticalPerson.translator = translator;
    }
    
+   public static void setApp(App app)
+   {
+      GrammaticalPerson.app = app;
+   }
+   
    @Override
    public String toString()
    {
-      return translator.realisticTranslate(description);
+      return translator.realisticTranslate(app, description);
    }
 
    public String toDescription()
@@ -53,10 +60,10 @@ public enum GrammaticalPerson implements GrammaticalEnum
       case ZWEITE_PERSON:
       case ERSTE_PERSON:
       case ALL_PERSON:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case GRAMMATICALPERSON_UNKNOWN:
-         return translator.realisticTranslate(Translation.GRAMMATISCHE_PERSON)
-               + " " + translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, Translation.GRAMMATISCHE_PERSON)
+               + " " + translator.realisticTranslate(app, description);
       case GRAMMATICALPERSON_NA:
       default:
          return "";
@@ -78,7 +85,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
       case ZWEITE_PERSON:
       case ERSTE_PERSON:
       case ALL_PERSON:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case GRAMMATICALPERSON_UNKNOWN:
       case GRAMMATICALPERSON_NA:
       default:

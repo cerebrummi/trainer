@@ -40,27 +40,32 @@ public final class Main
       Binjan.setTranslator(common.getTranslator());
       Binjan.setApp(app);
       Gender.setTranslator(common.getTranslator());
+      Gender.setApp(app);
       GrammaticalPerson.setTranslator(common.getTranslator());
+      GrammaticalPerson.setApp(app);
       Numerus.setTranslator(common.getTranslator());
+      Numerus.setApp(app);
       VerbTimes.setTranslator(common.getTranslator());
+      VerbTimes.setApp(app);
       GrammaticalParentEnum.setTranslator(common.getTranslator());
+      GrammaticalParentEnum.setApp(app);
       ExpressionKind.setTranslator(common.getTranslator());
+      ExpressionKind.setApp(app);
    }
 
-   private static View initView(App app, Common common, Mode mode)
+   public static View initView(App app, Common common, Mode mode)
    {
       View view = new View(app, common, mode);
       
       Model model = new Model(app, common, view);
       
       view.getMainJPanel().initContent(app, common, model, view);
-      view.getMainJPanel().initToolBar(app);
       view.getMainJPanel().initController(app, common, model, view);
       
       return view;
    }
    
-   private static void initPostView(App app)
+   public static void initPostView(App app)
    {
       new SwingWorker<Void, Void>()
       {

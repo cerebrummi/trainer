@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.table.list.editor.expressionkindtable.multiselect.ExpressionKindTableModel;
@@ -58,6 +59,7 @@ public enum ExpressionKind {
    private Translation description;
    private GrammaticalParentEnum[] grammaticalParentEnums;
    private static Translator translator;
+   private static App app;
 
    ExpressionKind(Translation description,
          GrammaticalParentEnum[] grammaticalParentEnums)
@@ -70,11 +72,16 @@ public enum ExpressionKind {
    {
       ExpressionKind.translator = translator;
    }
+   
+   public static void setApp(App app)
+   {
+      ExpressionKind.app = app;
+   }
 
    @Override
    public String toString()
    {
-      return translator.realisticTranslate(description);
+      return translator.realisticTranslate(app, description);
    }
 
    public String toDescription()
@@ -118,10 +125,10 @@ public enum ExpressionKind {
       case VERB:
       case WOCHENTAG:
       case ZAHL:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case EXPRESSIONKIND_UNKNOWN:
-         return translator.realisticTranslate(Translation.WORTART) + " "
-               + translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, Translation.WORTART) + " "
+               + translator.realisticTranslate(app, description);
       default:
          return "";
       }
@@ -134,7 +141,7 @@ public enum ExpressionKind {
 
    public String getDescription()
    {
-      return translator.realisticTranslate(description);
+      return translator.realisticTranslate(app, description);
    }
 
    public static ExpressionKindTableModel getModelForMultiselect()

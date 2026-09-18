@@ -62,7 +62,7 @@ public class TranslationPanel extends JPanel
                .getItemAt(chooseLanguage.getSelectedIndex());
          app.settings.setTranslationCode(choosen);
          common.setTranslator(new Translator());
-         Main.initEnums(common);
+         Main.initEnums(app, common);
          try
          {
             Buchstabenbilder.read(app, common);

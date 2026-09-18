@@ -3,6 +3,7 @@ package vokabeltrainer.types.grammatical;
 import java.util.ArrayList;
 import java.util.List;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
@@ -47,6 +48,7 @@ public enum VerbTimes
    private Translation description;
    private LLType[] llType;
    private static Translator translator;
+   private static App app;
 
    VerbTimes(Translation description, LLType[] llType)
    {
@@ -58,11 +60,16 @@ public enum VerbTimes
    {
       VerbTimes.translator = translator;
    }
+   
+   public static void setApp(App app)
+   {
+      VerbTimes.app = app;
+   }
 
    @Override
    public String toString()
    {
-      return translator.realisticTranslate(description);
+      return translator.realisticTranslate(app, description);
    }
 
    public String toDescription()
@@ -82,10 +89,10 @@ public enum VerbTimes
       case FUTUR1:
       case FUTUR2:
       case CONSTRUCTION:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case VERBTIMES_UNKNOWN:
-         return translator.realisticTranslate(Translation.ZEITFORM) + " "
-               + translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, Translation.ZEITFORM) + " "
+               + translator.realisticTranslate(app, description);
       case VERBTIMES_NA:
       default:
          return "";
@@ -116,7 +123,7 @@ public enum VerbTimes
       case FUTUR1:
       case FUTUR2:
       case CONSTRUCTION:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case VERBTIMES_UNKNOWN:
       case VERBTIMES_NA:
       default:

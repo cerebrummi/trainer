@@ -1,5 +1,6 @@
 package vokabeltrainer.types.grammatical;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 
@@ -30,6 +31,7 @@ public interface GrammaticalEnum
       private int sortNumber;
       private Translation identifier;
       private static Translator translator;
+      private static App app;
 
       GrammaticalParentEnum(int sortNumber, Translation identifier)
       {
@@ -42,6 +44,11 @@ public interface GrammaticalEnum
          GrammaticalParentEnum.translator = translator;
       }
       
+      public static void setApp(App app)
+      {
+         GrammaticalParentEnum.app = app;
+      }
+      
       public int getSortNumber()
       {
          return sortNumber;
@@ -49,7 +56,7 @@ public interface GrammaticalEnum
 
       public String getIdentifier()
       {
-         return translator.realisticTranslate(identifier);
+         return translator.realisticTranslate(app, identifier);
       }
 
       public GrammaticalEnum getUnkown()

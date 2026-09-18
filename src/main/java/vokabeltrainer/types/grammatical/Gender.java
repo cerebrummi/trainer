@@ -3,6 +3,7 @@ package vokabeltrainer.types.grammatical;
 import java.util.ArrayList;
 import java.util.List;
 
+import vokabeltrainer.common.main.App;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 import vokabeltrainer.types.Expression;
@@ -29,6 +30,7 @@ public enum Gender implements GrammaticalEnum
    private Translation description;
    private LLType[] llType;
    private static Translator translator;
+   private static App app;
 
    Gender(Translation description, LLType[] llType)
    {
@@ -40,11 +42,16 @@ public enum Gender implements GrammaticalEnum
    {
       Gender.translator = translator;
    }
+   
+   public static void setApp(App app)
+   {
+      Gender.app = app;
+   }
 
    @Override
    public String toString()
    {
-      return translator.realisticTranslate(description);
+      return translator.realisticTranslate(app, description);
    }
 
    public String toDescription()
@@ -57,10 +64,10 @@ public enum Gender implements GrammaticalEnum
       case EN:
       case ETT:
       case NEUTRUM:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case GENDER_UNKNOWN:
-         return translator.realisticTranslate(Translation.GESCHLECHT) + " "
-               + translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, Translation.GESCHLECHT) + " "
+               + translator.realisticTranslate(app, description);
       case GENDER_NA:
       default:
          return "";
@@ -77,7 +84,7 @@ public enum Gender implements GrammaticalEnum
       case EN:
       case ETT:
       case NEUTRUM:
-         return translator.realisticTranslate(description);
+         return translator.realisticTranslate(app, description);
       case GENDER_UNKNOWN:
       case GENDER_NA:
       default:

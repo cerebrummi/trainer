@@ -26,24 +26,11 @@ public final class View
    private JFrame jFrame;
    private MainView mainJPanel;
    private NimbusLookAndFeel nimbus;
-   private Common common;
 
    // package on purpose
    View(App app, Common common, Mode mode)
    {
-      this.common = common;
-      setUI(app);
-
-      try
-      {
-         LetterIcons.readNikud(app);
-         LetterIconsHandwritten.readNikud(app);
-         Buchstabenbilder.read(app, common);
-      }
-      catch (IOException e1)
-      {
-         System.exit(10);
-      }
+      setUI(app, common);
 
       jFrame = new JFrame();
 
@@ -71,6 +58,20 @@ public final class View
       jFrame.setLocationRelativeTo(null);
    }
 
+   public void makeBuchstabenbilder(App app, Common common)
+   {
+      try
+      {
+         LetterIcons.readNikud(app);
+         LetterIconsHandwritten.readNikud(app);
+         Buchstabenbilder.read(app, common);
+      }
+      catch (IOException e1)
+      {
+         System.exit(10);
+      }
+   }
+
    public void startApp()
    {
       jFrame.setVisible(true);
@@ -91,7 +92,7 @@ public final class View
       return nimbus;
    }
 
-   public void setUI(App app)
+   public void setUI(App app, Common common)
    {
       app.toggleModes();
       try
@@ -173,16 +174,7 @@ public final class View
          // nothing
       }
 
-      try
-      {
-         LetterIcons.readNikud(app);
-         LetterIconsHandwritten.readNikud(app);
-         Buchstabenbilder.read(app, common);
-      }
-      catch (IOException e1)
-      {
-         System.exit(11);
-      }
+      makeBuchstabenbilder(app, common);
 
    }
 }

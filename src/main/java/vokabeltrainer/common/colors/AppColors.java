@@ -4,16 +4,16 @@ import java.awt.Color;
 
 public abstract class AppColors implements ColorBase
 {
-   public Alefbet alefbet = null;
-   public Dictionary dictionary = null;
-   public Input input = null;
-   public Main main = null;
-   public Settings settings = null;
-   public Start start = null;
-   public Statistics statistics = null;
-   public Success success = null;
-   public Table table = null;
-   public Trainer trainer = null;
+   public Alefbet alefbet;
+   public Dictionary dictionary;
+   public Input input;
+   public Main main;
+   public Settings settings;
+   public Start start;
+   public Statistics statistics;
+   public Success success;
+   public Table table;
+   public Trainer trainer;
    
    public abstract Color getLightBlue();
 

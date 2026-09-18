@@ -11,12 +11,18 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import vokabeltrainer.cmd.Mode;
+import vokabeltrainer.common.main.App;
+import vokabeltrainer.common.main.Common;
+import vokabeltrainer.common.main.Main;
+import vokabeltrainer.common.main.View;
 import vokabeltrainer.editing.LetterForAnalysis;
 import vokabeltrainer.panels.trainer.Result;
-import vokabeltrainer.resources.Fonts;
 import vokabeltrainer.panels.trainer.NikudResultFactory;
 import vokabeltrainer.types.Expression;
 import vokabeltrainer.types.HebrewType;
@@ -222,57 +228,72 @@ public class TestWordMatching {
     List<String> wordTest26List = new LinkedList<>(Arrays.asList(wordTest26Array));
 
     
+    private static App app;
+    
     @BeforeAll
     public static void init() throws IOException, FontFormatException {
-        Fonts.read();
+       Mode mode = Mode.LOCAL_ORIGINAL;
+       TestWordMatching.app = new App(mode);
+       
+       Common common = new Common();
+            
+       Main.initEnums(app, common);
+       
+       View view = Main.initView(app, common, mode);
+
+       SwingUtilities.invokeLater(() -> {
+         view.startApp();
+       });
+
+       Main.initPostView(app);
     }
 
     @Test
     public void testMatchHebrew_Okay() {
 
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest1, new Font(null), HebrewType.SIMPLE);
         assertTrue(result.isOkay());
     }
 
     @Test
     public void testMatchHebrew_NotOkay() {
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic25);
 
         System.out.println("TestWordMatching " + expressionDic.getLL().getHebrew());
         System.out.println("TestWordMatching " + wordTest25);
 
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest25, new Font(null), HebrewType.SIMPLE);
         assertFalse(result.isOkay());
     }
 
     @Test
     public void testMatchHebrew_Okay2() {
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest4, new Font(null), HebrewType.SIMPLE);
         assertFalse(result.isOkay());
     }
 
     @Test
     public void testMatchHebrew_Okay3() {
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest2, new Font(null), HebrewType.SIMPLE);
         assertFalse(result.isOkay());
     }
 
     @Test
     public void testMatchHebrew_Okay4() {
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic26);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest26, new Font(null), HebrewType.SIMPLE);
         assertTrue(result.isOkay());
     }
@@ -281,9 +302,9 @@ public class TestWordMatching {
     public void testMatchHebrew_Correct_Alignment1() {
         System.out.println("");
         System.out.println("testMatchHebrew_Correct_Alignment1");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic26);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest26, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -301,45 +322,45 @@ public class TestWordMatching {
 
     @Test
     public void testMatchHebrew_Empty() {
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic20);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest20, new Font(null), HebrewType.SIMPLE);
         assertTrue(result.isAnswerEmpty());
     }
 
     @Test
     public void testMatchHebrew_Empty2() {
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic20);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest20a, new Font(null), HebrewType.SIMPLE);
         assertTrue(result.isAnswerEmpty());
     }
 
     @Test
     public void testMatchHebrew_Empty_Dic1() {
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic21);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest21, new Font(null), HebrewType.SIMPLE);
         assertTrue(result.isDictionaryEmpty());
     }
 
     @Test
     public void testMatchHebrew_Empty_Dic2() {
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic21a);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest21, new Font(null), HebrewType.SIMPLE);
         assertTrue(result.isDictionaryEmpty());
     }
 
     @Test
     public void testMatchHebrew_Empty_Dic3() {
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic21b);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest21, new Font(null), HebrewType.SIMPLE);
         assertTrue(result.isDictionaryEmpty());
     }
@@ -348,9 +369,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest4, new Font(null), HebrewType.SIMPLE);
 
         List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
@@ -364,9 +385,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment2() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment2");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest5, new Font(null), HebrewType.SIMPLE);
 
         List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
@@ -380,9 +401,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment3() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment3");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest6, new Font(null), HebrewType.SIMPLE);
 
         List<String> wordTesting = turnIntoListOfStrings(result.getAnswer());
@@ -396,9 +417,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment4() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment4");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest7, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -419,9 +440,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment5() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment5");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest9, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -442,9 +463,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment6() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment6");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest10, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -465,9 +486,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment7() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment7");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic11);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest11, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -486,9 +507,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment8() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment8");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordTest13);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest13, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -506,9 +527,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment9() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment9");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic14);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest14, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -528,9 +549,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment10() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment10");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic15);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest15, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -550,9 +571,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment11() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment11");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic19);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest19, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -572,9 +593,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment12() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment12");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic22);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest22, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -594,9 +615,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment13() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment13");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic17);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest17, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -619,9 +640,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment14() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment14");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic23);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest23, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -644,9 +665,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment15() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment15");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest8, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
@@ -669,9 +690,9 @@ public class TestWordMatching {
     public void testMatchHebrew_PartlyFalse_Alignment16() {
         System.out.println("");
         System.out.println("testMatchHebrew_PartlyFalse_Alignment16");
-        Expression expressionDic = new Expression(true);
+        Expression expressionDic = new Expression(app, true);
         expressionDic.getLL().setHebrew(wordDic24);
-        Result result = NikudResultFactory.getResultDtoNikudSentence(expressionDic,
+        Result result = NikudResultFactory.getResultDtoNikudSentence(app, expressionDic,
             wordTest24, new Font(null), HebrewType.SIMPLE);
 
         List<String> dicTesting = turnIntoListOfStrings(result.getDictionary());
