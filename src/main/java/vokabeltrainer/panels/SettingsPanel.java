@@ -75,7 +75,7 @@ public class SettingsPanel extends JPanel
       translator = common.getTranslator();
       setLayout(new BullsEyeLayout(this));
       this.setOpaque(true);
-      this.setBackground(app.appColors.getTexturedBackgroundColor());
+      this.setBackground(app.appColors.getBeigeGold());
       
       JTabbedPane tabbedPane = new JTabbedPane();
       tabbedPane.setOpaque(false);
@@ -292,7 +292,7 @@ public class SettingsPanel extends JPanel
       horizontal.add(vertical3);
       
       JButton link = new JButton(translator.realisticTranslate(app, Translation.ERKLAEHR_VIDEO));
-      link.setBackground(app.appColors.getGreen());
+      link.setBackground(app.appColors.getWasteBinBorder());
       link.setFont(app.appFonts.buttonFont);
       link.addActionListener(_ -> {
          Desktop desktop = Desktop.getDesktop();

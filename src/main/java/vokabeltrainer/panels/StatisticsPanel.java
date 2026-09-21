@@ -137,7 +137,7 @@ public class StatisticsPanel extends JPanel
       scroller.getViewport().setOpaque(false);
       scroller.getViewport().setBackground(app.appColors.getTransparent());
       scroller.setViewportBorder(BorderFactory.createEmptyBorder());
-      scroller.setBackground(app.appColors.getDarkRed());
+      scroller.setBackground(app.appColors.getShredderButtonBorder());
 
       tablePanel.add(titlePanel);
       tablePanel.add(scroller);

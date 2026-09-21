@@ -49,6 +49,7 @@ public class StartPanel extends JPanel
       TotemLayout northLayout = new TotemLayout(north);
       north.setLayout(northLayout);
       north.setOpaque(false);
+      north.setBackground(app.appColors.getTransparent());
 
       JPanel nameWrapper = new JPanel();
       BullsEyeLayout nameWrapperLayout = new BullsEyeLayout(nameWrapper);

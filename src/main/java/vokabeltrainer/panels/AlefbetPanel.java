@@ -125,7 +125,7 @@ public class AlefbetPanel extends JPanel
          {
             if (((LetterTextField) jtc).isOkay())
             {
-               jtc.setBackground(app.appColors.getGreen());
+               jtc.setBackground(app.appColors.getWasteBinBorder());
             }
             else if (jtc.getText().isBlank())
             {
@@ -133,7 +133,7 @@ public class AlefbetPanel extends JPanel
             }
             else
             {
-               jtc.setBackground(app.appColors.getLightGrayGold());
+               jtc.setBackground(app.appColors.getBoxForeground());
             }
          }
       });

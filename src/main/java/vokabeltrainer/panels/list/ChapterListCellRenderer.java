@@ -19,7 +19,7 @@ public class ChapterListCellRenderer extends DefaultListCellRenderer
    public ChapterListCellRenderer(App app)
    {
       label = new JLabel();
-      label.setBackground(app.appColors.dictionary.getLightGrayGold());
+      label.setBackground(app.appColors.dictionary.getLabelBackground());
       label.setFont(app.appFonts.internationalFont);
    }
 

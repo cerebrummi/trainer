@@ -55,7 +55,7 @@ public interface NikudLetterImage {
         BufferedImage finalImg = new BufferedImage(50, 50,
             BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = finalImg.createGraphics();
-        g2d.setColor(app.appColors.getTexturedBackgroundColor());
+        g2d.setColor(app.appColors.getBeigeGold());
         g2d.fillRect(0, 0, 50, 50);
         g2d.dispose();
         return finalImg;

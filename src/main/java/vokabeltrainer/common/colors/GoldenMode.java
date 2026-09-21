@@ -68,7 +68,7 @@ public class GoldenMode extends AppColors
    }
 
    @Override
-   public Color getLightGrayGold()
+   public Color getBoxForeground()
    {
       return shadyBlue;
    }
@@ -76,13 +76,13 @@ public class GoldenMode extends AppColors
    @Override
    public Color getMediumGold()
    {
-      return mediumGold;
+      return mediumBlue;
    }
 
    @Override
    public Color getBackgroundGold()
    {
-      return backgroundGold;
+      return shadyBlue;
       
    }
 
@@ -93,7 +93,7 @@ public class GoldenMode extends AppColors
    }
 
    @Override
-   public Color getGreen()
+   public Color getWasteBinBorder()
    {
       return darkGreen;
    }
@@ -105,7 +105,7 @@ public class GoldenMode extends AppColors
    }
 
    @Override
-   public Color getSelectionGreen()
+   public Color getMediumGreen()
    {
       return sunflowerYellow;
    }
@@ -117,13 +117,13 @@ public class GoldenMode extends AppColors
    }
 
    @Override
-   public Color getTexturedBackgroundColor()
+   public Color getBeigeGold()
    {
       return shadyBlue;
    }
 
    @Override
-   public Color getTexturedBackgroundColorLight()
+   public Color getBeigeGoldLight()
    {
       return shadyBlue;
    }
@@ -141,7 +141,7 @@ public class GoldenMode extends AppColors
    }
 
    @Override
-   public Color getDarkRed()
+   public Color getShredderButtonBorder()
    {
       return shadyBlue;
    }
@@ -149,7 +149,7 @@ public class GoldenMode extends AppColors
    @Override
    public Color getRose()
    {
-      return texturedBackgroundColor;
+      return beigeGold;
    }
 
    @Override
@@ -251,7 +251,7 @@ public class GoldenMode extends AppColors
       }
 
       @Override
-      public Color getLightGrayGold()
+      public Color getLabelBackground()
       {
          return lightGrayGold;
       }
@@ -274,7 +274,7 @@ public class GoldenMode extends AppColors
       }
 
       @Override
-      public Color getPanelBackground()
+      public Color getBoxBackground()
       {
          return backgroundGold;
       }
@@ -319,6 +319,12 @@ public class GoldenMode extends AppColors
       public Color getInfoTextForeground()
       {
          return darkGold;
+      }
+
+      @Override
+      public Color getInfoButtonBackground()
+      {
+         return white;
       }
       
    }

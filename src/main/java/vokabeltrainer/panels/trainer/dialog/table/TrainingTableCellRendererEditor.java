@@ -64,7 +64,7 @@ public class TrainingTableCellRendererEditor
       amountOfNewWordsButton = new JButton();
       amountOfNewWordsButton.setFont(font);
       amountOfNewWordsButton.setBorder(BorderFactory.createEmptyBorder());
-      amountOfNewWordsButton.setBackground(app.appColors.getGreen());
+      amountOfNewWordsButton.setBackground(app.appColors.getWasteBinBorder());
       amountOfNewWordsButton.addActionListener(_ -> {
          table.editCellAt(row, column);
       });

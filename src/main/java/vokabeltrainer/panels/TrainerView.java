@@ -217,28 +217,28 @@ public class TrainerView extends JPanel
       pictureWordPanelPlene.setPreferredSize(new Dimension(1200, 110));
       pictureWordPanelPlene.setOpaque(true);
       pictureWordPanelPlene
-            .setBackground(app.appColors.getTexturedBackgroundColor());
+            .setBackground(app.appColors.getBeigeGold());
 
       JScrollPane scroller = new JScrollPane(pictureWordPanelPlene);
       scroller.setMinimumSize(new Dimension(1200, 110));
       scroller.setMaximumSize(new Dimension(1200, 110));
       scroller.setBorder(BorderFactory.createEmptyBorder());
       scroller.setOpaque(true);
-      scroller.setBackground(app.appColors.getTexturedBackgroundColor());
+      scroller.setBackground(app.appColors.getBeigeGold());
       verticalTrainerPanel.add(scroller);
 
       pictureWordPanelDefektiv = new LetterPictureWordPanel();
       pictureWordPanelDefektiv.setPreferredSize(new Dimension(1200, 110));
       pictureWordPanelDefektiv.setOpaque(true);
       pictureWordPanelDefektiv
-            .setBackground(app.appColors.getTexturedBackgroundColor());
+            .setBackground(app.appColors.getBeigeGold());
 
       JScrollPane scroller2 = new JScrollPane(pictureWordPanelDefektiv);
       scroller2.setMinimumSize(new Dimension(1200, 110));
       scroller2.setMaximumSize(new Dimension(1200, 110));
       scroller2.setBorder(BorderFactory.createEmptyBorder());
       scroller2.setOpaque(true);
-      scroller2.setBackground(app.appColors.getTexturedBackgroundColor());
+      scroller2.setBackground(app.appColors.getBeigeGold());
 
       verticalTrainerPanel.add(scroller2);
    }
@@ -309,12 +309,12 @@ public class TrainerView extends JPanel
    {
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 15));
-      horizontal.setBackground(app.appColors.getTexturedBackgroundColor());
+      horizontal.setBackground(app.appColors.getBeigeGold());
 
       questionPanel = new JPanel();
       questionPanel.setLayout(new TotemLayout(questionPanel, 10));
       questionPanel
-            .setBackground(app.appColors.getTexturedBackgroundColor());
+            .setBackground(app.appColors.getBeigeGold());
 
       horizontal.add(initLeftPanel(app));
       horizontal.add(questionPanel);
@@ -483,12 +483,12 @@ public class TrainerView extends JPanel
    {
       questionPanel.removeAll();
       questionPanel
-            .setBackground(app.appColors.getTexturedBackgroundColor());
+            .setBackground(app.appColors.getBeigeGold());
 
       JPanel additionalInfoPanel = new JPanel();
       additionalInfoPanel.setLayout(new TrainLayout(additionalInfoPanel, 15));
       additionalInfoPanel
-            .setBackground(app.appColors.getTexturedBackgroundColor());
+            .setBackground(app.appColors.getBeigeGold());
 
       additionalInfo = new JCheckBox();
       additionalInfo.setFont(app.appFonts.germanFont.deriveFont(15F));
@@ -558,7 +558,7 @@ public class TrainerView extends JPanel
 
       answerPanel = new JPanel();
       answerPanel.setLayout(new TotemLayout(answerPanel));
-      answerPanel.setBackground(app.appColors.getTexturedBackgroundColor());
+      answerPanel.setBackground(app.appColors.getBeigeGold());
 
       questionPanel.add(answerPanel);
 
@@ -682,7 +682,7 @@ public class TrainerView extends JPanel
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
       vertical.setOpaque(true);
-      vertical.setBackground(app.appColors.getTexturedBackgroundColor());
+      vertical.setBackground(app.appColors.getBeigeGold());
 
       imageFieldGreen = new ImagePanelGreen();
       imageFieldGreen.setBorder(BorderFactory.createEmptyBorder());
@@ -713,7 +713,7 @@ public class TrainerView extends JPanel
       swapPanel.setMinimumSize(new Dimension(501, 209));
       swapPanel.setMaximumSize(new Dimension(520, 209));
       swapPanel.setBorder(BorderFactory.createEmptyBorder());
-      swapPanel.setBackground(app.appColors.getTexturedBackgroundColor());
+      swapPanel.setBackground(app.appColors.getBeigeGold());
 
       swapPanel.add("START", imageFieldStart);
       swapPanel.add("GREEN", imageFieldGreen);
@@ -750,7 +750,7 @@ public class TrainerView extends JPanel
       feedbackPanel.setMaximumSize(new Dimension(501, 230));
       feedbackPanel.setOpaque(true);
       feedbackPanel
-            .setBackground(app.appColors.getTexturedBackgroundColor());
+            .setBackground(app.appColors.getBeigeGold());
 
       vertical.add(swapPanel);
       vertical.add(sendButton);

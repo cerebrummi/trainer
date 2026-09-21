@@ -811,7 +811,7 @@ public class LanguageExpressionEditorView extends JDialog
             .setMaximumSize(new Dimension(WIDTH_INFO_PANEL, 300));
       scrollPaneExpressionTable.setBorder(BorderFactory.createTitledBorder(
             BorderFactory
-                  .createLineBorder(app.appColors.getLightGrayGold()),
+                  .createLineBorder(app.appColors.getBoxForeground()),
             translator.realisticTranslate(app, 
                   Translation.WORTARTEN__MEHRFACHAUSWAHL_)));
 

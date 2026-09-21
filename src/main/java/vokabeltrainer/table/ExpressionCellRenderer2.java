@@ -54,7 +54,7 @@ public class ExpressionCellRenderer2 implements TableCellRenderer
       if (isSelected)
       {
          content.setBorder(BorderFactory
-               .createLineBorder(app.appColors.getSelectionGreen(), 3));
+               .createLineBorder(app.appColors.getMediumGreen(), 3));
       }
       else
       {

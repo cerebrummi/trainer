@@ -36,16 +36,16 @@ public class LetterPictureWordPanel extends JPanel
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal));
-      horizontal.setBackground(app.appColors.getTexturedBackgroundColor());
+      horizontal.setBackground(app.appColors.getBeigeGold());
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
-      vertical.setBackground(app.appColors.getTexturedBackgroundColor());
+      vertical.setBackground(app.appColors.getBeigeGold());
 
       JPanel displayPanel = new JPanel();
       displayPanel.setLayout(new TrainLayout(displayPanel));
       displayPanel
-            .setBackground(app.appColors.getTexturedBackgroundColor());
+            .setBackground(app.appColors.getBeigeGold());
       displayPanel.setMinimumSize(new Dimension(1268, 200));
       displayPanel.setMaximumSize(new Dimension(1268, 200));
 
@@ -63,7 +63,7 @@ public class LetterPictureWordPanel extends JPanel
       JPanel displayPanel2 = new JPanel();
       displayPanel2.setLayout(new TrainLayout(displayPanel2));
       displayPanel2
-            .setBackground(app.appColors.getTexturedBackgroundColor());
+            .setBackground(app.appColors.getBeigeGold());
       displayPanel2.setMinimumSize(new Dimension(1268, 200));
       displayPanel2.setMaximumSize(new Dimension(1268, 200));
 

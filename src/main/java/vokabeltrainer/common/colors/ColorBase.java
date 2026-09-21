@@ -20,8 +20,8 @@ interface ColorBase
    Color veryLightGold = new Color(247, 240, 232);
    Color green = new Color(181, 192, 81);
    Color brightGreen = new Color(0, 255, 0);
-   Color texturedBackgroundColor = new Color(225, 216, 211);
-   Color texturedBackgroundColorLight = new Color(230, 221, 217);
+   Color beigeGold = new Color(225, 216, 211);
+   Color beigeGoldLight = new Color(230, 221, 217);
    Color white = new Color(255, 255, 255);
    Color lightYellow = new Color(255, 255, 235);
    Color darkRed = new Color(216, 0, 0);

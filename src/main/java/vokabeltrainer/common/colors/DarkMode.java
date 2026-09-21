@@ -18,8 +18,6 @@ public class DarkMode extends AppColors
       trainer = new Trainer();
    }
    
-   
-   
    @Override
    public Color getLightBlue()
    {
@@ -69,7 +67,7 @@ public class DarkMode extends AppColors
    }
 
    @Override
-   public Color getLightGrayGold()
+   public Color getBoxForeground()
    {
       return lightGrayGold;
    }
@@ -77,13 +75,13 @@ public class DarkMode extends AppColors
    @Override
    public Color getMediumGold()
    {
-      return mediumBlue;
+      return mediumGold;
    }
 
    @Override
    public Color getBackgroundGold()
    {
-      return shadyBlue;
+      return backgroundGold;
    }
 
    @Override
@@ -93,7 +91,7 @@ public class DarkMode extends AppColors
    }
 
    @Override
-   public Color getGreen()
+   public Color getWasteBinBorder()
    {
       return green;
    }
@@ -105,7 +103,7 @@ public class DarkMode extends AppColors
    }
 
    @Override
-   public Color getSelectionGreen()
+   public Color getMediumGreen()
    {
       return green;
    }
@@ -117,15 +115,15 @@ public class DarkMode extends AppColors
    }
 
    @Override
-   public Color getTexturedBackgroundColor()
+   public Color getBeigeGold()
    {
-      return texturedBackgroundColor;
+      return beigeGold;
    }
 
    @Override
-   public Color getTexturedBackgroundColorLight()
+   public Color getBeigeGoldLight()
    {
-      return texturedBackgroundColorLight;
+      return beigeGoldLight;
    }
 
    @Override
@@ -141,7 +139,7 @@ public class DarkMode extends AppColors
    }
 
    @Override
-   public Color getDarkRed()
+   public Color getShredderButtonBorder()
    {
       return darkRed;
    }
@@ -251,7 +249,7 @@ public class DarkMode extends AppColors
       }
 
       @Override
-      public Color getLightGrayGold()
+      public Color getLabelBackground()
       {
          return lightGrayGold;
       }
@@ -274,7 +272,7 @@ public class DarkMode extends AppColors
       }
 
       @Override
-      public Color getPanelBackground()
+      public Color getBoxBackground()
       {
          return shadyBlueLight;
       }
@@ -319,6 +317,12 @@ public class DarkMode extends AppColors
       public Color getInfoTextForeground()
       {
          return shadyBlue;
+      }
+
+      @Override
+      public Color getInfoButtonBackground()
+      {
+         return white;
       }
       
    }

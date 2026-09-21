@@ -33,7 +33,7 @@ public class ImageItemRenderer extends JPanel
       setMinimumSize(new Dimension(210, 210));
       setMaximumSize(new Dimension(210, 210));
       setOpaque(true);
-      setBackground(app.appColors.getLightGrayGold());
+      setBackground(app.appColors.getBoxForeground());
    }
 
    @Override

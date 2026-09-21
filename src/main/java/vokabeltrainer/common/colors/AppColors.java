@@ -21,7 +21,7 @@ public abstract class AppColors implements ColorBase
 
    public abstract Color getMediumBlue();
 
-   abstract Color getMediumSilverBlue();
+   public abstract Color getMediumSilverBlue();
 
    public abstract Color getShadyBlue();
 
@@ -31,38 +31,38 @@ public abstract class AppColors implements ColorBase
 
    public abstract Color getLightGold();
 
-   public abstract Color getLightGrayGold();
+   public abstract Color getBoxForeground();
 
-   abstract Color getMediumGold();
+   public abstract Color getMediumGold();
 
    public abstract Color getBackgroundGold();
 
    public abstract Color getVeryLightGold();
 
-   public abstract Color getGreen();
+   public abstract Color getWasteBinBorder();
    
    public abstract Color getBrightGreen();
 
-   public abstract Color getSelectionGreen();
+   public abstract Color getMediumGreen();
 
    public abstract Color getTransparent();
 
-   public abstract Color getTexturedBackgroundColor();
+   public abstract Color getBeigeGold();
 
-   abstract Color getTexturedBackgroundColorLight();
+   public abstract Color getBeigeGoldLight();
 
    public abstract Color getWhite();
 
    public abstract Color getLightYellow();
 
-   public abstract Color getDarkRed();
+   public abstract Color getShredderButtonBorder();
    public abstract Color getRed();
 
-   abstract Color getRose();
+   public abstract Color getRose();
 
    public abstract Color getSunflowerYellow();
    
-   abstract Color getGray();
+   public abstract Color getGray();
 
    public abstract Color getBlack();
    
@@ -84,14 +84,14 @@ public abstract class AppColors implements ColorBase
       public abstract Color getBackground();
       public abstract Color getButton();
       public abstract Color getButtonForeground();
-      public abstract Color getLightGrayGold();
+      public abstract Color getLabelBackground();
    }
    
    public abstract class Input
    {
       public abstract Color getEditorBackground();
       public abstract Color getTextEditorBackground();
-      public abstract Color getPanelBackground();
+      public abstract Color getBoxBackground();
       public abstract Color getButtonBorder();
       public abstract Color getButton();
       public abstract Color getButton2();
@@ -99,6 +99,7 @@ public abstract class AppColors implements ColorBase
       public abstract Color getTextBackground();
       public abstract Color getTextForeground();
       public abstract Color getInfoTextForeground();
+      public abstract Color getInfoButtonBackground();
    }
    
    public abstract class Main

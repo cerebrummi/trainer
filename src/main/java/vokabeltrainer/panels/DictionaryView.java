@@ -167,7 +167,6 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
          AbstractButton button = enumeration1.nextElement();
          button.setBackground(app.appColors.dictionary.getButton());
          button.setForeground(app.appColors.dictionary.getButtonForeground());
-         button.setForeground(app.appColors.getDarkGold());
          button.setMinimumSize(new Dimension(90, 30));
          button.setMaximumSize(new Dimension(120, 60));
          button.addActionListener(
@@ -730,7 +729,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       wasteBinButton = new JButton(
             new ImageIcon(app.appImages.getTrashcan()));
       wasteBinButton.setBorder(
-            BorderFactory.createLineBorder(app.appColors.getGreen(), 2));
+            BorderFactory.createLineBorder(app.appColors.getWasteBinBorder(), 2));
       wasteBinButton.setBorderPainted(true);
       wasteBinButton.setContentAreaFilled(false);
       wasteBinButton.setFocusPainted(false);
@@ -738,7 +737,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       shredderButton = new JButton(
             new ImageIcon(app.appImages.getShredder()));
       shredderButton.setBorder(
-            BorderFactory.createLineBorder(app.appColors.getDarkRed(), 2));
+            BorderFactory.createLineBorder(app.appColors.getShredderButtonBorder(), 2));
       shredderButton.setBorderPainted(true);
       shredderButton.setContentAreaFilled(false);
       shredderButton.setFocusPainted(false);

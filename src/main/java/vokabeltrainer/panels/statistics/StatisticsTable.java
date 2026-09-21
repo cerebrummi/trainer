@@ -25,6 +25,7 @@ public class StatisticsTable extends JTable
       this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
       JTableHeader header = getTableHeader();
-      header.setForeground(app.appColors.statistics.getTextForeground());
+      header.setForeground(app.appColors.getLightBlue());
+      header.setBackground(app.appColors.getMediumBlue());
    }
 }

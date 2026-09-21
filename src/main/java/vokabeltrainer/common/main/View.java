@@ -106,8 +106,8 @@ public final class View
                .getFont("internationalFont");
 
          UIManager.put("nimbusFocus", app.appColors.getSunflowerYellow());
-         UIManager.put("nimbusBlueGrey", app.appColors.getLightGrayGold());
-         UIManager.put("nimbusSelection", app.appColors.getGreen());
+         UIManager.put("nimbusBlueGrey", app.appColors.getBoxForeground());
+         UIManager.put("nimbusSelection", app.appColors.getWasteBinBorder());
 
          UIManager.put("Button.foreground", app.appColors.getBlack());
          UIManager.put("List.foreground", app.appColors.getDarkGold());
