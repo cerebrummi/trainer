@@ -3,12 +3,19 @@ package vokabeltrainer.cmd;
 public interface TextHelper {
 
     static String cleanText(String text) {
-        return text.replaceAll("\\t", " ").replaceAll("\\n", " ")
-            .replaceAll("\\r", " ").strip();
+        return text
+            .strip()
+            .replace('\t', ' ')
+            .replace('\n', ' ')
+            .replace('\r', ' ');
     }
 
     static String cleanTextSanitizeForCsv(String text) {
-        return text.replaceAll("\\t", " ").replaceAll("\\n", " ")
-            .replaceAll("\\r", " ").replaceAll(",", " ").strip();
+        return text
+            .strip()
+            .replace('\t', ' ')
+            .replace('\n', ' ')
+            .replace('\r', ' ')
+            .replace(',', ' ');
     }
 }
