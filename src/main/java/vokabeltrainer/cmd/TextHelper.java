@@ -11,11 +11,6 @@ public interface TextHelper {
     }
 
     static String cleanTextSanitizeForCsv(String text) {
-        return text
-            .replace(',', ' ')
-            .strip()
-            .replace('\t', ' ')
-            .replace('\n', ' ')
-            .replace('\r', ' ');
+        return cleanText(text.replace(',', ' '));
     }
 }
