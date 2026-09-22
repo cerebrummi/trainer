@@ -12,10 +12,10 @@ public interface TextHelper {
 
     static String cleanTextSanitizeForCsv(String text) {
         return text
+            .replace(',', ' ')
             .strip()
             .replace('\t', ' ')
             .replace('\n', ' ')
-            .replace('\r', ' ')
-            .replace(',', ' ');
+            .replace('\r', ' ');
     }
 }
