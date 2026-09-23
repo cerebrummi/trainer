@@ -41,7 +41,7 @@ public class AlefbetPanel extends JPanel
       translator = common.getTranslator();
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(app.appColors.alefbet.getPanelBackground());
+      setBackground(app.appColors.getBackground());
 
       JPanel horizontal = new JPanel();
       horizontal.setLayout(new TrainLayout(horizontal, 165));
@@ -125,11 +125,11 @@ public class AlefbetPanel extends JPanel
          {
             if (((LetterTextField) jtc).isOkay())
             {
-               jtc.setBackground(app.appColors.getWasteBinBorder());
+               jtc.setBackground(app.appColors.dictionary.getWasteBinBorder());
             }
             else if (jtc.getText().isBlank())
             {
-               jtc.setBackground(app.appColors.getLightYellow());
+               jtc.setBackground(app.appColors.alefbet.getTextBackground());
             }
             else
             {

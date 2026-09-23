@@ -41,7 +41,7 @@ public class DirectionTab extends JPanel
    {
       translator = common.getTranslator();
       setLayout(new BorderLayout());
-      setBackground(app.appColors.trainer.getPanelBackgroundDark());
+      setBackground(app.appColors.getBackground());
       setOpaque(true);
 
       JLabel question = new JLabel(translator.realisticTranslate(app, 
@@ -54,14 +54,14 @@ public class DirectionTab extends JPanel
 
       JPanel center = new JPanel();
       center.setOpaque(false);
-      center.setBackground(app.appColors.trainer.getTransparent());
+      center.setBackground(app.appColors.getTransparent());
       center.setLayout(new FlowLayout());
       directionGroup = new ButtonGroup();
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new BoxLayout(vertical, 1));
       vertical.setOpaque(false);
-      vertical.setBackground(app.appColors.trainer.getTransparent());
+      vertical.setBackground(app.appColors.getTransparent());
 
       ownToNikudButton = new JRadioButton(
             translator.realisticTranslate(app, Translation.DEUTSCH) + " >> "

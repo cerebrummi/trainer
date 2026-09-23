@@ -35,15 +35,15 @@ public class DatabaseTableCellRenderer
 
       database = new JLabel();
       database.setFont(app.appFonts.germanFont.deriveFont(14F));
-      database.setForeground(app.appColors.getShadyBlue());
+      database.setForeground(app.appColors.getThemeDefinitionColor());
 
       authors = new JLabel();
       authors.setFont(app.appFonts.germanFont.deriveFont(14F));
-      authors.setForeground(app.appColors.getShadyBlue());
+      authors.setForeground(app.appColors.getThemeDefinitionColor());
 
       company = new JLabel();
       company.setFont(app.appFonts.germanFont.deriveFont(14F));
-      company.setForeground(app.appColors.getShadyBlue());
+      company.setForeground(app.appColors.getThemeDefinitionColor());
    }
 
    @Override

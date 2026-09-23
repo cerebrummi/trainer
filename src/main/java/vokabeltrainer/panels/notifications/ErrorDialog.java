@@ -27,7 +27,7 @@ public class ErrorDialog extends JDialog
       vertical.setLayout(verticalLayout);
       vertical.setBackground(app.appColors.getWhite());
       vertical.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(app.appColors.getShredderButtonBorder()),
+            BorderFactory.createLineBorder(app.appColors.dictionary.getShredderButtonBorder()),
             common.getTranslator()
                   .realisticTranslate(app, Translation.FEHLERMELDUNG)));
 

@@ -28,7 +28,7 @@ public class AmountTab extends JPanel
    {
       translator = common.getTranslator();
       setLayout(new BorderLayout());
-      setBackground(app.appColors.trainer.getPanelBackground());
+      setBackground(app.appColors.getBackground());
       setOpaque(true);
 
       JLabel question = new JLabel(translator.realisticTranslate(app, 

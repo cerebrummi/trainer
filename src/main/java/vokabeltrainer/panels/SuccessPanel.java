@@ -32,7 +32,7 @@ public class SuccessPanel extends JPanel
       
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(app.appColors.success.getPanelBackground());
+      setBackground(app.appColors.getBackground());
 
       germanHebrewRegister = new JTabbedPane();
       germanHebrewRegister.setForeground(app.appColors.success.getTextForeground());

@@ -45,7 +45,7 @@ public final class View
       }
       jFrame.setResizable(true);
       jFrame.setIconImage(app.appImages.getLogo());
-      jFrame.getContentPane().setBackground(app.appColors.getBackgroundGold());
+      jFrame.getContentPane().setBackground(app.appColors.getBackground());
       jFrame.setTitle(
             app.settings.getWindowTitle() + " " + app.settings.getVersion());
       jFrame.setFont(app.appFonts.germanFont.deriveFont(14F));
@@ -107,7 +107,7 @@ public final class View
 
          UIManager.put("nimbusFocus", app.appColors.getSunflowerYellow());
          UIManager.put("nimbusBlueGrey", app.appColors.getBoxForeground());
-         UIManager.put("nimbusSelection", app.appColors.getWasteBinBorder());
+         UIManager.put("nimbusSelection", app.appColors.dictionary.getWasteBinBorder());
 
          UIManager.put("Button.foreground", app.appColors.getBlack());
          UIManager.put("List.foreground", app.appColors.getDarkGold());

@@ -104,7 +104,7 @@ public class InputDatabaseNameDialog extends JDialog
          if (overwrite && databaseName.isBlank())
          {
             this.inputImportField.setBorder(BorderFactory
-                  .createLineBorder(app.appColors.getShredderButtonBorder(), 3));
+                  .createLineBorder(app.appColors.dictionary.getShredderButtonBorder(), 3));
             return;
          }
          startImport = true;

@@ -36,7 +36,7 @@ public class DatabaseTab extends JPanel
    {
       translator = common.getTranslator();
       setLayout(new BorderLayout());
-      setBackground(app.appColors.trainer.getPanelBackgroundDark());
+      setBackground(app.appColors.getBackground());
       setOpaque(true);
 
       JLabel question = new JLabel(
@@ -49,7 +49,7 @@ public class DatabaseTab extends JPanel
 
       JPanel center = new JPanel();
       center.setOpaque(false);
-      center.setBackground(app.appColors.trainer.getTransparent());
+      center.setBackground(app.appColors.getTransparent());
       center.setLayout(new FlowLayout());
       new ButtonGroup();
 

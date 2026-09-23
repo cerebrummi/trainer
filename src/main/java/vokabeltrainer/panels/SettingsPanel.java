@@ -135,7 +135,7 @@ public class SettingsPanel extends JPanel
       JPanel panel = new JPanel();
       BullsEyeLayout panelLayout = new BullsEyeLayout(panel);
       panel.setLayout(panelLayout);
-      panel.setBackground(app.appColors.getShadyBlue());
+      panel.setBackground(app.appColors.getThemeDefinitionColor());
 
       modus = new JCheckBox(translator
             .realisticTranslate(app, Translation.SCHABBAT_MODUS));
@@ -292,7 +292,7 @@ public class SettingsPanel extends JPanel
       horizontal.add(vertical3);
       
       JButton link = new JButton(translator.realisticTranslate(app, Translation.ERKLAEHR_VIDEO));
-      link.setBackground(app.appColors.getWasteBinBorder());
+      link.setBackground(app.appColors.dictionary.getWasteBinBorder());
       link.setFont(app.appFonts.buttonFont);
       link.addActionListener(_ -> {
          Desktop desktop = Desktop.getDesktop();

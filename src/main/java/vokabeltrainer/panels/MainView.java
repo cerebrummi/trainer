@@ -67,7 +67,7 @@ public class MainView extends JPanel
    {
       setLayout(new BorderLayout());
       this.setOpaque(false);
-      this.setBackground(app.appColors.getTransparent());
+      this.setBackground(app.appColors.getBackground());
       app.readColorModes();
       view.setUI(app, common);
 
@@ -141,7 +141,7 @@ public class MainView extends JPanel
    {
       menuBar = new JMenuBar();
       menuBar.setOpaque(true);
-      menuBar.setBackground(app.appColors.getLightGold());
+      menuBar.setBackground(app.appColors.main.getToolbarBackground());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
       menuBar.setMinimumSize(new Dimension(1200, 80));
       menuBar.setMaximumSize(new Dimension(6000, 80));
@@ -155,7 +155,7 @@ public class MainView extends JPanel
    {
       menuBar = new JMenuBar();
       menuBar.setOpaque(true);
-      menuBar.setBackground(app.appColors.getLightGold());
+      menuBar.setBackground(app.appColors.main.getToolbarBackground());
       menuBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
       menuBar.setMinimumSize(new Dimension(1200, 80));
       menuBar.setMaximumSize(new Dimension(6000, 80));

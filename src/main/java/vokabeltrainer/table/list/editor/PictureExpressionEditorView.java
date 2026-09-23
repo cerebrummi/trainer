@@ -81,7 +81,7 @@ public class PictureExpressionEditorView extends JDialog
             Math.min(screenSize.height - 60, 825));
 
       outerLayout = new JPanel();
-      outerLayout.setBackground(app.appColors.getShadyBlue());
+      outerLayout.setBackground(app.appColors.getThemeDefinitionColor());
       outerLayout.setBorder(BorderFactory
             .createLineBorder(app.appColors.input.getEditorBackground(), 15, false));
       outerLayout.setLayout(new TotemLayout(outerLayout, 15));

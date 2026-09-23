@@ -84,53 +84,53 @@ public class InformationTab extends JPanel
       JCheckBox heuteCheck = new JCheckBox(
             translator.realisticTranslate(app, Translation.HEUTE));
       heuteCheck.setFont(checkBoxFont);
-      heuteCheck.setForeground(app.appColors.getWhite());
+      heuteCheck.setForeground(app.appColors.success.getTableBackground());
       heuteCheck.setSelected(true);
       heuteCheck.setEnabled(false);
       morgenCheck = new JCheckBox(
             translator.realisticTranslate(app, Translation.MORGEN));
       morgenCheck.setFont(checkBoxFont);
-      morgenCheck.setForeground(app.appColors.getWhite());
+      morgenCheck.setForeground(app.appColors.success.getTableBackground());
       morgenCheck.setSelected(app.settings.isRepetition_one_day());
       tage_2_Check = new JCheckBox(
             translator.realisticTranslate(app, Translation._2_TAGE));
       tage_2_Check.setFont(checkBoxFont);
-      tage_2_Check.setForeground(app.appColors.getWhite());
+      tage_2_Check.setForeground(app.appColors.success.getTableBackground());
       tage_2_Check.setSelected(app.settings.isRepetition_two_days());
       tage_5_Check = new JCheckBox(
             translator.realisticTranslate(app, Translation._5_TAGE));
       tage_5_Check.setFont(checkBoxFont);
-      tage_5_Check.setForeground(app.appColors.getWhite());
+      tage_5_Check.setForeground(app.appColors.success.getTableBackground());
       tage_5_Check.setSelected(app.settings.isRepetition_five_days());
       tage_11_Check = new JCheckBox(
             translator.realisticTranslate(app, Translation._11_TAGE));
       tage_11_Check.setFont(checkBoxFont);
-      tage_11_Check.setForeground(app.appColors.getWhite());
+      tage_11_Check.setForeground(app.appColors.success.getTableBackground());
       tage_11_Check.setSelected(app.settings.isRepetition_eleven_days());
       tage_19_Check = new JCheckBox(
             translator.realisticTranslate(app, Translation._19_TAGE));
       tage_19_Check.setFont(checkBoxFont);
-      tage_19_Check.setForeground(app.appColors.getWhite());
+      tage_19_Check.setForeground(app.appColors.success.getTableBackground());
       tage_19_Check.setSelected(app.settings.isRepetition_nineteen_days());
       monate_1_Check = new JCheckBox(
             translator.realisticTranslate(app, Translation._1_MONAT));
       monate_1_Check.setFont(checkBoxFont);
-      monate_1_Check.setForeground(app.appColors.getWhite());
+      monate_1_Check.setForeground(app.appColors.success.getTableBackground());
       monate_1_Check.setSelected(app.settings.isRepetition_one_month());
       monate_2_Check = new JCheckBox(
             translator.realisticTranslate(app, Translation._2_MONATE));
       monate_2_Check.setFont(checkBoxFont);
-      monate_2_Check.setForeground(app.appColors.getWhite());
+      monate_2_Check.setForeground(app.appColors.success.getTableBackground());
       monate_2_Check.setSelected(app.settings.isRepetition_two_months());
       monate_5_Check = new JCheckBox(
             translator.realisticTranslate(app, Translation._5_MONATE));
       monate_5_Check.setFont(checkBoxFont);
-      monate_5_Check.setForeground(app.appColors.getWhite());
+      monate_5_Check.setForeground(app.appColors.success.getTableBackground());
       monate_5_Check.setSelected(app.settings.isRepetition_five_months());
       JCheckBox done_Check = new JCheckBox(
             translator.realisticTranslate(app, Translation.FERTIG));
       done_Check.setFont(checkBoxFont);
-      done_Check.setForeground(app.appColors.getWhite());
+      done_Check.setForeground(app.appColors.success.getTableBackground());
       done_Check.setSelected(true);
       done_Check.setEnabled(false);
 

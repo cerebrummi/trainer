@@ -37,7 +37,7 @@ public class StartPanel extends JPanel
       translator = common.getTranslator();
       setLayout(new BorderLayout());
       setOpaque(true);
-      setBackground(app.appColors.start.getPanelBackground());
+      setBackground(app.appColors.getBackground());
 
       JPanel northWrapper = new JPanel();
       northWrapper.setOpaque(false);

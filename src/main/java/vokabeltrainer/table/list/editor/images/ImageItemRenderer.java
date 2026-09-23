@@ -58,7 +58,7 @@ public class ImageItemRenderer extends JPanel
          TitledBorder tBorder = BorderFactory.createTitledBorder(
                BorderFactory.createLineBorder(app.appColors.getGold(), 2),
                value.toString());
-         tBorder.setTitleColor(app.appColors.getShadyBlue());
+         tBorder.setTitleColor(app.appColors.getThemeDefinitionColor());
 
          ComponentTitledBorder border = new ComponentTitledBorder(box, this,
                tBorder, 25);

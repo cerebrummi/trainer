@@ -122,7 +122,7 @@ public class TrainerView extends JPanel
       this.languageDirection = connector.getLanguageDirection();
       BullsEyeLayout trainerLayout = new BullsEyeLayout(this);
       setLayout(trainerLayout);
-      setBackground(app.appColors.trainer.getPanelBackgroundDark());
+      setBackground(app.appColors.getBackground());
       verticalTrainerPanel = new JPanel();
       TotemLayout verticalLayout = new TotemLayout(verticalTrainerPanel);
       verticalTrainerPanel.setLayout(verticalLayout);
@@ -921,7 +921,7 @@ public class TrainerView extends JPanel
             connector.getCurrentExpression().getGrammarInfo(false));
       correctAnswer3.setFont(app.appFonts.germanFont.deriveFont(16F));
       correctAnswer3.setEditable(false);
-      correctAnswer3.setBackground(app.appColors.trainer.getTransparent());
+      correctAnswer3.setBackground(app.appColors.getTransparent());
       correctAnswer3.setOpaque(false);
       correctAnswer3.setBorder(BorderFactory.createEmptyBorder());
 

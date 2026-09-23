@@ -28,7 +28,7 @@ public class ColorPanel extends JPanel
 
    private Component initChooseColormode(App app)
    {
-      this.setBackground(app.appColors.getBackgroundGold());
+      this.setBackground(app.appColors.getBackground());
       JPanel horizontal = new JPanel();
       TrainLayout horizontalLayout = new TrainLayout(horizontal, 15);
       horizontal.setLayout(horizontalLayout);
@@ -58,7 +58,7 @@ public class ColorPanel extends JPanel
          this.repaint();
 
          view.getjFrame().getContentPane()
-               .setBackground(app.appColors.getBackgroundGold());
+               .setBackground(app.appColors.getBackground());
          view.getjFrame().getContentPane().validate();
          view.getjFrame().getContentPane().repaint();
 

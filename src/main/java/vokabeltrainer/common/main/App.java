@@ -5,8 +5,8 @@ import java.io.IOException;
 
 import vokabeltrainer.cmd.Mode;
 import vokabeltrainer.common.colors.AppColors;
-import vokabeltrainer.common.colors.DarkMode;
 import vokabeltrainer.common.colors.GoldenMode;
+import vokabeltrainer.common.colors.DarkMode;
 import vokabeltrainer.resources.Fonts;
 import vokabeltrainer.resources.Images;
 import vokabeltrainer.resources.Sounds;

@@ -58,7 +58,7 @@ public class StatisticsPanel extends JPanel
       add(horizontalPanel);
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(app.appColors.statistics.getPanelBackground());
+      setBackground(app.appColors.getBackground());
    }
 
    public void setValues(App app, Common common, Model model)
@@ -137,7 +137,7 @@ public class StatisticsPanel extends JPanel
       scroller.getViewport().setOpaque(false);
       scroller.getViewport().setBackground(app.appColors.getTransparent());
       scroller.setViewportBorder(BorderFactory.createEmptyBorder());
-      scroller.setBackground(app.appColors.getShredderButtonBorder());
+      scroller.setBackground(app.appColors.dictionary.getShredderButtonBorder());
 
       tablePanel.add(titlePanel);
       tablePanel.add(scroller);

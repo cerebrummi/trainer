@@ -184,7 +184,6 @@ public class LetterPictureButtonPanel extends JPanel
          letterButton = new JButton(new ImageIcon(picture));
          letterButton.setBorder(BorderFactory.createEmptyBorder());
          letterButton.setMargin(new Insets(0, 0, 0, 0));
-         letterButton.setOpaque(false);
       }
       else
       {
@@ -196,9 +195,10 @@ public class LetterPictureButtonPanel extends JPanel
          letterButton.setBorder(BorderFactory.createEmptyBorder());
          letterButton.setContentAreaFilled(false);
          letterButton.setMargin(new Insets(-10, 0, 0, 0));
-         letterButton.setOpaque(false);
       }
 
+      letterButton.setOpaque(true);
+      letterButton.setBackground(app.appColors.alefbet.getButton());
       letterCard.add(letterButton, BorderLayout.CENTER);
    }
 
@@ -212,7 +212,6 @@ public class LetterPictureButtonPanel extends JPanel
          letterHandwrittenButton = new JButton(new ImageIcon(picture));
          letterHandwrittenButton.setBorder(BorderFactory.createEmptyBorder());
          letterHandwrittenButton.setMargin(new Insets(0, 0, 0, 0));
-         letterHandwrittenButton.setOpaque(false);
       }
       else
       {
@@ -228,6 +227,8 @@ public class LetterPictureButtonPanel extends JPanel
          letterHandwrittenButton.setOpaque(false);
       }
 
+      letterHandwrittenButton.setOpaque(true);
+      letterHandwrittenButton.setBackground(app.appColors.alefbet.getButton());
       letterHandwrittenCard.add(letterHandwrittenButton, BorderLayout.CENTER);
    }
 

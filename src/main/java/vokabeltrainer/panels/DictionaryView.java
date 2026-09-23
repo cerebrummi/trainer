@@ -140,7 +140,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       this.connector = connector;
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(app.appColors.dictionary.getPanelBackground());
+      setBackground(app.appColors.getBackground());
 
       JPanel layout = new JPanel();
       TrainLayout layoutLayout = new TrainLayout(layout, 15);
@@ -729,7 +729,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       wasteBinButton = new JButton(
             new ImageIcon(app.appImages.getTrashcan()));
       wasteBinButton.setBorder(
-            BorderFactory.createLineBorder(app.appColors.getWasteBinBorder(), 2));
+            BorderFactory.createLineBorder(app.appColors.dictionary.getWasteBinBorder(), 2));
       wasteBinButton.setBorderPainted(true);
       wasteBinButton.setContentAreaFilled(false);
       wasteBinButton.setFocusPainted(false);
@@ -737,7 +737,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
       shredderButton = new JButton(
             new ImageIcon(app.appImages.getShredder()));
       shredderButton.setBorder(
-            BorderFactory.createLineBorder(app.appColors.getShredderButtonBorder(), 2));
+            BorderFactory.createLineBorder(app.appColors.dictionary.getShredderButtonBorder(), 2));
       shredderButton.setBorderPainted(true);
       shredderButton.setContentAreaFilled(false);
       shredderButton.setFocusPainted(false);

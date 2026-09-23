@@ -106,7 +106,7 @@ public class SuccessHelper
                translator.realisticTranslate(app, Translation.ALLE_AUSWAEHLEN));
          selectAllButton.setIcon(new ImageIcon(app.appImages.getSelect()));
          selectAllButton.setFont(app.appFonts.buttonFont);
-         selectAllButton.setForeground(app.appColors.success.getTextForeground());
+         selectAllButton.setForeground(app.appColors.success.getTableBackground());
          selectAllButton.addActionListener(_ -> {
 
             for (Vector<SuccessTableRow> row : tableModel.getData())
@@ -120,7 +120,7 @@ public class SuccessHelper
                .realisticTranslate(app, Translation.ALLE_NICHT_AUSWAEHLEN));
          unselectAllButton.setIcon(new ImageIcon(app.appImages.getClear()));
          unselectAllButton.setFont(app.appFonts.buttonFont);
-         unselectAllButton.setForeground(app.appColors.success.getTextForeground());
+         unselectAllButton.setForeground(app.appColors.success.getTableBackground());
          unselectAllButton.addActionListener(_ -> {
 
             for (Vector<SuccessTableRow> row : tableModel.getData())
@@ -136,7 +136,7 @@ public class SuccessHelper
                + translator.realisticTranslate(app, Translation.VERSCHIEBEN));
          moveButton.setIcon(new ImageIcon(app.appImages.getBack()));
          moveButton.setFont(app.appFonts.buttonFont);
-         moveButton.setForeground(app.appColors.success.getTextForeground());
+         moveButton.setForeground(app.appColors.success.getTableBackground());
          moveButton.addActionListener(_ -> {
             List<Vector<SuccessTableRow>> rows = new ArrayList<>();
             for (Vector<SuccessTableRow> row : tableModel.getData())

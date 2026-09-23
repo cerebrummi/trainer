@@ -31,6 +31,7 @@ public class TranslationPanel extends JPanel
       add(initChooseLanguage(app));
 
       initController(app, common);
+      setBackground(app.appColors.getBackground());
    }
 
    private Component initChooseLanguage(App app)

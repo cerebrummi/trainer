@@ -16,7 +16,7 @@ public class AntiFocusTextField extends JTextField
       super(value);
       setFocusable(false);
       setOpaque(true);
-      setBackground(app.appColors.getBackgroundGold());
+      setBackground(app.appColors.getBackground());
       setBorder(BorderFactory.createEmptyBorder());
       setEnabled(true);
       setFont(view.getNimbus().getDefaults().getFont("internationalFont"));
@@ -26,7 +26,7 @@ public class AntiFocusTextField extends JTextField
    {
       setFocusable(false);
       setOpaque(true);
-      setBackground(app.appColors.getBackgroundGold());
+      setBackground(app.appColors.getBackground());
       setBorder(BorderFactory.createEmptyBorder());
       setEnabled(true);
       setFont(view.getNimbus().getDefaults().getFont("internationalFont"));

@@ -15,15 +15,24 @@ public abstract class AppColors implements ColorBase
    public Table table;
    public Trainer trainer;
    
+   public abstract Color getThemeDefinitionColor();
+   
+   public abstract Color getBoxForeground(); // for UI
+   
+   public Color getTransparent()
+   {
+      return ColorBase.transparent; // do not change
+   }
+   
+   public abstract Color getBackground();
+   
    public abstract Color getLightBlue();
 
    public abstract Color getLightGrayBlue();
 
    public abstract Color getMediumBlue();
 
-   public abstract Color getMediumSilverBlue();
-
-   public abstract Color getShadyBlue();
+   public abstract Color getMediumSilverBlue();   
 
    public abstract Color getGold();
 
@@ -31,21 +40,13 @@ public abstract class AppColors implements ColorBase
 
    public abstract Color getLightGold();
 
-   public abstract Color getBoxForeground();
-
    public abstract Color getMediumGold();
 
-   public abstract Color getBackgroundGold();
-
    public abstract Color getVeryLightGold();
-
-   public abstract Color getWasteBinBorder();
    
    public abstract Color getBrightGreen();
 
    public abstract Color getMediumGreen();
-
-   public abstract Color getTransparent();
 
    public abstract Color getBeigeGold();
 
@@ -54,8 +55,7 @@ public abstract class AppColors implements ColorBase
    public abstract Color getWhite();
 
    public abstract Color getLightYellow();
-
-   public abstract Color getShredderButtonBorder();
+   
    public abstract Color getRed();
 
    public abstract Color getRose();
@@ -85,6 +85,8 @@ public abstract class AppColors implements ColorBase
       public abstract Color getButton();
       public abstract Color getButtonForeground();
       public abstract Color getLabelBackground();
+      public abstract Color getWasteBinBorder();
+      public abstract Color getShredderButtonBorder();
    }
    
    public abstract class Input
@@ -119,7 +121,6 @@ public abstract class AppColors implements ColorBase
       public abstract Color getDatabase_Header();
       public abstract Color getPanelBackground();
       public abstract Color getDatabase_HeaderText();
-      public abstract Color getTransparent();
       public abstract Color getDatabase_Item();
       public abstract Color getDatabase_Tipp();
    }
@@ -163,6 +164,5 @@ public abstract class AppColors implements ColorBase
       public abstract Color getButton();
       public abstract Color getButtonForeground();
       public abstract Color getPanelBackgroundDark();
-      public abstract Color getTransparent();
    }
 }

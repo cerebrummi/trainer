@@ -36,7 +36,7 @@ public class FieldOfTrainingTab extends JPanel
    {
       translator = common.getTranslator();
       setLayout(new BorderLayout());
-      setBackground(app.appColors.trainer.getPanelBackgroundDark());
+      setBackground(app.appColors.getBackground());
       setOpaque(true);
 
       JLabel question = new JLabel(translator.realisticTranslate(app, 

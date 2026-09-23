@@ -65,7 +65,7 @@ public class InputPanel extends JPanel implements TableConnector
       translator = common.getTranslator();
       setLayout(new BullsEyeLayout(this));
       setOpaque(true);
-      setBackground(app.appColors.input.getBoxBackground());
+      setBackground(app.appColors.getBackground());
 
       JPanel vertical = new JPanel();
       vertical.setLayout(new TotemLayout(vertical));
