@@ -237,7 +237,6 @@ public class Settings
 
    public void setDarkmodeOn(boolean darkmodeOn)
    {
-      System.out.println("Settings set: darkmodeOn = " + darkmodeOn);
       Preferences preferences = Preferences.userRoot()
             .node(CerebrummiNodes.getNode());
       preferences.putBoolean(CerebrummiNodes.getDarkmodeNode(), darkmodeOn);
