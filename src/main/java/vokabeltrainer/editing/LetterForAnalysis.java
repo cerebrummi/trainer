@@ -221,11 +221,6 @@ public class LetterForAnalysis
       this.dagesh = dagesh;
    }
 
-   public void setSetUpperPunktation(Set<NikudLetter> setUpperPunktation)
-   {
-      this.setUpperPunktation = setUpperPunktation;
-   }
-
    public int getPixelWidth()
    {
       if (content != null)

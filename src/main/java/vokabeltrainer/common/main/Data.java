@@ -279,11 +279,6 @@ public class Data
       return getDataBaseAtomic().findSuccessModel(direction, repetition);
    }
 
-   public void unselectAllExpressions()
-   {
-      getDataBaseAtomic().unselectAllExpressions();
-   }
-
    public boolean determineReloadDatabases(App app, Common common, View view)
    {
       if (new HashSet<>(app.settings.getChosenDatabases())

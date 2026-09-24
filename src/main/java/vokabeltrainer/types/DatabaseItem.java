@@ -53,19 +53,9 @@ public class DatabaseItem
       return selected;
    }
 
-   public void setSelected(boolean selected)
-   {
-      this.selected = selected;
-   }
-
    public String getDatabaseName()
    {
       return databaseName;
-   }
-
-   public void setDatabaseName(String databaseName)
-   {
-      this.databaseName = databaseName;
    }
 
    public String getAuthors()
@@ -73,19 +63,9 @@ public class DatabaseItem
       return authors;
    }
 
-   public void setAuthors(String authors)
-   {
-      this.authors = authors;
-   }
-
    public String getCompany()
    {
       return company;
-   }
-
-   public void setCompany(String company)
-   {
-      this.company = company;
    }
 
    public static List<DatabaseItem> getAllAvailableDatabaseItems(App app)

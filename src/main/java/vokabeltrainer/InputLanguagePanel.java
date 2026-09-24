@@ -641,11 +641,6 @@ public class InputLanguagePanel extends JTextArea
       return LLType.UNKOWN;
    }
 
-   public void setSelection(Selection selection)
-   {
-      this.selection = selection;
-   }
-
    class FocusForwardAction extends AbstractAction
    {
       private static final long serialVersionUID = -8790050293258845388L;
