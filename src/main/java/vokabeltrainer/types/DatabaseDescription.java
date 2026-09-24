@@ -63,19 +63,9 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       return authors;
    }
 
-   public void setAuthors(String authors)
-   {
-      this.authors = authors;
-   }
-
    public String getCompany()
    {
       return company;
-   }
-
-   public void setCompany(String company)
-   {
-      this.company = company;
    }
 
    @Override

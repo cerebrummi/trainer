@@ -162,12 +162,6 @@ public class Expression
       return new TemporaryTrainingStatus();
    }
 
-   public void setTemporaryTrainingStatus(
-         TemporaryTrainingStatus temporaryTrainingStatus)
-   {
-      // nothing
-   }
-
    public Chapter getChapter()
    {
       return chapter;
@@ -211,11 +205,6 @@ public class Expression
    public Database getOrigin()
    {
       return origin;
-   }
-
-   public void setOrigin(Database origin)
-   {
-      this.origin = origin;
    }
 
    public Definitions getDefinitions()

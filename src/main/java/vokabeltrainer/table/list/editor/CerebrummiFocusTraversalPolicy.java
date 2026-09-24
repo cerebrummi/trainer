@@ -11,8 +11,6 @@ import java.util.Map;
 
 public class CerebrummiFocusTraversalPolicy extends FocusTraversalPolicy
 {
-
-   int focusNumber = 0;
    private List<Component> focusList;
    private Map<Component, Integer> focusMap;
 

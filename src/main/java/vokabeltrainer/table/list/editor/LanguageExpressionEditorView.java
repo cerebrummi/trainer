@@ -1386,11 +1386,6 @@ public class LanguageExpressionEditorView extends JDialog
       return save;
    }
 
-   public void setSave(boolean save)
-   {
-      this.save = save;
-   }
-
    public boolean isFrozen()
    {
       return frozen;
