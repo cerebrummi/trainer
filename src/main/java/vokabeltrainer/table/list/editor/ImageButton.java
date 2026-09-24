@@ -30,9 +30,4 @@ public class ImageButton extends JButton
    {
       return imagefile;
    }
-
-   public void setImagefile(String imagefile)
-   {
-      this.imagefile = imagefile;
-   }
 }

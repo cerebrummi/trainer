@@ -82,22 +82,4 @@ public class InfoTextField extends JTextField
 
       this.setBorder(border);
    }
-
-   public void setBlankBorder()
-   {
-      ComponentTitledBorder border = new ComponentTitledBorder(button, this,
-            BorderFactory.createTitledBorder(title), 025);
-
-      this.setBorder(border);
-   }
-
-   public void setRedBorder()
-   {
-      ComponentTitledBorder border = new ComponentTitledBorder(button, this,
-            new TitledBorder(BorderFactory.createLineBorder(Color.RED), title),
-            25);
-
-      this.setBorder(border);
-   }
-
 }

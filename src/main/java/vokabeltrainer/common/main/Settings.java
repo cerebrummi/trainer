@@ -487,11 +487,6 @@ public class Settings
       return repetition_now;
    }
 
-   public void setRepetition_now(boolean repetition_now)
-   {
-      // nothing
-   }
-
    public boolean isRepetition_one_day()
    {
       return repetition_one_day;
@@ -647,11 +642,6 @@ public class Settings
    public boolean isRepetition_done()
    {
       return repetition_done;
-   }
-
-   public void setRepetition_done(boolean repetition_done)
-   {
-      // nothing
    }
 
    public boolean isSchabbat_modus()

@@ -62,11 +62,6 @@ public class ImageItem
       this.checked = checked;
    }
 
-   public void toggle()
-   {
-      this.checked = !this.checked;
-   }
-
    public BufferedImage getImage()
    {
       return image;
