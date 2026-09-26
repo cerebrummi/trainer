@@ -1,11 +1,13 @@
 package vokabeltrainer.table.list.editor;
 
 import java.awt.Image;
+import java.io.Serial;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class ImageButton extends JButton
 {
+   @Serial
    private static final long serialVersionUID = 578075610960102010L;
 
    private String imagefile;

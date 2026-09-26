@@ -4,8 +4,11 @@ import javax.swing.table.DefaultTableModel;
 
 import vokabeltrainer.types.Expression;
 
+import java.io.Serial;
+
 public class ExpressionTableModel extends DefaultTableModel
 {
+   @Serial
    private static final long serialVersionUID = 2869978472820089697L;
 
    private Expression[][] data;

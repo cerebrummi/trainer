@@ -1,6 +1,7 @@
 package vokabeltrainer.table;
 
 import java.awt.event.ActionEvent;
+import java.io.Serial;
 
 import javax.swing.AbstractAction;
 import javax.swing.JDialog;
@@ -10,6 +11,7 @@ import vokabeltrainer.table.list.editor.PictureExpressionEditorView;
 
 public class EscapeAction extends AbstractAction
 {
+   @Serial
    private static final long serialVersionUID = 2610276331172351891L;
    private JDialog dialog;
 

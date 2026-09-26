@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 import javax.swing.JPanel;
 
 public class IconPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -8715777185660682291L;
 
    private BufferedImage icon;

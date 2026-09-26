@@ -3,6 +3,7 @@ package vokabeltrainer.panels.notifications;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
+import java.io.Serial;
 
 import javax.swing.JDialog;
 
@@ -12,6 +13,7 @@ import vokabeltrainer.common.main.View;
 
 public class EmptyDialog extends JDialog
 {
+   @Serial
    private static final long serialVersionUID = 1134423942957856982L;
 
    public EmptyDialog(App app, View view)

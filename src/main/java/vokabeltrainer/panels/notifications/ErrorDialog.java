@@ -2,6 +2,7 @@ package vokabeltrainer.panels.notifications;
 
 import java.awt.Color;
 import java.awt.Dialog;
+import java.io.Serial;
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import vokabeltrainer.tonionlayout.TotemLayout;
 
 public class ErrorDialog extends JDialog
 {
+   @Serial
    private static final long serialVersionUID = -2919642120086961576L;
 
    public ErrorDialog(App app, Common common, View view, String textA, String textB, String middle, String textD)

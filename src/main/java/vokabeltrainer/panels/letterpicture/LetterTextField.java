@@ -6,8 +6,11 @@ import vokabeltrainer.editing.NikudLetter;
 import vokabeltrainer.common.main.App;
 import vokabeltrainer.editing.LetterHelper;
 
+import java.io.Serial;
+
 public class LetterTextField extends JTextField
 {
+   @Serial
    private static final long serialVersionUID = -3945876344326402147L;
 
    private NikudLetter letter;

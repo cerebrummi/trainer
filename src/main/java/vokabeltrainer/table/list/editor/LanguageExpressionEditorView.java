@@ -13,6 +13,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -93,6 +94,7 @@ public class LanguageExpressionEditorView extends JDialog
 
    private static int WIDTH_INPUT_PANEL;
 
+   @Serial
    private static final long serialVersionUID = 5853498340870217732L;
 
    private Translator translator;

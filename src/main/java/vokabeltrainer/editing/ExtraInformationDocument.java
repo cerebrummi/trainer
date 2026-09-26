@@ -1,6 +1,7 @@
 package vokabeltrainer.editing;
 
 import java.awt.Toolkit;
+import java.io.Serial;
 import java.util.List;
 
 import javax.swing.text.AttributeSet;
@@ -9,6 +10,7 @@ import javax.swing.text.DefaultStyledDocument;
 
 public class ExtraInformationDocument extends DefaultStyledDocument
 {
+   @Serial
    private static final long serialVersionUID = 216678564395494689L;
 
    private String exclusionPattern;

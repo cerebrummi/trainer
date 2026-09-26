@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.Serial;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ import vokabeltrainer.types.LanguageDirection;
 
 public class StartTrainingView extends JDialog
 {
+   @Serial
    private static final long serialVersionUID = -2204963503225031512L;
 
    private JPanel layout;

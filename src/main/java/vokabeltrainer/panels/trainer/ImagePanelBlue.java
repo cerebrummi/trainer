@@ -2,6 +2,7 @@ package vokabeltrainer.panels.trainer;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 import javax.swing.JPanel;
 
@@ -9,6 +10,7 @@ import vokabeltrainer.common.main.App;
 
 public class ImagePanelBlue extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -8547040821904422107L;
    private static BufferedImage currentImage;
 

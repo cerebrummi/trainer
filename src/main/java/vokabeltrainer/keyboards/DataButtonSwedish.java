@@ -1,11 +1,13 @@
 package vokabeltrainer.keyboards;
 
 import java.awt.ComponentOrientation;
+import java.io.Serial;
 
 import vokabeltrainer.common.main.App;
 
 public class DataButtonSwedish extends DataButton
 {
+   @Serial
    private static final long serialVersionUID = 578075610960102010L;
 
    private String data;

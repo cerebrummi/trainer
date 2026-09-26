@@ -1,5 +1,6 @@
 package vokabeltrainer.panels.dictionary;
 
+import java.io.Serial;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import vokabeltrainer.types.Expression;
 
 public class DataButton extends JButton
 {
+   @Serial
    private static final long serialVersionUID = 5406649403725608010L;
 
    private List<Expression> data = Collections.emptyList();

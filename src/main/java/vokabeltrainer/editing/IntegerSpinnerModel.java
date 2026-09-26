@@ -3,9 +3,11 @@ package vokabeltrainer.editing;
 import javax.swing.AbstractSpinnerModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.io.Serial;
 
 public class IntegerSpinnerModel extends AbstractSpinnerModel
 {
+   @Serial
    private static final long serialVersionUID = -7145780527051124946L;
 
    int number = 0;

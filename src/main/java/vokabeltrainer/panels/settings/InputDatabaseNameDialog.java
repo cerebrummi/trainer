@@ -1,6 +1,7 @@
 package vokabeltrainer.panels.settings;
 
 import java.awt.Dimension;
+import java.io.Serial;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -23,7 +24,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class InputDatabaseNameDialog extends JDialog
 {
-
+   @Serial
    private static final long serialVersionUID = 1663927478782742504L;
    private JTextField inputImportField;
    private JButton okButton;

@@ -15,6 +15,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serial;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -66,6 +67,7 @@ import vokabeltrainer.types.LanguageDirection;
 
 public class TrainerView extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -6552073033311684589L;
 
    private LetterPictureWordPanel pictureWordPanelPlene;

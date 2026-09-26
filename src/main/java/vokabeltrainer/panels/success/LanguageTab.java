@@ -2,6 +2,7 @@ package vokabeltrainer.panels.success;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serial;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -16,6 +17,7 @@ import vokabeltrainer.types.Repetition;
 
 public class LanguageTab extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = 7350720885659255518L;
 
    private JPanel notStartedPanel;

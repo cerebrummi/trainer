@@ -1,6 +1,7 @@
 package vokabeltrainer.panels.letterpicture;
 
 import java.awt.Dimension;
+import java.io.Serial;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class LetterPictureWordPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = 4694738420843719008L;
 
    private Card[] cards = { Card.LETTER, Card.HEBREW };

@@ -2,6 +2,7 @@ package vokabeltrainer.panels.trainer.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.io.Serial;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -21,6 +22,7 @@ import vokabeltrainer.types.FieldOfTraining;
 
 public class FieldOfTrainingTab extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -2560396853976699409L;
 
    private ButtonGroup areaGroup;

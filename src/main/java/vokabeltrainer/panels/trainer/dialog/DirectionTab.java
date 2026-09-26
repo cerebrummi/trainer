@@ -3,6 +3,7 @@ package vokabeltrainer.panels.trainer.dialog;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.Serial;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -23,6 +24,7 @@ import vokabeltrainer.types.LanguageDirection;
 
 public class DirectionTab extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -5986907667521647559L;
 
    private ButtonGroup directionGroup;

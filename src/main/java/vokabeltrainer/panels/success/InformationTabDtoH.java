@@ -3,6 +3,7 @@ package vokabeltrainer.panels.success;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.io.Serial;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -16,6 +17,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class InformationTabDtoH extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -4006431590073534430L;
    private Translator translator;
    private App app;

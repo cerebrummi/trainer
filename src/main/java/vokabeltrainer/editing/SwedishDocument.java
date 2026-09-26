@@ -1,6 +1,7 @@
 package vokabeltrainer.editing;
 
 import java.awt.Toolkit;
+import java.io.Serial;
 import java.util.List;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -10,6 +11,7 @@ public class SwedishDocument extends PlainDocument
 {
    private static final int NUMBER_OF_LETTERS_ALLOWED = 500;
 
+   @Serial
    private static final long serialVersionUID = -9186425449349376170L;
 
    private String signPattern;

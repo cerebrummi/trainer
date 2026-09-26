@@ -1,6 +1,7 @@
 package vokabeltrainer.editing;
 
 import java.awt.Toolkit;
+import java.io.Serial;
 import java.util.List;
 
 import javax.swing.text.AttributeSet;
@@ -9,6 +10,7 @@ import javax.swing.text.PlainDocument;
 
 public class SingleLetterDocument extends PlainDocument
 {
+   @Serial
    private static final long serialVersionUID = -6914168959814651195L;
 
    String pattern;

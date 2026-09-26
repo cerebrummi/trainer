@@ -4,8 +4,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import vokabeltrainer.common.main.App;
 
+import java.io.Serial;
+
 public class InfoCheckBox extends JCheckBox
 {
+   @Serial
    private static final long serialVersionUID = 7704010484130304775L;
 
    public InfoCheckBox(App app)

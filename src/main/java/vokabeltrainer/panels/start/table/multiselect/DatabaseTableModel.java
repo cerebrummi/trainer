@@ -1,5 +1,6 @@
 package vokabeltrainer.panels.start.table.multiselect;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -8,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class DatabaseTableModel extends DefaultTableModel
 {
-
+   @Serial
    private static final long serialVersionUID = 5442352055546967989L;
 
    private Vector<Vector<DatabaseTableRow>> data;

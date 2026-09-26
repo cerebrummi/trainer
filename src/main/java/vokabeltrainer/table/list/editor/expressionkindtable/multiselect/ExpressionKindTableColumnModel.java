@@ -5,8 +5,11 @@ import javax.swing.table.TableColumn;
 
 import vokabeltrainer.common.main.App;
 
+import java.io.Serial;
+
 public class ExpressionKindTableColumnModel extends DefaultTableColumnModel
 {
+   @Serial
    private static final long serialVersionUID = -2011627608532876165L;
 
    private ExpressionKindTableCellRenderer renderer;

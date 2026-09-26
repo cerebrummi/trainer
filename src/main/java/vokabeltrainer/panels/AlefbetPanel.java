@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serial;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,6 +28,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class AlefbetPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = 9130321171813967337L;
 
    private JButton pictureInfoButton;

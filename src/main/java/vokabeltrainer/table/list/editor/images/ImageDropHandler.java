@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.Serial;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +16,7 @@ import javax.swing.TransferHandler;
 
 public class ImageDropHandler extends TransferHandler
 {
+   @Serial
    private static final long serialVersionUID = 4233594459693020422L;
 
    UUID expressionUUID;

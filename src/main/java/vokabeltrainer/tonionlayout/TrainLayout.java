@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager2;
+import java.io.Serial;
 
 import javax.swing.JViewport;
 
@@ -59,9 +60,7 @@ import javax.swing.JViewport;
  */
 public class TrainLayout implements LayoutManager2, java.io.Serializable
 {
-   /*
-    * serialVersionUID
-    */
+   @Serial
    private static final long serialVersionUID = -7411804673224730903L;
 
    /**

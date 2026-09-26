@@ -1,6 +1,7 @@
 package vokabeltrainer.table.list.editor.expressionkindtable.singleselect;
 
 import java.awt.Component;
+import java.io.Serial;
 import java.util.EventObject;
 
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 public class ExpressionKindTableCellRenderer2 extends DefaultTableCellRenderer
       implements TableCellEditor
 {
+   @Serial
    private static final long serialVersionUID = 1516036848858702294L;
 
    private JLabel selected;

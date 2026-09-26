@@ -2,6 +2,7 @@ package vokabeltrainer.panels;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.io.Serial;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,6 +20,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class TranslationPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = 369293645105172512L;
 
    private JButton applyButton;

@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -20,6 +21,7 @@ import vokabeltrainer.scale.Scale;
 
 public class NikudPictureButtonPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = 7788782278925301915L;
 
    private BufferedImage letterPicture;

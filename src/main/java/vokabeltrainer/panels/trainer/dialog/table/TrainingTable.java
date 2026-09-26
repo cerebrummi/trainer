@@ -1,5 +1,6 @@
 package vokabeltrainer.panels.trainer.dialog.table;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,6 +21,7 @@ import vokabeltrainer.types.TrainingStatus;
 
 public class TrainingTable extends JTable
 {
+   @Serial
    private static final long serialVersionUID = -1180739124368536646L;
 
    public TrainingTable(App app, Common common, TrainingTableModel model)

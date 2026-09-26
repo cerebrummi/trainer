@@ -7,6 +7,7 @@ import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.FocusTraversalPolicy;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class LetterPictureAlphabetPanel extends JPanel
 
    private static final String DRUCKSCHRIFT = "DRUCKSCHRIFT";
 
+   @Serial
    private static final long serialVersionUID = 2284393162989380186L;
 
    private final NikudLetter[] keys1 = { NikudLetter.CHET, NikudLetter.SSAIN,

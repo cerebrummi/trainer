@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serial;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -47,6 +48,7 @@ import vokabeltrainer.types.WritingDirection;
 
 public class InputPanel extends JPanel implements TableConnector
 {
+   @Serial
    private static final long serialVersionUID = 4956932074948450143L;
 
    private JButton newWordPunktationButton;

@@ -1,11 +1,13 @@
 package vokabeltrainer.panels.success.table;
 
+import java.io.Serial;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
 public class SuccessTableModel extends DefaultTableModel
 {
+   @Serial
    private static final long serialVersionUID = 5839657636851611176L;
 
    private Vector<Vector<SuccessTableRow>> dataVector;

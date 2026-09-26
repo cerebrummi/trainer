@@ -3,6 +3,7 @@ package vokabeltrainer.table.list;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.io.Serial;
 
 import javax.swing.BorderFactory;
 import javax.swing.JList;
@@ -13,7 +14,7 @@ import vokabeltrainer.types.Direction;
 
 public class ExpressionList extends JList<String>
 {
-
+   @Serial
    private static final long serialVersionUID = -8585511215166225268L;
 
    private App app;

@@ -1,6 +1,7 @@
 package vokabeltrainer.cmd;
 
 import java.awt.Component;
+import java.io.Serial;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
@@ -8,7 +9,7 @@ import javax.swing.JList;
 import vokabeltrainer.common.main.App;
 
 public class Renderer extends DefaultListCellRenderer {
-
+    @Serial
     private static final long serialVersionUID = 2183657576759647252L;
     
     private App app;

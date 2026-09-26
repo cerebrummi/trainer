@@ -1,6 +1,7 @@
 package vokabeltrainer.panels;
 
 import java.awt.Component;
+import java.io.Serial;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class ColorPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = 5974748523983524775L;
    
    private JButton applyButton;

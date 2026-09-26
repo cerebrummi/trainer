@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
+import java.io.Serial;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,6 +31,7 @@ import vokabeltrainer.types.Direction;
 
 public class TrashCanDialog extends JDialog implements TrashCanDialogConnector
 {
+   @Serial
    private static final long serialVersionUID = 5581839704958393075L;
 
    private JPanel layout;
