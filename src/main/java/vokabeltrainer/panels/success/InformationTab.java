@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.Serial;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -19,6 +20,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class InformationTab extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -700729868879651952L;
    private Translator translator;
    private JCheckBox morgenCheck;

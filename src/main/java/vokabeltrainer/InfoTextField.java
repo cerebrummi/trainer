@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ import vokabeltrainer.editing.InternationalDocument;
 
 public class InfoTextField extends JTextField
 {
+   @Serial
    private static final long serialVersionUID = -7140719570197015380L;
    private JButton button;
    private String title;

@@ -7,8 +7,11 @@ import javax.swing.JTextField;
 import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.View;
 
+import java.io.Serial;
+
 public class AntiFocusTextField extends JTextField
 {
+   @Serial
    private static final long serialVersionUID = -4364086687323301340L;
 
    public AntiFocusTextField(App app, View view, String value)

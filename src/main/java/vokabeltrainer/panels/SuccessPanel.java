@@ -1,6 +1,7 @@
 package vokabeltrainer.panels;
 
 import java.awt.Dimension;
+import java.io.Serial;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -19,6 +20,7 @@ import vokabeltrainer.types.Direction;
 
 public class SuccessPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = 8838302053896928354L;
    private JTabbedPane germanHebrewRegister;
    private JPanel infoCard;

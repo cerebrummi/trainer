@@ -1,6 +1,7 @@
 package vokabeltrainer;
 
 import java.awt.Graphics;
+import java.io.Serial;
 
 import javax.swing.JPanel;
 
@@ -8,6 +9,7 @@ import vokabeltrainer.common.main.App;
 
 public class TrashCanBackgroundPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -7918923007938243168L;
    
    private App app;

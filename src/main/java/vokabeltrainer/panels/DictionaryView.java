@@ -15,6 +15,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -81,6 +82,7 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class DictionaryView extends JPanel implements DictionaryViewConnector
 {
+   @Serial
    private static final long serialVersionUID = 9130321171813967337L;
 
    private ButtonGroup languageGroup;

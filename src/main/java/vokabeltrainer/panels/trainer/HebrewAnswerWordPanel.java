@@ -2,6 +2,7 @@ package vokabeltrainer.panels.trainer;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,6 +12,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class HebrewAnswerWordPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = 3783416522992027245L;
 
    public HebrewAnswerWordPanel(App app, Result result)

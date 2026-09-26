@@ -1,11 +1,13 @@
 package vokabeltrainer.panels.statistics;
 
+import java.io.Serial;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
 public class StatisticsTableModel extends DefaultTableModel
 {
+   @Serial
    private static final long serialVersionUID = -2421475557884629587L;
 
    public StatisticsTableModel(Vector<Vector<StatisticsTableRow>> data,

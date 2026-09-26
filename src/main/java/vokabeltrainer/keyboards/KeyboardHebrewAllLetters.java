@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class KeyboardHebrewAllLetters extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -7532952398298332087L;
 
    private final int BUTTON_SIZE = 42;

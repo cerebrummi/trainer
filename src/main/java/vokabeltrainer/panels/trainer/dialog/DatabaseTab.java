@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -25,6 +26,7 @@ import vokabeltrainer.panels.translation.Translator;
 
 public class DatabaseTab extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -5986907667521647559L;
 
    private JButton nextButton;

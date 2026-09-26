@@ -1,11 +1,13 @@
 package vokabeltrainer.table.list.editor.expressionkindtable.singleselect;
 
+import java.io.Serial;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
 public class ExpressionKindTableModel2 extends DefaultTableModel
 {
+   @Serial
    private static final long serialVersionUID = -3671221891329671632L;
 
    private Vector<Vector<ExpressionKindTableRow2>> data;

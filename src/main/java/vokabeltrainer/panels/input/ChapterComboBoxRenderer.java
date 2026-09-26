@@ -2,6 +2,7 @@ package vokabeltrainer.panels.input;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.io.Serial;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -12,6 +13,7 @@ import vokabeltrainer.types.Chapter;
 public class ChapterComboBoxRenderer extends JLabel
       implements ListCellRenderer<Chapter>
 {
+   @Serial
    private static final long serialVersionUID = -3955758434879426117L;
 
    public ChapterComboBoxRenderer()

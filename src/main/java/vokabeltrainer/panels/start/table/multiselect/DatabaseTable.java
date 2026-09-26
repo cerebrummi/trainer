@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serial;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -15,6 +16,7 @@ import vokabeltrainer.types.DatabaseItem;
 
 public class DatabaseTable extends JTable
 {
+   @Serial
    private static final long serialVersionUID = 4815287371476856952L;
    private MouseListener mouseListener;
 

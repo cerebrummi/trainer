@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +25,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class StatisticsPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -3937351898121564812L;
 
    private JPanel tablePanel;

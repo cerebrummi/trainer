@@ -1,5 +1,6 @@
 package vokabeltrainer.panels.list.table;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class DatabaseTableModel extends DefaultTableModel
 {
+   @Serial
    private static final long serialVersionUID = 3445974088132962568L;
 
    private Vector<Vector<DatabaseTableRow>> data;

@@ -1,11 +1,13 @@
 package vokabeltrainer.panels.translation;
 
+import java.io.Serial;
 import java.util.UUID;
 
 import javax.swing.JTextField;
 
 public class TranslationLanguage extends JTextField
 {
+   @Serial
    private static final long serialVersionUID = 6017959608668426572L;
    private UUID uuid = null;
 

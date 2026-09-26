@@ -3,6 +3,7 @@ package vokabeltrainer.panels;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.io.Serial;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -28,6 +29,7 @@ import vokabeltrainer.panels.translation.Translator;
 
 public class MainView extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -8541715304466855004L;
 
    private JButton vocabularyCardsButton;

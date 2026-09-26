@@ -3,6 +3,7 @@ package vokabeltrainer.table.list.editor.expressionkindtable.singleselect;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -18,6 +19,7 @@ import vokabeltrainer.types.grammatical.expressionkind.ExpressionKindItem;
 
 public class ExpressionKindTableSingleselect extends JTable
 {
+   @Serial
    private static final long serialVersionUID = 4773612153340762368L;
 
    private DictionaryControllerConnector connector;

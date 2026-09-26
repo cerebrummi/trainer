@@ -1,6 +1,7 @@
 package vokabeltrainer.panels.list;
 
 import java.awt.Component;
+import java.io.Serial;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -12,6 +13,7 @@ import vokabeltrainer.types.Chapter;
 
 public class ChapterListCellRenderer extends DefaultListCellRenderer
 {
+   @Serial
    private static final long serialVersionUID = 6061565751599958392L;
 
    private JLabel label;

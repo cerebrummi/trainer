@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serial;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
@@ -48,6 +49,7 @@ import vokabeltrainer.types.Expression;
 
 public class PictureExpressionEditorView extends JDialog
 {
+   @Serial
    private static final long serialVersionUID = 5853498340870217732L;
 
    private Expression expression;

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.SequenceInputStream;
+import java.io.Serial;
 import java.util.Vector;
 
 import javax.sound.sampled.AudioInputStream;
@@ -21,6 +22,7 @@ import vokabeltrainer.types.Expression;
 
 public class SoundAction extends AbstractAction
 {
+   @Serial
    private static final long serialVersionUID = -13252544217898606L;
 
    private ExpressionTable table;

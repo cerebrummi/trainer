@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager2;
+import java.io.Serial;
 
 import javax.swing.JViewport;
 
@@ -59,10 +60,7 @@ import javax.swing.JViewport;
 
 public class BullsEyeLayout implements LayoutManager2, java.io.Serializable
 {
-
-   /*
-    * serialVersionUID
-    */
+   @Serial
    private static final long serialVersionUID = 5350471242829162225L;
 
    /**

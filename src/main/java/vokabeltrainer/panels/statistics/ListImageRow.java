@@ -1,6 +1,7 @@
 package vokabeltrainer.panels.statistics;
 
 import java.awt.FlowLayout;
+import java.io.Serial;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,6 +13,7 @@ import vokabeltrainer.types.Expression;
 
 public class ListImageRow extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -5001282133186284698L;
 
    public ListImageRow(App app, Common common, Expression expression, Direction language)

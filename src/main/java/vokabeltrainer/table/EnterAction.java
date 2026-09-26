@@ -1,6 +1,7 @@
 package vokabeltrainer.table;
 
 import java.awt.event.ActionEvent;
+import java.io.Serial;
 
 import javax.swing.AbstractAction;
 
@@ -50,6 +51,7 @@ public class EnterAction extends AbstractAction
       editorPicture = pictureController.getPictureExpressionEditorDialog();
    }
 
+   @Serial
    private static final long serialVersionUID = 719272853628204094L;
 
    @Override

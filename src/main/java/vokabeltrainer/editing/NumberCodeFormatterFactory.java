@@ -1,6 +1,7 @@
 package vokabeltrainer.editing;
 
 import java.awt.Toolkit;
+import java.io.Serial;
 import java.text.ParseException;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.swing.text.DefaultFormatterFactory;
 
 public class NumberCodeFormatterFactory extends DefaultFormatterFactory
 {
+   @Serial
    private static final long serialVersionUID = -5068274823185920930L;
 
    private NumberCodeFormatter codeFormatter = new NumberCodeFormatter();
@@ -47,6 +49,7 @@ public class NumberCodeFormatterFactory extends DefaultFormatterFactory
 
    class NumberCodeFormatter extends AbstractFormatter
    {
+      @Serial
       private static final long serialVersionUID = 7933675034782342475L;
       String pattern = NumberLetter.getPatternString();
 

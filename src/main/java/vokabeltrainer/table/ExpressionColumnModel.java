@@ -8,8 +8,11 @@ import vokabeltrainer.common.main.Common;
 import vokabeltrainer.common.main.Model;
 import vokabeltrainer.types.Direction;
 
+import java.io.Serial;
+
 public class ExpressionColumnModel extends DefaultTableColumnModel
 {
+   @Serial
    private static final long serialVersionUID = 2275832088905828369L;
 
    public ExpressionColumnModel(App app, Common common, Model model, Direction language)

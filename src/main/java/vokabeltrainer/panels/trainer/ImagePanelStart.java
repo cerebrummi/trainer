@@ -1,6 +1,7 @@
 package vokabeltrainer.panels.trainer;
 
 import java.awt.Graphics;
+import java.io.Serial;
 
 import javax.swing.JPanel;
 
@@ -8,6 +9,7 @@ import vokabeltrainer.common.main.App;
 
 public class ImagePanelStart extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = 8681782439730493503L;
 
    private App app;

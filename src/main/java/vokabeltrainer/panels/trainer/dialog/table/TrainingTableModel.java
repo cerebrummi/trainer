@@ -1,9 +1,11 @@
 package vokabeltrainer.panels.trainer.dialog.table;
 
 import javax.swing.table.DefaultTableModel;
+import java.io.Serial;
 
 public class TrainingTableModel extends DefaultTableModel
 {
+   @Serial
    private static final long serialVersionUID = 6529124422960393777L;
 
    private TrainingTableRow[][] data;

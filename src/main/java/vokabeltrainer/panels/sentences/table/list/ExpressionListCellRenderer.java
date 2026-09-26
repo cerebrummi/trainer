@@ -3,6 +3,7 @@ package vokabeltrainer.panels.sentences.table.list;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.swing.BorderFactory;
@@ -20,6 +21,7 @@ import vokabeltrainer.editing.LetterType;
 public class ExpressionListCellRenderer
       implements ListCellRenderer<Object>, Serializable
 {
+   @Serial
    private static final long serialVersionUID = -631988254932147508L;
 
    private JTextArea label;

@@ -8,9 +8,11 @@ import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 
+import java.io.Serial;
+
 public class DatabaseTableCopyColumnModel extends DefaultTableColumnModel
 {
-
+   @Serial
    private static final long serialVersionUID = -126413736438939824L;
 
    private DatabaseTableCopyCellRenderer renderer;

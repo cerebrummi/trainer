@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 
 public class KeyboardGermanStandard extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = 2289311868636133564L;
 
    private final int BUTTON_SIZE = 36;

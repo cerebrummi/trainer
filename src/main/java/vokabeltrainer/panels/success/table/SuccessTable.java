@@ -3,6 +3,7 @@ package vokabeltrainer.panels.success.table;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -14,6 +15,7 @@ import vokabeltrainer.types.Expression;
 
 public class SuccessTable extends JTable
 {
+   @Serial
    private static final long serialVersionUID = 853537882592595897L;
 
    public SuccessTable(App app, Common common, SuccessTableModel model)

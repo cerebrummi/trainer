@@ -7,8 +7,11 @@ import javax.swing.table.JTableHeader;
 import vokabeltrainer.common.main.App;
 import vokabeltrainer.common.main.Common;
 
+import java.io.Serial;
+
 public class StatisticsTable extends JTable
 {
+   @Serial
    private static final long serialVersionUID = 1467979172740860765L;
 
    public StatisticsTable(App app, Common common, StatisticsTableModel model)

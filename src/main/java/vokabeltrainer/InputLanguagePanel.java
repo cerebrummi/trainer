@@ -16,6 +16,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -46,6 +47,7 @@ import vokabeltrainer.types.LLType;
 
 public class InputLanguagePanel extends JTextArea
 {
+   @Serial
    private static final long serialVersionUID = 2787773393300243696L;
 
    private JTextPane hebrewField;
@@ -643,6 +645,7 @@ public class InputLanguagePanel extends JTextArea
 
    class FocusForwardAction extends AbstractAction
    {
+      @Serial
       private static final long serialVersionUID = -8790050293258845388L;
 
       @Override
@@ -683,6 +686,7 @@ public class InputLanguagePanel extends JTextArea
 
    class FocusBackwardAction extends AbstractAction
    {
+      @Serial
       private static final long serialVersionUID = -8790050293258845388L;
 
       @Override

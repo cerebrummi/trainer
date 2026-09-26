@@ -1,6 +1,7 @@
 package vokabeltrainer.table;
 
 import java.awt.event.ActionEvent;
+import java.io.Serial;
 
 import javax.swing.AbstractAction;
 
@@ -8,6 +9,7 @@ import vokabeltrainer.types.Expression;
 
 public class SelectAction extends AbstractAction
 {
+   @Serial
    private static final long serialVersionUID = 664304155083309795L;
    ExpressionTable table;
 

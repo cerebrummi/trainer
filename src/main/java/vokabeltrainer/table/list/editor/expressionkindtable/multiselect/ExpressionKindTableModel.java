@@ -1,5 +1,6 @@
 package vokabeltrainer.table.list.editor.expressionkindtable.multiselect;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -8,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class ExpressionKindTableModel extends DefaultTableModel
 {
+   @Serial
    private static final long serialVersionUID = 3445974088132962568L;
 
    private Vector<Vector<ExpressionKindTableRow>> data;

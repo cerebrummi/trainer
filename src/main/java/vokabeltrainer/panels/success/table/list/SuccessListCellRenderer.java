@@ -2,6 +2,7 @@ package vokabeltrainer.panels.success.table.list;
 
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.swing.BorderFactory;
@@ -14,7 +15,7 @@ import vokabeltrainer.common.main.App;
 public class SuccessListCellRenderer
       implements ListCellRenderer<Object>, Serializable
 {
-
+   @Serial
    private static final long serialVersionUID = -5594206011077904779L;
 
    private JTextField german;

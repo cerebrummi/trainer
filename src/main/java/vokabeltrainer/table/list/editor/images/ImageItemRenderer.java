@@ -2,6 +2,7 @@ package vokabeltrainer.table.list.editor.images;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.io.Serial;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,6 +19,7 @@ import vokabeltrainer.common.main.App;
 public class ImageItemRenderer extends JPanel
       implements ListCellRenderer<ImageItem>
 {
+   @Serial
    private static final long serialVersionUID = -2888266762824574533L;
    private JLabel label;
    

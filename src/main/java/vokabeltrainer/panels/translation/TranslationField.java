@@ -1,12 +1,14 @@
 package vokabeltrainer.panels.translation;
 
 import java.awt.Dimension;
+import java.io.Serial;
 import java.util.UUID;
 
 import javax.swing.JTextField;
 
 public class TranslationField extends JTextField
 {
+   @Serial
    private static final long serialVersionUID = -1180875060419483477L;
 
    private Translation translation;

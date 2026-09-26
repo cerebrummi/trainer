@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,6 +26,7 @@ import vokabeltrainer.types.Expression;
 
 public class ExpressionTable extends JTable
 {
+   @Serial
    private static final long serialVersionUID = -9006217392935409400L;
    private Direction language;
    private ExpressionTableModel model;

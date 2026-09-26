@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.Serial;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -27,6 +28,7 @@ import vokabeltrainer.types.Chapter;
 
 public class StartPanel extends JPanel
 {
+   @Serial
    private static final long serialVersionUID = -4928761869820144146L;
    private Translator translator;
    private App app;

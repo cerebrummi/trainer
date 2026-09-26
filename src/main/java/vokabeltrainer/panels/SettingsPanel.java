@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serial;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.StringJoiner;
@@ -52,6 +53,7 @@ import vokabeltrainer.tonionlayout.TrainLayout;
 public class SettingsPanel extends JPanel
 {
    private static final int WIDTH = 330;
+   @Serial
    private static final long serialVersionUID = 1162776912036921483L;
    private JSlider soundslider;
    private JButton soundButton;

@@ -2,6 +2,7 @@ package vokabeltrainer.keyboards;
 
 import java.awt.ComponentOrientation;
 import java.awt.Image;
+import java.io.Serial;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -9,6 +10,7 @@ import vokabeltrainer.common.main.App;
 
 public class DataButton extends JButton
 {
+   @Serial
    private static final long serialVersionUID = 578075610960102010L;
 
    private String data;

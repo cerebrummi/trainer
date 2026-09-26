@@ -8,8 +8,11 @@ import vokabeltrainer.common.main.Common;
 import vokabeltrainer.panels.translation.Translation;
 import vokabeltrainer.panels.translation.Translator;
 
+import java.io.Serial;
+
 public class StatisticsTableColumnModel extends DefaultTableColumnModel
 {
+   @Serial
    private static final long serialVersionUID = 1858850934582009695L;
 
    private StatisticsTableCellRenderer renderer;
