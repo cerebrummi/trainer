@@ -56,23 +56,21 @@ public class InputLanguagePanel extends JTextArea
    private JTextArea swedishField;
    private JTextArea germanField;
 
-   private JButton toggleButton;
+   private final JButton toggleButton;
 
-   private CardLayout layout;
+   private final CardLayout layout;
    private Selection selection;
-   private int heightTotal;
-   private int widthTotal;
-   private int heightBorderTitel;
-   private List<JTextComponent> components = new ArrayList<>();
+   private final int heightTotal;
+   private final int widthTotal;
+   private final int heightBorderTitel;
+   private final List<JTextComponent> components = new ArrayList<>();
 
-   private ComponentTitledBorder toggleBorder;
+   private final JPanel cards;
 
-   private JPanel cards;
+   private final Container parent;
+   private final Translator translator;
 
-   private Container parent;
-   private Translator translator;
-
-   private Color color;
+   private final Color color;
 
    private KeyboardLanguage keyboard;
 
@@ -122,7 +120,7 @@ public class InputLanguagePanel extends JTextArea
          toggleButton.setForeground(app.appColors.getGold());
          toggleButton.setPreferredSize(new Dimension(40, 32));
          toggleButton.setActionCommand("was_toggled");
-         toggleBorder = new ComponentTitledBorder(toggleButton, this,
+         ComponentTitledBorder toggleBorder = new ComponentTitledBorder(toggleButton, this,
                BorderFactory.createEmptyBorder(), 40);
          cards.setBorder(toggleBorder);
       }

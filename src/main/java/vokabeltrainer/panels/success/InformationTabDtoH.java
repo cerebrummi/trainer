@@ -19,13 +19,12 @@ public class InformationTabDtoH extends JPanel
 {
    @Serial
    private static final long serialVersionUID = -4006431590073534430L;
-   private Translator translator;
-   private App app;
+   private final App app;
 
    public InformationTabDtoH(App app, Common common)
    {
       this.app = app;
-      translator = common.getTranslator();
+      Translator translator = common.getTranslator();
       this.setLayout(new TrainLayout(this));
       setOpaque(false);
       setBackground(app.appColors.getTransparent());

@@ -85,11 +85,11 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    @Serial
    private static final long serialVersionUID = 9130321171813967337L;
 
-   private ButtonGroup languageGroup;
+   private final ButtonGroup languageGroup;
    private ButtonGroup searchTypeGroupHebrew;
    private ButtonGroup searchTypeGroupGerman;
    private ExpressionTable table;
-   private JPanel tablePanel;
+   private final JPanel tablePanel;
    private JButton copyAllSelectedButton;
    private JButton copyInTableSelectedButton;
    private JButton copyTableButton;
@@ -100,7 +100,7 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    private JButton deleteInTableSelectedButton;
    private JButton wasteBinButton;
    private JButton shredderButton;
-   private JTabbedPane tabbedPane;
+   private final JTabbedPane tabbedPane;
    private ChapterList chapterList;
    private JPanel chapterPanel;
    private JPanel swapPanel;
@@ -110,21 +110,21 @@ public class DictionaryView extends JPanel implements DictionaryViewConnector
    private JButton otherSearchButton;
    private JButton mySearchButton;
    private JButton tableInfoButton;
-   private JPanel horizontalLanguagePanel;
-   private DictionaryControllerConnector connector;
+   private final JPanel horizontalLanguagePanel;
+   private final DictionaryControllerConnector connector;
    private ChapterListSelectionModel listSelectionModel;
    private ListSelectionListener listSelectionListener;
    private JScrollPane tableScroller;
    private ExpressionKindTableSingleselect expressionKindTable;
-   private JRadioButton sortForDateBox;
-   private JRadioButton sortForIndexBox;
-   private JRadioButton sortForAlphabetBox;
-   private ButtonGroup sortingGroup;
+   private final JRadioButton sortForDateBox;
+   private final JRadioButton sortForIndexBox;
+   private final JRadioButton sortForAlphabetBox;
+   private final ButtonGroup sortingGroup;
    private JButton moveToChapterButton;
    private JComboBox<String> chapterChoiceBox;
    private JComboBox<String> databaseChoiceBox;
    private JButton moveToDatabaseButton;
-   private Translator translator;
+   private final Translator translator;
 
    private Component keyboard;
 

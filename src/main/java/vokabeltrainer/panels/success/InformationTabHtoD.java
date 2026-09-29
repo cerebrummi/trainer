@@ -20,13 +20,12 @@ public class InformationTabHtoD extends JPanel
    @Serial
    private static final long serialVersionUID = 8516410904944879380L;
 
-   private Translator translator;
-   private App app;
+   private final App app;
 
    public InformationTabHtoD(App app, Common common)
    {
       this.app = app;
-      translator = common.getTranslator();
+      Translator translator = common.getTranslator();
       this.setLayout(new TrainLayout(this));
       setOpaque(false);
       setBackground(app.appColors.getTransparent());

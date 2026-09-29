@@ -15,14 +15,10 @@ public class DatabaseTableColumnModel extends DefaultTableColumnModel
    @Serial
    private static final long serialVersionUID = -126413736438939824L;
 
-   private Translator translator;
-
-   private DatabaseTableCellRenderer renderer;
-
    public DatabaseTableColumnModel(App app, Common common, int totalWidth)
    {
-      translator = common.getTranslator();
-      renderer = new DatabaseTableCellRenderer(app, common);
+      Translator translator = common.getTranslator();
+      DatabaseTableCellRenderer renderer = new DatabaseTableCellRenderer(app, common);
       int width = (totalWidth - 43) / 3;
 
       TableColumn column = new TableColumn();

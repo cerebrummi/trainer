@@ -24,11 +24,9 @@ public class AmountTab extends JPanel
    @Serial
    private static final long serialVersionUID = -5609291190819549709L;
 
-   private Translator translator;
-
    public AmountTab(App app, Common common, Model model, StartTrainingView dialog)
    {
-      translator = common.getTranslator();
+      Translator translator = common.getTranslator();
       setLayout(new BorderLayout());
       setBackground(app.appColors.getBackground());
       setOpaque(true);

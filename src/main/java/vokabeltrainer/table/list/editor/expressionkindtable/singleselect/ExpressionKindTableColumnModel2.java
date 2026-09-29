@@ -12,11 +12,9 @@ public class ExpressionKindTableColumnModel2 extends DefaultTableColumnModel
    @Serial
    private static final long serialVersionUID = -2011627608532876165L;
 
-   private ExpressionKindTableCellRenderer2 renderer2;
-
    public ExpressionKindTableColumnModel2(App app, int totalWidth)
    {
-      renderer2 = new ExpressionKindTableCellRenderer2(app);
+      ExpressionKindTableCellRenderer2 renderer2 = new ExpressionKindTableCellRenderer2(app);
 
       TableColumn column = new TableColumn();
       column.setHeaderValue("Wahl");
