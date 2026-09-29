@@ -26,22 +26,20 @@ public class InputDatabaseNameDialog extends JDialog
 {
    @Serial
    private static final long serialVersionUID = 1663927478782742504L;
-   private JTextField inputImportField;
-   private JButton okButton;
-   private JButton stopButton;
+   private final JTextField inputImportField;
+   private final JButton okButton;
+   private final JButton stopButton;
    private String databaseName;
    private boolean startImport;
    private boolean overwrite;
-   private JRadioButton overwriteYes;
-   private ButtonGroup overwriteGroup;
-   private JRadioButton overwriteNo;
-   private Translator translator;
+   private final JRadioButton overwriteYes;
+   private final JRadioButton overwriteNo;
 
    public InputDatabaseNameDialog(App app, Common common, View view, String title)
    {
       super(view.getjFrame(), title, true);
 
-      translator = common.getTranslator();
+      Translator translator = common.getTranslator();
       
       this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
       this.setIconImage(app.appImages.getLogo24());
@@ -64,7 +62,7 @@ public class InputDatabaseNameDialog extends JDialog
       inputImportField.setEditable(false);
       inputImportField.setEnabled(false);
 
-      overwriteGroup = new ButtonGroup();
+      ButtonGroup overwriteGroup = new ButtonGroup();
       overwriteNo = new JRadioButton(translator.realisticTranslate(app, 
             Translation.VORHANDENEN_DATENBANKNAMEN_NICHT_UEBERSCHREIBEN));
       overwriteYes = new JRadioButton(translator.realisticTranslate(app, 
@@ -147,10 +145,5 @@ public class InputDatabaseNameDialog extends JDialog
    public boolean isOverwrite()
    {
       return overwrite;
-   }
-
-   public JTextField getInputImportField()
-   {
-      return inputImportField;
    }
 }

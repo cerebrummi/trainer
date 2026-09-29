@@ -12,11 +12,9 @@ public class DatabaseTableColumnModel extends DefaultTableColumnModel
    @Serial
    private static final long serialVersionUID = -2011627608532876165L;
 
-   private DatabaseTableCellRenderer renderer;
-
    public DatabaseTableColumnModel(App app, int totalWidth)
    {
-      renderer = new DatabaseTableCellRenderer(app);
+      DatabaseTableCellRenderer renderer = new DatabaseTableCellRenderer(app);
 
       TableColumn column = new TableColumn();
       column.setHeaderValue("Wahl");

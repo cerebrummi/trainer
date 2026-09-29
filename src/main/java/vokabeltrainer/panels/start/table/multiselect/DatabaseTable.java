@@ -18,7 +18,6 @@ public class DatabaseTable extends JTable
 {
    @Serial
    private static final long serialVersionUID = 4815287371476856952L;
-   private MouseListener mouseListener;
 
    public DatabaseTable(App app, Common common, DatabaseTableModel model, int totalWidth)
    {
@@ -35,7 +34,7 @@ public class DatabaseTable extends JTable
       this.setTableHeader(null);
       setBackground(app.appColors.start.getDatabase_Item());
 
-      mouseListener = getMultiselectMouseListener(app);
+      MouseListener mouseListener = getMultiselectMouseListener(app);
       addMouseListener(mouseListener);
    }
 

@@ -15,13 +15,10 @@ public class DatabaseTableCopyColumnModel extends DefaultTableColumnModel
    @Serial
    private static final long serialVersionUID = -126413736438939824L;
 
-   private DatabaseTableCopyCellRenderer renderer;
-   private Translator translator;
-
    public DatabaseTableCopyColumnModel(App app, Common common, int totalWidth)
    {
-      translator = common.getTranslator();
-      renderer = new DatabaseTableCopyCellRenderer(app, common);
+      Translator translator = common.getTranslator();
+      DatabaseTableCopyCellRenderer renderer = new DatabaseTableCopyCellRenderer(app, common);
       int width = (totalWidth - 43) / 3;
 
       TableColumn column1 = new TableColumn();

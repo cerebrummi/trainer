@@ -21,14 +21,13 @@ public class InfoComboBox extends JComboBox<String>
 {
    @Serial
    private static final long serialVersionUID = -7410473175857005564L;
-   private JButton button;
-   private String title;
-   private JTextField textField;
+   private final JButton button;
+   private final String title;
 
    public InfoComboBox(App app, String borderTitle, String... infoText)
    {
       this.title = borderTitle;
-      textField = ((JTextField) this.getEditor().getEditorComponent());
+      JTextField textField = ((JTextField) this.getEditor().getEditorComponent());
       textField.setDocument(new InternationalDocument(50));
 
       button = new JButton(
@@ -46,25 +45,6 @@ public class InfoComboBox extends JComboBox<String>
 
       button.addMouseListener(new MouseAdapter()
       {
-
-         @Override
-         public void mouseClicked(MouseEvent e)
-         {
-
-         }
-
-         @Override
-         public void mousePressed(MouseEvent e)
-         {
-
-         }
-
-         @Override
-         public void mouseReleased(MouseEvent e)
-         {
-
-         }
-
          @Override
          public void mouseEntered(MouseEvent e)
          {
@@ -74,10 +54,8 @@ public class InfoComboBox extends JComboBox<String>
          @Override
          public void mouseExited(MouseEvent e)
          {
-
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
          }
-
       });
 
       ComponentTitledBorder border = new ComponentTitledBorder(button, this,

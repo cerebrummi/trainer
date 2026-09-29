@@ -19,8 +19,6 @@ public class DatabaseTableMultiselect extends JTable
    @Serial
    private static final long serialVersionUID = 1518676670024526651L;
 
-   private MouseListener mouseListener;
-
    public DatabaseTableMultiselect(App app, DatabaseTableModel model, int totalWidth)
    {
       super(model, new DatabaseTableColumnModel(app, totalWidth));
@@ -35,7 +33,7 @@ public class DatabaseTableMultiselect extends JTable
       this.setBorder(BorderFactory.createEmptyBorder());
       this.setTableHeader(null);
 
-      mouseListener = getMultiselectMouseListener();
+      MouseListener mouseListener = getMultiselectMouseListener();
       addMouseListener(mouseListener);
    }
 

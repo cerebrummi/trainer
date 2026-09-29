@@ -22,21 +22,20 @@ public class InformationTab extends JPanel
 {
    @Serial
    private static final long serialVersionUID = -700729868879651952L;
-   private Translator translator;
-   private JCheckBox morgenCheck;
-   private JCheckBox tage_2_Check;
-   private JCheckBox tage_5_Check;
-   private JCheckBox tage_11_Check;
-   private JCheckBox tage_19_Check;
-   private JCheckBox monate_1_Check;
-   private JCheckBox monate_2_Check;
-   private JCheckBox monate_5_Check;
-   private App app;
+   private final JCheckBox morgenCheck;
+   private final JCheckBox tage_2_Check;
+   private final JCheckBox tage_5_Check;
+   private final JCheckBox tage_11_Check;
+   private final JCheckBox tage_19_Check;
+   private final JCheckBox monate_1_Check;
+   private final JCheckBox monate_2_Check;
+   private final JCheckBox monate_5_Check;
+   private final App app;
 
    public InformationTab(App app, Common common)
    {
       this.app = app;
-      translator = common.getTranslator();
+      Translator translator = common.getTranslator();
       
       setLayout(new TrainLayout(this));
       this.setOpaque(false);

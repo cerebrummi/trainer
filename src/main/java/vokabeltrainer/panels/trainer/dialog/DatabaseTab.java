@@ -29,14 +29,12 @@ public class DatabaseTab extends JPanel
    @Serial
    private static final long serialVersionUID = -5986907667521647559L;
 
-   private JButton nextButton;
-   private JButton cancelButton;
-
-   private Translator translator;
+   private final JButton nextButton;
+   private final JButton cancelButton;
 
    public DatabaseTab(App app, Common common, Model model, StartTrainingView dialog)
    {
-      translator = common.getTranslator();
+      Translator translator = common.getTranslator();
       setLayout(new BorderLayout());
       setBackground(app.appColors.getBackground());
       setOpaque(true);

@@ -24,9 +24,8 @@ public class DatabaseTableCopy extends JTable
 {
    @Serial
    private static final long serialVersionUID = 4815287371476856952L;
-   private MouseListener mouseListener;
 
-   private Translator translator;
+   private final Translator translator;
 
    public DatabaseTableCopy(App app, Common common, Model model, View view, DatabaseTableCopyModel dTCmodel, int totalWidth)
    {
@@ -44,7 +43,7 @@ public class DatabaseTableCopy extends JTable
       this.setBorder(BorderFactory.createEmptyBorder());
       this.setTableHeader(null);
 
-      mouseListener = getSingleselectMouseListener(app, common, model, view);
+      MouseListener mouseListener = getSingleselectMouseListener(app, common, model, view);
       addMouseListener(mouseListener);
    }
 
