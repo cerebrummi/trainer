@@ -4,5 +4,5 @@ public enum SortingType
 {
    ALPHABET,
    DATE,
-   INDEX;
+   INDEX,
 }

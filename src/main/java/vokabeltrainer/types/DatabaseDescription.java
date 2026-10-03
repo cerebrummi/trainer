@@ -109,11 +109,6 @@ public class DatabaseDescription implements Comparable<DatabaseDescription>
       return selected;
    }
 
-   public void setSelected(boolean selected)
-   {
-      this.selected = selected;
-   }
-
    public void toggleSelected()
    {
       this.selected = !this.selected;

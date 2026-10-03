@@ -12,7 +12,7 @@ public class TrainingStatus
    private int trys;
    private int totalTrys;
    private LocalDate nextDate;
-   private boolean trainingStarted;
+   private final boolean trainingStarted;
 
    public TrainingStatus(Repetition repetition)
    {
@@ -254,29 +254,14 @@ public class TrainingStatus
       return trainingStarted;
    }
 
-   public void setTrainingStarted(boolean trainingStarted)
-   {
-      this.trainingStarted = trainingStarted;
-   }
-
    public Repetition getRepetition()
    {
       return repetition;
    }
 
-   public void setRepetition(Repetition repetition)
-   {
-      this.repetition = repetition;
-   }
-
    public LocalDate getNextDate()
    {
       return nextDate;
-   }
-
-   public void setNextDate(LocalDate nextDate)
-   {
-      this.nextDate = nextDate;
    }
 
    public int getTrys()

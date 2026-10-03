@@ -50,14 +50,4 @@ public interface NikudLetterImage {
         g2d.dispose();
         return finalImg;
     }
-
-    static BufferedImage makeSpace(App app) {
-        BufferedImage finalImg = new BufferedImage(50, 50,
-            BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = finalImg.createGraphics();
-        g2d.setColor(app.appColors.getBeigeGold());
-        g2d.fillRect(0, 0, 50, 50);
-        g2d.dispose();
-        return finalImg;
-    }
 }

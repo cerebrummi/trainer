@@ -144,7 +144,7 @@ public enum VerbTimes
    }
 
    @Override
-   public GrammaticalEnum getUnkown()
+   public GrammaticalEnum getUnknown()
    {
       return VerbTimes.VERBTIMES_UNKNOWN;
    }

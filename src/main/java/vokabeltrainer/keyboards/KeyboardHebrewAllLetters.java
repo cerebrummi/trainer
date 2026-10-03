@@ -269,32 +269,4 @@ public class KeyboardHebrewAllLetters extends JPanel
       }
 
    }
-
-   public void setFrozen(boolean frozen)
-   {
-      if (frozen)
-      {
-         for (JButton button : buttons)
-         {
-            button.setEnabled(false);
-            button.setVisible(false);
-            if (button.getMouseListeners().length > 0)
-            {
-               button.removeMouseListener(button.getMouseListeners()[0]);
-            }
-         }
-      }
-      else
-      {
-         for (JButton button : buttons)
-         {
-            button.setEnabled(true);
-            button.setVisible(true);
-            if (button.getMouseListeners().length == 0)
-            {
-               button.addMouseListener(new KeyboardListener());
-            }
-         }
-      }
-   }
 }

@@ -111,7 +111,7 @@ public enum Gender implements GrammaticalEnum
    }
 
    @Override
-   public GrammaticalEnum getUnkown()
+   public GrammaticalEnum getUnknown()
    {
       return Gender.GENDER_UNKNOWN;
    }

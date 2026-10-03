@@ -106,7 +106,7 @@ public enum GrammaticalPerson implements GrammaticalEnum
    }
 
    @Override
-   public GrammaticalEnum getUnkown()
+   public GrammaticalEnum getUnknown()
    {
       return GrammaticalPerson.GRAMMATICALPERSON_UNKNOWN;
    }

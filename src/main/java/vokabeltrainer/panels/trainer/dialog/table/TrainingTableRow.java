@@ -98,11 +98,6 @@ public class TrainingTableRow implements Comparator<TrainingTableRow>
       return kind;
    }
 
-   public void setKind(ExpressionKind kind)
-   {
-      this.kind = kind;
-   }
-
    public List<Expression> getExpressionListNewWords()
    {
       return expressionListNewWords;

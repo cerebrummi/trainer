@@ -80,20 +80,6 @@ public class ExpressionKindTableSingleselect extends JTable
       });
    }
 
-   public void redisplaySelectedExpressionKindIfAny(App app, Common common, Model model, View view)
-   {
-      for (int i = 0; i < getRowCount(); i++)
-      {
-         ExpressionKindItem kind = ((ExpressionKindTableRow2) getValueAt(i, 0))
-               .getExpressionKind();
-         if (kind.isSelected())
-         {
-            connector.displayExpressionKindWhich(app, common, model, view);
-            break;
-         }
-      }
-   }
-
    @Override
    public ExpressionKindTableModel2 getModel()
    {

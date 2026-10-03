@@ -142,7 +142,7 @@ public enum Binjan
    }
 
    @Override
-   public GrammaticalEnum getUnkown()
+   public GrammaticalEnum getUnknown()
    {
       return Binjan.BINJAN_UNKNOWN;
    }

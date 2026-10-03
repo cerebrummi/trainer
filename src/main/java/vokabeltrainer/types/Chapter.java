@@ -152,11 +152,6 @@ public class Chapter implements Comparable<Chapter>
                                           "soll bestimmt werden", "", "",
                                           LLType.UNKOWN, false);
 
-      public void setLlType(LLType llType)
-      {
-         this.llType = llType;
-      }
-
       private String folder;
       private String name;
       private String authors;
