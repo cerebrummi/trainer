@@ -18,7 +18,7 @@ public interface GrammaticalEnum
 
    public int getPrintOrderNumber();
 
-   public GrammaticalEnum getUnkown();
+   public GrammaticalEnum getUnknown();
 
    public enum GrammaticalParentEnum
    {

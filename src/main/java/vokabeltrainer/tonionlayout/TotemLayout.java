@@ -199,21 +199,6 @@ public class TotemLayout implements LayoutManager2, java.io.Serializable
    }
 
    /**
-    * Sets the vertical gap between components to the specified value.
-    * 
-    * @param vgap
-    *           the vertical gap between components
-    * @since private
-    */
-   public void setVgap(int vgap)
-   {
-      if (vgap < 0)
-         throw new IllegalArgumentException(
-               "the vertical gap can not be a negativ number");
-      this.vgap = vgap;
-   }
-
-   /**
     * Determines the preferred size of the container argument using this totem
     * layout.
     * <p>

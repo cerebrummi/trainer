@@ -7,5 +7,5 @@ public enum Card
    HEBREW,
    LETTER,
    BLANK,
-   LETTER_HANDWRITTEN;
+   LETTER_HANDWRITTEN,
 }

@@ -238,12 +238,10 @@ public class StartPanel extends JPanel
                   getParent().getWidth(), height, BufferedImage.SCALE_SMOOTH),
                   0, y, this);
          }
-
       }
    }
 
    public void setValues()
    {
-      // nothing
    }
 }

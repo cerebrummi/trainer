@@ -5,6 +5,6 @@ public enum NikudLetterDistinction
    LETTER,
    UPPER_PUNKTATION,
    MIDDLE_PUNKTATION,
-   LOWER_PUNKTATION;
+   LOWER_PUNKTATION,
 }
 

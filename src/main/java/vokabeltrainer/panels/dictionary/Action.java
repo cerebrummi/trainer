@@ -27,5 +27,5 @@ public enum Action
    SORT_NOW,
    MOVE_TO_CHAPTER, 
    MOVE_TO_DATABASE,
-   DATA_CHAPTER;
+   DATA_CHAPTER,
 }

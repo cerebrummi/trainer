@@ -655,15 +655,6 @@ public class LanguageExpressionEditorView extends JDialog
       remakeBinjanBox(Binjan.values(expression));
    }
 
-   public void remakeAllBoxes(LLType llType)
-   {
-      remakeVerbTimesBox(VerbTimes.values(llType));
-      remakeNumerusBox(Numerus.values(llType));
-      remakeGrammaticalPersonBox(GrammaticalPerson.values(llType));
-      remakeGenderBox(Gender.values(llType));
-      remakeBinjanBox(Binjan.values(llType));
-   }
-
    private void remakeVerbTimesBox(VerbTimes[] values)
    {
       verbTimesBox.removeAllItems();

@@ -33,11 +33,6 @@ public class TranslationField extends JTextField
       return code;
    }
 
-   public void setCode(TranslationCode code)
-   {
-      this.code = code;
-   }
-
    public UUID getUuid()
    {
       return uuid;
