@@ -81,7 +81,7 @@ public class InputLanguagePanel extends JTextArea
 
    public enum Selection
    {
-      SIMPLE, PLENE_DEFEKTIV, SWEDISH, GERMAN;
+      SIMPLE, PLENE_DEFEKTIV, SWEDISH, GERMAN,
    }
 
    public InputLanguagePanel(App app, Common common, Selection selection, int heightTotal,

@@ -38,11 +38,6 @@ public class DatabaseItem
       return database;
    }
 
-   public void setDatabase(Database database)
-   {
-      this.database = database;
-   }
-
    public void toggleSelected()
    {
       this.selected = !this.selected;

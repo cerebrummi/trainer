@@ -118,7 +118,7 @@ public enum Numerus implements GrammaticalEnum
    }
 
    @Override
-   public GrammaticalEnum getUnkown()
+   public GrammaticalEnum getUnknown()
    {
       return Numerus.NUMERUS_UNKNOWN;
    }

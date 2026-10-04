@@ -199,21 +199,6 @@ public class TrainLayout implements LayoutManager2, java.io.Serializable
    }
 
    /**
-    * Sets the horizontal gap between components to the specified value.
-    * 
-    * @param hgap
-    *           the horizontal gap between components
-    * @since private
-    */
-   public void setHgap(int hgap)
-   {
-      if (hgap < 0)
-         throw new IllegalArgumentException(
-               "the horizontal gap can not be a negativ number");
-      this.hgap = hgap;
-   }
-
-   /**
     * Determines the preferred size of the container argument using this train
     * layout.
     * <p>

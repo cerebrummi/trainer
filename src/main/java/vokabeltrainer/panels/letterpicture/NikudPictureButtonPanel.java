@@ -197,9 +197,4 @@ public class NikudPictureButtonPanel extends JPanel
       pictureButton.setOpaque(false);
       pictureCard.add(pictureButton, BorderLayout.CENTER);
    }
-
-   public void nextCard()
-   {
-      layout.next(this);
-   }
 }

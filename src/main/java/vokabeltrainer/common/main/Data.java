@@ -468,7 +468,7 @@ public class Data
          try (FileInputStream fis = new FileInputStream(german);
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
-               Reader reader = new BufferedReader(isr);)
+               Reader reader = new BufferedReader(isr))
          {
             StringBuffer buffer = new StringBuffer();
             String input;
@@ -595,7 +595,7 @@ public class Data
       {
          if (databasePath.endsWith(".zip"))
          {
-            try (ZipFile zipFile = new ZipFile(databasePath);)
+            try (ZipFile zipFile = new ZipFile(databasePath))
             {
                for (LetterForSaving letter : LetterForSaving.values())
                {
@@ -642,7 +642,7 @@ public class Data
          try (FileInputStream fis = new FileInputStream(file);
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
-               Reader reader = new BufferedReader(isr);)
+               Reader reader = new BufferedReader(isr))
          {
             readData(app, common, letter.name() + ".csv", reader, Database.IMPORTED, letter,
                   overwrite, databaseName, false);
@@ -658,7 +658,7 @@ public class Data
       {
          try (InputStream stream = zipFile.getInputStream(entry);
                InputStreamReader isr = new InputStreamReader(stream, "UTF-8");
-               Reader reader = new BufferedReader(isr);)
+               Reader reader = new BufferedReader(isr))
          {
             readData(app, common, letter.name() + ".csv", reader, Database.IMPORTED, letter,
                   overwrite, databaseName, false);
@@ -678,7 +678,7 @@ public class Data
                origin.getFolder() + "/" + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
-               Reader reader = new BufferedReader(isr);)
+               Reader reader = new BufferedReader(isr))
          {
             readData(app, common, letter.name() + ".csv", reader, origin, letter, false,
                   origin.getName(app, common), true);
@@ -700,7 +700,7 @@ public class Data
                origin.getFolder() + "/" + letter.name() + ".csv");
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
-               Reader reader = new BufferedReader(isr);)
+               Reader reader = new BufferedReader(isr))
          {
             if (overwriteDatabaseName)
             {
@@ -741,7 +741,7 @@ public class Data
          try (FileInputStream fis = new FileInputStream(file);
                InputStreamReader isr = new InputStreamReader(fis,
                      StandardCharsets.UTF_8);
-               Reader reader = new BufferedReader(isr);)
+               Reader reader = new BufferedReader(isr))
          {
             return readData(app, common, filename, reader, origin, letter, false, null,
                   false);
